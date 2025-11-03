@@ -1,0 +1,3162 @@
+2510.25222v1 [quant-ph] 29 Oct 2025
+
+arXiv
+
+Decoder Switching: Breaking the Speed-Accuracy Tradeoff in Real-Time Quantum
+
+Error Correction
+
+Riki Toshio,'?:* Kaito Kishi,!:?:* Jun Fujisaki,}? Hirotaka Oshima,!:? Shintaro Sato,!:? and Keisuke Fujii? 45
+
+‘Quantum Laboratory, Fujitsu Research, Fujitsu Limited, 4-1-1 Kawasaki, Kanagawa 211-8588, Japan
+
+? Fujitsu Quantum Computing Joint Research Division,
+Center for Quantum Information and Quantum Biology, Osaka University,
+1-2 Machikaneyama, Toyonaka, Osaka, 565-8531, Japan
+* Graduate School of Engineering Science, Osaka University,
+1-3 Machikaneyama, Toyonaka, Osaka, 560-8531, Japan
+*Center for Quantum Information and Quantum Biology, Osaka University, 560-0048, Japan
+° RIKEN Center for Quantum Computing (RQC), Wako Saitama 351-0198, Japan
+(Dated: October 30, 2025)
+
+The realization of fault-tolerant quantum computers hinges on the construction of high-speed,
+high-accuracy, real-time decoding systems. The persistent challenge lies in the fundamental trade-
+off between speed and accuracy: efforts to improve the decoder’s accuracy often lead to unacceptable
+increases in decoding time and hardware complexity, while attempts to accelerate decoding result
+in a significant degradation in logical error rate. To overcome this challenge, we propose a novel
+framework, decoder switching, which balances these competing demands by combining a faster, soft-
+output decoder (“weak decoder”) with a slower, high-accuracy decoder (“strong decoder”). In usual
+rounds, the weak decoder processes error syndromes and simultaneously evaluates its reliability via
+soft information. Only when encountering a decoding window with low reliability do we switch
+to the strong decoder to achieve more accurate decoding. Numerical simulations suggest that this
+framework can achieve accuracy comparable to, or even surpassing, that of the strong decoder,
+while maintaining an average decoding time on par with the weak decoder. We also develop an
+online decoding scheme tailored to our framework, named double window decoding, and elucidate
+the criteria for preventing an exponential slowdown of quantum computation. These findings break
+the long-standing speed-accuracy trade-off, paving the way for scalable real-time decoding devices.
+
+I. INTRODUCTION
+
+Quantum computer has a great potential to offer a
+revolutionary impact on a broad range of applications,
+including cryptography [1-4], quantum simulation of
+molecules [5-9] and solids [10-14], and linear algebraic
+analyses [15]. However, in actual quantum devices, inter-
+actions with the environment always perturb the state of
+qubits, thereby hindering the realization of these quan-
+tum advantages. To overcome such difficulties, fault-
+tolerant quantum computing (FTQC) architectures are
+designed to employ the so-called quantum error correc-
+tion (QEC) protocol [16-18]. According to the well-
+established theories [19], the QEC technique enables us
+to exponentially suppress the logical error rate in FTQC
+by encoding quantum information with a polynomial
+amount of physical qubits.
+
+A key element for developing FTQC systems is the
+real-time decoder [20, 21]. It infers the most likely er-
+rors that may occur in the QEC codes, given a stream
+of syndrome data generated continuously from quantum
+devices. To achieve a reliable and scalable FTQC, decod-
+ing systems are desired to satisfy two conflicting require-
+ments simultaneously: high accuracy and low latency.
+High accuracy is essential for minimizing the spatial over-
+
+* These authors contributed equally to this work.
+Email: toshio.riki@fujitsu.com
+
+head (i.e., the number of physical qubits) required to
+achieve a target logical error rate on FTQC. On the other
+hand, low latency is crucial for achieving a high clock rate
+of logical operations and avoiding the so-called backlog
+problem [22, 23], where syndrome data accumulate faster
+than the decoder can process it. In particular, to prevent
+an exponential increase in the backlog, we have to achieve
+a decoding time shorter than the syndrome extraction
+time of the quantum device [22].
+
+Over the past few decades, a major challenge in de-
+coder design has been the inherent trade-off between
+speed and accuracy [20]. Many existing decoders strug-
+gle to simultaneously achieve both of these require-
+ments. For example, the so-called AlphaQubit [24], a
+transformer-based neural network decoder, has recently
+demonstrated a remarkably high accuracy compared to
+other standard decoders, such as Minimum Weight Per-
+fect Matching (MWPM) decoder [25-28] and tensor ne
+work decoders [21, 29, 30], in the experiments on Google’s
+superconducting quantum processors [24, 31]. However
+its decoding time per round, even with a current Ten-
+sor Processing Unit (TPU), exceeds 10 ys even for the
+smallest surface code with d = 3. This is significantly
+longer than the syndrome generation time of current su-
+perconducting devices (on the order of ~ 1 ps) [32-34].
+In contrast, the Union-Find (UF) decoder, which is based
+on an efficient and parallelizable algorithm [35-37], has
+recently been implemented on Field-Programmable Gate
+Arrays (FPGAs) or Application-Specific Integrated Cir-
+
+cuits (ASICs). This enables us to leverage parallel com-
+ting resources for speedup, thereby achieving a decod-
+ing time shorter than 1 jus for moderate code distances up
+o around d < 21 [38-40]. However, on the downside, the
+JF decoder is known to exhibit an error threshold sev-
+eral tens of percent lower than that of MWPM, leading
+‘o a higher logical error rate [37, 41]. In general, imple-
+menting decoders on dedicated classical hardware, such
+as FPGAs or ASICs, can achieve lower latency and higher
+hroughput by exploiting hardware parallelism. How-
+ever, this approach often sacrifices the decoder’s accu-
+racy [38, 40, 42, 43] or scalability [44, 45] due to the lim-
+ited hardware resources. These fundamental dilemmas
+ose a significant barrier to the development of practical
+real-time decoders.
+
+Recently, some researchers have shed new light on a
+class of decoders known as “soft-output decoders” [46—
+49]. These decoders not only provide an estimate of the
+logical error, but also quantify the reliability of the de-
+coder’s estimate, which is referred to as soft information.
+Conventionally, such soft information has been discussed
+in the context of tensor network decoders [21, 29, 30].
+These decoders can directly evaluate the logical error rate
+conditioned by the generated syndrome data a, but they
+generally exhibit a significant decoding time. To avoid
+such high time complexity, recent seminal works [46—
+51) have developed a distinct type of soft information
+hat can be evaluated with an efficient decoder, like
+he MWPM or UF decoders, and utilized to evaluate
+a kind of conditional logical error rate. This informa-
+ion can be leveraged to adaptively control subsequent
+classical or quantum operations, enabling the construc-
+ion of more sophisticated quantum computing systems.
+For instance, in the past few years, soft information has
+deen successfully applied to post-selection in magic state
+reparation [51, 52], error mitigation in quantum com-
+uuting [53], and soft-decision decoding for concatenated
+surface codes [46, 47].
+
+In this work, we introduce a new framework, decoder
+switching, which addresses the speed-accuracy trade-off
+in QEC decoding problems by leveraging hybrid decod-
+ing systems and soft information (see also Fig. 1). The
+core idea is to judiciously combine a fast, soft-output de-
+coder (“weak decoder”) with a slow, accurate decoder
+“strong decoder”). Specifically, we primarily use the
+weak decoder for syndrome decoding while concurrently
+assessing the reliability of the decoding outcome based
+on its soft output g. Then, only when the confidence
+level falls below a predefined threshold g,,, we switch
+he decoding process to the strong decoder for more ac-
+curate decoding. To ensure the overall decoding accuracy
+ecomes comparable to that achievable by the strong de-
+coder alone, we formulate a methodology for determining
+he (near-)optimal value of gn from the perspective of the
+g-resolved logical error rate.
+
+However, decoder switching tends to destabilize the be-
+havior of the backlog during real-time decoding, leading
+© an accidental exponential slowdown of logical opera-
+
+Quantum Strong decoder
+Device on CPU / GPU
+High latency fo-+ |
+(csieiea)
+=
+Low
+latency
+
+a
+
+Adaptive switching
+
+Weak decoder
+on FPGA / ASIC
+
+FIG. 1. A possible device configuration for real-time decod-
+ing systems based on decoder switching. In this example, the
+weak decoder is implemented with FPGA or ASIC chips to
+realize a low response time, based on a fast algorithm like
+the UF decoder. This decoder also outputs a kind of soft in-
+formation g, for example, by using the method proposed in
+Ref. [47]. On the other hand, the strong decoder is imple-
+mented with CPU or GPU-based devices to perform highly
+accurate decoding schemes like a transformer-based neural
+network decoder [24]. In decoder switching, only when we
+obtain a smaller value of the soft information than a given
+threshold gin, we wait for the outcome from the strong de-
+coder. Otherwise, we use the decoding result from the weak
+decoder to maintain the average decoding speed sufficiently
+low.
+
+tions. To resolve this issue, we also propose an online
+decoding scheme tailored to decoder switching systems,
+termed the double window decoding scheme. Based on
+it, we prove that satisfying a < Tgen and aaron <
+Caton Teen is sufficient to avoid the backlog problem
+under decoder switching. Here, geek and qos repre-
+sent the decoding time per round of the weak and the
+strong decoder respectively, while Tgen denotes the syn-
+drome generation time per round. Yewitch is the switching
+rate per d-round, and C is a constant factor dependent
+on the decoding window size and the number of logical
+qubits. As shown later, the value of >switch becomes ex-
+ponentially small for well-designed decoding systems as
+the code distance increases. This means that decoder
+switching systems can permit a potentially large latency
+of the strong decoder even for practical-sized quantum
+circuits.
+
+A notable advantage of our proposal is that it enables
+the independent development of the weak and strong
+decoders. Within our framework, strong decoders can
+exclusively pursue higher accuracy, while weak decoders
+can prioritize lower latency and higher scalability with-
+out the burden of conflicting demands. For example, we
+can design the weak decoder as an FPGA-based decod-
+ing system that implements the UF decoder with soft
+outputs proposed in Ref. [47], and the strong decoder as
+a CPU- or GPU-based decoding system that implements
+tensor network decoders [21, 29, 30] or state-of-the-art
+neural network decoders [24, 54-56]. This strategic di-
+vision of decoders’ roles will dramatically simplify and
+
+accelerate the future development of real-time decoding
+devices.
+
+Finally, to demonstrate the effectiveness of our frame-
+work, we have conducted several numerical simulations
+where we employ the MWPM decoder (or UF decoder)
+as a weak decoder and the belief-matching decoder [57]
+as a strong decoder. Our results elucidate that decoder
+switching can achieve high decoding accuracy compa-
+rable to, or even superior to, that of the strong de-
+coder, while maintaining an average decoding speed on
+par with the weak decoder. Remarkably, we confirm
+that the switching rate Yswitch exhibits a threshold be-
+havior against physical error rates, and it declines ex-
+ponentially below the threshold as the code distance d
+increases. This behavior ensures that the requirement
+5 strong ; 3 :
+for Ty... is dramatically relaxed for large-scale com-
+putational problems. These findings effectively address
+the long-standing trade-off inherent in existing decoding
+methods and pave a clear path toward the construction
+of high-speed, high-accuracy, real-time decoding devices
+in a flexible and scalable manner.
+
+This paper is organized as follows: In Sec. II, we in-
+roduce the fundamental concepts of real-time decoders
+in FTQC and provide a brief overview of recent devel-
+opments in efficient soft-output decoders, which are cru-
+cial for understanding our proposal. Sec. III details the
+rotocol of decoder switching, and gives its theoretical
+interpretation and the analysis of its temporal overhead.
+Especially in Sec. IIIC, we formulate an online decod-
+ing scheme, termed double window decoding scheme, to
+minimize the demands on the speed of the strong de-
+coder. Finally, we compare our formulation with related
+revious works in Sec. IIID. In Sec. IV, we present nu-
+merical simulations to demonstrate the effectiveness of
+he proposed scheme, employing MWPM (or UF) as a
+weak decoder and belief-matching as a strong decoder.
+We first analyze the logical error rate and the switching
+rate around the error threshold, highlighting the signifi-
+cant improvement of the decoder’s accuracy and the ex-
+ponential decay of the switching rate. Then, by analyzing
+the tradeoff between switching rate and decoding accu-
+racy, we identify the optimal values of gn for various
+setups and suggest that our scheme will work robustly
+even in practical-sized quantum circuits. Finally, Sec. V
+concludes this paper by summarizing our findings and
+discussing future research directions.
+
+II. PRELIMINARY
+
+A decoder is a key element of a fault-tolerant quan-
+tum computer. It processes a stream of error syndrome
+data and infers the most likely logical errors. In this sec-
+tion, we first introduce the fundamental concepts related
+to real-time decoders in FTQC. Then, we give a brief
+overview of recent developments in efficient soft-output
+decoders, which is crucial to understanding our proposal.
+
+A. Basic concepts in decoding problem
+
+The decoding problem in FTQC is a task of estimat-
+ing logical errors that might occur in quantum states en-
+coded on QEC codes, given a stream of syndrome data
+obtained from stabilizer measurements. Each syndrome
+provides partial information about the errors, but due
+to the inherent degeneracy of quantum codes, multiple
+error configurations often produce the same syndromes.
+The role of the decoder is to efficiently and accurately
+determine the most likely errors, or a suitable correction
+operation, that satisfy the syndrome conditions and are
+expected to restore the quantum state.
+
+In principle, any QEC code can be optimally decoded
+by using a degenerate quantum maximum-likelihood
+(DQML) decoder [21, 58, 59]. It adds up the probabilities
+of any possible error patterns that reproduce a given syn-
+drome, with these errors grouped into equivalence classes
+based on their impact on logical degrees of freedom.
+Then, the class with the largest total likelihood is taken
+as the decoding result of the DQML decoder. Although
+this method offers an optimal solution to decoding prob-
+lems, its complexity generally belongs to ##P-complete
+problem [58]. Tensor network decoders [21, 29, 30] can
+simplify the DQML decoding problem through the use
+of tensor network techniques, yet they still demand sig-
+nificant computational resources. A more scalable and
+familiar approach is to find the most likely physical er-
+ror pattern that produces a given syndrome. We refer
+to such a type of decoder as most likely error (MLE)
+decoder. For some class of QEC codes, such as surface
+codes [21], we can map the MLE decoding problem into a
+matching problem on a decoding graph, enabling us to ef-
+ficiently solve the task by employing classical algorithms
+developed in the context of graph theory, like Edmonds’
+blossom algorithm [60, 61]. This approach is currently
+known as minimum-weight perfect matching (MWPM)
+decoder [25-28]. While the MWPM decoder enables
+much faster decoding than tensor network decoders, the
+accuracy of the decoding results is substantially reduced
+since it is not always optimal.
+
+In FTQC, adaptive logical operations conditioned on
+measurement outcomes are frequently required through-
+out the entire circuit, especially for executing non-
+Clifford gates. Consequently, decoding systems must pro-
+cess all previously generated syndrome data to reliably
+determine these measurement outcomes [62]. For exam-
+ple, to perform the gate teleportation circuit for applying
+a T-gate (as shown in Fig. 2), the outcome of a logical
+Z measurement must be determined to decide whether a
+logical S' correction needs to be applied before performing
+the subsequent logical operations.
+
+Unfortunately, realistic classical computing environ-
+ments possess finite computational power and commu-
+nication throughput. Consequently, decoders inevitably
+introduce a finite latency in FTQC. The following termi-
+nologies are commonly used when discussing the tempo-
+ral aspects of decoder’s performance [23, 63]:
+
+T |)
+
+|) S
+oa
+
+FIG. 2. A gate-teleportation circuit to execute a T gate by
+utilizing a magic state denoted as |T’) := T|+). This circuit
+incorporates a classically controlled S gate, whose operation
+is contingent on the measurement outcome. In fault-tolerant
+implementations based on QEC codes, it is necessary to de-
+code the logical Z measurement outcome prior to the adaptive
+application of the S correction. The response time is predom-
+inantly determined by the decoding time, but is also affected
+by communication and control latency.
+
+e Decoding Time: The time taken by the decoding
+
+algorithm to process the syndrome and determine
+he appropriate correction. This is a critical factor
+o determine the overall response time (see Ref. [20]
+for review).
+
+e Syndrome Generation Time: The time re-
+quired to perform the syndrome measurements and
+generate the syndrome data. This is determined by
+he hardware and control system. For example, on
+a current superconducting qubit chip [32-34], a sin-
+gle round of syndrome extraction takes around 1 ps
+for the surface code.
+
+e Response Time: The total time elapsed from the
+generation of the final syndrome to the application
+of the correction. This includes the decoding time
+and any communication and control latency.
+
+e (Decoding) Window: n online decoding
+schemes [23, 25, 64, 65], the decoder processes a
+subset of the syndrome data within a specific time
+window. The size of the decoding window affects
+both the accuracy and the latency of the decoder.
+
+In particular, the so-called backlog problem is crucially
+important in the context of decoding time. This arises
+when the decoding time per round, Taec, exceeds the syn-
+drome generation time Tgen, namely, Taec > Tgen- Such
+a situation leads to an accumulation of unprocessed syn-
+drome data, which can exponentially slow down the fault-
+tolerant quantum computation [22]. Although this issue
+might be relaxed to some extent with the use of paral-
+lelization techniques [23, 64], the implementation of fast
+real-time decoders remains a crucial challenge for devel-
+oping FTQC architectures [20]. In Sec. IILC, we will
+discuss how our proposal alleviates this crucial issue effi-
+ciently.
+
+B. Soft information in decoding problem
+
+In our context, soft information refers to some analog
+parameters that quantify the reliability of the decoder’s
+estimate, rather than a hard decision on the most likely
+
+logical error. This concept should be distinguished from
+the analog information related to the signals in physical-
+level measurement, discussed in Refs. [66-68], which is
+also referred to as “soft information” in the context of
+decoding problems.
+
+Here, let us consider a syndrome o obtained from a
+uantum error-correcting code. In this case, a hard-
+output decoder uniquely determines the most likely logi-
+cal error e among all possible logical errors. In contrast,
+soft-output decoder provides a probability distribution
+(elo) over the possible logical errors, conditioned on
+he observed syndrome o. This distribution represents
+he decoder’s confidence in different error scenarios.
+
+Conventionally, such soft information is directly cal-
+culated by solving the DQML decoding problem with
+tensor network decoders [21, 29, 30]. However, these de-
+coders require a considerably large decoding time, which
+is much higher than the typical value of the syndrome
+generation time. To avoid such a substantial time over-
+head, recent seminal works [46—48, 50, 51] have developed
+another type of soft information that can be evaluated
+with efficient decoders, like MWPM and UF decoders.
+These soft-output decoders generate an analog param-
+eter g(o), instead of directly estimating P(e|c). Then,
+by collecting the statistics of g for randomly generated
+syndromes, we can establish the conditional probability
+P(e|g) as an empirical distribution. In what follows, we
+collectively refer to any conditional logical probabilities,
+such as P(e|g) and P(e|c), as soft information. Similarly,
+we define soft outputs as any analog parameters g(a) that
+are calculated by decoders and utilized to estimate the
+conditional logical error rate P(e|g).
+
+The utility of soft information stems from its ability
+to capture the decoder’s uncertainty, thereby providing
+a way to make adaptive decisions in subsequent logical
+operations. For example, in the context of concatenated
+surface code, such as yoked surface code [46] and hier-
+archical codes [47, 69], soft information from the inner
+code is utilized as a prior error distribution in the decod-
+ing of the outer code. This breaks the degeneracy of error
+probability and enhances the performance of the concate-
+nated codes [59]. Furthermore, soft-output decoders can
+improve the reliability of the output states from various
+quantum circuits by flagging and discarding runs with a
+high probability of logical errors [51-53].
+In what follows, when mentioning the soft output g,
+
+we assume it to satisfy the following requirements:
+
+a
+B
+
+t.
+t.
+
+e The soft output g is normalized so that it has a non-
+negative value, and a smaller value of g indicates
+that the decoder has a lower confidence.
+
+e We can efficiently estimate the g-conditioned logi-
+cal error rate P(e|g) heuristically.
+
+The first requirement means that P(e|g) can be regarded
+as a monotonically increasing function of g. This does
+not seem to be necessarily needed to formulate our pro-
+posal. But, it is satisfied for the soft outputs treated in
+(a)
+
+t
+|
+t
+
+{t
+
+Crt
+i
+|
+
+(b)
+
+(d)
+
+1
+
+t
+
+t
+
+t
+
+t
+
+t
+
+t
+
+t
+
+i
+or
+EH
+
+FIG. 3. Schematic diagrams to describe how to calculate two types of soft outputs. (a,b) Complementary gap [46, 51]: First,
+we find the minimum-weight perfect matching (black solid lines) by using some matching-based decoder, given a syndrome
+
+configuration (yellow stars). By flipping the boundary conditions (red stars), we
+
+then find the so-called complementary matching
+
+(red dotted lines), which has a minimum weight conditioned on the new boundary conditions [50]. The complementary gap is
+defined as the difference between the weights of these two matchings. (c,d) Cluster gap [47]: First, we find a perfect matching
+
+oaths
+
+f the shortest path.
+
+his work, and makes the discussion below easier to un-
+erstand. Furthermore, for simplicity, we assume that
+he decoder separates the decoding problem into Z and
+X subproblems, as is often the case in usual MWPM, and
+that the parameter e always denotes the opposite class
+of the logical-X or Z error predicted by the decoder.
+
+aad
+
+C. Examples of efficient soft-output decoder
+
+In this section, we provide several examples of efficient
+soft-output decoders that will be applicable to our pro-
+posal. As discussed in some previous works [46—48, 70],
+various types of existing decoding algorithms can be
+modified to provide soft outputs.
+
+A familiar approach is the complementary gap
+method (46, 51], which evaluates the difference between
+the weights of minimum weight perfect matching for the
+two possible homology classes (see also Fig. 3 (a-b)). In
+this method, we first perform a usual MWPM decoder,
+and thereby, obtain the minimum weight perfect match-
+
+lack solid lines) by using some clustering-based decoder, such as the Sparse-Blossom decoder or the UF decoder. Then we
+nd the shortest path (red solid lines) between boundary nodes on the quotient graph G/C, where G is the decoding graph
+ackground lattice) and C is the set of clusters formed by the decoder (blue circles). The cluster gap is defined as the weights
+
+ing for some homology class. Here we denote the total
+weight as Wmin. Then, we perform the MWPM decoding
+again after constructing a decoding graph with modified
+boundary syndromes conditioned on the complementary
+logical outcome [50]. This procedure leads to the com-
+plementary matching for the other homology class, whose
+weight is denoted as Weomp. Finally, by calculating the
+difference between the weights of these matchings, we
+obtain the soft output goomp = |Weomp — Wmin| called
+(unsigned) complementary gap. This definition indicates
+that a small complementary gap (close to zero) implies
+the decoder lacks confidence in its decision, while a large
+one suggests high confidence. In principle, this method
+would be applicable to any type of MLE decoders, in-
+cluding the MWPM decoder for any QEC codes with a
+matchable decoding graph.
+
+The downside of the above method is that we have
+to apply a MWPM decoder to modified syndrome con-
+figurations, which totally differ from the typically sam-
+pled ones, to obtain the complementary perfect match-
+ing. This procedure tends to deteriorate the time over-
+
+head of the fast implementations of MWPM, known as
+he Sparse-Blossom decoder [27]. Another drawback is
+hat the complementary gap method becomes further
+complex when there exist multiple logical operators on
+a patch, as in the case of lattice surgery [71, 72], since we
+1ave to consider various boundary syndrome conditions
+0 cover any types of possible logical errors.
+
+To alleviate these issues, Meister et al. [47] proposed
+an alternative approach that extracts soft output from
+he geometry of the clusters formed by clustering-based
+decoders like Sparse-Blossom [27] and UF decoder [35-
+37]. The soft output is defined as the total weights of the
+shortest path that covers a logical operator in a modified
+decoding graph where edges within the clusters have zero
+weight. More specifically, the soft output is computed by
+performing the following procedures (Fig. 3 (c-d)):
+
+1. Run clustering-based decoders, such as Sparse-
+Blossom or UF decoder, to generate a set of clus-
+ters C based on the syndrome oa. Here, the clus-
+ter set C is defined as a union of balls formed
+around syndrome vertices on the decoding graph
+
+G=(V,E,w).
+
+2. Create a quotient graph G’ = G/C = (V,E,w’)
+where the weight w’(E) of each edge E (€ E) is set
+to zero if € is within a cluster in C, and to w(€)
+otherwise.
+
+3. Run Dijkstra’s algorithm [73] on G’ to find the
+shortest path between inequivalent boundaries.
+The length of this path is provided as the soft out-
+put of the decoder.
+
+This algorithm can estimate the soft output quite effi-
+ciently because the UF decoder and Dijkstra’s algorithm
+have almost linear time complexity. In addition, we can
+further improve the decoding time to almost constant
+overhead by leveraging the techniques of early stopping
+and parallelization [49].
+
+In what follows, to distinguish the above soft output
+from the complementary gap, we refer to it as cluster
+gap and denote it as gciuster(7). Interestingly, according
+to Ref. [47], it is shown that the cluster gap always pro-
+vides a lower bound on the complementary gap, namely,
+geomp(0) > Jetuster(7) for any syndromes o.
+
+Another promising approach to define a soft output
+might be to quantify the degree of consensus among the
+ensemble of independent decoders with weakly perturbed
+priors, as demonstrated in Ref. [70]. This approach will
+be applicable to a fairly broad class of decoders, and it en-
+ables us to fully benefit from hardware parallelism since
+each decoder in the ensemble can be executed in a com-
+pletely independent manner.
+
+Ill. DECODER SWITCHING
+
+In this section, we propose a new decoding framework
+termed decoder switching. This framework addresses the
+
+fundamental trade-off between accuracy and speed in
+QEC decoding problems by leveraging hybrid decoding
+systems and their soft information. First, in Sec. IITA,
+we introduce the protocol of decoder switching and high-
+ight its significance in the hardware implementation of
+real-time decoders. Then, in Sec. IIIB, we provide a
+cheoretical interpretation of decoder switching through
+che lens of the g-spectral decomposition of logical error
+rate. This theoretical analysis demonstrates how to de-
+ermine the optimal threshold value for soft output. In
+Sec. IIIC, we analyze the intricate relationship between
+che backlog problem and the switching rate under de-
+coder switching. Specifically, we formulate the double
+window decoding scheme, an online decoding strategy tai-
+lored to decoder switching systems, and clarify straight-
+forward criteria to prevent an exponential growth of the
+backlog. While other types of hybrid decoder schemes
+have been proposed in the past few years [20, 57, 70, 74—
+77], our work presents a more scalable and comprehensive
+framework for these topics, clearly demonstrating how it
+resolves the long-standing tradeoff. To highlight these
+novelties, we provide a comprehensive comparison with
+these related works in Sec. IID.
+
+A. Protocol
+
+The decoding system based on decoder switching is
+composed of a fast soft-output decoder and a highly ac-
+curate decoder with a relatively high latency. In what fol-
+lows, we refer to these paired decoders as “weak decoder”
+and “strong decoder”, respectively. The core principle of
+decoder switching is to dynamically adopt the appropri-
+ate decoder based on the confidence of the weak decoder.
+The primitive procedures unfold as follows:
+
+1. Parallel Decoding: For a given decoding window,
+a sequence of syndrome data a is simultaneously fed
+to both the weak and strong decoders, initiating
+their decoding processes independently.
+
+2. Early Assessment with Weak Decoder: The
+weak decoder rapidly estimates the most likely log-
+ical errors and computes a soft output g(o), which
+quantifies the decoder’s confidence in the estimate.
+
+3. Conditional Early Exit: If the soft output g ex-
+ceeds a preset threshold gn, indicating high confi-
+dence in the weak decoder’s result, its estimation
+is immediately adopted as the output of the hy-
+brid decoding system. Simultaneously, the ongoing
+computation on the strong decoder is halted to save
+computational resources.
+
+4. Switching to Strong Decoder: Conversely, if g
+falls below the threshold, signifying low confidence,
+the weak decoder’s outcome is discarded. The de-
+coding system then waits for the more accurate re-
+sult from the strong decoder, which is subsequently
+used as the final estimate for the hybrid decoding
+system.
+
+This adaptive strategy ensures that the strong decoder is
+invoked only when truly necessary, allowing the system
+o maintain a sufficiently small decoding time on average
+y predominantly relying on the fast weak decoder. In-
+creasing the threshold g,, normally improves the decod-
+ing accuracy at the cost of the average decoding time. To
+lance this tradeoff, we need to properly determine the
+hhreshold value of the soft output gyn. This point will be
+discussed in detail in Sec. IIIB.
+
+Additionally, if one aims to conserve classical compu-
+ational resources as much as possible, the simultaneous
+execution of the weak and strong decoders in Step 1 can
+e forgone. In such a scenario, the protocol is modified
+o execute the strong decoder only when necessary, af-
+er the early assessment by the weak decoder (Step 2)
+is complete. As seen in Sec. IV, the switching rate to
+he strong decoder decays exponentially with increasing
+code distance. Therefore, such a modification is expected
+o have a negligible impact on the overall decoding time.
+Moreover, even in scenarios where numerous code patches
+are processed concurrently by multiple weak decoders, it
+is anticipated that the decoder switching system will in-
+voke at most one strong decoder at each timeslice, given
+a sufficiently large code distance. In this sense, the above
+approach will significantly improve the scalability of clas-
+sical resources without compromising the decoder’s accu-
+racy. This is particularly important when developing a
+real-time decoding system for large FTQC devices at the
+scale of thousands of logical qubits. We will delve into
+these perspectives in more detail in Sec. TIC.
+
+A significant advantage of our framework is its broad
+applicability across various decoding algorithms and
+QEC codes. To ensure the validity of decoder switching,
+we only ume that each decoder satisfies the following
+requirements:
+
+e The weak decoder efficiently processes syndrome
+data with a decoding time per round, Tweak, that is
+less than the syndrome generation time Tgen of the
+quantum devices. Furthermore, it simultaneously
+generates a soft output g for each decoding win-
+dow, which measures the reliability of the decoding
+outcome (as illustrated in Sec. IIB).
+
+e The strong decoder offers higher accuracy than the
+weak decoder, achieving an error threshold higher
+than the physical error rate of the quantum devices.
+
+e The value of 9), is determined to guarantee that the
+switching rate remains below a certain threshold
+value, given by Eq. (8) later, to avoid the backlog
+problem.
+
+Crucially, our framework differs from traditional single-
+decoder approaches in that it does not impose the strin-
+gent requirement that the strong decoder’s decoding time
+Tstrong be shorter than the syndrome generation time Tgen-
+
+Similarly, it does not require the reaction time to be com-
+parable to the required clock time of logical operations.
+In fact, as shown later in Theorem 1, the upper bound
+ON Tstrong to avoid the backlog problem is lifted inversely
+with the switching rate. This significant relaxation of la-
+tency requirements opens up unprecedented opportuni-
+ties: it enables us to implement highly complex and ac-
+curate decoders on powerful, yet potentially high-latency
+and energy-intensive, computing environments such as
+High-Performance Computing (HPC) cluste: This is
+vital for pushing the boundaries of real-time decoding
+systems, where the response time between quantum de-
+vices and classical processors might otherwise be a bot-
+tleneck.
+
+Finally, we note that the third requirement typically
+necessitates the weak decoder to have a certain level of
+accuracy to suppress the switching rate in a scalable man-
+ner. In fact, in Sec. IV, we see that the switching rate
+varies almost proportionally to the logical error rate of
+the weak decoder. This indicates that the threshold of
+the weak decoder should be comparable to or larger than
+the physical error rate of quantum devices to suppress
+the switching rate exponentially. Nonetheless, if we do
+not demand exponential decay in switching rate, decoder
+switching might work well even for some weak decoders
+that do not show an error threshold. It might be an in-
+teresting open problem to determine to what extent the
+performance of the weak decoder can be reduced to ease
+hardware requirements.
+
+B. Theory
+
+In this subsection, we give a more theoretical viewpoint
+of decoder switching by considering the relation between
+the threshold g,, and the logical error rate. Then, we
+discuss how to estimate the near-optimal value of the
+threshold gn by introducing the concept of a thresholded
+logical error rate.
+
+First, let us begin to interpret the logical error rate
+under a usual decoding scheme from the viewpoint of
+the soft output. Generally, the average logical error rate
+Py for a given soft-output decoder can be expressed in
+a spectrally decomposed form using the soft output g as
+follows:
+
+00
+Py = [ dg P(elg) - P(g) (1)
+where p(g) is the probability distribution of the soft out-
+put g, and P(e|g) is the g-conditional logical error rate.
+In principle, the probability distribution p(g) and P(e|g)
+are uniquely determined by defining the noise model for
+the syndrome extraction circuit. Here, we assume that
+we can empirically determine the form of these functions
+from the statistical data obtained via the stabilizer cir-
+cuit simulations, as demonstrated below.
+
+Next, consider the case where we use a hybrid decod-
+ing system under the decoder switching scheme. In this
+
+Probability
+b B
+oO o
+& &
+
+9
+
+BR
+°
+i
+
+ie} 50 100
+Complementary Gap [dB]
+
+FIG. 4. Histograms of (signed) complementary gaps gcomp
+for rotated surface code, sampled from 10d-rounds memory
+experiments with perfect terminal time boundaries. which is
+reproduced based on the approach in Ref. [46]. This data was
+gathered with N = 10" shots under the uniform circuit-level
+noise model at a physical error rate of ppn = 10~*. Here we
+denote the value of complementary gaps in the unit of dB.
+
+case, we can evaluate the logical error rate under decoder
+switching as
+
+Ith
+Phen) = | do Prerongleld) -#(d)
+: ~ (2)
++ | dg Preak(elg) - P(g);
+go
+
+th
+
+or equivalently,
+Pr switch (9th) — Pr,strong
+
+= | Ag (Pooelg) ~ Pasone(eg)] rt), ©?
+go
+
+th
+
+where Py strong is the average logical error rate of the
+strong decoder, and Pytrong(elg) and Pweak(elg) are the
+conditional logical error rate of the weak and strong de-
+coder, respectively, under the constraint that the value of
+soft output is evaluated as g by the weak decoder. These
+equations suggest that the threshold value gy, should be
+determined to make the difference between Pstrong(e|g)
+and Pweak(elg) sufficiently small for g > gin. Further-
+more, if the inequality Pweak(elg) < Pstrong(e|g) holds in
+a specific range of soft output, we can achieve an even
+lower error rate than that of the strong decoder. In-
+terestingly, we later observe this kind of behavior in a
+decoder switching system utilizing the MWPM (or UF)
+and belief-matching decoders. These findings may pro-
+vide insight into a new aspect of decoders: the g-resolved
+performance of decoding algorithms.
+
+In what follows, we numerically illustrate how the
+above parameters, such as p(g) and P(e|g), actually be-
+have, taking the complementary gap of rotated surface
+codes [71, 78] as an example. We employ the MWPM
+
+10°
+
+10-1
+
+10-2
+
+10-3
+
+Gap-conditional Logical Error Rate
+
+10-4
+
+ie) 5 10 15: 20 25 30 35 40
+Complementary Gap [dB]
+
+FIG. 5. Gap-conditional logical error rate Pweak(e|gcomp) for
+MWPM decoder, which is produced from the histogram data
+in Fig. 4. As demonstrated in Ref. [46], each plot is fitted
+well with an empirical function f(gcomp) = (1+ 19° °%scomp )—?
+(gray solid line), where the complementary gap gcomp is also
+denoted in the unit of dB.
+
+10°
+
+107*
+
+10-2 =
+d=5 (strong)
+d=7 (strong)
+d=9 (strong)
+d=11 (strong)
+d=5 (weak)
+d=7 (weak)
+d=9 (weak)
+d=11 (weak)
+—— Fitting
+
+10°.
+
+Gap-conditioned Logical Error Rate
+Cee eo
+
+ie) 5: 10 15 20 25 30 35 40
+Complementary Gap [dB]
+
+FIG. 6. Comparison of gap-conditional logical error rate
+for weak and strong decoder, namely, Pweak(€|gcomp) and
+Pstrong(€|gcomp)- Here, we select the MWPM decoder as the
+weak decoder and the belief-matching decoder as the strong
+decoder. This data was gathered with N = 10° shots of d-
+rounds memory experiments, rather than 10d-rounds memory
+experiments, to suppress the computation costs on the strong
+decoder.
+
+decoder as the weak decoder and the belief-matching de-
+coder as the strong decoder. In Fig. 4, we show the his-
+tograms of the signed complementary gap comp for ro-
+tated surface codes with a code distance d € {5,7,9, 11}.
+Here we define the signed complementary gap for conve-
+nience as follows:
+
+(If MWPM is correct)
+
+~  —_ f Weomp — Wmin
+Jeomp = (otherwise)
+
+Wmin — Weomp
+
+In this simulation, we have executed 10d-rounds memory
+experiments with perfect terminal time boundaries, ac
+cording to the approach used in Ref. [46]. The data was
+gathered with N = 10° shots using PyMatching [27, 79]
+under the uniform circuit-level noise model at a physical
+error rate of pph = 10-°. The figure shows that the peak
+position of the histogram shifts to the right as the code
+distance d becomes larger. In other words, the prob-
+ability that the gap’s value falls below some constant
+decreases exponentially as the code distance increases.
+By converting the signed complementary gap into an
+unsigned one, we can obtain the distribution function
+P(Gcomp) in Eq. (1).
+
+In Fig. 5, we plot the gap-conditional logical error rate
+Pweak(€|Gcomp), Which is generated by using the statistical
+data in Fig. 4. Interestingly, this figure suggests that the
+curve of Pyeak(€|gcomp) can be fitted well with a empirical
+function f (gcomp) = (1+10°-0%%om )—1, which is the same
+as that in Ref. [46], despite the difference of the noise
+models and the decoders used in each simulation. More-
+over, we show the comparison of gap-conditional logical
+error rate for the weak and strong decoder in Fig. 6. As
+might be expected, the difference between Pweak(€|gcomp)
+and Pytrong(€|gcomp) is most pronounced near geomp = 0
+and gradually diminishes as the value of gcomp increases.
+The most remarkable is that the magnitude relation-
+ship between Pyeak(€|Gcomp) 20d Pstrong(€|Gcomp) inverts
+around 20 - 30 dB, allowing the weak decoder to achieve a
+lower g-conditional logical error rate than the strong de-
+coder. According to Eq. (3), this inversion implies that,
+in a specific range of gcomp, we can achieve a minimum
+value of logical error rate, which is even smaller than
+hat of the strong decoder. This point will be demon-
+strated more clearly in Sec. IV. We expect that the phe-
+nomenon mentioned above originates from the fact that
+he belief-matching decoder is a heuristic decoder based
+on the belief propagation (BP), which does not guaran-
+ee that it always produces more optimal outputs than
+he weak decoder (MWPM decoder). This means that
+similar behaviors might emerge in other heuristic strong
+decoders, such as neural-network decoders [80].
+
+A practical issue when implementing the decoder
+switching is how to set the threshold value g, optimally.
+In principle, the optimal threshold g;), can be determined
+in a brute-force manner, as demonstrated later in Sec. IV.
+Namely, we initially set gin to a sufficiently small value
+and numerically calculate the logical error rate Py (gtn)
+under decoder switching. Then, by gradually increasing
+the value of gin, we can find the value of gi, at which
+Pr (gin) exhibit a minimal point or sufficiently saturates
+to Pr,strong. These procedures will give an optimal value
+of gtn-
+
+However, in practice, the strong decoder requires much
+more computational or engineering cost than the weak
+decoder. Therefore, it is desirable to enable determining
+a near-optimal threshold without actually executing the
+strong decoder for large code distances or even without
+specifying the details of the strong decoder. To this end,
+here we introduce the concept of the thresholded logical
+
+10-3
+
+eee
+
+=e
+OS
+a S
+
+Thresholded Logical Error Rate
+S
+eS
+
+&
+
+ie) 5 10 15, 20 25 30 35 40
+Gap Threshold [dB]
+
+FIG. 7. Thresholded logical error rate per d-rounds for
+MWPM decoder with complementary gap as a soft output.
+This data is generated by combining the data in Fig. 4 and
+Fig. 5 and normalizing the error rate for 10d-rounds to that
+for d-rounds. The parameter setup is the same as that in
+Fig. 4. For comparison, we also plot the values of €- Prstrong
+with dotted lines, where we set € = 0.1 and Py,strong denotes
+the logical error rate of the belief-matching decoder.
+
+error rate, which is defined as
+
+oo
+Pr tn(9tn) = / dg Pwea(elg) - p(g)-
+4 9th
+
+This factor corresponds to the second term in the right-
+hand side of Eq. (2). Then, by setting the threshold gin
+to be a minimum value that satisfies the condition
+
+Prtn(Gtn) < €+ Pr strong, (4)
+we can guarantee that the following inequality holds:
+Pr switch(9th) < Prystrong+Pr,th(gth) < (1+€)Pr,strong,
+
+where e€ is a tunable parameter to determine the upper
+bound of the logical error rate. In other words, provided
+the gin-dependence of the function Pr tn(gin) and a tar-
+get error rate Py strong, we can determine g, to be small
+enough to realize Pr switcn(gth) ~ Prstrong within a tar-
+get accuracy e.
+
+In Fig. 7, we plot the thresholded logical error rate per
+d-rounds for the MWPM decoder with complementary
+gap as a soft output. This plot clearly shows that the
+thresholded logical error rate decreases exponentially as
+the gap threshold gi, and the code distance d increase.
+In addition, we plot the values of €- Pr strong with dotted
+lines for comparison. Here we set ¢ = 0.1 and Py strong
+denotes the logical error rate of the belief-matching de-
+coder. Compared to Eq. (4), the plotted data indicate
+that setting gy, to be around 30 dB is sufficient to en-
+sure the hybrid decoding system achieves accuracy com-
+parable to the beliefmatching decoder [57] within a 10%
+margin of deviation. In the next section, however, we will
+
+—e d=5
+—*-- d=7
+102 d=9
+— d=11
+£ 10-2
+o
+a
+2103
+=
+2
+4
+& 10
+10-5
+10-¢
+0 10 20 30 40 50 60 70
+
+Gap Threshold [dB]
+
+FIG. 8. Switching rate per d-rounds for MWPM decoder
+with complementary gap gcomp aS a soft output. Here we
+estimated the switching rate per d-rounds from the rates per
+10d-rounds by assuming that the switching event occurs under
+an independent and identical distribution in each decoding
+window of d-rounds. The parameter setup is the same as that
+in Fig. 4.
+
+find that these threshold values are somewhat overesti-
+mated to achieve the target error rate when compared to
+the optimal values obtained by a brute-force approach.
+Specifically, as depicted later in Fig. 17, we will demon-
+strate that gap thresholds below 20 dB are sufficient to
+achieve a logical error rate even within 1% of that at-
+tained by the strong decoder for d = 9, 11.
+
+C. Decoding time and backlog problem
+
+As mentioned in Sec. ITA, a real-time decoding system
+is required to suppress its decoding and response time as
+much as possible. This is critical to prevent the expo-
+nential accumulation of syndrome backlog and the con-
+sequent slowdown of logical operations. In what follows,
+we analyze the accumulation of the syndrome backlog
+under decoder switching and thereby clarify the require-
+ments for avoiding the above issues.
+
+In decoder switching, the switching rate per d-rounds
+is evaluated based on the distribution function of soft
+output p(g) as follows:
+
+Ith
+Yswitch (Gth) = [ dg p(q),
+0
+
+where we assume that the distribution function p(g) is
+normalized to describe the gap distribution for a decod-
+ing window of d-rounds. Fig. 8 shows the switching rate
+per d-rounds for the MWPM decoder with complemen-
+tary gap as its soft output. This figure shows that the
+switching rate decreases exponentially with increasing
+code distance d and increases exponentially with increas-
+ing gap threshold gin.
+
+10
+
+Next, following the discussion in Refs. [22, 81], let
+us overview the backlog problem in conventional single-
+decoder approaches. For simplicity, here we do not
+consider the sliding window scheme [25], but assume a
+“naive” online decoding scheme. More specifically, as
+shown in Fig. 9, we first collect all the syndrome data gen-
+erated during r; rounds between the destructive measure-
+ments for gate teleportation. Right after receiving the
+data, the decoder processes it collectively to determine
+the feedback operations for the previous non-Clifford
+gate. We assume that the syndrome data for each round
+is transferred to the real-time decoder with a latency time
+of Tcomm, and the decoder can process the syndrome data
+within the decoding time of Tuec(Ti) = TaecTi, Where Tace
+is a constant denoting the decoding time per round. Con-
+sequently, the backlog r; includes the rounds for awaiting
+the previous decoding outcome and the rounds for logical
+operations to execute the next non-Clifford gate, ropi:
+
+Teomm + TdecTi—1
+1% = + Top, 5)
+Teen
+
+Strictly speaking, the first term on the right-hand side
+does not necessarily take an integer value, and so, should
+be rounded up using the ceiling function. However, for
+simplicity, we will ignore such rounding operations here,
+since it will not matter for the following discussion. The
+value of rop,; depends on the details of the quantum cir-
+cuit. For example, assuming the compilation in Ref. [72],
+Top,i has a value ranging from d rounds to 9d rounds for
+a compact footprint of surface codes.
+
+Supposing that rop,; = Top, we can easily solve the
+recursive equation in Eq. (5) and the solution is given as
+
+follows:
+vr; ‘rot ; (: >t :
+c= Prot Tae tet
+
+where we introduce f = Tdec/Tgen. It is apparent from
+this formula that the backlog r; diverges exponentially
+when f > 1, and it converges to the following value when
+
+f<l:
+al aD,
+li 7 : ( son)
+
+ico 1- Tgen
+
+In particular, the deviation of the converged value from
+Top describes how decoding processes contribute to the
+total time overhead for executing each non-Clifford gate.
+
+In this work, we extend the above analysis to the case
+of hybrid decoding systems under the decoder switching
+scheme. In this case, we need to introduce the decod-
+ing time per round meek, Tine and the communication
+latency Tweak | Tsttns for the weak and the strong de-
+coder, respectively. Furthermore, the backlog r; is no
+longer a deterministic variable but becomes a probabilis-
+tic one. So we introduce the probability distribution of r;
+as {r) pp }-=1,2,--,N,- Then, in decoder switching sys-
+tems, we can estimate the average value of r; by using
+Teomm Taec(Ti-1)
+
+IT) SS — sesssseenseteney
+
+11
+
+Tcomm Taec(Ti)
+
+——
+Tj-1 [round] i
+
+7; [round]
+
+Topi [round]
+
+E Ti+1 [round]
+
+FIG. 9. Time evolution of the syndrome backlog when executing a sequence of non-Clifford gates. Key parameters are defined
+as follows: ri, the number of accumurated rounds (i.e., syndrome backlog) between destructive measurements that determine
+the feedback operations for the previous and the next non-Clifford gates; Tcomm, the latency time for a single round of error
+syndromes to be transmitted to the real-time decoder; Tyec(ri), the decoding time for processing the syndromes generated over
+r; rounds; rop, the number of rounds between the last feedback operation and the subsequent desctructive measurement of an
+
+ancilla qubit.
+
+the distribution of the previous backlog r;_1 as follows:
+
+k 7 weak,,.(#
+(ri) med Yswitch ni” Tete ot agers gh
+A > Ns F
+
+5 Tgen
+
+Ch)
+; Sop, ee T_T
+d
+k
+
+comm lec fl
+
+stron strong _(k)
+EEeene t Tee: PA
+
+r Pop,i
+Teen
+weak weak
+Toman Tee (ri-1) j
++ Top,i
+Tgen
+2
+Yewitch | AT comm (ri-1) + ATaec (rz)
+| ;
+d Tgen
+where
+__ strong weak __ strong weak
+ATcomm = Teomm —~ Teomm> ATdec = Tadeo ~ Tdee
+
+Here, we implicitly assume that the switching rate per
+d-round, switch, is sufficiently small and so we can ap-
+proximate the total switching rate within the backlog r
+a8 YswitenT/d, since the switching event can be regarded
+as independent and identical between different small win-
+dows. Unlike Eq. (5), the above equation is not closed in
+the linear term of r; and includes non-linear ones. This
+type of equation is difficult to solve analytically and tends
+to exhibit unstable behaviors.
+
+To gain a deeper understanding of the backlog dynam-
+ics under decoder switching, we conduct Monte-Carlo
+simulations, where the switching event at each time step i
+is treated as a random variable. In these simulations, we
+configure the decoders’ parameters as TW** = Tgen and
+strong _ Strong _
+
+eatate 66 107gen- In Fig. 10, we showcase illus-
+trative examples of backlog trajectories {r;}i<0,1,... for
+several values of Tek assuming Yswitch = 10-4. This
+figure illustrates that an instantaneous surge in backlog
+occurs upon switching to the strong decoder, and the
+backlog is subsequently reduced by rapid decoding on the
+weak decoder, allowing the backlog to converge towards
+
+10°
+TSN Te =O.
+= THEN Tyen=0.1
+4 THE Toen=0.4
+TF x08 ee THEN Tyen=0.7
+z vo THERE) Toon =0.9
+3
+&
+Da
+fo}
+a4
+& 103
+§ 10 i
+i
+EE
+10?
+0 100 200 300 400 500
+Time Steps
+
+FIG. 10. Sampled trajectories of backlog r; in the naive on-
+line decoding scheme with a decoder switching system. Here
+we vary the decoding time of weak decoder as TYS**/Tyen =
+0,0.1,0.4,0.7,0.9 and fix the other parameters with d = 21,
+Od, Yewiteh = 1074, Tesmm = Teen and Teoma’ =
+
+‘ee = 107gen. The horizontal axis denotes the integer in-
+dex 7 in r; and corresponds to the number of executed non-
+
+Clifford gates.
+
+Top,i
+
+a stable value over time. However, when Teak is not suf-
+ficiently small, a new switching event is occasionally trig-
+gered before the backlog converges to the stable values,
+leading to an endless accumulation of backlogs (see the
+case of TE teen = 0.9 in Fig. 10). More precisely, for
+the naive online decoding scheme, M-consecutive switch-
+ing events cause an exponential growth of the backlog and
+the switching rate, which increase proportionally to the
+factor of (T4°"® /Teen)™.
+
+To elucidate statistical behaviors of such divergence,
+we simulate 10? samples of backlog trajectories and eval-
+uate the probability that the backlog diverges while exe-
+LOT -e- rH2%/Tyen = 0 omy mH
+= BH THE /Tyeq = 0.1 y $
+' '
+08 mam THEY Ten = 0.4 7 Hq
+= OUT yen = 0.7 I i a
+8 fie lie
+—¥~ THEE Teen = 0.9 | ‘| |i
+B08 ~ He
+‘ee 1 !
+; |i
+& 0.4 ' H Hit
+o Md | ar tA
+o iy I t
+2 + ra
+502 f - aif
+¥ j Fe
+} re HH
+bry @ A e-
+001 eoepenieeseenttacsts®
+10-6 10-5 10-4 10-3
+Switching Rate
+
+Average Rounds
+
+(b)
+
+2500
+WW" ~e- THEY Teen = 0
+a =m THEY Tye = 0.1
+20004) poate -A- THE Tgon = 0.8
+~@- THEE T yen = 0.7
+—¥— THE Ten = 0.9
+1500
+1000
+4
+16644-00049 eooesooror?
+500
+See ee oe i st ee Soe te coe akid
+G55 6-505-55-8 6-5 5-5 5-505-0-0-555 550565
+
+12
+
+10-° 10-5 10-4 10-3
+
+Switching Rate
+
+FIG. 11. (a) The divergence probability: and (b) the average size of backlogs in the naive online decoding scheme with a decoder
+awitching system. We sample 10° backlog trajectories, and each sample is judged to be diverging when the backlog r; exceeds
+10° rounds even once during Neate = 10* time steps. The average size of backlogs is evaluated by averaging over all time steps
+and backlog trajectories that have not diverged. We vary the decoding time of weak decoder as qe /Teen = 0,0.1, 0.4, 0.7, 0.9
+
+TT veak
+
+and fix the other parameters with d = 21, rop,; = 9d, Tessin = Tgen and Teiren® = T4c"® = 10Tgen-
+
+cuting Ngate = 10* non-Clifford gates, as shown in Fig. 11
+(a). This result suggests that we need to reduce the
+switching rate to the order of 1074 or below to avoid
+an accidental divergence of backlogs. To make matters
+worse, we numerically confirm that the threshold value
+of the switching rate gradually shifts to smaller values as
+Neate increases. In Fig. 11 (b), we also plot the average
+size of backlogs over all time steps and backlog trajecto-
+ries that have not diverged. These plots suggest that the
+average value of backlog increases little by little as the
+switching rate increases, unless a divergent event occurs.
+
+As detailed in the analysis above, the backlog behavior
+sometimes becomes unstable in a hybrid decoding sys-
+tem based on decoder switching. Especially, to avoid
+a probabilistic exponential growth, the switching rate
+must be suppressed to at most 1074 or below, even for
+Neate = 10+. Furthermore, when considering that there
+are many logical qubits, as would be the case in actual
+quantum computation, the switching rate needs to be fur-
+ther reduced in inverse proportion to the number of logi-
+cal qubits. Such a stringent requirement for the switching
+rate will significantly narrow the applicability of decoder
+switching, making it less practical.
+
+Fortunately, by introducing a sliding window decod-
+ing scheme [25], we can greatly stabilize the backlog tra-
+jectory and substantially relax the requirements for the
+switching rate (for details, see also Appendix. C). This
+is because, when M-consecutive switching events hap-
+pen, the backlog increases only linearly with M in the
+scheme, unlike in the case of the naive online decoding
+scheme. However, it should be noted that two shortcom-
+ings arise when the sliding window decoding scheme is
+applied naively to a decoder switching system. The first
+one is that while the strong decoder slowly processes a
+
+decoding task after a switching event, the weak decoder is
+
+not assigned new tasks, leading to an accumulation o
+coming syndrome data (see also Fig. 19 in Appendix.
+
+up-
+C).
+
+The second one is that batch decoding without a buffer
+
+region is preferable for the strong decoder to process
+syndrome data as fast as possible, assuming the
+
+the
+otal
+
+decoding time is proportional to the number of input
+
+rounds. This is because introducing a finite size of
+coding window effectively enlarges the decoding time
+
+de-
+per
+
+round due to the need for a buffer area. Here, we note
+
+that this point requires a more delicate discussion i
+
+the
+
+total decoding time increases superlinearly with the num-
+
+ber of rounds.
+
+To address these two issues, we propose a nove
+line decoding scheme tailored to decoder switching
+tems, named the double window decoding scheme.
+illustrated in Fig. 12, this scheme operates the weak
+
+on-
+sys-
+As
+
+and
+
+strong decoders independently in parallel. The weak de-
+
+coder consistently tracks and processes the latest
+
+syn-
+
+drome data, preventing the accumulation of backlog that
+is not assigned to the strong decoder. The decoding win-
+
+dow for the weak decoder consists of a commit re
+
+gion
+
+and a buffer region, which includes reom and rpur rounds,
+respectively. Then, the position of the decoding window
+is shifted after the decoding process completes, as in the
+case of the sliding window decoding scheme. If a switch-
+
+ing event occurs within a specific decoding window,
+
+the
+
+weak decoder resumes its process after allocating a data
+region of rstrong rounds to the strong decoder, and af-
+ter Tcom + Tbuf rounds are subsequently stored. Here,
+the value of rstrong Should be determined to guarantee
+
+that the decoding region with a small soft output
+
+does
+
+not adversely affect subsequent decoding processing by
+the weak decoder. In this work, we set this value as
+1) Start the decoding by the weak decoder
+2) Commit and slide the decoding window
+
+3) Encounter a small soft output (g < gtn)
+
+13
+
+[__] =stored & waiting
+
+GEG = committed
+
+[EL = processed by weak decoder (commit)
+(___]] = processed by weak decoder (buffer)
+[1 = processed by strong decoder (commit)
+
+ssigned to strong decoder & waiting
+
+4) Assign the windows of rtrong rounds to the strong decoder
+
+5) Restart the weak decoder after rom + Thur rounds are stored
+
+7) Slide the windows for the weak decoder
+
+Time
+
+8) Complete the processes assigned to the strong decoder
+
+6) Start the decoding by the strong decoder once the boundary conditions are identified
+
+Eel
+
+a
+
+Teom = Tout = 4 d rounds
+
+ee a
+
+Windows
+
+FIG. 12. Double window decoding scheme. Each block represents stored syndrome data for d-rounds syndrome measurement.
+In this scheme, the weak decoder (green) and strong decoder (orange) operate in parallel, processing different decoding windows.
+Specifically, the weak decoder constantly tracks and processes the latest stored data, preventing the accumulation of backlog
+not assigned to the strong decoder. The weak decoder’s decoding window consists of a commit region with recom rounds and a
+buffer region with rpur rounds, and is updated using a sliding window decoding scheme. Here, for simplicity, we assume that
+
+both of the commit and buffer sizes are equal to d rounds: reom = Tbuf =
+
+d. When encountering a small soft output (g < gin),
+
+we assign the syndrome data of rstrong rounds, which includes the region with the small soft output, to the strong decoder.
+The strong decoder processes all the assigned data at once, after the boundary conditions at both ends have been determined
+by the weak decoder. In this paper, we assume that rstrong = Tcom + 27 but.
+
+Tstrong = Tcom + 2Pput to make the above requirement
+satisfied certainly.
+
+On the other hand, the strong decoder should process
+assigned syndrome data using the best method to maxi-
+mize its decoding speed. In particular, when the decod-
+ing time is proportional to the number of rounds, it is
+referable to execute the decoding process in bulk after
+he syndrome boundary conditions on both sides are de-
+ermined by the weak decoder. The detailed handling of
+he strong decoder could be finely tuned depending on
+he scaling of the decoding time and available computa-
+ional resources. However, in this paper, we will not delve
+into these details and instead assume a linear decoding
+ime and batch decoding.
+
+Based on the double window decoding scheme, we can
+readily derive the sufficient conditions of 7y’¢** and ap AiEOns
+o avoid the backlog problem. They can ie summarized
+
+as follows:
+
+Theorem 1 (Sufficient conditions for avoiding the back-
+log problem in the double window decoding scheme). As-
+sume a hybrid decoding system consisting of a single weak
+decoder and a single strong decoder, and focus on the de-
+coding problem for a single code patch using the double
+
+window decoding scheme. Then, the following conditions
+
+‘ d
+
+Tdec <Tgen> Tdec ~ S Yswitch
+are sufficient for avoiding the backlog problem in the de-
+coding system. Here, the commit size of the decoding
+window is defined to satisfy
+
+Tstrong
+
+weak
+
+dec
+Tcom 2 || : (7)
+Tgen —~ Tdec
+
+— Proof. In the double window decoding scheme, to pre-
+vent the backlog problem, the weak decoder is required
+to have a capability to complete the latest decoding task
+before receiving the next recom rounds of syndrome data.
+Since the weak decoder requires the decoding time of
+THe? (room +P but) for a single decoding window, the above
+requirement implies that
+
+le
+Tice (Teom + buf) S Tgen?com;
+
+which leads to the inequality in Eq. (7) and the first one
+in Eq. (6).
+
+Once this condition is satisfied, our focus can shift
+to the temporal evolution of the backlog assigned to
+10° y
+7 7a HO! THER Ten = 0.4
+: 1B TYE" Toen = 0.7
+Bas et Tgen 20.9
+@ 104
+i
+=}
+Z
+fon}
+fo}
+x
+& 103
+& 10
+10?
+0 20 40 60 80 100
+Time Steps
+FIG. 13. Sampled trajectories of backlog ri in the dou-
+
+ble window decoding scheme with a decoder switching sys-
+tem. Here we vary the decoding time of weak decoder as
+eM A = 0.4,0.7,0.9 and fix the other parameters with
+
+—2 weak
+d = 21, ropi = 9d, Yswitch = 3 X 107°, Tedmm = Tgen and
+strong __ Strong __
+Teomm = Taec = LOTgen-
+
+the strong decoder. In the double window decoding
+scheme, the switching event occurs with a probability of
+YswitchTcom/d for each decoding window of the weak de-
+coder. Consequently, the backlog for the strong decoder
+is incremented by an average of rstrong X Yewitenteon (a
+rounds every time recom rounds of syndrome data are gen-
+erated. Meanwhile, the strong decoder processes the syn-
+drome data of Hoomtgen/ Tee rounds for the same pe-
+tiod. Therefore, to prevent the backlog growth, we need
+to impose
+
+strong
+Tétrong % YawitchTéom/4 < TeomTgen/ Tiss
+
+This inequality equals to the second one in Eq. (6).
+
+The above results readily lead to the requirement for
+the switching rate. Setting rstrong = Tcom + QTbut and
+Tput = d, Eqs. (6) and (7) suggest that the switching rate
+is required to satisfy
+
+% < d Tgen
+switch << —————— 3
+Teom + OPpur — TatrOns (8)
+
+1— fweak 1
+a+ (1-4) freak
+
+fstrong
+
+o avoid the backlog problem in the double window
+decoding scheme. Here we introduce the notations of
+freak = TRA/Tyen (<1) and fotrong = THEC"8/Tgen Tn
+he second inequality, we use Eq. (7) and neglect the
+ceiling function for simplicity. For example, assuming
+he case where fieak = 0.7, fetrong = 10, and a = 2,
+his inequality leads to Ywitcn < 2.3 x 1072. This result
+indicates that the double window decoding scheme can
+relax the requirement for the switching rate by more than
+hree orders of magnitude compared to that in the naive
+
+14
+
+online decoding scheme (see Fig. 11), and by more than
+one order of magnitude compared to that in the sliding
+decoding scheme (see Fig. 21 in Appendix. C).
+
+In the discussion so far, we have implicitly assumed a
+situation where we decode only a single QEC code. How-
+ever, in a realistic setup of FTQC, there are a large num-
+ber of logical data or ancillary qubits. Then, the decoding
+system is required to process multiple decoding windows
+in parallel with an array of decoders, for example, using
+the spatially parallel decoding scheme [23, 39, 64, 82-
+84]. We briefly comment on how to extend the above
+theorem to such a realistic scenario below. In this sce-
+nario, the factor eh a in Eq. (6) will be replace with
+(Yewiten Nwindow)~*- Here Nyindow is the maximum num-
+ber of spatially parallel windows at each timeslice. This
+is because the total probability that the switching events
+happen increases in proportion to the number of code
+blocks or the volume of decoding graphs. Especially, by
+supposing a decoding system consisting of Nwindow weak
+lecoders and a single strong decoder, we can develop
+an argument nearly identical to the proof of Theorem 1.
+Namely, we can focus solely on the accumulation of the
+backlog assigned to the strong decoder, since the weak de-
+coder continues to track and process the latest syndrome
+ata without causing any delay. On the other hand, the
+factor d/rstrong in Eq. (6) will be replaced with another
+factor that does not depend on the value of Ygwiteh and
+pene ut on the details of the spatially parallel window
+lecoding scheme, including the size of the commit /buffer
+region and how to assign suspicious spatial regions to the
+strong decoder. We leave more detailed analyses to the
+interested reader.
+
+Finally, we numerically demonstrate the performance
+of the double window decoding scheme. As is the case in
+Fig. 10 and Fig. 11, we set the decoders’ parameters as
+Toe = Teo and THON = Tyrone = 10Tgen. In addition,
+the commit size is fixed to satisfy the equality in Eq. (7).
+Fig. 13 first illustrates typical trajectories of backlog r;
+
+sampled for Yswitch = 3 X 107? and various values of
+7yeak, In this figure, only the case of TYS**/Tyon = 0.4
+
+satisfies the requirement in Eq. (6). Acutually, we can
+confirm that only the corresponding trajectory exhibits
+stable behavior without diverging. In Fig. 14 (a), we
+also show the divergence probability in the double win-
+dow decoding scheme, comparing with the threshold in
+Eq. (8). These plots clearly demonstrate that Eq. (8)
+well describes the sufficient (and almost necessary) con-
+ditions for avoiding the backlog problem in the double
+window decoding scheme. Furthermore, Fig. 14 (b) de-
+picts the mean size of backlogs, which is averaged over
+all time steps and backlog trajectories that have not di-
+verged. From this figure, we can see that reducing the
+switching rate to less than half of the value of Eq. (8) is
+preferable to prevent the effective logical operation speed
+from decreasing markedly.
+
+(a) (b)
+
+I ; 7 | a Py
+1.0} -e- rH8/T,en = 0 [TTT Try oeer ener 35004 °° Taee"/Taen = 0 :
+-BH THE /Tyen = 0.1 ! iq H Be Tyce"/T gen = 0-2 ‘
+H
+50.84 -8~ THEE LTGen = 0.4 | ! H 3000 }/-4- THE*/T yen = 0.4 t
+: t i
+= =O THE) Ten = 0.7 i H H ra -@ THE) Ten = 0.7 £
+I ‘
+g y- THE Teen = 0.9 i ' \ 5 2500 7-9-1382 /tTyen = 0.9 i
+6 0.6 i ' 3 i
+a it ! Ho = 2000 t
+o : Ho o } 1
+& t plat e | laa
+@ 0.4 > © 1500 t t rir
+Ee i $ | i ANE
+o 0 i 1 =z } at at |
+2 : i 1000 a i | el
+2 ! ' ' : a
+902 H i: ' | Fi ji Fe
+in u i Bi |
+| He | 500 a dala
+| H yr oH
+0.0 peccesepestentoeceetnssiic isiisbesdaateeiieset! i
+ro-3 10-2 10-1 10-3 107?
+Switching Rate Switching Rate
+
+FIG. 14. (a) The divergence probability and (b) the average size of backlogs in the double window decoding scheme with a
+decoder switching system. We sample 10° backlog trajectories, and each sample is judged to be diverging when the backlog
+r; exceeds 10° rounds even once during Neate = 10‘ time steps. The average size of backlogs is evaluated by averaging over
+all time steps and backlog trajectories that have not diverged. We vary the decoding time of weak decoder as gee [Teen =
+0,0.1,0.4,0.7,0.9 and fix the other parameters with d = 21, rop,i = 9d, T&C2% = Tyen and Tstrone = 78"°"8 — 1O7gen. For
+comparison, we also plot the threshold values of the switching rate per d-rounds, given in Eq. (8), for each value of et
+
+with dotted vertical lines. We confirm that the divergence probabilities are always zero for switching rates below the threshold
+
+values.
+
+ble switching strategy. In particular, as already men-
+tioned, the switching rate declines exponentially with the
+Finally, we should note that the concept of combining increase in the code distance, resulting in a dramatic re-
+multiple decoders to address the speed-accuracy trade- duction in the average decoding time Furthermore, our
+off has been previously investigated (see also Ref. [20] for pproach also offers greater flexibility in the choice of
+review). This subsection reviews such related efforts and decoders. While the lazy decoder is specifically designed
+highlights the key distinctions of our proposal. for surface codes and relies on a hard-decision approach,
+
+“ our framework can accommodate various error-correcting
+
+2
+
+D. Comparison with previous works
+
+2
+
+The most standard approach for hybrid decoding sys- a . ;
+. . . Sees codes by properly defining soft information, such as com-
+ems is to combine a computationally-simple local pre- BRietthie, seal igteeaee
+decoder and more complex global decoder [74, 75, 81, 85- Pp y " gap.
+87]. In this approach, the local pre-decoder either per- Furthermore, the belief-matching decoder [57] and its
+‘orms some local pre-processing to facilitate the problem variant [76] are also based on a somewhat similar ap-
+on the global decoder, or solves any locally-solvable prob- _ proach to Ref. [74]. However, these decoders utilize the
+lems, otherwise passing the task to the global decoder. belief propagation decoder as the first pre-decoder, which
+
+For example, Ref. [74] proposes a “lazy decoder” as a operates globally rather than locally and provides the
+local pre-decoder to handle simple error configurations _ prior error probabilities to the second decoder. In these
+efore resorting to a more sophisticated global decoder. approaches, switching to a more powerful decoder de-
+The lazy decoder attempts to correct easy error configu- pends on whether the BP converges sufficiently and its
+rations locally and, if it fails, the syndrome data is sent output satisfies the stabilizer constraints. Unfortunately,
+o a global decoder. Such a localized approach tends to the BP decoder does not have a threshold when used
+‘ace a rapid growth in switching rates as the code distance on its own, and therefore, the switching rate will in-
+d increases, since the number of local subproblems also crease as the code distance grows. This point is a cru-
+
+increases cubically with d. This makes it difficult to sat- cial difference from our proposal. However, Ref. [88]
+isfy the requirements given in Theorem. 1, or in Eq. (8), has recently proposed a new BP-based decoder called
+‘or practical-sized decoding problems. Actually, Ref. [74] Relay-BP, which achieves high accuracy comparable to
+
+suggests that, for d > 15 and pp = 10-3, the azy de- the MWPM decoder without compromising the speed
+coder almost constantly fails, and it cannot achieve any of the BP decoder. By combining this decoder with
+reduction of the bandwidth. ideas in Refs. [57, 76], it might be possible to design a
+
+In contrast, our framework leverages soft output in- good soft output for the BP-based decoder, and thereby,
+formation from the weak decoder to determine whether construct a novel instance of decoder switching. This
+he accurate decoder is needed, enabling a more scal- could be an interesting future work and might become
+
+a powerful real-time decoding approach for quantum
+low-density parity check (qLDPC) codes [89], such as
+bivariate-bicycle codes [90].
+
+As another example, the authors of Ref. [70] recently
+introduced an ensembling-based decoding method called
+harmonization, which combines multiple MWPM de-
+coders with perturbed priors to achieve near-optimal ac-
+curacy. By querying an ensemble of decoders and pooling
+their results, they achieved improved logical error rates
+compared to individual MWPM decoders, approaching
+the performance of maximum-likelihood decoding. In
+addition, they also propose a layered decoding scheme
+to reduce the computational overhead for querying large
+ensembles by using the degree of consensus among the
+ensemble as a kind of soft information. In the scheme,
+a small ensemble first processes the syndrome data and,
+only when its confidence is low (indicated by disagree-
+ment within the ensemble), the data is passed to a larger
+ensemble. Furthermore, Ref. [77] developed a decoder
+named Libra, which takes the solutions of an ensemble of
+approximate solvers for the minimum-weight hypergraph
+matching problem, and produces a new solution that
+combines the best local solutions. In this scheme, the
+author proposed to use the complementary gap [46, 51]
+o invoke the ensemble only on a small fraction of “hard”
+cases to decrease the average decoding time.
+While these two methods share with our proposal the
+core idea of employing a more accurate decoder adap-
+ively based on the confidence of the initial result, our
+framework is formulated to encompass a broader array
+of hybrid decoding systems. Crucially, it remains agnos-
+ic to the specific soft information and decoding mecha-
+nisms, thereby integrating the proposals in Refs. [70, 77]
+as special examples. Furthermore, we have formulated
+comprehensive and practically-oriented theories address-
+ing some crucial aspects of the time overhead and the
+backlog problem. These include a practical method for
+setting (near-)optimal gap thresholds, detailed analyses
+of backlog dynamics under decoder switching, the pro-
+osal of the double window decoding scheme, and clar-
+ifying the requirements for the switching rate. In the
+next section, we also present several important observa-
+tions, notably that decoder switching can even surpass
+the accuracy of the strong decoder, and that our pro-
+osal performs robustly even in practical-sized quantum
+circuits. We believe that these contributions lay a crucial
+foundation for the development of scalable real-time de-
+coding systems based on paired complementary decoders
+in the near future.
+
+IV. NUMERICAL SIMULATION
+
+In this section, we numerically demonstrate the effec-
+tiveness of the decoder switching scheme by considering
+two types of hybrid decoding systems. Specifically, we
+employ the MWPM decoder or the UF decoder as a weak
+decoder, and utilize the complementary gap or cluster
+
+16
+
+gap as their soft output, respectively. For the strong
+lecoder, we adopt the belief-matching decoder [57], a
+highly accurate decoder that leverages all available noise
+information by integrating the BP technique with the
+MWPM decoder. Unlike a usual MWPM decoder, which
+neglects Y errors by decomposing the related hyperedges,
+che belief-matching decoder fully exploits correlations be-
+ween X and Z decoding problems by estimating the pos-
+erior marginal probabilities by using BP. This approach
+results in a significant improvement of accuracy, achiev-
+ng more than 10% larger error threshold compared to
+shat of the MWPM decoder for the surface code.
+
+In what follows, we apply these hybrid decoding sys-
+‘ems to the d-rounds memory experiments of the rotated
+surface code with perfect terminal time boundaries, as-
+suming the physical error rate to be ppn = 10-3. Here
+we note that, unlike the analysis in Fig. 4, we reduce the
+number of rounds from 10d to d to reduce the simula-
+ion costs. Although this simplification causes finite-size
+effects on the distribution of complementary gap, we be-
+ieve it does not alter the quantitative behavior of decoder
+switching significantly.
+
+A. Logical error rate around the error threshold
+
+We first begin with the numerical simulation of decoder
+switching around the error threshold. For simplicity, we
+fix the gap threshold to be gin = 20 dB. In Fig. 15 (a),
+we plot the logical error rate around the error thresholds
+for decoder switching between the MWPM and belief-
+matching decoder. For comparison, we also plot the re-
+sults for the weak decoders (MWPM) with dotted lines.
+This figure shows that the decoder switching substan-
+tially reduces the logical error rate, and the error thresh-
+old value is shifted upward by about 0.1%. As shown in
+Appendix. B, we also confirm that the error threshold
+under decoder switching is located at almost the same
+value as that of the strong decoder (beliefmatching).
+Fig. 16 (a) shows the switching rate for the same setup.
+Interestingly, this data clearly illustrates that the switch-
+ing rate decays exponentially with respect to the code
+distance d below a specific value of physical error rate.
+This threshold behavior of the switching rate is highly
+beneficial for satisfying the requirements in Eq. (6) and
+reducing the average decoding time of the hybrid decod-
+ing system. We note that similar behaviors have been
+reported only in the code-capacity level simulation of the
+surface code in some previous works [53, 91]. Compar-
+ing to the results in Fig. 14, we find that the switching
+rates for d > 5 are sufficiently small to avoid the backlog
+problem in the double window decoding scheme, even for
+the case of T¥**/Tyen = 0.9 and Teen 8 Tet = 10. Here,
+it is also notable that the threshold of switching rate is
+slightly higher than that for the logical error rate of the
+weak decoder.
+
+Similar results are obtained for the decoder switch-
+ing between UF and belief-matching decoder with clus-
+
+w
+°
+i
+
+Logical Error Rate per Shot
+e
+
+°
+&
+
+B
+°
+i
+
+0,002 0.004 0.006 0.008 0.010
+Phyical Error Rate
+
+17
+
+(b)
+10°
+© 107?
+2
+w
+re
+vo
+a
+w 10-2 -y d=3
+3 d=5
+5 d=7
+© a5 e@- d=9
+© 10-3
+co -@- d=11
+S —* d=3
+ee) —e d=5
+S10 —= d=7
+—e d=9
+—e d=11
+10-5
+0.002 0.004 0.006 0.008 0.010
+
+Phyical Error Rate
+
+FIG. 15. Logical error rate around error thresholds for the decoder switching (a) between MWPM and belief-matching decoder
+or (b) between UF and belief-matching decoder. Here we fix the threshold value of complementary or cluster gap with gin = 20
+[dB] and execute N = 10° shots. The solid lines denote the results for the decoder switching. For comparison, we also show
+the results for the weak decoders with dotted lines. The value of the error threshold is improved by about 0.1% when decoder
+switching is employed, compared to that without switching.
+
+10°
+© 1077
+4
+Ww
+x
+vy 10°?
+£
+cs
+a
+2
+3.
+= 10
+£ = d=3
+é te d=5
+10-4 —= d=7
+—e d=9
+—e d=11
+0.002 0.004 0.006 0.008 0.010
+
+FIG. 16. Swite
+
+decoder or (b)
+
+Physical Error Rate
+
+ter gap Qeluster aS a Soft output, as shown in Fig. 15 (b)
+and Fig. 16 (b). In this case, the accuracy improve-
+
+ment achieve
+pronounced,
+ther deteriora
+
+by decoder switching becomes even more
+ce the accuracy of the weak decoder fur-
+es compared to MWPM. Still, we find that
+
+the logical error rate under decoder switching is almost
+
+equivalent to
+degradation o:
+
+hat in Fig. 15 (a), despite the performance
+the weak decoder. These observations en-
+
+courage us to seek an even faster real-time soft-output de-
+
+coder with lo
+
+wer hardware costs by cutting its accuracy
+
+to the absolute minimum. However, we also find that the
+
+threshold of t
+of the MWPW
+curacy of the
+decoder must
+
+he switching rate is clearly lower than that
+; in accordance with the decline in the ac-
+weak decoder. This implies that the weak
+also achieve a certain level of accuracy to
+
+(b)
+10°
+co)
+© 1077
+wn
+o
+a
+£
+% 107?
+a
+cor)
+<
+z
+£103 — d=3
+é —e d=5
+—= d=7
+—e d=9
+10-4 —® d=11
+
+0.002 0.004 0.006 0.008 0.010
+Physical Error Rate
+
+hing rate per shot around error thresholds for the decoder switching (a) between MWPM and belief-matching
+between UF and belief-matching decoder. Here we set parameters to the same values as in Fig. 15.
+
+guarantee the exponential decay of the switching rate.
+
+B.  Tradeoff between logical error rate and
+switching rate
+
+In this subsection, we analyze the tradeoff between the
+logical error rate and the switching rate under decoder
+switching. This analysis is crucial for determining the
+optimal value of g,,. To this end, we calculated the logi-
+cal error rate and the switching rate per shot by varying
+the gap threshold of each soft output in the dB range of
+gen € [0,50] under ppp = 107°.
+
+In Fig. 17 (a), we show the results for the decoder
+switching between the MWPM and the belief-matching
+=~
+—
+
+3 peor
+r}
+
+fore i
+o 10 rs
+g /
+gv =
+3 g=224
+ic] yi
+Wi 49-5 (
+ro] — d=5 g= =
+aad ‘
+a es d=7
+4 —& d=9
+
+—® d=11
+
+10-6 4 ~~~ Fit: y =0,0192x°%? g=18
+10-9 10-7 10-5 10-3 10-1
+
+Switching Rate
+
+18
+
+(b)
+
+10-3
+
+Logical Error Rate per Shot
+
+107° 3 _-- Fit: y=0.0206x°9
+
+10-9 20-8 10-7 ao-* 1078 107* 10-5 10-2 10-7
+Switching Rate
+
+FIG. 17. Tradeoff between logical error rate and switching rate when we perform the decoder switching (a) between MWPM
+and belief-matching decoder with complementary gaps or (b) between UF and belief-matching decoder with cluster gaps. Here
+we plot the logical error rate per shot and the switching rate by varying the threshold value of complementary gap or cluster
+gap in the dB range of gin € [0,50]. We perform N = 10° shots to obtain each data point, respectively. For comparison, we
+plot the data point for the case without decoder switching (i.e. gin = 0) to have a switching rate of 1/N x 10~?. The black
+pentagonal points denote the minimum point where the difference between the error rate and the asymptotic value is within
+1%. The black dashed line denotes the one fitted to these optimal data points.
+
+decoder. This plot clearly shows that the logical error
+rate gradually decreases as the gap threshold increases,
+eventually approaching that of the strong decoder. How-
+ever, it is noteworthy that, for d > 5, the tradeoff curve
+forms a minimum point at a certain gap threshold before
+approaching the asymptotic value. This indicates tha’
+decoder switching can achieve even lower error rate than
+the strong decoder by properly adjusting the threshold
+of soft output, which is consistent with the implication
+of the results in Fig. 6. At the minimum point, the de-
+coder switching achieves a 3.6x (or 1.3x) lower logica
+error rate compared to the weak (or strong) decoder on
+the distance-11 surface code.
+Next let us consider the scaling of the switching rate
+at the optimal value of gin. Here we define the optimal
+value of the gap threshold, gop, as the minimum value
+where the difference between the logical error rate anc
+the asymptotic value is within 1%. We plot the positions
+of gop with black pentagonal points. Remarkably, these
+points can be fitted well to a straight line on the dou-
+ble logarithmic graph, which indicates a close relation
+between logical error rate and switching rate as follows:
+
+Prewita(gop) c 0.0102 x Lyswitcn (Gop)???
+
+This relation suggests that the switching rate at the opti-
+mal threshold gin = gop decays in a nearly linear fashion
+with respect to the target logical error rate. For exam-
+ple, when applying this formula to a TeraQuop decoder
+(ie, Pr switch & 107!*) [92], which is typically required to
+solve practical problems including prime factoring [3, 4]
+and materials simulation [8-12], the corresponding value
+of the switching rate at gin = gop is expected to be
+Yswitch & 3.75 x 107! [shot-1]. This means that only
+
+a few switches to the strong decoder occur even during
+che execution of a large-scale circuit with a depth of 10°-
+10!” gates, making the decoding time of the strong de-
+coder almost negligible on average. Such a rapid decline
+in switching rate might even enable discarding the output
+of the entire circuit and retrying it rather than switching
+o a strong decoder. This approach is essentially equiv-
+alent to the exclusive decoders in Ref. [53], and we can
+regard the exclusive decoder as the most extreme form
+of the strong decoder. Of course, the above analysis is
+based on extrapolation from small-scale problems up to
+d = 11, and so, its quantitative reliability is fairly lim-
+ited. However, these observations strongly indicate that
+he contribution of the strong decoder to the average de-
+coding time will be almost negligible in the TeraQuop
+region.
+
+Similarly, in Fig. 17 (b), we show the numerical results
+for the decoder switching between the UF and the belief-
+matching decoder with cluster gap as soft outputs.
+
+As in the case of Fig. 17 (a), these plots also form
+a minimum point at a certain gap threshold before ap-
+proaching the asymptotic value. At the minimum point
+for d = 11, decoder switching achieves a 6.1x lower logical
+error rate than that of the weak decoder (UF). Addition-
+aly, in this case, we can obtain the fitting curve to the
+optimal values of gin as follows:
+
+Pr switch(Jop) ~ 0.0206 x [iswiten (Gop)???
+
+This result also supports the effectiveness of the decoder
+switching for large-scale quantum tasks.
+V. CONCLUSION
+
+In this work, we have proposed a general framework
+ermed decoder switching, which efficiently harmonizes
+he demands for accuracy and speed in decoding systems
+y combining a faster soft-output decoder (weak decoder)
+and a slower, high-accuracy decoder (strong decoder). As
+a demonstration, we have analyzed the case where the
+MWPM (or UF) decoder is used as a weak decoder and
+he belief-matching decoder is used as a strong decoder.
+Regarding the soft output, we have leveraged the com-
+lementary gap (or the cluster gap) for the MWPM (or
+UF) decoder. Our numerical simulations confirm that
+decoder switching systems can achieve an accuracy com-
+arable to that of the strong decoder, while maintaining
+an average decoding time on par with the weak decoder.
+This framework can be readily extended to a more gen-
+eral type of soft outputs and QEC codes other than sur-
+‘ace codes. Moreover, to efficiently manage the backlog
+in real-time decoding, we introduced the double window
+decoding scheme, an online decoding strategy tailored
+to decoder switching systems. This scheme dramatically
+suppresses the instability of backlog trajectories, over-
+coming the limitations of naive online decoding and sim-
+ple sliding window approaches. Our theoretical analyses
+also clarified that satisfying specific conditions given in
+Theorem 1| is sufficient to prevent the exponential growth
+of backlog and ensure stable logical operations under de-
+coder switching.
+
+Importantly, decoder switching enables us to develop
+high-accuracy decoders and high-speed soft-output de-
+coders separately. For high-accuracy decoders, we can
+seek more complex decoding algorithms or neural net-
+work structures by freeing ourselves from strong con-
+straints related to hardware implementation and decod-
+ing time. Moreover, we might not need to implement
+such costly devices in the TeraQuop region, where the
+switching rate is significantly suppressed and a post-
+selection-based decoder, i.e., the exclusive decoder [53],
+might work well. For high-speed decoders, it will be pos-
+sible to improve their scalability and latency, for example,
+by discretizing or compressing the information of decod-
+ing graphs, since we no longer need to pursue high accu-
+racy for these decoders. We believe that these perspec-
+tives will open up new directions for developing future
+real-time decoders.
+
+VI. ACKNOWLEDGEMENT
+
+We are grateful to thank Yugo Takada, Yutaka Hirano,
+Tomohiro Itogawa, Takumi Akiyama, Yutaro Akahoshi,
+Moeto Mishima, Shinichiro Yamano, Mitsuki Katsuda,
+and Hoiki Liu for fruitful discussions. K. F. is supported
+by MEXT Quantum Leap Flagship Program (MEXT Q-
+LEAP) Grant No. JPMXS0120319794, JST COILNEXT
+Grant No. JPMJPF2014, JST Moonshot R&D Grant
+No. JPMJMS2061, and JST CREST JPMJCR24I3.
+
+19
+
+Logical Error Rate per Shot
+
+0.003 0.004 0.005 0.006 0.007 0.008 0.009 0.010
+Physical Error Rate
+
+FIG. 18. Logical error rate around the error threshold when
+utilizing the belief-matching decoder [57]. Here we set param-
+eters to the same values as in Fig. 15.
+
+Author contributions: R. T., K. K., and K. F. con-
+ceived the basic idea of decoder switching concurrently.
+Then, R. T. formulated the theoretical details, performed
+the numerical simulations for all figures, analyzed the
+data, and wrote the original draft of this paper. K.
+K. contributed to the theoretical formulation, provided
+source codes for the calculation of the cluster gap, and
+optimized the codes to accelerate the simulations. J. F.,
+H. O., and S. S. provided overall supervision, environ-
+ments, and resources for this work and guided the re-
+search direction. K. F. provided technical supervision
+for this work and contributed to the conceptualization
+and the interpretation of the numerical results. All au-
+thors participated in the discussion of the results and the
+review of the manuscript.
+
+Appendix A: Notations in this paper
+
+In Table. I, we list the notations frequently used in this
+paper.
+
+Appendix B: Error threshold of belief-matching
+decoder
+
+In this section, we show the error threshold of the
+belief-matching decoder [57] for the rotated surface code
+under our setup of decoding problems. We calculated
+it with the Python library “BeliefMatching” and plotted
+the results in Fig. 18. We find that the error threshold is
+located at almost the same value as that of the decoder
+switching systems in Fig. 15.
+20
+
+TABLE I. Our notations used in this paper.
+
+Notation Meaning
+
+d Code distance of the QEC code.
+
+Pph Physical error rate in the uniform circuit-level noise model.
+
+g Value of the soft output generated from the soft-output decoder (weak decoder).
+
+Jcomp Value of an unsigned complementary gap.
+
+Gcomp Value of a signed complementary gap.
+
+Geluster Value of a cluster gap.
+
+Ith Threshold value of soft output, which determines whether switching to the strong decoder is needed
+or not.
+
+P(g) Probability distribution of the soft output g obtained within a window of d-rounds.
+
+Pr Logical error rate per shot (i.e. d-rounds) of the QEC code when using a specific decoder.
+
+P(elg) g-conditional logical error rate per shot of the soft-output decoder.
+
+Pweat(elg) g-conditional logical error rate per shot of the weak decoder. which is equivalent to P(e|g).
+
+Pstrong (elg)
+Pr, switch (9th)
+
+Pr tn(gen)
+“switch (9th)
+
+Logical error rate per shot of the strong decoder under the condition that the weak decoder outputs
+g.
+
+Logical error rate per shot of the QEC code when using the decoder switching system with the
+threshold of gin.
+
+Thresholded logical error rate per shot of the weak decoder, given the threshold of gtn.
+
+Probability that we encounter a soft output smaller than gyn within a window of d-rounds.
+
+Tgen Syndrome generation time per round.
+
+Tabe Decoding time per round of the decoder in a single-decoder approach.
+
+ao Decoding time per round of the weak decoder.
+
+ae Decoding time per round of the strong decoder.
+
+Teomm Communication latency for transmitting the syndrome data for each round and the decoding output
+between the system controller and the decoder in a single-decoder approach.
+
+Tees Communication latency for transmitting the syndrome data for each round and the decoding output
+between the system controller and the weak decoder.
+
+pemens Communication latency for transmitting the syndrome data for each round and the decoding output
+between the system controller and the strong decoder.
+
+T; Number of rounds accumulated between destructive measurements to determine the feedback op-
+erations for the previous and the next non-Clifford gates.
+
+Taps Number of rounds required for executing the quantum circuit of the i-th non-Clifford gate.
+
+Teom Number of rounds in the commit region of a decoding window.
+
+Tout Number of rounds in the buffer region of a decoding window.
+
+Tstrong Number of rounds assigned to the strong decoder once a switching event aris
+
+Appendix C: Backlog dynamics in sliding window commit and buffer regions. In Fig. 19, we fix the size of
+
+This appendix analyzes the backlog dynamics within
+the conventional sliding window decoding scheme [25] for
+a decoder switching system.
+
+Fig. 19 illustrates the specific steps of this scheme. The
+decoding system sequentially proces
+
+decoding scheme these regions as Teom = Thut = d. Each window is first
+
+processed by the weak decoder, and the reliability of the
+decoding result is assessed with a soft output g. If we
+encounter a small soft output, the corresponding window
+is assigned to the strong decoder. During the decoding
+process by the strong decoder, new syndrome data keeps
+being added continuously. Once the strong decoder com-
+pletes the assigned task, we process the next decoding
+
+es the syndrome
+
+data within a decoding window, which consists of the
+window with the weak decoder.
+
+Generally, as discussed in Theorem 1, the buffer size
+Tcom has to satisfy Eq. (7) to guarantee that the weak
+decoder can keep up with the generation of new syndrome
+data as long as no switching event occurs. However, it
+is important to note that merely imposing Eq. (7) does
+not uniquely determine the buffer size. If it is set too
+small, the weak decoder may not be able to make up
+for decoding delays. Conversely, if the buffer size is too
+large, the size of rounds assigned to the strong decoder
+becomes large. In our numerical simulations below, we
+set the buffer size as
+
+weak
+—_ a dec
+Tcom = max | d, 0.95 —reak "buf | J -
+. OT gen Tdec
+
+1] P. Shor, Algorithms for quantum computation: discrete
+logarithms and factoring, in Proceedings 35th Annual
+Symposium on Foundations of Computer Science (1994)
+pp. 124-134.
+
+2) P. W. Shor, Polynomial-time algorithms for prime
+factorization and discrete logarithms on a quan-
+tum computer, SIAM Review 41, 303 (1999),
+https: //doi.org/10.1137/S0036144598347011.
+
+3] C. Gidney and M. Ekera, How to factor 2048 bit RSA in-
+tegers in 8 hours using 20 million noisy qubits, Quantum
+5, 433 (2021).
+
+4] C. Gidney, How to factor 2048 bit rsa integers with
+less than a million noisy qubits (2025), arXiv:2505,15917
+[quant-ph].
+
+5] S. Lloyd,
+ulators, Science
+
+sim-
+
+(1996),
+
+Universal
+273,
+
+quantum
+1073
+
+6] D. S. Abrams and S. Lloyd, Quantum algorithm provid-
+ing exponential speed increase for finding eigenvalues and
+eigenvectors, Phys. Rev. Lett. 83, 5162 (1999).
+
+7| A. Aspuru-Guzik, A. D. Dutoi, P. J. Love, and
+M. Head-Gordon, Simulated quantum  computa-
+tion of molecular energies, Science 309, 1704 (2005),
+https: //www.science.org/doi/pdf/10.1126/science.1113479.
+8] J. Lee, D. W. Berry, C. Gidney, W. J. Huggins, J. R. Mc-
+Clean, N. Wiebe, and R. Babbush, Even more efficient
+quantum computations of chemistry through tensor hy-
+percontraction, PRX Quantum 2, 030305 (2021).
+9] G. H. Low, R. King, D. W. Berry, Q. Han, A. E. D. III,
+A. White, R. Babbush, R. D. Somma, and N. C. Rubin,
+Fast quantum simulation of electronic structure by spec-
+trum amplification (2025), arXiv:2502.15882 [quant-ph].
+R. Babbush, C. Gidney, D. W. Berry, N. Wiebe, J. Mc-
+Clean, A. Paler, A. Fowler, and H. Neven, Encoding elec-
+tronic spectra in quantum circuits with linear t complex-
+ity, Phys. Rev. X 8, 041015 (2018).
+I. D. Kivlichan, C. Gidney, D. W. Berry, N. Wiebe,
+J. McClean, W. Sun, Z. Jiang, N. Rubin, A. Fowler,
+A. Aspuru-Guzik, et al., Improved fault-tolerant. quan-
+tum simulation of condensed-phase correlated electrons
+via trotterization, Quantum 4, 296 (2020).
+
+N. Yoshioka, T. Okubo, Y. Suzuki, Y. Koizumi, and
+W. Mizukami, Hunting for quantum-classical crossover
+in condensed matter problems (2022), arXiv:2210.14109.
+
+[10]
+
+[11
+
+https://www.science.org/doi/pdf/10.1126/science.273.5278.1073.
+
+21
+
+Although it might be possible to improve the perfor-
+mance of the sliding window decoding by fine-tuning this
+value, such tuning is beyond the purpose of our work.
+In Fig. 20, we plot illustrative examples of backlog tra-
+jectories {r;};=0,1,... for several values of qyeek, assuming
+Vawter — 10-3. Moreover, Fig. 21 displays the divergence
+probability and the average size of backlogs. These plots
+look similar to those in Fig. 14, rather than Fig. 11. How-
+ever, the threshold values of the switching rate are fairly
+smaller than those in Fig. 14. In particular, this gap be-
+comes more prominent for smaller values of ggyenk, since
+the accumulation of the weak decoder’s backlog leads to
+
+a more pronounced detrimental effect.
+
+3] R. Toshio, Y. Akahoshi, J. Fujisaki, H. Oshima, S. Sato,
+and K. Fujii, Practical quantum advantage on partially
+‘ault-tolerant quantum computer, Phys. Rey. X 15,
+021057 (2025).
+
+4] Y. Akahoshi, R. Toshio, J. Fujisaki, H. Oshima, S. Sato,
+and K. Fujii, Compilation of trotter-based time evolution
+or partially fault-tolerant quantum computing architec-
+ture (2024), arXiv:2408.14929.
+
+5] A. W. Harrow, A. Hassidim, and S. Lloyd, Quantum al-
+gorithm for linear systems of equations, Phys. Rey. Lett.
+103, 150502 (2009).
+
+6] P. Shor, Fault-tolerant quantum computation, in Pro-
+ceedings of 37th Conference on Foundations of Computer
+Science (1996) pp. 56-65.
+
+7| D. Aharonov and M. Ben-Or, Fault-tolerant quantum
+computation with constant error, in Proceedings of the
+Twenty-Ninth Annual ACM Symposium on Theory of
+Computing, STOC ’97 (Association for Computing Ma-
+chinery, New York, NY, USA, 1997) p. 176-188.
+
+8] A. Y. Kitaev, Quantum error correction with imper-
+fect gates, in Quantum Communication, Computing, and
+Measurement, edited by O. Hirota, A. S. Holevo, and
+C. M. Caves (Springer US, Boston, MA, 1997) pp. 181—
+188.
+
+9] M. A. Nielsen and I. L. Chuang, Quantum Computation
+and Quantum Information (Cambridge University Press,
+2000).
+
+F. Battistel, C. Chamberland, K. Johar, R. W. J. Over-
+water, F. Sebastiano, L. Skoric, Y. Ueno, and M. Usman,
+Real-time decoding for fault-tolerant quantum comput-
+ing: progress, challenges and outlook, Nano Futures 7,
+032003 (2023).
+
+A. deMarti iOlius, P. Fuentes, R. Ortis, P. M. Crespo, and
+J. Etxezarreta Martinez, Decoding algorithms for surface
+codes, Quantum 8, 1498 (2024).
+
+B. M. Terhal, Quantum error correction for quantum
+memories, Rev. Mod. Phys. 87, 307 (2015).
+
+L. Skoric, D. E. Browne, K. M. Barnes, N. I. Gille-
+spie, and E. T. Campbell, Parallel window decoding en-
+ables scalable fault tolerant quantum computation, Na-
+ture Communications 14, 7040 (2023).
+
+J. Bausch, A. W. Senior, F. J. H. Heras, T. Edlich,
+A. Davies, M. Newman, C. Jones, K. Satzinger, M. Y.
+Niu, S. Blackwell, G. Holland, D. Kafri, J. Atalaya,
+
+20
+
+24)
+25
+
+26
+
+27
+
+28
+
+29)
+
+30
+
+31
+
+C. Gidney, D. Hassabis, S. Boixo, H. Neven, and P. Kohli,
+Learning high-accuracy error decoding for quantum pro-
+cessors, Nature 635, 834 (2024).
+
+E. Dennis, A. Kitaev, A. Landahl, and
+J. Preskill, Topological quantum memory, Jour-
+nal of Mathematical Physics 43, 4452 (2002),
+
+https://doi.org/10.1063/1.1499754.
+
+A. G. Fowler, Minimum weight perfect matching of fault-
+tolerant topological quantum error correction in average
+o(1) parallel time, Quantum Info. Comput. 15, 145-158
+(2015).
+
+O. Higgott and C. Gidney, Sparse blossom: correcting
+a million errors per core second with minimum-weight
+matching, arXiv preprint arXiv:2303.15933 (2023).
+
+Y. Wu and L. Zhong, Fusion blossom: Fast mwpm de-
+coders for qec, in 2023 IEEE International Conference
+on Quantum Computing and Engineering (QCE), Vol. 1
+(IEEE, 2023) pp. 928-938.
+
+A. J. Ferris and D. Poulin, Tensor networks and quantum
+error correction, Phys. Rev. Lett. 113, 030501 (2014).
+S. Bravyi, M. Suchara, and A. Vargo, Efficient algorithms
+for maximum likelihood decoding in the surface code,
+Phys. Rev. A 90, 032326 (2014).
+
+R. Acharya, D. A. Abanin, L. Aghababaie-Beni,
+I. Aleiner, T. I. Andersen, M. Ansmann, F. Arute,
+Kk. Arya, A. Asfaw, N. Astrakhantsev, J. Atalaya,
+R. Babbush, D. Bacon, B. Ballard, J. C. Bardin,
+J. Bausch, A. Bengtsson, A. Bilmes, S$. Blackwell,
+S. Boixo, G. Bortoli, A. Bourassa, J. Bovaird, L. Brill,
+M. Broughton, D. A. Browne, B. Buchea, B. B. Buck-
+ley, D. A. Buell, T. Burger, B. Burkett, N. Bushnell,
+A. Cabrera, J. Campero, H.-S. Chang, Y. Chen, Z. Chen,
+B. Chiaro, D. Chik, C. Chou, J. Claes, A. Y. Cleland,
+J. Cogan, R. Collins, P. Conner, W. Courtney, A. L.
+Crook, B. Curtin, S. Das, A. Davies, L. De Lorenzo,
+D. M. Debroy, S. Demura, M. Devoret, A. Di Paolo,
+P. Donohoe, I. Drozdov, A. Dunsworth, C. Earle,
+T. Edlich, A. Eickbusch, A. M. Elbag, M. Elzouka, C. Er-
+ickson, L. Faoro, E. Farhi, V. S. Ferreira, L. F. Bur-
+gos, E. Forati, A. G. Fowler, B. Foxen, S. Ganjam,
+G. Garcia, R. Gasca, E. Genois, W. Giang, C. Gid-
+ney, D. Gilboa, R. Gosula, A. G. Dau, D. Graumann,
+A. Greene, J. A. Gross, S. Habegger, J. Hall, M. C.
+Hamilton, M. Hansen, M. P. Harrigan, S. D. Harring-
+ton, F. J. H. Heras, S. Heslin, P. Heu, O. Higgott,
+G. Hill, J. Hilton, G. Holland, $. Hong, H.-Y. Huang,
+A. Huff, W. J. Huggins, L. B. Ioffe, S. V. Isakov,
+J. Iveland, E. Jeffrey, Z. Jiang, C. Jones, S. Jordan,
+C. Joshi, P. Juhas, D. Kafri, H. Kang, A. H. Karam-
+lou, K. Kechedzhi, J. Kelly, T. Khaire, T. Khattar,
+M. Khezri, S. Kim, P. V. Klimov, A. R. Klots, B. Ko-
+brin, P. Kohli, A. N. Korotkov, F. Kostritsa, R. Kothari,
+B. Kozlovskii, J. M. Kreikebaum, V. D. Kurilovich,
+N. Lacroix, D. Landhuis, T. Lange-Dei, B. W. Lang-
+ley, P. Laptev, K.-M. Lau, L. Le Guevel, J. Ledford,
+J. Lee, K. Lee, Y. D. Lensky, $. Leon, B. J. Lester,
+W. Y. Li, Y. Li, A. T. Lill, W. Liu, W. P. Livingston,
+A. Locharla, E. Lucero, D. Lundahl, A. Lunt, S. Mad-
+huk, F. D. Malone, A. Maloney, S. Mandra, J. Manyika,
+L. S. Martin, O. Martin, S. Martin, C. Maxfield, J. R.
+McClean, M. McEwen, S. Meeks, A. Megrant, X. Mi,
+K. C. Miao, A. Mieszala, R. Molavi, S. Molina, S. Mon-
+tazeri, A. Morvan, R. Movassagh, W. Mruczkiewicz,
+O. Naaman, M. Neeley, C. Neill, A. Nersisyan, H. Neven,
+
+[32]
+
+[33]
+
+37
+
+22
+
+M. Newman, J. H. Ng, A. Nguyen, M. Nguyen, C.-H. Ni,
+M. Y. Niu, T. E. O’Brien, W. D. Oliver, A. Opremcak,
+K. Ottosson, A. Petukhov, A. Pizzuto, J. Platt, R. Pot-
+ter, O. Pritchard, L. P. Pryadko, C. Quintana, G. Ra-
+machandran, M. J. Reagor, J. Redding, D. M. Rhodes,
+G. Roberts, E. Rosenberg, E. Rosenfeld, P. Roushan,
+N. C. Rubin, N. Saei, D. Sank, K. Sankaragomathi,
+K. J. Satzinger, H. F. Schurkus, C. Schuster, A. W. Se-
+nior, M. J. Shearn, A. Shorter, N. Shutty, V. Shvarts,
+S. Singh, V. Sivak, J. Skruzny, S. Small, V. Smelyan-
+skiy, W. C. Smith, R. D. Somma, S. Springer, G. Ster-
+ing, D. Strain, J. Suchard, A. Szasz, A. Sztein, D. Thor,
+A. Torres, M. M. Torunbalci, A. Vaishnav, J. Vargas,
+S. Vdovichev, G. Vidal, B. Villalonga, C. V. Heidweiller,
+S. Waltman, S. X. Wang, B. Ware, K. Weber, T. Weidel,
+T. White, K. Wong, B. W. K. Woo, C. Xing, Z. J. Yao,
+P. Yeh, B. Ying, J. Yoo, N. Yosri, G. Young, A. Zaleman,
+Y. Zhang, N. Zhu, N. Zobrist, G. Q. AI, and Collabora-
+tors, Quantum error correction below the surface code
+threshold, Nature 638, 920 (2025).
+
+E. Jeffrey, D. Sank, J. Y. Mutus, T. C. White, J. Kelly,
+R. Barends, Y. Chen, Z. Chen, B. Chiaro, A. Dunsworth,
+A. Megrant, P. J. J. O’Malley, C. Neill, P. Roushan,
+A. Vainsencher, J. Wenner, A. N. Cleland, and J. M.
+Martinis, Fast accurate state measurement with super-
+conducting qubits, Phys. Rev. Lett. 112, 190504 (2014).
+F. Arute, K. Arya, R. Babbush, D. Bacon, J. C.
+Bardin, R. Barends, R. Biswas, S. Boixo, F. G. 8. L.
+Brandao, D. A. Buell, B. Burkett, Y. Chen, Z. Chen,
+B. Chiaro, R. Collins, W. Courtney, A. Dunsworth,
+E. Farhi, B. Foxen, A. Fowler, C. Gidney, M. Giustina,
+R. Graff, K. Guerin, S. Habegger, M. P. Harrigan,
+M. J. Hartmann, A. Ho, M. Hoffmann, T. Huang,
+T. S. Humble, S. V. Isakov, E. Jeffrey, Z. Jiang,
+D. Kafri, K. Kechedzhi, J. Kelly, P. V. Klimov, S. Knysh,
+A. Korotkov, F. Kostritsa, D. Landhuis, M. Lind-
+mark, E. Lucero, D. Lyakh, S$. Mandra, J. R. Mc-
+Clean, M. McEwen, A. Megrant, X. Mi, K. Michielsen,
+M. Mohseni, J. Mutus, O. Naaman, M. Neeley, C. Neill,
+M. Y. Niu, E. Ostby, A. Petukhov, J. C. Platt, C. Quin-
+tana, E. G. Rieffel, P. Roushan, N. C. Rubin, D. Sank,
+K. J. Satzinger, V. Smelyanskiy, K. J. Sung, M. D. Tre-
+vithick, A. Vainsencher, B. Villalonga, T. White, Z. J.
+Yao, P. Yeh, A. Zaleman, H. Neven, and J. M. Marti-
+nis, Quantum supremacy using a programmable super-
+conducting processor, Nature 574, 505 (2019).
+Suppressing quantum errors by scaling a surface code log-
+ical qubit, Nature 614, 676 (2023).
+
+N. Delfosse and N. H. Nickerson, Almost-linear time de-
+coding algorithm for topological codes, Quantum 5, 595
+(2021).
+
+M. J. Heer, E. D. Sozzo, K. Fujii, and K. Sano, Novel
+union-find-based decoders for scalable quantum error cor-
+rection on systolic arrays, in 2023 IEEE International
+Parallel and Distributed Processing Symposium Work-
+shops (IPDPSW) (2023) pp. 524-533.
+
+T. Chan and 8. C. Benjamin, Actis: A Strictly Local
+Union—Find Decoder, Quantum 7, 1183 (2023).
+
+N. Liyanage, Y. Wu, S. Tagare, and L. Zhong, Fpga-
+based distributed union-find decoder for surface codes,
+IEEE Transactions on Quantum Engineering 5, 1 (2024).
+N. Liyanage, Y. Wu, E. Houghton, and L. Zhong,
+Network-integrated decoding system for real-time quan-
+tum correction with lattice surgery (2025),
+
+error
+[40]
+
+[41]
+
+[42]
+
+[43]
+
+[44]
+
+46)
+
+47
+
+48
+
+49)
+
+50)
+
+51
+
+52
+
+arXiv:2504.11805 [quant-ph].
+
+B. Barber, K. M. Barnes, T. Bialas, O. Bugdayci, E. T.
+Campbell, N. I. Gillespie, K. Johar, R. Rajan, A. W.
+Richardson, L. Skoric, C. Topal, M. L. Turner, and A. B.
+Ziad, A real-time, scalable, fast and resource-efficient de-
+coder for a quantum computer, Nature Electronics 8, 84
+(2025).
+
+S. Huang, M. Newman, and K. R. Brown, Fault-tolerant
+weighted union-find decoding on the toric code, Phys.
+Rev. A 102, 012419 (2020).
+
+R. W. J. Overwater, M. Babaie, and F. Sebastiano,
+Neural-network decoders for quantum error correction
+using surface codes: A space exploration of the hard-
+ware cost-performance tradeoffs, [IEEE Transactions on
+Quantum Engineering 3, 1 (2022).
+
+W. Liao, Y. Suzuki, T. Tanimoto, Y. Ueno, and Y. Toku-
+naga, Wit-greedy: Hardware system design of weighted
+iterative greedy decoder for surface code, in Proceedings
+of the 28th Asia and South Pacific Design Automation
+Conference, ASPDAC ’23 (Association for Computing
+Machinery, New York, NY, USA, 2023) p. 209-215.
+
+P. Das, A. Locharla, and C. Jones, Lilliput: a lightweight
+low-latency lookup-table decoder for near-term quantum
+error correction, in Proceedings of the 27th ACM Inter-
+national Conference on Architectural Support for Pro-
+gramming Languages and Operating Systems, ASPLOS
+22 (Association for Computing Machinery, New York,
+NY, USA, 2022) p. 541-553.
+
+S. Vittal, P. Das, and M. Qureshi, Astrea: Accurate
+quantum error-decoding via practical minimum-weight
+perfect-matching, in Proceedings of the 50th Annual In-
+ternational Symposium on Computer Architecture, ISCA
+23 (Association for Computing Machinery, New York,
+NY, USA, 2023).
+
+C. Gidney, M. Newman, P. Brooks, and C. Jones, Yoked
+surface codes, Nature Communications 16, 4498 (2025).
+N. Meister, C. A. Pattison, and J. Preskill, [ffi-
+cient soft-output decoders for the surface code (2024),
+arXiv:2405.07433 [quant-ph].
+
+S.-H. Lee, L. English, and S$. D. Bartlett, Efficient
+lection for general quantum Idpe codes (2025),
+:2510.05795 [quant-ph].
+K. Kishi, R. Toshio and J. Fujisaki and H. Oshima and S.
+Sato and K. Fujii, “Early Stopping for Fast Soft-Output
+Calculation in Cluster-Based Decoders”. To appear.
+
+A. Hutter, J. R. Wootton, and D. Loss, Efficient markov
+chain monte carlo algorithm for the surface code, Phys.
+Rev. A 89, 022326 (2014).
+H. Bombin, M. Pant, S. Roberts, and K. I. Seetharam,
+Fault-tolerant postselection for low-overhead magic state
+preparation, PRX Quantum 5, 010302 (2024).
+
+C. Gidney, N. Shutty, and C. Jones, Magic state culti-
+vation: growing t states as cheap as cnot gates (2024),
+arXiv:2409.17595 [quant-ph].
+
+S. C. Smith, B. J. Brown, and S. D. Bartlett, Mitigating
+errors in logical qubits, Communications Physics 7, 386
+(2024).
+
+B. M. Varbanov, M. Serra-Peralta, D. Byfield, and B. M.
+Terhal, Neural network decoder for near-term surface-
+code experiments, Phys. Rev. Res. 7, 013029 (2025).
+
+G. Hu, W. Ouyang, C.-Y. Lu, C. Lin, and H.-S.
+Zhong, Efficient and universal neural-network decoder
+for stabilizer-based quantum error correction (2025),
+arXiv:2502.19971 [quant-ph].
+
+60
+
+61
+
+62
+
+63
+
+64
+
+66
+
+67
+
+68
+
+69
+
+70
+
+71
+
+72
+
+73.
+
+TA
+
+75
+
+23
+
+J. Blue, H. Avlani, Z. He, L. Ziyin, and I. L. Chuang, \a-
+chine learning decoding of circuit-level noise for bivariate
+bicycle codes (2025), arXiv:2504.13043 [quant-ph].
+
+O. Higgott, T. C. Bohdanowicz, A. Kubica, S. T. Flam-
+mia, and E. T. Campbell, Improved decoding of circuit
+noise and fragile boundaries of tailored surface codes,
+Phys. Rev. X 13, 031007 (2023).
+
+P. Iyer and D. Poulin, Hardness of decoding quantum sta-
+bilizer codes, IEEE Transactions on Information Theory
+61, 5209 (2015).
+
+D. Poulin, Optimal and efficient decoding of concate-
+nated quantum block codes, Phys. Rey. A 74, 052333
+(2006).
+
+J. Edmonds, Paths, trees, and flowers, Canadian Journal
+of Mathematics 17, 449-467 (1965).
+
+J. Edmonds, Maximum matching and a polyhedron with
+0,1-vertices, Journal of Research of the National Bureau
+of Standards Section B Mathematics and Mathematical
+Physics , 125 (1965).
+
+L. Riesebos, X. Fu, $. Varsamopoulos, C. G. Almude-
+ver, and K. Bertels, Pauli frames for quantum computer
+architectures, in Proceedings of the 54th Annual Design
+Automation Conference 2017, DAC ’17 (Association for
+Computing Machinery, New York, NY, USA, 2017).
+
+N. Delfosse, A. Paz, A. Vaschillo, and K. M. Svore,
+How to choose a decoder for a fault-tolerant quan-
+tum computer? the speed vs accuracy trade-off (2023),
+arXiv:2310.15313 [quant-ph].
+
+X. Tan, F. Zhang, R. Chao, Y. Shi, and J. Chen, Scalable
+surface-code decoders with parallelization in time, PRX
+Quantum 4, 040344 (2023).
+
+J. Viszlai, J. D. Chadwick, S. Joshi, G. S. Ravi, Y. Li,
+and F. T. Chong, Predictive window decoding for fault-
+tolerant quantum programs (2024), arXiv:2412.05115
+[quant-ph].
+
+C. A. Pattison, M. E. Beverland, M. P. da Silva, and
+N. Delfosse, Improved quantum error correction using
+soft information (2021), arXiv:2107.13589 [quant-ph].
+M. D. Hanisch, B. Hetényi, and J. R. Wootton, Soft in-
+formation decoding with superconducting qubits (2025),
+arXiv:2411.16228 [quant-ph].
+
+J. Majaniemi and E. S. Matekole, Reducing quantum
+error correction overhead using soft information (2025),
+arXiv:2504.03504 [quant-ph].
+
+C. A. Pattison, A. Krishna, and J. Preskill, Hierarchical
+memories: Simulating quantum LDPC codes with local
+gates, Quantum 9, 1728 (2025).
+
+N. Shutty, M. Newman, and B. Villalonga, Efficient near-
+optimal decoding of the surface code through ensembling,
+arXiv preprint arXiv:2401.12434 (2024).
+
+C. Horsman, A. G. Fowler, S. Devitt, and R. V. Meter,
+Surface code quantum computing by lattice surgery, New
+Journal of Physics 14, 123011 (2012).
+
+D. Litinski, A Game of Surface Codes: Large-Scale Quan-
+tum Computing with Lattice Surgery, Quantum 3, 128
+(2019).
+
+E. W. Dijkstra, A note on two problems in connexion
+with graphs, Numer. Math. 1, 269-271 (1959).
+
+N. Delfosse, Hierarchical decoding to reduce hardware
+requirements for quantum computing, arXiv preprint
+arXiv:2001.11427 (2020).
+
+S. C. Smith, B. J. Brown, and S. D. Bartlett, Local pre-
+decoder to reduce the bandwidth and latency of quantum
+error correction, Phys. Rev. Appl. 19, 034050 (2023).
+
+76
+
+77
+
+78
+
+79
+
+380
+
+81
+
+82
+
+83
+
+84)
+
+L. Caune, B. Reid, J. Camps, and E. Camp-
+bell, Belief propagation as a partial decoder (2023),
+arXiv:2306.17142 [quant-ph].
+
+C. Jones, Improved accuracy for decoding surface
+codes with matching synthesis (2024), arXiv:2408.12135
+[quant-ph].
+
+H. Bombin and M. A. Martin-Delgado, Optimal resources
+for topological two-dimensional stabilizer codes: Com-
+parative study, Phys. Rev. A 76, 012305 (2007).
+
+O. Higgott, Pymatching: A python package for de-
+coding quantum codes with minimum-weight perfect
+matching, ACM Transactions on Quantum Computing
+3, 10.1145/3505637 (2022).
+
+J. Lenssen and A. Paler, Fooling the decoder: An ad-
+versarial attack on quantum error correction (2025),
+arXiv:2504.19651 [quant-ph].
+
+C. Chamberland, L. Goncalves, P. Sivarajah, E. Peter-
+son, and S. Grimberg, Techniques for combining fast local
+decoders with global decoders under circuit-level noise,
+Quantum Science and Technology 8, 045011 (2023).
+
+H. Bombin, C. Dawson, Y.-H. Liu, N. Nickerson,
+F. Pastawski, and S. Roberts, Modular decoding: par-
+allelizable real-time decoding for quantum computers
+(2023), arXiv:2303.04846 [quant-ph].
+
+S. Fuhui Lin, E. C. Peterson, K. Sankar, and P. Sivarajah,
+Spatially parallel decoding for multi-qubit lattice surgery,
+Quantum Science and Technology 10, 035007 (2025).
+K. Zhang, J. Xu, F. Zhang, L. Kong, Z. Ji, and
+J. Chen, Latte: A decoding architecture for quantum
+computing with temporal and spatial scalability (2025),
+arXiv:2509.03954 [quant-ph].
+
+[85]
+
+[86]
+
+87
+
+88
+
+89
+
+90
+
+91
+
+92
+
+24
+
+K. Meinerz, C.-Y. Park, and S. Trebst, Scalable neural
+decoder for topological surface codes, Phys. Rey. Lett.
+128, 080505 (2022).
+
+G.S. Ravi, J. M. Baker, A. Fayyazi, S. F. Lin, A. Javadi-
+Abhari, M. Pedram, and F. T. Chong, Better than worst-
+case decoding for quantum error correction, in Proceed-
+ings of the 28th ACM International Conference on Ar-
+chitectural Support for Programming Languages and Op-
+erating Systems, Volume 2, ASPLOS 2023 (Association
+for Computing Machinery, New York, NY, USA, 2023)
+p. 88-102.
+
+S. Gicev, L. C. L. Hollenberg, and M. Usman, A scalable
+and fast artificial neural network syndrome decoder for
+surface codes, Quantum 7, 1058 (2023).
+T. Miller, T. Alexander, M. E. Beverland, M. Biihler,
+B. R. Johnson, T. Maurer, and D. Vandeth, Improved
+belief propagation is sufficient for real-time decoding of
+quantum memory (2025), arXiv:2506.01779 [quant-ph].
+N. P. Breuckmann and J. N. Eberhardt, Quantum low-
+density parity-check codes, PRX Quantum 2, 040101
+(2021).
+S. Bravyi, A. W. Cross, J. M. Gambetta, D. Maslov,
+P. Rall, and T. J. Yoder, High-threshold and low-
+overhead fault-tolerant quantum memory, Nature 627,
+778 (2024).
+
+L. H. English, D. J. Williamson, and S. D. Bartlett,
+Thresholds for post-selected quantum error correc-
+tion from statistical mechanics (2024), arXiv:2410.07598
+[quant-ph].
+
+E. Campbell, What is a teraquop decoder? (2023).
+
+1) Start the decoding by the weak decoder
+2) Commit the first window
+
+3) Encounter a small soft output (g < gin)
+
+a
+a
+
+5) Commit & Slide the windows
+
+25
+
+processed by weak decoder (commit)
+
+__]] = processed by weak decoder (buffer)
+[ELD = processed by strong decoder (commit)
+
+—
+
+rocessed by strong decoder (buffer)
+
+'4) Assign the previous windows to the strong decoder
+
+6) Restart the weak decoder
+
+Time
+
+Windows
+
+FIG. 19. Naive application of the sliding window decoding scheme to a decoder switching system. Here, for simplicity, we
+assume the case where both the commit and buffer sizes are equal to d rounds: reom = Tbuf = d. Each block represents stored
+syndrome data for d-rounds syndrome measurement. In this case, during the decoding process by the strong decoder, the weak
+decoder has to await the outcome from the strong decoder and is not assigned a new task.
+
+10° = -
+=O THEI Ten = 0.4
+me THE Tye = 0.7
+st THEY Tyen = 0.9
+@ 10
+i=
+a
+&
+a
+o
+Xx
+103
+B20
+10?
+(0) 20 40 60 80 100
+Time Steps
+
+FIG. 20. Sampled trajectories of backlog r; in the sliding de-
+coding scheme with a decoder switching system. Here we vary
+the decoding time of weak decoder as TIE | Teen = 0.4, 0.7, 0.9
+and fix the other parameters with d = 21, ropi = 9d,
+
+—3 eak stron stron;
+Yewiten = 107%, Tetinm = Tgen and Teomm = Tae = LOT gen.
+26
+
+(a) (b)
+1.0 + AMA MANADD A dadad stadia nd daca lecndnrh sh datasdnihd M Tdee*/Tgen = 0
+hy i H
+| sae | een 01
+t ! ! weak poe
+> 0.8 ! 1 L ' i 3000 i jane et
+= H | H if " i TYEE Tagen = 0.7
+8 ' { THE) Toop = 0 i 2 2500 i -¥- THE2/ Teen = 0.9
+2 0.6 H Fm TWO /T6q = 0.1 i H é Y Pt
+c ! | _@ pweakyy,,, 0.7 Lt © ' 1
+a O47 Mle geet lol Pe g 15004} t 7
+g { : OW Tyee) Ten = 0. } I 4 } i ni
+2 ' j | ¥ t
+H
+! { \ it ) i
+/ ; i; 500 ty sgt =f et’
+0.0} 00060600625 rennedeOoSeHe Peo = aa ead
+10-4 10-3 10-2 10-1 10-4 103 10°
+Switching Rate Switching Rate
+nha
+log
+
+FIG. 21. (a) The divergence probability and (b) the average size of backlogs in the sliding window decoding scheme wit
+
+decoder switching system. We sample 10° backlog trajectories, and each sample is judged to be diverging when the back
+
+r; exceeds 10° rounds even once during Neate = 10‘ time steps. The average size of backlogs is evaluated by averaging over
+
+all time steps and backlog trajectories that have not diverged. We vary the decoding time of weak decoder as THe Teen =
+and Tstrons — Strong _ LOT gen.
+
+Tweak =f,
+comm — Tgen comm — Tdec
+
+0, 0.1, 0.4, 0.7, 0.9 and fix the other parameters with d = 21, rop,i = 9d,

@@ -1,0 +1,1382 @@
+s.plasm-ph] 29 Oct 2025
+
+SIC
+
+2510.25376v1 [phy
+
+arXiv
+
+Robust direct laser acceleration of electrons with flying-focus laser pulses
+
+Talia Meir!?,* Kale Weichman?, Alexey Arefiev’, John P. Palastro?, and Ishay Pomerantz!
+'The School of Physics and Astronomy, Tel Aviv University, Tel Aviv, 69978, Israel
+? The School of Electrical Engineering, Tel Aviv University, Tel Aviv, 69978, Israel
+3 Laboratory for Laser Energetics, University of Rochester, Rochester, NY 14623 1299, USA
+4Department of Mechanical and Aerospace Engineering,
+University of California San Diego, La Jolla, CA, 92093, USA
+(Dated: October 30, 2025)
+
+Direct laser acceleration (DLA) offers a compact source of high-charge, energetic electrons for gen-
+erating secondary radiation or neutrons. While DLA in high-density plasma optimizes the energy
+transfer from a laser pulse to electrons, it exacerbates nonlinear propagation effects, such as fila-
+mentation, that can disrupt the acceleration process. Here, we show that superluminal flying-focus
+pulses (FFPs) mitigate nonlinear propagation, thereby enhancing the number of high-energy elec-
+trons and resulting x-ray yield. Three-dimensional particle-in-cell simulations show that, compared
+to a Gaussian pulse of equal energy (1 J) and intensity (2 x 10°° W/cm?), an FFP produces 80x
+more electrons above 100 MeV, increases the electron cutoff energy by 20%, triples the high-energy
+x-ray yield, and improves x-ray collimation. These results illustrate the ability of spatiotemporally
+structured laser pulses to provide additional control in the highly nonlinear, relativistic regime of
+
+laser-plasma interactions.
+
+I. INTRODUCTION
+
+Laser-driven sources of energetic electrons hold
+romise for a wide range of applications and fundamental
+studies, including electron radiography [1-4], neutron [5—
+7] and radiation generation [8-13], and measurements of
+strong-field quantum electrodynamical phenomena [14—
+6]. The extreme intensities required for the highest en-
+ergy sources inevitably involve plasma due to the mate-
+rial breakdown limitations of solid-state or gaseous me-
+dia. Intense, ultrashort laser pulses propagating through
+lasma accelerate electrons either directly, in the elec-
+romagnetic fields of the pulse itself, or indirectly, in the
+quasi-static fields that it drives. The direct laser accel-
+eration (DLA) mechanism harnesses both processes: the
+first to energize electrons, and the second to laterally
+confine them, which facilitates their energy gain through
+he first process [17]. The resulting high-efficiency trans-
+fer of laser energy to high-charge electron bunches has
+made DLA an attractive source that complements other
+aser-based approaches [18-24].
+
+As an intense laser pulse propagates through plasma,
+its leading edge expels electrons from its path, forming a
+asma channel. A population of electrons, either from
+he background plasma or edges of the channel, are in-
+jected into pulse, where they gain energy through its
+ransverse electric field. The transverse momenta of these
+electrons are then rotated into the longitudinal direction
+oy the magnetic field of the pulse. The quasi-static elec-
+ric and magnetic fields generated during the formation
+the plasma channel enhance the energy gain by pro-
+iding transverse confinement [25] and driving transverse
+etatron) oscillations [26]. When the Doppler-shifted
+
+=]
+
+aac
+
+* taliameirQmail.tau.ac.il
+
+laser frequency experienced by an electron becomes com-
+parable to its betatron frequency, its transverse velocity
+can remain nearly antiparallel to the transverse electric
+field of the pulse over many cycles. The electron then
+gains energy with each oscillation.
+
+While DLA can occur in low density plasma, the high-
+est efficiencies and highest charge bunches are produced
+in plasmas where the electron density is comparable to
+he critical density—the density at which the plasma
+becomes opaque [23]. At these near-critical densities,
+self-focusing, filamentation, and hosing can destabilize
+pulse propagation [27-29], disrupting the structure of the
+quasi-static fields that are essential for sustained energy
+gain [21, 30]. To mitigate such instabilities, approaches
+based on structured targets, such as pre-fabricated micro-
+channels [31] or channels created by precursor pulses [32]
+have been explored. These approaches, however, intro-
+duce their own challenges for experimental implementa-
+ion, motivating the search for alternatives.
+
+Flying-focus pulses (FFPs) offer a structured-light ap-
+proach to stabilizing laser pulse propagation. FFPs
+eature an intensity peak that travels at an arbitrary,
+controllable velocity over distances far exceeding the
+Rayleigh range [33-37]. These features have been ex-
+perimentally demonstrated using chromatic focusing of
+chirped laser pulses [34, 38-40] and axilens focusing of
+pulses prepared by a radial echelon or refractive dou-
+blet [41, 42]. The controllable velocity and extended
+interaction lengths afforded by FFPs benefit several
+laser-plasma applications, including electron acceleration
+[35, 36, 43] and radiation generation [44~46]. Of partic-
+ular note for DLA, FFPs have stabilized the propaga-
+tion of low-intensity laser pulses in the formation of low-
+density plasma channels by mitigating ionization refrac-
+tion [47, 48]. The open question, which we address here,
+is whether the controllable velocity of a high-intensity
+flying-focus pulse can be used to stabilize a high-density
+
+(a) Gaussian, n, = 0.16 n, (b) Flying focus, n. = 0.16 n, (c) —— Flying focus
+200 fs 250 fs 300fs 350fs 400fs||200 fs 250fs 300fs 350fs 400 fs 109 cee Gaussian
+g eS 0.04 n.
+3 =" 0.08 n,
+& 5 -£ 8 0.16 7,
+5 10 7
+> B 0.24 n,
+oe 5 A 40
+g & Q a aN
+5 10 " §
+Ae 5 1
+oO 10° i
+= 5 6 d
+$ werk
+40-30-20 -10 0 10 20 30-40 -30 -20 -10 0 10 20 30 50. 100-150
+x (um) x (um) € (Mev)
+z=) el =
+005 1 0 O01 0.2 40 60 80
+E,/Ep n/N (e) (MeV)
+
+FIG. 1. Comparison of DLA with flying focus pulses (FFPs) and conventional Gaussian pulses (GPs) of equal energy and
+intensity. (Top row) (a) A GP propagates through vacuum and comes to focus at a fixed point in space. (b) A FFP propagates
+through vacuum with a focal point that moves at vy = 1.2c. (Bottom rows) (a) The GP breaks up into multiple filaments,
+producing multiple small channels. (b) The FFP resists filamentation, producing a single, wide channel. (c) The wider and
+more uniform channel created by the flying focus results in more high energy electrons and a larger cutoff energy, independent
+
+of the electron density. Here, E,/Eo is the transverse electric field envelope of the
+
+aser pulses normalized to their maximum
+
+amplitude in vacuum £o, n is the electron density, and € the electron energy. The rainbow colorbar in the bottom row shows
+the average energy of electrons with energy greater than 30 MeV.
+
+plasma channel required for sustained DLA.
+
+In this work, we demons
+
+rate that a flying-focus pulse
+
+with an appropriately chosen superluminal velocity can
+
+enhance direct laser acce
+particle-in-cell simulations
+80x more electrons above
+
+energy by 20%, a
+compared to a s
+same energy (1 J
+
+These improvements are
+luminal FFP to maintain
+
+quently, a stable
+acceleration leng
+
+the back of the
+hat has already
+erluminal FFP,
+he plasma than
+
+quiescent plasma
+
+Il.
+
+tron ac
+
+celeration for high-intensity GPs and FFPs in ini-
+
+tially uniform, high-density plasma. The initial electron
+
+densi
+
+ties are typic
+
+al of DLA experiments and range from
+
+nd trip.
+andard
+) and p'
+
+quasi-s'
+
+T
+
+eration.
+
+es the x-ray yie
+
+Gaussian
+
+inked to t.
+stable pro
+atic field s
+
+Tuc
+
+eak intensity (2
+ne al
+agation and, conse-
+
+hree-dimensional
+
+show that an FFP generates
+00 MeV, increases the cutoff
+
+id above 200 keV
+
+pulse (GP) with the
+
+x 10° W/cm?).
+ility of a super-
+
+ure over the full
+
+Ne =
+densi
+ters are motivatec
+laser
+the simulation details are presented in Methods.
+
+Be
+
+by commercially available Ti:Sap:
+
+ore describing the nonlinear dynamics under
+
+0.04—0.24 n,, where n, = Eomews /e? is the critical
+ty for the laser frequency wo. The pulse parame-
+
+phire
+
+systems. The parameters are listed in Table I, while
+
+ying
+
+enhanced DLA in an FFP, it is instructive to outline the
+
+differences in the vacuum propagation of a GP and
+The top row of Fig. 1 illustrates these differences.
+
+FFP.
+The
+
+h. With a Gav
+
+deen dis
+earlier
+ater slices. Thus,
+
+urbed by
+
+has already come in and out of focus
+lasma that has been dist
+he high-intensity peak o:
+
+the FFP
+
+sian pulse, every tem-
+oral slice has the same nominal focal point. As a result,
+ulse must propagate
+he
+temporal slices
+he
+
+through plasma
+front. With a su-
+focus deeper into
+back of the pulse
+fore encountering
+
+be
+
+urbed by the front. This allows
+
+o traverse relatively
+
+ROBUST ELECTRON ACCELERATION
+
+Figure 1 demonstrates that FFPs mitigate nonlinear
+propagation and enhance DLA relative to conventional
+GPs with the same energy and intensity. The figure dis-
+plays the results of 3D particle-in-cell (PIC) simulations,
+comparing the propagation, channel formation, and elec-
+
+GP propagates along the 2 axis at the vacuum s
+
+of ligh
+
+As a result, the peak intensity of the GP occurs
+
+single
+(wy
+axis at
+
+peed
+0.
+at a
+ace
+he x
+ata
+
+c and has a stationary focal plane at x =
+ime (t © 300 fs) and at a single point in sj
+= z=0). The FFP also propagates along t
+c but has a dynamic focal plane that travels
+
+superluminal velocity ve = 1.2c. In this case, the peak
+
+intensi
+of the
+
+yy moves from the back of the pulse to the front
+uulse in a time T + 2up7/(vy — c), where 7 is the
+
+total pulse duration (see Table I). As a result, the peak
+
+intensi
+
+y of the FFP occurs over a T *% 300 fs window
+
+and a
+Desp
+GP or
+gation
+The mi
+for ne
+and raj
+
+focal range Ly = v¢T © 100 pm.
+
+ite the strong currents excited by a high-intensity
+FFP in high-density plasma, their linear propa-
+behavior still influences their nonlinear evolution.
+ddle row of Fig. 1 depicts this nonlinear evolution
+= 0.16 n-. The GP becomes highly modulated
+idly self focuses before breaking up into multi-
+
+ple filaments. The FFP, although also highly modulated,
+undergoes weaker self-focusing and resists filamentation.
+This improved stability of the FFP is due to the super-
+luminal velocity of its intensity peak. The front of a
+superluminal FFP focuses deeper into the plasma than
+he back. As a consequence, the back of the pulse forms a
+high-intensity focus before having to propagate through
+asma that has been disturbed by the front. Meanwhile,
+he front remains at lower intensity and traverses largely
+undisturbed plasma until it reaches its focus. The weaker
+asma modifications experienced by the back and driven
+y the front mitigates self-focusing and filamentation,
+abilizing propagation. This contrasts with a GP where
+he back of the pulse must propagate through plasma
+hat has been strongly disturbed by the front, causing an
+accumulation of nonlinear refraction and focusing along
+he propagation path.
+
+QB
+
+A key component of DLA in high-density plasma is the
+formation of a channel, created when the leading edge o
+a laser pulse expels electrons leaving behind a positively
+charged column. The bottom row of Fig. 1 shows the den-
+sity of the channel and the electrons accelerated within
+it. By propagating more stably, the FFP drives a wider,
+more uniform channel. This leads to a greater number o
+high-energy electrons and a larger cutoff energy regard-
+less of the background density [Fig. 1(c)]. For instance,
+at the optimal density of 0.08 n-, the FFP produces 80x
+more electrons above 100 MeV than the GP, with a cutofl
+of 170 MeV compared to 140 MeV for the GP.
+
+The improved uniformity of the channel enhances DLA
+by increasing the collimation of the accelerated electrons.
+Figure 2 illustrates how the channel uniformity influences
+the trajectories and energy gain of representative high-
+energy electrons. In all cases, the electrons follow the
+
+TABLE I. Physical parameters for the target and pulses. The
+temporal electric field profile for both the GP and FFP was
+exp[—(t/r)*2]. Here, the normalized vector potential aj =
+eEo/mecwo.
+
+Target Parameters Value
+
+nitial density (n-) 0.04, 0.08, 0.16, 0.24
+
+Density profile Uniform, —50 ym < x < 50 pm
+Target dimensions 100. x 20, x 20. (um?*)
+
+nitial composition Fully ionized carbon
+
+Shared Pulse Parameters Value
+Wavelength Ao (nm) 800
+Normalized vector potential ao 9.8
+ntensity (107° W/cm?) 2.04
+Energy (J) 1
+Polarization direction y
+Duration 7 (fs) 25
+Gaussian Pulse
+
+Spot size wo (am) 3.1
+Temporal profile order g 1
+Flying Focus Pulse
+
+Spot size wo (ym) 2.6
+Temporal profile order g 4
+
+10,
+5
+= 4
+-108 OSs 2D
+(b) Flying focus, ne = 0.16 n-
+S n
+>
+(c)
+=
+
+FIG. 2. Enhanced collimation and energy gain of accelerated
+electrons in the wider, more-uniform channel produced by the
+FFP. The trajectories of representative high-energy electrons
+are colored by their energy at the corresponding location in
+the channel. The highest cutoff energy for a GP occurs for
+Ne = 0.16 n-, whereas the highest cutoff for a FFP occurs
+for ne = 0.08 ne [See Fig. 1(c)]. The time-averaged density
+(gray) was calculated in a 8 xm window moving at the speed
+of light.
+
+path of the channel(s), whether its the multiple channels
+formed by the filamenting GP or the single, collimated
+channel formed by the FFPs. At the optimal density
+for the FFP [n, = 0.08 n,, Fig. 2(c)], the highest-energy
+electrons remain collimated and accelerate monotonically
+along the entire length of the channel. For visualization
+in Fig. 2, the electron density was averaged over snap-
+shots taken every 25 fs, using an 8 jzm-long window mov-
+ing with the laser pulse (gray scale). The trajectories are
+shown for electrons randomly sampled from the most-
+energetic population, selected at the time where the en-
+ergy spectrum had the largest cutoff (i.e., the right-most
+edge of the spectrum).
+
+The FFPs create wide, uniform channels, while fila-
+mentation of the GP results in multiple, smaller chan-
+nels. The larger width of the channels produced by FFPs
+enhance the maximum energy gain achievable through
+DLA. The effect of channel width on the maximum en-
+ergy gain can be understood using a simple model for
+the electron acceleration. Following the approach out-
+lined in Ref. [49], and as detailed in the Methods section,
+the maximum electron energy supported by a channel
+can be estimated as:
+
+a u %
+a R’. 1
+Vine AB (4) (1)
+
+Here, R is the radius of the magnetic boundary defined as
+the maximum transverse displacement from the propaga-
+
+(a) 10 Gaussian
+Beading wheat
+S One Vesa’
+SA Vibcdiaath os Sets
+-10 .
+(b) 10 Flying focus 6
+= er ah a Valin,
+E olorenerw sie yuwanay
+>
+-W lh I -0.08
+(c) — Max. supported energy, Eq.(1)
+
+-20 0 20
+x (um)
+
+FIG. 3. Magnetic field structure and maximum achievable
+electron energy in GP- and FFP-driven DLA. The channel
+produced by an FFP supports a higher maximum energy than
+that produced by a GP. (blue-to-red) The time-averaged az-
+imuthal magnetic field driven by (a) the GP nan. = 0.16 ne
+plasma and (b) the vs = 1.2c FFP in a ne = 0.08 ne plasma.
+Here, the magnetic field was averaged in a 30 um window
+moving at the speed of light and normalized to the peak mag-
+netic field of the laser pulse in vacuum Bo. The densities were
+chosen to maximize the cutoff energy for each pulse. (c) The
+maximum supported energy along the channel (solid curves)
+and range of energies up to the maxima (shaded) for the GP
+(black) and FFP (blue). The dashed lines show the average
+energy of the top 10% most energetic electrons at each time
+step, plotted at their mean longitudinal position. The aver-
+age energies increase monotonically until they approach the
+maximum energy supported by the channel.
+
+ion axis where the magnetic field can still confine elec-
+rons to the channel, a is proportional to the current, and
+U = Uph/c is the normalized phase velocity of the laser
+ulse. Equation 1 indicates that the maximum energy
+increases when either the magnetic boundary expands,
+he current increases, or the phase velocity approaches
+unity.
+
+To demonstrate the effect of the channel width—and
+hus the magnetic boundary—on the electron energy,
+Eq. 1 can be evaluated with R and a values determined
+from the average magnetic field [Figs. 3(a) and (b)] and
+a u value obtained from the transverse field of the laser
+uulse (see Methods for details). As shown in Fig. 3(c),
+DLA driven by an FFP supports higher maximum en-
+
+Flying focus
+
+500
+
+400
+
+ago vs =0.8¢
+500
+
+400
+
+300 vp = lle 108
+
+r
+is
+500 a
+400 107 s
+> -—
+2 300 =
+bi
+oO
+& 500 4
+= 400 2
+3 <4
+300 ae
+8
+500 25
+2
+400 i*™
+300 8
+Gaussian 6 gs
+ano 4 ia
+400
+300 2
+50 100 150 -100 -90
+e (MeV) x — ct (wm)
+
+FIG. 4. Optimization of the focal velocity vy for DLA and
+comparison of FFPs with the optimized GP. (left) Evolution
+of the electron energy spectrum. (right) Overlap between the
+transverse electric field envelope of the laser pulse (green) and
+electrons with energies greater than 100 MeV (pink). In all
+cases, the results for the optimal plasma density are displayed:
+Ne = 0.08 n. for the FFP and ne = 0.16 ne. for the GP. By
+stabilizing propagation, the superluminal FFPs allow for sus-
+tained overlap between the laser field and energetic electrons,
+leading to continued acceleration and higher energies.
+
+ergies (solid curves) over a longer distance than DLA
+driven by a GP. In both cases, the average energy of
+he top 10% most energetic electrons (dashed curves) in-
+creases monotonically until it approaches the maximum
+supported by the channel. For the GP, the acceleration
+erminates near x = 0 where the pulse filaments; for the
+FFP the acceleration persists along the entire channel.
+
+In addition to the channel width and uniformity, ac-
+celeration to high energies requires sustained overlap be-
+ween the electrons and the high-intensity region of the
+laser pulse. For FFPs, this overlap is governed by the
+focal velocity. The optimal focal velocity vy = 1.2c pre-
+sented in Figs. 1-3 was identified by performing a simula-
+ion scan over vy values ranging from 0.8 — 1.6 c. Figure 4
+
+shows the evolution of the electron energy spectrum (left
+column) and overlap between the laser pulse and ener-
+getic electrons (right column) for this range, with the
+GP results included at the bottom for comparison. The
+vy = 1.2c FFP sustains acceleration over the longest du-
+ration, leading to the highest electron energies. In all su-
+perluminal cases (vf > c), where the propagation is more
+stable, a substantial population of electrons with energies
+above 100 MeV (pink colorbar) remain coincident with
+the transverse electric field of the FFPs (green colorbar),
+facilitating continued acceleration. This contrasts with
+the subluminal FFP (vs = 0.8c) and GP cases where the
+propagation is unstable and there are almost no electrons
+above 100 MeV. For fair comparison, each case is shown
+for the optimal initial electron density: n. = 0.08 n, for
+the FFPs and n, = 0.16 n. for the GP.
+
+Ill. ENHANCED X-RAY EMISSION
+
+The highly collimated, higher-energy electrons gener-
+ated by the FFP emit x-rays that exhibit superior colli-
+mation and higher energies compared to those produced
+y the GP. This is demonstrated by the angle-resolved
+hoton spectra presented in Figs. 5 (a) and (b), where
+4, is the emission angle in the polarization plane (y-x)
+of the pulses. The spectral peak occurs at 27 keV for
+he FFP, compared to 10 keV for the GP. The angular
+distribution of the radiated energy is shown to the right,
+with the dashed lines marking the polar angle. For the
+FFP, the emission is more collimated and confined to a
+0° cone. Figure 5(c) compares the cumulative energy of
+emitted photons above €,. The dashed curve shows the
+ratio of cumulative energies for the FFP and GP, demon-
+strating a three-fold enhancement in conversion efficiency
+for photons above 200 keV with the FFP.
+
+The enhanced x-ray emission with the FFP arises from
+he motion of high-energy electrons in the electromag-
+netic fields of the laser pulse and quasi-static fields of
+he plasma. During DLA, the transverse (i.e., beta-
+ron) oscillations of electrons in the combined laser and
+lasma fields generate x-rays through two distinct mecha-
+nisms [12]. In the first mechanism, the rapid acceleration
+within each cycle of the laser pulse generates x-rays that
+are emitted in a double-lobed angular structure about
+he propagation axis. Observation of this mechanism is
+indicative of relatively inefficient electron acceleration,
+characterized by frequent cycles of energy gain and loss.
+n the second, more efficient mechanism, electrons grad-
+ually gain energy over multiple cycles, interact with the
+azimuthal magnetic field of the plasma, and emit x-rays
+in a single-lobed, collimated angular pattern.
+
+Figure 6 displays the time-integrated energy density of
+x-rays generated at each location, revealing the origin of
+the enhanced emission. For the GP, the emission peaks
+near the center of the channel at « % —25 ym. This
+is a hallmark of the inefficient mechanism [12], where
+the emission is dominated by the fields of the laser pulse
+
+on
+
+OPN-€y ° d
+Ologio(€y/eV )O0, (ud / ) a (uJ/sr)
+0 0.25 0.5 0 300
+
+10° = 10! —s 10? —:108
+€, (keV)
+
+FIG. 5. Enhancement of x-ray emission in FFP-driven DLA
+relative to GP-driven DLA. (left) The angularly resolved en-
+ergy spectra of emitted photons for (a) the GP and (b)
+the vs = 1.2c FFP, each at its optimal electron density:
+Ne = 0.16 ne and ne = 0.08 ne, respectively. Here, 0, is
+the emission angle of the photons in the polarization plane
+of the pulses, y-z. (right) Projections of the photon energy
+distributions on a unit sphere. The dashed circles indicate
+polar angles, and the arrows mark the y-axis (polarization di-
+rection) and z-axis. (c) Cumulative photon energy above €,
+for the GP (black) and FFP (blue). The dashed curve shows
+their ratio, demonstrating a threefold increase in conversion
+efficiency for photons above 200 keV with the FFP.
+
+rather than the quasi-static magnetic field. For the FFP,
+the emission peaks at the edges of the channel in lo-
+calized islands. Inspection of the quasi-static magnetic
+field at a representative time t = 437 fs [Fig. 6(c)] shows
+a clear correlation between the emission and island-like
+magnetic-field structure. These quasi-periodic magnetic
+islands arise from current vortices formed in the wake
+of the laser pulse [50, 51]. This structure is consistent
+with the efficient x-ray generation mechanism described
+above.
+
+IV. DISCUSSION
+
+FFPs feature an arbitrary, tunable velocity intensity
+peak, providing an additional degree of freedom for op-
+timizing DLA. The 3D PIC simulations presented in
+this work demonstrate that a FFP with a superluminal
+(vy > c) intensity peak mitigates the nonlinear propaga-
+tion effects that otherwise limit the performance of DLA
+in high-density plasma. By stabilizing propagation, the
+FFP addresses two key requirements for efficient DLA:
+| 5/ (a) Gaussian J/mm?
+Sa 80
+> 5) Time Integrated 60
+= 5|(b) Flying focus 40
+= 20
+>? | Time Integrated
+=> -5/(c) Flying focus ny (B:)/Bo
+z (c) Flying “ha 0.08
+= ob on ‘ [ 0
+> Tt = 437 fs Hy ane
+-40 -20 0 20 40
+
+x (ym)
+
+FIG. 6. Location of photon emission in GP- and FFP-driven
+DLA. The GP results in relatively inefficient DLA, character-
+ized by photon emission at the center of the channel. The
+FFP, in contrast, results in efficient DLA and emission at
+the channel edges, coincident with quasi-static magnetic is-
+lands. (a,b) Time-averaged energy density of ¢, > 1 keV pho-
+tons generated at each location for (a) the GP and (b) the
+vg = 1.2c FFP, each at its optimal density: ne = 0.16 n. and
+Ne = 0.08 ne, respectively. (c) Magnetic field for the FFP case
+at t = 437 fs and z = 0, spatially averaged and normalized to
+the peak magnetic field of the laser pulse in vacuum Bo.
+
+(1) formation of a stable, uniform channel and (2) sus-
+ained overlap between the laser pulse and high-energy
+electrons.
+
+The wider, more uniform channel and sustained over-
+ap enabled by the FFP improve both the collimation
+and energy gain of accelerated electrons. Compared to
+an optimized GP with the same energy (1 J) and in-
+ensity (2 x 10? W/cm?), the FFP produces 80x more
+electrons above 100 MeV and raises the cutoff energy
+oy 20%. These improvements in the channel structure
+and electron dynamics compound to generate x-rays with
+higher energies and reduced angular divergence: the FFP
+riples the yield of x-rays above 100 keV while simul-
+aneously enhancing their collimation. For the optimal
+focal velocity (vg = 1.2c) and density (ne = 0.08 ne),
+FFP-driven DLA generates approximately 10!° photons
+with energy above 1 keV, with a total energy of 14.2 wJ,
+corresponding to an IR-to-x-ray conversion efficiency of
+~ 10-5. The resulting source brightness is approximately
+0?! (s mrad? mm? 0.1%BW)~1, comparable to measure-
+ments of DLA-generated x-rays using GPs with 20 times
+higher energy [9, 52].
+The enhanced stability of high-intensity FFPs demon-
+strated here suggests that FFPs may benefit other laser-
+lasma applications that rely on the formation of a uni-
+form channel, such as ion acceleration in near-critical
+density gas targets [53, 54] or self-guiding of relativis-
+ically intense laser pulses [55]. Nonlinear propagation
+dynamics can also limit electron acceleration, x-ray gen-
+eration, and electron-positron pair creation, in relativisti-
+cally transparent (ne < aon) or ultra-relativistic regimes
+(ao 2 100) [56]. Future work will consider the potential
+
+impact of FFPs in these regimes.
+
+V. METHODS
+A. Simulation setup
+
+The advantages of FFPs over conventional GPs were
+explored through a series of 3D simulations using the
+open-source, fully relativistic PIC code EPOCH [57]. In
+all cases, the FFPs and GPs were initialized with the
+same energy, pulse duration, and normalized vector po-
+tential. This was achieved by making slight adjustments
+to the spot size and temporal profile of the pulses. The
+pulse parameters are listed in Table I, while the target
+and numerical parameters are provided in Table I.
+
+The numerical implementation of FFPs_ follows
+Ref. [58]. The transverse electric field is initialized at
+a single location in x with a Gaussian profile and a
+time-dependent focal length: f(t) = fo + cust/(e — vf),
+where vy is the focal velocity. The time-dependent focal
+length determines the time-dependent curvature R(t) =
+f(t)[1 + Z2/ f2(8)}, spot size w(t) = wll + f2(t)/Z3]?,
+and Gouy phase w(t) = tan![f(t)/Zp], where wo is the
+spot size at focus and Zp = mw%/Ao is the Rayleigh
+range. The initial field is then
+
+E(r,t) = Eo exp (-z5) 2
+x exp [-i (-" = tana + 7)) RG);
+
+where Eo is the maximum electric field in vacuum, k =
+2n/Xp, w = ck, and T(t) is a temporal profile. For the
+simulations presented here T(t) = exp[—(t/7)?4] (see Ta-
+ble I).
+
+B. X-ray emission
+
+EPOCH features a Monte-Carlo based module for cal-
+culating the synchrotron emission [59], which depends on
+the effective transverse field strength:
+
+where E and B are the electromagnetic fields at the lo-
+cation of an electron with velocity v. In the classical
+
+TABLE II. numerical parameters.
+
+Numerical Parameters
+Macro-particles per cell
+Simulation box
+
+Spatial resolution
+
+Ter, 2 OFF
+160, x 24, x 24. (um?)
+25 x 25 x 25 (cells ym~*)
+
+limit relevant to this work, the module statistically re-
+produces the known expression for the radiated energy
+per unit frequency [60]:
+
+dl VbeHw f*
+—_— = —, — K5 /3(x) dx, 4
+
+dw > nme wx [. 5/3(@) dx (4)
+where w. = 3eHy?/2me is the critical synchrotron fre-
+quency, K,, is the modified Bessel function of the second
+kind, and y = (1 — v- v/c?)~1/? is the Lorentz factor of
+the radiating electron.
+
+C. Maximum electron energy supported by a DLA
+channel
+
+Following Ref. [49], the fields acting on an electron are
+separated into the electromagnetic fields of the laser pulse
+and the quasi-static fields of the channel. The laser pulse
+is approximated as a plane wave with a superluminal
+phase velocity vpn that accounts for both the dispersive
+properties of the plasma and the finite transverse extent
+of the laser beam. The problem then reduces to solving
+the relativistic equations of motion under the action of
+
+Cc
+E=e,£ycos(€), B= See cos(§)+ Bea, (5)
+P!
+
+where e; denotes a unit vector in the direction j. The
+channel field B,, is derived from its normalized vector
+potential
+
+2
+
+de’
+
+Ach = Cx a Ben
+
+a7 1 “vy X Ach. (6)
+
+where Apo is the laser wavelength and a is defined as
+
+lel|Ag_ (Bz)
+ee ae (7)
+
+Mec? 2m.c?
+
+Here, jo is the longitudinal current density expressed in
+terms of the magnetic field gradient through Ampere’s
+law.
+
+The fields and particle dynamics depend on a single co-
+ordinate € = wo(t—2x/Vpp), which leads to the conserved
+integral of motion:
+
+_ Uph Px | Uph
++
+Cc Mec c
+
+Gch = const. = 74, (8)
+
+where p, is the longitudinal momentum of the electron
+and 7; the initial value of its Lorentz factor before it
+enters the wave. Equation 8 can be rearranged as
+
+Uden = Yi lv- | +(u—1)2E, (9)
+
+Mel Mel
+
+where u = Up,/c is the normalized phase velocity. As
+the longitudinal momentum and Lorentz factor y in-
+crease, the condition 7 — pz/mec > 0 must hold. Since
+u—1 > 0, the maximal energy gain is reached when
+
+) @) Gaussian b) Flying focus
+
+x 10's
+oe —
+= 5
+a oy
+
+-102 -100 -98 -96 -102 -100 -98 -~
+a — ct (um) a —ct (um)
+
+Flying focus
+
+Gaussian
+
+Flying focus
+
+Gaussian
+0.2
+
+-20 -10 0 10 20 30
+x (um)
+
+FIG. 7. Parameters used to estimate the maximum achiev-
+able energy. (a,b) On-axis (y = z = 0) temporal profiles
+of the transverse electric field for (a) the GP and (b) the
+vg = 1.2c FFP, each at its optimal density: ne = 0.16 n. and
+Ne = 0.08 ne, respectively. The black dashed lines show the
+segments used to find upp: 1.0215 ¢ for the GP and 1.0119 ¢
+for the FFP. (c) The average radius R of the quasi-static mag-
+netic field and (d) the parameter a, which is proportional to
+the current density, are evaluated at each x-position for both
+the GP (black) and the FFP (blue).
+
+1 — px/mec + 0. In this limit, the first term in Eq. 9
+can be neglected and the maximum energy gain approx-
+imated by p,/mec * Ymax- For the regime of interest,
+y/% > (u- 1)7! and ymax can be estimated by combin-
+ing the above equations, yielding Eq. 1.
+
+To calculate the maximum supported energy in
+Fig. 3 (c), the phase velocity was extracted from the
+transverse electric field plotted in Fig. 7. The param-
+eters R and a were evaluated at each x-position using
+a 20 wm moving average window of the magnetic field
+plotted in Fig. 3. The parameter a was obtained from
+the slope 0(B.)/Oy, and 2R was defined as the distance
+between the minimum and maximum of (B,) along the
+y-axis.
+
+VI. DATA AVAILABILITY
+
+The data sets analyzed during the current study are
+available from the corresponding author on reasonable
+request.
+VII. CODE AVAILABILITY
+
+All codes used during the current work are available
+from the corresponding author upon reasonable request.
+
+VIII. ACKNOWLEDGMENTS
+
+This research was supported by Grant No. 2022322
+from the United States-Israel Binational Science Foun-
+dation (BSF). We acknowledge the EuroHPC Joint Un-
+dertaking for awarding this project access to the Eu-
+roHPC supercomputer LUMI, hosted by CSC (Finland)
+and the LUMI consortium through a EuroHPC Regular
+Access call. Simulations were performed using EPOCH,
+which was developed as part of the UK Engineer-
+ing and Physical Sciences Research Council (EPSRC)
+grants EP/G054950/1, EP/G056803/1, EP/G055165/1
+
+[1] W. Schumaker, N. Nakanii, C. McGuffey, C. Zulick,
+V. Chyvkov, F. Dollar, H. Habara, G. Kalintchenko,
+A. Maksimchuk, K. A. Tanaka, A. G. R. Thomas,
+V. Yanovsky, and K. Krushelnick, Ultrafast electron ra-
+diography of magnetic fields in high-intensity laser-solid
+interactions, Phys. Rev. Lett. 110, 015003 (2013).
+
+2] C. Zhang, J. Hua, Y. Wan, C.-H. Pai, B. Guo, J. Zhang,
+
+Y. Ma, F. Li, Y. Wu, H.-H. Chu, e¢ al., Femtosec-
+
+ond probing of plasma wakefields and observation of the
+
+plasma wake reversal using a relativistic electron bunch,
+
+Physical review letters 119, 064801 (2017).
+
+3] Y. Wan, O. Seemann, S. Tata, I. A. Andriyash, S. Smart-
+
+sev, E. Kroupp, and V. Malka, Direct observation of rel-
+
+ativistic broken plasma waves, Nature Physics 18, 1186
+
+(2022).
+
+4] G. Bruhaug, M. S. Freeman, H. G. Rinderknecht, L. P.
+
+Neukirch, C. H. Wilde, F. E. Merrill, J. R. Rygg, M. S.
+
+Wei, G. W. Collins, and J. L. Shaw, Single-shot electron
+
+radiography using a laser—plasma accelerator, Scientific
+
+Reports 13, 2227 (2023).
+
+5] I. Pomerantz, E. McCary, A. R. Meadows, A. Arefiev,
+A. C. Bernstein, C. Chester, J. Cortez, M. E. Dono-
+van, G. Dyer, E. W. Gaul, D. Hamilton, D. Kuk, A. C.
+Lestrade, C. Wang, T. Ditmire, and B. M. Hegelich, Ul-
+trashort pulsed neutron source, Physical Review Letters
+113, 184801 (2014).
+
+[6] M. M. Giinther, O. N. Rosmej, P. Tavana, M. Gyrdy-
+mov, A. Skobliakov, A. Kantsyrev, S. Zahter, N. G.
+Borisenko, A. Pukhov, and N. E. Andreev, Forward-
+looking insights in laser-generated ultra-intense 7-ray and
+neutron sources for nuclear application and science, Na-
+ture Communications 13, 170 (2022).
+
+[7] I. Cohen, T. Cohen, A. Levinson, M. Elkind,
+Y. Rakovsky, A. Levanon, D. Michaeli, E. Co-
+hen, A. Beck, and I. Pomerantz, Accumulated laser-
+photoneutron generation, European Physical Journal
+Plus 139, 10.1140/epjp/s13360-024-05387-6 (2024).
+
+and EP/ M022463/1. T.M. acknowledges support by
+the Jabotinsky Fellowship of the Ministry of Science
+and Technology, Israel. The work of K.W. and J.P.P.
+was supported by the Department of Energy National
+Nuclear Security Administration under award No. DE-
+NA0004144 and the Department of Energy Office of Fu-
+sion Energy Sciences under award No. DE-SC0021057.
+
+Ix. AUTHOR CONTRIBUTIONS
+
+T.M. performed and analyzed the PIC simulations. All
+authors wrote the manuscript. I.P. and A.A. obtained
+funding specific to this project.
+
+X. COMPETING INTERESTS
+
+The authors declare no competing interests.
+
+[8] S. Kneip, S. R. Nagel, C. Bellei, N. Bourgeois, A. E.
+Dangor, A. Gopal, R. Heathcote, S$. P. D. Mangles, J. R.
+Marqués, A. Maksimchuk, P. M. Nilson, K. T. Phuoc,
+S. Reed, M. Tzoufras, F. S. Tsung, L. Willingale, W. B.
+Jori, A. Rousse, K. Krushelnick, and Z. Najmudin, Ob-
+servation of synchrotron radiation from electrons acceler-
+ated in a petawatt-laser-generated plasma cavity, Phys.
+Rev. Lett. 100, 105006 (2008).
+(9] J. Cikhardt, M. Gyrdymov, S. Zahter, P. Tavana, M. M.
+Ginther, N. Bukharskii, N. Borisenko, J. Jacoby, X. F.
+Shen, A. Pukhov, N. E. Andreev, and O. N. Rosmej,
+Characterization of bright betatron radiation generated
+y direct laser acceleration of electrons in plasma of near
+critical density, Matter and Radiation at Extremes 9,
+027201 (2024).
+0] T. Meir, I. Cohen, K. Tangtartharakul, T. Cohen,
+M. Fraenkel, A. V. Arefiev, and I. Pomerantz, Plasma-
+guided compton source, Phys. Rev. Appl. 22, 044004
+(2024).
+1] R. Babjak and M. Vranic, Betatron radiation emitted
+during the direct laser acceleration of electrons in under-
+dense plasmas, Plasma Physics and Controlled Fusion 67,
+085019 (2025).
+2] K. Tangtartharakul, G. Fauvel, T. Meir, F. P. Con-
+damine, S. Weber, I. Pomerantz, M. Manuel, and A. Are-
+fiev, Collimated gamma-ray emission enabled by efficient
+direct laser acceleration, New Journal of Physics 27,
+023024 (2025).
+3] T. Meir, I. Cohen, K. Tangtartharakul, T. Cohen,
+M. Fraenkel, A. V. Arefiev, and I. Pomerantz, Inverse
+Compton scattering with direct laser acceleration, in
+Compact Radiation Sources from EUV to Gamma-rays:
+Development and Applications II, Vol. 13537, edited by
+C. 8. Menoni and J. Nejdl, International Society for Op-
+tics and Photonics (SPIE, 2025) p. 1353708.
+{14] J. M. Cole, K. T. Behm, E. Gerstmayr, T. G. Black-
+burn, J. C. Wood, C. D. Baird, M. J. Duff, C. Harvey,
+A. Ilderton, A. S. Joglekar, K. Krushelnick, $. Kuschel,
+
+17
+
+18
+
+19
+
+20)
+
+21
+
+[22]
+
+[23]
+
+[24]
+
+[25]
+
+[26]
+
+[27]
+
+M. Marklund, P. McKenna, C. D. Murphy, K. Poder,
+C. P. Ridgers, G. M. Samarin, G. Sarri, D. R. Symes,
+A. G. R. Thomas, J. Warwick, M. Zepf, Z. Najmudin,
+and S. P. D. Mangles, Experimental evidence of radi-
+ation reaction in the collision of a high-intensity laser
+pulse with a laser-wakefield accelerated electron beam,
+Phys. Rev. X 8, 011020 (2018).
+
+T. Blackburn, Radiation reaction in electron-beam in-
+teractions with high-intensity lasers, Reviews of Modern
+Plasma Physics 4, 5 (2020).
+
+A. Gonoskov, T. Blackburn, M. Marklund, and S. Bu-
+lanov, Charged particle motion and radiation in strong
+electromagnetic fields, Reviews of Modern Physics
+10.1103/RevModPhys.94.045001 (2021).
+
+A. V. Arefiev, A. P. Robinson, and V. N. Khudik,
+Novel aspects of direct laser acceleration of rel-
+ativistic electrons, Journal of Plasma Physics 81,
+10.1017/S0022377815000434 (2015).
+
+G. Malka, E. Lefebvre, and J. L. Miquel, Experimental
+observation of electrons accelerated in vacuum to rela-
+tivistic energies by a high-intensity laser, Physical Re-
+view Letters 78, 3314 (1997).
+
+C. Gahn, G. D. Tsakiris, A. Pukhov, J. Meyer-Ter-Vehn,
+G. Pretzler, P. Thirolf, D. Habs, and K. J. Witte, Multi-
+MeV electron beam generation by direct laser acceler-
+ation in high-density plasma channels, Physical Review
+Letters 83, 4772 (1999).
+
+J. L. Shaw, N. Lemos, K. A. Marsh, D. H. Froula,
+and C. Joshi, Experimental signatures of direct-laser-
+acceleration-assisted laser wakefield acceleration, Plasma
+Physics and Controlled Fusion 60, 044012 (2018).
+
+A. E. Hussein, A. V. Arefiev, T. Batson, H. Chen, R. S.
+Craxton, A. S. Davies, D. H. Froula, Z. Gong, D. Haber-
+berger, Y. Ma, P. M. Nilson, W. Theobald, T. Wang,
+K. Weichman, G. J. Williams, and L. Willingale, Towards
+the optimisation of direct laser acceleration, New Journal
+of Physics 23, 023031 (2021).
+
+I. Cohen, T. Meir, K. Tangtartharakul, L. Perel-
+mutter, M. Elkind, Y. Gershuni, A. Levanon, A. V.
+Arefiev, and I. Pomerantz, Undepleted direct laser
+acceleration, Science Advances 10, eadk1947 (2024),
+
+https: //www.science.org/doi/pdf/10.1126/sciadv.adk1947.
+
+R. Babjak, L. Willingale, A. Arefiev, and M. Vranic, Di-
+rect laser acceleration in underdense plasmas with multi-
+pw lasers: A path to high-charge, gev-class electron
+bunches, Phys. Rev. Lett. 132, 125001 (2024).
+O. N. Rosmej, M. Gyrdymov, N.E. Andreev, P. Tavana,
+V. Popov, N. G. Borisenko, A. I. Gromoy, S. Y. Gus’kov,
+R. Yakhin, G. A. Vegunova, et al., Advanced plasma tar-
+get from pre-ionized low-density foam for effective and
+robust direct laser acceleration of electrons, High Power
+Laser Science and Engineering 13, e3 (2025).
+
+A. Pukhov, Z.-M. Sheng, and J. Meyer-ter Vehn, Parti-
+cle acceleration in relativistic laser channels, Physics of
+Plasmas 6, 2847 (1999).
+
+V. Khudik, A. Arefiev, X. Zhang, and G. Shvets, Uni-
+versal scalings for laser acceleration of electrons in ion
+channels, Physics of Plasmas 23, 103108 (2016).
+
+Z. Najmudin, K. Krushelnick, M. Tatarakis, E. L. Clark,
+C. N. Danson, V. Malka, D. Neely, M. I. K. Santala, and
+A. E. Dangor, The effect of high intensity laser propa-
+gation instabilities on channel formation in underdense
+plasmas, Physics of Plasmas 10, 438 (2003).
+
+[28]
+
+[29]
+
+[30]
+
+(31)
+
+40
+
+Al
+
+A2
+
+E. Esarey, C. B. Schroeder, and W. P. Leemans, Physics
+of laser-driven plasma-based electron accelerators, Re-
+views of Modern Physics 81, 1229 (2009).
+
+B. Cros, Laser-driven plasma wakefield: Propagation ef-
+ects, in CAS-CERN Accelerator School: Plasma Wake
+Acceleration 2014, Proceedings (CERN, 2014) pp. 207—
+230.
+
+L. Willingale, A. G. R. Thomas, P. M. Nilson, H. Chen,
+J. Cobble, R. S. Craxton, A. Maksimchuk, P. A. Norreys,
+T.C. Sangster, R. H. H. Scott, C. Stoeckl, C. Zulick, and
+K. Krushelnick, Surface waves and electron acceleration
+rom high-power, kilojoule-class laser interactions with
+underdense plasma, New Journal of Physics 15, 025023
+(2013).
+J. Snyder, L. L. Ji, K. M. George, C. Willis, G. E.
+Cochran, R. L. Daskalova, A. Handler, T. Rubin, P. L.
+Poole, D. Nasir, A. Zingale, E. Chowdhury, B. F. Shen,
+and D. W. Schumacher, Relativistic laser driven electron
+accelerator using micro-channel plasma targets, Physics
+of Plasmas 26, 033110 (2019).
+M. Vranic, R. A. Fonseca, and L. O. Silva, Extremely in-
+tense laser-based electron acceleration in a plasma chan-
+nel, Plasma Physics and Controlled Fusion 60, 034002
+(2018).
+
+A. Sainte-Marie, O. Gobert, and F. Quéré, Controlling
+the velocity of ultrashort light pulses in vacuum through
+spatio-temporal couplings, Optica 4, 1298 (2017).
+
+D. H. Froula, D. Turnbull, A. S. Davies, T. J. Kessler,
+D. Haberberger, J. P. Palastro, $.-W. Bahk, I. A. Begi-
+shev, R. Boni, S. Bucht, J. Katz, and J. L. Shaw, Spa-
+tiotemporal control of laser intensity, Nature Photonics
+12, 262 (2018).
+
+5] J. Palastro, J. Shaw, P. Franke, D. Ramsey, T. Simpson,
+
+and D. Froula, Dephasingless laser wakefield acceleration,
+Physical review letters 124, 134802 (2020).
+
+C. Caizergues, S. Smartsev, V. Malka, and C. Thaury,
+Phase-locked laser-wakefield electron acceleration, Na-
+ture Photonics 14, 475 (2020).
+
+D. Li, K. Miller, J. Pierce, W. Mori, A. G. Thomas, and
+J. Palastro, Spatiotemporal control of high-intensity laser
+pulses with a plasma lens, Phys. Rev. Res. 6, 013272
+(2024).
+
+S. W. Jolly, O. Gobert, A. Jeandet, and F. Quéré, Con-
+trolling the velocity of a femtosecond laser pulse using
+refractive lenses, Opt. Express 28, 4888 (2020).
+
+A. Kabacins E. Oliva, F. Tissandier, J. Gautier,
+M. Kozlova, J.-P. Goddet, I. A. Andriyash, C. Thaury,
+P. Zeitoun, and S. Sebban, Spatio-temporal couplings
+‘or controlling group velocity in longitudinally pumped
+seeded soft x-ray lasers, Nature Photonics 17, 354 (2023).
+S. Fu, B. Groussin, Y. Liu, <A. Mysyrowicz,
+V. Tikhonchuk, and A. Houard, Steering laser-produced
+THz radiation in air with superluminal ionization fronts,
+Phys. Rev. Lett. 134, 045001 (2025).
+
+J. J. Pigeon, P. Franke, M. L. P. Chong, J. Katz, R. Boni,
+C. Dorrer, J. P. Palastro, and D. H. Froula, Ultrabroad-
+and flying-focus using an axiparabola-echelon pair, Opt.
+Express 32, 576 (2024).
+
+A. Liberman, R. Lahaye, S. Smartsev, S. Tata, S. Benra-
+cassa, A. Golovanov, E. Levine, C. Thaury, and V. Malka,
+Use of spatiotemporal couplings and an axiparabola to
+control the velocity of peak intensity, Opt. Lett. 49, 814
+(2024).
+
+43
+
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+52
+
+D. Ramsey, P. Franke, T. T. Simpson, D. H. Froula, and
+J. P. Palastro, Vacuum acceleration of electrons in a dy-
+namic laser pulse, Phys. Rev. E 102, 043207 (2020).
+
+D. Ramsey, B. Malaca, A. Di Piazza, M. Formanek,
+P. Franke, D. H. Froula, M. Pardal, T. T. Simpson,
+J. Vieira, K. Weichman, and J. P. Palastro, Nonlinear
+thomson scattering with ponderomotive control, Phys.
+Rev. E 105, 065201 (2022).
+
+H. Ye, Y. Gu, Q. Fan, X. Zhang, S. Wang, F. Tan,
+J. Zhang, Y. Yang, Y. Yan, J. Wen, Y. Wu, W. Lu,
+W. Huang, and W. Zhou, Enhanced thomson scattering
+x-ray sources with flying focus laser pulse, AIP Advances
+13, 035330 (2023).
+
+T. T. Simpson, J. J. Pigeon, M. V. Ambat, K. G. Miller,
+D. Ramsey, K. Weichman, D. H. Froula, and J. P. Palas-
+tro, Spatiotemporal control of two-color terahertz gener-
+ation, Phys. Rev. Res. 6, 013041 (2024).
+
+J. P. Palastro, D. Turnbull, S.-W. Bahk, R. K. Follett,
+J. L. Shaw, D. Haberberger, J. Bromage, and D. H.
+Froula, Ionization waves of arbitrary velocity driven by
+a flying focus, Phys. Rev. A 97, 033835 (2018).
+
+D. Turnbull, P. Franke, J. Katz, J. Palastro, I. Begishev,
+R. Boni, J. Bromage, A. Milder, J. Shaw, and D. Froula,
+Ionization waves of arbitrary velocity, Phys. Rev. Lett.
+120, 225001 (2018).
+
+T. Wang, Z. Gong, and A. Arefiev, Electron confinement
+by laser-driven azimuthal magnetic fields during direct
+laser acceleration, Physics of Plasmas 27, 053109 (2020).
+Z. Gong, K. Z. Hatsagortsyan, and C. H. Keitel, Re-
+trieving transient magnetic fields of ultrarelativistic laser
+plasma via ejected electron polarization, Phys. Rev. Lett.
+127, 165002 (2021).
+
+D. Cai, Z. Gong, Y. Shou, X. Wu, Q. Ma, G. Qiu,
+Z. Yang, L. Liu, J. Li, Y.-F. Zhou, L. Li, X. Xu, and
+X. Yan, Correlation between gamma photon emission and
+magnetic islands in laser-driven plasma channel, Physics
+of Plasmas 32, 073104 (2025).
+
+O. N. Rosmej, X. F. Shen, A. Pukhov, L. Antonelli,
+F. Barbato, M. Gyrdymoy, M. M. Giinther, S. Zahter,
+V.S. Popov, N. G. Borisenko, and N. E. Andreev, Bright
+betatron radiation from direct-laser-accelerated electrons
+at moderate relativistic laser intensity, Matter and Radi-
+ation at Extremes 6, 048401 (2021).
+
+[53] P. K. Singh, V. B. Pathak, J. H. Shin, I. W. Choi,
+
+K. Nakajima, S. K. Lee, J. H. Sung, H. W. Lee, Y. J.
+
+[54]
+
+[59]
+
+[60]
+
+10
+
+Rhee, C. Aniculaesei, C. M. Kim, K. H. Pae, M. H.
+Cho, C. Hojbota, S. G. Lee, F. Mollica, V. Malka, C. M.
+Ryu, H. T. Kim, and C. H. Nam, Electrostatic shock ac-
+celeration of ions in near-critical-density plasma driven
+by a femtosecond petawatt laser, Scientific Reports 10,
+10.1038/s41598-020-75455-1 (2020).
+
+V. Ospina-Bohérquez, C. Salgado-Lépez, M. Ehret,
+S. Malko, M. Salvadori, T. Pisarczyk, T. Chodukowski,
+Z. Rusiniak, M. Krupka, P. Guillon, M. Lendrin,
+G. Pérez-Callejo, C. Vlachos, F. Hannachi, M. Tarisien,
+F. Consoli, C. Verona, G. Prestopino, J. Dostal,
+R. Dudzak, J. L. Henares, J. I. Apifianiz, D. D. Luis,
+A. Debayle, J. Caron, T. Ceccotti, R. Herndndez-
+Martin, J. Herndndez-Toro, M. Huault, A. Martin-Lépez,
+C. Méndez, T. H. Nguyen-Bui, J. A. Perez-Hernadndez,
+X. Vaisseau, O. Varela, L. Volpe, L. Gremillet, and J. J.
+Santos, Laser-driven ion and electron acceleration from
+near-critical density gas targets: Towards high-repetition
+rate operation in the 1 pw, sub-100 fs laser interac-
+
+tion regime, Physical Review Research 6, 10.1103/Phys-
+RevResearch.6.023268 (2024).
+L. Feder, B. Miao, J. E. Shrock, A. Goffin, and H. M.
+
+Milchberg, Self-waveguiding of relativistic laser pulses in
+neutral gas channels, Phys. Rev. Res. 2, 043173 (2020).
+T. Wang, X. Ribeyre, Z. Gong, O. Jansen, E. d’Humiéres,
+D. Stutman, T. Toncian, and A. Arefiev, Power scaling
+or collimated y-ray beams generated by structured laser-
+irradiated targets and its application to two-photon pair
+production, Phys. Rev. Appl. 13, 054024 (2020).
+
+T. D. Arber, K. Bennett, C. S. Brady, A. Lawrence-
+Douglas, M. G. Ramsay, N. J. Sircombe, P. Gillies, R. G.
+Evans, H. Schmitz, A. R. Bell, and C. P. Ridgers, Con-
+temporary particle-in-cell approach to laser-plasma mod-
+elling, Plasma Physics and Controlled Fusion 57, 113001
+(2015).
+
+P. Franke, D. Ramsey, T. T. Simpson, D. Turnbull, D. H.
+Froula, and J. P. Palastro, Optical shock enhanced self
+photon acceleration, Phys. Rev. A 104, 043520 (2021).
+C. P. Ridgers, J. G. Kirk, R. Duclous, T. G. Blackburn,
+C. S. Brady, K. Bennett, T. D. Arber, and A. R. Bell,
+Modelling gamma-ray photon emission and pair produc-
+tion in high-intensity laser-matter interactions, Journal
+of Computational Physics 260, 273 (2014).
+
+L. D. Landau and E. M. Lifshitz, The Classical Theory
+of Fields (Elsevier, Oxford, 1975).
+

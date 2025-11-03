@@ -1,0 +1,1684 @@
+arXiv:2510.25344v1 [hep-th] 29 Oct 2025
+
+NLIE formulations for the generalized Gibbs
+ensemble in the sine-Gordon model
+
+Arpad Hegedtis
+
+HUN-REN Wigner Research Centre for Physics,
+H-1525 Budapest 114, P.O.B. 49, Hungary
+
+In this paper we pro
+
+Abstract
+
+pose two sets of nonlinear integral equations (NLIE) for de-
+
+scribing the thermodynamics in the sine-Gordon model, when higher Lorentz spin
+conserved charges are also coupled to the Gibbs ensemble. We call them NLIE I
+
+and II.
+The derivation of
+
+he equations, is based on T’ — Q relations given by the equiva-
+
+lent thermodynamic Bethe ansatz (TBA) formulation of the problem in the repulsive
+regime. Though the equations are derived in the repulsive regime at discrete values
+of the coupling constant, a straightforward analytical continuation ensures their va-
+
+lidity within the who
+appropriate analytica
+
+e repulsive regime of the theory. For the NLIE I formulation,
+
+continuation makes the penetration into the attractive regime
+
+also possible. However, the magnitude of this penetration is restricted by the spin
+of the largest spin conserved charge contained in the Gibbs ensemble.
+
+Within their range of validity, these NLIE formulations provide efficient theo-
+retical frameworks for computing expectation values of conserved charge densities,
+their associated currents, and vertex operators and their descendants, with respect
+to the generalized Gibbs ensemble.
+1 Introduction
+
+The sine-Gordon model is a paradigmatic example of a 1+1 dimensional relativistic
+quantum field theory (QFT), and it has played an important role in the development
+of quantum integrable models. It exhibits rich and highly non-trivial dynamics, while
+its integrability enables the use of powerful non-perturbative techniques [I] [2] [3] to
+solve the model.
+
+Beyond its theoretical appeal, the sine-Gordon model also has experimental rel-
+evance, as it can be realized in systems of cold atoms [4|-[10]. Further realizations
+via quantum circuits and coupled spin chains are also proposed.
+
+In recent years, there has been growing interest in the non-equilibrium dynamics
+of isolated quantum systems, driven by both theoretical progress and experimental
+advances in cold atom physics. In integrable systems, where an infinite set of con-
+served quantities constrain the dynamics, conventional thermalization is replaced
+by relaxation towards a Generalized Gibbs Ensemble (GGE) [13} (14) [15]. A crucial
+aspect of the generalized Gibbs ensemble is that it provides the fundamental statis-
+tical description of integrable systems’ long time steady states by accounting for the
+complete set (or a large subset) of conserved quantities [14] [17]. GGE is not
+only essential for understanding equilibration in isolated quantum systems but also
+serves as the foundational building block for advanced theoretical frameworks such
+as generalized hydrodynamics [18] [19]. By precisely capturing the local conserved
+charges and their associated potentiald!), the GGE establishes the baseline ensem-
+ble from which hydrodynamic equations describing non-equilibrium transport and
+large-scale dynamics in integrable models are derived. Thus, the significance of the
+GGE extends beyond static properties, underpinning much of the modern progress
+in describing integrable quantum dynamics.
+
+Recent research has seen a resurgence of interest in the equilibrium and non-
+equilibrium thermodynamics of the sine-Gordon model, which has become an ac-
+ively explored domain in integrable quantum field theories [20|-[31]. Despite the
+model’s integrability, the formulation of the generalized Gibbs ensemble remains
+non-trivial. While the Thermodynamic Bethe Ansatz (TBA) [82] [33] provides a
+framework for constructing the GGE in the sine-Gordon model, the structure and
+form of the resulting equations depend strongly on the value of the coupling con-
+stant, making the implementation cumbersome and highly case-specific [34] [27].
+To overcome these limitations, Non-Linear Integral Equation (NLIE) methods
+have been developed in various contexts [35] [36] [37] {38} [39) [40]. These often allow
+for a more compact and efficient numerical treatment, as well as analytic control
+over the solutions. In this paper, we develop two such NLIE formulations, denoted
+
+1Later, in the text we also call them generalized inverse temperatures in order to avoid confusion
+with the thermodynamic potentials.
+
+as NLIE I and NLIE I, to describe the generalized Gibbs ensemble in the sine-
+Gordon model. Our construction starts from the TBA description of the GGE
+at special integer values of the coupling constant p, where the equations can be
+organized according to a D,4, Dynkin-diagram structure [41] [42] [43]. We make use
+of the well-established techniques based on the Y-system and T-Q relations to
+reformulate the TBA equations into NLIEs [46] [47] [48]. Although our derivation
+is performed at special points, the resulting equations admit analytic continuation
+to arbitrary values of the coupling constant in the repulsive regime. In fact, the
+dependence on the coupling is encoded entirely in the kernel functions of the integral
+equations, allowing for a straightforward generalization. The two NLIE formulations
+have different domains of applicability. While NLIE I allows for limited extension
+into the attractive regime, it suffers from restrictions due to the shrinking analyticity
+strips of the unknown functions, which limits the number of conserved charges that
+can be included. In contrast, the NLIE II formulation is free from this limitation
+and permits an arbitrary number of charges to be coupled into the ensemble, bu
+only in the whole repulsive regime.
+
+Within their respective domains, our NLIE formulations provide an efficient an
+versatile framework for computing the generalized Gibbs potential, as well as ex-
+pectation values of conserved charge densities, their associated currents, and loca
+operators with respect to the GGE, at any value of the coupling constant of the
+theory. These results provide powerful tools for the analytical and numerical inves-
+tigation of thermodynamic properties in the sine-Gordon model, both in and out of
+equilibrium.
+
+The plan of the paper is as follows. In section [2] we fix our conventions and
+summarize the TBA description of the GGE in the repulsive regime at the specia
+points of the coupling constant, where the equations can be encoded into a D-type
+Dynkin diagram. In section B] we derive the two equivalent NLIE formulations for
+the TBA description of the GGE. Section 4] contains a discussion on the reason for
+the restricted validity of NLIE I in the attractive regime. In section] we summarize,
+how to compute expectation values of conserved charge densities, their associated
+currents and vertex operators in the context of our NLIE formalism. Section [6]closes
+the paper, with a short summary and some discussion of our results.
+
+The paper also contains an appendix. Appendix [A] provides numerical data
+supporting the validity of the NLIE I formulation in the attractive regime of the
+model, in a suitable neighborhood of the free-fermion point.
+
+2 The model and the TBA equations
+
+In this section, we summarize the thermodynamic Bethe ansatz (TBA) description of
+the generalized Gibbs ensemble [32] [33] in the sine-Gordon model at certain special
+points in the repulsive regime, where the equations become simply encoded into a
+D—type Dynkin-diagram.
+The Euclidean action of the model is as follows:
+
+1 4 2K? 5
+Sso[9] =f dear { 0,060.7) - ne a (Bea ole.)} 0< 6, < 8r.
+(2.1)
+In the sequel, we use the following parameterization of the coupling constant:
+B? Be 2
+M'sG se D
+= , = 0<p<m. 2.2
+> 8n—-B, dn pti’ pee (2.2)
+
+The p = 1 value corresponds to the free fermion point of the theory, and the 0 <
+p< 1and 1 < p regimes correspond to the attractive and repulsive regimes of the
+theory, respectively.
+
+We focus on computing the thermodynamic potential or free-energy density,
+derived from the partition function of the generalized Gibbs ensemble:
+
+1
+G(B) = — jim F log Z(8), (2.3)
+
+where
+
+jez
+is the corresponding partition function, such that Ho; 1 are the dimensionless mu-
+tually commuting local integrals of motion with Lorentz spin 27 — 1. The param-
+eter vector 8 = {(2;1}, j € Z, contains the dimensionless multipliers of these
+conserved quantities, which we call either potentials or generalized inverse temper-
+atures. In the sine-Gordon model, the action of these dimensionless local conserved
+charges on the 1-particle soliton and anti-soliton states with rapidity @ : |0, +4), is as
+follows:
+
+Haya |0, +) = eP25-D8 19. at), jeZ. 2.5)
+
+The usual Gibbs ensemble is a special case of (2.4) with 6; = 6_; = att such that
+M, kp,T denote the soliton mass, the Boltzmann constant, and the temperature,
+respectively, and all the other potentials are zero (8; =0, j # +1).
+We consider the TBA equations coming from the saddle point condition for the
+partition function at the special points 2 < p € N. In this case the TBA equations
+can be encoded into a D,,, Dynkin-diagram [42 43] [45], in the following way:
+
+Np
+log.yj() = ~S(e18) bn + 30 Ln (s*log¥ia), — G=hM=Pth 96
+k=1 .
+
+Y,(«) =1+y;(2).
+where Jj, denotes the incidence matrix of the Dy, Dynkin-diagram, 5 stands for the
+Kronecker-delta symbol,
+
+1
+
+aa) = 27 cosh(zx)’ al)
+is the standard TBA kernel, « stands for convolutior| and
+S(x|B) = S> Box-rvePkD* (2.8)
+
+keZ
+
+is the source term. Here, for later convenience we used the Y —system based notation
+for the unknowns of the TBA equations. In this formulation, the equations (2.6) are
+well defined, if the series (2:8) converges for any x € R, and the function S(a|3) is
+bounded from below. Nevertheless, for practical computations, it is more realistic
+to consider the case, when only a finite number of higher-spin conserved charges are
+contained in the Gibbs ensemble. Thus, in our considerations, we focus on the case,
+when the number of higher-spin conserved charges is truncated. This corresponds
+only to a simple S + Sy change in the source term of the TBA equations (2.6),
+where:
+N
+
+(28) = {eu pePF D2 4 Bop ye ctoae (2.9)
+
+k=1
+
+In this case, the requirement for Sy(x|3) is that lim Sy(2|B) # —oo.
+— =Z—-xr00 ~ _'
+
+Having the solution of the saddle point TBA equations (2.6), two important
+thermodynamic potentials, the free-energy density G(@) (2:3), and the free-energy
+flux 6(8) [18} [60], can be computed by the formulas, as follows:
+
+oo
+
+G(8) =-—M / ee cosh (x) log Yi (2),
+= (2.10)
+(6) =—-M / 7 sinh () log Yi (2),
+
+where M denotes the soliton mass. They are generators of the expectation values
+of the dimensionless conserved charge densities and their associated currents, since
+their derivatives with respect to the inverse temperatures give the expectation values
+according to the formulas (5.1). Due to the differentiating process, the explicit
+
+In our convention: (f * g)(x) = i dy f(x — y) g(y).
+
+—oo
+formulas for the expectation values contain the solutions of linear integral equations
+obtained by differentiating the generalized TBA equations (2.6) with respect to the
+generalized inverse temperatures.
+
+Our purpose is to reformulate the TBA equations (2:6)-(2.9), which are valid
+only for some special values of the coupling constant, as compact few component
+non-linear integral equations that are valid for any value of the coupling constant in
+the repulsive regime. As we will see in the next section, one of the NLIE formulations
+(NLIE I) is found to be valid in a certain region of the attractive regime as well.
+
+3 The derivation of the NLIEs
+
+In this section, starting from the TBA equations presented in the previous section,
+we derive two different equivalent compact NLIE formulations of the problem. Since,
+these equations depend analytically on the coupling constant, analytical continua-
+tion from the discrete values corresponding to the TBA formulation (2.6) to the
+whole repulsive regime is straightforward.
+
+The derivation of both sets of equations are based on the method worked out
+earlier for the O(3) non-linear o—model [46], and for the sausage-model [47] 48}.
+The transformation of TBA to NLIE, relies on the integrable structure of the TBA
+equations, realized by the so-called Y— and T—system functional relations, and
+their solution through the famous T — Q relations.
+
+As a first step, we collect all these necessary ingredients.
+
+3.1 Functional relations stemming from the TBA
+
+The transformation of TBA to Y—system, starts with the observation that the
+source functions (2.8) and (2.9) are solutions to a kind of zero-mode functional
+equations:
+
+S(x+%5|B) + S(@-t5|8)=0,  Sw(w@ +i 5/8) + Sy(a —7 518) =0. (3.1)
+
+Then, it is straightforward to show [42] that the solution of TBA equations (2.6)
+satisfy the Y—system functional equations:
+yi UT = Yo,
+uit ve = Ye Yeu, k=2,..,Np—3, an
+YN,-2 Yn,—2 = YNp—3 Ynp-1 YNps :
+
++ ee
+YNp—1YNp—1 = YNp YNp = YNp—2s
+
+where we introduced the notation for any function f*(a) = f(x +im/2). The first
+N, — 3 elements of these functions satisfy standard su(2) type Y—system relations.
+
+5
+To this part one can associate a T—system of the fornth
+
+Tg Ty =14+ Tra Ths, k=0,s:,Np— 1, with T_,=0. (3.3)
+The relations to the Y—functions is as follows:
+Ye = Tha Thi, Ty Ty = Ye, k=1,., Np —2. (3.4)
+Tx, 1 Ty,-1 = Yn,-1 Yn, ;
+
+From the TBA equations (2.6) and (8.4) it follows that both the y— and T— func-
+tions are real analytic. From (8.2) and (8.4), it follows that:
+
+YN,—-1 = YN, = Ty, -2- (3.5)
+From (8.3)- (8.5), it can be shown [47 that:
+Tu, = 2+ Tn, -2: (3.6)
+
+For the T’—system, one can associate the corresponding T — Q system [49];
+
+Tren QU —TQUA= QA TE Qh — TAQ =Qh, (3.7)
+
+where we introduced the notation f(a) = f(@+ik7/2).
+Either Q or Q can be eliminated from the T — Q relations [49], yielding second
+order difference equations:
+
+[-k+]] pk
+Q*++Q~ =AQ with A=+—*? (3.8)
+Thi
+- 7 _ : pik+3 x pikty
+O++Q-=AQ with A=+*— (3.9)
+pik)
+k+1
+
+where both A and A are k—independent. Thus, by choosing k = N, for A and
+k = N, — 2 for A, and using the identity (8.6), one obtains:
+
+2+ TN 4 TEN 4 Tite 4 rien
+A= —— El » A= ns (3:10)
+Ty, Ty,
+This implies together with (@.8) and (8.9) the following relations [47]:
+A= APN Q= Qe Nel, (3.11)
+
+Though, the derivation of these relations is valid for positive integer values of N,,
+(8:11) can be analytically continued for any real values of N, in a straightforward
+manner.
+
+Here, the special, though natural ¢ = 1 gauge is used in the terminology of reference [49].
+
+6
+3.2 Analyticity strips
+
+In order to transform the functional relations into integral equations, it is important
+o know about the functions, their behaviour at infinity, and those analyticity strips
+where they are free of zeroes and poles or any other type of singularities. This
+subsection is devoted to clarify these points for the functions introduced in the
+previous subsection.
+When we discuss, the analyticity strips, we consider the y—, T—, and Q—functions
+belonging to the TBA equations with source function (2.9). Namely, we consider
+he case, when only a finite number of higher conserved charges are coupled to
+he thermodynamic potential. We assume that the solution of the TBA equations
+(2.6), is a smooth deformation of the 8; — oo limit. In this limit, the y—, T—,
+and Q—functions, tend to constant values, which we present below. The constant
+solution to the y—functions take the form:
+
+yp =(k-1) (K+ 1), he Lv, Np — 25 YN, = YN,-1 = Np — 2. 3.12)
+The corresponding constant T—functions are:
+
+Te =k, k=0,...,N,—1. 3.13)
+
+From this, also the functions A and A, can be computed in the infinite B limit:
+A® = AW = 2, 3.14)
+
+which together with (8.8) and (8.9) gives
+
+Q? =6* =1, 3.15)
+
+rovided one chooses the bounded solution of the difference equations [47].
+
+From now on, we assume that we know the solution of the TBA equations (2.6),
+when the 8; constants are large, but finite. Then, all the important functions,
+namely, y-, T—, and Q—functions are smooth deformations of the infinite 6 so-
+utions @.12), (8-13) and (B15). Nevertheless, the infinite 6 solutions are not close
+o the solution of the TBA equations (2.6) with large B, on the whole complex
+plane. They are close to each other within finite strips in the imaginary directions.
+In the sequel, we will analyze the equations, and determine the strips, where the
+infinite G solution is close to the exact one with large, but finite @. At the same
+ime, these strips will be the analyticity strips mentioned at the beginning of this
+subsection. Namely, these are the strips, where the functions are analytic and free
+of any singularities and zeroes.
+
+Following the lines of [47 [48], it is useful to introduce the (a, a2) short notation
+for the strip:
+
+T T
+7a < Ima < 3 02: (3.16)
+
+For later convenience, introduce the abbreviation ANZSC, which means that a func-
+tion is analytic, non-zero, free of singularities, and tend to a constant value at infinity
+within a given strip of the complex plane.
+
+Now, we turn to the TBA equations (2.6), and start to analyze the analyticity
+strips of the y—functions. First, the analyticity of y; should be considered. Due to
+the source term (2.9):
+
+y: is ANZSC in (-ey,ew) with ey = ——, (3.17)
+2N -1
+which means that as the number of higher charges coupled to the thermodynamic
+potential increases, the analyticity strip for y; is shrinking. Using the standard
+techniques described in [46] and [47] 48], it can be shown that the TBA equa-
+tions and the Y—system relations imply the following analyticity strips for the
+y—functions:
+
+ye is ANZSCin (1—k—ey,k—l+ey) k=1,...,N,—2. (3.18)
+
+Following [46] [47] [48], the relations (8.3)-(8:6) give a one-unit wider strip for the
+T—functions:
+
+T, is ANZSCin (-k—ey,k+ey) k=0,...,N,—1. (3.19)
+
+Using this, from the defining relation (8.10), one obtains the analyticity strip as
+follows for A and A:
+
+A is ANZSCin (3—ey,2N,—3+ en),
+
+7 2!
+A isANZSCin (—2N,+3-en,—-3+ ey). (3.20)
+
+Then, the difference equations (8-8) and (5.9), give the analyticity strips for Q and
+Q:
+Q isANZSCin (1—ey,2N,—1+ey),
+
+21
+@ is ANZSCin (-2N, +1—ey,—-1 +n), eet)
+
+which is consistent with the relation (811) and the conjugation relation between Q
+and Q.
+3.3 Deriving NLIE I.
+
+The functional relations given in subsection 8.1] and the analyticity strips given in
+the previous subsection 8.2] allow one to derive simple non-linear integral equations
+for computing the generalized Gibbs potential. To do so, the following functions
+composed out of the y—, T—, and Q—functions, turns out to be useful [44] [46] 47].
+
+jlk+2] p— [k]
+—s as Be=1+=2 Ti,
+QI-k-2| QI-k-2| —
+- Ql Tt _ - QI) Thy (3.22)
+= Oma By =1+h = Ore k= 0,«,, — 2.
+They satisfy the simple functional relations as follows:
+by bn = Ye, Bi By =Yeu, k=0,.,N,-3, (3.23)
+
+b — + B= _
+by, 2 by,—2 —~ Yn,-2, By,-1 By-1 _ Ynp-1 Yn,-
+
+In the rest of the paper, we derive two NLIEs. The first one is a Kliimper-
+Pearce-Batchelor-Destri-de Vega type equation with a range of validity:
+l-so <p. The second one is a kind of hybrid NLIE [44] [50], where the massive
+TBA function is kept as one of the unknown functions [51] 52], and it is valid in the
+whole repulsive regime of the theory.
+
+This subsection is devoted to the derivation of the first equation, which we call
+simply NLIE I.
+
+The basic unknown functions of NLIE I, are the functions:
+
+_ QPITy —,,, _@T1
+o= "Gra Boh tho = Gap (3.24)
+e yI-2l p+ _ - 9 ,
+by = 2 10 By =1+5 = 25
+Qe Ql
+where Tp is expressed in terms of the zero mode function:
+To(a) =e SSC), TT =1, (3.25)
+
+with Sy(x|B) given in (2.9). It is ANZSC in the strip (—ey, en).
+
+Now, it is important to discuss the ANZSC strips of the unknown functions
+(8:24). The requirement of the existence of a finite width ANZSC strip, gives re-
+strictions on the allowed range of the coupling constant p defined in (2.2).
+
+First, we discuss the case of the repulsive regime, when there is no restriction.
+Consider bp in (8:24). Using (8-19)-(8-21), one can list the analyticity strips of its
+building blocks:
+
+Q@l is ANZSC in (-1—ey,2N,—3+ey),
+QU is ANZSCin (-2N,+3-—en,1 +n), (3.26)
+
+In the repulsive regime, when 1 < p and 2 < N, the intersection of these analyticity
+regions is (1 — ey, 1+ ey), which means that:
+
+bg is ANZSC in (—en,en), 1<p. (3.27)
+In the attractive regime, when 0 < p < 1, there is nontrivial intersecting region
+
+of the strips (8.26), if 1 -— ey < 2N,-—3+ ey. This gives the restriction on the
+allowed range of p, as follows:
+
+1
+1- 1, N= ; 3.28
+en<p<l, aw=sy 7G (3.28)
+In this case
+bg is ANZSCin (-ey,ey+2(p—1)), l-en<p<1. (3.29)
+
+Using (8.24) a completely analogous train of thoughts leads to the following analyt-
+icity strips for the other unknowns:
+
+bp is ANZSC in (—ey, en), l<p<o,
+by is ANZSC in (—ey —2(p—1), ew), l-ey<p<l, (3.30)
+Bo, By is ANZSC in (ey, ew), l-ex<p<o.
+
+The ANZSC strips are important, because within these domains the logarithmic
+derivatives of the relevant functiond4] can be Fourier-transformed, and the func-
+tional relations among them can be translated into algebraic equations between
+their Fourier-transforms [35] 44].
+
+To carry out this procedure, first we fix our conventions for the Fourier-transformation.
+The Fourier-transformation rules between a function f(x), and its transform f (w),
+in our conventions are as follows:
+
+fle) = f ave'* fla), fa) =f Fe? Fw), (3.31)
+
+4The relevant functions are the y— T—, Q—, and b—functions introduced above as part of the
+integrable hierarchy derived from the TBA equations.
+
+10
+Then, we introduce the notation dl f for the Fourier-transform of the logarithmic-
+derivative of a function f :
+
+dl f(w) = / dx e&** < log f (2). (3.32)
+
+The Fourier-transform of the TBA kernel (2.7) becomes:
+
+su) = -—
+: ~ 2 cosh (42) ‘ (Ba)
+For later convenience, we denote:
+
+q=er. (3.34)
+
+If dif is ANZSC in the strip (—K, K) with 0 < K € R, then the following relation
+holds between the Fourier-transforms along different lines of the complex plane:
+
+dif = gq dif, O<k<K. (3.35)
+
+For practical purposes, it is convenient to introduce the auxiliary function, as
+follows:
+
+7 Ql
+a9 = Ors” (3.36)
+in terms of which
+_ Te
+bo=aT, b=. (3.37)
+ao
+From (8.26) the analyticity strips for ao are as follows:
+ag is ANZSC in —l-—ey,1+ ey), l<p<o.
+0 ( EN, en) Pp (3.38)
+
+ag is ANZSC in (—(2p—1)—en,en+2p—1), l-ey<p<l.
+
+Now, we express ag in terms of By and Bo within the appropriate analyticity strips.
+Since, the explicit form of 7 is known, from such an equation the NLIE for by and
+bp can be easily derived with the help of the definitions (@.37).
+
+Now, we derive the algebraic equations in Fourier-space. Let,
+
+p= dQ”, (3.39)
+
+1d.
+then from (8-11) and the analyticity strips (6-21):
+AQ = diQ? Nel = PNe4 qo, (3.40)
+Using the definition (8.36) and the analyticity strips (6.38) for ao, one obtains:
+diay = (1 P*°"4) q. (3.41)
+From (8.24), (8.39) and (8.40) the following two equations can be derived:
+dlBy = th —P 3 @+qdt,
+
+1 1. (3.42)
+dlBy = 3 q@ -—@t idl.
+
+q q
+These equations allow one to eliminate T, and q2 and write them into (41). As a
+result, one obtains:
+qhe2 — gb-Np
+(qXet — qe) (gq +71)
+
+Or equivalently in the Fourier-variable w :
+
+dlay = (qdlBt —qdlBs), q=e2. (3.43)
+
+dlay(w) =G,(w) (= dlBt(w) —e > dB; (w))
+
+; sinh ((p — 1) =) (3.44)
+vith = .
+with G,(w) 2 cosh (42) sinh (p ze)
+
+Finally, one introduces the following new unknown functions:
+
+do(x) = bS(@—iy$), — Go(x) = by (w@ +i 7 §),
+
+p(n) = Bee — 87), ola) = By (w +472), G4)
+
+where y is a contour deformation parameter, whose value is restricted by the ana-
+lyticity domains of the variables (8.27)-(8.30) to
+
+1
+
+— A
+2N—1 (3.46)
+
+0<y¥<en=
+We note that this range is valid in the repulsive regime, where the derivation of the
+equations is performed.
+The definitions (8.45) imply the trivial relations:
+
+A(x) = 1+ ao(z), A(x) = 1+ ao(z). (3.47)
+
+12
+Thus, the final form of the equations NLIE I, in rapidity space takes the form:
+
+log ag(a) = —Sy (x — if Y) + (Gp * log Ag) (a) — (GRC) * log Ay) (x),
+
+a = 4 jh) 4 A,)(r) — (Gl2d-y) (aa)
+log do(x) = —Sy(a + if 7) + (Gp * log Ao) (a) — (GE * log lo) (2).
+
+These equations are derived at the special points of the coupling constant, when
+2 <p €N. The final form of the NLIE I is analytical in p, providing a
+straightforward analytical continuation within the domain: 1 — =o <p <oo. The
+lower bound comes from the fact that in the p < 1— mo regime, the width of the
+necessary analyticity strips would shrink to zero. This means that our NLIE I given
+in (8.48), offers only a shallow penetration into the attractive regime of the theory,
+such that the depth of the penetration is restricted by the highest spin entering the
+series of the coupled higher-spin conserved charges.
+
+In the attractive regime, the range of the contour deformation parameter y should
+also be modified with respect to that of the repulsive regime (8.46), because in this
+regime the closest to the real axis poles of G(x) are located at +i p7, which should
+be avoided by the contour. This imposes the restriction: (1 — y)7 < pz, which
+implies the following range for y in the attractive regime:
+
+1
+l-p<7<e€n = go:
+
+Thus, the whole range of allowed values of y for NLIE I (8.48), takes the form:
+max(0,1—p)<7< en, l-ey <p<o. (3.49)
+
+As a consequence of the relations (8.23), the TBA variables are related to those
+of the NLIE, as follows:
+
+lem =Y=aabl (3.50)
+
+This allows one to express the generalized Gibbs potential and the free-energy flux
+given in (8-57) in terms of our NLIE functions, as follows:
+
+G(B) =-M [<> { cosh (x — i Zy) log %o(x) + cosh (x + i Fy) log auto),
+
+—oo
+
+f de :
+(6) =—-M [> { sinh (x — i Zy) log %o(x) + sinh (x + i Fy) log (of.
+
+(3.51)
+
+The formulas (8.48) together with (8.47), (8.49) and (8:51) give the NLIE I formu-
+lation of the generalized thermodynamics.
+
+13
+The main disadvantage of this formulation, is that the allowed range for the
+contour deformation parameter becomes narrower and narrower as the value of N
+increases. In this case, the difficulty comes from the fact that as the range of y
+tightens, the integration contour is forced to run closer and closer to the line, where
+infinitely many singularities of the unknown functions are condensated. In practice,
+if N is large enough, numerical computations require taking very dense sampling
+point distributions.
+
+To avoid this scenario, in case the coupling constant is large enough, one can
+derive another set of hybrid NLIE equations, which keep the massive TBA node and
+sums up only the rest of the y—functions [51] [52]. This method works for 1 < p < ,
+regime and we derive these equations in the next subsection.
+
+3.4 Deriving NLIE II
+
+In this section, we derive such an alternative hybrid-NLIE [44] [50) description of
+the problem for 1 < p, which keeps the contributions of the massive TBA node and
+sums up only the rest of the unknown functions of the TBA equations [5I] [52].
+
+Now, the complex unknown functions of the equations are the / = 1 elements of
+the set of variables (8:22):
+
+3] p- 7.
+b= “= ,  B=l+h= a
+OI T+ _ _ Op, (3.52)
+1= “on By =1+h=~ag
+
+Using the results of the previous analyticity strip analysis (8.19)-(8.21), they have
+the following analyticity properties:
+b; and B,: is ANZSC in (—en, 2+ ey),
+
+_ - 3.00
+bj and B,: is ANZSC in (—2 — ey, ey). ( )
+
+The unknown functions of the new set of equations called NLIE H, are y;, and the
+appropriately contour shifted versions of b; and }, :
+
+ay (x) = bi (a +i 7§), ay(x) = bi(a — iy),
+
+A(z) =Biex+i7s), A(x) = By(w —i78), (3.54)
+
+with 0 < y < 1. Then, using the functional relations (3-2), (8-4) and (8.23), one can
+select the relevant ones:
+
+viv, =, BY BY =%2, Ty Ty = Yo. (3.55)
+
+14
+Taking the logarithmic derivative of the relations (8.55), one ends up in Fourier-space
+with the following expression for 7):
+
+dlTs = 7 (4 dB, +q7 dB) (3.56)
+
++q 1!
+
+With the help of a straightforward analysis of the log of relations (8.55), the following
+equation can be derived for y; :
+
+log yi(x) = log To(x) + (s!-7! * log 1) (a) + (sl % log 21)(x), (3.57)
+
+where we exploited (8.54) and that Tp is a zero mode function Ty’ Ty = 1.
+We just recall that around the real line, the exact functional form of To is known:
+
+log To(x) = —Sy(2|8), —en < Ima < en, (3.58)
+
+with Sy given in (2.9).
+To work in Fourier space, we denote:
+
+qn = dlr. (3.59)
+
+Then, due to (11) and (21):
+dQ =P? n. (3.60)
+Using the definitions (8:52) together with the analyticity strip information (8.19)
+
+and (8.21), one obtains the following equations among the Fourier-transforms of the
+logarithmic derivatives:
+
+db =P (1- Gq tq dt,
+dB, = (1— 4) q +-dlTh,
+
+dlby =F (P-%”® —1)q + dT,
+dB, =f (4 - lq tdlty.
+
+(3.61)
+
+From the relation Ty‘ T, = Yi, coming from (3.4), one obtains in Fourier-space:
+
+aly). (3.62)
+
+~ 1
+dT, =
+q+
+
+qt
+
+Eliminating q, T, and T> from the equations (8.56), (8:61) and (8.62), one ends up
+with:
+
+15
+. _ (qre-3 _ a) 7 Le q' .
+dis = Ga Ey (az, diB,) iM.
+a (qe — GF *) ye 5 qs (3-68)
+dibs = get ag (az, dB) aah
+or equivalently in the Fourier variable w :
+db, (w) = Gya1(w) (dB, (w) - dlB,(w)) + 5(w)e7 2 dlY\(w),
+_ a . At (3.64)
+dlb,(w) = G,-1(w) (dBi (w) ~ dlBy(w)) +8(w)e? dlY;(w),
+
+with G,(w) and 5(w) given in (8.44) and (8:33), respectively.
+Finally, after integration and turning to the variables defined in (8:54), one ends
+up with the equations in rapidity space:
+
+log a;(a) = (G,-1 * log %1)(#) — cea * log ,)(x) + (s0—4 * log 4) (x),
+log a(x) = (Gp_1 * log Ay) (wx) — es * log ,)(a) + (sl) x log Y,)(x), (3-65)
+log y1(x) = log To(x) + (s!'~7! * log 2) (x) + (SY * log 21) (2),
+
+where 0 < y < 1. Though, the equations were derived only at the positive integer
+values of the coupling constant p = 2,3,..., they can be continued analytically to
+he whole range, 2 < p in a straightforward manner.
+It turns out that these equations can be further continued in p even to the
+< p< 2 regime. The derivation of the equations was based on the analyticity
+strips justified for 2 < p. Now, having the equations at hand, they can be continued
+o the 1 < p < 2, regime, as well. Only, the kernel G,_; contains the p—dependence,
+hus the analytical continuation to 1 < p < 2 seems to be straightforward. The
+only subtlety comes from the allowed range of y. Namely, the closest to the real axis
+poles of Gp_1(x) at +¢ (p—1) 7 should be avoided by the contour, which implies, the
+0<y<p-—t1range. In summary, the allowed range for the contour deformation
+parameter y in NLIE II (8.65) is as follows:
+
+0<7<min(1,p-—1), l<p<o. (3.66)
+
+The formulas for the generalized Gibbs potential and the free-energy flux remain
+he same as in the TBA formulation (2-10):
+
+G(8) =—M / a cosh (x) log Yi (2),
+
+—oo
+
+(3.67)
+
+foe)
+
+6(8)=—M as sinh (x) log Yi (a).
+
+—oo
+
+16
+We close this section, with a short discussion on the applicability and benefits
+of the two NLIE formulations.
+
+NLIE I, has the main advantage that it is valid in the whole repulsive regime
+of the theory, and depending on the value of the spin of the largest spin conserved
+charge contained in the Gibbs potential, it can be valid in a certain neighborhood
+of the free-fermion point in the attractive regime, as well. Nevertheless, the main
+disadvantage of this formulation is that the analyticity strips for the unknown func-
+tions become very narrow, when conserved charges with high spin are present in the
+Gibbs ensemble. This implies that one has to integrate very closely to the infinitely
+many singularities of the unknown functions, which require very dense distribution of
+the sampling points, when numerical computations are done. Another issue arising
+from the same source is that when all higher-spin conserved quantities are coupled
+to the thermodynamic potential, the analyticity strip of the unknowns shrinks to
+zero. This implies that the equations are no longer applicable in this regime.
+
+As for NLIE II, in this case, there is no problem with neither the analyticity strips
+nor the number of contained higher spin conserved quantities. The only restriction
+of applicability is the range of coupling constant. It is narrower, than that of the
+NLIE I, and looses efficiency as the free-fermion point p = 1 is closely approached.
+
+Nevertheless, when only a few extra higher spin conserved quantities are coupled
+to the thermodynamic potential, NLIE I, offers a still satisfactory description for
+the thermodynamics, but in a wider range of coupling constant.
+
+In the next section, we discuss, from the point of view of the particle content of
+the theory, the reason why these restrictions on the validity of NLIE I arise in the
+attractive regime.
+
+4 Discussion of the attractive regime
+
+This section explores how the particle spectrum of the theory accounts for the re-
+stricted validity of NLIE I in the attractive regime.
+
+Let us denote, the dimensionless spin-s conserved charges by Hs. Their action
+on one-particle soliton (+) or anti-soliton (-) states with rapidity @ are, as follows:
+
+Has|9, +) = H14(0) |9,+) =e*°9|0,+), 8 = 1,3,5,.... (4.1)
+
+where the spin can take any odd integer value in the sine-Gordon model.
+The general formula for the partition function (2.4) can be interpreted as the
+partition function of a usual Gibbs ensemble, but with a generalized Hamiltonian
+
+17
+depending on the generalized inverse temperatures:
+
+Z(8) =Tr 7 P Heen(B)
+1 (4.2)
+
+a a .
+Hgen(B) = 3 So Boj—1 Hoja, b= ket
+jez 8
+
+In order for the partition function to exist, Hygen must be a lower bounded operator.
+In the repulsive regime, when only solitons and anti-solitons form the spectrum of
+the theory, the eigenvalues of higher-spin conserved charges on one-particle states are
+positive. Namely, they are bounded from below. Thus, if all inverse temperatures are
+positive, the generalized Hamiltonian becomes automatically bounded from below.
+If one starts to penetrate into the attractive regime by decreasing the value of
+p, the first breather enters the spectrum. If we restrict our attention to the range
+1/2 < p < 1, only the first breather, the soliton and the anti-soliton form the
+spectrum of the theory. Consequently, in the partition function (2.4), the breather
+contributions will arise, as well. The corresponding one-particle eigenvalues, can be
+computed using the bootstrap principle [I].
+
+Hs |0, Bi) = Hp, +5(9) |, Br),
+
+Ho, s(0) = Hts (9 +45 (1 5)) + Has (8-75 (1-5), (4.3)
+
+He, tan—1)(0) = (—1)"*72 sin [2 n—1) a eten-De n=1,2,...
+
+where Hg, +5(@) and H+,(0) are the B,-breather and the soliton or anti-soliton eigen-
+values of the higher spin conserved quantities on a one-particle state with rapidity
+6. As we mentioned earlier, for the soliton and anti-soliton states these eigenvalues
+are always bounded from below in @. Unfortunately, this doesn’t hold for any value
+of the coupling constant for the B, case. It turns out that H,,+4,.(0) is bounde
+from below, only if:
+
+1
+1l--<p, s>0. (4.4
+8
+
+As the spin increases, the range in which the conserved charges remain bounded from
+below becomes smaller and smaller. If only the first N higher-spin conserved charges
+are included in the generalized Hamiltonian] (£2), then the condition ensuring tha
+all contributing conserved charges are bounded from below is:
+
+1
+
+a ee 4.
+\~ oy _7 =P 5
+
+°This scenario corresponds to the source term Sy (29) in the NLIE or TBA formalism.
+
+18
+This is also the range of validity for NLIE I (8.48). Within this range, the generalized
+Hamiltonian (42) is guaranteed to be bounded from below provided the generalized
+inverse temperatures are positive. However, it may still be bounded from below
+even when the condition (£5) is not satisfied. The key point is that NLIE I requires
+a stronger condition: not just the full Hamiltonian, but each individual higher-spin
+contribution must be bounded from below.
+
+This distinction matters, as it limits the applicability of NLIE I beyond the
+general requirement that Hegen be bounded from below. To illustrate this, consider
+a simple example where the generalized Hamiltonian is:
+
+Heen =H3 + 6H, with 0< f%. (4.6)
+
+It is easy to show from (43) that this Hamiltonian is bounded from below for one-
+particle B, states in the following range of the coupling constant:
+
+4 2 1
+
+~<p<>5<1--. 4.7
+
+9 *PS3 9 (47)
+Interestingly, this lies outside the NLIE I validity region, which requires 1 — 5 Lp,
+
+This example clearly shows that NLIE I cannot account for all cases silinne the
+generalized Hamiltonian is bounded from below. It only works in the more restric-
+tive domain where each contributing higher-spin conserved charge is individually
+bounded from below.
+
+However, we are not claiming that no alternative to NLIE I exists in the regions
+where it fails. It is possible that a more refined approach than the Thermodynamic
+Bethe Ansatz (TBA) can be developed. What we emphasize is that the straightfor-
+ward extension of the NLIE method, as presented in [35] [36] [37 38], is no longer
+valid in those regions. To describe the thermodynamics of the model accurately, a
+more sophisticated set of equations would be necessary.
+
+5 Expectation values
+
+In this section, we discuss, how the NLIE I and II formulations allow one to compute
+expectation values of important operators in the theory.
+
+5.1 Expectation values of conserved charges and their asso-
+ciated currents
+
+The averages of the local conserved charge densitied] q; and their associated currents
+j; can be straightforwardly computed from both NLIE I and II, as the generating
+
+®The connection with the notation introduced in (2-4) is Hi= fdxqi(x,t).
+
+19
+potentials of these quantities can be directly expressed in terms of the solutions of
+the NLIEs.
+
+In the sequel, we give formulas for the averages of dimensionless charge den-
+sities and their associated currents. They can be computed by differentiating the
+corresponding free-energy densities [18] [60]:
+
+4s = (a(t, 0))9 = ZrO)
+
+ji = ile.) = H(),
+
+(5.1)
+
+where the potentials G and ® are given in (8.51) and (8.67) for the NLIE I and
+II formulations, respectively. As usual, after the differentiation, the averages are
+expressed in terms of solutions to linear integral equations obtained by differentiating
+
+the NLIE I (8.48) or II (8:65) equations.
+
+5.2. Expectation values of local operators
+
+Beyond computing the expectation values of conserved charges and the associated
+currents, our NLIE formalism allows one to compute the expectation values of local
+operators, as well.
+
+Particularly, the expectation values of the vertex operators e*!”%se %) in the
+sine-Gordon model, with m € N, become important, since they correspond to exper-
+imentally measurable coherence factors in tunnel-coupled cold atomic condensates
+(61, [62]. To keep the formulas as short as possible, we introduce the notation:
+
+1
+v= :
+pti
+
+The discovery of fermionic basis [53] (54) [55] [56] in the 6-vertex model, and
+its application to the sine-Gordon model [57| makes the calculation of the vertex
+operator expectation values possible.
+
+The expectation values of vertex operators e’°sc%), take the form, as follows
+
+[57 158}:
+
+im Bo. is —2m? 1-4
+(ef Bsc P@)) = 2 ( » C(O), det, Oy, m=1,2,... (5.2)
+
+where for m > 0, Cin(a) is given by:
+
+m1
+
+Cm(a) = [J Cia + 2545), (5.3)
+
+j=0
+
+20
+with
+
+Chics = ivP(vy 2) I'(—2vx(a)) T(2(a)) I(—a(a) + 1/2)
+
+a l-v
+and x = -—-+—_.
+and x(a) 5 + yy
+5.4)
+The matrix elements of 2; take the form, as follows:
+
+where the matrix elements w2,_1,1-2; involve the 3 dependence of the problem and
+are the fundamental building blocks of the formula for expectation values of vertex
+operators.
+
+The parameter « in (6.2), is the coupling constant in the sine-Gordon action
+(2.1). It is related to the soliton mass M, by the mass gap formula [59]:
+
+aT(s L
+K= Mv)’, where = II(v) = vee — T(v)¥. (5.6)
+
+As for the formulas for w,_1,1-2;, we present them both in the NLIE I and
+NLIE I formulations. To keep the formulas as short as possible, we present these
+matrix elements, as derivatives of appropriate generating functions with respect to
+the elements of the 6 vector.
+
+(-1)* 9a
+W2k-1,1-25 = “Ga DBios ap, -” Za 2k 1(8), (5.7)
+with
+Jon (8) = | daz (eb, (x) log Mo(x) + eff, (w) log Q%o(e)) , with NLIB I,
+(5.8)
+where e,1(x) = e?*-)*, and in case of NLIE I, the allowed range of y and p is
+
+given in (8.49).
+Taking the explicit differentiations in (@.8), lead to expressions containing the
+solutions of specific linear integral equations, obtained by differentiating the NLIE
+
+I (8.48) and II (8.65) equations.
+
+21.
+6 Summary and discussion
+
+In this paper we proposed two sets of nonlinear integral equations (NLIE) for de-
+scribing the thermodynamics in the sine-Gordon model, when higher spin conserved
+charges are also coupled to the Gibbs ensemble. The first one, called NLIE I formu-
+lation is a direct extension of the Kliimper-Pearce-Bathchelor-Destri-de Vega type
+[35] [36] equations to the case, when higher spin conserved charges are also included
+in the partition function of the Gibbs ensemble.
+
+The second one, called NLIE II, is a kind of hybrid-NLIE [44] [50) being valid
+only in the repulsive regime, where the massive Y —function of the TBA formulation
+is kept and only the rest of the complicated TBA system is summed up by a few
+complex functions [51 [52].
+
+The derivations of both sets of equations, are based on T — Q relations given
+by the equivalent thermodynamic Bethe ansatz (TBA) formulation of the problem
+in the repulsive regime. Though the equations are derived in the repulsive regime,
+by appropriate analytical continuation, in case of NLIE I, the penetration into the
+attractive regime is also possible. However, the magnitude of this penetration is
+restricted by the spin of the largest spin conserved charge contained in the Gibbs
+ensemble (3.49).
+
+The main advantage of both sets of equations is that they are simple few com-
+ponent equations and their coupling dependence is encoded into the kernel, which
+allows simple analytical continuation in the coupling constant within their range of
+validity.
+
+Both sets of equations offer efficient frameworks for computing expectation values
+of local conserved densities, their associated currents, and vertex operators and their
+descendants, with respect to the generalized Gibbs ensemble.
+
+Though, both sets of equations give the correct description of the generalized
+hermodynamics in the sine-Gordon model, both formulations have their own advan-
+ages and limitations. Thus, for specific purposes one should choose the appropriate
+formulation.
+
+The main restriction for the equations come from the shrinking of analyticity
+domains, when the coupling constant p is approaching or going below the free-
+fermion point (p = 1), or when more and more higher spin conserved charges are
+coupled to the Gibbs ensemble.
+
+As a summary, it can be stated that NLIE II is a perfect formulation of the
+roblem in the whole repulsive regime p > 1, any number of higher conserved charges
+can be coupled to the Gibbs ensemble. Expectation values of local densities, their
+associated currents and vertex operators e+! %sc? and their descendants can be
+computed without any difficulty. Some care is needed, only when the coupling
+constant gets very close to the free-fermion point p = 1, since in this case the
+integration contour runs close to the first pole of the kernel G,_1(x), which requires
+
+22
+more sampling points, when numerical integrations are carried out.
+
+As for NLIE I, there is the shrinking of analyticity domains, as the spin of the
+largest spin conserved charge contained in the generalized Gibbs ensemble, increases.
+Because of this phenomenon, within this formulation only a finite number of higher
+spin local conserved charges can be coupled to the Gibbs ensemble. If the largest
+spin is 2. N —1, then the range of validity in the coupling constant is given by (8.49),
+
+1 <p<o.
+
+1
+IN-1
+Thus, this description can be still valid (beyond the repulsive regime) in the at-
+tractive regime, in certain neighborhood of the free-fermion point. Within its range
+of validity, it offers an efficient framework for computing the expectation values of
+local densities, their associated currents and vertex operators e+’ %sc% and their
+descendants.
+
+Though, not discussed in this paper, NLIE I formulation perfectly fits into the
+framework of [57] for computing ratios of expectation values of local operators.
+Thus, NLIE I contrary to NLIE II, can describe ratios of expectation values of the
+extended set of vertex operators corresponding to the perturbed complex Liouville
+CFT description of the sine-Gordon model [57J. Namely, for example the ratios of
+expectation values
+
+(eti(m +4) Bee 2) 1
+——___—_, me Z, 0O<a<-,
+(exe Bsa 2) D
+can also be computed by simply substituting into the formulas of references [57)[58},
+Pp y simply S
+but now changing the NLIE function to that of NLIE I, and applying a large enough
+value for the contour deformation parameter.
+
+Acknowledgments
+The authors thank Janos Balog and Zoltan Bajnok for useful discussions. This
+research was supported by the NKFIH grant K134946.
+
+A Some numerical results
+
+This appendix is devoted to collecting numerical data for demonstrating that the
+NLIE I description remains valid in the attractive regime, provided the coupling
+constant remains within a suitable neighborhood of the free fermion point (8.49).
+Table [I] contains some numerical data for the coupling constant dependence
+of the Gibbs potential around the free fermion point, when at maximum spin-3
+conserved charges are coupled to the thermodynamic potential and the soliton mass
+
+23
+M is set to be 1. The plot [I] gives the visual presentation of the same set of
+numerical data. In view of these data, the continuity in the coupling constant is
+plausible.
+
+Nevertheless, to give more evidence on the continuous transition between the
+repulsive and attractive regimes, we numerically computed the first two derivatives
+of the thermodynamic potential at the free fermion point in two ways. First from
+numerical data corresponding to the repulsive regime, and then from data coming
+from the attractive regime, and we checked that the numerical values of the first
+wo derivatives do not depend on the regime where we computed them. This is a
+very strong numerical evidence of the correctness of the NLIE I description in the
+attractive regime.
+
+Table] contains the numerical data for the computation of the numerical deriva-
+ives. We used higher order formulas for the numerical computations of the deriva-
+ives.
+
+Let h be a small positive number used for computing the derivatives numeri-
+cally, and let f(|p) be an arbitrary function of the vector of generalized inverse
+emperatures and the coupling constant p. Denote:
+
+fy =F(Bll+jh), fg =+1,+2,48,....
+
+These are the discrete values of the function from which the numerical derivatives
+around the p = 1 free-fermion point are computed.
+We note that in our actual numerical computations we choose h = 1073 for the
+value of h. Thus, the data in table [2] was generated by this choice for h.
+Then the first numerical derivative at p = 1, can be computed by the following
+2nd order formulas. Repulsive regime:
+
+2, (bpp = FLL on,
+
+Attractive regime:
+
+pf (Blp)Ipa = BFE Fs 5 oyna),
+
+Using the data given in table 2] one obtains for the derivatives of G:
+0; G(B|p)|pernee® = = 0.039615759858448,
+
+OpG(B1P) |p attractive — 1) (39615739913836,
+
+with the difference between the two computations
+
+(a, G(B|p) (renee _ O,G (|p) attractive) 19,G (8
+
+) [enone re 1077.
+
+24
+The second derivatives can be obtained similarly.
+
+The second numerical derivative at p = 1, can be computed by the following 2nd
+order formulas.
+Repulsive regime:
+
+—2 fot+d5fi-4fot fs
+Qh?
+
+oF (BIP) p= + O(h?),
+
+Attractive regime:
+
+2fo+5fu-4fot fr 24 O(R).
+
+2 F(BIp pa = a
+
+Using the data given in table 2] one obtains:
+&G(B|p)|per'e"* = —0.16828915351411,
+
+PG (B|p) jatar — —0.168288637850,
+
+with the difference watavean the two computations
+
+=
+
+FG( Blp)iperee — "G(B|p) attractive) 10°G G(A|p) prs”? ie 1075.
+
+These results are consistent with the O(h?) ~ 107° error dictated by the second
+order numerical derivative formulas.
+
+These numerical computations provide strong evidence for the validity of NLIE
+I in the attractive regime sufficiently close to the free fermion point (8.49). Using
+numerical derivative computations on both sides of the free-fermion point, we were
+able to show with high precision that, at this point, not only the curve (obtained
+from the solutions of NLIE I) in figure [I] but also at least its first and second
+derivatives are continuous.
+
+25
+D G(b\p) num. error
+0.7 | —0.187239866140983 10-°
+0.75 | —0.13423191891381 10-°
+0.79 | —0.11544334423915 10-8
+0.85 | —0.10064806619972 10
+0.9 | —0.09407987936101 10-%
+0.95 | —0.09012580241255 10-?
+1 | —0.08764080447788 10-8
+1.05 | —0.08601844207001 10—
+1.1 | —0.084921959061503 10-8
+1.15 | —0.08415727621616 10-8
+1.21 | —0.08351819356943 10-8
+1.25 | —0.08320530895649 10-F
+1.3 | —0.082901918346955 10~
+
+Table 1: Numerical data for the coupling constant dependence of the Gibbs potential
+around the free fermion point, when 3; = 3- 1071, 6_; = 107+, 63 = 5/6, B_3 = 1/6.
+
+G(B\p)
+
+—0.08764080447213 lo“
+
+num. error
+
+—0.08768059024630
+
+—0.08772071608898
+
+Pp
+1
+1—1-10-3
+1—2-10%
+1310
+
+—0.08776118549140
+.08760135531564
+8756223936590
+
+—0.
+
+—0.08752345325135
+
+Ble le. Rel ele
+|
+4
+
+Table 2: Numerical data for demonstrating the continuity of the Gibbs potential
+
+and its first two derivatives arounc
+
+B-1 = 107, Bs = 5/6, B_3 = 1/6.
+
+26
+
+the free fermion point, when 8; = 3- 107},
+—0.09 -
+
+—0.10 F
+
+-0.11
+
+0.12 -
+
+-0.13 -
+
+—0.14 -
+
+Figure 1: The coupling constant dependence of the Gibbs potential around the free fermion
+point, when 6; = 3-101, 8_1 = 1071, 63 = 5/6, B_3 =1/6.
+
+27
+References
+
+ab
+
+A. B. Zamolodchikov and A. B. Zamolodchikov, “Factorized S-matrices in two
+dimensions as the exact solutions of certain relativistic quantum field theory
+models,” Ann. Phys. 120 (1979), 253-291, doi:10.1016/0003-4916(79)90391-9.
+
+F. A. Smirnov, “Comple
+
+tely Integrable Models of Quantum Field Theory,” Adv.
+
+Ser. Math. Phys. 14 (1992), 1-208,
+
+S. Lukyanov and A. Za:
+
+molodchikov, “Exact expectation values of local fields
+
+in the quantum sine-Gordon model,” Nucl. Phys. B 493 (1997), 571-587,
+
+doi:10.1016/S0550-3213
+V. Gritsev,
+
+E. Demler,
+
+97)00123-5 [arXiv:hep-th/9611238].
+
+M. Lukin and A. Polkovnikov, “Spectroscopy
+
+of collective excitations in interacting low-dimensional many-body sys-
+
+tems using quench d
+doi:10.1103/PhysRevLe
+mat.other]].
+
+T. Kinoshita, T. Wenge
+ture 440 (2006), 900-9
+
+V. Gritsev, A. Polkovni
+
+200404
+[cond-
+
+ynamics,”
+t.99.200404
+
+Phys. Rev. Lett. 99 (2007),
+[arXiv:cond-mat/0702343
+
+rand D. S. Weiss, “A quantum Newton’s cradle,” Na-
+3 doi:10.1038/nature04693.
+
+kov and E. Demler, “Linear response theory for a pair
+
+of coupled one-dimensional condensates of interacting atoms,” Phys. Rev. B 75
+
+(2007), 174511, doi:10.1
+
+J: 1.
+oi:
+
+E. Haller et al.,
+liquid of strongly
+ol:
+
+mm
+
+Ol:
+
+E. Wybo, A. Bastianello, M. Aidelsburger, I.
+
+ing and analyzing solito
+scopes,” PRX Quantum
+
+103/PhysRevB.75.174511 {arXiv:cond-mat/0701421].
+
+Cirac, P. Maraner and J. K. Pachos, “Cold Atom Simulation of Interacting
+Relativistic Quantum Field Theories,” Phys. Rev. Lett. 105
+0.1103/PhysRevLett.105.190403 [arXiv:10
+
+2010), 190403,
+6.2975 [cond-mat.str-ell].
+
+“Pinning quantum phase transition for a Luttinger
+interacting bosons,”
+0.1038/nature09259 [arXiv:1004.3168 [cond
+
+Nature 466 (2010),
+
+-mat.quant-gas]].
+
+597-600,
+
+Schweigler et al., “Experimental characterization of a quantum many-
+body system via higher-order correlations,” Nature 545 (2
+i:10.1038/nature22310 [arXiv:1505.03126 [cond-mat.quant-gas]].
+
+17), 323-326,
+
+Bloch and M. Knap, “Prepar-
+ns in the sine-gordon model with quantum gas micro-
+4 (2023), 030308, doi:10.1103/PRXQuantum.4.030308
+
+[arXiv:2303.16221 [cond-mat.quant-gas]].
+
+28
+[18]
+
+[19]
+
+[20]
+
+A. Roy, D. Schuricht, J. Hauschild, F. Pollmann and H. Saleur, “The quantum
+sine-Gordon model with quantum circuits,” Nucl. Phys. B 968 (2021), 115445,
+doi:10.1016/j.nuclphysb.2021.115445 [arXiv:2007.06874 [quant-ph].
+
+E. Wybo, M. Knap and A. Bastianello, “Quantum sine-Gordon dy-
+namics in coupled spin chains,” Phys. Rev. B 106 (2022), 075102,
+doi:10.1103/PhysRevB.106.075102 [arXiv:2203.09530].
+
+J. Eisert, M. Friesdorf and C. Gogolin, “Quantum many-body systems
+out of equilibrium,” Nature Phys. 11 (2015), 124 doi:10.1038/nphys3215
+[arXiv:1408.5148 [quant-ph].
+
+M. Rigol, V. Dunjko and M. Olshanii, “Relaxation in a completely integrable
+many-body quantum system: An ab initio study of the dynamics of the highly
+excited states of 1D lattice hard-core bosons,” Nature 452 (2008), 854-858
+doi:10.1038 /nature06838 [arXiv:0708.1324 [cond-mat.stat-mech]].
+
+L. Vidmar and M. Rigol, “Generalized Gibbs Ensemble in Integrable
+Lattice Models,” J. Stat. Mech. 2016 (2016), 064007 doi:10.1088/1742-
+5468/2016/06/064007 [arXiv:1604.03990 [cond-mat.stat-mech].
+
+F. H. L. Essler and M. Fagotti, “Quench dynamics and relaxation in isolated in-
+tegrable quantum spin chains,” J. Stat. Mech. 064002 (2016) doi:10.1088/1742-
+5468/2016/06/064002 [arXiv:1603.06463 [cond-mat.stat-mech].
+
+E. Ilievski, J. De Nardis, B. Wouters, J.-S. Caux, F. H. L. Essler and T. Prosen,
+“Complete Generalized Gibbs Ensembles in an Interacting Theory,” Phys.
+Rev. Lett. 115 (2015) no.15, 157201 doi:10.1103/PhysRevLett.115.157201
+[arXiv:1507.02993 [cond-mat.stat-mech].
+
+O. A. Castro-Alvaredo, B. Doyon and T. Yoshimura, “Emergent Hydrody-
+namics in Integrable Quantum Systems Out of Equilibrium,” Phys. Rev. X
+6 (2016), 041065, doi:10.1103/PhysRevX.6.041065 [arXiv:1605.07331 [cond-
+mat.stat-mech].
+
+B. Bertini, M. Collura, J. De Nardis and M. Fagotti, “Transport in Out-
+of-Equilibrium XXZ Chains: Exact Profiles of Charges and Currents,”
+Phys. Rev. Lett. 117 (2016), 207201, doi:10.1103/PhysRevLett.117.207201
+[arXiv:1605.09790 [cond-mat.stat-mech].
+
+B. C. Nagy, M. Kormos and G. Takacs, ” Thermodynamics and fractal Drude
+weights in the sine-Gordon model,” Phys. Rev. B 108 (2023) no.24, L241105
+doi:10.1103/PhysRevB.108.L241105 [arXiv:2305.15474 [cond-mat.str-el]].
+
+29
+[21]
+
+[22]
+
+[23]
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+B. C. Nagy, G. Takacs and M. Kormos, “Thermodynamic Bethe Ansatz and
+generalised hydrodynamics in the sine-Gordon model,” SciPost Phys. 16 (2024)
+no.6, 145 doi:10.21468/SciPostPhys.16.6.145 [arXiv:2312.03909 [cond-mat.str-
+
+F. Moller, B. C. Nagy, M. Kormos and G. Takacs, “Anomalous charge trans-
+port in the sine-Gordon model,” Phys. Rev. B 111 (2025) no.11, 115121
+doi:10.1103/PhysRevB.111.115121 [arXiv:2411.11473 [cond-mat.stat-mech]].
+
+D. X. Horvath, I. Lovas, M. Kormos, G. Takdécs and G. Zarand,
+Nonequilibrium time evolution and rephasing in the quantum sine-Gordon
+model,” Phys. Rev. A 100 (2019), 013613, doi:10.1103/PhysRevA.100.013613
+[arXiv:1809.06789 [cond-mat.quant-gas]].
+
+D. Szasz-Schagrin, I. Lovas and G. Takacs, ” Non-equilibrium time evolution in
+the sine-Gordon model revisited,” [arXiv:2309.03596 [cond-mat.stat-mech]].
+
+B. Bertini, D. Schuricht and F. H. L. Essler, "Quantum quench in the
+sine-Gordon model,” J. Stat. Mech. 2014 (2014), 10035, doi:10.1088/1742-
+5468/2014/10/P10035 [arXiv:1405.4813 [cond-mat.stat-mechl].
+
+A. Cortés Cubero and D. Schuricht, “Quantum quench in the attractive
+regime of the sine-Gordon model,” J. Stat. Mech. 2017 (2017), 103106,
+doi:10.1088/1742-5468/aa8c2e [arXiv:1707.09218 [cond-mat.stat-mechl].
+
+Y. D. van Nieuwkerk and F. H. L. Essler, ” Self-consistent time-dependent har-
+monic approximation for the sine-Gordon model out of equilibrium,” J. Stat.
+Mech. 2019 (2019), 084012, doi:10.1088/1742-5468/ab3579 [arXiv:1812.06690
+[cond-mat.quant-gas]].
+
+M. Kormos and G. Zardnd, ”Quantum quenches in the sine-Gordon
+model: A semiclassical approach,” Phys. Rev. E 93 (2016), 062101,
+doi:10.1103/PhysRevE.93.062101 {arXiv:1507.02708 [cond-mat.stat-mech]].
+
+D. Horvath, 5. Sotiriadis, M. Kormos and G. Takacs, Inhomogeneous quan-
+tum quenches in the sine-Gordon theory,” SciPost Phys. 12 (2022), 144,
+doi:10.21468/SciPostPhys.12.5.144 [arXiv:2109.06869 [cond-mat.str-el]].
+
+B. Bertini, L. Piroli and M. Kormos, ” Transport in the sine-Gordon field theory:
+from generalized hydrodynamics to semiclassics,” Phys. Rev. B 100 (2019),
+035108, doi:10.1103/PhysRevB.100.035108 [arXiv:1904.02696 [cond-mat.stat-
+mech].
+
+30
+31
+
+32
+
+33
+
+34
+
+35
+
+36
+
+37
+
+38
+
+39
+
+40
+
+41
+
+A. Bastianello, ” The sine-Gordon model from coupled condensates: a General-
+ized Hydrodynamics viewpoint,” [arXiv:2310.04493 [cond-mat.stat-mech]].
+
+A. B. Zamolodchikov, “Thermodynamic Bethe Ansatz in Relativistic Models.
+Scaling Three State Potts and Lee-yang Models,” Nucl. Phys. B 342 (1990),
+695-720 doi:10.1016/0550-3213(90)90333-9
+
+J. Mossel and J. S. Caux, “Generalized TBA and generalized Gibbs,” J. Phys.
+A 45 (2012), 255001 doi:10.1088/1751-8113/45/25/255001 [arXiv:1203.1305
+[cond-mat.quant-gas]].
+
+M. Fowler and X. Zotos, “Bethe-ansatz quantum sine-Gordon thermodynamics.
+The specific heat,” Phys. Rev. B25 (1982) 5806.
+
+A. Kliimper and M. T. Batchelor and P A Pearce, ”Central charges of
+the 6- and 19-vertex models with twisted boundary conditions”, Journal of
+Physics A: Mathematical and General 24 (1991) 3111-3133. doi:10.1088/0305-
+4470/24/13/025
+
+C. Destri and H. J. de Vega, “New thermodynamic Bethe ansatz
+equations without strings,” Phys. Rev. Lett. 69 (1992), 2313-2317
+0i:10.1103/PhysRevLett.69.2313
+
+A. Kliimper, “Thermodynamics of the Anisotropic Spin-1/2 Heisenberg
+Chain and Related Quantum Chains,” Z. Phys. B 91 (1993), 507
+0i:10.1007/BF01316831 [arXiv:cond-mat/9306019 [cond-mat].
+
+C. Destri and H. J. De Vega, “Unified approach to thermodynamic Bethe
+Ansatz and finite size corrections for lattice models and field theories,” Nucl.
+Phys. B 438 (1995), 413-454 doi:10.1016/0550-3213(94)00547-R. [arXiv:hep-
+th/9407117 [hep-th]].
+
+A. Klimper, “Free energy and correlation lengths of quantum chains related
+to restricted solid-on-solid lattice models,” Ann. Phys. 504 (1992), 540-553
+doi:10.1002/andp.19925041110.
+
+A. Hegedtis, ” Thermodynamics in the sine-Gordon model: The NLIE approach”
+Nucl. Phys. B 1020 (2025), 117155 doi:10.1016/j.nuclphysb.2025.117155
+[arXiv:2507.19200 [hep-th]].
+
+M. Takahashi and M. Suzuki, “One-Dimensional Anisotropic Heisenberg
+Model at Finite Temperatures,” Prog. Theor. Phys. 48 (1972), 2187-2209
+doi:10.1143/PTP.48.2187
+
+31
+42
+
+43
+
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+50
+
+51
+
+52
+
+A. B. Zamolodchikov, “On the thermodynamic Bethe ansatz equations for
+reflectionless ADE scattering theories,” Phys. Lett. B 253 (1991), 391-394
+doi:10.1016/0370-2693(91)91737-G
+
+F. Ravanini, R. Tateo and A. Valleriani, “Dynkin TBAs,” Int. J. Mod. Phys.
+A 8 (1993), 1707-1728 doi:10.1142/S0217751X93000709 [arXiv:hep-th/9207040
+[hep-th]].
+
+J. Suzuki, “Spinons in magnetic chains of arbitrary spins at finite temperature,”
+J. Phys. A 32 (1999), 2341-2359 doi:10.1088/0305-4470/32/12/008 [arXiv:cond-
+mat/9807076 [cond-mat.stat-mech]].
+
+R. Tateo, “The Sine-Gordon model as SO(n)-1 x SO(n)-1 / SO(n)-2 perturbed
+coset theory and generalizations,” Int. J. Mod. Phys. A 10 (1995), 1357-1376
+doi:10.1142/S0217751X95000656 [arXiv:hep-th/9405197 [hep-th].
+
+J. Balog and A. Hegedtis, “The finite size spectrum of the 2-dimensional
+O(3) nonlinear sigma-model,” Nucl. Phys. B 829 (2010), 425-446
+doi:10.1016/j.nuclphysb.2009.11.010 {arXiv:0907.1759 [hep-th].
+
+C. Ahn, J. Balog and F. Ravanini, “NLIE for the Sausage model,”
+arXiv:1701.08933 [hep-th]].
+
+C. Ahn, J. Balog and F. Ravanini, “Nonlinear integral equations for the sausage
+model,” J. Phys. A 50 (2017) no.31, 314005 doi:10.1088/1751-8121/aa7780
+arXiv:1911.12583 [hep-th]].
+
+P. Wiegmann, “Bethe ansatz and classical Hirota equation,” Int. J. Mod. Phys.
+B 11 (1997), 75 doi:10.1142/S0217979297000101 [arXiv:cond-mat/9610132
+cond-mat!].
+
+C. Dunning, “Finite size effects and the supersymmetric sine-Gordon models,”
+J. Phys. A 36 (2003), 5463-5476 doi:10.1088/0305-4470/36/20/308 {arXiv:hep-
+th/0210225 [hep-th]].
+
+A. Hegedtis, “Finite size effects in the SS model: Two compo-
+nent nonlinear integral equations,” Nucl. Phys. B 679 (2004), 545-567
+doi:10.1016/j.nuclphysb.2003.11.040 [arXiv:hep-th/0310051 [hep-th].
+
+A. Hegedtis, “Nonlinear integral equations for the finite size effects of RSOS and
+vertex-models and related quantum field theories,” Nucl. Phys. B 732 (2006),
+463-486 doi:10.1016/j.nuclphysb.2005.10.041 [arXiv:hep-th/0507132 [hep-th]].
+
+32
+[53] H. Boos, M. Jimbo, T. Miwa, F. Smirnov and Y. Takeyama, “Hidden Grass-
+
+[54
+
+59
+
+56
+
+57
+
+58
+
+59
+
+60
+
+61
+
+62
+
+]
+
+mann structure in the XXZ model,” Commun. Math. Phys. 272 (2007), 263-281
+doi:10.1007/s00220-007-0202-x [arXiv:hep-th/0606280 [hep-th]].
+
+H. Boos, M. Jimbo, T. Miwa, F. Smirnov and Y. Takeyama, “Hidden Grass-
+mann Structure in the XXZ Model II: Creation Operators,” Commun. Math.
+Phys. 286 (2009), 875-932 doi:10.1007/s00220-008-0617-z [arXiv:0801.1176
+[hep-th].
+
+M. Jimbo, T. Miwa and F. Smirnov, “Hidden Grassmann Structure in the XXZ
+Model IIL: Introducing Matsubara direction,” J. Phys. A 42 (2009), 304018
+0i:10.1088/1751-8113/42/30/304018 [arXiv:0811.0439 [math-ph].
+
+H. Boos, M. Jimbo, T. Miwa and F. Smirnov, “Hidden Grassmann Structure
+in the XXZ Model IV: CFT limit,” Commun. Math. Phys. 299 (2010), 825-866
+0i:10.1007/s00220-010-1051-6 [arXiv: 0911.3731 [hep-th].
+
+M. Jimbo, T. Miwa and F. Smirnov, “Hidden Grassmann structure in the
+XXZ model V: Sine-Gordon model,” Lett. Math. Phys. 96 (2011), 325-365
+0i:10.1007/s11005-010-0438-9 [arXiv: 1007.0556 [hep-th]].
+
+A. Hegedtis, “Finite volume expectation values in the sine-Gordon model,”
+JHEP 01 (2020), 122 doi:10.1007/JHEP01(2020)122 [arXiv:1909.08467 [hep-
+
+A. B. Zamolodchikov, “Mass scale in the sine-Gordon model and its reductions,”
+Int. J. Mod. Phys. A 10 (1995), 1125-1150 doi:10.1142/S0217751X9500053X
+
+B. Doyon, “Lecture notes on Generalised Hydrodynamics,” SciPost Phys. Lect.
+Notes 18 (2020), 1 doi:10.21468/SciPostPhysLectNotes.18 [arXiv:1912.08496
+[cond-mat.stat-mech]].
+
+S. Hofferberth, I. Lesanovsky, B. Fischer, T. Schumm and J. Schmiedmayer,
+“Non-equilibrium coherence dynamics in one-dimensional Bose gases,” Nature
+449 (2007) no.7160, 324-327 doi:10.1038/nature06149
+
+Y. D. van Nieuwkerk, J. Schmiedmayer, F. H. L. Essler, “Projective phase
+measurements in one-dimensional Bose gases,” SciPost Phys. 5 (2018) no.5, 046
+https://doi.org/10.21468/SciPostPhys.5.5.046 [arXiv: arXiv:1806.02626 [cond-
+mat.str-ell].
+
+33

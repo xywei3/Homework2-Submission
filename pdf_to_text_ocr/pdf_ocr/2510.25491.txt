@@ -1,0 +1,1333 @@
+Decoherence Estimation of Superconducting Qubit
+Yoav Koral!, Shilo Avraham?, Manimuthu Periyasamy!, Shmuel E. Schacham!, Eliyahu Farber!*
+Abstract
+
+Decoherence of quantum bits arises primarily from the parasitic resistance within the qubit. This study presents the analysis of the
+decoherence process due to physical interactions between the qubit photons and parasitic resistance atoms, utilizing exclusively the
+Caldeira-Leggett electrical model, without relying on external Hamiltonians. The analysis shows a good agreement between the model
+of the electrical noise and the Johnson-Nyquist noise. The emission and absorption rates of the qubit’s coherence loss, required for the
+Lindblad master equation that approximates the decoherence, are obtained. A numerical substitution in the analysis result yields a strong
+correlation with previous measurements. The present analysis enables also the derivation of the appropriate circuit characteristics for
+
+future simulations.
+
+Keywords: quantum computing, quantum circuit, decoherence
+
+Citation: Koral Y, Avraham S, Periyasamy M, Schacham SE, Farber E. Decoherence Estimation of Superconducting Qubit. Academia
+
+Quantum 2025;
+
+1. Introduction
+
+The fundamental unit of information in quantum computing is
+the quantum bit, commonly referred to as a qubit. The most
+common implementation of qubits is by superconducting
+Josephson Junctions. These qubits are controlled using an external
+voltage source [1]. Once a qubit is set to a specific quantum state,
+a combination of the first two eigenstates, |0) and |1), it starts to
+experience decoherence [2], the process where the coherence
+between the two eigenstates is lost. This loss of coherence is
+primarily due to the parasitic resistance within the qubit [3], which
+has two main causes: the emission of photons into the resistor with
+the involvement of atoms in this process, as well as the absorption
+of photons that are excited by the thermal vibrations of the
+resistor's atoms.
+
+The decoherence process has been investigated based on several
+theoretical approaches. Breuer and Petruccione [4] give reference
+to prior works [5,6] that utilize a Hamiltonian based on a single
+qubit interacting with its environment [7], and the Caldeira-
+Leggett model [8], known as the spin-boson model Hamiltonian.
+Alternatively, the Ising model was used to describe the
+decoherence process [9]. Recent works [10, 11, 12] investigate
+decoherence by pure mathematical analysis based on physical and
+mathematical models which have no correlation with any
+electrical circuit model. The first to use an electric field model to
+represent the internal resistance of the qubit, to derive quantum
+fluctuations, was Devoret [13]. He employed the Foster model
+[14] to replace the resistance of the qubit by an infinite number of
+parallel LC resonators connected in series. A subsequent effort by
+Cataneo and Paraoanu [15] provided a comprehensive review of
+the decoherence process, for both a single qubit and two qubits
+connected to external resistors, using small serial capacitors.
+However, this work analyzed only the influence of external
+resistors on qubit's decoherence, ignoring the part of qubit's
+internal resistance.
+
+Along the lines of the previous works, mainly that of Cataneo
+and Paraoanu [15], we introduce a comprehensive analysis of the
+Hamiltonian for a qubit with parasitic resistance, based on the
+Foster model of the resistance. We calculate the parameters of the
+model and employ the Lindblad master equation [16] to analyze
+and simulate the decoherence process.
+
+2. Calculation Process
+
+To simplify the analysis of the decoherence process, it is
+necessary to assume that the qubit is in an initial quantum state,
+disconnected from the surroundings, as shown in Fig. 1.
+
+Initial State
+Iyp(O)) = al1) + blo)
+
+al
+
+Fig. 1 * Simplified qubit model with internal losses/resistance
+
+Resistors cannot be included in the circuit Hamiltonian due to
+lack of energy conservation. To overcome this problem, Devoret
+[13] replaced the resistors by an infinite number of LC resonators
+connected in series as shown in Fig. 2. The resonators differ from
+one another by their resonance frequencies, 1 /VinCy , that equals
+kAw for the k’th resonator, and by the section admittance, ./ Cy /L
+that its value is set using the required bath resistance function
+Rg (ax).
+
+* SMQS Group, Department of Electrical & Electronic Engineering, Ariel University, ISRAEL
+
+2 School of Physics and Astronomy, Tel-Aviv University, ISRAEL
+3 Department of Physics, Ariel University, ISRAEL
+
+1 of 10
+_Thermal Reservoir
+Bath
+
+Qubit
+
+Fig. 2 * Qubit electrical model employing a thermal reservoir,
+representing the resistor by a set of resonators.
+
+During transient time, following an input signal to the bath
+circuit with a finite number of resonators, the circuit behavior is
+similar to that of a resistor. With increasing time, the bath circuit
+behavior changes to a reactive network. As the number of the
+resonators increases to infinity, the transient time at which the bath
+circuit behaves as resistor, approaches to infinity as well.
+Therefore, the behavior of the network can be seen as an
+impedance with a significant resistive component and a negligible
+reactive component, but only within a limited frequency range, as
+discussed in section 4.
+
+The calculation procedure for determining the decoherence
+process of the circuit shown in Fig. 2 is performed using six major
+steps:
+
+1) System and bath Hamiltonian
+2)  Resistor’s bath reactive model
+3) Thermal noise of the resistor
+4) Emission and absorption rates
+5) Coherent wave decay constant
+
+6) Solution of the system’s Lindblad equation
+
+These steps are discussed in the following sections.
+
+3. System and Bath Hamiltonian
+
+Using the Kirchhoff voltage equation for the loops, we obtain
+the following set of equations
+
+a xy . qq _
+Hala ti)+e=0
+ley Gti +E=0 § 1,2 n060 (1)
+
+Li Hy +i) + ba ( + in) =0
+
+which leads to
+
+a? 4 op aa 4
+yo de +L dee Ge 0
+a ax aa ie
+Lk de ane =0 ; k =1,2...00 (2)
+
+dq, dq, ~ dan. dq,
+u (3 Marre + Dit ae * ae)?
+
+where
+
+t t t
+q= J sae 5 4k = J tae! ; a= J icae’ (3)
+00 00 —00
+
+Using the relation
+
+a) fly 9 0 0 OT ty,
+g| |o tn 0 0 Of} Id2
+43) =} 0 lL, 0 0 3
+i 0 Oo « 0 :
+. 4
+al Lo 0 0 LL lm @)
+
+wo
+igh 8
+K=t
+
+and by combining the Euler-Lagrange equation and the Legendre
+transformation [17, 18], the circuit Hamiltonian can be derived as
+
+sme (a)
+a Qj
+Hs = ZL, are 2c, ®)
+a % 6)
+Hg > (s * oy ©)
+~ _ oF
+=aE (d)
+
+The last term in equation (5) is the interaction Hamiltonian. It
+represents the energy in the i, current loop. This loop expresses
+the interaction between the qubit and the resonators in the bath.
+The absence of a capacitor in the interaction loop poses a challenge
+in describing the system by known operators and eigen-functions.
+Therefore, it is necessary to characterize the interaction flux as a
+dependent function of the fluxes of the other inductors in the
+circuit. A short way to do this, is to retreat to the equations set (2)
+and to calculate its Laplace transform in the following manner
+
+s?L Gy + S7L)G, + u =0
+J
+
+S?Ly dy + 574g, +e = 0 A
+
+Ce k=1,2...0 (6)
+
+eo
+s?*L,(4) +%) +37) eG +G.) =0
+k=1
+
+According to equation (4) and the third equation in (6)
+
+cy
+-(a +d.) )
+k=1
+By substituting equation (7) into (5) and rearranging the
+Hamiltonian, the following expressions are obtained
+
+2 of 10
+H=As +A, +H, (a)
+
+2 Qi
+rad J a
+= 4st b
+SO 2G, ®)
+*
+_ a2  & ®)
+A =" Qe
+8 > (onan ©)
+ne
+A, = ZY. o, (d)
+Lee
+where
+Le ee 5
+lag Goi * ie le le )
+
+Using the definitions for the annihilation and creation operators
+[19] , we obtain
+
+= _ vi
+i ar 5 Og, = JhyLi/C
+~ _ Qi . _
+eae } oO” = hy C;i/Lj (10)
+1s es a te, oh
+=— i “ t= -i
+a vg + id) ; a aie id)
+i = AJ or Ak
+
+Subsequently, we proceed with the definition of the extended
+annihilation operators
+
+by =1OKVI@a@Wjpxrl (1)
+
+where the indices decrease. Substituting equations (9) through
+(11) into equation (8), we obtain the Hamiltonian normalized to h
+
+G@=aQteyl ;
+
+H=As+ Ag+, (a)
+_ ol
+Ay = way (ata + 5) (b)
+. 1 (12)
+Ag = ». Wak (bib. bs 5) (c)
+k=1
+4 ©
+A, = 5 (at +@) » cpr (Bt + By) (a)
+k=1
+where the frequencies are given by
+Way =A/JlayC) 5 o, = [hwayly
+ar =1/VLarCk 3 O% = Vhoggly (13)
+
+af Laps
+
+Shifting the energy zero level of (12) by @g, + on @ax and
+
+Orn =
+
+reducing the annihilation operator a‘th matrix dimensions to 2x2,
+we obtain
+
+H=As+A, +H, (a)
+os w,
+A,=- 18, )
+a 14
+B= DY, ombjbe (c) a4)
+k=1
+ae on
+A, = 5a), cog (bt + By) (d)
+k=1
+
+where 6, and @, are the extended Pauli matrices [20] .
+
+4. Resistor’s Bath Reactive Model
+
+We employ the Fermi Golden Rule [21] for the calculation of
+emission and absorption rates. To that end, the energy states
+density associated with the qubit states are required. We start with
+the calculation of the bath frequency response. At every junction
+in the bath, the current is given by
+
+dv,
+
+tp = Cea t tk ; k =1,2...00 (15)
+
+Hence, the Laplace transform of the total bath impedance is
+
+7, a2 y 1 os 1 6
+en ip Ely S@+ aR” [Ty Cy (6)
+This impedance represents the reactance part only. However, if the
+inductance and capacitance components of the resonator tend to
+zero and the number of resonators tends to infinity, the resistive
+component becomes significant. The ideal impedance of the bath
+network is equal to the qubit's parasitic resistance for all
+frequencies. However, it is not achievable with a reactive network.
+The practical alternative is to form a target impedance function
+that presents the required impedance in a band limited frequency
+response. This target impedance function has a real and an
+
+imaginary part as follows
+
+Zp (@) = Rew) + j Xe) (17)
+
+To create the target resistance, we define a set of parallel
+resonators, where the resonance frequency of the k’th resonator
+equals to kAw , and its section admittance, Cui Ln , is set so that
+the section bandwidth will be 2Aw. In that way we form the
+required bath resistance Rg (w,) :
+
+G
+Qn = nao fe
+
+where Q;, is the section’s quality factor. The scattering parameter
+S21 of the first five resonators of the bath circuit with k = 1,..,5,
+as a function of the normalized frequency w/w, , are shown in Fig.
+3. Each resonator is separately connected as a terminated 2 port
+circuit with a Rg(@,) resistor.
+
+Tw
+=k; (18)
+
+Wy = kAw
+
+3 of 10
+-0.5
+a
+2
+3 15
+§
+a 2 “oo
+é we
+8 2.5 =—er=
+Se ae coe i ee a
+g
+© 35
+
+4
+45 f L
+oO 1 = 3 4 5 6
+Normalized Freq. whe,
+Fig. 3 * Frequency response S2, of first 5 resonators of bath circuit
+
+vs. normalized frequency w/@,
+
+Using (16) and (18), we derive the capacitance and inductance
+of the resonator’s components :
+
+1 _ 2 Rg(ox)Aw
+=
+
+=a 2hw Rao) ; Lx (19)
+
+Cx
+TE Wie
+Substituting C, into Zp in equation (16) , increasing the number of
+resonators to infinity, we get
+an)
+Zq(a) =P |
+a
+00
+where P denotes the Cauchy principal value integral [22]. The
+right-hand expression is derived from the Kramers-Krénig
+relations [23], which are applicable for every impedance that can
+be implemented and contains both real and imaginary parts
+
+R
+B(x) daw, = iXg(w)
+@— Wr
+
+(20)
+
+co
+
+Rp(@) =+p [ew (a)
+mare (21)
+1 Rp (o!
+Xp(w) = =P [Fae (6)
+
+00
+Thus, using equation (21)a , we can conclude that the relation
+Zp = j Xp represents a part of a more extensive bath impedance as
+seen in equation (17). This result is attributed to the infinite
+number of resonators in this model.
+
+For a finite number of resonators, a real part behavior is
+observed only during a transient time following the initial
+excitation, and it vanishes gradually in time. As the response
+reaches stable conditions, only the imaginary part is retained. As
+the number of resonators is increased, the duration of the transient
+time grows, ultimately reaching an infinite value when an infinite
+number of resonators are used. This implies the presence of a
+constant real part in the impedance.
+
+We proceed to establish an arbitrary realizable band limited
+formula of the resistive part of the impedance. Next, we substitute
+this into equation (21)a to calculate the reactive part, as follows
+
+2 we
+Balan = Re + wh w? + we
+(22)
+
+We WW W* — Wye
+
+X3(@) =R
+3(@) Wp + Wc? +.w% w* +a?
+
+The resistive part equation presents a combination of High-Pass
+
+Frequency (HPF) and Low-Pass Frequency (LPF) responses. The
+
+purpose of incorporating the HPF response part, over Cataneo and
+
+Paraoanu [15] approach , is to prevent the occurrence of
+singularity while calculating the loop interaction inductor L, by
+equation (4).
+
+By plotting the relative dimensions of the real and imaginary
+parts of equation (22), using arbitrary values of wp, and w, , we
+obtain the following curves
+
+Bath Impedance Curves
+
+1
+Legends
+Re
+
+05
+
+Normalized Impedance R, X
+
+1o* 107 10 1% t0* 10% 107 107 10
+Normalized Freq. wl,
+
+0
+
+1 2
+
+10" 10
+
+Fig. 4 + Real and imaginary parts of the bath impedance,
+normalized to qubit parasitic resistance Rg vs. frequency
+normalized to LPF knee frequency Wwe .
+
+The above analysis fails to include the DC case, w=0. In this case,
+the flow of current is limited only to the bath inductors, resulting
+in an impedance value of zero.
+
+5. Thermal Noise on the Resistor
+
+In this chapter, we will analyze the thermal properties of the
+resistor's model described in equation (22) and demonstrate its
+close relation to the well-known Johnson-Nyquist noise [24].
+
+Noise Spectral Density
+
+To calculate the spectrum density, we start with deriving the
+correlation function of the voltage drop across the resistor by
+calculating the auto-correlation function for each LC resonator at
+the bath electrical model, as follows
+
+C® (0) = (ve (OVE (OD) = (P(t b:e(O)) 908)
+
+Three functions must be calculated for (23)
+
+(23)
+
+(bx (0)?) Flux derivative operator variance at t = 0
+(bx (0)b,(0)) — Flux-to-flux derivative covariance at t = 0
+y(t) Time dependent flux derivative operator
+
+This calculation is already depicted in reference [15]. It is
+expressed by the integral
+©
+
+he :
+Cv) = [AE Rew) Wx) eM dong
+Be (24)
+
+N(@x) = [n(@x) + Lulo,) — n(-w;,)u(-ox)
+where u(w) is the Heaviside Step-function [25], and the Bose-
+Einstein density function is
+
+1
+
+eae (25)
+
+n(x) =
+
+The physical interpretation of the states weighting function V(w)
+is attained from the limit lim n(@) = 0, since only the positive
+
+4 of 10
+frequency part of N(w) remains. In the limit of T approaching
+zero, the system is only in the absorption state, with no emission.
+This leads to the following classification
+
+@>0 Absorption state N(w) =n(w) +1
+
+N(w) = n(-—@) (26)
+
+w<0 Emission state
+as illustrated in Fig. 5.
+
+Resistor's State Density
+
+Emission
+
+Absorption
+
+Density per Energy
+S
+
+f
+i
+1
+i
+1
+1
+i
+i
+i
+i
+i
+H
+i
+i
+i
+1
+L
+0
+
+1 08 06 04 02 02 04 06 O08 1
+
+hook ,T
+Fig. 5 * Resistor’s density of states vs. normalized energy
+
+To find the spectral density Sy\(@) of the thermal noise across the
+resistor, we use the Weiner-Khinchin theorem [26]
+
+cy
+
+Syy(o) = f Cw (tele*at
+
+Substituting (27) into (24), we obtain the spectral density function
+
+Q7)
+
+2hw w? we
+-R s
+eBho  w* +02 w? + we
+
+Svv(@) = 1 (28)
+In order to estimate the impact of the analysis for our Josephson
+Junction qubit, operating at 13.5GHz, we arbitrarily set the bath
+LPF to 1.0THz, about 100 times higher than the qubit frequency,
+and the bath HPF to 1MHz, about 10,000 smaller than qubit
+frequency. The derived power density of the resistor bath is shown
+in Fig. 6
+
+a Resistor Spectral Density
+
+Params
+Fj= 1.0 MHz
+
+Swv (eWkH2/0)
+
+108 10° 107
+
+Freq. (Hz)
+
+4 32
+
+10 10) jo"
+
+Fig. 6 * Power density of resistor’s bath model
+
+At lower frequencies, over the HPF rejection range,hw/kpT « 1
+where the exponent expression can be approximated to the first
+order, the spectral density can be approximated by
+
+Syy(@) & 2kgTR (29)
+
+which is similar to the known Johnson-Nyquist noise [24], except
+for the factor of 2 instead of 4 in the Johnson-Nyquist model. This
+difference is due to the different frequency ranges. The Johnson-
+Nyquist model applies for positive frequencies, while equation
+(29) includes both the positive and the negative ranges.
+
+6. Emission And Absorption Rates
+Rotating Frame Interaction Hamiltonian
+
+Rewriting equation (14), we get
+
+Ay = - Sa, + ) wy bh Dy (30)
+
+Since the Hamiltonian Ag is a diagonal matrix, the general matrix
+element of the Rotating Frame matrix is
+
+[Ure], = [et], = oye G1)
+and the rotated frame Interaction Hamiltonian is
+Ai, (t) = e!Hot A, e~ Hot (32)
+
+Substituting equation (14)d, (30) and (31) into (32), with using the
+general formula
+
+B=U,yAUl, => Brn = eb@m-ont A, (33)
+
+we obtain the rotating frame Interaction Hamiltonian
+A(t) = 6, Og = 0, ® » Ork®re
+Kk
+
+1 ‘ ‘
+Ce= (ox, el@ast + o_e least)
+
+v2
+
+1 ges e
+Ome = Fe (Bhelon + Byertont)
+
+(34)
+
+From equation (13), the coupling frequency is
+
+afLajl,
+AJ MAK fia Bax
+
+tome = (35)
+
+Coupling Frequency Approximation
+
+To calculate the coupling frequency, we first substitute equation
+(22) into (19) and next into (4) to obtain
+
+(36)
+
+2R Aw
+Lp =L,+ ey oto 5 Wp =kAw
+4 OR rar wp + we
+
+Approximating the sum term by converting it to a continuous
+integral using the approximation @, «K w, , we get
+
+We
+
+Ly = L, +R ——— =1L, + (37)
+ad Wp (Wp + We) 1» Wp
+Calculation for our Josephson junction qubit renders
+L,; = 134pH ka. anALOTH
+K aay = 2111: Z 38
+R= 10k0 134pH 8)
+
+Thus, we can conclude that
+
+5 of 10
+ply
+
+«1 L R
+> =—
+R ts Op
+
+Using this approximation in equation (9) we obtain
+
+a 4
+1 op
+
+bea (E+)
+ak \T eR
+
+Substituting this approximation into equation (13) we get
+
+G9)
+
+(40)
+= Ly
+Way = @; 4
+
+Wax = Wx (41)
+
+Substituting equations (39)-(41) into equation (35), we get the
+coupling frequency approximation
+
+rk = VJ (Wz) Aw (42)
+where J(w;.) is the Spectral Ohmic Density
+2 2
+i we 2 aly
+= pa yg sit gag
+J(@x) YOu of Ge eok ? yar (43)
+
+Note that this expression has frequency units, unlike the ordinary
+spectral density which is unitless. For the contiguous limit, where
+Aw > 0 , we get
+
+we we
+
+J@) = flim J@x) = ye (44)
+
+w +02 wo? +02
+From reference [15]-par. 4.1, the emission and absorption rates are
+
+(45)
+Bho,
+2
+Bho,
+Tq = 1J(ey) [corn — 1]
+
+Te = mJ(a) [cotn + 1] Ems. : Sys. Bath
+
+Abs. : Bath — Sys.
+
+for negative and positive frequencies, respectively. Applying the
+relations between the frequencies: wy K w; K We , we can
+approximate
+
+2
+
+Mare : yan 46)
+Substituting equation (46) into (45), we obtain
+
+(47)
+
+e = ane : [con Re + 1] Ems. : Sys. Bath
+
+Th =
+
+2w2L, ho,
+baal [cotn® d 1] Abs. : Bath — Sys.
+
+R i
+@p will be derived in the next paragraph.
+
+Coherent Wave Decay Constant
+
+Applying the non-truncated ladder matrix for the system, in a
+manner similar to equation (12) , using approximation (41) and
+changing the zero energy level for (12)b, the Hamiltonian obtained
+is
+
+H=Hs+Hy +H, (a)
+As = w ata (b)
+OO fee (48)
+Ay = » wy (Bib. + 5) )
+k=1
+~ 1, ve ae
+A, =5(@ +a) > Onu(bt + By) (d)
+
+where Wrz is given by equation (42). Therefore, in a similar
+manner to (34), we get the rotated frame interaction Hamiltonian
+
+A,(t) = ®, Op= ®, @). Onn Pre (a)
+K
+os A, . .
+O, = ill + aes") (b) (49)
+pss Lope 7 me ig
+Bex = yy (baeo™ + bye) ©
+
+Assuming that the system's initial condition is
+[BO)) = lan) ® Ik)
+u (50)
+PO) = latn)(anl @ IkMK| = Po ® pr
+
+where |k) is some arbitrary bath state and |@,) is the coherent state
+of order n [19]. Therefore
+
+(ary, KIBO)IKe, tn) = e-% = 0
+(51)
+(an, k|[Ar(t'), B()]|k, an) = 0
+Applying the perturbation theory to the Schrédinger equation,
+
+using equation (51), we get the following time dependent
+probability of state |a,,), initiating from state |p)),
+
+Pak (t) = (an KIPCOMK, an)
+
+tt _ _ (52)
+= | [(emkel eA CO)M Ce"), aq) aed"
+00
+Substitute equation (50) into (52), we get
+(53)
+Pa (t)
+ff
+= | ne KIA, COU ann, KIA, (tk, tn) dt'dt"
+00
+tt
+= o& | [ PEGE EC") FE") de'ae”
+oo
+where
+F(t) = (an|,(t)|an)
+(54)
+
+G(t) = (k|Gax(O)|k)
+
+From equation (49)b, assuming that @,, is real and positive, we get
+
+6 of 10
+F(t) = (a,|®,(|an)
+
+1 . .
+= ge lanlatetr + ae!#I'|a,) (55)
+1 ‘ 5
+=—(ateli* +,¢ is) = V2 a, cos wt
+al n mn ) n 'y
+Substituting equation (55) into (53), we derive
+Pa (t)
+(56)
+
+tt
+= Wee | | G(t')G(t”) cos w,t' cos wt" dt'dt”’
+00
+
+Calculating the sum of all the resistor’s resonators, we obtain
+(57)
+tto
+Palt) = 20% wie - | | Dk lode Dae() * Prk Pre
+0 0 k=0
+
+Bax (t")|k) cos wt’ cos wt” dt'dt”
+
+Following several algebraic manipulations, we get
+
+(58)
+
+t
+Apg(t) = 2a2 | coott’.e") cos wt’ cosw,t” dt'dt”
+0
+
+8 om
+
+Coe(t.t") = [Panoz ® p(t’) Bp: (t””))]
+
+k=0
+
+Denoting the time difference as t=t'—t" , and due to the
+ergodic nature of the resistor’s noise, there is no time dependence
+of the auto-correlation term of the last integrand. Therefore, we
+can write
+
+tt
+Sq(t) = | | Cop (1) cos wt drdt'
+00
+
+tg (59)
++f | Coo(t) cos w,(2t' — rt) drat’
+oo
+where
+Cop) = J Heo ex) 2% day (60)
+
+To derive the inner integral of equation (59), and using the fact
+that the auto-correlation function is a time limited signal, we
+extend the limits of its inner integral to infinity. Using the spectral
+density expression of equation (27), we obtain
+
+(61)
+t wo
+i iwyt 4 p-iwyt '
+Sai(t) = al | Cog(t) (ef@s* + eI") drat
+0 —00
+1
+= 71Ss6()) + Spo(-o,)] -¢
+Substitute (60) into (61), we get
+Sqi(t) = —1J(w,) +t (62)
+
+For the second integral, in the same manner as for the first one, we
+extend its inner integral limits to infinity
+
+1 t ©
+Saolt) = > | | Cop (t) [ete
+2
+a (63)
++ ews @t'-1)) dtdt'
+
+Changing the integrand variable for the first inner sub-integral, we
+get
+Ca
+Fy (wy, t’) = | Cog(2t! — ty) e's" dty
+
+00
+
+(64)
+
+Due to the ergodic nature of the auto-correlation function, the 2t'
+term is meaningless, therefore
+
+cy
+
+Fy(w,,t") = | oo-ta) eters dts = Spa (—ay) (65)
+
+00
+
+In a similar manner, the second inner sub-integral
+
+ca
+
+F,(@j,t') = | Cog (t) e12"'-9 dt =Syg (wy) (66)
+
+-0
+
+Substituting (65) and (66) into (59), using (62), we get
+
+1
+Sa2(t) = 5 1S6o(~) + Sgo(—a)] +t
+
+(67)
+
+= —mJ(w,)-t
+
+Substituting (62) and (67) into (58), we get
+Apalt) = 2a - [Ser(t) + Sa (t)] =-2mJ(w)-t (68)
+
+Therefore, using the approximation of equation (46), the initial
+emission rate is given by
+
+w5Ly
+Tye = 41 3 J (w,) = —8a2 R (69)
+This expression can be interpreted as
+Ey wl,
+Tue = - i, R > Ey =hwjaz (70)
+
+This result holds for a coherent wave, which is a quasi-classical
+wave. Therefore, an emission rate of a signal with a large enough
+wave parameter [19] : a, >> 1 ,can be compared to a well-known
+classical wave decay parameter, as depicted below.
+
+The classical Kirchhoff junction equation for parallel RLC
+network is
+
+t
+once 4s | dt’
+=RtoaZ L v
+
+; (71)
+
+00
+
+Using the Laplace transform, assuming that the initial junction
+voltage is Vg, we obtain the solution
+
+v(t) = Vy e Hose (cos wyat +
+
+Wyq = Wy 1— pe?
+
+ss Sin Wat
+vi-z (72)
+
+7 of 10
+Accordingly, the initial energy decaying rate is
+
+(73)
+1.5  F
+
+=—._- Cy? = —-
+2RG, 2°!"9 ~~ 2RG,
+
+Comparing equation (73) with equation (70), we get the lower
+high-pass section frequency of the resistor’s model
+
+=)
+
+Wp 4
+
+(74)
+
+Solving the System’s Lindblad equation
+
+Substitute w, frequency parameter into equation (47), we obtain,
+following several algebraic manipulations
+
+(75)
+1 Bho,
+Tl. = ==~: (coth +1 Ems. : Sys. Bath
+8RC,
+1 Bho,
+Ty = -( ‘oth ——— — ) Abs. : Bath - Sys.
+8C, 2
+Emission & Absorption Time Const.
+Curves
+12} Te —O— it Te To
+lg —— 10.0 mK 332 psec © sec
+200.0mK 331 psec 216.1 msec
+1 aes 1.0K 241 psec 880.7 psec
+A=
+a 8 —
+3
+§ 06
+ry
+E
+—|
+0.4
+
+0 0.5 1 1.5 2 25 3
+Temprature. (K)
+
+Fig. 7 + Emission and absorption time constants vs. temperature.
+
+The dependence of these rates on temperature is demonstrated in
+the curves in Fig. 7. The time constants here are Tyg = 1/Tea -
+As can be seen, one can use a single qubit for a reasonable time
+for temperatures below 1K. These emission and absorption rates,
+appear in the general Lindblad master equation, as follows [27] :
+(76)
+
+d .
+aPs = —i[Hs, ps]
+
+1 1.
++I, (a psat— ziata, ps}) +1 (ats a- zla at, ps})
+where
+
+© ps = Ps(t) is the non-dissipative system's density matrix
+e — H, is the non-dissipative system’s Hamiltonian
+
+¢ at,a are the non-dissipative system’s ladder operators
+e {A,B} = AB + BA are the anti-commutative brackets
+
+e 6, =I, (t) is the emission rate
+
+e =Tq =TQ(E) is the absorption rate
+
+Assuming that the absorption rate is negligible relative to the
+emission rate, and using the expressions of equation (48), we
+obtain
+
+(77)
+d . 7% 1
+amPs =~ at [Fe ps| +f, (o-0s o,- 7 (o+0- ps}) =
+Wy iL 1
+aol (ozPs — PsOz) + Te (o- Ps 0+ ~ 5 O+9-Ps — 5 Ps o,0-)
+where
+a ae a ae
+G,= yg + idy) 5 C= yg - idy) (78)
+and the required density matrix
+Ip(e)) = all) + b|0)
+= _[ a? abe
+ps=WOrmel=| 25 we" | (79)
+b= 1-a?
+Substituting equations (78) and (79) into (77), one gets
+dq | 2 E |
+de?s~\g* —p
+(80)
+
+T z
+D=-Ta? ; £=-(5+ia,) aJ1—a?e-
+
+This is a system of two equations with two variables,
+a(t),6(t) , Assuming a constant decoherence function I, as
+follows
+
+4 (81)
+—(a?) = —
+ae ) Tat
+
+£ (av 1-a? e) = G + ia) ay1—aze-6
+
+The solution of the two equations with two variables,
+a(t), 5(t) is given by
+
+(82)
+
+Bo fv (« 1-09 - a/T=a2) —i(t + 120,)
+
+where the negative sign of 6 is explained in the following
+paragraph.
+
+For a sufficiently long time and ! « @, one can approximate
+
+r
+6=-|-i(T +i2w,)t = -/2a, (: -i ze (83)
+J
+therefore
+ey
+el = 9 220, gi /2ajt (84)
+
+which has an absolute value that decays over time, as expected
+from a physical system.
+
+8 of 10
+To demonstrate a numerical behavior of equations (82), we chose
+typical parameters in Fig. 8. In this example, the resonance
+frequency of the qubit is 13.5GHz. The qubit operates at a
+temperature of 10mK, with an emission time constant of 332sec
+as designated in Fig. 7 above. The initial state, |+) =
+
+$5 (lo) +|1)) , is with equal probabilities for the two first states
+
+of the
+
+05
+
+qubit and zero phase angle 59 between the states.
+
+Decoherence - Decay of Qubit States
+
+Data Probability
+
+f= 13.5 GHz ja-——
+04 Te= 332 psec pir
+T= 10mK
+z, 3 Init. Cond.
+3 0.7071
+é 0.7071
+02 00.
+0.1
+0 1 1
+oO 100 200 300 400 500 600 700
+
+Time (sec)
+
+Fig. 8 * State probability vs. time showing decoherence — state
+|1) decay. ag = 1/V2 ,5y = 0.
+
+Figure 9 shows the decoherence process for a longer time scale, to
+emphasize the slow decay of |0) state. As expected, state |1)
+decays much faster than state |0).
+
+05
+
+0.4
+
+Probability
+°
+&
+
+-
+iS
+
+04
+
+o-—6
+to} 50 100
+
+Decoherence - Decay of Qubit States
+
+lial eee ee ee
+
+Data
+f= 13.5 GHz
+Te= 332 psec
+T= 10mk
+
+Probability
+ja? ———
+
+bj? ——
+
+Init. Cond.
+a = 0.7074 i
+bo = 0.7074
+& = 00
+
+0-—0—_0--—6 9-0-0
+150 200 250 300
+
+Time (sec)
+
+350
+
+Fig. 9 * Decoherence Example for ay = 1/V2,5y = 0 . State
+
+probal
+
+ts,
+The
+
+ility vs. Time. Long time scale to emphasize state |0) decay
+
+CONCLUSIONS
+
+model parameters are obtained by comparing coherent wave
+
+time response to classical circuit response. The numerical results
+based on extensive analysis confirm the experimental results that
+over a temperature of about 0.6K, a high degradation of the
+coherence is observed. The decaying rate is dependent on the
+state, the |1) state decays much faster than the |0) state.
+
+The
+
+calculation presented in this work suggests a process that
+
+opens a way for a deterministic method to analyze the qubit
+decoherence for a variety of internal parasitic resistance types.
+
+8. REFERENCES
+
+M.O Hecht and A.J. Cobarrubia, "An Engineer’s Brief
+Introduction to Microwave Quantum Optics and a Single-
+Port State-Space Representation," IEEE Transaction on
+Quantum Engineering, vol. 2, pp. 1-8, 2021.
+
+S.M. Girvin, "Noise induced Decoherence in Qubit
+Circuits," in Circuit QED: Superconducting Qubits
+Coupled to Microwave Photons, Oxford University Press,
+2014, pp. 60-70.
+
+A. Glezer Moshe, E. Farber, G. Deutscher, "Optical
+Conductivity of Granular Aluminum Films near the Mott
+metal-to-Insulator Transition," Physical Review B, vol.
+99, no. 22, 2019.
+
+H. P. Breuer and F. Petruccione, "Decoherence," in The
+Theory of Open Quantum Systems, Oxford University,
+2002.
+
+W.G. Unruh, "Maintaining Coherence in Quantum
+Computers," Physical Review A, vol. 51,no. 2, Feb. 1995.
+
+G. M. Palma, K. A. Suominen and A. K. Ekert,
+"Quantum Computers and Dissipation," Royal Society,
+vol. 452, no. 1946, Mar. 1996.
+
+AJ. Legget, "Dynamics of Dissipative Two-State
+System," Reviews of Modern Physics, vol. 59, no. 1, Jan.
+1987.
+
+A.O. Caldeira and A.J. Legget, "Quantum Tunneling in
+Dissipative System," Annals of Physics, vol. 149, no. 2,
+Sep. 1983.
+
+Y.L. Wu, D. L. Deng, X. Li and S Das Sarma, "Intrinsic
+Decoherence in Isolated Quantum Systems," Physical
+Review B, vol. 95, no. 014202, Jan. 2017.
+
+M. Carrera, T. Gorin and T.H. Seligman, "Single-qubit
+Decoherence under a Separable Coupling to a Random
+Matrix Environment," Physical Review A, vol. 90, no.
+022107, Aug. 2014.
+
+J.P. Pekola, Y. Masuyama, Y. Nakamura, J. Bergli, and
+Y. M. Galperin, "Dephasing and Dissipation in Qubit
+Thermodynamics," Physical Review E, vol. 91, no.
+062109, Jun. 2015.
+
+Z. H. Wang, Y. J. Li, Yong Li and D. L. Zhou,
+"Dissipation and Decoherence Induced by Collective
+Dephasing in a Coupled-Qubit System with a Common
+Bath," Physical Review A, vol. 91, no. 013838, Jan. 2015.
+
+9 of 10
+14
+
+17
+
+20
+
+21
+
+22)
+
+23
+
+24
+
+25
+
+26
+
+M.H. Devoret, "Course 10, Quantum Fluctuations in
+Electrical Circuit," in Quantum Fluctuations, Les
+Houches, Elsevier Science B.V., 1995.
+
+R.M. Foster, "A Reactance Theorem," Bell System
+Technology Journal, vol. 3, pp. 259-267, 1924.
+
+M. Cattaneo. and GS. Paraoanu, "Engineering
+Dissipation with Resistive Elements in Circuit Quantum
+Electrodynamics," Advanced Quantum Technologies, vol.
+4,no. 11,2021.
+
+Manzano D., "A short introduction to the Lindblad
+master equation," AIP Advances, vol. 10, no. 025106,
+2020.
+
+C. Cohen-Tannoudji, B. Diu, F. Laloe, "Appendix IIT,"
+in Quantum Mechanics, Paris, John Wiley & Sons and
+Hermann, 1977.
+
+P. Kranz, M. Kjaergaard, F. Yan, T.P. Orlando, S.
+Gustavsson, W.D. Oliver, "A Quantum Engineer’s Guide
+to Superconducting Qubits," Applied Physics Reviews,
+vol. 6,no. 2, Jun. 2019.
+
+C. Cohen-Tannoudji, B. Diu, F. Laloe, "The One-
+Dimensional Harmonic Oscillator," in Quantum
+Mechanics, Paris, John Wiley & Sons and Hermann,
+1977.
+
+C. Cohen-Tannoudji, B. Diu, F. Laloe, "Application of
+the Postulate to Simple Cases," in Quantum Mechanics,
+Paris, John Wiley & Sons and Hermann, 1977.
+
+C. Cohen-Tannoudji, B. Diu, F. Laloe, "Approximation
+Methods for Time-Dependent Problems," in Quantum
+Mechanics, Paris, John Wiley & Sons and Hermann,
+1977.
+
+Ram P. Kanwal, Linear Integral Equations: Theory and
+technique, Boston, MA: Birkhauser, 1996, p. 191.
+
+John S. Toll, "Causality and the Dispersion Relation:
+Logical Foundations," Physical Review, vol. 104, no. 6,
+1956.
+
+H. Nyquist, "Thermal Agitation of Electric Charge in
+Conductors," Physical Review, vol. 32, pp. 110-113, Jul.
+1928.
+
+Weihong Zhang and Ying Zhou, "Level-Set Functions
+and Parametric Functions," in The Feature-Driven
+Method for Structural Optimization, Elsevier Science and
+Technology, Nov. 2021, pp. 9-46.
+
+C. Chatfield, The Analysis of Time Series—An
+Introduction, London: Chapman and Hall, 1989, pp. 94-
+95;
+
+[27] H. P. Breuer and F. Petruccione, "Quantum Master
+Equations," in The Theory of Open Quantum Systems,
+Oxford University, 2002.
+
+[28] C. Cohen-Tannoudji, B. Diu, F. Laloe, "The Postulates
+of Quantum Mechanics," in Quantum Mechanics, Paris,
+John Wiley & Sons and Hermann, 1977.
+
+[29] C. Cohen-Tannoudji, B. Diu, F. Laloe, "Appendix II,"
+
+in Quantum Mechanics, Paris, John Wiley & Sons and
+Hermann, 1977.
+
+10 of 10

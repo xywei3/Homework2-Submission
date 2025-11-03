@@ -1,0 +1,1320 @@
+MNRAS 000, I-10 (2025) Preprint 30 October 2025 Compiled using MNRAS I4Tgx style file v3.3
+
+Evolution of accretion disc-corona in the TDE Candidate AT 2019avd
+
+Haichao Xu!, Xinwu Cao!?*, Yanan Wang" +, and Andrzej A. Zdziarski*
+
+' Institute for Astronomy, School of Physics, Zhejiang University, 866 Yuhangtang Road, Hangzhou 310058, China
+
+Center for Cosmology and Computational Astrophysics, School of Physics, Zhejiang University, 866 Yuhangtang Road, Hangzhou 310058, China
+3National Astronomical Observatories, Chinese Academy of Sciences, 20A Datun Road, Beijing 100101, China
+
+Nicolaus Copernicus Astronomical Center, Polish Academy of Sciences, Bartycka 18, PL-00-716 Warszawa, Poland
+
+Accepted XXX. Received YYY; in original form ZZZ
+
+ABSTRACT
+
+X-ray observations of the tidal disruption event (TDE) candidate AT 2019avd show drastic variabilities in flux and spectral
+shape over hundreds of days, providing clues on the accretion disc-corona evolution. We utilize a disc-corona model, in which
+a fraction of the gravitational energy released in the disc is transported into the hot corona above/below. Some soft photons
+emitted from the disc are upscattered to X-ray photons by the hot electrons in the optically thin corona. By fitting the NICER
+observations of AT 2019avd during epochs when the spectra exhibit significant hardening, we derive the evolution of the mass
+accretion rate, 7, and the coronal energy fraction, f. Our results show that f decreases with increasing 7, which is qualitatively
+consistent with that observed in active galactic nuclei (AGNs), while the slope of this source, f cc ri~°-3°, is much shallower
+than that of AGNs. We also find that the non-thermal X-ray spectrum in this source is significantly softer than those typically
+seen in AGNs and black-hole X-ray binaries. We argue that these quantitative differences can be a powerful diagnostic of the
+underlying magnetic turbulence, which may imply a stronger magnetic field within the TDE accretion disc than that in typical
+AGNs. It is also found that the evolution of the fitted neutral hydrogen column density follows a similar pattern to that of the
+accretion rate evolution, which may reflect the accumulation of absorbing material originating from the inflowing streams of
+
+2510.25247v1 [astro-ph.HE] 29 Oct 2025
+
+1V
+
+1,6
+
+a
+
+Es
+
+stellar debris and/or other related sources.
+
+Key words: accretion, accretion discs — galaxies: active — X-rays: galaxies.
+
+1 INTRODUCTION
+
+Supermassive black holes (SMBHs) with masses ranging from 10° to
+10! Mz are believed to reside in almost all galaxies (e.g. Kormendy
+& Ho 2013; Heckman & Best 2014). Through the accretion of sur-
+rounding gas, these black holes grow and convert gravitational energy
+into intense radiation, manifesting as active galactic nuclei (AGNs).
+In the standard AGN paradigm, the accreting material forms a geo-
+metrically thin, optically thick accretion disc in most bright AGNs
+(e.g. Shakura & Sunyaev 1973; Frank et al. 2002). The characteristic
+temperature of the inner accretion disc is ~ 10+ — 10° K, and the
+radiation from an accretion disc surrounding a SMBH is dominant
+in optical/UV wavebands (e.g. Shakura & Sunyaev 1973), while the
+power-law hard X-ray emission has been detected ubiquitously in
+AGNs. It was suggested that the power-law hard X-ray spectra of
+AGN are most likely due to the inverse Compton scattering of soft
+photons emitted from the disc on a population of hot electrons in
+the corona above/below the disc (e.g. Galeev et al. 1979; Haardt &
+Maraschi 1991; Svensson & Zdziarski 1994). In this disc-corona sce-
+nario, most gravitational energy is generated in the cold disc through
+the turbulence produced by the magnetorotational instability (Balbus
+& Hawley 1991). The magnetic fields generated in the cold disc may
+
+* E-mail: xwcao@zju.edu.cn (XC)
++ E-mail: wangyn@bao.ac.cn (YW)
+
+© 2025 The Authors
+
+be strongly buoyant, and therefore a substantial fraction of magnetic
+energy is transported vertically to heat the corona above the disc
+with the re-connection of the fields (Di Matteo 1998; Di Matteo et al.
+1999; Merloni & Fabian 2001, 2002; Cao 2009). The disc-corona
+model was extensively explored in many previous works, which is
+able to reproduce the main features of AGN spectra (e.g., Haardt
+& Maraschi 1991; Haardt & Maraschi 1993; Svensson & Zdziarski
+1994; Liu et al. 2002; Cao 2009; You et al. 2012). However, AGNs
+are fed by circumnuclear gas in quasi-steady state, and the timescale
+of AGN evolution is usually very long, which is comparable with the
+accretion timescale (~ 104-5 years; e.g., Feng et al. 2021). It is there-
+fore very difficult to monitor the spectral evolution of an individual
+AGN.
+
+If the SMBH’s tidal force dominates over the self-gravity of the
+star when it passes within the tidal radius of the SMBH, the star
+will be torn apart, resulting in a tidal disruption event (TDE; Hills
+1975; Rees 1988; Phinney 1989).The debris may form a disc sur-
+rounding the SMBH, and the light curve of the disc emission reaches
+a peak rapidly, and then decays on timescales of months to years.
+The released power of the disc can approach or even exceed the Ed-
+dington luminosity, which provides a unique opportunity to study
+the rapid evolution of accretion processes (e.g. Evans & Kochanek
+1989; Gezari 2021). Unlike AGNs, TDEs are powered by the sudden
+fallback of stellar debris, forming transient accretion systems. Many
+previous studies show strong evidence of compact accretion discs in
+
+2 H. Xuetal.
+
+TDEs (e.g. Lodato & Rossi 2011; Piran et al. 2015; Dai et al. 2018).
+In several respects, these systems share similarities with black hole
+X-ray binaries (XRBs), such as rapid variability and the physics of
+the disc (e.g. Remillard & McClintock 2006), while the mass feeding
+in XRBs is quite different from AGNs or TDEs (Cao & Lai 2019).
+
+X-ray emission of TDE can be described by a combination of
+a blackbody and a power-law component(e.g. Komossa 2015). The
+blackbody component with temperature in the range of ~ 10° —
+10° K may probably be emitted from the disc, while the power-
+law component may originate in the corona. TDEs often exhibit
+extreme soft X-ray spectra in their early stages(e.g. Bade et al. 1996;
+Komossa et al. 2004; Komossa 2015). At the later stages, the thermal
+component tends to be weaken, and the X-ray emission becomes
+increasingly dominated by the power-law component with spectral
+hardening (e.g. Bade et al. 1996; Komossa et al. 2004; Komossa
+2015; Yao et al. 2025). These findings provide useful information
+of the evolution of transient disc-corona systems in TDEs. In recent
+years, a few studies have begun exploring the application of disk-
+corona models to TDEs (e.g. Mageshwaran & Bhattacharyya 2022,
+2023).
+
+The high-energy nuclear transient AT 2019avd, located at a red-
+shift of z = 0.028, was first detected in the optical band by the Zwicky
+Transient Facility (ZTF, Bellm et al. 2018) on 2019, February 9
+(Nordin et al. 2019). Its significant flaring activities have been cap-
+tured by multi-wavelength follow-up observations (e.g. Malyali et al.
+2021; Wang et al. 2023). AT 2019avd exhibits several characteristics
+consistent with a TDE, including ultra-soft X-ray spectra and optical
+spectral lines typical of known TDEs. Although its double-peaked
+optical light curve is somewhat unusual, similar optical evolution
+has been observed in other TDEs (e.g. Yao et al. 2023). Thus, it is
+classified as a TDE candidate. Although the precise trigger of the X-
+ray activity relative to the optical outburst remains uncertain, several
+studies suggest that the X-ray flare occurred after the initial optical
+brightening (e.g. Malyali et al. 2021; Chen et al. 2022; Wang et al.
+2023).
+
+Wang et al. (2024) reported intensive X-ray monitoring of AT
+2019avd with the NICER, Swift and Chandra telescopes between
+2020 September 19 and 2021 June 16. Based on the X-ray proper-
+ties, they divided this period into five phases. Setting MJD 59110
+as Day 0—the moment when AT 2019avd reached its peak X-ray
+luminosity—the phases correspond to Day 0-100 (Phase 1), Day
+101-172 (Phase 2), Day 173-225 (Phase 3), Day 226-249 (Phase 4),
+and Day 250 onward (Phase 5). In Phase 1, the X-ray luminosity
+declined by about a factor of five with little variations in the hard-
+ness ratio (defined as the photon count ratio between the 0.8-2 keV
+and 0.30.8 keV bands). In Phase 2, the luminosity unexpectedly re-
+brightened to a secondary peak. Phase 3 saw a rapid luminosity drop
+by approximately an order of magnitude, followed by further fading
+during Phases 4 and 5, where AT 2019avd became extremely faint
+in X-rays. Throughout Phases 2-5, the X-ray hardness ratio steadily
+increased. This evolution pattern suggests the possible evolution of
+a disc-corona system.
+
+In this work, we adopt an accretion disc-corona model developed
+by Cao (2009), which computes the X-ray continuum spectrum of
+the corona for specified parameters, to describe the late-time X-ray
+hardening of AT 2019avd. By fitting the NJCER X-ray spectra of
+AT 2019avd during Phases 3 and 4 with our model, we derive the
+temporal evolution of the accretion rate, the fraction of gravitational
+energy dissipated in the corona, and the coronal temperature. The
+framework of the disc-corona model, and the results are described in
+in Sections 2 and 3 respectively, In Section 4, we fit the observational
+
+MNRAS 000, I-10 (2025)
+
+data of AT2019 avd during Phases 3 and 4 using the model. Section
+5 contains the discussion.
+
+2 THE DISC-CORONA MODEL
+
+We consider a system composed of a geometrically thin and optically
+thick accretion disc and a slab-like, geometrically thick and optically
+thin hot corona situated above and below the disc. The gravitational
+energy of the gas is released in the disc through viscous processes,
+which is believed to be the turbulence most probably triggered by the
+magneto-rotational instability (Balbus & Hawley 1991). A fraction of
+released gravitational energy is transported vertically into the corona
+by magnetic fields of the disc, which heats the hot plasma in the
+corona via magnetic reconnection, while the remainder is radiated
+out from the disc. The heating of the corona is balanced by radiative
+cooling, which is dominated by the inverse Compton scattering of
+soft photons from the underlying disc by the hot coronal electrons.
+
+In our model, we neglect the spin of the black hole and adopt the
+standard accretion disc framework (e.g. Shakura & Sunyaev 1973;
+Frank et al. 2002). The gravitational energy released by viscous
+dissipation per unit area is given by
+
+, (1)
+
+, _ 3GMMpau Rn?
+Quissi = gaps || Re
+
+where M is the mass accretion rate and Rip is the inner radius of the
+accretion disc.
+
+Approximately half of the hard photons are reflected back onto the
+accretion disc, and most of them are absorbed by the disc (e.g. Haardt
+& Maraschi 1991). The reflection albedo a for the hard photons by the
+disc is typically low (e.g. Zdziarski et al. 1999). We adopt a typical
+value of a=0.2 in our work, as suggested by Haardt & Maraschi
+(1991); Vasudevan & Fabian (2007). The energy equation for the
+accretion disc is
+
+1
+iiss ~ Oboe + 71 ~ 2) Oar = OT, (2)
+
+where op is the Stefan-Boltzmann constant, and 7; is the effective
+blackbody temperature of the accretion disc.
+
+The transfer rate of energy is defined as the ratio of the heating
+rate of the corona to the viscous dissipation rate in the cold disc, i.e.
+
+f= Dor! Visi GB)
+
+which, in principle, can be calculated based on a suitable magnetic
+field generation model in the disc by assuming the corona is heated
+by re-connection of the field (Di Matteo 1998; Di Matteo et al. 1999;
+Merloni & Fabian 2001, 2002; Cao 2009). However, the transfer of
+the energy from the disc to corona is highly dependent on the the
+physical processes of magnetic field generation, buoyancy, in the
+disc, and its eventual dissipation in the corona. In the work of Cao
+(2009), for instance, the buoyant magnetic field is derived using an
+angular momentum equation that includes a specific magnetic stress
+tensor, which is then used to calculate the power dissipated in the
+corona and thus the value of f. Since the details of these magnetic
+processes remain highly uncertain, and to avoid being constrained
+by a particular unverified model, we treat f as a free input parameter
+in this work, which is similar to some previous works (e.g. Haardt
+& Maraschi 1991; Haardt & Maraschi 1993; Svensson & Zdziarski
+1994). Consequently the explicit angular momentum equation is not
+required for our calculations.
+
+The equation of state for the plasma in the corona can be expressed
+as
+
+p= >) mkT; + nekTe + Pag, @)
+J
+
+where the summation is over all ion species and Pmag is the mag-
+netic pressure in the corona. We assume that the gas consists of 3/4
+hydrogen and 1/4 helium by mass, such that ny = 12ne/14 and
+Nye = ne /14. Furthermore, the temperatures of hydrogen and helium
+ions are assumed to be equal, i.e., Ty = Te = Tj. In this work,
+the magnetic pressure is assumed to remain equal to the gas pressure
+(e.g. Liu et al. 2002, 2003; Cao 2009). The sound speed in the corona
+and the corresponding vertical scale height are defined as
+
+12 12
+kT; kT.
+«=(4) = +(e =| . (5)
+p Himy — Help
+and
+Ox GMpgy \HimMp Help
+
+respectively, where f is the ratio of the magnetic pressure to the
+gas pressure and £ = | is adopted in the calculations and py =
+1.23, we = 1.14 are the mean molecular weights of ions and electrons,
+respectively.
+
+The two-temperature plasma is cooling predominantly through
+electron radiation due to the significant mass difference between
+ions and electrons. The energy transferred from ions to electrons
+via Coulomb collisions (e.g. Stepney & Guilbert 1983). It was also
+suggested that the strong magnetic fields in the corona can efficiently
+heat the electrons through magnetic reconnection (e.g. Galeev et al.
+1979; Bisnovatyi-Kogan & Lovelace 1997, 2000). Thus, the energy
+equation for the corona can be written as
+
+QVor = Vie + FQeor (7)
+
+where 6 is a parameter that accounts for the additional heating ratio
+due to magnetic reconnection. In this work, we adopt 6 = 0.5 (e.g.
+Cao 2009).
+
+We assume that ions and electrons in the corona are always in
+thermal equilibrium, following a relativistic Maxwellian distribution
+developed by Jiittner (1911):
+
+_ 8B Y
+NO) = FR fe) P (-z): @)
+
+where 0, = kT./m,c? is the dimensionless temperature of electrons.
+The Coulomb collision cooling rate per unit area is given by
+
+kG -Te)
+
+= oat H. logA
+Qi = 215 gas HOT RTTTaIRaAITA) 8
+
+Q)
+
+2(6¢ + 6)? +1 Oe + 6 Oe + 6;
++
+0. + 6} 0.6; 10.6;
+
+where 6; = kT,/Aympc? are the dimensionless temperatures of the
+j-th ion species, and Aj and Zj are the mass and charge numbers
+of the ions, respectively. In this work, log A = 20 is adopted (e.g.
+Stepney & Guilbert 1983; Zdziarski 1998; Cao 2009).
+
+The emission of synchrotron and bremsstrahlung radiation of the
+corona is always small, which is negligible compared to radiation
+due to inverse Compton scattering (e.g. Cao 2009; Schnittman et al.
+2013). However, bremsstrahlung emission may contribute signifi-
+cantly in the hard X-ray band, which may set a constraint on the elec-
+tron temperature 7, in the corona with observations. So we include
+
+Disc-corona Evolution in AT 2019avd 3
+
+both these two in the energy equation of the corona (e.g. Kawaguchi
+et al. 2001), i-e.,
+
+Qeor = Qeomp + Qpr- (10)
+
+In the cases of our interest, @. is always less than 1, so electron-
+electron bremsstrahlung can be neglected compared to electron-
+ion bremsstrahlung. According to Bethe & Heitler (1934); Step-
+
+ney & Guilbert (1983); Heitler (1984), the emissivity of thermal
+bremsstrahlung is given by
+
+dE “do
+= qvarde = 2473" z5bN Ma ul
+Xo * Wai da » ininee [wi (dy, ay
+where w = hv/mec? is the dimensionless photon energy, and
+
+do /dw is the Bethe-Heitler cross-section. Manmoto et al. (1997)
+solved the radiative transfer equation for parallel slab and found the
+bremsstrahlung spectrum emitted per unit surface area can be ex-
+pressed as:
+
+Fix (v) = aby [! — exp (-2v3ry)
+where B,, is the Planck function, and Tt; = \zHy,/2. The total
+bremsstrahlung cooling rate Q;. in Equation (10) is then obtained
+by integrating F,,(v) over all frequencies.
+
+For inverse Compton scattering, we follow Coppi & Blandford
+(1990) and Kino et al. (2000) to compute the radiation spectrum.
+The spectrum for the n-th scattering event is given by:
+
+, (12)
+
+rut) = ff Rw’ )Pwie' NO) Filo! dyde', (13)
+pl
+
+where R(w, y) is the scattering rate between photons and electrons
+and P(w;w’, y) is the energy distribution of the scattered photon. In
+our calculations, we approximate P(w; w’, y) using a delta function
+6 [w — (w(w’, y))]. The total inverse Compton spectrum is given by:
+
+Feomp(V)
+
+DY) Pn) Fal), (14)
+n=l
+
+where tT = oyneH is the electron scattering optical depth of the
+corona and P,,(t) = e~‘r"/n! is the Poisson distribution for the
+probability distribution of photon-electron scattering events (e.g.
+Esin et al. 1996; Kino et al. 2000).
+
+In the context of our disc-corona system, the incident photon spec-
+trum Fin(v) is given by the thermal radiation from the underlying
+accretion disc and the thermal bremsstrahlung radiation, which is
+generated within the corona itself, i.e.
+
+Fin(v) = Fo(v) = Faise(v) + For(). (5)
+
+And the total inverse Compton scattering cooling rate Qcjmp is given
+by
+
+Qeomp = [ Feomp(v) + (€~* = 1) Fin(v)dv. (16)
+0
+
+It has been found that the radiation emitted from the surface of
+the accretion disc is not a perfect blackbody spectrum. The presence
+of heated gas at the disc’s surface results in radiation in the high-
+energy bands that exceeds the blackbody radiation (e.g. Hubeny et al.
+2001). Chiang (2002) proposed a temperature-dependent frequency
+correction factor, i.e., a hardening factor,
+
+(foo — 1) [1 + exp(-vp/Ay)]
+1+exp [Op - vp)/Ay]
+
+where foo = 2.3, Vp = 2.82kT,/h, and vy, = Av =5x 10'5Hz. The
+
+Seot(Ts) = foo - a7)
+
+MNRAS 000, 1-10 (2025)
+4 H. Xuetal.
+
+emission spectrum of the accretion disc is then given by Chiang
+(2002); Cao (2003)
+2nhv? /, a
+ot (18)
+c? [exp(hv/feokTs) — 1]
+
+We also need to know the temperature of the ions in the corona.
+Similar to Cao (2009), we set the ion temperature to 0.9 times the
+virial temperature, i.e.,
+
+GMpgym
+T, = 0.97 ir = IR
+We find that the final results of the model are insensitive to the values
+of Tj.
+
+For given values of accretion rate M and coronal energy fraction
+f, the structure of the corona are determined by solving the energy
+balance equations, i.e., Equations (2), (3), (7), and (10). The radiation
+spectrum of the disc-corona system is given by
+
+Faisc(Y) =
+
+(19)
+
+l+a
+2:
+
+in which the three terms in the right side represent the radiation
+from the accretion disc without being scattered in the corona that can
+reach the observer, the inverse Compton scattering component from
+the corona, and the bremsstrahlung component from the corona, re-
+spectively. In the first term, we only consider the scattering of disc
+
+Foo (v) =e" Faise(v) + Feomp(v) + (1 + 4) For(v), (20)
+
+photons, as absorption is negligible compared to scattering in the hot,
+tenuous plasma. In the second term, we assume that approximately
+half of the Comptonized photons are scattered upwards and are di-
+rectly observed, while the other half are scattered downwards towards
+the disc. A fraction of the downward radiation is then reflected by
+the disc and reaches the observer. For simplicity, we assume that the
+spectral shape of the reflected component is similar to the incident
+one. Similar to the second term, the third term effectively includes
+photons that travel directly outwards as well as those reflected from
+the disc, under the assumption that reflection does not significantly
+alter the spectral shape.
+
+3 RESULTS OF THE MODEL
+
+In this work, we set the inner radius of the accretion disc to the
+innermost stable circular orbit SCO) for a Schwarzschild black
+hole, ie., Rin = 6Ry, where Ry = GMpy/c? is the gravitational
+radius of the black hole. The tidal radius for a solar-like star being
+disrupted by a SMBH with ~ 10° Mo is approximately Rr ~ 50Rg
+(e.g. Hills 1975; Hayasaki et al. 2016). For such a star in a nearly
+parabolic orbit, the self-interaction of the resulting debris stream is
+expected to be rapidly circularized, which leads to the formation of
+a disc with a characteristic size of Rc ~ 2Rr (e.g. Shiokawa et al.
+2015; Bonnerot et al. 2016; Hayasaki et al. 2016). Therefore, for
+simplicity, we adopt a fiducial outer radius of Row = 100R, in our
+
+calculations. We note that the results are quite insensitive to the outer
+radius of the disc, because most gravitational energy of the accreting
+
+gas is released in the inner region of the disc near the BH.
+
+It was found that the radial energy advection in the accretion disc
+may be important when the accretion rate is significantly higher than
+the Eddington rate (Abramowicz et al. 1988). For a slim accretion
+disc accreting at the Eddington rate without a corona, the fraction of
+the radially advected power to the viscously dissipated power is < 0.2
+(Cao & Gu 2022). For the present work, a fraction of the dissipated
+power in the disc is tapped into the corona, which means the fraction
+of radially advected power should be lower than that given for a
+
+MNRAS 000, I-10 (2025)
+
+10°; - f=0.05 - f=0.2 - f=0.6]- M=0.01 - M=0.1 - mM=1
+
+wip = - =
+
+10-2
+F102
+E10" SS. PS
+10?
+6 10 30 1606 10 30 160
+R (Rg) R (Rg)
+
+Figure 1. Radial profiles of the disc-corona system. The left column of panels
+shows the effect of varying the coronal fraction f at a fixed accretion rate of
+m = 0.1. The right column shows the effect of varying the accretion rate ri
+at a fixed coronal fraction of f = 0.2. From top to bottom, the panels show:
+the effective temperature of the accretion disc, the electron temperature, the
+optical depth, and the electron number density of the corona. A black hole
+mass of Mgy = 10°Mo5 is adopted.
+
+slim disc without a corona. Therefore, we focus on the case of sub-
+Eddington or slightly super Eddington accretion, 0.01 < m < 2,
+where m1 = 0.1Mc?/Leaa (Leaa is the Eddington luminosity). The
+structure of the corona can be calculated when the values of the
+parameters 1 and f, and the BH mass are specified. The structures
+of the coronae are given in Figure | for typical values of the disc
+parameters. With the derived corona structures, we can calculate the
+spectra of the disc-corona systems accordingly, which are given in
+Figure 2.
+
+Based on the model introduced in Section 2, we computed the
+structure and emission spectra of the disc-corona system for a black
+hole mass of Mgy = 10°Mo and a range of accretion rates ri and
+coronal energy fractions f. Figure | shows the effective temperature
+profile of the accretion disc and the thermodynamic structure of the
+corona. We find that the effective temperature of the accretion disc
+T, increases mainly with increasing ri, while its dependence on f is
+negligible. Therefore, in the optical/UV bands, the disc emission in
+our disc-corona system is modified only by a factor of e~* compared
+with the situation where only the disc is present.
+
+As shown in Figure 1, the electron temperature 7, in the corona
+remains significantly below the local virial temperature, which is
+approximately 6 x 10!'K in the inner disc region (R ~ 6R,) and
+decreases to ~ 4 x 10!°K near the outer disc radius (R ~ 100Rg).
+According to Equations (5) and (6), this leads to a scale height
+that increases nearly linearly with radius, ie., H o R. the electron
+temperature 7, and optical depth 7 exhibit only mild radial variation
+across the corona. The electron number density ng decreases roughly
+as R~!, consistent with the near-constant optical depth. Compared
+to the disc’s effective temperature, the coronal parameters are more
+sensitive to variations in both m and f.
+
+4 EVOLUTION OF THE ACCRETION DISC-CORONA
+SYSTEM IN AT 2019AVD
+
+In our analysis of AT 2019avd, we adopt some system parameters
+from previous studies, including a redshift of z = 0.028 (e.g. Malyali
+E (eV)
+
+vLy (erg s~})
+
+1037
+
+1016 = 1018 1026 = Tos =
+
+~ 20
+10") (Hz)
+
+Figure 2. The spectra of the disc-corona systems for different accretion rates
+mand coronal fractions f. The dashed lines indicate the modified disc emis-
+sion, while the dash-dotted and dotted lines represent inverse Compton scat-
+tering and thermal bremsstrahlung components of the corona, respectively.
+Grey shaded regions highlight the 0.3-2 keV X-ray bands. A black hole mass
+of Mgy = 10°Mg is adopted.
+
+et al. 2021), a luminosity distance of D = 130 Mpc (e.g. Wang
+et al. 2023), and a black-hole mass of Mgy = 10°? Mo (e.g. Malyali
+etal. 2021). The hydrogen column density is constrained to the range
+Nu = (2.4—7.0) x 10?°cm-?, based on Galactic measurements by
+HI4PI Collaboration(e.g. Bekhti et al. 2016) and spectral modelling
+from Wang et al. (2024).
+
+To ensure compatibility with our disc-corona framework, we focus
+on the post-peak evolution of AT 2019avd following its second X-
+ray maximum. Specifically, the dataset includes the majority of X-
+ray spectra from Phase 3 and all spectra from Phase 4, as defined
+by Wang et al. (2024), covering the transition from near- to sub-
+Eddington accretion regimes. During these intervals, the optical/UV
+luminosity remains consistently low. We use these spectra to probe
+the structural and radiative evolution of the disc-corona system as
+the source transitions from high to moderate accretion rates.
+
+As reported by Wang et al. (2024), in addition to AT 201 9avd, three
+other known X-ray sources, i.e. IRXS J082334.6+042030, 2MASX
+J08232985+0423327, and IC 505, are present in the NICER field of
+view. The contributions from 1RXS J082334.6+042030 and 2MASX
+J08232985+0423327 are negligible during the period studied in this
+work. For IC 505, Wang et al. (2024) created a spectral template
+to represent its contribution (for further details, see Appendix A of
+Wang et al. (2024)). We adopted this template in our fit.
+
+In our spectral analysis, we employed the XSPEC software
+to fit the NICER spectrum of AT 2019avd using the model
+TBabs*zashift*disk_corona + IC 505, where disk_corona
+is a pre-computed table model generated using Python. The disc-
+corona system was assumed to be viewed face-on. Uncertainties are
+quoted at 1a confidence level. Figure 3 shows two representative
+unfolded spectra and their corresponding residuals from Phases 3
+and 4, respectively.
+
+From Figure 3, one can see that during Phase 3, the emission of
+AT 2019avd dominates across the full 0.3—-2 keV band. However, at
+energies near and above | keV, the contribution from IC 505 becomes
+non-negligible and introduces substantial contamination. In Phase 4,
+IC 505 dominates almost the entire energy band. Although the emis-
+sion from IC 505 is relatively stable compared to AT 2019avd, which
+exhibits variations over two orders of magnitude over 1,000 days, IC
+505 still shows modest variability of up to a factor of 3 (see the left
+panel of Figure Al in Wang et al. 2024). As a result, the use of a
+fixed IC 505 model across all spectra inevitably introduces system-
+atic uncertainties, particularly near the overlapping regime around 1
+
+Disc-corona Evolution in AT 2019avd 5
+
+—total emission
+--1C 505
+
+-- AT 2019avd
+--NICER data
+
+EF, (keV s~ cm?)
+
+I
++
+
+Data — Model
+rror
+oN
+=e,
+a
+ip
+=
+a
+= =y
+
+04 06 100015 04 06 10.15
+Energy (keV)
+
+Figure 3. Representative unfolded X-ray spectra of AT 2019avd observed
+with NICER, along with best-fitting model components and residuals. The
+left and right panels correspond to observations on Day 188 (Phase 3) and
+Day 244 (Phase 4), respectively. Residuals (bottom panels) are expressed in
+units of photon counts.
+
+keV and above. To mitigate this, we emphasize that only the residuals
+below 1 keV can reliably reflect the goodness of fit for the disc-corona
+model. For Phase 4, where the IC 505 component overwhelms the
+intrinsic emission of AT 2019avd, the derived disc-corona spectra
+must be treated with caution. In practice, we exclude a subset of
+spectra that show significant deviations from the general temporal
+trend of neighbouring observations, as these are likely influenced
+by discrepancies between the fixed IC 505 template and its actual
+emission during those epochs. For instance, the spectra obtained on
+Days 196.0 and 206.0 show significantly lower fluxes than those of
+adjacent epochs, while the spectrum on Day 211.2 appears unusually
+bright. In addition, the spectra on Days 235.2, 239.0, 243.1, and 248.5
+are noticeably softer compared to their neighbouring observations,
+with the spectrum on Day 249.0 also showing a marginal softening.
+As reported by Wang et al. (2024), AT2019avd exhibits significant
+variability on timescales of both hours and days. However, since our
+study focuses on the long-term evolution of AT2019avd on viscous
+timescales, such short-term fluctuations are not accounted for in our
+model. Overall, we include 8 NICER observations in this work.
+
+In Figure 4, we present the unabsorbed X-ray spectra and fitting
+spectra of AT 2019avd in the 0.1—2 keV band, with the emission from
+IC 505 subtracted. Compared to Phase 3, the fitting uncertainties in
+Phase 4 (i.e., observations after Day 225.0) are substantially larger,
+primarily due to the increasing dominance of emission from IC 505.
+Nevertheless, we can still identify a coherent evolutionary trend from
+the best-fitting model. In Phase 3, the peak of the accretion disc
+emission lies well within the 0.1—2 keV energy band and corresponds
+to a blackbody temperature of about 0.1 keV. The coronal emission is
+characterized by a very soft power-law. In Phase 4, the disc emission
+peak gradually shifts out of the observed energy band, and the X-ray
+emission becomes entirely dominated by the corona. In this phase,
+the luminosity below | keV decreases significantly relative to Phase
+3, while at higher energy bands, there seems to be no noticeable
+decline in luminosity.
+
+In Figure 5, we present the temporal evolution of the best-fitting
+parameters derived from our spectral modeling. The complete set of
+best-fitting parameters is tabulated in Appendix A (see Table A1).
+The accretion rate si exhibits a sustained decay following approxi-
+
+MNRAS 000, 1-10 (2025)
+H. Xuet al.
+
+° oS] a wie! oo. ag ig
+41
+187.04 188.1 189.0 d 190.6 d 191.04 192.3 d 194.0d 195.0 d
+41 + it
+196.0 d 197.3 d 199.04 200.1d [202.3 d 204.1 205.0 d 206.0 d
+2 = > > ~
+e af +
+Ya “44 e +4 ys
+sz povod 208.0 d 209.1d 210.1d 211.2 d 213.1d 227.9 d 230.1d
+=
+543
+ES) | SSay
+= ’ Se
+41 i ++ t j $
+232.0 d 234.1d 235.2d fose.2 d 239.00 \| { 240.1d i 242.0 d t 242.1
+43
+[at Bad + _
+41 q t +
+243.1d 244.2 d 248.5d__| Nizao.od 254.2 d {
+02051 202 054 «202 05% «202 051 «202 05 1
+E (keV)
+
+Figure 4. Time evolution of the intrinsic unabsorbed spectra of AT 2019avd in the 0.1-2 keV band, with emission from IC 505 subtracted. Each solid line
+represents the best-fitting spectrum at a given epoch and the shaded regions indicate the uncertainty range derived from the confidence intervals of the fitted
+
+model parameters.
+
+ate
+
+i
+i
+
+240
+
+a
+
+rs
+
+N
+
+Ny (102° cm-2)
+
+210 220 230
+Time (MJD—59110)
+
+Figure 5. Temporal evolution of the best-fitting parameters for AT 2019avd.
+From top to bottom, the panels show: the accretion rate 7, coronal energy
+fraction f, and hydrogen column density Ny. The golden dashed line marks
+Day 205, corresponding to the onset of the rapid evolution phase. Cyan
+vertical dashed lines denote the start and end of Phase 4 (Days 224 and 249,
+respectively). In the top panel, purple and magenta dashed lines represent
+power-law fits to the declining segments of mm. In the bottom panel, the black
+dashed line indicates the lower bound of the fitted hydrogen column density.
+
+mately Day 205. To quantitatively constrain the decay rate, we adopt
+a generalized power-law form to fit the data from Day 205 onwards:
+
+mo (t— to)~*, (21)
+
+where fp = 193.43 + 4.41 day and = 1.86 + 0.47 is the best-fitting
+index.
+
+Although subject to large uncertainties, the coronal fraction f
+shows an overall increase from Phase 3 to Phase 4. During Phase 3, f
+
+MNRAS 000, I-10 (2025)
+
+remains below 0.4, whereas in Phase 4, it predominantly exceeds this
+threshold, indicating a growing contribution from coronal emission
+as the system evolves. The best-fitting hydrogen column density,
+Nu, remains relatively stable across the observations, with a mean
+value of approximately 5 x 10?°cm~?. However, a closer examination
+reveals a weak but systematic trend: Ny gradually increases prior to
+Day 205, followed by a mild decrease shortly thereafter. In some
+Phase 4 spectra, Ny reaches the lower bound of our fitting range,
+2.4 102°cm7?. Despite these modest variations, the overall stability
+of Nu lends confidence to the robustness of our derived accretion
+rate evolution.
+
+We calculated the characteristic photon index I in the high-energy
+band (0.6—2 keV), where the coronal emission dominates, using the
+best-fitting spectral model shown in Figure 4. This spectral slope re-
+flects the power-law shape produced by inverse Compton scattering
+in the corona and should be free from contamination by disc emis-
+
+sion. Using the best-fitting values of mm and f, we reconstructed the
+corresponding coronal properties within the framework of our disc-
+corona model. Specifically, we extracted the electron temperature T.
+and the optical depth 7 at a representative radius of 13.5 Rg, where
+the radiative efficiency reaches its maximum.
+
+Figure 6 shows the evolution of the coronal energy fraction f, pho-
+ton index I’, electron temperature 7,, and optical depth 7 as functions
+of the dimensionless accretion rate 71. These parameters display dis-
+tinct behaviours in different accretion regimes, suggesting a transition
+occurring in the corona as the source evolves. At higher accretion
+rates (1 > 0.6), the parameter correlations are less clearly linear.
+A Spearman rank correlation analysis reveals statistically significant
+positive correlations for both f and t with m, and a significant neg-
+ative correlation for [ with mm. However, T. shows no significant
+correlation with m in this regime. Specifically, as 7 declines from its
+peak value towards about 0.6, the coronal energy fraction f decreases
+from approximately 0.3 to below 0.2, accompanied by an increase in
+the photon index I from about 5 to nearly 7, indicating a softening of
+‘a) * Before 205 d| (p) % 7
+0.71 \f «After 205 d + 250
+240
+230
+
+N
+N
+rs)
+MJD-—59110
+
+gz s hk 10.6 210
+2 10 *. *
+oo” Bs : b
+a , « fO5
+120.7 ww . gal *® 200
+‘fe ee “eye log
+0.5 owe . 190
+03
+0.0401 03061 0.04 01 03 061
+m m
+
+Figure 6. Evolution of coronal parameters for AT 201 9avd as functions of the
+accretion rate ri. The four panels show: (a) the coronal energy fraction f, (b)
+the photon index I" in the 0.6—2 keV band, (c) the electron temperature T, at
+13.5 Rg, and (d) the optical depth 7 at the same radius. Star-shaped markers
+represent results from before Day 205, while circular markers correspond to
+later observations. A colourbar encodes the observational time. Grey lines
+with arrows indicate the general evolutionary trends, and the dashed line
+indicates the best-fitting linear relationship for i < 0.3. The blue and red solid
+lines in panel (a) represent the model calculations of Cao (2009), obtained
+with the viscosity parameter a = 0.5 and a = 1, respectively. The brown
+solid line in panel (a) represents the best-fitting relation Lx / Loi — Lpoi/Lraa-
+derived from our broadband extrapolation of the AGN data from Wang et al.
+(2004) (see Section 5 for details).
+
+the X-ray spectrum. During the same period, the optical depth t ex-
+hibits a substantial decrease from about 0.7 to about 0.4, suggesting
+a nearly 50% drop in electron density within the corona, while the
+electron temperature 7. remains relatively constant. In Figure 6(a),
+we also show the theoretical predictions for the si — f relation from
+the model of Cao (2009), adopting different values of the viscosity
+parameter a for comparison.
+
+At lower accretion rates (ri < 0.6), the relationships between
+key coronal parameters and the accretion rate become approximately
+linear. Both JT. and f increase significantly as m decreases, while
+the X-ray spectrum hardens (I° decreases). t shows comparatively
+less variation but still exhibits a mild decreasing trend over time.
+When determining the best-fitting linear relations in this regime, we
+excluded the data points corresponding to Days 210.1, 232.0, 242.1,
+and 244.2, as these showed anomalously high values of f which
+could skew the trend analysis. The resulting best-fitting relations for
+m < 0.3 are
+
+log f = (-0.30 + 0.03) log rit + (0.70 + 0.03), (22)
+TP = (1.7 £0.0) log rt + (5.6 + 0.0), (23)
+log Te = (-0.33 + 0.01) logrin + (8.7 + 0.0), (24)
+7 = (0.11 + 0.02) log rir + (0.48 + 0.02). (25)
+
+When i falls to the lowest observed values around 0.04, I ap-
+proaches a value of about 3—still noticeably softer than the typical
+X-ray spectral slope of I ~ 2 observed in most AGNs (e.g. Vignali
+et al. 2003). Together, these results support a scenario in which the
+corona becomes hotter, relatively more dominant (higher f), and
+more optically thin as the accretion rate declines in AT 2019avd.
+
+Disc-corona Evolution in AT 2019avd_ 7
+
+5 DISCUSSION
+
+In this work, we utilized an accretion disc-corona model to investigate
+the X-ray spectral hardening observed in TDEs at later times. Our
+model successfully reproduces the X-ray spectral evolution of the
+TDE candidate AT 2019avd starting from 187 days after its peak
+emission. Through our modelling, we derive the temporal evolution
+of key physical parameters, including the accretion rate ri and the
+coronal fraction f. The results show that the accretion rate declines
+as rit oc (t — 193.43 day)~!®° during the late stage. Moreover, we
+find a clear anti-correlation between f and 7. Our model also allows
+us to derive key coronal parameters, including the spectral photon
+index I, the coronal electron temperature T,, and the optical depth
+t. Our results show that when m < 0.6, IT, Te, and t are strongly
+correlated with the accretion rate. Specifically, as m decreases
+increases, T, rises, and t drops slightly—indicating a progress
+hotter and more tenuous corona that contributes more significantly
+to the X-ray emission. In the following, we discuss these results in
+detail, compare them with previous studies, and explore their broader
+implications for understanding accretion physics in BH systems.
+
+Our model assumes that a fraction f of the gravitational energy
+released in the accretion disc is transported into a hot corona, where
+it heats electrons that upscatter disc photons via inverse Compton
+scattering to produce the observed X-ray emission. For a given ac-
+cretion rate 7, a lower value of f implies less heating of the corona,
+resulting in a lower electron temperature T. and a softer X-ray spec-
+trum. When 7 decreases, the disc’s radiative output decreases and
+cooling becomes less efficient, allowing the corona to remain hot-
+ter and produce harder spectra. This framework provides a natural
+physical explanation for the spectral hardening as the accretion rate
+decreases.
+
+In this model, the X-ray luminosity is approximately proportional
+to m, f. A decrease in ri can be compensated by an increase in f,
+yielding a comparable X-ray flux. However, the X-ray spectral index
+is more sensitive to variations in f, so the spectral shape provides
+an additional constraint in the fitting process. A larger f inevitably
+produces a harder spectrum, whereas a smaller f results in a softer
+one. So, there is no parameter degeneracy in our model calculations.
+
+In AGNs, it has been well-established that key properties of the
+corona evolve with the accretion rate. For example, there exists a
+strong correlation between the Eddington ratio and the X-ray spectral
+index, I, where the spectrum softens as the accretion rate increases
+(e.g. Shemmer et al. 2006, 2008). Additionally, the coronal electron
+temperature, T,, inferred from the cut-off energies of AGN hard X-ray
+spectra, has been shown to decrease with an increasing Eddington
+ratio, reinforcing the picture that higher accretion rates lead to more
+efficient cooling in the corona (e.g. Ricci et al. 2018).
+
+It is found that the anti-correlation between f and ri can be
+interpreted within the framework of magnetically heated corona
+models (e.g. Cao 2009). Cao (2009) adopt the magnetic stress
+tensor form proposed by Taam & Lin (1984), ty = Pmag =
+@[Pgas(Pgas + Prad) 1/2 to calculate the buoyant magnetic fields in
+the accretion disc and qualitatively explain both the si — f and ri -T°
+relations observed in AGNs. We compare the theoretical predictions
+for the m — f relation from the model of Cao (2009) with our results
+in Figure 6(a) and find that the model can reproduce the observed
+m — f relation well if a viscosity parameter of a = | is adopted.
+Given that a < 1 is generally expected in accretion systems, this
+result implies a stronger magnetic field within the TDE accretion
+disc than that in typical AGNs. We speculate that this could be due
+to a stronger seed magnetic field from the disrupted star compared to
+that from the circum-nuclear gas, which is then amplified by the ro-
+
+MNRAS 000, 1-10 (2025)
+8 A. Xuetal.
+
+tational instability (MRI) during the rapid formation of the transient
+disc.
+
+The anti-correlation between the relative contribution of the
+corona and the accretion rate, analogous to our si — f relation, is also
+a well-established observational trend in AGNs. Studies consistently
+find a strong correlation between the ratio of X-ray to bolometric lu-
+minosity and the Eddington ratio, Lx,2~10Kev /Lpoi & (Lpot/Leaa)*s
+with the index € typically close to —0.6 (e.g., Wang et al. 2004;
+Lusso et al. 2012; Duras et al. 2020). It is found that both the photon
+index I’ in the hard X-ray wave band and the black hole mass mgy
+is available only in Wang et al. (2004)’s sample. In order to compare
+their relation with the 7 — f relation derived in this work, we ex-
+tract their data and extrapolate the 2-10 keV luminosity to a broader
+0.1-100 keV band, assuming a single power-law, which serves as a
+better proxy for the total coronal power Q¢or. Our re-analysis yields
+a relation Lx/Lgo) « (Lect /Taga) for their sample. Assuming
+mi = Lgoi/Leaa and f = Lx/Lpor, this empirical AGN trend is com-
+pared with the mi — f relation derived for AT 201 9avd in Figure 6(a).
+The slope of the correlation between the coronal fraction and the
+accretion rate for AT 2019avd, f o ri~°-°, during the later evolu-
+tionary phase when m < 0.6, is much shallower than that for the AGN
+sample. It is worth noting that previous studies of the si — f relation in
+AGNs have relied on large-sample analyses of different sources (e.g.
+Wang et al. 2004; Vasudevan & Fabian 2007). Such approaches are
+subject to significant uncertainties arising from the determination of
+the BH mass in individual AGNs. In contrast, our study follows the
+evolution of a single system. The slope of the derived mm — f relation
+is therefore independent of the BH mass estimate, and likely provides
+a more reliable probe of disc—corona coupling and evolution.
+
+Our finding of late-stage spectral hardening with a declining ac-
+cretion rate in AT 2019avd is consistent with a growing body of
+evidence from other TDEs, where similar rapid hardening has been
+observed on comparable timescales. Komossa (2015) pointed out
+that many TDEs exhibit spectral hardening over timescales of years,
+although earlier studies were often limited in characterizing this pro-
+cess due to the lack of continuous X-ray monitoring. More recently,
+similar rapid spectral hardening has been identified in TDEs with
+much more intensive observational coverage. For instance, Wevers
+etal. (2023) and Yao et al. (2025) reported rapid X-ray spectral hard-
+ening on timescales of roughly 30 days in TDEs AT 2018fyk and
+AT 2024tvd, which is remarkably consistent with our findings for
+AT 2019avd, where IP drops rapidly from ~ 5 to ~ 3 over a similar
+timescale. Such state transitions, moving towards harder spectra, are
+well documented in XRBs (e.g., Remillard & McClintock 2006; Wu
+& Gu 2008), and have also been identified in AGNs, where the X-ray
+spectra harden as m declines (e.g., Wang et al. 2004; Shemmer et al.
+2006, 2008; Risaliti et al. 2009).
+
+However, it seems that not all TDEs follow this evolutionary path
+(e.g., Auchettl et al. 2017; Guolo et al. 2024). The conditions for
+coronal formation and its subsequent strengthening appear complex.
+For instance, a systematic study by Guolo et al. (2024) on optically
+selected TDEs found that the few cases in their sample showing
+spectral hardening tended to be associated with larger black hole
+masses. They observed that the corona became prominent primarily
+as accretion rates dropped to sub-Eddington levels. This finding is
+consistent with our results in the low accretion rate regime (i.e. 11 S
+0.6). However, Guolo et al. (2024) also noted TDEs with similarly
+large black hole masses that did not show evidence of a significant
+corona, implying that other factors, potentially related to the magnetic
+field characteristics within the disc-corona system, play a crucial role
+in coronal development.
+
+Intriguingly, it is also found that some TDEs with adequate X-ray
+
+MNRAS 000, I-10 (2025)
+
+monitoring but did not exhibit clear spectral hardening often showed
+evidence of powerful jets or outflows in the samples of Auchettl et al.
+(2017) and Guolo et al. (2024). This leads to a preliminary hypothesis
+that such jet or outflow activity might suppress the formation of the
+hot corona, which is beyond the scope of this work. The underlying
+physical mechanism for this potential suppression is still unclear,
+and a larger sample with continuous multi-wavelength observations
+is needed to resolve this issue.
+
+Additionally, while m > 0.6, the X-ray spectrum of AT 2019avd
+is dominated by the blackbody component, accompanied by an ex-
+tremely steep power-law with photon indices > 4. Combined with
+the spectral hardening period, as the accretion rate declines from
+above | to around 0.04, the power-law component remains signifi-
+cantly steeper than those typically observed in AGNs or XRBs where
+the power-law indices are generally much lower (e.g., 7 ~ 1.5—2.5).
+However, similar steep X-ray spectra have been reported in other
+TDEs (e.g., Bade et al. 1996; Komossa et al. 2004). Given that the
+X-ray spectral hardness is highly sensitive to the values of mi and
+f, itis plausible that the magnetic field processes are quite different
+between TDE and AGN discs.
+
+As shown in Figure 5, the hydrogen column density, Ny, exhibits
+a similar evolutionary trend to that of the accretion rate. Before the
+rapid evolutionary phase around Day 205, Ny shows a mild but sys-
+tematic increase. This could reflect the accumulation of absorbing
+material from various sources, including the inflowing streams of
+stellar debris themselves crossing our line of sight (e.g., Guillochon
+et al. 2014; Bonnerot et al. 2016) or the development of a reprocess-
+ing layer or a puffed-up envelope characteristic of super-Eddington
+accretion phases (e.g., Strubbe & Quataert 2009; Metzger & Stone
+2016). The column density Ny drops sharply after Day 205, coincid-
+ing with the rapid decline of 1, consistent with a sudden dispersal
+or clearing of the surrounding or circumnuclear absorbing material.
+Similar phenomena of rapid changes in Ny have also been found in
+other TDEs (e.g., Saxton et al. 2012; Miller et al. 2015; Auchettl
+et al. 2017; Wevers et al. 2019) and some changing look AGNs (e.g.,
+Risaliti et al. 2005; Ricci & Trakhtenbrot 2023).
+
+Regarding the optical-to-UV emission, our disc-corona model
+predicts a luminosity of about 3 x 10*° erg s~!, which is more than
+an order of magnitude lower than the value observed by Wang et al.
+(2024). Moreover, Wang et al. (2023) estimated the optical-UV pho-
+tospheric radius of AT2019avd to be ~ 611 — 1256Rg, significantly
+larger than the characteristic size of the accretion disc inferred in
+this work. These results suggest that the optical-to-UV emission in
+AT2019avd is unlikely to originate from the disc-corona system. This
+conclusion is consistent with the growing consensus that, in TDEs,
+emission from the accretion disc itself contributes significantly to the
+optical/UV band only at very late times, typically several years after
+the initial flare (e.g. van Velzen et al. 2019).
+
+6 SUMMARY
+
+In this work, we utilize a disc-corona model to explain the spectral
+hardening observed at later stages of TDEs, and we apply this model
+to the TDE candidate AT 2019avd. Our main results are summered
+as follows.
+
+(i) An anti-correlation between f and m was clearly observed
+when mm < 0.6. This trend is qualitatively consistent with that found
+in AGNs. The shallower slope (f o 1i~°3°) compared to that in
+AGNs (f  ri~°-°) may suggest different magnetic field conditions
+between the two systems.
+(ii) The X-ray spectra harden as the accretion rate decreases, with
+T’ dropping from 5 to 3 over approximately 30 days when 1 < 0.6.
+Similar rapid spectral hardening has been observed in other TDEs,
+and the anti-correlation between I and si: is also observed in AGNs
+and BHXBRs.
+
+(iii) Derived from our model parameters, the corona is inferred to
+become progressively more dominant (higher f), hotter (increasing
+T.), and more tenuous (decreasing T) as the accretion rate declines
+in the low m regime. This provides a physical explanation for the
+observed spectral hardening.
+
+(iv) In the high accretion rate regime (mm > 0.6), the electron
+temperature of the corona (J.) remains nearly constant, while other
+parameters show different trends with the accretion rate. Whether
+this reflects a limitation of our model or a distinct physical behaviour
+(e.g., related to magnetic fields from the disrupted star) requires
+further investigation.
+
+(v) Our fits reveal rapid changes in the neutral hydrogen column
+density (Ny). This variability might be attributed to the accumu-
+lation of stellar debris streams or the evolution of a reprocessing
+layer/puffed-up envelope during super-Eddington accretion phases.
+
+ACKNOWLEDGEMENTS
+
+We are grateful to the referee for his/her insightful comments and sug-
+gestions. This work is supported by the NSFC (12533005, 12233007,
+12347103, and 12361131579), the science research grants from
+the China Manned Space Project with No. CMS-CSST- 2021-A06,
+and the fundamental research fund for Chinese central universi-
+ties (Zhejiang University). AAZ acknowledges support from the
+Polish National Science Center grants 2019/35/B/ST9/03944 and
+2023/48/Q/ST9/00138.
+
+DATA AVAILABILITY
+
+The data underlying this article will be shared on reasonable request
+to the corresponding author.
+
+REFERENCES
+
+Abramowicz MA., Czerny B., Lasota JP., Szuszkiewicz E., 1988, ApJ, 332,
+646
+
+Auchettl K., Guillochon J., Ramirez-Ruiz E., 2017, ApJ, 838, 149
+
+Bade N., Komossa S., Dahlem M., 1996, A&A, 309, L35
+
+Balbus S. A., Hawley J. F., 1991, ApJ, 376, 214
+
+Bekhti N. B., et al., 2016, A&A, 594, A116
+
+Bellm E. C., et al., 2018, PASP, 131, 018002
+
+Bethe H., Heitler W., 1934, Proc. R. Soc. Lond. A, 146, 83
+
+Bisnovatyi-Kogan G. S., Lovelace R. V. E., 1997, ApJ, 486, L43
+
+Bisnovatyi-Kogan G. S., Lovelace R. V. E., 2000, ApJ, 529, 978
+
+Bonnerot C., Rossi E. M., Lodato G., Price D. J., 2016, MNRAS, 455, 2253
+
+Cao X., 2003, ApJ, 599, 147
+
+Cao X., 2009, MNRAS, 394, 207
+
+Cao X., Gu W.-M., 2022, ApJ, 936, 141
+
+Cao X., Lai D., 2019, MNRAS, 485, 1916
+
+Chen J.-H., Dou L.-M., Shen R.-F., 2022, ApJ, 928, 63
+
+Chiang J., 2002, ApJ, 572, 79
+
+Coppi PS., Blandford RD., 1990, MNRAS, 245, 453
+
+Dai L., McKinney J. C., Roth N., Ramirez-Ruiz E., Miller M. C., 2018, ApJL,
+859, L20
+
+Di Matteo T., 1998, MNRAS, 299, L15
+
+Di Matteo T., Celotti A., Fabian A. C., 1999, MNRAS, 304, 809
+
+Duras F,, et al., 2020, A&A, 636, A73
+
+Disc-corona Evolution in AT 2019avd 9
+
+Esin A. A., Narayan R., Ostriker E., Yi I., 1996, ApJ, 465, 312
+
+Evans C. R., Kochanek C. S., 1989, ApJ, 346, L13
+
+Feng J., Cao X., Li J.-w., Gu W.-M., 2021, ApJ, 916, 61
+
+Frank J., King A. R., Raine D., 2002, Accretion Power in Astrophysics.
+Cambridge university press
+
+Galeev A. A., Rosner R., Vaiana G. S., 1979, ApJ, 229, 318
+
+Gezari S., 2021, ARA&A, 59, 21
+
+Guillochon J., Manukian H., Ramirez-Ruiz E., 2014, ApJ, 783, 23
+
+Guolo M., Gezari S., Yao Y., van Velzen S., Hammerstein E., Cenko S. B.,
+Tokayer Y. M., 2024, ApJ, 966, 160
+
+Haardt F., Maraschi L., 1991, ApJ, 380, L51
+
+Haardt F., Maraschi L., 1993, ApJ, 413, 507
+
+Hayasaki K., Stone N., Loeb A., 2016, MNRAS, 461, 3760
+
+Heckman T. M., Best P. N., 2014, ARA&A, 52, 589
+
+Heitler W., 1984, The Quantum Theory of Radiation. Courier Corporation
+
+Hills J. G., 1975, Nat, 254, 295
+
+Hubeny I, Blaes O., Krolik J. H., Agol E., 2001, ApJ, 559, 680
+
+Jiittner F., 1911, Annalen der Physik, 339, 856
+
+Kawaguchi T., Shimura T., Mineshige S., 2001, ApJ, 546, 966
+
+Kino M., Kaburaki O., Yamazaki N., 2000, ApJ, 536, 788
+
+Komossa S., 2015, Journal of High Energy Astrophysics, 7, 148
+
+Komossa S., Halpern J., Schartel N., Hasinger G., Santos-Lleo M., Predehl
+P., 2004, ApJ, 603, L17
+
+Kormendy J., Ho L. C., 2013, ARA&A, 51, 511
+
+Liu B. F., Mineshige S., Shibata K., 2002, ApJ, 572, L173
+
+Liu B. F., Mineshige S., Ohsuga K., 2003, ApJ, 587, 571
+
+Lodato G., Rossi E. M., 2011, MNRAS, 410, 359
+
+Lusso E., et al., 2012, MNRAS, 425, 623
+
+Mageshwaran T., Bhattacharyya S., 2022, MNRAS, 518, 5862
+
+Mageshwaran T., Bhattacharyya S., 2023, PRD, 107, 103036
+
+Malyali A., et al., 2021, A&A, 647, AD
+
+Manmoto T., Mineshige S., Kusunose M., 1997, ApJ, 489, 791
+
+Merloni A., Fabian A. C., 2001, MNRAS, 328, 958
+
+Merloni A., Fabian A. C., 2002, MNRAS, 332, 165
+
+Metzger B. D., Stone N. C., 2016, MNRAS, 461, 948
+
+Miller J. M., et al., 2015, Nature, 526, 542
+
+Nordin J., Brinnel V., Giomi M., Santen J. V., Gal-yam A., Yaron O., Schulze
+S., 2019, Transient Name Server Discovery Report, 2019-236, 1
+
+Phinney E. S., 1989, Symposium - International Astronomical Union, 136,
+543
+
+Piran T., Svirski G., Krolik J., Cheng R. M., Shiokawa H., 2015, ApJ, 806,
+164
+
+Rees M. J., 1988, Nat, 333, 523
+
+Remillard R. A., McClintock J. E., 2006, ARA&A, 44, 49
+
+Ricci C., Trakhtenbrot B., 2023, Nature Astronomy, 7, 1282
+
+Ricci C., et al., 2018, MNRAS, 480, 1819
+
+Risaliti G., Elvis M., Fabbiano G., Baldi A., Zezas A., 2005, ApJ, 623, L93
+
+Risaliti G., Young M., Elvis M., 2009, ApJ, 700, L6
+
+Saxton R. D., Read A. M., Esquej P., Komossa S., Dougherty S., Rodriguez-
+Pascual P., Barrado D., 2012, A&A, 541, A106
+
+Schnittman J. D., Krolik J. H., Noble S. C., 2013, ApJ, 769, 156
+
+Shakura N. I, Sunyaev R. A., 1973, A&A, 24, 337
+
+Shemmer O., Brandt W. N., Netzer H., Maiolino R., Kaspi S., 2006, ApJ,
+646, L29
+
+Shemmer O., Brandt W. N., Netzer H., Maiolino R., Kaspi S., 2008, ApJ,
+682, 81
+
+Shiokawa H., Krolik J. H., Cheng R. M., Piran T., Noble S. C., 2015, ApJ,
+804, 85
+
+Stepney S., Guilbert P. W., 1983, MNRAS, 204, 1269
+
+Strubbe L. E., Quataert E., 2009, MNRAS, 400, 2070
+
+Svensson R., Zdziarski A. A., 1994, ApJ, 436, 599
+
+Taam R. E., Lin D. N. C., 1984, ApJ, 287, 761
+
+Vasudevan R. V., Fabian A. C., 2007, MNRAS, 381, 1235
+
+Vignali C., Brandt W. N., Schneider D. P., 2003, AJ, 125, 433
+
+Wang J.-M., Watarai K.-Y., Mineshige S., 2004, ApJ, 607, L107
+
+Wang Y., et al., 2023, MNRAS, 520, 2417
+
+Wang Y., et al., 2024, ApJ, 962, 78
+
+Wevers T., et al., 2019, MNRAS, 487, 4136
+
+MNRAS 000, 1-10 (2025)
+10 A. Xuetal.
+
+MJD-59110 ri f Na/10%cm-? yy? /dof
+187.0 TAG qva7tpol 4.43*037 56.67/24
+188.1 Toot Osan el 3.63103! 25.44/23
+189.0 Lovee are AOR), 32.52/24
+190.6 0.86006 = ga0th. 3.82100 43.38/23
+191.0 100% O3ee 3.455 36.82/24
+192.3 Our «Uae 42403 39.31/24
+194.0 Whig ml tay 8.88 10.59/15
+195.0 0.847703 0.3440-05, 3.8508 15.17/16
+197.3 100% O49 27.14/21
+199.0 O75, ogre! 29.77/25
+200.1 0.944095 0.18.5 bd 24.93/21
+202.3 TAS, «(Ost Aare 22.91/23
+204.1 1030, O24 4.7405 65.60/26
+205.0 LO o2aee 52807) 16.80/24
+207.0 0.774504 «0-16*Y 1 5.66" ae 32.69/21
+208.0 O7E3e Ogee! S188 30.09/21
+209.1 O65 *hry 0.157 ale 19.20/22
+210.1 Ose, «690.5288 320708 50.09/27
+213.1 O28, 02se 2407 Gre 23.08/24
+227.9 oe «Ost 2.40°5 60. 16.05/11
+230.1 O16" 0.35708 odie 22.97/23
+232.0 O:08t205 = 9,5at0.03 2.404333 | 30.91/23
+234.1 0.08%) 0.414044 240 26.70/20
+236.2 Org Oss 4.05" 26.82/11
+240.1 Oot 0.830 2A0T Oe 20.74/23
+242.0 Oost ors2tp tee 2.40747. 33.22/18
+242.1 0648 0700 52 23.23/23
+244.2 0.0579. : 2407, 23.70/21
+254.2 0.0798 0.444 2.40%), 42.06/26
+
+Table Al. Best-fitting parameters of the SED with the disc-corona model
+for AT 2019avd. Values marked with an asterisk (*) indicate parameters that
+reached a pre-defined boundary during the fit.
+
+Wevers T., et al., 2023, ApJL, 942, L33
+
+Wu Q., Gu M., 2008, ApJ, 682, 212
+
+Yao Y., et al., 2023, ApJ, 955, L6
+
+Yao Y., et al., 2025, arXiv preprint arXiv:2502.17661
+
+You B., Cao X., Yuan Y.-F., 2012, ApJ, 761, 109
+
+Zdziarski A. A., 1998, MNRAS, 296, L51
+
+Zdziarski A. A., Lubinski P., Smith D. A., 1999, MNRAS, 303, L11
+
+van Velzen S., Stone N. C., Metzger B. D., Gezari S., Brown T. M., Fruchter
+A.S., 2019, ApJ, 878, 82
+
+APPENDIX A: DETAILED BEST-FITTING PARAMETERS
+FOR AT 2019AVD
+
+This paper has been typeset from a TeX/I4TpX file prepared by the author.
+
+MNRAS 000, I-10 (2025)

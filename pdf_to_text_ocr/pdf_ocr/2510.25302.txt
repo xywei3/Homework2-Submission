@@ -1,0 +1,565 @@
+DRAFT VERSION OCTOBER 30, 2025
+Typeset using IAT@X default style in AASTeX7
+
+Ringed vs. Ringless Worlds: How Poynting-Robertson Drag Shapes Rings Across the Solar System
+
+1,2,3,4
+
+RyuKI Hyopo AND SuicERu Ipa?
+
+1 Earth-Life Science Institute, Institute of Science Tokyo, 2-12-1 Ookayama, Meguro-ku, Tokyo, 152-8550, Japan
+2 Université Paris Cité, Institut de Physique du Globe de Paris, CNRS, F-75005 Paris, France
+3 Graduate School of Artificial Intelligence and Science, Rikkyo University, Tokyo 171-8501, Japan
+4 SpaceData Inc.
+
+ABSTRACT
+
+Planetary rings are not only ubiquitous around the giant planets in the outer Solar System, but have
+also been discovered around several small distant bodies. In contrast, no rings have been observed
+around any inner Solar System objects. To constrain the dynamical origin of this ringed-versus-
+ringless dichotomy, we employ a numerically cross-checked analytical model of gigayear-scale Poynting-
+Robertson (PR) drag due to the solar flux acting on an isolated particle, expressed as a function of the
+host body’s heliocentric distance apja and the particle radius rpar. Here we show that, in the absence
+of additional perturbations, PR drag alone can explain the observed ring architecture of the Solar
+System: outer planets and Centaurs/TNOs are able to retain rings for the age of the Solar System,
+whereas any rings around the inner planets are removed on much shorter timescales. Because the PR-
+drag lifetime scales steeply with heliocentric distance (Fawexy loa Qa ifpan)' we predict that forthcoming
+surveys will reveal an ever-growing population of ring-bearing bodies in the distant Solar System.
+
+1. INTRODUCTION
+
+Planetary rings are among the most striking — but also the most selective — features in the Solar System. Although
+a variety of mechanisms can generate rings, only a fraction of planetary bodies are actually observed to host them.
+As discussed below, a ringed-versus-ringless dichotomy appears to exist between the inner and outer Solar System.
+Understanding why rings persist around some objects but not others therefore remains a fundamental problem in
+planetary science.
+
+One well-studied ring formation pathway around terrestrial planets in the inner Solar System is collisional. During
+the final stages of terrestrial planet formation, giant impacts inevitably eject debris that can be gravitationally captured
+by the surviving body (W. K. Hartmann & D. R. Davis 1975). The canonical Earth-Moon-forming impact (e.g., R. M.
+Canup 2004; E. Kokubo et al. 2000) and the putative giant impact that produced Phobos and Deimos (e.g., R.
+Hyodo et al. 2017b; P. Rosenblatt et al. 2016) have been studied in terms of the dynamical evolution of the resulting
+planetocentric debris: each would have left an optically thin particulate ring once satellite accretion was complete.
+Yet no such rings are seen around Earth or Mars today (M. R. Showalter et al. 2006). Similarly, Mercury and Venus
+lack both moons and rings — perhaps because their impacts never produced disks/rings massive enough to form
+satellites, or because any satellites were later removed by tidal interactions (K. Atobe & S. Ida 2007). Even smaller-
+scale impacts can in principle create transient debris rings, but none of the present-day terrestrial planets and small
+
+arXiv:2510.25302v1 [astro-ph.EP] 29 Oct 2025
+
+inner solar system bodies exhibit ring systems.
+
+Various formation mechanisms have been proposed to explain the rings observed around bodies in the outer Solar
+System. For example, close encounters between a giant planet and a passing large body can tidally strip material from
+a passing body, seeding a ring around the planet (L. Dones 1991; R. Hyodo et al. 2017a). Meanwhile, the remaining
+large body can gravitationally capture part of its own debris to acquire a ring of its own (R. Hyodo et al. 2016). This
+is just one example of ring formation, but such processes demonstrate that rings are not confined to massive planets
+in the outer Solar System. Indeed, at the time of this paper is written, particulate rings are confirmed or suspected
+around several small outer solar system bodies through observing stellar occultations — including the Centaur Chariklo
+(F. Braga-Ribas et al. 2014), possibly Chiron (J. L. Ortiz et al. 2015), the dwarf planet Haumea (J. L. Ortiz et al.
+2017), and the trans-Neptunian object Quaoar (B. E. Morgado et al. 2023; C. Pereira et al. 2023). Statistical estimates
+
+2
+
+suggest that rings occur around roughly 8 — 12% of small outer solar system bodies (B. Sicardy et al. 2020), implying
+that additional ring-bearing objects will likely be discovered.
+
+Indeed, the aforementioned ring-forming processes could operate in both the inner and outer Solar System; however,
+observations clearly indicate that rings are more prevalent in the outer Solar System. Whether produced by impacts,
+tidal encounters, or other processes, the ultimate survival of a ring depends on the dynamical evolution of its constituent
+particles. Accordingly, this evolution should be consistent with the observed ringed-versus-ringless dichotomy between
+the inner and outer Solar System.
+
+The evolution of ring particles is governed by several distinct physical regimes. When a ring is optically thick,
+collisional and gravitational interactions among the particles can dominate, leading to viscous spreading (D. Lynden-
+Bell & A. Kalnajs 1972; P. Goldreich & S. Tremaine 1978). As an alternative, when the central body’s shape is
+non-axisymmetric, resonant effects arise between the object’s spin rate and the ring particles’ mean motion (B. Sicardy
+et al. 2020).
+
+Here we instead consider the optically thin limit and follow the dynamics of individual, isolated particles around a
+spherical central body due to non-gravitational forces. The dominant non-gravitational force on a ring particle depends
+
+on its size. Here we focus on ”medium-sized” particles — typically centimeter- to meter-sized — which we assume are
+neither rapidly removed by solar radiation pressure, taking into account the planetary shadow (Y. Liang & R. Hyodo
+2023), nor strongly affected by Yarkovsky or YORP effects (D. P. Rubincam 2000). In this size regime, Poynting-
+Robertson (PR) drag due to the solar flux may dominate the non-gravitational evolution, gradually removing orbital
+energy and leading to a contraction of the semimajor axis (see also J. A. Burns et al. 2001). Note that if the planetary
+shadow is neglected, solar PR drag produces no secular change in eccentricity (J. A. Burns et al. 1979); to the best of
+my knowledge, the giga-year scale long-term effect of the shadow on eccentricity has not yet been investigated.
+
+Previous studies (e.g., J. A. Burns et al. 1979) carried out an extensive analytical study of Poynting-Robertson drag,
+but at that time rings had not yet been discovered around the wide range of body sizes and orbital radii we know
+today. Consequently, the theory could neither fully account for observational data nor be tightly constrained by it.
+In this present work, we revisit the problem in light of new observations to reassess the potential role of PR-drag in
+shaping the distribution of rings throughout the solar system.
+
+2. METHODS
+
+In this section we describe the methodology of our numerical simulations. We concentrate exclusively on Poynting-
+Robertson (PR) drag due to the solar flux. To isolate the role of PR drag, we adopt a deliberately simplified approach.
+We assume that an isolated ring particle is present at around a spherical host body and then follow its dynamical
+evolution over gigayear timescales. Our results are presented as functions of particle size rpar and the radial distance of
+the central body from the Sun apia, providing a baseline for assessing which rings can plausibly persist to the present
+day and which are destined to vanish on shorter timescales.
+
+A direct, first-principles integration of the PR-drag force over gigayear timescales is computationally prohibitive,
+so we adopt instead the analytical prescription recently developed by Y. Liang & R. Hyodo (2023). Using classical
+planetary perturbation theory (C. D. Murray & S. F. Dermott 1999) together with the canonical formulation of PR
+drag (J. A. Burns et al. 1979), Y. Liang & R. Hyodo (2023) (their Eq. (20)) derived an expression for the lowest
+secular decay rate of a particle’s semimajor axis about a spherical central body, whether a planet or a small object,
+on a circular orbit:
+
+da, 2 Bl tise be, 92 1/1 ; 3 ; a! ¥ oo,
+( se) oe eld f n git + cos’ i) —— 5 + cos: eo + 264 5 6 cos €) sin2¢ }|, (1)
+Be HQT Fota 01, (2)
+CM par 2
+Lo .
+Fyia(@pia) = ira,’ (3)
+
+where par is the particle’s semimajor axis; definitions of all other variables appearing in the expression are summarized
+in Table 1. This newly derived equation explicitly incorporates the angular extent of the planetary shadow, 2¢ (see
+Fig. 1 in Y. Liang & R. Hyodo 2023), as well as the effects of particle inclination i and planetary obliquity e.
+3
+
+Here, lowest signifies that Eq. 1 is derived under the assumption of a particle’s circular orbit (e = 0). In reality,
+perturbations can excite a finite eccentricity, so that a particle’s pericentre lies inside its semimajor axis; therefore,
+the resulting smaller pericentre distance makes it easier for the particle to collide with the planet. Direct numerical
+integrations that incorporate the planetary shadow, planetary oblateness Jj, solar radiation pressure, and the solar
+Poynting-Robertson drag show that a particle’s orbit becomes non-circular and the decay rate given by Eq. | is indeed
+a lower bound on the orbital evolution toward impact with the central body (Y. Liang & R. Hyodo 2023).
+
+The actual lifetime before collision with the host planetary body depends on the attained eccentricity, because the
+pericentre distance is g = a(1 —e). For particles that start on circular orbits, larger objects are less susceptible to
+eccentricity growth driven by non-gravitational forces than smaller ones; consequently, their lifetimes more closely
+approach the lower bound estimate of Eq. 1, and vice versa (Y. Liang & R. Hyodo 2023).
+
+In this study, using the above equation, we examine how planetary parameters — specifically the planet’s heliocentric
+distance and mass — and particle size affect the PR-drag lifetime of circumplanetary particles. Quantifying these
+dependencies is the primary objective of this study, and we also discuss which bodies in the Solar System could host
+rings.
+
+3. RESULTS: RINGED VS. RINGLESS WORLDS
+
+Figure 1 illustrates the time evolution of the particle’s semimajor axis dpar for selected different host planetary bodies.
+Poynting-Robertson drag removes angular momentum from an orbit around a central body, causing the particle to
+spiral inward. As expected, particles that orbit host bodies located farther from the Sun, as well as particles with
+larger radii, survive for longer periods before ultimately colliding with the central body. In the figure, each particle is
+initially placed at 5Rpia, where Rp}, denotes the radius of the central body. For comparison, the Roche limit for Earth
+and Mars is ~ 3Rpia. Particles that begin at smaller orbital distances collide with the central body on correspondingly
+shorter timescales.
+
+The characteristic timescale for PR-drag-induced decay of a particle’s semimajor axis Tgecay can be written as
+
+Ta dipee) dapar 81 pparparG la
+lecay par dt 3QLo
+
+Q 7 Ppar Tpar pla \?
+~4.19 x 10° yee P 2 P . 4
+9x 10" year x (3 3000kg m= (enn) re (4)
+
+This expression is obtained directly from Eq. 1. In the derivation we neglect the multiplicative factor enclosed in the
+
+arge square brackets, [-- ‘|; in Eq. 1. Over the allowed parameter ranges, this factor varies between ~ 0.46 and 1.5
+— attaining the maximum for i ~ 0, « ~ 0, ¢ = 0, and the minimum for i ~ 7/2, € ~ 0, cos2¢ = —3/4. The square
+racketed factor in Eq. 1 accounts for particle inclination i, planetary obliquity ¢, and the length of the planetary
+shadow 2¢. While omitting this bracketed factor changes the result only by an order-unity factor and is acceptable for
+the order-of-magnitude estimates intended here, including it yields a coefficient consistent with the earlier expressions
+of J. A. Burns et al. (1979) and P. Goldreich & S. Tremaine (1982), which did not consider planetary obliquity and
+lanetary shadow.
+Note that Tdecay is independent of the particle’s initial circumplanetary distance a,,,,9 when the term in the square
+rackets (Eq. 1) has been approximated as unity. From Gauss’s form of Lagrange’s planetary equations, da/dt =
+2F'/npar for a tangential drag force F. For a linear drag (F & Upar With Upar = Npar@par), One obtains dapar/dt « dpar-
+Consequently, particles that begin farther out (apar larger, Mpar smaller) experience a larger absolute semimajor-axis
+decay rate. Physically, outer orbits are more weakly bound, offer a longer torque lever arm, and spend more time per
+revolution under drag, all reinforcing the scaling dayar / dt & Gpar-
+
+Figure 2 maps the decay timescale Taecay in the Gpla — Tpar parameter space. Particles of larger radius (Tpar large)
+that orbit a planetary body farther from the Sun (apia large) survive longest. The plot shows that gigayear-scale
+inward migration driven by Poynting-Robertson drag introduces a natural division in the solar system with regard to
+ring lifetimes: outer planetary bodies can retain rings, whereas inner planetary bodies lose them, consistent with the
+ringed-vs.-ringless pattern observed in the Solar System. We note that although the dimensionless radiation-pressure
+efficiency factor Q sets the absolute scale of Taecay, reasonable variations in Q would not alter the global bimodal
+architecture of ringed versus ringless worlds.
+
+Obliquity and inclination are zero
+T T
+
+Dis. to planet [Roya
+Oo-NWAAD
+T
+i
+
+Dis. to planet [Roya]
+
+Dis. to planet [Rpial
+
+Dis. to planet [Roja
+
+Dis. to planet [Rojal
+
+8) 10
+
+10° 10° 10” 10° 10
+Time [year]
+
+10
+
+Figure 1. Time evolution of the orbital distance of a particle around a central body, initially starting from apar = 5Rpia. For
+reference, Qpar ~ 3Rpia is the Roche limit of Earth and Mars. The red, black, and blue curves corresponds to a particle radius
+of rpar = 1cm, 10cm, and 1m, respectively. Both the planetary obliquity and the particle’s orbital inclination are set to zero.
+In these calculations, the central body is assumed to be spherical. The calculations here include the perturbations from the
+planet’s shadow (the ¢@ term given in Table 1)
+
+4. DISCUSSION
+
+On the basis of the parameter space shown in Fig. 2, we may place new constraints on the formation and evo-
+lutionary history of the Solar System and predict the most promising locations for yet-undiscovered ringed worlds
+that future, higher-sensitivity observations may reveal. We emphasize that Fig. 2 is intended as a general framework
+rather than being tied to any specific particle size. However, some observational constraints on ring particle sizes
+have been obtained for several planetary ring systems (e.g., J. A. Burns et al. 2001; M. S. Tiscareno & C. D. Murray
+2018). For example, the typical sizes of particles in Saturn’s dense rings are estimated to range from millimeters to
+meters (e.g., R. G. Jerousek et al. 2020), and the particles in Uranus’ dense rings are likely of comparable size (L.
+Esposito et al. 1991). In contrast, for fainter and more tenuous rings such as those around Jupiter and Neptune, the
+characteristic particle sizes are typically in the range of 1 — 100 microns and these small particles are continuously
+replenished by ejecta from nearby moons generated by micrometeoroid impacts (e.g., I. De Pater et al. 2018). As
+Jupiter's
+
+Chiron Havmea
+
+‘ '18.87au), (43.116au)
+; é ent QO ee,
+10
+
+10°
+107
+
+10°
+
+Particle size [m]
+
+10°
+
+ie? ™
+10
+
+1 0! t) ai (43.8900)
+
+10"
+
+10°
+
+Particle size [m]
+
+10°
+
+107+
+107 1o 10! 107
+Semi-major axis [au]
+
+Figure 2. Parameter space of the decay timescale as a function of the central body’s semi-major axis and ring particle radius
+(Eq. 4). The top and bottom panels correspond to cases with ppar = 3.0,g, cm~* and Ppar = 1.0,g,cm~3, corresponding to
+densities typical of rocky and icy ring particles, respectively. Regions with Taccay > 4 x 10° yr are shaded light blue, whereas
+those with Taccay < 4 x 10° yr are shaded light red. Contours indicate constant timescales of Taccay = 10°, 10°, 107, and 10° yr.
+Q = 1 is assumed. Vertical lines indicate the reference semi-major axes of selected planetary bodies.
+
+future observations better constrain the typical particle sizes in different ring systems, or as readers adopt their own
+preferred values, our parameter-space maps can be directly applied to obtain the corresponding decay timescales and
+associated implications. Below, we provide some illustrative examples.
+
+4.1. Constraints on the Giant-Impact Origin of Satellite Formation
+
+Giant impacts are widely regarded as a common outcome of the final stages of planetary accretion (J. Chambers &
+G. Wetherill 1998; C. B. Agnor et al. 1999). In the canonical scenarios proposed for the formation of Earth’s Moon
+6
+
+(R. M. Canup 2004) and Mars’s moons (R. Hyodo et al. 2017b), such collisions generate a debris disk that subsequently
+spreads beyond the planet’s Roche limit, allowing a satellite to accrete from the disk material (E. Kokubo et al. 2000;
+P. Rosenblatt et al. 2016; A. J. Hesselbrock & D. A. Minton 2017). Once the disks viscously spread and a moon
+
+system has formed, the residual disk becomes highly optically
+and no longer experience the strong mutual interactions requir
+Alternatively, the ballistic transport (e.g., P. R. Estrada & R.
+
+thin; individual particles then orbit in near-isolation
+ed for e.g., viscous spreading (A. Crida et al. 2025).
+H. Durisen 2023) may play an important role in the
+
+further dynamical evolution of optically thin disks, although it has not been proven that this process can completely
+
+remove the disk to be consistent with observations.
+
+Giant impacts are thought to have occurred approximately 4 Gyr ago, during the late stages of planetary accretion
+
+(e.g., E. V. Quintana et al. 2016). The proposed debris disk p:
+
+roduced around Earth or Mars would have viscously
+
+spread in orders of magnitude shorter than the billions of years (E. Kokubo et al. 2000; P. Rosenblatt et al. 2016).
+An optically thin particulate ring — composed of dynamically isolated particles — could therefore, in principle, have
+
+persisted for gigayears, yet no such remnant is observed today.
+Figure 2 indicates that cumulative Poynting-Robertson drag
+
+can indeed remove the residual particle on gigayear
+
+timescales as long as the particle size is smaller than ~ 0.1 m, Therefore, to support the classical giant-impact origin of
+the Moon and the Martian satellites, future independent studies should investigate the characteristic size distribution
+of particles produced by giant-impact-generated debris disks during their subsequent spreading phase.
+
+In contrast to the classical hypothesis, an alternative ring-satellite recycling scenario (A. J. Hesselbrock & D. A.
+Minton 2017) suggests that Phobos is the latest survivor of several generations of satellites formed and disrupted only
+hundreds of millions of years ago assuming ~ 0.1 m sized particles, thereby leaving an optically thin ring of ~ 0.1 m
+
+particles that is likewise just hundreds of millions of years old.
+particles within such a short interval. To remain consistent wi
+
+As Fig. 2 shows, PR drag alone cannot clear 0.1 m
+th the absence of a present-day Martian ring (M. R.
+
+Showalter et al. 2006), that scenario therefore requires an additional removal mechanism, otherwise residual debris
+
+should still be detectable around Mars.
+
+Venus and Mercury likely experienced giant impacts as well. Although the absence of satellites around these planets
+is beyond the scope of the present study', any resulting optically thin particulate disks would be even more susceptible
+to cumulative solar Poynting-Robertson drag, and could be cleared away on relatively short timescales even if the
+
+constituent particles were comparatively large (Fig. 2).
+
+Every solid planetary surface exhibits some impact craters, a’
+
+material into orbit. Even so, neither the small asteroid Ryugu
+system, despite their well-documented crater populations. One
+a sufficiently massive or long-lived debris disk to become optical
+ring by e.g. a small impact could have formed but was later remo’
+would survive depends on both the epoch of its formation and
+generated early in Solar-System history, or composed of small
+Vesta locations (Fig. 2).
+
+4.2. Constraints on Rings Around Small Solar System Bodies
+
+testing to a history of collisions that inevitably eject
+or the much larger Vesta shows any evidence of a ring
+possibility is simply that no single big event produced
+ly detectable. Alternatively, a transient, optically thin
+ved by Poynting-Robertson drag. Whether such a ring
+the characteristic particle size: for example, particles
+particles, would be more easily cleared at Ryugu and
+
+Radial distance from the Sun is a key parameter in Eq. 4: a larger heliocentric semimajor axis api, yields a propor-
+tionally longer Taecay- Consequently, bodies in the outer Solar System are intrinsically more capable of retaining rings.
+
+Indeed, all giant planets have rings. Furthermore, this expecta
+
+ion is already borne out by recent detections of solid
+
+rings around several Centaurs (e.g., F. Braga-Ribas et al. 2014; J. L. Ortiz et al. 2015) and trans-Neptunian objects
+
+(eg.,
+
+J. L. Ortiz et al. 2017; B. E. Morgado et al. 2023; C. Pereira et al. 2023). We anticipate that an ever-increasing
+
+number of ring-bearing bodies will be discovered in the outer Solar System.
+
+By the same argument, some Jupiter’s Trojan asteroids may
+
+Trojan asteroids undergo mutual collisions on some timescales
+
+likewise host faint, as-yet-undetected rings. Because
+(R. Marschall et al. 2022), a relatively recent impact
+
+could have ejected debris that now persists as a transient particulate ring around the parent body. Based on the results
+
+shown in Fig. 2, for example, we can expect that icy/rocky part
+
+icles of ~ 1 cm in size can survive for billions of years,
+
+1K. Atobe & S. Ida (2007) demonstrated that when the semi-major axis of a planet is small, the angular momentum of the satellite’s
+orbit can be stripped away by solar tides, causing it to fall toward the planet.
+7
+
+whereas particles of ~ 1mm in size can persist for about 100 million years. NASA’s Lucy mission will begin its tour
+of the Trojan swarms in 2027 and will provide a critical test of this prediction (H. F. Levison et al. 2021).
+
+Finally, ring particles can be generated at any epoch — whether by impacts, tidal disruptions, rotational break-up,
+or other processes. Here an important point is that the size-frequency distribution typically has a negative slope,
+producing many small fragments and only a few large ones (e.g., J. Dohnanyi 1969; J. Colwell 1996). Smaller par-
+ticles are removed on correspondingly shorter timescales: micron- to millimetre-sized grains are cleared not only by
+the Poynting-Robertson drag considered here but also by radiation pressure, electromagnetic forces, and collisional
+grinding (J. A. Burns et al. 1979). Conversely, decimetre- to metre-scale and larger objects can survive in orbit
+for much longer intervals, yet their relative scarcity makes any associated ring system intrinsically difficult to de-
+tect. Therefore, considering the above arguments, observational biases — particularly in the outer Solar System —
+likely contribute to the underrepresentation of ringed bodies, and additional ring-bearing objects may yet be discovered.
+
+5. CONCLUSIONS AND FUTURE PERSPECTIVES
+
+We have mapped the solar Poynting-Robertson drag lifetime (Taecay; Eq. 4) of particles orbiting a central body —
+whether a planet, dwarf planet, asteroid, or other small bodies — as a function of the host body’s heliocentric distance
+and the particle radius. The scaling Taecay « a2 147 par can naturally explain the Solar System’s ringed-versus-ringless
+dichotomy: outer planets and several distant small bodies can retain rings for gigayears, whereas inner planets lose
+them on much shorter timescales.
+
+PR drag is only one of several non-gravitational forces, and particles smaller than those considered in this study are
+more susceptible to other perturbations. Additional perturbations — such as collisional grinding, tidal or shepherding
+moon torques, electromagnetic forces, the asymmetric gravitational potential of the central body, and resonant inter-
+
+actions — can further, or in some circumstances even predominantly, modify ring lifetimes across different systems.
+Furthermore, recycling between rings and moons can occur (A. J. Hesselbrock & D. A. Minton 2019), and the age of a
+ring’s initial formation does not necessarily correspond to the ages inferred from other contexts — such as its exposure
+age, structural age, dynamical age, or erosion age — that we observe today (P. R. Estrada & R. H. Durisen 2023; S.
+Kempf et al. 2023; R. Hyodo et al. 2025). The detailed discussion of these broader issues is beyond the scope of this
+paper; however, we refer interested readers to a recent review (A. Crida et al. 2025).
+
+We proposed that applying the PR drag framework may place quantitative constraints on planetary formation and
+evolution. For instance, any debris left by the impacts that produced the Moon or the Martian satellites may have
+consisted predominantly of sub-metre fragments in order to be removed within ~ 4 Gyr. Because Taecay increases
+rapidly with heliocentric distance, we predict that additional ring-bearing objects await discovery in the outer Solar
+System, with the Jupiter-Trojan population providing an imminent observational test as NASA’s Lucy mission ap-
+proaches its targets.
+
+Table 1. Parameters used in this study. Here, the term “planet” refers to any celestial body that possesses a ring system.
+
+Parameters Meaning
+
+Rola radius of the planet
+Apia semi-major axis of the planet around the Sun
+d distance between the particle and the Sun (d~apia is assumed)
+Opar semi-major axis of particle around the planet
+Upar particle velocity around the planet
+Npar particle mean motion around the planet
+T par particle radius
+Mpar particle mass
+Ppar particle density
+a particle inclination from planet’s equatorial plane
+to) half the width of the planetary shadow (¢ ~ arcsin(Rpla/dpar))
+Q the dimensionless radiation-pressure efficiency factor
+Fyia(@pia) insolation at planet’s distance apia from the Sun
+€ planet’s obliquity
+e speed of light
+Lo solar luminosity
+REFERENCES
+
+Agnor, C. B., Canup, R. M., & Levison, H. F. 1999, Icarus,
+142, 219
+
+Atobe, K., & Ida, S. 2007, Icarus, 188, 1
+
+Braga-Ribas, F., Sicardy, B., Ortiz, J., et al. 2014, Nature,
+508, 72
+
+Burns, J. A., Hamilton, D. P., & Showalter, M. R. 2001, in
+Interplanetary dust (Springer), 641-725
+
+Burns, J. A., Lamy, P. L., & Soter, S. 1979, Icarus, 40, 1
+
+Canup, R. M. 2004, Icarus, 168, 433
+
+Chambers, J., & Wetherill, G. 1998, Icarus, 136, 304
+
+Colwell, J. 1996, Advances in Space Research, 17, 161
+
+Crida, A., Estrada, P. R., Nicholson, P. D., & Murray, C. D.
+2025, SSRv, 221, 66, doi: 10.1007/s11214-025-01189-z
+
+De Pater, I., Renner, S., Showalter, M., & Sicardy, B. 2018,
+Planetary Ring Systems. Properties, Structure, and
+Evolution, 112
+
+Dohnanyi, J. 1969, Journal of Geophysical Research, 74,
+2531
+
+Dones, L. 1991, Icarus, 92, 194
+
+Esposito, L., Brahic, A., Burns, J., & Marouf, E. A. 1991,
+in Uranus, Vol. 1 (University of Arizona Press Tucson),
+410-465
+
+Estrada, P. R., & Durisen, R. H. 2023, Icarus, 400, 115296,
+doi: 10.1016/j.icarus.2022.115296
+
+Goldreich, P., & Tremaine, S. 1978, Icarus, 34, 227
+
+Goldreich, P., & Tremaine, S. 1982, In: Annual review of
+astronomy and astrophysics. Volume 20.(A83-12176
+02-90) Palo Alto, CA, Annual Reviews, Inc., 1982, p.
+249-283., 20, 249
+
+Hartmann, W. K., & Davis, D. R. 1975, Icarus, 24, 504
+
+Hesselbrock, A. J., & Minton, D. A. 2017, Nature
+
+Geoscience, 10, 266
+
+Hesselbrock, A. J., & Minton, D. A. 2019, The
+
+Astronomical Journal, 157, 30
+
+Hyodo, R., Charnoz, S8., Genda, H., & Ohtsuki, K. 2016,
+
+The Astrophysical journal letters, 828, L8
+
+Hyodo, R., Charnoz, S., Ohtsuki, K., & Genda, H. 2017a,
+
+Icarus, 282, 195
+
+Hyodo, R., Genda, H., Charnoz, S., & Rosenblatt, P. 2017b,
+
+The Astrophysical Journal, 845, 125
+
+Hyodo, R., Genda, H., & Madeira, G. 2025, Nature
+geoscience, 18, 44
+
+Jerousek, R. G., Colwell, J. E., Hedman, M. M., et al. 2020,
+Icarus, 344, 113565
+
+Kempf, S., Altobelli, N., Schmidt, J., et al. 2023, Science
+Advances, 9, eadf8537
+
+Kokubo, E., Ida, S., & Makino, J. 2000, Icarus, 148, 419
+
+Levison, H. F., Olkin, C. B., Noll, K. S., et al. 2021, The
+Planetary Science Journal, 2, 171
+
+Liang, Y., & Hyodo, R. 2023, Icarus, 391, 115335,
+doi: https://doi.org/10.1016/j.icarus.2022.115335
+
+Lynden-Bell, D., & Kalnajs, A. 1972, Monthly Notices of
+the Royal Astronomical Society, 157, 1
+
+Marschall, R., Nesvorny, D., Deienno, R., et al. 2022, The
+Astronomical Journal, 164, 167
+
+Morgado, B. E., Sicardy, B., Braga-Ribas, F., et al. 2023,
+Nature, 614, 239
+
+Murray, C. D., & Dermott, S. F. 1999, Solar system
+dynamics (Cambridge university press)
+
+Ortiz, J. L., Duffard, R., Pinilla-Alonso, N., et al. 2015,
+Astronomy & Astrophysics, 576, A18
+
+Ortiz, J. L., Santos-Sanz, P., Sicardy, B., et al. 2017,
+Nature, 550, 219
+
+Pereira, C., Sicardy, B., Morgado, B., et al. 2023,
+Astronomy & Astrophysics, 673, L4
+
+Quintana, E. V., Barclay, T., Borucki, W. J., Rowe, J. F.,
+& Chambers, J. E. 2016, The Astrophysical Journal, 821,
+126
+
+Rosenblatt, P., Charnoz, S., Dunseath, K. M., et al. 2016,
+Nature Geoscience, 9, 581
+
+Rubincam, D. P. 2000, Icarus, 148, 2
+
+Showalter, M. R., Hamilton, D. P., & Nicholson, P. D.
+2006, Planetary and Space Science, 54, 844
+
+Sicardy, B., Renner, S., Leiva, R., et al. 2020, in The
+Trans-Neptunian Solar System (Elsevier), 249-269
+
+Tiscareno, M. S., & Murray, C. D. 2018, Planetary ring
+systems: properties, structure, and evolution (Cambridge
+
+University Press)

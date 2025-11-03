@@ -1,0 +1,817 @@
+arXiv:2510.25330v1 [physics.optics] 29 Oct 2025
+
+Illuminating the lantern: coherent,
+spectro-polarimetric characterisation of a
+multimode converter
+
+Apaw K. Taras,':2"” BARNABY R. M. Norris, '>? CHRISTOPHER
+BeETTERS,':* ANDREW Ross-ApDams,!:? PETER G. TUTHILL,'? JIN
+WeEl,':? AND SERGIO LEON-SAVAL12
+
+! Sydney Institute for Astronomy, School of Physics, The University of Sydney, NSW 2006, Australia
+? Sydney Astrophotonics Instrumentation Laboratory, School of Physics, The University of Sydney, NSW
+2006, Australia
+
+adam.taras @ sydney.edu.au
+
+Abstract: While photonic lanterns efficiently and uniquely map a set of input modes to
+single-mode outputs (or vice versa), the optical mode transfer matrix of any particular fabricated
+device cannot be constrained at the design stage due to manufacturing imperfections. Accurate
+knowledge of the mapping enables complex sensing or beam control applications that leverage
+multimode conversion. In this work, we present a characterisation system to directly measure the
+electric field from a photonic lantern using digital off-axis holography, following its evolution
+over a 73 nm range near 1550 nm and in two orthogonal, linear polarisations. We provide the
+first multi-wavelength, polarisation decomposed characterisation of the principal modes of a
+photonic lantern. Performance of our testbed is validated on a single-mode fibre then harnessed
+to characterise a 19-port, multicore fibre fed photonic lantern. We uncover the typical wavelength
+scale at which the modal mapping evolves and measure the relative dispersion in the device,
+finding significant differences with idealised simulations. In addition to detailing the system, we
+also share the empirical mode transfer matrices, enabling future work in astrophotonic design,
+computational imaging, device fabrication feedback loops and beam shaping.
+
+1. Introduction
+
+Photonic lanterns [1-3] are mode converting devices that feature an adiabatic transition between
+a multimode waveguide and multiple single-mode waveguides. This feature enables numerous
+applications, such as space division multiplexing in telecommunications [4], joint wavefront
+sensing with imaging in astrophotonics [5—8], beam shaping [9, 10] and computational imag-
+ing [11]. In all applications, knowledge the optical mode transfer matrix — the mapping from the
+modes at one end of the device to the modes at the other — is critical. This mapping is linear
+(i.e. it satisfies superposition and scalar multiplication) when using the complex electric field,
+however past approaches typically only characterise devices in intensity. Inferring the mode
+transfer matrix, is then an under-constrained non-linear problem resulting in worse generalisation
+outside of the characterisation. Data-driven approaches have also been employed, requiring
+solution of this under-constrained problem by fitting task specific behaviour, such as predicting
+atmospheric (pupil plane) aberrations from the single-mode intensities in wavefront sensing [5,7].
+A deeper, physical understanding of the modal mapping in any given photonic lantern would not
+only provide stronger priors to reduce data requirements for data-driven approaches, but enable
+faster design to fabrication loops and more realistic development of future applications such as
+post injection coherent beam combination [12].
+
+Simulations offer a tempting means of recovering the modal mapping by numerically propa-
+gating the modes supported at one end of the device, employing algorithms such as Eigenmode
+expansion [13] or the beam propagation method [14]. However the precision with which device
+geometry can be specified in the manufacturing process is much looser than the level that causes
+
+variations in the simulated transfer matrix [15,16], along with manufacturing limitations and
+imperfections. Our results quantify this discrepancy and serve as a warning for the limitations of
+simulation-only design for these devices.
+
+The majority of previous work aimed at characterising photonic lanterns has measured the
+intensities of modes, typically in monochromatic light [17-19]. This is blind to the rich phase
+encodings and mode evolution with wavelength known to be present from theory and from
+success in previous wavefront sensing work. Our approach measures the amplitude and phase
+of the electric field using digital off-axis holography, and is able to follow the evolution of
+the modes in wavelength over a 73 nm bandwidth. Holography [20] refers to a wide range
+of techniques that typically measure the interference between the waves from an object and a
+reference wave, encoding both the amplitude and phase of the light from the object. Digital
+off-axis holography [21] has been used in a range of applications, including spatial biphoton
+states [22] and mode sorters/multiplexers [23-25], and involves interfering the object and
+reference on a digital detector. Other work on photonic lanterns [26,27] has also used digital
+off-axis holography, though only at a single wavelength, on a photonic lantern supporting a
+smaller number of modes. In addition to using a range of wavelengths and two polarisations, the
+characterisation system in this work deals with a multicore fibre (MCF) fed photonic lantern,
+injecting light into an individual port with a fibre alignment stage. Through a fibre bundle as an
+adapter, the system can still characterise pigtailed devices. This work also publishes the results
+of the characterisation and draws generalisable insights about the behaviour of these devices.
+
+There is also ongoing work to measure the transfer matrix of a photonic lantern [28, 29]
+proposing to use off-axis holography for the initial estimation of the modes and then using a
+precisely calibrated spatial light modulator (SLM) to form the required field at the multimode
+end of the device, probing each mode for characterisation. Our alternative approach removes
+the complexity of requiring precisely known input electric fields at the multimode end, instead
+demanding precise measurement of output electric fields: arguably a simpler problem that can
+be solved more accurately. Ultimately, characterisation in both directions is needed to test
+fundamental questions such as “to what extent are lantern devices adiabatic?”.
+
+The key contributions of this work include the design and implementation of a laboratory
+system for characterising a photonic lantern using digital off-axis holography. We share the
+testbed architecture, insights, lessons learned, code, and post-processed data. As part of this effort,
+we characterise a 19-port photonic lantern and compute its mode transfer matrix across different
+polarisations and wavelengths, offering initial insights into the modal mappings. Additionally, we
+identify trends in the coherence of the fields associated with different modes, including a direct
+measurement of differential modal dispersion. All code, raw data and post-processed results
+are made available at (link to be provided). For further technical details on the characterisation
+system, see Supplement 1.
+
+A visual summary of our approach is shown in Figure 1. Either a broadband or wavelength
+sweeping source is split into a reference and injection beam. The injected beam is aligned to a
+single core of the MCF (i.e. a single port of the photonic lantern), where the resulting mode is
+re-imaged onto the detector through a polarisation beam displacer, providing two orthogonal
+polarisations. The reference beam is collimated, tilted and projected onto the same detector,
+producing fringes required for digital off-axis holography. A broadband source is used to drive
+the delay line stage to the path length matched position for each port. Data is taken using
+the wavelength sweeping source over all ports, both with and without the reference beam. In
+post-processing (Figure | e), we recover the coherent component in Fourier space and remove the
+
+Tilted reference
+
+Ba Collimating
+
+Single mode
+fibre
+
+Injection beam in
+
+IR detector
+
+Reference beam in
+
+Raw data
+
+Fig. 1. Visual overview of photonic lantern characterisation. a Labelled render
+of the laboratory setup. Light from a wavelength sweeping source is split into a
+reference (blue) and injection (orange) fibre. The injection beam excites a single port
+of the photonic lantern, producing a mode field that is re-imaged on the detector, with
+interference from a tilted reference beam producing the hologram. One arm of the
+interferometer has a delay line in order to maintain coherence during the wavelength
+sweep. b An example frame of raw data from the detector. The beam displacer splits
+the mode field into H and V polarisations. Fringes crests (red lines) reveal how the
+hologram captures phase information. ¢ The holography reconstruction takes the frames,
+crops to each polarisation (not shown), extracts the coherent component in Fourier
+space (white box) and then removes the electric field of the reference in image space,
+resulting in the electric field of the device under test, shown here on a single example.
+d By taking these measurements with both a broadband source and a sweeping laser,
+the system characterises the port to electric fields and LP mode mapping, white light
+fringe position and relative throughput of the device under test.
+
+contribution of the reference beam, inferring the complete electric field of the device under test!.
+Our pipeline then decomposes this into linearly polarised (LP) modes, providing the first ever
+multi-wavelength, polarisation decomposed characterisation of a photonic lantern in addition to
+revealing broadband coherence behaviour and relative throughput.
+
+'In this work, electric fields are visualised on a two dimensional colormap, with the phase axis selected to be
+perceptually uniform (the rate of color change with value appears constant) and uniform in lightness (all phases appear
+equally bright) using the phase colormap in cmocean [30], and the amplitude reflected in the value. Thus, pixels with
+the same amplitude appear equally bright irrespective of phase, which is not the case with the HSV colormap that is
+typically used.
+Definition of the mode transfer matrix
+
+In this section, all coefficients and matrices are functions of wavelength and polarisation, however
+this is omitted for brevity.
+
+A photonic lantern is a mode sorting device that maps from mmm modes supported at the
+multimode end with complex coefficients Cm € C”™™ (known as the ‘input’ in e.g. wavefront
+sensing work, but the ‘output’ in beam shaping work), to the msm modes supported at the
+single-mode MCF or multiple single-mode fibre (SMF) end with coefficients cs € C’™. These
+coefficients form the electric field in each respective basis, with
+
+Ennis = >, Crnin@ Be. Ean = >, ComEby, >
+
+i i
+
+where the sums are taken over all supported modes, EP ai is the i-th basis mode supported at
+the multimode end (assumed to be a LP mode in this work), and EPs is the i-th basis mode at
+the MCF end (a simple single-mode located at a position on a grid, typically hexagonal). Most
+photonic lanterns are designed such that nmm = Msm at the shorter wavelengths of interest, but
+this doesn’t need to be the case over the full bandwidth. Our approach makes no assumptions
+about either mm OF Nsm, however we note that we expect oversample devices (mm < Msm) to
+lose light to cladding modes in the characterisation direction. It could be possible to recover the
+mapping in this case through exploiting the differential coherence between cladding and guided
+modes, and this is left as future work.
+
+A transfer matrix T € C’»*"™, then, is the linear transformation applied by the photonic
+lantern, relating the above sets of coefficients as
+
+Csm = TCmm- (2)
+
+Whilst these operations are linear in the modal bases, typical measurement systems capture the
+intensity |), c;E;|?, which is non-linear.
+
+Each row of the transfer matrix determines the response of the multicore fibre port to the
+electric field at the multimode end. In this work, we measure 7", the Hermitian of T. We inject a
+single mode at the multicore fibre end and use digital off-axis holography to measure the complex
+electric field at the multimode end, known as a principal mode [12]. Between measurements of
+different ports, the system drifts in phase and hence there is an ambiguous relative phase between
+different ports. Thus each reconstructed field contains a superposition with
+
+Gon Caml! Se Meer = ert, (3)
+
+where e; is a vector of zeros with a one at index j, and ¢¢ is a (unknown) relative phase between
+ports. In other words, we measure each row of the transfer matrix up to a single absolute phase
+ambiguity. In the wavelength dimension, the quantities are measured coherently and rapidly
+so that there is no information-destroying phase wrapping nor large drift that occurs between
+samples. Hence the relative phase is known.
+
+2. Methods
+
+Figure 2 illustrates the interplay between data capture, post-processing and data products, with
+relevant steps linked to subsections. Data is first captured from illumination with a broadband
+superluminescent diode (SLD) source, with the port positions and the position of zero path delay
+found. These values are then used for the holographic data, which is captured while sweeping the
+source wavelength. In the processing pipeline, centres of the mode field in each polarisation
+are found in image space, and the off-axis component is fit in Fourier space. In each case, a
+smooth function is fit against wavelength. The data taken without the reference beam is used for
+photometry. The electric field is then reconstructed using the centres found previously. Finally,
+the projection onto LP modes is computed with overlap integrals, forming the transfer matrix that
+describes the modal mapping of the device. Further figures and details on the methods, including
+a system block diagram and fitting performance figures can be found in Supplement 1, Sec. 1.
+
+Data capture Port, white light fringe positions Data calibration
+
+Data processing Frame to wavelength mapping
+
+Sec 2.4 Sec 2.4 Sec 2.4
+Image space Fourier space ;
+coadding, centre  coadding, centre > _ Flectric field ove ARIE Tae
+reconstruction with LP modes
+finding finding
+
+Flux normalisation
+
+Fig. 2. Data capture and analysis block flowchart. Numbered tabs show the relevant
+section in the main text.
+
+2.1. Wavelength calibration
+
+The use of an electronic trigger system guarantees that the images captured during a wavelength
+sweep are consistently exposed through the same range of wavelengths, however the exact
+mapping must be calibrated. This frame index to wavelength calibration is done in two steps.
+First, the functional form of A(f) is fit using data from a wavemeter during the sweep. We find
+the sweep is weakly non-linear — with a quadratic term present that causes the sweep speed
+to decrease from an initial value of 105 nm/s to a final value of 90nm/s. Next, we mark the
+start and end of the sweep by monitoring the phase of the off-axis component. This is shown
+in Supplement 1, Figure S2. The total duration of the sweep is less than 1s. The calibrated
+mapping is then used for all later sweeps, and the laser calibration routine is run at the start of
+every set of measurements to ensure no drifts. In short, 78 samples are captured spanning the
+range of 1507.5 nm to 1580.5 nm.
+
+2.2. Exciting a single port
+
+We excite a single port (i.e. one principal mode) of the photonic lantern from the multicore
+end via butt coupling on a motorized fibre alignment stage. Using multicore fibres creates the
+additional challenge that we need to align fibres rather than simply using a fibre switcher. We
+know the falloff with respect to position is Gaussian [31], so we measure the total intensity in
+the images at a given motor position and monitor how this changes. The flux is then fit as the
+sum of Gaussian functions, with centres lying on a hexagonal grid. We fit an origin, separation
+and rotation of the grid, as well as the nuisance parameters of the mode field diameter and the
+individual throughput per port. For a visualisation, see Supplement 1, Figure S3.
+
+2.3. White light fringe finding
+
+In order to capture the evolution of the mode transfer matrix with wavelength coherently, the
+phase of the measured field must change by less than + between frames. The white light fringe
+refers to the case where this phase change is virtually zero over a wide range of wavelengths,
+such that interference fringes are visible even at large bandwidth. The position of the white light
+fringe in the interferometer is found by changing the length of the injection arm using the delay
+line stage shown in Figure | a and a broadband (50 nm) SLD. The white light fringe occurs when
+the off-axis power is maximised. The position used when taking data with the sweeping source is
+the midpoint between the maxima for the H and V polarisations, such that both are high visibility
+during the sweep. Results from this step are shown in Supplement 1, Figure S6.
+
+2.4. Digital off-axis holography reconstruction
+
+In order to reconstruct the field, we must first centre in the image plane. For each polarisation and
+at each wavelength, the photometry data is co-added, the outline of the core found through Canny
+edge detection [32] and then the centre estimated using a least squares circle estimator [33]. A
+sub-pixel Fourier shift of the frame then places the pattern at the centre and crops the image. In
+the Fourier plane, we use a custom geometric circle finding algorithm that seeks the smallest disk
+to encase a given amount of flux. Both the image and Fourier centre estimates are smoothed by
+fitting as a function of wavelength, reflecting weak chromaticity in system components (in image
+space) or the radial frequency smearing (in Fourier space). For a visualisation of these steps, see
+Supplement 1, Figure S4.
+The reconstruction of the electric field E; from an image at a known wavelength is given by
+Ej = E):F —' (Lo(Wrourier) (F (Wimageli))), (4)
+
+ref.
+
+where Eyer is the estimated electric field of the reference beam, ’ denotes the conjugate, F denotes
+the Fourier transform (with inverse F~!), Tg is a translation operator with parameter 6 = (4, Oy)
+(implemented using a phase ramp in Fourier space), Wimage and Wrourier are windows with width
+and shape parameters, and J; is the holographic image from port i. The electric field of the
+reference E,.¢ is estimated with the phase determined by a Fourier transform of a delta function
+located at the peak of the power spectrum, and a uniform amplitude.
+
+The filtering of only off-axis components means that low order aberrations manifesting near
+zero spatial frequency are removed, and results in strong robustness to read noise. Intuitively the
+reconstruction of off-axis holography data can be thought of as using the intensity to recover the
+field amplitude and the curvature of the fringes to infer the derivative of the phase.
+
+2.5. Projection onto LP modes
+
+After reconstructing the fields, we calculate the overlap integral 7, given by
+
+mij = (Eis Eb, j) (5)
+[ ABYdA
+
+(/ |A/?aA) (f \eP aa),
+
+where the integrals are over the plane perpendicular to the fibre face, 7 is the index of the lantern
+port used and again E>, j is the j-th basis mode supported at the multimode end. A normalised
+
+where (A, B) = (6)
+
+field is denoted as E. We approximate the integrals as a sum over a grid, with mode profiles found
+using the of iber package [34]. The physical fibre diameter used to generate the LP modes
+is measured using a microscope beforehand, and the refractive index contrast is known from
+manufacturing specifications. The plate scale of the injection arm is fit such that the maximum
+(power weighted) overlap value is achieved.
+
+In this work we only employ LP modes, however we note that this is only an approximation.
+Due to structures from the multicore fibre remaining in the multimode end, the refractive index
+is not a simple top hat function. Future work could directly apply basis modes that are solved
+numerically to better reflect this structure.
+3. Results
+
+Here we present the results of the characterisation of the 19-port photonic lantern. See Supplement
+1, Sec. 3 for validation of the characterisation system on a SMF, white light fringe finding and
+throughput/overlap integral performance of the device.
+
+We fabricate a 19-port photonic lantern with a multimode diameter of 34.7 yum, a core refractive
+index of 1.44 and a cladding index with a contrast of 5.5 x 10-3. Over the wavelengths swept,
+the output supports 23 LP modes below A, = 1562 nm and 21 LP modes above A... Hence, this
+is a marginally undersampled lantern, manufactured in order to guarantee that all the modes of
+interest are well within the strong guiding regime over the whole operational wavelength range.
+
+The characterisation system takes data for this device in just over one hour, with time primarily
+spent on finding the position of the white light fringe. The data capture with the swept wavelength
+
+source takes less than 10 minutes, an important feature in enabling a tight feedback loop in the
+manufacture of devices.
+
+Reconstruction visualisations
+
+Port 0 Port 4 Port 2 Port 3 Port4 Ports Port 6 Port7 Port 8 Port Port 10
+
+a o =
+Recon. & Recon. |E[* “Fringes Photometry
+
+LP decomp,
+
+Argand E
+
+Fig. 3. Data and reconstruction at a single wavelength and polarisation. We capture
+two sets of data: a photometry and b fringes. Each row is normalised. We only show
+data at A = 1513.9nm and in H polarisation, so ports with power in V (e.g. port 3)
+appear dim. The distance between the white ticks is 10 ym and the circle indicates the
+core size of the multimode end. ¢ The reconstruction has an intensity that is similar to
+the photometry. d The reconstructed electric field is well recovered, even at low signal
+such as port 3. e The decomposition into LP modes matches the reconstruction well. f
+Visualisation of the fields in an Argand diagram, where each pixel is counted in a 2D
+histogram. While some electric fields appear qualitatively similar in d, f highlights the
+diversity of the modes supported. See Supplement 2 for a video of all ports through all
+wavelengths.
+
+Figure 3 shows the steps of our reconstruction. The first two rows are dark subtracted data,
+taken without and with the reference beam respectively. Despite each port having the same input
+beam (including polarisation), after propagation through the device the polarisation changes in a
+port dependent way. In the cases where a port appears dim in H (such as port 3), there is good
+signal in V. The following rows show our reconstruction. The intensity of the reconstructed field
+|E|? is in good agreement with the photometry (reference beam blocked) data. The reconstructed
+fields show localised blobs with nulls between them, a wide range of phases and are well contained
+by the core outline, as expected. The fields are also consistent with a superposition of LP modes,
+with the decomposition showing agreement to the field itself. This decomposition is reasonable
+but imperfect (see e.g. the top left or bottom right of port 4), motivating future work with a more
+complex modal basis. Finally, we also visualise the fields on an Argand diagram, illustrating
+a unique structure for each port. Importantly, the reconstruction is of reasonable quality even
+in low SNR — with the resulting field still well explained by LP modes. This is due to the
+robustness of digital off-axis holography where only the coherent information is extracted, and
+hence contamination such as background and read noise are suppressed.
+
+Slicing the transfer matrix
+
+@ Transfer matrix volume ont
+
+Mode amplitude
+
+~ Phase diff.
+
+Phase -trend(LP0) rad]
+
+400 ‘Amplitude diff
+
+200 on i:
+
+w ° 5 ie
+
+1510 1520 1830 1540 1550 1560 1570 1580 oo Ww
+Wavelength (nm) if if.
+e , wor Ef ih *
+Mode amp. (a.t.) Matrix phase = zs
+
+a = Polarisation similarity
+
+Port (med, ait: -0.75)
+Port 3 (med. at: 0.75)
+Port 2 (med. dift.: -0.67)
+Port 1 (med. diff.; -0.76)
+Port O (med, at. -0.72)
+
+a
+
+Port index
+
+Lp A
+
+Mode index Mode index 000 1.0
+
+os 08 0.
+[{erm(P.).Gom Ve)
+Fig. 4. Slices through the transfer matrices of the 19-port lantern. a Our
+characterisation system produces transfer matrix cubes that are coherent through
+wavelength. Here we explore three slices through the cube. b Mode evolution
+along wavelength. ¢ Monochromatic transfer matrix per polarisation. This lantern
+has contributions from many modes to each port, which enables good inference of
+the input field with only intensity measurements. d Slices of the same port and
+wavelength in different polarisations. The fields appear visually similar (top row),
+however subtle differences exist (middle row). Over ports and wavelengths the fields of
+different polarisations (stacked histogram, bottom row) exhibit a dissimilarity that is
+not explained by a difference in signal alone (see text for details).
+
+Figure 4 a summarises the measurement dimensions available in our post processed transfer
+matrices. Slices through wavelength (Figure 4 b) show the evolution of modes in amplitude and
+phase. There are some oscillations present due to birefringence in the system (see Supplement
+1 for details), but they are common mode and the trend of modes is clearly a slowly varying
+function in both amplitude and phase. Relative measurements are very precise and explored
+further in Figure 6. Slices at a particular wavelength (Figure 4 ¢) yield monochromatic transfer
+matrices in a given polarisation. Previous work [6] has only ever used simulations to generate
+these, and hence shows strong symmetry between ports on opposite sides of the multicore fibre
+grid. We do not observe this, highlighting the significance of manufacturing variations from a
+target design.
+
+Furthermore, we can compare slices in polarisation, visualised in Figure 4d. The electric fields
+from each polarisation appear identical up to a spatially constant phase offset. Taking differences
+in amplitude, however, we see changes by up to 10% in some regions, with a structure that is
+not consistent with centring residuals alone. In phase, we observe a near uniform difference,
+with a weak tilt likely caused by a minor deviation in angle from the beam displacer. In the
+bottom row, we report a similarity statistic over a few ports and all wavelengths in a stacked
+histogram. We normalise the LP coefficients for a given port and wavelength, and then compute
+the magnitude of the inner product between the two polarisations. For very similar fields with a
+arbitrary, spatially constant phase offset, this metric is close to unity. Since the quality of the
+LP overlap is related to the flux, we also report the median flux difference between H and V,
+ie. the median of (fy — fv)/(fu + fv) over all wavelengths. Values closer to +1 have less
+flux in one polarisation, are expected to have less correct LP mode projections, and hence lower
+similarity even if the true fields are similar. We observe a port independent bound of around 0.94,
+consistent with the phase and amplitude differences shown above that are from the limitations of
+the imaging system, such as the tolerance on the parallelism of the polarisation beam displacer
+and the compensating plate. There is, however, port dependence that indicates a weak difference
+in the electric fields of different polarisations. This is most evident between ports 0 and 2, from
+which a LP quality argument would favour higher similarity in port 2 but the data suggests port 0
+has higher similarity. This warrants further investigation with more devices.
+
+Wavelength dependence
+
+Ain]
+
+Port6H Port5H Port4H
+
+b
+
+°
+
+2
+ror)
+
+S
+roy
+
+°
+rs
+
+— Data
+
+— Sim
+im H H i
+1520 1540 1560 1580 1.75 -1.50 -1.25 -1.00 —0.75
+
+Wavelength [nm] Similarity decay rate (100/nm)
+
+S
+io
+
+inner, Product Magnitude
+
+ro
+
+Fig. 5. Wavelength evolution of modes in a photonic lantern. a Electric field plots
+over ports 4-6 over the full bandwidth. b Field similarity between a fixed wavelength
+Ap (black dashed line) and all other wavelengths within the same port, for data and
+simulation. Each curve is one port. The falloff becomes near linear after 20 nm (grey
+box). ¢ Gradient of similarity decay for simulated and measured fields over all ports.
+
+Figure 5 shows the breadth of wavelength dependent data available from our system. First, we
+show the electric field for one polarisation for different ports. All ports change at approximately
+the same rate, with neighbouring panels appearing identical up to an overall phase, while distant
+panels are clearly different. The overall phase evolution is generated from being offset from
+the white light fringe, recalling that we took the midpoint between the two polarisations and
+hence are ~ 85 zm from the white light fringe in both. Next, we quantify the wavelength scale
+of field evolution in the device by measuring the overlap integral of the field at a particular
+wavelength (black dashed line) compared to all other wavelengths. The characteristic scale for
+the mode field to change noticeably is of order 20 nm, broadly consistent with previous results
+in wavefront sensing [5]. The falloff is near linear around 20 nm from the fixed wavelength.
+Both the simulation and measurement agree in the functional form (smooth turning point with
+linear decay) but the rate of decay can be slower or faster in the actual device, depending on
+the port. Finally, we visualise the rate of decay in this linear region on the port map of the
+device. Generally, ports towards the centre of the MCF decay faster, however the device clearly
+does not have the symmetry of the idealised simulation. The difference in wavelength needed
+for principal modes to become orthogonal could be as little as 100/1.8 = 56nm or as much as
+100/0.6 = 167 nm.
+
+Direct measurement of relative modal dispersion
+
+Finally, since our characterisation system probes the device response to coherent light, we are
+able to directly measure differential observables of the modal dispersion of the photonic lanterns.
+From data such as Figure 4 b, we observe that oscillations in measured phase are common
+between modes, suggesting that these are present from weak birefringence outside of the photonic
+lantern itself. Hence, our approach is much more sensitive to differential measurements between
+modes than at first glance. We now consider differential phase measurements between modes
+to directly measure the relative modal dispersion, noting that this result is insensitive to any
+birefringence in the system and the MCF part of the photonic lantern.
+
+Figure 6 shows this analysis with a comparison to an idealised, yet typically used, scalar
+simulation. For each mode, we fit a line to the phase relative to LPO1, the gradient of which is
+the relative modal dispersion. This is repeated for different polarisations and with the simulated
+data and summarised in Figure 6 c. Each measurement is extremely repeatable, with the median
+scatter (standard deviation from 6 sweeps) over all modes above the cut as 1074 rad/nm. We can
+also estimate an upper bound for the systematic error introduced by background contamination
+at low signal. A 5% background signal can make at most a 2 x arctan(0.05) rad contribution
+to the phase over the whole bandwidth, or a change 0.1/73 = 1.5 x 10~ rad/nm in the signal
+plotted, an order of magnitude smaller than the differences observed between modes. We also
+note that this upper bound on systematic error would not apply to differences between ports,
+as this contamination is common to all ports. Hence, we conclude that majority of the scatter
+between ports and modes is real signal, and that the simulation is too idealised. There are also
+subtle differences between the polarisations that again warrant further investigation with different
+devices.
+
+4. Discussion
+
+In this section we highlight some implications of our findings on applications involving photonic
+lanterns.
+
+First, we provide a warning for the use of simulation alone in modelling these devices. Previous
+results [6] have shown high symmetry in the transfer matrix between ports on opposite sides
+of the hexagonal grid. Our characterisation shows no evidence of this, highlighting the need
+for physical device characterisation over simulation alone. We would be capable of discerning
+if this variation is a fixed or variable offset from the design target given multiple devices, and
+leave this as future work. Broadly, simulations seem to match the same order of magnitude and
+functional form as the fabricated device — such as with the gradient of similarity decay in Figure 5
+a Simulated characterisation b Data: Port 0, Pol V Mode evolution
+
+— LPo1 — LPi3a
+1SF__ ipoz = —— Lp2ab q
+1.9 — Leos LP3ta 4
+SM injection cee 4
+e
+= 0.0F ao & a
+x
+6 4
+1.0 F q
+1.56 q
+-20 \ 1 f fl
+3000 1520 1540 1560 1580
+c Z (um) Relative modal dispersion Wavelength (nm)
+Se
+0.08 x 4H >< 4
+E + Vv a * 7 * -
+3 0.06 @ sim x_X x xX + |
+& x x rl e? g x
+r x OT ok x
+S o.04F @ > x 4 z|
+ra xf z Pe tx x x
+g et
+2 002 7 R bg x ¥ ¥ x x %% 4
+A @ x * x +
+= 0.00 a! # x x = % 4
+= # Xk x
+& x +
+—0.02 + 4
+SS ea SoA HSE HEHEHE Ee HQ wea SEHR Sa aD
+frrFaAatrsasrsS Ferret tb 5S SBE S Se
+Segagagese@eaagageetaaseereeeeaa
+S355 Seah & & Sa 33 5 455
+
+=
+s
+s
+
+Fig. 6. Relative modal dispersion measurements of the photonic lantern. a Cut
+through of a photonic lantern simulation, showing amplitude of the electric field when
+exciting the central port. b Differential phase of a few modes relative to LPO] in a
+single port, with offsets for visualisation. Evolution is nearly linear, as expected. ¢
+Gradient of the phase slope in b for every mode, in both polarisations for the ports
+indicated. A cut is taken to only include modes with all amplitudes above 80 data
+units to avoid low signal contamination. Errorbars (virtually invisible) show standard
+deviation over six sweeps.
+
+or the modal dispersion in Figure 6 — but the predictions of observables vary from measured
+performance in a significant way that could be ruinous if relied upon for downstream tasks.
+
+As a more concrete example, instrument concepts that involve coherent combination of
+photonic lantern outputs, such as [12] require careful consideration of the port dependent optical
+path difference induced by the multicore fibre (measured at up to 750 zm per metre of fibre) as
+well as the modal dispersion. Our modal dispersion findings (Figure 6) suggest that such an
+instrument must be spectrally dispersed with a sampling finer than 1.6 nm (for 0.1 rad difference)
+to maintain coherence between different modes in different ports. We also find that the typical
+wavelength scale for the evolution of the principal mode is of order 20 nm, but this value varies
+between ports.
+
+Next, data driven approaches, especially where data is expensive, should leverage characterisa-
+tion results as a prior to fitting. For example, an image reconstruction algorithm for high angular
+resolution astrophotonics should use the measured transfer matrix as the heart of a model that
+can be fine tuned in-situ using intensity measurements. More generally, estimators using the
+characterised photonic lantern should be regularised to be consistent with the characterisation.
+The transfer matrix can also serve in optimal experiment design, where observations could
+be planned around maximising sensitivity to scientific outcomes depending on the location of
+objects in the device’s field of view.
+
+Previous work for computational imaging [11] with photonic lanterns for areas such as
+microendoscopy has promising initial results. In particular, more advanced and powerful imaging
+schemes leverage coherent combination, and hence require knowledge of the relative phases and
+amplitudes the fields induced by exciting each port. Our characterisation system provides almost
+all of this information directly. For microendoscopy specifically, the mode/port counts must be
+considerably higher than the 19-port device in this work, however the approach can scale whilst
+still remaining tractable — we envisage the time needed for swept data taking to be around 10s per
+port, equivalent to characterising a 1000 port device in under 3 hours. In this case, time taken to
+find the white light fringe could be decreased significantly by using a bandpass filter for a longer
+coherence length (hence less sampling of the delay line motor) and a more innovative sampler
+that leverages correlation between ports (rather than a fixed step size).
+
+Beyond immediate applications, the existence and extent of birefringence and polarisation
+dependent loss within photonic lanterns remain open questions; weak differences between
+fields with different polarisations are present, and dispersions are different, warranting further
+investigation with a wider range of devices. Our characterisation approach offers sensitivity to
+these quantities, however upgrades to reduce system birefringence might be required to make
+convincing progress. Another possible upgrade would be to vary the input polarisation at device
+injection in addition to the existing measurement of output polarisation. Such an experiment
+would verify to what extent orthogonal polarisations remain orthogonal through the device, with
+consequences for polarisation multiplexing in telecommunications.
+
+Our system has the limitation that we can not directly measure the relative phase between
+principal modes of different ports since the laboratory environment causes the two arms to drift in
+phase between measurements of different ports. However, such a measurement is very sensitive
+to the bend of the multicore fibre that feeds the device (see Supplement 1, Figure S6). If the
+application after characterisation requires coherent combination — where the phase between ports
+matters — then the system is sensitive to the environment near the multicore fibre and should have
+this aspect characterisable in-situ.
+
+5. Conclusion
+
+Photonic lanterns provide an efficient means of mapping from a multimode basis set to multiple
+single modes (or vice versa), however this mapping is only loosely constrained at the design
+stage, with manufacturing limitations causing significant deviations from the target. In this
+work, we design and implement a characterisation system that directly measures the complex
+mode transfer matrix, using digital off-axis holography to reconstruct the electric field of the
+resulting mode from injection into a single port. We follow the evolution of these fields over a
+73 nm range near 1550 nm. This provides the first multi-wavelength, polarisation decomposed
+characterisation of these multimode converters. In analysing the measured transfer function, we
+uncover the typical wavelength scale of principal mode evolution (agreeing with inferences made
+in previous work) and make a direct measurement of the modal dispersion within the device.
+We find differences in dispersion and symmetries compared to idealised simulation, reinforcing
+the need for empirical characterisation of all manufactured devices. The system presented and
+the resulting data enhance future work in astrophotonic design, computational imaging, device
+fabrication and beam shaping.
+
+There are exciting avenues of future work with this characterisations system. It is now possible
+to study how the transfer matrix varies with different architectures, such as hybrid mode-selective
+photonic lanterns. Furthermore, the manufacturing repeatability of these devices can be measured
+directly. Finally, further work is needed to understand polarisation dependence in the photonic
+lantern, and how this changes with device design and fabrication parameters.
+
+Funding. B. Norris is the recipient of an Australian Research Council Discovery Early Career Award
+(Grant No. DE210100953) funded by the Australian Government. S. Leon-Saval and C. Betters acknowledge
+support by the Air Force Office of Scientific Research under award number FA2386-23-1-4108.
+
+Acknowledgment. We would like to acknowledge the helpful discussions and insight from all our
+collaborators on the photonic lantern sensing effort, including Michael Fitzgerald, Olivier Guyon, Nemanja
+Jovanovic, Yoo Jung Kim, Manon Lallement, Jonathan Lin, Julien Lozi, Sebastien Vievard, Yinzi Xin, and
+others from California Institute of Technology, Univ. of California Los Angeles, Univ. of California Irvine,
+and the SCExAO team at the Subaru Telescope, NAOJ. A. Taras would also like to thank David Sweeney,
+Daniel Dahl, Benjamin Pope and Max Charles for insightful discussions about figures.
+
+Microsoft Copilot was used in developing the software for this work. We acknowledge support from
+Astralis — Australia’s optical astronomy instrumentation consortium — through the Australian Government's
+National Collaborative Research Infrastructure Strategy (NCRIS) program.
+
+We would like to acknowledge the Gadigal People of the Eora nation, the traditional owners of the land
+on which most of this work was completed.
+
+Disclosures. The authors declare no conflicts of interest.
+
+Data Availability. All data, code, the measured optical mode transfer matrix and an equipment list can be
+found through (link to be provided).
+
+Supplemental document. See Supplement | for a component list along with additional information about
+methods and results. See Supplement 2 for a video showing Figure 3 over all cores and as a function of
+wavelength through the video time.
+
+References
+
+1. S. G. Leon-Saval, T. A. Birks, J. Bland-Hawthorn, and M. Englund, “Multimode fiber devices with single-mode
+performance,” Opt. Lett. 30, 2545 (2005).
+
+2. S.G. Leon-Saval, A. Argyros, and J. Bland-Hawthorn, “Photonic lanterns,” Nanophotonics 2, 429-440 (2013).
+
+3. T.A. Birks, I. Gris-Sanchez, S. Yerolatsitis, et al., “The photonic lantern,” Adv. Opt. Photonics 7, 107 (2015).
+
+4. A.M. Veldzquez-Benitez, J. E. Antonio-Lépez, J. C. Alvarado-Zacarias, et al., “Scaling photonic lanterns for
+space-division multiplexing,” Sci. Reports 8 (2018). Publisher: Springer Science and Business Media LLC.
+
+5. B.R.M. Norris, J. Wei, C. H. Betters, et al., “An all-photonic focal-plane wavefront sensor,” Nat. Commun. 11, 5335
+(2020).
+
+6. B. Norris, C. Betters, J. Wei, et al., “Optimal broadband starlight injection into a single-mode fibre with integrated
+photonic wavefront sensing,” Opt. Express 30, 34908 (2022).
+
+7. J. W. Lin, M. P. Fitzgerald, Y. Xin, et al., “Real-time Experimental Demonstrations of a Photonic Lantern Wave-front
+Sensor,” The Astrophys. J. Lett. 959, L34 (2023).
+
+8. N. Jovanovic, P. Gatkine, N. Anugu, ef al., “2023 Astrophotonics Roadmap: pathways to realizing multi-functional
+integrated astrophotonic instruments,” J. Physics: Photonics 5, 042501 (2023).
+
+9. A. Milne, H. E. Parker, T. A. Wright, e¢ al., “Coherent Beam Shaping with Multicore Fiber Photonic Lanterns,” in
+2023 Conference on Lasers and Electro-Optics Europe & European Quantum Electronics Conference (CLEO/Europe-
+EQEC), (IEEE, Munich, Germany, 2023), pp. 1-1.
+
+10. H. K. Chandrasekharan and R. Donaldson, “High-throughput polarization-independent spatial mode shaping with
+mode-selective photonic lanterns,” (2025). ArXiv:2506.08595 [physics].
+
+11. D. Choudhury, D. K. McNicholl, A. Repetti, et a/., “Computational optical imaging with a photonic lantern,” Nat.
+Commun. 11, 5217 (2020).
+
+12. Y. J. Kim, M. P. Fitzgerald, J. Lin, et al., “Coherent Imaging with Photonic Lanterns,” The Astrophys. J. 964, 113
+(2024).
+
+13. D. F. G. Gallagher and T. P. Felici, “Eigenmode expansion methods for simulation of optical propagation in photonics:
+pros and cons,” in SPIE Proceedings, Y. 8. Sidorin and A. Tervonen, eds. (SPIE, San Jose, CA, 2003). ISSN:
+0277-786X.
+
+14. J. Van Roey, J. Van Der Donk, and P. E. Lagasse, “Beam-propagation method: analysis and assessment,” J. Opt. Soc.
+Am. 71, 803 (1981). Publisher: Optica Publishing Group.
+
+15. J. J. Davenport, M. Diab, P. J. Deka, er al., “Photonic lanterns: a practical guide to filament tapering,” Opt. Mater.
+Express 11, 2639 (2021). Publisher: Optica Publishing Group.
+
+16. J. Rypalla, S. VjeSnica, K. V. Madhav, et al., “On the large-quantity fabrication and reproducibility of all-fiber
+photonic lanterns,” in Advances in Optical and Mechanical Technologies for Telescopes and Instrumentation VI,
+R. Navarro and R. Jedamzik, eds. (SPIE, Yokohama, Japan, 2024), p. 254.
+
+17. L. Zhao, W. Li, Y. Chen, et al., “Design and characterization of a self-matching photonic lantern for all few-mode
+fiber laser systems,” Opt. Express 32, 16799 (2024).
+
+18. D. Yu, S. Fu, Z. Cao, et al., “Mode-dependent characterization of photonic lanterns,” Opt. Lett. 41, 2302 (2016).
+
+19. R. I. Becerra-Deana, G. Ramadier, M. P. d. Sivry-Houle, et al., “Fabrication and Characterization of Photonic
+Lanterns Using Coupled-Mode Theory,” (2024). ArXiv:241 1.02182 [physics].
+
+20. D. Gabor, “A new microscopic principle.” Nature (1948).
+
+21. J. Zhang, S. Dai, C. Ma, et al., “A review of common-path off-axis digital holography: towards high stable optical
+instrument manufacturing,” Light. advanced manufacturing 2, 333-349 (2021).
+
+23.
+
+24.
+
+25.
+
+26.
+
+27.
+
+28.
+
+29:
+
+30.
+
+31.
+32.
+
+33.
+
+. D. Zia, N. Dehghan, A. D’Errico, ef al., “Interferometric imaging of amplitude and phase of spatial biphoton states,”
+Nat. Photonics 17, 1009-1016 (2023).
+
+J. Carpenter and T. D. Wilkinson, “All Optical Mode-Multiplexing Using Holography and Multimode Fiber Couplers,”
+J. Light. Technol. 30, 1978-1984 (2012).
+
+. N. K. Fontaine, R. Ryf, H. Chen, ef al., “Laguerre-gaussian mode sorter,” Nat. communications 10, 1865 (2019).
+N. K. Fontaine, H. Chen, M. Mazur, et al., “Hermite-Gaussian mode multiplexer supporting 1035 modes,” in Optical
+Fiber Communication Conference (OFC) 2021, (Optica Publishing Group, Washington, DC, 2021), p. M3D.4.
+
+S. van der Heide, B. van Esch, M. van den Hout, et al., “Optical field characterization using off-axis digital holography,”
+in Optical Fiber Communication Conference, (Optica Publishing Group, 2022), pp. M3Z-6.
+
+Y. Xin, D. Echeverri, N. Jovanovic, et al., “Laboratory demonstration of a Photonic Lantern Nuller in monochromatic
+and broadband light,” J. Astron. Telesc. Instruments, Syst. 10 (2024).
+
+S. S. Eikenberry, M. Romer, T. Crowe, ef al., “Photonic quantum-inspired sub-diffraction imager,” in Ground-based
+and Airborne Instrumentation for Astronomy X, J. R. Vernet, J. J. Bryant, and K. Motohara, eds. (SPIE, Yokohama,
+Japan, 2024), p. 26.
+
+M. A. Romer, A. B. Batarseh, T. Crowe, ef al., “Broadband photonic lantern transfer matrix characterization for
+wavefront sensing,” in Photonic Instrumentation Engineering XH, Y. Soskind and L. E. Busse, eds. (SPIE, San
+Francisco, United States, 2025), p. 26.
+
+K. M. Thyng, C. A. Greene, R. D. Hetland, eg al., “True colors of oceanography: Guidelines for effective and accurate
+colormap selection,” Oceanography 29, 9-13 (2016).
+
+D. Marcuse, “Loss Analysis of Single-Mode Fiber Splices,” Bell Syst. Tech. J. 56, 703-718 (1977).
+
+J. Canny, “A computational approach to edge detection,” IEEE Trans. on pattern analysis machine intelligence pp.
+679-698 (2009).
+
+C.F. Jekel, “Obtaining non-linear orthotropic material models for pvc-coated polyester via inverse bubble inflation,”
+Ph.D. thesis, Stellenbosch: Stellenbosch University (2016).
+
+. §. Prahl, “ofiber: a python module for light propagation in optical fibers,” (2024).

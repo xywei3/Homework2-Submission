@@ -1,0 +1,2657 @@
+2510.25658v1 [physics.comp-ph] 29 Oct 2025
+
+arXiv
+
+Optical excitations in nanographenes from the Bethe-Salpeter equation and time-dependent density
+functional theory: absorption spectra and spatial descriptors
+
+Maximilian Graml* and Jan Wilhelm
+Institute of Theoretical Physics and Regensburg Center for Ultrafast Nanoscopy (RUN),
+University of Regensburg, 93053 Regensburg, Germany
+(Dated: October 30, 2025)
+
+The GW plus Bethe-Salpeter equation (GW-BSE) formalism is a well-established approach for calculating
+excitation energies and optical spectra of molecules, nanostructures, and crystalline materials. We implement
+GW-BSE in the CP2K code and validate the implementation for a standard organic molecular test set, obtaining
+excellent agreement with reference data, with a mean absolute error in excitation energies below 3 meV. We
+then study optical spectra of nanographenes of increasing length, showing excellent agreement with experiment.
+We further compute the size of the excitation of the lowest optically active excitation which converges to about
+7.6 A with increasing length. Comparison with time-dependent density functional theory using functionals of
+varying exact-exchange fraction shows that none reproduce both the size of the excitation and optical spectra of
+GW-BSE, underscoring the need for many-body methods for accurate description of electronic excitations in
+
+nanostructures.
+
+I. Introduction
+
+When light interacts with a semiconductor, it can promote
+an electron to the conduction band, leaving behind a hole in the
+valence band. The electron and hole attract each other through
+the Coulomb interaction and can form a bound pair known as
+an exciton [1-10]. A correct description of such a bound state
+requires including the screened Coulomb interaction between
+the electron and the hole. Time-dependent density functional
+theory (TDDFT) with local or semi-local exchange-correlation
+functionals is widely used to compute excitation energies, but
+in these approximations the long-range electron-hole attrac-
+tion via Coulomb interaction is absent, and bound excitons
+are not described [1-3]. Hybrid functionals include a frac-
+tion of nonlocal Hartree-Fock exact exchange, which partially
+restores the bare Coulomb interaction between the electron
+and hole. For example, a hybrid with 25% exact exchange
+corresponds, in a simple picture, to an effective static dielectric
+screening of about four. While hybrids can improve agreement
+with experiment, their accuracy depends sensitively on the cho-
+sen exact-exchange fraction and they are significantly more
+computationally expensive than local or semi-local functionals.
+
+An alternative approach is the GW plus Bethe-Salpeter equa-
+tion (GW-BSE) [2, 3, 11-13], which explicitly includes the
+screened Coulomb attraction between an excited electron and
+the hole it leaves behind. The GW-BSE framework has be-
+come a standard in condensed matter physics for comput-
+ing optical spectra of semiconductors [2, 3, 11-25], and is
+also used in chemistry for accurate calculations of molecu-
+lar excitation energies [26-43], where a relation to the estab-
+lished wavefunction-based approaches has been shown [44—
+48]. In the intermediate regime of nanoscale materials, such
+as moiré superlattices in twisted van der Waals crystals or
+nanographenes with sizes of a few nanometers, GW-BSE pro-
+vides direct access to both the excitation energies and the
+spatial structure of the electron-hole pair [7]. For example, in
+
+* maximilian.graml @ physik.uni-regensburg.de
+
+layered materials, electron and hole can separate over different
+layers [4] ("interlayer exciton”), or can be located within a
+single layer (intralayer exciton’) [7], where hybrid states [6]
+as well as the switching between distinct intra-/interlayer char-
+acter have been observed experimentally [5, 8-10]. The spatial
+structure of the electron-hole pairs determines their excita-
+tion energy and the spatial structure is thus linked to the peak
+position in optical spectra.
+
+In principle, the spatial properties of an excited state can
+be obtained directly from its wavefunction w (r,, r,), which
+depends on the electron coordinate r, and the hole coordinate
+r,. A common way to visualize w (r,, r;,) is to fix one coordi-
+nate and plot the probability density of the other, for example
+wr, re for a chosen hole position rj, [7]. The result de-
+pends on the choice of r;,, and important features may be over-
+looked if the chosen reference position is not representative. As
+an alternative, following the ideas of Frenkel [49, 50] and Wan-
+nier [51] in distinguishing between different types of excitons,
+one can characterize the excited state by expectation values of
+the electron-hole separation, the electron position, and the hole
+position. These spatial descriptors have been introduced in
+quantum chemistry to study electronic excitations in molecules
+and polymer chains [52-61]. The same expectation values can
+be evaluated as functions of time, providing a direct and com-
+pact description of the spatio-temporal evolution of an excited
+state. Such time-dependent descriptors can be computed using
+time-dependent GW-BSE [62-67] or real-time TDDFT [1, 68-
+73). Beyond the time evolution of electronic states, recent
+advances in force calculations within GW-BSE [74-77] en-
+able the description of coupled electronic and nuclear motion.
+Recent experimental advances enable tracking of such excited-
+state dynamics with simultaneous femtosecond temporal and
+sub-nanometer spatial resolution [8, 9, 78-82], allowing direct
+comparison between measured quantities such as the time-
+dependent exciton radius and their theoretical predictions.
+
+The values of spatial descriptors for excited states, such
+as the size of the excitation, depend on the method used to
+compute the excitation, for example TDDFT or GW-BSE. The
+aim of this work is to assess how the choice of the excited-state
+method influences these descriptors in finite nanostructures. To
+
+this end, we implement the GW-BSE formalism in the CP2K
+software [83-85], enabling the study of both optical excitations
+and their spatial extent in nanostructures.
+
+We first present the theory of the GW-BSE framework in
+Sec. II. GW-BSE calculations on nanographenes are presented
+in Sec. III, where we analyze the convergence of the optical
+absorption spectrum with increasing size and compare the
+computed absorption spectrum to experimental data. In Sec. IV,
+we introduce the theory of spatial descriptors and we apply
+these to nanographenes in Sec. V, including a comparison to
+TDDFT.
+
+II. Optical absorption spectrum from GW-BSE
+
+The GW-BSE formalism provides an accurate description
+of neutral excitations by explicitly accounting for the electron-
+hole interaction on top of a quasiparticle picture [2, 3, 11—
+13]. Starting from Kohn-Sham (KS) density functional theory
+(DFT), we first obtain the ground-state electronic structure,
+which provides a convenient single-particle basis {y,(r)} for
+many-body perturbation theory. The KS energies ahs and
+orbitals y,(r) are determined by solving
+
+[ho(r) + vse) p(@) = ep Wp), (1)
+
+where /io(r) contains the kinetic energy, the external potential,
+and the Hartree potential, and v,.(r) is the exchange-correlation
+potential. In our implementation, the KS orbitals are expanded
+in Gaussian basis functions {¢,(r)} as
+
+Uplt) = >) Crh), 2)
+
+with molecular orbital indices p, g, r, s, atomic orbital indices v,
+and we can explicitly separate KS states yp into Noce occupied
+states Wj, W; and Nempty unoccupied states Ya, Wp.
+
+These KS states serve as the starting point for the GW cal-
+culation (cf. Fig. 1), in which the poles of the single-particle
+Green’s function G can be interpreted as quasiparticle energies,
+effectively improving the KS energies ee. In practice, we
+apply a simplification of Hedin’s equations [86], which leads
+to a self-energy of the form
+
+LOM (r,12,1) = IG, Wr}, P, 1). (3)
+
+Hence, this simplification is called the GW approximation,
+where W denotes the dynamically screened Coulomb interac-
+tion. For further details on the GW approximation, we refer to
+Refs. [87, 88].
+
+Motivated by the discussion in Refs. [89, 90], we solve the
+GW approximation by performing eigenvalue-selfconsistency
+in G, ie. evGWo, as depicted in the central part of Fig. 1.
+There, the KS energies e}* and KS orbitals y/)(r) enter the
+non-interacting Green’s function [91][92]
+
+5 KS ”
+p iw t EF — Ep
+
+(4)
+
+Go(t1, 2, iw) =
+
+with the Fermi energy er. Additionally, the screened Coulomb
+interaction Wo is computed beforehand as [91]
+
+Wo(r1, 82, iw) = f Celene iors), — (5)
+
+where the dynamical dielectric function €(r,r’, iw) is com-
+puted at the RPA level from the KS energies e4$ and u(r, 12) =
+1/|r, — r2| is the bare Coulomb interaction. Formally, Eq. (5)
+can be rewritten using a Green’s function [87], as depicted for
+Go in Fig. 1.
+
+Combining Eqs. (4) and (5) with Eq. (3), we can compute
+the quasiparticle energies from
+
+GM KS GWo ( evGW
+En) = ES” + Rela (es)] — UD - (6)
+
+With the solution of this non-linear equation, we recompute
+the Green’s function (4) by replacing es with eon [93]:
+
+Geyewy (F152, iw) = » wGWe * (7)
+P Ep
+
+lw + Ef -
+We repeat this procedure until convergence in £5" is reached,
+as depicted by the triangle in the evGWo-box in Fig. 1.
+
+While the poles of the single-particle Green’s function pro-
+vide the (formally) correct quasiparticle energies, optical (two-
+particle) excitations need an extended framework, which in-
+cludes two-particle Green’s function. This can be done by
+reintroducing the previously neglected vertex corrections [2]
+in Hedin’s equations [86], which eventually leads to the BSE
+for the four-point polarizability [2, 11, 12]. In App. A, we
+derive how the solution of this rather complicated form of the
+BSE can be transformed to the following generalized eigen-
+value problem in the product space of occupied and unoccupied
+orbitals, which is then typically solved to describe optical exci-
+tations [2, 12, 13, 28, 29, 31, 38, 39]:
+
+A B x” n{1 0 x”
+(3 A} ( yo }=2°( 4 Go). (8)
+
+where Q” denotes the energy of excitation n and X” and Y”
+are bi-orthogonal eigenvectors following [1, 20, 94-99]
+
+SX — OVO = 26 mn. (9)
+
+ia ia tia
+ia
+
+The sign corresponds to positive and negative excitation en-
+ergies Q”, respectively, as the solutions of Eq. (8) come in
+pairs of (CQ, X,Y) and (-Q”, YX) [1, 94-96, 99]
+with excitation index n = 1,...,NoccNempty. We choose xn
+and yy to be real-valued for the finite structures under study.
+
+For a closed-shell ground state, the block matrices in Eq. (8)
+are defined by (cf. App. A) [31, 100]
+Aia,jb = (65M — EMS San + 8: i» — Wijab >
+
+Bia,jp = 0S Via. 4) — Wib,aj » (10)
+KS-DFT
+
+v pee v
+evGWo  —aiane
+af y
+— o—=>
+X /
+Vv
+VU
+
+©* (8-8) =2(6 5) G) ©
+
+| Eq. (20) Eq. (26)
+
+Figure 1. Workflow of a GW-BSE calculation within this work, where
+we employ BSE@evGW) @PBE. A KS—DFT calculation provides the
+KS energies ef and orbitals WS as input. In the evGWp scheme, the
+quasiparticle energies are iterated (bold arrows) in a self-consistent
+loop, starting from G = Go and using Wo from the DFT starting point.
+This yields the evGWo quasiparticle energies ra [Eq. (6)]. BSE
+matrices A\, IB [Eq. (10)] are constructed from am, WES, and the
+statically screened Coulomb interaction Wo(w = 0). Diagonalizing
+Eq. (8) gives the excitation energies Q”), the absorption spectrum
+@,’(@), and the excitation wavefunction wor, Tn).
+
+where the preceding KS-DFT and GW calculations (cf. Fig. 1)
+
+provide quasiparticle energies e°", and
+
+pare = f PrP Up Wg (ue) (11)
+Woaee = f PrP r'UpOWglt) Wole, x =O le’ Wale’) (12)
+
+are matrix elements of the bare and the statically RPA-screened
+Coulomb interaction, respectively. The prefactor a depends
+on the spin configuration and is a) = 2 for a singlet excited
+state and a = 0 for a triplet excited state (cf. App. A).
+
+In practice, we compute the matrix elements of
+Eqs. (11)/(12) using the resolution-of-the-identity (RI) tech-
+nique [34, 39], where auxiliary RI basis functions yp (indexed
+
+by P, Q, R) are introduced:
+Upgrs © » Boy Brs (13)
+P
+
+Woars © >) Bele ')poBF, . (14)
+P
+
+Here, the coefficients Bry
+
+BE, = D\nmlQ) Lop, (15)
+Q
+
+are computed from [91]
+
+where (nm|Q) denotes three-center Coulomb integrals
+
+(nm|Q) = f BrP Une Wn vr, r yor), (16)
+
+and the Lpg are obtained from a Cholesky decomposition of
+the Coulomb matrix
+
+(PIQ) = f Br go(rw(r.r’ wor’) = )\ LerLRg- (17)
+R
+
+Note that for the Gaussian basis (2) employed in this work,
+analytical expressions for two- and three-center Coulomb in-
+tegrals (16), (17) guarantee efficient computations [93, 101,
+102].
+
+When solving Eq. (8) in practice, we assume that A-B
+is positive definite, which allows us to recast Eq. (8) into a
+hermitian eigenvalue problem with half the size. We skip the
+details of this procedure and refer instead to the existing litera-
+ture [1, 20, 28, 96-98, 103-106]. By neglecting the coupling
+blocks B, Eq. (8) can be simplified even further, which is called
+the Tamm-Dancoff approximation (TDA) [14]:
+
+AX, = OND, tba. (18)
+Computationally, both approaches are demanding in memory
+(OWNoocNempty)) and in the number of floating point operations
+for solving the eigenvalue problem (O(NoccNempty))-
+
+Correspondingly, in order to enable the solution of Eq. (8)
+for large-scale systems, we adopt the standard procedure and
+reduce the associated prefactors by truncating the considered
+number of orbitals in Eq. (8) by an energy cutoff [39]. In
+App. B, we discuss the details of this technique and to which
+extent it affects the accuracy of the optical absorption spectrum
+and spatial properties of the excitations.
+
+One focus of this work is to study the optical absorption spec-
+tra of finite nanostructures from GW-BSE. Optical absorption
+in the linear-response regime is described by the dynamical
+dipole polarizability tensor a,,(w), which relates the induced
+electronic dipole polarization of the nanostructure P,,(w) to an
+incident electric field E,,(w) of frequency w [1]:
+
+Pw) = D7 dy) E(w), aa! EL ysz} (19)
+=
+
+In the BSE framework, @,,,(w) can be computed from the
+solution (Q”, X™, Y) of Eq. (8) for a) = 2 [1, 29, 31, 95]
+(a derivation is also shown in App. A):
+20M GPa
+
+——____.., 20
+5 (w + in)? - (QM) a)
+
+Ay (@) = -
+
+where the transition dipole moments of the Singlet solution are
+given by [29, 31, 39, 95, 100]
+
+HO = V2) pia (XO? + ¥{?) , (21)
+
+ia
+ia
+
+with the dipole operator in the KS orbital basis
+
+ia = f Pry,lt) Yul). (22)
+
+For the study of randomly oriented molecules in gases and
+liquids, the isotropic average @(w), the oscillator strengths f”
+and the photoabsorption cross section o,,(w) are typically
+used, which we discuss in App. C. In periodic crystals, the op-
+tical absorption is typically computed from the imaginary part
+of the (macroscopic) dielectric function e(w) [2, 12, 107, 108]
+related to the current-current correlation function [12, 109]. In
+this work, we employ @,,,(w) for computing optical absorption
+of finite nanostructures, because of its structural similarity and
+relation to the dielectric function e(w) [11, 108, 110], which
+is extracted from experimental data (cf. Sec. II). Equiva-
+lently, one could include a factor of w in the compared ex-
+pressions, which would then be the absorption coefficient
+Kabs & We(w) [11], and the photoabsorption cross section
+Ty (W) & Wy (@).
+
+To demonstrate the numerical precision of our GW-BSE im-
+plementation in CP2K, we benchmark the excitation energies
+Q” from Eq. (8) on Thiel’s set [111], a standard set of organic
+molecules. As reference implementation, we employ the GW-
+BSE implementation in FHI-aims [39, 112-114]. We do not en-
+force identical quasiparticle energies as starting points, but both
+implementations are run from scratch as BSE@evGWp @ PBE
+calculation with the aug-cc-pVDZ [115, 116] basis set. The
+computational details are given in App. D.
+
+In Fig. 2, we report the absolute error 12 - OD aial for
+each molecule of Thiel’s set and the first ten excitation levels
+n=1,...,Nexc, Nexc = 10, between CP2K and FHI-aims. The
+presented mean absolute error (MAE) is computed as
+
+N
+
+1
+MAE =
+28 Nexe 2,
+
+n=1 M=
+
+28
+
+(n) (n)
+QepoK ~ Qo aims, M > (23)
+1
+
+where the index M runs over the 28 molecules in the set and
+OK and 2. are the extracted excitation energies from
+our implementation and the FHI-aims implementation [39],
+respectively. We observe a small MAE of 2.7 meV in Fig. 2
+with single outliers leading to a maximum error of 30 meV. In
+general, the observed deviations between CP2K and FHI-aims
+can be traced back to the quasiparticle energies e°’°" around
+
+the HOMO-LUMO gap.
+
+Absolute error of excitation energies (eV)
+
+0.000 0.010 0.020 0.030
+Ethene S| | | | |
+Butadiene
+Hexatriene
+Octatetraene i
+Cyclopropene >]
+Cyclopentadiene Ss.
+Norbornadiene i = MAE
+Benzene @ H
+Naphthalene —] 7°
+Furan 1
+Pyrrole 1 Li
+Imidazole QD = —2
+Pyridine LO} =| = 3
+Pyrazine oe 4 Te
+Pyrimidine [O} 1 T :
+Pyridazine 4 L —7
+Triazine re) TT
+Tetrazine = TL 0
+
+Formaldehyde
+Acetone
+Benzoquinone
+Formamide
+Acetamide
+Propanamide
+
+Cytosine
+
+PIED EEO
+I
+
+ee
+|
+
+Thymine
+
+Uracil |
+
+[>|
+
+Adenine
+
+Figure 2. Absolute error oan - 2® | of BSE excitation energies
+Q” computed from CP2K and FHI-aims by solving Eq. (8) with
+BSE@evGWo @PBE. The mean absolute error (23) over the ten low-
+est excitation energies across all molecules is only 2.7 meV. For a
+benchmark on the impact of parameters of GW calculations on BSE
+
+excitation energies, we refer to App. E.
+
+Ill. Absorption spectrum of nanographenes
+from BSE and comparison to experiment
+
+We now focus on optical excitations of rectangular
+nanographenes with seven carbon atoms in zigzag direction
+and an increasing number of repeating anthracene units, L, in
+armchair direction, as displayed in Fig. 3(a). Experimentally,
+)
+
+ag
+oF
+Se a
+F 2
+“4,
+o fe
+»
+8
+F 2
+
+Frequency w (eV)
+
+Figure 3. Optical absorption spectrum from the imaginary part of the
+dynamical dipole polarizability a,,(w) (20) (7 = 0.05 eV) for finite
+nanographene flakes with increasing number of repeating units L from
+BSE@evGW) @PBE. (a) Geometry of a nanographene with L = 13
+anthracene units in x-direction. (b-d) Components of the dynamical
+dipole polarizability and the sum, ym = @. + @y, + @,, as function
+of the light frequency. The out-of-plane component a, is not shown
+as its absolute value is below Im a, = 156 (e*ai,)/Ha. Computational
+details are described in App. D.
+
+the investigation of excitation spectra of such nanographenes
+is enabled by synthesizing them on noble metal surfaces [117-
+119].
+
+Since finite nanographenes feature spin-polarized zig-zag
+dge states when passivated by single hydrogen atoms [120],
+e introduce a second H atom at the outermost central C atoms
+long the x-direction, suppressing the edge states. We compute
+ptical properties from evGWo+BSE employing Eq. (8) when
+increasing the repeating units in armchair direction. In Fig. 3,
+we show the imaginary part of the dynamical dipole polariz-
+ability tensor a, from Eq. (20) for three different number of
+repeating units L = 5,10, 13. For all lengths L in Fig. 3, we
+observe that the sum @um(w) is dominated by the longitudi-
+nal @,,(w) component. While the a,,.(w) component shows
+a strong dependence on the system length L, we can confirm
+from Fig. 3(b-d) that the optical response in the transverse
+direction a,,(w) remains largely unaffected by the length L in
+x-direction, as it has also been observed in Ref. [121] from
+semiempirical calculations.
+
+The nanographene studied in Ref. [118] is about 20 nm long,
+which corresponds to L = 46 and is beyond the system sizes ac-
+cessible to our current BSE implementation. To compare with
+the experimental optical absorption spectrum of Ref. [118], we
+
+Q
+
+ope
+
+@ QP=)
+
++ Q(e=2)
+
+Inverse length (1/L)
+
+Figure 4. Excitation frequencies Q'=!”) of the first two dominant
+peaks (p = 1,2) in Im @,,(w) for L € [4, 13] (see example spectra
+in Fig. 3). We fit the the obtained peak frequencies by Q”(L) = a”) +
+b” /L + c”/L? (dashed lines), from which we obtain jim: QU) =
+
+2.08 eV and Jima ?) = 2.19 eV. The obtained arate of the
+
+fits for p = i Qa are reported in Table I. The vertical dashed line in
+green indicates the average length of the experimental nanographene
+LP) ~ 20 nm [118]. The fit yields Q?=)( LO”) = 2.09 eV and
+QPD)(LOP) = 2.26 eV.
+
+Table I. Fit parameters of the quadratic fitQ”(L) = a+b/L+c/V’
+in Fig. 4 and extrapolated excitation energies and experimental mea-
+surement (cf. Fig. 5). All quantities are given in eV.
+
+a) bP QV LEP) QM (exp)
+=1 2.08 0.39 3.96 2.09 2.05
+=2 219 3.13 3.97 2.26 2.31
+
+extract the frequencies of the two lowest longitudinal peaks,
+Q®) with p = 1,2, from Ima®(w) for L = 4,...,13 and
+extrapolate the resulting Q”(L) to the experimental geom-
+etry. The data points used for this procedure are shown in
+Fig. 4. We omit L < 3 because the corresponding spectra do
+not yet exhibit two well-separated low-energy peaks that would
+yield reliable peak positions. For the extrapolation, we apply a
+quadratic fit Q”(L) = a”) + b” /L +c” /L? motivated by the
+free-electron model in a one-dimensional box with periodic
+potential, as it has been already applied to other z-electron
+systems [122, 123]. Taking into account the finite size of the
+experimental geometries (green vertical line in Fig. 4), which
+they estimate to be LO?) ~ 20 nm (cf. supporting infor-
+mation of Ref. [118]), we obtain BSE excitation energies of
+QP=D(LOP)) = 2.09 eV and QP-?)(LEP)) = 2.26 eV from
+the extrapolation. These values are in excellent agreement with
+the experimental excitation energies [118] ae? = 2.05 eV
+and a = 2.31 eV, yet another demonstration of the success
+of the BSE formalism.
+
+Beyond the agreement of the peak positions, we compare the
+peak heights of the GW-BSE and experimental optical absorp-
+tion spectra. Ref. [118] obtains the dielectric function €,(w)
+of the nanographene (20 nm length) experimentally via re-
+flectance difference measurements, whose imaginary part is
+shown in Fig. 5(a) (see details in App. F). In the limit of
+Experiment - £°°?:) = 20 nm
+
+= Im ez(w)
+
+= Im ex(Q)
+
+GW-BSE- £6 nm
+
+= Im ae2(Q™)
+
+1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+Frequency w (eV)
+
+Figure 5. Optical absorption spectrum (a) reproduced from exper-
+imental data [118] via Im e€,(w) and (b) calculated using GW-BSE
+(BSE@evGWo) for L = 13 via Im a,,(w), which are related by a
+frequency-independent factor C [Eq. (24)]. For the GW-BSE calcu-
+lation, we employ a broadening of 7 = 0.3 eV. The individual peak
+heights at the resonance energies Q” are computed from Eq. (F2)/(F3)
+in App. F. Green vertical dashed lines denote the extrapolated peak
+frequencies Q”=)(LP)) = 2.09 eV and Q°-(LP)) = 2,26 eV
+from Fig. 4.
+
+a infinitely long nanographene, the dielectric function is re-
+lated to the dynamical dipole polarizability via a frequency-
+independent factor [110]:
+
+Im e,(w) = C Ima,,(w), (24)
+
+which has the same form as the Clausius-Mossotti relation
+when neglecting local field effects [108]. Hence, we plot the
+imaginary part of the dynamical dipole polarizability Im @,,(w)
+in Fig. 5(b) for the nanographene with L = 13 (6nm length).
+Comparing the experimental and BSE absorption spectrum
+in Fig. 5(a) and (b), we observe a nice match of the overall
+lineshape. The observable difference between experiment and
+BSE spectrum, particularly the resonance frequencies Q”,
+may originate from the different lengths in the experimental
+and GW-BSE geometries (20 nm versus 6 nm). When extrapo-
+lating BSE excitation energies to 20 nm length, the agreement
+between BSE and experiment is excellent, cf. Table I.
+
+IV. Spatial descriptors of electronic excitations
+within the BSE
+
+Beyond the optical response, excited states have an asso-
+ciated spatial structure, which can be of interest to better un-
+
+derstand oscillator strengths or transition rates in excited-state
+dynamics. To enable a quantitative analysis of these spatial
+properties, we discuss expectation values (descriptors) associ-
+ated with particular spatial properties of an excitation in this
+section, as proposed in Refs. [55, 56, 59].
+
+The starting point is the wave function of the electronic
+excitation [59],
+
+POU re En) = fen 2 Pry @o (tn, Fa, -..)On(FesP2,--+)s
+(25)
+
+where ®p and ®, are the ground and an excited state wave
+function of the full many-body Hamiltonian. Within GW-BSE,
+Eq. (25) can be expressed in the product space of occupied and
+unoccupied KS orbitals as [12, 31, 56]
+
+Wes Fn) =D) Xf WaPeWiEn) + YP Witedaltn). (26)
+
+ia
+
+The physics behind Eq. (26) can be understood in terms of
+electrons and holes: Concerning the first part, an electron is
+excited to a (formerly) unoccupied orbital w,(r-) and leaves a
+hole behind at the occupied orbital w;(1;,), where the excitation
+ncan mix different KS orbitals as described by the transition
+amplitudes xe). Vice versa, the amplitudes re describe the
+reverse process, i.e. deexcitations [124].
+
+The expectation value associated with excitation (26) for a
+generic operator O then reads
+
+any — (PRONE.
+(Org = St
+
+i (27)
+(ee
+
+From here on, we drop the excitation index n to simplify the
+notation of the expectation values. Specifically, we focus on
+the size of the excitation [59]
+
+dexe = V(We — Til exe + (28)
+
+which can be divided into the following contributions:
+
+dexe =
+
+a, + oF +02 -— 20,0 Ren. (29)
+The first contribution is the distance of electron and hole
+deh = Pe = Fn)exel » (30)
+
+which naturally quantifies the charge-transfer character of an
+excitation. The electron-hole separation d,_,,, is large for a so-
+called a charge-transfer excitation [56, 59] where the electron
+at (Ie)exc is located on a different part of the molecule [36, 52,
+125-127] or of a van-der-Waals crystal [7, 128, 129] than the
+hole at (Tj )exc. Further contributions to Eq. (29) are the size of
+the electron
+
+Ce= Ve — {ae ees GB)
+analogously the size of the hole, a}, and the electron-hole
+correlation coefficient R.;
+
+Ren = —— (th Fedoxe = (tiexe “(tedexe) » G2)
+eh
+
+If R.;, is nonzero, it allows us to distinguish between bound
+electron-hole-pairs (R., > 0) and pairs, which are avoiding
+each other dynamically (R., < 0). Consequently, R., = 0
+indicates uncorrelated electron and holes. By the Cauchy-
+Schwarz inequality, we find that R., € [-1, 1], ie. maximal
+anti-/correlation is indicated by —1/+1, respectively.
+
+To describe the strongly anisotropic nanographenes, we ad-
+ditionally define directional exciton descriptors, where the
+coordinates of electron and hole are projected into the carte-
+sian directions. This leads, exemplarily for the x-direction, to
+the size of the electron
+
+oS) = VM (xe = (redex )exe » (33)
+
+(x)
+
+and by analogy for o,"’, the (directional) electron-hole separa-
+
+tion
+
+d”
+
+enh
+
+= KKXe — Xn)exel » (34)
+
+as well as the size of the excitation in x-direction
+AS = Vlae = a1? )exc (35)
+
+We define the correlation coefficient in x-direction as
+
+oa” ((Xh * Xe)exe — (Xh)exe * (Xe)exc) + (36)
+
+(2x)
+Roy =
+We implement all descriptors based on multipole moments
+in the KS orbital basis following Ref. [59][130].
+
+V. Size of excitations in nanographenes from
+BSE and TDDFT
+
+In this section, we analyze spatial characteristics of the
+electronic excitations in the nanographenes of Sec. III, focusing
+on the lowest-energy bright state (p = 1) for each length L. The
+size of the excitation Ader) is shown in Fig. 6(a) as a function
+of the nanographene length. For small L € [1,4], we observe
+a linear increase, which saturates for larger system sizes to
+~7.6 A for a length of 4 nm. The plateau indicates that the
+size of the excitation is controlled by an intrinsic correlation
+length (exciton radius) that is smaller than the nanographene
+length, consistent with bound excitons in crystals. In contrast,
+the individual spreads of electron and hole, oe) and oe),
+increase with L [Fig. 6(b)], as expected for single-particle
+densities in a one-dimensional box, which extend over the
+system whereas the relative separation of electron and hole is
+bounded via the screened Coulomb interaction. The correlation
+coefficient in Fig. 6(c) confirms this view: it increases with L
+
+Length of nanographene (A)
+10 20 30 40 50
+
+. 3 5 7 9 LL. 13
+Length of nanographene (L)
+
+Figure 6. Spatial properties of the first bright peak p = | in the optical
+absorption spectra along the x-direction computed from GW-BSE. (a)
+Longitudinal size of the excitation at the first peak d?"", Eq (35),
+(b) longitudinal sizes of electron o°?*"’ (blue) and hole a? (red)
+from Eq. (33), (c) longitudinal electron-hole correlation coefficient
+R&=) (32) (36) associated with the first peak p = 1.
+
+and approaches one, indicating strongly correlated electron-
+hole motion for large L.
+
+In order to assess to which extent a simpler framework
+can reproduce these excitonic characteristics, we next turn
+to TDDFT [1], which offers a computationally cheaper alter-
+native to the GW-BSE approach. Beyond that, it is available
+in most electronic-structure codes, making it attractive for sys-
+tematic studies of large nanographenes. However, results from
+TDDFT computations depend strongly on the employed ex-
+change-—correlation functional, which implicitly determines
+the electron-hole interaction [58]. In semilocal exchange-
+correlation kernels in the generalized gradient approximation
+(GGA), this interaction is absent, while hybrid and range-
+separated hybrid functionals reintroduce parts of the bare
+Coulomb attraction through exact exchange. For example,
+PBEO includes 25% of the unscreened interaction, whereas
+HSE06 restricts it to short range, effectively mimicking a fully
+screened Coulomb potential in the long range.
+
+Figure 7 compares excitation energies and sizes of the excita-
+tion obtained from TDDFT with those from GW-BSE. In panel
+(a), all methods show the expected redshift of the first bright
+excitation with increasing nanographene length, but the abso-
+lute values differ. GGAs (PBE [131], BLYP [132, 133]) sub-
+stantially underestimate the excitation energies, while hybrids
+(PBEO, B3LYP [132, 134, 135], HSEO6 [136, 137]) yield val-
+ues closer to GW-BSE. The exception is CAM-B3LYP [138],
+TDDFT
+@ PBE (0%) © BLYP (0%)
+fe BSE 4 PBEO (25%)  B3LYP (20%)
+4 HSE06 (25%-0%) i CAM-B3LYP (19%-65%)
+2 4 6 8 10 12
+(a) 6 3.00
+
+£ 2.75
+
+a5 ma
+a £2.50 3
+aa £2.25 >
+& E 2.00 &
+7 3 E175
+“8 2 1.50
+Ph
+20 ac?
+
+2 4 6 8 10 12
+Length of nanographene (L)
+
+Figure 7. Excitation energy Q'°=)) and size of the excitation
+d=) computed from BSE@evGWy and TDDFT (both in TDA;
+effect of TDA investigated in App. G) employing different ex-
+change-correlation functionals (exact exchange fraction shown in
+the legend). (a) Peak frequency of the first prominent peak in the
+optical absorption spectrum Q'°=)), (b) Longitudinal size of the exci-
+tation for the first bright peak dee), Eq. (35). We show excitation
+energies and sizes computed with PBE-based hybrids as a function of
+the exact-exchange fraction in App. H.
+
+overestimating the BSE excitation energy by ~ 0.5 eV, which
+we attribute to the large long-range exact-exchange fraction of
+65 %, binding the exciton too strongly. Panel (b) shows the
+corresponding sizes of the excitation age), GGAs predict
+overly delocalized excitations whose size grow linearly with L,
+which we attribute to the absent attractive Coulomb interaction
+between electron and hole. Hybrid functionals confine the ex-
+citation more strongly, although HSE06 still shows an increase
+of the size of the excitation with nanographene length since
+the Coulomb interaction of electron and hole is only present
+in short range. Overall, our TDDFT calculations reproduce
+qualitative trends of the BSE only when the functional contains
+sufficient long-range electron-hole attraction, but its quantita-
+tive accuracy remains limited by the absence or approximate
+treatment of screening.
+
+Fig. 7 establishes which hybrid functionals yield a reason-
+able excitation energy and corresponding size of the lowest
+bright excitation; however, their ability to reproduce the over-
+all spectral shape has not yet been assessed. To assess how
+well TDDFT reproduces the full optical spectra beyond the
+lowest excitation, we now compare the absorption spectra from
+TDDFT and GW-BSE in Fig. 8. For the nanographene with
+
+— BSE
+— TDDFT (PBEO)
+— TDDFT (B3LYP)
+
+1.50 1.75 2.00 2.25 2.50 2.75 3.00
+Frequency w (eV)
+
+Figure 8. Optical absorption spectrum for GW-BSE (black) and
+TDDFT with two different hybrid functionals PBEO (green) and
+B3LYP (beige) for the nanographene with L = 13, computed from
+Eq. (20). Dashed lines denote the contribution of individual excita-
+tions n to Im a,,(@ = Q) from Eq. (20) (cf. Eq. (F3)).
+
+L = 13, the TDDFT spectra obtained with PBEO and B3LYP
+differ significantly from the GW-BSE reference (Fig. 8): the
+number and relative intensity of peaks are inconsistent, and
+additional side peaks appear both at lower and higher ener-
+gies. Assuming GW-BSE as the reference, these discrepancies
+indicate that the TDDFT excitation spectrum is qualitatively
+incorrect, which we attribute to the incorrect interaction of
+electron and hole in our TDDFT calculations. Recently ad-
+vances for range-separated hybrid functionals [139, 140] might
+be able to mimic the screened interaction more accurately, but
+their application is beyond the scope of this work. In any case,
+the large experimental linewidths (cf. Fig. 5) would likely
+wash out these differences even for standard functionals, such
+that the broadened TDDFT spectra could still appear com-
+patible with experiment despite the incorrect underlying peak
+structure.
+
+VI. Conclusion
+
+We have implemented and applied the GW-BSE formalism
+in CP2K to rectangular nanographenes with a fixed width of
+seven carbon atoms along the armchair direction and variable
+length along the zigzag direction. The BSE@evGW) @PBE
+approach reproduces the measured absorption spectrum, and
+the two lowest bright excitations agree with experiment within
+0.05 eV after finite-size extrapolation. The size of the excita-
+tion of the first bright state converges to about 7.6 A, establish-
+ing a bound exciton with a well-defined spatial extent. TDDFT
+with PBEO and B3LYP reproduces this size of the excitation
+and yields reasonable lowest excitation energies, but the spec-
+tra around the lowest bright peaks display additional sidebands
+and altered intensities that are absent in GW-BSE. Thus, while
+selected descriptors can be matched within TDDFT, GW-BSE
+provides a consistent description of both spectral and spatial
+properties for nanographenes.
+Data and Code availability
+
+Inputs and outputs of all calculations reported in this work
+are available in a GitHub [141] and a Zenodo [142] repository.
+The GW+BSE algorithm developed in this work is available in
+the open-source package CP2K [83-85].
+
+Acknowledgements
+
+We thank Deborah Prezzi, Carlo Pignedoli, Anna Hehn,
+Wolfgang Hogger, Adrian Seith, Torsten Weber and in partic-
+ular Stépdn Marek for helpful discussions. The German Re-
+search Foundation (Deutsche Forschungsgemeinschaft, DFG)
+is acknowledged for funding via the Emmy Noether Pro-
+gramme (project number 503985532) and RTG 2905 (project
+number 502572516). The authors gratefully acknowledge
+the computing time made available to them on the high-
+performance computer Noctua 2 at the NHR Center Paderborn
+Center for Parallel Computing (PC2). This center is jointly sup-
+ported by the Federal Ministry of Research, Technology and
+Space and the state governments participating in the National
+High-Performance Computing (NHR) joint funding program
+(www.nhr-verein.de/en/our-partners).
+
+A. Derivation of the dynamical dipole polariz-
+ability and the defining matrix equation
+
+In Eq. (20), we have introduced the tensor elements of the
+dynamical dipole polarizability [1, 29, 31]
+
+2. dd”
+
+———, Al
+5B (w + in)? - (QM) “
+
+Ay (W) =
+
+with (29, 31, 39, 100]
+
+dy? = V2) aia (Xe + Ye)
+a
+
+where (2, x®, y®) are solutions of Eq. (8).
+In the following, we derive the form of @,,(@) as well as the
+defining matrix equation in Eq. (8). We start from the general
+
+definition of the dynamical dipole polarizability [1, 2, 100]
+
+Qyi (@) = fered r nace ro), (A2)
+where we have introduced the reducible polarizability
+X(r,r’,w). In TDDFT, one can directly use the y to arrive
+at Eq. (A1) [1]. However, within the BSE framework (and
+similar frameworks like, e.g., TDHF [95]), the retarded four-
+point polarizability L(1, 2,3, 4) is needed, which relates to the
+two-point y in time-domain via y(1, 2) = L(1, 1*, 2,2). We de-
+note combined space-spin-time coordinates as 1 = {r), 51,1}
+and, in the following, combined space-spin coordinates as
+1 = {r,, s;}. Further, we follow the convention of the main text
+
+regarding indexing, such that p, qg,r, s denote a generic KS or-
+bital, whereas i, j denote occupied, i.e. i, 7 € [1, Nocc], and a, b
+denote unoccupied orbitals, i.e. a,b € [Noce + 1, Noce + Nempty]-
+
+Changing to frequency domain, we find the Bethe-Salpeter
+equation for the four-point polarizability [2, 11-13, 100]
+
+L(, 2,3, 4; w) = L°(1, 2,3, 4; w)
+
++ [ 465.6,7,8)£90,2,5,6.0)
+
+K(5, 6,7, 8) L(7, 8,3,4;w). (A3)
+with the non-interacting four-point polarizability
+L°(1,2, 3,4;w) and the BSE kernel K(5,6,7,8). In the
+
+GW approximation (cf. Eq. (3)) and neglecting dynamical
+screening, i.e. W(w = 0), the kernel reads [36, 38, 100]
+
+K(1,2,3,4) = v(1, 3)6(1, 2)6(3, 4) — W(1, 2)6(1, 3)5(2, 4) .
+(A4)
+
+For the following derivation, we bring the four-point polar-
+izability into the basis of spin orbitals w,(1) = Wp(ti)op(s1)
+with quasiparticle orbitals w,(1) (which we take to be the KS
+orbitals from Eq. (2)) and spin function o,(s;), which can be
+either a(s;) or B(s1):
+
+L(, 2,3, 4; 0) = » Vp VWq(2)Lpgrs(W)r(3)Ws(4), (A5)
+
+pqrs
+
+with matrix elements
+
+Lygrs(@) = faa.2.3.4 Wp(Mq(Q)LC, 2, 3, 4; w)WB)Ws(4) «
+(A6)
+
+Note that we skip all complex conjugates since the KS orbitals
+are real-valued.
+
+By means of the residue theorem, the matrix elements of
+L° can be computed from the interacting Green’s function G
+(cf. Eq. (7)), which becomes diagonal in the basis of the KS
+orbitals [2, 100]:
+
+So= ty
+
+evGW _ evGW 2 (A?)
+& = 8p
+
+- °) + in
+
+0 =
+Lpg,rs$@) = Sprdqs
+wo
+
+where i7 (with small 7) is included, since we are focus-
+
+ing on the retarded polarizability needed for optical re-
+sponses [3, 100].
+
+We rewrite Eq. (A3) in matrix form
+
+Lv) = = L9@)K) La), (A8)
+
+where we denote all matrices with generic indices p,q,r, sin
+
+bold. After some matrix algebra, we obtain [2, 100]
+
+L(w) = M"!(w)F (A9)
+
+where M and F have a block structure in the product space of
+
+occupied and unoccupied orbitals, i.e. the rows and columns
+are ordered via electron-hole (ia, jb), hole-electron (ai, bj),
+electron-electron (ii’, jj’) and hole-hole (aa’, bb’) sector:
+
+_ jb bj jj bb’
+
+ia (Q-K -K -K -K
+
+a | K Q+K K K
+
+M() = jj 0 0 & of (A10)
+ad 0 0 0 Q
+
+and
+jb bj jj’ bb’
+
+ia (1 0 0
+
+0 -1 0
+
+i’ }O0 0 0
+0 0 0
+
+(All)
+
+cooo
+
+Correspondingly, © are block matrices of the respective sector
+with the denominator of Eq. (A7) as matrix elements:
+
+evGWo
+
+Qhars(@) = (+ int €5 (A12)
+
+evGW,
+= BOWS, bys
+
+The triangular shape of M(w) and the block form of F in
+Eq. (A9) reduce the number of non-zero entries of L(w) con-
+siderably, i.e. to the upper-left 2x2 block L”“®“(w) [2].
+
+Until now, all quantities still comprise the spin degree of
+freedom. However, even for a singlet closed-shell ground
+state, the single-particle excitation is not diagonal in the spins,
+which one immediately sees by explicitly writing down the
+spin indices of the upper left block of M. The spin structure of
+—©. + KK, which follows from the contractions in Eqs. (A4) and
+(A7), then reads
+
+aa’ BB ap a
+aa’ (-O+V-W Vv 0 0
+Be’ Vv -O4+V-W 0 0
+of 0 0 -2-W 0
+Ba 0 0 0 -O-W
+
+with elements of the block matrices V and W given by Upg.rs
+and Wpg,rs (cf. Eqs. (11) and (12)).
+
+Bringing the upper block to diagonal form by the unitary
+
+transformation
+1/1 1
+alt -a)°
+
+i.e. transforming the matrix to the basis of singlet and triplet
+solutions, we obtain the singlet-triplet factor (with aS) = 2 and
+a = 0) in Eq. (10) [13, 95, 100][143]
+
+(A14)
+
+ena
+
+_ evGm (S/T)
+Aia,jb = —& 05am + Via, jb — Wijab »
+
+S/T
+Bia,jb = aS! Via, jb — Wiraj-
+
+With this short-hand notation and by further utilizing the
+symmetry of the kernel K,,,-s under index-permutation, we can
+
+10
+
+rewrite the upper left 2x2 block of M as
+ia@ai 1 0\/A-(j+tinl B
+
+ia @ai ——
+ee (; “I Bo A+Ww+ wl
+(A15)
+
+and thus for the corresponding block of L [31]
+
+4
+Lig) = — [és a - (w+i9) (0 “J .  (Al6)
+
+We do not explicitly denote the spin here, but the a in A
+and B implicitly accounts for the spin degrees of freedom.
+
+In the next step, we use the spectral representation of
+Eq. (A16) (cf. Appendix of Ref. [105]) to rewrite Li#°“(w),
+Thus, Eq. (A16) also defines the central eigenvalue equation in
+Eq. (8). With the spectral representation, we obtain four blocks
+with elements
+
+Liab j(@) = Y w ae wy a , (AI7b)
+Ly po) = s bi es 7 * a » (Al7c)
+n=1
+NoceNempty (n) yn) (n) y(n)
+Laid) = » w 7 7 reas « (Ald
+
+n=1
+
+In the case of the TDA, all components comprising an element
+of Y” drop out and we recover Eq. (32) from Ref. [100].
+
+Coming back to the dynamical dipole polarizability ay, (w),
+we write Eq. (A2) including the spin channels as
+
+aye) ==) fdr &ryr LA, 1,2,2,w)r?.  (A18)
+
+S182
+
+With Eq. (A5) and after transforming to the singlet-triplet basis
+(cf. Eq. (A14)), only the singlet contribution remains with a
+factor of V2 resulting from the sum over spin indices [13, 31,
+95, 100]:
+
+Oye) = —(V2P DY" pall Lars (@).- (A19)
+
+pars
+
+Combining Eq. (A19) with the block structure of Lyg,-s(w)
+in Eqs. (A17), we arrive at Eq. (Al), where the spin factor is
+absorbed in the transition dipole moments a from Eq. (21).
+
+B. Energy cutoff for the BSE
+
+In the following, we introduce the details about the trunca-
+tion of the number of orbitals, which enter the BSE in Eq. (8).
+In the following, we discuss the truncation of the considered
+number of orbitals in Eq. (8), motivated by its heavy com-
+3000 fee empty states
+0 CaN
+
+3000 po 80.0 eV
+— 0 J
+ad
+“si 3000 fo 40.0 eV
+s /\
+= 0 aS
+
+SSeS
+\
+€ 0
+= 3000 F(e) I : 10.0 eV
+0
+2.0 2.5 3.0 3.5 4.0
+Frequency w (eV)
+Figure 9. — Optical absorption spectra computed from Im a@(w)
+
+[Eq. (C1)] for all unoccupied states (a) and four different cutoffs
+Ext?" (b-e) with a broadening of 7 = 0.05 eV. The changes for the
+first three peaks (grey vertical lines) are reported in Table II.
+
+putational scaling: Since both the number of occupied Noce
+and unoccupied orbitals Nempty scales linearly with the sys-
+tem size N, the index structure of Eq. (10) leads to a memory
+scaling of O(N2,.N2 uty) = O(N*) and a runtime scaling of
+
+occ’ Yempty.
+ONbecNempty) = O(N®).
+
+Beyond that, the computational effort associated with the cal-
+culation of the GW quasiparticle energies needed for Eq. (10)
+scales with the number of included orbital.
+
+Hence, we adopt the idea of Ref. [39] to impose an energy
+cutoff on the included states since we do not expect that low-
+lying optical excitations are strongly affected by the high-lying
+states, which reduces the number of states and therefore en-
+ables calculations with a reasonable amount of computational
+resources. Specifically, we apply the truncation as follows: (i)
+We already truncate the number of orbitals based on their KS
+energies, which are refined in the GW-module (cf. Fig. 1) to
+keep the computational effort to the possible minimum. Corre-
+spondingly, only these refined states enter the construction of
+Eq. (10) (cf. Fig. 1). (i) In addition to the cutoff for unoccu-
+pied states, we also specify a separate cutoff for the occupied
+states targeting core levels.
+
+We test the accuracy of this cutoff procedure for a
+nanographene with L = 4. In order to only exclude the
+core level states, we choose a cutoff for the occupied states
+of Eo? = 80 eV, which keeps excitation energies virtually un-
+changed (within less than 1 meV), but reduces Noce by approx-
+imately 30% from 180 to 124. Given the negligible influence
+of Egy = 80 eV on the accuracy of the calculation, we use it
+
+throughout all further cutoff checks.
+
+Since the unoccupied states exhibit a continous distribution
+of orbital energies €,, we check four different cutoff values
+En?’ = 10,20,40, 80 eV and plot the resulting spectra in
+
+Fig. 9.
+
+11
+
+zeny Qe”) a) AQ”) |AQY”) /Q”) Aa a
+(eV)| (eV) (F2)| (meV) (%) (%)
+2.378 1.954 - - -
+Ref. 2.933 1.709 - - -
+3.183 4.828 - - -
+2.378 1.954 0 0.0 0.0
+80.0 2.933 1.709 0 0.0 0.0
+3.183 4.827 0 0.0 0.0
+2.379 1.963 1 0.0 0.4
+40.0 2.931 1.707 -2 -0.1 -0.1
+3.182 4.803 -1 0.0 -0.5
+2.390 1.995 12 0.5 2-1
+20.0 2.936 1.701 4 0.1 -0.4
+3.190 4.699 7 0.2 -2.7
+2.423 2.064 45 1.9 5.6
+10.0 2.972 1.742 39 1.3 2.0
+3.217 4.534 35 1.1 -6.1
+
+Table II. Peak frequencies Q) and heights @”) as well as the respec-
+tive deviations AQ”, AQ” /Q”), and Aa” /a@?) of the three highest
+peaks p = 1,2,3 extracted from Fig. 9 for four cutoffs 2". We
+
+do not explicitly denote the imaginary parts for the the reported peak
+heights for the sake of readability.
+
+We observe only minor changes in the absorption spectrum,
+even for the smallest cutoff of ES"? = 10 eV, which reduces
+unoccupied states from 1195 to 204.
+
+In Table II, we report the extracted peak positions Q” and
+heights @” from the first three (p = 1,2,3) peaks in Fig. 9.
+Even for the smallest cutoff E,,,” = 10 eV, we only observe
+minor changes of less than 50 meV in Q”) and 10% in the
+relative peak heights Aa” /@”), respectively.
+
+Beyond the absorption spectrum, we report the impact of
+the cutoffs on the spatial descriptors, specifically on the longi-
+tudinal size of the excitation d2. in Table III. We determine
+the corresponding excitation level n from the largest oscillator
+strength f” (corresponding to the highest peak of Im a(w),
+ef. Eq. (F3)) for each cutoff value Eo”. Again, we find only
+minor deviations around 2%.
+
+Taking into account the sizable acceleration provided by
+these cutoffs, we execute the calculations in the main text
+employing the cutoffs E°° = 80 eV and Ex’ = 10 eV,
+enabling simulation of GW-BSE for large system sizes with
+up to 242 atoms for L = 13, which then corresponds to
+
+NoceNempty = 2.3 + 10°.
+
+C. Isotropic polarizability and photoabsorption
+cross section
+
+In the main text and in App. A, we have derived a form
+for the dynamical dipole polarizability tensor @,,(w), which
+enables the computation of optical absorption spectra with GW-
+BSE. In the following, we introduce a number of additional
+° ro)
+
+ESP }Q (eV) de (A) AQ” (eV) SE (%)
+
+excel
+
+Ref. 3.184 5.813 - -
+
+80.0 3.184 5.811 0.000 0.0
+
+40.0 3.184 5.758 0.000 -0.9
+
+20.0 3.193 5.704 0.009 -1.9
+
+10.0 3.223 5.679 0.038 -2.3
+Table III. Peak frequencies Q” and corresponding size of the ex-
+citation in the longitudinal direction d®?. as well as the respective
+
+deviations AQ” and Ad®./d®
+
+’ _. for the excitation level n with the
+exc,ref
+
+largest oscillator strength f” for four explicit cutoffs Ey
+
+quantities, which can be used to describe optical excitations
+and are computed by our implementation.
+
+In gases and liquids, where molecules are oriented randomly,
+the complicated tensor structure of @,,,(w) can be simplified
+by averaging over the three cartesian components, leading to
+the spatial average
+
+_ i
+aw) = 5 » Opp). (Cl)
+
+Hety.z}
+
+Naturally, these defines the oscillator strengths f® [31, 39]
+We can then rewrite @(w),
+
+f”
+
+&w) = -Im| ) ——_*——___.] ,
+4h w + in? - (QM
+
+(C2)
+
+where the residues are the oscillator strengths fo [31, 39]
+
+2
+(n) __ =~ Qi) (n))2
+fi = 52 >) 1a?
+
+Hely,z}
+
+(C3)
+
+Here, we have used the transition dipole moments from
+Eg. (21)
+
+HO = NZS *(wilfla) (X0? + ¥4).
+a
+
+We further compute the photoabsorption cross section tensor
+Oy (@), which is defined by [1]
+
+(C4)
+
+4nw
+Typ (W) = ——Im [ee (w)] .
+
+D. Computational details of GW-BSE and
+TDDFT calculations
+
+The majority of the calculations in this paper is done with
+the CP2K package [83-85]. CP2K uses Gaussian basis sets
+for representing the KS orbitals in Eq. (2), where we employ
+the aug-cc-pVDZ basis set [115, 116] throughout the paper,
+provided by the EMSL database [144]. These all-electron cal-
+culations are executed within the Gaussian and augmented
+plane-waves scheme [145]. The GW implementation is based
+
+12
+
+on Ref. [91], where the the analytic continuation is applied
+in the computation of the self-energy (3) using 16 Padé ap-
+proximants and a frequency grid with 100 points unless stated
+otherwise. By using evGWo @PBE, we get rid of numerical
+artifacts caused by the pole structure of the self-energy [89, 90],
+which can occur for the PBE functional [131].
+
+The reference calculations to check the numerical validity
+of our implementation have been done using the FHI-aims
+code [39, 112-114], where we have used the gaussian-tight
+settings together with the aug-cc-pVDZ basis set [115, 116]
+applying the same parameters for the evGWo calculations spec-
+ified before.
+
+The TDDFT module in CP2K is based on the Tamm Dancoff
+approximation [146-150], which uses the auxiliary density
+matrix method to enable efficient calculations with hybrid
+functionals. There, we have chosen the aug-cc-pVDZ [115,
+116] and aug-DZVP-MOLOPT-GTH-tier-2 basis sets (basis set
+generation recipe as in Refs. [151, 152]) in combination with
+the admm-2 [153] auxiliary basis. The exchange-correlation
+functionals employed in this work (cf. Sec. V and App. H)
+are PBE [131], BLYP [132, 133], PBEO [154], B3LYP [132,
+134, 135], HSE06 [136, 137] as well as CAM-B3LYP [138].
+
+E. GW-BSE benchmark on Thiel’s set
+
+In this appendix, we provide further details about the param-
+eters of the analytic continuation, which we have used to com-
+pute the real-frequency self-energy both in the GW-modules
+of CP2K [91] and FHI-aims [112, 113].
+
+In Fig. 2, we have presented a benchmark for Thiel’s
+set [111], where the CP2K calculation employed 128 param-
+eters for the Padé function and 500 points in the frequency
+grid whereas we have used 16 and 100, respectively, for the
+calculation with FHI-aims, resulting in mean absolute error
+(MAE; cf. Eq. (23)) of 2.7 meV and a maximum absolute error
+of 30.2 meV.
+
+In Fig. 10, we show another comparison for 16 Padé param-
+eters and 100 points for the frequency grid in both CP2K and
+FHI-aims. We observe slightly larger deviations between the
+implementations of 4.7 meV MAE and a maximum absolute
+error of 42.3 meV over the ten lowest excitation energies across
+all molecules.
+
+F. Absorption spectra from experiment and the-
+ory: dielectric function and polarizability
+
+In this appendix, we connect the optical absorption spec-
+trum of a rectangular nanographene from experiment [118]
+quantified via the dielectric function and from GW-BSE com-
+puted via the polarizability of a finite nanographene. To that
+end, we start from the experimental reflectance difference mea-
+surements, from which they extract the anisotropic dielectric
+function Ae = €, — €,. We approximate the anisotropic dielec-
+tric function Ae by its longitudinal component e,, i.e. Ae = €,
+Absolute error of excitation energies (eV)
+0.020
+
+0.000 0.010 0.030
+
+Ethene
+Butadiene
+Hexatriene
+Octatetraene
+Cyclopropene
+Cyclopentadiene
+Norbornadiene
+Benzene
+Naphthalene
+Furan
+
+Pyrrole
+Imidazole
+Pyridine |‘
+Pyrazine
+Pyrimidine q
+Pyridazine |<
+Triazine
+Tetrazine
+Formaldehyde
+
+Acetone
+
+0.042 eV
+
+Benzoquinone
+Formamide
+Acetamide
+Propanamide
+Cytosine
+Thymine
+Uracil
+
+Adenine |
+
+Absolute error [Q”),,, - Q” | of BSE excitation en-
+
+Figure 10. nial
+
+ergies Q” computed from CP2K and FHI-aims by solving Eq. (8)
+with BSE@evGWp @PBE. The analytical continuation for the GW-
+modules in both codes was applied with 16 parameters of the Padé
+function and 100 points for the frequency grid, which results in an
+mean absolute error (MAE) of 4.7 meV and a maximum absolute
+error of 42.3 meV over the ten lowest excitation energies across all
+molecules.
+
+since the overall optical spectrum is dominated by the longitu-
+dinal component (cf. Ref. [118] and also Sec. III).
+
+The dielectric function along the long ribbon axis €” is
+then obtained from the three Lorentzian peaks (n = 1, 2,3) at
+
+frequencies cosa ) reported in the supporting information of
+
+13
+
+Ref. [118]:
+3 (a)
+(exp.) (exp.)
+és Q= pa > (Fl)
+(7) Py
+» Qn” —w 2) en
+where A” andr. further denote the amplitude and the
+
+(exp.) (exp.)
+width of the respective transition p, respectively. In our anal-
+
+ysis, the amplitudes Alexp) are expressed with the dimension
+
+(eV), ensuring that the resulting dielectric function e"”” re-
+produces the dimensionless lineshape Ae@?) = e?? from
+Ref. [118]. In Fig. 5(a), we plot the imaginary part Im e,(w)
+as well as the height of an individual transition p:
+(a)
+
+exp.)
+
+(x) pin)”
+Qexpy! exp,
+
+Im Ww = Q) = (F2)
+
+On the side of GW-BSE, we utilize Eq. (24) and plot
+Im a? (w) with a broadening of 7 = 0.3 eV in Fig. 5(b), for
+which we obtain a similar lineshape as in the experimental data.
+Additionally, we show the height of an individual transition n
+obtained from the BSE (cf. Eq. (20))
+
+2nQ”
+
+= QM) = ¢™
+
+Im ay (w = Q") = f." TPO (F3)
+where we abbreviate the oscillator strength in x-direction as
+FO? = 20|dP (cf. Eq. (C3)).
+
+G. Effect of the Tamm-Dancoff approximation
+in GW-BSE
+
+In Fig. 7, we have compared the excitation properties com-
+puted from BSE@evGWo against TDDFT with different ex-
+change-correlation functionals, where we have employed the
+TDA [Eq. (18)] for both frameworks. Here, we want to assess
+the deviations introduced by the TDA and compare the results
+obtained from the TDA in Eq. (18) against the solution of the
+full ABBA-matrix in Eq. (8) within BSE@evGWp. In Fig. 11,
+we plot the excitation energy and the corresponding size of
+the respective lowest bright state (p = 1) for the solutions of
+Eqs. (8) and (18). We observe only minor deviations of at most
+0.22 eV for energies (at small L) and of 0.32 A in sizes of the
+excitation (at large L) for all nanographene lengths L.
+
+The details of the respective optical absorption spectra com-
+puted via Eq. (20) are shown in Fig. 12 for L = 13. Despite
+minor changes in peak frequencies and heights, we conclude
+that our findings from Sec. V do not change when diagonaliz-
+ing Eq. (8) instead of Eq. (18).
+
+H. TDDFT with manually tuned PBEh
+
+In Sec. V, we have discussed several popular ex-
+change-correlation functionals and the respective properties
+(a) 6 2.50
+aed a
+3° bo05 @
+a 44 =
+4 © GW-BSE (ABBA) £2.00 &
+G34 © GW-BSE (TDA) S
+
+2 1.75
+
+(a) =
+
+de
+
+2 4 6 8 10 12
+Length of nanographene (L)
+
+Figure 11. Excitation energy Q=) and size of the excitation dP")
+computed from BSE@evGWp via Eq. (8) (yellow) and Eq. (18) (blue).
+(a) Peak frequency of the first prominent peak in the optical absorption
+spectrum Q'°=)), (b) Longitudinal size of the excitation for the first
+bright peak d?"””, Eq. (35).
+
+9.0- 10" 1. GW-BSE (ABBA)
+7.5-10¢ 4 —— GW-BSE (TDA)
+a ;
+lz 6.0. 104
+»
+g 45-104
+S 4
+—£ 3.0.10"
+1.5- 107
+0 E -
+1.50 1.75 2.00 2.25 2.50 2.75 3.00
+Frequency w (eV)
+Figure 12. Optical absorption spectrum for GW-BSE via Eq. (8)
+
+(yellow) and Eq. (18) (blue) from Im @,,.(w) [Eq. (20)]. Dashed lines
+denote the contribution of individual excitations n to Im a,,(w = Q”).
+
+of the first bright excitation p = 1. There, we have observed
+that the fraction of exact exchange in the exchange-correlation
+
+[1] C. A. Ullrich, Time-Dependent Density-Functional Theory:
+Concepts and Applications (Oxford University Press, Oxford,
+2011).
+
+[2] G. Onida, L. Reining, and A. Rubio, Electronic excitations:
+Density-functional versus many-body Green’s-function ap-
+proaches, Rev. Mod. Phys. 74, 601 (2002).
+
+[3] R. M. Martin, L. Reining, and D. Ceperley, Interacting Elec-
+trons: Theory and Computational Approaches (Cambridge
+University Press, New York, 2016).
+
+14
+
+functional in TDDFT strongly influences both the excitation
+energy and the size of the excitation.
+
+However, the employed functionals do not only feature dif-
+ferent fraction of exact exchange, but also different contribu-
+tions for the underlying exchange and correlation functionals.
+In order to unambiguously tie the accuracy for predictions of
+excitation properties to the exact exchange fraction, we show
+energies and sizes of the first bright excitation for varying
+amount of exact exchange in the PBEh functional in Fig. 13,
+i.e. PBEO (25%) with exact exchange varied between 0% (PBE)
+and 100%. Again, we observe that both excitation energies and
+sizes critically depend on the chosen exchange exact fraction.
+
+Length of nanographene (A)
+10 20 30 40 50
+
+(@) 6 3 BSE
+
+TDDFT (PBEh)
+a 544 0% =~ 50%
+3 \ 10% 100%
+a te 25%
+
+der
+
+1 3 5 7 9 11 13
+Length of nanographene (L)
+
+Figure 13. Excitation energy Q°= and size of the excitation d&?"?
+
+computed from BSE@evGWp and TDDFT (both in TDA; effect of
+TDA investigated in App. G) employing the PBEh functional with
+varying amount of exact exchange (exact exchange fraction shown
+in the legend). (a) Peak frequency of the first prominent peak in
+the optical absorption spectrum Q°=). (b) Longitudinal size of the
+excitation for the first bright peak dS?-””, Eq. (35).
+
+[4] J. Kunstmann, F. Mooshammer, P. Nagler, A. Chaves, F. Stein,
+N. Paradiso, G. Plechinger, C. Strunk, C. Schiiller, G. Seifert,
+D. R. Reichman, and T. Korn, Momentum-space indirect inter-
+layer excitons in transition-metal dichalcogenide van der Waals
+heterostructures, Nat. Phys. 14, 801 (2018).
+
+[5] P. Merkl, F. Mooshammer, P. Steinleitner, A. Girnghuber, K.-Q.
+Lin, P. Nagler, J. Holler, C. Schiiller, J. M. Lupton, T. Korn,
+S. Ovesen, S. Brem, E. Malic, and R. Huber, Ultrafast transition
+between exciton phases in van der Waals heterostructures, Nat.
+[6
+
+[8]
+
+(9
+
+[20]
+
+Mater. 18, 691 (2019).
+
+T. Siday, F. Sandner, S. Brem, M. Zizlsperger, R. Perea~Causin,
+F. Schiegl, S. Nerreter, M. Plankl, P. Merkl, F. Mooshammer,
+M. A. Huber, E. Malic, and R. Huber, Ultrafast Nanoscopy of
+High-Density Exciton Phases in WSe2, Nano Lett. 22, 2561
+(2022).
+
+M. H. Naik, E. C. Regan, Z. Zhang, Y.-H. Chan, Z. Li, D. Wang,
+Y. Yoon, C. S. Ong, W. Zhao, S. Zhao, M. I. B. Utama, B. Gao,
+X. Wei, M. Sayyad, K. Yumigeta, K. Watanabe, T. Taniguchi,
+S. Tongay, F. H. da Jornada, F. Wang, and S. G. Louie, In-
+tralayer charge-transfer moiré excitons in van der Waals super-
+lattices, Nature 609, 52 (2022).
+
+D. Schmitt, J. P. Bange, W. Bennecke, A. AlMutairi,
+G. Meneghini, K. Watanabe, T. Taniguchi, D. Steil, D. R. Luke,
+R. T. Weitz, S. Steil, G. S. M. Jansen, S. Brem, E. Malic,
+S. Hofmann, M. Reutzel, and S. Mathias, Formation of moiré
+interlayer excitons in space and time, Nature 608, 499 (2022).
+J. P. Bange, D. Schmitt, W. Bennecke, G. Meneghini, A. AlMu-
+tairi, K. Watanabe, T. Taniguchi, D. Steil, S. Steil, R. T. Weitz,
+G. S. M. Jansen, S. Hofmann, S. Brem, E. Malic, M. Reutzel,
+and S. Mathias, Probing electron-hole Coulomb correlations in
+the exciton landscape of a twisted semiconductor heterostruc-
+ture, Sci. Adv. 10, eadi 1323 (2024).
+
+M. Liebich, M. Florian, N. Nilforoushan, F. Mooshammer,
+A. D. Koulouklidis, L. Wittmann, K. Mosina, Z. Sofer, F. Dirn-
+berger, M. Kira, and R. Huber, Controlling Coulomb correla-
+tions and fine structure of quasi-one-dimensional excitons by
+magnetic order, Nat. Mater. 24, 384 (2025).
+
+G. Strinati, Application of the Green’s functions method to the
+study of the optical properties of semiconductors, Riv. Nuovo
+Cim. 11, 1 (1988).
+
+M. Rohlfing and S. G. Louie, Electron-hole excitations and
+optical spectra from first principles, Phys. Rev. B 62, 4927
+(2000).
+
+F. Bechstedt, Many-Body Approach to Electronic Excitations:
+Concepts and Applications, Vol. 181 (Springer, Berlin Heidel-
+berg, 2015).
+
+L. X. Benedict, E. L. Shirley, and R. B. Bohn, Optical Absorp-
+tion of Insulators and the Electron-Hole Interaction: An Ab
+Initio Calculation, Phys. Rev. Lett. 80, 4514 (1998).
+
+S. Albrecht, L. Reining, R. Del Sole, and G. Onida, Ab Ini-
+tio Calculation of Excitonic Effects in the Optical Spectra of
+Semiconductors, Phys. Rev. Lett. 80, 4510 (1998).
+
+A. Marini, C. Hogan, M. Griining, and D. Varsano, Yambo:
+An ab initio tool for excited state calculations, Comput. Phys.
+Commun. 180, 1392 (2009).
+
+J. Deslippe, G. Samsonidze, D. A. Strubbe, M. Jain, M. L.
+Cohen, and S. G. Louie, BerkeleyGW: A massively parallel
+computer package for the calculation of the quasiparticle and
+optical properties of materials and nanostructures, Comput.
+Phys. Commun. 183, 1269 (2012).
+
+D. Y. Qiu, F. H. da Jornada, and S. G. Louie, Optical Spectrum
+of MoS,: Many-Body Effects and Diversity of Exciton States,
+Phys. Rev. Lett. 111, 216805 (2013).
+
+A. J. Bradley, M. M. Ugeda, F. H. da Jornada, D. Y. Qiu,
+W. Ruan, Y. Zhang, S. Wickenburg, A. Riss, J. Lu, S.-K. Mo,
+Z. Hussain, Z.-X. Shen, S. G. Louie, and M. F. Crommie, Prob-
+ing the Role of Interlayer Coupling and Coulomb Interactions
+on Electronic Structure in Few-Layer MoSe2 Nanostructures,
+Nano Lett. 15, 2594 (2015).
+
+T. Sander, E. Maggio, and G. Kresse, Beyond the Tamm-
+Dancoff approximation for extended systems using exact diag-
+onalization, Phys. Rev. B 92, 045209 (2015).
+
+[21] C. Vorwerk, B. Aurich, C. Cocchi,
+
+(22
+
+23
+
+24
+
+25
+
+26
+
+27.
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35
+
+36
+
+37
+
+15
+
+and C. Draxl,
+Bethe—Salpeter equation for absorption and scattering spec-
+troscopy: Implementation in the exciting code, Electron. Struct.
+1, 037001 (2019).
+
+D. Sangalli, A. Ferretti, H. Miranda, C. Attaccalite, I. Marri,
+E. Cannuccia, P. Melo, M. Marsili, F. Paleari, A. Marrazzo,
+G. Prandini, P. Bonfa, M. O. Atambo, F. Affinito, M. Palummo,
+A. Molina-Sanchez, C. Hogan, M. Griining, D. Varsano, and
+A. Marini, Many-body perturbation theory calculations using
+the yambo code, J. Phys.: Condens. Matter 31, 325902 (2019).
+K. Merkel and F. Ortmann, Linear scaling approach for optical
+excitations using maximally localized Wannier functions, J.
+Phys. Mater. 7, 015001 (2023).
+
+K. Merkel, J. Greiner, and F. Ortmann, Understanding the
+electronic pi-system of 2D covalent organic frameworks with
+Wannier functions, Sci Rep 13, 1685 (2023).
+
+R. Zhou, Y. Yao, V. Blum, X. Ren, and Y. Kanai, All-Electron
+BSE@GW Method with Numeric Atom-Centered Orbitals for
+Extended Periodic Systems, J. Chem. Theory Comput. 21, 291
+(2025).
+
+D. Jacquemin, I. Duchemin, and X. Blase, Benchmarking the
+Bethe-Salpeter Formalism on a Standard Organic Molecular
+Set, J. Chem. Theory Comput. 11, 3290 (2015).
+
+D. Jacquemin, I. Duchemin, and X. Blase, 0-0 Energies Using
+Hybrid Schemes: Benchmarks of TD-DFT, CIS(D), ADC(2),
+CC2, and BSE/GW formalisms for 80 Real-Life Compounds,
+J. Chem. Theory Comput. 11, 5340 (2015).
+
+F. Bruneval, S. M. Hamed, and J. B. Neaton, A systematic
+benchmark of the ab initio Bethe-Salpeter equation approach
+for low-lying optical excitations of small organic molecules, J.
+Chem. Phys. 142, 244101 (2015).
+
+F. Bruneval, T. Rangel, S. M. Hamed, M. Shao, C. Yang, and
+J. B. Neaton, Molgw 1: Many-body perturbation theory soft-
+ware for atoms, molecules, and clusters, Comput. Phys. Com-
+mun. 208, 149 (2016).
+
+X. Blase, P. Boulanger, F. Bruneval, M. Fernandez-Serra, and
+I. Duchemin, GW and Bethe-Salpeter study of small water
+clusters, J. Chem. Phys. 144, 034109 (2016).
+
+D. Jacquemin, I. Duchemin, A. Blondel, and X. Blase, Assess-
+ment of the Accuracy of the Bethe—-Salpeter (BSE/GW) Oscil-
+lator Strengths, J. Chem. Theory Comput. 12, 3969 (2016).
+
+T. Rangel, S. M. Hamed, F. Bruneval, and J. B. Neaton, An
+assessment of low-lying excitation energies and triplet insta-
+bilities of organic molecules with an ab initio Bethe-Salpeter
+equation approach and the Tamm-Dancoff approximation, J.
+Chem. Phys. 146, 194108 (2017).
+
+D. Jacquemin, I. Duchemin, and X. Blase, Is the Bethe-Salpeter
+Formalism Accurate for Excitation Energies? Comparisons
+with TD-DFT, CASPT2, and EOM-CCSD, J. Phys. Chem. Lett.
+8, 1524 (2017).
+
+K. Krause and W. Klopper, Implementation of the Bethe-
+Salpeter equation in the TURBOMOLE program, J. Comput.
+Chem. 38, 383 (2017).
+
+X. Gui, C. Holzer, and W. Klopper, Accuracy Assessment of
+GwW Starting Points for Calculating Molecular Excitation En-
+ergies Using the Bethe-Salpeter Formalism, J. Chem. Theory
+Comput. 14, 2127 (2018).
+
+X. Blase, I. Duchemin, and D. Jacquemin, The Bethe—Salpeter
+equation in chemistry: Relations with TD-DFT, applications
+and challenges, Chem. Soc. Rev. 47, 1022 (2018).
+
+C. Holzer, X. Gui, M. E. Harding, G. Kresse, T. Helgaker, and
+W. Klopper, Bethe-Salpeter correlation energies of atoms and
+molecules, J. Chem. Phys. 149, 144106 (2018).
+
+38
+
+39
+
+45
+
+50
+51
+
+[52
+
+[53
+
+54
+
+55
+
+56
+
+57
+
+X. Blase, I. Duchemin, D. Jacquemin, and P.-F. Loos, The
+Bethe-Salpeter Equation Formalism: From Physics to Chem-
+istry, J. Phys. Chem. Lett. 11, 7371 (2020).
+
+C. Liu, J. Kloppenburg, Y. Yao, X. Ren, H. Appel, Y. Kanai,
+and V. Blum, All-electron ab initio Bethe-Salpeter equation
+approach to neutral excitations in molecules with numeric atom-
+centered orbitals, J. Chem. Phys. 152, 044105 (2020).
+
+A. Forster and L. Visscher, Quasiparticle Self-Consistent GW-
+Bethe-Salpeter Equation Calculations for Large Chromophoric
+Systems, J. Chem. Theory Comput. 18, 6779 (2022).
+
+N. Rauwolf, W. Klopper, and C. Holzer, Non-linear
+light—matter interactions from the Bethe-Salpeter equation,
+J. Chem. Phys. 160, 061101 (2024).
+
+I. Knysh, F. Lipparini, A. Blondel, I. Duchemin, X. Blase,
+P.-F. Loos, and D. Jacquemin, Reference CC3 Excitation En-
+ergies for Organic Chromophores: Benchmarking TD-DFT,
+BSE/GW, and Wave Function Methods, J. Chem. Theory Com-
+put. 20, 8152 (2024).
+C. Holzer and Y. J. Franzke, A Guide to Molecular Properties
+from the Bethe-Salpeter Equation, J. Phys. Chem. Lett. 16,
+3980 (2025).
+G. E. Scuseria, T. M. Henderson, and D. C. Sorensen, The
+ground state correlation energy of the random phase approxi-
+mation from a ring coupled cluster doubles approach, J. Chem.
+Phys. 129, 231101 (2008).
+T. C. Berkelbach, Communication: Random-phase approxima-
+tion excitation energies from approximate equation-of-motion
+coupled-cluster doubles, J. Chem. Phys. 149, 041103 (2018).
+M. F. Lange and T. C. Berkelbach, On the Relation between
+Equation-of-Motion Coupled-Cluster Theory and the GW Ap-
+proximation, J. Chem. Theory Comput. 14, 4224 (2018).
+
+R. Quintero-Monsebaiz, E. Monino, A. Marie, and P.-F. Loos,
+Connections between many-body perturbation and coupled-
+cluster theories, J. Chem. Phys. 157, 231102 (2022).
+
+J. Télle and G. Kin-Lic Chan, Exact relationships between the
+GW approximation and equation-of-motion coupled-cluster
+theories through the quasi-boson formalism, J. Chem. Phys.
+158, 124123 (2023).
+
+J. Frenkel, On the Transformation of light into Heat in Solids.
+I, Phys. Rev. 37, 17 (1931).
+
+J. Frenkel, On the Transformation of Light into Heat in Solids.
+II, Phys. Rev. 37, 1276 (1931).
+
+G. H. Wannier, The Structure of Electronic Excitation Levels
+in Insulating Crystals, Phys. Rev. 52, 191 (1937).
+
+F. Plasser and H. Lischka, Analysis of Excitonic and Charge
+Transfer Interactions from Quantum Chemical Calculations, J.
+Chem. Theory Comput. 8, 2777 (2012).
+
+F. Plasser, M. Wormit, and A. Dreuw, New tools for the sys-
+tematic analysis and visualization of electronic excitations. I.
+Formalism, J. Chem. Phys. 141, 024106 (2014).
+
+F. Plasser, S. A. Bappler, M. Wormit, and A. Dreuw, New tools
+for the systematic analysis and visualization of electronic exci-
+tations. II. Applications, J. Chem. Phys. 141, 024107 (2014).
+S.A. pler, F. Plasser, M. Wormit, and A. Dreuw, Exciton
+analysis of many-body wave functions: Bridging the gap be-
+tween the quasiparticle and molecular orbital pictures, Phys.
+Rev. A 90, 052521 (2014).
+
+S. A. Mewes, F. Plasser, and A. Dreuw, Communication: Exci-
+ton analysis in time-dependent density functional theory: How
+functionals shape excited-state characters, J. Chem. Phys. 143,
+171101 (2015).
+
+S. A. Mewes, J.-M. Mewes, A. Dreuw, and F. Plasser, Excitons
+in poly(para phenylene vinylene): A quantum-chemical per-
+spective based on high-level ab initio calculations, Phys. Chem.
+
+58
+
+59
+
+60.
+
+61
+
+62
+
+63
+
+64
+
+65.
+
+66
+
+67
+
+68
+
+69
+
+70.
+
+71
+
+2
+
+73
+
+14
+
+16
+
+Chem. Phys. 18, 2548 (2016).
+
+S. A. Mewes, F. Plasser, and A. Dreuw, Universal Exciton
+Size in Organic Polymers is Determined by Nonlocal Orbital
+Exchange in Time-Dependent Density Functional Theory, J.
+Phys. Chem. Lett. 8, 1205 (2017).
+
+S. A. Mewes, F. Plasser, A. Krylov, and A. Dreuw, Bench-
+marking Excited-State Calculations Using Exciton Properties,
+J. Chem. Theory Comput. 14, 710 (2018).
+
+S. A. Mewes and A. Dreuw, Density-based descriptors and ex-
+citon analyses for visualizing and understanding the electronic
+structure of excited states, Phys. Chem. Chem. Phys. 21, 2843
+(2019).
+
+P. Kimber and F. Plasser, Toward an understanding of electronic
+excitation energies beyond the molecular orbital picture, Phys.
+Chem. Chem. Phys. 22, 6058 (2020).
+
+C. Attaccalite, M. Griining, and A. Marini, Real-time approach
+to the optical properties of solids and nanostructures: Time-
+dependent Bethe-Salpeter equation, Phys. Rev. B 84, 245110
+(2011).
+
+X. Jiang, Q. Zheng, Z. Lan, W. A. Saidi, X. Ren, and J. Zhao,
+Real-time GW-BSE investigations on spin-valley exciton dy-
+namics in monolayer transition metal dichalcogenide, Sci. Adv.
+7, eabf3759 (2021).
+D. Sangalli, Excitons and carriers in transient absorption and
+time-resolved ARPES spectroscopy: An ab initio approach,
+Phys. Rev. Mater. 5, 083803 (2021).
+Y.-H. Chan, D. Y. Qiu, F. H. da Jornada, and S. G. Louie, Giant
+exciton-enhanced shift currents and direct current conduction
+with subbandgap photo excitations produced by many-electron
+interactions, Proc. Natl. Acad. Sci. 118, e1906938118 (2021).
+E. Perfetto, Y. Pavlyukh, and G. Stefanucci, Real-Time GW:
+Toward an Ab Initio Description of the Ultrafast Carrier and
+Exciton Dynamics in Two-Dimensional Materials, Phys. Rev.
+Lett. 128, 016801 (2022).
+§. Marek and J. Wilhelm, Linear and Nonlinear Optical Prop-
+erties of Molecules from Real-Time Propagation Based on the
+Bethe-Salpeter Equation, J. Chem. Theory Comput. 21, 9814
+(2025).
+
+X. Li, N. Govind, C. Isborn, A. E. I. DePrince, and
+K. Lopata, Real-Time Time-Dependent Electronic Structure
+Theory, Chem. Rev. 120, 9951 (2020).
+
+J. Mattiat and S. Luber, Comparison of Length, Velocity, and
+Symmetric Gauges for the Calculation of Absorption and
+Electric Circular Dichroism Spectra with Real-Time Time-
+Dependent Density Functional Theory, J. Chem. Theory Com-
+put. 18, 5513 (2022).
+
+M. Kick, E. Alexander, A. Beiersdorfer, and T. Van Voorhis,
+Super-resolution techniques to simulate electronic spectra of
+large molecular systems, Nat. Commun. 15, 1 (2024).
+
+L. Schreder and S. Luber, Propagated (fragment) Pipek—-Mezey
+Wannier functions in real-time time-dependent density func-
+tional theory, J. Chem. Phys. 160, 214117 (2024).
+
+M. Choi, M. S. Okyay, A. P. Dieguez, M. D. Ben, K. Z. Ibrahim,
+and B. M. Wong, QRCODE: Massively parallelized real-time
+time-dependent density functional theory for periodic systems,
+Comput. Phys. Commun. 305, 109349 (2024).
+
+K. Hanasaki and S. Luber, Development of Real-Time TDDFT
+Program with k-Point Sampling and DFT + U in a Gaussian
+and Plane Waves Framework, J. Chem. Theory Comput. 21,
+1879 (2025).
+
+J. Villalobos-Castro, I. Knysh, D. Jacquemin, I. Duchemin,
+and X. Blase, Lagrangian Z-vector approach to Bethe—Salpeter
+analytic gradients: Assessing approximations, J. Chem. Phys.
+159, 024116 (2023).
+
+75
+
+76
+
+AL:
+
+78
+
+79
+
+[80
+
+81
+
+82
+
+84
+
+[85]
+
+[86]
+
+[87]
+
+[88]
+
+[89]
+
+J. Télle, Fully Analytic GoWo Nuclear Gradients, J. Phys.
+Chem. Lett. 16, 3672 (2025).
+
+J. Télle, M.-P. Kitsaras, and P.-F. Loos, Fully Analytic Nuclear
+Gradients for the Bethe-Salpeter Equation, J. Phys. Chem. Lett.
+16, 11134 (2025).
+
+M.-P. Kitsaras, J. Tolle, and P.-F. Loos, Analytic Go Wo Gradi-
+ents Based on a Double-Similarity Transformation Equation-of-
+Motion Coupled-Cluster Treatment (2025), arXiv:2510.23275.
+C. Roelcke, L. Z. Kastner, M. Graml, A. Biereder, J. Wilhelm,
+J. Repp, R. Huber, and Y. A. Gerasimenko, Ultrafast atomic-
+scale scanning tunnelling spectroscopy of a single vacancy in a
+monolayer crystal, Nat. Photon. 18, 595 (2024).
+
+T. Siday, J. Hayes, F. Schiegl, F. Sandner, P. Menden, V. Berg-
+bauer, M. Zizlsperger, S. Nerreter, S. Lingl, J. Repp, J. Wilhelm,
+M. A. Huber, Y. A. Gerasimenko, and R. Huber, All-optical
+subcycle microscopy on atomic length scales, Nature 629, 329
+(2024).
+
+M. Zizlsperger, S. Nerreter, Q. Yuan, K. B. Lohmann, F. Sand-
+ner, F. Schiegl, C. Meineke, Y. A. Gerasimenko, L. M. Herz,
+T. Siday, M. A. Huber, M. B. Johnston, and R. Huber, In situ
+nanoscopy of single-grain nanomorphology and ultrafast car-
+rier dynamics in metal halide perovskites, Nat. Photon. 18, 975
+(2024).
+
+S. Anglhuber, M. Zizlsperger, E. A. A. Pogna, Y. A. Gerasi-
+menko, A. D. Koulouklidis, I. Gronwald, S. Nerreter, L. Viti,
+M. S. Vitiello, R. Huber, and M. A. Huber, Spacetime Imaging
+of Group and Phase Velocities of Terahertz Surface Plasmon
+Polaritons in Graphene, Nano Lett. 25, 2125 (2025).
+
+S. Maier, R. Spachtholz, K. Gléckl, C. M. Bustamante, S. Ling],
+M. Maczejka, J. Schon, F. J. Giessibl, F. P. Bonafé, M. A. Huber,
+A. Rubio, J. Repp, and R. Huber, Attosecond Charge Transfer
+in Atomic-Resolution Scanning Tunnelling Microscopy (2025),
+arXiv:2507.10206.
+
+CP2K, https://www.cp2k.org, https://github.com/
+cp2k/cp2k (accessed 28 October 2025).
+
+T. D. Kiihne, M. Iannuzzi, M. Del Ben, V. V. Rybkin,
+P. Seewald, F. Stein, T. Laino, R. Z. Khaliullin, O. Schiitt,
+F. Schiffmann, D. Golze, J. Wilhelm, S. Chulkov, M. H.
+Bani-Hashemian, V. Weber, U. BorStnik, M. Taillefumier,
+A. S. Jakobovits, A. Lazzaro, H. Pabst, T. Miiller, R. Schade,
+M. Guidon, S. Andermatt, N. Holmberg, G. K. Schenter,
+A. Hehn, A. Bussy, F. Belleflamme, G. Tabacchi, A. G168,
+M. Lass, I. Bethune, C. J. Mundy, C. Plessl, M. Watkins, J. Van-
+deVondele, M. Krack, and J. Hutter, CP2K: An electronic struc-
+ture and molecular dynamics software package - Quickstep:
+Efficient and accurate electronic structure calculations, J. Chem.
+Phys. 152, 194103 (2020).
+
+M. Iannuzzi, J. Wilhelm, F. Stein, A. Bussy, H. Elgabarty,
+D. Golze, A. Hehn, M. Graml, 8. Marek, B. S. Gokmen,
+C. Schran, H. Forbert, R. Z. Khaliullin, A. Kozhevnikov,
+M. Taillefumier, R. Meli, V. Rybkin, M. Brehm, R. Schade,
+O. Schiitt, J. V. Pototschnig, H. Mirhosseini, A. Kniipfer,
+D. Marx, M. Krack, J. Hutter, and T. D. Kiihne, The CP2K
+program package made simple (2025), arXiv:2508.15559.
+
+L. Hedin, New Method for Calculating the One-Particle
+Green’s Function with Application to the Electron-Gas Prob-
+lem, Phys. Rev. 139, A796 (1965).
+
+D. Golze, M. Dvorak, and P. Rinke, The GW Compendium:
+A Practical Guide to Theoretical Photoemission Spectroscopy,
+Front. Chem. 7, 377 (2019).
+
+L. Reining, The GW approximation: Content, successes and
+limitations, WIREs Comput. Mol. Sci. 8, e1344 (2018).
+
+M. Véril, P. Romaniello, J. A. Berger, and P.-F. Loos, Unphysi-
+cal Discontinuities in GW Methods, J. Chem. Theory Comput.
+
+90.
+
+91
+
+92
+
+93
+
+94
+
+95
+
+96.
+
+97
+
+98
+
+99
+
+00.
+
+01
+
+02
+
+03
+
+04
+
+05
+
+06
+
+07
+
+08
+
+09
+
+10
+
+11
+
+17
+
+14, 5220 (2018).
+
+M. Schambeck, D. Golze, and J. Wilhelm, Solving multipole
+challenges in the GW100 benchmark enables precise low-
+scaling GW calculations, Phys. Rev. B 110, 125146 (2024).
+
+J. Wilhelm, M. Del Ben, and J. Hutter, GW in the Gaussian
+and Plane Waves Scheme with Application to Linear Acenes, J.
+Chem. Theory Comput. 12, 3623 (2016).
+Here, we adapt the typically used nomenclature, although our
+initial guess from KS-DFT should rather be called mean-field’
+Go [87].
+D. Golze, N. Benedikter, M. Iannuzzi, J. Wilhelm, and J. Hutter,
+Fast evaluation of solid harmonic Gaussian integrals for local
+resolution-of-the-identity methods and range-separated hybrid
+functionals, J. Chem. Phys. 146, 034105 (2017).
+
+D. J. Thouless, Vibrational states of nuclei in the random phase
+approximation, Nuclear Physics 22, 78 (1961).
+
+A. D. McLachlan and M. A. Ball, Time-dependent Hartree-
+Fock Theory for Molecules, Rev. Mod. Phys. 36, 844 (1964).
+N. Ullah and D. J. Rowe, Properties of real RPA matrices and a
+simple diagonalization procedure, Nuclear Physics A 163, 257
+(197.1):
+
+J. Oddershede, P. Jgrgensen, and D. L. Yeager, Polarization
+propagator methods in atomic and molecular calculations, Com-
+puter Physics Reports 2, 33 (1984).
+
+R. E. Stratmann, G. E. Scuseria, and M. J. Frisch, An efficient
+implementation of time-dependent density-functional theory
+for the calculation of excitation energies of large molecules, J.
+Chem. Phys. 109, 8218 (1998).
+
+F. Plasser, On the Meaning of De-Excitations in Time-
+Dependent Density Functional Theory Computations, J. Com-
+put. Chem. 46, e70072 (2025).
+
+M. P. Ljungberg, P. Koval, F. Ferrari, D. Foerster, and
+D. Sanchez-Portal, Cubic-scaling iterative solution of the Bethe-
+Salpeter equation for finite systems, Phys. Rev. B 92, 075422
+(2015).
+
+S. Obara and A. Saika, Efficient recursive computation of
+molecular integrals over Cartesian Gaussian functions, J. Chem.
+Phys. 84, 3963 (1986).
+
+E. F. Valeev, Libint: A library for the evaluation of molecu-
+lar integrals of many-body operators over Gaussian functions
+(2024).
+
+C. W. McCurdy and L. C. Cusachs, Simplification of the RPA
+Secular Equation, J. Chem. Phys. 55, 1994 (1971).
+
+P. Jorgensen and J. Simons, Second Quantization-Based Meth-
+ods in Quantum Chemistry (Academic Pr., New York, 1981).
+F. Furche, On the density matrix based approach to time-
+dependent density functional response theory, J. Chem. Phys.
+114, 5982 (2001).
+
+J. M. Herbert, Chapter 3 - Density-functional theory for elec-
+tronic excited states, in Theoretical and Computational Photo-
+chemistry, edited by C. Garcia-Iriepa and M. Marazzi (Elsevier,
+2023) pp. 69-118.
+
+S.L. Adler, Quantum Theory of the Dielectric Constant in Real
+Solids, Phys. Rev. 126, 413 (1962).
+
+N. Wiser, Dielectric Constant with Local Field Effects Included,
+Phys. Rev. 129, 62 (1963).
+
+G. D. Mahan, Many-Particle Physics (Springer US, Boston,
+MA, 2000).
+
+J. A. Berger, P. L. de Boeij, and R. van Leeuwen, A physical
+model for the longitudinal polarizabilities of polymer chains, J.
+Chem. Phys. 123, 174910 (2005).
+
+M. Schreiber, M. R. Silva-Junior, S. P. A. Sauer, and W. Thiel,
+Benchmarks for electronically excited states: CASPT2, CC2,
+CCSD, and CC3, J. Chem. Phys. 128, 134110 (2008).
+
+[112]
+
+[113]
+
+[114]
+
+V. Blum, R. Gehrke, F. Hanke, P. Havu, V. Havu, X. Ren,
+K. Reuter, and M. Scheffler, Ab initio molecular simulations
+with numeric atom-centered orbitals, Comput. Phys. Commun.
+180, 2175 (2009).
+
+X. Ren, P. Rinke, V. Blum, J. Wieferink, A. Tkatchenko, A. San-
+filippo, K. Reuter, and M. Scheffler, Resolution-of-identity ap-
+proach to Hartree-Fock, hybrid density functionals, RPA, MP2
+and GW with numeric atom-centered orbital basis functions,
+New J. Phys. 14, 053020 (2012).
+
+J. W. Abbott, C. M. Acosta, A. Akkoush, A. Ambrosetti,
+V. Atalla, A. Bagrets, J. Behler, D. Berger, B. Bieniek, J. Bjork,
+V. Blum, S. Bohloul, C. L. Box, N. Boyer, D. S. Bram-
+bila, G. A. Bramley, K. R. Bryenton, M. Camarasa-Gémez,
+C. Carbogno, F. Caruso, S. Chutia, M. Ceriotti, G. Csanyi,
+W. Dawson, F. A. Delesma, F. D. Sala, B. Delley, R. A. D.
+Jr, M. Dragoumi, S. Driessen, M. Dvorak, S. Erker, F. Ev-
+ers, E. Fabiano, M. R. Farrow, F. Fiebig, J. Filser, L. Foppa,
+L. Gallandi, A. Garcia, R. Gehrke, S. Ghan, L. M. Ghiringhelli,
+M. Glass, S. Goedecker, D. Golze, M. Gramzow, J. A. Green,
+A. Grisafi, A. Griineis, J. Giinzl, S. Gutzeit, S. J. Hall, F. Hanke,
+V. Havu, X. He, J. Hekele, O. Hellman, U. Herath, J. Her-
+mann, D. Hernangémez-Pérez, O. T. Hofmann, J. Hoja, S. Holl-
+weger, L. Hérmann, B. Hourahine, W. B. How, W. P. Huhn,
+M. Hiilsberg, T. Jacob, S. P. Jand, H. Jiang, E. R. Johnson,
+W. Jiirgens, J. M. Kahk, Y. Kanai, K. Kang, P. Karpov, E. Keller,
+R. Kempt, D. Khan, M. Kick, B. P. Klein, J. Kloppenburg,
+A. Knoll, F. Knoop, F. Knuth, S. S. Kocher, J. Kocklauner,
+S. Kokott, T. Kérzdérfer, H.-H. Kowalski, P. Kratzer, P. Kis,
+R. Laasner, B. Lang, B. Lange, M. F. Langer, A. H. Larsen,
+H. Lederer, S. Lehtola, M.-O. Lenz-Himmer, M. Leucke,
+S. Levchenko, A. Lewis, O. A. von Lilienfeld, K. Lion, W. Lip-
+sunen, J. Lischner, Y. Litman, C. Liu, Q.-L. Liu, A. J. Logsdail,
+M. Lorke, Z. Lou, I. Mandzhieva, A. Marek, J. T. Margraf,
+R. J. Maurer, T. Melson, F. Merz, J. Meyer, G. S. Miche-
+litsch, T. Mizoguchi, E. Moerman, D. Morgan, J. Morgenstein,
+J. Moussa, A. S. Nair, L. Nemec, H. Oberhofer, A. Otero-de-
+la-Roza, R. L. Panadés-Barrueta, T. Patlolla, M. Pogodaeva,
+A. Péppl, A. J. A. Price, T. A. R. Purcell, J. Quan, N. Raimbault,
+M. Rampp, K. Rasim, R. Redmer, X. Ren, K. Reuter, N. A.
+Richter, S. Ringe, P. Rinke, S. P. Rittmeyer, H. I. Rivera-Arrieta,
+M. Ropo, M. Rossi, V. Ruiz, N. Rybin, A. Sanfilippo, M. Schef-
+fler, C. Scheurer, C. Schober, F. Schubert, T. Shen, C. Shepard,
+H. Shang, K. Shibata, A. Sobolev, R. Song, A. Soon, D. T.
+Speckhard, P. V. Stishenko, M. Tahir, I. Takahara, J. Tang,
+Z. Tang, T. Theis, F. Theiss, A. Tkatchenko, M. Todorovié,
+G. Trenins, O. T. Unke, A. Vazquez-Mayagoitia, O. van Vuren,
+D. Waldschmidt, H. Wang, Y. Wang, J. Wieferink, J. Wilhelm,
+S. Woodley, J. Xu, Y. Xu, Y. Yao, Y. Yao, M. Yoon, V. W.-z. Yu,
+Z. Yuan, M. Zacharias, I. Y. Zhang, M.-Y. Zhang, W. Zhang,
+R. Zhao, S. Zhao, R. Zhou, Y. Zhou, and T. Zhu, Roadmap
+on Advancements of the FHI-aims Software Package (2025),
+arXiv:2505.00125.
+
+T. H. Dunning, Gaussian basis sets for use in correlated molecu-
+lar calculations. I. The atoms boron through neon and hydrogen,
+J. Chem. Phys. 90, 1007 (1989).
+
+R. A. Kendall, T. H. Dunning, and R. J. Harrison, Electron
+affinities of the first-row atoms revisited. Systematic basis sets
+and wave functions, J. Chem. Phys. 96, 6796 (1992).
+
+J. Cai, P. Ruffieux, R. Jaafar, M. Bieri, T. Braun, S. Blanken-
+burg, M. Muoth, A. P. Seitsonen, M. Saleh, X. Feng, K. Miillen,
+and R. Fasel, Atomically precise bottom-up fabrication of
+graphene nanoribbons, Nature 466, 470 (2010).
+
+R. Denk, M. Hohage, P. Zeppenfeld, J. Cai, C. A. Pignedoli,
+H. Séde, R. Fasel, X. Feng, K. Miillen, S. Wang, D. Prezzi,
+
+19
+
+20
+
+21
+
+22
+
+23,
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+[130]
+
+18
+
+A. Ferretti, A. Ruini, E. Molinari, and P. Ruffieux, Exciton-
+dominated optical response of ultra-narrow graphene nanorib-
+bons, Nat. Commun. 5, 4253 (2014).
+
+S. Jiang, T. Neuman, A. Boeglin, F. Scheurer, and G. Schull,
+Topologically localized excitons in single graphene nanorib-
+bons, Science 379, 1049 (2023).
+
+J. Wilhelm, D. Golze, L. Talirz, J. Hutter, and C. A. Pignedoli,
+Toward GW Calculations on Thousands of Atoms, J. Phys.
+Chem. Lett. 9, 306 (2018).
+
+C. Cocchi, D. Prezzi, A. Ruini, E. Benassi, M. J. Caldas,
+S. Corni, and E. Molinari, Optical Excitations and Field En-
+hancement in Short Graphene Nanoribbons, J. Phys. Chem.
+Lett. 3, 924 (2012).
+
+J. S. de Melo, L. M. Silva, L. G. Arnaut, and R. S. Becker,
+Singlet and triplet energies of a-oligothiophenes: A spectro-
+scopic, theoretical, and photoacoustic study: Extrapolation to
+polythiophene, J. Chem. Phys. 111, 5427 (1999).
+
+J. Torras, J. Casanovas, and C. Aleman, Reviewing Extrap-
+olation Procedures of the Electronic Properties on the z-
+Conjugated Polymer Limit, J. Phys. Chem. A 116, 7571 (2012).
+A. Dreuw and M. Head-Gordon, Single-Reference ab Ini-
+tio Methods for the Calculation of Excited States of Large
+Molecules, Chem. Rev. 105, 4009 (2005).
+
+X. Blase and C. Attaccalite, Charge-transfer excitations in
+molecular donor-acceptor complexes within the many-body
+Bethe-Salpeter approach, Appl. Phys. Lett. 99, 171909 (2011).
+P.-F. Loos, M. Comin, X. Blase, and D. Jacquemin, Reference
+Energies for Intramolecular Charge-Transfer Excitations, J.
+Chem. Theory Comput. 17, 3666 (2021).
+
+I. Knysh, J. D. J. Villalobos-Castro, I. Duchemin, X. Blase,
+and D. Jacquemin, Exploring Bethe—Salpeter Excited-State
+Dipoles: The Challenging Case of Increasingly Long Push—Pull
+Oligomers, J. Phys. Chem. Lett. 14, 3727 (2023).
+
+T. Deilmann and K. S. Thygesen, Interlayer Excitons with
+Large Optical Amplitudes in Layered van der Waals Materials,
+Nano Lett. 18, 2984 (2018).
+
+Y.-h. Chan, M. H. Naik, J. B. Haber, J. B. Neaton, S. G. Louie,
+D. Y. Qiu, and F. H. da Jornada, Exciton—Phonon Coupling In-
+duces a New Pathway for Ultrafast Intralayer-to-Interlayer Ex-
+citon Transition and Interlayer Charge Transfer in WS2—MoS2
+Heterostructure: A First-Principles Study, Nano Lett. 24, 7972
+(2024).
+
+Exemplarily, the individual expectation values for the average
+position of hole r, and electron r, in an excited state n are
+computed from their cartesian components (1 € {x, y, z})
+
+1
+= my) () yn)
+(exe = [2 XOXO uy Y YOrE vs]
+"Nai ab,
+(1)egg = my, 4S pmyo
+Ty lexe = ia “ib Hab ia * ja Hij|
+" Nabi Gi,j
+
+Here, we have introduced the dipole moments fp, = (Wplfl,)
+in the KS orbitals y,(r), which are computed in the length
+gauge (cf. Eq. (21)), as well as the normalization factor
+
+Cr = PRI) = DO)? + PY
+
+=1+ 2 any >1,
+
+ia
+
+where we have used Eq. (9) [99]. Hence, C,, = 1 for all n in the
+case of the TDA.
+131
+
+132)
+
+133
+
+134
+
+335.
+
+136
+
+137
+
+138
+
+139
+
+140
+
+141
+
+142
+
+143
+
+J. P. Perdew, K. Burke, and M. Ernzerhof, Generalized Gradient
+Approximation Made Simple, Phys. Rev. Lett. 77, 3865 (1996).
+C. Lee, W. Yang, and R. G. Parr, Development of the Colle-
+Salvetti correlation-energy formula into a functional of the
+electron density, Phys. Rev. B 37, 785 (1988).
+
+A. D. Becke, Density-functional exchange-energy approxima-
+tion with correct asymptotic behavior, Phys. Rev. A 38, 3098
+(1988).
+
+A. D. Becke, Density-functional thermochemistry. III. The role
+of exact exchange, J. Chem. Phys. 98, 5648 (1993).
+
+P. J. Stephens, F. J. Devlin, C. F. Chabalowski, and M. J. Frisch,
+Ab Initio Calculation of Vibrational Absorption and Circular
+Dichroism Spectra Using Density Functional Force Fields, J.
+Phys. Chem. 98, 11623 (1994).
+
+J. Heyd, G. E. Scuseria, and M. Ernzerhof, Hybrid functionals
+based on a screened Coulomb potential, J. Chem. Phys. 118,
+8207 (2003).
+
+A. V. Krukau, O. A. Vydrov, A. F. Izmaylov, and G. E. Scuseria,
+Influence of the exchange screening parameter on the perfor-
+mance of screened hybrid functionals, J. Chem. Phys. 125,
+224106 (2006).
+
+T. Yanai, D. P. Tew, and N. C. Handy, A new hybrid ex-
+change-correlation functional using the Coulomb-attenuating
+method (CAM-B3LYP), Chem. Phys. Lett. 393, 51 (2004).
+
+G. Ohad, S. E. Gant, D. Wing, J. B. Haber, M. Camarasa-
+Gomez, F. Sagredo, M. R. Filip, J. B. Neaton, and L. Kronik,
+Optical absorption spectra of metal oxides from time-dependent
+density functional theory and many-body perturbation theory
+based on optimally-tuned hybrid functionals, Phys. Rev. Mater.
+7, 123803 (2023).
+
+M. Camarasa-Gémez, S. E. Gant, G. Ohad, J. B. Neaton, A. Ra-
+masubramaniam, and L. Kronik, Excitations in layered mate-
+rials from a non-empirical Wannier-localized optimally-tuned
+screened range-separated hybrid functional, npj Comput Mater
+10, 288 (2024).
+
+M. Graml, Data Archive - Optical Excitations in
+Nanographenes, https://github.com/MGram1/
+DataArchive-OpticalExcitationsInNanographenes
+(2025).
+
+M. Gram] and J. Wilhelm, Optical excitations in nanographenes
+from the BSE and TDDFT [Data set], https: //doi.org/10.
+5281/zenodo. 17476369 (2025).
+
+Since Ref. [95] has derived these matrix elements for TDHF,
+
+the Wp,,s are replaced by Up,.,s there.
+
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+50.
+
+51
+
+52,
+
+53.
+
+54
+
+19
+
+B. P. Pritchard, D. Altarawy, B. Didier, T. D. Gibson, and
+T. L. Windus, New Basis Set Exchange: An Open, Up-to-Date
+Resource for the Molecular Sciences Community, J. Chem. Inf.
+Model. 59, 4814 (2019).
+
+G. Lippert, J. Hutter, and M. Parrinello, The Gaussian and
+augmented-plane-wave density functional method for ab initio
+molecular dynamics simulations, Theor Chem Acc 103, 124
+(1999).
+
+J. Strand, S. K. Chulkov, M. B. Watkins, and A. L. Shluger,
+First principles calculations of optical properties for oxygen
+vacancies in binary metal oxides, J. Chem. Phys. 150, 044702
+(2019).
+A.-S. Hehn, B. Sertcan, F. Belleflamme, S. K. Chulkov, M. B.
+Watkins, and J. Hutter, Excited-state properties for extended
+systems: Efficient hybrid density functional methods, J. Chem.
+Theory Comput. 18, 4186 (2022).
+
+B. Sertcan Gékmen, J. Hutter, and A.-S. Hehn, Excited-State
+Forces with the Gaussian and Augmented Plane Wave Method
+for the Tamm—Dancoff Approximation of Time-Dependent
+Density Functional Theory, J. Chem. Theory Comput. 20, 8494
+(2024).
+
+J.-R. Vogt, J. Wilhelm, and A.-S. Hehn, Perturbative spin-orbit
+couplings for the simulation of extended framework materials,
+J. Chem. Phys. 162, 082502 (2025).
+
+J.-R. Vogt, M. Schulz, R. Souza Mattos, M. Barbatti, M. Per-
+sico, G. Granucci, J. Hutter, and A. Hehn, A Density Functional
+Theory and Semiempirical Framework for Trajectory Surface
+Hopping on Extended Systems, J. Chem. Theory Comput. 21,
+10474 (2025).
+
+R. Pasquier, M. Camarasa-Gomez, A.-S. Hehn, D. Her-
+nangémez-Pérez, and J. Wilhelm, Efficient GW Band Structure
+Calculations Using Gaussian Basis Functions and Application
+to Atomically Thin Transition-Metal Dichalcogenides (2025),
+arXiv:2507.18411.
+
+R. Pasquier, M. Graml, and J. Wilhelm, Gaussian Basis Sets
+for All-Electron Excited-State Calculations of Large Molecules
+and the Condensed Phase (2025), arXiv:2508.12884.
+
+C. Kumar, H. Fliegl, F. Jensen, A. M. Teale, S. Reine, and
+T. Kjaergaard, Accelerating Kohn-Sham response theory using
+density fitting and the auxiliary-density-matrix method, Int. J.
+Quantum Chem. 118, e25639 (2018).
+
+C. Adamo and V. Barone, Toward reliable density functional
+methods without adjustable parameters: The PBEO model, J.
+Chem. Phys. 110, 6158 (1999).
+

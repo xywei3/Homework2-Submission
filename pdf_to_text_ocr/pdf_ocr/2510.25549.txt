@@ -1,0 +1,2215 @@
+2510.25549v1 [quant-ph] 29 Oct 2025
+
+arXiv
+
+Charge-Preserving Operations in Quantum Batteries
+
+André H. A. Malavazi®,!:* Borhan Ahmadi®,!:' Pawel Horodecki,! and Pedro R. Dieguez®! +
+
+‘International Centre for Theory of Quantum Technologies,
+University of Gdarisk, Jana Bazyriskiego 8, 80-309 Gdansk, Poland
+(Dated: October 30, 2025)
+
+Ergotropy provides a fundamental measure of the extractable work from a quantum system and,
+consequently, of the maximal useful energy, or charge, stored within it. Understanding how this
+quantity can be manipulated and transformed efficiently is crucial for advancing quantum energy
+management technologies. Here, we introduce and formalize the concepts of isoergotropic states and
+ergotropy-preserving operations, which reorganize the internal structure of ergotropy while keeping
+its total value unchanged. These ideas are illustrated for both discrete (two-level systems) and
+continuous-variable systems (single-mode Gaussian states). In each case, we show how ergotropy-
+preserving operations redistribute the respective coherent—incoherent and displacement-—squeezing
+components. We further examine the thermodynamic exchanges accompanying ergotropy-preserving
+operations, including variations in energy and entropy, and demonstrate that these transformations
+can be dynamically implemented through standard beam-splitter-type interactions with an auxiliary
+system. Finally, we discuss the practical implications of isoergotropic states and operations in
+
+optimizing charging protocols and mitigating charge loss in open quantum batteries.
+
+I. INTRODUCTION
+
+Quantum thermal devices designed to perform specific
+tasks hold significant promise for emerging energy-based
+technologies. The ability to precisely design and control
+the energetics across quantum systems has direct appli-
+cations in a wide range of small-scale quantum devices.
+Thus, the development of machines capable of harnessing
+energy fluxes, performing work, and manipulating heat
+transport, such as quantum heat engines, refrigerators,
+thermal transistors, rectifiers and etc. [1-9], has been es-
+tablished as one of the main motivations behind current
+efforts in quantum thermodynamics.
+
+Among such devices, quantum batteries (QBs) have
+emerged as a promising and powerful paradigm for en-
+ergy storage. In contrast to its classical counterparts,
+QBs are capable of allocating a portion of their energy
+within their quantum degrees of freedom [10-13]. Dur-
+
+closed quantum systems and thus its work capacity [65].
+This particular thermodynamic quantity is nonadditive
+and fundamentally distinct from the internal energy, but
+closely related to the role that free energy plays [66, 67],
+since it implicitly incorporates the notion that energy ex-
+traction requires an external cyclic Hamiltonian control.
+It is worth mentioning that different notions and exten-
+sions of ergotropy have been investigated in interacting
+subsystems [68] and open quantum systems [69-71].
+More recently, ergotropy has been shown to be dif-
+ferently distributed within the multiple internal degrees
+of freedom of QBs. Notably, it can be generally decom-
+posed into two distinct contributions: an incoherent part,
+associated with population inversion in the energy eigen-
+basis, and a coherent part, arising from quantum coher-
+ence [72-74]. While the former can be readily identified
+as a purely classical contribution, the latter is genuinely
+quantum, i.e., without any classical analogous. In the
+context of QBs, coherence has been shown to enhance
+
+ing the last decade, it has motiva
+est in various important aspects of
+characterization of QB architectures
+promising physical platforms [14-24
+
+ed a growing inter-
+QBs, including the
+in a wide range of
+, in distinct physi-
+
+cal contexts [25-30], and in investigating their intrinsic
+
+quantum and collective advantages [3
+
+1-43]. From a prac-
+
+tical perspective, considerable attention has been focused
+on developing and optimizing charging protocols [44-48],
+and providing strategies to ensure stable charge retention
+in the presence of detrimental environmental effects [49-
+64].
+
+In this context, the charge of a QB is commonly iden-
+tified by its ergotropy, the operational figure-of-merit
+for quantifying the maximal useful extractable energy in
+
+andrehamalavazi@gmail.com
++ borhan.ahmadi@ug.edu.pl
++ dieguez.pr@gmail.com
+
+energy storage [72] and help mitigate ergotropy losses
+in open quantum batteries [64]. More recently, the co-
+herent ergotropy of a single spin has been experimen-
+tally accessible in a nitrogen-vacancy (NV) center plat-
+form [75], elucidating its practical relevance for the cur-
+rent state-of-the-art technologies. More importantly, the
+internal configuration of charge is not unique, and one
+can distribute it across all the accessible variables. In-
+deed, the ergotropy stored in arbitrary Gaussian states,
+for instance, was shown to be divided between indepen-
+dent displacement and squeezing contributions [76].
+
+Different degrees of freedom can store useful energy,
+so distinct states may carry the same ergotropy (charge)
+while differing in how that charge is internally encoded.
+These encodings respond unevenly to control fields and
+environmental noise, making states with equal charge op-
+erationally non-equivalent. This raises a natural ques-
+tion: which encoding is best for a given setting or ther-
+modynamic task? Isoergotropic (ergotropy-preserving)
+reorganization addresses this question. By redistributing
+charge among internal degrees of freedom without chang-
+ing its total amount, one can refine charging protocols,
+enhance work extraction, propose novel charge stabiliza-
+ion techniques, and prepare batteries that are more ro-
+ust to specific noise mechanisms—all of which are cru-
+cial for realistic, open-system implementations. From a
+hhermodynamic perspective, such operations also enable
+new cycles whose strokes reshuffle charge internally at
+a fixed budget. Understanding—and exploiting—the in-
+erplay between these internal compositions of ergotropy
+is therefore both fundamental and practically important
+or the design of energy-based quantum devices.
+
+In this work, we formalize the set £ of ergotropically
+equivalent quantum states and the class K of operations
+hat preserve total ergotropy while redistributing its in-
+ernal components. Our procedure covers both CPTP
+channels and non-selective measurements. We then ana-
+lyze the fundamental trade-offs among internal ergotropy
+components for two representative battery models: dis-
+crete two-level systems (TLSs) and continuous variable
+CV) single-mode Gaussian states. On the implementa-
+ion side, we show that these ergotropy-preserving oper-
+ations can be realized dynamically with standard beam-
+splitter interactions to an auxiliary system, available
+in current platforms. Finally, we illustrate how isoer-
+gotropic states and operations aid practice: they en-
+able the refinement of charging protocols and mitigate
+charge loss by exploiting an ergotropic counterpart of the
+Mpemba effect.
+
+The remainder of this article is structured as follows.
+In Sec. II we recall the definition of ergotropy and intro-
+duce isoergotropic states and ergotropy-preserving oper-
+ations. In Secs. III and IV, we apply these ideas to
+quantum batteries built from discrete and continuous-
+variable cells, modeled by two-level systems and single-
+mode Gaussian states, respectively. Each section is self-
+contained: we identify the corresponding isoergotropic
+states, specify the ergotropy-preserving operations, and
+describe how to reorganize ergotropy dynamically within
+the internal degrees of freedom using a standard beam-
+splitter coupling. In Sec. V, we illustrate how the for-
+malism developed here applies to relevant scenarios for
+quantum batteries, including charging and discharging
+protocols. Finally, Sec. VI summarizes the main conclu-
+sions and outlines directions for future work.
+
+II. ERGOTROPY AND ISOERGOTROPIC
+OPERATIONS
+
+Let us assume a d-dimensional quantum system de-
+scribed by a density matrix p = be py\J) (| € £ and
+Hamiltonian H = ye E,,\E,)(E;|. As a quantum bat-
+tery, its charge is commonly characterized by the maxi-
+mum extractable energy through a unitary cyclic Hamil-
+tonian control. This quantity, also known as ergotropy,
+
+(a)
+
+Wa)
+
+Imla]
+
+FIG. 1: Isoergotropic states for (a) a single two-level
+quantum battery and (b) a single-mode Gaussian oscil-
+lator. Each colored surface at the (a) Bloch sphere (b)
+parameter space, corresponds to states with fixed charge
+but distinct internal configurations of ergotropy R, with
+red and green being respectively low and high charge.
+The Wigner functions W(q) represent Gaussian states
+with the same charge and thermal occupation N but dif-
+ferent displacement js and squeezing € components of R
+[77].
+
+can be written as [65]
+
+d
+Rial = Te [(6— bp) H] = D2 Bap, (Cals) — bn)
+kj
+
+(1)
+where pp = yi pi|E;)(E;| is the passive state relative to
+p, and the canonical spectral ordering p; > po >--- > pa
+and Ey < Ey < --: < Eg were assumed. Note that
+Eq. (1) can equivalently be obtained by identifying the
+unitary V that reorders the populations p; so as to min-
+imize the system’s energy, p > pp = Vpvt. In general,
+the total ergotropy of a system may be distributed among
+distinct internal degrees of freedom. Consequently, dif-
+ferent states can possess identical ergotropy—hence the
+same stored charge—while exhibiting distinct internal
+configurations. Formally, we introduce the following def-
+inition:
+FIG. 2: (a) Isoergotropic surfaces at the Bloch sphere for distinct values of p. (b) Ergotropy profile in terms of
+p and C? € [0,4p(1 — p)]. The isoergotropic states within £5 are represented by the colored (a) surfaces within
+the Bloch sphere (b) lines C?(p) = 8(p — p)P». The black curve in (b) characterize the isoergotropic pure states
+Pp(Po, 9) = |Vp,0)(Up,9| (surface of the Bloch sphere) relative to the incoherent states 65 = (1 — p) |g) (g| + ple) (el (at
+8, axis). (c) Top: Ergotropy distribution between the internal (in)coherent components along the path described by
+Cé.s(p). Bottom: Ergotropy distribution along the pure states Aj(P5,0) represented by the black curve.
+
+Definition 1. Given an active state 6 with ergotropy
+R= Ri], the set of isoergotropic (iso-R) states relative
+to @ is defined as L:= {fp € L|R[A] = R}.
+
+Figure 1 illustrates such states for (a) a two-level sys-
+tem and (b) a single-mode Gaussian state [77]. In panel
+(a), the colored surfaces on the Bloch sphere, and in panel
+(b), the colored sheets in the (|y:|?,|€|, NV) space, collect
+states with the same total ergotropy but different inter-
+nal compositions of charge. The inset Wigner functions
+W (a) illustrate distinct Gaussian states with equal total
+charge and thermal occupation N but different displace-
+ment js and squeezing €. Transformations connecting
+states within a given isoergotropic surface correspond to
+ergotropy-preserving operations, which redistribute the
+internal composition of stored work while keeping its to-
+tal value invariant. Unitaries that commute with the
+Hamiltonian, [U, H] = 0 (e.g., free evolution), constitute
+trivial instances of such operations, leaving the internal
+configuration unchanged. We therefore define:
+
+Definition 2. Given a state 6 € L, iso-R operations are
+CPTP (measurements) maps satisfying K:£+> L£.
+
+These operations provide the “free transformations" in
+a prospective resource theory of ergotropy at a fixed bud-
+get. The resource corresponds to the configuration of
+stored work within a given level set £, while the iso-R
+maps K represent the admissible reshufflings that pre-
+serve the total ergotropy. Below, we instantiate this for
+discrete (TLS) and continuous-variable Gaussian batter-
+les.
+
+Ill. TWO-LEVEL SYSTEMS
+
+We begin with a TLS described by the Hamilto-
+nian H = wle)(e| and by the density operator p =
+(1p) la)(al + ple)(el + ¢ (e/fla)(el + hc.) /2, where
+h.c. denotes the Hermitian conjugate, 0 € [0,47] and
+C= Ly; lelAli)|, with C2 € [0,4p(1 — p)], is the 1,
+norm of coherence in the energy eigenbasis [78].
+
+In general, Eq. (1) for ergotropy can be split into a
+contribution due to population inversion and a contri-
+bution due to coherences (both defined in the Hamil-
+tonian eigenbasis). Define the incoherent state Baie =
+Tp (ExlAlEr) |ExXEx| and set R(A] = Rlpaiog)
+RHA] = Rip] — Ri [A]. Then the ergotropy is fully
+parameterized by (p,C): R(p,C) = Ri*°(p) + R°"(p,C),
+with [64, 72-74]
+
+R®¢(p) = w(2p — 1) [1 - @(1/2 —p)], (2)
+
+and
+ReM(p.C) =F (b— VR —C), (3)
+
+where O() is the Heaviside step function (O(”) = 1 for
+x > 0, O(x) = 0 otherwise), u[A] = Tr[f?] is the purity,
+and w := \/2u[A] — 1. Both components are independent
+of the phase 0; variations of 0 thus generate a trivial
+family of isoergotropic states. Moreover, R°°(p,C) = 0
+for incoherent states (C = 0), while R™°(p) is nonzero iff
+p > 1/2 (the active regime).
+A. Isoergotropic states
+
+Given an active incoherent state 65 = (1 —p) |g)(g| 4
+ple)(e| with p €]1/2, 1] with ergotropy Rp = R(p,0) =
+R'™<(p), the corresponding isoergotropic set is
+
+Li = {hp € £| Ripp(p, 9)] = Ro} (4)
+
+A convenient parametrization of the states in Ly is
+
+so gv ( l-p  Cplpe!®/2 :
+7009) = ( oot» . Pp ) ©)
+
+where C}(p) = 8(p—p) Pz and Ps < p < p, with Ps = 2p—
+1 and @ € [0,47]. As extreme states, one has the mixed
+reference state 05 (by construction) for p = p and its rel-
+ative isoergotropic pure state fp(P5,0) = |Vp,9) (Yp,6| for
+p= Pp, with |Upo) = 20 — Bly) + e-8/2, 2p Tle).
+Thus, for each fixed p, the total ergotropy is redistributed
+between the incoherent and coherent parts, such that
+
+Rp _ R™(p) Ae R°°(p, Cp), (6)
+
+while remaining constant. Figure 2 (a) shows the Bloch
+sphere representation, with s, = Tr[éxAp(p)] with k =
+x,y,z, and the isoergotropic surfaces generated by dif-
+ferent values of p. For each p, the incoherent states dp
+lies on the s, axis, while the isoergotropic pure state
+Pp(P5,9) lies on the surface of the sphere. Figure 2 (b)
+displays the ergotropy profile on the p — C? surface; the
+colored curves correspond to the same isoergotropic sets
+as in (a), and the black curve at p = Py; marks the pure
+states. Finally, Fig. 2 (c) depicts how the internal er-
+gotropy splits into coherent and incoherent components
+along two representative paths: (Top) Cé(p) and (Bot-
+tom) Py.
+
+Thermodynamics
+
+Having identified the isoergotropic set Lp, we now ex-
+amine how key thermodynamic quantities vary along it.
+In this sense, note that, despite having the same er-
+gotropy, different iso-R states necessarily contain differ-
+ent internal energies, unambiguously identified as [79]
+
+(H) = Tr[HAp(p, 8)] = wp. (7)
+
+So, any iso-R transformation pp(p,0) > pp(p',’) in-
+duces the following energetic change
+
+AU = A(A) = w(p' — p). (8)
+
+If the Hamiltonian is fixed (no explicit time dependence),
+no work is performed W = Tr[p AH] = 0 [80, 81], and
+the first law of thermodynamics AU = Q+W reduces to
+
+Q = w(p' —p). (9)
+
+Therefore, moving between the iso-R states requires the
+supply or release of heat. Notice that, for any p, states
+
+'S 0.75)
+
+0.5!
+
+P (H)/w
+
+FIG. 3: (a) Ratio R/(H) = (2p—1)/p on the (p, p)-plane.
+For each p, the ratio decreases monotonically with p from
+1 at the pure point p = Py to (2p—1)/p at the incoherent
+point p = p. (b) Energy-entropy diagram on Lp: (Hf) =
+wp and S,v(p) = H2(2p—p) increase monotonically with
+p. Arrows indicate heat Q = w(p’ — p) absorbed (right,
+red) or released (left, blue) when moving along £5. Black
+dashed: p = P5 (pure, Syv = 0); blue solid: p = p
+(incoherent, Sy. = H2(p)).
+
+closer to the center of the Bloch sphere are more ener-
+getic, i.e., p closer to p and the z-axis. Given the in-
+variance of ergotropy, this also implies the proportion of
+energy stored as charge decreases, that is, R/(H) < 1 for
+p < Py. To illustrate this, Fig. 3 (a) shows the ratio be-
+tween charge and internal energy for all values of p and
+p. Additionally, Fig. 3 (b) depicts the internal energy
+vs. entropy diagram for all isoergotropic states. The von
+Neumann entropy is written as
+
+Sun [Op(p, 8)] = Ha(2p — p), (10)
+
+with H2(x) = —xIna—(1—2) In (1 — 2) being the binary
+entropy function, varies across the isoergotropic surfaces.
+The blue lines highlight the mixed states along the z-axis
+with p = p, while the black dashed lines show the re-
+gion with pure states p = Py at the surface of the Bloch
+sphere, with S,,[/p(Pp, 9)] = 0. Consequently, there are
+no nontrivial operations that simultaneously conserve er-
+gotropy and are isentropic or energy-preserving: along
+Lp, for fixed H, nontrivial iso-R transformations nec-
+essarily involve heat exchange and entropy change; they
+are not implementable by system-only unitaries, but arise
+naturally as thermal operations or as reduced dynamics
+of an energy-conserving global unitary.
+
+B. Ergotropy preserving operations
+
+It is clear that the tradeoff between coherent and inco-
+herent components of ergotropy within different states of
+Ly implies that iso-R operations are, in general, neither
+incoherent nor purity-preserving (and, as noted above,
+FIG. 4: Isoergotropic operations. The continuous and
+dashed lines indicate two distinct ergotropy-preserving
+trajectories along £Lo.7 from the black to the red points.
+
+not entropy-preserving either). In fact, incoherent op-
+erations preserve only the incoherent part of ergotropy.
+Given a state fp(p,@) € Lp, we call iso-R operations the
+CPTP maps (or measurement instruments) that satisfy
+
+Klop(p.8)], (1)
+with p’ € [Pp,p]. Let pp(p',0’) = (1 — pe) |g ¥gl +
+
+Pe |\We(We| be the spectral decomposition of the target
+state, where pe = 2p — p’ and {|w,), |We)} are its eigen-
+
+K: Lp —> Lp, ppl! 0") =
+
+vectors. A convenient Kraus representation {Kj} of a
+channel Kj,p,9 that connects pp(p,4) > pp(p",@’) is
+
+Ki = Ve |WeXvel, Ko = VBe Wel,
+
+. _—— . (12)
+Kz = /1— pe |bgXvgl, Ka = V/1— de |g (vel,
+such that
+4
+a (p". 0) “ue (p,0) KI. (13)
+
+Equation (12) has the structure of the generalized ampli-
+tude damping channel (GADC) [82]. Equivalently, the
+same map can be realized as a qubit thermal channel
+(QTC, or thermal attenuator) [83],
+
+Exy'o'lA] = Trawx[O (62%) 07], (14)
+with 7 = fp(p',@’) being an auxiliary state and
+1000
+is 0010
+V=lo100 ee
+0001
+
+a SWAP gate. To illustrate iso-R operations, Fig. 4
+shows two distinct ergotropy-preserving trajectories
+along £o.7 generated from Eq. (12). The black (red) dots
+mark the initial (final) states. By choosing the parame-
+ters appropriately, any path on the Bloch sphere within
+£o.7 can be implemented.
+
+1. Iso-R realization via POVM
+
+Iso-R operations can also be realized through selec-
+tive measurements (POVM elements). A single selective
+measurement is sufficient to realize an isoergotropic op-
+eration that maps an incoherent two-level system active
+state to any other state within the same isoergotropic
+family. Indeed, consider the incoherent active state
+
+= (1—p)|9) (gl +Ple) Cel, (16)
+
+and its corresponding isoergotropic family Lp. When the
+desired target is a pure member of Lp, a rank-one selec-
+tive measurement suffices. Let the single measurement
+operator be
+
+M = |dout) (din, (17)
+
+which, acting on 6p, yields the (unnormalized) post-
+measurement state
+
+M6pM" = (in| Op |din) |Gout) (Gout - 18)
+After renormalization, the output is pure, such that
+B' = |dout) (bout - 19)
+
+To remain within £5, the output state |¢o,,) must be
+the normalized eigenvector of the target isoergotropic el-
+ement,
+
+C.
+(S2c'#/? |g) +|e))
+
+i cite)
+
+so that ’ = pp(p,) is a pure isoergotropic state.
+The success probability of this transformation is
+
+Psuce(P) =
+
+which is maximized by choosing |¢in) as the eigenvec-
+tor of 6p associated with its largest eigenvalue, i.e. |e).
+Hence, the optimal Kraus operator reads
+
+20)
+
+Vp(p, 6)
+
+|@out) |
+
+(din| Op |¢in) 5 (21)
+
+Mopt(p, @) = |Wp(p, 8) (e (22)
+and the maximal success probability follows as
+Pace (P) = P- (23)
+
+For a general mixed target in £5, a rank-one operator
+is no longer sufficient, as it always yields a pure out-
+put. Nevertheless, a single selective measurement with a
+higher-rank Kraus operator can achieve the transforma-
+tion in one step. Specifically, consider the ansatz
+
+M = Vay/p
+
+with q € [0,1] chosen such that MiM < i.
+defining
+
+P',0)o5””, (24)
+
+Indeed,
+
+A= a5" polo.) op”, (25)
+which is positive. The necessary and sufficient condition
+for M'M <Tis
+
+qAmax(A) < 1. (26)
+By construction,
+
+MépM" = q pp(r’, 6’), (27)
+and the normalized post-measurement state (upon the
+success outcome) is precisely the mixed isoergotropic el-
+ement fp(p’, 6’).
+
+For the present incoherent input, one may compute A
+explicitly:
+
+dep! Spl") __ ¢i0'/2
+a 1-p 2,/(1—p)p
+A= Cov’) _ 18" /2 y . (28)
+
+2 (1—p):
+
+An explicit form for the achievable success probability is
+
+Bz
+P
+
+2
+
+=————__——__—, 29
+inex T+ VT? —4D (29)
+where
+1-
+path Pt
+l-p p aay
+1) \2
+p- (1 — p')p! _ (22)
+(L—p)p
+
+Finally, if one is allowed to reset the input to Op after
+any failed attempt, the trials become independent and
+identical with per-trial success probability qmax- In that
+operational setting the cumulative success probability af-
+ter N attempts is the geometric (Bernoulli) form
+
+PLN) =1- (1 = dmax)™, (31)
+
+which tends to unity as N — oo. Thus, a single selec-
+tive measurement suffices to generate any state—pure or
+mixed—within the isoergotropic family Lp starting from
+the incoherent active state 6p.
+
+C. Dynamic ergotropy conversion
+
+We now show how iso-R operations can be engineered
+autonomously by coupling a quantum battery (B) to
+an auxiliary system (A). Consider two TLS with to-
+
+tal Hamiltonian H = Hp + Ha + Vaps where Hy, B=
+wa,B |e)(e|a,p and
+Vap = in(e2 @o4 — 6? 64), (32)
+
+with coupling strength 7. For simplicity we take resonant
+TLSs, wa = wg =w. If the initial local states are pp (0)
+
+FIG. 5: Top: Bloch sphere representation of the (a) bat-
+tery and (b) auxiliary TLS dynamics induced by U(t), as-
+suming 65(0) = pp(Pp,0) and pa(0) = pp(P, ¢) (colored
+dots) as initial states, and w = 7 = 1. The isoergotropic
+curves £5 for different values of p are represented. Bot-
+tom: Ergotropy and internal components dynamics for
+the (c) battery and (d) auxiliary system for p = 0.8.
+
+and ja(0), then ppa(t) =U(t)(6n(0)@/.a(0))U*(t) and
+
+Ppaj(t) = Tracey [Pea(t)], with
+eitw 0 0 0
+4) ito { 9  cos(nt) sin(nt) 0 .
+ale) =e 0 —=sin(nt) cos(7t) 0 (33)
+0 0 0 en ite
+
+Notice that Eq. (33) has the same swap block structure as
+Eq. (15). Prepare both systems on the same isoergotropic
+curve Ly with pg(0) = pp(P5,9) and pa(0) = pp(p, 6).
+Then the battery state at time t reads
+
+Pa(t) = pp(pa(t), 8 + 2wt) € Lp, (34)
+where
+
+pat) = 3[(P — 1) cos(2nt) +p + Pp] € [Pp.p]- (35)
+Figure 5(a,b) shows the corresponding trajectories on the
+Bloch sphere for the battery and the auxiliary (for several
+pand w =17=1). The battery remains on the same iso-
+ergotropic surface, whereas the auxiliary generally does
+not. Panels (c,d) display the dynamics of total ergotropy
+and its coherent/incoherent components for both sub-
+systems: the auxiliary ergotropy oscillates with period
+nT = 1, while the battery cyclically converts coherent
+ergotropy into incoherent ergotropy and back.
+.. Full — Battery ... Auxiliary
+b
+
+0.4]
+
+Ss
+
+x
+
+rr
+xl
+
+nt
+
+FIG. 6: (a) Charge and (b) von Neumann entropy dy-
+namics induced by U(t) for p = 0.8. The entropy and
+ergotropies of the full system (computed without the in-
+
+teraction, i.e, H4 + Hg) and the battery are invarian'
+during the time-evolution. The ergotropy of the auxil-
+iary system oscillation is accompanied by the conversion
+of coherent ergotropy to incoherent. Such oscillation is
+also observed by the local entropies Sj and mutual in-
+formation Z.
+
+Although the total ergotropy of the composite is con-
+served because [(/(t), H] = 0, the local decrease of auxil-
+iary ergotropy quantifies the internal energetic cost of the
+conversion on the battery. In realistic settings, the inter-
+action strength 7 can be modulated in time to tailor this
+conversion. If only local ergotropy is available, the full
+energetic cost comprises both the auxiliary’s ergotropy
+consumption and the control required to modulate the
+interaction. If global access to the composite ergotropy
+is available, only the external control cost remains rele-
+vant.
+
+Figure 6 further reports (a) ergotropy and (b) the
+von Neumann entropies $y and the mutual information
+TL = Syn [Pp|+Sun[pal—Svn [Pea] during the interaction
+for p = 0.8. The auxiliary’s ergotropy oscillations are in
+resonance with changes in local entropies. The growth of
+mutual information signals the build-up of correlations,
+accompanying a decrease (increase) of the battery’s co-
+herent ergotropy (the auxiliary’s ergotropy).
+
+D. Extension
+
+Naturally, one can extend the iso-R analysis to
+multi-cell batteries composed of n TLSs and identify
+suitable ergotropy—preserving operations implemented
+by local or global transformations. As a simple and rel-
+evant two-cell example, consider the family of X-states
+with Hamiltonian H = w |e) (el; @ 12 + 11 @w |e) (el2 and
+
+0
+
+FIG. 7: Top: Ergotropy profile as a function of g. The
+total ergotropy satisfies R(q) = R(1 — q) for all gq; the
+dotted curves show the coherent and incoherent compo-
+nents. Bottom: Concurrence C(q). Every uncorrelated
+state with 0 < q < 0.3 has a correlated isoergotropic
+partner with 0.7 < q < 1. The arrow illustrates an isoer-
+gotropic operation K mapping q+ 1—q.
+
+a single scalar parameter q € [0, 1] [64, 84, 85]:
+
+q/2 0 0 ¢—4q/2
+¢P-q/2 0 0 q/2
+(36)
+
+Equation (36) can be obtained as the output of an opti-
+
+mal unitary applied to two Gibbs states that maximizes
+quantum correlations [85]—including entanglement and
+discord [84]—and local uncertainty. For this X-family,
+the concurrence is
+
+C(q) = max{0, 2q° —q- 201-4) Va - a}. (37)
+
+While entanglement vanishes at a finite critical tempera-
+ture [84, 86, 87], other quantum signatures decay gradu-
+ally with temperature [84, 85]. The ergotropy within the
+bipartition is
+
+R(q) =w|L-2q, — R'*(q) =w|(q—2)(G— 9), (38)
+
+hence R(q) = R(1 —q) for all g. Thus, fx(q) and
+px (1 — q) are isoergotropic, even though their entangle-
+ment may differ significantly [64]. Figure 7 (top) high-
+lights the symmetric ergotropy profile and the split be-
+tween coherent and incoherent contributions; Fig. 7 (bot-
+tom) shows the concurrence, including entanglement sud-
+den death. In particular, every uncorrelated state with
+0 <q <.0.3 has a correlated isoergotropic partner with
+0.7 <q <1. A notable pair is the pure product fx (0)
+
+(bzsssseesssssssssssssssnssen
+
+0 0.5 1
+q
+
+FIG. 8: Ergotropy profile as a function of q for cell 1
+(black) and 2 (orange). The total ergotropy is shown in
+green.
+
+and the maximally entangled px(1): both have the same
+ergotropy, with Ri"°(1) = R°(1) = w/2. Moreover, one
+finds that the internal energy is constant for all q while
+1
+
+the von Neumann entropy is symmetric about q = 5
+
+(with a maximum at g = 4): (H) = Tr[Héx(q)] =
+and S,n(q) = Syn(1—q). Consequently, the fraction
+of energy stored as charge decreases near gq = 1/2 and
+for the isoergotropic transformation q +» 1 — q one has
+AU = AS,n =0 and W = -@Q.
+
+An explicit iso-R operation connecting the partners
+can be written as
+
+K [ax (q)] = VTraw [8 (Ox(@) © Faux) O']V", (39)
+
+where U is the 4 x 4 SWAP, the auxiliary state is Taux =
+7 ® Fy with te = (1 —q)|9)(gle + ale) (eles and V = d2d4
+with
+
+41 = |99) (9g + \ge) (gel + lee) (eg| + leg) (eel ,
+
+6a = |+) (oal + lge) (gel + leg} (eal + Id-} (eel,
+
+and |¢4) = (|gg) + |ee))/V2. This construction realizes
+the isoergotropic mapping g +> 1 — q by a thermal auxil-
+iary system plus a global unitary and a fixed postprocess-
+ing unitary V. Note that the mapping g++ 1 — q cannot
+be implemented deterministically by local operations and
+classical communications (LOCC) [88] for q € (0,1): for
+q< 3 it generally increases entanglement (e.g., the con-
+currence of x(q) is smaller than that of x (1—q)), which
+is forbidden under LOCC; accordingly, our construction
+employs a thermal ancilla and a global unitary.
+
+In this sense, it is natural to consider isoergotropic
+transformations according to the LOCC paradigm for
+work extraction in correlated systems similar to the
+framework proposed in Ref. [89], where local heat en-
+gines can act on each subsystem and classical communi-
+cation is allowed. In our setting, one may similarly ask
+whether a transformation that is non—isoergotropic when
+constrained locally can nevertheless become globally iso-
+ergotropic—or at least less non—isoergotropic—once clas-
+sical coordination and suitable ancillas are considered.
+
+This motivates defining an LOCC-iso-R class of oper-
+ations that preserve the total ergotropy of the compos-
+ite while acting locally, and introducing an “ergotropy
+deficit” to quantify the difference between globally pre-
+served ergotropy and what is retained by purely lo-
+cal means. A systematic characterization of the mini-
+mal nonlocal resources (shared randomness, classical vs.
+quantum communication, ancilla temperature) required
+to uplift locally non-isoergotropic processes to globally
+isoergotropic ones is an open direction for our future
+work.
+
+From a thermodynamic perspective, the coupling to
+the auxiliary implements a heat exchange Q = w(2q—1),
+while the subsequent unitary Vv performs coherent work
+W = —Q, so that the net energy change vanishes: AU =
+Q+W = 0. Moreover, the initial and final von Neu-
+mann entropies coincide, S,v[6x(q)] = Sun [ax(1 —4)],
+so the transformation q ++ 1 — q is entropy-preserving
+overall. It is worth mentioning that in the SWAP step,
+the heat exchanged between the composite system and
+the auxiliary does not go to the correlations inside the
+composite system since we have no interaction within
+them: (H) = (H,) + (Hz). This heat is accounted for
+entirely by changes in the local energies.
+
+As for the local ergotropies, the bipartite state in
+Eq. (36), the reduced states px(q) = Trg[Ax(q)] (k = 1, 2;
+k = 2,1) are diagonal with p;(q) = 1 — 3q +¢q and
+
+p2(q) = 3q- being the excited-state populations of the
+subsystems 1, 2 respectively. Figure 8 plots Ry (black),
+Re (orange), and R (green): for q < } only cell 2 carries
+charge; for gq > 3 only cell 1 does. The total ergotropy
+R(q) = wll — 2q| > Ri(q) + Ro(q), the excess being
+due to correlations/coherences. Under the isoergotropic
+mapping q +> 1 —4q, each cell exchanges heat equal to its
+energy change (no local work), giving
+
+Qi=w (« - 7) > Q2=-Q1. (41)
+
+Hence, for g > $ cell 1 absorbs heat (Q > 0) while cell
+2 releases heat (Q2 < 0); the roles reverse for q < 4
+The global energy is constant and the total ergotropy is
+preserved.
+
+IV. BOSONIC GAUSSIAN STATES
+
+Consider a single-mode bosonic field of frequency w
+with Hamiltonian H = w(a@'a+4), where a and at satisfy
+[a,4*] = 1. Assume the system is in a Gaussian state of
+the form
+
+p= D(u) S() #(N) $1) DV(u), (42)
+where 7(N) is a thermal state with occupation N =
+(e® —1)-1, Diu) = exp(uat — a) is the displace-
+ment operator, and $(€) = exp[5(€a!? — €*4?)] is the
+squeezing operator, with complex parameters 4. = \ulet®
+R(u, €,1/2)/w
+3 5
+
+0.5 0.6
+I lel
+FIG. 9: (a) Ergotropy profile. The isoergotropic surfaces L)q)2 are shown for different values of ju. (b) Ergotropy
+profile in terms of ||? — |€| for N = 1/2. The colored lines highlight the iso-R curves fz(€,1/2) for the same values
+
+shown in (a). (c) Bottom: Ergotropy distribution along the isoergotropic curve f5(€, 1/2). The black vertical lines at
+(i) |€| = 0, (i) |€| © 0.96 and (iii) || © 1.24 highlight the points where (i) R® = 0, (ii) R¢ = R® and (iii) R4 = 0,
+
+respectively. Top: Wigner function W(q) for each of the cases mentioned, assuming 9 = 0 and ¢ = 7.
+
+and € = |€|e’®. Any single-mode Gaussian state admits
+the decomposition in Eq. (42) [90]. Equivalently, Gaus-
+sian states are fully characterized by first and second mo-
+ments: the mean vector d = ((a), (@t))? = (,u*)? and
+the covariance matrix © = (N + 4) F(€,¢), with
+
+_ cosh(2|€|) —_ e’* sinh(2|€|)
+FE.9)= (Selden cosh(2|é\) ) (3)
+
+A convenient phase-space representation is given by the
+Wigner function, defined as
+
+1
+W(a) = —~= exp[—-}(a-d)io'(a—d)], (44
+(a) = gy oPl-Hla- Mea a], (4s
+with a = (a,a*) and || = det ©. Both displacement
+and squeezing contribute independently to the total er-
+gotropy, so the stored charge can be parameterized by
+(H,€,.N) as R(,€,N) = R4(n) + REN), with [72, 76]
+lal?
+
+R*(u) a wu),
+
+REN) (= 1) u(v+3z) 9)
+x [eosh(2{él) ~ 1].
+
+Note that N enters only the squeezing contribution.
+Moreover, Eq. (45) is independent of the phases 6 and
+@, which provides a trivial class of iso-R states.
+
+A. Isoergotropic states
+
+Given an active Gaussian state of the form 6, =
+D(q)#(0)Dt(f@), with ergotropy Ra = R(ji,0,0)
+
+R4(ji), the set of isoergotropic Gaussian states relative
+to 0g is written as
+
+Lyne = {Pp € £| R[Pa(usé,N)] = Ra}, (46)
+for 0 < |u| < |p|, |€| > 0 and N > 0. These states can
+be written as pa(j.€,N) = D(w)S()*(N)S*(©)D"(n),
+where pp = \/fz(€, Nye with
+
+fyl&.N) = nl? = (+5) foosn(@le)— 1], (47)
+
+and (€, N) satisfying fp(€,N) > 0. Figure 9 shows the
+ergotropy profile in terms of parameters (u,€,N). In
+(a), is highlighted the isoergotropic surfaces £1, £2,5 and
+L5. Figure 9 (b) shows the surface N = 1/2. The dashed
+lines indicate the surfaces shown in (a). The bottom part
+of Fig. 9 (c) presents the internal ergotropy distribution
+along the iso-ergotropic curve represented by f5(€,1/2).
+The black vertical lines highlight the points where (i)
+R® = 0, (ii) R? = R* and (iii) R? = 0. The Wigner
+function W(q) for each of these cases is presented in the
+plots at the top.
+
+Thermodynamics
+
+As in the TLS case, isoergotropic states on the same
+level set can differ in their thermodynamic properties.
+For single-mode Gaussian states with Hamiltonian H =
+w(ata+ 4), the internal energy reads
+
+(H) = Tr[A pp(u,€,N)]
+
+Ri(E,N)+R4()+w(N + 4).
+Along an iso-R manifold L)q)2 the total ergotropy Ra =
+R> +R is fixed, so
+
+(H) =Rp+w(N +3),
+
+which is independent of the squeezing parameter €. Con-
+sequently, for fixed |ji|? the ratio of charge to energy de-
+pends only on the thermal component:
+
+Be Ra
+(H) Ra tw(N +3)’
+
+Figure 10(a) shows this behavior on £5 as a function of
+N and €; the green dashed curve marks the zero set of
+fal€,N). We quantify mixedness by the Rényi-2 entropy
+So(p) = (1 — 2)~1 In Tr[p? [91], for which
+
+Sa{aa(u,€,N)] =In(1+2N), (49)
+
+ie., Sy depends only on N and is invariant under
+displacement and squeezing. Figure 10(b) plots the
+((H), So, Rj) diagram for different N and ji; black
+(blue) curves correspond to N = 0 (N = 1), and
+the red line highlights fj = 0 (no ergotropy: all en-
+ergy/entropy is thermal). Differentiating Eq. (48) and
+using dR° + dR* = 0 on Lijaj2 yields
+
+d(H) =wdN.
+
+With Hf fixed (no explicit time dependence) the first law
+gives W = 0 and therefore
+
+Q=AU =wAN.
+
+Hence, reshuffling ergotropy between displacement and
+squeezing at fixed N is thermodynamically neutral on
+he subsystem:
+
+dN =0 Q=0, d;,=0, dRyz =0:
+
+Only changes in the thermal occupancy N carry heat
+Q =wdN) and entropy (dS_ = 2dN/(1+2N) under Eq.
+49)). Figure 10(c) shows fixed-N lines on £5; the yellow
+curve is an isothermal trajectory (N = 0.5). Moving
+rom the black to the red point along this line leaves (H),
+So, and R, unchanged, while the internal composition
+
+RS & R4 is reconfigured, as illustrated in Fig. 10(d).
+
+B. Ergotropy-preserving operations
+
+Restricting to Gaussian states, we likewise restrict
+to Gaussian iso-R operations. Given an initial state
+Pa(u,§,N), an iso-R Gaussian map K: Lyjaj2 > Ljqj2 pro-
+duces
+
+ba(ws§'N’) = K[éa(H.€,N)I, (50)
+
+with total ergotropy Rg unchanged. Gaussian channels
+are fully specified by their action on the first moments d
+
+10
+
+(a) 10°! x Ry/(A)
+
+7.75 8.00 8.25 8.50 8.75 9.00
+— —
+
+1
+
+2 0.5}
+
+QQ]
+
+Isl
+
+FIG. 10: (a) Charge-energy ratio on Ls: Rp/(H) =
+Ra/(Rj+w(N + $)). It decreases with N (purely ther-
+mal energy) and is independent of €. Green dashed:
+fa(€,N) = 0. (b) Internal energy vs. Rényi-2 entropy
+vs. Rj for several N and ji; black (blue): N = 0
+(N = 1). Red: fi = 0 (no ergotropy). Arrows indicate
+heat Q = wAN absorbed (right, red) or released (left,
+blue) when moving along Ljjq\2. (c) Fixed-N lines on £5;
+yellow: isothermal path (N = 0.5). (d) Along fixed-N
+paths, Q@ = AS» = 0 and (H) and Rj are invariant while
+R® and R¢ reshuflle.
+
+and covariance matrix © [77, 92]. Therefore, ergotropy
+invariance under (p,€,N) +> (w’, €’, N’) is guaranteed by
+
+OH O'=(N'43)FE9), dod’ =n)",
+
+(51)
+with the constraint p’ = ,/ fa(é’,N’) eso that
+Ri(u') + R&(E',N’) = Ry. Operationally, such a map
+can be realized as (i) a thermalization step that sets the
+target occupation N’, followed by (ii) a squeezing S(é’)
+and (iii) a displacement D(y’). The first step may be im-
+plemented by a single-mode thermal attenuator of trans-
+missivity 7, for which
+
+dis Vid, Or¥n@+(1—n)(N'+4)ta, (52)
+while $(é’) updates © and D(j:’) updates d. Equiva-
+lently—and closer to our two-level construction—one can
+append an auxiliary single-mode isoergotropic Gaussian
+0.5
+
+1.5 0
+
+FIG. 11: Isoergotropic Gaussian operations. The con-
+tinuous and dashed lines indicate two distinct ergotropy-
+preserving trajectories along £5 from the black to the
+red points. It was assumed ¢ = ¢! = 7, 0 = 6’ = 0 (i)
+N = 0.5, |€] = 0; (i) A’ = 01, |é"| = Ty Gi) W = 0.8,
+Ie) =1,
+
+state Taux = Pa(u’,€’,.N’) with moments (d’, 0’), real-
+ize a beamsplitter/SWAP interaction, and trace out the
+auxiliary mode [82, 83]. Writing the joint first moments
+D = (d,d’)? and joint covariance = = © © @’, the ide-
+alized SWAP block acts as
+
+© 0 a (8 0
+ale Es — gatt=(8 an
+D= (nur p)? 4 UD= haw
+53)
+
+fl
+
+with
+
+foal
+ll
+
+(54)
+
+a )
+eooo
+ooor
+oOOoOro
+
+which swaps the two modes. Tracing out the auxiliary
+leaves the target isoergotropic state pp(p’,&’, N’).
+
+Figure 11 illustrates two different trajectories induced
+by isoergotropic Gaussian operations along £5, together
+with the Wigner functions of the depicted states. The
+black dot (i) marks the initial state, while the red dots
+(ii)—(iii) indicate two distinct final states.
+
+1. Iso-R realization via selective Gaussian measurements
+
+Let the input be an arbitrary element of the isoer-
+gotropic family
+
+An lu,€,N) =U(u,&) HN) U"(u, ), (55)
+
+11
+
+with U(u,€) = D(w)S(Q), HN)
+
+and
+
+= Dn>o Pn(N) |r) (n|
+
+N®
+
+Pn(N) = Weep (56)
+
+The eigenvectors of pa (y,€, N) are U(u, €) |n) with eigen-
+values p,(N). In particular the principal eigenvalue is
+_ ol
+—N+1
+For the isoergotropy reference given by the displaced vac-
+uum, the desired pure target is
+
+Arnax (alts § N)) = po(N) 57)
+
+Pra = |A) (Al, |) = D(a) 0). 58)
+Choose the rank—one Kraus
+M = |p) (41, 59)
+
+where |¢) is any normalized vector. Acting on the input
+yields the unnormalized post-measurement operator
+
+M Pa(us§.N) Mt = (6| bp(H.€.N) |d) |) (il. (60)
+After renormalization, the conditional post-measurement
+state is exactly the pure target:
+
+Mp, Mt oo
+—— bn = |i) (il. 61)
+Tr[M pp M1]
+
+The success probability for this outcome equals
+
+Pance() = (| Pa (us € N) |). 62)
+
+Maximizing over |¢) yields the principal eigenvalue of the
+input:
+
+x - fl
+Pee = Xmax (Pa (u, €, N)) = po(N) = Wal’ 63)
+and the optimal vector is
+IGopt) = U(n, &) [0) 64)
+so that the optimal Kraus reads
+Mops = |i) (opel - 65)
+
+Analogously to the qubit case, this shows that selective
+measurements can be employed in Gaussian systems to
+transform one state into another while preserving the er-
+
+gotropy.
+
+C. Dynamic ergotropy conversion
+
+Similarly to the TLS case, isoergotropic operations can
+be performed dynamically in a Gaussian quantum bat-
+tery (B) by coupling it to an auxiliary system (A). As-
+sume two resonant bosonic modes with total Hamilto-
+nian H = Hp + Ha +Vap, where Hp = w(b'b + 1/2),
+Ha =w (aa +1/2) and a beam-splitter interaction
+
+Van =in (bt @a-beat), (66)
+12
+
+Full — Battery ... Auxiliary
+
+Oy Oat
+
+gl 0.8
+3 gq = 0:6
+—————— ip]
+
+4 0.4
+
+J 0.2
+
+0 0
+
+0 z x az On 0 z ca 3x Ox
+
+nt nt
+
+FIG. 13: (a) Charge and (b) Rényi-2 entropy dynamics
+induced by Eq. (67). The full (computed without the
+interaction) and local ergotropies are invariant during the
+time-evolution. The local Rényi-2 entropies and mutual
+information T oscillate during the internal conversion of
+ergotropy.
+
+captured by the following Lyapunov equation
+
+d
+ap) =WDi),
+
+de, = =
+Bol) =WA&(t)+5(t)W',
+
+(67)
+
+for the first and second moments, with drift matrix
+D(t) = (a(t), w(t), walt), w(t)", covariance matrix
+S(t) at instant t, and
+
+-iw 0 nn O
+_ 0 w 0
+W=| -n 0 =iw 0 (68)
+
+0 -n 0 ww
+
+Equation (67) describes a beam-splitter rotation between
+
+A and B at rate 7 while both modes freely precess at
+frequency w. Formally, the solution of Eq. (67) is given
+FIG. 12: Top: Parameter space representation of the by
+(a) battery and (b) auxiliary Gaussian states dynamics
+induced by Eq. (72) along the isoergotropic surface Ls, D(t) = A(t)D(0), E(t) = A(t)S(O)At(t) (69)
+assuming px (0) = pa(wx(0).€,Ni(0)) with K = B,A
+(colored dots) as initial states, and |ji|? = 5, N4(0) = — where A(t) =e™*.
+0, Ng(0) = 0.8 and |€| = 1. Middle: Ergotropy and In particular, assuming the initial isoergotropic Gaus-
+internal components dynamics for the (c) battery and (d) sian states px (0) = pa(ux(0),€, Nx (0)) with K = B, A,
+auxiliary system for the same parameters. Bottom: (e) such that
+
+Wigner function isoergotropic dynamics for the battery
+
+at instants t = 0,7/4,7/2, assuming 0g = 0, dp = 7 HK (0) = y/ fal€, Nx (0))e*, (70)
+
+andw=7=
+with 04 = 0g + 7/2, and E(0) = ©g(0) © O4(0) with
+© (0) = (Nx (0) + 1/2) FE, 4), (71)
+one can show that
+with 7 being the coupling strength. Under these circum- tun (t) = e€~"* (1.4(0) sin(t) + (0) cos(nt)),
+
+(0) si
+, 12
+stances, the joint unitary dynamics is Gaussian and fully pa(t) =e" (414 (0) cos(nt) — 2p (0) sin(nt)), (72)
+and
+Ox (t) = (Nx (t) + 1/2) F(E, 6 — 2tw), (73)
+
+where
+
+Nac(t) = 5 (Nac(0) ~ Naer(0)) cos(2nt) a
++5 (Wa(0) +.Nx(0))
+
+with K’ 4 K. Therefore, both battery and auxiliary sys-
+ems remain within the same initial isoergotropic surface
+with fixed €, such that
+
+Pacay(t) = Pa(eacay(t),& Necay(t)) © Lp. (75)
+
+Figure 12 shows the dynamics of the (a) battery and
+b) auxiliary system, assuming |f|? = 5, N4(0) = 0,
+Np(0) = 0.8, and fixed |€] = 1. The initial state of B
+A) is represented by the yellow (orange) dots. It is clear
+hat, during the dynamics, both systems change within
+Ls. While both local ergotropies are constant, the dis-
+lacement and squeezing components oscillate with pe-
+riod nT = x. The former changes due to x(t), while
+he latter is due to Nx(t). Moreover, Fig. 12 (e) illus-
+rates the Wigner function at different instants of time,
+or 0g = 0, 6g = 7, andw =7 =1. For t = 0, most
+of the battery’s charge is stored in the squeezing com-
+onent. In t = 7/4, one observes R4, = R%;, until the
+ergotropy is transferred to the displacement component.
+The auxiliary system follows the opposite behavior. No-
+ice that such a process has no internal cost of ergotropy,
+ie., both the total and local charges are invariant, as
+shown by Fig. 13 (a). Thus, the only cost to realize such
+internal reorganization is due to the interaction term.
+To evaluate how the correlations change, Fig. 13 (b) de-
+picts how the Rényi-2 entropies and mutual information
+change during the dynamics.
+
+Vv. APPLICATIONS
+
+To highlight the potential significance of understanding
+the set of isoergotropic states, in the following, we will
+examine two relevant scenarios for quantum batteries:
+charging and discharging.
+
+A. Charging
+
+Charging a quantum battery—i.e., increasing its er-
+gotropy—amounts to transforming a passive state into
+an active one. In the simplest setting this can be done by
+coupling the storage to a semi-classical charger for a fixed
+duration JT. This direct charging protocol [26] is mod-
+eled by a time-dependent Hamiltonian H(t) = Hp+V(t),
+with Hg the battery Hamiltonian and V(t) the charging
+drive, switched on only for 0 < ¢ < T (V(t) = 0 oth-
+erwise). The evolution is unitary, A(t) = —i[H(t), A(t)],
+
+Loo
+
+FIG. 14: Isoergotropic surfaces and optimal-power charg-
+ing. Starting from passive (uncharged) states, the cone
+marks all states reachable at maximal average power in
+the direct protocol; it corresponds to the fixed polar angle
+ary =€T ~ 0.747. Colored dots and dashed arcs illus-
+trate representative charging trajectories. The circular
+arcs are the intersections between the cone and the iso-R
+surfaces Lp; points on an intersection are optimal states
+Pp(p,9) with p = (1 — Scosa) and 5 = P5csc?(a7/2).
+
+and supplies both energy (Hg) and ergotropy R to the
+battery. A natural performance goal is to maximize the
+average charging power under realistic constraints. We
+define
+
+(W) = D{He (A(T) — A(0))], (76)
+
+and assume a bounded driving strength, ||H(t)|| <
+é. For a single TLS with Hg = |e)(e| and Bloch
+representation p(t) = (i + s(t) - o)/2, s(t) =
+s(sin Q; COS Y;, SiN Qy SiN Yz, COS ai)’, the optimal proto-
+col with respect to the power under the norm bound
+is [33]
+
+a é. x é es
+
+H(t) = — 9 SiN Gt Ox + 5 COS Ht Fy, (77)
+which drives
+
+Yt = Po, a4 = a9 + et.
+
+Starting from a passive (uncharged) state on the north
+pole, ag = 0 and s(0) = so(0,0,1)7 with so € [0,1], the
+average power evaluates to (P) = so{1 — cos(eT)] /2T.
+Maximizing (P) over T yields
+
+cos(eT) + eT sin(eT) = 1, (78)
+
+whose solution gives a7 = eT ~ 0.747. Thus the set of
+active states attainable with optimal power forms a cone
+on the Bloch sphere,
+
+SOpt = s( smazy cosy, sma;ysiny, Cos ar) ’
+1071 x Ri" Ji
+2
+
+3 4 5 6
+
+14
+
+(ce) 107? x RP fw (d)
+
+0 10 20 30 40
+
+Tio
+0.4
+
+0.2
+
+06 08
+
+0.8
+
+0.7
+
+0.6!
+
+°
+icy
+°
+-
+~
+
+(h) yi /2
+
+0.45 0.50 0.55 0.60 0.65
+—_ ———
+
+0.6
+
+vt Ig|
+
+FIG. 15: Ergotropy decay for (a)-(d) TLS (e)-(h) single-mode Gaussian-based open quantum batteries. (a) Ergotropy
+dynamics for the distinct isoergotropic states along £o.3. The black dashed line highlights the half-life of the battery.
+The (b) incoherent and (c) coherent components present distinct behavior. The blue continuous line indicates the
+instant with maximum coherent ergotropy, where p-,,, = 1 /2. As a result, states with coherence possess lower decay
+rates. The half-life behavior for all values of p is shown in (d). (e) Ergotropy dynamics for the distinct isoergotropic
+states along £5; and N = 0.5. Both the (f) squeezing and (g) displacement components present a monotonic decay
+with time. Also, it is clear that states with higher values of |€| decay faster. This behavior is observed for distinct
+values of N, as shown in (h). It was assumed (a)-(d) p = 0.8 n = 0.2, (e)-(h) N = 0.5, 2 = 0.3 and |i? = 5.
+
+with s € [0,1], » € [0,27]. Figure 14 shows this optimal
+set together with several isoergotropic surfaces. Their
+intersections (solid colored curves) are parameterized by
+3 = Pz csc?(a7/2) for different £5. Consequently, for
+an initially uncharged battery the isoergotropic family
+reachable at maximum power is
+
+ul B10)
+p= -(1+—_——_ }, 79
+P=3 (1+ cam) (78)
+and the corresponding states pp(p,0) are given by
+p= s(t — 8 cos ar) (80)
+2 ,
+
+as indicated by the colored dots (initial states) and
+dashed lines (driven trajectories) in Fig. 14.
+
+B. Open QB and discharging
+
+External dissipation and decoherence degrade the per-
+formance of quantum devices in general [93-97]. Miti-
+gating ergotropy leakage is therefore essential for realis-
+tic quantum batteries [63, 64]. The ability to reshuffle
+the internal composition of ergotropy, developed above,
+enables the preparation of states that are more robust
+against environmental noise. To illustrate this, we cou-
+ple the battery weakly to a thermal reservoir at inverse
+temperature §. The local dynamics of a TLS and of a
+single-mode Gaussian state (GS) are described by the
+GKLS master equation (h = kg = 1) [98]:
+
+TLS: p= —ifff, A] + 1(1 — YD, [64] + 99D, [6],
+GS: p iH, 0 + y(1+n)D,[a} 4 nD, [a"),
+
+(81)
+
+where 7 is the decay rate, i = (e®”+1)~1 is the fermionic
+(bosonic) occupation number for the TLS (GS), and
+D,|[6] = 6pot — {6t6, p}/2. Equation (81) relaxes each
+system to the Gibbs state at temperature 1/3, discharg-
+ing the battery. Crucially, the coherent and incoherent
+(displacement and squeezing) parts of ergotropy decay
+differently, and the observed discharge reflects their in-
+terplay.
+
+Regarding the TLS system at time t the state
+has the form a(t) = (1—ps)lg)(gl + pele)(el 4
+
+Ce (cis lg)(el + he.) /2, with populations and coherence
+
+evolving independently as p, = (pp —n)e~% + 7 and
+C2 = Cie". Thus po = m and Cx = 0. The
+(in)coherent components of the ergotropy can be com-
+puted using Eqs. (2) and (3). Interestingly, as ob-
+served by a previous work [64], despite the monotoni-
+cally decreasing behavior of the population and coher-
+ence, non-intuitive ergotropy dynamics can appear due
+to coherence, i.e., depending on the initial conditions,
+the coherent ergotropy becomes non-monotonic in time.
+More specifically, the maximum of R°°! is reached for
+p = 1/2, thus if po > 1/2, one observes a first in-
+crease of the coherent ergotropy until p;,,. = 1/2 be-
+fore asymptotically approaching zero, where Tg *=
+yotin [(r0 —n) (1/2 —n)~") is the time required for the
+incoherent state become passive. Figures 15(a)—(c) show,
+or all initial states on Lo.g, that the total and incoher-
+ent charges decay monotonically, while the coherent part
+can exhibit a transient increase. Panel 15(a) marks the
+half-life Ty 2 defined by R(T1/2) = R(0)/2. States with
+arger initial coherence have longer T;/2 despite sharing
+he same initial charge. Figure 15(d) depicting the half-
+ife time in terms of p and Py < p < p confirms this trend
+across different iso-R surfaces: within a given Lp, coher-
+ent (near-pure) states on the Bloch-sphere surface are the
+most resilient to environment-induced dissipation.
+As for the GS states, since the dissipators in Eq. (81)
+are linear in @ and a‘, Gaussianity is preserved. The
+ergotropy at time t is given by Eg. (45) with time-
+dependent parameters (jt, €, N;) evolving as [76]
+
+|pee|” = |wol?e~7*,
+
+[Ar + (2N +1) e~% sinh? (|£o|)]
+N,+1/2 * (82)
+Ni i pO On TD sinh? (gol) ~ 5.
+
+evt(1—e77)-1
+
+1
+\&| zoos!
+
+with A, = 2(N —n)e~% + (n + 1/2). Figures 15(e)—(g)
+display the decay of charge for different initial points on
+Ls with N = 0.5: both the squeezing and displacement
+contributions decrease monotonically, but the half-life is
+shorter for larger initial |€|. This “hotter empties faster”
+behavior is the ergotropic analogue of the Mpemba ef-
+fect [76]. Panel 15(h) shows Tj, versus |€| for several NV,
+confirming the trend across £5.
+
+In summary, consistent with Refs. [64, 76], tailoring
+the internal composition of ergotropy—either at prepa-
+ration (charging) or via iso-R operations—yields states
+
+that retain charge longer under open-system dynamics,
+providing a practical advantage for quantum batteries in
+realistic noisy environments.
+
+VI. DISCUSSION
+
+A central challenge in the study of quantum batter-
+ies (QBs) lies not only in maximizing their stored en-
+ergy but also in understanding how this charge is in-
+ternally structured and can be effectively manipulated.
+While ergotropy R provides a fundamental measure of
+the extractable work from a quantum state, recent in-
+sights show that this quantity can be distributed among
+distinct internal components, classical and quantum de-
+grees of freedom. This internal composition plays a cru-
+cial role in determining how the stored charge can be
+accessed, transformed, or preserved during realistic op-
+erations, including efficient charging and work extraction.
+
+In this broader context, we introduced and investi-
+gated the set £ of isoergotropic states, defined as states
+possessing the same total ergotropy but different inter-
+nal configurations of ergotropy. Although such states are
+equivalent in terms of their stored charge, they may ex-
+hibit markedly distinct physical properties, including in-
+ternal energy, purity, and entropy. We further explored
+the class K of quantum operations—comprising com-
+pletely positive trace-preserving (CPTP) maps and se-
+lective measurements that act within £, preserving total
+ergotropy while redistributing its internal components.
+The thermodynamics involved during such processes is
+also verified, including heat transfer and the possibility
+of isentropic and internal energy-conserving transforma-
+tions. As relevant examples, these concepts are illus-
+trated and applied with both discrete and continuous-
+variable quantum batteries, respectively represented by
+two-level systems and Gaussian states. While in the for-
+mer, the charge is stored within the coherent and in-
+coherent components, in the latter, it is independently
+distributed along the displacement and squeezing ones.
+
+We also demonstrated that dynamical conversion be-
+tween the internal components of ergotropy can be
+achieved by coupling the quantum battery to an auxil-
+iary system. In particular, Eqs. (32) and (66), describing
+the interactions for the TLS and Gaussian cases, share
+the structure of a beam-splitter-type coupling. Such in-
+teractions enable coherent energy exchange while con-
+serving the total number of excitations in the compos-
+ite system. These couplings allow the autonomous re-
+configuration of ergotropy and the simultaneous realiza-
+tion of isoergotropic transformations within the target
+systems. Based on the results reported in [75],
+ticipate that these processes could be exploited to se-
+lectively assess and extract specific components of the
+stored charge. Beam-splitter-type interactions are stan-
+dard tools in quantum optics and are widely used across
+various quantum technologies [99-101]. Moreover, such
+couplings can be readily engineered in both optical and
+
+we an-
+
+superconducting platforms [102-104]. Therefore, isoer-
+gotropic operations can be realistically implemented in
+quantum batteries using current state-of-the-art tech-
+nologies.
+
+To this end, we also explored the practical implica-
+tions of iso-R states and operations in relevant scenar-
+ios. Considering a direct charging protocol for a TLS,
+we characterized the set of states that achieve optimal
+charging power and identify the corresponding optimal
+isoergotropic states within each Lp, as illustrated by the
+intersections in Fig. 14. In this way, one can either tune
+the initial discharged state fo to reach a desired iso-R
+surface or determine the optimal charged state attainable
+from a given fo. Similar analyses can be performed for
+other optimization criteria and charging strategies. Fur-
+thermore, we investigated the robustness of different iso
+ergotropic states under environmental noise. By accoun
+ing for the distinct dynamical behavior of the ergotropic
+components, one can mitigate dissipative charge loss in
+open quantum batteries—either by charging into suitable
+isoergotropic states or by dynamically reshuffling the er-
+gotropy between components. As shown in Fig. 15(a),
+isoergotropic states with coherence exhibit longer half-
+life times T)/2, thus decaying more slowly. A similar
+advantage is observed in Fig. 15(b), where maximizing
+the ergotropy stored in the displacement component en-
+hances robustness against dissipation.
+
+The formalism and analyses developed here can be sys-
+tematically extended to arbitrary quantum battery archi-
+tectures. Future work should aim to identify additional
+applications and explicitly incorporate iso-R operations
+into practical protocols. For example, optimal charge
+stabilization strategies can be found through quantum
+control techniques for different relevant dynamical sce-
+narios [105], including non-Markovian environments. Ad-
+
+=
+
+J. Rofnagel, S. T. Dawkins, K. N. Tolazzi, O. Abah,
+E. Lutz, F. Schmidt-Kaler, and K. Singer, A single-atom
+heat engine, Science 352, 325 (2016).
+
+2| J. P. Peterson, T. B. Batalhao, M. Herrera, A. M. Souza,
+R. 8. Sarthour, I. S. Oliveira, and R. M. Serra, Experi-
+mental characterization of a spin quantum heat engine,
+Phys. Rev. Lett. 123, 240601 (2019).
+
+3] J. Klatzow, J. N. Becker, P. M. Ledingham, C. Weinzetl,
+K. T. Kaczmarek, D. J. Saunders, J. Nunn, I. A. Walm-
+sley, R. Uzdin, and E. Poem, Experimental demonstra-
+tion of quantum effects in the operation of microscopic
+heat engines, Phys. Rey. Lett. 122, 110601 (2019).
+
+4] X. Nie, X. Zhu, K. Huang, K. Tang, X. Long, Z. Lin,
+Y. Tian, C. Qiu, C. Xi, X. Yang, et al., Experimental
+realization of a quantum refrigerator driven by indefinite
+causal orders, Phys. Rev. Lett. 129, 100603 (2022).
+
+5| G. Manzano, G.-L. Giorgi, R. Fazio, and R. Zambrini,
+Boosting the performance of small autonomous refrig-
+erators via common environmental effects, New Journal
+of Physics 21, 123026 (2019).
+
+16
+
+ditionally, they can be utilized in the selective charging
+and extraction of specific ergotropic components. Such
+operations could be harnessed to design novel thermody-
+namic cycles whose strokes internally redistribute charge
+while maintaining a fixed energy budget. Also, one can
+study the potential use of non-isoergotropic local opera-
+tions along with global isoergotropic processes in multi-
+cell quantum batteries. Finally, by taking isoergotropic
+transformations as free operations, one can build a re-
+source theory of ergotropy in direct analogy with stan-
+dard quantum resource theories (see the review [106]).
+Framed this way, ergotropy can be integrated with exist-
+ing resource theories of coherence [78] and Gaussianity
+[107], enabling analyses beyond the usual settings. No-
+tably, recent work has designed nonlinear coherent heat
+machines that convert passive Gaussian states into non-
+Gaussian active ones [108]. This indicates that nonlinear-
+ity cannot be treated as a free resource in any continuous-
+variable resource theory of ergotropy. Investigating the
+interplay among these resources—and identifying appro-
+priate monotones and conversion rules—would be valu-
+able, but lies beyond the scope of the present work.
+VII. ACKNOWLEDGEMENTS
+
+A.H.A.M. acknowledges support from National
+Science Centre, Poland Grant OPUS-21 (No.
+2021/41/B/ST2/03207). B.A. and P.H. acknowl-
+
+edge support from IRA Programme (project no.
+FENG.02.01-IP.05-0006/23) financed by the FENG
+program 2021-2027, Priority FENG.02, Measure
+FENG.02.01., with the support of the FNP. P.R.D.
+acknowledges support from the NCN Poland, ChistEra-
+2023/05/Y/ST2/00005 under the project Modern Device
+Independent Cryptography (MoDIC).
+
+6] A. H. A. Malavazi, B. Ahmadi, P. Mazurek, and A. Man-
+darino, Detuning effects for heat-current control in
+quantum thermal devices, Phys. Rev. E 109, 064146
+(2024).
+
+7| U. N. Ekanayake, S. D. Gunapala, and M. Premaratne,
+Engineered common environmental effects on multitran-
+sistor systems, Phys. Rev. B 107, 075440 (2023).
+
+8] A. Rajapaksha, S. D. Gunapala, and M. Premaratne,
+Enhanced thermal rectification in coupled qutrit—qubit
+quantum thermal diode, APL Quantum 1, 046123
+(2024).
+
+9] P. R. Dieguez, V. F. Lisboa, and R. M. Serra, Thermal
+devices powered by generalized measurements with in-
+definite causal order, Phys. Rev. A 107, 012423 (2023).
+[10] R. Alicki and M. Fannes, Entanglement boost for ex-
+tractable work from ensembles of quantum batteries,
+Phys. Rev. E 87, 042123 (2013).
+
+[11] A. Camposeo, T. Virgili, F. Lombardi, G. Cerullo,
+D. Pisignano, and M. Polini, Quantum batteries: A
+materials science perspective, Advanced Materials 37,
+2415073 (2025).
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24)
+
+25
+
+26
+
+27|
+
+29
+
+F. Campaioli, S. Gherardini, J. Q. Quach, M. Polini,
+and G. M. Andolina, Colloquium: Quantum batteries,
+Rev. Mod. Phys. 96, 031001 (2024).
+
+B. Ahmadi, A. B. Ravichandran, P. Mazurek,
+S. Barzanjeh, and P. Horodecki, Harnessing en-
+vironmental noise for quantum energy storage,
+
+arXiv:2510.06384 (2025).
+
+H.-Y. Yang, H.-L. Shi, Q.-K. Wan, K. Zhang, X.-H.
+Wang, and W.-L. Yang, Optimal energy storage in the
+tavis-cummings quantum battery, Phys. Rev. A 109,
+012204 (2024).
+
+G. Gemme, M. Grossi, D. Ferraro, S. Vallecorsa, and
+M. Sassetti, Ibm quantum platforms: A quantum bat-
+tery perspective, Batteries 8, 43 (2022).
+
+F.-Q. Dou and F.-M. Yang, Superconducting transmon
+qubit-resonator quantum battery, Phys. Rev. A 107,
+F.-M. Yang and F.-Q. Dou, Resonator-qutrit quantum
+attery, Phys. Rev. A 109, 062432 (2024).
+
+R.-H. Zheng, W. Ning, Z.-B. Yang, Y. Xia, and S.-B.
+Zheng, Demonstration of dynamical control of three-
+level open systems with a superconducting qutrit, New
+Journal of Physics 24, 063031 (2022).
+
+. Maillette de Buy Wenniger, S. E. Thomas, M. Maffei,
+S. C. Wein, M. Pont, N. Belabas, S. Prasad, A. Harouri,
+A. Lemaitre, I. Sagnes, N. Somaschi, A. Aufféves, and
+P. Senellart, Experimental analysis of energy transfers
+etween a quantum emitter and light fields, Phys. Rev.
+Lett. 131, 260401 (2023).
+
+A. Rojo-Francas, F. Isaule, A. C. Santos, B. Julid-Diaz,
+and N. T. Zinner, Stable collective charging of ultracold-
+atom quantum batteries, Phys. Rev. A 110, 032205
+(2024).
+
+J. Q. Quach, K. E. McGhee, L. Ganzer, D. M. Rouse,
+B. W. Lovett, E. M. Gauger, J. Keeling, G. Cerullo,
+D. G. Lidzey, and T. Virgili, Superabsorption in an or-
+ganic microcavity: Toward a quantum battery, Science
+advances 8, 3160 (2022).
+
+J. Joshi and T. S. Mahesh, Experimental investigation
+of a quantum battery using star-topology nmr spin sys-
+tems, Phys. Rev. A 106, 042601 (2022).
+
+C. Cruz, M. F. Anka, M. S. Reis, R. Bachelard, and
+A. C. Santos, Quantum battery based on quantum dis-
+cord at room temperature, Quantum Science and Tech-
+nology 7, 025020 (2022).
+
+L. Q. Galvao, A. C. das Neves, M. F. Anka, and C. Cruz,
+Simulating work extraction in a dinuclear quantum bat-
+tery using a variational quantum algorithm, Phys. Rev.
+E 111, 064119 (2025).
+
+B. Ahmadi, P. Mazurek, P. Horodecki, and S. Barzan-
+jeh, Nonreciprocal quantum batteries, Phys. Rev. Lett.
+132, 210402 (2024).
+
+B. Ahmadi, P. Mazurek, $. Barzanjeh, and
+P. Horodecki, Superoptimal charging of quantum
+atteries via reservoir engineering: Arbitrary energy
+transfer unlocked, Phys. Rev. Appl. 23, 024010 (2025).
+F. Barra, K. V. Hovhannisyan, and A. Imparato, Quan-
+tum batteries at the verge of a phase transition, New
+Journal of Physics 24, 015003 (2022).
+
+V. Shaghaghi, V. Singh, G. Benenti, and D. Rosa, Mi-
+cromasers as quantum batteries, Quantum Science and
+Technology 7, 04LTO1 (2022).
+
+V. Shaghaghi, V. Singh, M. Carrega, D. Rosa, and
+G. Benenti, Lossy micromaser battery: Almost pure
+
+30
+
+31
+
+32)
+
+33
+
+34)
+
+36
+
+37
+
+38
+
+39)
+
+Et)
+
+Al
+
+42
+
+43)
+
+44
+
+46)
+
+[47|
+
+17
+
+states in the jaynes-cummings regime, Entropy 25, 430
+(2023).
+
+M.-L. Hu, T. Gao, and H. Fan, Efficient wireless charg-
+ing of a quantum battery, Phys. Rev. A 111, 042216
+(2025).
+
+G. M. Andolina, D. Farina, A. Mari, V. Pellegrini,
+V. Giovannetti, and M. Polini, Charger-mediated en-
+ergy transfer in exactly solvable models for quantum
+batteries, Phys. Rev. B 98, 205423 (2018).
+
+J. Monsel, M. Fellous-Asiani, B. Huard, and A. Auf-
+éves, The energetic cost of work extraction, Phys. Rev.
+Lett. 124, 130601 (2020).
+
+F. C. Binder, S. Vinjanampathy, K. Modi, and J. Goold,
+Quantacell: powerful charging of quantum batteries,
+ew Journal of Physics 17, 075015 (2015).
+
+Y.-Y. Zhang, T.-R. Yang, L. Fu, and X. Wang, Powerful
+harmonic charging in a quantum battery, Phys. Rev. E
+99, 052106 (2019).
+
+B. Cakmak, Ergotropy from coherences in an open
+quantum system, Phys. Rev. E 102, 042111 (2020).
+
+D. Ferraro, M. Campisi, G. M. Andolina, V. Pellegrini,
+and M. Polini, High-power collective charging of a solid-
+state quantum battery, Phys. Rev. Lett. 120, 117702
+(2018).
+
+F. Campaioli, F. A. Pollock, F. C. Binder, L. Céleri,
+J. Goold, S. Vinjanampathy, and K. Modi, Enhancing
+the charging power of quantum batteries, Phys. Rev.
+Lett. 118, 150601 (2017).
+
+F.-Q. Dou, Y.-J. Wang, and J.-A. Sun, Highly effi-
+cient charging and discharging of three-level quantum
+batteries through shortcuts to adiabaticity, Frontiers of
+Physics 17, 31503 (2021).
+
+F.-Q. Dou, H. Zhou, and J.-A. Sun, Cavity heisenberg-
+spin-chain quantum battery, Phys. Rev. A 106, 032212
+(2022).
+F.-Q. Dou, Y.-Q. Lu, Y.-J. Wang, and J.-A. Sun, Ex-
+tended dicke quantum battery with interatomic interac-
+tions and driving field, Phys. Rev. B 105, 115405 (2022).
+J.-Y. Gyhm, D. Safranek, and D. Rosa, Quantum charg-
+ing advantage cannot be extensive without global oper-
+ations, Phys. Rev. Lett. 128, 140501 (2022).
+
+L. F. C. de Moraes, A. C. Duriez, A. Saguia, A. C. San-
+tos, and M. S. Sarandy, Quantum battery supercharging
+via counter-diabatic dynamics, Quantum Science and
+Technology 9, 045033 (2024).
+
+X. Zhang and M. Blaauboer, Enhanced energy transfer
+in a dicke quantum battery, Frontiers in Physics 10,
+1097564 (2023).
+
+F. Mazzoncini, V. Cavina, G. M. Andolina, P. A. Erd-
+man, and V. Giovannetti, Optimal control methods for
+quantum batteries, Phys. Rev. A 107, 032218 (2023).
+R. R. Rodriguez, B. Ahmadi, G. Sudérez, P. Mazurek,
+S. Barzanjeh, and P. Horodecki, Optimal quantum con-
+trol of charging quantum batteries, New Journal of
+Physics 26, 043004 (2024).
+
+C.-K. Hu, J. Qiu, P. J. P. Souza, J. Yuan, Y. Zhou,
+L. Zhang, J. Chu, X. Pan, L. Hu, J. Li, Y. Xu, Y. Zhong,
+S. Liu, F. Yan, D. Tan, R. Bachelard, C. J. Villas-Boas,
+A. C. Santos, and D. Yu, Optimal charging of a su-
+perconducting quantum battery, Quantum Science and
+Technology 7, 045018 (2022).
+
+M.-L. Hu, T. Gao, and H. Fan, Enhancing the charging
+performance of an atomic quantum battery, Advanced
+Quantum Technologies , 00422 (2025).
+
+48
+
+49
+
+60
+
+61
+
+62
+
+63
+
+64]
+
+66
+
+67
+
+68
+
+I. Beder, D. Ferraro, and P. Brandao, Work extraction
+from a quantum battery charged through an array of
+coupled cavities, arXiv:2508.19135 (2025).
+
+F. Pirmoradian and K. Molmer, Aging of a quantum
+battery, Phys. Rev. A 100, 043833 (2019).
+
+A. C. Santos, Quantum advantage of two-level batter-
+ies in the self-discharging process, Phys. Rev. E 103,
+042118 (2021).
+
+C. A. Downing and M. 8. Ukhtary, Hyperbolic enhance-
+ment of a quantum battery, Phys. Rev. A 109, 052206
+(2024).
+
+A. C. Santos, B. Cakmak, S. Campbell, and N. T. Zin-
+ner, Stable adiabatic quantum batteries, Phys. Rev. E
+100, 032107 (2019).
+
+M. T. Mitchison, J. Goold, and J. Prior, Charging a
+quantum battery with linear feedback control, Quantum
+5, 500 (2021).
+
+J. Liu, D. Segal, and G. Hanna, Loss-free excitonic
+quantum battery, The Journal of Physical Chemistry
+C 123, 18303 (2019).
+
+K. Xu, H.-G. Li, H.-J. Zhu, and W.-M. Liu, Inhibiting
+the self-discharging process of quantum batteries in non-
+markovian noises, Phys. Rev. E 109, 054132 (2024).
+
+J. Q. Quach and W. J. Munro, Using dark states to
+charge and stabilize open quantum batteries, Phys. Rev.
+Appl. 14, 024092 (2020).
+
+M. Carrega, A. Crescente, D. Ferraro, and M. Sassetti,
+Dissipative dynamics of an open quantum battery, New
+Journal of Physics 22, 083085 (2020).
+
+F. Barra, Dissipative charging of a quantum battery,
+Phys. Rev. Lett. 122, 210601 (2019).
+
+D. Farina, G. M. Andolina, A. Mari, M. Polini, and
+V. Giovannetti, Charger-mediated energy transfer for
+quantum batteries: An open-system approach, Phys.
+Rev. B 99, 035421 (2019).
+
+W.-L. Song, H.-B. Liu, B. Zhou, W.-L. Yang, and J.-
+H. An, Remote charging and degradation suppression
+for the quantum battery, Phys. Rev. Lett. 132, 090401
+(2024).
+
+S.-Y. Bai and J.-H. An, Floquet engineering to reacti-
+vate a dissipative quantum battery, Phys. Rev. A 102,
+060201 (2020).
+
+F. Zhao, F.-Q. Dou, and Q. Zhao, Quantum battery of
+interacting spins with environmental noise, Phys. Rev.
+A 103, 033715 (2021).
+
+S. Gherardini, F. Campaioli, F. Caruso, and F. C.
+Binder, Stabilizing open quantum batteries by sequen-
+tial measurements, Phys. Rev. Res. 2, 013095 (2020).
+A. H. Malavazi, R. Sagar, B. Ahmadi, and P. R.
+Dieguez, Two-time weak-measurement protocol for er-
+gotropy protection in open quantum batteries, PRX En-
+ergy 4, 023011 (2025).
+
+A. E. Allahverdyan, R. Balian, and T. M. Nieuwen-
+huizen, Maximal work extraction from finite quantum
+systems, Europhysics Letters 67, 565 (2004).
+
+M. Lobejko, The tight second law inequality for coher-
+ent quantum systems and finite-size heat baths, Nature
+Communications 12, 918 (2021).
+
+T. Biswas, M. Lobejko, P. Mazurek, K. Jalowiecki,
+and M. Horodecki, Extraction of ergotropy: free energy
+bound and application to open cycle engines, Quantum
+6, 841 (2022).
+
+R. Castellano, R. Nery, K. Simonov, and D. Farina, Par-
+allel ergotropy: Maximum work extraction via paral-
+
+69)
+
+70
+
+71
+
+72
+
+73
+
+74
+
+76
+
+77
+
+78
+
+79
+
+80
+
+81
+
+82)
+
+83
+
+84)
+
+86
+
+87
+
+18
+
+lel local unitary operations, Phys. Rev. A 111, 012212
+(2025).
+
+R. Salvia, G. De Palma, and V. Giovannetti, Optimal
+local work extraction from bipartite quantum systems
+in the presence of hamiltonian couplings, Phys. Rev. A
+107, 012405 (2023).
+
+G. Di Bello, D. Farina, D. Jansen, C. Perroni,
+V. Cataudella, and G. De Filippis, Local ergotropy and
+its fluctuations across a dissipative quantum phase tran-
+sition, arXiv:2408.02655 (2024).
+
+R. Castellano, D. Farina, V. Giovannetti, and A. Acin,
+Extended local ergotropy, Phys. Rev. Lett. 133, 150402
+(2024).
+
+G. Francica, F. C. Binder, G. Guarnieri, M. T. Mitchi-
+son, J. Goold, and F. Plastina, Quantum coherence and
+ergotropy, Phys. Rev. Lett. 125, 180603 (2020).
+
+T. Guha, S. Roy, K. Simonov, and Z. Zimboras, Activa-
+tion of thermal states by quantum switch-driven ther-
+malization and its limits, arXiv:2208.04034 (2022).
+
+Z. Niu, Y. Wu, Y. Wang, X. Rong, and J. Du, Exper-
+imental investigation of coherent ergotropy in a single
+spin system, arXiv:2409.06249 (2024).
+
+Z. Niu, Y. Wu, Y. Wang, X. Rong, and J. Du, Exper-
+imental investigation of coherent ergotropy in a single
+spin system, Phys. Rev. Lett. 133, 180401 (2024).
+
+I. Medina, O. Culhane, F. C. Binder, G. T. Landi, and
+J. Goold, Anomalous discharging of quantum batteries:
+The ergotropic mpemba effect, Phys. Rev. Lett. 134,
+220402 (2025).
+
+A. Serafini, Quantum Continuous Variables: A Primer
+of Theoretical Methods (CRC Press, Boca Raton, FL,
+2017).
+
+A. Streltsov, G. Adesso, and M. B. Plenio, Colloquium:
+Quantum coherence as a resource, Rev. Mod. Phys. 89,
+041003 (2017).
+
+A. H. A. Malavazi and F. Brito, A schmidt decompo-
+sition approach to quantum thermodynamics, Entropy
+24, 11 (2022).
+
+R. Alicki, The quantum open system as a model of the
+heat engine, Journal of Physics A: Mathematical and
+General 12, L103 (1979).
+
+B. Ahmadi, S. Salimi, and A. Khorashad, On the con-
+tribution of work or heat in exchanged energy via in-
+teraction in open bipartite quantum systems, Scientific
+Reports 13, 160 (2023).
+
+S. Khatri, K. Sharma, and M. M. Wilde, Information-
+theoretic aspects of the generalized amplitude-damping
+channel, Phys. Rev. A 102, 012401 (2020).
+
+M. Rosati, A. Mari, and V. Giovannetti, Narrow bounds
+or the quantum capacity of thermal attenuators, Na-
+ture Communications 9, 4339 (2018).
+
+N. Behzadi, E. Soltani, and E. Faizi, Thermodynamic
+cost of creating global quantum discord and local quan-
+tum uncertainty, International Journal of Theoretical
+Physics 57, 3207 (2018).
+V. Gomes, P. Dieguez, and H. Vasconcelos, Realism-
+based nonlocality: Invariance under local unitary op-
+erations and asymptotic decay for thermal correlated
+states, Physica A: Statistical Mechanics and its Appli-
+cations 601, 127568 (2022).
+M. A. Nielsen, Quantum
+arXiv:0011036 (2000).
+
+R. Horodecki, M. Horodecki, and P. Horodecki, Entan-
+glement processing and statistical inference: The jaynes
+
+information — theory,
+
+88
+
+89
+
+90
+
+91
+
+92
+
+93
+
+94
+
+96
+
+97
+
+98
+
+principle can produce fake entanglement, Phys. Rev. A
+59, 1799 (1999).
+
+M. A. Nielsen, Conditions for a class of entanglement
+transformations, Phys. Rev. Lett. 83, 436 (1999).
+
+J. Oppenheim, M. Horodecki, P. Horodecki, and
+R. Horodecki, Thermodynamical approach to quantify-
+ing quantum correlations, Phys. Rev. Lett. 89, 180402
+(2002).
+
+G. Adam, Density matrix elements and moments for
+generalized gaussian state fields, Journal of Modern Op-
+tics 42, 1311 (1995).
+
+G. Adesso, D. Girolami, and A. Serafini, Measuring
+gaussian quantum information and correlations using
+the rényi entropy of order 2, Phys. Rev. Lett. 109,
+190502 (2012).
+
+J. B. Brask, Gaussian states and operations—a quick ref-
+erence, arXiv preprint arXiv:2102.05748 (2021).
+
+Z. Cai, R. Babbush, $8. C. Benjamin, S. Endo, W. J.
+Huggins, Y. Li, J. R. McClean, and T. E. O’Brien,
+Quantum error mitigation, Rev. Mod. Phys. 95, 045005
+(2023).
+F. Galve, A. Mandarino, M. G. A. Paris, C. Benedetti,
+and R. Zambrini, Microscopic description for the emer-
+gence of collective dissipation in extended quantum sys-
+tems, Scientific Reports 7, 42050 (2017).
+
+J. Etxezarreta Martinez, P. Fuentes, P. M. Crespo, and
+J. Garcia-Frias, Quantum outage probability for time-
+varying quantum channels, Phys. Rev. A 105, 012432
+(2022).
+
+O. A. D. Molitor, A. H. A. Malavazi, R. D. Baldijao,
+A. C. Orthey, I. L. Paiva, and P. R. Dieguez, Quantum
+switch instabilities with an open control, Communica-
+tions Physics 7, 373 (2024).
+
+S. Aziz, A. H. A. Malavazi, and P. R. Dieguez, Revival
+and instabilities of entanglement in monitoring maps
+with indefinite causal order, Journal of Physics: Con-
+ference Series 3017, 012044 (2025).
+
+H.-P. Breuer, F. Petruccione, et al., The theory of open
+quantum systems (Oxford University, Oxford, 2007).
+
+99
+
+00
+
+01
+
+02)
+
+03
+
+[104]
+
+[105]
+
+[106]
+
+[107]
+
+[108]
+
+19
+
+D. Makarov, Theory for the beam splitter in quantum
+optics: Quantum entanglement of photons and their
+statistics, hom effect, Mathematics 10, 24 (2022).
+
+L.-P. Yang and Y. Chang, Quantum beam splitter as
+a controller of higher-order quantum coherence, Phys.
+Rev. A 110, 023722 (2024).
+
+L. O. R. Solak, C. J. Villas-Boas, and D. Z. Rossatto,
+Beam splitter for dark and bright states of light, Phys.
+Rev. A 111, 053702 (2025).
+
+Y. Y. Gao, B. J. Lester, Y. Zhang, C. Wang, S. Rosen-
+blum, L. Frunzio, L. Jiang, S. M. Girvin, and R. J.
+Schoelkopf, Programmable interference between two mi-
+crowave quantum memories, Phys. Rev. X 8, 021073
+(2018).
+
+B. J. Chapman, 8. J. de Graaf, S. H. Xue, Y. Zhang,
+J. Teoh, J. C. Curtis, T. Tsunoda, A. Eickbusch, A. P.
+Read, A. Koottandavida, S$. O. Mundhada, L. Frunzio,
+M. Devoret, S. Girvin, and R. Schoelkopf, High-on-off-
+ratio beam-splitter interaction for gates on bosonically
+encoded qubits, PRX Quantum 4, 020355 (2023).
+Y.-H. Huang, K.-M. Hsieh, F. Aziz, Z. Q. Niu, P. Y.
+Wen, Y.-T. Cheng, Y.-S. Tsai, J. C. Chen, X. Wang,
+A. F. Kockum, Z.-R. Lin, Y.-H. Lin, and I.-C. Hoi, Tun-
+able coherent microwave beam splitter and combiner at
+the single-photon level, Applied Physics Letters 127,
+014002 (2025).
+
+G. Kurizki and A. G. Kofman, Thermodynamics and
+control of open quantum systems (Cambridge University
+Press, 2022).
+
+E. Chitambar and G. Gour, Quantum resource theories,
+Rev. Mod. Phys. 91, 025001 (2019).
+
+L. Lami, B. Regula, X. Wang, R. Nichols, A. Winter,
+and G. Adesso, Gaussian quantum resource theories,
+Phys. Rev. A 98, 022335 (2018).
+
+T. Opatrny, Simon Brauer, A. G. Kofman, A. Misra,
+N. Meher, O. Firstenberg, E. Poem, and G. Kurizki,
+Nonlinear coherent heat machines, Science Advances 9,
+1070 (2023).

@@ -1,0 +1,2562 @@
+s.chem-ph] 29 Oct 2025
+
+SIC
+
+2510.25380v1 [phy
+
+arXiv
+
+Cross Learning between Electronic Structure Theories for Unifying Molecular,
+
+Surface, and Inorganic Crystal Foundation Force Fields
+
+Ilyes Batatia,!»* Chen Lin,?’* Joseph Hart,!? Elliott Kasoar,++ Alin
+M. Elena,* Sam Walton Norwood,® Thomas Wolf,® and Gabor Csanyi!
+
+"Engineering Laboratory, University of Cambridge, Trumpington St, Cambridge, UK
+2 University of Oxford, UK
+3 Cavendish Laboratory, University of Cambridge, J. J. Thomson Avenue, Cambridge, UK
+4 Scientific Computing Department, Science and Technology Facilities Council,
+Daresbury Laboratory, Keckwick Lane, Daresbury WA4 4AD, UK
+° Mirror Physics, 31 Hudson Yards, Floor 11, New York, NY 10001
+° Hugging Face, 20 Jay Street Suite 620, Brooklyn, NY 11201
+
+(Dated: October 30, 2025)
+
+Creating a single unified interatomic potential capable of attaining ab initio accuracy across all
+chemistry remains a long-standing challenge in computational chemistry and materials science. This
+work introduces a training protocol for foundation machine-learning interatomic potentials (MLIPs)
+that bridge molecular, surface, and materials chemistry through cross-domain learning. First, we
+introduce enhancements to the MACE architecture that improve its performance on chemically
+diverse databases by increasing weight sharing across chemical elements and introducing non-linear
+factors into the tensor decomposition of the product basis. Second, we develop a multi-head replay
+post-training methodology that enables efficient knowledge transfer across diverse chemical domains.
+By fine-tuning on datasets at different levels of electronic structure theory—including inorganic
+crystals, molecular systems, surface chemistry, and reactive organic chemistry—we demonstrate
+that a single unified model achieves state-of-the-art performance across several chemical domains.
+Comprehensive benchmarking reveals superior cross-domain transferability compared with existing
+specialised and multi-task models, with notable improvements in molecular and surface properties
+
+while maintaining state-of-the-art performance in materials-property prediction.
+
+I. Introduction
+
+The development of accurate and transferable ma-
+chine learning interatomic potentials (MLIPs) remains
+one of the most challenging problems in computational
+chemistry and materials science [1-11]. Traditional ap-
+roaches have created a fragmented landscape where dis-
+inct models are required for molecular systems [5, 12-
+4], surface chemistry [15-17], and bulk materials [18-
+20], creating substantial barriers when studying phenom-
+ena that naturally span multiple chemical domains, such
+as heterogeneous catalysis, crystal growth, or interfa-
+cial processes. Recent advances in foundation MLIPs
+have demonstrated remarkable capabilities through large
+re-training on diverse datasets [18-24]. However, mos
+existing foundation models suffer from limited chemical
+scope, often excelling in one domain while showing inade-
+quate performance in others. This limitation stems from
+oth dataset constraints and architectural choices tha‘
+favour domain-specific optimisation over cross-domain
+ransferability.
+
+The challenge of unifying multiple chemical domains
+within a single MLIP framework involves several key
+considerations: (i) training on datasets with different
+levels of electronic structure theory, (ii) efficient knowl-
+edge transfer between chemical domains without catas-
+rophic forgetting (if training involves multiple stages),
+
+* These authors contributed equally.
+
+and (iii) maintaining computational efficiency while ex-
+panding chemical coverage. One strategy, used recently
+by UMA [25], DPA-3 [26] and SevenNet [27], is to make
+the model output explicitly depend on the task by em-
+bedding the task as part of the input along with the
+atomic coordinates. This makes most model layers task-
+dependent, and allows for significant flexibility while ben-
+efiting from some cross-learning. An alternative is meta-
+learning, where during a pre-training stage multiple tasks
+are sequentially attempted, resulting in a model that is
+easy to specialise to a specific task by performing fine-
+tuning training [28]. The downside of both these ap-
+proaches is that at inference time the task needs to be
+specified by the user; there is no single model applicable
+to all tasks out of the box. DPA-2 [24] and JMP [29]
+used pre-training with multiple readout heads (where
+only the last computational layer is specific to each task)
+and downstream fine-tuning for a given specific task. In
+this work, we create a single foundation MLIP using mul-
+tiple diverse datasets, also using a multi-head approach,
+and evaluate the performance of its “main” head (in this
+case corresponding to DFT with the PBE functional) on
+all tasks. The ultimate goal is to have a single continu-
+ous potential energy function applicable to all chemical
+contexts. We therefore design a training protocol that
+enhances cross-learning and knowledge sharing from all
+heads to the main head.
+
+Our first contribution is to introduce a set of changes
+to the state-of-the-art MACE architecture that improves
+its performance for large databases containing a large
+number of chemical species. These changes, explicitly
+highlighted below, include the use of more weight-sharing
+etween the different species to enable the model to learn
+more powerful compressions of the chemical domains. We
+also introduce non-linear factors in the tensor decompo-
+sition that are demonstrated to provide better accuracy
+han purely polynomial features.
+
+Second, we introduce a multi-head cross-learning fine-
+uning protocol that aims to produce a single model
+ridging materials, molecular, and surface chemistry
+hrough two key innovations: (1) a multi-head architec-
+ure that enables simultaneous learning across potentially
+inconsistent levels of electronic structure theory while
+maintaining shared chemical and geometrical represen-
+ations; (2) pre-training followed by a replay fine-tuning
+methodology that facilitates knowledge transfer across
+domains while preventing catastrophic forgetting from
+he base model. We perform comprehensive validation
+across molecular, surface, and materials benchmarks, es-
+ablishing new standards for evaluating unified founda-
+ion force field accuracy.
+
+Our results show that cross-domain learning attains
+competitive in-domain accuracy and yields measurable
+cross-domain generalisation via knowledge transfer, im-
+roving performance on molecular, surface, and crys-
+al benchmarks without degrading materials accuracy.
+This work establishes a clear path toward MLIPs that
+can seamlessly handle physical and chemical phenomena
+across all areas of chemistry and materials science.
+
+II. Methods
+A. Theoretical Foundation
+
+Our approach builds upon the MACE architecture [10],
+which employs many-body equivariant message passing
+to build fast and accurate machine learning interatomic
+potentials. MACE parameterises a mapping from atomic
+coordinates and atomic numbers (element indices) to the
+potential energy by decomposing it into atomic energies.
+Each atomic energy term is a function of invariant de-
+scriptors that embed the chemical and geometrical many-
+body information of the neighbourhood of the atom. The
+total energy E of a system is expressed as:
+
+B= 7 Bi({tis, zibiens) (1)
+
+where E; represents the atomic energy contribution of
+atom i, Nj; denotes the set of its neighbours within a
+cutoff radius reut, rij are relative vectors from atom 1 to
+its neighbour j, and z; are atomic numbers.
+
+The multi-head architecture enables simultaneous
+learning across multiple potentially inconsistent levels of
+electronic structure theory by employing distinct shallow
+readout functions that map shared latent feature repre-
+
+sentations to each desired theoretical framework:
+
+By) = SPR (HI) + BO (2)
+
+where (head) enumerates readout heads corresponding to
+different levels of theory, ni represents the node features
+at layer s, and Eiead) are head-specific atomic reference
+energies. For all the fine-tuning heads, we use the method
+outlined in Section XV A to estimate their Ep, and for the
+superior cross-domain transferability head we use DFT
+computed atomic reference energies. This multi-head ap-
+proach parallels recent developments in machine learning
+potentials, including the DPA-2 model [24]. In our case,
+for each head, we use a simple linear readout layer for the
+first layer and a single-hidden-layer fully-connected feed-
+forward network (multilayer perceptron, MLP) for the
+second layer.
+
+B. MACE with non-linear tensor decomposition
+
+Equations (3)-(19) represent the complete functional
+form of MACE as they were introduced in Ref. [10, 30]
+together with the blue parts corresponding to the mod-
+ifications we introduce in this paper. We arrived at this
+particular set of changes by performing a grid-search
+over proposed changes using large-dataset training runs
+to maximise the accuracy of the model with the fewest
+changes. For ease of reference, we keep the formulas to-
+gether and provide a detailed explanation of them be-
+low. Note that in order to help readability by limiting
+the number of symbols and symbol modifiers, we reuse
+the symbol W to refer to the free parameters of the
+model; each occurrence below corresponds to indepen-
+dent weights with appropriate dimensions and indices.
+There are additional free parameters in the MLPs which
+are not explicitly shown.
+
+The finite neighbourhood of each atom creates a graph
+topology on the atomic structures. Each node i carries
+a feature vector h;, expanded in a spherical-harmonic
+basis so that components are indexed by (J,m); we write
+
+ni for the features after iteration s (the s-th message-
+passing layer) and denote the total number of layers by
+&.
+
+We start by initialising the node features no as
+a learnable embedding of the chemical elements with
+atomic number z; into Kyode learnable channels indexed
+by k, cf. Eq. (3). This kind of mapping has been used
+extensively for graph neural networks [31-34] and else-
+where [35, 36] and has been shown to lead to some trans-
+ferability between molecules with different elements [37].
+The zeros for the lm indices correspond to these initial
+features being scalars, i.e. rotationally invariant. The
+higher-order elements of rn with nonzero lm indices
+are initialised to zero. At the beginning of each sub-
+sequent iteration, the node features (both scalars and
+
+higher order) are linearly mixed together resulting in hj,
+
+cf. Eq. (4).
+
+Next, we combine the features of each of the neighbour-
+ing atoms j with the interatomic displacement vectors
+pointing to them from the central atom i (correspond-
+ing to the ¢-j edge in the graph) expressed using radial
+and spherical harmonic basis. This is analogous to the
+construction of the one-particle basis of neighbour den-
+sity representations, such as SOAP [38] and ACE [7, 37],
+and we construct it in a similar way to Cormorant [39]
+and NequIP [33]. The relationships between these dif-
+erent approaches are discussed in Ref. [37]. We con-
+struct the radial basis set using the first spherical Bessel
+‘unction jj for different wavenumbers, n, up to some
+small maximum (typically 8), in Eq. (5) as proposed in
+Ref. [34]. For each channel k, the radial information is
+hen passed through a separate MLP, Eq. (7), whose in-
+uts are the Bessel functions with different frequencies,
+and which has many outputs, indexed by (71,11, l2, 13).
+n a modification to the original MACE architecture, we
+compute separate embeddings of the source and target
+elements following [25], and concatenate them with the
+Bessel features before passing them into the radial MLP.
+The next modification compared to the original MACE
+design is that we apply the radial cutoff function fou, out-
+side the MLP, and not directly to the Bessel function as
+in the original MACE. This forces a smoother decay near
+the cutoff. When combining positional information (it-
+
+self an equivariant that transforms under rotation like a
+
+vector) with equivariant node features, we use the spher-
+ical tensor product formalism of angular momentum ad-
+dition [40]. All possible combinations of equivariants are
+constructed using the appropriate Clebsch-Gordan coef-
+ficients, Eq. (8).
+
+The one-particle basis ¢ is summed over the atoms in
+he neighbourhood in Eq. (10). This is where permuta-
+ion invariance of the MACE descriptors over the atoms
+in the neighbourhood is achieved - note that the iden-
+ity of chemical elements has already been embedded,
+
+atomic number. A linear mixing of k channels with learn-
+
+and use K& ) « < K instead. The dependence s is used to
+specify more sedge channels for the inexpensive first layer
+
+s = 0 compared to other layers.
+
+To ensure internal normalization of the features and
+
+smooth extrapolation to systems with different densities,
+
+we divide the atomic basis in each layer by a learnable
+quantity called density normalization n;. We extend our
+density normalization [18] to be a (learnable) weighted
+sum of the density term and a constant term. This
+
+weighted sum acts like a mixture of a body-ordered fea-
+
+ture (with the constant term) and a mean-field feature
+
+with the density term.
+
+and hence this sum is over all atoms, regardless of their
+
+able weights yields the initial atomic basis, A;. As the
+ensor product operation in Eq. (8), which happens on
+he edges, is the computational bottleneck of MACE, we
+let the freedom to use fewer channels for this operation
+
+AO)
+
+Knode
+
+As) =
+i eiama = DW,
+
+k
+
+(s)
+Reh tally (Tis) = MLP
+
+lilgmym2
+
+y(S) = lgmg (s)
+Pig-kmlgms — » Dae Lepreadanveg Menulitsty UE) *
+mi a..\7(s)
+XY Pye tima 8
+
+n= Se tanh (m
+
+i,k00 — xs Wr2dz2; 3
+
+wis) pls) 4
+
+eee
+
+(198 ise ef) feat (res)
+
+= (aE CisdIg ee fe hs) *) feaalr)
+
+JEN (i)
+9
+Ete
+3) (s)
+iklams~ 7 (5 44 x al) + Bon 8) a >. “yy, nil rts a ij,knilgmg
+(10
+Knode
+qs) = Als) (s) p(s)
+Ay ktgnie = Aa klawig * ds Wiig a hisiig (11
+k
+ols)
+edge
+ACs) scalars _ » xi w&) > On
+i,klg al) + On) kknyl ij,ky, 00
+als =F Syn 7 ms jEN (i) “mn
+12
+(s) (ayscauna: RS 00)
+WV etg= Avkig + X Writs? Roo 18
+%i,k00 F(2i,n00) Yi,koo, § =0,
+G(©i,k00+ Yi,klm)= ( ) 14
+o(2i,n00) Yi,klms i>0,
+Ae ) tea Knode a )
+Ar ilems = = » wie ‘ae g (Qi 613 Az ktgmg) 15
+(s),v “4 (s),ated
+A klm — Il Av kleme 16
+é=1
+Bo” LM (s),v
+B;. nvkLM ~~ =u Crim A; kim 17
+Bo
+ri, few = =v Woven B inv kLM 18
+
+v Mh
+Knode Knode
+Ast) = (3) mls) (s) (s)
+hieiM = pS Wer a iReM t pe Wes. e koe
+k k
+We then construct an updated atomic basis, Assted
+in Eq. (11), using a learnable residual connection from
+he initial node features, that contains both information
+about the neighbourhood of the atom and also informa-
+ion about the atom 7 itself. This new modification en-
+ables the model to construct a polynomial that contains
+not only factors from the neighbours of i, but also fac-
+ors that depend on the features of 7 directly, allowing
+for richer many-body features.
+
+We also construct a set of scalar features 2 on each
+atom, from a learnable combination of extra scalars com-
+uted from the atomic basis Alescalars in Eq. (12) and
+he node features as a residual connection in Eq. (13).
+The scalar features are used to compute a gated non-
+inearity [41] in equations (14) and (15). We found that
+a sigmoid () gate for the equivariant channels and a
+SiLU for the invariant channels works best.
+
+We use these gated atomic basis to construct many-
+ody messages in the same way as in our original MACE
+design using tensor-decomposed symmetric contractions.
+For more details on these operations, see the original
+MACE paper [10]. Additionally, for more explanation on
+he role of the tensor decomposition, refer to the TRACE
+paper [42]. One important modification compared to the
+original tensor decomposition is that, due to the non-
+inearity in Eq. 15, the model can learn non-linear rank-1
+factors in the tensor decomposition. We also use element-
+agnostic weights for the message construction (Eq. (18))
+and the update (Eq. (19)). The rest of the architecture
+is identical to that of our previous MACE models, with
+he computation of the product basis in Eq. 16, the sym-
+metrization with the generalised Clebsch-Gordan coeffi-
+cients in Eq. 17, the message construction in Eq. 18 and
+he update in Eq. 19. After S layers of message pass-
+ing (usually we use S=2), the node features are used to
+predict site energies per head in Eq. 2.
+
+III. Multi-Head Replay Post-Training
+
+Figure 1 provides an overview of our cross-learning
+framework, illustrating the progression from foundation
+pre-training through Multi-Head Replay Post-Training.
+Our multi-head replay post-training strategy [18] facili-
+tates efficient knowledge transfer from a broad founda-
+tion dataset to multiple specialised datasets while pre-
+venting catastrophic forgetting through strategic replay
+sampling. The workflow comprises two distinct stages:
+
+e Stage 1: Pre-training at base level theory.
+We first train a unified backbone model on a large,
+diverse dataset of inorganic crystals, producing
+shared feature representations that capture funda-
+mental chemical and geometrical patterns.
+
+e Stage 2: Multi-head Fine-tuning with Re-
+play. We simultaneously fine-tune multiple shal-
+low readout heads, starting from the pre-trained
+weights on domain-specific datasets. We do not
+
+freeze any weights, i.e. we keep fine-tuning the
+backbone weights as well. Each head targets a
+different chemical domain (molecular systems, sur-
+faces, inorganic materials) or specific level of the-
+ory. To mitigate catastrophic forgetting, we con-
+struct a replay buffer by sampling representative
+configurations from the original pre-training data.
+During fine-tuning, each minibatch combines ran-
+domly new domain-specific samples with replay
+samples, ensuring retention of foundational chemi-
+cal knowledge.
+
+IV. Datasets
+
+We employ a combination of large-scale foundation
+data and targeted fine-tuning datasets to comprehen-
+sively cover inorganic crystals, surfaces, and molecular
+chemistry.
+
+A. Pre-training Dataset
+
+OMAT [43]: A large inorganic crystal dataset contain-
+ing 100 million configurations spanning 89 elements. All
+calculations are performed at the PBE and PBE+U level
+of theory, providing broad coverage of diverse inorganic
+crystals and serving as our pre-training dataset.
+
+B. Fine-tuning Datasets
+
+e OMAT Replay (10% subset): We randomly se-
+lected 10 million configurations from OMAT as
+a replay buffer to prevent catastrophic forgetting
+of foundational inorganic structures during fine-
+tuning. We will keep this head as our PBE head
+for the model.
+
+e RGD1 [44]: Contains 300K configurations of small
+organic reaction intermediates and transition states
+computed at the B3LYP /6-31G* level, enabling ac-
+curate modelling of organic reaction pathways.
+
+e MPTraj: This dataset comprises 1.5 million con-
+figurations from the Materials Project (MP) [45] in-
+cluding static calculations and structural optimisa-
+tion trajectories. The dataset emphasises dynamic
+lattice distortions in small periodic unit cells (90%
+under 70 atoms) describing inorganic crystals with
+some molecular components. DFT calculations em-
+ploy the PBE exchange-correlation functional with
+Hubbard U terms for selected transition metal ox-
+ides [46]. This dataset was originally compiled for
+CHGNet [21].
+
+e SPICE-1 [47]: Encompasses ~500K geometries of
+small to medium-sized organic molecules calculated
+(a)
+
+FIG. 1. Workflow for cross-domain machine learning interatomic potential development.
+
+Pre-training
+
+(b) Multihead Fine-tuning (c) Benchmarking
+: Bulk Crystals
+‘OMAT
+a)
+Molecular Crystals
+-Readout| [Readout| /Readout More
+OMAT OMOL 0c20
+v Molecules / Bio-complexes
+More
+
+fh.
+PLA15
+
+Wiggle150
+
+(a) Stage 1 establishes
+
+foundation chemical knowledge through pre-training on large-scale inorganic materials data (OMAT-24). (b) Stage 2 implements
+
+multi-head fine-tuning
+
+catastrophic forgetting.
+
+with strategic replay across diverse chemical domains, enabling knowledge transfer while preventing
+(c) The resulting unified model is benchmarked across molecular, materials, and surface chemistry
+
+tests and achieves state-of-the-art performance.
+
+at
+ing
+
+she wB97M-D3(BJ) /def2-TZVP level, provid-
+comprehensive coverage of conformational land-
+es and intramolecular interactions.
+
+OC20 [15]: We randomly subsample 2 million
+metal surface slabs and adsorbate complexes com-
+
+puted at the PBE level, specifically targeting cat-
+alytic surface processes and gas-surface interac-
+tions.
+
+OMOL-1% [48]: Subsampled 1.2 million neutral,
+closed-shell and diverse organic, organometallic,
+and transition-metal configurations, ensuring com-
+prehensive coverage of coordination chemistries,
+calculated using hybrid DFT with the wB97M-
+VV10 functional.
+
+MATPES R2SCAN [49]: Comprises 400K inor-
+ganic crystal snapshots sampled via molecular dy-
+namics using machine learning force fields at the
+r°SCAN level (without Hubbard U corrections).
+
+V. Model Descriptions
+
+The hyperparameters for all MACE models can be
+found in the supplementary Table XVII. We benchmark
+several models to evaluate the effectiveness of our multi-
+head replay approach:
+
+e mace-omat-1: Initial pre-training MACE model
+on the full OMAT dataset. It uses the new block
+proposed in IIB.
+
+mace-mh-1: Our proposed MACE model, fine-
+tuned with multi-head replay fine-tuning on the
+mace-omat-1 backbone. All of the results in the
+main text use the single “OMAT head” of the model
+referred to as mace-mh-1-omat. We also bench-
+mark the “OMOL” head fine-tuned on the OMOL
+dataset referred to as mace-mh-1-omol-1%. The
+1% reflects that it was trained on just 1% of the
+full OMOL dataset. We also present results for
+R2SCAN heads of our models in Table XVII. For
+the hyper-parameters of the MACE models, please
+see Table XVII.
+
+mace-omat-0: MACE model trained on the full
+OMAT dataset, using the original blocks of MACE,
+with slightly smaller model size (corresponding to
+a medium sized model, see the supplementary Ta-
+
+ble XVII).
+
+mace-omol: MACE model trained on the full
+100M OMOL dataset, with total charge and to-
+tal spin global embedding (denoted in the text as
+mace-omol-100%). As this model is only trained
+on molecular systems, we only benchmark it when
+appropriate.
+
+e uma [25]: eSEN [50] model trained on 100M in-
+organic crystals of OMAT, 230M surfaces/small
+molecules of OC20/OC22, 100M molecular config-
+urations of OMOL, 25M molecular crystals config-
+urations of OMC and 29M metal organic frame-
+works of ODAC. The dataset types are embed-
+ded as one-hot encoding in the model as a global
+
+input. We benchmark the OMAT and OMOL
+variant throughout this paper, with both the
+S-1.1 and the larger M-1.1 variant referred to
+
+as uma-s-1pl-omat/omol-100% and uma-m-
+1p1-omat/omol-100% respectively in the text.
+We use omol-100% to highlight the fact that it is
+trained on the full dataset.
+
+e mace-mp-0a [18]: MACE trained on the MPTraj
+dataset, representing a strong baseline for inorganic
+materials modelling.
+
+e mattersim-5M [22]: A recent foundation model
+trained on diverse chemical systems, providing
+state-of-the-art comparison.
+
+e orb-v3 [51]: Orb model trained on the OMAT
+AIMD subset; we use the most accurate orb-v3-
+conservative-inf-omat in all the tests, referred to as
+orb-v3-consv-inf-omat.
+
+VI. Benchmark Overview
+
+Figure 2 summarises cross-domain performance us-
+ing five normalised domain scores—Materials, Molec-
+ular Crystals, Surfaces, Molecules, and Physical-
+ity—and a global score defined as a weighted sum (Mate-
+rials 0.25, Molecules 0.25, Surfaces 0.20, Molecular Crys-
+tals 0.20, Physicality 0.10). We evaluate model physical-
+ity through several benchmarks assessing size extensivity,
+additivity, and smoothness of dimer interactions, see the
+Section XII for details. The breakdown of the weighting
+of each benchmark towards the scores can be found in
+Table XX. We acknowledge that aggregating metrics is
+a difficult task, and our proposed weighting is necessar-
+ily subjective. To normalise the scores, we defined two
+sets of bounds, one for a model that would be deemed
+inaccurate and one bound for the accuracy at which the
+enchmark would be saturated, either because it would
+reach the intrinsic accuracy of the DFT in the case of
+comparison with wavefunction methods, or because it
+is a mathematical upper bound. We believe that going
+forward, these weights need to be improved by a joint
+discussion of the community. Panel (a) shows a radar
+plot comparison of domain scores for the leading models.
+The multi-head model, mace-mh-1-omat, attains the
+most balanced profile, with strong Molecules and Molec-
+ular Crystals while remaining competitive on Materials,
+Surfaces, and Physicality. Panel (b) ranks models by
+he global score and highlights the same model as the
+op overall performer, indicating that gains in molecular
+
+chemistry do not come at the expense of bulk materi-
+als or surface physics. Panel (c) isolates the architec-
+ture trajectory within the MACE family—mace-omat-
+O (linear block) —+ mace-omat-1 (non-linear block)
+— mace-mh-1-omat—and shows monotonic improve-
+ments in the Molecules and Surfaces categories together
+with stable Materials performance, which together drive
+the increase in the global score. The improvements from
+mace-omat-0 to mace-omat-1 are due to two factors:
+a choice of a slightly larger model size, going from L = 1
+messages to L = 2, and to the changes to the mace ar-
+chitecture outlined in the previous section. Panel (d)
+plots per-category ranks (lower is better; axis inverted),
+revealing that the best models are not specialists: they
+maintain good ranks across all five categories, with espe-
+cially consistent behaviour for mace-mh-1-omat.
+
+In the following sections, we give a detailed perfor-
+mance breakdown of the different tested models on each
+benchmark, with materials benchmarks in section VIII,
+molecular crystals in section IX, surfaces in section X,
+molecular systems in section XI, physicality benchmark
+in section XII and computational performance in sec-
+tion XIII. In each table, we bold the best model(s) and
+underline the second best model(s). When we bench-
+mark both OMAT and OMOL heads or tasks for different
+benchmarks, we bold and underline the best and second
+best models within each task.
+
+VII. Dispersion corrections (D3)
+
+We incorporate D3(BJ) dispersion corrections [52,
+53] when evaluating systems with significant van der
+Waals interactions with PBE-trained models, using
+the torchDFTD3 Python package [54] with the PBE
+parametrization. All D3(BJ) evaluations use the same
+parameterisation across models to ensure fair compari-
+son. The models trained on OMOL at the wB97M-VV10
+level of theory were run without additional dispersion
+correction.
+
+VIII. Materials Benchmarks
+
+We evaluate mode
+
+benchmarks covering
+
+cluding elastic modul
+
+performance across comprehensive
+inorganic materials properties, in-
+i, thermal conductivity, and phonon
+
+spectra. These benchmarks assess the models’ ability to
+
+predict basic physica.
+
+properties for inorganic materials.
+
+These metrics go beyond just energy and force errors by
+
+probing the MLIPs’
+
+understanding of the curvature of
+
+the PES. Note that most reference data for these bench-
+
+marks are computed
+
+at the PBE+U level, matching the
+
+MPtraj and OMAT
+
+ataset specifications.
+CUlar
+‘Staly
+
+b
+
+fN)
+Mo,
+C le,
+
+Materials
+
+MACE-MH-1-OMAT
+
+MACE-OMAT-1
+
+ORB-v3
+
+MatterSim-5M
+
+UMA-S-1.1-OMAT
+
+MACE-OMAT-0
+
+UMA-M-1.1-OMAT
+
+MACE-MP-0a
+
+Overall Model Ranking
+
+0.862
+
+0.786
+
+0.739
+
+0.725
+
+0.671
+
+0.636
+
+0.632
+
+0.580
+
+4
+°
+
+0.4 0.6
+
+Global Performance Score
+
+c MACE Architecture Evolution d Model Rankings Across Categories
+1.0
+1
+0.8 2
+oO
+8 3
+g 0.6 * 4
+= oO
+€ ws
+5 0.4
+. 6
+a
+0.2 7
+8
+0.0 -
+Materials Molecules Surfaces Global Materials Molecular Surfaces MoleculesPhysicality Global
+Evaluation Category Crystals
+Category
+Ml ~MACE-MH-1-OMAT Ml ~MACE-OMAT-O M)_:«UMA-S-1.1-OMAT [43 MACE-MP-0a
+M98 ~ MACE-OMAT-1 ME MatterSim-5M Ml «UMA-IM-1.1-OMAT Mi ~ORB-v3
+
+FIG. 2. Cross-domain performance summary of foundation interatomic potentials. (a) Polar chart of domain scores
+for five evaluation groups—Materials, Molecular Crystals, Surfaces, Molecules, and Physicality—where values are normalised to
+(0, 1] (1 = best; higher is better) and computed as per-metric means within each group. (b) Overall ranking by a global score,
+defined as a weighted sum of domain scores (Materials 0.25, Molecules 0.25, Surfaces 0.20, Molecular Crystals 0.20, Physicality
+0.10). (c) Ablation within the MACE family comparing the baseline linear block (mace-omat-0), the non-linear block (mace-
+omat-1), and the multi-head model (mace-mh-1l-omat), shown across Materials, Molecules, Surfaces, and the resulting global
+score. (d) Per-category model ranks (smaller is better; axis inverted so the top is rank 1) illustrating consistency across domains;
+the shaded region marks the global rank. The scoring procedure is described in Sec. VI and normalisation bounds and metric
+
+definitions are given in Table XX.
+
+A. Elastic Moduli
+
+We benchmark bulk (B) and shear (G) moduli against
+DFT PBE and PBE+U references to evaluate the mod-
+els’ ability to capture potential energy surface curvature
+and mechanical response under small strains.
+
+We use MatCalc’s ElasticityCalec [55] to deform the
+structures with normal (diagonal) strain magnitudes of
+0.01 and +0.005 for €11, €22, €33, and off-diagonal strain
+magnitudes of +0.06 and +£0.03 for €93, €13, €12. The
+stress tensor o is calculated for each applied strain €,;
+and the resulting sets of stress-strain pairs are used in
+linear regression to obtain the elastic tensor [56]. Then,
+
+the bulk and shear moduli are obtained from the elastic
+and stress tensors via the Voigt-Reuss-Hill (VRH) aver-
+age, which combines the upper (Voigt) and lower (Reuss)
+bounds of the moduli for a more accurate approxima-
+tion [57-59].
+
+TABLE I. Bulk and shear moduli benchmark results. Ma-
+terials Project elasticity dataset containing 12,122 materials
+(excluding B or G < —50 GPa and B or G > 600 GPa). Both
+the initial and deformed structures were relaxed.
+
+Model B MAE (GPa) G MAE (GPa)
+mace-mh-1-omat 12.49 7.95
+mace-omat-1 11.50 8.09
+mace-mp-0a, 11.02 20.86
+mace-omat-0 12.47 8.95
+mattersim-5M 10.47 9.69
+orb-v3-consv-inf-omat 7.18 8.03,
+uma-m-1p1-omat 13.60 9.65
+uma-s-1p1-omat 14.33 8.18
+mace-mh-1-omol-1% 18.00 10.77
+
+uma-m-lpl-omol-100% Not converged Not converged
+uma-s-lpl-omol-100% Not converged Not converged
+
+Table I reports mean absolute errors for predicted bulk
+and shear moduli against Materials Project elasticity
+dataset references [56]. The orb-v3-consv-inf-omat
+model achieves the lowest bulk modulus error, while
+mace-mh-1-omat achieves the lowest shear modulus er-
+ror. Overall, the mace-mh-1-omat model demonstrates
+competitive performance, with accuracy comparable to
+the backbone OMAT model, confirming that multi-head
+replay fine-tuning effectively retains bulk property accu-
+racy.
+
+B. Thermal Conductivity
+
+Thermal conductivity represents a critical property for
+electronics, thermoelectrics, and energy storage applica-
+tions. We employ a comprehensive thermal conductivity
+benchmark [60, 61] evaluating both microscopic anhar-
+monic phonon properties and resulting lattice thermal
+conductivity, capturing particle-like (Boltzmann trans-
+port equation) and wave-like (Wigner) heat-transport
+mechanisms across 103 chemically and structurally di-
+verse solids at near first-principles accuracy.
+
+The benchmark encompasses 103 binary crystals—rock
+salt, zinc-blende, and wurtzite phases spanning 34 chem-
+ical elements—with accompanying first-principles har-
+monic and anharmonic force-constant data enabling
+reference Wigner-transport conductivities and mode-
+resolved metrics for rigorous quantitative comparison.
+
+Table II presents root-mean-square errors for pre-
+dicted lattice thermal conductivity on the 103-compound
+Wigner-transport benchmark. The uma-m-1p1l-omat
+model achieves the lowest KRusr, closely followed by
+mace-omat-1 and uma-s-1pl-omat. Our mace-mh-
+1-omat model maintains strong performance compared
+
+TABLE I. Thermal conductivity benchmark performance
+
+Model KamMse (W/mK)
+mace-mh-1-omat. 0.24
+mace-omat-1 0.20
+mace-mp-0a 0.62
+mace-omat-0 0.24
+mattersim-5M 0.57
+orb-v3-consv-inf-omat 0.21
+uma-m-1p1l-omat 0.17
+uma-s-1pl-omat 0.20,
+
+to the baseline, confirming robust bulk property predic-
+tion.
+
+C. Phonons
+
+We evaluate phonon frequencies and derived thermo-
+dynamic properties using the Materials Data Repository
+(MDR) phonon benchmark [62], testing approximately
+10,000 materials against reference PBE+U calculations.
+We assess maximum, average, and minimum phonon fre-
+quencies, plus mean absolute error (MAE) across the
+Brillouin zone. Additional thermodynamic properties in-
+clude entropy ($), Helmholtz free energy (F), and heat
+capacity at constant volume (Cy) at 300 K, all derived
+from phonon frequencies. Structures are relaxed with
+fixed symmetries matching DFT references, and phonon
+frequencies are computed using finite difference methods
+with identical displacement parameters. For the “no-
+sym” pipeline, we deliberately do not apply symmetry fix-
+ing because we observed numerical instabilities in finite-
+displacement workflows when enforcing symmetry con-
+straints for these models; all “no-sym” results are there-
+fore obtained without symmetry restoration. The full set
+of results showing all models with and without symmetry
+constraints applied is shown in Table XIX.
+
+TABLE II. MDR Phonon benchmark on the phonon frequen-
+cies and thermodynamic properties (300 K) of roughly ten
+thousand materials. Each column corresponds to the MAE of
+the named quantity. BZ refers to the MAE across the whole
+Brillouin Zone.
+
+Model Wmax Wave Wmin BZ F Cy
+(K) (K) (K) (K) (J/mol-K) (kJ/mol) (J/mol-K)
+
+mace-mh-1-omat 2 38 1 5 8 2 2
+mace-omat-1 13°38 «12 8 8 2 3
+mace-mp-0a 65 32 19 33 60 23 4
+mace-omat-0 16 4 #13 7 10 3 3
+mattersim-5M 19 5 16 10 14 4 4
+
+onsv-inf-omat (no-sym) 12 5 29 15 13 3 4
+uma-m-1p1-omat (no-sym) 9 3 18 8 8 2 2
+uma-s-Ip1-omat (no-sym) o4 a 9 7 2 3
+mace-mh-1-omol-1% 49 12 18 16 16 7 t
+uma-s-Ipl-omol-100% (no-sym) 155 50 64 64 82 32 19
+
+Table III shows mean absolute errors for phonon fre-
+quencies and thermodynamic properties. The mace-
+mh-1l-omat model achieves the lowest errors for most
+mace-omat-0
+
+mace-mp-0a
+
+@
+Be}
+oO
+au
+2 vu
+=a
+oO
+g-
+S
+fe |
+mace-mh-1-omat mace-omat-1
+@
+Be}
+oO
+aud
+= uv
+25
+oO
+g-
+S
+fe |
+orb-v3-consv-inf-omat
+mattersim-5M (no-sym)
+vu
+a 11.1% 1.6%
+aa
+z uv
+=a
+s.
+a
+=
+jes |
+uma-m-1p1
+(no-sym)
+uv
+a 2.4%
+au
+a
+=3
+£- 16.3% BeyANe 15.8% TWAS
+5
+Stable Unstable Stable Unstable
+DFT (PBE) DFT (PBE)
+
+FIG. 3. Phonon dynamical stability classification con-
+fusion matrices. Materials are classified as unstable if
+Wimag| > 0.05 THz (= 2.4 K).
+
+roperties, only ranked second best behind uma-m-
+1p1-omat for Cy, third behind uma-s-1p1-omat and
+uma-m-1p1-omat for wax and second behind uma-s-
+1pl-omat for S, demonstrating excellent phonon fre-
+quency and thermodynamic property prediction. No-
+ably, symmetry fixing significantly impacted uma and
+orb-v3 models’ performance while leaving other mod-
+els unaffected. Our mace-mh-1-omat model maintains
+accuracy or slightly outperforms the backbone model
+mace-omat-1, confirming the effectiveness of retaining
+high bulk materials accuracy through multi-head replay
+fine-tuning. In Figure 3, we report dynamical stability
+classification performance, showing that our mace-mh-
+1-omat achieves the best overall classification perfor-
+
+mance. We also compare the OMOL head of mace-mh-
+1 and of uma-s-1p1 to further assess cross-learning in
+multidomain models. We observe a clearly superior de-
+gree of cross-learning for mace-mh-1 than uma-s-1p1,
+with the mace model achieving a phonon performance su-
+perior in each domain, even outperforming the specialised
+MPTraj model mace-mp-0a. The uma-m-1p1-omol
+was unable to geometry optimise a large portion of the
+structures, so we did not include it in the table.
+
+IX. Molecular Crystal Benchmarks
+
+Molecular crystal formation energies test the models’
+accuracy in describing intermolecular interactions and
+the cohesive assembly of molecular solids.
+
+A. X23 Molecular Crystals
+
+The X23 benchmark [63] comprises 23 experimentally
+characterised organic molecular crystals selected to span
+diverse noncovalent binding motifs, including hydrogen
+bonding, dispersion-dominated packing, and mixed elec-
+trostatic-van der Waals interactions. Reference forma-
+tion enthalpies are computed via periodic calculations
+using Diffusion Monte Carlo (DMC) [64]. Comparing
+per-molecule cohesive energies against these high-level
+references evaluates the ability to capture subtle inter-
+molecular forces governing crystal stability.
+
+TABLE IV. X23 benchmark formation energy mean absolute
+errors.
+
+Model MAE (kJ/mol)
+mace-mh-1-omat-D3 15.82
+mace-omat-1-D3 19.60
+mace-mp-0a-D3 17.42
+mace-omat-0-D3 53.23
+mattersim-5M-D3 20.11
+orb-v3-consv-inf-omat 28.76
+uma-m-1p1l-omat-D3 78.89
+uma-s-1p1-omat-D3 27.99
+mace-mh-1-omol-1% 741
+uma-m-1p1-omol-100% 9.33
+uma-s-1p1-omol-100% 6.81
+
+Table IV shows that mace-mh-1-omat-D3_ achieves
+the lowest MAE among the tested models for the X23
+benchmark, indicating improved molecular crystal forma-
+tion energy prediction. Notably, it outperforms uma-s-
+1p1-omat-D3, despite the latter being trained on larger
+datasets including 20M molecular crystals. The substan-
+tial improvement over mace-omat-1-D3 demonstrates
+clear knowledge transfer of molecular chemistry from
+OMOL and SPICE heads to the PBE head, transfer-
+ring molecular chemical knowledge. We observe that
+the OMOL-trained models outperform the PBE models,
+which is likely due to a much better description of in-
+termolecular interaction by the OMOL range-separated
+hybrid DFT wB97M-VV10.
+
+B. DMC Water Ice Polymorphs
+
+We test model performance on formation energies of
+common ice phases (Ih, II, III, etc.), benchmarking
+hydrogen-bonded networks under different pressures [65].
+
+TABLE V. Ice phase mean absolute errors
+
+Model MAE (meV)
+mace-mh-1-omat-D3 11.23
+mace-omat-1-D3 144.57
+mace-mp-0a-D3 59.79
+mace-omat-0-D3 447.08
+mattersim-5M-D3 96.95
+orb-v3-consv-inf-omat 138.44
+uma-m1-p1-D3 545.72
+uma-sl-p1-D3 310.82
+mace-mh-1-omol-1% 79.60
+uma-m-lpl-omol-100% 120.62
+uma-s-1p1-omol-100% 109.20
+
+Table V demonstrates that mace-mh-1-omat-D3
+achieves the lowest MAE for ice polymorph relative ener-
+gies among the tested models,, indicating improved mod-
+elling of hydrogen bonding interactions in this bench-
+mark. The significant improvement over mace-omat-
+1-D3 again demonstrates effective fine-tuning enhance-
+ment for molecular crystal systems and better descrip-
+tion of subtle intermolecular interactions. Surprisingly,
+the mace-mh-1-omat-D3 even outperforms the omol-
+trained models.
+
+X. Surface Benchmarks
+
+Surface interaction benchmarks probe adsorption ener-
+getics and site-specific binding, critical for catalysis and
+gas-surface processes.
+
+A. General Surface Adsorption: S24 Dataset
+
+Accurately describing molecule-surface interactions at
+the first-principles level is essential for designing ad-
+vanced catalysts, gas-separation membranes, and sensing
+materials. We employ the $24 benchmark set [18], cov-
+ering 24 prototypical adsorption systems across diverse
+surface types:
+
+e Covalent surfaces: graphene, silicene, and other
+2D covalent networks
+
+e Ionic surfaces: alkali halide (e.g., NaCl) and
+metal oxide (e.g., MgO) slabs
+
+10
+
+e Metallic facets: close-packed (111) and stepped
+surfaces of Pt, Au, and Cu
+
+e Porous materials: representative metal-organic
+frameworks (MOFs) and zeolites
+
+Reference adsorption energies are
+PBE+D3(BJ) level using standardised VASP/M-
+PRelaxSet protocols. We report mean absolute
+deviations for predicted versus reference energies (in eV)
+both overall and per surface category.
+
+computed at
+
+TABLE VI. S24 benchmark mean absolute errors for the ad-
+sorption energies of small molecules on surfaces and porous
+materials.
+
+Model MAE (eV)
+mace-mh-1-omat-D3 0.095
+mace-omat-1-D3 0.140
+mace-mp-0a-D3 0.152
+mace-omat-0-D3 0.550
+mattersim-5M-D3 0.141
+orb-v3-consv-inf-omat-D3 0.174
+uma-m-1p1-omat-D3 0.523
+uma-s-1pl-omat-D3 0.329
+mace-mh-1-omol-1% 0.288
+uma-m-1p1-omol-100% 10.774
+uma-s-1p1-omol-100% 4.636
+
+Table VI shows that mace-mh-1-omat-D3 achieves
+the lowest MAE for surface adsorption energies, demon-
+strating a good description of interactions of molecules
+with surfaces and porous materials. In particular, we
+observe a 68% improvement compared to the backbone
+model mace-omat-1-D3 on the adsportion energies.
+When testing the OMOL tasks of the models, we observe
+much better performance for the mace-mh-1-omol-1%
+compared to the uma models confirming superior cross-
+learning on this benchmark.
+
+B. OC20 Metal Surface Benchmark
+
+We benchmark small-molecule adsorption on metal
+surfaces using structures generated during the Open Cat-
+alyst Challenge 2023 [16, 66] to evaluate catalytic reac-
+tion intermediate modelling. We use the set of configura-
+tions from the Open Catalyst Challenge 2023 recomputed
+at the MPtraj DFT level introduced in Ref. [18].
+
+We observe that uma-m-1p1-omat-D3 achieves the
+best performance with an MAE of 0.097 eV followed by
+mace-mh-1-omat-D3 with an MAE of 0.138 eV. Note
+that uma-m-1p1-omat-D3 and uma-s-1p1-omat-D3
+are trained on the full OC20 dataset representing 100
+times more surface configurations than our mace-mh-1-
+omat-D3 model. When benchmarking the OMOL tasks,
+we confirm the better cross-learning of the mace-mh
+model compared to the uma models.
+
+TABLE VII. Open Catalyst Challenge 2023 generated set of
+adsorption energies of small molecules on metallic surfaces.
+
+Model MAE (eV) Pearson’s r
+mace-mh-1-omat-D3 0.138 0.98
+mace-omat-1-D3 0.171 0.97
+mace-mp-0a-D3 0.412 0.86
+mace-omat-0-D3 0.243 0.94
+mattersim-5M-D3 0.285 0.92
+orb-v3-consv-inf-omat-D3 0.159 0.974
+uma-m-1p1l-omat-D3 0.097 0.99
+uma-s-1p1-omat-D3 0.172 0.97
+mace-mh-1-omol-1% 0.214 0.96
+uma-m-1p1-omol-100% 3.394 0.28
+uma-s-1p1-omol-100% 1.120 0.50
+
+XI. Molecular Benchmarks
+
+We evaluate model performance across comprehensive
+molecular property benchmarks, including conformer en-
+ergies, reaction energies, and noncovalent interactions,
+assessing capability to predict key chemical properties
+governing molecular behaviour.
+
+A. Wiggle 150
+
+Wiggle150 is a benchmark comprising 150 highly
+strained conformations of adenosine, benzylpenicillin,
+and efavirenz. Table VIII reports mean absolute er-
+rors for strained conformer relative energies against
+Wiggle150 benchmark references [67| computed at the
+DLPNO-CCSD(T)/CBS level of theory.
+
+TABLE VIII. Wiggle150 strained conformer relative energy
+benchmark with D3(BJ) dispersion correction
+
+Model MAE (kcal mol” ')
+wB9TM-D3 1.18
+PBE-D3 4.91
+mace-mh-1-omat-D3 4.80
+mace-omat-1-D3 10.39
+mace-mp-0a-D3 25.90
+mace-omat-0-D3 9.62
+mattersim-5M-D3 12.12
+orb-v3-consy-inf-omat-D3 7.65
+uma-m-1p1l-omat-D3 5.04
+uma-s-1p1-omat-D3 6.60
+mace-mh-1-omol-1% 1.30
+mace-omol-100% 0.83
+uma-m-1p1-omol-100% 0.93
+uma-s-1p1-omol-100% 0.91
+
+Our mace-mh-1-omat-D3 model achieves 4.80
+kcal mol~! MAE, comparable to the underlying PBE-D3
+functional performance. The multi-head fine-tuning im-
+
+11
+
+proves by a factor of 2 over the pre-trained model’s base-
+line (mace-omat-1-D3).
+
+B. GMTKN55 Main Group Chemistry
+
+We evaluate gas-phase chemical accuracy using the
+GMTKN55 benchmark suite [68], which represents the
+most comprehensive test of electronic structure methods
+for main group thermochemistry, kinetics and noncova-
+lent interactions. The complete suite comprises 55 indi-
+vidual test sets totalling 1,505 relative energies, system-
+atically categorized into five chemical domains:
+
+1. Basic Properties (8 sets): Atomic energies, ion-
+ization potentials, electron affinities
+
+2. Reaction Energies (15 sets): Thermochemistry
+including G2/97, G3/99 test sets
+
+3. Barrier Heights (12 sets): Transition state en-
+ergetics for fundamental organic reactions
+
+4. Intramolecular Noncovalent (7 sets): Confor-
+mational energetics, hydrogen bonding
+
+5. Intermolecular Noncovalent (13
+Dimers, clusters, host-guest complexes
+
+sets):
+
+All reference energies employ high-level coupled clus-
+ter methods, primarily CCSD(T) extrapolated to the
+complete basis set limit with core correlation corrections
+where appropriate. The weighted total mean absolute
+deviation (WTMAD) provides a single metric combining
+performance across all chemical domains, with typical
+values of 2-3 kcalmol~! representing chemical accuracy
+for electronic structure methods. We keep only the neu-
+tral, singlet subset as most of the models do not handle
+charged systems yet.
+
+TABLE IX. GMTKN55 subset mean absolute errors across
+benchmark categories (neutral singlet subset only). All values
+represent weighted mean absolute errors in kcal mol~! (lower
+is better) with weights taken from WMAD-2.
+
+Model Basic Large Barrier Intra- Inter- All
+Small Systems Heights Noncov Noncov
+
+@BITM-D3BI 286 5.77 234 454 363 404
+
+PBE-D3(BJ) 11.24 10.61 13.16 9.95, 9.89 10.58
+
+mace-mh-1-omat-D3 12.88 13.74 9.58
+mace-omat-1-D3 25.05 33.65 18.95
+mace-mp-0a-D3 42.62 59.75 31.41
+mace-omat-0-D3 40.61 44.51
+mattersim-5M-D3 29.27 41.36
+orb-v3-consv-inf-omat-D3 26.30 14.72
+uma-m-I-pl-omat-D3 25 20.77
+uma-s-1-pl-omat-D3 2 28.31
+
+11.23
+24.90
+45.04
+64.15
+31.46
+22.30
+52.89
+30.83
+
+AIMNet2 TL.91 18.67 15.15
+MAGCE-OFF23(L) 8.74 10.40 16.46
+mace-mh-1-omol-1% 10.62 7.64 8.44
+mace-omol-100% 9.41 4.65
+uma-m-Ipl-omol-100% 12.18 4.49
+uma-s-1p1-omol-100% 8.23 4,22
+
+Table IX shows that mace-mh-1l-omat-D3 signifi-
+cantly outperforms other PBE-trained foundational mod-
+els, including uma-m-1-pl1-omat-D3 achieving amean
+error on the GMTKN55 of 11.23 kcalmol~!, compara-
+ble to the accuracy of PBE-D3(BJ). The substantial im-
+provement over mace-omat-1-D3 confirms the effective
+knowledge transfer from the molecular heads (SPICE
+and OMOL) to the material head. Notably, our model
+achieves performance comparable to specialised molec-
+ular models (AIMNet2, MACE-OFF23(L)) that were
+trained on hybrid meta-GGA functional wB97M-D3BJ,
+which is much more accurate for molecular system.
+
+C. Protein fragments: PLF547
+
+Accurately capturing intramolecular hydrogen bonding
+and side-chain/backbone contacts in polypeptide frag-
+ments is a stringent test for any MLIP intended to mode
+biomolecular chemistry. We therefore evaluate on the
+PLF547 benchmark suite [69] of 547 shorter peptide-like
+fragments (PLF547) with interaction energies referenced
+to high-level DLPNO-CCSD(T)/CBS calculations. Fol-
+lowing prior work, we compute single-point energies on
+the published geometries and report the mean absolute
+error between the predicted and reference interaction en-
+ergies, which provides a good proxy to the quality o
+intermolecular interactions. We used only the subset o
+molecules that are neutral singlet.
+
+TABLE X. PLF547 neutral subset interaction energy MAE
+(kcal mol~') for the different tested models.
+
+Model PLF547 MAE (kcal mol~')
+
+mace-mh-1-omat-D3 0.626
+mace-omat-1-D3 0.839
+mace-mp-0a-D3 1.040
+mace-omat-0-D3 4.926
+mattersim-5M-D3 1.017
+orb-v3-consv-inf-omat-D3 1.829
+uma-m-1p1l-omat-D3 12.057
+uma-s-1pl-omat-D3 2.935
+mace-omol-100% 0.334
+mace-mh-1-omol-1% 0.394
+uma-m-1p1-omol-100% 0.839
+uma-s-1p1-omol-100% 0.655
+
+Table X summarizes the results. The mace-mh-1-
+omat-D3 model achieves the lowest MAE, with 0.626
+kcal mol~?, substantially improving over the OMAT-only
+backbone. Overall, these results demonstrate that cross-
+domain replay enhances the model’s ability to describe
+biomolecular fragment energetics.
+
+12
+D. S30L Molecular complexes
+
+Large host-guest and 7 — 7 stacked complexes probe
+the long-range dispersion and subtle many-body polar-
+ization effects that drive supramolecular binding. We
+assess these regimes with the S30L benchmark [70], a set
+of 30 noncovalent complexes ranging from crown-ether
+inclusion compounds to charged receptor—ligand pairs.
+Reference binding energies are empirical binding energies
+obtained by back-correcting the experimental association
+free energies, making S30L a challenging benchmark for
+dispersion-dominated interactions.
+
+TABLE XI. S30L [70] benchmarking of host-guest binding en-
+ergies in large molecular complexes. Binding energies mean
+absolute errors in kcal mol~! compared to experimental refer-
+ences.
+
+Model MAE (kcal mol~')
+mace-mh-1-omat-D3 10.13
+mace-omat-1-D3 5.35
+mace-mp-0a-D3 4.22
+mace-omat-0-D3 25.87
+mattersim-5M-D3 1.92
+orb-v3-consv-inf-omat-D3 3.64
+uma-m-1pl-omat-D3 3.09
+uma-s-1pl-omat-D3 5.14
+mace-mh-1-omol-1% 6.66
+uma-m-1p1-omol-100% 7.66
+uma-s-1p1-omol-100% 4.59
+
+We evaluate single-point interaction energies on the
+published geometries and report mean absolute errors
+(MAE) in kealmol~! (Table XI). The mace-mh-1-
+omat-D3 model attains the best performance, with
+an MAE of 10.13 kealmol~!, substantially outper-
+forming pre-trained model mace-omat-1-D3 at 15.35
+kealmol~!. In contrast, UMA models—despite training
+on vastly more molecular data—achieve larger errors, re-
+inforcing that architectural choices on how to merge dif-
+ferent datasets are critical for enhancing cross-learning
+behaviour. Note also that the total charge information
+was not given to the UMA OMAT task models as it was
+causing very large errors, which highlights that naive in-
+clusion of total charge via global embedding is not trans-
+ferable between the models’ tasks.
+
+XII. Physicality Benchmarks
+
+While extensive accuracy benchmarks are essential,
+ensuring physically realistic predictions is equally im-
+portant, given the models’ broad applicability across
+chemical domains that makes exhaustive validation chal-
+lenging. We evaluate model physicality through sev-
+eral benchmarks assessing size extensivity, additivity, and
+smoothness of pair interactions.
+
+A. Size Extensivity and Locality
+
+The size extensivity and locality of the potential en-
+ergy surface represent fundamental quantum mechanical
+properties, ensuring that the energy scales correctly with
+particle number and that sufficiently separated system
+energies equal their component sums. Large violations
+of these properties can lead to unphysical simulations.
+
+TABLE XII. Slab test for size extensivity evaluation. A refers
+to the difference between the isolated slab energies and the
+combined system energy (A = Ei,2 — (Ei + £2)). Results to
+1 dp.
+
+Model Ey E2 Ez A
+(eV) (eV) (eV) (meV)
+mace-mh-1-omat -468.2 -615.0 -1083.3 0.0
+mace-omat-1 -467.3 -617.0 -1084.3 0.0
+mace-mp-0a -468.1 -649.5 -1117.6 0.0
+mace-omat-0 -468.8 -616.0 -1084.7 0.0
+mattersim-5M -467.8 -646.7 -1114.5 0.2
+orb-v3-consy-inf-omat _-466.3 -614.1 -1081.1 -709.7
+uma-m-1pl-omat -467.2 -616.4 -1081.2 1436.9
+uma-s-1pl-omat -467.4 -616.6 -1084.5 -453.8
+
+mace-mh-l-omol-1% — -844543.4 -5253593.4 -6098136.8 0.0
+uma-m-1p1l-omol-100% -843663.9 -5253001.4 -6097051.2 -385824.5
+uma-s-lpl-omol-100% -843500.5 -5253244.0 -6096655.8 88670.6
+
+For the slab test, we compare the sum of the energies of
+isolated FCC(111) aluminium (£)) and nickel (£2) slabs,
+each 8 layers thick in a 4x4 in-plane supercell, against
+the energy of the combined configuration (E12), with a
+100 A gap. The expected non-interacting behaviour is
+confirmed if Ey. = Ey + Ey.
+
+Table XII shows all models except UMA models,
+and ORB-V3-Consv-Inf-omat maintain proper extensiv-
+ity, while UMA models and ORB models exhibit large
+energy deviations, indicating the presence of unphysical
+interactions. For the UMA models, this non-local inter-
+action is likely arising from global chemical element em-
+beddings creating non-local interactions. For the ORB
+model, it is due to its non-local readout in which it passes
+a summed or averaged energy over the entire structure
+into a non-linear function, creating potential unphysical
+non-local interactions.
+
+We further test size additivity by placing a hydro-
+gen atom 50 A from an aluminium slab and computing
+forces at various distances. Table XIII shows all models
+except uma-s-1p1-omat, uma-m-1p1-omat and orb-
+v3-consv-inf-omat produce zero forces as expected for
+non-interacting systems. The uma models and orb mod-
+els exhibit large spurious forces, with for example uma-s-
+1p1-omat showing a spurious force of max 969.2 meV / A,
+confirming large unphysical interactions.
+
+13
+
+TABLE XIIL Addition of a hydrogen atom to an aluminium
+slab at 50 A distance to test for size additivity.
+
+Model max |AF| mean |AF| std |AF|
+mace-mh-1-omat 0.0000 0.0000 0.0000
+mace-omat-1 0.0000 0.0000 0.0000
+mace-mp-0a 0.0000 0.0000 0.0000
+mace-omat-0 0.0000 0.0000 0.0000
+mattersim-5M 0.0000 0.0000 0.0000
+orb-v3-consv-inf-omat 61.65 19.21 0.0000
+uma-m-1p1l-omat 1520.0 11.73 0.0006
+uma-s-1p1-omat 969.20 16.48 0.0005
+mace-mh-1-omol-1% 0.0000 0.0000 0.0000
+uma-m-lpl-omol-100% 38.17 0.227 0.0003
+uma-s-1pl-omol-100% 719.2 1.018 0.0002
+
+B. Homonuclear and Heteronuclear Diatomics
+
+Diatomic potential curve analysis provides fundamen-
+tal tests of model smoothness and physicality for low-
+order body interactions. As diatomic molecules have
+
+TABLE XIV. Homonuclear and heteronuclear diatomic phys-
+icality assessment across key smoothness and correlation met-
+rics. Force flips count the number of sign changes in the force,
+with the ideal being a single flip from repulsive to attractive.
+Energy minima denote the number of distinct local minima in
+the potential energy curve, with the physical expectation of
+only one bound state. Energy inflections capture the number
+of inflections in the potential energy curve, where the ideal
+curve would have one inflection point. The Spearman’s rank
+correlation coefficients for the repulsive and attractive regimes
+have ideal values of pz,., = —1 and pr,, = 1 respectively for
+perfectly monotonic relationships.
+
+waaat Mean No. Mean No. Mean No. Mean Mean
+Force Flips Energy Minima Energy Inflections px,., Pea.
+
+mace-mh-1-omat 2.09 1.42 2.72 0.88
+mace-omat-1 1.52 1.18 0.82
+mace-mp-0a 3.75 2.15 0.15
+1.97 0.78
+
+mattersim-5M 2.17 0.89
+orb-v3-consv-infomat 2.91 0.63
+uma-m-1p1-omat 8.83 0.56
+uma-s-1p1-omat 10.73 0.42
+mace-mh-1-omol-1% 2.03 0.87
+uma-m-lpl-omol-100% 12.09 0.77
+uma-s-pl-omol-100% 11.40 0.76
+
+shown convergence issues for plane-wave DFT reference
+data, one can instead define a set of general physical re-
+quirements for the ideal dimer curve, where the choice
+of these metrics was inspired by MLIP Arena [71]. Such
+a curve should exhibit a single energy minimum, a sin-
+gle energy inflection, and one change in force sign (force
+flip). To quantify smoothness and monotonicity, Spear-
+man’s rank correlation coefficients are used. The ideal
+dimer potential energy curve can be decomposed into
+two monotonic functions of energy and atomic separa-
+tion either side of the energy minimum, with a repulsive
+regime at shorter separations and an attractive regime at
+longer separations. Table XIV evaluates diatomic curve
+quality using mean values of each metric over all com-
+patible homonuclear and heteronuclear diatomics. The
+mace-omat-1 and mace-mh-1l-omat models demon-
+strate good performance with minimal force flips and en-
+ergy minima. However, uma-s-1p1-omat(omol) and
+uma-m-1p1-omat(omol) exhibit poor diatomic be-
+haviour with numerous force sign flips, energy minima,
+and inflection points, indicating problematic two-body
+interaction smoothness. This is confirmed upon visual
+inspection of the uma models’ diatomic curves. We also
+attach in the supplementary material compressed files
+containing all the homonuclear diatomic curves for the
+models tested in the paper.
+
+XIII. Computational efficiency
+
+The computational efficiency is assessed by comparing
+the time required to calculate the energy and forces of
+1,000 atoms in Carbon FCC structures with a lattice con-
+stant a = 3.8 A on a single NVIDIA H100 80GB GPU
+using FP32 (TF32-high precision). Numbers for UMA
+models and ORB are taken from [25], from which we
+reproduce the timing protocol. For the new MACE tim-
+ings, we use both NVIDIA’s cuEquivariance kernels [72]
+and torch.compile with ’reduce-overhead’ settings.
+
+TABLE XV. Single GPU (NVIDIA H100 80GB GPU) speed
+comparison between models to compute energy and forces of
+a 1000 atoms diamond structure, using torch.compile and for
+MACE models cuEquivariance [72] kernels, excluding graph
+construction.
+
+Model Steps per second
+mace-mh-1 43
+mace-omat-1 43
+mace-mp-0a 83
+mace-omat-0 83
+orb-v3-consy-inf-omat 30
+uma-m-1p1 3
+uma-s-1p1 16
+
+We observe that our models achieve competitive speed
+compared to the other state-of-the-art models in the
+tested setup, achieving a speed of 43 steps per sec-
+ond (around 3.8 Megasteps/day) in a best-case sce-
+nario (neglecting any molecular dynamics (MD) over-
+heads). The smaller inference speed of the mace-omat-
+1 and mace-mh-1-omat compared to mace-mp-0a
+and mace-omat-0 is mainly due to a choice of large hy-
+perparameters (L=2 messages and 512 channels for the
+node features) and not to the architecture changes out-
+lined in Section IIB. We note that a fair assessment
+of the speed of MLIPs is a hard task, that depends on
+many factors, such as MD drivers, floating-point preci-
+sions, compilations and kernels, system density and size,
+and type of GPU.
+
+14
+
+TABLE XVI. Single GPU (Nvidia H100 80GB GPU) speed
+comparison between models to run molecular dynamics NVT
+simulation of a 1000 atoms diamond structure, using MACE
+models cuEquivariance [72] kernels in LAMMPS MLIAP (no
+torch.compile).
+
+Model Mega-steps per day
+mace-mh-1 1.4
+mace-omat-1 1.4
+mace-mp-0a 2.2
+mace-omat-0 2.2
+
+We also benchmark the MACE models during real
+molecular dynamics in the LAMMPS MLIAP KOKKOS
+interface of the same carbon structure, using cuEquivari-
+ance in float32 but not torch.compile. We observe around
+1.4 to 2.2 mega-steps per day of simulation. Compared to
+the idealised timings of Table XV, this represents a slow-
+down of around a factor of 2.5, which is mainly due to not
+using the torch.compile and to a smaller extent, to the
+various overheads of graph construction and LAMMPS
+updates. We are working on further engineering opti-
+misations that will enable us to get closer to the ideal
+models’ speed in real simulations.
+
+XIV. Discussion and Outlook
+
+Our results provide strong evidence for effective knowl-
+edge transfer across chemical domains through shared
+representational learning. The substantial improvement
+observed in molecular systems for the OMAT head when
+including the SPICE and OMOL datasets as part of the
+multi-head model demonstrates that molecular knowl-
+edge can be transferred to the material head through an
+improved description of local atomic environments and
+coordination patterns. The multi-head architecture en-
+ables knowledge sharing while maintaining consistency
+across different levels of electronic structure theory in its
+loss functions. We observe that the more flexible global
+embedding of the level of theory of UMA does not exhibit
+a similar level of transfer of knowledge, suggesting that
+architecture choices and reduced flexibility may enhance
+efficient transfer..
+
+This work establishes the foundation for next-
+generation simulation capabilities where single models
+seamlessly handle complex multiscale phenomena span-
+ning molecular, surface, and materials chemistry. As the
+field moves toward foundation MLIPs that are out of the
+box as accurate as a GGA DFTs for most of chemistry
+with a single model, the principles demonstrated here
+provide valuable guidance for achieving both breadth and
+accuracy in chemical modelling applications.
+
+Several promising extensions emerge from this work:
+(i) incorporation of additional chemical domains includ-
+ing solid/liquid interfaces [17], molecular crystals [73],
+or amorphous systems, (ii) development of uncertainty
+
+quantification methods for reliable out-of-domain predic-
+tions, (iii) integration with experimental data through
+hybrid learning approaches, and (iv) extension to charged
+and magnetic systems with the inclusion of electrostatic
+interactions and spin states (available in some datasets)
+that will further enhance both accuracy and transferabil-
+ity.
+
+Supplementary Material
+
+The supplementary material contains details of the
+hyperparameters of the models, weighting schemes for
+the benchmark scores, and additional R2SCAN model
+results. We also attach in the supplementary material
+compressed files containing all the homonuclear diatomic
+curves for the models tested in the paper.
+
+Conflict of Interest
+
+GC is a partner in Symmetric Group LLP that li-
+censes force fields commercially and also has equity in-
+terest in Angstrém AI. SWN has financial interest and
+equity stake in Mirror Physics, a company working on AI
+and atomistic modelling.
+
+Data and Models Availability
+
+The MACE code is available on https://github.
+com/ACEsuit/mace and example input scripts and pre-
+trained models to reproduce the results are provided
+on the MACE foundation GitHub: https://github.
+com/ACEsuit/mace-foundations. The datasets used
+for training are all public and referenced in the text.
+Processed data and analysis scripts to reproduce the
+benchmarks will be made available in an upcoming pub-
+lication on ML Potential Usability and Performance
+Guide (ML-PEG) https: //github.com/ddmms/ml-peg
+and live http://ml-peg.stfc.ac.uk. The cuEquiv-
+ariance kernels for MACE are available here: https:
+//github.com/NVIDIA/cuEquivariance.
+
+Acknowledgments
+
+We would like to thank Domantas Kuryla for pro-
+viding the RGD1 dataset that he recomputed at the
+B3LYP/6-31G* level of theory. J. H. would like to thank
+Baldzs Pota for discussions on phonons. We acknowl-
+edge the Jean Zay cluster access to compute as part
+of the Grand Challenge: GC010815458 (Grand Chal-
+lenge Jean Zay H100). We would like to thank the
+Jean Zay cluster team and administration, as well as
+GENCI, for the continual help in using the Jean Zay
+cluster. We would like to thank the Max Planck Com-
+puting and Data Facility for providing access to the
+
+Raven HPC system, which enabled the computation of
+many benchmarks. We would like to thank Sovereign
+AI and Isambard-AI for providing additional compute
+to run experiments. We are grateful for computational
+support from the UK national high-performance com-
+puting service, ARCHER2, for which access was ob-
+tained via the UKCP consortium and funded by EPSRC
+grant reference EP /P022065/1 and EP/X035891/1. IB.
+was supported by the Harding Distinguished Postgradu-
+ate Scholarship. J. H. was supported by The Lennard-
+Jones Centre Ruth Lynden-Bell Scholarship in Scien-
+tific Computing. E.K and A.M.E were supported by
+Ada Lovelace centre at Science and Technology Facili-
+ties Council (https: //adalovelacecentre.ac.uk/), Physical
+Sciences Databases Infrastructure (https://psdi.ac.uk,
+jointly STFC and University of Southampton) under
+grants EP/X032663/1 and EP/X032701/1, and EPSRC
+under grants EP /W026775/1 and EP/V028537/1.
+
+a
+
+10
+
+11
+
+12
+
+13
+
+14
+
+J. Behler and M. Parrinello, Generalized neural-network
+representation of high-dimensional potential-energy sur-
+faces, Phys. Rev. Lett. 98, 146401 (2007).
+
+A. P. Bartok, M. C. Payne, R. Kondor, and G. Csanyi,
+Gaussian approximation potentials: The accuracy of
+quantum mechanics, without the electrons, Phys. Rev.
+Lett. 104, 136403 (2010).
+A. Thompson, L. Swiler, C. Trott, S. Foiles, and
+G. Tucker, Spectral neighbor analysis method for auto-
+mated generation of quantum-accurate interatomic po-
+tentials, Journal of Computational Physics 285, 316
+(2015).
+K. T. Schiitt, H. E. Sauceda, P.-J. Kindermans,
+A. Tkatchenko, and K.-R. Miiller, The Journal of Chem-
+ical Physics 148, 241722 (2018).
+J. S. Smith, O. Isayev, and A. E. Roitberg, Ani-1: an
+extensible neural network potential with dft accuracy
+at force field computational cost, Chemical Science 8,
+3192-3203 (2017).
+V. L. Deringer, M. A. Caro, and G. Csdnyi, Ma-
+chine Learning Interatomic Potentials as Emerging Tools
+for Materials Science, Advanced Materials 31, 1902765
+(2019).
+
+R. Drautz, Atomic cluster expansion for accurate and
+transferable interatomic potentials, Phys. Rev. B 99,
+014104 (2019).
+
+O. A. von Lilienfe
+decade of machine
+Communications 1
+S. Batzner, A. M
+Mailoa, M. Kornb!
+B. Kozinsky, E (3)-
+
+id and K. Burke, Retrospective on a
+earning for chemical discovery, Nature
+1, 4895 (2020).
+
+usaelian, L. Sun, M. Geiger, J. P.
+uth, N. Molinari, T. E. Smidt, and
+equivariant graph neural networks for
+
+data-efficient and accurate interatomic potentials, Nature
+communications 13, 2453 (2022).
+
+I. Batatia, D. P. Kovacs, G. Simm, C. Ortner, and
+G. Csanyi, Mace: Higher order equivariant message pass-
+ing neural networks for fast and accurate force fields,
+Advances in Neural Information Processing Systems 35,
+11423 (2022).
+
+T. W. Ko and S. P. Ong, Recent advances and outstand-
+ing challenges for machine learning interatomic poten-
+tials, Nature Computational Science , 1 (2023).
+
+C. Devereux, J. S. Smith, K. K. Huddleston, K. Barros,
+R. Zubatyuk, O. Isayev, and A. E. Roitberg, Extending
+the applicability of the ani deep learning molecular po-
+tential to sulfur and halogens, Journal of Chemical The-
+ory and Computation 16, 4192-4202 (2020).
+
+D. M. Anstine, R. Zubatyuk, and O. Isayev, Aimnet2: a
+neural network potential to meet your neutral, charged,
+organic, and elemental-organic needs, Chemical Science
+16, 10228-10244 (2025).
+
+D. P. Kovacs, J. H. Moore, N. J. Browning, I. Bata-
+tia, J. T. Horton, Y. Pu, V. Kapil, W. C. Witt, I-B.
+Magdau, D. J. Cole, and G. Csanyi, Mace-off: Short-
+range transferable machine learning force fields for or-
+ganic molecules, Journal of the American Chemical So-
+ciety 147, 17598-17611 (2025).
+
+L. Chanussot, A. Das, S. Goyal, T. Lavril, M. Shuaibi,
+M. Riviere, K. Tran, J. Heras-Domingo, C. Ho, W. Hu,
+A. Palizhati, A. Sriram, B. Wood, J. Yoon, D. Parikh,
+C. L. Zitnick, and Z. Ulissi, Open catalyst 2020 (oc20)
+
+19
+
+20
+
+21
+
+[23]
+
+[24]
+
+16
+
+dataset and community challenges, ACS Catalysis 11,
+6059-6072 (2021).
+
+R. Tran, J. Lan, M. Shuaibi, B. M. Wood, S. Goyal,
+A. Das, J. Heras-Domingo, A. Kolluru, A. Rizvi,
+N. Shoghi, et al., The open catalyst 2022 (oc22) dataset
+and challenges for oxide electrocatalysts, ACS Catalysis
+13, 3066 (2023).
+
+S. J. Sahoo, M. Maraschin, D. S. Levine, Z. Ulissi,
+C. L. Zitnick, J. B. Varley, J. A. Gauthier, N. Govin-
+darajan, and M. Shuaibi, The open catalyst 2025 (oc25)
+dataset and models for solid-liquid interfaces (2025),
+arXiv:2509.17862 [cond-mat.mtrl-sci].
+
+Batatia, P. Benner, Y. Chiang, A. M. Elena,
+D. P. Kovacs, J. Riebesell, X. R. Advincula, M. Asta,
+M. Avaylon, W. J. Baldwin, F. Berger, N. Bernstein,
+. Bhowmik, S. M. Blau, V. Carare, J. P. Darby, S. De,
+. D. Pia, V. L. Deringer, R. ElijoSius, Z. El-Machachi,
+. Falcioni, E. Fako, A. C. Ferrari, A. Genreith-Schriever,
+George, R. E. A. Goodall, C. P. Grey, P. Grig-
+orev, S. Han, W. Handley, H. H. Heenen, K. Hermans-
+son, C. Holm, J. Jaafar, S. Hofmann, K. S. Jakob,
+H. Jung, V. Kapil, A. D. Kaplan, N. Karimitari,
+J. R. Kermode, N. Kroupa, J. Kullgren, M. C. Kuner,
+D. Kuryla, G. Liepuoniute, J. T. Margraf, I-B. Magdau,
+A. Michaelides, J. H. Moore, A. A. Naik, S. P. Niblett,
+S. W. Norwood, N. O’Neill, C. Ortner, K. A. Persson,
+K. Reuter, A. S. Rosen, L. L. Schaaf, C. Schran, B. X.
+Shi, E. Sivonxay, T. K. Stenczel, V. Svahn, C. Sutton,
+T. D. Swinburne, J. Tilly, C. van der Oord, E. Varga-
+Umbrich, T. Vegge, M. Vondraék, Y. Wang, W. C.
+Witt, F. Zills, and G. Csdnyi, A foundation model for
+atomistic materials chemistry (2024), arXiv:2401.00096
+[physics.chem-ph].
+C. Chen and 8S. P. Ong, A universal graph deep learning
+interatomic potential for the periodic table, Nat. Com-
+put. Sci. 2, 718 (2022).
+
+A. Merchant, S. Batzner, S. S. Schoenholz, M. Aykol,
+G. Cheon, and E. D. Cubuk, Scaling deep learning for
+materials discovery, Nature , 1 (2023), publisher: Nature
+Publishing Group.
+
+B. Deng, P. Zhong, K. Jun, J. Riebesell, K. Han, C. J.
+Bartel, and G. Ceder, CHGNet as a pretrained universal
+neural network potential for charge-informed atomistic
+modelling, Nat. Mach. Intell. 5, 1031 (2023).
+
+H. Yang, C. Hu, Y. Zhou, X. Liu, Y. Shi, J. Li, G. Li,
+Z. Chen, S$. Chen, C. Zeni, M. Horton, R. Pinsler,
+A. Fowler, D. Ziigner, T. Xie, J. Smith, L. Sun, Q. Wang,
+L. Kong, C. Liu, H. Hao, and Z. Lu, Mattersim: A deep
+learning atomistic model across elements, temperatures
+and pressures, arXiv preprint arXiv:2405.04967 (2024),
+arXiv:2405.04967 [cond-mat.mtrl-sci].
+
+A. Mazitov, F. Bigi, M. Kellner, P. Pegolo, D. Tisi,
+G. Fraux, S. Pozdnyakov, P. Loche, and M. Ceriotti,
+Pet-mad, a lightweight universal interatomic potential for
+advanced materials modeling (2025), arXiv:2503.14118
+cond-mat.mtrl-sci].
+
+D. Zhang, X. Liu, X. Zhang, C. Zhang, C. Cai, H. Bi,
+Y. Du, X. Qin, A. Peng, J. Huang, B. Li, Y. Shan,
+J. Zeng, Y. Zhang, S. Liu, Y. Li, J. Chang, X. Wang,
+S. Zhou, J. Liu, X. Luo, Z. Wang, W. Jiang, J. Wu,
+Y. Yang, J. Yang, M. Yang, F.-Q. Gong, L. Zhang,
+
+Sy
+
+26]
+
+27
+
+28]
+
+29|
+
+30
+
+31
+
+32
+
+33
+
+34]
+
+36
+
+M. Shi, F.-Z. Dai, D. M. York, S. Liu, T. Zhu, Z. Zhong,
+J. Ly, J. Cheng, W. Jia, M. Chen, G. Ke, W. E,
+L. Zhang, and H. Wang, Dpa-2: a large atomic model
+as a multi-task learner, npj Computational Materials 10,
+10.1038 /s41524-024-01493-2 (2024).
+B. M. Wood, M. Dzamba, X. Fu, M. Gao, M. Shuaibi,
+L. Barroso-Luque, K. Abdelmaqsoud, V. Gharakhanyan,
+J. R. Kitchin, D. S. Levine, K. Michel, A. Sriram, T. Co-
+hen, A. Das, A. Rizvi, S. J. Sahoo, Z. W. Ulissi, and
+C. L. Zitnick, Uma: A family of universal models for
+atoms (2025), arXiv:2506.23971 [cs.LG].
+D. Zhang, A. Peng, C. Cai, W. Li, Y. Zhou, J. Zeng,
+M. Guo, C. Zhang, B. Li, H. Jiang, T. Zhu, W. Jia,
+L. Zhang, and H. Wang, A graph neural network for the
+era of large atomistic models (2025), arXiv:2506.01686
+[physics.comp-ph].
+J. Kim, J. Kim, J. Kim, J. Lee, Y. Park, Y. Kang,
+and S. Han, Data-efficient multifidelity training for high-
+fidelity machine learning interatomic potentials, Jour-
+nal of the American Chemical Society 147, 1042-1054
+(2024).
+A. E. A. Allen, N. Lubbers, S$. Matin, J. Smith,
+R. Messerly, S. Tretiak, and K. Barros, Learning to-
+gether: Towards foundation models for machine learning
+interatomic potentials with meta-learning, npj Computa-
+tional Materials 10, 10.1038/s41524-024-01339-x (2024).
+N. Shoghi, A. Kolluru, J. R. Kitchin, Z. W.
+Ulissi, C. L. Zitnick, and B. M. Wood, From
+molecules to materials: Pre-training large gener-
+alizable models for atomic property prediction, in
+
+38
+
+39
+
+40
+
+Al
+
+42
+
+43
+
+44
+
+17
+
+I. Batatia, S. Batzner, D. P. Kovacs, A. Musaelian,
+G.N. C. Simm, R. Drautz, C. Ortner, B. Kozinsky, and
+G. Csanyi, The design space of e(3)-equivariant atom-
+centred interatomic potentials, Nature Machine Intelli-
+gence 7, 56-67 (2025).
+
+A. P. Bartok, R. Kondor, and G. Csanyi, On representing
+chemical environments, Physical Review B 87, 184115
+(2013).
+
+B. Anderson, T. S. Hy, and R. Kondor, Cormorant: Co-
+variant molecular neural networks, Advances in neural
+information processing systems 32 (2019).
+
+E. Wigner, Group theory, Vol. 5 (Elsevier, 2012).
+
+M. Geiger and T. Smidt, e3nn: Euclidean neural net-
+works (2022), arXiv:2207.09453 [cs.LG].
+
+J. P. Darby, D. P. Kovacs, I. Batatia, M. A. Caro,
+G. L. W. Hart, C. Ortner, and G. Csanyi, Tensor-reduced
+atomic density representations, Phys. Rev. Lett. 131,
+028001 (2023).
+
+L. Barroso-Luque, M. Shuaibi, X. Fu, B. M. Wood,
+M. Dzamba, M. Gao, A. Rizvi, C. L. Zitnick, and Z. W.
+Ulissi, Open materials 2024 (omat24) inorganic materi-
+als dataset and models (2024), arXiv:2410.12771 [cond-
+mat.mtrl-sci].
+
+Q. Zhao, 8. M. Vaddadi, M. Woulfe, L. A. Ogunfowora,
+S.S. Garimella, O. Isayev, and B. M. Savoie, Comprehen-
+sive exploration of graphically defined reaction spaces,
+Scientific Data 10, 10.1038/s41597-023-02043-z (2023).
+M. K. Horton, P. Huck, R. X. Yang, J. M. Munro,
+S. Dwaraknath, A. M. Ganose, R. S. Kingsbury, M. Wen,
+J. X. Shen, T. S. Mathis, A. D. Kaplan, K. Berket,
+
+The Twelfth International Conference on Learning Representatious Riebesell, J. George, A. S. Rosen, E. W. C. Spotte-
+
+(2024).
+
+D. P. Kovacs, I. Batatia, E. S. Arany, and G. Csdanyi,
+Evaluation of the mace force field architecture: From
+medicinal chemistry to materials science, The Journal of
+Chemical Physics 159, 10.1063/5.0155322 (2023).
+
+K. Schiitt, P.-J. Kindermans, H. E. Sauceda Felix,
+S. Chmiela, A. Tkatchenko, and K.-R. Miiller, Schnet: A
+continuous-filter convolutional neural network for mod-
+eling quantum interactions, Advances in neural informa-
+tion processing systems 30 (2017).
+
+K. Schiitt, O. Unke, and M. Gastegger, Equiv-
+ariant message passing for the prediction of
+tensorial properties and molecular spectra, in
+
+International conference on machine learning
+2021) pp. 9377-9388.
+
+S. Batzner, A. Musaelian, L. Sun, M. Geiger, J. P.
+Mailoa, M. Kornbluth, N. Molinari, T. E. Smidt, and
+B. Kozinsky, E (3)-equivariant graph neural networks for
+data-efficient and accurate interatomic potentials, Nature
+communications 13, 2453 (2022).
+
+J. Gasteiger, S. Giri, J. T. Margraf, and S. Giin-
+nemann, Fast and _ uncertainty-aware directional
+message passing for non-equilibrium molecules, in
+Machine Learning for Molecules Workshop, NeurIPS
+(2020).
+
+M. J. Willatt, F. Musil, and M. Ceriotti, Feature opti-
+mization for atomistic machine learning yields a data-
+driven construction of the periodic table of the elements,
+Phys. Chem. Chem. Phys. 20, 29661 (2018).
+
+K. Gubaev, E. V. Podryabinkin, G. L. Hart, and A. V.
+Shapeev, Accelerating high-throughput searches for new
+alloys with active learning of interatomic potentials,
+Computational Materials Science 156, 148 (2019).
+
+(PMLR,
+
+[46] Materials
+
+Smith, M. J. McDermott, O. A. Cohen, A. Dunn, M. C.
+Kuner, G.-M. Rignanese, G. Petretto, D. Waroquiers,
+S. M. Griffin, J. B. Neaton, D. C. Chrzan, M. Asta,
+G. Hautier, S. Cholia, G. Ceder, S. P. Ong, A. Jain,
+and K. A. Persson, Accelerated data-driven materials
+science with the materials project, Nature Materials
+10.1038 /s41563-025-02272-0 (2025).
+
+project calculation details, https:
+//docs .materialsproject.org/methodology/
+materials-methodology/calculation-details, ac-
+
+cessed: 2023-12-18.
+
+[47] P. Eastman, P. K. Behara, D. L. Dotson, R. Galvelis,
+
+J. E. Herr, J. T. Horton, Y. Mao, J. D. Chodera, B. P.
+Pritchard, Y. Wang, G. De Fabritiis, and T. E. Markland,
+Spice, a dataset of drug-like molecules and peptides for
+training machine learning potentials, Scientific Data 10,
+10.1038 /s41597-022-01882-6 (2023).
+
+[48] D. S. Levine, M. Shuaibi, E. W. C. Spotte-Smith,
+
+M. G. Taylor, M. R. Hasyim, K. Michel, I. Batatia,
+G. Csanyi, M. Dzamba, P. Eastman, N. C. Frey, X. Fu,
+V. Gharakhanyan, A. S. Krishnapriyan, J. A. Rackers,
+S. Raja, A. Rizvi, A. S. Rosen, Z. Ulissi, S. Vargas, C. L.
+Zitnick, 8. M. Blau, and B. M. Wood, The open molecules
+2025 (omol25) dataset, evaluations, and models (2025),
+arXiv:2505.08762 [physics.chem-ph].
+
+[49] A. D. Kaplan, R. Liu, J. Qi, T. W. Ko, B. Deng, J. Riebe-
+
+sell, G. Ceder, K. A. Persson, and S. P. Ong, A foun-
+dational potential energy surface dataset for materials
+(2025), arXiv:2503.04070 [cond-mat.mtrl-sci].
+
+[50] X. Fu, B. M. Wood, L. Barroso-Luque, D. S. Levine,
+
+M. Gao, M. Dzamba, and C. L. Zitnick, Learning smooth
+and expressive interatomic potentials for physical prop-
+erty prediction (2025), arXiv:2502.12147 [physics.comp-
+ot
+a
+
+60
+
+61
+
+62
+
+63
+
+64]
+
+ph].
+
+B. Rhodes, $. Vandenhaute, V. Simkus, J. Gin, J. God-
+win, T. Duignan, and M. Neumann, Orb-v3: atom-
+istic simulation at scale (2025), arXiv:2504.06231 [cond-
+mat.mtrl-scil.
+S. Grimme, J. Antony, S. Ehrlich, and H. Krieg, A
+consistent and accurateab initioparametrization of den-
+sity functional dispersion correction (dft-d) for the 94
+elements h-pu, The Journal of Chemical Physics 132,
+10.1063/1.3382344 (2010).
+S. Grimme, 8. Ehrlich, and L. Goerigk, Effect of the
+damping function in dispersion corrected density func-
+tional theory, Journal of Computational Chemistry 32,
+1456-1465 (2011).
+
+S. Takamoto, C. Shinagawa, D. Motoki, K. Nak-
+ago, W. Li, I. Kurata, T. Watanabe, Y. Yayama,
+H. Iriguchi, Y. Asano, T. Onodera, T. Ishii, T. Kudo,
+H. Ono, R. Sawada, R. Ishitani, M. Ong, T. Yamaguchi,
+T. Kataoka, A. Hayashi, and T. Ibuka, Pfp: Universal
+neural network potential for material discovery (2021),
+arXiv:2106.14583 [cond-mat.mtrI-sci].
+
+R. Liu, E. Liu, J. Riebesell, J. Qi, S. P. Ong, and T. W.
+Ko, MatCalc (2024).
+
+M. De Jong, W. Chen, T. Angsten, A. Jain, R. Notes-
+tine, A. Gamst, M. Sluiter, C. Krishna Ande, S. Van
+Der Zwaag, J. J. Plata, et al., Charting the complete
+elastic properties of inorganic crystalline compounds, Sci-
+entific data 2, 1 (2015).
+
+D. Chung and W. Buessem, The voigt-reuss-hill approx-
+imation and elastic moduli of polycrystalline mgo, caf2,
+$-zns, znse, and cdte, Journal of applied physics 38, 2535
+(1967).
+R. Hill, The elastic behaviour of a crystalline aggregate,
+Proceedings of the Physical Society. Section A 65, 349
+(1952).
+R. Golesorkhtabar, P. Pavone, J. Spitaler, P. Puschnig,
+and C. Draxl, Elastic: A tool for calculating second-order
+elastic constants from first principles, Computer Physics
+Communications 184, 1861 (2013).
+
+B. Pota, P. Ahlawat, G. Csanyi, and M. Simoncelli, Ther-
+mal conductivity predictions with foundation atomistic
+models (2025), arXiv:2408.00755 [cond-mat.mtrl-sci].
+
+J. Riebesell, R. E. A. Goodall, P. Benner, Y. Chiang,
+B. Deng, G. Ceder, M. Asta, A. A. Lee, A. Jain, and
+K. A. Persson, A framework to evaluate machine learning
+crystal stability predictions, Nature Machine Intelligence
+7, 836-847 (2025).
+A. Loew, D. Sun, H.-C. Wang, S. Botti, and M. A. L.
+Marques, Universal machine learning interatomic poten-
+tials are ready for phonons, npj Computational Materials
+11, 10.1038/s41524-025-01650-1 (2025).
+
+A. M. Reilly and A. Tkatchenko, Understanding the role
+of vibrations, exact exchange, and many-body van der
+waals interactions in the cohesive properties of molecular
+crystals, The Journal of chemical physics 139 (2013).
+
+F. Della Pia, A. Zen, D. Alfé, and A. Michaelides, How
+accurate are simulations and experiments for the lattice
+energies of molecular crystals?, Physical Review Letters
+133, 10.1103/physrevlett.133.046401 (2024).
+
+F. Della Pia, A. Zen, D. Alfé, and A. Michaelides, Dmc-
+ice13: Ambient and high pressure polymorphs of ice from
+diffusion monte carlo and density functional theory, The
+Journal of Chemical Physics 157 (2022).
+
+[66]
+
+[67]
+
+[68]
+
+[69]
+
+[70]
+
+[71]
+
+[72]
+
+[73]
+
+74
+
+76
+
+77
+
+78
+
+18
+
+L. Chanussot, A. Das, S. Goyal, T. Lavril, M. Shuaibi,
+M. Riviere, K. Tran, J. Heras-Domingo, C. Ho, W. Hu,
+et al., Open catalyst 2020 (oc20) dataset and community
+challenges, Acs Catalysis 11, 6059 (2021).
+
+R. R. Brew, I. A. Nelson, M. Binayeva, A. S. Nayak,
+W. J. Simmons, J. J. Gair, and C. C. Wagen, Wig-
+gle150: Benchmarking density functionals and neural
+network potentials on highly strained conformers, Jour-
+nal of Chemical Theory and Computation 21, 3922
+(2025).
+
+L. Goerigk, A. Hansen, C. Bauer, 8. Ehrlich, A. Najibi,
+and S. Grimme, A look at the density functional the-
+ory zoo with the advanced gmtkn55 database for general
+main group thermochemistry, kinetics and noncovalent
+interactions, Physical Chemistry Chemical Physics 19,
+32184 (2017).
+
+K. Kriz and J. Rezac, Benchmarking of semiempiri-
+cal quantum-mechanical methods on systems relevant to
+computer-aided drug design, Journal of Chemical Infor-
+mation and Modeling 60, 1453 (2020).
+
+R. Sure and S. Grimme, Comprehensive benchmark of as-
+sociation (free) energies of realistic host-guest complexes,
+Journal of Chemical Theory and Computation 11, 3785
+(2015).
+
+Y. Chiang, T. Kreiman, E. Weaver, I. Amin, M. Kuner,
+C. Zhang, A. Kaplan, D. Chrzan, S. M. Blau, A. S. Krish-
+napriyan, and M. Asta, MLIP arena: Advancing fairness
+and transparency in machine learning interatomic poten-
+tials through an open and accessible benchmark platform,
+in AI for Accelerated Materials Design - ICLR 2025
+(2025).
+J. Firoz, F. Pellegrini, M. Geiger, D. Hsu, J. A. Bil-
+brey, H.-Y. Chou, M. Stadler, M. Hoehnerbach, T. Wang,
+D. Lin, E. Kucukbenli, H. W. Sprueill, I. Batatia, S. S.
+Xantheas, M. Lee, C. Mundy, G. Csanyi, J. S. Smith,
+P. Sadayappan, and S. Choudhury, Optimizing data dis-
+tribution and kernel performance for efficient training of
+chemistry foundation models: A case study with mace
+(2025), arXiv:2504.10700 [cs.DC].
+
+V. Gharakhanyan, L. Barroso-Luque, Y. Yang,
+M. Shuaibi, K. Michel, D. S. Levine, M. Dzamba,
+X. Fu, M. Gao, X. Liu, H. Ni, K. Noori, B. M.
+Wood, M. Uyttendaele, A. Boromand, C. L. Zitnick,
+N. Marom, Z. W. Ulissi, and A. Sriram, Open molecular
+crystals 2025 (omc25) dataset and models (2025),
+arXiv:2508.02651 [physics.chem-ph].
+
+G. Strang, Linear algebra and its applications, Chapter 3
+(Thomson, Brooks/Cole, 2000).
+
+S. Weisberg, Applied linear regression, Chapter 2, Vol.
+528 (John Wiley & Sons, 2005).
+
+A. Bjorck, Numerical methods for least squares problems
+(SIAM, 2024).
+
+S.J. Reddi, S. Kale, and S. Kumar, On
+the convergence of adam and_ beyond, in
+International Conference on Learning Representations
+(2018).
+
+D. P. Kingma and J. Ba, Adam: A method for stochastic
+optimization, arXiv preprint arXiv:1412.6980 (2014).
+
+XV. Appendix
+
+A. Re-estimation of atomic reference energies
+(E0s)
+
+During the fine-tuning phase, one needs to adapt the
+reference energies, to ensure proper normalization of the
+target energies as the MACE architecture learns to pre-
+dict relative energies instead of the total energy, as do
+many other MLIPs. This relative energy is the atomiza-
+tion energy:
+
+N
+Fam _ ptot _ E°. (20)
+-
+
+There are currently two choices for E0s: computed iso-
+lated atom energies using the same reference method as
+the training set, or using MACE’s “average” argument
+which re-estimates the E0s using averaging. A linear sys-
+tem can be formulated to provide a more robust approach
+for EO re-estimation for fine-tuning. The energy predic-
+tion error ¢; for a configuration 7 is defined as:
+
+= pire _ pppredicted. (21)
+
+We assume this error can be systematically corrected for
+
+each element 7 by adjusting its value of Epo:
+
+= SON X Cj, (22)
+ad.
+
+where Nj; is the number of atoms of element j in config-
+uration and c; is the correction for element j. In matrix
+notation, we can write this as Ne = e [74]:
+
+M11 M12 "7° Nin CL €1
+
+N21 122 *+* Nan c2 €2 P
+= (23)
+
+Mimi m2 *** Tina} [Cn Em
+
+Since we are adjusting the EO values of different ¢
+ements, which are present in many configurations with
+different energies, we therefore have an overdetermined
+system with more equations than unknowns. Since an
+exact solution may not exist, we can instead minimize the
+sum of squared residuals, min, ||Ax —b||?, and efficiently
+solve this via the least squares method [75]. The least-
+squares solution follows from the normal equations [76]:
+
+c=(N™N)'NTe. (24)
+Now the EO values can be re-estimated:
+
+En} = B09" + cj. (25)
+
+Note that the E0s of the replay head are kept fixed to
+the original DFT values from the pre-training stage.
+
+19
+XVI.
+
+Hyperparameters
+
+a. Training loss The models were trained using a
+weighted sum of Huber losses of energy, forces, and stress:
+
+Ny -
+a EF
+= we » Luuber ( a 5e)
+Ny Na aki,
+mine e ym ze
+a,
+
+b= Na j=1a=1 i=l
+
+3 1 dB,
+
+b=1 i=1 j=1
+
+Fs, a,is én)
+nut)
+
+(26)
+where Ag,Ap, Aq are predetermined weights of energy
+(E), forces (F), and stress (7) losses, the symbols un-
+der a hat correspond to predicted values, and Nj, and
+Ng are the batch size and the number of atoms in each
+structure. In the last term involving the stress, ¢, and op
+correspond to the strain and stress tensors, respectively.
+We used (Az, Ar, Ac) = (1,10,10) and Huber deltas of
+dg = 0.01, 67 = 0.01,6, = 0.01. We use a conditional
+Huber loss Lf... for forces, where the Huber delta dp
+is adaptive to the force magnitude on each atom, as used
+in [18]. The Huber delta J decreases step-wise by a fac-
+tor from 1.0 to 0.1 as the atomic force increases from 0
+to 300 eV/A.
+
+b. Optimisation The models are trained with the
+AMSGrad [77] variant of Adam [78] with default param-
+eters 6, = 0.9, B2 = 0.999, and «= 10-8.
+
+c. Pre-training For the pre-training phase, we use
+a learning rate of 0.001 and an exponential moving aver-
+age (EMA) learning scheduler with a decaying factor of
+0.999. We employ gradient clipping of 100. The model
+is trained for 7 epochs on 48 NVIDIA H100 GPUs across
+12 nodes.
+
+d. Fine-tuning For the fine-tuning phase, we use
+a learning rate of 0.001 and an exponential moving aver-
+age (EMA) learning scheduler with a decaying factor of
+0.999. We employ gradient clipping of 100. The model is
+trained for 20 epochs on 48 NVIDIA H100 GPUs across
+12 nodes.
+
+20
+
+TABLE XVII. Hyper-parameter settings for the three MACE variants used in this work.
+
+Models
+Hyperparameter mace-omat-1 mace-mh-1 mace-omat-0
+max_ell 3 3 3
+correlation 3 3 3
+max_L 2 2 1
+num_channels_ edge 128 128 128
+num_channels_node 512 512 128
+num_ interactions 2 2 2
+num_radial_basis 8 8 8
+r_max 6 6 6
+interactions class non-linear non-linear linear
+irreps 16x0e 16x0e 16x0e
+batch size 256 256 256
+energy coefficient at 1 a3
+force coefficient 10 10 10
+stress coefficient 10 10 10
+
+TABLE XVIII. Summary of all reported benchmark results for mace-mh-0-r2scan and mace-mh-1-r2scan. When only a
+“D3” value was reported in the manuscript, it is used directly here (per the instruction to treat D3 and non-D3 as the same).
+
+Domain Benchmark / Metric Unit mace-mh-0-r2scan mace-mh-1-r2scan
+Elastic moduli (no relaxation) - Bulk MAE GPa 24.07 33.93
+Elastic moduli (no relaxation) — Shear MAE GPa 15.59 20.80
+Materials Elastic moduli (relaxed) — Bulk MAE GPa 12.10 20.19
+. Elastic moduli (relaxed) — Shear MAE GPa 9.03 10.60
+Thermal conductivity RMSE Wm ‘kt 0.33 0.32
+Lattice constants MAE A 0.048 0.027
+Wmax MAE K 21 36
+Wave MAE K 7 10
+Wmin MAE K 14 14
+Materials (Phonons) Brillouin zone RMSE K 13 19
+Entropy S MAE (300 K) Jmol~'K~! 16 14
+Jelmholtz free energy F MAE (300 K) kJmol“t 5 6
+Heat capacity Cy MAE (300 Kk) Jmol-'K~! 5 6
+Molecular Chystaly X23 formation energy MAE kJmol-t 10.05 28.13
+“ee Tce polymorphs relative energy MAE meV 7.85 25.69
+$24 adsorption energy MAE eV 0.150 0.249
+Surfaces 0C20 adsorption RMSD eV 0.242 0.185
+OC20 Pearson r — 0.97 0.98
+Wiggle150 strained conformers MAE kcal mol + 5.28 1.59
+GMTKN55 — Basic (small) MAE kcal mol? 16.24 12.92
+GMTKN55 — Large systems MAE kcal mol + 21.15 7.42
+Maleealas GMTKN55 — Barrier heights MAE kcal mol! 11.47 8.06
+GMTKN55 — Intramolecular NC MAE kcal mol” + 14.76 10.84
+GMTKN55 — Intermolecular NC MAE kcal mol! 13.56 12.94
+GMTKN55 — Overall (WTMAD-like) kcal mol~t 15.17 10.72
+
+S30L MAE kcal molt 10.72 10.68
+
+21
+
+TABLE XIX. MDR Phonon benchmark on the phonon frequencies and thermodynamic properties (300 K) of roughly ten
+thousand materials. BZ refers to the RMSE across the whole Brillouin Zone.
+
+Material Wmax Wavg Wmin BZ F Cy
+(K) (K) (K) (K) (J/molK) (kJ/mol) (J/mol-K)
+
+uma-s-Ipl-omat 23 38 138 16 13 3 6
+uma-m-Ipl-omat 7 3 113 2 5
+orb-v3-consv-infomat 10 3 38 10 9 2 4
+mace-omat-0 16 4 13 10 10 2 3
+mace-mp-0a 65 32 19 41 60 23 4
+mattersim-5M. 19 5 16 13) 14 4 4
+mace-mh-1-omat 2 3 1 7 8 2 3
+mace-omat-1 133 «12 8 8 2 3
+
+Ipl-omat (no-sym) uo4 2 7 2 3
+
+consv-inf-omat (no-sym) 12. 5 29 24 13 3 4
+uma-m-pl-omat (no-sym) 9 3 18 13 8 2 2
+mattersim-5M (no-sym) 2 6 18 6 13 4 3
+mace-omat-0 (no-sym) 1 5 16 13 10 3 3
+mace-mp-0a (no-sym) 67 33 21 43 «60 24 13.
+mace-mh-1-omat (no-sym) 13° 4 «13 (10 8 3 2
+mace-omat-1 (no-sym) i 4 13 IL 8 3 2
+
+22
+
+TABLE XX. Normalization bounds for all benchmarks. Direction: Lower-is-better (L) or Higher-is-better (H).
+
+Group Benchmark / Metric Unit Dir. Best (b) Worst (w) Rationale
+
+Materials Elastic moduli (bulk) MAE GPa L 0.0 50.0 Mathematical (zero error)
+
+Materials Elastic moduli (shear) MAE GPa L 0.0 50.0 Mathematical (zero error)
+
+Materials Thermal conductivity RMSE Wm '!K! L 0.0 2.0 Mathematical (zero error)
+
+Materials Phonon wimax MAE K L 0.0 50.0 Mathematical (zero error)
+
+Materials Phonon wayg MAE K L 0.0 50.0 Mathematical (zero error)
+
+Materials Phonon wmin MAE K L 0.0 50.0 Mathematical (zero error)
+
+Materials Phonon BZ MAE K L 0.0 50.0 Mathematical (zero error)
+
+Materials Entropy MAE Jmol“'K7! L 0.0 50.0 Mathematical (zero error)
+
+Materials Helmholtz free energy MAE kJ mol7! L 0.0 50.0 Mathematical (zero error)
+
+Materials Heat capacity Cy MAE Jmol"'K7! L 0.0 50.0 Mathematical (zero error)
+
+Materials Phonon stability count L 0.0 50.0 Mathematical (zero instabilities)
+
+Materials Phonon stability n count L 0.0 50.0 Mathematical (zero instabilities)
+
+Molecular Crystals X23 formation energy MAE kealmol~! —L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecular Crystals Ice polymorphs energy MAE kealmol-? —L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Surfaces $24 adsorption energy MAE kealmol~? —L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Surfaces OC20 adsorption MAE eV L 0.021 0.50 Reference accuracy (0.5 kcal mol7')
+
+Molecules Wiggle150 MAE kealmol~'! — L 0.5 50.0 Reference accuracy (0.5 kcal mol7')
+
+Molecules GMTKN55 Basic small MAE kealmol~! —L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules GMTKN55 Large systems MAE kcalmol-? —L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules GMTKN55 Barrier heights MAE kcalmol~! — L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules GMTKN55 Intra-NC MAE kealmol~'! — L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules GMTKN55 Inter-NC MAE kealmol~'! — L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules GMTKN55 overall MAE kealmol~! —L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules PLF547 MAE kealmol~' — L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Molecules S30L MAE kealmol~! — L 0.5 50.0 Reference accuracy (0.5 kcal mol~')
+
+Physicality Slab extensivity A meV L 0.0 50.0 Mathematical (extensivity; zero deviation)
+
+Physicality H-additivity max |AF| meV A7? L 0.0 50.0 Mathematical (additivity; zero deviation)
+
+Physicality Diatomic force flips count L 1.0 10.0 Mathematical/physical (one sign change)
+Diatomic energy minima count L 1.0 10.0 Mathematical/physical (single minimum)
+
+Physicality Diatomic inflections count L 2.0 10.0 Mathematical/physical (typical Morse shape)
+
+Physicality Spearman p(Erep) ss H =10 —0.5 Mathematical (perfect anticorrelation)
+
+Physicality Spearman p(E.:) se H 1.0 0.0 Mathematical (perfect correlation)
+

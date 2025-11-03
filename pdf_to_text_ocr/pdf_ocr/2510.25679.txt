@@ -1,0 +1,1196 @@
+arX1v:2510.25679v1 [cs.AI] 29 Oct 2025
+
+NAVIGATION IN A THREE-DIMENSIONAL URBAN FLOW USING
+DEEP REINFORCEMENT LEARNING
+
+Federica Tonti
+
+Department of Aerospace Engineering, University of Michigan, Ann Arbor, MI 48109, USA
+FLOW, Engineering Mechanics,
+KTH Royal Institute of Technology,
+Osquars backe 18, 11428, Stockholm, Sweden
+ftonti@umich.edu
+
+Ricardo Vinuesa
+
+Department of Aerospace Engineering, University of Michigan, Ann Arbor, MI 48109, USA
+FLOW, Engineering Mechanics,
+KTH Royal Institute of Technology,
+Osquars backe 18, 11428, Stockholm, Sweden
+rvinuesa@umich.edu
+
+October 30, 2025
+
+ABSTRACT
+
+Unmanned Aerial Vehicles (UAVs) are increasingly populating urban areas for delivery and surveil-
+lance purposes. In this work, we develop an optimal navigation strategy based on Deep Reinforcement
+Learning. The environment is represented by a three-dimensional high-fidelity simulation of an
+urban flow, characterized by turbulence and recirculation zones. The algorithm presented here is a
+flow-aware Proximal Policy Optimization (PPO) combined with a Gated Transformer eXtra Large
+(GTrXL) architecture, giving the agent richer information about the turbulent flow field in which it
+navigates. The results are compared with a PPO+GTrXL without the secondary prediction tasks, a
+PPO combined with Long Short Term Memory (LSTM) cells and a traditional navigation algorithm.
+The obtained results show a significant increase in the success rate (SR) and a lower crash rate (CR)
+compared to a PPO+LSTM, PPO+GTrXL and the classical Zermelo’s navigation algorithm, paving
+the way to a completely reimagined UAV landscape in complex urban environments.
+
+Keywords Deep Reinforcement Learning, UAV, Navigation, Urban environment
+
+Introduction
+
+The rapidly increasing number of Unmanned Aerial Vehicles (UAVs) in urban environments is due to the number of
+tasks they can perform, from surveillance and traffic monitoring to package delivery and their ability to reach locations
+that can be challenging for other aerial vehicles, such as helicopters. This also presents problems related to acoustic
+pollution and the risk of accidents. It is crucial to develop an efficient strategy for the autonomous navigation of UAVs
+in complex environments, not only to perform the aforementioned tasks but also to reduce their environmental impact
+related to acoustic pollution. Path planning becomes essential in order to reduce navigation time and minimize energy
+consumption. Navigation in urban environments is extremely challenging due to the complexity of the environment
+itself, with the presence of buildings and complex three-dimensional wind velocity distributions. The velocity field is
+characterized by the presence of turbulent wakes, vortex shedding, turbulent velocity fluctuations, gusts, recirculation
+zones and complex interaction phenomena due to the presence of obstacles [4] [7].
+A PREPRINT - OCTOBER 30, 2025
+
+Traditional path planning employs deterministic algorithms and heuristic methods. Popular algorithms are potential-field
+methods [17], algorithms [6] [26] [30], and sampling-based methods such as Rapidly-exploring Random
+Trees (RRT) (21) [23] 43) [45], as well as Probabilistic Roadmaps (PRM) [2\[20}. Although these algorithms have been
+shown to be successful in environments which do not exhibit uncertainties, they yield poor performance in dynamic
+environments. Simultaneously Localization And Mapping (SLAM) algorithms include obstacle detection and avoidance
+by including a mapping of the environment [9] {10} [22] 28], but in large-scale environments they exhibit degraded
+efficiency since building a map of the whole environment is practically unfeasible.
+
+Deep-Learning (DL)-based methods have recently received significant attention. DL can significantly improve obstacle
+avoidance and path planning for UAVs by using neural networks to process and interpret sensory data, such as images
+from cameras, or LiDAR signals or ground-based stations . These methods allow UAVs to detect and
+avoid obstacles more efficiently by recognizing patterns and predicting potential collisions in real time. Deep-Learning
+methods are extremely efficient for environments featuring small variations, as they are based on labels and sensitive to
+environmental changes. They are suitable for closed geometries but less reliable for urban environments, where the
+conditions typically change very rapidly. This brings the necessity to develop reinforcement-learning (RL) methods to
+understand and automate decision-making processes, in which the agent learns by trial-and-error [33}.
+
+Deep Reinforcement Learning (DRL) has been successfully applied to UAV navigation tasks in complex environments.
+Bouhamed et al. [5] used a Deep Deterministic Policy Gradient (DDPG) algorithm to train quadrocopters to navigate in
+a three-dimensional environment avoiding collisions with static and moving obstacles. Wang et al. [40] implemented a
+Faster Regions with Convolutional Neural Network Feature (Faster R-CNN) algorithm for obstacle detection, improved
+upon a traditional Deep-Q Network (DQN) approach. Collision avoidance capability was significant in unknown or
+dynamically changing environments. Sheng et al. [32] used a Twin Delayed Deep Deterministic Policy Gradient
+(TD3) to train a UAV to navigate a highly dynamic environment with multiple obstacles achieving high success rates
+and efficient path planning. Wang et al. proposed a Distributed Privileged Reinforcement Learning (DPRL)
+framework to address partial observability in navigation tasks, outperforming conventional vision-based methods.
+AlMahamid and Grolinger [I] introduced Agile DQN, an adaptive deep recurrent attention reinforcement learning
+method that enhances UAV obstacle avoidance by processing only the most relevant visual regions, achieving faster
+training and higher performance in simulated 3D environments. Raj and Kos applied a DQN-based approach for
+mobile robot navigation in unknown 2D environments, showing effective obstacle avoidance and improved navigation
+performance. Zhao et al. proposed an elastic adaptive DRL strategy to stabilize training in autonomous navigation
+tasks, demonstrating superior collision avoidance in multi-agent traffic scenarios. Berg et al. [3]) combined deep
+reinforcement learning with nonlinear model predictive control (NMPC) for autonomous surface vessels, improving
+digital twin synchronization and obstacle avoidance through adaptive control policies. Recently, DRL has been applied
+to autonomous navigation tasks where the environment is given by high-fidelity simulations. Gunnarson et al.
+applied a V-Racer algorithm with a Remember and Forget Experience Replay to discover time-efficient navigation
+policies to steer a fixed-speed swimmer through unsteady two-dimensional flow fields. Jiao et al. [19] showed that
+gradient sensing was critical for a navigation task in unsteady wake scenarios, applying DRL in a 2D unsteady flow
+field. The geocentric agent (with access to global direction) could reach the goal by sensing local flow velocity alone.
+However, the egocentric agent consistently failed with only local velocity sensors. An egocentric navigator needed
+the extra information on how the flow changed around it to break symmetries and reliably navigate the wake. Tonti et
+al. used a Proximal Policy Optimization (PPO) algorithm in combination with Long Short-Term Memory
+(LSTM) cells [15] for UAV navigation in a two-dimensional urban-like turbulent flow field obtained from a high-fidelity
+simulation. This study included random start and target locations, as well as random start snapshots, showing the
+adaptability of the agent in complex flow fields. The present study is an application to a three-dimensional urban
+environment, represented by a high-fidelity simulation, comparing three different architectures: PPO with LSTM cells,
+PPO with Gated Transformer XL (GTrXL) [25], and PPO with GTrXL with an auxiliary task for flow prediction, in a
+multi-objective reinforcement learning framework, so that the UAV can further optimize its trajectory exploiting the
+prediction of the flow field of the next snapshot. Proximal policy optimization combined with GTrXL has recently
+been used for navigation tasks. Huang et al. [16] applied PPO+GTrXL in an indoor environment with obstacles,
+comparing the results with a Soft Actor-Critic (SAC) algorithm combined with a GTrXL. Federici et al. [8] applied
+PPO+GTrXL to a meta-reinforcement learning task applied to spacecraft navigation, showing an improvement in
+performance with respect to vanilla PPO.
+
+To the authors’ knowledge, this work is not only the first to bring PPO+GTrXL into a 3D turbulent flow field with
+obstacles obtained by a high-fidelity simulation, but also the first to integrate a Convolutional Neural Network (CNN)
+and Gated Recurrent Unit (GRU) encoder, extracting spatial and temporal flow context, into GTrXL, and to train
+an auxiliary flow prediction head alongside policy and value objectives. This unified, multi-objective architecture,
+combining PPO+GTrXL and CNN+GRU embeddings, and transformer-based global attention for both control and
+real-time flow forecasting, represents a novel contribution to trajectory-optimization tasks.
+
+A PREPRINT - OCTOBER 30, 2025
+
+Results
+
+In this section, the results of the trained policies are shown and compared. All episode returns shown below are
+normalized to a common scale:
+
+R-— min(Ran)
+max(Ra) — min(Ran)’
+
+where R is the total reward as defined in Section Methods, min(R,) and max(R,1) are the lowest and highest raw
+rewards observed over all policies, respectively. This places PPO+LSTM, PPO+GTrXL and the proposed Flow-aware
+GTrXL on the same [—1, 1] range, facilitating a direct comparison of learning speed and asymptotic performance.
+Throughout this work, we adopt the following terminology to avoid ambiguity. An environment step refers to a single
+interaction between the agent and the environment, consisting of selecting an action, receiving a reward, and observing
+the next state. An episode is a full sequence of steps in the environment from an initial state to a terminal condition. A
+training iteration corresponds to one optimization cycle, during which the model parameters are updated using gradients
+computed from batches of collected data. An update step refers specifically to a single gradient descent update within
+a training iteration, when using several mini-batches per iteration. Performance metrics are plotted against training
+iterations.
+
+The methods compared in this section are described in Methods.
+
+Rrorm =
+
+Learning speed and asymptotic return
+
+Figure}1a|shows that the LSTM baseline (blue) leaves the exploration plateau after 300 training iterations and saturates
+at Rnorm = 0.94 + 0.5. Replacing the recurrent core with attention raises the plateau to 0.98 + 0.2. Adding the auxiliary
+flow—prediction head introduces a short burn-in, yet overtakes the vanilla transformer by iteration 600 and reaches the
+top of the scale, 1.0 + 0.1. The curves are the result of a moving average over 200 episodes.
+
+Task-level safety
+
+shows that the probability of success during training increases from LSTM to vanilla GTrXL and flow-aware
+GTrXL, reahcing peaks of 1.0 for the flow-aware method. The corresponding crash rates in Figure[Ic]drop from
+PPO+LSTM to Flow-aware GTrXL, confirming that attention reduces the incidence of crashes and conditioning on
+flow history drops it further by allowing the agent to anticipate gust-driven drift, reaching sometimes 0 collisions.
+During inference, where the algorithms are tested on a unseen environment, we can see that the flow-aware method still
+reaches a higher performance with respect to the PPO+LSTM and PPO+GTrXL methods.
+
+Classical baseline: Zermelo’s optimal navigation
+
+Metric (mean +s.d.) Zermelo Flow-GTIrXL GTrXL PPO+LSTM
+
+Success rate (%) 61.3 97.6 95.7 86.7
+Crash rate (%) 38.7 0.2 0.4 0.5
+
+Table 1: Performance of Zermelo’s optimization algorithm versus the three RL agents on 1 000 random start—goal pairs
+
+Although Zermelo’s algorithm computes theoretically optimal trajectories by minimizing a cost function that accounts
+for control, obstacle avoidance, and final target accuracy, its performance in the unsteady 3D urban environment is
+significantly inferior to learned policies. Specifically, Zermelo achieves a success rate of only 61.3%, compared to
+97.6% with flow-aware PPO+GTrXL, 95.7% with PPO+GTrXL and 86.7% with PPO+LSTM. This gap is primarily
+attributed to the open-loop nature of the Zermelo solution: the trajectory is optimized once using a single, randomly
+selected snapshot of the velocity field and a randomized initial UAV position, without any feedback or re-planning
+during execution. As a result, the computed trajectory is inherently brittle to perturbations and cannot adapt to the
+evolving flow field, which is especially detrimental in highly dynamic and partially observable environments. In
+contrast, DRL policies are trained in closed-loop settings and are explicitly optimized to generalize across a wide
+distribution of initial conditions and flow realizations. Architectures like GTrXL and LSTM enable these policies to
+encode temporal dependencies and respond adaptively to local variations in the flow. Furthermore, DRL agents can
+implicitly learn obstacle avoidance strategies and exploit transient flow structures through repeated interaction with
+the environment, capabilities that static optimization-based methods like Zermelo lack. These results demonstrate the
+critical importance of reactivity and temporal awareness for robust navigation in complex, time-varying environments,
+highlighting a fundamental limitation of classical optimal control when deployed in real-time.
+A PREPRINT - OCTOBER 30, 2025
+
+1.25
+1.00
+0.75
+a
+= 0.50
+BS
+B
+0.25
+0.00
+—0.25
+—0.50 — PPO+LSTM
+—— PPO+GTYXL
+— Flow-aware GTYXL.
+-0.75
+0 200 400 600 800 1000
+Training Iterations
+(a) Normalized reward vs. training iterations
+1.0
+0.8
+£06
+é
+a
+04
+0.2
+— PPO+LSTM
+— PPO+GTrxXL
+— Flow-aware GIrXL
+0.0
+0 200 400 600. 800, 1000
+Training Iterations
+(b) Success rate ys. training iterations
+0.200 —— PPO+LSTM
+—— PPO+GTrxXL
+
+Trainipg Iterations
+
+(c) Crash rate vs. training iterations
+
+Figure 1: Evolution of the reward (1a), success rate (1b) and crash rate
+
+(hlne) PPO+GTrxXT. (orance) and
+
+ia (oreen)
+
+—— Flow-aware GTrXL
+
+) vs. training iterations for PPO+LSTM
+
+A PREPRINT - OCTOBER 30, 2025
+
+Figure[2]shows two examples of trajectories given by the flow-aware PPO+GTrXL. The trajectories are shown in the
+3D domain, and a 2D slice of the streamwise velocity field is shown to help the visualization. The environment is
+represented by a three dimensional high-fidelity simulation of an urban flow. The domain coordinates are x € [—2.0, 5.0},
+y € [0,3.0], z € [—1.0, 1.0]. The obstacle coordinates are x41€ [—0.25, 0.25], yo1€ [0.0, 1.0], zo1€ [—0.25, 0.25],
+Xo2€ (1.25, 1.75], yor€ [0.0, 0.5], zo2€ [—0.25, 0.25]. All distances are scaled by the obstacle height h. More details
+can be found in Section Methods.
+
+@ Starting point
+1.5 @ = Target point
+
+— Trajectory
+
+1.0
+3.0 hoi
+0.5 2 25 =
+o
+(Ss)
+oe 2.0
+>
+00 8 y/his
+1.0
+0.5
+“oe 0.0
+-1.0,
+OR 05.
+@ = Starting point
+15 @ = Target point
+— Trajectory
+1.0 [ Lt |
+=
+Pr ow direction
+0.5 £ iP aa
+3 iP
+g
+i< i
+Ss y/his
+0.0
+2
+-1
+-0.5
+—1.0
+
+Figure 2: Visualization of trajectories produced by the trained policy of the flow-aware PPO+GTrXL algorithm.
+A PREPRINT - OCTOBER 30, 2025
+
+Discussion
+
+Attention alone can address long-horizon credit assignment, but at the cost of a very broad memory pool in which
+irrelevant observations compete with critical ones. Conditioning the transformer on a trained flow embedding achieves
+two complementary effects. First, it injects dense stepwise gradients, stabilizing the policy update and reducing reward
+variance. Second, it equips the agent with an implicit predictive model of the local velocity field, enabling anticipatory
+actions rather than purely reactive control. These mechanisms are supported by the sharp reduction in the collision rate
+and the smoother control spectrum observed during the zero-shot evaluation.
+
+The Zermelo’s benchmark (Table 1) highlights the pitfalls of ignoring flow and of open-loop execution: only 61.3% of
+success when replayed in the turbulent flow field. In contrast, the flow-aware GTrXL success rate reaches 97.6% of the
+same tasks, without any pre-planning latency, and produces shorter trajectories. Even the LSTM baseline outperforms
+the Zermelo’s benchmark in reaching the target, underlining the inadequacy of closed-loop planners in highly disturbed
+domains. Because all returns are normalized to a common [—1, 1] range, the curves are directly comparable. While all
+models exhibit similar initial performance, the Transformer-based architectures (GTrXL and Flow-aware GTrXL) show
+significantly faster convergence and higher asymptotic reward compared to the LSTM baseline. This is attributed to the
+architectural differences: LSTMs compress the entire temporal history into a fixed-size hidden state, which limits their
+ability to capture long-range dependencies, especially in partially observable and dynamically evolving environments.
+In contrast, GTrXL employs gated self-attention mechanisms with explicit memory access, enabling better retention and
+exploitation of temporally distant observations, which results in improved policy learning efficiency and stability. The
+Flow-aware GTrXL further extends this advantage by incorporating a multi-objective learning framework that includes
+a contrastive loss aimed at encoding the underlying flow dynamics. This auxiliary task enforces the development of
+latent representations that are sensitive to changes in the local flow field, thereby enhancing the agent’s ability to react to
+unsteady flow patterns during navigation. As seen in Figure[]] the Flow-aware GTrXL reaches higher sample efficiency
+and generalization. These results confirm that coupling policy learning with auxiliary flow representation objectives can
+significantly improve robustness and adaptivity in complex, time-varying environments.
+
+All experiments were conducted in a high-fidelity numerical database; real-world aerodynamic gusts, sensor noise,
+and limited onboard computation may degrade performance. Furthermore, the auxiliary head uses ground-truth flow
+snapshots during training, which is not a possibility during flight. Future work will replace this with a self-supervised
+predictor driven by onboard pressure or computer vision tools. Finally, we considered a single UAV; the presence of
+multiple UAVs may exhibit interactions that challenge the present architecture.
+
+Our results suggest that jointly learning to predict and control is critical for safe navigation in turbulent 3D environments.
+Transformer policies augmented with physically meaningful auxiliary tasks not only match, but decisively outperform,
+state-of-the-art sampling planners in robustness and efficiency. We anticipate that similar multi-objective designs will
+become standard for autonomous vehicles operating in complex, partially predictable environments such as urban flow
+fields or crowded air corridors.
+
+Methods
+
+Numerical database and data pre-processing
+
+The environment is a three-dimensional high-fidelity simulation of an urban turbulent flow field, with two obstacles
+representing the buildings. The simulation was run using the spectral-element code Nek5000. All the details can
+be found in Zampino et al. [44]. The domain coordinates are x € [—2.0,5.0], y € [0,3.0], z € [-1.0,1.0].
+The coordinates of the obstacles are x41€ [—0.25, 0.25], yo1€ [0.0,1.0], zo1€ [—0.25,0.25], zo2€ [1.25, 1.75],
+Yor€ (0.0, 0.5], 2o2€ [—0.25, 0.25]. All distances are scaled by the height of the upstream obstacle h. The dataset used
+for the DRL algorithms is a set of 300 snapshots separated by 0.08750 time units, with the time span of the dataset
+being 26.25 time units. Time is normalized with h and the freestream velocity Ux.
+
+Due to the dimensions of the simulation results, an efficient pre-processing strategy had to be adopted. In order to
+avoid Input/Output (I/O) overhead during the execution of the algorithm described in subsection Algorithms, the flow
+field was split into small blocks for each snapshot. The original mesh of the numerical simulation was interpolated
+on a structured grid of 250 250x250 points. Each snapshot of the simulation has blocks of dimensions 10x 10x 10
+mesh cells in x, y and z grid points. The blocks overlap to ensure that each cell of the domain is covered during the
+navigation of the UAV, so that the flow field can be continuously mapped.
+
+The core of the implementation is the lightweight, scalable framework combined with disk-efficient storage of the
+decomposed data and a local tricubic interpolation in space and time using KD-tree indexing. Algorithm[I]presents
+a lightweight, on-the-fly extraction of the velocity field in a block-decomposed simulation, performed using tricubic
+interpolation in space and cubic interpolation in time. Beginning with a mesh file that defines the global domain, the
+algorithm automatically scans a directory of per-block output files, each named by its time step and spatial indices, to
+build a time-indexed metadata map. For each stored timestep, it computes the physical spatial bounds of every block,
+A PREPRINT - OCTOBER 30, 2025
+
+determines the center of each block, and inserts these centers into a KD-tree to enable logarithmic-time nearest-neighbor
+searches. At query time for a given position (x, y, z) and time t, the algorithm first identifies the bracketing time interval
+[ti,ti41] containing t. The it performs spatial interpolation at four control times {t;-1, ti, ti+1, tit2} to construct a
+cubic temporal interpolation stencil, with appropriate boundary clamping when fewer than four timesteps are available.
+For each control time, only the & nearest blocks to the query position are considered, loaded on-demand using an
+in-memory cache to minimize disk I/O overhead. Within each relevant block, a parallelized tricubic interpolation
+routine (implemented via a pybind1 1 C++ module) computes the velocity components using Catmull-Rom splines
+over a 4x4x4 neighborhood. When multiple blocks contain the query position, their spatial estimates are combined
+via inverse-distance weighting to ensure smooth transitions across block boundaries. If no block strictly contains
+the query point, the algorithm falls back to using the nearest block regardless of its spatial bounds. Finally, the four
+spatially-interpolated velocity vectors are blended temporally using Catmull-Rom cubic splines with the interpolation
+factor a = (t — t;)/(ti41 — ti) to produce the final velocity vector u(x, y, z,t). The caching strategy ensures that
+once blocks around (2, y, z) are loaded for one control time, they remain available for neighboring times, significantly
+improving performance in realistic workflows. By never storing the full four-dimensional dataset in memory, this
+approach scales efficiently to very large simulations while delivering fast and accurate reconstruction in both space and
+time.
+
+During the UAV navigation, the underlying flow field components have to be retrieved to inform the agent with the
+velocity vector components in real-time. The procedure is explained in Algorithm] First, the position of the UAV is
+lamped to the valid range of coordinates corresponding to the simulation domain. Then, the query position is quantized
+with the current time to form a cache key, checking if this specific time-position combination has already been computed.
+If the cache key is missing, the algorithm proceeds with full tricubic spatial and cubic temporal interpolation. For
+temporal interpolation, the algorithm identifies the bracketing time interval and constructs a four-point Catmull-Rom
+stencil using control times {t;_1, ti, ti41,ti42}, with appropriate boundary clamping when at the start or end of the
+time series. At each of these four control times, spatial interpolation is performed using the procedure described in
+Algorithm[]] which employs tricubic interpolation within individual blocks and inverse-distance weighting to blend
+results from multiple overlapping blocks. The four spatially-interpolated velocity vectors are then combined using
+Catmull-Rom cubic splines in time with the interpolation factor a = (t — t;)/(ti41 — t;). The final result is stored in
+the cache as the last valid velocity, and the velocity vector is returned. This caching strategy ensures that subsequent
+queries at nearby positions and times experience minimal computational overhead while maintaining high accuracy in
+the velocity field extraction.
+
+fe}
+
+UAV dynamics
+
+The UAV is modeled as a mass point with six degrees of freedom in translation and two in orientation, in particular yaw
+W and pitch YJ. The state vector is defined as
+
+S = [2,y, Z,Ug,Ug, Wg, Y, ¥], ql)
+
+and evolves under the combined influence of thrust V, the turn rates expressed as Ay and Av and the underlying flow
+field velocity components ugfow = (uy, vs, wy). Note that ug, vg, Wy are the u,v, w components of the velocity vector
+calculated as a sum of the UAV and flow field velocity components in each direction, respectively. Furthermore, x, y, z
+are the coordinates of the position of the UAV at the current timestep. Since the UAV is represented as a mass point, the
+roll angle is not included in the system of equations, which is then described as:
+
+Ug = V cosvcosw t+ uf,
+Ug = Vcosvsiny + vf,
+wg =Vsind + wy,
+
+, Av (2)
+y= At’
+
+, Ad
+
+eS Ae
+
+Ay and Av are the variations of the yaw and pitch angles in the At time interval. The state of the UAV at time ¢ + 1 is
+given by a classical fourth-order Runge-Kutta integrator (RK4). In this work, At corresponds to 0.08750 time units
+and is divided into 40 RK4 substeps. Because the flow field is only updated every At, a single RK4 step would assume
+that the flow is spatially uniform along the UAV trajectory, leading to significant errors whenever the vehicle traverses
+A PREPRINT - OCTOBER 30, 2025
+
+Algorithm 1 Retrieve velocity u(x, y, z,¢) via tricubic spatial and cubic temporal interpolation
+
+Require: mesh file; directory of block files; sorted time array T = {to,...,t—1}; query (x, y, z, t); spatial neighbors k; cache
+
+precision p
+
+Ensure: interpolated velocity vector u(x, y, z, t)
+
+1:
+2:
+
+Load mesh arrays, parse metadata, compute block bounds, build KD-trees
+
+function GET VELOCITY (position, t, k)
+position + CLAMPPOSITION(position); key <— (t, QUANTIZEPOSITION(position, p))
+if key in cache then return cache[key]
+
+end if
+
+if t < to then return SPATIALINTERPFORSNAPSHOT(position, to, k)
+
+end if
+
+if t > t)_, then return SPATIALINTERPFORSNAPSHOT(position, ty—1, k)
+end if
+
+Find é: t; < t < ti41; Compute a = (t — t;)/(ti41 — ti)
+Set indices with clamping: {i0, i1, i2,i3} <- {max(0,i — 1),i,i+1,min(N — 1,2 + 2)}
+for j € {0,1, 2,3} do uj < SPATIALINTERPFORSNAPSHOT(position, t;,, k)
+end for
+u + CUBICTEMPORALINTERP({tig, ti; , tin, tig $s (Wo, U1, U2, Us}, t, a)
+cache[key] < u; return u
+end function
+function SPATIALINTERPFORSNAPSHOT(position, timestep, k)
+Query KD-tree for k nearest blocks to position at given timestep
+Initialize list L ~ 0
+for each block b; with distance d; do
+if position lies within b;’s spatial bounds then
+(uj, vj, wj) <— TRICUBICINTERP(D;, position)
+Append (uj, vj, wj, dj) to L
+end if
+end for
+if L = 0 then > Fallback: no blocks contain the query point
+return TRICUBICINTERP(nearest block, position)
+else > Multiple blocks contain the point: blend their results
+Compute inverse distance weighted average:
+
+ie
+
+_ DL (wjow,der (Us, w)/(d+ 107")
+
+u
+eeaaayen 1/(d+ 10-1?)
+
+return u
+end if
+
+: end function
+
+function TRICUBICINTERP(block_data, position)
+Extract u,v, w grid points; compute bounds; perform tricubic Catmull-Rom on each component
+return u = (u,v, w) from tricubic interpolation
+
+: end function
+: function CUBICTEMPORALINTERP(times, snapshots, t, a)
+
+Catmull-Rom cubic spline interpolation using factor a
+
+: end function
+
+A PREPRINT - OCTOBER 30, 2025
+
+Algorithm 2 Retrieve the flow velocity components with full tricubic spatio-temporal interpolation
+
+Require: query position (x, y, z); neighbor count k; cache precision p
+Ensure: velocity vector u(x, y, 2; t)
+1: function GETVELOCITY (position, t, k)
+2: position + CLAMPPOSITION(position)
+3 dpos +- QUANTIZEPOSITION(position, p)
+4 key < (t, qpos)
+5: if key in velocity_cache then
+6: return velocity_cache[key]
+ze end if
+8 if t < to then return SPATIALINTERPFORSNAPSHOT(position, to, k)
+9 end if
+10: if t > t~—1 then return SPATIALINTERPFORSNAPSHOT(position, tn—1, k)
+Li end if
+12: Find 7 such that t; < t < ti41
+13: Set indices with clamping: {#0, 11, i2,i3} <— {max(0,i—1),i,i+1,min(N — 1,1 + 2)}
+14: Define control times T = {ti,, ti, , tis, tig
+15: Compute a = (t — t;)/(ti¢1 — ti)
+16: for j € {0,1,2,3} do
+
+175 uj + SPATIALINTERPFORSNAPSHOT(position, bij, k)
+18: end for
+
+19: u + CUBICTEMPORALINTERP(Up, U1, U2, U3; @)
+
+20: velocity_cache[key] + u
+
+BA last_valid_velocity + u
+
+22% return u
+
+23: end function
+
+regions of strong velocity gradients. By integrating the dynamics at 40 intermediate positions, we faithfully capture
+these spatial variations. Although RK4 is formally unconditionally stable for smooth ordinary differential equations
+(ODEs), coupling to a block-decomposed interpolation grid imposes a pseudo-Courant—Friedrichs—Lewy (pseudo-CFL)
+constraint: the UAV must not step more than a small fraction of a block or execute a large angular deflection in one
+step, otherwise the KD-tree lookups may skip blocks and cause artifacts. Using multiple RK4 substeps per timestep in
+the environment ensures a smooth evolution of the state of the UAV. This approach maintains continuity in position
+and orientation even when the agent applies maximum thrust and angular rate commands. Finally, having block-tree
+structures and recently accessed block data remaining in memory, the additional integration calls per interval incur
+negligible extra I/O. Consequently, the sub-stepping strategy delivers substantial gains in accuracy and robustness
+at minimal computational cost. These considerations justify the use of RK4 sub-steps per state update, yielding an
+effective balance between numerical stability and performance in large-scale block-decomposed simulations.
+
+Environment of the DRL algorithm
+
+Deep reinforcement learning has been widely used in recent years for control and optimization in fluid mechanics
+9). The environment is built using Gymnasium [37], an open-source library for reinforcement learning,
+focusing on the interface for simulation environments. Observation and action spaces are continuous. The observation
+space is defined as:
+
+0 = {¥,, Vtarget; Vtargets Utarget, 2, Y¥, 2} + {01,05}, (3)
+
+where 7, 0 are the yaw and pitch angles of the UAV, {iarget, target the relative yaw and pitch angles of the UAV with
+respect to the target, dtarger the Euclidean distance between the UAV and the target, «, y, z the coordinates of the UAV in
+the domain, and 6;, ¢; the elevation and azimuth angles associated with the obstacle detection sensors, with i € (0, 8]
+and j € [0, 4], spanning the angles between —7 and 7 in their respective directions. Figures Baland[3b]graphically show
+the definition of the environment.
+
+The action space is designed to include thrust V € [—2.0, 2.0] and yaw and pitch changes Ay € [—7/4, 7/4] and
+Ad € [—1/4, 7/4], respectively.
+
+Obstacles are detected by providing the agent with a set of directions, since UAVs are in relation to the surroundings
+typically by images from cameras, radar signals, or range finders. In this work, obstacle detection is achieved by
+implementing a ray-tracing technique . First of all, the UAV has to check for free space in its perspective. The input
+A PREPRINT - OCTOBER 30, 2025
+
+‘ ow
+
+(a) Elevation (b) Azimuth
+
+e UAV
+
+---- Look-ahead Ray
+X Intersection Point
+— Obstacle
+
+~y/h
+
+(c) Sketch of the obstacle-detection procedure.
+
+Figure 3: Sketch of sensors’ rays for elevation and azimuth
+detection method (Bch.
+
+. We also show a representation of the obstacle-
+
+10
+A PREPRINT - OCTOBER 30, 2025
+
+is the position of the UAV and the output is a boolean variable which indicates whether the path is free from obstacles
+or not. Then, if the obstacle is present, the intersection with the traced rays is computed. First, the direction of the ray
+is calculated, based on the ray origin and final point, as well as the coordinates of the obstacles. Then, it is verified
+whether parallel directions to the obstacles are present. If the detected directions are not parallel to the obstacles, the
+intersection point between the ray and the obstacle is calculated and the distance to the intersection is returned. Figure
+[Bc]sketches the process.
+
+The starting and target points are randomly chosen before the first and after the second obstacle in the domain, as well
+as the initial orientation of the UAV. The starting snapshot of the algorithm is also randomly chosen among the 300
+available. This setup is chosen so that the initial conditions of the flow field themselves exhibit uncertainties. The agent
+can take a maximum of 100 steps in the domain.
+
+The UAV state vector is defined in Equation (1) and it is inferred from the observations, which are given as input to
+the neural network and described in Equation (3). The problem described here can be then considered as Partially
+Observable Markov Decision Process (POMDP). A POMDP is characterized by the fact that the agent cannot directly
+observe the state s;, but receives a set of observations 0, with a distribution p(o;|s,). The sequence of observations
+does not satisfy the Markov property, since p(0;41|@t, 04, @¢—1, 01-1, ---,00) # p(or41|02, at). Consequently, the agent
+has to infer the current state s; based on the history of trajectories.
+
+Reward function
+
+DRL is a process that encourages learning by trial and error and this process is triggered by a reward which is given to
+the agent when it takes the right actions to complete the assigned task. The structure of the reward is crucial because
+this guides the agent towards a more effective learning. This component of the algorithm has to be carefully designed
+and tuned for a specific task. The reward structure has been extended from the 2D version of the problem in Tonti et al.
+f
+
+The reward structure is designed to guide the UAV towards the target, while minimizing collisions with obstacles,
+reducing energy consumption and preventing leaving the designated operational bounds. The reward function is given
+by several components, each one addressing a different aspect of the UAV’s performance. The final reward at each time
+step t is the sum of:
+
+¢ Transition reward 7,,ns: proportional to the reduction in distance to the target,
+Ttrans = Odaist Where dais, = ||x1-a _ Xtarget | _ || — Xtarget ||, (4)
+
+where o € R is a scaling constant and x is the position vector.
+¢ Obstacle penalty r,),,: an exponential penalty based on the minimum distance d,yin to any obstacle,
+
+Tops = — € exp(—8 dmin), 6)
+with €, 8 € R, and din = min{d1,...,dn}.
+¢ Free-space bonus rfrec:
+
+Réree, if the first-perspective ray is unobstructed,
+
+Tfree = .
+0, otherwise,
+
+where Reece € R is a constant.
+
+¢ Best-direction bonus 1,.,: when the forward direction is blocked, a small reward in proportion to the chosen
+changes in angles,
+
+—0.06 (Ad+ AV), if no free-space forward,
+Toest = { ( ); 4 ©)
+
+0, otherwise,
+where Ag, Av are the yaw and pitch offsets of the best free direction.
+
+* Step penalty r.,.p: a constant negative reward per time step,
+Top ER.
+¢ Proximity—velocity penalty 1.x: discourages high speed when very close to the target,
+— i lug]. if [lke — Xtargetl] < 1,
+
+0, otherwise.
+
+11
+A PREPRINT - OCTOBER 30, 2025
+
+¢ Energy penalty renergy: proportional to the norm of the propulsion velocity,
+Tenergy = — 0.2 ||ug — sow (Xz). (7)
+Combining all the components, the reward is defined as follows for each time step t:
+
+Tt =Ttrans + Tobs + Tfree + Tbest + Tstep + Tprox + Tenergy- (8)
+
+At the end of an episode of m € N steps, we add:
+
+* Target reached bonus: if ||Xm — Kisreetl| < Riarget, then a positive constant is added to the reward and the
+episode ends. Rtarget is the radius of the target sphere.
+
+* Collision penalty: if a collision is detected, a negative constant is added and the episode ends.
+
+* Out-of-bounds penalty: if the UAV exits the domain, [2min, Zmax| X [Ymin, Ymax] X [Zmin, Zmax], a Negative
+constant is added, and the episode ends.
+
+* Near-target bonus: if | [Xm — Xtarget|| — Rraxget| < 0.5, then a small positive constant is added.
+
+Algorithms
+
+Three different algorithms are compared. The first is the Proximal Policy Optimization (PPO) [31] with Long Short-
+Term Memory (LSTM) cells [15]. The second algorithm tested is a PPO with a Gated Transformer eXtra Large (GTrXL)
+unit [25]. The third is a PPO + GTrXL but with a dedicated auxiliary task to integrate a flow prediction head to improve
+UAV navigation in the environment. The task is then not only trajectory optimization, but a multi-objective DRL where
+the flow field is also predicted.
+
+The training is made on 200 snapshots of the dataset, while 100 snapshots are used for inference to test the learned
+policies in an unknown environment.
+
+In three-dimensional environments, the fixed-size hidden state of the LSTM and the inherently sequential update scheme
+limit its capacity to maintain and selectively recall the information necessary for effective policy learning. Although
+LSTM cells can mitigate short-term dependencies via gated memory updates, their recurrence still enforces a strict
+temporal bottleneck. Each new observation must propagate through all intermediate time steps before influencing the
+current decision, which can cause important distant events to be “forgotten” or diluted in the hidden state over long
+horizons. Moreover, LSTMs lack an explicit mechanism for relating non-adjacent states, making it difficult to capture
+the complex spatial relationships that arise in 3D domains. On the other hand, the GTrXL architecture embeds multihead
+self-attention layers with gated residual connections, allowing the agent to attend directly to any past observation
+regardless of its temporal distance. This non-sequential attentional access not only alleviates vanishing-gradient issues
+but also provides a flexible memory buffer whose capacity grows with trajectory length, enabling more robust encoding
+of 3D structure and long-range dependencies. Figure|4b]shows the structure of a GIrXL block. The input sequence
+Y; enters the block and first undergoes input embedding (£), producing [,, which is the embedded input. The
+core processing consists of two sequential components with gated connections. First, the multi-head attention layer
+computes queries (Q), keys (,), and values (V,) from J, applies attention with masking to hide future data (A,)
+with relative positional encoding (R,), followed by a GRU gate (G’,) that controls information integration and layer
+normalization. Second, a position-wise feed-forward network (fF) is applied, followed by another GRU gate and
+layer normalization. Both components use skip connections (curved arrows) that enable direct gradient flow. The
+block maintains recurrent memory states /, and M/,, that persist across time steps, along with a hidden state H,
+for capturing long-term dependencies. The output consists of the processed sequence and updated memory state
+M,41. The key variables are: Y, (input sequence), ’, (input embedding), I, (embedded input), H (recurrent hidden
+state), 1, (input memory), 17,1 (output memory), Q,/K,/V; (query/key/value matrices), A; (attention weights),
+R, (relative positional encoding), F, (feed-forward transformation), G; (GRU gates). This architecture combines
+transformer attention mechanisms with RNN gating properties, enabling both effective sequence modeling and stable
+training dynamics through controlled information flow. Figure[4a]shows the PPO+GTrXL architecture, where the MLP
+encoder is here the PPO algorithm. The observations y;,,_,,, ..., yz are the inputs to the encoder, which here is a PPO.
+The encoded observations are then fed to the GTrXL block, which receives a memory state M/),_;. The block outputs
+the hidden state H;, and a memory state M;,. Hj, is passed to a linear activation layer, which outputs logits a, and
+values Vp. M,, is fed back as input of the GTrXL block.
+
+The third algorithm used in this work is a modification of the PPO+GTrXL. This custom model implements a PPO
+agent in which observations and turbulent flow history are first separately encoded, then jointly processed by a stack
+of GTrXL blocks, and finally decoded into three objectives: action logits, value estimates, and next-flow-snapshot
+predictions. A dedicated encoder ingests a sequence of past flow vectors with a predefined sequence length, applies
+
+12
+A PREPRINT - OCTOBER 30, 2025
+
+©
+
+Relative
+Positional
+Encoding
+ie
+E
+E,
+aaa
+Embedding
+{Yk—ns +++ Yet Me, ¥. Moy
+(a) PPO+GTYXL.
+
+Memory read
+
+Memory update
+
+(c) Sketch of the modified algorithm which includes temporal and spatial information of the flow field.
+
+Figure 4: PPO+GTrXL Fa}, GTrXL block (4b) and sketch of the modified algorithm which includes temporal and
+spatial information of the flow field
+
+multiscale 1D convolutions (kernel sizes 3 and 5) to capture short- and medium-term temporal features, fuses them via
+a linear layer, and feeds the result through a GRU to model longer-term dynamics, normalizing the output to produce
+per-timestep flow embeddings. In parallel, the agent’s proprioceptive characteristics are projected through a PPO in the
+same embedding space. A small CNN processes a local flow patch into an embedding, which is concatenated along
+with the flow-history and observation embeddings. All tokens are then augmented with learnable relative positional
+encodings and passed through GTrXL blocks, each combining multi-head self-attention with gated residual connections
+and a feedforward GRU to produce contextually enriched representations. Finally, the most recent observation token
+is routed to separate policy and value heads for PPO’s on-policy updates, while the most recent flow token is sent
+to a flow-prediction head trained with a supervised loss. By jointly optimizing control and flow forecasting within
+this multi-objective architecture, the model leverages transformer-based global attention over CNN+GRU-derived
+embeddings to navigate and anticipate complex 3D turbulent dynamics in real time. AlgorithmB] gives the pseudo-code,
+and Figure [4c]shows a sketch of the algorithm.
+
+13
+A PREPRINT - OCTOBER 30, 2025
+
+Algorithm 3 GTrXL-Enhanced PPO for Turbulent Flow Navigation
+
+NYY RR eB eee eee
+BD eS he Se mt OG & by ES be
+
+23:
+24:
+25:
+26:
+Dae
+28:
+29:
+30:
+31:
+32:
+33:
+34:
+35:
+36:
+37:
+38:
+39:
+40:
+Al:
+42:
+
+Input: Raw observations obs, recurrent state state
+Output: Policy logits, updated state, flow prediction
+
+if obs is dictionary then
+
+main_obs < obs[‘‘main_obs”|
+
+flow_hist < obs|‘flow_obs”|
+
+flow_patch < obs|“flow_patch”]
+else
+
+Parse flattened tensor based on expected dimensions
+end if
+
+: obs_buf < state[0]
+: flow_buf < state[1]
+
+mems_in < state[2 :]
+
+: new_obs_buf < concat(obs_buf{1 :], main_obs)
+: new_flow_buf < concat(flow_buf[1 :], flow_hist{[—1])
+
+: obs_emb < obs_encoder(new_obs_buf)
+
+flow_emb < flow_encoder(new_flow_buf)
+
+: patch_emb < flow_patch_encoder(flow_patch)
+
+x < concat(flow_emb, patch_emb, obs_emb)
+x <~ x + RPE(sequence_length)
+
+mem_outs < []
+
+for i = 0 to num_transformer_units — 1 do
+a < GTrXLBlock;(x, memory = mems_in/i])
+mem_outs.append(°)
+
+end for
+
+offset + flow_hist_len + 1+ 1
+last_obs < 2[:, offset :][:, —1]
+last_flow < x[:,: flow_hist_len + 1][:, —1]
+
+policy_logits  policy_head(last_obs)
+value_estimate <~ value_head(last_obs)
+flow_pred < flow_pred_head(last_flow)
+
+new_state < [new_obs_buf, new_flow_buf] + mem_outs
+return policy_logits, new_state, flow_pred
+
+> Parse multi-modal inputs
+
+> Extract recurrent state
+> Observation buffer
+
+> Flow buffer
+
+> Transformer memories
+> Update buffers
+
+> Encode observations
+
+> Standard PPO encoder
+
+> Multi-scale Conv1D + GRU
+> Conv2D + Pool
+
+> Concatenate embeddings
+
+> Add relative positional encoding to flow tokens
+
+> GTrXL processing
+
+> Extract final representations
+> +1 for patch token
+
+> Last observation token
+
+> Last flow token
+
+> Compute outputs
+
+> Update recurrent state
+
+14
+A PREPRINT - OCTOBER 30, 2025
+
+The total loss is the sum of the basic vanilla PPO loss and a supervised auxiliary loss on the flow prediction. The
+auxiliary loss is based on contrastive learning. We propose a contrastive learning framework to improve flow-field
+representations by learning to distinguish between relevant and irrelevant flow patterns for navigation. Rather than
+relying solely on reconstruction accuracy, our approach is based on the principle that flows beneficial for navigation
+should have similar representations, while flows from different contexts should be distinguishable in the learned
+embedding space.
+
+The contrastive flow loss operates on predicted and target flow fields f,feR* by first encoding them through a shared
+projection network # : R¢ > R" comprising two fully-connected layers with ReLU activation and layer normalization.
+The resulting embeddings are L2-normalized to unit vectors:
+
+f A(E
+pred of) Ctrue = of) (9)
+
+Ilo(f)ll2 o®)[l2"
+
+We define the positive similarity between predicted and target flows as their scaled dot product:
+
+T
+e€ e
+z ,d€true
+sim, = ede (10)
+T
+
+where t > 0 is a temperature hyperparameter. When negative samples {f Ho are available (sampled from different
+temporal steps or spatial locations), we compute negative similarities:
+
+sing = SEAN
+
+e8D)
+The contrastive loss follows the Information Noise Contrastive Estimation (InfoNCE) objective [38], which maximizes
+mutual information between positive pairs while treating negative samples as noise to contrast against:
+
+exp(sim,)
+
+exp(sim;) + yey exp(sim; ) ‘
+
+(12)
+
+Leontrastive = — log
+
+This formulation encourages the model to assign high similarity to the predicted-target pair while maintaining low simi-
+larity to negative samples. When negative samples are unavailable, we use the simplified objective Leontrastive = —Sim+,
+which directly maximizes the similarity between predictions and targets. This contrastive formulation encourages the
+model to learn flow representations that capture meaningful structure, improving the agent’s ability to reason about
+flow dynamics for trajectory planning. Finally, the results of the described approaches are compared with a classical
+optimization algorithm. This work considers the Zermelo’s navigation algorithm as applied in ran on the 3D urban
+environment described in Section Environment of the DRL algorithm. The Zermelo’s optimal navigation problem
+minimizes a cost functional:
+
+Ty 1
+r=; + [ [exe + dors(3)| dt + # [l(T}) — age!” (13)
+0
+a4)
+
+subject to system dynamics, control bounds |u| < Umax, collision avoidance constraints, and domain boundaries. The
+term 7’; represents the final time (mission duration), and its minimization promotes time-efficient flight. The control
+effort is penalized by the quadratic term
+
+=
+5X Rx
+
+where x is the control input vector (yaw rate, pitch rate, thrust), and R is a positive definite weighting matrix. This
+term ensures smooth and energy-efficient maneuvers by discouraging large control inputs. To avoid collisions, the cost
+function includes an obstacle avoidance penalty
+
+dons(x) = $7 a4 exp(—Bidi(x)),
+
+where d;(x) is the distance from the current position x to the i-th obstacle, and a;, 3; > 0 are tuning parameters that
+control the strength and sharpness of the penalty. A terminal cost is imposed through
+
+t llx(Lp) — Xtal”
+
+15
+A PREPRINT - OCTOBER 30, 2025
+
+which penalizes deviations from the desired target position Xtarget at the final time Ty, with « > 0 controlling the
+importance of accurately reaching the target. All cost components involving control and obstacle penalties are
+accumulated over the trajectory via the integral
+
+Ts 4
+[ [5x7Rx + Govs(x) | dt,
+
+which ensures that efficiency and safety are maintained throughout the entire mission duration. The trajectory is
+parameterized using B-spline basis functions with control points C’;, transforming the infinite-dimensional optimal
+control problem into a finite-dimensional nonlinear programming problem solved by sequential quadratic programming.
+Collision constraints are enforced through penalty methods using the environment’s geometric obstacle detection, while
+the flow field influence is incorporated through trilinear interpolation of the discretized velocity data at each trajectory
+evaluation point. This comparison is made to enable direct benchmarking between the classical optimization algorithm
+and DRL-learned policies.
+
+Acknowledgments
+
+Federica Tonti and Ricardo Vinuesa acknowledge funding from the European Union’s HORIZON Research and
+Innovation Program, project REFMAP, under Grant Agreement number 101096698. The computations were carried out
+at the supercomputer Dardel at PDC, KTH, and the computer time was provided by the National Academic Infrastructure
+for Supercomputing in Sweden (NAISS).
+
+Data Availability Statement
+
+All the codes and data used in this work will be made available open access when the article is published here:
+(https: //github. com/KTH-FlowAl|
+
+References
+
+1] Fadi AlMahamid and Katarina Grolinger. Agile dqn: adaptive deep recurrent attention reinforcement learning for
+autonomous uav obstacle avoidance. Scientific Reports, 15(1):18043, 2025. doi: 10.1038/s41598-025-03287-y.
+URL https: //doi.org/10.1038/s41598-025-03287-y
+
+2] Jiaqi Bao and Ryo Yonetani. Path planning using instruction-guided probabilistic roadmaps, 2025. URL
+
+https: //arxiv.org/abs/2502. 16515]
+
+3] Henrik Stokland Berg, Daniel Menges, Trym Tengesdal, and Adil Rasheed. Digital twin syncing for autonomous
+surface vessels using reinforcement learning and nonlinear model predictive control. Scientific Reports, 15(1):
+
+9344, 2025. doi: 10.1038/s41598-025-93635-9. URL https: //doi.org/10.1038/s41598-025-93635-9
+
+4] B. Blocken. Computational fluid dynamics for urban physics: Importance, scales, possibilities, limitations and ten
+tips and tricks towards accurate and reliable simulations. Building and Environment, 91:219-245, 2015. ISSN
+
+0360-1323. doi: https://doi.org/10.1016/j.buildenv.2015.02.015. URL https: //www.sciencedirect .com/
+science/article/pii/S0360132315000724) Fifty Year Anniversary for Building and Environment.
+
+5] Omar Bouhamed, Hakim Ghazzai, Hichem Besbes, and Yehia Massoud. Autonomous uav navigation: A ddpg-
+based deep reinforcement learning approach. In 2020 IEEE International Symposium on Circuits and Systems
+(ISCAS), pages 1-5, 2020. doi: 10.1109/ISCAS45731.2020.9181245.
+
+6] Jaél Champagne Gareau, Eric Beaudry, and Vladimir Makarenkov. Fast and optimal branch-and-bound planner for
+the grid-based coverage path planning problem based on an admissible heuristic function. Frontiers in Robotics
+and AI, 9 - 2022, 2023. ISSN 2296-9144. doi: 10.3389/frobt.2022.1076897. URL https: //www.frontiersin|
+7] O. Coceal and S. E. Belcher. A canopy model of mean winds through urban areas. Quarterly Journal of
+
+the Royal Meteorological Society, 130(599):1349-1372, 2004. doi: https://doi.org/10.1256/qj.03.40. URL
+
+ttps://rmets.onlinelibrary.wiley.com/doi/abs/10.1256/qj.03.40
+
+8] Lorenzo Federici and Roberto Furfaro. Meta-reinforcement learning with transformer networks for space guidance
+applications. In AIAA SCITECH 2024 Forum, page 2061, 2024.
+
+9] Jiantao Feng, Xinde Li, HyunCheol Park, Juan Liu, and Zhentong Zhang. Fr-slam: A slam improvement method
+based on floor plan registration, 07 2024.
+
+16
+[10]
+
+[14]
+
+{15]
+
+[16]
+
+017]
+
+eS
+
+&
+
+[20]
+
+[21]
+
+[22]
+
+[23]
+
+[24]
+
+[25]
+
+[26]
+
+[27]
+
+A PREPRINT - OCTOBER 30, 2025
+
+Demim Fethi, Abdelkrim Nemra, Kahina Louadj, and Mustapha Hamerlain. Simultaneous localization, mapping,
+and path planning for unmanned vehicle using optimal control. Advances in Mechanical Engineering, 10:
+16878 1401773665, 01 2018. doi: 10.1177/16878 14017736653.
+
+Bernat Font, Francisco Alcéntara-Avila, Jean Rabault, Ricardo Vinuesa, and Oriol Lehmkuhl. Deep reinforcement
+learning for active flow control in a turbulent separation bubble. Nature Communications, 16(1):1422, 2025. doi:
+
+10.1038/s41467-025-56408-6. URL https: //doi.org/10.1038/s41467-025-56408-6
+
+Luca Guastoni, Jean Rabault, Philipp Schlatter, Hossein Azizpour, and Ricardo Vinuesa. Deep reinforcement
+learning for turbulent drag reduction in channel flows. The European Physical Journal E, 46(4):27, 2023. doi:
+
+10.1140/epje/s10189-023-00285-8. URL https: //doi . org/10. 1140/epje/s10189-023-00285-8
+
+Peter Gunnarson, Ioannis Mandralis, Guido Novati, Petros Koumoutsakos, and John O. Dabiri. Learning efficient
+navigation in vortical flow fields. Nature Communications, 12(1):7143, 2021. doi: 10.1038/s41467-021-27015-y.
+
+URL https: //doi . org/10. 1038/s41467-021-27015-y
+Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, and Sergey Levine. Soft actor-critic: Off-policy maximum entropy
+
+deep reinforcement learning with a stochastic actor, 2018. URL https: //arxiv.org/abs/1801. 01290)
+
+Sepp Hochreiter and Jiirgen Schmidhuber. Long short-term memory. Neural Computation, 9:1735-1780, 11 1997.
+doi: 10.1162/neco.1997.9.8.1735.
+
+Jingyi Huang, Yujie Cui, Guipeng Xi, Shuangxia Bai, Bo Li, Geng Wang, and Evgeny Neretin. Gtrxl-sac-based
+path planning and obstacle-aware control decision-making for uav autonomous control. Drones, 9(4), 2025. ISSN
+
+2504-446X. doi: 10.3390/drones9040275. URL|https: //www.mdpi . com/2504-446X/9/4/275
+
+Y.K. Hwang and N. Ahuja. A potential field approach to path planning. [EEE Transactions on Robotics and
+Automation, 8(1):23-32, 2002. doi: 10.1109/70.127236.
+
+T. Inanc, S.C. Shadden, and J.E. Marsden. Optimal trajectory generation in ocean flows. In Proceedings of the
+2005, American Control Conference, 2005., pages 674-679 vol. 1, 2005. doi: 10.1109/ACC.2005.1470035.
+
+Yusheng Jiao, Haotian Hang, Josh Merel, and Eva Kanso. Sensing flow gradients is necessary for learning au-
+
+tonomous underwater navigation. Nature Communications, 16(1):3044, 2025. doi: 10.1038/s41467-025-58125-6.
+URL ittps: //doi . org/10. 1038/541467-025-58125 6
+
+L.E. Kavraki, M.N. Kolountzakis, and J.-C. Latombe. Analysis of probabilistic roadmaps for path planning. JEEE
+Transactions on Robotics and Automation, 14(1):166-171, 1998. doi: 10.1109/70.660866.
+
+Steven M. LaValle. Rapidly-exploring random trees : a new tool for path planning. The annual research report,
+1998. URL/https: //api.semanticscholar.org/CorpusID: 14744621)
+
+Zixiang Liu. Implementation of slam and path planning for mobile robots under ros framework. In Conference:
+2021 6th International Conference on Intelligent Computing and Signal Processing (ICSP), pages 1096-1100, 04
+2021.
+
+Iram Noreen, Amna Khan, and Zulfiqar Habib. Optimal path planning using rrt* based approaches: A survey
+and future directions. International Journal of Advanced Computer Science and Applications, 7(11), 2016. doi:
+10.14569/IJACSA.2016.071114.
+
+Lucas Prado Osco, José Marcato Junior, Ana Paula Marques Ramos, Liicio André de Castro Jorge, Sarah Narges
+Fatholahi, Jonathan de Andrade Silva, Edson Takashi Matsubara, Hemerson Pistori, Wesley Nunes Gongalves, and
+Jonathan Li. A review on deep learning in uav remote sensing. /nternational Journal of Applied Earth Observation
+and Geoinformation, 102:102456, 2021. ISSN 1569-8432. doi: https://doi.org/10.1016/j.jag.2021.102456. URL
+
+https://www.sciencedirect.com/science/article/pii/S030324342100163X
+
+Emilio Parisotto, H. Francis Song, Jack W. Rae, Razvan Pascanu, Caglar Gulcehre, Siddhant M. Jayakumar,
+Max Jaderberg, Raphael Lopez Kaufman, Aidan Clark, Seb Noury, Matthew M. Botvinick, Nicolas Heess, and
+
+Raia Hadsell. Stabilizing transformers for reinforcement learning, 2019. URL https: //arxiv.org/abs/1910
+(06764)
+
+Rahul Pol, Sheela Rani, and Murugan M. Grid based optimal path planning algorithm for autonomous mobile
+robot navigation: Review. In JETE Approved National Conference on Signal Processing Computer Modelling,
+Structural and Mechatronics, 03 2017.
+
+Ravi Raj and Andrzej Kos. Intelligent mobile robot navigation in unknown and complex environment using
+reinforcement learning technique. Scientific Reports, 14(1):22852, 2024. doi: 10.1038/s41598-024-72857-3.
+URL{https : //doi . org/10. 1038/s41598-024-72857-3)
+
+17
+A PREPRINT - OCTOBER 30, 2025
+
+[28] Jianxin Ren, Tao Wu, Xiaohua Zhou, Congcong Yang, Jiahui Sun, Mingshuo Li, Huayang Jiang, and Anfeng
+Zhang. Slam, path planning algorithm and application research of an indoor substation wheeled robot navigation
+system. Electronics, 11(12), 2022. ISSN 2079-9292. doi: 10.3390/electronics 11121838. URL https: //www]
+mdpi . com/2079-9292/11/12/1838
+
+[29] Jeremy Roghair, Kyungtae Ko, Amir Ehsan Niaraki Asli, and Ali Jannesari. A vision based deep reinforcement
+learning algorithm for uav obstacle avoidance, 2021. URL https: //arxiv.org/abs/2103 .06403
+
+[30] C. Saranya, K. Koteswara Rao, Manju Unnikrishnan, Dr. V. Brinda, V.R. Lalithambika, and M.V. Dhekane. Real
+
+time evaluation of grid based path planning algorithms: A comparative study. IFAC Proceedings Volumes, 47
+(1):766-772, 2014. ISSN 1474-6670. doi: https://doi.org/10.3182/20140313-3-IN-3024.00050. URL [ittps|
+
+/waw.sciencedirect. Sear ener eae ae 3rd International Conference
+
+on Advances in Control and
+
+[31] John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, and ley Klimov. Proximal policy optimization
+algorithms, 2017. URL https: //arxiv .org/abs/1707 .06347|
+
+[32] Yuanyuan Sheng, Huanyu Liu, Junbao Li, and Qi Han. UAV Autonomous Navigation Based on Deep Re-
+inforcement Learning in Highly Dynamic and High-Density Environments. Drones, 8:516, 09 2024. doi:
+10.3390/drones80905 16.
+
+[33] Richard S. Sutton and Andrew G. Barto. Reinforcement Learning: An Introduction. The MIT Press, Cambridge,
+MA, second edition, 2018.
+
+[34] Guangyi Tang, Jianjun Ni, Yonghao Zhao, Yang Gu, and Weidong Cao. A survey of object detection for uavs
+based on deep learning. Remote Sensing, 16(1), 2024. ISSN 2072-4292. doi: 10.3390/rs16010149. URL
+
+https://www.mdpi .com/2072-4292/16/1/ 149}
+
+[35] Federica Tonti, Jaka PerovSek, Jose’ Zapata Usandivaras, Sebastian Karl, Justin S. Hardi, Youhi Morii, and Michael
+Oschwald. Obtaining pseudo-OH* radiation images from cfd solutions of transcritical flames. Combustion and
+Flame, 233:111614, 2021. ISSN 0010-2180. doi: https://doi.org/10.1016/j.combustflame.2021.111614. URL
+
+https: //www.sciencedirect.com/science/article/pii/S0010218021003576
+
+[36] Federica Tonti, Jean Rabault, and Ricardo Vinuesa. Navigation in a simplified urban flow through deep
+reinforcement learning. Journal of Computational Physics, page 114194, 2025. ISSN 0021-9991. doi:
+https://doi.org/10.1016/j.jcp.2025.114194. URL https: //www.sciencedirect .com/science/article/
+
+[37] Mark Towers, Ariel Kwiatkowski, Jordan Terry, John U. Balis, Gianluca De Cola, Tristan Deleu, Manuel Goulio,
+Andreas Kallinteris, Markus Krimmel, Arjun KG, Rodrigo Perez-Vicente, Andrea Pierré, Sander Schulhoff,
+Jun Jet Tai, Hannah Tan, and Omar G. Younis. Gymnasium: A standard interface for reinforcement learning
+
+environments, 2024. URL https: //arxiv.org/abs/2407 . 17032
+
+[38] Aaron van den Oord, Yazhe Li, and Oriol Vinyals. Representation learning with contrastive predictive coding,
+
+2019. URL https: //arxiv.org/abs/1807 .03748
+
+[39] C. Vignon, J. Rabault, and R. Vinuesa. Recent advances in applying deep reinforcement learning for flow control:
+Perspectives and future directions. Physics of Fluids, 35(3), March 2023. doi: https://doi.org/10.1063/5.0143913.
+
+[40] Hao Wang and Nanfeng Xiao. Underwater Object Detection Method Based on Improved Faster RCNN. Ap-
+plied Sciences, 13(4), 2023. ISSN 2076-3417. doi: 10.3390/app13042746. URL https: //www.mdpi . com/
+
+[41] Jungiao Wang, Zhongliang Yu, Dong Zhou, Jiaqi Shi, and Runran Deng. Vision-based deep reinforcement learning
+of unmanned aerial vehicle (uav) autonomous navigation using privileged information. Drones, 8(12), 2024. ISSN
+
+2504-446X. doi: 10.3390/drones8 120782. URL/https: //www.mdpi . com/2504-446X/8/12/782
+
+[42] Xueyuan Wang and M. Cenk Gursoy. Learning-based uav trajectory optimization with collision avoidance
+and connectivity constraints. JEEE Transactions on Wireless Communications, 21(6):4350-4363, 2022. doi:
+10.1109/TWC.2021.3129226.
+
+[43] Tong Xu. Recent advances in rapidly-exploring random tree: A review. Heliyon, 10(11):e32451, 2024. ISSN
+2405-8440. doi: https://doi.org/10.1016/j.heliyon.2024.e32451.
+
+[44] Gerardo Zampino, Marco Atzori, and Ricardo Vinuesa. Turbulence around two obstacles in tandem: Effects of
+obstacle height and separation. Physics of Fluids, 37, 07 2025. doi: 10.1063/5.0267998.
+
+[45] QiongWei Zhang, LunXing Li, LiaoMo Zheng, and BeiBei Li. An improved path planning algorithm based on rrt.
+In 2022 11th International Conference of Information and Communication Technology (ICTech)), pages 149-152,
+2022. doi: 10.1109/ICTech55460.2022.00037.
+
+18
+A PREPRINT - OCTOBER 30, 2025
+
+[46] Yujiao Zhao, Yong Ma, Guibing Zhu, Songlin Hu, and Xinping Yan. Stable training via elastic adaptive deep
+reinforcement learning for autonomous navigation of intelligent vehicles. Communications Engineering, 3(1):37,
+
+2024. doi: 10.1038/s44172-024-00182-8. URL https: //doi.org/10.1038/s44172-024-00182-8
+
+19

@@ -1,0 +1,2398 @@
+arXiv:2510.25704v1 [hep-lat] 29 Oct 2025
+
+Scaling flow-based approaches for topology sampling
+in SU(3) gauge theory
+
+Claudio Bonanno,’ Andrea Bulgarelli, Elia Cellini,’ Alessandro Nada,° Dario
+
+Panfalone,” Davide Vadacchino,“ Lorenzo Verzichelli?
+
+“Instituto de Fisica Tedrica UAM-CSIC, c/ Nicolés Cabrera 13-15, Universidad Auténoma de
+Madrid, Cantoblanco, E-28049 Madrid, Spain
+
+> Dipartimento di Fisica, Université degli Studi di Torino and INFN, Sezione di Torino, Via Pietro
+Giuria 1, I-10125 Turin, Italy
+
+© Transdisciplinary Research Area “Building Blocks of Matter and Fundamental Interactions” (TRA
+Matter) and Helmholtz Institute for Radiation and Nuclear Physics (HISKP), University of Bonn,
+Nussallee 14-16, 58115 Bonn, Germany
+
+“Centre for Mathematical Sciences, University of Plymouth, Plymouth, PL4 8AA, United Kingdom
+E-mail: claudio.bonanno@csic.es, andrea. bulgarelli@unito.it,
+elia.cellini@unito.it, alessandro.nada@unito.it,
+dario.panfalone@unito.it, davide.vadacchino@plymouth.ac.uk,
+
+lorenzo.verzichelli@unito.it
+
+ABSTRACT: We develop a methodology based on out-of-equilibrium simulations to miti-
+gate topological freezing when approaching the continuum limit of lattice gauge theories.
+We reduce the autocorrelation of the topological charge employing open boundary condi-
+tions, while removing exactly their unphysical effects using a non-equilibrium Monte Carlo
+approach in which periodic boundary conditions are gradually switched on. We perform
+a detailed analysis of the computational costs of this strategy in the case of the four-
+dimensional SU(3) Yang-Mills theory. After achieving full control of the scaling, we outline
+a clear strategy to sample topology efficiently in the continuum limit, which we check at
+lattice spacings as small as 0.045 fm. We also generalize this approach by designing a cus-
+
+tomized Stochastic Normalizing Flow for evolutions in the boundary conditions, obtaining
+superior performances with respect to the purely stochastic non-equilibrium approach, and
+paving the way for more efficient future flow-based solutions.
+
+Keyworpbs: Algorithms and Theoretical Developments, Lattice QCD, Vacuum Structure
+and Confinement
+Contents
+
+1 Introduction 1
+2 Non-equilibrium Monte Carlo simulations in lattice field theory 5
+2.1 Some insights on NE-MCMC and its metrics ia
+2.2 Lattice setup and topological observables 9
+3 Scaling of NE-MCMC in the boundary conditions 11
+3.1 Understanding the scaling with the degrees of freedom 13
+4 Accelerating NE-MCMC with Stochastic Normalizing Flows 15
+4.1 Coupling layers for a defect Le
+5 Sampling topology towards the continuum limit 22
+6 Conclusions 25
+A Interpolation strategy for defect coupling layer parameters 28
+
+1 Introduction
+
+Numerical Markov Chain Monte Carlo (MCMC) simulations of lattice field theories are
+amongst the most powerful tools for exploring the non-perturbative regime of non-Abelian
+gauge theories. Over the past decades, their use has provided first-principles insights into
+the theoretical and phenomenological properties of several lattice-regularized models, the
+most prominent example being lattice Quantum Chromodynamics (QCD). Nonetheless,
+this approach is accompanied by a number of highly non-trivial computational challenges.
+Although advances in the architecture of supercomputing machines have greatly expanded
+the range of feasible calculations, the development of more efficient and sophisticated al-
+gorithms remains essential to overcome these limitations.
+
+In lattice gauge theories, and in particular in lattice QCD, one of the most severe
+numerical issues within the MCMC framework is the so-called critical slowing down, in
+
+particular that of topological modes. As the continuum limit is approached, the computa-
+tional cost required to obtain statistically independent configurations grows rapidly with
+
+decreasing lattice spacing, ultimately leading to a loss of ergodicity of the Markov chain.
+This is a critical issue, since ergodicity is a key assumption underlying the validity of en-
+semble averages as estimators of expectation values. For most observables, critical slowing
+down manifests as a polynomial growth of the autocorrelation time with the inverse lattice
+spacing with a small exponent. In contrast, for topological quantities such as the topolog-
+
+ical charge Q [1-4], the scaling is found to be much more severe and compatible with a
+polynomial with a large exponent or even with an exponential. This can be understood in
+terms of the MCMC dynamics of topological modes when standard local updating algo-
+rithms are adopted to generate the Markov chain: while for non-topological quantities this
+is essentially diffusive, for topological ones this is dominated by jumps over the potential
+barriers among different pseudo-topological sectors. Such barriers eventually diverge in the
+continuum limit to restore a proper notion of topological winding number [5]. Since no
+change of topological sector is allowed via a local deformation of the gauge fields, it be-
+comes increasingly difficult to change the winding number of a given lattice gauge field as
+the lattice spacing approaches zero. This severe ergodicity problem affecting the sampling
+of the topological charge typically results, on fine lattices, in few or even no fluctuations of
+Q during feasible MCMC histories: for this reason it is typically called topological freezing.
+
+Topological freezing poses a serious problem for the determination of topological quan-
+tities from lattice simulations, most notably the topological susceptibility, a quantity of the
+utmost theoretical and phenomenological importance which has been widely addressed in
+the lattice literature [6-19]. However, such a severe loss of ergodicity can in principle bias
+any expectation value estimated from topologically-frozen samples. It is well-known, for
+instance, that it can affect the calculation of particle spectra [20, 21], as well as observables
+
+computed after the gradient flow like the action density [22, 23], necessary to obtain the
+reference scale tg or the renormalized strong coupling. For this reason, mitigating topolog-
+
+ical freezing is not only crucial for studies of topological quantities, but also to ensure the
+
+reliability of a wide range of lattice results. Developing new numerical strategies to address
+this issue is a major focus within the lattice community, leading to substantial progress in
+the last decade [24-38] (for recent reviews see Refs. [39-41]).
+
+The adoption of Open Boundary Conditions (OBC) in the Euclidean time direc-
+tion [42, 43], instead of the conventional Periodic Boundary Conditions (PBC) is one of
+the most popular and effective among various strategies proposed to mitigate topological
+freezing. With OBC, the configuration space of gauge fields becomes simply connected [42]:
+barriers between topological sectors are removed and the MCMC dynamics of topological
+modes are now dominated by diffusive phenomena [44], thereby drastically reducing the
+severity of topological freezing. However, this comes at the price of introducing unwanted
+boundary effects, as now only field fluctuations sufficiently far from the boundaries are
+physical, leading to enhanced finite-volume effects. Moreover, translation invariance is
+lost, hindering for example the proper definition of a global topological charge. In recent
+years, a method that has been proven to be very effective in circumventing this issue—while
+at the same time retaining the benefits of OBC simulations—is the Parallel Tempering on
+Boundary Conditions (PTBC) algorithm. After its first introduction in 2d CP‘~! mod-
+els [45] (see also [46, 47]), it has been widely employed also in 4d gauge theories, both
+in the pure-gauge case [18, 48-51] and with dynamical fermions [52]. The idea is to per-
+form a tempering on the boundary conditions within a parallel tempering framework by
+simultaneously simulating several lattices with different boundary conditions, interpolating
+between OBC and PBC. Such lattice replicas are allowed to swap gauge configurations at
+equilibrium (i.e., via a standard Metropolis accept/reject step), so that quickly decorrelated
+fluctuations generated with OBC are transferred to the PBC system, where all observables
+are computed free of boundary effects.
+
+The present work can be firmly placed within this context, i.e., algorithmic develop-
+ment aimed at alleviating topological freezing in lattice gauge theories. Our goal is to
+introduce a novel numerical strategy to mitigate this computational problem, combining
+ideas previously presented in Refs. [53, 54]. Although this new proposal shares its basic un-
+derlying philosophy with the PTBC algorithm—namely, to combine OBC and PBC to ac-
+celerate the MCMC dynamics of topological modes while neutralizing unwanted boundary
+effects—it is actually rooted on rather different and peculiar ingredients: out-of-equilibrium
+MCMC simulations [55, 56] and flow-based approaches [57, 58).
+
+At the core of our approach lies a simple and general question: given a field configu-
+ration sampled from a starting probability distribution (the prior), can it be transformed
+
+in a controlled manner, so that it follows a different probability distribution that closely
+approximates the desired one (the target)? If the prior distribution features only mild
+autocorrelations and the transformation itself (the flow) is both efficient to find and to
+
+sample from, these elements can be combined in a robust strategy to mitigate critical slow-
+ing down in lattice gauge theories. The development of the so-called trivializing map [59]
+represented the first major effort in the construction of such a flow transformation, finding
+however limited success [60]. More recently, rapid progress in the field of deep learning has
+provided the tools to construct much more flexible and complex flow transformations, most
+notably with the implementation of Normalizing Flows (NFs) [61, 62] for lattice field theory
+sampling [57, 63]. Such architectures possess several desirable features, in particular their
+expressiveness, allowing them to tackle complicated distributions, and their exactness, as
+effects due to differences between the inferred and the target distributions can be system-
+atically removed. In recent years, significant progress has been made by the lattice field
+theory community in the application of different NF architectures to a variety of models,
+ranging from scalar theories [57, 63-72] to gauge theories [73-79], including formulations
+with dynamical fermionic variables as well [80-84].
+
+This new generation of flow-based samplers, however, features its own set of challenges.
+In particular, finding the optimal NF parameters to flow efficiently from one distribution to
+another requires a potentially very delicate and expensive training procedure. Concretely,
+training costs currently suffer from poor scaling, in particular when the number of the
+relevant degrees of freedom involved in the model under study increases (e.g., with larger
+volumes in units of the lattice spacing), see Refs. [65, 78, 85, 86].
+
+A different flow-based approach built on non-equilibrium MCMC (NE-MCMC) sim-
+ulations addresses this scaling issue directly. This framework is based on two fundamen-
+tal results in non-equilibrium statistical mechanics, i.e., Jarzynski’s equality [87-89] and
+Crooks’ theorem [90, 91] and in the last decade it has been successfully applied in lattice
+field theory. Specifically, its primary application has been the high-precision determina-
+tion of free energy differences [55], in particular for the equation of state [92], the running
+coupling [93], the entanglement entropy [94, 95] and the Casimir effect [96]. More recently,
+the same idea has been naturally repurposed as a flow-based approach for the mitigation of
+critical slowing down [53, 97]: the current work represents the next step in this direction.
+
+A key advantage of the non-equilibrium approach is the well-understood scaling behaviour:
+in particular, tests in a variety of models show that sampling costs grow linearly with the
+number of degrees of freedom varied during the flow transformation.
+
+In their basic implementation, out-of-equilibrium simulations require no training and
+can achieve efficient sampling with no extra costs. Yet, despite their favorable scaling,
+they can still require significant amount of computational resources. Interestingly, this
+purely stochastic approach can be naturally combined with the deterministic transforma-
+tions underlying NFs: the resulting architecture, denoted as Stochastic Normalizing Flows
+(SNFs) [56, 98], has found natural applications in scalar field theories [56, 99, 100] and,
+most relevant for this work, in the SU(3) Yang-Mills theory in 4 spacetime dimensions [54].
+SNFs still retain the same desirable scaling properties of NE-MCMC, while at the same
+time markedly improving its computational efficiency: even more importantly, this is ob-
+tained with very limited training costs, a direct consequence of the stochastic nature of
+these flows.
+
+It is worth noting that related ideas have appeared in different contexts. NE-MCMC
+is equivalent to Annealed Importance Sampling [101], which has been reworked recently in
+the so-called Sequential Monte Carlo [102] and also combined with normalizing flows [103,
+104]. Recent developments in sampling with Langevin dynamics [105] can be seen as
+a continuous-time realization of SNFs. Likewise, applications to lattice field theories of
+diffusion models [106-110] also bear several similarities with the ones described in this work:
+a fundamental difference is that in diffusion models the path between two distributions
+is defined implicitly, whereas the protocol underlying NE-MCMC and SNFs is defined
+explicitly.
+
+In this work, we apply both non-equilibrium Monte Carlo and Stochastic Normaliz-
+ing Flows as flow-based approaches for efficient topology sampling in the four-dimensional
+SU(3) Yang-Mills theory. This model exhibits particularly severe topological freezing near
+the continuum limit, thus offering an ideal test-bed for flow-based approaches before mov-
+ing to full QCD simulations. In Section 2 we introduce the general features of the non-
+equilibrium Monte Carlo approach and describe our lattice gauge theory setup, including
+the definition of OBC and of the topological observables of interest. Section 3 presents a
+careful analysis of the scaling of the sampling costs of non-equilibrium simulations, both
+from a general perspective and from the point of view of flows connecting OBC with PBC.
+Section 4 focuses on the definition of the customized Stochastic Normalizing Flow used in
+this work, which has been designed to act specifically on the open boundaries, and on its
+superior performance with respect to the purely stochastic counterpart. Finally, in Sec-
+tion 5 we discuss the application of this family of flows to simulations at fine lattice spacing,
+where topological freezing is most severe: here we outline a strategy to sample topolog-
+ical observables towards the continuum limit and present results to further corroborate
+the effectiveness of this approach. Section 6 concludes with a broader discussion of future
+developments, both in terms of advancements in the flow architectures and of applications
+
+to more challenging theoretical setups.
+2 Non-equilibrium Monte Carlo simulations in lattice field theory
+
+On the lattice, given an appropriately discretized action S[U], we wish to compute the
+vacuum expectation value of a given observable O as
+
+p= / dU OU) p(U) = = / du OU) eS, (2.1)
+
+where p(U) = e~$l1/Z will be referred to as the target Boltzmann probability distribution,
+with
+
+Fo [aw e SU) (2.2)
+
+being the partition function, from which we can immediately define the dimensionless free
+energy F = —logZ. In a standard Monte Carlo simulation, field configurations U are
+sampled directly from p(U) by updating them sequentially along a Markov Chain. More
+precisely, the updating algorithm is characterized by a transition probability P, which
+is constructed such that the chain converges to the distribution p, called the equilibrium
+distribution. To ensure this, it is standard procedure at the beginning of a simulation to
+undergo a burn-in period called thermalization, after which the Markov chain is assumed
+to be at equilibrium.
+
+Recent advances in non-equilibrium statistical mechanics, however, enable, under cer-
+tain conditions and following precise procedures, to perform simulations out of equilibrium.
+In particular, Jarzynski’s equality [88, 89] represents a fundamental result in this regard:
+in the case of Markov Chain Monte Carlo (MCMC) simulations, it allows for the calcula-
+
+tion of “equilibrium” quantities (namely, differences in free energy) from those evaluated
+on non-thermalized Markov Chains. In particular it is possible to leverage this identity to
+compute expectation values (in particular in lattice field theory) with a Non-Equilibrium
+Markov Chain Monte Carlo (NE-MCMC), which we describe in the following.
+
+In this approach, we build non-equilibrium “evolutions” that start from a prior distri-
+bution gg = exp(—So)/Zp and reach a target distribution p = exp(—S)/Z, which we aim
+to sample from. More precisely, each evolution is composed of a sequence of nstep field
+configurations U,:
+
+Py) Py(2) Px(3) Py(nstep)
+
+U: Uo UL, U2
+
+Una, = U- (2:3)
+
+for which we use the shorthand U = [Up,Ui,...,U]. At the beginning we have a config-
+uration Up, sampled directly from qo: the latter can be, for example, a Markov Chain at
+equilibrium or a known analytical distribution one can sample directly from. Then, the evo-
+lution proceeds using a composition of Monte Carlo updates with transition probabilities
+Py(n) (the arrows in the above sequence) which satisfy detailed balance.
+
+Note that the transition probabilities change throughout the evolution according to a
+(set of) parameter(s) A(n), called the protocol. Each Py(p) is defined with an equilibrium
+distribution proportional to exp(—S(n)): the dependence on the protocol A(n) is explicit
+in the action S)(,), which interpolates (in general completely arbitrarily) between the prior
+and the target. The only exception is the last transition probability, which is fixed to
+@M cq MC
+@ = non-eq MC
+
+>
+
+000000
+
+>
+
+©9000
+
+oe
+
+9000000
+
+Nstep
+Nstep
+
+000000000
+
+2 ® @ @
+OuseQOuneQOunuQOuua
+
+Nbetween between Nbetween Mbetween
+
+Figure 1. Scheme of a typical non-equilibrium simulation. A thermalized configuration (black
+circle) is sampled from the prior distribution every Mpetween MCMC steps (black squares); and an
+out-of-equilibrium evolution starts from it, following a given protocol A for nstep MCMC steps (red
+diamonds) until the desired target distribution is reached. The work W of Eq. (2.5) is computed
+along each evolution, while the value of the desired observable(s) is calculated in the last configu-
+ration (red circle). The estimators of Eqs. (2.4) and (2.6) are obtained by taking the average (...)¢
+across different evolutions.
+
+have the target distribution as equilibrium distribution, i.e., Py, ) = F or, equivalently,
+
+Nstep
+A(nstep) Must coincide with the value of the target distribution we want to sample from.
+The fact that \(n) (and, thus, P(,)) changes after each Monte Carlo update defines a
+true non-equilibrium evolution: since we do not let it thermalize at each step, the Markov
+Chain is never at equilibrium.
+
+In order to compute the expectation values of Eq. (2.1) with NE-MCMC we use the
+
+estimator .
+(OU) e-W)¢
+
+(e-W)); (2.4)
+
+(OU ))p =
+
+Here, we indicate with (...)¢ an average over all evolutions of the type of Eq. (2.3); more-
+over, W is the dimensionless work done on the system during the non-equilibrium trans-
+formation from the initial to the final state:
+
+Nstep—1
+
+Ww) = > {£$x(n+41) [Un] — Sain) [Un] } - (2.5)
+n=0
+
+Finally, we can write down Jarzynski’s equality [88, 89]:
+Z,
+
+(e-WO), =e AF = SP (2.6)
+Zq0
+
+which connects the average of the exponential of the work on non-equilibrium evolutions
+
+with the difference in free energy between the system described by the target and the prior
+probability distributions. We show in Fig. 1 a scheme of a typical NE-MCMC simulation.
+2.1 Some insights on NE-MCMC and its metrics
+
+Let us first formally define the (...)¢ average of Eq. (2.4). Once the protocol (i.e., A(n)
+and nstep) and the Monte Carlo update (i.e., the details of Pyn)) have been chosen, we can
+define the forward Pr and reverse P, transition probabilities for a given evolution U/ as
+
+Nstep
+PiU) = [] Prxn)(Un-1 + Un); (2.7)
+n=1
+and
+Nstep
+P.U) = [] Prxn)(Un > Un). (2.8)
+n=1
+Since the Monte Carlo updates must satisfy detailed balance, it is possible to state Crooks’
+fluctuation theorem [90, 91], which for Markov Chains relates the forward and reverse
+probability densities of a given NE-MCMC evolution to the dissipation of the sequence U/:
+
+go(Uo) Pr(U4]
+p(U)P,(U]
+
+this result can be proved rather easily using the properties of Markov Chain transition
+
+= exp(W(U) — AF); (2.9)
+
+probabilities that satisfy detailed balance. It is useful to introduce the pseudo-heat Q
+exchanged during each transformation:
+
+Nstep
+
+QU) = D> {Syen) Un] — Sxiny Una} 5 (2.10)
+n=1
+which takes this form following the First Law of Thermodynamics, S[U]—So[Uo] = W(U)—
+Q(U). We have now all the elements to properly define the expectation values over forward
+evolutions as:
+
+(0. Judea? =(.)e= f ao..ad go(Uo)P:[Uos-..,U] «-- om
+2.11
+
+= f cue go(WoyPee
+
+where the shorthand dl/ = dUp...dU represents the Haar measure over all intermediate
+configurations. Similarly, the expectation values over reverse evolutions can be written as:
+
+t.. Spo, © bede= fate...at p(UYP,(Up,--.,U]
+(2.12
+
+= [ew vwyr.ea a)
+
+Let us now point out that, since the reverse sequences start from configurations U ~ p at
+the equilibrium, computing expectation values over p and pP; is equivalent. Thus, using
+Crooks’ fluctuation theorem:
+
+(O)p = / dU p(U)O(U) = / dU p(UYP,(U,...,Uo] OW)
+(2.13)
+= [a qo(Uo) Pie" O-PQ(u) ,
+we obtain Eq. (2.4); setting O = 1 leads to Jarzynski’s equality (2.6).
+
+Crooks’ theorem, Eq. (2.9), gives us some precious intuition: evolutions U/ that are
+equally probably going forward and backwards (i.e., more “reversible” ) will feature a work
+W equal to AF. We are however interested in a formal statement about the reversibility of
+a given protocol (i.e., a choice of the functional form of A(n), Nstep and the MCMC update).
+To do this, we can take the (reverse) Kullback—Leibler (KL) divergence Dxy(pi||p2), which
+measures the degree of similarity of two probability densities p; and p2. Using the non-
+equilibrium average defined in Eq. (2.11) we can write down the KL divergence between
+doPs and pP, as
+
+= go(Uo) PU)
+D. 1 -) = (log —————*); > 0, 2.14
+KL(Go(Uo)Ps||P(U)Pr) = (log (UP, (Ud) )e = 0, (2.14)
+and using Crooks’ theorem this becomes simply
+Dict.(go(Uo)Pillp(U)Px) = (WU) — AF = (Wa())s- (2.15)
+
+Here, we defined the dissipated work Wa(U) = W(U)—AF, which provides a measure of the
+dissipation of a given thermodynamic out-of-equilibrium transformation (or, equivalently,
+protocol) between go and p. If the protocol is reversible, i.e., the KL divergence vanishes,
+we have (Wa(U))r¢ = 0. Furthermore, given the positivity of the KL divergence, we recover
+the Second Law of Thermodynamics as well, i.e.
+
+(Wa(U))¢ > 0. (2.16)
+
+Aside from considerations on the thermodynamic nature of a Markov Chain out of
+equilibrium, a question arises naturally: why do we care about the KL divergence of
+Eq. (2.14)? It is indeed easy to prove that it is an upper bound for another KL divergence:
+
+Dyt(q\\p) < Dix (qoPellpPr), (2.17)
+
+with q being the probability distribution of the system at the end of the evolution, which
+is not analytically accessible in general and we formally define as
+
+qU) = [avi wee WW ngtep—1 qo(Uo)P¢(U). (2.18)
+
+Hence, by minimizing the dissipated work (Wa)r, we also necessarily minimize the KL
+divergence between our target distribution and the one we generate, which is exactly our
+goal.
+
+Another relevant metric for non-equilibrium protocols is defined looking at the ratio
+of the variance of the two estimators of (O) appearing in Eq. (2.4): the first, sampling
+directly from p (neglecting autocorrelations); the second, using NE-MCMC. The ratio of
+the variances of the estimators defines the so-called Effective Sample Size ESS:
+
+Var(O),
+
+ESS = ——_-..
+88 = Var(O)ne
+
+(2.19)
+This is usually approximated (neglecting correlations between O and W) as
+
+ao (exp(—W))? _ 1
+ESS (exp(—2W))¢ — (exp(—2Wa))¢’
+
+which can be readily computed for any protocol. While not directly relevant for this work,
+
+(2.20)
+
+we note that this metric is exactly related to the variance of the estimator of the free energy
+given by Jarzynski’s equality, Eq. (2.6):
+
+Var (exp(—W)) = exp( AF) ( 1), (2.21)
+
+2.2 Lattice setup and topological observables
+
+As outlined in the introduction, in this investigation we choose the pure-gauge theory as
+a test-bed for our novel method. We discretize the pure-gauge SU(3) Yang-Mills theory
+using the standard Wilson plaquette action on an hyper-cubic L lattice. Periodic boundary
+conditions are taken for every link but those living on a small sub-region of the lattice,
+which in the following will be called the defect. In this region, we allow links to experience
+different boundary conditions, which are changed through discrete out-of-equilibrium steps
+from open to periodic through a tunable parameter \(n), with n an integer index labeling
+the out-of-equilibrium step. The path in parameter space connecting OBC to PBC defines,
+in the case at hand, the out-of-equilibrium protocol introduced in Sec. 2.
+
+The lattice gauge action S)(n) at the n‘® out-of-equilibrium step reads:
+
+Syn) [Un] = et S> KW) (w)RTr [Pra]. (2.22)
+@,uxAv
+
+where U,, stands for the collection of gauge links at the nt
+
+Eq. (2.22) N = 3 is the number of colors, 6 = 2N/g? is the inverse bare coupling, PA (x) =
+
+» out-of-equilibrium step. In
+
+f t
+IM (ay (x+ ja) (x+o)Us (x) is the elementary plaquette operator at site x on the
+plane (j:,v) computed on the configuration U, at the n** out-of-equilibrium step, a is the
+lattice spacing, and K, (a) is a numerical factor used to modify the boundary conditions
+through the parameter A(n):
+
+KIM (c) = KI) (@) KI) (a + PKI («+ 1) KM (2), (2.23
+A(n), w=0, to=L—a, 0< m1, Xo, 73 < La,
+KIM (a) = (2.24
+Ly elsewhere,
+with A(n = 0) = 0 denoting OBC and A(n = nstep) = 1 denoting PBC. The defect is de-
+fined as a cube of size Lg, and it is placed on the time slice x9 = L — a along the tempora
+
+direction 4 = 0, meaning that only plaquettes including temporal links crossing the defect
+will “feel” the modified boundary conditions. We also stress that, for all values of A, the
+Monte Carlo updates of the gauge configurations were performed using the customary 4:1
+mixture of over-relaxation (OR) [111] and heat-bath (HB) [112, 113] algorithms, imple-
+mented according to the Cabibbo-Marinari prescription [114], i-e., updating the 3 SU(2)
+subgroups of SU(3). In the following we will refer to this combination with the shorthand
+1HB+4OR.
+
+Given that in this study we are addressing the infamous topological freezing issue, it
+is natural to focus on the measurement of the topological susceptibility. In this study, as
+already outlined in the introduction, all computations of physical quantities are performed
+at the end of the out-of-equilibrium evolution, where PBC are restored all over the lat-
+tice. Therefore, from now on we will just assume PBC for all gauge links. Since periodic
+boundaries preserve translation invariance, we are allowed to consider the total topological
+charge Q and compute the topological susceptibility via its standard definition:
+
+2
+Y= a, Var, (2.25)
+where the expectation value in the presence of PBC appearing here is computed out-of-
+equilibrium using Jarzynski’s equality as explained in Sec. 2.
+In this study we discretize the topological charge using the simplest parity-odd lattice
+
+formulation of the continuum observable Q = je 5 if dta Tr Gv Gus); defined in terms of
+
+the “clover” plaquette:
+
+1 4
+
+Qelov = 972 > Ewvpa Tt [Pur (@) Poo (x) , (2.26)
+pvpo=+1
+
+where it is understood that €(_,,)yp¢ = —Epvpo- As it is well known, unlike in the continuum
+theory, Qelov is not integer-valued on the lattice, and it is related to the continuum topo-
+logical charge Q via a finite renormalization [115, 116]: Qaoy = ZgQ. The renormalization
+factor Zg(B) < 1 tends to 1 only in the continuum limit 6 + oo. Moreover, a naive lattice
+
+2
+definition of the topological susceptibility ycloy = (Qhov)
+
+, built in terms of Qaoyv would re-
+ceive a divergent additive renormalization term too due to contact terms [117-120], which
+would eventually overcome the physical signal as a > 0. To deal with these renormaliza-
+tions, it is customary to resort to smoothing methods, which is by now a widely employed
+technique [2, 7, 8, 10-12, 16, 17, 116, 120-139]. Once Qeoy is computed on smoothened
+fields, UV contamination at the scale of the lattice spacing is removed, leading to Z ~ 1,
+and the effects of the contact term vanish. Thus, after smoothing, the lattice definition of
+x is free of multiplicative and additive renormalizations [116, 117, 120], and will converge
+towards the correct (finite) continuum limit [7, 16].
+
+On general grounds, smoothing damps UV fluctuations at length scales below a smooth-
+ing radius Rs, while leaving the relevant infrared physics intact (if smoothing is not exces-
+sively prolonged). Several smoothing methods have been proposed in the literature, such
+as cooling [119, 140-145], stout smearing [146, 147], or gradient flow [59, 148-151], and
+they have all been shown to be numerically equivalent when properly matched to each
+other, i.e., when smearing parameters are chosen so as to correspond to the same value of
+
+Rs, see Refs. [145, 152, 153]. In this work, due to its computational inexpensiveness, we
+
+10 -
+adopt cooling, and define our lattice charge and susceptibility as:
+
+Qn = Qetov[Ucooi] (2.27)
+2
+w= 2), (228)
+
+where U,oo1 denotes the gauge links after applying noo cooling steps. In the case of
+standard Wilson cooling, the following relation between the number of cooling steps and
+the smoothing radius has been established by matching with the Wilson gradient flow [152]:
+
+Rs
+
+/8
+= 4/ =Neool: (2.29)
+a 3
+
+The dependence of Rs on \/Neoo1 actually stems from a general feature of smoothing meth-
+ods: the smoothing radius is always proportional to the square root of the amount of
+smoothing performed because all smoothing algorithms act as diffusive processes. As an
+example, using the Wilson flow, Rs/a = \/8ncooi/3 = \/8t/a?, with t/a? the flow time,
+would give an equivalent smoothing radius choosing t/a? = neoo1/3 [152]. In this work, we
+adopted neoo1 = 60 for all values of 8 explored, thus corresponding to Rs ~ 12.6a ~ 0.4L
+in all cases.
+
+The simulation code used to numerically simulate the lattice setup described so far
+can be found in the public release [154], based on a modification of [155], which is in turn
+based on a modification of [156].
+
+3 Scaling of NE-MCMC in the boundary conditions
+
+In this section we will discuss the scaling features of a particular non-equilibrium simulation,
+in which the role of the protocol A(n) appearing in Eq. (2.3) and Eq. (2.7) is to change
+the parameter KM (a , as already described in Eq. (2.24). In particular, the evolution
+in the boundary conditions (from open to periodic) is described by a unique parameter
+for all the lattice links that are part of the defect. For all the non-equilibrium evolutions
+performed in this work we used a linear protocol for the parameter \(n); we leave the
+
+investigation of more efficient protocols to future work. We thus have just two parameters:
+the number of degrees of freedom that “feel” the defect naop = (La /a)°, and the number
+
+of out-of-equilibrium steps Nstep. The goal of the present section is to understand how the
+
+performances of the NE-MCMC scale with these two quantities.
+
+For this purpose, we performed a first batch of NE-MCMC simulations at a relatively
+coarse spacing at 6 = 6.0, using cubic defects of different sizes Lg, ranging from 2 to 6, and
+
+varying the duration of the evolution, expressed in units of MCMC updates as nstep (see
+Fig. 1). We also fix the frequency with which we sample the prior distribution (the one
+with the OBC defect) to be nbetween = 5: this is the number of MCMC updates between
+starting configurations of subsequent evolutions, see Fig. 1. The main aim of this numerical
+
+test is to check the behavior of two metrics, the KL divergence of Eq. (2.14) (equivalent
+to the dissipated work Wy) and the ESS of Eq. (2.20), as a function of Nstep- Results are
+
+reported in the left panels of Fig. 2 and Fig. 3.
+
+Ll +
+B =6.0,L/a = 16
+
+Wu A
+hab ry 4 F
+10°74 5 : P 10°
+A
+~ ai? ~
+10-1 * h a] 10-1
+|
+10? 4 10°?
+0 500 1000 1500 2000 2500 3000 0 50 100 150 200
+step Nstep/(La/a)?
+
+4A NE-MCMC, Ly/a =2
+
+& NE-MCMC, Ly/a =4
+
+A NE-MCMC, La/a =6
+
+A NE-MCMC, Ly/a =3 A NE-MCMG, La/a =5 fit in (La/a)* /Mgtep
+
+Figure 2. Results for the Kullback-Leibler divergence of Eq. (2.14) for NE-MCMC in the boundary
+conditions as a function of the number of steps in the flow nstep (left panel) and as a function of
+Nstep divided by the size of the defect (right panel). All results obtained on a 16+ lattice at 3 = 6.0.
+
+B =6.0, L/a = 16
+
+1.0 1.0
+A _ A
+& Bx
+0.8 és cS * 0.8
+> A
+064 4 ah i 0.6
+0.4 i i 0.4
+o2| 24 j on
+: 4
+0.0 pas a 0.0
+0 ~500 ©1000 ©1500 ©2000 ©2500 3000 0 50 100 15 200
+Nstep Nstep/(La/a)?
+
+4 NEMCMC, L,/a =2
+4A NEMCMC, Li/a =3
+
+4A NEMCMC, La/a =4
+4 NEMCMG, La/a =5
+
+A NE-MCMC, Lu/a =6
+
+—— fit in exp(—k'(La/a)*/netep)
+
+Figure 3. Results for the effective sample size of Eq. (2.20) for NE-MCMC in the boundary
+conditions as a function of the number of steps in the flow nstep (left panel) and as a function of
+Nstep divided by the size of the defect (right panel). All results obtained on a 164 lattice at 6 = 6.0.
+
+As expected, the value of the dissipated work (Wa), decreases rather rapidly when
+increasing Nstep, as the evolutions in the boundary condition parameters are performed
+more slowly and approach a reversible transformation. This provides a precious upper
+bound on the similarity between the (analytically intractable) non-equilibrium probability
+distribution at the end of the evolution and the probability distribution with PBC, see
+Eq. (2.17). Similarly, the ESS approaches larger values fairly quickly when nstep grows; this
+
+points at a greatly reduced variance of the weight exp(—W) and, in good approximation,
+
+~j2—
+at a smaller variance of the estimator of Eq. (2.4).
+
+Naturally, the cost in terms of out-of-equilibrium Monte Carlo updates (quantified by
+Nstep) to reach a given target metric (either (Wa)r or ESS) strongly depends on the size
+of the defect. This is not surprising, as larger defects naturally induce stronger finite-size
+effects which in turn require a bigger effort to be removed. The precise scaling relation
+is easily observed in the right panels of Fig. 2 and Fig. 3. Here, the dissipated work and
+the ESS are once again plotted, but this time as a function of Nstep/(La/a)%, that is, the
+duration of the evolution in terms of MCMC steps divided by the spatial volume of the
+defect in lattice units. The latter quantity is exactly the number of degrees of freedom
+modified along the evolution itself. Data for different defect sizes collapse neatly on the
+same curve, which represents precisely the scaling function of NE-MCMC metrics: for
+example, fixing the defect size Lg, the value of nstep needed to reach a target metric (e.g.,
+ESS = 0.4) can be immediately derived just looking at these results.
+
+3.1 Understanding the scaling with the degrees of freedom
+
+It is worthwhile to understand the NE-MCMC scaling a bit more precisely: in particular,
+the reason why (Wa)s seems to depend uniquely on nstep/Ndof, With naog being the number
+of degrees of freedom that are varied throughout a non-equilibrium trajectory. This fact is
+far from being limited to evolutions from OBC to PBC (where it was already observed in
+2d CPX—+ model [53]). It is also present, for instance, when changing the inverse coupling
+8 in SU(8) pure gauge theory [54] and when exchanging slabs between lattices in O(N)
+spin models [96].
+
+Let us look at the dissipated work once again, writing it as
+Mstep—1 >.
+
+War = Wy ar =o {B30 z Farm} , (A)
+where we used 1/nstep = An+1—An, i-e., assuming for simplicity a linear change in a protocol
+parameter and that \(0) = 0 and A(nstep) = 1. We also (approximately) calculated the
+free energy difference using a basic implementation of the integral method: indeed, the
+Goce Deas \(n) average is the standard expectation value at equilibrium with respect to the
+probability distribution defined with S)(,). This is in general very different from the
+(ede, \(n) average, which it is calculated during a non-equilibrium evolution for a specific
+protocol, and also depends strongly on the details of the latter.
+
+Let us look at the derivative of the action with respect to the protocol parameter »
+first: for evolutions in the boundary conditions and specifying the action to be Eq. (2.22),
+this term is simply the sum of the plaquettes that touch the defect!. In this case we can
+
+write it down approximately as
+OSy(n)
+Or
+
+with P, being the average of the plaquettes that contain two of the defect links indicated
+
+~ —68 naot A(n) Pa, (3.2)
+
+in Eq. (2.24) and ngop = (La/a); as we are interested only in a qualitative behavior, we
+
+‘In the case of evolutions in @, the OSy(n)/OA term would be the sum of all the plaquettes on the lattice.
+
+13 -
+ignore the plaquettes containing only one defect link. Now the dissipated work becomes
+
+Nstep—1
+Ndo:
+(Wa) & o “8 > A(n) ((Pa)eq,x(n) — (Pa)t,x(n)) - (3.3)
+BUSD n=0
+
+The question is, what is the behavior of the defect plaquettes at each step n of a non-
+equilibrium evolution with respect to its corresponding value at equilibrium (i.e., for the
+same parameter \(n))? Intuition suggests that it should vanish when going towards equi-
+librium, i.e., in the limit nstep — oo. Thus, we assume” that this quantity is directly
+proportional to the speed of the evolution:
+
+(Pa)eq,x(n) — (Pa) £,x(n) © (3.4)
+
+Nstep
+
+Recalling that in our case A(n) = n/Nstep, this finally gives us a very simple qualitative
+behavior for the average dissipated work:
+
+Nstep—1 , ,
+(Waje~ 62a S* hx KB) ~ 387 x KA), (3.5)
+Nstep “a0 “step Nstep
+
+where we the K factor contains a residual dependence on (3: a proper investigation of a good
+approximation is left to future work. Finally, we have recovered an explicit dependence
+of the dissipated work (or reverse KL divergence) (Wa)r on the ratio nstep/Naor: this is
+further supported by the excellent fit of the data of Fig. 2 with a 1/(nstep/ndor) behavior.
+
+Another useful analysis can be made on the Effective Sample Size: it has been observed
+in the past [81, 85] that for a fixed flow architecture, the ESS decreases exponentially with
+the number of degrees of freedom in the system®, ice.
+
+ESS(naor) = exp(—k naot); (3.6)
+
+which is observed also in the case of NE-MCMC flows for fixed nstep, see Fig. 4.
+However, we also observe from Fig. 3 that the ESS is, to a very good approximation,
+a function of nstep/Ndop and not just of nar; hence, it is natural to write that
+
+ESS(naor) = exp (-¥ “ast ) . (3.7)
+Nstep
+
+and this is confirmed by the excellent qualitative agreement when fitting the data points
+in Fig. 3. This is a striking example of how incorporating non-equilibrium MC updates
+in a flow-based approach (as in the case of NE-MCMC) naturally provides an exponential
+improvement with respect to a given fixed architecture. This analysis strongly suggests
+that NE-MCMC (and related approaches) offer a compelling framework to tackle the issue
+of scaling flow-based samplers to problems characterized by large ngor.
+
+?This is not arbitrary, as linear response theory generally predicts this behavior at first order [157].
+
+x (0)
+’This statement is usually expressed as ESS(naor) = ESS(n(2),)reer/" aor.
+
+14-
+B =6.0, L/a = 16
+
+1.0
+A NE-MCMC, netep = 256
+ag ES A NE-MCMG, netep = 512
+& A NE-MCMG, retep = 1024
+0.64 4
+
+4
+“i » |
+
+| 4 4
+0.2 h i
+A
+
+>
+
+0.0-— — T ; r
+0 50 100 150 200
+
+(La/a)*
+
+Figure 4. Effective Sample Size ESS as a function of the number of links on the defect, for three
+fixed NE-MCMC architectures.
+
+4 Accelerating NE-MCMC with Stochastic Normalizing Flows
+
+The estimator of Eq. (2.4) is unbiased: however, since it relies on an exponential average, it
+has to be handled with care. In particular, it can suffer from high variance (i.e., low ESS)
+when the dissipated work is large: sampling p in such conditions would require extremely
+large statistics to be reliable, as the average on the evolutions strongly depends on a few
+rare events that populate the tail of the distribution. For examples of the distribution of
+the weight exp(—W) see Refs. [53, 54]; moreover, note that the number of samples (i.e.,
+evolutions) that are needed grows exponentially with (Wa)s, see Ref. [158] for an in-depth
+discussion.
+
+Naturally, this problem can be solved by increasing nstep: in the asymptotic limit, the
+transformations become quasi-static, meaning that the system remains close to equilibrium.
+In such conditions, (Wa) is small and exp(—W) fluctuates mildly: the exponential average
+is under control. While effective, this simple strategy can be too expensive for practical
+purposes, especially when the number of degrees of freedom that one needs to vary in a
+transformation becomes large.
+
+A more general strategy that can help mitigate the growth of Wq (and thus, the total
+cost of the algorithm) is to enhance NE-MCMC with a class of deep generative models
+called Normalizing Flows (NFs) [61]. The idea behind a generic NF g, is very simple: it
+is a diffeomorphism dependent on a set of parameters {p} that acts on a configuration Up
+sampled from a distribution qo and transforms it in a different configuration U = g,(Uo)
+which follows a variational density q. Simply using the change of variables theorem we can
+write it as
+
+q(U) = qol(gp'(U))| det Jy,|-', (4.1)
+
+15 -
+with det Jg, being the determinant of the Jacobian of the NF. The power of this approach
+depends on the fact that a generic NF is built as a composition of | intermediate functions
+Jp(n), the so-called coupling layers:
+
+9p(Uo) = Gp) * Ip(t—1) *** Jp(ay Uo), (4.2)
+
+each of them depending on a subset of parameters {p(/)}. Each of them transforms the
+field configuration through appropriate masking patterns to guarantee invertibility and an
+easy calculation of the Jacobian: inside each g,j), neural networks can be employed to
+increase the expressivity of the full transformation.
+
+In this work, we do not employ NF alone, but use a relatively straightforward im-
+plementation of their coupling layers to assist NE-MCMC protocols. More precisely, we
+interleave NE-MCMC updates with NF layers to create a sequence, as follows:
+
+Py2) Pr(nstep)
+
+U,
+
+Ip Ei 9,
+Uo 3 gory(Uo) ~F Ur SF gora)(U1) — (4.3)
+
+This defines a particular instance of Stochastic Normalizing Flows (SNFs) [98], in which
+every non-equilibrium update P,(,) is preceded by a deterministic transformation gpcn).
+
+A given target distribution p can be sampled with the enhanced protocol of Eq. (4.3)
+using the same framework of NE-MCMC. In particular, the estimator of Eq. (2.4) and the
+metrics of Eq. (2.14) and Eq. (2.20) can be readily employed with one single modification:
+we now have to use the variational work, which for the SNF of Eq. (4.3) can be computed
+as [98, 159]:
+
+WU) = S[U] — So[Uo] — QU) — log JU) (4.4)
+Nstep—L
+= > Syn) [Jo(n+1) (Un) ~~ Sy(n) [Un] _ log To nn41) [Un]. (4.5)
+n=0
+The additional term: j
+log JU) = S108 Fgycuy) (On); (4.6)
+n=0
+
+represents the cumulative contribution from the logarithms of the Jacobian determinants,
+accounting for the change in density induced by the NF layers.
+
+Naturally, for the transformations g,n) to be useful, the parameters {(n)} have to be
+trained, i.e., tuned according to some minimization training procedure. In this framework
+we optimize them by minimizing the Kullback-Leibler divergence of Eq. (2.14):
+
+miny,}Dxx(qoPellpPr) = ming, (Wi? ())s, (4.7)
+
+The interpretation is straightforward: SNF parameters are tuned to bring a given protocol
+as close as possible to equilibrium.
+
+The design of coupling layers is typically guided by encoding the relevant symmetries
+of the theory directly into the machine learning model. This approach is expected to
+improve the efficiency of the model and accelerate training [160]. A common strategy
+
+16 -
+for incorporating symmetries into flow-based samplers is to construct equivariant coupling
+layers [73, 78, 161], ensuring that the transformation g commutes with the symmetry. In our
+implementation, we use gauge-covariant coupling layers [162], where the diffeomorphisms
+Jp(n) are essentially stout smearing transformations [147]; in this work we follow the same
+straightforward implementation used in Ref. [54] for flows in G3. The field transformation
+for a given link is defined as:
+
+Tyla) = Gpiny(Ou(@)) = exp (1QY(@)) Tyla), (4.8)
+
+with Q, Hermitian and traceless:
+
+QL(0) = § (CLM @)t - 9 (e)) +
+
+F (4.9)
+-syTt (eM @)t = a(”(2)) ;
+and where aA” (x) is a sum of untraced loops based on a. We have
+-) = NUT (4
+2M (x) = CM (x)UL(2), (4.10)
+
+that is made by a weighted sum over staples:
+
++Ppv(n, 2)Uh (a — ~)Up(a — P)UL(a — o + ji).
+
+The coefficients piv (n, 2) represent the parameters tuned in the training procedure; here
+we take the most general form, in which they depend also whether the staple is in the +7
+or —? direction. These layers can be generalized to work on larger loops, as described in
+Ref. [78]. To ensure invertibility, it is crucial to apply a proper masking procedure: in this
+case, we apply an even-odd decomposition and then use the transformation of Eq. (4.8)
+one direction at a time, so that each layer g,(n) contains 8 different transformations. In
+
+this pattern, the links in cl” (x) can be considered “frozen” while the U,(a) in Eqs. (4.8)
+and (4.10) are the “active” ones.
+
+4.1 Coupling layers for a defect
+
+Directly encoding symmetries into the variational Ansatz of the coupling layer is not the
+only strategy to enhance its effectiveness. In the present context, the geometry of the
+problem itself suggests a design for a deterministic transformation. Ref. [100] introduced,
+for the first time, the concept of a defect coupling layer, defined as a standard coupling
+layer restricted to a localized region of interest. Specifically, the layer acts only on a subset
+of the lattice degrees of freedom, here, the gauge fields, located near the defect, and is
+conditioned on a fixed set of degrees of freedom, also limited to a localized region of the
+lattice. As a result, the majority of the lattice remains untouched by the transformation:
+these degrees of freedom are neither used as inputs nor altered by the coupling layer.
+
+17 -
+[La/a | 2 3) 4 5 6
+[ mp | 144 | 432 | 960 | 1800 | 3024
+
+Table 1. Number n, of stout smearing parameters appearing in a single defect coupling layer for
+different defect sizes Lq/a.
+
+This approach, which a priori selects the relevant region of the lattice where the trans-
+formation is applied, has been shown to be effective and to drastically reduce the cost of the
+training compared to the standard approach, where the whole lattice undergoes a trans-
+formation [100]. At first glance, however, this approach might appear to be problematic if
+one would like the defect to have a global effect on the system, as most of the d.o.f. remain
+unaffected by the deterministic transformation; this is expected to be the case for defects
+related to boundary conditions. Nonetheless, it is important to emphasize that the defect
+
+coupling layer constitutes only one component of the SNF; the other essential ingredient is
+the Monte Carlo update, which, in the present framework, always acts globally on the full
+lattice. This has the effect of spreading the information on the modified defect far from the
+region where the coupling layer is acting, while the coupling layers accelerate the removal
+of the effect of OBC in the proximity of the defect.
+
+In practice, in this work we apply the stout smearing transformation defined in Eq. (4.8)
+uniquely in two cases:
+
+e on links U,,(a) on the defect, ie., ji = 0, x9 = L—aand 0 < m1, x2, 13 < La,
+
+e on links U,,(x) which are not themselves on the defect, but for which the corresponding
+sum of staples appearing in Eq. (4.11) contains at least a link on the defect.
+
+More precisely, we set the parameters p(n, x) to be non-vanishing only if the link being
+transformed is on the defect, or the corresponding staple has one link on the defect. At
+this stage we opt not to use any notion of symmetry from the cubic geometry of the OBC
+defect and we leave all parameters independent. The number of parameters per coupling
+layer (counting one layer as the composition of the eight masks) grows proportionally with
+the defect volume (Lg/a)* and we report it in Table 1.
+
+We remark here that in the following, an SNF architecture with nstep steps indicates
+a combination of one defect coupling layer (i.e., a stout smearing transformation of the
+relevant links) plus one full update of the whole lattice with the standard 1HB+4OR
+updates (following the \(n) protocol), repeated nstep times. This implementation of SNFs
+is available as a CPU code [154] uniquely for sampling and as a PyTorch code [163] (also
+for GPUs) for both training and sampling.
+
+We performed several training procedures minimizing the KL divergence, i-e., the
+generalized dissipated work, as in Eq. (4.7). We chose again a L/a = 16 hypercubic lattice
+at 8 = 6.0 with a defect size in the range Ly/a € [2,6]. We trained SNFs with nstep = 8
+and step = 16, but performing the backpropagation separately for each layer: in practice,
+we minimize the terms in the sum in Eq. (4.7) one by one; see Ref. [54] for a discussion
+
+of this procedure and its connection to the work of Ref. [104]. We performed the training
+
+18 -
+for about 1000-2000 epochs using the Adam optimizer [164], after which the loss for all
+values of nstep and Lq/a reaches a plateau. One of the advantages of this procedure is that
+the memory consumption during training is independent of nestep; still, the minimization
+procedure becomes not just more expensive with nstep, but also more difficult. To overcome
+this issue, we generalize the methodology employed in Ref. [54] to the case of flows in the
+boundary conditions. In particular:
+
+e from the results of the trainings for a fixed value of nstep we identify 9 classes of
+parameters (just 5 in the Lg/a = 2 case) characterized by the geometry of the cubic
+defect;
+
+class) (
+
+e for each class, we take the average ph n) of all the corresponding parameters and
+
+we multiply it by nstep;
+
+e finally, we perform a spline interpolation of p(!*55)(n) x netep in n/Nstep € [0, 1].
+
+The spline function is the true result of the training: indeed, we use it to extract the
+corresponding value of p(n) for any value of nstep. In a sense, it can be considered as a
+peculiar case of transfer learning: we train uniquely in a simple setting (i.e., an SNF with
+few layers), recognize a particular pattern in the weights, and extrapolate the result for
+aNY Nstep. We provide more details of the interpolation procedure in Appendix A.
+
+Finally, we can use the SNFs trained in this way and compare their performances with
+those of standard NE-MCMC when sampling the target density with PBC. We report in
+Figs. 5 and 6 the comparison between SNF's and NE-MCMC in terms of dissipated work
+and ESS for the same combinations of defect sizes and Nstep previously analyzed in Sec. 2.
+
+The results show a very clear advantage in using SNF's over standard NE-MCMC: the
+KL divergence drops faster towards zero, indicating more reversible evolutions, while the
+ESS grows quicker with nstep, Which implies a smaller variance for the estimator of Eq. (2.4).
+The comparison is fair, as for fixed nstep the computational effort for each evolution is
+essentially the same for the two flow architectures. Indeed, the cost of performing the stout
+smearing transformations around a three-dimensional object is negligible with respect to
+a full LHB+4OR update of the much larger four-dimensional lattice; furthermore, the cost
+of the training on nstep = 8,16, which lasted around 10% epochs, is a fraction of the cost of
+the evolutions we performed when sampling with SNFs (which is about ney ~ 104 for the
+Nstep = 16 case)*.
+
+Such results can be interpreted in essentially two ways. In the first, we keep both
+the computational cost (i.e., Nstep) and the size of the problem (removing the effect of a
+(La/a)? OBC defect) fixed: doing so, SNFs provide an overall better estimator in any case
+as the ESS is always markedly higher. In some cases, one can sample with SNF's where it
+would be essentially impossible with NE-MCMC. The second way to interpret these results
+is to keep both the size of the problem (i.c., the value of (Ly/a)*) and the quality of the
+
+“The cost of training can become more significant if more complex coupling layers are employed; in that
+case, an overall cost function that takes into account the computational effort to reach a given ESS during
+training would be needed.
+
+19
+8 =6.0,L/a=16
+
+100 150
+
+Nstep/(La/ay?
+
+200
+
+Os HOH HGH HGH HOH Hs Hd Ht Bt ID
+
+E-MCMG, Ly/a =2
+E-MCMC, Ly/a =3
+E-MCMC, Ly/a =4
+E-MCMG, Ly/a=5
+E-MCMG, La/a =6
+
+F, La/a =2
+
+F, La/a =3
+
+F, La/a=4
+
+F, La/a =5
+
+F, Ly/a =6
+
+Figure 5. Results for the Kullback-Leibler divergence of Eq. (2.14) for different flows in the
+boundary conditions as a function of the number of steps in the flow divided by the volume of the
+defect. Both NE-MCMC (circles) and SNFs with defect coupling layers (squares) are shown. All
+results obtained on a 16* lattice at 6 = 6.0.
+
+ESS
+
+= 6.0, L/a = 16
+o @ © ® a
+A
+B OA .
+100 150 200
+nstep/(La/a)*
+
+HOH HGH GH GH OH BS HB
+
+nun
+
+DnNN
+
+E-MOMC, Ly/a =2
+E-MCMC, Ly/a =3
+E-MCMC, Ly/a =4
+E-MCMG, Ly/a=5
+E-MCMC, Ly/a =6
+
+F, La/a =2
+
+F, La/a =3
+
+F, La/a =4
+
+F, La/a =5
+
+F, La/a =6
+
+Figure 6. Results for the effective sample size of Eq. (2.20) for different flows in the boundary
+conditions as a function of the number of steps in the flow divided by the volume of the defect.
+Both NE-MCMC (circles) and SNFs with defect coupling layers (squares) are shown. All results
+obtained on a 164 lattice at 8 = 6.0.
+
+estimator (e.g., the ESS) fixed: one can then ask, what is the relative effort required to
+
+reach the value of a certain metric. For SNFs, this appears to be consistently one third of
+
+— 20 -—
+the effort required by NE-MCMC: indeed, the curve drawn by the SNF results in Figs. 5
+and 6 is the same as the purely stochastic one, but compressed horizontally by a factor 3.
+
+We have established the superiority of a rather simple SNF architecture in removing
+the effects of OBC and in sampling a target distribution with PBC in an unbiased and
+scalable fashion. However, each value of nstep defines a different estimator, with a different
+variance approximated by the corresponding value of the ESS from Fig. 6: which is then
+the most efficient one? Equivalently, the question is whether it is better to “spend” less
+(in terms of MCMC updates) and be content with a relatively small value of ESS, or to
+spend more for an estimator with a smaller variance.
+
+A cost function C; to generate ney samples of an observable O with the flow-based
+approaches studied in this work can be written (neglecting autocorrelations in the data
+and training costs) as the number of evolutions times the cost of a single evolution:
+
+Ci (nev) = Ney X COStey = Nev X (Nstep a Nbetween) (4.12)
+(eff)
+
+Var; (O) Cc; ’(O)
+em(OVe * (Mater + Mbetween) oe Or" (4.13)
+
+here we identified the effective cost of sampling an observable O with
+C&D (O) = Vary(O) x (nstep + Rhetween): (4.14)
+
+We can rewrite it as
+
+ge (0) a Var(O) Nstep + Tt hetwecn (4.15)
+
+ESS
+
+where we used the definition of ESS from Eq. (2.20). The efficiency of the flow then depends
+on the variance of O (a theoretical value that is fixed for a given target distribution p) and
+the ratio (Nstep +Nbetween) / ESS°, which we show in Fig. 7 as a function of the corresponding
+ESS.
+
+First of all, SNFs are consistently more efficient than the corresponding NE-MCMC
+counterpart, and larger defects are also less efficient as we are ignoring autocorrelations for
+the moment. Furthermore, flows characterized by small values of ESS are unsurprisingly
+very expensive and should be avoided; more interestingly, the largest values of ESS do not
+appear to be particularly efficient either. Indeed, there seems to be a typical value of ESS
+(or, equivalently, of nstep/(La/a)*) above which it is not worth to increase the quality of
+the flow, as it becomes too costly.
+
+It is interesting to analyze the most efficient value of nstep/(La/a)* (or equivalently,
+the “best” value of the ESS) using the parametrization of Eq. (3.7): in practice, completely
+
+neglecting Npetween, We Wish to minimize
+
+Nstep 1 Tedof
+—- = N, exp | k F 4.16
+ESS step SP ( ra) ( )
+
+5 At this stage, the role of Nbetween is secondary: since we are effectively neglecting autocorrelations in
+our samples, increasing the spacing between evolutions has no direct influence in the efficiency of the flow.
+
+21 =
+B =6.0,L/a=16
+
+A NEMCMC, Ly/a=3 ~~ SNP, Ly/a=3
+8000 4 A NEMCMC, Lifa=4  ~$~ SNF, Ly/a=4
+
+10000
+
+(Nstep + Ndetween)/ESS
+
+6000 7
+
+4000 5
+
+2000 5
+
+Figure 7. Results for the efficiency factor (Nstep + Mbetween)/ESS from Eq. (4.15) for different flows
+in the boundary conditions as a function of the effective sample size. All results obtained on a 16+
+lattice at 3 = 6.0.
+
+using the k’ obtained from the fit reported in Fig. 3. The minimum of the quantity of
+Eq. (4.16) with respect to nstep leads to an amusing result, ie.,
+
+a 1
+ESSpest = 5 = 0.368..., (4.17)
+
+which remarkably is architecture-independent (since k’ drops out) and also in very good
+qualitative agreement with what we observe in Fig. 7. Hence, in the following we will aim
+at using flows with ESS in the 0.2-0.5 range, which appears to be the region where the
+flows are most efficient.
+
+5 Sampling topology towards the continuum limit
+
+From the discussion of the previous sections, it is clear that, if we wish to remove the effects
+introduced by the presence of open boundaries, we can do that with excellent control over
+the efficiency of the calculation using flow-based approaches such as NE-MCMC and SNFs.
+Thus, we are finally ready to move to finer lattice spacings and verify whether this family
+of methodologies can actually be applied to cases where topological slow modes severely
+affect standard Monte Carlo simulations.
+
+The first step is to include autocorrelations between samples of a given observable in
+the cost function of Eq. (4.15). This is implemented with the integrated autocorrelation
+time Tint(Q), which naturally leads to a more appropriate definition of the cost effectiveness
+
+22.
+as
+
+C(O) = Varr(O) x 2tint(O) x (nstep + Ndetween) (5.1)
+27int (O)
+
+~ Var(O
+ESS
+
+(Nstep + Nbetween)+ (5.2)
+
+This quantity provides intuition for a possible strategy to efficiently compute topolog-
+ical observables in the continuum limit: namely, we can fix the value of ESS and Tint to
+some desired value by tuning step and Npetween in a suitable way. On the one hand, auto-
+correlations for Q? are expected to scale with a~? in the presence of OBC [42, 44]: hence,
+by increasing Npetween in the same fashion we expect to keep the value of 7iy4 roughly fixed.
+Of course, we expect this to hold (at least approximately) only if the size of defect Lg is
+
+kept fixed in physical units as well. As a consequence of this, in the continuum limit Lg/a
+grows and the ESS is expected to decrease exponentially at fixed nstep. On the other hand,
+from the detailed discussion of Section 3, we have very good control of the relationship
+between the ESS, La/a and nstep. More specifically, by increasing nstep proportionally to
+(La/a)*, the ESS will be kept (in excellent approximation) fixed.
+
+The strategy is then fully outlined: one has to scale npetween With a~? to keep auto-
+correlations roughly fixed and ngtep with a~? to maintain the efficiency of the flow intact
+
+in the continuum limit. The effective costs will then grow like
+ff -. = .
+Cf (Q2) ~ Var(Qt) (koa + kia), (5.3)
+
+where the coefficients kg and k, depend on the specific setup of the flow.
+
+Before the discussion of numerical results at finer lattice spacings, let us take a closer
+look at this expected scaling in the continuum, in particular at the coefficients we intro-
+duced. For instance, k; will be smaller for defects that are larger in physical units; further-
+
+more, the same coefficient still contains a residual dependence on ngtep, as the decorrelation
+does not occur simply in the prior distribution, but also during the non-equilibrium evo-
+lution. Looking at ko instead, it is clear that it depends heavily on the architecture itself:
+for example, one can imagine a more efficient coupling layer that further reduces the cost
+in units of nstep to reach the same value of ESS.
+
+In the flows studied in this work, we always have nstep > Nbetween, at least by a factor
+3 if not more. It makes sense, then, to “space” the evolutions by increasing npetween,
+as the largest contribution to the sampling costs comes from the flow itself. However,
+with the development of more advanced SNF architectures the corresponding coefficient
+ko will become much smaller, and the a~? term will be the dominant one. In a sense,
+in this situation the whole simulation would look more similar to a standard one, with
+the addition of a lightweight flow that safely removes all OBC effects; the role of Npetween
+would also be less relevant, as the flow itself would be cheap to apply. We reckon this is
+the explicit goal of future developments for SNF-based approaches.
+
+We now turn to some numerical tests we conducted at relatively fine lattice spacings
+in order to perform a variety of checks for this approach. First, we wish to verify that
+the autocorrelations are indeed under control; second, that the scaling of both (Wa). and
+
+23 -
+| 8 | ro/a | affm| | L/a | Lffm] | La/a | Laff]
+64| 9.74 | 0.051| 30 | 154 | 3,4 | 0.16, 0.21
+6.5 | 11.09 | 0.045 | 34 1.53 4,5 | 0.18, 0.23
+
+Table 2. Setup of our simulations at finer lattice spacings, with the corresponding volume and
+defect. size in physical and lattice units. In order to set the scale we used Ref. [165].
+B flow La/a | step | Mbetween | Nev ESS Tint (Q?)
+NE-MCMC 3 250 00 1050 | 0.16(4) .01(14)
+NE-MCMC 3 250 200 1000 | 0.13(2) | 0.50(3
+64 NE-MCMC 3 400 00 1000 | 0.29(4) | 0.68(7
+NE-MCMC 3 600 00 1020 | 0.44(3) | 0.61(7
+NE-MCMC 4 590 50 800 | 0.18(5) | 0.54(6
+NE-MCMC 4 950 50 960 | 0.33(3) | 0.50(3
+SNF 3 200 00 1080 | 0.41(2) 1.5(3)
+SNF 3 600 00 1200 | 0.74(1) | 0.71(9
+NE-MCMC 4 595 30 1250 | 0.04(3) | 0.73(8
+NE-MCMC 4 950 30 830 | 0.40(4) | 0.70(9
+6.5 | NE-MCMC 4 1425 30 560 | 0.52(2) | 0.66(9
+NE-MCMC 5 1153 65 670 | 0.19(2) 0.5(1)
+NE-MCMC 5 1860 65 420 | 0.45(2) 0.5(1)
+Table 3. Details of the various flow architectures used in the simulations at the two finer lattice
+spacings and the corresponding values of ESS and Tint (Q? 3
+ESS still holds at larger values of 6; third, that the training strategy for SNFs explained
+
+in Section 4 is viable also in this regime.
+
+We report in Table 2 the setup of our simulations and in Table 3 the details of the
+flows we used. We applied both the NE-MCMC and the SNF architectures described in
+detail in Sections 2 and 4 respectively. Each flow is identified by three main parameters:
+La, Nstep And Npetween. As a final goal, we also aim to understand which combination of
+these parameters is the most efficient to sample topological observables, at least to a good
+approximation.
+
+Looking at Table 3 we can immediately observe that the autocorrelations of Q? are
+completely under control, with values of Tint(Q?) never significantly larger than 1; this is
+an unquestionable signal that the topological charge is sampled efficiently for these choices
+of La, Nstep ANd Npetween. Results for (Wa), and ESS are also reported in Fig. 8, where it
+is possible to appreciate the same scaling of nstep with the number of degrees of freedom
+varied in the evolution, i-e., (La/a), that we discussed in Section 3.
+
+We also implemented SNF architectures using the same procedure followed in Section 4
+for 6 = 6.0. In particular, we trained the coupling layers only for architectures with
+Nstep = 8,16 on a small lattice with L/a = 16: the weights were then interpolated using
+
+the procedure described in Appendix A and applied to the sampling for all architectures
+on the lattice setups reported in Table 2. While there is no guarantee that this procedure
+
+24 -
+1.0
+
+16 j
+0.8
+| 0.6
+f 3
+
+: 0.2
+i
+0 5 10 15, 20 0 5 10 15 20
+Nstep/(La/a)* Mstep/(La/a)*
+Y NEMCMG, 3 =64, La/a=3 Y NEMCMG, 6 =64, La/a=4 & NEMCMC, § =6.5, La/a=5
+@ SNF, 8=64, La/a =3 & NEMCMC, 8 =6.5, La/a =4
+
+(Wa)
+
+0.0
+
+Figure 8. Results for the dissipated work of Eq. (2.14) (left panel) and the effective sample size of
+Eq. (2.20) (right panel) for flows in the boundary conditions as a function of ngtep divided by the
+size of the defect. All results were obtained either at 3 = 6.4 on a 30* lattice or at 8 = 6.5 ona
+
+344 lattice; see Table 2 for more details.
+
+yields the most efficient flow, it appears to provide nonetheless a remarkable improvement
+over the standard NE-MCMC for § = 6.4 and Ly/a = 3. In one case, we compared SNFs
+with NE-MCMC fixing nstep, with the former significantly outperforming the latter both in
+terms of (Wa) and ESS. Conversely, we also verified the same improvement factor observed
+in Section 4: namely, the NE-MCMC metrics could be matched with those from SNFs using
+only one third of Monte Carlo steps. Once more we stress that this improvement factor
+is obtained for negligible additional sampling costs and requires a cheap and relatively
+straightforward training of the stout smearing weights.
+
+Finally, we can look at results for the topological susceptibility: using both NE-MCMC
+
+and SNFs, we compute the expectation value of Q? appearing in Eq. (2.25) with the
+estimator of Eq. (2.4) using the appropriate definition of work. In this way we obtain the
+results shown in Fig. 9 both for 6 = 6.4 and 6 = 6.5, which immediately show perfect
+agreement with results quoted in Refs. [10, 166] obtained with much larger statistics. This
+serves as a sanity check that the methods described in this study do not introduce hidden
+systematic effects.
+
+6 Conclusions
+
+In this manuscript we have outlined a flow-based strategy to mitigate topological freezing
+in lattice gauge theories, based essentially on two ingredients. The first is the use of Open
+Boundary Conditions, a common tool in lattice calculations that is able to greatly reduce
+autocorrelations in topological observables. The second, novel ingredient is the use of
+approaches based on out-of-equilibrium simulations and Normalizing Flows to safely and
+efficiently remove the unwanted finite-size effects that OBC induce. The combination of
+
+the two provides a tool whose scaling in the continuum limit can be well estimated, even if
+
+25 -
+«10-6 B =6A,(L/a)! = 304 B =6.5,(L/a)' = 34! «19-6
+
+3 2
+é ME JHEP 01 (2024) 116
+Y NEMCMC, #6 =6.4 Lu/a =3 ME 2510.08006 1
+1 @ SNF, 5.4 La/a =3 A NEMCMC, $= 6.5 La/a =4
+Y NEMCMC, # =64 Ly/a=4 & NEMCMG, fp =6.5 La/a =5
+0 0
+0.0 0.2 0.4 . 0.6 0.8 10 0.0 0.2 0.4 . 0.6 0.8 1.0
+ESS ESS
+
+Figure 9. Results for atx, obtained with the NE-MCMC or SNF architectures described in the
+text, with nooo = 60 (R, ~ 12.6a ~ 0.4L). Horizontal bands correspond to results obtained in
+Refs. [10, 166].
+
+just approximately: extended testing in SU(3) pure gauge theory both at coarse and fine
+lattice spacings supports these findings.
+
+We devoted a substantial part of the manuscript to determining the computational cost
+of applying flows based on out-of-equilibrium evolutions. Indeed, at this stage, this cost
+still dominates the overall simulation budget towards the continuum, as it scales with a~?
+for fixed physical defect size; this is to be contrasted with the traditional a~? scaling of the
+autocorrelations themselves. However, future developments might change the coefficient
+ko of the a~? scaling in Eq. (5.3). In this work we already worked exactly in this direction,
+implementing a relatively simple SNF architecture which proved to be a factor 3 more
+efficient than standard NE-MCMC. We envision that pursuing a systematic improvement
+
+program of SNFs, in particular when designing more efficient gauge-equivariant coupling
+layers, will further decrease the ko coefficient for a limited cost in terms of training. We
+plan to do so by building on recent work in this direction [78, 84]. Acting on the stochastic
+updates themselves represents a promising direction as well: recent advancements in the
+literature [157, 167-175] (see Ref. [176] for a review) provide clear recipes to find an optimal
+protocol given a starting and a target probability distribution, minimizing the dissipated
+work (Wa)r given a fixed budget of MCMC steps. We plan to implement these techniques
+for out-of-equilibrium evolutions in lattice gauge theory: furthermore, achieving this goal
+would not simply improve efficiency, but enable full control over the fine details of the be-
+havior of this family of flow-based approaches. Fully realizing these improvement programs
+
+will simplify the budget of the computation costs: indeed, in the limit of very efficient flows,
+the simulation would very much look like a standard one, with mild autocorrelations and
+the effects of OBC swiftly removed.
+
+A natural extension of this work is to probe finer and finer lattice spacings in SU(3)
+Yang-Mills theory with correlations in topological observables completely under control.
+Part of the motivation is theoretical: are the cutoff effects of, e.g., the topological sus-
+
+ceptibility under control? Lattice spacings below 0.04 fm have never been explored for
+
+26 -
+such calculations, as the continuum limit usually relied on the use of measurements ob-
+tained on coarser lattices. Furthermore, it is extremely important to understand whether
+the strategy outlined in this manuscript actually holds in conditions where the standard
+MCMC features extreme autocorrelations: a large scale simulation of this kind will provide
+a challenging test.
+
+Interestingly, an extension of this approach to QCD with dynamical fermions presents
+no particular intrinsic conceptual challenges and would require minor changes to pre-
+existing codes. The generalization of NE-MCMC is relatively straightforward, requiring the
+switch to Hybrid Monte Carlo update algorithms instead of the heatbath+overrelaxation
+combination used in pure gauge simulations. A minimal implementation would also follow
+the work Ref. [52] in PTBC; open boundaries would be set only on the gauge fields, leaving
+standard antiperiodic ones for fermion fields. Furthermore, most ingredients needed for
+the design of suitable SNFs have been already studied. Any coupling layer developed for
+gauge fields in Yang-Mills theory can be directly ported to flow architectures for full QCD;
+similar transformations for fermionic variables have been also recently developed [80, 83].
+
+We leave the study of an optimally performing architecture in the presence of dynamical
+quark fields to future work.
+
+Finally, we stress once more how the use of flow-based approaches such as NE-MCMC
+and SNFs can be extended to a broad variety of theoretical setups, well beyond the issue
+of topological freezing. Recent efforts (including this one) have been focused on systems in
+which a localized set of degrees of freedom is changed along the evolution, see for example
+Refs. [53, 94, 96, 100]; in such cases, generally speaking, the only probability distribution
+of interest is the target one. However, out-of-equilibrium evolutions (and their SNF gen-
+eralizations) can be naturally applied to setups in which the action of the theory depends
+on a set of parameters (e.g., quark masses), all of which can be suitably varied (without
+breaking translational invariance). This is instead a multicanonical approach, in which
+multiple intermediate probability distributions are sampled in the same simulation. A typ-
+ical example is the computation of the equation of state, in which multiple temperatures
+are explored within the same evolution, see Ref. [92]. Thus, NE-MCMC and SNFs provide
+a solid and well-understood framework for a completely different way to perform numerical
+
+simulations in lattice gauge theories, which we intend to pursue in our future work.
+
+Acknowledgments
+
+We thank M. Caselle, G. Kanwar and M. Panero for insightful and helpful discussions. The
+work of C. B. is supported by the Spanish Research Agency (Agencia Estatal de Investi-
+gacién) through the grant IFT Centro de Excelencia Severo Ochoa CEX2020-001007-S
+and, partially, by grant PID2021-127526NB-100, both funded by MCIN/AEI/10.13039/
+501100011033. E. C. and A. N. acknowledge support and A. B. acknowledges partial sup-
+port by the Simons Foundation grant 994300 (Simons Collaboration on Confinement and
+QCD Strings). A. N. acknowledges support from the European Union - Next Generation
+EU, Mission 4 Component 1, CUP D53D23002970006, under the Italian PRIN “Progetti di
+Ricerca di Rilevante Interesse Nazionale — Bando 2022” prot. 2022ZTPK4E. A. B., E. C.,
+
+27 -
+A.N., D. P. and L. V. acknowledge support from the SFT Scientific Initiative of INFN.
+The work of D. V. is supported by STFC under Consolidated Grant No. ST/X000680/1.
+We acknowledge EuroHPC Joint Undertaking for awarding the project ID EHPC-DEV-
+2024D11-010 access to the LEONARDO Supercomputer hosted by the Consorzio Interuni-
+versitario per il Calcolo Automatico dell’Italia Nord Orientale (CINECA), Italy. This work
+was partially carried out using the computational facilities of the ” Lovelace” High Perfor-
+mance Computing Centre, University of Plymouth, https://www.plymouth.ac.uk/about-
+us/university-structure/faculties /science-engineering/hpc.
+
+Appendix
+A Interpolation strategy for defect coupling layer parameters
+
+Every SNF architecture used in this work, after fixing the value of the inverse coupling
+8 and the defect size Lq/a, should in principle be trained separately for each different
+value of nstep. However, the protocol we use is the same for all values of nstep, ie., it
+is linear in the \(n) parameter appearing in Eq. (2.24). This means that the path in
+the intermediate probability distributions is in good approximation the same, with each
+architecture traversing it at different speeds. Thus, it is not unreasonable to think that
+the parameters of the defect coupling layers discussed in Section 4 belonging to flows with
+varying step are related to each other; furthermore, the coupling layers used in this work
+are rather simple, as we are training directly the stout smearing parameters appearing in
+Eq. (4.11).
+
+Indeed, previous work in Ref. [54] showed that in the case of flow transformations in
+
+6, the stout smearing parameters obtained at a fixed nai) from the training procedure
+could be easily interpolated in the index of the coupling layer 1, with / € [1, neem), The
+
+same interpolating function was then used to determine the parameters at much larger
+values Nstep, Working remarkably well even for much slower transformations.
+
+In this work, we perform the same operation, but with a fundamental difference: since
+the translational and rotational symmetries of the lattice are lost due to the presence of the
+defect, we train the non-vanishing values of the p(n, x) parameters independently. Using
+separate interpolations would then be impractical, as the number of parameters is already
+quite large for Lg/a = 2, see Table 1. However, the parameters are not really independent,
+as the links on and around the defect that are interested by the stout smearing transfor-
+mations still enjoy a residual cubic symmetry. While rigorously implementing the latter
+would also leave us with a sizable number of parameters, we use a stronger prescription. In
+particular we consider only 9 “classes” of the Pi (n, 2) parameters, that we classify with
+the criteria described in Table 4.
+
+This classification was suggested by direct inspection of the relevant smearing param-
+eters in each of these families; we stress that it does not need to be exact, but only be
+able to transfer the relevant pieces of information obtained from a training at small nstep
+to an architecture at larger nstep. After dividing all the p=,(n,a) values in each of the 9
+
+pv
+sets of Table 4, we take the average of all the parameters belonging to that specific class
+
+28 -
+class | U,,(a) on defect | staple contains defect link | # other staples containing defect link
+tlb Yes No 5
+tle ‘Yes No 4
+tle ‘Yes No 3
+t2 Yes Yes 5
+t2b Yes Yes 4
+t2e Yes Yes 3
+t26 Yes Yes 2
+sp No (u #0) Yes -
+ex No (4 = 6) Yes -
+
+Table 4. Classification of the stout smearing parameters pit, (n, x) for fixed n obtained from the
+training described in the main text. U,,(x) is the link being transformed in Eq. (4.8), which can
+
+e or not be on the defect, see Eq. (2.24). Each pt, (n, x) multiplies a staple, see Eq. 4.11, which
+itself may contain a link on the defect or not. Finally, all the other staples connected to U,,(a) may
+contain a link on the defect as well. If no criteria is met, pt (n, x) is set to zero.
+
+B=6.0, La/a = 3, Nstep = 16
+
+1.0
+
+m tlb ® tle vo t2b <4 te * x
+@ tle A t2 > {2c @ sp
+
+Figure 10. Value of the averaged stout smearing parameters pt (n, x) classified according to the
+prescription of Table 4 and multiplied by nstep, along the various coupling layers with label n.
+
+(denoted with p(“*55)(n)) and we multiply it by nstep. We show these values in Fig. 10 for
+the case of 8 = 6.0, La/a = 3 and nstep = 16. The behavior for different inverse couplings
+and defect sizes is qualitatively similar, with the exception of Lqg/a = 2, where only 5
+classes can be identified due to geometry constraints. The last step is a spline interpo-
+lation in n/nstep € (0, 1] of ps5) (n) x Nstep: the resulting function (simply divided by
+Nstep) provides an extrapolation of p‘#55)(n) for any number of steps in the evolution; the
+corresponding interpolations are showed in Fig. 10.
+
+— 29 —
+References
+
+1
+
+10
+
+dal,
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+B. Alles, G. Boyd, M. D’Elia, A. Di Giacomo and E. Vicari, Hybrid Monte Carlo and
+topological modes of full QCD, Phys. Lett. B 389 (1996) 107 [hep-lat /9607049].
+
+L. Del Debbio, H. Panagopoulos and E. Vicari, 6 dependence of SU(N) gauge theories,
+JHEP 08 (2002) 044 [hep-th/0204125].
+
+L. Del Debbio, G. M. Manca and E. Vicari, Critical slowing down of topological modes,
+Phys. Lett. B 594 (2004) 315 [hep-lat /0403001].
+
+ALPHA collaboration, S. Schaefer, R. Sommer and F. Virotta, Critical slowing down and
+error analysis in lattice QCD simulations, Nucl. Phys. B 845 (2011) 93 [1009.5228].
+
+M. Liischer, Topology of Lattice Gauge Fields, Commun. Math. Phys. 85 (1982) 39.
+
+S. Dir, Z. Fodor, C. Hoelbling and T. Kurth, Precision study of the SU(8) topological
+susceptibility in the continuum, JHEP 04 (2007) 055 [hep-lat /0612021].
+
+M. Ce, C. Consonni, G. P. Engel and L. Giusti, Non-Gaussianities in the topological charge
+distribution of the SU(3) Yang-Mills theory, Phys. Rev. D 92 (2015) 074502 [1506 .06052].
+
+C. Bonati, M. D’Elia and A. Scapellato, 9 dependence in SU(3) Yang-Mills theory from
+analytic continuation, Phys. Rev. D 93 (2016) 025028 [1512.01544].
+
+A. Athenodorou and M. Teper, The glueball spectrum of SU(3) gauge theory in 3 + 1
+dimensions, JHEP 11 (2020) 172 [2007 .06422].
+
+C. Bonanno, The topological susceptibility slope y' of the pure-gauge SU(3) Yang-Mills
+theory, JHEP 01 (2024) 116 [2311.06646].
+
+S. Dir and G. Fuwa, The topological susceptibility and excess kurtosis in SU(3) Yang-Mills
+theory, 2501 .08217.
+
+L. Del Debbio, L. Giusti and C. Pica, Topological susceptibility in the SU(3) gauge theory,
+Phys. Rev. Lett. 94 (2005) 032003 [hep-th/0407052].
+
+M. Liischer and F. Palombi, Universality of the topological susceptibility in the SU(3) gauge
+theory, JHEP 09 (2010) 110 [1008.0732].
+
+ETM collaboration, K. Cichy, E. Garcia-Ramos, K. Jansen, K. Ottnad and C. Urbach,
+Non-perturbative Test of the Witten-Veneziano Formula from Lattice QCD, JHEP 09
+(2015) 020 [1504.07954].
+
+C. Bonanno, G. Clemente, M. D’Elia and F. Sanfilippo, Topology via spectral projectors
+with staggered fermions, JHEP 10 (2019) 187 [1908. 11832].
+
+M. Ce, M. Garcia Vera, L. Giusti and S. Schaefer, The topological susceptibility in the
+large-N limit of SU(N) Yang-Mills theory, Phys. Lett. B 762 (2016) 232 [1607 .05939].
+
+C. Bonati, M. D’Elia, P. Rossi and E. Vicari, 6 dependence of 4D SU(N) gauge theories in
+the large-N limit, Phys. Rev. D 94 (2016) 085017 [1607 .06360].
+
+C. Bonanno, C. Bonati and M. D’Elia, Large-N SU(N) Yang-Mills theories with milder
+topological freezing, JHEP 03 (2021) 111 [2012.14000].
+
+A. Athenodorou and M. Teper, SU(N) gauge theories in 8+1 dimensions: glueball spectrum,
+string tensions and topology, JHEP 12 (2021) 082 [2106.00364].
+
+R. Brower, S. Chandrasekharan, J. W. Negele and U. J. Wiese, QCD at fixed topology,
+Phys. Lett. B 560 (2003) 64 [hep-lat/0302005].
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+36
+37
+
+38
+
+39
+
+40
+
+41
+
+S. Aoki, H. Fukaya, S. Hashimoto and T. Onogi, Finite volume QCD at fixed topological
+charge, Phys. Rev. D 76 (2007) 054508 [0707 .0396].
+
+P. Fritzsch, A. Ramos and F. Stollenwerk, Critical slowing down and the gradient flow
+coupling in the Schrédinger functional, PoS Lattice2013 (2014) 461 [1311.7304].
+
+A. Ramos Martinez and G. Catumba, Testing universality of gauge theories, PoS’
+LATTICE2022 (2023) 383.
+
+W. Bietenholz, P. de Forcrand and U. Gerber, Topological Susceptibility from Slabs, JHEP
+12 (2015) 070 [1509.06433].
+
+A. Laio, G. Martinelli and F. Sanfilippo, Metadynamics surfing on topology barriers: the
+CPN-! case, JHEP 07 (2016) 089 [1508 .07270].
+
+M. Liischer, Stochastic locality and master-field simulations of very large lattices, EPJ Web
+Conf. 175 (2018) 01002 [1707 .09758}.
+
+C. Bonati and M. D’Elia, Topological critical slowing down: variations on a toy model,
+Phys. Rev. E 98 (2018) 013308 [1709. 10034].
+
+L. Giusti and M. Liischer, Topological susceptibility at T > T. from master-field simulations
+of the SU(3) gauge theory, Eur. Phys. J. C 79 (2019) 207 [1812.02062].
+
+A. Florio, O. Kaczmarek and L. Mazur, Open-Boundary Conditions in the Deconfined
+Phase, Eur. Phys. J. C 79 (2019) 1039 [1903.02894].
+
+L. Funcke, K. Jansen and S. Kiithn, Topological vacuum structure of the Schwinger model
+with matrix product states, Phys. Rev. D 101 (2020) 054507 [1908.00551].
+
+D. Albandea, P. Herndndez, A. Ramos and F. Romero-Lépez, Topological sampling through
+windings, Eur. Phys. J. C 81 (2021) 873 [2106 . 14234].
+
+G. Cossu, D. Lancastera, B. Lucini, R. Pellegrini and A. Rago, Ergodic sampling of the
+topological charge using the density of states, Eur. Phys. J. C 81 (2021) 375 [2102.03630].
+
+S. Borsanyi and D. Sexty, Topological susceptibility of pure gauge theory using Density of
+States, Phys. Lett. B 815 (2021) 136148 [2101 .03383].
+
+P. Fritzsch, J. Bulava, M. Cé, A. Francis, M. Liischer and A. Rago, Master-field simulations
+of QCD, PoS LATTICE2021 (2022) 465 [2111.11544).
+
+T. Eichhorn, G. Fuwa, C. Hoelbling and L. Varnhorst, Parallel tempered metadynamics:
+Overcoming potential barriers without surfing or tunneling, Phys. Rev. D 109 (2024)
+114504 [2307 04742].
+
+D. Howarth and A. J. Peterson, Topological charge unfreezing with AMReX, 2312.11599.
+
+D. Albandea, G. Catumba and A. Ramos, Strong CP problem in the quantum rotor, Phys.
+Rev. D 110 (2024) 094512 (2402. 17518].
+
+M. Abe, O. Morikawa and H. Suzuki, Monte Carlo Simulation of the SU(2)/Z2 Yang-Mills
+Theory, 2501.00286.
+
+J. Finkenrath, Review on Algorithms for dynamical fermions, PoS LATTICE2022 (2023)
+227 [2402. 11704].
+
+P. A. Boyle, Advances in algorithms for solvers and gauge generation, PoS
+LATTICE2023 (2024) 122 [2401.16620].
+
+J. Finkenrath, Future trends in lattice QCD simulations, PoS EuroPLEx2023 (2024) 009.
+
+sis 31 -
+42
+
+43
+
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+60
+
+M. Liischer and S. Schaefer, Lattice QCD without topology barriers, JHEP O7 (2011) 036
+[1105. 4749].
+
+M. Luscher and S. Schaefer, Lattice QCD with open boundary conditions and twisted-mass
+reweighting, Comput. Phys. Commun. 184 (2013) 519 [1206 .2809].
+
+G. McGlynn and R. D. Mawhinney, Diffusion of topological charge in lattice QCD
+simulations, Phys. Rev. D 90 (2014) 074502 [1406.4551].
+
+M. Hasenbusch, Fighting topological freezing in the two-dimensional CP’~! model, Phys.
+Rev. D 96 (2017) 054504 [1706 . 04443].
+
+M. Berni, C. Bonanno and M. D’Elia, Large-N expansion and 6-dependence of 2d CPN~!
+models beyond the leading order, Phys. Rev. D 100 (2019) 114509 [1911.03384].
+
+C. Bonanno, Lattice determination of the topological susceptibility slope x’ of 2d CPN~+
+models at large N, Phys. Rev. D 107 (2023) 014514 [2212.02330].
+
+C. Bonanno, M. D’Elia, B. Lucini and D. Vadacchino, Towards glueball masses of large-N
+SU(N) pure-gauge theories without topological freezing, Phys. Lett. B 833 (2022) 137281
+[2205 06190].
+
+C. Bonanno, M. D’Elia and L. Verzichelli, The 6-dependence of the SU(N) critical
+temperature at large N, JHEP 02 (2024) 156 [2312.12202].
+
+C. Bonanno, J. L. Dasilva Goldn, M. D’Elia, M. Garcia Pérez and A. Giorgieri, The SU(3)
+twisted gradient flow strong coupling without topological freezing, Eur. Phys. J. C 84 (2024)
+916 [2403. 13607].
+
+C. Bonanno, C. Bonati, M. Papace and D. Vadacchino, The 0-dependence of the Yang-Mills
+spectrum from analytic continuation, JHEP 05 (2024) 163 [2402.03096].
+
+C. Bonanno, G. Clemente, M. D’Elia, L. Maio and L. Parente, Full QCD with milder
+topological freezing, JHEP 08 (2024) 236 [2404.14151].
+
+C. Bonanno, A. Nada and D. Vadacchino, Mitigating topological freezing using
+out-of-equilibrium simulations, JHEP 04 (2024) 126 [2402.06561].
+
+A. Bulgarelli, E. Cellini and A. Nada, Scaling of stochastic normalizing flows in SU(3)
+lattice gauge theory, Phys. Rev. D 111 (2025) 074517 [2412.00200].
+
+M. Caselle, G. Costagliola, A. Nada, M. Panero and A. Toniato, Jarzynski’s theorem for
+lattice gauge theory, Phys. Rev. D 94 (2016) 034503 [1604.05544].
+
+M. Caselle, E. Cellini, A. Nada and M. Panero, Stochastic normalizing flows as
+non-equilibrium transformations, JHEP O07 (2022) 015 [2201 .08862].
+
+M. S. Albergo, G. Kanwar and P. E. Shanahan, Flow-based generative models for Markov
+chain Monte Carlo in lattice field theory, Phys. Rev. D 100 (2019) 034515 [1904.12072].
+
+K. Cranmer, G. Kanwar, S$. Racaniére, D. J. Rezende and P. E. Shanahan, Advances in
+machine-learning-based sampling motivated by lattice quantum chromodynamics, Nature
+Rev. Phys. 5 (2023) 526 [2309.01156].
+
+M. Liischer, Trivializing maps, the Wilson flow and the HMC algorithm, Commun. Math.
+Phys. 293 (2010) 899 [0907.5491].
+
+G. P. Engel and 8. Schaefer, Testing trivializing maps in the Hybrid Monte Carlo algorithm,
+Comput. Phys. Commun. 182 (2011) 2107 [1102.1852].
+61
+
+62
+
+63
+
+64
+
+66
+
+67
+
+68
+
+69
+
+70
+
+71
+
+72
+
+73.
+
+74
+
+76
+
+77
+
+D. Rezende and S$. Mohamed, Variational inference with normalizing flows, in International
+conference on machine learning, pp. 1530-1538, PMLR, 2015.
+
+G. Papamakarios, E. T. Nalisnick, D. J. Rezende, S. Mohamed and B. Lakshminarayanan,
+
+Normalizing Flows for Probabilistic Modeling and Inference, J. Mach. Learn. Res. 22 (2021)
+1.
+
+K. A. Nicoli, C. J. Anders, L. Funcke, T. Hartung, K. Jansen, P. Kessel et al., Estimation
+of Thermodynamic Observables in Lattice Field Theories with Deep Generative Models,
+Phys. Rev. Lett. 126 (2021) 032001 [2007 .07115].
+
+K. A. Nicoli, S. Nakajima, N. Strodthoff, W. Samek, K.-R. Miiller and P. Kessel,
+Asymptotically unbiased estimation of physical observables with neural samplers, Phys. Rev.
+E 101 (2020) 023304 [1910. 13496].
+
+L. Del Debbio, J. M. Rossney and M. Wilson, Efficient modeling of trivializing maps for
+lattice 64 theory using normalizing flows: A first look at scalability, Phys. Rev. D 104
+(2021) 094507 [2105.12481].
+
+M. Gerdes, P. de Haan, C. Rainone, R. Bondesan and M. C. N. Cheng, Learning lattice
+quantum field theories with equivariant continuous flows, SciPost Phys. 15 (2023) 238
+[2207 00283].
+
+A. Singha, D. Chakrabarti and V. Arora, Conditional normalizing flow for Markov chain
+Monte Carlo sampling in the critical region of lattice field theory, Phys. Rev. D 107 (2023)
+014512 [2207 .00980].
+
+S. Chen, O. Savchuk, S. Zheng, B. Chen, H. Stoecker, L. Wang et al., Fourier-flow model
+generating Feynman paths, Phys. Rev. D 107 (2023) 056001 [2211.03470].
+
+M. Caselle, E. Cellini and A. Nada, Sampling the lattice Nambu-Goto string using
+Continuous Normalizing Flows, JHEP 02 (2024) 048 [2307.01107].
+
+D. Albandea, L. Del Debbio, P. Hernandez, R. Kenway, J. Marsh Rossney and A. Ramos,
+Learning trivializing flows, Eur. Phys. J. C 83 (2023) 676 [2302 .08408].
+
+J. Kreit, D. Schuh, K. A. Nicoli and L. Funcke, SESaMo: Symmetry-Enforcing Stochastic
+Modulation for Normalizing Flows, 2505.19619.
+
+D. Schuh, J. Kreit, E. Berkowitz, L. Funcke, T. Luu, K. A. Nicoli et al., Simulating
+Correlated Electrons with Symmetry-Enforced Normalizing Flows, 2506.17015.
+
+G. Kanwar, M. S. Albergo, D. Boyda, K. Cranmer, D. C. Hackett, S. Racaniére et al.,
+Equivariant flow-based sampling for lattice gauge theory, Phys. Rev. Lett. 125 (2020)
+121601 (2003. 06413].
+
+D. Boyda, G. Kanwar, S$. Racaniére, D. J. Rezende, M. S. Albergo, K. Cranmer et al.,
+Sampling using SU(N) gauge equivariant flows, Phys. Rev. D 103 (2021) 074504
+[2008 . 05456].
+
+M. Favoni, A. Ipp, D. I. Miiller and D. Schuh, Lattice Gauge Equivariant Convolutional
+Neural Networks, Phys. Rev. Lett. 128 (2022) 032003 [2012.12901].
+
+S. Bacchio, P. Kessel, §. Schaefer and L. Vaitl, Learning trivializing gradient flows for
+lattice gauge theories, Phys. Rev. D 107 (2023) L051504 [2212.08469].
+
+A. Singha, D. Chakrabarti and V. Arora, Sampling U(1) gauge theory using a retrainable
+conditional flow-based model, Phys. Rev. D 108 (2023) 074518 [2306 .00581].
+78
+
+i)
+
+80
+
+81
+
+82
+
+83
+
+84
+
+85
+
+86
+
+87
+
+88
+
+89
+
+90
+
+91
+
+92
+
+93
+
+94
+
+95,
+
+96
+
+R. Abbott et al., Normalizing flows for lattice gauge theory in arbitrary space-time
+dimension, 2305 .02402.
+
+M. Gerdes, P. de Haan, R. Bondesan and M. C. N. Cheng, Continuous normalizing flows
+for lattice gauge theories, 2410.13161.
+
+M.S. Albergo, G. Kanwar, S. Racaniére, D. J. Rezende, J. M. Urban, D. Boyda et al.,
+Flow-based sampling for fermionic lattice field theories, Phys. Rev. D 104 (2021) 114507
+[2106. 05934].
+
+J. Finkenrath, Tackling critical slowing down using global correction steps with equivariant
+flows: the case of the Schwinger model, 2201 .02216.
+
+M. S. Albergo, D. Boyda, K. Cranmer, D. C. Hackett, G. Kanwar, S. Racaniére et al.,
+Flow-based sampling in the lattice Schwinger model at criticality, Phys. Rev. D 106 (2022)
+014514 [2202. 11712].
+
+R. Abbott et al., Gauge-equivariant flow models for sampling in lattice field theories with
+pseudofermions, Phys. Rev. D 106 (2022) 074506 [2207 .08945].
+
+R. Abbott, A. Botev, D. Boyda, D. C. Hackett, G. Kanwar, S. Racaniére et al.,
+Applications of flow models to the generation of correlated lattice QCD ensembles, Phys.
+Rev. D 109 (2024) 094514 [2401. 10874].
+
+R. Abbott et al., Aspects of scaling and scalability for flow-based sampling of lattice QCD,
+Eur. Phys. J. A 59 (2023) 257 [2211.07541].
+
+J. Komijani and M. K. Marinkovic, Generative models for scalar field theories: how to deal
+with poor scaling?, PoS LATTICE2022 (2023) 019 [2301.01504].
+
+C. Jarzynski, Nonequilibrium Equality for Free Energy Differences, Phys. Rev. Lett. 78
+(1997) 2690 [cond-mat/9610209].
+
+C. Jarzynski, Equilibrium free-energy differences from nonequilibrium measurements: A
+master-equation approach, Phys. Rev. E56 (1997) 5018 [cond-mat /9707325].
+
+C. Jarzynski, Equilibrium Free Energies from Nonequilibrium Processes, Acta Phys. Polon.
+B29 (1998) 1609 [cond-mat/9802155].
+
+G. E. Crooks, Nonequilibrium Measurements of Free Energy Differences for Microscopically
+Reversible Markovian Systems, Journal of Statistical Physics 90 (1998) 1481.
+
+G. E. Crooks, Entropy production fluctuation theorem and the nonequilibrium work relation
+for free energy differences, Phys. Rev. E 60 (1999) 2721.
+
+M. Caselle, A. Nada and M. Panero, QCD thermodynamics from lattice calculations with
+nonequilibrium methods: The SU(3) equation of state, Phys. Rev. D 98 (2018) 054513
+[1801.03110].
+
+O. Francesconi, M. Panero and D. Preti, Strong coupling from non-equilibrium Monte Carlo
+simulations, JHEP O7 (2020) 233 [2003. 13734].
+
+A. Bulgarelli and M. Panero, Entanglement entropy from non-equilibrium Monte Carlo
+simulations, JHEP 06 (2023) 030 [2304.03314].
+
+A. Bulgarelli and M. Panero, Duality transformations and the entanglement entropy of
+gauge theories, JHEP 06 (2024) 041 [2404.01987].
+
+A. Bulgarelli, M. Caselle, A. Nada and M. Panero, Casimir effect in critical O(N) models
+from non-equilibrium Monte Carlo simulations, 2505 .20403.
+[99
+
+100
+
+101
+
+102
+
+103
+
+104
+
+106
+
+107
+
+108
+
+109
+
+110
+
+dil
+112
+
+113
+
+114
+
+D. Vadacchino, A. Nada and C. Bonanno, Topological susceptibility of SU(3) pure-gauge
+theory from out-of-equilibrium simulations, PoS LATTICE2024 (2025) 415 [2411.00620].
+
+H. Wu, J. Kohler and F. Noe, Stochastic Normalizing Flows, in Advances in Neural
+Information Processing Systems, vol. 33, pp. 5933-5944, 2020, 2002.06707.
+
+M. Caselle, E. Cellini and A. Nada, Numerical determination of the width and shape of the
+effective string using Stochastic Normalizing Flows, JHEP 02 (2025) 090 [2409.15937].
+
+A. Bulgarelli, E. Cellini, K. Jansen, S. Kiihn, A. Nada, S. Nakajima et al., Flow-Based
+Sampling for Entanglement Entropy and the Machine Learning of Defects, Phys. Rev. Lett.
+134 (2025) 151601 [2410. 14466].
+
+R. M. Neal, Annealed importance sampling, Statistics and Computing 11 (2001) 125
+[physics/9803008].
+
+C. Dai, J. Heng, P. Jacob and N. Whiteley, An invitation to sequential monte carlo
+samplers, Journal of the American Statistical Association 117 (2022) 1587 [2007 . 11936].
+
+M. Arbel, A. Matthews and A. Doucet, Annealed flow transport monte carlo, in
+International Conference on Machine Learning, pp. 318-330, PMLR, 2021, 2102.07501,
+https: //proceedings.mlr.press/v139/arbel21a.html.
+
+A. G. D. G. Matthews, M. Arbel, D. J. Rezende and A. Doucet, Continual Repeated
+Annealed Flow Transport Monte Carlo, in International Conference on Machine Learning,
+pp. 15196-15219, PMLR, 2022, 2201.13117,
+
+https: //proceedings.mlr.press/v162/matthews22a.html.
+
+M. S. Albergo and E. Vanden-Eijnden, NETS: A Non-Equilibrium Transport Sampler,
+2410.02711.
+
+L. Wang, G. Aarts and K. Zhou, Diffusion models as stochastic quantization in lattice field
+theory, JHEP 05 (2024) 060 [2309. 17082].
+
+Q. Zhu, G. Aarts, W. Wang, K. Zhou and L. Wang, Diffusion models for lattice gauge field
+simulations, in 38th conference on Neural Information Processing Systems, 10, 2024,
+2410.19602.
+
+G. Aarts, D. E. Habibi, L. Wang and K. Zhou, On learning higher-order cumulants in
+diffusion models, Mach. Learn. Sci. Tech. 6 (2025) 025004 [2410.21212].
+
+Q. Zhu, G. Aarts, W. Wang, K. Zhou and L. Wang, Physics-Conditioned Diffusion Models
+for Lattice Gauge Theory, 2502.05504.
+
+G. Aarts, D. E. Habibi, L. Wang and K. Zhou, Combining complex Langevin dynamics with
+score-based and energy-based diffusion models, 2510.01328.
+
+M. Creutz, Overrelaxation and Monte Carlo Simulation, Phys. Rev. D 36 (1987) 515.
+
+M. Creutz, Monte Carlo Study of Quantized SU(2) Gauge Theory, Phys. Rev. D 21 (1980)
+2308.
+
+A. D. Kennedy and B. J. Pendleton, Improved Heat Bath Method for Monte Carlo
+Calculations in Lattice Gauge Theories, Phys. Lett. B 156 (1985) 393.
+
+N. Cabibbo and E. Marinari, A New Method for Updating SU(N) Matrices in Computer
+Simulations of Gauge Theories, Phys. Lett. B 119 (1982) 387.
+
+M. Campostrini, A. Di Giacomo and H. Panagopoulos, The Topological Susceptibility on the
+Lattice, Phys. Lett. B 212 (1988) 206.
+116
+
+117)
+
+118
+
+119
+
+120
+
+121
+
+122
+
+123
+
+124
+
+125
+
+126
+
+127
+
+128
+
+129
+
+130
+
+131
+
+132
+
+133
+
+134
+
+E. Vicari and H. Panagopoulos, 6 dependence of SU(N) gauge theories in the presence of a
+topological term, Phys. Rept. 470 (2009) 93 [0803. 1593].
+
+P. Di Vecchia, K. Fabricius, G. C. Rossi and G. Veneziano, Preliminary Evidence for U(1)a
+Breaking in QCD from Lattice Calculations, Nucl. Phys. B 192 (1981) 392.
+
+P. Di Vecchia, K. Fabricius, G. Rossi and G. Veneziano, Numerical Checks of the Lattice
+Definition Independence of Topological Charge Fluctuations, Phys. Lett. B 108 (1982) 323.
+
+M. Campostrini, A. Di Giacomo, H. Panagopoulos and E. Vicari, Topological Charge,
+Renormalization and Cooling on the Lattice, Nucl. Phys. B 329 (1990) 683.
+
+M. D’Elia, Field theoretical approach to the study of theta dependence in Yang-Mills
+theories on the lattice, Nucl. Phys. B 661 (2003) 139 [hep-lat /0302007].
+
+B. Alles, M. D’Elia and A. Di Giacomo, Topological susceptibility at zero and finite T in
+SU(8) Yang-Mills theory, Nucl. Phys. B 494 (1997) 281 [hep-lat /9605013].
+
+B. Alles, M. D’Elia and A. Di Giacomo, Topology at zero and finite T in SU(2) Yang-Mills
+theory, Phys. Lett. B 412 (1997) 119 [hep-lat/9706016].
+
+B. Lucini, M. Teper and U. Wenger, Topology of SU(N) gauge theories at T ~ 0 and
+T ~T., Nucl. Phys. B'715 (2005) 461 [hep-lat /0401028].
+
+L. Giusti, S. Petrarca and B. Taglienti, 9 dependence of the vacuum energy in the SU(3)
+gauge theory from the lattice, Phys. Rev. D 76 (2007) 094510 [0705. 2352].
+
+H. Panagopoulos and E. Vicari, The 4D SU(3) gauge theory with an imaginary 6 term,
+JHEP 11 (2011) 119 [1109.6815}.
+
+C. Bonati, M. D’Elia, H. Panagopoulos and E. Vicari, Change of 6 Dependence in 4D
+SU(N) Gauge Theories Across the Deconfinement Transition, Phys. Rev. Lett. 110 (2013)
+252003 [1301.7640].
+
+E. Berkowitz, M. I. Buchoff and E. Rinaldi, Lattice QCD input for azion cosmology, Phys.
+Rev. D 92 (2015) 034507 [1505.07455].
+
+S. Borsanyi, M. Dierigl, Z. Fodor, S. Katz, S. Mages, D. Nogradi et al., Axion cosmology,
+lattice QCD and the dilute instanton gas, Phys. Lett. B 752 (2016) 175 [1508.06917].
+
+C. Bonati, M. Cardinali and M. D’Elia, 6 dependence in trace deformed SU(3) Yang-Mills
+theory: a lattice study, Phys. Rev. D 98 (2018) 054508 [1807 .06558].
+
+C. Bonati, M. Cardinali, M. D’Elia and F. Mazziotti, @-dependence and center symmetry in
+Yang-Mills theories, Phys. Rev. D 101 (2020) 034508 [1912.02662].
+
+C. Bonati, M. D’Elia, M. Mariti, G. Martinelli, M. Mesiti, F. Negro et al., Axion
+phenomenology and 6-dependence from Nr = 2 +1 lattice QCD, JHEP 03 (2016) 155
+[1512.06746].
+
+P. Petreczky, H.-P. Schadler and §. Sharma, The topological susceptibility in finite
+temperature QCD and axion cosmology, Phys. Lett. B 762 (2016) 498 [1606 .03145].
+
+J. Frison, R. Kitano, H. Matsufuru, S. Mori and N. Yamada, Topological susceptibility at
+high temperature on the lattice, JHEP 09 (2016) 021 [1606.07175].
+
+S. Borsanyi et al., Calculation of the axion mass based on high-temperature lattice quantum
+chromodynamics, Nature 539 (2016) 69 [1606 .07494].
+139
+
+140
+
+141
+
+142
+
+143
+
+144
+
+145
+
+146
+
+147
+
+148
+
+149
+
+150
+
+151
+
+152
+
+C. Bonati, M. D’Elia, G. Martinelli, F. Negro, F. Sanfilippo and A. Todaro, Topology in full
+QCD at high temperature: a multicanonical approach, JHEP 11 (2018) 170 [1807 .07954].
+
+F. Burger, E.-M. Ilgenfritz, M. P. Lombardo and A. Trunin, Chiral observables and topology
+in hot QCD with two families of quarks, Phys. Rev. D 98 (2018) 094501 [1805 .06004].
+
+TWQCD collaboration, Y.-C. Chen, T.-W. Chiu and T.-H. Hsieh, Topological susceptibility
+in finite temperature QCD with physical (u/d,s,c) domain-wall quarks, Phys. Rev. D 106
+(2022) 074501 [2204.01556)].
+
+A. Athenodorou, C. Bonanno, C. Bonati, G. Clemente, F. D’Angelo, M. D’Elia et al.,
+Topological susceptibility of Nf = 2 + 1 QCD from staggered fermions spectral projectors at
+high temperatures, JHEP 10 (2022) 197 [2208.08921].
+
+P. Butti, M. Della Morte, B. Jager, S. Martins and J. T. Tsang, Comparison of
+smoothening flows for the topological charge in QCD-like theories, Phys. Rev. D 112 (2025)
+014504 [2504. 10197].
+
+B. Berg, Dislocations and Topological Background in the Lattice O(3) o Model, Phys. Lett.
+B 104 (1981) 475.
+
+Y. Iwasaki and T. Yoshie, Instantons and Topological Charge in Lattice Gauge Theory,
+Phys. Lett. B 131 (1983) 159.
+
+S. Itoh, Y. Iwasaki and T. Yoshie, Stability of Instantons on the Lattice and the
+Renormalized Trajectory, Phys. Lett. B 147 (1984) 141.
+
+M. Teper, Instantons in the Quantized SU(2) Vacuum: A Lattice Monte Carlo
+Investigation, Phys. Lett. B 162 (1985) 357.
+
+E.-M. Ilgenfritz, M. Laursen, G. Schierholz, M. Miiller-Preussker and H. Schiller, First
+Evidence for the Existence of Instantons in the Quantized SU(2) Lattice Vacuum, Nucl.
+Phys. B 268 (1986) 693.
+
+B. Alles, L. Cosmai, M. D’Elia and A. Papa, Topology in 2D CPN~! models on the lattice:
+A Critical comparison of different cooling techniques, Phys. Rev. D 62 (2000) 094507
+[hep-lat /0001027].
+
+APE collaboration, M. Albanese et al., Glueball Masses and String Tension in Lattice
+QCD, Phys. Lett. B 192 (1987) 163.
+
+C. Morningstar and M. J. Peardon, Analytic smearing of SU(3) link variables in lattice
+QCD, Phys. Rev. D 69 (2004) 054501 [hep-lat /0311018].
+
+R. Narayanan and H. Neuberger, Infinite N phase transitions in continwum Wilson loop
+operators, JHEP 03 (2006) 064 [hep-th/0601210].
+
+M. Liischer, Properties and uses of the Wilson flow in lattice QCD, JHEP 08 (2010) 071
+[1006. 4518].
+
+M. Liischer and P. Weisz, Perturbative analysis of the gradient flow in non-abelian gauge
+theories, JHEP 02 (2011) 051 [1101.0963].
+
+R. Lohmayer and H. Neuberger, Continuous smearing of Wilson Loops, PoS
+LATTICE2011 (2011) 249 [1110.3529].
+
+C. Bonati and M. D’Elia, Comparison of the gradient flow with cooling in SU(3) pure gauge
+theory, Phys. Rev. D D89 (2014) 105005 [1401. 2441].
+153
+
+154
+
+155
+
+156
+157
+
+158
+
+160
+
+161
+
+162
+
+163
+
+164
+165
+
+166
+
+167
+
+168
+
+169
+
+170
+
+171
+
+C. Alexandrou, A. Athenodorou and K. Jansen, Topological charge using cooling and the
+gradient flow, Phys. Rev. D 92 (2015) 125014 [1509.04259].
+
+C. Bonanno, A. Bulgarelli, E. Cellini, A. Nada, D. Panfalone, D. Vadacchino, L. Verzichelli,
+yang_mills_SNF_Jarzynski. CPU code,
+https: //github.com/alessandronada/yang_mills SNF_Jarzynski.
+
+C. Bonanno, yang_mills_PTBC. CPU code,
+https: //github.com/Claudio-Bonanno-93/yang_mills PTBC.
+C. Bonati, yang_mills. CPU code, https://claudio-bonati/yang-mills.
+
+D. A. Sivak and G. E. Crooks, Thermodynamic metrics and optimal paths, Phys. Rev. Lett.
+108 (2012) [1201.4166].
+
+C. Jarzynski, Rare events and the convergence of exponentially averaged work values, Phys.
+Rev. E 73 (2006) [cond-mat/0603185].
+
+S. Vaikuntanathan and C. Jarzynski, Escorted free energy simulations, The Journal of
+Chemical Physics 134 (2011) [1101.2612].
+
+T. Cohen and M. Welling, Group equivariant convolutional networks, in Proceedings of The
+33rd International Conference on Machine Learning (M. F. Balcan and K. Q. Weinberger,
+eds.), vol. 48 of Proceedings of Machine Learning Research, (New York, New York, USA),
+
+pp. 2990-2999, PMLR, 20-22 Jun, 2016, https://proceedings.mlr.press/v48/cohenc16.html.
+
+J. Kohler, L. Klein and F. Noé, Equivariant flows: sampling configurations for multi-body
+systems with symmetric energies, 1910.00753.
+
+Y. Nagai and A. Tomiya, Gauge covariant neural network for quarks and gluons, Phys. Rev.
+D 111 (2025) 074501 [2103.11965].
+
+A. Bulgarelli, E. Cellini, A. Nada, snf_su3. CPU/GPU PyTorch code,
+https: //github.com/alessandronada/snf_su3.
+
+D. P. Kingma and J. Ba, Adam: A Method for Stochastic Optimization, 1412.6980.
+
+S. Necco and R. Sommer, The N(f) = 0 heavy quark potential from short to intermediate
+distances, Nucl. Phys. B 622 (2002) 328 [hep-lat /0108008].
+
+C. Bonanno, The large-N limit of the topological susceptibility of SU(N) Yang-Mills
+theories via Parallel Tempering on Boundary Conditions, 2510 .08006.
+
+T. Schmied] and U. Seifert, Optimal finite-time processes in stochastic thermodynamics,
+Phys. Rev. Lett. 98 (2007) [cond-mat/0701554].
+
+A. Gomez-Marin, T. Schmiedl and U. Seifert, Optimal protocols for minimal work processes
+in underdamped stochastic thermodynamics, The Journal of Chemical Physics 129 (2008)
+[0803 . 0269].
+
+P. R. Zulkowski, D. A. Sivak, G. E. Crooks and M. R. DeWeese, Geometry of
+thermodynamic control, Phys. Rev. E 86 (2012) [1208.4553].
+
+G. M. Rotskoff and G. E. Crooks, Optimal control in nonequilibrium systems: Dynamic
+riemannian geometry of the ising model, Phys. Rev. E 92 (2015) [1510.06734].
+
+S. Blaber and D. A. Sivak, Skewed thermodynamic geometry and optimal free energy
+estimation, The Journal of Chemical Physics 153 (2020) [2009.14354].
+172] S. Blaber, M. D. Louwerse and D. A. Sivak, Steps minimize dissipation in rapidly driven
+stochastic systems, Phys. Rev. E 104 (2021) [2105.04691].
+
+173] M. V. S. Bonanga and 8. Deffner, Minimal dissipation in processes far from equilibrium,
+Phys. Rev. E 98 (2018) [1803.07050].
+
+174] L. P. Kamizaki, M. V. S. Bonanga and S. R. Muniz, Performance of optimal linear-response
+processes in driven brownian motion far from equilibrium, Phys. Rev. E 106 (2022)
+[2204.07145}.
+
+175] M. C. Engel, J. A. Smith and M. P. Brenner, Optimal control of nonequilibrium systems
+through automatic differentiation, Phys. Rev. X 13 (2023) 041032 [2201 .00098].
+
+176] S. Blaber and D. A. Sivak, Optimal control in stochastic thermodynamics, J. Phys.
+Commun. 7 (2023) 033001 [2212.00706].

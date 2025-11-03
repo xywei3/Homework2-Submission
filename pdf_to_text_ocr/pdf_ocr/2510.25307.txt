@@ -1,0 +1,1383 @@
+arXiv:2510.25307v1 [nlin.CD] 29 Oct 2025
+
+Can quantum dynamics emerge from classical chaos?
+
+Frédéric Faure*
+
+Abstract. Anosov geodesic flows are among the simplest mathematical models of deterministic chaos. In
+this survey we explain how, quite unexpectedly, quantum dynamics emerges from purely classical correlation
+functions. The underlying mechanism is the discrete Pollicott—-Ruelle spectrum of the geodesic flow, revealed
+through microlocal analysis. This spectrum naturally arranges into vertical bands; when the rightmost band is
+separated from the rest by a gap, it governs an effective dynamics that mirrors quantum evolution.
+
+1 Introduction.
+
+1.1 Problem of prediction. A fundamental question in science, central to dynamical systems theory, is
+whether one can predict the long-term behavior of a system from its short-term evolution law. Such questions
+arise not only in physics but also in pure mathematics, including areas such as arithmetic and geometry.
+
+1.2 Example in arithmetic. If the evolution law is simple to write down, one might expect the long-time
+behavior to be simple to predict. In practice this is rarely the case, and this is the main difficulty encountered in
+the “theory of deterministic chaos.” To illustrate this, let us present a very simple example of two closely related
+deterministic laws, each defining a sequence t € N ++ 2(t) € N from an initial value x(0) € N.
+
+First law.
+
+S
+S
+
+if x(t) is even
+
+3,
+(1.1) sten={i (t)+1)  ifa(t) is odd
+
+This simple rule is called the geometric series. One can predict explicitly that for any t € N, a(t) = [ x(0)] »where
+
+{-] denotes the ceiling function. Thus the sequence decays monotonically, and for any t > fun(0) one has z(t) = 1.
+Second law.
+
+IH tole
+
+a(t) if z(t) is even
+(3a (t)+1) if a(t) is odd
+
+NI
+
+(1.2) a(t+1)= {
+
+Despite its simple appearance, it remains the famous Collatz conjecture whether, for every initial value «(0) € N,
+the sequence eventually falls into the cycle 1, 2,1,2,.... Numerically one observes a complicated (chaotic) transient
+behavior. For instance, starting from (0) = 7, one obtains
+
+7, 11, 17, 26,13, 20, 10, 5, 16,.8,:4, 2, 1, 2, 1, 2,1,...
+
+(see Figure 1.1).
+
+1.3. Example in geometry. For a smooth Riemannian manifold (WV, g), the geodesic flow (defined precisely
+in Section 2.1) takes place on the unit cotangent bundle (T*\V),. In physics, the geodesic flow corresponds to the
+motion of a free particle in the curved space (V,g), i.e. motion without external forces, following the “straightest
+possible” path. Intuitively, for a smooth surface NV embedded in R°, starting from any point x € NV and any
+direction V € T,.N, the geodesic flow can be visualized as a narrow adhesive tape on NV, lying flat without folds
+and passing through (2, V) (see Figure 1.2).
+
+*Institut Fourier, UMR 5582, Laboratoire de Mathématiques, Université Grenoble Alpes, CS 40700, 38058 Grenoble
+cedex 9, France , frederic.faureQuniv-grenoble-alpes.fr, https: / /www-fourier.ujf-grenoble.fr/~ faure/
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+geometric sequence » Collatz sequence
+
+Figure 1.1: Illustration of the geometric sequence (1.1) and the Collatz sequence (1.2), starting from different
+initial values at t = 0.
+
+Figure 1.2: An adhesive tape laid on a vase NV follows the geodesics of the surface. Similarly, a light beam follows
+geodesics in a medium with spatially varying velocity c(q) > 0. In this case, the metric is conformal to the
+Euclidean metric: gf = c(4) Guc-
+
+Despite the simplicity of this deterministic evolution law, the long-time behavior of the geodesic flow may be
+difficult to predict. Consider, for example, a closed hyperbolic surface (V, g), that is, one whose Gauss curvature
+is « = —1 at every point. Figure 1.3(a) shows a single geodesic which appears highly chaotic, despite its unique
+and deterministic nature. This illustrates the so-called paradox of “deterministic chaos” (see also the videos [44]).
+
+Instead of considering the evolution of a single particle, one may simultaneously follow a smooth cloud of
+independent particles starting from very close initial conditions. This situation will be described in precise
+mathematical terms in Section 2 below. As illustrated in Figure 1.3(b), the cloud rapidly spreads over the
+entire phase space (I*NV)1, which explains the previous impression of unpredictability for a single trajectory.
+Theorem 2.5 below shows that the cloud spreads and converges exponentially towards the uniform measure on
+(T*N),. This phenomenon is called exponential mixing, and it expresses the chaotic character of the geodesic
+ow.
+
+Tf one looks more closely, one observes fluctuations of the density of this cloud around the equilibrium state.
+These fluctuations decay exponentially like e~'/?, where t denotes the evolution time. If one amplifies these
+fluctuations by the factor e’/?, then, as shown in Figure 1.3(c), they behave like waves on NV’. This observation is
+ormalized in Theorem 2.10 below (see also Section 3 for the special case of hyperbolic surfaces), and it constitutes
+he main theme of this paper, raised by the question in the title: “Can quantum dynamics emerge from classical
+deterministic chaos?” Indeed, the wave equation is usually regarded as the quantization of the geodesic flow,
+
+since Op(|é|l) © VB.
+
+1.4 Structure of the paper. In Section 2, we will introduce the mathematical model and state several
+heorems that express this type of result for specific cases such as Anosov geodesic vector fields X.
+
+The techniques involved are rich and fundamental in addressing these questions. First, Riemannian geometry
+and contact geometry provide the framework to define the geodesic flow. Next, functional analysis, the spectral
+theory of non self-adjoint operators, and semigroup theory are used to describe the evolution of smooth functions
+on the phase space (I*V)1 over long times. But most importantly, microlocal analysis and symplectic geometry
+are more than just technical tools: they reveal in a transparent way the hidden mechanisms underlying mixing
+and the fluctuations of correlations for the Anosov geodesic flow.
+
+A central outcome of microlocal analysis is the existence of a discrete Pollicott-Ruelle spectrum for the Anosov
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+t=5
+(a) (b (c) (d)
+
+Figure 1.3: Geodesic trajectories on the Bolza surface, represented as a fundamental domain in the Poincaré
+disk D?: NM = [\SL2R/SOo2, with T Cc SL2R cocompact. Color encodes directions. (a) A single trajectory. (b)
+An ensemble of nearby trajectories spreads exponentially. (c) After some time, a small cloud of points spreads
+over the whole phase space (T*V)1, illustrating exponential mixing towards equilibrium. (d) Exponentially small
+fluctuations around equilibrium behave like quantum waves.
+
+vector field X, which manifests itself as resonances in the behavior of correlation functions (see Figure 2.3). The
+exponential mixing property is explained by the presence of a dominant isolated eigenvalue at z = 0 in this
+spectrum. The emergence of quantum dynamics, on the other hand, is related to the existence of an internal
+spectral band separated from the rest of the spectrum by a spectral gap.
+
+In Section 4 we discuss an important aspect of the evolution operator that is specific to deterministic dynamical
+systems and expressed through the Atiyah—-Bott-Guillemin trace formula: the formal trace of e'* reveals the
+periodic orbits. Since the trace is independent of the choice of basis, it can also be expressed in terms of the
+discrete Ruelle eigenvalues of the vector field. From this, one can deduce further relations between periodic orbits
+and the Pollicott-Ruelle spectrum, encoded in dynamical zeta functions, which are useful for various counting
+problems [53],[22].
+
+In Section 5 we explain the main steps leading to the central theorems presented in this paper: the discreteness
+of the Pollicott-Ruelle spectrum and its band structure. We show how microlocal analysis is used to define
+anisotropic Sobolev spaces, and how symplectic geometry enters, in particular through the linear symplectic
+bundle TT*((T*N) 1) with the linearized approximation of the Anosov geodesic flow. We present the fundamental
+mechanisms that appear in the linearized model, and which can be summarized by the heuristic slogan: “quantum
+mechanics is the square root of classical dynamics.”
+
+More technically, for a symplectic linear space F (here a fiber of TT*((T*NV)1)), there is a factorization
+formula L?(F) = Spin, (F) ®Spin_(F), in terms of symplectic spinor spaces Spin, (F’) (thought of as “quantum
+spaces”), and the pushforward operator (®')~°u := uo ®~ of a linear symplectic map ® on F (here the linearized
+dynamics of the geodesic flow in the fibers) factorizes as (6")-° = Op(®") @ (C Op(®") C), where Op(®") denotes
+Weyl quantization (a metaplectic operator) and C is complex conjugation.
+
+In addition, since the dynamics is hyperbolic (as is the case for any Anosov geodesic flow), the second factor
+converges, for large time, towards a rank-one projector (the “first band”), which plays a role analogous to the
+ad-hoc Szeg6, Bergman, or Toeplitz projectors in standard geometric quantization. As a consequence, the classical
+dynamics (®‘)~° is effectively described by the first factor Op(®*), ie. quantum dynamics emerges dynamically.
+
+The final Section 6 is devoted to an informal discussion.
+
+2 Correlation Functions for Anosov Geodesic Flows.
+
+2.1 Anosov geodesic flow. We now recall the standard contact and symplectic structures underlying the
+geodesic flow. Let (N’,g) be a smooth closed Riemannian manifold of dimension dim N = d+ 1 > 2. Let
+
+M=(T'N)i:={pET'N; |[pllg =1}
+
+be the unit cotangent bundle, and let 7: M — N be the natural projection.
+
+We denote by A the canonical Liouville one-form on M, defined as follows: for p € M and a tangent vector
+V €T,M, set q = 1(p). Then p € TN and (dr)(V) € T,N, and we set A,(V) := p((dt)(V)) € R. The form A
+is a contact one-form, that is, dA is symplectic on ker. A. The volume form da = (dA)? A A is non-degenerate.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+M=(T'N)|
+
+Figure 2.1: Anosov vector field X on M = (T*N)).
+
+Geometrically, the contact condition means that the distribution of hyperplanes ker.A is maximally non-
+integrable. See Figure 2.1.
+
+DEFINITION 2.1. The geodesic vector field X on M = (T*N), is defined by the conditions
+(2.1) (dA) (X,.)=0, A(X) =1,
+
+that is, X is the Reeb (or contact) vector field associated with A. Viewed as a differential operator, X generates
+a flow ¢': M > M at time t E R, defined for all ue C®(M) by
+
+@2) < (u ° 9") =X (u ° o') :
+
+Remark 2.2. The one-form A is preserved by the geodesic flow, since its Lie derivative satisfies
+
+(2.3) LxA = dixAt+ixdA = 0.
+c (2.1)
+
+Jartan
+
+Consequently, the associated volume form is also preserved: Lx dx = 0.
+
+THEOREM 2.3. [4//66]If (Ng) has strictly negative curvature, then the geodesic vector field X is Anosov.
+That is, there exists a (Hélder) continuous splitting of the tangent bundle, invariant under the differential of the
+
+flow do':
+(2.4) TM=RX OL, OF.
+
+Moreover, for t > 1, the action of dd‘ restricted to the unstable direction E,, is expanding, while its action
+restricted to the stable direction E; is contracting. In other words, the geodesic flow is uniformly hyperbolic.
+
+Remark 2.4. Theorem 2.3 expresses the property usually called sensitivity to initial conditions, often referred
+to as the Butterfly effect. As a consequence, each trajectory has its own “unique story,” when considered over the
+full time axis ¢ € R (past and future).
+
+2.2 Correlation functions. As observed in Figure 1.3(a), an individual trajectory appears unpredictable
+(chaotic). This is a consequence of the instability of each trajectory, as stated in Theorem 2.3. To overcome this
+difficulty, one may regard a point as a Dirac measure and, more generally, consider the evolution of functions or
+distributions, as illustrated in Figure 1.3(c).
+
+The action of the flow ¢' on functions is given by the pullback operator. From (2.2), this defines a continuous
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+M=(T'N)
+
+Vertical V ' Eta)
+/ etx
+
+u=uod!
+
+'
+1
+1
+a 1
+1
+1
+
+ene)
+ve ii f Ey —
+WF(ue) C Ei = (Bs + Eo)~ % 1 unstable direction
+
+Figure 2.2: Action of the pullback operator e’* on a smooth function u € C®(M).
+
+group on L?(M,dzx) with generator X, which we write !:
+
+(2.58) gx fOr (M) +0 (M)
+, dae Huod¢
+
+Figures 2.2 and 1.3(c) illustrate the effect of the operator e'* on a function u € C®(M) with small support.
+From these observations, one sees that for large time t the evolved function e!* u develops structures at very fine
+scales (i.e. high spatial frequencies).
+
+If we choose to disregard these fine details and observe only the behavior that remains at the macroscopic
+scale, it is natural to consider the scalar product of e'*u against a smooth function v € C®(M), viewed as an
+“observable” or a “test function.” The objective is then to understand the asymptotics, as t + oo, of the function
+defined by
+
+(correlation function) Guy (thie (v,e'* u) racarae):
+
+2.3 Mixing.
+
+THEOREM 2.5. [4//72/If (N,g) has negative curvature k <0, then the geodesic flow is (exponentially) mixing.
+That is, for all u,v € C*(M) one has
+
+2) ,e*u) pa = (v, Tou) p2 t
+(2.6) (v, eu) £2(M) _- (uv, Tou) p2 + R(t)
+
+where Ig is the rank-one projector onto constant functions, defined by
+
+a 1
+Mof = 1 boar 1, I) ean’
+Here the remainder satisfies R(t) = ou(1) as t > co (Anosov [4]). Moreover, Liverani [72] proved the sharper
+estimate: there exists € > 0 such that, for all u,v, R(t) = Ou,(e~).
+
+Remark 2.6. The mixing property (2.6) explains the convergence towards equilibrium observed in Figures 2.2
+and 1.3. Indeed, it shows that after long times, the test function v detects only the constant function
+1x (vatenls u) i More precisely, it asserts that (in a weak sense) the pullback operator converges to
+the rank-one projector:
+
+[
+e'* t+ +o0]weak—> Ip.
+
+1It is equivalent to consider the pushforward operator (e’* jt =e '* which is the L?-adjoint with respect to the invariant Liouville
+
+measure dx on M. The operator e~** is also called the transfer operator (or Perron—Frobenius operator), while et* is known as
+
+the Koopman operator. Notice that e~'* governs the evolution of probability measures, in particular Dirac measures on points:
+eX bp = S4t(ny-
+of (x)
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+2.4 Pollicott-Ruelle resonances and eigenvalues. Let us consider the line vector bundle Fy =
+
+|det B,| 1? — M,that is, the dual of half-densities on the stable bundle E, (see (2.4)). The vector field
+X extends naturally as a differential operator X-, on the space of sections of Fy. We then define
+(2.7) f= lim log [leo ||"! <0
+. Yo ° t+400 alk L=(M;Fo) .
+For a hyperbolic surface, one has the explicit value Ww = -5; see Section 3.
+
+Tsujii [90] improved Theorem 2.5 by showing that, up to the decay rate ent (not optimal in general),
+one has a finite expansion of e!* over finite-rank spectral projectors. This means that there exist operators
+Il; : C*(M) — S'(M), j > O,satisfying ILI, = 6;=, 0;.1;X = X1;. Assuming, for simplicity, that there
+are no Jordan blocks, this expansion reads: Vu,v € C® (T7N) ,Ve > 0, 4J- such that
+
+Je
+
+tX _ . zt a te)t
+(2.8) (v,e" u) 52(M) cut mde TTLju) 12 + Ou» (eb ) )
+
+with zo = 0, which already appears in (2.6) and corresponds to the mixing term. Possibly, only one or finitely
+many projectors occur. The other resonances lie in the strip
+
+yo < R(z;) <0, J21,
+
+see Figure 2.3(a).
+
+For hyperbolic surfaces, expansion (2.8) was proved by Ratner [82]. For the Bolza hyperbolic surface, there
+are no eigenvalues with R(z) > -4 = os except the leading one zp = 0.
+
+An equivalent fornmlation of (2.8) is that the resolvent
+
+z€ {R(z) > O} HS (z- X)7!: C%(M) + S'(M)
+
+admits a meromorphic continuation to the half-plane {R(z) > yg}, with poles of finite rank at z € {zj};. These
+poles are called Pollicott—Ruelle resonances, see Figure 2.3.
+
+In fact, Tsujii’s result given in the next theorem is stronger: these poles (or resonances) (Aj); are discrete
+Pollicott-Ruelle eigenvalues of the geodesic vector field X in a suitably defined anisotropic Sobolev space H(M/)
+of distributions containing C°(M). That is,
+
+ze (z-X)7!: H(M) > H(M)
+is bounded except at a discrete set of poles, where the associated spectral projectors have finite rank.
+THEOREM 2.7. /90, thm 1.1]There exists an anisotropic Hilbert space
+C™(M) Cc Hw(M) c S'(M),
+and a family of finite-rank, bounded spectral projectors (II;);>0 such that, for every «> 0, there exists J. with
+
+ie
+(2.9) efx — a e'*TL; < Cpet +),
+i=0 Hw (M)
+Remark 2.8. Expansion (2.9) implies that, for every « > 0, there exists C. > 0 such that for all z € C with
+|Sz| > C. and R(z) > yg +, one has
+-1
+II(z -X) laxeceney < Ce.
+
+In other words, the resolvent is uniformly bounded to the right of yf, except in neighborhoods of a finite
+number of eigenvalues (see Figure 2.3(a)). This property is equivalent to discreteness of the eigenvalues (or
+quasi-compactness) of
+
+é* :Hw(M) > Hw(M)
+
+in the region {|2| > e0 +9}, for t > 0.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+It has been possible to extend the analysis further to the left in the complex spectral plane: Butterley and
+Liverani [21] proved that the resolvent
+
+z€C > (z—X)7':C*”(M) + S'(M)
+
+admits a meromorphic continuation to the whole complex plane C. The poles of this continuation are the Pollicott—
+Ruelle resonances. More precisely they showed that for any C > 0, there exists an anisotropic Sobolev space (or
+Banach space) C°(M) C Hw(M) c S’(M) such that
+
+X: Hw(M) > Hw(M)
+
+has a discrete Pollicott—-Ruelle spectrum in the half-plane R(z) > —C. In this framework, the Pollicott—Ruelle
+resonances are realized as genuine eigenvalues of X on Hw(M). These results have been obtained after using
+microlocal analysis [46].
+
+By contrast, there are models where one knows that the resolvent admits a meromorphic extension (hence
+discrete resonances), but it is not known whether these resonances can be realized as eigenvalues. Examples
+include the Laplacian A on the Poincaré disk D?, or cusps in [16].
+
+However, these results do not provide much information on the existence or on the precise location of the
+discrete Pollicott-Ruelle spectrum. In particular, one cannot deduce an expansion such as (2.8) or (2.9) for
+correlation functions with a remainder term bounded by O (e-“) ,for arbitrarily large C' > 0.
+
+2.5 Resonances and the Pollicott-Ruelle Discrete Spectrum in Anisotropic Sobolev and
+Banach Spaces. Before continuing, let us give a brief and partial overview of works and progress on resonances.
+A recent reference on the subject is the book by Dyatlov and Zworski [42].
+
+As defined above in (2.8), resonances appear as the discrete leading contributions to correlation functions.
+This concept originates in physics, from the scattering of waves: for instance, acoustic resonances in Helmholtz
+resonators (1863), resonances in electromagnetism such as fluorescence, and in nuclear physics through radioac-
+tivity with the introduction of resonant “Gamow states” by Gamow and Breit-Wigner, characterized by complex
+energies F = E, — iT and by poles of the scattering matrix.
+
+In mathematics, starting in the 1960s, Lax and Phillips [69] and others developed a rigorous framework
+for scattering theory and resonances. In the early 1970s, Aguilar-Combes and Balsley-Combes introduced the
+complex scaling method [1, 12], which shows that on Euclidean spaces, scattering resonances can be realized
+as eigenvalues in certain “anisotropic analytic spaces.” This method was subsequently extended in a microlocal
+framework by Helffer and Sjéstrand in the 1980s [61], and further by Gérard and Martinez in the 1980s~1990s [52],
+among others.
+
+These results concern mainly the wave equation, Schrédinger-type equations, and other PDEs in open settings
+or with scattering phenomena, in particular scattering in phase space on a trapped set (see [61]).
+
+In the domain of hyperbolic (Anosov) dynamical systems, the situation is analogous, since one has scattering
+phenomena in the cotangent bundle on the trapped set [45]. Ruelle [83, 84] and Pollicott [81] introduced the
+concept of Pollicott-Ruelle (PR) resonances for correlation functions.
+
+Subsequently, many results have progressively developed the theory of anisotropic Sobolev or Banach spaces,
+in which the dynamics is modeled by an operator with discrete PR spectrum. Contributions include the works of
+Rugh [85, 86], Blank, Keller and Liverani [13], Baladi and Tsujii [6, 7, 10, 11], Butterley, Liverani and Tsujii [73,
+21, 90, 91], Gouézel and Liverani [55], Naud [75, 76, 74], Faure, Roy and Sjéstrand [45, 46], Nonnenmacher
+and Zworski [80], Datchev, Dyatlov and Zworski [30, 34, 39, 40, 41, 42, 35], Dyatlov and Guillarmou [38],
+Bonthonneau [14], Bonthonneau and Jézéquel for Gevrey Anosov dynamics with FBI transform [15], and Jin,
+Tao and Zworski [64, 65], among many others. This vast body of work has established the PR spectrum as the
+natural spectral invariant of Anosov flows.
+
+Dolgopyat [32, 33] developed a very powerful approach for partially hyperbolic systems (see also [72]), based
+on oscillatory cancellation techniques for transfer operators which has proved extremely useful and has led to
+strong results, see e.g. [92, 93].
+
+Specific models have been investigated in various settings, such as homogeneous spaces by Dyatlov,
+Faure, Guillarmou, Hilgert, Weich, Wolf, and Kiister [37, 57, 62, 67], Morse-Smale flows by Dang and
+Riviére [26, 27, 28, 29], and dispersive billiards by Baladi, Demers and Liverani, Chaubet and Petkov [9, 8, 24].
+There have also been important applications, including Fried’s conjecture and related topological aspects
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+(Chaubet, Dang, Dyatlov, Guillarmou, Riviére, Shen, Zworski, Kiister and Weich) [25, 41, 68, 23], the marked
+length spectrum and geometric inverse problems, as well as the X-ray transform and rigidity, studied by
+Guillarmou, Lefeuvre, and Gouézel [58, 54, 70], counting closed trajectories [53],[22].
+
+In particular, the question of the band structure of the Ruelle spectrum and the emergence of quantum
+dynamics, which is the focus of this paper, was already investigated in [43] for a contact extension of the cat map
+and in [47] in a more general setting. In [48], the associated semiclassical zeta function is studied. More recently,
+Cekic and Guillarmou [56] proved the existence of the first band for contact Anosov flows in dimension three
+using horocycle operators. Below, we give details on the paper [49].
+
+For the special case of hyperbolic manifolds endowed with an algebraic structure, i.e. high symmetry described
+by Lie groups, the band spectrum of Anosov dynamics has been studied in [37, 57, 62]. In different contexts, band
+structure and Weyl laws for the spectrum of resonances were investigated by Stefanov and Vodev [88], Sjéstrand
+and Zworski [87] for convex obstacles, and by Dyatlov [34] for regular normally hyperbolic trapped sets.
+
+2.6 Band structure of the Pollicott Ruelle spectrum. In Section 2.4 we recalled that a general
+Anosov vector field X has a discrete spectrum of Pollicott—Ruelle resonances, that is, discrete eigenvalues in
+suitable anisotropic Sobolev spaces. At present, however, almost nothing is known in general about the precise
+existence or location of these resonances.
+
+The situation is different for Anosov geodesic flows (or more generally Anosov contact flows), for which the
+contact form A is preserved (see (2.3)).
+
+For k €N, let
+
+(2.10) Fy = |detE,|~'/? @ Pok (E,) 3 M
+
+the finite-rank vector bundle over M where Pol; (EZ) denotes the space of homogeneous polynomials of degree k
+on E,. We then define (as a generalization of (2.7))
+
+/
+(2.11) ie = lim Jog |[e*% lem carrey <0
+
+Note that yj + —00 as k > oo.
+For a hyperbolic surface, one has explicitly
+
++ 1 + 3 + 1
+Yo a V1 —2 Vk z—k.
+
+Microlocal analysis (as explained below) then leads to the following theorem, illustrated in Figure 2.3.
+
+THEOREM 2.9. [49, thm 1.7 p.654]/For any C > 0, there exists an anisotropic Sobolev space Hw(M) such
+that the generator X has discrete Pollicott-Ruelle spectrum Spec(X) on {Rz > —C}. Moreover, for any « > 0
+there exist constants C. > 0 and w. > 0 such that
+
+(2.12) Spee(X) M{Rz > —C} c {Sel swe} UU {Ree hy -6 af +4}.
+
+keN
+In other words, the spectrum is contained in a union of a low-frequency horizontal band around the real axis,
+and vertical bands located near the strips eo Ve]: Furthermore, the resolvent is uniformly bounded in the gaps
+between bands:
+
+(2.13) I|(z —X)"Vaewcwy = C, Wz€C such that |Sz|>we, Rz € yg +e, % —4-
+
+In fact, as explained in Section 5, the mechanisms underlying Theorem 2.9 are by now well understood: for
+long times an effective quantum dynamics emerges, corresponding precisely to the restriction of X to the first
+band Bo.
+
+THEOREM 2.10. [49, thm 1.8 p.656 and eq.(1.17)]. Suppose that for some k € N one has a spectral gap
+ane <%- Then for any € > 0 there exist a constant C. > 0 and a Hw-bounded spectral projector Ijo,4) of X
+such that
+
+(2.14)
+
+tX tX t(ab, te
+eX —e To illse cary S Cel ra el,
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+Spectrum that controls
+emerging behavior
+
+Essential —_ Intrinsic
+
+spectrum discrete spectrum
+— ©
+
+r>1
+
+ww = Im(z)
+
+bounded resolvent
+
+_—In(P,)
+
+bounded resolvent
+
+bounded resolvent
+
+Figure 2.3: Band structure in discrete Pollicott—Ruelle spectrum
+
+Remark 2.11. Under the gap assumption Vite < %.» Theorem 2.10 provides a sharper description of
+correlation functions (recall that yt — —oo as k — oo). In the case k = 0, the contribution e'*Tlio.o] comes
+entirely from the first band Bp and accounts for the wave dynamics (or “emerging quantum dynamics”) observed
+in Figure 1.3(d).
+
+The projector Ijo,4) is unique up to a finite-rank correction, corresponding to the finitely many Pollicott—
+Ruelle eigenvalues lying in the interval R(z) € [yb.4 + 7, — dl; as illustrated in Figure 2.3.
+
+2.7 A special “semiclassical” dynamical bundle. The results (2.13) and (2.14) above rely on the
+gap assumption Vita < y+ There is a relatively simple way to ensure such a gap, namely by considering
+ae)
+
+the more general problem of the group of pullback operators (e HER acting on sections of a fiber bundle
+
+F + M. This analysis was carried out in [49], where the definition (2.10) is replaced by the twisted vector bundle
+Fr = [det B,|-'/” @ Poly (E,) @ F. A natural choice is to take F = | det E,|*"/? (the bundle of half-densities
+on £,). For this choice, the first band corresponds to the trivial bundle Fy = C > M, and one obtains
+
+vt <% =0,
+
+which gives a first band accumulating on the imaginary axis, with a spectral gap on its left-hand side (see
+Figure 2.3(b)).
+
+A technical difficulty arises because the bundle E, + M is not smooth. To circumvent this, in [48] we work
+instead with a larger but smooth Grassmannian bundle.
+
+3 Pollicott-Ruelle spectrum of X for a hyperbolic surface. In this section we explain how to obtain
+the band structure of the Pollicott—Ruelle spectrum (Theorem 2.9) in the special case of the geodesic flow on a
+compact hyperbolic surface, using the algebraic structure of SL2R. These arguments are classical in Selberg’s
+theory and appear prominently in the work of Flaminio and Forni [51]. We follow here the approach of [37]; see
+also [57, 62, 3, 19, 18, 20].
+
+A compact hyperbolic surface is a closed Riemannian surface (NV, g) with constant negative curvature « = —1.
+An example is the Bolza surface, illustrated in Figure 1.3. Such a surface can be realized as a double coset quotient
+
+N = [\$L2R/SOx,
+
+where [ C SLR is a discrete cocompact subgroup. See Figure 3.1.
+On SL2R we consider the three left-invariant tangent vector fields”
+
+(3.1) x= (1 Sie) ¥=(r 0): 8=(0 0)
+
+?By definition X gives a flow map: g++ ge'* and idem for U,
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+N =T\SL2/SO»
+
+Figure 3.1:
+* ; 2 pln(2)
+S ; : a
+: ¢ :
+° ° °
+fe |b esa Hs
+IANS
+. eu 8 Zot
+' ' ' ye
+° . °
+i H 1 {1/4
+1 ' 1 |g Re(z) to
+15 13 fk
+i a ir
+1 j tes
+e e er
+By Bi Bo
+Pollicott Ruelle Spectrum Spectrum of A zeroes Of Csetherg(2)
+
+Figure 3.2: PR discrete spectrum of a geodesic vector field on a hyperbolic surface N’, from the spectrum of
+Laplacian A.
+
+that satisfies the Lie algebra relations
+
+(3.2) [X,U] = -U, [X, $] = $, [5,U] = 2X.
+
+A PR eigenvector u € Hw (M) satisfies Xu = zu with Re(z) < 0. Then
+X (Uu) aa) (UX —U)u=(z-1)(Uu), (X) (Su) Gai (SX + S)u=(z+1) (Su).
+
+Hence 3k s.t. S*u = 0,S*-!u #0. We may suppose that Su = 0. We use the Casimir operator A that commutes
+with the Lie algebra:
+
+~(-x2-1sy_1 _x? ,;
+au=( x 38U sus) u = ( X?-X-US)u z(z+1l)u=pu
+
+hence z = =-34 + biy/u 4 — q- Consider the averaged of u under the action of SO2: we have (u) so, € C® (NV) an
+
+eigenfunction of the Casimir acting on C™ (NV) that is the hyperbolic Laplacian A = —y P(e + a) and has
+discrete spectrum Specy 2:7 (A) = {0, 11, w2,---} C R*. We deduce that
+
+1 1
+
+(3.3) = B= -54 a — ri
+
+and the band structure of PR spectrum, shown on figure 3.2.
+
+Remark 3.1. For a hyperbolic surface, the bundle E, + M is smooth and homogeneous. Considering the
+semiclassical bundle F = |det B,{"? introduced in Section 2.7 is equivalent to working with the differential
+operator X + 3. This shifts the spectrum (see Eq. (3.3) and Fig. 3.2) by +3, resulting in the first band Bo lying
+exactly on the imaginary axis.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+4 Relation with periodic orbits: trace formula and dynamical zeta functions. In this section we
+recall an exact and fundamental relation linking the Pollicott—Ruelle spectrum to the periodic orbits of an Anosov
+geodesic flow. This relation arises naturally from the fact that we are working with the pullback operator (2.5),
+and it plays a central role in orbit-counting problems and related applications.
+
+4.1 The Atiyah-Bott-Guillemin formula. For u € C°(M), x € M, and t € R, the pullback operator
+can be written as
+(eXu)(x) = u(d'(x)) = | Ki(2,2')u(2’) de’,
+(2.5) M
+where the distributional Schwartz kernel is given by K;(x,2’) = 5(a! = ¢'(2)), that is, the kernel is supported
+on the graph of the flow. Taking the trace therefore picks out the periodic points of the flow.
+
+A point x € M such that $7(x) = x for some T > 0 is called a periodic point with period T. If T > 0
+is minimal, ic. ¢'(x) # @ for all 0 < t < T, then T is the primitive period, and the corresponding orbit
+7 := {¢'(a) ; t € [0,T)} is called a primitive orbit, with length |y| := T. More generally, ¢"'7!(x) with n > 1 also
+yields periodic points belonging to the same orbit.
+
+THEOREM 4.1. [5][59] “Atiyah-Bott-Guillemin trace formula”. The distributional trace
+
+M
+
+is well defined as a distribution in D’(R:), and one has
+
+(4.1) Re*)= YW Wy 6(t=nhy/)
+
+y:primitiveorbit — n>1 |aet (a — (d¢*) Daven, )|
+
+Proof. By definition,
+Tr(e'*) := | Ki(ee)de = [ ix — $'(2)) dx,
+M JM
+
+so the integral localizes on the periodic points of the flow. Near a periodic point m € M, we choose local
+coordinates (x,z) € R?¢ x R such that the hyperplane {z = const} is tangent to E,(m) ® E,(m). Then the
+differential reads d((x, 2) — '(x,z)) ~ (Id- do 'n. on, (©), 0). We now use the general fact: if f : R" + R” has a
+fixed point f(0) = 0, then
+
+. 1 1
+[ose ~ Tdet DFO) / Sy) dy = [det DFO] q
+
+Applying this to the flow near m, and integrating along the orbit, produces the factor |7y| corresponding to its
+primitive period. This gives precisely formula (4.1).
+
+Just as for the trace of a matrix, the flat trace Tr’ (e'*) does not depend on the choice of a (reasonable) basis.
+This suggests interpreting and using the Pollicott—Ruelle spectrum of X as providing a “spectral decomposition”
+of the operator e'*.
+
+4.2 Dynamical zeta functions. Dynamical zeta functions provide a convenient way to exploit the trace
+formula (4.1) and to deduce a relation between the Pollicott—Ruelle spectrum and periodic orbits.
+
+THEOREM 4.2. /53]/39/Let X be an Anosov vector field. For R(z) > 0, the dynamical zeta function is defined
+by
+enn
+
+det ((1a — (dgn'!) (7) in.on.)|
+
+where the outer sum runs over primitive periodic orbits y of X. This series converges for R(z) > 0, and the
+function d: z++ d(z) extends holomorphically to the whole complex plane C. Moreover, its zeros coincide with
+the Pollicott-Ruelle eigenvalues, counted with multiplicities.
+
+y n>in
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+Remark 4.3. A similar result was obtained earlier for Anosov diffeomorphisms by Baladi and Tsujii [11].
+
+Let us indicate the origin of the somewhat complicated expression (4.2), and outline the proof. The guiding
+idea is to mimic the case of a finite-dimensional matrix A (or a finite-rank operator), for which the eigenvalues
+are the zeros of the holomorphic function d(z) = det(z — A).
+
+Indeed, one has
+
+(g-A) t= [ e AN dt, d(z) = det(z — A) = exp(Tr(log(z — A))).
+
+Differentiating gives
+
+d oo
+a log d(z) = Tr(z— A)7! | e-*' Tr(e'4) dt
+ze 0
+
+For z ¢ Spec(A), this can be integrated to yield
+z
+
+oo
+: 1 2 A
+d(z) = d(zo) vexp(— tim [ ¥e *Tr(e'*) dt
+Replacing Tr(e'4) by its dynamical analogue, namely the flat trace Tr?(e’*) from (4.1), and using that
+Tr’(e'*) = 0 for 0 <t < |y|min, we obtain
+
+[ 1 —#T(et®) dt “EE enh
+eX] — oe 2: I ve. au => ex,
+PL Arslan € PL 4+ 2 [det — "MN Dizwoe. |’
+
+which is exactly the definition (4.2) of the dynamical zeta function.
+On the other hand, the poles of the resolvent z ++ (z — X)~" are precisely the Pollicott—Ruelle eigenvalues of
+X, and a careful analysis shows that these correspond to the zeros of d(z), thus giving Theorem 4.2.
+
+4.3 Semiclassical zeta function As explained in section 2.7 it is interesting to consider the action of the
+geodesic vector field on sections of the “semi-classical” bundle F = |detE,|*!/? (half-densities on E,) . Indeed
+observe that we have
+
+det ((Id - (d6") M)/r,0n.)] w= det (164, ) * |aet (11a - (a8) yeoe,)|
+-1/2
+
+and det (40%, =e 2S divX/2y 59 formally
+
+Tr ((e'*F) ,,,) [det ( (Id - (de) )je.00)| &,, eet (ld - (ao) )eor.)| ;
+
+The “semi-classical zeta function” has been defined by Voros (and others) [94] by
+
+—zn|y|
+
+(4.3) dsc (Z) -= exp | — > > ~ 1/2
+7 nein |act (ia — (dd) Daven, )|
+
+and has the following property, (see figure 2.3 (b)). Recall that 7° < 0.
+
+THEOREM 4.4. [48]/The semi-classical zeta function dsc (z) well defined for Re(z) > 1, has an meromorphic
+extension on C. For any Ve > 0, on Re(z) > yb +6, dsc (z) has finite number of poles and its zeroes coincide (up
+to finite number) with the Ruelle eigenvalues of Xp that accumulate on the imaginary axis.
+
+One motivation for studying ds. (z) comes from the Gutzwiller semiclassical trace formula in quantum chaos
+
+[60]. In particular in the case of a hyperbolic surface, presented in section 3, ds- (z) coincides (up to a shift)
+
+ly|n 0
+e
+
+with the Selberg zeta function Cselberg : we have (46°!) 1 si Ay ( 6 lyln
+
+h see [17]. This gives?,
+
+3Put « = e7!7/" and use that =a? (1 — x)? = all? Lm>02™"-
+
+1-2-1 0
+act ( 0 7.)
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+Bergmann projector
+
+1(M)
+
+L(T*M)
+
+Figure 5.1: In green : the unit ball for the metric g, giving the effective size of a wave packet.
+
+see figure 3.2,
+
+dsc (z) wm” -»S > S Ze Mhi(et itm) = Il Il (a _ ee eyi) = Cgelberg (- + 5) .
+
+y n>1m>0 7 m>0
+
+5 Microlocal mechanisms underlying the band structure. In this section we explain how microlocal
+analysis leads to Theorem 2.9 and Theorem 2.10, emphasizing the main steps. What follows is a short summary
+of the proofs presented in [49].
+
+5.1 Microlocal analysis on M = (I*N),. Recall the geodesic vector field X on M in definition 2.1.
+We have dimM = 2d+1. On M, we consider local flow box coordinates y = (2,z) € R24 x R., ie. st.
+X= £ and dual coordinates n = (€,w) € R?¢ x R on the fiber TM. We introduce a family of wave packets
+(yn) €T*M + yn) € C® (M). Their precise definition is given in [49]. Here, with some abuse of notations that.
+forget charts and partitions of unity, we just notice that at high frequency |7| > 1, their expression is closed to a
+Gaussian wave packet
+2
+v2
+
+. g—2l?
+(5.1) Pun) (Y') neg ee iny! — =
+
+llecnnll 27(M) Ini
+
+with 5 < 1.We define an operator called “wave packet transform” (or “FBI transform” or “wavelet transform”)
+
+oa i { (M) + S(T*M)
+
+u > {(y,n) + (Tu) (yn) = (Gyins @) 22(M) }
+that has the fundamental property called “resolution of identity”:
+ToT =Id.
+
+With the wave packet transform isometry 7, analysis of functions M is transformed as an analysis of functions
+on T*M. We will study the lifted operator of the geodesic ow Te!* T?. See figure 5.1.
+
+In fact the construction of wave packets (5.1) and the transform 7 is based on the choice of a metric’ g on
+T*M, compatible with Q = dy A dn,
+
+2 2 2 2
+ie _ dx dé dz dw
+° wen =(q-") + (Gin) +(3) +(=)
+
+The geometrical meaning is that the unit boxes for the metric g correspond to the effective size of wave packets
+and reflect the uncertainty principle. Technically it is convenient to work with wave packet transform instead of
+the usual Pseudo Differential Operators (PDO) calculus [89], because in Anosov dynamics most of the structures
+are not smooth but only Holder continuous. With the wave packet transform in (5.2), these fractal structures can
+be ignored at a scale smaller that the unit ball of the metric g.
+
+We have the fundamental estimate [50] closely related to the "theorem of propagation of singularities”
+
+(5.4) Vt ER,VN > 0,4Cw > 0,V(y',7'),(y,n) € T*M,
+
+(5.5) (Seu TEXT 54.0) sacan) < Cy (dist, (Wn!) _(do")* (y.m))
+
+4closely related to “Hérmander metric” in [63], [71, 78].
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+size X wf/? >> 1
+
+oS = (2. 6 £,)! = (Ker)
+
+iS symplectic Trapped set
+
+fted flow (d¢‘)*
+
+)
+
+a Nw)
+size x wf -M/2 <1
+
+Figure 5.2:
+
+Eq.(5.4) express that the Schwartz kernel of Te'* Tt on T*M x T*M is negligible outside the graph of the induced
+flow (d¢')* : T*M > T*M.
+
+The Anosov property (2.4) gives dual directions E*, E*,X = (Ey ® E.)* = RA in cotangent space and we
+observe that the lifted dynamics (dd‘)” is a “scattering dynamics” on the trapped set © = RA c T*M
+(Liouville 1-form), ie. © is an invariant normally hyperbolic submanifold, dim= = 2(d+1) and X\ {0} is
+symplectic since A is contact. See figure 5.2.
+From this geometric situation we can now follow and adapt the well established strategy of Helffer-Sjostrand
+1986 [61] for quantum resonances (here classical PR resonances).
+
+5.2 Pollicott-Ruelle spectrum of X. In the outer part of ©, where trajectories go to infinity in the past
+or future, we can put a weight W : T*M — R* such that W o (dd")* decays with t > +oo and W =1ina
+vicinity of the trapped set ©. We define a weighed Hilbert space, called anisotropic Sobolev space:
+
+(5.6) Hw (M) := fue C® (M) st. WTu € 2 (T*M)}.
+
+An immediate consequence is that the operator e'* : Hy (M) — Hw(M) has a “negligible contribution”
+outside © so only the dynamics of (d¢')” in a vicinity of D plays a role for e'*.
+
+At that point, we have enough to deduce some discrete Pollicott-Ruelle spectrum of X : Hw (M) > Hw(M).
+This has been done as done in [46] with usual PDO calculus or [50] as explained here, also in [15] for Gevrey or
+analytic Anosov flows.
+
+5.3 Linearized dynamics and symplectic spinors. To go further and reveal the band structure of the
+PR spectrum, we fix some exponent 0 < <1. At every point p = wA(m) € ¥ of the trapped set, with m € M
+and w > 1, we consider a vicinity of p of g—size x w/? > 1. From the expression (5.3) of the metric g, this
+implies that the projection this ball on M has a tiny size x w~(-)/? < 1 if w >> 1. Hence this will allow us to
+use the linearization of the dynamics d(d¢')* :TT*M + TT*M asa good local approximation, w > 1. See
+figure 5.2.
+
+Now we enter the setting where the relevant phenomena take place.
+
+Recall that the trapped set © C T*M is symplectic and normally hyperbolic. Hence at every point
+p=wA(m) € >, there is a decomposition invariant by the dynamics d(dd")* (a “micro-local” decoupling)
+
+A.
+T,0°M = 7,2 S(Nu(p) © Ne(p))
+wy ee. _—r_———<——S
+
+Tangent Normal N()
+
+and we can treat the linearized dynamics separately along the tangential direction T,© and along the normal
+direction N (p).
+
+Here we use a simple but important property of linear symplectic maps explained in [43, eq.(43)] and [50,
+thm C.33], which is that they factorize into two quantum (spinoral) components. Here, concerning the linear
+symplectic map ® := d(d¢')” on TT*M, it expresses the pull back operator 6° : u+> wo ® as a tensor product
+of two metaplectic operators Op (®ry), Op (®y), each is the Weyl quantization of the linear symplectic map
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+® restricted to the respective component TX or N:
+(5.7) &° = Op(®ry) @ Op (Oy).
+
+This simple formula (5.7) has a profound meaning: on the left, the “classical dynamics” factorizes into two
+quantum dynamics. More precisely, one can show that ®y is conjugate to dd’ : Ker(A) — Ker(A) and ®7y
+is conjugate to C(d¢')C, where C denotes complex conjugation. Thus, at the level of linear symplectic maps,
+quantum dynamics appears as a “square root” of classical dynamics. For this reason, the spaces on which these
+metaplectic operators act are sometimes called *symplectic spinors* in the literature.
+
+This factorization is, however, quite surprising: each “quantum component” carries an uncertainty principle,
+but when combined their tensor product cancels these effects, reproducing the classical pullback operator ®°,
+which transports Dirac measures to Dirac measures. For general symplectic dynamics observed in L?-spaces, the
+two quantum components are always present, but they remain “hidden” inside this tensor product.
+
+Time evolution reveals the tangential quantum factor: The dynamics we are interested in is hyperbolic, and
+with the weight (or escape function) W in (5.6) we observe the two components differently: the tangential dynamics
+Op(®rx) acts in an L? space, while the normal dynamics Op(®y) acts on an anisotropic Sobolev space. Recall
+that this anisotropic setting is the natural framework for analyzing correlation functions of the Anosov flow.
+
+Let us consider the normal operator Op (ny) where @y is hyperbolic, in fact conjugated to the linear
+symplectic map d@! : E,, @ E, + E, © E,. This gives that Op (®y) is conjugated to
+
+(5.8) Op" (dé) = |det (a6, ) |” (a6 p,)”
+
+with a contracting linear map dd) p,- This operator preserves the finite rank vector bundle Fj, = |detB,|-'/? ®
+
+Pol (Es) constructed with homogeneous polynomials of degree k, introduced in (2.10) and that belong to the
+anisotropic Sobolev space. We have the estimates 2.11, so that for large time t > 1, the first band k = 0 with
+rank one bundle Fo emerges®.
+The effect of the long-time dynamics is to eliminate the second factor in (5.7), which is asymptotically replaced
+by a rank-one projector. What remains is the first, unitary quantum factor Op(®ry) acting on the tangent space.
+This is precisely how quantum dynamics emerges.
+Remark 5.1. Technically, this reduction, naturally produced by the dynamics, can be compared with the
+ad-hoc procedure of geometric quantization, where one projects the evolution of functions onto a subspace of
+“polarized sections” using a Szegé, Bergman, or Toeplitz projector. The crucial difference is that in geometric
+quantization the image of the projector is not invariant under the dynamics, whereas here the projection is
+generated by the dynamics itself and is invariant by definition (assuming the presence of a spectral gap).
+
+5.4 Band structure of the Pollicott-Ruelle spectrum. After this step, we can re-construct the global
+situation for the Anosov geodesic flow that we aim to study. In [49], we introduce a semi-classical calculus on
+sections C'(X; Fx) with the vector bundle F, = |detB,|-1/? ® Pol, (Es) over the symplectic trapped set U. We
+obtain associated projectors Opy, (Z;) similar to the Bergman (or Szegé ) projector in geometric quantization,
+but here, they are (approximately) invariant.
+
+Assuming Vea <1, we deduce that the discrete Pollicott-Ruelle spectrum of X in Hy (M) is contained in
+vertical bands B;,,,k € N with gaps where the resolvent is uniformly bounded. This gives theorem 2.9 and figure
+2:3:
+
+Moreover, the effective semi-classical calculus on C (5; F;,) gives also a precise Wey] law (these techniques
+are similar to second micro-localization techniques in other papers).
+
+6 Informal discussion. We conclude with an informal discussion, intended to put the results into
+perspective. These considerations have motivated the work presented in this paper. For further discussions,
+see [43, 47].
+
+From a physical viewpoint, two striking similarities can be noted:
+
+5A simple toy model to consider is the contracting map dé : « € R++ e~*ta € R for which monomials of degree k € N are
+
+eigenvectors OpWey! (d¢') ak ) et(-3-k) gk giving spectral lines for the generator at Re (z) = -3 —k as on figure (3.2).
+5.8
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+1. Theorem 2.14 shows that the evolution of probability measures under a deterministic yet chaotic flow
+(Anosov geodesic flow) splits into an equilibrium measure plus small fluctuations, the latter governed by an
+effective Schrédinger-type equation—hence a form of “quantum dynamics” emerges.
+
+2. In physics, phenomena are described within the quantum wave formalism, with the Born rule p(x) da =
+|wb(x)|? dx, suggesting a probabilistic structure possibly arising from deeper deterministic laws.
+
+One may then ask whether the situations in 1 and 2 point to a deterministic origin of quantum mechanics (see,
+
+From a mathematical viewpoint, quantization is a procedure assigning to a symbol a € C ~(T*Ri e) an
+operator Op(a) : L?(R”) > L?(R”) (see [89, 31, 95]). For example, Op(€;) = —i0,,. For a geodesic flow on
+(N,g), the symbol a(z,€) = ||||g yields (up to lower-order terms) the wave operator VA © Op((|lé||,), with
+A = did the Hodge Laplacian generating the wave equation O,u, = iVA ui (hence 0?u, = —Auz).
+
+Semiclassical analysis (WKB, Egorov, etc.) shows that in the short-wave limit \<1, solutions u, propagate
+along geodesics— as in geometrical optics or the classical limit of quantum mechanics. Remarkably, Theorem 2.14
+describes the reverse process:
+
+geodesic flow = quantum dynamics,
+
+whose precise meaning remains open.
+
+Quantization is not unique: distinct pseudodifferential quantizations sharing the same classical symbol may
+have different spectra (e.g. Weyl vs. geometric quantization). In Theorem 2.14, the operator A = ITjo,o)XTIo,0)
+acts as a canonical quantization intrinsically defined by the Anosov flow. Its spectrum coincides with the zeros of
+the dynamical zeta function (Theorems 4.2, 4.4), suggesting a privileged link with quantum chaos (see [79, 36, 2]).
+
+References
+
+1] J. AGummaR AND J. M. Comsgs, A class of analytic perturbations for one-body Schrédinger Hamiltonians,
+Comm. Math. Phys., 22 (1971), pp. 269-279.
+
+2| N. ANANTHARAMAN, Quantum ergodicity and delocalization of Schrédinger eigenfunctions, EMS Press, 2022.
+
+3] N. ANANTHARAMAN AND S. ZELDITCH, Intertwining the geodesic flow and the schrédinger group on
+hyperbolic surfaces, Mathematische Annalen, 353 (2012), pp. 1103-1156.
+
+4| D. ANosov, Geodesic flows on compact riemannian manifolds of negative curvature, Proceedings of the
+Steklov Mathematical Institute, 90:1 (1967), pp. 1-235.
+
+5| M. F. AtryaH AND R. Bort, A Lefschetz fixed point formula for elliptic complexes. I, Ann. of Math. (2),
+86 (1967), pp. 374-407.
+
+6] V. BALADI, Positive transfer operators and decay of correlations, Singapore: World Scientific, 2000.
+
+7| V. BALADI, Anisotropic Sobolev spaces and dynamical transfer operators: C® foliations, in Algebraic and
+topological dynamics, vol. 385 of Contemp. Math., Amer. Math. Soc., Providence, RI, 2005, pp. 123-135.
+
+8] V. BALADI AND M. DEMERS, Thermodynamic formalism for dispersing billiards, 2020, https://arxiv.org/
+abs/2009.10936.
+
+9] V. BALADI, M. DEMERS, AND C. LIVERANI, Exponential decay of correlations for finite horizon sinai billiard
+flows, Inventiones mathematicae, 211 (2018), pp. 39-177.
+
+[10] V. BALApDI AND M. Tsugul, Anisotropic Hélder and Sobolev spaces for hyperbolic diffeomorphisms, Ann.
+Inst. Fourier, 57 (2007), pp. 127-154.
+
+[11] V. BaLapr AND M. Tsusul, Dynamical determinants and spectrum for hyperbolic diffeomorphisms, in
+Geometric and probabilistic structures in dynamics, vol. 469 of Contemp. Math., Amer. Math. Soc.,
+Providence, RI, 2008, pp. 29-68.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+E. BALSLEV AND J. M. CoMBES, Spectral properties of many-body Schrédinger operators with dilatation-
+analytic interactions, Comm. Math. Phys., 22 (1971), pp. 280-294.
+
+M. BLANK, G. KELLER, AND C. LIVERANI, Ruelle-Perron-Frobenius spectrum for Anosov maps, Nonlin-
+earity, 15 (2002), pp. 1905-1973.
+
+Y. BONTHONNEAU, Flow-independent anisotropic space, and perturbation of resonances, arXiv preprint
+arXiv:1806.08125, (2018).
+
+Y. BONTHONNEAU AND M. JEZEQUEL, Fbi transform in gevrey classes and anosov flows, arXiv preprint
+arXiv:2001.03610, (2020).
+
+Y. BONTHONNEAU AND T. WEICH, Ruelle—pollicott resonances for manifolds with hyperbolic cusps, Journal
+of the European Mathematical Society, 24 (2021), pp. 851-923.
+
+D. BorTHWICK, Spectral theory of infinite-area hyperbolic surfaces, Birkhauser, 2007.
+
+D. BorTHWICcK, Distribution of resonances for hyperbolic surfaces, Experimental Mathematics, 23 (2014),
+pp. 25-45.
+
+D. BorTHWICK AND T. WEICH, Symmetry reduction of holomorphic iterated function schemes and
+factorization of selberg zeta functions, Journal of spectral theory, 6 (2016), pp. 267-329.
+
+D. BorTHWICK AND T. WEICH, Symmetry reduction of holomorphic iterated function schemes and
+factorization of selberg zeta functions, J. Spectr. Theory 6, No. 2, arXiv preprint arXiv:1407.6134, (2016),
+pp. 267-329.
+
+O. BUTTERLEY AND C. LIVERANI, Smooth Anosouv flows: correlation spectra and stability, J. Mod. Dyn., 1
+(2007), pp. 301-322.
+
+Y. CHAUBET, Closed geodesics with prescribed intersection numbers, Geometry & Topology, 28 (2024),
+pp. 701-758.
+
+Y. CHAUBET AND V. DANG, Dynamical torsion for contact anosov flows, Analysis & PDE, 17 (2024),
+pp. 2619-2681.
+
+Y. CHAUBET AND V. PETKOV, Dynamical zeta functions for billiards, arXiv preprint arXiv:2201.00683,
+(2022).
+
+N. V. DANG, C. GUILLARMOU, G. RIVIERE, AND S. SHEN, The fried conjecture in small dimensions,
+Inventiones mathematicae, 220 (2020), pp. 525-579.
+
+N. V. DANG AND G. RIVIERE, Spectral analysis of morse-smale gradient flows, arXiv preprint
+arXiv:1605.05516, (2016).
+
+V. DANG AND G. RIVIERE, Pollicott-ruelle spectrum and witten laplacians, arXiv preprint arXiv:1709.04265,
+(2017).
+
+V. DANG AND G. RIVIERE, Spectral analysis of morse-smale flows i: Construction of the anisotropic spaces,
+Journal of the Institute of Mathematics of Jussieu, 19 (2020), pp. 1409-1465.
+
+V. DANG AND G. RIVIERE, Spectral analysis of morse-smale flows, ii: Resonances and resonant states,
+American Journal of Mathematics, 142 (2020), pp. 547-593.
+
+K. DatcHEv, S. DyATLOV, AND M. Zworskl, Sharp polynomial bounds on the number of Pollicott-Ruelle
+resonances, Ergodic Theory and Dynamical Systems, arXiv:1208.4330, (2012), pp. 1-16.
+
+M. DIMASSI AND J. SJOSTRAND, Spectral asymptotics in the semi-classical limit, vol. 268 of London
+Mathematical Society Lecture Note Series, Cambridge University Press, Cambridge, 1999, https://doi.org/
+
+10.1017/CBO9780511662195, http://dx.doi.org/10.1017/CBO9780511662195.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+32
+
+33
+
+34
+
+36
+
+37
+
+38
+
+39
+
+D. Dotcopyat, On decay of correlations in Anosov flows, Ann. of Math. (2), 147 (1998), pp. 357-390.
+
+D. Doucopyat, On mixing properties of compact group extensions of hyperbolic systems, Israel J. Math.,
+130 (2002), pp. 157-205.
+
+S. DyaTLov, Resonance projectors and asymptotics for r-normally hyperbolic trapped sets, Journal of the
+American Mathematical Society, 28 (2015), pp. 311-381.
+
+S. DyaTLov, Pollicott-ruelle resolvent and sobolev regularity, 2021, https://doi-org/10.48550/ARXIV.2108.
+06611, https://arxiv.org/abs/2108.06611.
+
+S. DyatLov, Macroscopic limits of chaotic eigenfunctions, in Proc. Int. Cong. Math, vol. 5, 2022, pp. 3704—
+3723.
+
+S. DyaTLov, F. FAURE, AND C. GUILLARMOU, Power spectrum of the geodesic flow on hyperbolic manifolds,
+Analysis and PDE link, 8 (2015), pp. 923-1000.
+
+S. DyATLOV AND C. GUILLARMOU, Pollicott-ruelle resonances for open systems, arXiv preprint
+arXiv:1410.5516, (2014).
+
+S. DyaATLov AND M. Zworskl1, Dynamical zeta functions for Anosov flows via microlocal analysis, arXiv
+preprint arXiv:1306.4203, (2013).
+
+S. DyarLov AND M. Zworskl, Stochastic stability of pollicott—ruelle resonances, Nonlinearity, 28 (2015),
+p. 3511.
+
+S. DyaATLov AND M. Zworskl, Ruelle zeta function at zero for surfaces, Inventiones mathematicae, 210
+(2017), pp. 211-229.
+
+S. DyaTLov AND M. Zworski, Mathematical theory of scattering resonances, vol. 200, American
+Mathematical Soc., 2019.
+
+F. FAURE, Prequantum chaos: Resonances of the prequantum cat map, arXiv:nlin/0606063. Journal of
+Modern Dynamics, 1 (2007), pp. 255-285.
+
+Fs FAURE, Hyperbolic — dynamical systems. https://www.youtube.com/playlist?list=
+PLztV4g64bCJ8R1tyXUCk_MvBe-t5-3z01, 2025. Youtube videos.
+
+F. Faure, N. Roy, AND J. SJOSTRAND, A semiclassical approach for Anosov diffeomorphisms and Ruelle
+resonances, Open Math. Journal. link, 1 (2008), pp. 35-81.
+
+F. FAURE AND J. SJOSTRAND, Upper bound on the density of Ruelle resonances for Anosov flows. a
+semiclassical approach, Comm. in Math. Physics, Issue 2. link, 308 (2011), pp. 325-364.
+
+F. FAURE AND M. Tsusul, Prequantum transfer operator for symplectic Anosov diffeomorphism, Asterisque
+375 (2015), link, (2015), pp. ix+222 pages.
+
+F. FAURE AND M. Tsui, The semiclassical zeta function for geodesic flows on negatively curved manifolds,
+Inventiones mathematicae. link, (2016).
+
+F. FAURE AND M. Tsugul, Microlocal analysis and band structure of contact Anosov flows, Comm. Amer.
+Math. Soc. 4 (2024), link, (2021), pp. 641-745.
+
+F. FAURE AND M. TsuJul, Fractal Weyl law for the Ruelle spectrum of Anosov flows, Annales Henri Lebesgue,
+arXiv:1706.09307 link, 6 (2023), pp. 331-426, https: //doi.org/10.5802/ahl.167, https://ahl.centre-mersenne.
+org/articles/10.5802/ahl.167/.
+
+L. FLAMINIO AND G. FOoRNI, Invariant distributions and time averages for horocycle flows, Duke
+Mathematical Journal, 119 (2003), pp. 465-526.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+on
+a
+
+56
+
+57
+
+59
+
+60
+61
+
+62
+
+63
+
+64
+
+65.
+
+66
+
+67
+
+68
+
+69
+70
+
+71
+
+72
+
+C. GERARD AND A. MARTINEZ, Prolongement méromorphe de la matrice de scattering pour des problémes
+a deux corps @ longue portée, in Annales de ’THP Physique théorique, vol. 51, 1989, pp. 81-110.
+
+P. GIULIETTI, C. LIVERANI, AND M. POLLICOTT, Anosov flows and dynamical zeta functions, Ann. of Math.
+(2), 178 (2013), pp. 687-773, https: //doi.org/10.4007 /annals.2013.178.2.6, http: //dx.doi.org/10.4007/annals.
+2013.178.2.6.
+
+S. Gouf&zEL AND T. LEFEUVRE, Classical and microlocal analysis of the a-ray transform on anosov
+manifolds, Analysis & PDE, 14 (2021), pp. 301-322.
+
+S. GouBZEL AND C. LIVERANI, Compact locally maximal hyperbolic sets for smooth maps: fine statistical
+properties, Journal of Differential Geometry, 79 (2008), pp. 433-477.
+
+C. GUILLARMOU AND C. CEKIC, First band of ruelle resonances for contact anosov flows in dimension 3,
+2020, https: //arxiv.org/abs/2011.05959.
+
+C. GUILLARMOU, J. HILGERT, AND T. WEICH, Classical and quantum resonances for hyperbolic surfaces,
+arXiv preprint arXiv:1605.08801, (2016).
+
+C. GUILLARMOU AND T. LEFEUVRE, The marked length spectrum of anosov manifolds, Annals of
+Mathematics, 190 (2019), pp. 321-344.
+
+V. GUILLEMIN, Lectures on spectral theory of elliptic operators, Duke Mathematical Journal, 44 (1977),
+pp. 485-517.
+
+M. GUTZWILLER, Chaos in classical and quantum mechanics, Springer-Verlag, 1991.
+
+B. HELFFER AND J. SJOSTRAND, Résonances en limite semi-classique. (resonances in semi-classical limit).,
+Memoires de la §.M.F., 24/25 (1986).
+
+J. Hitcert, T. WEIcH, AND L. L. WoLr, Higher rank quantum-classical correspondence, arXiv preprint
+arXiv:2103.05667, (2021).
+
+L. HORMANDER, The weyl calculus of pseudo-differential operators, Communications on Pure and Applied
+Mathematics, 32 (1979), pp. 359-443.
+
+L. J. AND Z. T., Counting pollicott-ruelle resonances for axiom a flows, Communications in Mathematical
+Physics, 406 (2025), p. 26.
+
+L. JIN AND M. ZworskI, A local trace formula for anosov flows, in Annales Henri Poincaré, vol. 18, Springer,
+2017, pp. 1-35.
+
+A. KATOK AND B. HASSELBLATT, Introduction to the Modern Theory of Dynamical Systems, Cambridge
+University Press, 1995.
+
+B. KtsTeR AND T. WEICH, Quantum-classical correspondence on associated vector bundles over locally
+symmetric spaces, International Mathematics Research Notices, (2017).
+
+B. KUsTeR AND T. WEICH, Pollicott-ruelle resonant states and betti numbers, Communications in
+Mathematical Physics, 378 (2020), pp. 917-941.
+
+P. D. LAx AND R. S. PHILLIPS, Scattering theory, vol. 26, Academic press, 1990.
+
+T. LEFEUVRE, Microlocal analysis in hyperbolic dynamics and geometry, preparation, available at
+https: //'T.lefeuvre. blog /microlocal-analysis-in-hyperbolic-dynamics-and-geometry-2, (2025).
+
+N. LERNER, Metrics on the phase space and non-selfadjoint pseudo-differential operators, vol. 3, Springer,
+2011.
+
+C. LIVERANI, On contact Anosov flows, Ann. of Math. (2), 159 (2004), pp. 1275-1312.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited
+73.
+74
+
+75.
+
+76
+
+77
+
+78
+
+79
+80
+
+81
+
+82
+
+83.
+
+84
+85
+86
+
+87
+
+88
+
+89
+90
+
+91
+
+92
+
+93
+
+94
+
+95
+
+C. LIVERANI AND M. Tsustl, Zeta functions and dynamical systems, Nonlinearity, 19 (2006), pp. 2467-2473.
+
+F. NAupD, Expanding maps on Cantor sets and analytic continuation of zeta functions, in Annales Scientifiques
+de Ecole Normale Superieure, vol. 38, Elsevier, 2005, pp. 116-153.
+
+F. Naup, Entropy and decay of correlations for real analytic semi-flows, in Annales Henri Poincaré, vol. 10,
+Springer, 2009, pp. 429-451.
+
+F. Naupb, Density and location of resonances for convex co-compact hyperbolic surfaces, Inventiones
+mathematicae, 195 (2014), pp. 723-750.
+
+E. NELSON, Review of stochastic mechanics, in Journal of Physics: Conference Series, vol. 361, IOP
+Publishing, 2012, p. 012011.
+
+F. NICOLA AND L. RODINO, Global pseudo-differential calculus on Euclidean spaces, vol. 4, Springer Science
+& Business Media, 2011.
+
+S. NONNENMACHER, Spectral problems in open quantum chaos, Nonlinearity, 24 (2011), p. R123.
+
+S. NONNENMACHER AND M. ZworskI, Decay of correlations for normally hyperbolic trapping, Inventiones
+mathematicae, 200 (2015), pp. 345-438.
+
+M. Po.iicort, Meromorphic extensions of generalised zeta functions, Inventiones mathematicae, 85 (1986),
+pp. 147-164.
+
+M. Ratner, The rate of mixing for geodesic and horocycle flows, Ergodic Theory and Dynamical Systems,
+7 (1987), pp. 267-288.
+
+D. RUELLE, Zeta-functions for expanding maps and Anosov flows, Inventiones mathematicae, 34 (1976),
+pp. 231-242.
+
+D. RUELLE, Locating resonances for axiom A dynamical systems., J. Stat. Phys., 44 (1986), pp. 281-292.
+H. H. Rucu, The correlation spectrum for hyperbolic analytic maps, Nonlinearity, 5 (1992), pp. 1237-1263.
+
+H. H. RuGu, Generalized Fredholm determinants and Selberg zeta functions for Axiom A dynamical systems,
+Ergodic Theory Dyn. Syst., 16 (1996), pp. 805-819.
+
+J. SJOSTRAND AND M. Zworski, Asymptotic distribution of resonances for convex obstacles, Acta
+Mathematica, 183 (1999), pp. 191-253.
+
+P. STEFANOV, G. VODEV, ET AL., Distribution of resonances for the neumann problem in linear elasticity
+outside a strictly convex body, Duke Mathematical Journal, 78 (1995), pp. 677-714.
+
+M. TayLor, Partial differential equations, Vol II, Springer, 1996.
+
+M. TsuJu, Quasi-compactness of transfer operators for contact Anosov flows, Nonlinearity,
+arXiv:0806.0732v2 [math.DS], 23 (2010), pp. 1495-1545.
+
+M. Tsusul, Contact Anosov flows and the fourier—bros—iagolnitzer transform, Ergodic theory and dynamical
+systems, 32 (2012), pp. 2083-2118.
+
+M. Tsusu, Exponential mizing for generic volume-preserving Anosov flows in dimension three, arXiv preprint
+arXiv:1601.00063, (2016).
+
+M. Tsusil AND Z. ZHANG, Smooth mixing anosov flows in dimension three are exponential mixing, (2020),
+https: / /arxiv.org/abs/2006.04293.
+
+A. Voros, Unstable periodic orbits and semiclassical quantisation, Journal of Physics A: Mathematical and
+General, 21 (1988), p. 685.
+
+M. Zworskl, Semiclassical Analysis, Graduate Studies in Mathematics Series, Amer Mathematical Society,
+2012, http: //books.google.fr/books?id=SPqm-xNCGEUC.
+
+Copyright © 20XX by SIAM
+Unauthorized reproduction of this article is prohibited

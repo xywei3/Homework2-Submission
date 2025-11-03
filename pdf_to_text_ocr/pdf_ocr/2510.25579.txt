@@ -1,0 +1,1308 @@
+2510.25579v1 [astro-ph.HE] 29 Oct 2025
+
+arXiv
+
+MNRAS 000, 1-12 (2025) Preprint 30 October 2025 Compiled using MNRAS I4Tgx style file v3.3
+
+Population of Binary Black Holes Inferred from One Hundred and Fifty
+Gravitational Wave Signals.
+
+Vaibhav Tiwari,!*
+
+‘Institute of Gravitational Wave Astronomy, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, UK
+Accepted XXX. Received YYY; in original form ZZZ
+
+ABSTRACT
+
+The LIGO-Virgo-KAGRA collaborations have reported gravitational wave (GW) signals from more than 150 Binary Black
+Holes (BBHs) in the fourth catalog (GWTC-4). Here, we investigate the population properties of these BBHs using the
+mixture-model framework Vamana. We present one-dimensional distributions of masses and spins, explore their correlations,
+and examine their evolution with redshift. These features may reflect astrophysical processes associated with BBH formation
+channels, although most remain poorly constrained. A notable feature is a peak near 10M in the primary mass and 8MoQ in the
+chirp mass. Additionally, the primary and secondary masses correlate uniquely, producing pronounced peaks in the chirp mass
+around 14M, and 27Mo. The three peaks are roughly separated by a factor of two. A simple explanation for such well-placed
+peaks is a hierarchical merger scenario, in which the first peak arises from mergers of Black Holes (BHs) of stellar origin, and
+higher-mass peaks arise from repeated mergers of BHs from lower-mass peaks. Although most binaries do not exhibit the high
+spins and characteristic mass ratios expected from hierarchical mergers, those that do are associated with the peaks observed in
+
+the chirp mass distribution.
+
+Key words: gravitational waves — black hole mergers
+
+1 INTRODUCTION
+
+With the release of the fourth gravitational-wave catalog, the
+LIGO-Virgo-KAGRA (LVK) collaborations have more than dou-
+bled the number of gravitational-wave signals (Aasi et al. 2015;
+Acernese et al. 2015; Akutsu et al. 2021; The LIGO Scientific Col-
+laboration et al. 2025a,b). A key objective of gravitational-wave as-
+tronomy is to understand the physical processes that form and merge
+compact binaries. Often, the approach is to reconcile the anticipated
+distribution from proposed formation scenarios with the features ob-
+served in the compact binary mass, spin, and redshift distributions.
+Thus, the development of methodologies that accurately infer the
+population and connect the inferred population to proposed forma-
+tion scenarios is essential.
+
+Significant progress has been made in developing parametric and
+non-parametric methods to infer the compact binary population.
+Parametric methods have employed combinations of power laws,
+normal distributions, tapering functions, and notch filters to infer
+the BBH mass distribution (Talbot & Thrane 2018; Wysocki et al.
+2019; LIGO Scientific Collaboration & Virgo Collaboration 2019;
+Fishbach et al. 2020; Farah et al. 2022; Golomb et al. 2023; Gen-
+nari et al. 2025). Non- and semi-parametric methods utilising a large
+number of parameters have revealed additional details in the BBH
+mass distribution (Tiwari 2021; Sadiq et al. 2022; Rinaldi & Del
+Pozzo 2022; Edelman et al. 2023; Abbott et al. 2023a; Toubiana
+et al. 2023; Sadiq et al. 2024; Ray et al. 2024; Callister & Farr 2024;
+Heinzel et al. 2024a). The mass distribution shows an emerging struc-
+
+* E-mail:vaibhavtewari@ gmail.com
+
+© 2025 The Authors
+
+ture composed of several peaks. The first peak is observed around
+a chirp mass of 8My (10M in primary mass) (Tiwari & Fairhurst
+2021; Li et al. 2021). The second peak is observed around a chirp
+mass of 14M, (Tiwari & Fairhurst 2021; Abbott et al. 2023a; Ti-
+wari 2024). However, the second peak is not statistically significant
+in the primary mass (Farah et al. 2023; Callister & Farr 2024). A
+third peak is observed around a chirp mass of 28Mo (35Mo in pri-
+mary mass) (Talbot & Thrane 2018; LIGO Scientific Collaboration
+& Virgo Collaboration 2019; Roy et al. 2025).
+
+Significant effort is also underway to investigate the spin distribu-
+tion of BBHs (Tong et al. 2022; Vitale et al. 2022; Golomb & Talbot
+2023; Périgois et al. 2023; Baibhav et al. 2023; Adamcewicz et al.
+2024; Biscoveanu et al. 2022; Hussain et al. 2024; Banagiri et al.
+2025; Biscoveanu 2025). So far, drawing confident astrophysical im-
+plications from spin distributions has been challenging, due in part
+to a lack of strong signatures in the distribution (The LIGO Scientific
+Collaboration et al. 2025b), and in part due to large uncertainties in
+the spin magnitudes predicted by formation scenarios (Bavera et al.
+2020; Belezynski et al. 2020; Zevin & Bavera 2022; Ghodla & El-
+dridge 2024). Additional uncertainty arises from processes that can
+alter spin orientations (O’Shaughnessy et al. 2017; Steinle & Kes-
+den 2021; Baibhav & Kalogera 2024), compounded by our limited
+ability to measure spin components orthogonal to the orbital angu-
+Jar momentum (Miller et al. 2024; Hoy et al. 2025). Marginal mass
+and spin distributions together can better constrain the physics of
+formation channels predicting both distributions (Belczynski et al.
+2020; Banerjee 2021; Mapelli et al. 2022), and the joint mass-spin
+distribution is now available from multiple analyses (Tiwari 2022;
+Heinzel et al. 2024b; Ray et al. 2024; Pierra et al. 2024b; Sadiq
+2 = V.Tiwari
+
+et al. 2025). However, due to the small number of GW observations,
+large model uncertainties, and the variety of proposed formation
+scenarios (Mandel & Broekgaarden 2022), investigations focusing
+on mass-dependent spin distributions remain limited. Mass ratios
+and their correlations with spins can reveal imprints of formation
+channels (Farr et al. 2017; Callister et al. 2021; Galaudage et al.
+2021; Golomb & Talbot 2023; Adamcewicz et al. 2023; Kinugawa
+et al. 2024; Heinzel et al. 2024c,b; Hoy et al. 2025), but no channel-
+specific trend has yet emerged.
+
+Motivated by the two dominant peaks around 10Mo and 35Mo
+in the primary mass distribution and the variation of spins with
+mass, multiple analyses suggest the presence of two dominant sub-
+populations contributing to BBH mergers (Godfrey et al. 2023; Ray
+et al. 2024; Li et al. 2024; Antonini et al. 2024; Pierra et al. 2024a;
+Hussain et al. 2024) (alternatively, see Ho et al. (2024) for a three-
+sub-population model producing three peaks in the chirp mass dis-
+tribution, Mahapatra et al. (2025) for hierarchical mergers fitted to
+primary mass peaks, and Afroz & Mukherjee (2025a) for multiple
+sub-population fits.). However, the additional peak around 14M,
+complicates the interpretation.
+
+Investigations for specific scenarios are comparatively straightfor-
+ward. For example, unique features in the mass and spin distributions
+are characteristic of a hierarchical merger scenario (Doctor et al.
+2020; Payne et al. 2024; Tagawa et al. 2021; Mahapatra et al. 2025).
+In this scenario, the remnant from a merger may be retained by the
+environment, forming another binary that merges within a Hubble
+time (Gerosa & Fishbach 2021; Antonini et al. 2019; Mapelli et al.
+2021; Chattopadhyay et al. 2023).
+
+In a specific case, the first-generation (1G) BBHs are dynamically
+formed from BHs of stellar origin distributed in a narrow mass range
+due to a pile-up caused by a mass gap. The remnants of these 1G
+mergers constitute second-generation (2G) black holes with masses
+around twice those of the 1G black holes. A small fraction of rem-
+nants retained by the environment can form heavier BBHs. This
+process can continue, creating higher-generation black holes. In this
+case, successive peaks in the mass distribution appear at roughly
+a factor of two apart!. After the release of GWTC-2, we reported
+four well-placed peaks in the chirp mass distribution following this
+multiplicative factor (Tiwari & Fairhurst 2021), and additional ob-
+servations after GWTC-3 retained these peaks (Abbott et al. 2023a;
+Tiwari 2022). While hierarchical mergers provide a simple expla-
+nation for these well-placed peaks, two predicted signatures remain
+largely absent at the population level: the scenario predicts high-spin
+black holes with dimensionl ins peaking around 0.7, and inter-
+and intra-generation mergers yielding mass ratios of roughly 1.0,
+0.5, 0.25, ... (Lousto et al. 2010; Fragione & Rasio 2023). Notably,
+the high-spin BBHs we observe do exhibit the expected mass ratios
+and spin magnitudes. Moreover, their measured masses also coincide
+with the peaks in the chirp mass distribution — a correlation that is
+difficult to explain if the peaks arise from unrelated processes.
+
+In this article, we report the population properties of BBHs in-
+ferred using the mixture-model framework, Vamana. The article is
+organised as follows: in Section 2 we briefly discuss our methodol-
+ogy, in Section 3 we report the population properties of BBHs, in
+Section 4 we discuss the high-spin population, and in Section 5 we
+
+summarise our results.
+
+' Around 4—6% of mass is lost to gravitational waves, so the factor is slightly
+below two.
+
+MNRAS 000, 1-12 (2025)
+
+2 METHOD
+
+We use the mixture model framework, Vamana (Tiwari 2021), to
+infer the population properties of the BBHs. In the previous version
+of Vamana, the chirp mass and mass ratio were used as the mass pa-
+rameters. In the current version, we use the primary and secondary
+masses instead. In addition to masses, Vamana also infers the aligned
+spin (the component of spin aligned with the orbital angular momen-
+tum) and the redshift evolution of the merger rate. The components in
+the mixture model are multivariate Gaussians used to infer the mass
+and spin distributions. They also include a power-law to characterise
+the redshift evolution of the merger rate. Together, this provides a
+four-dimensional inference of the population. Section A provides a
+detailed description of the model.
+
+Several independent groups have reported new BBH signals after
+analysing the open data from the LVK (Venumadhav et al. 2019; Nitz
+et al. 2019; Zackay et al. 2019; Venumadhav et al. 2020; Nitz et al.
+2020, 2021; Olsen et al. 2022; Wadekar et al. 2023; Nitz et al. 2023;
+Kumar & Dent 2024; Mishra et al. 2025; Mehta et al. 2025; Koloniari
+et al. 2025). However, since sensitivity estimates are required to infer
+the population accurately (Tiwari 2018), we only use observations
+reported by the LVK collaborations (Abbott et al. 2019, 2021, 2024,
+2023b; The LIGO Scientific Collaboration et al. 2025a). We select
+all observations with a false alarm rate of at most one per year
+and a mean secondary mass greater than 3Mo. These criteria are
+satisfied by 153 observations, 69 of which were reported by the LVK
+in GWTC-3. The estimated parameters for these BBHs are publicly
+available (LIGO Scientific Collaboration et al. 2023).
+
+3 POPULATION PROPERTIES
+
+Vamana infers the two-component masses, the aligned spin com-
+ponents, and the redshift evolution of the merger rate. The aligned
+spins are assumed to be identically but independently distributed
+for both BHs. In this section, we present the inferred distributions
+marginalised over the modelled or transformed parameters and the
+correlations between them.
+
+3.1 Marginalised Distributions in One Dimension
+
+Figure | shows the inferred distributions of primary, secondary, com-
+ponent, and chirp masses. These are obtained by marginalising over
+spins and redshift distributions, yielding the distribution on the com-
+ponent mass plane defined by the primary and secondary masses.
+Marginalising over the secondary (primary) mass then yields the dis-
+tribution of the primary (secondary) mass. If the designation between
+the primary and secondary is removed, i.e., p(m2,m,) = p(m1,m2),
+one obtains the component mass distribution. Finally, transforming
+parameters as (7 ,m2) = (M,q) produces the chirp mass and
+mass-ratio distributions. All distributions show a prominent over-
+density at the lower end of the mass spectrum, supported by more
+than 40 observations. The first peak in the chirp mass distribution
+spans 6-10Mo. It contributes approximately 66% to the astrophysical
+merger rate of BBHs?. The chirp mass distribution exhibits a local
+minimum around 10Mo, where the mean density drops by a factor of
+28 from 7.2Mo to 10.2Mo, and then rises by a factor of 4 at 12.9Mo.
+
+? This fraction is sensitive to the prior on the Gaussian locations for the
+masses. Currently, we adopt a uniform prior, P( im, 3 Or; Hy) = constant.
+A steeper prior, e.g., P (Hm) + Mmy) = 1/(Him, > Hmy ), increases this fraction
+to 78%.
+— dR/dM|m
+10°
+
+107!
+
+dR/dM
+
+10-2
+
+dR/dm2
+S
+
+10-2 To
+(6) =
+
+10°3 ; , , io
+10 20 30 40 50 60 70 &
+
+°
+10° &
+
+dR/dm,
+
+10-2
+()
+10°3
+
+20 40 60 80 100
+
+10°
+
+107
+
+dR/dm
+
+10-2
+()
+10°3
+
+20 40 60 80 100
+Mass Parameter [Mo]
+
+Figure 1. The mass distribution of BBHs. Solid curves indicate the median, and shaded bands show the 90% credible intervals for the differential merger rate.
+All mass parameters show an over-density at the lower-mass end. The chirp mass distribution exhibits four distinct peaks, with the first three exceeding a 99%
+confidence level. The region between the first two peaks is labelled ‘gap’ due to a lack of observations. Subsequent peaks are separated by approximately a
+factor of 1.9, shown by brown lines 2. The distribution, dR/dM|z is described in sub-section 4.2. Other mass parameters show local maxima at comparable
+locations, but with lower confidence. Primary and secondary masses uniquely correlate to produce the peaks in the chirp mass distribution (see sub-section 3.2.1).
+
+MNRAS 000, 1-12 (2025)
+4 V.Tiwari
+
+This ‘gap’ corresponds to a lack of observations with mean chirp
+masses between 8.9 and 11.7Mo and is discussed in Section 4 in the
+context of a hierarchical merger scenario. Using methodologies from
+Tiwari (2024) and Tiwari (2025), we estimate over 99% confidence
+in the two peaks around 14Mo and 26Mo (see Roy et al. (2025) for
+a detailed study of this peak). Other mass parameters exhibit mod-
+ulations at comparable locations, but with limited confidence. For
+distributions where component masses are uncorrelated, a peak in
+the component mass distribution typically produces a peak in the
+chirp mass at a slightly smaller value (by a factor of 2°?) and in
+the primary mass at a value roughly 1.2 times larger. The presence
+of a confident peak in the chirp mass distribution, without a com-
+parable peak in the primary or secondary masses, implies a unique
+correlation between the component masses, di: ed further in sub-
+section 3.2.1. Figure 2 shows the inferred mass-ratio and aligned
+spin distributions. In previous reports, the mass-ratio distribution was
+found to peak at unity (Tiwari 2022), which was an artefact of using
+a power law to infer the distribution. Modelling component masses
+with Gaussians allows a more flexible inference. The inferred distri-
+bution is uniform, mainly between 0.6 and 0.9, with a wide credible
+interval due to limited precision in mass-ratio measurements. This
+suggests no strong evidence for preferential pairing of comparable-
+mass binaries. The aligned spin distribution is symmetric, peaking
+around 0.05, with most observations consistent with small aligned
+spins. Priors on model hyperparameters have a noticeable impact
+on the inferred mass ratio and aligned spin distribution (Baird et al.
+2013; Vitale et al. 2017b; Tiwari et al. 2018) as these parameters are
+strongly correlated and are measured with significant uncertainty. A
+prior that favours smaller aligned spin values results in the inferred
+mass ratio being larger, and vice versa.
+
+Figure 3 shows the redshift evolution of the merger rate. Models
+assumes a power-law evolution of the merger rate, R(z) = Ro(1 +
+z)* (Fishbach et al. 2018), Where Ro is the merger rate at redshift
+zero. Merger rate is estimated to be, Ro = 14.0°S$Gpc* yr}, The
+right side of Figure 3 shows the evolution of the merger rate with the
+redshift. The evolution is confidently positive with x ranging from
+0.44.7 at 90% credibility. Priors make a noticeable impact on the
+inferred values of x and merger rate. Prior that favours populations
+with larger sensitive volumes results in smaller merger rates, e.g., a
+prior on k extending to large positive values.
+
+3.2 Correlation between parameters
+
+We now examine correlations between the modelled or transformed
+parameters. Instead of computing posterior predictive distributions
+on a multidimensional grid (with Jacobian corrections for transfor-
+mations), we draw a large number of samples for component masses,
+aligned spins, and redshift. All figures in this sub-section, except the
+differential merger rate on the component mass plane, are generated
+by histogramming these samples.
+
+3.2.1 Correlation between mass parameters
+
+Figure 4 shows the differential merger rate on the component mass
+plane, revealing three prominent over-dense regions corresponding
+to peaks in the chirp mass distribution. The region associated with
+the 14Mo chirp mass peak exhibits a unique correlation between pri-
+mary and secondary masses: it creates a prominent chirp-mass peak
+without producing a comparably strong peak in the individual com-
+ponent masses (see Figure 1). This can also be observed in Figure 5.
+The mass ratio varies, forming a jagged curve for both the primary
+
+MNRAS 000, 1-12 (2025)
+
+and total mass. The correlation changes sign around a primary mass
+value of 19Mg. This feature is more prominent in the primary and
+almost absent in the chirp mass. We have previously reported this
+feature for observations in GWTC-3 (Tiwari 2024, 2025). Chirp mass
+is the most accurately measured parameter. Although it is not a pa-
+rameter directly relevant to astrophysical processes, the presence of
+a strong feature in the chirp mass requires investigation.
+
+The effect of this correlation is reflected in the distribution of
+mass ratios. Mass ratios for the second peak significantly contrast
+with those for the third peak located around the chirp (primary)
+mass value 27M. (35M). By making random draws for mass ratio
+corresponding to the second peak (11.0 < Mo < 19.0) and the third
+peak (19.0 < Mg < 32.0), we find the third peak has a larger mass
+ratio for 85% of the draws.
+
+3.2.2 Correlation between mass ratio and aligned spin
+
+Previous studies report correlations between effective spin and mass
+ratio (Callister et al. 2021; Adamcewicz et al. 2023). Using the up-
+dated Vamana model, we continue to find an essentially flat relation
+between aligned spin and mass ratio, with slight broadening at lower
+mass ratios. Random draws indicate that binaries with q € [0.1, 0.5]
+have larger aligned spins than those with g € [0.5, 1.0] in 60% of
+draws.
+
+3.2.3 Correlation between mass parameters and aligned spin
+
+Figure 7 shows that aligned spins are generally low across most of the
+mass range, but increase for heavier binaries. For chirp masses below
+35.Mo, the 90% credible interval for aligned spins is 0.05—0.25, rising
+to 0.1-0.4 above 35Mo. Random draws indicate heavier binaries
+have larger aligned spins in 80% of cases. This trend, along with two
+dominant primary-mass peaks, motivates the use of multi-population
+models for BBH observations.
+
+3.2.4 Redshift evolution of the population
+
+Vamana models the redshift evolution of the merger rate as a power
+law, allowing components in different parameter-space regions to
+evolve differently. Figure 8 shows the ratio of merger rates at z = 0.5
+and z = 0 as a function of mass. Previously, the evolution appeared
+shallower for the heaviest binaries (M > 35Mo) at 90% credibil-
+ity (Tiwari 2022), but with additional observations, this confidence
+drops to 70%. The luminosity distance, degenerate with the inclina-
+tion angle, is measured with a large uncertainty, limiting the precision
+with which population evolution can be measured. Figure 9 shows
+population-averaged mass ratio and aligned spin versus redshift. Both
+remain largely flat, indicating no significant evolution of binary pair-
+ing or spins. Large credible intervals reflect the limited information
+from GW observations.
+
+4 HIERARCHICAL MERGERS
+
+Observation of peaks in the component mass distribution, with their
+relative locations bearing a constant factor, is characteristic of a hier-
+archical merger scenario. In this scenario, the first peak corresponds
+to the first-generation (1G) mergers between BHs of stellar origin,
+and the higher-mass peaks are due to repeated mergers of BHs rem-
+nants from the lower-mass peaks. The relative location of peaks is
+expected to bear a factor of around 1.9, which accounts for the dou-
+bling of masses and approximately a 5% loss in mass due to the
+3.0
+
+25
+
+2.0
+
+p(q)
+
+1.0
+
+0.5
+
+0.0
+
+0.2 0.4 0.6
+
+Mass Ratio (q)
+
+08
+
+2.5
+
+2.0
+
+1.0
+
+05
+
+0.0 00
+
+Spin z (Sz)
+
+-0.5 05
+
+Figure 2. Inferred mass-ratio (left) and aligned spin (right) distributions. Solid lines indicate the median, shaded bands the 90% credible interval. The mass ratio
+is mostly uniform from 0.6 to 0.9. Aligned spins are typically small, ranging from -0.30 to 0.37 at 90% credibility.
+
+0.12
+0.10 —
+a
+0.08 a
+= i}
+x v 10?
+0.06 S
+0.04 >
+0.02
+1
+0.005 10 15 20 25 30 ‘B00 025 050 075 100 125 150
+R [Gpc3-yr] Redshift (z)
+
+Figure 3. Local merger rate (left) and redshift evolution (right). Solid lines indicate the mean, shaded bands the 90% credible interval. The local merger rate is
+
+Ro= 14.04 8.Gpe*, yr! Redshift evolution is confidently positive.
+
+emission of GWs (Barausse et al. 2012). The location of peaks im-
+plies mass ratios of roughly 1, 0.5, 0.25, and other combinations,
+resulting from intra- and inter- generational mergers. In addition,
+these binaries often have high spins (Lousto et al. 2010).
+
+4.1 High-Spin Binary Black Holes
+
+Although a majority of the population does not exhibit the expected
+characteristics from the hierarchical merger scenario, binaries with
+high spins do. Moreover, these high-spin binaries exhibit mass ra-
+tios and aligned spins consistent with expectations from hierarchical
+mergers. Notably, the components of most of the high-spin binaries
+are associated with the peaks observed in the chirp mass distribution.
+
+3 If the spin magnitude is narrowly distributed around 0.7 and orientations
+are isotropic, the aligned spin distribution is approximately uniform extending
+from -0.7 to 0.7.
+
+The first peak in chirp mass is located around 7.5Mo. The compo-
+nent mass for a comparable mass binary corresponding to this value
+is 7.5 x 2°? = 8.5Mo.*. Consequently, the BHs involved in intra-
+and inter-generation mergers will have masses distributed aroun:
+8.5Mo X 1.9 = 16.2Mo and 8.5Mo x 1.9? = 30.7Mo. We previously
+noted that in addition to high spins, observation GW190412 (Ab-
+bott et al. 2020) with mean masses 8.3-30.1Mo is consistent with
+a 1G-3G merger (Tiwari & Fairhurst 2021). GW151226 (Abbott
+et al. 2016), and the recently announced GW241011_23383 an
+GW241110_124123 have masses consistent with 1G-2G merg-
+ers. Observation GW230624_113103 has masses consistent with a
+2G-3G merger (The LIGO Scientific Collaboration et al. 2025a).
+Most of the BHs masses for high-spin binaries are close to the values
+we calculated. To demonstrate this, we select high-spin binaries an:
+infer the mass distribution of their components. GWs provide limite
+
+4 For a binary with component masses m; and my, the chirp mass is given
+by M = (mymz)°-°/(m, + mz). For m, = mo, the scaling factor is 2°7.
+
+MNRAS 000, 1-12 (2025)
+6 VTiwari
+
+dR/dmidmz, [Gpc~3yr-1M 7
+
+107+
+10°3
+105
+10-7
+10°
+
+ae _ =A tiie ]
+
+aS a 00 °
+{o) {=} oO Oo
+
+nN
+oO
+
+Secondary Mass, ™2[Mo]
+
+dR/dmidm2, [Gpc-7yr-*M 57]
+
+-_ 1071
+fo}
+
+= 40
+
+N ae
+é 10
+9 30
+
+= 10°
+= 20
+
+2 107
+co}
+
+3 10
+
+Ww)
+
+30 40 50
+
+10 =20
+Primary Mass, [M9]
+
+Figure 4. Differential merger rate on the component mass plane. Three over-dense regions correspond to peaks in the chirp mass distribution. The dashed curve
+
+indicates a constant chirp mass track, M = 13.9Mo, which requires the component mas
+
+'s to correlate uniquely. The over-density around 60-40Mob has been
+
+interpreted as due to the presence of a gap in the secondary mass caused by pulsational instability supernova (Fowler & Hoyle 1964; Woosley 2017) and lack of
+it in the primary mass due to 2G—1G hierarchical mergers, where masses of 1G BHs in this interpretation extends up to around 45Mo (Antonini et al. 2025b;
+Tong et al. 2025; Antonini et al. 2025a; Afroz & Mukherjee 2025b; Guttman et al. 2025).
+
+1.0 1.0 1.0
+
+0.8 08 08
+Lom low Lom
+£ a} 2
+506 5 06 5 06
+a a a
+4 g 4
+=04 =04 = 04
+
+0.2 0.2 0.2
+
+20 40 60 80 50 100 150 20 40 60
+
+Primary Mass, 71[M 0]
+
+Total Mass, M[Mo]
+
+Chirp Mass, M[Mo]
+
+Figure 5. Variation of mass ratio with mass parameters. The primary/total mass combines uniquely with the mass ratio to produce the second chirp mass peak
+at 14Mo. The jagged structure arises from a change in the sign of the correlation around m; = 19Mo. In contrast, the third peak mostly consists of binaries
+
+with comparable masses.
+
+information on the spins of individual BHs (Piirrer et al. 2016; Vitale
+et al. 2017a). An effective spin parameter is measured substantially
+more accurately and is defined as (Damour 2001; Racine 2008; Ajith
+et al. 2011):
+
+M1, Siz, +, M2, 52x
+
+ce \ 1
+Xett ih, ii ()
+
+for the component masses, m and m2, and components of the spins
+aligned with the orbital angular momentum, sj, and s2,. We select
+all the BBHs with mean effective spin magnitude greater than 0.2,
+ice. |(verr)| > 0.2. This is not the most robust criterion for choosing
+high-spin BBHs, as it cannot discriminate whether one or both BHs
+have high spins or account for the presence of in-plane spin. But,
+overall, the spins of BHs in the selected binaries are expected to
+be substantially higher. The mass ratio and spin distribution of the
+chosen binaries are shown in Figure 10.
+
+These observations have mass ratios clustered around 1.0 and 0.5.
+
+MNRAS 000, 1-12 (2025)
+
+GW190412 has a mean mass ratio of around 0.25. The high-spin
+binaries constitute a population substantially different from the BBH
+population as shown in Figure 11. In addition to differing in spins as
+expected due to our choice, the two populations also differ in mass
+ratio.
+
+Using individual mass and aligned-spin measurements from the se-
+lected binaries, we infer the distributions of BH mass and aligned
+spin. The methodology details are provided in Appendix B. These
+inferences are shown in Figure 12. The BH masses cluster around
+specific mass values. The brown lines compare the peaks in Figure 12
+with the peaks observed in the chirp mass distribution shown in Fig-
+ure 1. We note that the peaks in the component mass distribution for
+the high-spin population are complementary to the peaks observed
+in the chirp mass distribution of the full population.
+
+The inferred distribution has not been corrected for the selection
+effect. The relative height of the peaks will change after this correc-
+0.75
+0.50
+0.25
+OL ———————
+
+-0.25
+
+ed Spin, Sz
+
+ign
+
+Al
+
+-0.50
+
+-O75
+
+0.2 0.4 0.6 0.8 1.0
+Mass Ratio, q
+
+Figure 6. Variation of aligned spins with mass ratio. The distribution is mostly
+flat, showing no strong correlation.
+
+tion. The redshift evolution has been fixed to uniform in comoving
+volume. Choosing a steeper evolution shifts the peak to lower masses.
+This change is noticeable but small and impacts heavier mass peaks
+more. As noted in Appendix B, the pairing probability of BHs has
+not been modelled; inclusion of which will have a noticeable effect
+on this structure. Overall, the confidence in the structure is weak,
+but it suggests that the component masses of high-spin binaries are
+complementary to the peaks in the chirp mass distribution. This
+structure has become increasingly pronounced with the increase in
+the size of the GW catalog. Each observation run has accumulated an
+increasing number of high-spin BBHs whose components are con-
+sistent with the peaks in the chirp mass distribution. Figure 12 also
+shows the three BH masses measured via astrometric observations
+with Gaia (Gaia Collaboration et al. 2024). The number of BHs is
+expected to increase significantly with Gaia’s next data release (Na-
+garajan et al. 2025). Masses of these BHs will make an interesting
+comparison with Figure 12.
+
+4.2 Chirp Mass as the Mass Parameter
+
+Chirp mass is the most dominant term that affects the phase evolu-
+tion of a binary (Cutler & Flanagan 1994). It is measured with the
+smallest uncertainty and is least affected by any biases. The inferred
+chirp mass distribution is expected to reflect its true astrophysical
+counterpart most accurately. Due to this, chirp mass is sometimes
+used as one of the mass parameters along with the mass ratio of the
+binary when inferring the BBHs mass distribution. In principle, any
+pair of mass parameters can be used to infer the underlying mass
+distribution, and the distributions of the other mass parameters can
+then be obtained through the appropriate transformations. In prac-
+tice, however, population models often lack the flexibility to capture
+the complex Jacobians involved in these parameter transformations
+accurately. For example, the chirp mass distribution inferred by ap-
+plying a parameter transformation after using the primary mass and
+mass ratio as mass parameters may differ from that inferred directly
+when the chirp mass is used as the mass parameter. For this particular
+reason, we use a correlation term between the primary and secondary
+mass to model other mass parameters as accurately as possible. This
+correlation term is often not present in population models.
+
+Despite its accurate measurement, chirp mass may not be the
+most appropriate mass parameter. For example, when inferring com-
+
+7
+
+ponent mass distribution in the hierarchical merger scenario, both
+inter- and intra-generational mergers contribute to the same set of
+peaks. However, although intergenerational mergers will contribute
+to the primary peaks in the chirp mass distribution, intragenerational
+mergers will create additional peaks. The recently announced binary
+GW241110_124123 (LIGO Scientific Collaboration et al. 2025) that
+was observed in LVK’s 04b run with a mean chirp mass of around
+9.9Mo fills the 10-12M. chirp mass gap reported earlier (Tiwari &
+Fairhurst 2021; Tiwari 2025). Components of GW241110_124123
+exhibit high spins and mass asymmetry. Other observations, such
+as GW151226 (Abbott et al. 2016) and GW241011_233834 (LIGO
+Scientific Collaboration et al. 2025), also partially fill the gap and
+have similar properties. Therefore, the removal of intra-generational
+mergers would reinforce the chirp mass peaks from the hierarchi-
+cal merger scenario. We remove binaries with a mean effective spin
+magnitude greater than 0.2 and a mean mass ratio less than 0.65.
+Our choice is motivated by the expected mass ratios and high spins;
+however, this is not the most robust criterion for selecting intra-
+generational mergers, and it does not ensure the removal of all the
+intra-generational mergers. Nevertheless, at the population level, this
+will sharpen the peaks in chirp mass. The resulting "mass ladder"
+distribution, dR/dM|y71, is shown by the orange curve in Figure 1.
+
+5 CONCLUSION
+
+In this article, we have reported the population properties of bi-
+nary black holes following the fourth LVK gravitational-wave cat-
+alog, which roughly doubles the number of observed events. One-
+dimensional distributions of mass, mass ratio, and spin, along with
+their correlations and the redshift evolution of the merger rate, have
+been presented. While most features remain tentative and require
+more observations to establish robust confidence, the three peaks in
+the chirp mass distribution are notable. These peaks are not mir-
+rored at comparable confidence in the primary or secondary mass
+distributions, reflecting a unique correlation between the component
+masses. Their locations, spaced roughly by a factor of two, can be
+simply explained in the context of hierarchical mergers.
+
+While the overall paucity of high spins challenges a naive hierar-
+chical picture, the component masses combine to produce a markedly
+pronounced structure in the chirp-mass distribution. The chirp mass,
+being the most precisely measured mass parameter, does not di-
+rectly map onto formation physics; conversely, spin inferences are
+less precise and influenced by modelling, priors, and selection ef-
+fects, potentially underrepresenting a high-spin population. Notably,
+the subset of high-spin binaries exhibits component masses that align
+with the peaks in the chirp mass distribution, offering direct evidence
+in support of hierarchical scenarios.
+
+Taken together, these observations raise the question of whether
+hierarchical mergers may dominate the shaping of the binary black
+hole mass distribution rather than representing only a minor contribu-
+tion. Even if spins remain difficult to measure, the mass distribution
+alone carries signatures of hierarchical processes. With the remain-
+ing fourth observation run expected to roughly double the current
+catalog, these signatures can be tested more rigorously, offering an
+opportunity to refine our understanding of binary black hole forma-
+tion channels.
+
+MNRAS 000, 1-12 (2025)
+8 V.Tiwari
+
+08 08 0.8
+Py a a
+06 806 $06
+= z =
+i=% Ft =
+Ey EY Ey
+204 204 204
+= £ =
+a a a
+Wy yw) it)
+Boz Kae Bo yea aa Das Roy
+oJ 2 a
+= = =
+00°30 40 60—~COS:*«“‘ié‘ 50 100 0 «(9° 20 40 60
+Primary Mass, [Mo] Total Mass, M[Mo] Chirp Mass, M[Mo]
+
+Figure 7. Aligned spin as a function of mass parameters. The solid line represents the median, and the blue band indicates the 90% credible interval. Heavier
+binaries tend to have larger aligned spins.
+
+8 8
+7
+os So So
+6
+Il Il Il
+vé ue s
+& & e5
+in in in
+a4 eo ne 34 A 3 ‘a
+I Il Il
+N N v3
+& & &
+2 2 2
+1
+0 20 40 60 80 100 (e) 20 40 60 80 100 ) 20 40 60 80 100
+Primary Mass, [Mo] Secondary Mass, M2[M 9] Component Mass, M[Mo]
+
+Figure 8. Merger rate increase at z = 0.5 relative to the local universe. The distribution is mostly flat, with no strong evidence for mass-dependent evolution.
+
+10 10
+. 05 0.8
+2) low
+= Cy Sd
+a +
+2° 0.0 & 06
+2 4
+is)
+2 =
+05 04
+19 05 10 15 2% 05 10 15
+Redshift, z Redshift, z
+
+Figure 9. Population-averaged aligned spin (left) and mass ratio (right) as a function of redshift. The distributions are flat, indicating no significant evolution.
+
+MNRAS 000, 1-12 (2025)
+— 0.33 s(q) < 0.66
+— 0.66 <(q)
+— (q)<0.33
+
+Figure 10. The mass ratio (left) and effective spin (right) distribution of BBHs with | (yer) | > 0.2. Parameters are estimated using standard prior (Ashton et al.
+2019). The prior is approximately uniform for the mass ratio. Combined with the priors on spins, which are assumed to have a uniform magnitude with isotropic
+orientation, the corresponding prior on Ye is shown on the figure using a dashed red line. We use BH masses measured from these binaries to infer the BH
+
+mass distribution shown in Figure 12.
+
+103
+17.5 —— Mass ratio —— Effective spin
+15.0 102
+12.5
+1
+S100 6 °°
+a a
+75
+10°
+5.0 lh
+2
+5 LL 107 nM | |
+00 — - Iz oo
+™ 0.0 0.2 04 0.6 0.8 1.0 0.00 0.02 0.04 0.06 0.08
+D >)
+
+Figure 11. The KS p-values between possible values of mass ratio and effective spins between the high-spin BBHs used in estimating BH mass distribution
+shown in Figure 12 and BBHs used in estimating the chirp mass distribution shown in Figure 1. Although the two populations differ significantly, their mass
+distributions are strikingly similar. The vertical brown lines make this comparison. To calculate KS p-values, we randomly selected one sample per observation
+and computed the KS p-value for that selection. The histogram shown was created from multiple p-values calculated across various selections. The p-value
+between samples from the same population is expected to be uniformly distributed. However, the histogram’s p-values are significantly skewed towards small
+values. The estimated parameters use a standard prior. In practice, these estimates should be re-weighted to population-informed priors. We don’t expect that
+
+would meaningfully impact our conclusion.
+
+ACKNOWLEDGEMENTS
+
+The author thanks Alberto Vecchio, Bernard Schutz and Fabio An-
+tonini for the helpful discussion and Debatri Chattopadhyay for re-
+viewing the manuscript. This material is based upon work supported
+by NSF’s LIGO Laboratory which is a major facility fully funded
+by the National Science Foundation. The author gratefully acknowl-
+edges computing resources provided by the LIGO laboratory, sup-
+ported by the National Science Foundation grants, PHY-0757058
+and PHY-0823459, and computing resources provided by Cardiff
+University, funded by Science and Technology Facilities Council
+grants, STFC grants ST/I006285/1 and ST/V005618/1.
+
+DATA AVAILABILITY
+
+The result files and plotting scripts are available on GitHub.
+
+PACKAGES USED
+
+NumPy Harris et al. (2020), SciPy Virtanen et al. (2020),
+matplotlib (Hunter 2007), and ASTROPY (Astropy Collaboration
+& Astropy Project Contributors 2022).
+
+MNRAS 000, 1-12 (2025)
+10. ~=~V.Tiwari
+0.200 |e 25
+0.175 i | i—[> 28
+' 2.0
+0.150 ' '
+0.125 ~15
+= 0.100 ' ' a
+oo7s} =f i
+0.050 \ }
+\ f 05
+0.025 : ;
+0.000 To 20 30 40 50 (00 “05 0.0 05
+Component Mass, m [Mo] Spin z (Sz)
+
+Figure 12. The BH mass (left) and aligned spin (right) distribution inferred from BBHs with |(yemr)| > 0.2. After accommodating the scaling factor of 2°-?
+required to scale the chirp mass to the component masses of a comparable mass binary, the peaks in this figure and Figure | match the brown lines well. The
+three black dots indicate the mass values of black holes found via astrometric observations with Gaia (El-Badry et al. 2023a,b; Gaia Collaboration et al. 2024).
+
+REFERENCES
+
+AasiJ., Abbott B. P., Abbott R., Abbott T., et al., 2015, Classical and Quantum
+Gravity, 32, 074001
+
+Abbott B. P., et al., 2016, Phys. Rev. Lett., 116, 241103
+
+Abbott R., Abbott T. D., Abraham S., et al., 2019, Physical Review X, 9,
+031040
+
+Abbott R., et al., 2020, Phys. Rev. D, 102, 043015
+
+Abbott R., Abbott T. D., Abraham S., et al., 2021, Physical Review X, 11,
+021053
+
+Abbott R., Abbott T. D., Acernese F., et al., 2023a, Physical Review X, 13,
+011048
+
+Abbott R., Abbott T. D., Acernese F., et al., 2023b, Physical Review X, 13,
+041039
+
+Abbott R., Abbott T. D., Acernese F., et al., 2024, Phys. Rev. D, 109, 022001
+
+Acernese F., et al., 2015, Classical and Quantum Gravity, 32, 024001
+
+Adamcewicz C., Lasky P. D., Thrane E., 2023, ApJ, 958, 13
+
+Adamcewicz C., Galaudage S., Lasky P. D., Thrane E., 2024, ApJ, 964, L6
+
+Ade P. A. R., Aghanim N., Arnaud M., et al., 2016, A&A, 594, A13
+
+Afroz S., Mukherjee S., 2025a, arXiv e-prints, p. arXiv:2505.22739
+
+Afroz S., Mukherjee S., 2025b, arXiv e-prints, p. arXiv:2509.09123
+
+Ajith P., et al., 2011, Phys. Rev. Lett., 106, 241101
+
+Akutsu T., et al., 2021, Progress of Theoretical and Experimental Physics,
+2021, 05A101
+
+Antonini F., Gieles M., Gualandris A., 2019, MNRAS, 486, 5008
+
+Antonini F., Romero-Shaw I. M., Callister T., 2024, arXiv e-prints, p.
+arXiv:2406.19044
+
+Antonini F., Romero-Shaw I., Callister T., Dosopoulou F., Chattopadhyay D.,
+Gieles M., Mapelli M., 2025a, arXiv e-prints, p. arXiv:2509.04637
+
+Antonini F., Callister T., Dosopoulou F., Romero-Shaw I. M., Chattopadhyay
+D., 2025b, Phys. Rev. D, 112, 063040
+
+Ashton G., et al., 2019, The Astrophysical Journal Supplement Series, 241,
+27
+
+Astropy Collaboration Astropy Project Contributors 2022, ApJ, 935, 167
+
+Baibhav V., Kalogera V., 2024, arXiv e-prints, p. arXiv:2412.03461
+
+Baibhav V., Doctor Z., Kalogera V., 2023, ApJ, 946, 50
+
+Baird E., Fairhurst S., Hannam M., 2013, Phys. Rev. D, 87, 024035
+
+Banagiri S., Callister T. A., Doctor Z., Kalogera V., 2025, arXiv e-prints, p.
+arXiv:2501.06712
+
+Banerjee S., 2021, MNRAS, 500, 3002
+
+Barausse E., Morozova V., Rezzolla L., 2012, ApJ, 758, 63
+
+Bavera S. S., et al., 2020, A&A, 635, A97
+
+Belczynski K., et al., 2020, A&A, 636, A104
+
+Biscoveanu S., 2025, arXiv e-prints, p. arXiv:2502.04278
+
+MNRAS 000, 1-12 (2025)
+
+Biscoveanu S., Callister T. A., Haster C.-J., Ng K. K. Y., Vitale S., Farr W. M.,
+2022, ApJ, 932, L19
+
+Callister T. A., Farr W. M., 2024, Physical Review X, 14, 021005
+
+Callister T. A., Haster C.-J., Ng K. K. Y., Vitale S., Farr W. M., 2021, ApJ,
+922, LS
+
+Chattopadhyay D., Stegmann J., Antonini F., Barber J., Romero-Shaw I. M.,
+2023, MNRAS, 526, 4908
+
+Cutler C., Flanagan E. E., 1994, Phys. Rev. D, 49, 2658
+
+Damour T., 2001, Phys. Rev. D, 64, 124013
+
+Doctor Z., Wysocki D., O’Shaughnessy R., Holz D. E., Farr B., 2020, ApJ,
+893, 35
+
+Edelman B., Farr B., Doctor Z., 2023, ApJ, 946, 16
+
+El-Badry K., et al., 2023a, MNRAS, 518, 1057
+
+El-Badry K., et al., 2023b, MNRAS, 521, 4323
+
+Farah A., Fishbach M., Essick R., Holz D. E., Galaudage S., 2022, ApJ, 931,
+108
+
+Farah A. M., Edelman B., Zevin M., Fishbach M., Maria Ezquiaga J., Farr
+B., Holz D. E., 2023, ApJ, 955, 107
+
+Farr W. M., Stevenson S., Miller M. C., Mand el I., Farr B., Vecchio A., 2017,
+Nature, 548, 426
+
+Fishbach M., Holz D. E., Farr W. M., 2018, Astrophys. J. Lett., 863, L41
+
+Fishbach M., Essick R., Holz D. E., 2020, ApJ, 899, L8
+
+Fowler W. A., Hoyle F., 1964, ApJS, 9, 201
+
+Fragione G., Rasio F. A., 2023, ApJ, 951, 129
+
+Gaia Collaboration et al., 2024, A&A, 686, L2
+
+Galaudage S., Talbot C., Nagar T., Jain D., Thrane E., Mandel I., 2021, ApJ,
+921, L15
+
+Gennari V., Mastrogiovanni S., Tamanini N., Marsat S., Pierra G., 2025, Phys.
+Rev. D, 111, 123046
+
+Gerosa D., Fishbach M., 2021, Nature Astronomy, 5, 749
+
+Ghodla S., Eldridge J. J., 2024, MNRAS, 534, 1868
+
+Godfrey J., Edelman B., Farr B., 2023, arXiv e-prints, p. arXiv:2304.01288
+
+Golomb J., Talbot C., 2023, Phys. Rev. D, 108, 103009
+
+Golomb J., Isi M., Farr W., 2023, arXiv e-prints, p. arXiv:2312.03973
+
+Guttman N., Payne E., Lasky P. D., Thrane E., 2025, arXiv e-prints, p.
+arXiv:2509.09876
+
+Harris C. R., et al., 2020, Nature, 585, 357
+
+Heinzel J., Mould M., Alvarez-Lépez S., Vitale S., 2024a, arXiv e-prints, p.
+arXiv:2406.16813
+
+Heinzel J., Mould M., Vitale S., 2024b, arXiv e-prints, p. arXiv:2406.16844
+
+Heinzel J., Vitale S., Biscoveanu S., 2024c, Phys. Rev. D, 109, 103006
+
+Ho M.-F, Perkins S. E., Bird S., Dawson W. A., Golovich N., Lu J. R., McGill
+P., 2024, Phys. Rev. D, 110, 063031
+Hoy C., Fairhurst S., Mandel I., 2025, Phys. Rev. D, 111, 023037
+
+Hunter J. D., 2007, Computing in Science & Engineering, 9, 90
+
+Hussain A., Isi M., Zimmerman A., 2024, arXiv e-prints, p. arXiv:241 1.02252
+
+Kinugawa T., Nakamura T., Nakano H., 2024, MNRAS, 531, 4725
+
+Koloniari A. E., Koursoumpa E. C., Nousi P., Lampropoulos P., Passalis N.,
+Tefas A., Stergioulas N., 2025, Mach. Learn. Sci. Tech., 6, 015054
+
+Kumar P., Dent T., 2024, Phys. Rev. D, 110, 043036
+
+LIGO Scientific Collaboration Virgo Collaboration 2019, Astrophys. J. Lett.,
+882, L24
+
+LIGO Scientific Collaboration VIRGO Collaboration Kagra Collaboration
+2023, ApJS, 267, 29
+
+LIGO Scientific Collaboration VIRGO Collaboration Kagra Collaboration
+2025, ApJ, 993, L21
+
+Li Y.-J., Wang Y.-Z., Han M.-Z., Tang S.-P., Yuan Q., Fan Y.-Z., Wei D.-M.,
+2021, ApJ, 917, 33
+
+Li Y.-J., Wang Y.-Z., Tang S.-P., Fan Y.-Z., 2024, Phys. Rev. Lett., 133,
+051401
+
+Loredo T. J., 2004, AIP Conf. Proc., 735
+
+Lousto C. O., Campanelli M., Zlochower Y., Nakano H., 2010, Classical and
+Quantum Gravity, 27, 114006
+
+Mahapatra P., Chattopadhyay D., Gupta A., Favata M., Sathyaprakash B. S.,
+Arun K. G., 2025, Phys. Rev. D, 111, 023013
+
+Mandel I., Broekgaarden F. S., 2022, Living Reviews in Relativity, 25, 1
+
+Mandel I., Farr W. M., Gair J. R., 2019, Mon. Not. R. Astron. Soc., 486, 1086
+
+Mapelli M., et al., 2021, MNRAS, 505, 339
+
+Mapelli M., Bouffanais Y., Santoliquido F., Arca Sedda M., Artale M. C.,
+2022, MNRAS, 511, 5797
+
+Mehta A. K., Olsen S., Wadekar D., Roulet J., Venumadhav T., Mushkin J.,
+Zackay B., Zaldarriaga M., 2025, Phys. Rev. D, 111, 024049
+
+Miller S. J., Ko Z., Callister T., Chatziioannou K., 2024, Phys. Rev. D, 109,
+104036
+
+Mishra T., Bhaumik S., Gayathri V., Szczepariczyk M. J., Bartos I., Klimenko
+S., 2025, Phys. Rev. D, 111, 023054
+
+Nagarajan P., et al., 2025, PASP, 137, 044202
+
+Nitz A. H., Capano C., Nielsen A. B., Reyes S., White R., Brown D. A.,
+Krishnan B., 2019, Astrophys. J., 872, 195
+
+Nitz A. H., et al., 2020, Astrophys. J., 891, 123
+
+Nitz A. H., Capano C. D., Kumar S., Wang Y.-F., Kastha S., Schiifer M.,
+Dhurkunde R., Cabero M., 2021, Astrophys. J., 922, 76
+
+Nitz A. H., Kumar S., Wang Y.-F., Kastha S., Wu S., Schafer M., Dhurkunde
+R., Capano C. D., 2023, Astrophys. J., 946, 59
+
+O’Shaughnessy R., Gerosa D., Wysocki D., 2017, Phys. Rev. Lett., 119,
+011101
+
+Olsen S., Venumadhav T., Mushkin J., Roulet J., Zackay B., Zaldarriaga M.,
+2022, Phys. Rev. D, 106, 043009
+
+Payne E., Kremer K., Zevin M., 2024, ApJ, 966, L16
+
+Périgois C., Mapelli M., Santoliquido F., Bouffanais Y., Rufolo R., 2023,
+Universe, 9, 507
+
+Pierra G., Mastrogiovanni S., Perriés S., 2024a, arXiv e-prints, p.
+arXiv:2406.01679
+
+Pierra G., Mastrogiovanni S., Perriés S., 2024b, A&A, 692, A80
+
+Piirrer M., Hannam M., Ohme F., 2016, Phys. Rev. D, 93, 084042
+
+Racine E., 2008, Phys. Rev. D, 78, 044021
+
+Ray A., Magaiia Hernandez I., Breivik K., Creighton J., 2024, arXiv e-prints,
+p. arXiv:2404.03 166
+
+Rinaldi S., Del Pozzo W., 2022, MNRAS, 509, 5454
+
+Roy S. K., van Son L. A. C., Farr W. M., 2025, arXiv e-prints, p.
+arXiv:2507.01086
+
+Sadiq J., Dent T., Wysocki D., 2022, Phys. Rev. D, 105, 123014
+
+Sadiq J., Dent T., Gieles M., 2024, ApJ, 960, 65
+
+Sadiq J., Dent T., Lorenzo-Medina A., 2025, arXiv e-prints, p.
+arXiv:2506.02250
+
+Steinle N., Kesden M., 2021, Phys. Rev. D, 103, 063032
+
+Tagawa H., Haiman Z., Bartos I., Kocsis B., Omukai K., 2021, MNRAS, 507,
+3362
+
+Talbot C., Thrane E., 2018, ApJ, 856, 173
+
+The LIGO Scientific Collaboration The Virgo Collaboration the KAGRA
+Collaboration 2025a, arXiv e-prints, p. arXiv:2508.18082
+
+11
+
+The LIGO Scientific Collaboration the Virgo Collaboration the KAGRA
+Collaboration 2025b, arXiv e-prints, p. arXiv:2508.18083
+
+Tiwari V., 2018, Classical and Quantum Gravity, 35, 145009
+
+Tiwari V., 2021, Classical and Quantum Gravity, 38, 155007
+
+Tiwari V., 2022, ApJ, 928, 155
+
+Tiwari V., 2024, MNRAS, 527, 298
+
+Tiwari V., 2025, arXiv e-prints, p. arXiv:2507.15697
+
+Tiwari V., Fairhurst S., 2021, ApJ, 913, L19
+
+Tiwari V., Fairhurst S., Hannam M., 2018, ApJ, 868, 140
+
+Tong H., Galaudage S., Thrane E., 2022, Phys. Rev. D, 106, 103019
+
+Tong H., et al., 2025, arXiv e-prints, p. arXiv:2509.04151
+
+Toubiana A., Katz M. L., Gair J. R., 2023, MNRAS, 524, 5844
+
+Venumadhav T., Zackay B., Roulet J., Dai L., Zaldarriaga M., 2019, Phys.
+Rev. D, 100, 023011
+
+Venumadhav T., Zackay B., Roulet J., Dai L., Zaldarriaga M., 2020, Phys.
+Rev. D, 101, 083030
+
+Virtanen P., et al., 2020, Nature Methods, 17, 261
+
+Vitale S., Lynch R., Raymond V., Sturani R., Veitch J., Graff P., 2017a, Phys.
+Rev. D, 95, 064053
+
+Vitale S., Gerosa D., Haster C.-J., Chatziioannou K., Zimmerman A., 2017b,
+Phys. Rev. Lett., 119, 251103
+
+Vitale S., Biscoveanu S., Talbot C., 2022, A&A, 668, L2
+
+Wadekar D., Roulet J., Venumadhav T., Mehta A. K., Zackay B., Mushkin J.,
+Olsen S., Zaldarriaga M., 2023, arXiv e-prints, p. arXiv:2312.06631
+
+Woosley S. E., 2017, ApJ, 836, 244
+
+Wysocki D., Lange J., O’Shaughnessy R., 2019, Phys. Rev. D, 100, 043012
+
+Zackay B., Venumadhav T., Dai L., Roulet J., Zaldarriaga M., 2019, Phys.
+Rev. D, 100, 023007
+
+Zevin M., Bavera S. S., 2022, ApJ, 933, 86
+
+APPENDIX A: MODEL DETAILS
+
+We utilise 10 components in the mixture model. The functional form
+of Vamana is described in Equation Al. Hyperparameters and their
+priors are listed in Table Al. Vamana infers the joint distribution of
+primary mass, secondary mass, aligned spin and redshift evolution
+of merger rate. Components are multivariate normals combined with
+a power law. The cross-terms for the covariance matrix between dif-
+ferent parameters are set to zero, except for the covariance between
+the primary and secondary mass. This enables the mixture model to
+accurately infer the distribution of chirp mass. The BBH population
+is inferred from observations with a false-alarm rate of at most once
+per year. We only used observations reported by the LVK collabo-
+rations (Abbott et al. 2019, 2021, 2024, 2023b). Only observations
+with a mean chirp mass greater than 5Mj are used. We excluded
+GW 190814 and any observation consistent with a binary neutron
+star and neutron star-black hole binary from our investigations. The
+total number of observations chosen is 153. The binary parameters
+are estimated in the detector frame; we assume the Planck 15 cosmol-
+ogy (Ade et al. 2016) to convert to source-frame quantities.
+
+P(m,m3, X¥1,.X2|A) =
+N
+SD) we N (mma |eer a2", we?” C7")
+i=l
+x oO lHE oF) bale oF),
+(Al)
+
+MNRAS 000, 1-12 (2025)
+12. ~V.Tiwari
+
+Table A1. This table lists the hyperparameters of the model used to infer the BBH population. U stands for Uniform, and UL for Uniform-in-log. Analysis imposes
+
+constraints, 7"! > ye? and poi"? / 0)”
+
+i
+
+> 0.15 on the location of Gaussians. Merger rate of the population is modelled using a power law, R « (1 + z)*P with
+
+a uniform prior on x, between -S and 5. Individual components can assume a power law index uniformly between x, — 2 and Kp + 2.
+A Description/Modeled Parameter Prior Range
+Wi Mixing weights, w Dirichlet(@), q...y = 1/N 0-1
+uy Gaussian’s location, s_ U/UL lvi| < 0.4/0.4 < |x| < 0.9
+ox Gaussian’s scale, s- U 0.1-1.3/ VN
+ie Gaussian’s location, m U 5M5-75M5
+oe Gaussian’s scale, m, U 0.05 pe; VN - 0.185 po?" VN
+ie Gaussian’s location, m2 U 5Mo-715Mo
+ay? Gaussian’s scale, m2 U 0.05 pu;"2/VN — 0.185 p?"?/VN-
+ann Covariance, m-m U 0.507! of - 0.507! of?
+
+i
+
+APPENDIX B: INFERRING BLACK HOLE MASS AND
+SPIN DISTRIBUTIONS
+
+Vamana infers the distribution on the component mass plane using
+truncated Normals. The data products impose a condition mz < m,,
+i.e., the primary mass is always larger than the secondary mass. An
+alternative approach is to reflect the data in the component mass
+plane, which eliminates the need to truncate the multivariate Gaus-
+sians (Sadiq et al. 2025). The model can then be modified to infer the
+component mass distribution directly, but this also requires inferring
+the pairing probability between the BHs, as we need to infer two mass
+parameters. We have only a limited number of observations, and we
+fix the mass-ratio distribution and redshift evolution to the standard
+prior used in parameter estimation (Ashton et al. 2019). Moreover,
+we only use a diagonal covariance matrix. Therefore, we have just a
+one-dimensional mixture model to infer the component mass distri-
+bution and aligned spin distribution using BH mass and aligned spin
+measurements from BBHs, To obtain posterior on hyperparameters
+requires calculating the term (Loredo 2004; Mandel et al. 2019),
+
+Nobs
+
+p(Ala) = [ ] [) wi) NGnf md* sk si 1A)] (pee, (B1)
+i k
+
+j=l
+
+where A = Ga", ops ye of) are the model hyperparameters, index
+J goes over all all the observation, index i goes over all the mixing
+
+MNRAS 000, 1-12 (2025)
+
+components and index k goes over the parameters estimated for
+an observation obtained using the standard prior, ppg. As we have
+fixed the prior on the redshift evolution of the merger rate and mass
+ratio, the standard prior is ppg « (1 + ghrky2 because it is uniform
+on the detector frame masses. Similarly, spins are assumed to be
+uniform in magnitude and isotropically distributed; the prior on the
+aligned component of the spin is o =log(|si**|)/2 and o
+g! p Sp! PPE BUS). PPE
+
+= log(s3:*|)/2. To evaluate Equation B1 we just have to calculate
+terms:
+
+(i) De Nm “| of") 1 + chk),
+
+(ii) Xe Nm} “|, of") (A tbh),
+
+Gil) Dy -2N (8) luk, 0) [log(|si 1).
+
+(iv) La -2N (83: ek 07) flog (|s3:"1).
+
+The product of these terms is calculated for each component. A
+weighted sum is calculated for each observation. The sums of all
+the observations are multiplied to obtain the final likelihood. When
+inferring the component mass distribution shown in Figure 12, we
+ignore the contribution of any BHs with a mean secondary mass
+greater than 40M. when evaluating the likelihood. This restricts the
+focus to only inferring the first three peaks, as the third peak is located
+approximately 30Mo. This paper has been typeset from a TRX/ISTEX file
+
+prepared by the author.

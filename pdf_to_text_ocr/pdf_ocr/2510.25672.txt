@@ -1,0 +1,1439 @@
+arXiv:2510.25672v1 [astro-ph.CO] 29 Oct 2025
+
+PREPARED FOR SUBMISSION TO A JOURNAL
+
+Morphological Zoo of Inflationary
+Gravitational Wave Spectra imprinted by
+a Sequence of Post-Inflationary Epochs
+
+Swagat S. Mishra @,*” Athul K. Soman ©,°
+
+“School of Physics and Astronomy, University of Nottingham, Nottingham, NG7 2RD, UK.
+’Cosmology, Gravity, and Astroparticle Physics Group, Center for Theoretical Physics of the Uni-
+verse (CTPU-CGA), Institute for Basic Science (IBS), Daejeon, 34126, Korea.
+
+“International School for Advanced Studies (SISSA), via Bonomea 265, 34136 Trieste, Italy.
+
+E-mail: swagat.mishra@nottingham.ac.uk, akuruvaiQsissa.it
+
+Abstract. Expansion history of the Universe, prior to the onset of Big Bang Nucleosynthesis (BBN),
+remains largely unknown. The high-energy post-inflationary era is, in general, expected to be
+complex, potentially consisting of multiple distinct epochs, each characterized by a distinct equation
+of state (EoS). One of the robust predictions of the inflationary paradigm is the generation of
+tensor perturbations through quantum fluctuations, which later manifest as a stochastic background
+of primordial gravitational waves (GWs). The large-scale amplitude and small-scale spectral tilt
+(new) of inflationary GWs encode information about the energy scale of inflation, and provide
+an important observational probe of the post-inflationary (pre-BBN) dynamics, respectively. In
+particular, a softer post-inflationary EoS (w < 1/3) leads to red-tilted GW spectrum (ngw < 0),
+whereas stiffer EoS (w > 1/3) produces blue tilt (ng@w > 0).
+
+In the previous work [1], we developed an analytical framework for computing the spectral
+energy density of these first-order GWs for scenarios involving multiple sharp (instantaneous) tran-
+sitions in the post-inflationary EoS, w; > we +> Wp > Wn41 = 1/3. We primarily focused on
+determining the parameter space which leads to GW signals that may be detectable by future GW
+observatories.
+
+In this companion paper, we extend the framework of Ref. [1] to systematically explore the
+rich landscape of possible inflationary GW spectra imprinted by multiple (n >> 1) post-inflationary
+epochs prior to the hot Big Bang. Remaining agnostic to specific models, we demonstrate that a
+diverse morphological zoo of spectral shapes—ranging from convex and concave monotonic profiles
+to highly non-monotonic features—can emerge depending on the sequence and duration of epochs.
+We introduce GWInSpect €) — a Python-based, user-friendly package that efficiently generates in-
+flationary GW spectra for arbitrary post-inflationary histories, enabling a systematic study of the
+post-inflationary expansion history.
+
+Keywords: Inflation, Gravitational Waves
+
+ArXiv ePrint: arXiv:2510.YYYYY
+Contents
+
+1 Introduction 1
+2 Inflationary gravitational waves 3
+2.1 Evolution of tensor mode functions through multiple post-inflationary epochs 4
+2.2 Spectral energy density and present-epoch frequency of inflationary GWs 6
+2.3 Analytical treatment of the BBN bound on stochastic GWs it
+
+3 The morphological zoo of inflationary gravitational wave spectra 8
+3.1 Scenarios with monotonic spectra of inflationary gravitational waves 0
+3.1.1  Blue-tilted inflationary GWs with convex-shaped spectra il
+
+3.1.2 Blue-tilted inflationary GWs with concave-shaped spectra 2
+
+3.2 Scenarios with non-monotonic spectra of inflationary gravitational waves 12
+3.2.1 Non-monotonic spectra for a soft EoS immediately after inflation ule)
+
+3.2.2 Non-monotonic spectra for a stiff EoS immediately after inflation 13
+
+4 GWInSpect: Python-based numerical package 14
+4.1 Overview 14
+4.2 Required inputs 15
+4.3 Typical outputs 16
+
+5 Discussion and Outlook 16
+6 Acknowledgements 17
+
+1 Introduction
+
+Cosmic inflation [2-15] is the leading paradigm for providing initial conditions for the hot Big Bang
+phase [7, 16-18]. In its simplest realization, inflation is driven by a scalar field ¢, the inflaton,
+which is minimally coupled to gravity, and slowly rolls down its potential V(¢) [7, 9, 10, 15].
+Quantum fluctuations of the inflaton field give rise to a nearly scale-invariant spectrum of scalar
+perturbations [19-22], whose imprints on the Cosmic Microwave Background (CMB) [23-26] and the
+large-scale structure [17, 27, 28] strongly support the single-field slow-roll inflationary framework.
+
+Alongside scalar perturbations, inflation also generates tensor quantum fluctuations, which
+constitute a stochastic background of primordial gravitational waves (GWs) [29-32]. Their spectral
+energy density (Qgw) on large cosmological scales contains information about the energy scale of
+inflation [1, 30, 31, 33-35], while its spectral tilt (ngw), particularly on small scales, is sensitive
+to the post-inflationary equation of state (EoS), w, of the early Universe [1, 31]. To be precise, a
+softer EoS, with w < 1/3, results in a red tilt, while a stiffer EoS, with w > 1/3, leads to blue-tilted
+GWs, which are of great phenomenological interest from an observational prospect. Consequently,
+the inflationary GW spectrum offers a unique window into the expansion history of the Universe
+between the end of inflation and the onset of Big Bang Nucleosynthesis (BBN) -—which remains
+observationally unconstrained at present [1, 15, 36-39].
+
+A broad network of GW detectors, operating across frequencies from 10~!8 Hz to 10° Hz, is
+now capable of probing this primordial signal. These include CMB B-mode experiments such as
+BICEP/Keck [40], LiteBIRD [41], and the Simons Observatory [42]; pulsar timing arrays (PTAs)
+such as NANOGrav [43, 44], EPTA/InPTA [45, 46], and IPTA [47]; and laser interferometers such as
+LIGO/Virgo/KAGRA [48-50] and future missions including LISA [51], DECIGO [52], BBO [53], Cosmic
+
+Explorer [54], and the Einstein Telescope [55]. These facilities together span a significant fre-
+quency range of inflationary tensor modes.
+
+The post-inflationary Universe is expected to have undergone a complex sequence of phases and
+non-equilibrium processes before reaching the radiation-dominated phase [56-59] prior to the com-
+mencement of BBN. The dynamics of reheating and subsequent transitions can, therefore, involve
+several distinct epochs [35, 60-63], each characterized by a different effective EoS, w;. Most works in
+the literature have typically assumed a single average EoS during reheating [64-67]. In our previous
+work [1], we developed an analytical framework based on Israel junction-matching conditions [31,
+68, 69] to compute the spectrum of the first-order inflationary GWs for multiple (n-number of)
+sharp (instantaneous) transitions in the post-inflationary EoS, w; > w2 > ++: > wp, > 1/3. We
+primarily focused on identifying the parameter space of post-inflationary EoS and transition energy
+scales, {w;, E;}, that leads to the spectra of inflationary GWs which are consistent with the exist-
+ing constraints from aLIGO and BBN, while being potentially detectable by future observatories. In
+fact, Ref. [1] dealt with up to 4 different post-inflationary epochs before the hot Big Bang.
+
+In this companion paper, we utilise the framework developed in Ref. [1] to systematically
+characterise the morphological zoo of inflationary GW spectra emerging from a large number of
+sequential post-inflationary epochs (n © 10). We remain agnostic about the specific model details,
+and allow the EoS of any epoch to lie in the range w; € (—1/3, 1). We demonstrate that a
+remarkably diverse range of spectral shapes— convex, concave, monotonic, and non-monotonic ~—can
+arise purely from the sequence and duration of these epochs. We further develop a simple and
+user-friendly Python-based numerical toolkit, called GWInSpect (GitHub link ©) that facilitates
+the interested users to generate such spectra for arbitrary post-inflationary histories within this
+general framework. In fact, one of the key objectives of this work is to highlight the efficiency
+of GWInSpect toolkit. With a simple interface and fast performance, it enables the exploration
+of complex sequences of epochs with minimal effort, making it ideal for large parameter scans or
+integration into broader cosmological analyses. By providing this tool publicly, we positively aim to
+encourage its widespread use for systematically investigating the imprints of diverse post-inflationary
+scenarios on the gravitational wave background.
+
+To be precise, the present paper is differs from our previous work in Ref. [1] in the following
+distinct ways :
+
+e The previous work in Ref. [1] presented a comprehensive analytical and numerical framework
+for computing the spectral energy density of inflationary GWs, corresponding to multiple
+post-inflationary epochs in the early Universe. The primary goal was to determine the viable
+parameter space of the post-inflationary Universe —in particular, the equation-of-state param-
+eters and the energy scales of successive transition epochs that could yield an observable GW
+
+signal in upcoming and future detectors, while remaining consistent with existing constraints
+from BBN and aLIGO.
+
+In the present work, we instead utilise the analytical formalism developed in Ref. [1] to system-
+atically categorise the wide variety of inflationary GW spectra that can emerge from multiple
+EoS transitions. While all our results respect the BBN constraints, we do not focus here on
+detectability forecasts or comparison with experimental sensitivities. In contrast, the present
+
+paper adopts a narrower focus, emphasizing the diversity of possible spectral shapes arising
+from multiple post-inflationary epochs. Since our analytical approach relies on the instan-
+taneous transition approximation between successive epochs, each post-inflationary phase is
+required to last at least one e-fold for a reliable estimate of the GW spectrum.
+
+e Ref. [1] applied the formalism to model-agnostic post-inflationary histories, as well as to a
+specific string theory inspired scenario. The current work, on the other hand, is fully model-
+independent and aims to illustrate the generic features of the inflationary GW spectrum
+without reference to any particular particle-physics model.
+
+e Building upon the numerical infrastructure developed previously, we introduce a dedicatec
+numerical toolkit, GWInSpect, which efficiently computes the inflationary GW spectrum for
+arbitrary sequences of post-inflationary epochs characterized by multiple EoS parameters {w;}.
+The code allows the user to generate spectra across a wide frequency range within a shor
+runtime.
+
+The paper is organized as follows. In Sec. 2, we summarize the relevant analytical expressions
+for the tensor mode functions in the post-inflationary epochs, and the corresponding GW spectra.
+energy density, using the junction matching formalism discussed in Ref. [1]. In Sec. 3, we present
+the wide variety of possible spectral shapes of inflationary GWs corresponding to different post-
+inflationary expansion histories. Sec. 4 describes our lightweight Python-based numerical toolkit,
+GWInSpect, for computing these spectra efficiently. Finally, Sec. 5 summarizes our main conclusions
+
+and provides further discussion.
+Units, Notation & Convention
+
+e We mostly work in natural units, where h,c= 1.
+
+e The reduced Planck mass is defined to be my, = JEG = 2.44 x 10!8 GeV.
+
+e The background universe is considered to be described by the flat Friedmann-Lemaitre-
+Robertson-Walker (FLRW) line element, with scale factor a(t) and Hubble parameter H(t).
+
+e Conformal time (7) is related to the cosmic time (t) by dr = a
+
+e Fourier mode functions h;,(7) of a field h(r7, 2’) are defined as
+
+ar a
+
+e Derivative of the mode functions w.r.t cosmic time t is denoted as an overdot, itt, = hy and
+
+w.r.t conformal time 7 is denoted as an overprime, aes = hy.
+
+e The dimensionless Hubble constant, denoted as h, is defined by h = Ho/ [100 (km/sec/Mpc)|
+
+[not to be confused with the tensor field h(7,Z), or the tensor mode functions h;(7) ].
+
+To remain consistent, we follow the same notation and convention as used in Ref. [1].
+
+2 Inflationary gravitational waves
+
+The accelerated expansion of space during inflation leads to the amplification of vacuum tensor
+fluctuations [29], which are stretched to super-Hubble scales [30], where they remain effectively
+frozen until their subsequent Hubble re-entry in the post-inflationary (decelerating) Universe. Once
+these tensor modes re-enter the Hubble radius, they begin to oscillate and propagate as primordial
+GWs. Modes with higher frequencies (shorter wavelengths) re-enter the Hubble radius at earlier
+times after inflation, whereas modes with lower frequencies (longer wavelengths) re-enter at later
+epochs. Having been generated during inflation, the tensor modes propagate largely unimpeded
+to the present epoch, thereby retaining key imprints of the intermediate expansion history of the
+Universe. In particular, the high-frequency regime of the spectrum, corresponding to present-day
+requencies f >> 10~!° Hz, encodes valuable information about the unknown pre-BBN evolution of
+he Universe (see Sec. 2.2), as discussed in Refs. [1, 31, 65]. In what follows, we summarise the
+essential analytical framework required for computing the spectral energy density of inflationary
+GWs, restricting ourselves to those expressions most relevant for the present study. A detailed
+reatment of the same can be found in our previous work [1].
+
+2.1 Evolution of tensor mode functions through multiple post-inflationary epochs
+
+Evolution of the Fourier mode functions of primordial tensor fluctuations generated by inflation, at
+inear order in perturbation theory, is governed by the following second-order differential equation
+
+if
+hyo +2 (*) Ap +k? hs =0, (2.1)
+a
+
+where ha is the tensor amplitude, with A = {+, x} denoting the two polarisation of GWs and k is
+
+the comoving wavenumber of the tensor modes. General solution to Eq. (2.1) can be written as a
+
+linear combination of two Bessel functions of the first kind [70], namely, {oa 1 )@), F(a 1) (x)},
+2 2
+
+as follows -
+i
+
+A = P
+he (Uy) = (a wea Ee Ja) (0 Y,) + Be J(q1)( ws) , (2.2)
+where a is related to the EoS (w), while y,(r) is the physical frequency (k/a(r)) of the tensor
+modes—scaled by the Hubble parameter (H(r)), of the post-inflationary Universe, i.e.,
+
+2 k
+~T$3w' (7) = a(t)H(r)
+
+a
+
+(2.3)
+
+The Bogolyubov coefficients, {A;,, B;,}, are determined by imposing the appropriate initial or bound-
+ary conditions on the tensor mode functions. For the first post-inflationary epoch, characterised by
+a constant EoS (wi), these coefficients are obtained by matching to the inflationary tensor modes
+at the end of inflation. Specifically, the super-Hubble inflationary tensor perturbations serve as
+the initial conditions for the subsequent evolution in this epoch. Consequently, for any mode with
+comoving wavenumber k that was super-Hubble at the onset of the first epoch, the initial tensor
+mode function is taken to be equal to the frozen amplitude of the corresponding inflationary mode,
+while its time derivative vanishes, namely,
+
+hi (tr) = hy inf 3 Ap (rr) =O, (2.4
+
+where 7; marks the post-inflationary Hubble-entry time of a tensor mode of interest with (comoving
+wavenumber k. Eq. (2.4) yields the following expression for the Bogolyubov coefficients for the firs
+epoch (see Ref [1])
+
+1
+Ap 1= g(o1-3) T (a af 5) he ints Bra = 0, (2.5
+
+where I(x) is the Gamma function.
+
+As emphasized earlier, the high-energy post-inflationary dynamics of the Universe is expectec
+to involve a variety of complex physical processes, potentially giving rise to multiple distinct expan-
+sion phases before the onset of BBN. It is therefore instructive to model the pre-BBN expansion
+history as a sequence of successive cosmic epochs, each characterised by a (nearly) constant EoS
+parameter [1, 71, 72], as illustrated in Fig. 1. We denote this sequence of post-inflationary EoS
+parameters by wi, we, ..-, Wn, Wn41 = 1/3, where wn+1 is the EoS of the radiation-dominated hot
+Big Bang phase.
+
+In addition, by assuming that the transition between any two successive epochs is sufficiently
+sharp, t.e., effectively instantaneous, one can employ the Israel junction conditions [68] to relate
+
+Hot Big Bang
+k
+
+Inflation, -——_______________—____J Radiation Matter
+
+Pre-hot Big Bang domination domination
+
+Figure 1: A schematic depiction of the timeline of the universe featuring multiple post-inflationary
+epochs, each described by a nearly constant equation of state parameter. Note that the horizontal
+length is not a representation of the actual duration.
+
+the tensor mode functions across the transition. This procedure allows the Bogolyubov coefficients,
+and hence the mode functions in a succeeding epoch, to be determined directly from those in the
+preceding epoch. The junction conditions can be expressed as follows
+
+hh (ti) = hh g (7), [Continuity] , (2.6)
+
+, [Differentiability] . (2.7)
+
+hay(t)} = healt)
+
+THT THT
+
+Here, hey and hg q denote, respectively, the tensor mode functions immediately before and after
+a transition occurring at conformal time tT = 7;. The general form of the tensor mode function in
+the i*® post-inflationary epoch (which ends at 7;), characterised by its corresponding Bogolyubov
+coefficients A,,; and By,;, can then be written as (see Ref. [1])
+
+Mode functions:
+
+he (y) = —*_. [An I(q;-1) (GY) + Br, i I_(o,—1) (0% v.)] , (2.8)
+
+=a
+(ai y, Jor?
+
+Bogolyubov coefficients:
+
+(04g, 1) 9) [Ag, i—1 (92 f3 + ga fi) + Br, i—a (fo fa — fa fi)
+
+Axi = - (2.9
+(04-1 42) fAgt+an fs
+—21
+Bri (ai Yee) 2) [Ar,s—1 (92 93 — 94.91) + Br, i—1 (f2 93 + fa gi) (2.10
+ot x , 5
+(aj-1 Uy, 1) 1-8) figs+n fs
+with dimensionless wavenumber :
+k
+= ST 24d
+Yet ~ OG) Ata) (
+and the Bessel constants :
+n= I (oj —2) (% Yui) f= J (2) (4 Ye. a1)
+92 = Fey y—2)(Q-1Yg,ina)s 2 = J_(oy 1) (4-1 p,:-1) »
+(2.12)
+93 J (exp4-3) (08 Yui) f= F_(e:44) (0% Ye ir)
+It is important to emphasize that the analytical formalism employed in this work, based on
+the aforementioned usage of instantaneous transitions and Israel junction matching conditions, is
+reliable only when each post-inflationary epoch persists for a minimum duration of at least one
+e-fold. This requirement ensures that the background dynamics within each constant w; phase can
+be treated as quasi-stationary, thereby preserving the adiabatic evolution of tensor modes across
+transitions. If an epoch were to last for a substantially shorter duration, the assumption of a
+well-defined constant EoS would break down, and the discontinuous matching conditions would no
+longer provide a reliable description of the gravitational wave dynamics. In practice, this consistency
+condition has been incorporated within our numerical framework, GWInSpect, discussed in Sec. 4.
+
+2.2 Spectral energy density and present-epoch frequency of inflationary GWs
+
+The spectral energy density of the gravitational waves is a measure of the GW energy density per
+logarithm interval of frequency [73, 74], defined as,
+
+1 od
+
+= — —— (7,k), 2.1
+Ting Pow"): (2.18)
+
+Quy (7k)
+
+where pay is the energy density of GWs and p,(T) = 3m, H?(r) is the critical energy density. In
+the sub-Hubble regime~— when a tensor mode is sufficiently inside the Hubble radius ~— expression for
+the GW spectral energy density becomes [1]
+
+2
+Qew (7, k)= Paral Pr(t, k), (2.14)
+
+where Pp(t,k) = 2k? |hy|?/(277) is the total tensor power spectrum (including both polarization
+states) at conformal time +. By evolving the tensor modes to the present epoch and considering
+the sub-Hubble regime, one can compute the tensor power spectrum today and thereby obtain the
+present-day spectral energy density of GWs, which, when averaged over the oscillations of individual
+modes, takes the following form
+
+ry a Orad, 0 Gx, re 9s,0 48 1 A2 1. p2 a Hie k "p
+Qew (70, k) ( 96n3 G0 7 rr 7 [Az up + Bi, up| ma \k, . (2.15)
+
+Here, g, and g, denote, respectively, the effective number of relativistic degrees of freedom con-
+tributing to the energy and entropy densities of the Universe; Qyaq,9 is the present-epoch radiation
+density parameter, n,. represents the primordial (inflationary) tensor spectral tilt, k, is the CMB
+pivot scale, r. denotes the beginning of hot Big Bang, and finally, y,., = k/ (@eqHeq), with the
+subscript “eq” referring to the epoch of matter—radiation equality. The re-scaled Bogolyubov coeffi-
+cients corresponding to the standard matter-dominated epoch are defined as Arp = Apmp/ Ae int
+
+and Bri = Bi/Pf ine:
+
+Eq. (2.15) can be conveniently re-expressed in terms of the present-day GW frequency, which
+is a directly measurable quantity in GW observations. Since the primordial tensor spectral index is
+constrained to be very small (|n,,| < 1), its effect on the overall amplitude and tilt of the spectrum is
+negligible compared to that arising from the post-inflationary dynamics. Therefore, we set n,. = 0
+throughout this analysis in order to isolate and highlight the imprints of the pre-hot Big Bang
+expansion history on the morphology of the GW spectral energy density. The resulting expression
+for the present-day spectral energy density of inflationary GWs, written as a function of the GW
+frequency, takes the following form [1]
+
+Spectral energy density :
+
+1 Qs,rx ( 9s,0 ve g fe aT = Hing 2
+n2 Q©) = ee (ee hy, 21.) | A? B2 Peal
+vw (Se) Ga? a \Gom weed, 0 | Fe [ k, MD + 2, up| Rep , (2.16)
+
+where the rescaled Bogolyubov coefficients are
+
+x Ak.Mp = Brip
+Amp =——, Brup==—- (2.17)
+Ue int k,inf
+
+Relation between the present-day frequency (f,) of a tensor mode to the effective temperature (Tj,),
+and energy scale (£;), of the universe at the Hubble-entry time of that mode is given by
+
+Present-day Frequency of GWs:
+
+1/3 12 / T, 1/3 E
+Fe 7.43 x 10-8 ( 950 (4%) ) 1.03% 10-8 ( 280) ge (||.
+Hy 95.Te 90 GeV 9s.T Tk GeV
+
+(2.18)
+
+The spectral tilt of A (f) for the range of modes making an Hubble-entry during the it post-
+
+Gw
+inflationary epoch depends on the EoS of the epoch in the following way
+
+Spectral tilt of GWs:
+
+; dn. 2) i
+== al) _4(2 ie) ) for fa <fe< fen 209
+
+Wwe din fe w,+1/3
+
+2.3. Analytical treatment of the BBN bound on stochastic GWs
+
+Observations of the primordial light-element abundances from BBN impose a stringent upper bounc
+on the total energy density of primordial GWs, given by
+
+we / 8 an f Qew (tof) < 1.13 x 10-8, (2.20
+/ {BBN
+
+where the integration extends from the frequency fgpn corresponding to the tensor mode that re-
+
+entered the Hubble radius at the onset of BBN, up to feng associated with the mode that re-enterec
+
+at the end of inflation. In practice, since within any given i*” post-inflationary epoch the GW
+
+spectral energy density scales as Oaw « f new (with n® defined in Eq. (2.19)), the BBN integra
+
+GW
+in Eq. (2.20) can be evaluated efficiently by performing a piecewise analytical integration across
+
+the different epochs, as derived in Ref. [1]. This leads to the following compact condition ensuring
+consistency with the BBN bound
+
+BBN Constraint :
+
+Sirs Fn fe \ ee Fan fn_g\ 2am)
+[» Gs) US {( In ) “yt 2(1 — an-1) (3) 1
+
+Fi jena Vue 6 2¢90,RD\~!
+ee + i 1.1 10° havea y(2021
++ a | (B) < 113x 10 x ( ae) (2.21)
+
+where each f; corresponds to the frequency of a tensor mode that re-entered the Hubble radius at
+the end of it* epoch and while F; is defined as
+
+Ue f 2(1—am+41)
+A= ( tm ) and $6 {1,,..4n}, (2.22)
+wat fim41
+and 9
+orp, l 2 Fing
+Qaw —oy ORao x a x ( Mp ) - (2.23)
+
+3 The morphological zoo of inflationary gravitational wave spectra
+
+In this section, we undertake a detailed investigation into the diverse shapes that the inflationary
+GW spectrum can exhibit as a consequence of different post-inflationary (pre-BBN) expansion
+histories of the Universe. As emphasised above, the evolution of tensor modes across successive
+epochs, each characterized by a distinct EoS parameter w;, imprints a rich structure on the spectral
+energy density ag ) (f). Depending on the sequence, duration, and relative energy scales of these
+epochs, the resulting spectra can display a wide range of morphologies—including monotonic (blue-
+or red-tilted), convex, concave, as well as non-monotonic or multi-peaked behaviours.
+
+Our goal here is to systematically map this zoo of inflationary GW spectra in a model-agnostic
+manner, relying solely on the macroscopic post-inflationary dynamics encapsulated by the EoS
+parameters {w;} and the transition scales {E;}. By varying these parameters within the framework
+established in Sec. 2, we illustrate how even simple sequences of instantaneous transitions can give
+rise to remarkably distinct spectral features. Such an analysis not only highlights the sensitivity of
+a, ( f) to the early expansion history, but also provides valuable intuition for interpreting future
+detections of a stochastic GW background in terms of the underlying kinematics of cosmic evolution.
+
+To be precise, different shapes of the GW spectra correspond to the following sequence of the
+post-inflationary expansion history
+
+1. The spectrum is monotonic when either w; > 1/3 (blue-tilted) or w; < 1/3 (red-tilted) for all
+pre-hot Big Bang epochs 7.
+
+2. A monotonic spectrum is convex when wi > w2 > w3-+: > Wn, while it is concave when
+wy < we < w3-+: < Wn. In the absence of a strict ordering among the EoS parameters,
+the resulting monotonic spectrum ceases to exhibit a definite curvature and becomes neither
+convex nor concave.
+
+3. Non-monotonic behaviour with peaks and/or troughs appear when some of the EoS parameters
+obey w; > 1/3, while others obey w; < 1/3.
+
+A schematic illustration of representative spectral morphologies is shown in Fig. 2, where the
+spectral energy density a ( f) is plotted as a function of the present-day GW frequency f. The
+grey-shaded regions indicate approximate detector sensitivity regions (Planck CMB, LISA, aLIGO)
+and the horizontal dashed line (with reddish shade) schematically marks the BBN constraint. We
+do not display sensitivity regions of other GW detectors, which were displayed in Ref. [1]. We
+adhere to the following conventions in all our GW spectral energy density plots
+
+1. The present-day spectral energy density of inflationary GWs, ay f), is plotted as a function
+of the present-day frequency f, with both axes in logarithmic scale, as is customary in the
+literature.
+2. The tensor-to-scalar ratio during inflation is fixed at r = 0.001, which corresponds to an
+inflationary energy scale of Ejyp ~ 5.8 x 10!° GeV (see App. A.2 of Ref. [1]).
+
+3. The present-day frequency of the tensor mode that re-entered the Hubble radius at the end
+of inflation can be obtained using Eq. (2.18) as feng & 6.4 x 10’ Hz. We consider this value
+as the absolute upper limit (UV cut-off) on the GW frequency in all our plots. The lower
+frequency limit (IR cut-off) is set at fiz ~ 2x 10-79 Hz, corresponding to modes that re-enter
+the Hubble radius just prior to the onset of the dark energy-dominated accelerated expansion
+of the Universe.
+
+4. Frequencies corresponding to the transition between successive cosmic epochs are indicated
+by thin vertical grey lines in all the plots.
+
+lL ] BBN Constraint
+
+10-7
+
+[Planck] o
+190-19 ia
+g
+ES
+&
+ue y ‘3
+= E 3
+A BS
+sou
+nN -19
+eS 10 2
+i
+3
+o
+107-22 fe
+10-75
+10578 _
+
+1
+10-17 10-14 10-11 10-8 10-5 10-? 10" 104 107
+
+f [Hz]
+
+Figure 2: Schematic illustration of representative morphologies of the present-day spectral en-
+ergy density of inflationary gravitational waves, a f), as a function of frequency f (for var-
+ious sequences of 7 pre-hot Big Bang epochs after inflation). The solid (dashed) blue curve
+represents a convex (concave), monotonically increasing spectrum arising from a decreasing (in-
+creasing) sequence of post-inflationary EoS parameters w, > w2 > --: > Wp, (for concave the
+sequence w, < wo <+:: < Wp, ), corresponding to an overall blue-tilted spectrum. Similarly the
+solid (dashed) brown curve denotes a convex (concave), monotonically decreasing spectrum pro-
+duced by a decreasing (increasing) sequence of EoS parameters w, > wa > +--+ > Wp (for concave
+shape w, < wo <-:: < Wp), resulting in a red-tilted spectrum. Non-monotonic spectra are illus-
+trated by the green curve for a single peak and the purple curve for two peaks (and a dip). The
+solid (dashed) orange curve corresponds to monotonically increasing (decreasing) spectrum which
+is neither convex nor concave. The solid black curve illustrates an approximately scale-invariant
+spectrum corresponding to a radiation-like EoS w = 1/3. The grey-shaded regions indicate the ap-
+proximate sensitivities of space-based detectors (LISA) and ground-based interferometers (aLIGO),
+while the red-shaded region marks the BBN constraint. The figure serves to highlight the broad va-
+riety of inflationary GW spectral shapes possible for different post-inflationary expansion histories.
+
+3.1 Scenarios with monotonic spectra of inflationary gravitational waves
+
+Monotonic spectra of inflationary GWs arise when the sequence of post-inflationary equation-of-
+state parameters, starting from the first epoch after inflation, evolves to the final epoch prior to the
+hot Big Bang phase, by remaining either stiffer (w; > 1/3) or softer (w; < 1/3) than a radiation-
+like EoS w = 1/3. A sequence of stiffer-than-radiation EoS parameters leads to blue-tilted GW
+spectrum, while a softer-than-radiation sequence leads to red-tilted GW spectrum, as mentioned
+before. The commonly assumed scenario of a single constant EoS during the entire post-inflationary
+evolution is a particular case within this category.
+
+An increasing sequence of EoS parameters, 7.e., wy < wa < ++: < Wp, results in a concave-
+shaped monotonic spectrum of GWs. Conversely, a decreasing sequence, wy > w2 > --- > Wn,
+leads to a progressively softer background and produces a convex-shaped spectrum. Of particular
+significance are the blue-tilted spectra of GWs (which may be convex or concave or neither) that
+arise, when w > 1/3. From a phenomenological standpoint, as it enhances the GW amplitude
+at higher frequencies, potentially bringing the signal within the sensitivity range of current and
+upcoming detectors [31, 37, 65], as also discussed extensively in our previous work [1].
+
+Ey. = 1GeV_ E,. = 100 GeV
+BBN Constraint BBN pConstraiat
+10-8 10°
+|
+\
+0 L \ 10 \
+awl \ z] | \mSA cw} \ fe] \BSA
+2 \ A , | SS |
+B | LE
+eget \ | / Ee} | J ekwe y 2
+10 4 EI ae 2 a
+10-8 3g 10-18 is
+aor 0
+10 ead at io. re 3 107% 10-7 107 10% 107 10 10-7 ree ion ab: 10-8 10-7 107 108 107 ;
+F[Hz] [Hz]
+Ey, = 1GeV E,. = 100 GeV.
+Na BBN Constraint
+ve ! ee
+) atico
+\ (Planck) \ /
+sew ) E \ y/ sé ) E
+ag as
+10 a8 10% a5
+19: 10-48
+a a a a a cs a as a Cs a ae cs
+[Hz] f [Hz]
+¥ ‘ P , 0 ‘
+Figure 3: Spectral energy density of inflationary GWs, a ( f), for the case of monotonic blue-
+
+tilted, convex spectra generated by strictly decreasing sequences of post-inflationary EoS pa-
+rameters (w1 > wz >-+++ > Wp > Wrad = 1/3). The top row contains 5 different post-inflationary
+epochs, while the bottom row contains 10 epochs. The left column corresponds to an energy
+scale of E,, = 1GeV at the beginning of hot Big Bang, while the right column corresponds to
+Ey, = 100 GeV. Transitions between successive epochs are marked by grey vertical lines. The BBN
+constraint is illustrated by the red-shaded region, and the sensitivity curves for LISA, Planck, and
+aLIGO are displayed by grey-shaded regions. [None of the curves violate the existing constraints
+
+from BBN and aLIGO0.]
+
+sis 10 —
+3.1.1 Blue-tilted inflationary GWs with convex-shaped spectra
+
+A convex-shaped, monotonically increasing spectrum of inflationary GWs arises when the post-
+inflationary epochs are characterized by a sequence of progressively softer equations of state, w1 >
+w2 > w3 >... > Wrad = 1/3. In such scenarios, the spectral energy density aif) grows with
+frequency (ngyw(f) > 0), and the rate of growth also gradually increases, i.e., [d/(dIn f)] naw (f) >
+0, producing a convex curvature in the log Maw — log f plane. This behaviour typically originates
+from the diminishing amplification of the tensor modes as the expansion history transitions from
+a stiffer to a softer EoS regime. The highest blue tilt results from the first post-inflationary epoch
+with the stiffest EoS, while the convexity encodes the hierarchical duration and energy scales of the
+subsequent, softer epochs. A representative class of convex-shaped blue-tilted GW spectra is shown
+in Fig. 3.
+
+Such convex monotonic spectra are particularly relevant for phenomenological studies, since
+they can feature a gradual spectral saturation within the frequency bands probed by future space-
+
+based interferometers such as LISA, BBO, and DECIGO, with the caveat that a substantial growth of
+, , ,
+al ( f) at higher frequencies might lead to a violation of the BBN constraint (2.21).
+E,, =1GeV Ex. = 100 GeV
+BBN Constraint BBN Constraint
+tov. 10-%
+107% 10-% __| NV
+estes \ ¥ ct \ [z) | \eea | Poe
+= \ 3 2 \ 3|| | | |o”
+seul \ |) E szunt \ |) || We
+S i \ fs e K f e}) VJ
+om oul § ‘N ls ‘A, weal, le Vv Pa
+% ie a a . oP Ei i;
+\ 35 \ aE ae a
+wt AE rot \ BE | een
+% x Pid
+19} —ensniseananaas 98 > erase aasesss= a
+ag io a0 0 0-0 0 rr te FT cs ce cn ac Uc 0 rr
+[Hz] [Hz]
+Ey, = 1GeV E,. = 100 GeV
+a oe
+BBN Constraint BBN Constraint,
+10-8 r
+10~ if:
+\ \ F
+[es van is N is
+a saat \ le \ eA E
+Pia . St \ |e Et
+\ ‘
+i) “Mueeceieesceyt || | || | | | gu) gece eee eee
+Age 10-17 10-14 10-17 10-8 10-5 107? 107 10* 107 2 100m 10-17 10-*4 is 10-8 ae 10-7 ‘10° 10# 107 ,
+[Hz] f [Hz]
+a 7 F j 0 5 ‘
+Figure 4: Spectral energy density of inflationary GWs, a ( f), for the case of monotonic blue-
+
+tilted, concave spectra generated by strictly increasing sequences of post-inflationary EoS param-
+eters (wy < we <+++ < Wy). The top row contains 5 different post-inflationary epochs, while the
+bottom row contains 10 epochs. The left column corresponds to an energy scale of E,. = 1GeV
+at the beginning of hot Big Bang, while the right column corresponds to E,,. = 100 GeV. Transi-
+tions between successive epochs are marked by grey vertical lines. The BBN constraint is illustrated
+by the red-shaded region, and the sensitivity curves for LISA, Planck, and aLIGO are displayed by
+grey-shaded regions. [None of the curves violate the existing constraints from BBN and aLIGO,
+except for the red-dashed curve in the bottom-left panel.]
+
+TT
+3.1.2 Blue-tilted inflationary GWs with concave-shaped spectra
+
+A concave-shaped, monotonically increasing spectrum of inflationary GWs typically results from
+a post-inflationary expansion history governed by a sequence of increasingly stiffer equations of
+state, wi < wo <_w3 <...< wn. In this case, the spectral energy density AQ (A) increases with
+frequency, exhibiting an overall blue tilt (ngy(f) > 0). However, slope of the spectrum gradually
+decreases, i.e., [d/(dln f)|ngw(f) < 0, leading to a concave curvature in the log Qgw —log f
+plane. A representative class of concave-shaped blue-tilted GW spectra is shown in Fig. 4. Such
+a spectral shape encodes the gradual hardening of the background EoS — undergoing an ordered
+sequence of transitions from softer to stiffer dynamics prior to the onset of radiation domination.
+They also possess a clear phenomenological advantage: their concave shape enables the spectrum to
+enter the sensitivity bands of space-based (and forthcoming ground-based) detectors at intermediate
+
+frequencies, while remaining consistent with the BBN bound due to the gradual flattening of a( f)
+at higher frequencies.
+
+3.2. Scenarios with non-monotonic spectra of inflationary gravitational waves
+
+In the previous subsection, we focused on monotonically increasing classes of inflationary GW spec-
+tra arising from post-inflationary expansion histories characterised by an ordered either steadily
+increasing or decreasing — sequence of EoS parameters. In contrast, in the absence of such an ordered
+sequence of {w;}, we generically expect non-monotonic features in log a&( f)—log f plane.
+
+Such scenarios typically occur when the post-inflationary universe experiences alternating
+epochs of softer and stiffer equations of state prior to the commencement of the hot Big Bang
+phase. A gradual transition from softer/stiffer epochs to stiffer/softer epochs imprints a local fea-
+ure—such as a peak (bump) or a trough (dip)—in the spectral slope of a( f). The resulting
+spectra can thus exhibit multiple turning points, corresponding to characteristic frequencies at
+which the horizon re-entry of tensor modes coincides with the transition between successive EoS
+phases. This stands in contrast to the conventional expectation in the literature that inflationary
+gravitational waves yield strictly monotonic spectra.
+
+In this subsection, we illustrate representative examples of non-monotonic spectra of infla-
+ionary GWs, highlighting the variety of shapes that may arise from different sequences of post-
+inflationary EoS parameters. For concreteness, we restrict our analysis to spectra exhibiting up to
+wo distinct peaks in a f), as these already encompass the essential phenomenology associated
+with multiple transitions in the equation of state. However, the underlying formalism developed
+in our previous work [1] and employed here is fully general, and allows the user to construct GW
+spectra with an arbitrary number of transitions and spectral features'!. The shapes discussed be-
+low therefore serve as templates for understanding how alternating soft and stiff epochs in the
+
+post-inflationary history can lead to a rich variety of GW morphologies.
+
+3.2.1 Non-monotonic spectra for a soft EoS immediately after inflation
+
+A non-monotonic spectrum can arise when the post-inflationary universe begins with a relatively
+soft EoS (w; < 1/3) before transitioning to stiffer or radiation-like epochs. In this case, the early
+suppression of tensor modes re-entering during the soft phase results in an initial red tilt of a ( f)
+at high frequencies. Subsequent transitions to larger values of w; enhance the spectral slope, pro-
+ducing a local maximum (or bump) at an intermediate frequency corresponding to the scale that
+re-enters near such transitions. The resulting spectrum therefore exhibits a single or double-peaked
+
+profile depending on the number and duration of the subsequent stiff epochs.
+
+lwith the caveat that each epoch must last for at least one e-fold in order for our analytical approach to remain
+valid, as discussed in Secs. 2.1 and 4.2.
+
+12
+Ex. = 1GeV E,. = 100 GeV
+
+BBN Constraint,
+10-6 10-6 ,
+| |
+
+we \ 10-* \ | \
+2 |) E \ = | \ | Wy
+eBe / E sewet \ | | || Way
+ce / F ¢ J EI) WY
+
+wt \ 3s wt \ Bs
+
+Ca ns ne eT 10" 107 Ss cnn a ce a (cs 10 107
+
+“Y\ rma \ | \/ ‘)\, crea WITTY
+sao N 3 | |\oea} | | awl \ =) \msq | | |
+E E
+ea } E / l Sat \ | | \\l
+g ] E i 4 E
+Ale 10 2 3 Ae 10 2 =
+Hy Hi
+
+MR
+
+MER
+
+to 10 0 0-0 0 10" 107 ca cs ae a (  T 10" 107
+
+[Hz] f [Hz]
+
+Figure 5: Spectral energy density of inflationary GWs, aA ( f), for the case of non-monotonic
+spectra with peak(s), arising when the post-inflationary universe begins with a softer EoS (wi <
+1/3), but later evolves to become stiffer (w > 1/3) at some epoch. The top row contains 5
+different post-inflationary epochs, while the bottom row contains 10 epochs. The left column
+corresponds to an energy scale of E;, = 1GeV at the beginning of hot Big Bang, while the right
+column corresponds to E,, = 100 GeV. Transitions between successive epochs are marked by grey
+vertical lines. The BBN constraint is illustrated by the red-shaded region, and the sensitivity curves
+for LISA, Planck, and aLIGO are displayed by grey-shaded regions. [None of the curves violate the
+existing constraints from BBN and aLIG0.]
+
+Physically, this behaviour reflects the temporary dilution of GW energy density during the
+soft phase(s), followed by a relative amplification in the stiff epoch(s). A representative class of
+non-monotonic GW spectra with w; < 1/3 is shown in Fig. 5.
+
+3.2.2 Non-monotonic spectra for a stiff EoS immediately after inflation
+
+Conversely, if the universe initially enters a stiff post-inflationary epoch (w; > 1/3), including a
+brief kination phase, the corresponding GW spectrum exhibits an opposite sequence of features.
+The early blue tilt, generated by the rapid dilution of the background energy density during the
+stiff epoch, enhances 0 ( f) at high frequencies, which is associated with modes making an early
+horizon re-entry.
+
+When the universe subsequently transitions to a softer phase (wes yv< w}), the spectral slope
+decreases, producing a turnover that manifests as a suppression, some times as a trough (or dip)
+at intermediate frequencies. This generates a non-monotonic structure characterised by one or
+more peaks depending on the number of alternating stiff-soft transitions. A representative class of
+non-monotonic GW spectra with w; > 1/3 is shown in Fig. 6.
+
+sis 13 -
+Ex. = 1GeV E,. = 100 GeV
+
+—
+BBN Constraint
+
+| | creo |
+\ Pimeg \ / VY ey \ me \ V
+s \ HI \ a) \ g \ |
+= j E / sEwel \ | | E /|
+Sow / ta Sas Vly je) \\ 7
+S / E c d BY
+as &
+10-8 a8 10-8 as
+10-88 10-8
+
+Ca cs ns ae a eT 10" 107 cs cn a a a ( 10 107
+
+| | | |
+\ Pam \ Pag \ / V
+
+[End of Reheating]
+
+Beaty
+Baalty
+
+MER
+MR
+
+to 10 0 0-0 0 10" 107 to to 0 0 0-0 10" 107
+
+[Hz] f [Hz]
+Figure 6: Spectral energy density of inflationary GWs, al ( f), for the case of non-monotonic
+spectra, arising when the post-inflationary universe begins with a stiffer EoS (w; > 1/3), but
+later evolves to become softer (w < 1/3) at some epoch. The top row contains 5 different post-
+inflationary epochs, while the bottom row contains 10 epochs. The left column corresponds to an
+energy scale of E,. = 1GeV at the beginning of hot Big Bang, while the right column corresponds
+to E,, = 100GeV. Transitions between successive epochs are marked by grey vertical lines. The
+BBN constraint is illustrated by the red-shaded region, and the sensitivity curves for LISA, Planck,
+and aLIGO are displayed by grey-shaded regions. [None of the curves violate the existing constraints
+from BBN and aLIGO.]
+
+Primordial GWs with both the aforementioned types of non-monotonic spectra, with one or
+more peaks, are particularly interesting from a phenomenological perspective, since they can yield
+enhanced power in frequency bands accessible to space-based and/or ground-based GW detectors,
+while still remaining consistent with the BBN constraints.
+
+4 GWInSpect: Python-based numerical package
+
+4.1 Overview
+
+GWInSpect © is a Python-based numerical framework designed to compute the present-day spectral
+energy density of inflationary gravitational waves, a f), for a user-specified post-inflationary
+expansion history consisting of multiple epochs with instantaneous transitions. Each epoch is char-
+acterized by a constant equation-of-state parameter, and the code implements the junction matching
+conditions described in Ref. [1] to evolve the tensor modes across successive epochs.
+
+The package is lightweight, modular, and written for both exploratory and precision studies
+
+of the inflationary GW background. It employs the following major libraries:
+
+—14—
+BBN Constraint
+
+10-6
+10-8
+ge 10-*°
+ae LA,
+Seu ViffiE= a,
+ae 10-14 ES g oe y SBA KY st
+10716 ca)
+10-18
+10778
+
+.
+10-17
+
+Figure 7: Spectral zoo plot illustrating a variety of possible morphologies of the inflationary
+GW spectra 0) f), generated by stacking together all the curves appearing in Figs. 3-6 (with
+the colour scheme corresponding to the order in which we plotted all the curves from Fig. 3 to
+Fig. 6, without any physical significance).
+
+e NumPy: Array programming and vectorized numerical computing for scientific workflows [75].
+
+e SciPy: Used the special function Gamma [76].
+
+e mpmath: For high-precision evaluations of Bessel functions, ensuring numerical stability in
+oscillatory regimes [77].
+
+4.2 Required inputs
+The following inputs are required to run GWInSpect. Unless otherwise stated, any input lying
+outside the specified range is automatically rejected with a descriptive message.
+
+e List of EoS parameters: {wi,w2,...,wn}, ordered from the earliest to the latest post-
+
+inflationary epoch, satisfying —0.28 < w; < 1.
+
+e Transition energies: An ascending list {E,_1,...,E,} in GeV, defining the boundaries
+between epochs (latest — earliest). The typical range is 107? GeV < E; < 10'©GeV. The
+terminal hot Big Bang energy scale E,, is not included in this list.
+
+e Commencement of hot Big Bang: Either specify the hot Big Bang temperature T,,. >
+10-3 GeV (consistent with BBN constraints) or the corresponding energy scale E;, which the
+code internally maps to T;«.
+
+e Inflationary scale: Specify either the tensor-to-scalar ratio r (restricted to r < 0.036) or the
+corresponding energy scale of inflation, Ein < 1.4 x 10! GeV.
+
+—-15-
+Duration of each epoch.
+
+To maintain the validity of the instantaneous-transition approximation discussed in Sec. 2.1,
+GWInSpect enforces that every post-inflationary epoch must span at least one e-fold. The num-
+ber of e-folds in the i** epoch is defined as
+
+4 Ey_-1 .
+AN: 301 +m) in( E, ) >1 Vie {1,2,---,n} (4.1)
+
+If AN; < 1 for any epoch, the code halts execution and prompts the user to revise the duration
+(energy hierarchy) or the EoS parameters of the input sequence. For transparency, the complete
+array {AN;} can also be given as one of the output for user inspection.
+
+4.3 Typical outputs
+GWInSpect produces the following key outputs:
+
+e A log-spaced frequency array covering the range from the infrared cut-off to the UV cut-off,
+Le. fir to fena-
+
+e The corresponding present-day spectral energy density array, A ( f).
+
+e A list of present-day frequencies corresponding to the Hubble re-entry times of the tensor
+modes at each instantaneous transition (including feng as the first entry) (optional).
+
+e A list of the number of e-folds {A.N;} associated with each post-inflationary epoch (optional).
+
+Together, these outputs enable the user to reconstruct the full morphology of the inflationary GW
+spectra and study its dependence on the hitherto unknown expansion history of the early Universe ?.
+
+5 Discussion and Outlook
+
+In this work, employing the analytical framework developed in our previous paper [1] for computing
+the present-day spectral energy density of first-order inflationary GWs, a (f), we carried out a
+systematic investigation of their spectral shapes. A key methodological distinction of this work is its
+focus on the morphological diversity of the inflationary GW spectra, including monotonic (red-tilted
+or blue-tilted, convex or concave) and non-monotonic (single-peaked or multi-peaked) forms, rather
+than on detection prospects or parameter constraints, which were the main objectives of Ref. [1].
+These distinct morphologies naturally emerge from different combinations of cosmic epochs,
+with soft and stiff post-inflationary EoS parameters, preceding the onset of the hot Big Bang phase.
+The analytical formalism developed in [1], employing Israel junction conditions and the Heaviside
+
+representation of sharp transitions, is directly applied here to study the possible shapes of aA( f)
+across multiple post-inflationary epochs. Apart from the BBN constraints on GWs, we enforce the
+condition that each post-inflationary epoch lasts at least one e-fold, thereby preserving the validity
+of the instantaneous-transition approximation underlying our analytical approach. Our analysis
+remains entirely model-agnostic, relying only on the sequence of EoS parameters without invoking
+any specific microphysical or particle-physics realization.
+
+A complementary aim of this study is the development of a practical, user-friendly numeri-
+
+cal package, GWInSpect, which automates the computation of 2( f) for arbitrary sequences of
+
+?We also make available a list of useful additional functions within this package, such as the ones to check the
+BBN constraint using Eq. (2.21) and to relate different early Universe quantities at a certain epoch, amongst others.
+
+16 -
+the post-inflationary EoS parameters and the corresponding transition energy scales. The publicly
+available code provides a fast and flexible tool for generating GW spectra corresponding to a wide
+range of post-inflationary histories. In this way, GWInSpect bridges the analytical formalism of [1]
+with numerical implementation, enabling efficient exploration of early-Universe reheating scenarios.
+Together, these two studies provide a simple computational framework for probing the unknown his-
+tory of the early Universe through the imprints of its post-inflationary dynamics on the inflationary
+GW background.
+
+Looking ahead, there exist several promising directions in which the present framework can be
+extended and refined.
+
+e As in our previous work, the analytical framework developed across these two studies can
+be readily employed for model-dependent analyses, enabling one to constrain the underlying
+physical parameters of specific post-inflationary scenarios [78] in light of present and future
+GW observational prospects.
+
+e By relaxing the requirement that each post-inflationary epoch must last at least one e-fold,
+through the incorporation of smooth transitions (implemented via suitable functional forms)
+between successive epochs, one can achieve a more realistic and fine-grained characterization
+of the underlying cosmological dynamics.
+
+e A long-term goal is to extend the present formalism to study the impact of multiple post-
+inflationary transitions on the spectra of scalar-induced gravitational waves (SIGWs) [73,
+79-81]. Since such second-order GWs depend greatly on the background expansion history,
+the analytical and numerical techniques developed here can offer valuable insights into their
+spectral structure.
+
+6 Acknowledgements
+
+We thank Mohammed Shafi and Siddharth Bhatt for valuable discussions and for carefully reading
+the draft and providing helpful comments. A substantial portion of this work was carried out at
+IUCAA, for which SSM gratefully acknowledges support from the IUCAA Visitor Academic Pro-
+gramme. Insightful discussions with Ed Copeland, Varun Sahni, Oliver Gould, Sanjit Mitra and
+Ranjeev Misra on gravitational waves over the years have been helpful in shaping this work. SSM
+was supported by the STFC Consolidated Grant [ST/T000732/1] at the University of Nottingham.
+AKS acknowledges funding support from SISSA as a PhD student.
+
+Data Availability Statement: This work is entirely theoretical and has no associated data.
+The Python package GWInSpect developed to compute the spectral energy density of first-order
+inflationary GWs can be found in our GitHub repository ©.
+
+AI Assistance Statement: The authors acknowledge the use of ChatGPT (OpenAI GPT-5) for
+language editing and stylistic refinement of the manuscript.
+
+For the purpose of open access, the authors have applied a CC BY public copyright license to
+any Author Accepted Manuscript version arising.
+
+17 -
+References
+
+1
+
+10
+
+11
+
+12
+
+13
+
+14
+
+16
+
+iy
+
+18
+
+Athul K. Soman et al. “Inflationary Gravitational Waves as a probe of the unknown post-
+inflationary primordial Universe”. In: (July 2024). arXiv: 2407.07956 [gr-qc].
+
+Alexei A. Starobinsky. “A New Type of Isotropic Cosmological Models Without Singularity”.
+In: Phys. Lett. B 91 (1980). Ed. by I. M. Khalatnikov and V. P. Mineev, pp. 99-102. Dot:
+10.1016/0370-2693 (80) 90670-X.
+
+Alan H. Guth. “The Inflationary Universe: A Possible Solution to the Horizon and Flatness
+Problems”. In: Phys. Rev. D 23 (1981). Ed. by Li-Zhi Fang and R. Ruffini, pp. 347-356. Dor:
+10.1103/PhysRevD . 23.347.
+
+Andrei D. Linde. “A New Inflationary Universe Scenario: A Possible Solution of the Horizon,
+Flatness, Homogeneity, Isotropy and Primordial Monopole Problems”. In: Phys. Lett. B 108
+(1982). Ed. by Li-Zhi Fang and R. Ruffini, pp. 389-393. Dor: 10. 1016/0370-2693 (82) 91219-
+9.
+
+Andreas Albrecht and Paul J. Steinhardt. “Cosmology for Grand Unified Theories with Ra-
+diatively Induced Symmetry Breaking”. In: Phys. Rev. Lett. 48 (1982). Ed. by Li-Zhi Fang
+and R. Ruffini, pp. 1220-1223. pot: 10.1103/PhysRevLett .48.1220.
+
+Andrei D. Linde. “Chaotic Inflation”. In: Phys. Lett. B 129 (1983), pp. 177-181. Dor: 10.
+1016/0370-2693 (83) 90837-7.
+
+Andrei D. Linde. Particle physics and inflationary cosmology. Vol. 5. 1990. arXiv: hep-th/
+0503203.
+
+William H. Kinney. TASI Lectures on Inflation. 2009. arXiv: 0902.1529 [astro-ph.CO].
+
+Jerome Martin, Christophe Ringeval, and Vincent Vennin. “Encyclopzedia Inflationaris”. In:
+Phys. Dark Univ. 5-6 (2014), pp. 75-235. Dor: 10.1016/j. dark. 2014.01. 003. arXiv:
+1303.3787 [astro-ph.CO].
+
+Daniel Baumann. “Inflation”. In: Theoretical Advanced Study Institute in Elementary Particle
+Physics: Physics of the Large and the Small. 2011, pp. 523-686. DOI: 10.1142/9789814327183_
+0010. arXiv: 0907.5424 [hep-th].
+
+Daniel Baumann. “Primordial Cosmology”. In: PoS TASI2017 (2018), p. 009. DOI: 10.22323/
+1.305.0009. arXiv: 1807.03098 [hep-th].
+
+Hideo Kodama and Misao Sasaki. “Cosmological Perturbation Theory”. In: Progress of The-
+oretical Physics Supplement 78 (Jan. 1984), pp. 1-166. ISSN: 0375-9687. DoI: 10.1143/PTPS.
+78.1. eprint: https: //academic.oup.com/ptps/article-pdf/doi/10.1143/PTPS.78.1/
+5321391/78-1.pdf. URL: https: //doi.org/10.1143/PTPS.78.1.
+
+Antonio Riotto. “Inflation and the theory of cosmological perturbations”. In: [CTP Lect.
+Notes Ser. 14 (2003). Ed. by G. Dvali et al., pp. 317-413. arXiv: hep-ph/0210162.
+
+John Ellis and David Wands. “Inflation (2023)”. In: (Dec. 2023). arXiv: 2312.13238 [astro-ph.
+
+Swagat S. Mishra. “Cosmic Inflation: Background dynamics, Quantum fluctuations and Re-
+heating”. Other thesis. Mar. 2024. arXiv: 2403.10606 [gr-qc].
+
+Edward W. Kolb and Michael S. Turner. The Early Universe. Vol. 69. 1990. ISBN: 978-0-201-
+62674-2. DOI: 10.1201/9780429492860.
+
+Scott Dodelson. Modern Cosmology. Amsterdam: Academic Press, 2003. ISBN: 978-0-12-219141-
+1.
+
+Valery A. Rubakov and Dmitry S. Gorbunov. Introduction to the Theory of the Early Universe:
+
+Hot big bang theory. Singapore: World Scientific, 2017. ISBN: 978-981-320-987-9. DOI: 10.1142/
+10447.
+
+—-18-—
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+20
+
+28
+
+29
+
+30
+
+3l
+
+32
+
+33
+
+34
+
+35
+
+36
+
+Viatcheslav F. Mukhanov and G. V. Chibisov. “Quantum Fluctuations and a Nonsingular
+Universe”. In: JETP Lett. 33 (1981), pp. 532-535.
+
+S. W. Hawking. “The Development of Irregularities in a Single Bubble Inflationary Universe” .
+In: Phys. Lett. B 115 (1982), p. 295. DOI: 10.1016/0370-2693 (82) 90373-2.
+
+Alexei A. Starobinsky. “Dynamics of Phase Transition in the New Inflationary Universe Sce-
+nario and Generation of Perturbations”. In: Phys. Lett. B 117 (1982), pp. 175-178. Dot:
+10.1016/0370-2693 (82) 90541-X.
+
+Alan H. Guth and S. Y. Pi. “Fluctuations in the New Inflationary Universe”. In: Phys. Rev.
+Lett. 49 (1982), pp. 1110-1113. Dor: 10.1103/PhysRevLett .49.1110.
+
+N. Aghanim et al. “Planck 2018 results. VI. Cosmological parameters”. In: Astron. Astrophys.
+641 (2020). [Erratum: Astron.Astrophys. 652, C4 (2021)], A6. Dor: 10. 1051/0004-6361/
+201833910. arXiv: 1807.06209 [astro-ph.CO].
+
+N. Aghanim et al. “Planck 2018 results. I. Overview and the cosmological legacy of Planck”. In:
+Astron. Astrophys. 641 (2020), Al. DOI: 10.1051/0004-6361/201833880. arXiv: 1807 .06205
+[astro-ph.CO].
+
+Y. Akrami et al. “Planck 2018 results. X. Constraints on inflation”. In: Astron. Astrophys.
+641 (2020) A10. DOI: 10.1051/0004-6361/201833887. arXiv: 1807.06211 [astro-ph.CO].
+
+P. A. R. Ade et al. “Improved Constraints on Primordial Gravitational Waves using Planck,
+WMAP, and BICEP/Keck Observations through the 2018 Observing Season”. In: Phys. Rev.
+Lett. 127.15, 151301 (Oct. 2021), p. 151301. Dor: 10.1103/PhysRevLett.127.151301. arXiv:
+2110.00483 [astro-ph.CO].
+
+V. Mukhanov. Physical Foundations of Cosmology. Oxford: Cambridge University Press, 2005.
+ISBN: 978-0-521-56398-7. DOI: 10.1017/CB09780511790553.
+
+Daniel Baumann. Cosmology. Cambridge University Press, July 2022. ISBN: 978-1-108-93709-
+2. DOI: 10.1017/9781108937092.
+
+L. P. Grishchuk. “Amplification of gravitational waves in an istropic universe”. In: Zh. Eksp.
+Teor. Fiz. 67 (1974), pp. 825-838.
+
+Alexei A. Starobinsky. “Spectrum of relict gravitational radiation and the early state of the
+universe”. In: JETP Lett. 30 (1979). Ed. by I. M. Khalatnikov and V. P. Mineev, pp. 682-685.
+
+Varun Sahni. “The Energy Density of Relic Gravity Waves From Inflation”. In: Phys. Rev. D
+42 (1990), pp. 453-463. DoI: 10.1103/PhysRevD. 42.453.
+
+Bruce Allen. “The Stochastic Gravity Wave Background in Inflationary Universe Models”. In:
+Phys. Rev. D 37 (1988), p. 2078. Dol: 10.1103/PhysRevD . 37.2078.
+
+Massimo Giovannini. “Stochastic gravitational waves backgrounds: a probe for inflationary
+and non-inflationary cosmology”. In: 3rd International Conference on Particle Physics and
+the Early Universe. 2000, pp. 167-173. DOI: 10. 1142/9789812792129_0024. arXiv: hep-
+ph/9912480.
+
+Swagat S. Mishra, Varun Sahni, and Alexei A. Starobinsky. “Curing inflationary degeneracies
+using reheating predictions and relic gravitational waves”. In: JCAP 05 (2021), p. 075. Dor:
+10.1088/1475-7516/2021/05/075. arXiv: 2101.00271 [gr-qc].
+
+Md Riajul Haque et al. “Decoding the phases of early and late time reheating through imprints
+on primordial gravitational waves”. In: Phys. Rev. D 104.6 (2021), p. 063513. Dor: 10.1103/
+PhysRevD.104.063513. arXiv: 2105.09242 [astro-ph.CO].
+
+Massimo Giovannini. “Primordial backgrounds of relic gravitons”. In: Prog. Part. Nucl. Phys.
+112 (2020), p. 103774. Dor: 10.1016/j .ppnp.2020.103774. arXiv: 1912.07065 [astro-ph.CO].
+
+—-19 —
+37
+
+38
+
+39
+
+40
+
+41
+
+42
+
+43
+
+44
+
+45
+
+46
+
+AT
+
+48
+
+49
+
+50
+
+Chiara Caprini and Daniel G. Figueroa. “Cosmological Backgrounds of Gravitational Waves” .
+In: Class. Quant. Grav. 35.16 (2018), p. 163001. Dor: 10. 1088/1361-6382/aac608. arXiv:
+1801.04268 [astro-ph.CO].
+
+M. C. Guzzetti et al. “Gravitational waves from inflation”. In: Riv. Nuovo Cim. 39.9 (2016),
+pp. 399-495. DOI: 10.1393/ncr/i2016-10127-1. arXiv: 1605.01615 [astro-ph.CO].
+
+Yu-Tong Wang et al. “Probing the primordial universe with gravitational waves detectors”.
+In: JCAP 01 (2017), p. 010. Dor: 10. 1088/1475-7516/2017/01/010. arXiv: 1612. 05088
+[astro-ph.CO].
+
+Benjamin Racine et al. “Measurements of Degree-Scale B-mode Polarization with the BICEP/ Keck
+Experiments at South Pole”. In: 53rd Rencontres de Moriond on Cosmology. 2018, pp. 113-
+120. arXiv: 1807.02199 [astro-ph.CO].
+
+M. Hazumi et al. “LiteBIRD: A Satellite for the Studies of B-Mode Polarization and Infla-
+ion from Cosmic Background Radiation Detection”. In: J. Low Temp. Phys. 194.5-6 (2019),
+pp. 443-452. DOI: 10.1007/s10909-019-02150-5.
+
+A. Suzuki et al. “The POLARBEAR-2 and the Simons Array Experiment”. In: J. Low Temp.
+Phys. 184.3-4 (2016). Ed. by Philippe Camus, Alexandre Juillard, and Alessandro Monfardini,
+pp. 805-810. DOI: 10.1007/s10909-015-1425-4. arXiv: 1512.07299 [astro-ph.IM].
+
+Gabriella Agazie et al. “The NANOGrav 15 yr Data Set: Evidence for a Gravitational-wave
+Background”. In: Astrophys. J. Lett. 951.1 (2023), p. L8. Dol: 10.3847/2041-8213/acdac6.
+arXiv: 2306.16213 [astro-ph.HE].
+
+Gabriella Agazie et al. “The NANOGrav 15 yr Data Set: Search for Anisotropy in the
+Gravitational-wave Background”. In: Astrophys. J. Lett. 956.1 (2023), p. L3. Dor: 10.3847/
+2041-8213/acf4fd. arXiv: 2306.16221 [astro-ph.HE].
+
+J. Antoniadis et al. “The second data release from the European Pulsar Timing Array - III.
+Search for gravitational wave signals”. In: Astron. Astrophys. 678 (2023), A50. DOI: 10.1051/
+0004-6361/202346844. arXiv: 2306.16214 [astro-ph.HE].
+
+J. Antoniadis et al. “The second data release from the European Pulsar Timing Array - I. The
+dataset and timing analysis”. In: Astron. Astrophys. 678 (2023), A48. Dor: 10.1051/0004-
+6361/202346841. arXiv: 2306.16224 [astro-ph.HE].
+
+G. Agazie et al. “Comparing Recent Pulsar Timing Array Results on the Nanohertz Stochastic
+Gravitational-wave Background”. In: Astrophys. J. 966.1 (2024), p. 105. Dor: 10.3847/1538-
+4357/ad36be. arXiv: 2309.00693 [astro-ph.HE].
+
+J. Aasi et al. “Advanced LIGO”. In: Class. Quant. Grav. 32 (2015), p. 074001. Dor: 10.1088/
+0264-9381/32/7/074001. arXiv: 1411.4547 [gr-qc].
+
+F. Acernese et al. “Advanced Virgo: a second-generation interferometric gravitational wave
+detector”. In: Class. Quant. Grav. 32.2 (2015), p. 024001. Dor: 10. 1088/0264-9381/32/2/
+024001. arXiv: 1408.3978 [gr-qc].
+
+T. Akutsu et al. “KAGRA: 2.5 Generation Interferometric Gravitational Wave Detector”. In:
+Nature Astron. 3.1 (2019), pp. 35-40. DoI: 10.1038/s41550-018-0658-y. arXiv: 1811.08079
+[gr-qc].
+
+Pau Amaro-Seoane et al. “Laser Interferometer Space Antenna”. In: (Feb. 2017). arXiv: 1702.
+00786 [astro-ph. IM].
+
+Seiji Kawamura. “Primordial gravitational wave and DECIGO”. In: PoS KMI2019 (2019),
+p. 019. DOI: 10.22323/1.356.0019.
+
+— 20 -—
+54
+
+59
+
+60
+
+61
+
+62
+
+63
+
+64
+
+65
+
+66
+
+67
+
+68
+
+G. M. Harry et al. “Laser interferometry for the big bang observer”. In: Class. Quant. Grav.
+23 (2006). (Erratum: Class.Quant.Grav. 23, 7361 (2006)], pp. 4887-4894. Dol: 10. 1088/0264-
+9381/23/15/008.
+
+David Reitze et al. “Cosmic Explorer: The U.S. Contribution to Gravitational-Wave Astron-
+omy beyond LIGO”. In: Bull. Am. Astron. Soc. 51.7 (2019), p. 035. arXiv: 1907 . 04833
+[astro-ph.IM].
+
+Eugenio Coccia. “The Einstein Telescope”. In: PoS ICRC2023 (2024), p. 1591. DOI: 10. 22323/
+1.444.1591.
+
+Lev Kofman, Andrei D. Linde, and Alexei A. Starobinsky. “Towards the theory of reheating
+after inflation”. In: Phys. Rev. D 56 (1997), pp. 3258-3295. DOI: 10.1103/PhysRevD . 56.3258.
+arXiv: hep-ph/9704452.
+
+Kaloian D. Lozanov. “Lectures on Reheating after Inflation”. In: (July 2019). arXiv: 1907.
+04402 [astro-ph.CO].
+
+Mustafa A. Amin et al. “Nonperturbative Dynamics Of Reheating After Inflation: A Review”.
+In: Int. J. Mod. Phys. D 24 (2014), p. 1530003. Dor: 10.1142/S0218271815300037. arXiv:
+1410.3808 [hep-ph].
+
+Rouzbeh Allahverdi et al. “The First Three Seconds: a Review of Possible Expansion Histories
+of the Early Universe”. In: (June 2020). Dor: 10.21105/astro.2006.16182. arXiv: 2006.
+16182 [astro-ph.CO].
+
+Massimo Giovannini. “Relic gravitons at intermediate frequencies and the expansion history
+of the Universe”. In: Phys. Rev. D 105.10 (2022), p. 103524. Dol: 10.1103/PhysRevD.105.
+103524. arXiv: 2203.13586 [gr-qc].
+
+Yann Gouttenoire, Geraldine Servant, and Peera Simakachorn. “Kination cosmology from
+scalar fields and gravitational-wave signatures” . In: (Nov. 2021). arXiv: 2111.01150 [hep-ph].
+
+Yann Gouttenoire, Géraldine Servant, and Peera Simakachorn. “Beyond the Standard Models
+with Cosmic Strings”. In: JCAP 07 (2020), p. 032. Dor: 10.1088/1475-7516/2020/07/032.
+arXiv: 1912.02569 [hep-ph].
+
+Yann Gouttenoire, Géraldine Servant, and Peera Simakachorn. “BSM with Cosmic Strings:
+Heavy, up to EeV mass, Unstable Particles”. In: JCAP 07 (2020), p. 016. Dor: 10. 1088/1475-
+7516/2020/07/016. arXiv: 1912.03245 [hep-ph].
+
+Jerome Martin, Christophe Ringeval, and Vincent Vennin. “Observing Inflationary Reheat-
+ing”. In: Phys. Rev. Lett. 114.8 (2015), p. 081303. Dor: 10.1103/PhysRevLett.114.081303.
+arXiv: 1410.7958 [astro-ph.CO].
+
+Daniel G. Figueroa and Erwin H. Tanin. “Ability of LIGO and LISA to probe the equation
+of state of the early Universe”. In: JCAP 08 (2019), p. 011. Dor: 10.1088/1475-7516/2019/
+08/011. arXiv: 1905.11960 [astro-ph.CO].
+
+Sunny Vagnozzi. “Implications of the NANOGrav results for inflation”. In: Mon. Not. Roy.
+Astron. Soc. 502.1 (2021), pp. L11-L15. Dot: 10.1093/mnras1/slaa203. arXiv: 2009.13432
+[astro-ph.CO].
+
+Micol Benetti, Leila Lobato Graef, and Sunny Vagnozzi. “Primordial gravitational waves from
+NANOGrav: A broken power-law approach”. In: Phys. Rev. D 105.4 (2022), p. 043520. Dor:
+10.1103/PhysRevD.105.043520. arXiv: 2111.04758 [astro-ph.CO].
+
+Nathalie Deruelle and Viatcheslav F. Mukhanov. “On matching conditions for cosmological
+perturbations”. In: Phys. Rev. D 52 (1995), pp. 5549-5555. Dor: 10.1103/PhysRevD .52.5549.
+arXiv: gr-qc/9503050.
+
+D2] —
+69
+
+70
+
+(al
+
+72
+
+73
+
+74
+
+76
+
+77
+
+78
+
+79
+
+80
+
+81
+
+Swagat S. Mishra, Edmund J. Copeland, and Anne M. Green. “Primordial black holes and
+stochastic inflation beyond slow roll. Part I. Noise matrix elements”. In: JCAP 09 (2023),
+p. 005. Dor: 10.1088/1475-7516/2023/09/005. arXiv: 2303.17375 [astro-ph.CO].
+
+NIST Digital Library of Mathematical Functions. https: //dlmf .nist.gov/, Release 1.1.12
+of 2023-12-15. F. W. J. Olver, A. B. Olde Daalhuis, D. W. Lozier, B. I. Schneider, R. F.
+Boisvert, C. W. Clark, B. R. Miller, B. V. Saunders, H. S. Cohl, and M. A. McClain, eds.
+URL: https://dlmf.nist.gov/.
+
+Kin-Wang Ng. “Graviton mode function in inflationary cosmology”. In: Int. J. Mod. Phys. A
+11 (1996), pp. 3175-3193. DOI: 10.1142/S0217751X96001528. arXiv: gr-qc/9311002.
+
+Stefan Antusch et al. “Characterizing the postinflationary reheating history: Single daughter
+field with quadratic-quadratic interaction”. In: Phys. Rev. D 105.4 (2022), p. 043532. Dor:
+10.1103/PhysRevD.105.043532. arXiv: 2112.11280 [astro-ph.CO].
+
+Kazunori Kohri and Takahiro Terada. “Semianalytic calculation of gravitational wave spec-
+trum nonlinearly induced from primordial curvature perturbations”. In: Phys. Rev. D 97.12
+(2018), p. 123532. DoI: 10.1103/PhysRevD .97 .123532. arXiv: 1804.08577 [gr-qc].
+
+Massimo Giovannini. “Effective energy density of relic gravitons”. In: Phys. Rev. D 100.8
+(2019), p. 083531. Dor: 10.1103/PhysRevD.100.083531. arXiv: 1908.09679 [hep-th].
+
+Charles R. Harris et al. “Array programming with NumPy”. In: Nature 585.7825 (Sept. 2020),
+pp. 357-362. DOI: 10.1038/s41586-020- 2649-2. URL: https: //doi.org/10.1038/s41586-
+020-2649-2.
+
+Pauli Virtanen et al. “SciPy 1.0: Fundamental Algorithms for Scientific Computing in Python” .
+In: Nature Methods 17 (2020), pp. 261-272. Dol: 10. 1038/s41592-019-0686-2.
+
+The mpmath development team. mpmath: a Python library for arbitrary-precision floating-
+point arithmetic (version 1.3.0). http: //mpmath. org/. 2023.
+
+Fien Apers et al. “String Theory and the First Half of the Universe”. In: (Jan. 2024). arXiv:
+2401.04064 [hep-th].
+
+Kishore N. Ananda, Chris Clarkson, and David Wands. “The Cosmological gravitational wave
+background from primordial density perturbations”. In: Phys. Rev. D 75 (2007), p. 123518.
+DOI: 10.1103/PhysRevD.75.123518. arXiv: gr-qc/0612013.
+
+Daniel Baumann et al. “Gravitational Wave Spectrum Induced by Primordial Scalar Pertur-
+bations”. In: Phys. Rev. D 76 (2007), p. 084019. Dol: 10.1103/PhysRevD.76.084019. arXiv:
+hep-th/0703290.
+
+Guillem Doménech. “Scalar Induced Gravitational Waves Review”. In: Universe 7.11 (2021),
+p. 398. DOI: 10.3390/universe7110398. arXiv: 2109.01398 [gr-qc].
+
+~ 2) —

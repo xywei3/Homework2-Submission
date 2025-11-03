@@ -1,0 +1,871 @@
+Astronomy & Astrophysics manuscript no. aanda ©ESO 2025
+October 30, 2025
+
+Observing Orbital Decay in the Ultracompact Hot Subdwarf Binary
+System ZTFJ213056.71+442046.5
+
+Paul Teckenburg! ** Thomas Kupfer!?, Alex J. Brown!, Martin M. Roth?:*:5, Fatma Ben Dayal, Jorg Knoche!, Stella
+Vje8nica>, Pasko Roje> , Mike Kretlow>, Stefan Cikota®
+
+' Hamburger Sternwarte, University of Hamburg, Gojenbergsweg 112, 21029 Hamburg, Germany
+
+Department of Physics and Astronomy, Texas Tech University, Lubbock, TX 79409, USA
+
+Leibniz Institute for Astrophysics Potsdam (AIP), An der Sternwarte 16, 14482 Potsdam, Germany
+
+Institut fiir Physik und Astronomie, Universit Potsdam, Karl-Liebknecht-Str. 24/25, 14476 Potsdam, Germany
+Deutsches Zentrum fiir Astrophysik, Postplatz 1, 02826 Gorlitz, Germany
+
+Centro Astronénomico Hispano en Andalucia, Observatorio de Calar Alto, Sierra de los Filabres, E-04550 Gérgal, Spain
+
+Auk wD
+
+Received - ; accepted -
+
+ABSTRACT
+
+Context. Ultracompact Galactic binary systems emit low-frequency gravitational waves in the mHz regime. The emission of gravi-
+tational waves is causing these systems to lose angular momentum, which is detectable by observing the decay of the orbital period
+of the system. The system ZTFJ213056.71+442046.5 (ZTF J2130) is an ultracompact binary with a period of 39.3401(1) minutes
+consisting of a Roche lobe-filling hot subdwarf and a white dwarf companion. It has an apparent brightness of G = 15.3 mag.
+
+Aims. We attempt to measure the orbital decay rate P caused by gravitational wave emission of ZTF J2130 and predict the expected
+gravitational wave signal for LISA.
+
+Methods. High-speed photometry was conducted using the Finger-Lakes-Instrumentation Kepler KL4040FI Complemen-
+tary Metal Oxide Semiconductor (CMOS) camera, mounted to the 1.2-meter Oskar Liihning telescope at the Hamburg Observatory
+as well as the Hamamatsu ORCA-Quest 2 qCMOS camera at the 1.23-meter telescope at the Centro Astronémico Hispano en An-
+dalucia (CAHA) in Spain. ZTF J2130 was observed on six nights between August 2024 and September 2025. The obtained lightcurves
+combined with previous high-cadence observations were used to conduct an O — C timing analysis. Additionally, we employed the
+LISA data analysis tool LpAsorr to model the expected gravitational wave data.
+
+Results. We measure a period change of (-1.97 + 0.05) x 107? ss“!. Assuming only gravitational wave emission, the period change
+was used to calculate a chirp mass of (0.408 + 0.006) Mo. From Lpasorr we predict that LISA will be able to measure the chirp mass
+with an uncertainty of ~ 5%.
+
+Conclusions. This work measures the orbital decay with an uncertainty of only ~ 2% and shows that modern (q)CMOS detectors
+are well suited to provide precise timing measurements, enabling the measurement of the orbital decay of compact Galactic binaries
+with high precision even with modest size telescopes. The derived orbital decay is fully consistent with predictions from spectral and
+lightcurve modeling, although the masses are not known with sufficient precision to measure any deviation of the orbital decay from
+only gravitational waves. We show that future observations with L/SA can potentially provide a deviation from only gravitational wave
+effects, e.g. due to accretion, if the effect is sufficiently large.
+
+Key words. stars:subwarfs — stars:binaries — stars:white dwarfs — gravitational waves
+
+.. 1. Introduction (e.g. [Geier et al. 2011] 2014} [Rupfer et al.)2015
+2019) 2022). Systems with WD companions
+
+WZ Hot subdwarf stars are compact hot stars with spectral type B ‘gre of particular interest if the hot subdwarf starts mass transfer
+(sdB) or O (sdO) and luminosities below main sequence stars. of helium rich material before helium is exhausted in the core.
+Most of them are believed to be helium core burning stars with After the WD companion accretes ~ 0.1 Mo of helium rich ma-
+masses around 0.5 Mo and radii around 0.1-0.3 Ro(Heber[1986 terial, helium burning is predicted to be ignited unstably in the
+2 L6). A large number of hot subdwarf stars are found accreted helium layer on the WD surface
+in close binaries, with orbital periods of Pow< 10 days (Maxted| (Bauer et al.[2017). This could either disrupt the WD, even when
+
+Kupfer et _al.[2015 the mass is significantly below the Chandrasekhar mass, a so-
+For such short-period hot subdwarf bina-
+
+pe (CE) ejection is the only likely formation
+
+v:2510.25653v1 [astro-ph.SR] 29 Oct 2025
+
+arxX
+
+ries, common
+
+channel followed by the loss of angular momentum due to the E 4} |Wang]]2018)
+radiation of gravitational waves (GWs) (Han et al-[2002] [2003} - A i Semis ie WD
+
+Nelemans|2010). which results in a faint and fast type Ia supernova with sub-
+Compact hot subdwarf binaries are found with low mass sequent weaker He-flashes (Bildsten et al.]/2007|
+
+main sequence companions and white dwarf (WD) companions [2015).
+
+B &K (2021) showed that typical hot subdwarf bi-
+* Corresponding author; plteckenburg@gmail.com naries with WD companions which exit the common envelope
+
+Article number, page | of 6
+A&A proofs: manuscript no. aanda
+
+0.320
+
+oo °°
+oR ow
+a eo o
+o 5 8
+
+relative flux [a.u.]
+
+wv
+ow
+3
+wd
+a
+2. .
+0 10 20 30 40 50 60 70
+time [min]
+(a)
+
+0.325
+
+ied
+w
+f=}
+6
+
+0.275
+
+relative flux [a.u.]
+
+0.250
+
+0.225
+
+0.02
+0.00 ==
+
+residuals
+
+-0.02
+
+0 10 20 30 40 50 60
+time [min]
+
+(b)
+
+Fig. 1: (a) Lightcurve of ZTF J2130 taken with the CMOS camera at the OLT in Hamburg on Aug 12, 2024 and (b) lightcurve of
+ZTF J2130 taken with the 1.23-m telescope at CAHA on Sep 24, 2025. Overplotted are lightcurve models generated using LCURVE.
+
+Table 1: Observations of ZTFJ2130 with the OLT and CAHA
+1.23-m.
+
+ZTF J2130) has an orbital period of 39 min. Due to its short pe-
+riod, ZTFJ2130 is expected to be a source of GWs, although
+Kupfer et al. (2024) do not list ZTFJ2130 as one of the LISA
+
+Telescope Date UT Nexp _ Texp [8]
+OLT 2024 Aug 12 20:46- 22:00 215 20
+OLT 2024 Sep05 19:08 - 21:28 552 15
+OLT 2024 Nov 30 21:43-22:29 140 20
+OLT 2025 Jan11  16:42-17:42 360 10
+OLT 2025 Aug 19 20:04- 20:54 200 15
+CAHA 2025 Sep 24 23:45-00:47 1776 2
+
+phase at Po» < 2 hours will reach contact while the sdB is still
+burning helium. Due to the emission of GWs the orbit of the bi-
+nary will shrink until the sdB fills its Roche lobe at a period of
+= 30- 100 min, depending on the evolutionary stage and en-
+velope thickness of the hot subwarf (e.g.
+Tutukov & Fedoroval/1989} |Tutukov & Yungelson||1990) |Iben|
+
+Neunteufel et al.|2019}|/Bauer & Kupfer}2021).
+
+Upcoming space-based GW detectors, such as the Laser In-
+
+terferometer Space Antenna LISA (Amaro-Seoane et al.]2023),
+and TianQin (Luo et al.|/2016) will be sensitive to GW emis-
+
+sion at mHz frequencies from ultracompact binaries. Detailed
+simulations of Galactic binary populations find that LISA is ex-
+pected to individually resolve GW signals from O(10*) Galac-
+tic binaries, while upwards of O(10°) of these are also expected
+to be identified and characterized through their electromagnetic
+radiation as "multi-messenger" sources (Nelemans et al./[2004!
+To date, approximately 43 LISA detectable binaries with orbital
+periods Po:y»< 2hours have been characterized through their
+electromagnetic radiation (see
+and references therein). Currently, only five detached hot
+subdwarf binaries with a WD companion are known to have
+Pow< 2 hours (Vennes et al.|2012}|Geier et al.|2013}|Kupfer et al.
+discovered the first two Roche lobe fill-
+ing hot subdwarfs, ZTF J2055+4651 and ZTF J2130+4420, as
+part of a high-cadence Galactic Plane survey using the Zwicky
+Transient Facility (Kupfer et al. [2021). ZTF J2055+4651 has an
+orbital period of 56min, whereas ZTF J2130+4420 (hereafter
+
+Article number, page 2 of 6
+
+detectable binaries.
+Based on the derived system parameters,
+predict the rate of period change caused by the angular
+momentum loss due to GW emission to be P = (—1.68 + 0.42) x
+10-857}, Recently,[Antipin et al (2024) found an orbital decay
+of P = (-2.66 + 0.62) x 10° ss! in ZTFJ2130, higher than
+predicted by|Kupfer et al.|(2020a), and argued that the increased
+rate of orbital decay leads to an almost twofold increase in the
+expected signal-to-noise ratio for the observations of GWs from
+this binary system with space laser interferometers.
+
+In this paper, we present follow-up photometric observations
+of ZTF J2130, obtained with the Oscar Liihning telescope at the
+Hamburg observatory and the 1.23-m telescope at the Centro As-
+tronédmico Hispano en Andalucia (CAHA), both equipped with
+new CMOS detectors. We report the detection of a rapid orbital
+decay rate in the system and discuss the orbital period change
+in the context of expectations from general relativity. Section
+[describes our observations and Section B] describes in detail
+the O — C method which was used to measure the orbital decay
+and the results we obtained. Section ]discusses the results with
+respect to predictions from general relativity. We conclude and
+summarize the paper in Section [5]
+
+2. Observations
+
+Observations were performed with the Oskar Liihning telescope
+at the Hamburg Observatory and with the 1.23-meter telescope at
+Calar Alto Observatory in Spain. The Oskar Liihning telescope
+(OLT) is a 1.2 meter mirror Ritchey-Chretien Telescope with a
+focal length of 15.60 m. It was built in 1975 and was funded by
+the Liihning foundation. The telescope was mounted on a preex-
+isting mount in a dome from 1954 at the Hamburg Observatory
+in Hamburg-Bergedorf and remains one of Germany’s largest
+optical telescopes (Hiinsch[2009). Since 2024, the telescope has
+been operated with a new camera which uses a Contemporary
+Metal Oxide Semiconductor (CMOS) sensor. This sensor type
+has several advantages over Charge-Coupled Device (CCD) sen-
+sors such as low read noise and a fast readout speed, as well as
+
+lower costs and a lower power consumption (Smit et al./2025).
+Teckenburg et al.: Orbital Decay of ZTFJ2130
+
+Median fit
+lo error
+GW prediction (Kupfer et al. 2020)
+Antipin et al. (2024)
+
+HiPERCAM
+
+NOT
+
+CAHA
+
+OLT
+
+O-C [s]
+
+-154
+
+-20000
+
+20000
+
+40000 60000 80000
+
+E
+
+Fig. 2: O — C diagram for ZTF J2130 with data points from the Nordic Optical Telescope (NOT) and the HiPERCAM instrument
+at the Gran Telescopio Canarias (GTC), taken from|Deshmukh et al.|(2022). The new data points have been taken with the OLT in
+
+Hamburg and the 1.23-meter telescope at CAHA in Spain.
+
+In front of the camera, an eight-slot filter-wheel is mounted with
+one slot being empty to allow observations without filter.
+
+The new OLT camera used for the observations is a
+Finger-Lakes-Instrumentation Kepler KL4040FI
+CMOS camera with a detector size of 4096 x 4096 active pixels
+and a pixel size of 9 x 9um. With the 8’ x 8’ field of view,
+this yields a pixel scale of ~ 0.12 arcsec/pixel. The camera
+uses a CMOS sensor. This sensor type has multiple advantages
+over CCDs for high-speed photometry. The camera offers a
+much faster readout speed than CCDs with up to 24 frames-per-
+second. Compared to CCDs, the dark current of CMOS sensors
+is generally higher and the readout noise is much lower. The
+Kepler KL4040FI has a quoted readout noise of 3.7e~!. The
+signal-to-noise ratio of a CMOS sensor can outperform CCD
+detectors, especially for images with short exposure times
+(2024). The fast readout and low readout noise are ideal for
+photometric observations with short exposure times and high
+timing precision even at modest size telescopes.
+
+In addition, observations were taken with the Hamamatsu
+
+ORCA-Quest 2 qCMOS camera mounted on the 1.23-meter
+telescope at Calar Alto Observatory. The camera has a detector
+size of 4096 x 2304 active pixels and a pixel size of 4.6 x 4.6 um.
+The camera has a particularly low readout noise which has been
+measured to be only 0.3e7! and a readout time of only 0.039 sec
+(Krynski et al.|/2025). We observed using 4 x 4 binning. The
+ocal length of the telescope is about 9870 mm. resulting in
+a field of view of 6.6’ x 3.7’ and a pixel scale (unbinned) of
+0.10 arcsec/pixel. ZTF J2130 was observed without filter on five
+nights with the OLT and an exposure time of 10-20 sec as well
+as on one additional night with the CAHA 1.23-meter telescope
+and an exposure time of 2 sec, also without filter. The observa-
+tions are summarized in Table[I]
+
+Table 2: O — C residuals for ZTF J2130 from data reduced with
+the HiPERCAM pipeline.
+
+Telescope To,obs [TDB] Err.[s] O-C[s] E
+
+HiPERCAM = 2458672.680859 0.1 0 0
+
+NOT 2459054.525729 0.3 -0.5 13977
+OLT 2460535.407269 0.69 -12.34 68183
+OLT 2460559.366454 0.67 -14.96 69060
+OLT 2460645.422949 1.09 -13.23 72210
+OLT 2460687.221837 0.91 -10.72 73740
+OLT 2460907.362466 1.03 -13.38 81798
+CAHA 2460943.506164 0.96 -15.21 83121
+
+For the OLT data, standard image calibration was conducted
+following [Warner] (2006). Dark and flat frame calibration was
+conducted using ten dark frames taken on each night with the
+same exposure times and at the same temperatures as the sci-
+ence frames. Ten twilight flat frames were taken on 5 May, 2024
+without a filter and with an exposure time of 60 ms to reach an
+average number of counts of 75% of the full well depth. To cre-
+ate a master flat frame, 20 dark frames with the same exposure
+time and the same temperature as the flat frames were also taken
+on the same night. The resulting master flat frame was used to
+calibrate all light frames. Image calibration was conducted using
+a Python pipeline using standard astropy and ccdproc pack-
+ages (Price- Whelan et al. 2022} Craig et al.[2023). A master dark
+frame was subtracted from the science frames, and the science
+frames were divided by a master flat frame. Due to the short ex-
+posure time and the low noise of the Hamamatsu ORCA-Quest
+2 camera, no dark subtraction was performed.
+
+Article number, page 3 of 6
+A&A proofs: manuscript no. aanda
+
+To extract lightcurves, differential photometry was con-
+ducted using the HiPERCAM)| pipeline, which was slightly
+modified to be able to extract data from both detectors used
+in this work (Dhillon et al.[2021). It uses aperture photome-
+try to get the flux of the object and a comparison star to get
+the background-subtracted relative flux. The target aperture was
+chosen to be 30 pixels and the aperture sizes were scaled with
+the FWHM fit of the target. The GPS time stamps from both
+telescopes were converted to barycentric dynamical time (TDB).
+Example lightcurves from both telescopes are shown in Fig [I]
+
+3. O — C Timing Analysis
+
+To measure the period change of ZTFJ2130 due to GW emis-
+sion, we took the approach of an observed-minus-calculated
+(O — C) analysis. This analysis uses the accumulation of the pe-
+riod change over a long baseline to enable the detection of a
+small period change (Kepler et al-[T991)p.
+
+To determine the secondary mid-eclipse time To, or the time
+of inferior conjunction of the sdOB, where the WD is eclipsed by
+
+the sdOB, we used the lightcurve modeling code LcuRVE
+
+perwheat et al./2010). The code uses grids of points to model the
+two stars. The shape of the stars in the binary is set by a Roche
+potential. We assume that the orbit is circular and the rotation
+periods of the stars are synchronized to the orbital period. The
+flux that each point on the grid emits is calculated by assuming a
+blackbody of a certain temperature at the bandpass wavelength,
+corrected for limb darkening, gravity darkening, Doppler beam-
+ing, and the reflection effect. We used an MCMC method im-
+
+plemented in the emcee package (Foreman-Mackey et al.|2013)
+
+for the To fit. All other parameters for LcuRvE were taken from
+
+and [Deshmukh etal (2022). The derived
+
+mid-eclipse times 7,.ps are presented in the second column in
+
+Tab[2] Additionally, we include mid-eclipse times from [Desh-]
+(2022) taken with high-speed-photometry exclud-
+
+ing observations from large scale surveys (e.g. ZTF or ATLAS)
+
+where data has been taken at random times over a longer period.
+To determine the period change from the observed-minus-
+
+calculated values, we need an expression for O — C including a
+
+P term. The resulting equation is derived as follows.
+
+The observed To,p; is assumed to follow the ephemeris equation
+
+(1)
+
+with the true (not observed!) reference mid-eclipse time Eo,true,
+the true period Po true at Eo,true and the epoch (number of cycles)
+E. Note that Eojtrue has units of time and E(t) is an integer. As-
+suming that the period is slowly changing over time, Equation
+can now be expanded using a Taylor-expansion at E = 0:
+
+To,ovs(E) = Eo.true + PotrueE
+
+AT o,0bs
+dE
+
+2 dE |.9
+(2)
+
+By applying the chain-rule, the second derivative can now be
+written as
+
+Toobs(E(t)) = To,ovs| +
+
+/E=0
+
+E=0
+
+PT) dP dt dP _ dP _ pp (3)
+dE? dE dEdt dt —
+This yields
+1 .
+To.ovs = Eosrue + PosweE + 5PauePimeE” (4)
+
+! https ://github.com/HiPERCAM/
+
+Article number, page 4 of 6
+
+Since we do not know the true values, we have to use the ob-
+served values here because we want to calculate an unknown
+quantity.
+We use the ephemeris equation for the calculated mid-eclipse
+time with the values of[Deshmukh et al.](2022) of
+Tocaie = Eo,obs + PobsE
+
+= 2458672.68085911(8) + 0.0273195159(7) x E.
+
+Using Equations and ©). the observed minus calculated
+residual can be written as
+
+(5)
+
+1 .
+O-C = Eoune + PosweE + 5PirePrueE” — (Eo.oos + Poors)
+Le ojabe topes)
+
+Toate
+To.obs ‘
+
+(6)
+1 ‘
+= Eoseue ~ Eojobs + (Pore = Poors) E + 5 PirveP ek.
+(7)
+The true values are unknown to us, but we can estimate the dif-
+ference between the true and the observed value with the uncer-
+
+tainty of the measured quantities 6E9 and 6Po. So we can write
+Equation (6) as
+
+(8)
+
+According to this equation, an O — C # 0 could indicate the
+following things:
+
+1 .
+O-C =6E) +6PoE + 5 PeuePineE”.
+
+1. A constant vertical offset indicates a difference between the
+
+true and the observed mid-eclipse time at E = 0.
+2. A linear trend with constant slope indicates a difference be-
+
+tween the true and the observed period.
+3. A quadratic trend might indicate a constant rate of change in
+
+period P # 0.
+
+The goal of this analysis is to find values for the true period and
+the period change. This can be achieved by fitting Equation ®)
+to the data, so for every measured To ops, the O— C residual must
+be determined.
+
+To get an O—C value from the data, the calculated value with the
+assumption of no period change has to be calculated, using the
+ephemeris equation (i). Therefore, the number of cycles since
+Eowrue is needed. Assuming JEy9 < Pie, this number can be
+determined by dividing the time difference between the observed
+reference mid-eclipse time and the observed mid-eclipse time by
+the observed period:
+
+To,0bs — Eo,obs (9)
+Pops ,
+
+The result of Equation ) is rounded to the nearest integer value.
+
+Equation (i) is now used to calculate the observed (O) minus
+calculated (C) time difference:
+
+O- C = To, bs — Eo,obs — Po,obsE-
+The resulting O — C measurements are shown in Tab.
+We now determine the period change by fitting Equation ®)
+to the values in TableP2] All parameters in the equation are fitted,
+except for the period. The Python module emcee is used to fit
+an MCMC with Gaussian priors (Foreman-Mackey et al 2013}.
+Since we do not expect significant errors for the reference mid-
+eclipse time and the period, these priors are chosen to be 0. The
+boundaries for the priors are the uncertainties for these quantities
+
+from|Deshmukh et al.|(2022). The result of the fit is
+P = (-1.972 + 0.047) x 107? ss“.
+
+The fit is shown in Figure 2Jalong with the prediction by
+(2020a) and the measured value from{Antipin et al.](2024).
+
+ye
+
+(10)
+
+Teckenburg et al.: Orbital Decay of ZTFJ2130
+
+4. Discussion
+
+4.1. Comparison to prediction and previous measurements
+
+(2024) combined data from the Zwicky Tran-
+
+sient Facility with data taken during several nights between
+April 2023 and August 2024 with the RC600 telescope at the
+Caucasus Mountain Observatory. Using 17 minima over a to-
+tal of 6.5 years, they find an orbital decay of P = (—2.66 +
+0.62) x 10-!? ss“!. This value is broadly consistent, within the
+error limits, with predictions from [Kupfer et al (2020a) (Pe
+(—1.68 + 0.42) x 107!? ss~!) which are based on the system pa-
+rameters derived from spectroscopic and lightcurve modeling
+assuming angular momentum loss only from GW radiation. Al-
+though Antipin et al 2024) argue that their measured P leads to
+an almost twofold increase in the expected signal-to-noise ratio
+for the observations of GWs with LISA.
+
+We measure P = (1.972 + 0.047) x 107!” ss“! which is fully
+consistent with the predictions from [Kupfer et al.] (2020a). De-
+spite the similar baseline of timing measurements used in this
+work (~ 6.5 years), our uncertainty on P is significantly smaller
+than the value measured by {Antipin et al.] (2024). This is due
+to both the higher SNR and the higher time resolution of our
+photometry as compared to the ZTF photometry, which domi-
+nated their fit. ZTF observed the source irregularly with a low
+cadence over a longer time frame and used a 30sec exposure
+time. Their individual uncertainty for each O — C measurement
+is ~ 4—5sec. Our analysis only includes lightcurves that have
+been taken continuously with a high cadence of 2 sec to 20sec,
+leading to an uncertainty of < 1 sec for each O — C measure-
+ment, significantly smaller compared to [Antipin et al.] (2024).
+This shows the importance of high cadence observations with lit-
+tle to no readout loss for precise timing measurements. Our work
+shows that modern (q)CMOS detectors even at modest size tele-
+scopes can lead to excellent timing precision needed for precise
+P measurements. Overall, we measure a P with an uncertainty
+of only 2 %, which is fully consistent with the predictions from
+{Kupfer et al.] (2020a). Future observations are expected to de-
+crease the uncertainty on P even more. With simulated O — C
+values, following Equation ®) and scattered with the typical un-
+certainty for our measurements (~ 1 sec), we could reach a P
+uncertainty of ~ 0.5 % after 5 more years of observation, assum-
+ing ~ 4 observations per year.
+
+4.2. Predictions for future space based GW detectors
+
+At present, projects of space laser interferometers aimed at ob-
+serving mHz GWs, for example, TianQin (2016) and
+the Laser Interferometer Space Antenna (LISA;
+{et al] (2023)), are being developed. ZTF J2130 has an orbital pe-
+riod of 39 min and is expected to radiate GWs in the mHz fre-
+quency regime. Galactic binaries with well-measured properties
+are ideal sources for combined electromagnetic and GW multi-
+messenger studies. In particular, multi-messenger observations
+can distinguish between the orbital decay coming from GWs and
+tidal effects or accretion. Assuming an orbital decay only due to
+angular momentum loss from GWs, we can calculate the chirp
+mass from
+
+im
+
+3/5
+-8/3 p-11/3 ¢
+G\oe" i)
+
+(1)
+
+with f being the GW frequency and f being the change in fre-
+quency due to angular momentum loss from GW radiation. Us-
+ing our measured orbital decay, combined with the GW fre-
+
+quency of f = 0.8474Hz we find a chirp mass of M. =
+0.408 + 0.006 Mo. Note that this chirp mass assumes angular mo-
+mentum loss only from GW radiation, therefore in the case that
+other effects such as tides or accretion significantly contribute to
+the orbital decay, this chirp mass would not correspond to the ac-
+tual chirp mass of the binary. From the mass measurements from
+
+Kupfer et al.|(2020a) we can calculate the actual chirp mass fol-
+
+lowing
+
+_ (mms
+~ Gm $m)
+
+fe (12)
+where m, and mp are the individual masses of the binary. We
+find a value of M, = 0.37 + 0.04Mo. This is fully consistent
+with the chirp mass from the P we measured. However, we do
+not know the masses of the binary well enough from optical ob-
+servations to understand if the orbital decay of ZTF J2130 differs
+from only GW radiation. Tidal effects and accretion predict up
+to 10% deviation from GW radiation (Fuller & LaiJ2011|
+
+If GW measurements are in hand, we can derive the actual
+chirp mass following
+
+hetd
+
+3/5
+maron| me
+
+where / is the strain amplitude from GW measurements, f is the
+GW frequency, and d is the distance. The latter two are mea-
+sured from electromagnetic measurements. As Equation[11] as-
+sumes orbital decay only from GWs, any deviation of the chirp
+mass derived with Equation|!1|from the chirp mass derived with
+Equation[13] points to additional factors in the loss of angular
+momentum, e.g. due to tidal forces or accretion.
+
+To predict the expected GW signal and the corresponding
+chirp mass from LISA and test if we will be able to distinguish an
+orbital decay only from GWs or additional factors, we employed
+the parallel-tempered Markovy_Chain Monte Carlo algorithm.
+ucB_Mcmc within the Loasor | package
+2025). The sky position and orbital period were fixed, while a
+
+yaussian prior was applied to the distance of d = 1.20+0.06 kpc,
+which was determined from the Gaia parallax, and a uniform
+prior was applied to the orbital inclination of i = 86.4 + 1.0 deg,
+both taken from|Kupfer et al.](2020a).
+
+The simulation uses an estimated astrophysical foreground
+from the unresolved Galactic binaries as described in [Cornish]
+[& Robson] (2017). We ran the simulation for 48 months, con-
+
+sistent with the nominal operation time for LISA. Following the
+definition in Sec. 4 in [Kupfer et al. (2024), which states that a
+source is detected in LJSA when the posterior distribution shows
+a closed contour, we predict that the source will be detected af-
+ter 48 months adding ZTF J2130 to the list of detectable LISA
+sources. Using Equation[13] we find that LISA will be able to
+measure the chirp mass with an uncertainty of + 5%.
+
+nN
+
+5. Conclusions and Summary
+
+In this work, we present follow-up high-speed photom-
+etry observations of the ultracompact mass _ transferring
+sdOB+WD binary ZTFJ2130. Using high-cadence obser-
+vations obtained with the 1.2m OLT equipped with the
+Finger-Lakes-Instrumentation Kepler KL4040FI
+
+CMOS camera at Hamburg Observatory and the 1.23-meter
+
+2 attps://github .com/lisa-analysis-center/glass
+
+Article number, page 5 of 6
+
+A&A proofs: manuscript no. aanda
+
+telescope equipped with the Hamamatsu ORCA-Quest 2
+qCMOS detector at CAHA combined with data taken with
+HiPERCAM and the Nordic Optical telescope we detected an
+orbital decay of the binary. Using the O — C method, we find an
+orbital decay of P = (—1.972 + 0.047) x 107!” ss“! which is fully
+consistent with predictions from spectroscopy and lightcurve
+modeling assuming angular momentum loss only from GWs.
+After about 6.5 years of data taking, our P uncertainty is
+x 2% which is predicted to decrease to < 1% with additional
+observations over the next five years. This shows that modern
+(q)CMOS detectors with low readout noise and virtually no
+dead time between exposures are well suited for precise timing
+measurements of compact Galactic binaries even at modest size
+telescopes.
+
+Currently, the masses of the binary are not known with suffi-
+cient precision to detect any deviation of the orbital decay from
+only GWs. We employed Lpasorr to predict the GW signal from
+LISA. Combined with the distance and inclination from
+
+we calculate the expected uncertainty on the chirp
+
+mass from future LISA observations and find an expected uncer-
+tainty of only 5%. Therefore, any significant deviation of GW
+angular momentum loss due to e.g. accretion could potentially
+be detected with future LISA observations as long as the effect is
+sufficiently large.
+
+Acknowledgements. This research was supported by Deutsche Forschungsge-
+meinschaft (DFG, German Research Foundation) under Germany’s Excellence
+Strategy - EXC 2121 "Quantum Universe" — 390833306. Co-funded by the Eu-
+ropean Union (ERC, CompactBINARIES, 101078773). Views and opinions ex-
+pressed are however those of the author(s) only and do not necessarily reflect
+those of the European Union or the European Research Council. Neither the Eu-
+ropean Union nor the granting authority can be held responsible for them.
+
+For this work the HPC-cluster Hummel-2 at University of Hamburg was used.
+The cluster was funded by Deutsche Forschungsgemeinschaft (DFG, German
+Research Foundation) — 498394658.
+
+MMR, SV, PR and MK acknowledge support from BMFTR under grant
+03WSP1745.
+
+This work is partly based on observations collected at the Centro Astronédmico
+Hispano en Andalucia (CAHA) at Calar Alto, operated jointly by Junta de An-
+dalucfa and Consejo Superior de Investigaciones Cientificas (CSIC).
+
+References
+
+Amaro-Seoane, P., Andrews, J., Arca Sedda, M., et al. 2023, Living Reviews in
+Relativity, 26, 2
+
+Antipin, S., Berdnikov, L., Postnov, K., et al. 2024, Astronomy Letters, 50, 619
+
+Barlow, B. N., Corcoran, K. A., Parker, I. M., et al. 2022, ApJ, 928, 20
+
+Bauer, E. B. & Kupfer, T. 2021, ApJ, 922, 245
+
+Bauer, E. B., Schwab, J., & Bildsten, L. 2017, ApJ, 845, 97
+
+Bildsten, L., Shen, K. J., Weinberg, N. N., & Nelemans, G. 2007, ApJL, 662,
+L95
+
+Brooks, J., Bildsten, L., Marchant, P., & Paxton, B. 2015, ApJ, 807, 74
+
+Copperwheat, C. M., Marsh, T. R., Dhillon, V. S., et al. 2010, MNRAS, 402,
+1824
+
+Cornish, N. & Robson, T. 2017, in Journal of Physics Conference Series, Vol.
+840, Journal of Physics Conference Series (IOP), 012024
+
+Craig, M., Crawford, S., Seifert, M., et al. 2023, astropy/ecdproc: 2.4.1
+
+Deshmukh, K., Kupfer, T., Hakala, P., et al. 2022, Monthly Notices of the Royal
+Astronomical Society, 519, 148
+
+Dhillon, V., Bezawada, N., Black, M., et al. 2021, Monthly Notices of the Royal
+Astronomical Society, 507, 350
+
+Finch, E., Bartolucci, G., Chucherko, D., et al. 2023, MNRAS, 522, 5358
+
+Fink, M., Ropke, F. K., Hillebrandt, W., et al. 2010, A&A, 514, A53
+
+Foreman-Mackey, D., Hogg, D. W., Lang, D., & Goodman, J. 2013, PASP, 125,
+306
+
+Fuller, J. & Lai, D. 2011, MNRAS, 412, 1331
+
+Fuller, J. & Lai, D. 2012, MNRAS, 421, 426
+
+Fuller, J. & Lai, D. 2014, MNRAS, 444, 3488
+
+Geier, S., Marsh, T. R., Wang, B., et al. 2013, A&A, 554, A54
+
+Geier, S., Maxted, P. F. L., Napiwotzki, R., et al. 2011, A&A, 526, A39
+
+Geier, S., Ostensen, R. H., Heber, U., et al. 2014, A&A, 562, AIS
+
+Article number, page 6 of 6
+
+Han, Z., Podsiadlowski, P., Maxted, P. F. L., & Marsh, T. R. 2003, MNRAS, 341,
+669
+
+Han, Z., Podsiadlowski, P., Maxted, P. F. L., Marsh, T. R., & Ivanova, N. 2002,
+MNRAS, 336, 449
+
+Heber, U. 1986, A&A, 155, 33
+
+Heber, U. 2009, ARA&A, 47, 211
+
+Heber, U. 2016, PASP, 128, 082001
+
+Hiinsch, M. 2009, Monuments and Sites, 18, 274
+
+Iben, Jr., I. & Tutukov, A. V. 1991, ApJ, 370, 615
+
+Kepler, S. O., Winget, D. E., Nather, R. E., et al. 1991, ApJ, 378, L45
+
+Korol, V., Rossi, E. M., Groot, P. J., et al. 2017, MNRAS, 470, 1894
+
+Krynski, J., Bernard, V., Lalucaa, V., et al. 2025, in Advanced Photon Counting
+Techniques XIX, Vol. 13448, SPIE, 103-116
+
+Kupfer, T., Bauer, E. B., Burdge, K. B., et al. 2020a, ApJ, 898, L25
+
+Kupfer, T., Bauer, E. B., Marsh, T. R., et al. 2020b, ApJ, 891, 45
+
+Kupfer, T., Bauer, E. B., van Roestel, J., et al. 2022, ApJ, 925, L12
+
+Kupfer, T., Geier, S., Heber, U., et al. 2015, A&A, 576, A44
+
+Kupfer, T., Korol, V., Littenberg, T. B., et al. 2024, ApJ, 963, 100
+
+Kupfer, T., Prince, T. A., van Roestel, J., et al. 2021, MNRAS, 505, 1254
+
+Kupfer, T., Ramsay, G., van Roestel, J., et al. 2017a, ApJ, 851, 28
+
+Kupfer, T., van Roestel, J., Brooks, J., et al. 2017b, ApJ, 835, 131
+
+Livne, E. 1990, ApJl, 354, L53
+
+Livne, E. & Arnett, D. 1995, ApJ, 452, 62
+
+Luo, J., Chen, L.-S., Duan, H.-Z., et al. 2016, Classical and Quantum Gravity,
+33, 035010
+
+Maxted, P. f. L., Heber, U., Marsh, T. R., & North, R. C. 2001, MNRAS, 326,
+1391
+
+Napiwotzki, R., Karl, C. A., Lisker, T., et al. 2004, Astrophysics and Space Sci-
+ence, 291, 321
+
+Nelemans, G. 2010, Ap&SS, 329, 25
+
+Nelemans, G., Yungelson, L. R., & Portegies Zwart, S. F. 2004, MNRAS, 349,
+181
+
+Neunteufel, P., Yoon, S. C., & Langer, N. 2019, A&A, 627, Al4
+
+Pelisoli, I., Neunteufel, P., Geier, S., et al. 2021, Nature Astronomy, 5, 1052
+
+Piersanti, L., Tornambé, A., & Yungelson, L. R. 2014, MNRAS, 445, 3239
+
+Price-Whelan, A. M., Lim, P. L., Earl, N., et al. 2022, The Astrophysical Journal,
+935, 167
+
+Roth, M. M. 2024, Research Notes of the AAS, 8, 282
+
+Savonije, G. J., de Kool, M., & van den Heuvel, E. P. J. 1986, A&A, 155, 51
+
+Schaffenroth, V., Barlow, B. N., Geier, S., et al. 2019, A&A, 630, A80
+
+Schaffenroth, V., Pelisoli, I., Barlow, B. N., Geier, S., & Kupfer, T. 2022, A&A,
+666, A182
+
+Shah, S. & Nelemans, G. 2014, ApJ, 790, 161
+
+Shah, S., van der Sluys, M., & Nelemans, G. 2012, A&A, 544, A153
+
+Shen, K. J. & Bildsten, L. 2014, ApJ, 785, 61
+
+Smit, W., van Heerden, H., & van Soelen, B. 2025, in Revista Mexicana de As-
+tronomia y Astrofisica Conference Series, Vol. 59, 9-12
+
+Tutukov, A. V. & Fedorova, A. V. 1989, Soviet Astronomy, 33, 606
+
+Tutukoy, A. V. & Yungelson, L. R. 1990, Soviet Ast., 34, 57
+
+Tyson B. Littenberg, N. J. C. 2025, GLASS, free software (Apache 2.0)
+
+Vennes, S., Kawka, A., O’Toole, S. J., Németh, P., & Burton, D. 2012, ApJ, 759,
+L25
+
+Wang, B. 2018, Research in Astronomy and Astrophysics, 18, 049
+
+Wang, B. & Han, Z. 2012, New A Rev., 56, 122
+
+Warner, B. D. 2006, A practical guide to lightcurve photometry and analysis
+(Springer)
+
+Woosley, S. E. & Kasen, D. 2011, ApJ, 734, 38
+
+Yungelson, L. R. 2008, Astronomy Letters, 34, 620

@@ -1,0 +1,1525 @@
+arXiv:2510.25519v1 [cond-mat.stat-mech] 29 Oct 2025
+
+Dynamics of entanglement fluctuations and quantum
+
+Mpemba effect in the v = 1 QSSEP model
+
+Angelo Russotto!, Filiberto Ares!, Pasquale Calabrese!, Vincenzo Alba?
+
+1 SISSA and INFN Sezione di Trieste, via Bonomea 265, 34136 Trieste, Italy
+? Dipartimento di Fisica and INFN Sezione di Pisa, Largo Bruno Pontecorvo 3, 56126 Pisa, Italy
+
+Abstract
+
+We study the out-of-equilibrium dynamics of entanglement fluctuations in the v = 1
+Quantum Symmetric Simple Exclusion Process, a free-fermion chain with hopping am-
+plitudes that are stochastic in time but homogeneous in space. Previous work showed
+that the average entanglement growth after a quantum quench can be explained in terms
+of pairs of entangled quasiparticles performing random walks, leading to diffusive entan-
+glement spreading. By incorporating the noise-induced statistical correlations between
+the quasiparticles, we extend this description to the full-time probability distribution of
+the entanglement entropy. Our generalized quasiparticle picture allows us to compute the
+average time evolution of a generic function of the reduced density matrix of a subsystem.
+We also apply our result to the entanglement asymmetry. This allows us to investigate
+the restoration of particle-number symmetry in the dynamics from initial states with no
+well-defined particle number, and the emergence of the quantum Mpemba effect.
+
+Contents
+1 Introduction 1
+2 v-QSSEP model 3
+3 Diffusive quasiparticle picture for the entanglement statistics 4
+3.1 Some checks via the stationary phase approximation ............0.. 8
+4 Dynamical symmetry restoration and quantum Mpemba effect 13
+5 Conclusions 19
+A Numerical techniques 20
+
+1 Introduction
+
+Quantum models with a unitary evolution driven by stochastic processes offer a promising
+route to understanding the complex dynamics of out-of-equilibrium quantum systems. These
+models are particularly useful for describing many-body systems interacting with their en-
+vironment, providing valuable insights into the fluctuations of quantum diffusive dynamics.
+While fluctuations in classical diffusive systems are well captured by Macroscopic Fluctuation
+Theory [1], the existence of an analogous universal framework at the quantum level remains
+unclear [2]. At the same time, random unitary dynamics are also useful for extracting and
+analyzing the typical, universal properties of isolated many-body systems. By introducing
+randomness, fine-grained, specific features of the system are filtered out, leaving only the
+more generic ones — in some cases, randomness also gives analytical access to notoriously
+difficult problems, such as entanglement growth. Randomness can be implemented in many
+different ways: e.g. through random unitary circuits [3-10], or as continuous-time stochastic
+Hamiltonian dynamics [11-21].
+
+An ideal candidate of the second type for quantitatively studying fluctuations in diffusive
+quantum dynamics is the Quantum Symmetric Simple Exclusion Process (QSSEP), introduced
+in Refs. [13,22]. This is a system of free fermions hopping on a ring with hopping amplitudes
+between neighboring sites that are random both in space and time. Since the Hamiltonian
+generator of the dynamics is quadratic, the model is free-fermionic for each noise realization.
+This opens the possibility of employing analytic methods and performing efficient numerical
+simulations. Remarkably, the average dynamics of the state reproduces that of the SSEP,
+its classical counterpart [23]. Still, understanding the genuine quantum aspects of the model
+
+such as the fluctuations of the state dynamics or the entanglement — is also crucial [24
+26]. The full statistics of the fluctuations of both the stationary state and the stationary
+entanglement entropy have been determined [22,27]. However, the full-time evolution of the
+entanglement is still missing.
+
+The exact full-time dynamics of the average entanglement entropy has been derived ana-
+lytically in a generalization of the QSSEP model, recently introduced in Ref. [28], in which
+the hopping amplitudes are random in time but homogeneous in space; thereby, the model is
+translationally invariant, in contrast to the original QSSEP (see Refs. [29-33] for other exten-
+sions). One can relax this property and only partially restore spatial invariance by considering
+the same random hoppings every v sites rence the name v-QSSEP given in Ref. [28]. The
+case vy = 1 corresponds to homogeneous random hoppings; for v = 2, the noise in odd and
+even sites is different; and in the limit v > ov, the original QSSEP model is recovered. The
+dynamics of the averaged entanglement entropy in the vy = 1 case can be interpreted in terms
+of a stochastic generalization of the quasiparticle picture that explains entanglement spreading
+in the non-random counterpart of this model [34-37]. While in that case the quasiparticles
+propagate ballistically, leading to a linear growth of entanglement, here they follow a ran-
+dom walk in each realization, implying that entanglement spreads diffusively. Although an
+exact description of the average entanglement dynamics for generic v is still lacking, the same
+qualitative behavior is observed.
+
+In the present work, we continue the characterization of the entanglement dynamics in the
+v = 1 QSSEP model. In particular, we analytically derive the full-time probability distribution
+of the entanglement entropy after a quench from an initial product state. To this end, we
+adapt the stochastic generalization of the quasiparticle picture developed in Ref. [28]. As
+we will show, the crucial ingredient for computing entanglement fluctuations is the inclusion
+of the statistical correlations between the pairs of entangled quasiparticles, see Fig. 1 for an
+illustration. This represents a key novelty compared to the case of the average entanglement,
+or the non-random system, where the pairs are assumed to be uncorrelated.
+
+This approach also allows us to investigate other interesting aspects of the v = 1 QSSEP
+model. Here, we further apply it to investigate how particle-number symmetry is restored
+in the stationary state when the initial configuration breaks it a problem that has re-
+cently attracted significant attention. To monitor the restoration of symmetry, we employ
+the entanglement asymmetry, an observable that quantifies the extent to which the symmetry
+is broken within a subsystem. Leveraging the diffusive quasiparticle picture, we derive the
+full-time dynamics of the average asymmetry for generic initial squeezed states that break
+particle-number symmetry. An intriguing phenomenon to explore in this context is the quan-
+tum Mpemba effect, which occurs when, for a pair of initial states, symmetry is restored faster
+
+i=}
+
+Figure 1: Sketch of the diffusive quasiparticle picture for the out-of-equilibrium distri-
+bution of the entanglement entropy of a subsystem A in the vy = 1 QSSEP model (1).
+At t = 0, entangled pairs of quasiparticles, each one associated with a momentum k, are
+emitted and propagate diffusively. The distance £;(t) between the two quasiparticles
+of a pair describes a real Brownian motion. Since (€j(t)&q(t)) 4 0, quasiparticles with
+different momenta are statistically correlated. These correlations are key to describe the
+fluctuations of the entanglement via Eq. (13), giving access to the moments (S'4(t)")
+of the entanglement entropy at any time, and to the out-of-equilibrium evolution of the
+average entanglement asymmetry.
+
+in the state that initially breaks it more [38] (see Refs. [39,40] for a review of the different
+manifestations of the quantum Mpemba effect and Ref. [41] for a unifying approach to them).
+This particular version of the effect has been observed in various systems — including free
+and integrable models [42-50], open, monitored, and driven systems [51-54], quantum cir-
+cuits [55-61], disorder and long-range spin chains [62-65], and even experimentally [66,67]
+as well as in the non-random analogue of the vy = 1 QSSEP. We determine the microscopic
+conditions for its occurrence in terms of the density of occupied modes of the initial squeezed
+states and compare them with the non-random case.
+The paper is organized as follows. In Sec. 2, we introduce the vy = 1 QSSEP. In Sec. 3,
+after reviewing the results on the average entanglement entropy reported in Ref. [28], we
+extend the diffusive quasiparticle picture that describes it to include the noise-induced corre-
+lations between quasiparticle pairs, and we apply this framework to compute the full counting
+statistics of the entanglement entropy. In Sec. 4, we use this quasiparticle picture to study
+the entanglement asymmetry after a quantum quench from particle-symmetry-breaking initial
+states, and we determine the conditions under which the quantum Mpemba effect occurs in
+the vy = 1 QSSEP model. We conclude in Sec. 5 with a summary and outlook. We include an
+appendix that describes the numerical methods used in our calculations.
+
+2 v-QSSEP model
+
+In this section, we present the v-QSSEP model for v = 1 as originally introduced in Ref. [28].
+As mentioned in the introduction, this model consists of a one-dimensional chain of L sites
+with non-interacting spinless fermions and random complex hopping amplitudes that are
+homogeneous in space but stochastic in time. The dynamics is, therefore, described by the
+following infinitesimal Hamiltonian dH; which generates the time evolution,
+
+L
+di = vD>~ (aWeclejs1 + hc.) ; 1)
+j=l
+
+where c; (cl) are the standard annihilation (creation) operators of a spinless fermion at the
+site 7. We consider periodic boundary conditions, cj;+; = c;. The hopping amplitude dW, is
+a complex It6 increment satisfying dWi;dW; = dW dW; = 0 and dWidW; = dt. The constant
+D tunes the size of the fluctuations of the noise and, as we discuss below, determines the time
+scale of the time evolution. The density matrix p; = |v) (~,| that describes the state of the
+full system thus evolves as
+
+Pitas = eM pclae, 2)
+In the following, we are interested in the out-of-equilibrium dynamics obtained by time evoly-
+ing a lowly entangled initial state |qo). Since the Hamiltonian generator (1) is quadratic in
+he fermionic operators, if the initial state is Gaussian, i.e. it satisfies Wick theorem, then
+he time-evolved state (2) will remain Gaussian at all times [68,69].
+This model has a global U(1) symmetry associated with the conservation of the total
+particle number, i.e. [dH;,Q] = 0, with Q = D3, dey: First, to study the fluctuations of
+entanglement, we will consider initial states with a definite number of particles for simplicity.
+Later, we relax this assumption and analyze the evolution and restoration of this U(1) sym-
+metry when the initial state breaks it. Due to the Gaussianity of the state at all times, all
+he physical information is encoded in the two-point function Gram = (w| chem |b) when the
+initial state has a definite number of particles. If the initial state violates the particle number
+symmetry, then we must further take into account the correlations Frm = (W| nem |W). All
+he observables that we will study in the following can be obtained from the knowledge of Gnm
+and Fim, see Refs. [68,69] and also Appendix A for a discussion on the numerical techniques
+used.
+
+3 Diffusive quasiparticle picture for the entanglement statistics
+
+In this section, we study the fluctuations of entanglement under the time evolution described
+by Eq. (2). To this end, we divide the chain in two intervals A and B of length ¢ and L — @,
+respectively, as illustrated in Fig. 1. In Ref. [28], it was found that the average entanglement
+entropy between A and B under Eq. (2) can be described in terms of diffusively propagating
+entangled pairs of quasiparticles in the scaling limit L,/,t + co with 0 = Dt/l finite. Here,
+we show that such diffusive quasiparticle picture can be properly extended to determine the
+full counting statistics of the entanglement entropy in that scaling limit.
+
+Let us first review the original result derived in Ref. [28] for the average entanglement
+entropy (S.4(t)). We consider a generic initial state with two-site translational invariance and
+a definite number of particles, i.e. Fyn = 0, such as the Néel and the dimer states. Exploiting
+the translational invariance of the generator of the time evolution (1), the two-point correlation
+matrix Gpjm can be expressed in momentum space in the form
+
+1 oe
+Gn =e a » Geran (3)
+ae
+
+at all times. Due to the two-site translational invariance of the initial configuration, at t = 0
+we have
+
+Gg = 51) kg + 5910 (4)
+with g(k — 7) = g(k)*. Let F(G,4) be a generic analytic function of the correlation matrix
+restricted to the subsystem A, ie. (G4)mn = Gmn, m,n € A. Using the stationary phase
+approximation [70], it can be shown that, for an infinite chain (i.e., in the thermodynamic
+limit L — oo) in the diffusive scaling limit in which ¢,t + oo and 9 = Dt/C? is finite, the
+expectation value of the trace of F(G4) is given by [28]
+
+(mFGa)=5 f derce) fH max(e 216), FAs) + FO]
++min(2|€], 6) [F(f()/2) + F(f(k + )/2)]], (5)
+where Ax are the eigenvalues of the matrix
+
+_ (fle+0) gle+n)
+o-( ak) f(k) ): 6)
+
+and P(€,t) = eo 8 /4Dt H/ 47 Dt is the probability distribution function of a Gaussian random
+variable with zero mean and variance 2Dt. If we now specialize the formula (5) to the
+entanglement entropy, then we find the following time evolution for its average value,
+
+(Sa(t)) = se / déP(E,t) min(2|é|/6,1), 7)
+
+According to Eq. (7), the dynamics of the average entanglement entropy under Eq. (2) is
+characterized by an initial y/t growth followed by a saturation, at a time t > (?, to the same
+value predicted by the generalized Gibbs ensemble (GGE) in the case of non-random hopping
+amplitudes [35,37].
+
+As already mentioned, the results in Eqs. (5) and (7) admit a quasiparticle interpretation.
+At t = 0, pairs of entangled quasiparticles are produced at each spatial point of the system and
+then they travel diffusively, as shown in Fig. 1. The distance between the two quasiparticles
+of a pair is 2|€| with a probability determined by the distribution P(€,t). Since for each noise
+realization all the entangled pairs perform the same random walk, the number of pairs that
+are fully contained within the subsystem A is max(¢— 2|€|,0), whereas the number of pairs
+with one quasiparticle in region A and the other in B is min(2|€|,@). Therefore, the first
+term in Eq. (5) is the contribution from the pairs that are fully contained inside A and the
+second one corresponds to the contribution of the pairs that are shared between A and the
+rest. The contribution of each pair is the same as in the non-random model. In particular, the
+entanglement between A and B is given according to Eq. (7) by the number of quasiparticles
+shared between these subsystems, i.e. min(2|é|, 2), multiplied by their contribution (8). Notice
+that, unlike in the case of non-random hoppings, the dependence of the distance || on the
+momentum k of the quasiparticles is completely washed away as a consequence of the average
+over the noise. However, we will show that this will not be longer true when considering
+averages of functions of the correlation matrix such as (Tr[F\(G4)] Tr[72(Ga)|---) or more
+generically (h(Tr[F,(Ga)], Tr[F2(Ga)],---)), with h an analytic function of multiple variables.
+The relevance of considering such expectation values relies on the fact that their knowledge
+is crucial to the determination of the higher moments of the entanglement entropy (S.4(t)"),
+and the presence of correlations between quasiparticles with different momentum will be the
+key point in the generalization of Eq. (7).
+
+The existence of a quasiparticle picture is hinted at by the presence of well-defined, stable
+excitations at all times, regardless of the stochasticity of the hopping amplitudes dW;. The
+
+where
+
+infinitesimal generator of the dynamics (1) takes in momentum space the simpler form
+
+dH, = So derncher, (9)
+k
+
+where dey, = VD(dWye* + dW ye**) = 2D Re{dWe"*} are real Ité increments that satisfy
+de; ,dét,q = 2Ddtcos(k — q). The crucial point is that infinitesimal generators at different
+times commute. Therefore, we can think of the excitations with momentum k as having a
+stochastic energy €,, whose probability distribution is time-dependent. This energy is given
+by ez(t) = VD(Wi e*§ 4+ Wire) = 2/D Rel Wi a where W; is the random variable
+W, = Wrz t+ iWry and Wr 1),t describe independent real Brownian motions with zero mean
+and variance Dt.
+Based on this idea, to generalize the standard quasiparticle picture of the non-random
+model [37], we observe that the distance €;, traveled by a quasiparticle with momentum k is
+determined by the stochastic energy ¢,. Indeed, the infinitesimal distance is obtained from
+
+q(t) = Open (t) = 2VD Re{W, e**}. (10)
+
+Now, by considering a finite time interval, the probability distribution of & is independent
+on k and it is given by P(€,t) as in Eq. (5), since W; is a complex Brownian motion. We
+anticipate that this, in turn, implies that for observables linear in €%, the dependence on
+k drops out. On the other hand, & = 2/DRe{Wie!"} and €; = 2VDRe{Wie'7} are not
+independent, as follows from their definition. Let us see how to account for these statistical
+correlations between quasiparticles. We consider again a generic analytic function F(G 44) of
+the subsystem correlation matrix G4. From Eq. (5), we first define the function z7(€)
+
+zr(6,) = 5 fF bmax(l — 2é4),0) FAs) + FQ]
++ min(2éel, 0) FF(8)/2)+ FUE + mI. (1)
+
+Here Ax and f(k) are the same as in Eq. (5), but we have replaced € by & = Oxex(t) =
+
+2VDRe{ Wie}. We conjecture that the average value of a generic analytical function h(-,-,...)
+of traces of different functions F;(G4), j = 1,2,..., is given by
+(A(Tr[Fi(Ga)], Tr[F2(Ga)], ue )) L PE Soo (h(zr, (Em), ®Fa (Eko), ut ))e; (12)
+
+where we have introduced (-)@ as a shorthand notation for the average with respect to the
+probability distribution P(é,t = @¢?/D). If h(x) =x, then we recover the result of Eq. (5).
+
+To understand how the general ansatz in Eq. (12) works, we can specialize ourselves to
+the entanglement entropy. As a consequence of Eq. (12), it is possible to formally write, in
+the diffusive scaling limit, the time evolution of the n—Rényi entropy g) - and also of the
+von Neumann entropy in the limit n + 1— as
+
+SO) = [ Fmimelgn(O)).0 sn(8), (13)
+
+where the symbol = is understood as an equality inside expectation values (-). The factor
+Sn(k) is the contribution of the mode k to the n-Rényi entropy, which is the same as in the
+non-random case. Since €; is distributed according to P(€,t), which is independent of k, the
+
+dependence on k is completely washed away in (|£;(t)|). Using this property, we immediately
+obtain
+
+(860) = (f Fesu(®)) (mine. Oho, (14)
+Entanglement entropy variance
+
+0.03 py T
+
+— Diffusive QP
+» £=10
+5 |
+0.005 . £=20
+« £=30
+0.0 I I in
+
+ik ii
+0.0 0.1 0.2 0.3 0.4 0.5
+6 = Dt/e
+
+Figure 2: Time evolution of the rescaled variance of the entanglement entropy 02/0?
+under the dynamics in Eq. (1) starting from the Néel state, for different subsystem
+sizes ¢ in the thermodynamic limit L — oo. The symbols correspond to the variance
+of the exact entanglement entropy, computed from the time-evolved correlation matrix
+as explained in Appendix A, for 1000 realizations. The red curve is the prediction in
+Eq. (15) obtained from the diffusive quasiparticle picture.
+
+This result is exactly equivalent to Eq. (7), obtained ab initio in Ref. [28] through the sta-
+tionary phase approximation.
+
+Let us now show how Eq. (13) can also predict the time evolution of higher moments
+cs”) (t))™). We first focus on the variance of the von Neumann entropy 02(t) = (Sia(t)?) —
+(S.(t))?, although all the following arguments are valid for generic Rényi index. If we directly
+apply Eq. (13) in the expectation value (S.4(t)?), then we find that, in the limit L,¢,t > oo
+with © finite,
+
+($4(@)) =@ / apes) s(R (nin (2|g4(©)|/£,1) min (2|g()|/l,D)e =
+
+9 [ dkdk! 4 i 4 kf
+_ 2 Pidwhist . (4 ik . (4 ik’
+=f / (np s(k)s(k’) (min (Firet Wee}, 1) min (Finer Wee }I, 1))
+
+io}
+
+(15)
+
+where in the second line the average (-)9 is calculated with respect to the probability dis-
+tribution of the normally distributed complex variable We. We were not able to compute
+analytically this expectation value. However, we can numerically estimate it by sampling
+over Wo and averaging the result of many realizations. We then compare this result with the
+variance obtained by sampling from the exact evolution of the correlation matrix G under
+Eq. (2), as explained in Appendix A. In Fig. 2, we show this comparison in a quench from
+the Néel state, for which s(k) = log2 for all k. We observe that Eq. (15), derived from the
+diffusive quasiparticle picture, correctly reproduces the time evolution of the variance of the
+entanglement entropy.
+
+Using the same procedure, it is straightforward to construct the m-th moment of S'4(t)
+in terms of the m-point function of min(2|&;|,2), which counts the number of quasiparticles
+shared between A and B. As a consequence, this picture should also apply to determining
+the full probability distribution Pe(S4) of the entanglement entropy. This distribution can
+10
+
+0.0 0.2 0.4 0.6 0.8 1.0
+
+Sia/ (Clog 2)
+
+Figure 3: Out-of-equilibrium probability distribution function of the entanglement
+entropy at different times © = Dt/@ after a quench with the Hamiltonian (1), starting
+from the Néel state and taking a subsystem of length ¢ = 30 and L - oo. The entangle-
+ment entropy S'4 is rescaled by its asymptotic value (log 2 in the stationary state. The
+dashed curves represent the prediction (16) of the diffusive quasiparticle picture. The
+histograms are the result of sampling the exact entanglement entropy, computed numer-
+ically from the time-evolved two-point correlation matrix for different noise realizations.
+The number of samples for each time considered is ~ 104.
+
+be obtained from the moment generating function y@(A) = (e*4(©)) as
+
+Po(Sa) = / dreSAy@ (2). 16)
+
+The ansatz proposed in Eq. (13) predicts the following expression for the generating function
+xe)
+x00) = (exp (2 f FE min(2e()1-O5u(6)) ) 17)
+iT )
+from which we can determine numerically the time evolution of probability distribution
+Pe(S4). In Fig. 3, we compare this prediction with the statistics of entanglement obtained
+from the exact time-evolved correlation matrix for different noise realizations, finding an excel-
+lent agreement. In both Figs. 2 and 3, we can see that the entanglement fluctuations rapidly
+grow at early times and then they slowly decay as 1/ VO. Observe that in the transition
+between these two regimes, i.e. around © ~ 0.1, the distribution probability Po(S4) presents
+a non-analiticity due to the quasiparticle counting function min(2|&;|, @).
+
+3.1 Some checks via the stationary phase approximation
+
+Here we provide arguments supporting the non-trivial ansatz proposed in Eq. (12) by leverag-
+ing the standard tool of the stationary phase approximation, which allows for ab initio calcu-
+lations [70]. Specifically, we first consider (Tr[G%]?) and then the generic product (Tr[G?]™).
+We show that these quantities can be computed using the stationary phase approximation
+and that the structure expected from the diffusive quasiparticle picture in Eq. (12) naturally
+emerges in these examples.
+For simplicity, we take as initial configuration the Néel state. In this case, we have
+f(k) = 9(k) =1 in Eq. (4). Specializing Eq. (5) to F(G4) = Tr(G%), our conjecture reads as
+
+MO), = 5 f Satta), (18)
+
+and, applying Eq. (12), we expect
+
+cmicxeymicx@y) = (4) (1420+ [BX rar), 09
+
+where x¢, is defined as
+
+rg, = max(1 — 2/g.(©)|/é, 0). (20)
+
+Notice that ag, is the number of pairs of quasiparticles at relative distance 2|€;|, which are
+fully contained in A.
+
+Let us see how this result can be also derived from the stationary phase approximation.
+We begin by rewriting (Tr[G3]?) using the decomposition in momentum space (3) of G4 and
+
+the identity
+L
+
+1
+yo ein _ al dé w(k) ei CE HeHDR/2, (21)
+—1
+
+n=1
+
+where w(k) = k/sin(k/2). We obtain
+
+ey pt dk; dq; \
+mieermiexon = (4) [) Tess) f (1 Ga") nt
+
+4
+x ECF 42 )E1 /2—%l(ko— G1 )E2/2—il (keg —G4 £3 /2—7l (ka —G3)Ea/2 (I Gra ) (22)
+9905 z
+j=1
+
+where we have defined wi; = w(ki—k;). As shown in Ref. [28], the dynamics of the expectation
+value of the product of two-point functions in momentum space is governed by
+
+4 4
+d (I Cr5.45 ) = e({kj, a}) (I Grej.4) (9) dt. (23)
+j=l jal
+
+The energy e({kj,qj}) is zero if qj = kj for any 7. This choice of momenta corresponds
+precisely to the stationary state value of the correlator. For other choices of the momenta,
+the energy e({kj,qj}) is generally negative, implying an exponential decay in time of the
+expectation value in Eq. (23). We will be interested in the leading contribution to Eq. (22),
+apart from the stationary state value, in the scaling limit ¢,t > oo. Following Ref. [28], we
+observe that the leading term in the scaling limit is obtained from correlators with paired
+momenta. We define two momenta kj; and kj as being paired if qj = +k; and qj = Fkj’,
+and we will refer to this pairing using the notation (j 7’). The energy corresponding to p > 1
+paired momenta is given by
+
+ep({kj}) =-8D [p+ > cos(ky — kj) } . (24)
+paired j,j’
+
+In the case of expectation values of the form (Tr[F(Ga)]) studied in Ref. [28], the leading
+contribution corresponds to having an even number of paired momenta with all the remaining
+unpaired momenta satisfying q; = kj. However, when considering more complex expectation
+values such as in Eq. (22), the presence of multiple traces imposes further constraints on the
+pairings that give the leading contribution.
+
+Let us analyze all the possible pairings in Eq. (22). We begin with no pairings, ie. qj = kj
+or any j. In this case, ¢9 = 0 and the terms coming from the two traces in Eq. (22) completely
+decouple. Their contribution is thus equal to the stationary value of (Tr[G?,]) squared, which
+is Co = (€/4)?. In the case of a single pairing (j j’), whose contribution is denoted by Cu 5")
+here are two possibilities: either both 7 and j’ are indices associated with the same trace,
+such as (12) and (34), or j and j’ come from a different trace, for instance (13) and (24).
+In the first scenario, due to the form of Eq. (23), the two traces completely decouple again
+eaving us with the computation of the product of (Tr[G%]) for zero pairing and of (Tr[G%]) for
+one pairing. The case of zero pairing has just been discussed above while the computation for
+one pairing was done in Ref. [28]; the final result is C(y 2) = Cig.) = (/4)?(we). In the second
+scenario, we can consider the pairing (13) (other combinations of the same type, i.e., with
+indices j and j’ in different traces give the same result). Its contribution to the expectation
+value in Eq. (22) is
+
+4 pl dk; 2.2 .—8Dt(1+cos(ki—k3))
+Cay =(5) f (IDs) f (TL ge ] wese .
+CONG j
+x EW Heke kea)§1 /2— iho ks —)2/2—il(ka—ka)Eo/2—il(ka—ka-+m)Ea/2 (95)
+
+where we have used Eqs. (23) and (24) as well as the specific form (4) of the two-point
+correlation matrix at t = 0 for the Néel state. Because of the cyclicity of the momenta kj
+in the exponent in Eq. (25), the terms e*?*€2(a)/2 cannot simply be eliminated by redefining
+the k;’s. For this reason, if one performs the change of coordinates ¢, = € — €1, @2 = €2
+and ¢3 = &4 — &3, C4 = &4, the variables C2 and ¢, remain in the integrand as etinllacay/?.
+Each integral in (2, 4 gives then an extra O(¢~') factor, which is subleading. Therefore, the
+contribution of pairings (j 7’) where j and j’ correspond to independent traces is subleading
+and it can be neglected in the diffusive scaling limit. The last term we must consider comes
+from having two pairings, each corresponding to one of the two traces, i.e. (12)(34). Applying
+Eqs. (23) and (24), we find that its contribution is of the form
+
+£\4 pt dk; > vcastia #4
+Ca2)(34) = (5) I, [Las / Il Qn) wyyW3a € Brt2+ 2 j>77 cosh hy)
+J ]
+
+x ete 1 kat) /2—il( hea — kT) Eo /2—il (eg —ha +) /2— ila —hg—) Ea /2_ (26)
+
+The z-shifts in the exponent can, this time, be removed by redefining ky(3) + 7 +> ky3). In
+terms of the relative coordinates ¢;, Eq. (26) takes the form
+
+8 (27)
+
+e 8 1t(2—cos(k1 kz) —cos(k3—ka)-+-c0s(kk1 —kg )+-cos(k2—ka)—cos(kt ka) —cos(k2—ka)) . (27)
+
+oy dk; ~ it ea bs Jeo /2—il ka
+Ca234) = (5) / aod w(Ce)i(Ga) f DT ses | eg in eee
+2 Z
+J
+
+where ju(¢) = max(0, min(1, 1—¢)+min(1,1+¢)) are the result of the integration of ¢) and ¢3.
+Since the phase in the integrand of Eq. (27) rapidly oscillates when £ — oo, we can obtain its
+asymptotic behavior applying the stationary phase approximation. The stationarity condition
+for C2 and ¢4 in the limit @,t — oo implies that we can expand the integrand around ko ~ ky,
+and k4 ~ k3. Expanding up to the second order in that limit allows us to approximate the
+
+10
+T
+fe, «Saddle pt approximation "|
+* « . + * ©
+. + Diffusive quasiparticles é
+. .
+2.5 - . ‘ ’ 4
+.
+— sj “
+= b »|
+° .
+: * . so
+Pe im toy O=0.2. 0° :
+& * Fens were «
+*
+a at
++e <
+* .
+*e, 0=0.5 oh
+re Hes roms enee en |
+om Pg
+0.0
+0.0 T
+
+Figure 4: Numerical check of the identity in Eq. (30) for different values of the rescaled
+time © = Dt/?. The blue circles correspond to the right-hand side of Eq. (30) obtained
+by evaluating numerically the integral in the square bracket of Eq. (28). The red dia-
+monds are the value obtained for the average (xg, ¢,,) = (Xe,%e,,_,,) by sampling over
+4-10* noise realizations.
+
+integrals over k2,k4 as Gaussian integrals and apply the standard formulas for them. The
+result, as a function of the scaling variable 0, is
+
+£\? fdkdk'[ 1 ~ ey Secret)
+
+a ak Q € Oe I
+
+Tearaga © acdc! ye 2
+C1 2)(34) (5) / (On l= 7 fe Cu (C)u(C’) 86|smn(h— F)] i (28)
+
+where u(¢) is the same as in (27). Notice that the term inside the square bracket can be
+interpreted as the expectation value of ju(¢)u(¢’) /4 with respect to the probability distribution
+Pow = P(C,C;k,k’) of two correlated Gaussian random variables satisfying Ep, ,,[¢¢’] =
+20 cos(k — k’).
+
+Finally, if we sum all the leading contributions C,, we obtain that
+
+. EN? dk dk! 1 j
+(Tr[Ga]T[Ga]) = (7) (1+ 2(te) + f ay GBP leu) J - (29)
+4 J Q@n?4
+The factor 2 in front of (vg) comes from having two terms with one pairing of momenta.
+Equation (29) must be compared with the ansatz in Eq. (19). In Fig. 4, we perform the
+comparison focusing on the last term in (29), which is the nontrivial one. By comparing (29)
+
+and (19) one obtains that the following identity holds
+
+Ere (CC) = A(we, e,,)s (30)
+
+where in the right-hand side xg, = max(1 — 2|€,()|,0) and the average is over different
+realizations of the Brownian motion at different times ©. Fig. 4 supports Eq. (29).
+
+We can further support the ansatz (12) by considering the expectation value of the form
+(Tr[G2,]™) for generic integer m > 0. By using Eq. (18), the diffusive quasiparticle picture
+
+predicts . .
+cea =(4) (C+ fete) )- (31)
+
+11
+
+0.25
+
+0.2
+
+0.15
+
+0.1
+
+0.05 | |
+
+0.0 Lt L L L
+0.0 0.1 0.2 0.3 0.4
+
+0 =Dt/
+
+Figure 5: Time evolution of the average of different products of traces of the reduced
+correlation matrix G4 under the dynamics in Eq. (1) starting from the Néel state. The
+red, green, and blue symbols are the average obtained by exactly evolving the Néel state
+for different realizations of the noise. We take a subsystem of size = 20 and L > oo.
+The gray symbols joined by a line correspond to the predictions (12) of the diffusive
+quasiparticle picture. The higher point functions of wg, that appear when applying
+Eq. (12) are estimated by numerical sampling. In both cases, the error bars are the
+standard deviation of the mean over the samples considered.
+
+One can employ the stationary approximation to compute (Tr[G%]™), as we have just done
+for (Tr[G2J?). One obtains a sum of contributions given by all the possible ways of pairing
+the quasimomenta k;. To obtain a nonzero contribution, again, paired momenta have to be in
+the same trace. Therefore, even though the explicit computation of the leading contribution
+for a generic pairing choice is rather complicated, by counting the multiplicity of pairings, one
+obtains
+
+(Tr[G3)") = (3) (: +mOQ, + (")) Cyto +m) (32)
+
+where the first term corresponds to no pairings (qj = kj), and Cy is the contribution with p
+pairings. We also know that
+
+Ci = (xe), C2
+
+/
+| oe Ereul(On) (33)
+as explicitly computed for m = 2. It is clear that the expansion (32) has the same structure
+as the binomial expansion of the ansatz in Eq. (31), in which each term can be identified with
+the contribution C, of p-pairings. In Fig. 5, we numerically check the validity of Eq. (31) for
+m = 2,3. The advantage of Eq. (31) is that it allows one to directly compute the contribution
+C, from multiple pairings, without resorting to stationary phase techniques. In this way, one
+can quickly derive the dynamics of more complex quantities, such as the higher moments of
+the entanglement entropy, as discussed earlier, or the entanglement asymmetry as shown in
+the next section.
+
+To conclude, in Fig. 5, we provide additional numerical evidence of the validity of Eq. (12)
+
+by comparing its prediction against the exact dynamics for an expectation value of the form
+(Tr[oyy"Tr[ey)”").
+
+12
+4 Dynamical symmetry restoration and quantum Mpemba ef-
+fect
+
+The diffusive quasiparticle picture derived in the previous section allows us to give predictions
+for the time evolution of the statistics of quite generic functions of G4. In this section, we
+employ it to study the dynamics of the entanglement asymmetry. Our goal is to characterize,
+at least in the vy = 1 QSSEP, the local dynamical restoration of a symmetry broken by the
+initial state and the emergence of the quantum Mpemba effect.
+
+The entanglement asymmetry quantifies the extent to which a symmetry transformation
+generated by a charge Q,4 is broken within a subsystem A. In this work, we will restrict
+ourselves to the U(1) group of transformations generated by the fermionic particle number.
+Therefore, we focus on the entanglement asymmetry for an Abelian charge referring to, e.g.,
+Refs. [71,72] for its generalization to non-Abelian transformation groups, and to Refs. [73,74]
+for generalized symmetries. To define the entanglement asymmetry, it is necessary to introduce
+the symmetrized reduced density matrix p4.q = >> a II,pallg, where I, is the projector onto
+the eigenspace of Q,4 corresponding to the eigenvalue g. By construction, [p4,9,Qa] = 0
+and, therefore, it is symmetric. The Rényi-n entanglement asymmetry is then defined as the
+difference between the Rényi-n entropies of p4,g and pa [38],
+
+AS = 5\(pa,q) — 8 (pa)- (34)
+
+The main properties of As”) that make it a good quantifier of symmetry breaking in the
+subsystem A are its positivity, As® > 0, and the fact that As”) = Oifand only if [p4, Qa] =
+0. Asymmetry has been investigated in matrix product states [71,75], random states [72,76
+78], and at [79-84] and away from [85-87] critical points in many-body quantum systems,
+where it has been employed to study confinement, topological order, and stabilizerness [88-90].
+It has also appeared under different names in resource theories [91,92] and quantum field
+theories [93, 94].
+
+A particularly convenient way of writing the symmetrized reduced density matrix p,q is
+obtained by using the integral representation of the projector Hy,
+
+Ae ;
+PAQ = Sects pge 0a, (35)
+
+Plugging this representation of p4.g in Eq. (34), it can be easily shown that the entanglement
+asymmetry can be rewritten as
+
+AS® = log | oe | (36)
+[0,2n]"-2
+
+~ 1l-n (27)"-! Z,(0)
+where @ = (Q1,°+- ,Q@n_1) and Z,(a@) are known as charged moments of pa,
+Zn(a) = Tr[psei@a a pae lartetan-)@aq, (37)
+
+In the following, we restrict ourselves to n = 2 for practical reasons, although we expect the
+same qualitative behavior for any n, including in the limit n + 1. In our case, the charge
+Qa of interest is the fermion number Q4 = >> jeA cheap, which is quadratic in the fermionic
+operators.
+
+Our out-of-equilibrium protocol is the following: we prepare the system in an initial state
+|wo) that breaks the U(1) symmetry associated with particle number conservation; therefore,
+the entanglement asymmetry (34) is initially non-zero. We then evolve such a state with the
+v = 1 QSSEP dynamics (1) and calculate the average asymmetry (AS.4(t)). We consider
+
+13
+initial Gaussian states, since all the information about their time evolution is then fully con-
+tained in the two-point correlation functions Chm and Frm, as we discussed in Sec. 2. Notice
+that, unlike in Sec. 3 where we considered initial symmetric states, here both Cum, Fam 4 0
+due to the breaking of particle number symmetry at t = 0. In particular, we can choose as
+initial states generic squeezed states,
+
+dk
+
+|wo) oc exp (- 5 Mucle.) |0), (38)
+with M,, an arbitrary real and odd function of k. As shown in Ref. [42], the charged moments
+
+of (38) are
+Za(a) = Za(dex (~¢ [ FE hi(a)). (39)
+where the contribution per mode f(a),
+f(a) = —log(1 — ng + npe”"?), (40)
+
+is determined by the density of occupied modes ng = (wo| chee lo) = M2/(1+ M2). The
+entanglement asymmetry in these squeezed states follows directly from (39) and (36). For
+large @, it behaves as
+
+AS?) (t =0) = 508 (=f ane - n)) . (41)
+
+Let us first study the averaged time evolution of the charged moments. It has been
+shown that, in a quench from (38) in the non-random case, log Z2(a,t) admits a quasiparticle
+expression of the form of Eq. (11). We can then apply for it the same recipe as for the Rényi
+entanglement entropy in Sec. 3. Precisely, the quasiparticle prediction for the dynamics in
+the v = 1 QSSEP is obtained by replacing the distance between the quasiparticles in a pair
+by the random variable 2|&,|. We then have the formal expression
+
+Z2(a, t)
+
+dk
+log od “fe fr (@) xe,. (42)
+
+By taking the noise average (-) and using the same logic as for the Rényi entanglement entropy,
+
+we find (1 Aad) e (/ se fatk)) fe P(€,t) max(1 — 2\€|/¢,0). 43)
+
+We observe that, as for the noise-averaged entanglement entropy (14), pairs with different
+momenta are uncorrelated in Eq. (43), and the dynamics does not depend on the momentum.
+The effect of noise-induced correlations between pairs with different momenta will instead
+
+play a role in the dynamics of the entanglement asymmetry. In Fig. 6, we compare the
+prediction (43) with exact numerical results. The numerical data converge to Eq. (43) as
+the subsystem length @ increases, thereby confirming the validity of the diffusive quasiparticle
+picture for the noise-averaged charged moments. In the figure, we take as symmetry-breaking
+initial states the ground state of the Kitaev chain,
+
+A(y,h) = “3 So (chess ae yelcl + 2hele; + h.c.), 44)
+
+Jj
+
+for different values of the parameters y and h. For y # 0, this Hamiltonian does not com-
+mute with the total particle number operator Q and, therefore, the ground state breaks the
+corresponding U(1) symmetry and is of the form (38). The evolution of the charge moments
+
+14
+0.0
+
+—0.015
+2
+aos
+ale 0.03
+és
+30 ue a=0.7 0.045 (© a=04
+we . a Roe, -++-@=11 , -+++ a=0.6
+—0.15 pio -oop BY | » €=10 1 0.002 | e=10
+} "Se. + €=20 —0.06 | + €=20
+' —0.02 © =p.09 dy " E 1 -0.004 + 2=30
+—0.20 0 0.05 o.1- = €=4 i 0 = ¢€=40
+L L L —0.075 Lt \
+00 601 602 06030 60406 (050))«(06 0.0 OL 04 05 06
+
+Figure 6: Left panel: Time evolution of —(log Z2(a, t)/Z2(0,t)) after the quench from
+the ground state of (44) with (y = 0.5,h = 0.6). The quench Hamiltonian is (1). This
+initial state breaks the particle-number symmetry. The solid and dashed curves corre-
+spond to the prediction of Eq. (43) for two different values of the parameter a. The
+symbols are the average of the exact charged moment Z(a,t) computed numerically
+over approximately 10? noise realizations, for different subsystem sizes ¢ in the ther-
+modynamic limit L — oo. The errorbar of each symbol is the standard deviation of
+the mean of the set of collected samples. Right panel: Same as the left but for initial
+Hamiltonian with with y = 1 and h = 1.1, and a = 0.4,0.6. In the insets, we subtract,
+at a fixed O, the prediction (43) from the exact numerical data shown in the main plots.
+The result is plotted as a function of 1/¢. The linear fits (dashed lines) show that the
+
+leading correction is ~ 0-1.
+
+and the entanglement asymmetry after a quench from these initial states in the non-random
+case has been studied in Ref. [43] using the quasiparticle picture. The specific form of the
+function f;,(@) for these initial states reads [43]
+
+f(a) = -5 log(1 — sin? asin? Ax), (45)
+
+with inh
+ysin (46)
+
+VJ (h— cos k)? + 72 sin? k
+
+We now analyze the time evolution of the entanglement asymmetry. First, by combining
+the conjecture in Eq. (12) with Eqs. (36) and (42), we expect that the average Rényi-2
+asymmetry is described in the diffusive scaling limit by
+
+(as?)(0)) (toe / “a ex ( ef Fratea))|) (47)
+
+Here the average is over different realizations of the random variable W; = Way +iW7,4, with
+War), normally distributed variables with distribution P(€,t), from which one constructs &
+and x¢, (cf. (10) and (20)). According to Eq. (47), only the quasiparticle pairs that are fully
+contained in the subsystem A, see Fig. 1, contribute to (As? (@)). Since the probability
+distribution P(€,t) that governs the separation &;(t) between the two quasiparticles of a
+pair becomes wider with t, the probability of having entangled pairs fully contained in A
+decreases with time, vanishing in the long time limit. As a consequence, Eq. (47) predicts
+
+that (As?)e)) decreases in time and eventually tends to zero when © — oo. This means
+
+sin A;
+
+15
+A= 1h = Te.
+
+(As?)
+
+0.64 ee | 0.64 me ee
+
+0.4 L L L L L L 0.4 bl L L L
+
+Figure 7: Left panel: Early time evolution of the average Rényi-2 entanglement
+asymmetry after a quench in the y = 1 QSSEP model from the ground state of Hamil-
+tonian (44) with h = 0.5 and y = 0.6. The symbols are the result of averaging the exact
+entanglement asymmetry over 10° different noise realizations for increasing subsystem
+sizes ¢ in the thermodynamic limit L — oo. The solid curves show the prediction of
+the diffusive quasiparticle picture in Eq. (47), where the average has been estimated
+by numerical sampling, and the shaded region represents the confidence interval of the
+
+mean value (As?) + 30. Right panel: Same as the left but considering as initial state
+the ground state of Eq. (44) with y= 1 and h= 1.1.
+
+that, in the stationary state, the particle number symmetry, which was initially broken, is on
+average restored within subsystem A.
+
+In Fig. 7, we compare the prediction of the quasiparticle picture in Eq. (47) with the exact
+numerical data for the Rényi-2 asymmetry. The data are obtained by sampling over different
+noise realizations, as explained in Appendix A. The initial states are the same used to discuss
+the charged moments in Fig. 6; i.e. the ground state of the Kitaev chain (44) for two different
+values of y and h. In the plots, we restrict ourselves to “small” © = 0.1, where the decay
+of the average asymmetry to zero is not yet apparent. Indeed, due to the diffusive scaling
+of the asymmetry, to observe the symmetry restoration we would need to consider t > @.
+For this reason, beyond the times shown in the plot, the exact numerical calculation of the
+ime-evolved correlation matrices becomes increasingly challenging. Nevertheless, we can see
+hat, as the subsystem size @ increases, the numerical data converge to the values predicted
+by Eq. (47).
+Although Eq. (47) is hard to treat analytically due to the presence of the logarithm
+inside the expectation value, we can extract from it the analytical long-time behavior of the
+asymmetry and its dependence on the initial state. This analysis is crucial to understand the
+ime scales of the symmetry restoration and the presence of the quantum Mpemba effect.
+
+For convenience, we write the complex Brownian motion W; that enters in €;(t) in po-
+ar coordinates, i.e. as W; = pe’®. The probability distribution of p at time t is P;(p) =
+e~?'/(P)99/(Dt) while the phase ¢ is at each time distributed uniformly over [-7, 7) inde-
+pendently on the stochastic variable p. The counting factor rg, can then be rewritten as
+Lg, = max(1 — 4p|sin(k — k*)|/€,0), where k* = 1/2 — ¢ is also uniformily distributed. At
+ong times, © > 1, realizations with xg, 4 0 are statistically suppressed due to the time
+evolution of the probability distribution P;(p). For this reason, in that regime, we can expand
+
+16
+the exponential and, subsequently, the logarithm in Eq. (47), obtaining
+
+dk
+(AS2(@)) ~ e( / gy max (1 — 4p| sin(k &)\/t,0)) , 48)
+A e>1 Qn °
+where é
+m= | Pha). 49)
+TT
+
+The asymptotic vanishing behavior of Eq. (48) is determined by the modes close to k* and
+k* +1, ie. the ones that satisfy | sin(k — k*)| < €/(4p). Since at large times p/ ~ V© (on
+average), the sine in Eq. (48) can be expanded around k ~ k* and k ~ k* + 7, and we obtain
+
+‘ k*+e/(4p) dk, 4p
+(As?) =, ar( | son (1-Fie-wl))
+k*—6/(4p) 6
+
+where the factor 2 takes into account the contribution of both k ~ k* and k ~ k*+7, which are
+equal. It is important to remark that, to obtain (48) we performed an expansion in Eq. (47)
+in which we neglected the contribution from realizations with small values of p. Therefore,
+to make the result in Eq. (50) self-consistent when computing the expectation value, we need
+to introduce a cutoff € on the smallest allowed value of p. For this reason, we compute the
+expectation value (50) as follows
+
+oo k*+0/(4p) ape 4
+(7). ~ aN _ Pi pe
+(as9)@) =, 2 f ior ( i ook ( Pk il) oD
+
+where (-),*« denotes the uniform average over k*. Expanding g;, up to second order around k*
+and evaluating the integrals in p and k yields, after some straightforward algebra,
+
+a
+
+0)
+
+es1 4/7 JO ,
+
+In this expression, we first take the limit of large O, thus neglecting the subleading terms,
+and then send the cutoff € to zero, obtaining the finite result
+
+(as?(@)) ~ Hoe) arfe () + O(1/e,1/8). (52)
+
+7 LY
+e>1 JO’
+
+where the proportionality constant is TY = (gy*)/(4\/7), and the average of the uniformly
+distributed variable k* is over [—7,7). Therefore, Y only depends on the density of occupied
+modes nx of the initial state. In the case of an initial squeezed state (38), the function gp is
+given by [42]
+
+(As?)(@)) (53)
+
+9k = —max(log nx, log(1 — ng)). (54)
+In Fig. 8, we check the prediction in Eq. (53) for the long time behavior of the average Rényi-2
+asymmetry against Eq. (47). In that figure, we plot (As?) /€ versus © for several values of &.
+We consider the dynamics from the ground state of the model (44) with 7 = 0.5 and h = 0.6
+or h = 1.2. As it is clear from Fig. 8, the data for different @ collapse on the same curve,
+as expected because the asymmetry is function of O and of t and @ separately. Moreover,
+(As?) /¢ is ~ Q-'/? in the limit © — oo. The continuous and the dashed-dotted lines in
+Fig. 8 are Eq. (53)
+We can now compare our result with the known behavior of the entanglement asymmetry
+for the same initial states and with non-random hopping amplitudes, studied in Ref. [43].
+In both cases, the (average) asymmetry decays to zero in time, indicating the dynamical
+
+lf
+(AS?) /e
+
+Figure 8: Check of the result in Eq. (53) for the long time behavior of the Rényi-2
+entanglement asymmetry for two different symmetry-breaking initial states: the ground
+state of the Hamiltonian (44) with h = 0.6 (solid line) and h = 1.2 (dashed line) and the
+same 7 = 0.5. The symbols correspond to Eq. (47), where the average has been estimated
+numerically, for several subsystem sizes £. We plot in the yaxis the ratio (AS))/é,
+observing a collapse of the symbols for the different ¢, as predicted by Eq. (53).
+
+restoration of the symmetry in the stationary state. However, in the v-QSSEP model the
+decay is ~ 1/ Vt due to the diffusive nature of the dynamics, whereas in the non-random
+case it is 1/t or 1/t°, since the quasiparticles propagate ballistically. Moreover, the prefactor
+Y (cf. (53)) that encodes the information of the initial state is given by g, (cf. (54)) in
+both cases, but with a key difference. In the non-random case, this prefactor is, up to a
+proportionality constant, the value of the function gz at the slowest mode. In the v-QSSEP,
+instead, the prefactor is the average of gz equally weighted over all possible momenta. That is,
+the restoration of symmetry at long times is governed by the slowest mode in the non-random
+case, whereas all modes contribute when the hopping amplitudes are random. This difference
+is crucial for the existence of the quantum Mpemba effect.
+
+Indeed, the quantum Mpemba effect occurs when, for a pair of initial states, the symmetry
+is restored faster in the dynamics from the state that initially breaks it more. Let us consider,
+therefore, two initial states of the form in Eq. (38), denoted 1 and 2, that break the particle
+number symmetry. Therefore, let us assume that at t = 0, AS4i(0) > AS'4,2(0), where
+AS 41(2)(0) is the initial asymmetry in the state 1(2). Using the result in Eq. (41), this
+
+condition can be rewritten in terms of the occupation functions of the two initial states nh?)
+“ dk dk
+
+: a 1 Ik (2 2
+
+i) [ar a-aP)> [Enka —nP). (55)
+
+The quantity n;(1—n,)/(27) is also known as the charge susceptibility per mode [42]. The
+quantum Mpemba effect occurs when there is a time after which AS41(t) < AS4(t) for all
+t. According to Eq. (53), which describes the long time behavior of the average asymmetry,
+this occurs when YT; < Y2. Using the explicit expression of Y in Eq. (53), we can also rewrite
+
+this condition in terms of the occupation functions n(?) as follows
+
+7) / oF max(log n log(1 = n)) < -f{ oF max(log n® log(1 = n)), (56)
+
+18
+Given two initial squeezed states with different asymmetry, Eqs. (55) and (56) are the nec-
+essary and sufficient conditions for the existence of quantum Mpemba effect in the v = 1
+QSSEP. Notice that they only depend on the density of occupied modes of the initial states.
+
+We numerically investigated the conditions (55) and (56) for several initial states. We
+observed that the presence of the momentum average in (56), in sharp contrast to the non-
+random case in which the late-time behavior is determined by the slowest mode, inhibits
+the Quantum Mpemba effect. In fact, we studied the conditions (55) and (56) for pairs of
+ground states of (44) corresponding to different h and y and for which the Mpemba effect
+occurs in the non-random case, finding that most of them violate condition (ii). Precisely,
+our analysis suggests that Mpemba effect occurs only for initial states with nearly identical
+asymmetries. This makes the quantum Mpemba effect in the v = 1 QSSEP a highly fine tuned
+phenomenon. For instance, the Mpemba effect does not occur for the tilted ferromagnetic
+states ¢ 8/2257 |t-+-), which are the ground state of the Hamiltonian (44) along the
+curve h? +7? = 1 with cos? 9 = (1—)/(1+7). This is remarkable, as the quantum Mpemba
+effect is typically observed for any pair of initial states within this family — not only in the
+non-random analogue of the vy = 1 QSSEP [38], but also in random unitary circuits [56] and
+
+a
+
+in the experiment [66]. The asymmetry of these states is As? = 1/2log(¢/2sin? 6) and,
+therefore, it increases monotonically with @ € [0,7/2]. On the other hand, we numerically
+verified that, for these states, Y(0,) < Y(62) for any 0 < 6; < 6) < 7/2 and, therefore, the
+condition (ii) for the occurence of the Mpemba effect is never satified.
+
+5 Conclusions
+
+In this work, we studied the out-of-equilibrium dynamics of the statistics of entanglement in a
+spatially homogeneous version of the Quantum Symmetric Simple Exclusion Process (QSSEP)
+model, the vy = 1 QSSEP. We built upon the results of Ref. [28], in which it is shown that
+the average entanglement growth is diffusive, and it can be described by the propagation of
+entangled pairs of quasiparticles that perform a Brownian motion. We extended this picture
+by taking into account the statistical correlations between the different pairs of quasiparticles.
+This generalization allows us to exactly characterize the full-time dynamics of all the higher
+moments and, therefore, the full distribution probability of the entanglement entropy.
+
+The diffusive quasiparticle picture developed here can be applied to calculate the average
+full-time dynamics of any sufficiently well-behaved function of the reduced density matrix of
+a subsystem in the vy = 1 QSSEP model. In particular, we used it to analyze the dynamical
+restoration of the symmetry associated with particle number conservation, and the emergence
+of the quantum Mpemba effect. To this end, we derived the exact time evolution in the
+diffusive scaling limit of the average entanglement asymmetry, which measures the degree
+of symmetry breaking in a subsystem. In contrast to the analogous non-random model, we
+showed that the stochasticity of the time evolution strongly inhibits the quantum Mpemba
+effect. This result is in contrast with what has been observed in random unitary circuits [55,
+
+56].
+
+There are several interesting directions for future work. For instance, it would be interest-
+ing to further investigate the role of stochastic dynamics in the Mpemba effect. An immediate
+question is whether the dynamics of the generic v-QSSEP model, i.e. when spatial invari-
+ance is only partially recovered, admits a similar diffusive quasiparticle picture. While in the
+fully inhomogeneous limit v — oo, the entanglement generation mechanism is likely related
+to the one discussed in Ref. [20], for a finite value v > 2, the mechanism is not understood
+yet. For this reason, studying the model at finite v could provide further insight into the
+crossover between those two extreme cases. Another possibility consists of generalizing the
+v—QSSEP model to include interactions. In generic interacting models, the linear growth
+
+19
+of entanglement is expected to be restored [17, 18,95]; however, a stochastic continuous-time
+Hamiltonian dynamics in which the generator is an interacting integrable model could instead
+retain a diffusive entanglement spreading. Developing a diffusive analogue of the quasiparticle
+picture for interacting integrable systems [36] is an interesting direction.
+
+Acknowledgments. AR and FA thank Shion Yamashika and Konstantinos Chalas
+for discussions. PC, FA and AR acknowledge support by the ERC-AdG grant MOSE No.
+101199196. This work has been supported by the project “Artificially devised many-body
+quantum dynamics in low dimensions - ManyQLowD” funded by the MIUR Progetti di Ricerca
+di Rilevante Interesse Nazionale (PRIN) Bando 2022 - grant 2022R35ZBF.
+
+A Numerical techniques
+
+In this Appendix, we outline the methods used to compute the time evolution of the correlation
+matrices under Eq. (2) for different noise realizations, which serve to validate the results
+presented in the main text. Let us discuss separately the case of initial states that have
+particle-number symmetry but break translational invariance, studied in Sec. 3, from those
+that are translationally invariant but break particle-number symmetry, considered in Sec. 4.
+
+Quench dynamics from the Néel state: In this case, Fym(t) = 0 for all t. Taking
+the correlation matrix at t = 0, Eqs. (2) and (3), and evolving it with dH; in the Fourier
+representation (9), we have that at time dt,
+
+dk , k ‘ ‘ k
+Gnm(dt) _ / ze EE ) Hb elt pi2deo,n at ,
+
+where deo,, = 2VD Re{dWoe'*}. Iterating Eq. (57), and applying the fact that [dH,, dHy] = 0
+for any t £1’, the correlation matrix G(t) at time t is given by
+
+— f dk ien—m) [ F(R) cin jiren (ty 9k)
+Gom(t) = f on” “> +é e “?) |?
+
+(58)
+where e(t) = 2VD Re{W; e*} and W; is the sum of the increments dWy with ¢’ € [0,t). For
+the numerical calculations, we generate the random hoppings dW; = dWrRy + idW74, where
+dWr, and dW,, are real and normally distributed with zero mean and variance Ddt/2, taking
+dt = 0.05. We verified that the result of the computation does not significantly change when
+decreasing dt. From the restriction G'4 of the correlation matrix (58) to A, the entanglement
+entropy can be calculated using the formula [69]
+
+S4 = —Tr [Ga log G4 + (I— Ga) log(I — Ga)]. (59)
+
+Quench dynamics from a symmetry breaking initial state: In this case, we can
+apply the same strategy as before, but now the correlations F,, are not zero in the initial
+state. Therefore, it is more natural to arrange all the two-point correlations in the single
+
+matrix
+Gc F,
+“ ( Frm Onm — Gin ) mm ( )
+
+Since both the initial state and the time evolution are translationally invariant, we can write
+Tas
+
+— fo inn
+fan
+
+Pnm(t) —™C(k, t), (61)
+
+20
+where C(k,t) is a 2 x 2 matrix. In particular, when the initial state is the ground state of the
+Kitaev chain (44), it reads
+
+_ cos Ay ie 2k) gin A;
+C(k,t) = (seat sin A, —cos Ax, , (62)
+with i k
+cos Ap = p= 60s 7 (63)
+V(h—cosk)? + 7 sin? k
+sin Ay ae (64)
+
+V(h—cosk)? + 72 sin2 kh
+The random variable ¢;(t) is generated as in the case of symmetric states, and we take again
+dt = 0.05. The charged moments Z,,(a@), defined in Eq. (37), can be calculated from the
+restriction [4 of [ to A with the formula [38]
+
+1/2
+
+I-T n n
+Zn(a) = | det ( 5 ‘) 1+] W; . (65)
+j=l
+
+where Wj = (I+T4)(I- T4)-te*"4 and an = — eS, aj. The matrix n, is a diagonal
+2¢ x 2¢ matrix with entries (n4)2j~-1,2;-1 = —1 and (na)2j2; = 1, 7 = 1,...,@. Once the
+charged moments are determined numerically, the entanglement asymmetry can be calculated
+applying Eq. (36).
+
+References
+
+1] L. Bertini, A. De Sole, D. Gabrielli, G. Jona-Lasinio, and C. Landim, Macroscopic
+fluctuation theory, Rev. Mod. Phys. 87, 593 (2015).
+
+2] D. Bernard, Can the macroscopic fluctuation theory be quantized?, J. Phys. A: Math.
+Theor. 54, 433001 (2021).
+
+3] A. Nahum, J. Ruhman, S. Vijay, and J. Haah, Quantum entanglement growth under
+random unitary dynamics, Phys. Rev. X 7, 031016 (2017).
+
+4| A. Nahum, S. Vijay, and J. Haah, Operator Spreading in Random Unitary Circuits,
+Phys. Rev. X 8, 021014 (2018).
+
+5
+
+A. Chan, A. De Luca, and J. T. Chalker, Solution of a minimal model of many-body
+quantum chaos, Phys. Rev. X 8, 041019, (2018).
+
+6] C. W. von Keyserlingk, T. Rakovszky, F. Pollmann, and S. L. Sondhi, Operator Hy-
+drodynamics, OTOCs, and Entanglement Growth in Systems without Conservation
+Laws, Phys. Rev. X 8, 021013 (2018).
+
+7
+
+C. Jonay, D. A. Huse, and A. Nahum, Coarse-grained dynamics of operator and state
+entanglement, arXiv:1803.00089.
+
+8] M. J. Gullans and D. A. Huse, Entanglement structure of current-driven diffusive
+fermion systems, Phys. Rev. X 9, 021007 (2019).
+
+9] M. Znidarié, Entanglement growth in diffusive systems, Comm. Phys. 3, 100 (2020).
+
+21
+0] R. Morral-Yepes, M. Langer, A. Gammon-Smith, B. Kraus, and F. Pollmann, Disen-
+tangling strategies and entanglement transitions in unitary circuit games with match-
+gates, arXiv:2507.05055.
+
+1] M. Znidarié, Dephasing-induced diffusive transport in the anisotropic Heisenberg
+
+model, New J. Phys. 12 043001 (2010)
+
+2
+
+N. Lashkari, D. Stanford, M. Hastings, T. Osborne, and P. Hayden, Towards the fast
+scrambling conjecture, JHEP 04 (2013) 29022.
+
+3
+
+M. Bauer, D. Bernard, and T. Jin, Stochastic dissipative quantum spin chains (I):
+Quantum fluctuating discrete hydrodynamics, SciPost Phys. 3, 033 (2017).
+
+4
+
+E. Onorati, O. Buerschaper, M. Kliesch, W. Brown, A. H. Werner, and J. Eisert,
+Mixing properties of stochastic quantum Hamiltonians, Commun. Math. Phys. 355,
+905 (2017).
+
+pau
+
+F. Carollo, J. Garrahan, I. Lesanovsky, and C. Perez- Espigares, Fluctuating hydrody-
+namics, current fluctuations, and hyperuniformity in boundary-driven open quantum
+chains, Phys. Rev. E 96, 052118 (2017).
+
+6] D. Bernard and B. Doyon, Diffusion and Signatures of Localization in Stochastic Con-
+formal Field Theory, Phys. Rev. Lett. 119, 110201 (2017).
+
+7
+
+M. Knap, Entanglement production and information scrambling in a noisy spin system,
+Phys. Rev. B 98, 184416 (2018).
+
+8] D. A. Rowlands and A. Lamacraft, Noisy coupled qubits: operator spreading and the
+Fredrickson—Andersen model, Phys. Rev. B 98, 195125 (2018).
+
+9
+
+A. Christopoulos, P. Le Doussal, D. Bernard, and A. De Luca, Universal out-of-
+equilibrium dynamics of 1D critical quantum systems perturbed by noise coupled to
+energy, Phys. Rev. X 13, 011043 (2023).
+
+20] T. Swann, D. Bernard, and A. Nahum, Spacetime picture for entanglement generation
+in noisy fermion chains, Phys. Rev. B 112, 064301 (2025).
+
+21| J. Costa, P. Ribeiro, and A. De Luca, Emergence of universality in transport of noisy
+free fermions, arXiv:2504.00188.
+
+22| M. Bauer, D. Bernard, and T. Jin, Equilibrium fluctuations in maximally noisy ex-
+tended quantum systems, SciPost Phys. 6, 045 (2019).
+
+23
+
+K. Mallick, The exclusion process: A paradigm for non-equilibrium behaviour, Physica
+A: Stat. Mech. Appl. 418, 17 (2015).
+
+24) G. Barraquand and D. Bernard, Introduction to quantum exclusion processes,
+arXiv:2507.01570.
+
+25
+
+M. Bauer, D. Bernard, and T. Jin Universal fluctuations around typicality for quantum
+ergodic systems, Phys. Rev. E 101, 012115 (2020).
+
+26
+
+L. Hruza and D. Bernard, Coherent fluctuations in noisy mesoscopic systems, the open
+quantum SSEP, and free probability, Phys. Rev. X 13, 011045 (2023).
+
+27
+
+D. Bernard and L. Piroli, Entanglement distribution in the quantum symmetric simple
+exclusion process, Phys. Rev. E 104, 014146 (2021).
+
+22
+28] V. Alba, v-QSSEP: A toy model for entanglement spreading in stochastic diffusive
+quantum systems, arXiv.2507.11674.
+
+29| D. Bernard and T. Jin, Open quantum symmetric simple exclusion process, Phys. Rev.
+Lett. 123, 080601 (2019).
+
+30] D. Bernard and T. Jin, Solution to the quantum symmetric simple exclusion process:
+The continuous case, Commun. Math. Phys. 384, 1141 (2021).
+
+31] T. Jin, A. Krajenbrink, and D. Bernard, From stochastic spin chains to quantum
+Kardar-Parisi-Zhang dynamics, Phys. Rev. Lett. 125, 040603 (2020).
+
+32] D. Bernard, F. H. L. Essler, L. Hruza, and M. Medenjak, Dynamics of fluctuations in
+quantum simple exclusion processes, SciPost Phys. 12, 042 (2022).
+
+33] D. Bernard, T. Jin, S. Scopa, and S. Wei, Large deviations of density fluctuations in
+the boundary driven quantum symmetric simple inclusion process, Phys. Rev. E 112,
+034106 (2025).
+
+34] P. Calabrese and J. Cardy, Evolution of entanglement entropy in one-dimensional
+systems, J. Stat. Mech (2005) P04010.
+
+35
+
+M. Fagotti and P. Calabrese, Evolution of entanglement entropy following a quantum
+quench: Analytic results for the XY chain in a transverse magnetic field, Phys. Rev.
+A 78, 010306 (2008).
+
+36
+
+V. Alba and P. Calabrese, Entanglement and thermodynamics after a quantum quench
+in integrable systems, PNAS 114, 7947 (2017).
+
+37
+
+V. Alba and P. Calabrese, Entanglement dynamics after quantum quenches in generic
+integrable systems, SciPost Phys. 4, 17 (2018).
+
+38
+
+F. Ares, S. Murciano, and P. Calabrese, Entanglement asymmetry as a probe of sym-
+metry breaking, Nature Commun. 14, 2036 (2023).
+
+39
+
+G. Teza, J. Bechhoefer, A. Lasanta, O. Raz, and M. Vucelja, Speedups in nonequilib-
+rium thermal relaxation: Mpemba and related effects, arXiv:2502.01758.
+
+40
+
+F. Ares, P. Calabrese, and S. Murciano, The quantum Mpemba effects, Nat. Rev. Phys.
+7, 451 (2025).
+
+41] A. Summer, M. Moroder, L. P. Bettmann, X. Turkeshi, I Marvian, and J.
+Goold, A resource theoretical unification of Mpemba effects: classical and quantum,
+arXiv:2507.16976.
+
+42
+
+C. Rylands, K. Klobas, F. Ares, P. Calabrese, S$. Murciano, and B. Bertini, Microscopic
+origin of the quantum Mpemba effect in integrable systems, Phys. Rev. Lett. 133,
+010401 (2024).
+
+43] S. Murciano, F. Ares, I. Klich, and P. Calabrese, Entanglement asymmetry and quan-
+tum Mpemba effect in the XY spin chain, J. Stat. Mech. (2024) 013103.
+
+44
+
+K. Chalas, F. Ares, C. Rylands, and P. Calabrese, Multiple crossing during dynamical
+symmetry restoration and implications for the quantum Mpemba effect, J. Stat. Mech.
+(2024) 103101.
+
+23
+45] K. Klobas, Non-equilibrium dynamics of symmetry-resolved entanglement and entan-
+glement asymmetry: exact asymptotics in Rule 54, J. Phys. A, 57, 505001 (2024).
+
+46] C. Rylands, E. Vernier, and P. Calabrese, Dynamical symmetry restoration in the
+Heisenberg spin chain, J. Stat. Mech. (2024) 123102.
+
+47| S. Yamashika, F. Ares, and P. Calabrese, Entanglement asymmetry and quantum
+Mpemba effect in two-dimensional free-fermion systems, Phys. Rev. B 110, 085126
+(2024).
+
+48] S. Yamashika, P. Calabrese, and F. Ares, Quenching from superfluid to free bosons in
+two dimensions: entanglement, symmetries, and quantum Mpemba effect, Phys. Rev.
+
+A 111, 043304 (2025).
+
+49
+
+M. Gibbins, A. Smith, and B. Bertini, Translation symmetry restoration in integrable
+systems: the noninteracting case, arXiv.2506.14555.
+
+0
+
+S. Yamashika, S. Endo, and H. Tajima, Quantum Fisher Information as a Measure of
+Symmetry Breaking in Quantum Many-Body Systems, arXiv:2509.07468.
+
+51] F. Caceffo, S. Murciano, and V. Alba, Entangled multiplets, asymmetry, and quantum
+
+Mpemba effect in dissipative systems, J. Stat. Mech. (2024) 063103.
+
+2
+
+F. Ares, V. Vitale, and S. Murciano, The quantum Mpemba effect in free-fermionic
+mixed states, Phys. Rev. B 111, 104312 (2025).
+
+53] G. D. Giulio, X. Turkeshi, and S. Murciano, Measurement-Induced Symmetry Restora-
+tion and Quantum Mpemba Effect, Entropy 27, 407 (2025).
+
+54] T. Banerjee, S. Das, and K. Sengupta, Entanglement asymmetry in periodically driven
+quantum systems, SciPost Phys. 19, 051 (2025).
+
+55] S. Liu, H.-K. Zhang, S. Yin, and S.-X. Zhang, Symmetry Restoration and Quantum
+Mpemba Effect in Symmetric Random Circuits, Phys. Rev. Lett. 133, 140405 (2024).
+
+56] X. Turkeshi, P, Calabrese, and A. De Luca, Quantum Mpemba Effect in Random
+Circuits, Phys. Rev. Lett. 135, 040403 (2025).
+
+57| K. Klobas, C. Rylands, and B. Bertini, Translation symmetry restoration under ran-
+dom unitary dynamics, Phys. Rev. B 111, L140304 (2025).
+
+58] A. Foligno, P. Calabrese, and B. Bertini, Non-equilibrium dynamics of charged dual-
+unitary circuits, PRX Quantum 6, 010324 (2025).
+
+59] H. Yu, Z.-X. Li, and S.-X. Zhang, Symmetry Breaking Dynamics in Quantum Many-
+Body Systems, arXiv:2501.13459.
+
+60] F. Ares, S. Murciano, P. Calabrese, and L. Piroli, Entanglement asymmetry dynamics
+in random quantum circuits, Phys. Rev. Res. 7, 033135 (2025).
+
+61] H. Yu, J. Hu, S.-X. Zhang, Quantum Pontus-Mpemba Effects in Real and Imaginary-
+time Dynamics, arXiv:2509.01960.
+
+62] S. Liu, H.-K. Zhang, S. Yin, S.-X. Zhang, and H. Yao, Quantum Mpemba effects in
+many-body localization systems, arXiv.2408.07750.
+
+24
+63]
+
+64
+
+65]
+
+66]
+
+67|
+
+68
+
+69]
+
+70|
+
+7]
+
+72]
+
+73
+
+74]
+
+75]
+
+76
+
+77
+
+78|
+
+79|
+
+80]
+
+Y. Yu, T. Jin, Lv Zhang, K. Xu, and H. Fan, Tuning the Quantum Mpemba Effect in
+Isolated System by Initial State Engineering, Phys. Rev. B 112, 094315 (2025).
+
+S. Yamashika and F. Ares, The quantum Mpemba effect in long-range spin systems,
+arXiv.2507.06636.
+
+A. Hallam, M. Yusuf, A. A. Clerk, I. Martin, and Z. Papi¢, Tunable quantum Mpemba
+effect in long-range interacting systems, arXiv:2510.12875.
+
+L. Kh Joshi, J. Franke, A. Rath, F. Ares, S. Murciano, F. Kranzl, R. Blatt, P. Zoller,
+B. Vermersch, P. Calabrese, C. F. Roos, and M. K. Joshi, Observing the quantum
+Mpemba effect in quantum simulations, Phys. Rev. Lett. 183, 010402 (2024).
+
+Y. Xu, C.-P. Fang, B.-J. Chen, M.-C. Wang, et al., Observation and Modulation of the
+Quantum Mpemba Effect on a Superconducting Quantum Processor, arXiv:2508.07707.
+
+I. Peschel, Calculation of reduced density matrices from correlation functions, J. Phys.
+A: Math. Gen. 36, L205 (2003).
+
+I. Peschel and V. Eisler, Reduced density matrices and entanglement entropy in free
+lattice models, J. Phys. A: Math. Theor. 42, 504003 (2009).
+
+P. Calabrese, F. H. L. Essler, and M. Fagotti, Quantum quench in the transverse field
+Ising chain: I. Time evolution of order parameter correlators, J. Stat. Mech. (2012)
+PO7016.
+
+L. Capizzi and V. Vitale, A universal formula for the entanglement asymmetry of
+matriz product states, J. Phys. A: Math. Theor. 57 45LTO1 (2024).
+
+A. Russotto, F. Ares, and P. Calabrese, Non-Abelian entanglement asymmetry in
+random states, JHEP 06 (2025) 149.
+
+F. Benini, P. Calabrese, M. Fossati, A. H. Singh, and M. Venuti, Entanglement Asym-
+metry for Higher and Noninvertible Symmetries, arXiv:2509.16311.
+
+S. A. Ahmad, M. S. Klinger, and Y. Wang, The Many Faces of Non-invertible Sym-
+metries, arXiv:2509.18072.
+
+M. Mazzoni, L. Capizzi, and L. Piroli, Breaking global symmetries with locality-
+preserving operations, ar Xiv:2508.15892.
+
+F. Ares, S. Murciano, L. Piroli, and P. Calabrese, Entanglement asymmetry study of
+black hole radiation, Phys. Rev. D 110, L061901 (2024).
+
+H.-H. Chen and Z.-J. Tang, Entanglement asymmetry in the Hayden-Preskill protocol
+Phys. Rev. D 111, 066003 (2025).
+
+A. Russotto, F. Ares, and P. Calabrese, Symmetry breaking in chaotic many-body
+quantum systems at finite temperature, Phys. Rev. E 112, L032101 (2025).
+
+M. Chen and H.-H. Chen, Rényi entanglement asymmetry in 1+1-dimensional con-
+formal field theories, Phys. Rev. D 109, 065009 (2024).
+
+M. Fossati, F. Ares, J. Dubail, and P. Calabrese, Entanglement asymmetry in CFT
+and its relation to non-topological defects, JHEP 05 (2024) 59.
+
+25
+81|
+
+82]
+
+83]
+
+84]
+
+86]
+
+87]
+
+88]
+
+89
+
+90]
+
+91]
+
+92
+
+93
+
+94]
+
+95]
+
+F. Benini, V. Godet, and A. H. Singh, Entanglement asymmetry in conformal field
+theory and holography, Prog. Theor. Exp. Phys ptaf080 (2025).
+
+M. Fossati, C. Rylands, and P. Calabrese, Entanglement asymmetry in CFT with
+boundary symmetry breaking, JHEP 06 (2025) 089.
+
+Y. Kusuki, S. Murciano, H. Ooguri, and S. Pal, Entanglement asymmetry and sym-
+metry defects in boundary conformal field theory, JHEP 01 (2025) 057.
+
+M. Lastres, S. Murciano, F. Ares, and P. Calabrese, Entanglement asymmetry in the
+critical XXZ spin chain, J. Stat. Mech. (2025) 013107.
+
+L. Capizzi and M. Mazzoni, Entanglement asymmetry in the ordered phase of many-
+body systems: the Ising Field Theory, JHEP 12 (2023) 144.
+
+F. Ferro, F. Ares, and P. Calabrese, Non-equilibrium entanglement asymmetry for
+discrete groups: the example of the XY spin chain, J. Stat. Mech. (2024) 023101.
+
+V. Marié, F. Ferro, and M. Fagotti, Disorder-Order Interface Propagating over the
+Ferromagnetic Ground State in the Transverse Field Ising Chain, Phys. Rev. B 111,
+205118 (2025).
+
+B. J. J. Khor, D. M. Kiirkctioglu, T. J. Hobbs, G. N. Perdue, and I. Klich, Confinement
+and Kink Entanglement Asymmetry on a Quantum Ising Chain, Quantum 8, 1462
+(2024).
+
+A. Gatto Lamas, J. Gliozzi, and T. L. Hughes, Higher-form entanglement asymmetry
+and topological order, arXiv:2510.03967.
+
+P. S. Tarabunga, M. Frau, T. Haug, E. Tirrito, and L. Piroli, A nonstabilizerness
+monotone from stabilizerness asymmetry, Quantum Sci. Technol. 10, 045026 (2025).
+
+J. A. Vaccaro, F. Anselmi, H. M. Wiseman, and K. Jacobs, Tradeoff between extractable
+mechanical work, accessible entanglement, and ability to act as a reference system,
+under arbitrary superselection rules, Phys. Rev. A 77, 032114 (2008).
+
+G. Gour, I. Marvian, and R. W. Spekkens, Measuring the quality of a quantum refer-
+ence frame: The relative entropy of frameness, Phys. Rev. A 80, 012307 (2009).
+
+H. Casini, M. Huerta, J. M. Magan, and D. Pontello, Entanglement entropy and
+superselection sectors I. Global symmetries, JHEP 02 (2020) 014.
+
+H. Casini, M. Huerta, J. M. Magan, and D. Pontello, Entropic order parameters for
+the phases of QFT, JHEP 04 (2021) 277.
+
+H. Kim and D. A. Huse, Ballistic spreading of entanglement in a diffusive nonintegrable
+system, Phys. Rev. Lett. 111, 127205 (2013).
+
+26

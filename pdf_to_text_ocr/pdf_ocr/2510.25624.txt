@@ -1,0 +1,3208 @@
+2510.25624v1 [astro-ph.EP] 29 Oct 2025
+
+arXiv
+
+MNRAS 000, 1-26 (2025) Preprint 30 October 2025 Compiled using MNRAS I4TgxX style file v3.2
+
+Tidal dissipation and spin-orbit alignment due to the precessional
+instability in convection zones in rotating giant planets and stars
+
+Nils B. de Vries,!:2* Adrian J. Barker,2+ Rainer Hollerbach?+
+
+! Department of Physics and Astronomy, University of Exeter, Exeter EX4 4PY, UK
+2 School of Mathematics, University of Leeds, Leeds LS2 9JT, UK
+
+Accepted Nov X XXX. Received Nov Y YYY; in original form Nov Z ZZZ
+
+ABSTRACT
+
+Tidal dissipation in star-planet systems occurs through various mechanisms, including the precessional instability. This is an
+instability of laminar flows (“Poincaré flows") forced by axial precession of a rotating, oblate, spin-orbit misaligned fluid planet or
+star, which excites inertial waves in convective regions if the dimensionless precession rate (“Poincaré number" Po) is sufficiently
+large. We constrain the contribution of the precessional instability to tidal dissipation and heat transport, using Cartesian
+hydrodynamical simulations in a small patch of a planet, and study its interaction with turbulent convection, modelled as rotating
+Rayleigh-Bénard convection. The precessional instability without convection results in laminar flow at low values and turbulent
+flow at sufficiently high values of Po. The associated tidal dissipation rate scales as Po” and Po? in each regime, respectively.
+With convection, the Poincaré number at which turbulent flow is achieved shifts to lower values for stronger convective driving.
+Convective motions also act on large-scale tidal flows like an effective viscosity, resulting in continuous tidal dissipation (scaling
+as Po”), which obfuscates or suppresses tidal dissipation due to precessional instability. The effective viscosities obtained agree
+with scaling laws previously derived using (rotating) mixing-length theory. By evaluating our scaling laws using interior models
+of Hot Jupiters, we find that the precessional instability is significantly more efficient than the effective viscosity of convection.
+The former drives alignment in | Gyr for a Jupiter-like planet orbiting within 23 days. Linearly excited inertial waves can be
+even more effective for wider orbits, aligning spins for orbits within 53-142 days.
+
+Key words: Hydrodynamics — planet-star interactions — instabilities — convection — planets and satellites: gaseous planets
+
+1 INTRODUCTION energy from one body to its companion. This can result in many
+long-term effects in exoplanetary and close binary systems, such as
+tidal circularisation of orbits (e.g. Nine et al. 2020; Barker 2022),
+spin-orbit synchronisation (e.g. Dobbs-Dixon et al. 2004; Lurie et al.
+2017), tidal heating (potentially leading to radius inflation, e.g. Bo-
+denheimer et al. 2001) and orbital decay, which has potentially been
+observed for WASP-12b (e.g. Maciejewski et al. 2016; Patra et al.
+2020; Turner et al. 2021). Crucially, the transfer of angular momen-
+tum due to tidal interactions may result in the spin and orbital axes
+of these Hot Jupiters tending toward alignment (0°), anti-alignment
+(180°), or perpendicularity (90°), depending on the tidal mechanism
+involved (though the ultimate tidal evolution, if allowed to proceed,
+will be towards alignment in isolated two-body systems, e.g. Lai
+2012; Ogilvie 2014; Barker 2016b).
+
+Gaseous planets are expected to have an oblate shape due to centrifu-
+gal deformations caused by their axial rotations (or an approximately
+triaxial ellipsoidal shape if there are also strong tidal deformations). If
+the spin and orbital rotation axes of these planets are also misaligned,
+i.e., if they possess a non-zero planetary obliquity, the gravitational
+tidal forces — due to, for example, the host star acting on a Hot Jupiter
+— cause its spin axis to rotate around a secondary rotation axis (ap-
+proximately aligned with the orbit normal vector): they cause the Hot
+Jupiter to precess. In recent years, the excitation of obliquities of exo-
+planets has received a fair share of attention. Numerous mechanisms
+to explain the origin of this excitation have been explored, among
+which are planet-disk interactions (Millholland & Batygin 2019; Su
+& Lai 2020; Martin & Armitage 2021), mergers of proto-planets (Li
+
+& Lai 2020) and planet-planet scattering (Li 2021). However, the The planetary obliquities of four extrasolar wide-orbiting Jupiter-
+
+close proximities of Hot Jupiters, and other short-period exoplanets,
+to their host stars yield strong tidal effects. This produces axial pre-
+cession on relatively short timescales (of order a year or shorter).
+The resulting tidal deformations and tidal flows, and dissipation of
+the latter, additionally lead to transfers of angular momentum and
+
+* E-mail: N.B.de-Vries @exeter.ac.uk (NBV)
++ E-mail: A.J.Barker@leeds.ac.uk (AJB)
++ E-mail: R.Hollerbach@leeds.ac.uk (RH)
+
+© 2025 The Authors
+
+like objects have been constrained by observations (Bryan et al. 2020,
+2021; Palma-Bifani et al. 2023; Poon et al. 2024), and with ever-
+improving detection techniques (Barnes & Fortney 2003; Carter &
+Winn 2010; Biersteker & Schlichting 2017; Akinsanmi et al. 2020)
+it may be possible to measure obliquities due to differences (and
+time variability) in the transit signals caused by the oblateness of
+transiting Hot Jupiters. Hence, while awaiting further observations
+constraining their oblatenesses and obliquities, we can attempt to es-
+timate theoretically the orbital period out to which Hot Jupiters can be
+tidally (re)aligned. Since the precession periods of these objects are
+
+2 N.B. de Vries et al.
+
+expected to be relatively short and therefore the effects of precession
+to be strong, we study the efficiency with which a fluid instability of
+the flow in precessing objects, known as the precessional instability
+(Kerswell 1993), can align these objects. In particular, we will study
+whether and how this mechanism is impacted by convection.
+
+The precessional instability is an instability associated with the
+1 = 2, m = 1, n = 0 component of the equilibrium tide, where /
+denotes the spherical harmonic degree, m the azimuthal wavenumber
+and n the harmonic of the orbital frequency (n = 0 implies that this
+componentis stationary in an inertial frame). The equilibrium or non-
+wavelike tide is one of the two components that the tidal response in
+a star or planet is usually split into, the other being the dynamical or
+wave-like tide (e.g. Zahn 1977; Ogilvie 2013; Ogilvie 2014; Barker
+2025). The equilibrium tide is the quasi-hydrostatic fluid bulge, and
+associated flow, rotating around the body (e.g. Zahn 1977), while the
+dynamical tide consists of waves generated by resonant tidal forcing
+(such as inertial waves in convection zones or internal gravity —
+or gravito-inertial — waves in radiation zones). Tidal dissipation of
+the equilibrium tide is thought to result from its interaction with
+turbulence, usually of a convective nature (Zahn 1966; Goldreich
+& Nicholson 1977; Zahn 1989; Goodman & Oh 1997; Penev et al.
+2007, 2009a; Penev et al. 2009b; Ogilvie & Lesur 2012; Braviner
+2015; Duguid et al. 2019, 2020; Vidal & Barker 2020a,b; De Vries
+et al. 2023b), or by instabilities of the equilibrium tide itself, such
+as the precessional or elliptical instabilities, which can result in the
+excitation of waves (e.g. Cébron et al. 2010, 2012; Cébron et al.
+2013; Barker & Lithwick 2013; Barker et al. 2016; Barker 2016a;
+De Vries et al. 2023a). The / = 2, m = 1, n = 0 component of the
+tidal potential, among others, produces what is known as obliquity
+tides (Ogilvie 2014). This component has a tidal frequency w = —Q.
+in the frame rotating with the body (using the sign convention where
+each tidal component is proportional to e!""-@")), with Q its axial
+rotation rate or spin. It is static in the inertial frame and causes
+bulk precessional motion of the star or planet. These precessional
+flows within solid boundaries are described by the laminar flow
+solution known as the Poincaré solution (Poincaré 1910). It is this
+laminar solution that is unstable to the precessional instability, which
+typically grows with a growth rate proportional to the precession
+rate, and may allow turbulence to arise (Kerswell 1993).
+
+The properties of the precessional instability are very similar to the
+related elliptical instability (Kerswell 2002; Le Bars et al. 2015). The
+precessing flow excites pairs of inertial waves through a parametric
+resonance, and these inertial waves initially grow exponentially. The
+linear instability subsequently saturates, producing small-scale iner-
+tial waves which finally collapse to rotating turbulence, after which
+the cycle starts anew. This effect has been observed in simulations
+of the precessional instability executed in a Cartesian shearing box
+model with periodic boundaries (Barker 2016b) and in spheroidal
+shells with stress-free boundaries (Lorenzani & Tilgner 2003). Pre-
+cession, and the associated precessional instability, produces sus-
+tained turbulence in realistic spherical (Tilgner & Busse 2001) or
+spheroidal geometries (Lorenzani & Tilgner 2001, 2003). As such, it
+is thought that the precessional instability could power a dynamo in,
+for example, Earth’s liquid outer core (Malkus 1968; Kerswell 1996;
+Tilgner 2005; Wu & Roberts 2008; Le Bars et al. 2015).
+
+The precessional instability can be studied in isolation by con-
+sidering a local box approach in which the streamlines are circular,
+but vertically sheared. The initial linear instability analysis in this
+setup was performed in Kerswell (1993). The fluid in the box rotates
+around the spin axis and the rotation of precession is represented by
+a secondary rotation perpendicular to the spin axis, with rotation rate
+Q), = PoQ. The parameter Po is the Poincaré number and indicates
+
+MNRAS 000, 1-26 (2025)
+
+how fast precession occurs compared to the spin rotation; by analogy
+to the elliptical instability, this parameter is sometimes also denoted
+by € and is usually small. The growth rate of the precessional insta-
+bility is proportional to Po (Kerswell 1993). This local approach to
+study the precessional instability has been taken in various papers
+(e.g. Barker 2016b; Khlifi et al. 2018; Salhi et al. 2019; Pizzi et al.
+2022; Kumar et al. 2024). The non-linear energy transfers due to the
+evolution of the instability were examined numerically in Pizzi et al.
+(2022). They identified two different regimes, one at small Po, in
+which large-scale columnar vortices are dominant, and one at higher
+Po where inertial waves contribute more significantly. Furthermore,
+the precessional instability was studied in tandem with weak mag-
+netic fields as well, which show that the precessional flow and its
+instabilities can act as a dynamo (Barker 2016b; Kumar et al. 2024).
+Finally, the evolution of the precessional instability in isolation, to-
+gether with walls in the vertical direction, has been studied in Mason
+& Kerswell (2002) and Wu & Roberts (2008). These works found
+that the introduction of walls imposes a mode selection constraint on
+the precessional instability. This constraint forces a distinct growth
+rate on each set of inertial waves that are able to resonate and grow,
+and reduces the maximum growth rate (though it typically remains
+O(Po)) compared to expectations from the unbounded analysis in
+Kerswell (1993).
+
+The interactions of the precessional instability and convection have
+so far been studied using a linear stability analysis in cylindrical ge-
+ometry in Benkacem et al. (2022), and using simulations in spherical
+geometry in Wei & Tilgner (2013). The former found that the in-
+stability is slightly enhanced for weak convection, and is suppressed
+for strong convection. The latter also found that the precessional in-
+stability is enhanced for weak convection, allowing it to onset for
+smaller Po than it could in the absence of convection. Furthermore,
+it was found that convection can onset at weaker convective driving
+(smaller Rayleigh numbers) when weak precession is present. With
+strong precession, they also found that stronger convective driving
+was required for it to operate. Finally, in a similar fashion to the
+elliptical instability (Lavorel & Le Bars 2010; Le Bars et al. 2010;
+Cébron et al. 2010; Cébron et al. 2012; De Vries et al. 20238), it was
+found that precession can cause additional heat transport compared
+to convection in isolation.
+
+In this paper, we will study the interactions of the precessional
+instability and convection in a local Cartesian box with walls in the
+vertical direction. This can be thought to model a small patch of
+the convection zone of a star or planet. Imposing walls is beneficial
+for controlling the properties of convection (as explained in Duguid
+et al. 2019, who studied interactions of convection and oscillatory
+tidal flows), even if they may not be expected to be present in real
+stars or giant planets. We will examine whether the precessional
+instability is suppressed by its interaction with convectively-driven
+large-scale vortice: we have found for the related elliptical insta-
+bility (De Vries et al. 2023a). Furthermore, we will examine whether
+a turbulent effective viscosity due to convection interacting with the
+equilibrium tide arises, and whether it can be used to interpret this
+interaction. Next, we will perform a large parameter sweep to de-
+termine scaling laws for the resulting tidal dissipation, examining
+the effects of varying the Poincaré number, Rayleigh number (which
+measures the strength of convective driving), and Ekman number
+(which measures the ratio of viscous to Coriolis forces). Finally,
+we will apply these scaling laws to compute the tidal dissipation
+due to the precessional instability and turbulent effective viscosity
+in interior models of Hot Jupiters obtained using the Modules for
+Experiments in Stellar Astrophysics (mEsA) code. This allows us to
+make predictions for planetary (modified) tidal quality factors Q’,
+
+Figure 1. The location of the local box in the convection zone of a Hot
+Jupiter. We indicate the rotation vector Q in black, the precession vector 2,
+in dark grey and the background flow Up in green, all in the boundary frame
+and not to scale relative to each other. The background flow takes the form
+of a shear in z, the direction of which rotates as a function of time. The
+precession vector also rotates as a function of time, always lying in the x, y-
+plane. The time dependence of the direction of both Q,, and Up is illustrated
+by dark and green dashed circles respectively. The local temperature gradient
+is represented by the red (hot) and blue (cold) sides of the box.
+
+and the resulting timescales for significant spin-orbit evolution in hot
+and warm Jupiter systems.
+
+In Section 2 we will describe the model used in this work and
+discuss some theoretical predictions of the scaling laws for various
+quantities of interest. In Section 3 we detail the numerical setup we
+employ and verify that we accurately capture both the precessional
+and convective instabilities with our simulations. Next, in Section
+4 we examine snapshots and time series of the flow to study the
+different behaviours that emerge within this system as the control
+parameters are varied. Then, in Section 5 we fit the derived scaling
+laws to the time-averaged values of the quantities of interest. In
+Section 6 we outline the astrophysical implications of our results by
+generating interior profiles of a Jupiter-like and a Hot Jupiter planet
+using the Mesa code, which we use to evaluate the dissipation of the
+equilibrium tide and that due to inertial waves. Finally, we conclude
+in Section 7.
+
+2 MODEL SETUP
+2.1 Governing equations and setup of the problem
+
+We use a local Cartesian model, shown in Fig. 1, building upon
+the previous works of Kerswell (1993); Mason & Kerswell (2002);
+Wu & Roberts (2008); Barker (2016b); Pizzi et al. (2022); Kumar
+et al. (2024) to study the interaction of the precessional instability
+with convection, with a focus on studying the resulting tidal dissi-
+pation. To study the precessional instability we choose to work in
+the “boundary frame". In this frame, the flow inside the body ap-
+
+Interactions of precession and convection 3
+
+pears to precess according to an observer located on the boundary of
+the body, and is therefore sometimes also referred to as the “mantle
+frame". The spin axis points in the z-direction, and the fluid rotates
+in this frame at the rate Q. The component of the precessional vector
+that is parallel to the body’s axial rotation is unimportant for the
+precessional instability, so it is set to zero. The precession vector
+is given by Q, = Po Q(cos(Qr), — sin(Qr),0)7, with Po = Q,/2
+the Poincaré number. The precession vector thus rotates around the
+body in the equatorial plane in this frame. The Poincaré number is
+a small parameter in most astrophysical systems. On Earth, for ex-
+ample, Po ~ 10-7 due to lunisolar precession. Even so, Kerswell
+(1996) estimated that the maximum possible energy injected by the
+precessional instability could be sufficient in principle to power the
+geodynamo. In Hot Jupiters, with both larger oblateness and closer
+proximity to the tide-raising body, and therefore stronger torques,
+these values are more likely to be of order Po = O(10~* — 1073).
+These values are small, but still sufficiently large that the preces-
+sional instability could be important for aligning the spins and orbits
+of such Hot Jupiters (Barker 2016b). Note that the frequency of the
+precessional flow and the frequency of the precession itself differ.
+In the boundary frame, ignoring the effects of viscosity and (stable
+or unstable) stratification, and considering just the shearing effects
+of the precessional flow, the precessional flow that satisfies the in-
+compressible equations of motion can be written as (Kerswell 1993):
+
+0 0 sin(Qr)
+Up = Ax = —2P0Q/0 0 cos(Qz)] x, (1)
+0 0 0
+
+where & represents the position vector from the centre of the body.
+The precessing flow in this frame takes the form of an oscillatory
+shear flow in z, whose direction rotates in the (x, y)-plane. Alterna-
+tively, this can be interpreted as a rotating flow which is sheared in z.
+
+We use stress-free impermeable walls in the z-direction to study the
+precessional instability, following Mason & Kerswell (2002), which
+allows us to study rotating Rayleigh-Bénard convection. This is the
+best-studied model of rotating convection, and it allows convection
+to be well controlled compared to models with periodic boundaries
+in z (so-called “homogeneous” convection). We adopt a box with
+dimensions [d, d, d], i.e., a box where Ly = Ly = Lz. We will defer
+studying different aspect ratios to later work. Gravity points in the
+vertical direction, g = gZ, and as a result it is (anti-)aligned with
+the rotation axis, i.e. the box is situated near the poles of the body.
+The background temperature profile is given by the conduction-state
+profile that depends only on z:
+
+% (2)
+
+where 7p is a uniform background temperature that is set to zero
+without loss of generality, and AT is the temperature drop across the
+vertical extent of the box. The precession vector is often rewritten as
+e€(t) = PoQ(cos(Qr), — sin(Qr), 0)". This precession vector adds a
+second Coriolis-like term to the momentum equation. We decompose
+the total velocity, temperature and pressure profile into a background
+state and a perturbation, as follows: U = Uo + u, Ti = T(z) +
+@ and Pi = P(z) + p. Applying these decompositions and non-
+dimensionalising the governing equations by scaling lengths with
+the vertical domain size d, times with d?/x, velocities with «/d,
+temperatures with AT, and pressures with pox?/d?, yields:
+
+D Pi
+> +u-VUo+ ae +e(t)) Xu =—Vp +RaPr02 + PrV2u, (3)
+
+MNRAS 000, 1-26 (2025)
+4 N.B. de Vries et al.
+
+V-u=0, (4)
+De
+
+pp uae (5)
+where
+
+D_@
+
+pp agp POR Fees (6)
+
+The non-dimensional parameters describing the system are the Ek-
+man number, the Rayleigh number and the Prandtl number:
+3
+2 am Ra = a, Pr = v/k, (7)
+in addition to the Poincaré number Po.
+
+The dimensional buoyancy frequency N? is related to the Rayleigh
+number according to N? = —RaPr«*/(agd*), so that when Pr = 1,
+the dimensionless value (in thermal time units, where d?/« = 1) is
+N? = —Ra. We set Pr = | for consistency with the previous works
+we will build upon e.g. Cébron et al. (2010); Wei & Tilgner (2013);
+Barker et al. (2014); Guervilly et al. (2014). The boundary conditions
+in the horizontal directions are periodic, while in the vertical direction
+we impose walls that are impermeable, u,(z = 0) = uz(z = d) = 0,
+stress-free (vanishing tangential viscous stresses), 0,ux(z = 0) =
+Oz,Ux(z = d) = dzuy(z = 0) = d,wy(z = d) = 0, and perfectly
+(thermally) conducting, 6(z = 0) = @(z = d) =0.
+
+2.2 Known properties of the precessional instability
+
+A linear stability analysis of the precessional instability, in the ab-
+sence of convection, but with walls in the vertical direction, has
+been performed in Mason & Kerswell (2002). We summarise their
+most important results here. The most unstable modes take the form
+of inertial wave modes (Mason & Kerswell 2002), which arise in
+a rotating local box with two stress-free and impermeable walls
+(Greenspan 1968). These two modes, denoted by A and B, must
+satisfy Ag = Aa + Q, since the precessing flow has tidal frequency
+magnitude Q. Here, 24 and Ag are the frequencies of the inertial
+waves, which must each satisfy the inertial wave dispersion relation:
+
+: (8)
+
+where kz is the vertical wavenumber, k is the wavevector magnitude,
+and 2 is the frequency.
+
+Furthermore, due to the introduction of stress-free impermeable
+walls at the top and bottom, solutions must be proportional to
+cos(n7z) (for ux, Uy, p) or sin(n7z) (for uz, @), with integer n. Hence,
+the vertical wavenumbers of the two waves, given by kz = nz, must
+satisfy (ng — na) mod 2 = 1, i.e. the difference between n4 and
+ng must be odd. This, in combination with the requirement that
+kip = k,,4, where k, is the horizontal wavenumber, implies that
+there is a value of k, that satisfies the resonance conditions on the
+frequency for every combination of n4 and ng. The precessional in-
+stability, with stress-free walls, thus has a characteristic size for each
+mode pair. The particular value of k, for each pair of modes also
+depends on Po, as illustrated in Fig. 3 of Mason & Kerswell (2002).
+Some examples of the inviscid growth rates and associated values of
+k, are found in Table 1 of Mason & Kerswell (2002). The modes
+with the largest growth rates in the simulations in this work are those
+with n4 = 1, ng = 2, due to the introduction of viscosity, in which
+
+MNRAS 000, 1-26 (2025)
+
+case the velocity field — in the absence of stratification and viscosity
+— grows according to (Mason & Kerswell 2002):
+
+u = Re{(Aguase “4! + Byuge iat )e03547Pom (9)
+
+where Ao and Bo are the complex amplitudes at t = 0 of the two
+modes and uw, and wg are the velocity eigenvectors of the two
+waves.
+
+The growth rate of the instability is thus 0.3547PoQ, which can be
+compared to the theoretical maximum value of ~ 0.385Po0Q, which
+is a factor of 2/m smaller than in the triply periodic case (Mason
+& Kerswell 2002). The introduction of walls therefore decreases the
+growth rate of the precessional instability. Finally, the growth rate
+vanishes identically when either of na or ng are equal to zero, such
+that these modes should be unable to grow due to this instability
+mechanism.
+
+2.3 Energetic analysis of simulations
+
+To analyse the flow we derive the kinetic energy equation by taking
+the scalar product with uw of Eq. (3) and then averaging over the
+box. We define the averaging operation on a quantity X as (X) =
+
+as fy, XAV. We obtain:
+
+d
+qk = 1+ Ws -Dy. (10)
+
+We have defined the mean kinetic energy K, the work done by
+buoyancy forces Wg, and the mean viscous dissipation rate D,:
+1
+K= 3 (lel?), We = PrRa(@uz), Dy = —Pr(u-V7u), (11)
+as well as the energy transfer rate from the background precessional
+flow I:
+
+= —(uAu) = —(u- (u- VUp)). (12)
+
+To obtain an equation for the thermal (potential) energy when the
+stratification is convectively unstable, i.e. Ra > 0, we multiply Eq. (5)
+by PrRa@ and average over the box to obtain, in a similar manner:
+dW, -D (13)
+qe ee ke
+where we have defined the mean thermal energy P and the mean
+thermal dissipation rate D, as:
+
+1
+P= PrRa; (6°), D, = —PrRa(0V76). (14)
+The total energy is E = K + P, which thus obeys:
+d
+qe = 1+ Wa - Dy — De = 1+ 2We - D, (15)
+
+where D = D, + Dx, is the total dissipation rate. In a steady state,
+i.e. no change in time of the total energy, it is expected that the (time-
+averaged value of the) energy injected together with the buoyancy
+work balances the total dissipation. Because of the presence of the
+buoyancy work term, the total dissipation is not equivalent to the tidal
+dissipation rate. However, the energy injected by the tide must be
+dissipated if a steady state is to be maintained. Therefore, to interpret
+the tidal energy dissipation rate, we examine the tidal energy injection
+rate J, which equals D — 2Wg ina steady state.
+
+A scaling law for the dissipation due to the precessional insta-
+bility was proposed in Barker (2016b). They considered a single
+most unstable mode whose amplitude saturates when its growth rate
+balances its non-linear cascade rate, ie. 7 ~ ku ~ 1/tdamp, Where
+k is the wavenumber magnitude and w is the velocity amplitude.
+
+This implies that the mode attains a velocity amplitude u ~ PoQ/k,
+so the resulting tidal dissipation is therefore expected to scale as
+D ~ uw? /taamp ~ Po? Q3k-?. Or more generally:
+
+D =I Po’. (16)
+
+This scaling is consistent with some local simulations (Barker 201 6b;
+Pizzi et al. 2022) at sufficiently high (but still Po < 1) values of the
+Poincaré number. An energy injection rate that is consistent with a
+scaling closer to Po? at low values of the Poincaré number was also
+observed by Barker (2016b). A theoretical basis for the latter scaling
+was not identified, but we will examine if it also arises in this work.
+
+Based on our studies in De Vries et al. (2023a) of the elliptical in-
+stability and rotating convection, we expect to observe the non-linear
+creation of large-scale geostrophic flows from both the convective in-
+stability as well as the precessional instability. In this work, we also
+decompose the flow into a 2D z-invariant flow and a 3D z-dependent
+flow, with the energy of the z-invariant flow Kzp defined as:
+
+too = A If (faved) ovace sh [f[f waq) avae am
+
+We have chosen not to include w in the definition of K2p because the
+z-invariant vertical velocity must be zero due to the impermeability
+boundary condition, such that the k, = 0 mode cannot contribute to
+Kop. The definition of K3p then follows as:
+
+K3p = K — Kyp. (18)
+
+Furthermore, we can expand the energy injection using the definition
+of the background flow:
+
+= 2PoQ ((uxuz) sin(Qr) + (uyuz) cos(Qr)) . (19)
+
+We can see that, by definition, /)p defined similarly to Eq. (17) must
+be zero, because every term in Eq. (19) contains the vertical velocity.
+Thus, we do not decompose / into Jyp and J3p (unlike in De Vries
+et al. 2023a, for the elliptical instability).
+
+Finally, we can use the same technique as in Goodman & Oh
+(1997); Ogilvie & Lesur (2012); Duguid et al. (2019); De Vries et al.
+(2023b) to obtain an estimate of the effective viscosity due to the
+convection acting on the precessional flow, which we have strong
+reason to believe will arise in these simulations as well. The rate at
+which energy of the flow Up is viscously dissipated with viscosity
+vert, is given by:
+
+Vert
+
+Vv
+
+[ ef e7 dV = 4veq@Po"Q?, (20)
+
+1; Uo, ;+0;Uo,i) is the strain rate tensor. Upon equating
+n to J, we can define the effective viscosity according
+
+Vert = 1/(4P07Q?). (21)
+
+The effective viscosity might be expected to be independent of Po;
+this would imply that, if the interaction of turbulence acting on the
+precessional flow can be parametrised as a turbulent effective vis-
+cosity, it should scale as:
+
+D =I1« Po’. (22)
+
+Furthermore, the effective viscosity is expected to depend on the
+convective velocity (uw), lengthscale (/..) and frequency (w-) accord-
+ing to (Duguid et al. 2020):
+
+Sucle Le g10",
+1
+veei= Sucle( #2 * lel ¢ [10-2,5], (23)
+2
+25 We jo|
+Fattele( 22) lel 5,
+
+Interactions of precession and convection 5
+
+Using rotating mixing length theory (RMLT) these can be ex-
+pressed in terms of the relevant non-dimensional parameters in our
+temperature-based Rayleigh-Bénard setup (where we fix AT rather
+than the heat flux), omitting prefactors (De Vries et al. 2023b):
+
+Ra?/7Ek?Pro!/?2«
+Veet © 4 Ral/4 BK? Pro 43/2 q7 yl?
+RaPER Pr? dt?
+
+low frequency,
+intermediate frequency,
+high frequency.
+
+(24)
+
+Finally, we will also study the heat transport in these simulations,
+to see if we observe modification of the heat transport by precession,
+as was found by Wei & Tilgner (2013). To this end, we study the
+Nusselt number in the simulations, defined as:
+
+Nu = 1 + RaPr(@u,), (25)
+
+which represents the ratio of the total heat flux to the conductive heat
+flux, which is identically one in the absence of any flows.
+
+3 NUMERICAL SETUP
+
+We will use two codes in tandem to study the precessional insta-
+bility and its interactions with convection, namely DEDALUs (Burns
+et al. 2020) and nex5000 (Fischer et al. 2008). Obtaining agree-
+ment between the two codes partly ensures that the dynamics in
+the system are being captured accurately, as they are based on dif-
+ferent numerical methods. pEDALUs implements a pseudo-spectral
+method. We use Chebsyhev polynomials in z and the “real" Fourier
+basis, i.e. sines and cosines instead of complex exponentials, in the
+x and y directions. We set the number of grid points in the x, y
+and z directions to Ny = Ny = Nz = 96, unless otherwise spec-
+ified. The choice of Chebyshev polynomials is responsible for our
+definition of Kzp in real space in Eq. (17). Pseudo-spectral methods
+converge exponentially with increasing resolution for smooth solu-
+tions (Boyd 2001). The precessional instability in a triply periodic
+domain has previously been studied by employing so-called shear-
+ing waves, with time-dependent wavevectors, but the introduction of
+impermeable walls at the top and bottom has made these shearing
+waves redundant. We employ a two-stage, second-order, Runge-Kutta
+timestepping scheme, identified in DEDALUS as RK222 (described in
+Sec. 2.6 of Ascher et al. 1997). In this scheme the non-linear terms,
+advection terms between the background flow and the velocity per-
+turbations, and the Coriolis-like term that arises due to the precession
+are explicitly calculated, while the other terms — including the usual
+Coriolis term — are calculated implicitly. We employ a CFL safety
+factor set to 0.5 to ensure that timesteps are small enough to accu-
+rately capture the dynamics. For de-aliasing purposes the resolution
+is expanded with a factor 3/2 when calculating the non-linear terms,
+so as to satisfy the standard 2/3 rule (Boyd 2001).
+
+We also employ the NEx5000 code, which utilises a spectral ele-
+ment method with an equal number of regularly-spaced elements &
+in each direction, and thus &? elements in total. Inside each element,
+the velocity, temperature, and pressure fields are then expanded us-
+ing Legendre polynomials. The associated grid points are the Gauss-
+Legendre-Lobatto quadrature points, such that the edges of the el-
+ements are included in the grid. The number of grid points inside
+each element is given by (N+ 1)°. Due to overlapping grid points on
+the boundaries of the elements, the total number of grid points in a
+given simulation is 6° N°. We work in a Cartesian box with sides of
+equal length, with E = 10. We set N = 9 unless otherwise specified.
+Due to the grid points adopted within each element in NEK5000, the
+
+MNRAS 000, 1-26 (2025)
+6 N.B. de Vries et al.
+
+grid is irregular in all three directions even if the elements them-
+selves are uniformly spaced. We have therefore opted to interpolate
+to a regular grid to calculate K2p, so this quantity is susceptible to
+interpolation errors. We will interpolate to a 100° regular grid for
+such integrations, unless otherwise specified. We timestep using an
+implicit second-order backward difference scheme for the pressure
+and diffusion terms, and a second-order characteristics-based method
+to evolve the non-linear, buoyancy and Coriolis terms, as well as the
+Coriolis-like term due to the precession and the advection terms of
+the background flow and the velocity perturbation. We employ a
+CFL safety factor set to 0.3 to ensure sufficiently small timesteps,
+although note that characteristics-based timesteppers are allowed to
+exceed this value while still guaranteeing accuracy when integrating
+the advective non-linear terms. De-aliasing is dealt with by increasing
+the order of the polynomials inside each element when calculating
+non-linear terms, with a factor that approximately satisfies the 2/3
+tule (Boyd 2001).
+
+We use NEK5000 in addition to pepALus because results obtained
+by both codes independently are necessarily more robust, particu-
+larly as the methods implemented are different. This allows for an
+additional check on our results.
+
+3.1 Benchmarking
+
+We first perform benchmarking tests to ensure that the precessional
+and convective instabilities in isolation are each properly computed
+in the simulations. To this end, we performed numerous simulations
+with the perturbation non-linearities switched off in both p—EpALUS
+and NEkK5000. We have fitted the growth rate of the kinetic energy
+in the simulations K = 3(\ul?), where the brackets represent a
+volume-average. The growth rate of the velocity can then be found by
+taking half of the kinetic energy growth rate. We compare the growth
+rates from simulations to those from the theoretical predictions given
+in Eq. (9), and obtained by numerically solving the relevant cubic
+dispersion relation, for the precessional and convective instabilities,
+respectively. The results of this benchmarking of both instabilities in
+isolation, along with the theoretical predictions, are plotted in Fig. 2.
+The pepa.us simulations portrayed in this figure are executed in a
+1-by-1-by-1 box, with a resolution of 323. The nEk5000 simulations
+are executed in a 1-by-1-by-1 box with a resolution of 10° elements,
+each with a polynomial of order 4. Thus, the total number of gri
+points is 40°.
+
+The most unstable modes of the precessional instability are pre-
+dicted to be those with the smallest horizontal wavenumber, ac-
+cording to Mason & Kerswell (2002), which are the modes with
+
+na = 1, ng =2andk, = ke +ky = 18.059. In the 1-by-1-by-
+box the modes with n, =ny =2 > ky = ky = 4a have k, ~ 17.77,
+so the modes with these horizontal wavenumbers almost satisfy the
+perpendicular wavenumber requirement of the most unstable modes.
+Thus we expect these modes to match the theoretically predicte
+growth rate well, except for a small discrepancy, which can be at-
+tributed to de-tuning. The unstable horizontal wavenumber is foun
+to change with Po, however, and for this particular mode decreases as
+Po increases (see Fig. 3a in Mason & Kerswell 2002). According to
+this figure, the unstable horizontal wavenumber of these modes satis-
+fies k, ~ 17.77 around Po = 0.1. The secondary effects of viscosity
+in shifting the resonances are ignored, which are expected to be much
+weaker than the damping we do consider. The growth rate of the mode
+with ng = 1, ng = 2 is given by: 0.3547PoQ — vk*. This theoreti-
+cally predicted growth rate, where we have chosen k? = k7 + nr
+(which probably slightly overestimates the viscous damping), is plot-
+
+MNRAS 000, 1-26 (2025)
+
+ted in the solid-blue line in the left-hand panel of Fig. 2 along with
+the simulation data plotted in black (NEK5000) and red (pDEDALUS)
+markers. The growth rates obtained from simulations executed with
+both pepALus and NEK5000 match each other very well. They also
+match the theoretically predicted growth rate very well in the in-
+terval Po € [0.1,0.15], where the most unstable wavenumber very
+accurately matches the one available within the box. Additionally,
+the theory predicts the range of Poincaré numbers below which the
+instability is inhibited by viscosity very well. The simulation data
+starts deviating from the theoretically predicted growth rate at higher
+values of Po, as the most unstable mode changes to modes that can-
+not be accurately captured in the box. The discrepancy here can thus,
+at least partially, be attributed to de-tuning. Higher-order effects at
+large Po may also play a role in causing this discrepancy; see, for
+example, the higher-order correction to the precessional instability
+growth rate in Naing & Fukumoto (2011), albeit in a triply periodic
+ox. Therefore we conclude that we have accurately captured the
+growth of the precessional instability in isolation in both codes. We
+have also reproduced the previously-obtained results from simula-
+tions with stress-free impermeable walls at the top and bottom of the
+local box (Mason & Kerswell 2002).
+
+We have also run multiple simulations to ensure the convective
+instability is captured accurately. The theoretical predictions, as well
+as the simulation data at the same Ek = 5 - 10~> in a 1-by-1-by-1
+ox, are plotted in the right-hand panel of Fig. 2. To calculate the
+theoretical maximum growth rate, we solved the dispersion relation
+for rotating convection with stress-free impenetrable walls. The sim-
+ulation data from both codes agree well with each other and with the
+theoretically predicted growth rates. Thus, we conclude that both the
+precessional instability and the convective instability in isolation are
+accurately captured by the two codes.
+
+3.2 Parameter variations
+
+To examine the quantities of interest, namely the kinetic energy, en-
+ergy injection rate and heat transport efficiency, the latter of which
+is represented by the Nusselt number, we will execute multiple pa-
+rameter sweeps. We will vary the Rayleigh number, Ekman number
+and Poincaré number, to be able to independently vary the con-
+vective driving, rotational constraint, and precessional driving, re-
+spectively. The Rayleigh number is typically reported instead us-
+ing the “supercriticality" R = Ra/Ra, for clarity, where Ra, is the
+critical value for onset of instability (determined numerically by
+solving the dispersion relation for rotating convection with stress-
+free walls). The range of this ratio studied at Ek = 2.5 - 107 is
+R é€ [0,15]. We examine Po € [0.01, 1.10], which also includes
+the (probably) astrophysically-irrelevant, but fluid-dynamically in-
+teresting, case that the precession is faster than the rotation. Finally,
+we performed simulations with three different values of the Ekman
+number: Ek = [5 - 107°, 2.5 - 10-5, 10-5]. When varying Ek we set
+Ra = 0, i.e. there is no convective instability in this set of simu-
+lations. DEDALUs provides more accurate values of K2p and allows
+accurate creation of horizontal power spectra without needing inter-
+polation, but it was found to run more slowly than NEK5000. As a
+result, we opt to use the faster NEK5000 code to perform most pa-
+rameter sweeps, while executing selected simulations for interesting
+cases using DEDALUS. We have checked that the two codes also pro-
+duce the same results in select non-linear simulations with the same
+parameters. A table of all simulations performed can be found in
+Appendix A.
+600 =
+— Theory, 0.3547P0Q — vkz
+500 1 + Data, NEK5000 t
++ Data, Dedalus ge
+< 400 +?
+|
+e 300
+<
+% 200
+100
+Otte +
+0 0.1 0.2 0.3
+
+Po
+
+Interactions of precession and convection 7
+
+10000 z 7 T
+i— Theory
++ Data, NEK5000
+8000} , Data, Dedalus
+> 6000
+* 4000
+2000
+0
+
+0 2 4 6 8 10
+Ra x10"
+
+Figure 2. Benchmark simulations of the linear growth rate of the precessional instability and convective instability, each in isolation at Ek = 5-107 ina
+1-by-1-by-1 box using both nex5000 (black) and pEpaLus (red). Left: growth rate of the precessional instability. The most unstable mode pair, after taking the
+viscous reduction into account, isn,4 = 1, ng = 2. The theoretical prediction for small Po for this mode is given in blue. The simulation data obtained using
+both codes match each other and the theoretical prediction well in the interval Po € [0.1, 0.15], and accurately predict the critical value of Po for inhibition of
+the instability by viscosity. Deviation from the predicted maximum growth at higher Po partly arises from effects that are of higher order in Po not captured by
+the linear analysis. In addition, the most unstable horizontal wavenumber changes as Po is increased, see Fig. 3a in Mason & Kerswell (2002), and therefore the
+
+mode becomes increasingly more de-tuned. Right: Benchmark simulations of the linear growth rate of convection in isolation at Ek = 5 - 10-5 in a 1-by-1-by-I
+box. The growth rates in the simulations match each other and the theoretical growth rate of convection well.
+
+4 ANALYSIS OF ILLUSTRATIVE SIMULATIONS
+4.1 Snapshots of the vertical vorticity
+
+We present snapshots of the vertical vorticity w, obtained from
+simulations using Nex5000 with Ek = 2.5 - 10~> in Fig. 3. This is
+the same Ekman number as utilised in Mason & Kerswell (2002) in
+the strongly precessing case, after correcting for the factor of two
+which is present in our definition of the Ekman number and absent in
+theirs. The snapshots in Figs. 3a and 3b are taken from a simulation
+of the precessional instability, in the absence of convection, with
+Po = 0.1, Ra = 0. Based on the previous results in Mason & Kerswell
+(2002); Barker (2016b); Pizzi et al. (2022) we expect the flow in these
+simulations to be bursty in nature, similar to the elliptical instability.
+This bursty behaviour is indeed observed in these two snapshots.
+In Fig. 3a we plot the vorticity at time t = 0.344, given in thermal
+time units. This coincides with a burst in energy injection and kinetic
+energy of the precessional instability. These bursts are associated with
+the most unstable linear modes, with a horizontal form consisting of
+two full sinusoids in both horizontal directions, and a combination
+of the modes with n, = 1 and n, = 2 in the vertical direction.
+After the burst in energy injection has occurred, the most unstable
+linear modes break down and instead a large-scale flow emerges.
+This large-scale flow is portrayed in a snapshot taken at t = 0.37 in
+Fig. 3b. It does not look like the vortices we normally expect from
+inertial wave breakdown (Barker 201 6a); instead, it appears to be a
+large-scale sheared flow, the direction of which oscillates in time, and
+is likely related to the rotating shear introduced by the background
+flow. This large-scale flow inhibits growth of the most unstable linear
+modes of the precessional instability, and continues to do so until it
+is slowly viscously dissipated. Afterwards, the most unstable linear
+modes re-emerge in the flow and the cycle starts anew; the flow is
+maintained in this fashion throughout the entirety of this simulation.
+
+The flow with Po = 0.2, Ra = 0 in Figs. 3c and 3d features much
+stronger vorticities than in the simulation with Po = 0.1, Ra = 0.
+Note the change in colour scale in the middle and bottom panels
+compared to the one in the top panels. In Fig. 3c we plot a snapshot
+
+taken at t = 0.06, after the initial instability has saturated. We
+observe the formation of vortices in this simulation, as opposed
+to the more layer-like large-scale shear flow in Fig. 3b. In these
+simulations, a “secondary transition" occurs as the values of the
+vorticity, and associated with it the kinetic energy and energy
+injection, suddenly increase. This is visible by the larger values of
+the vorticity in the snapshot in Fig. 3d, taken at t = 0.072. The
+vortex in this snapshot appears to dominate the flow more than in
+Fig. 3c. Upon examining the vertical vorticity as a function of depth,
+it was found that this vortex extends to the bottom of the box, but
+it is sheared, as we might expect from the precessional shear flow,
+and so the bottom of the vortex is located towards the middle of the
+horizontal plane in this particular snapshot. The direction of this
+shear, which we might consider to be the vortex axis, is precessing
+in time, on a timescale slightly longer than the precession period
+in this simulation. As a result, the strong vortex is not completely
+z-invariant, such that the 2D energy according to our definition does
+not fully capture the energies in these vortices. The development
+of this large scale vortex can be thought of as a modification to
+the background flow Up that arises from the non-linear interaction
+with the inertial waves generated by the precessional instability.
+This modification occurs on large scales in our simulations, and can
+impact the precessional instability itself. The exact shape and impact
+on the precessional instability depends on the chosen boundary
+conditions and geometry, as the modification is by definition forced
+to conform to these.
+
+We will now use these snapshots to get an idea of how convection
+modifies the behaviour of the flow. We start by examining a snapshot
+of the simulation with Po = 0.1, Ra = 2Ra, in Fig. 3e. This snap-
+shot was taken at t = 0.05, after saturation of the initial instability
+and transients have died down. The flow in this snapshot is repre-
+sentative of the flow at all times in this simulation. The flow shows
+large-scale up and down flows, which appear somewhat sheared in
+the horizontal directions, and very small-scale but not vortex-like
+behaviour in the horizontal plane. These small-scale features appear,
+
+MNRAS 000, 1-26 (2025)
+8 N.B. de Vries et al.
+
+Pseudocolor Pseudocolor
+Var: we Var: we
+i000, wer 1000.
+=
+500.0 ~ 500.0
+~0,000 = 0,000
+” ”
+1000. 1000.
+Max: 6493, Max: 1325.
+Min: 6969. Min: 1125.
+Yy Zz Y Zz
+
+(a) t = 0.344, Po = 0.1, Ra = 0. (b) t = 0.37, Po = 0.1, Ra =0.
+Pseudocolor Pseudocolor
+Var we Var we
+= . ae
+. ~ 5000.0
+0.00000
+™ 0
+100000.
+Max: 698795,
+Min: -209409,
+(c) t = 0.062, Po = 0.2, Ra =0. (d) t = 0.07, Po = 0.2, Ra =0.
+Pseudocolor Pseudocolor
+Var: we Vor: wz
+7 100000. ,- 100000.
+5000.0 50000.
+0.00000 = 0,00000
+| ini | ia
+190000. 190009,
+Mane: 40514.0 Men: 238718
+Min: ~37309.2 Min: 172827
+yz
+
+(e) t = 0.05, Po = 0.1, Ra = 2Rag. (f) t = 0.05, Po = 0.1, Ra = 6Rag.
+
+Figure 3. Snapshots of the vertical vorticity «w_ of the flow in simulations executed using NEK5000 with Ek = 2.5 - 10-5. The top left and top right panels,
+both obtained from the same simulation, show snapshots taken during a burst of the energy injection and during the period of large-scale flow after the burst,
+respectively. The middle panels, both taken from a simulation with stronger precessional driving than the top panels, show vortices in the flow instead. A rapid
+“secondary transition" appears to occur in this simulation, indicated by a large increase in vorticity and kinetic energy from the panel on the left to the one on the
+right. The bottom left panel shows a simulation with weak convective driving; the bursty behaviour of the precessional instability appears absent and instead the
+convection appears to dominate this flow. In the bottom right panel a snapshot of the simulation with stronger convective driving is shown. This flow strongly
+resembles that of the middle right panel, but it is unclear whether the vortex is driven by convection or precession.
+
+MNRAS 000, 1-26 (2025)
+by eye, to be consistent with the size of the convectively unstable
+linear modes. We attribute this behaviour to the convective motions,
+but note that this close to onset the convection is unable to form a
+convective large-scale vortex, both with and without precession, as
+previously observed in Guervilly et al. (2014) without precession.
+The precessional instability appears to be weak or absent compared
+to these convective motions, as there is no clear evidence of its oper-
+ation in the flow. Finally, we turn to even stronger convective driving
+in Fig. 3f, with Po = 0.1, Ra = 6Ra, taken at t = 0.05. Again, the
+initial transients have died down at this point in the simulation. The
+flow has saturated in a way that is very similar to the one in Fig. 3d.
+We again observe a vortex in the flow, but the areas around the vortex
+appear to be more noisy. This noise is presumably associated with
+the convective eddies present in the simulation. It is unclear whether
+the vortex is of a convective nature, generated by the precessional
+instability, or both. We will examine the time series of the energy
+injection to examine whether the precessional instability is operating
+in these simulations with strong convection present.
+
+There appear to be signatures of the grid scale present in both
+Figs. 3d and 3f. These are prominent here, but are much less pro-
+nounced and usually absent in the velocity snapshots that we have
+used to compute these vorticity snapshots. The prominence of the
+features here is likely an artefact of how we have computed the vor-
+ticity on this grid, and the colour scale we have used to plot these
+particular results. A further discussion of the well-resolvedness of
+our simulations can be found in Appendix A1.
+
+4.2 Time series of quantities of interest
+
+We have so far observed quite diverse flows emerging in the flow
+snapshots, even when considering just the non-linear evolution of
+the precessional instability in isolation. To better understand the
+differences between these flows, we now examine time series of our
+quantities of interest, K, K2p, J and u_. The latter of these is obtained
+by calculating the rms vertical velocity. These time series, obtained
+using NEK5000, are portrayed in Fig. 4. The times at which the
+snapshots in Fig. 3 are taken from these simulations have been marked
+with vertical dotted-black lines. All simulations have been executed
+with Ek = 2.5-1075. In Fig. 4a the simulation with Po = 0.1, Ra = 0
+is presented. This simulation corresponds to the snapshots in the top
+two panels of Fig. 3, showing the bursty behaviour. The peaks of
+the kinetic energy and energy injection correspond to flows that
+look similar to Fig. 3a, while those flows found in Fig. 3b occur
+during the troughs. The linearly unstable modes are associated with
+bursts in both total energy followed by bursts in the 2D energy with a
+slight delay. Furthermore, we observe that the energy injection is also
+bursty, and primarily associated with the 3D energy as one would
+expect. The vertical velocity appears to follow the kinetic energy
+quite closely in all panels of this figure.
+
+In Fig. 4b we plot the time series of the simulation executed with
+Po = 0.2, Ra = 0. Note the different x-axis range compared to
+Fig. 4a. As we expect from the middle panels in Fig. 3, the bursty
+behaviour is absent. Instead, the simulation goes through a regime
+of lower kinetic energy and energy injection from t = 0.03 — 0.06
+and then the flow goes through a rapid secondary transition into a
+regime with the kinetic energy, energy injection and vertical velocity
+maintained at strongly elevated levels. We will denote this regime as
+the “continuously turbulent" regime, in contrast to the bursty regime
+at lower values of Po.
+
+We now turn to examine the modification of these flows and corre-
+sponding time series due to the introduction of convection. In Fig. 4c
+
+Interactions of precession and convection 9
+
+the time series of the simulation with Po = 0.1, Ra = 2Ra, is shown.
+This simulation indeed shows the absence of the bursty behaviour,
+but has a kinetic energy roughly on the same order of magnitude as
+the one above. The precessional instability appears to not be operat-
+ing in this figure, as we concluded from the snapshot. The continuous
+energy injection is similar to the energy injection in De Vries et al.
+(2023b) in simulations that featured only convection acting on the
+(elliptical) background flow like an effective viscosity. We therefore
+attribute this behaviour to the convection acting like an effective vis-
+
+cosity in damping the precessional flow as well. In Fig. 4d we show
+the simulation with parameters Po = 0.2, Ra = 2Ra,. Even though
+the convection is present we again observe the secondary transition,
+likely indicating the operation of the precessional instability in this
+simulation. The kinetic energy and energy injection appear to saturate
+at slightly lower values compared to Fig. 4b.
+
+The time series corresponding to the simulation with Po =
+0.1, Ra = 6Ra, is shown in Fig. 4e. We observe a mixture of the con-
+tinual “convective energy injection" behaviour and the precessional
+instability’s secondary transition. A transition akin to the preces-
+sional instability’s secondary transition does arise like in Fig. 4b, but
+it is much more gradual. So, neither from the snapshot of the flow,
+nor from the time series can we properly conclude whether this is
+due to the precessional instability, or a property of convection mod-
+ified by precession. If it is indeed the precessional instability then
+the convection allows the secondary transition to appear at smaller
+values of Po. This can potentially enhance the energy injection and
+thus dissipation significantly, and is therefore important to examine
+further. Finally, we examine the time series of the simulation with
+Po = 0.2, Ra = 6Ra, in Fig. 4f. We again notice a secondary transi-
+tion, which occurs much faster than in the case of the top right and
+middle right panels, even though Po for all three simulations is the
+same. The energy and energy injections prior to this transition are
+larger due to the convective driving. We thus conclude that convec-
+tion does not disrupt operation of the precessional instability; instead,
+it appears that convection allows the precessional instability to attain
+its continuously turbulent regime for lower values of Po. This is pos-
+
+sibly caused by the increased value of the energy or 2D energy — and
+thus presence of a vortex in the flow — due to convection. An analysis
+of these 2D energies in the simulations executed using DEDALus is
+presented in Appendix B. To understand the key processes operating
+in the flow, we now turn to analyse power spectra obtained using
+DeEpaALus.
+
+4.3 Horizontal energy spectra of the flow
+
+We start by examining the horizontal energy spectra of the bursty
+simulation with Po = 0.1, Ra = 0 in Fig. 5, for which the
+corresponding time series can be found in Fig. Bla. The horizontal
+energy spectrum is obtained at the mid-plane of the simulation,
+ie. z = 0.5, and is captured over one burst and decay period, the
+boundaries of which are denoted by dotted vertical lines in Fig. Bla
+att = 0.106 andt = 0.140. We have averaged these spectra every five
+output steps, with a time between outputs of t = 0.001. The times
+corresponding to each spectrum are shown in the legend. Energy is
+preferentially injected by the precessional instability into the modes
+near k, = 18.059, binned into the wavenumber bin with k, = 67.
+In all of the averaged energy spectra in this figure this injection is
+represented by the large spike in energy. The period under study
+starts with a significant fraction of the kinetic energy in the K2p
+modes compared to the total energies, which is represented in the
+energy spectrum in dark blue by the bin with the lowest horizontal
+wavenumber containing comparable energy to the wavenumbers
+
+MNRAS 000, 1-26 (2025)
+10 N.B. de Vries et al.
+
+ila aaa
+0 005 04 0.15 a2 025 03 035 04 0.05 a
+(a) Po = 0.1, Ra = 0. (b) Po = 0.2, Ra =0.
+10" 40"
+401° 401° bE
+10° 10°
+10°
+10"
+ao? UR atonal baton
+10°
+10%
+10° i
+107 Eo
+101 |I—I
+(uz) |
+10° ; =
+0 0.05 m4 0.15 0.2 0 0.05 Bp 0.15 0.2
+(c) Po = 0.1, Ra = 2Ra,. (d) Po = 0.2, Ra = 2Ra,.
+10" r 10"
+10° 40%
+10° 10°
+10° 10°}
+107 10"
+40° 409 pee ee near ie
+10° 408
+104 104
+10° 102
+107 402
+10! 10"
+iO 0.05 0.1 0.15 ay 0.05 0.1 0.15
+t t
+(e) Po = 0.1, Ra = 6Rag. (f) Po = 0.2, Ra = 6Rag.
+
+Figure 4. Time series of the precessional instability and convection with Ek = 2.5 - 10-5, executed using NEK5000. Vertical dotted-black lines correspond to
+the times at which the snapshots in Fig. 3 are taken. The top left and right panels show the precessional instability in isolation. Note the different x-axis ranges
+between the two panels. The simulation in the top left panel produces the expected bursty behaviour, while the top right panel with stronger precessional driving
+features a secondary transition to a continuously turbulent state. The introduction of convection inhibits the bursty behaviour in the figure on the middle left,
+displaying a continuous energy injection instead. The simulation on the middle right with stronger precessional driving than the one on the middle left shows
+similar behaviour to the panel on the top right. The simulation on the bottom left with strong convective driving shows evidence for a secondary transition that is
+more gradual than in the top right panel, so convection might allow the precessional instability to become continuously turbulent at lower values of the Poincaré
+number. Finally, the simulation on the bottom right also shows the secondary transition, but stronger convective driving appears to allow the transition to occur
+sooner.
+
+MNRAS 000, 1-26 (2025)
+108
+
+10°
+
+104
+
+E(k.)
+
+10?
+
+10°
+
+10-7
+
+107 10?
+
+Figure 5. Horizontal energy spectra taken at z = 0.5 of the simulation with
+Po = 0.1, Ra = 0 from t = 0.106 to ¢ = 0.140, corresponding to the interval
+between the vertical dotted lines in Fig. Bla. The simulation goes through
+a burst and decay period in this interval. In the spectra this is indicated by
+the increase and subsequent decrease in the main energy injection spike in
+the wavenumber bin with k, = 67, while the 2D energy, here located in the
+smallest wavenumber bin, lags slightly behind this spike. The spectra clearly
+do not match the Kolmogorov scaling as Ke in dashed-black and therefore
+this case is not turbulent.
+
+where energy is injected. As the simulation evolves, the energy
+increases due to a burst in energy injection. This is represented by a
+large increase in the energy located in the primary energy injection
+spike plotted in progressively lighter blues, also adding energy in
+the smallest wavenumber bin corresponding to the large-scale flow.
+Towards the end of the burst energy is being transferred to smaller
+and smaller scales, as indicated by the widening of these spectra.
+After the burst finishes the energy starts decreasing again in the
+spectra plotted in progressively darker reds. Once these energies
+have decayed sufficiently, another burst can occur again and the cycle
+
+starts anew. Finally, we have plotted the turbulent Kolmogoroy-like
+5/3
+
+scaling of k,~’~ in the dashed-black line in the figure for reference,
+but we note that no parts of the spectra agree with this line, as we
+might expect, since the flow does not appear turbulent at any stage
+from the snapshots.
+
+Next, we turn our attention to the spectra of the simulation with
+Po = 0.2, Ra = 0 in Fig. 6, corresponding to the interval between
+the vertical dotted lines in Fig. Bld from t = 0.013 to t = 0.026, in
+
+Interactions of precession and convection 11
+
+108
+
+10°
+
+104
+
+E(k.)
+
+10?
+
+10°
+
+Lor
+
+107 10?
+ky
+
+Figure 6. Horizontal energy spectra taken at z = 0.5 of the simulation with
+Po = 0.2, Ra = 0 from t = 0.013 to ¢ = 0.026, corresponding to the interval
+between the vertical dotted lines in Fig. Bld. The simulation goes through
+the end of the linear growth phase and the short low-energy turbulent phase
+followed by the secondary transition. The energy at the end of the linear
+growth phase, in the two spectra plotted in darkest blues, is predominantly
+located in the bin with the linearly most unstable wavenumbers, as well as
+integer multiples of this bin, possibly pointing to triadic resonances. In the
+spectrum taken from ¢ = 0.019 to t = 0.02 plotted in lightest red, the flow
+is dominated by K2p. The flow shown in this and subsequent spectra is
+continuously turbulent due to the secondary transition, agreeing well with the
+Kolmogorov scaling as KP in dashed-black at intermediate wavenumbers
+for the times indicated by the spectra plotted with progressively darker red
+colours.
+
+with energy subsequently being distributed across scales. We have
+
+again plotted the Kolgomorov scaling as KB in dashed-black.
+
+It appears that the intermediate scal
+
+es in this simulation agree
+
+well with this prediction. Thus, we can be reasonably justified in
+calling this regime the “continuously turbulent" regime. We can
+
+use these energy spectra to examine
+well-resolved, using the rule of thumb
+bin must be at least a factor of 10°
+
+whether the flow is spatially
+that the largest energy in one
+arger than the energy at the
+
+de-aliasing scale, which is clearly satisfied in these spectra. As the
+
+which we capture the final stages of
+
+by the secondary transition. We have
+figure over two output steps, again wi
+t = 0.001. During the linear instability
+
+peak of the most unstable linear modes
+
+k. = 6, as well as a secondary peal
+
+e initial instability followed
+averaged the spectra in this
+ith a time between outputs of
+we again retrieve the primary
+s in the wavenumber bin with
+in the bin with kK, = 127.
+
+As the instability saturates, plotted in progressively lighter blues,
+energy is moved to smaller and smaller scales, as well as into the
+largest-scale modes. The energy starts aligning to a more traditional
+turbulent shape while the energy in the lowest wavenumber bin
+keeps growing; the clear peak in the linear modes has vanished in
+the spectrum taken from f = 0.019 to t = 0.02 plotted in the lightest
+red, and the Kp dominates the flow in this and all subsequent
+spectra. This seems to allow the secondary transition to occur,
+
+simulation continues evolving, it eventually achieves a statistically
+steady state, with spectra resembling the dark red spectrum in Fig. 6.
+We can also conclude that this simulation is well-resolved as the
+energy in the smallest wavenumber bin in these spectra is O(107)
+and the one in the largest wavenumber bin is O(107).
+
+Finally, we turn to study the effect convection has on these flows
+by examining the energy spectra of the simulation with Po = 0.1,
+Ra = 4Ra, in Fig. 7. The time we examine is denoted by the interval
+between the start of the simulation and the vertical dotted-black line
+in Fig. BIf, from t = 0 to t = 0.027. We average the spectra over
+four output steps, with an output step every t = 0.001. The spectra
+appear turbulent from the start of the simulation, as we would expect
+from sufficiently strongly driven convection. There is a hint of en-
+ergy injection by the precessional instability into the bin containing
+the precessionally unstable wavenumbers in the dark blue spectrum.
+As the simulation evolves the energy goes up predominantly in the
+smallest wavenumber bin and maintains roughly the same shape.
+The spectrum shows that this simulation is also well-resolved. As
+the simulation evolves and achieves a statistically steady state, the
+
+MNRAS 000, 1-26 (2025)
+12. N.B. de Vries et al.
+
+108
+
+— t=0.0--0,003
+
+10°
+
+104
+
+E(k.)
+
+10?
+
+10°
+
+10-7
+
+107 10?
+ky
+
+Figure 7. Horizontal energy spectra taken at z = 0.5 of the simulation
+with convection and the precessional instability interacting, with Po = 0.1,
+Ra = 4Ra,. from t = 0.0 to ¢ = 0.027, corresponding to the interval between
+the start of the simulation and the vertical dotted line in the Fig. BIf. The
+simulation goes through the linear growth phase and the gradual transition
+to a higher energy state. No clear evidence of the precessional instability
+is present. Again, we find good agreement with the Kolmogorov scaling as
+
+Kee in dashed-black for the intermediate wavenumbers.
+
+spectra resemble the dark red spectrum in Fig. 7, with the energy in
+the smallest wavenumber bin saturating at O(107), but with lower
+energies than the simulation in Fig. 6, while the energy in largest
+wavenumber bin saturates at O(10°). We have also compared the
+energy spectra of this simulation with the ones from the purely con-
+vective simulation with Po = 0, Ra = 4Ra. (not shown). These
+spectra look very similar to the ones in Fig. 7, so we have omitted
+them. There is, however, one crucial difference, the energy in the
+purely convective spectra stops growing. Most notably, the energy
+in the smallest wavenumber bin does not continue to grow like in
+Fig. 7, instead stagnating at an energy of ~ 10°, i.e. this bin saturates
+at lower energies.
+
+We conclude that the energy spectra support the hypothesis that the
+2D energy is —at the very least — related to the secondary transition to
+the continuously turbulent regime. We also find that convection as-
+sists in achieving this energy in a rapid manner in certain simulations
+that would otherwise be bursty in the absence of convection, such that
+even simulations with small values of the Po can achieve the contin-
+uously turbulent regime. However, the precessional instability must
+also be sufficiently strong to achieve this growth, as otherwise the
+precessional instability appears to be erased in favour of the turbulent
+“effective viscosity" regime.
+
+5 SCALING LAWS FOR THE QUANTITIES OF INTEREST
+
+We now turn to obtain scaling laws of the time-averaged values of
+the energy injection, /, rms vertical velocity, w,, and Nusselt number,
+Nu, as functions of the Rayleigh, Ekman and Poincaré numbers.
+We time-average these quantities starting from a suitable time in
+the simulations after a steady state has been reached. Because the
+continuously turbulent regime appears to be the final steady state in all
+simulations which feature it, we have taken time-averages only over
+this part of such simulations, neglecting any part of these simulations
+prior to the secondary transition.
+
+MNRAS 000, 1-26 (2025)
+
+5.1 Scaling laws as a function of the Poincaré number
+
+We have identified three different qualitative regimes as a function
+of Po and Ra. In the absence of convection and at low Po the flow
+is laminar, alternating between the most unstable mode and the z-
+invariant large-scale flow. The results in Barker (2016b) indicate that
+the energy injection associated with this behaviour might be consis-
+tent with a scaling like Po’, as they appear to scale similarly to the
+laminar dissipation of the background flow Up; see the bottom left
+panel of Fig. 7 in Barker (2016b). Note that their measured dissi-
+pation, and the energy injection in our setup, does not include the
+laminar dissipation, such that this only gives a tentative indication
+how the energy injection in our simulations might scale with Po in
+the laminar regime, without explaining the mechanism behind it. If,
+however, convection is present at low Po, the flow appears much
+more turbulent due to convective action. The bursty behaviour has
+disappeared and a continuous energy injection is present because of
+the action of turbulent convection on the precessional flow. We would
+expect to see this behaviour scale as Po? also and, more importantly,
+also depend on the Rayleigh number based on the results in Duguid
+et al. (2019, 2020); De Vries et al. (2023b). Finally, regardless of the
+presence of convection, these simulations indicate a continuously
+turbulent regime at high Poincaré numbers. We would expect the
+energy injection in this regime to scale as Po*. Even stronger convec-
+tion might also suppress this regime or result in an effective viscosity
+whose rate of energy injection overshadows that of the precessional
+instability.
+
+The time-averaged values of the energy injection rate J as a func-
+tion of Po with fixed Ek = 2.5 - 1075 are plotted in Fig. 8. In this
+figure numerous parameter sweeps at different values of the Rayleigh
+number are plotted; the runs executed using NEK5000 are plotted us-
+ing circles, while the runs executed using DEDALUs are plotted using
+diamonds. The simulations we have executed using DEDALUs always
+show very good agreement with their nex5000 counterparts, thus
+validating the results obtained using both codes. The simulations
+executed at Ra = 0 in blue circles start at Po = 0.06 because the
+precessional instability is not unstable below this value of Po with
+this value of the Ekman number. The data points in Fig. 8 are fit-
+ted using either of the obtained Po? or Po? scalings. We will define
+D = £Q3Po8 and Diam = YQ?Po”, with £ and Y the proportionality
+or efficiency “factors" of both scaling laws respectively. We have
+defined Djam for the dissipation scaling as Po? reported in Barker
+(2016b); Pizzi et al. (2022). Note that we reserve the proportionality
+factor Y for the precessional laminar scaling laws exclusively, and
+will not use this factor when fitting the effective viscosity. Further-
+more, we have chosen an arbitrary scaling of this laminar energy
+injection as Q? for ease of comparison with the energy injection due
+to the effective viscosity, but, since there is no theoretical basis for
+this scaling, we will allow Y to depend on Q. Lastly, ¢ can also
+depend on the Rayleigh number.
+
+At low values of Po the data points obtained with different values
+of the Rayleigh number agree well with the Po? scaling. Indeed,
+even the dataset obtained at Ra = 0 agrees with this crude scaling
+with Y = 3.5, which we have plotted in dashed-black. Although it
+should be stressed that this parameter sweep primarily agrees with
+this scaling law for a different reason than those parameter sweeps
+where convection is present. The energy injection rate at Ra = 2Rag,
+represented with yellow circles and fitted in solid-red, is lower than
+at Ra = 0; the convection has prevented the precessional instability
+from operating, even though the energy injection from the convection
+acting on the background flow is actually lower than that of the
+precessional instability in isolation with Ra = 0. The energy injection
+Interactions of precession and convection 13
+
+10/2
+
+— 108
+
+L
+
+$
+
+¢ Ra= 0, Dedalus
+$ Ra=2Ra
+
+$ Ra=4Ra
+
+¢ Ra= 4Ra,, Dedalus'
+>} Ra=6Ra,
+
+¢ Ra=15Ra,
+
+—Fit, 0.649?Po?
+—Fit, 259?Po? rE
+—Fit, 800?Po?
+—Fit, 2409?Po?
+—Fit, 0.099?Po?
+- - -Fit, 3.50?Po?
+
+4b
+10
+10%
+
+10"!
+Po
+
+10°
+
+Figure 8. Time-averaged energy injection J with fixed Ek = 2.5 - 10-5. The simulations executed using Nex5000 are presented with circles, the ones executed
+using DEDALUs with diamonds. The laminar dissipation regime scaling as Po? in the absence of convection and the effective viscosity regime also scaling as Po?
+
+for simulations with convection present are found Po < 0.1. The transition regime of the purely precessional case is found around Po = 0.16. The continuously
+turbulent regime that all simulations agree with at moderately large values of Po has been fitted with a solid-black line scaling as Po. Note that as the Poincaré
+number is increased beyond Po ~ 0.35 the energy injection plateaus, then appears to decrease, followed by a second increase around Po ~ 1.
+
+in this regime increases with convective driving. A final point of
+note is that both the purple circles with Ra = 4Rag, with fit in solid-
+grey, and the light blue circles with Ra = 6Ra,, with solid-blue fit,
+deviate from their respective fits as Po? for Po > 0.10 and Po > 0.06
+respectively. Instead, they then seem to agree with a fit as Po? in solid-
+black, providing a tentative hint for the continuously turbulent scaling
+we have predicted previously. Finally, the two burgundy circles with
+Ra = 15Ra, with associated solid-pink fit, do not agree with the solid-
+black fit. This is because the energy injection due to the convection
+interacting with the background flow is larger than the solid-black
+fit on this interval of Po, because the convective driving for these
+parameters is quite strong.
+
+The majority of the data points at Po 2 0.15 do not agree with
+the fits as Po?. Instead, a strong jump in energy injection in both
+the purely precessional simulations with Ra = 0 and the simulation
+with the weakest convective driving considered with Ra = 2Ra, is
+present. Both of these scalings first deviate weakly from their Po”
+fits, associated with the turbulent state without a secondary transition.
+Then, when the secondary transition is present in the simulations,
+the energy injection jumps up abruptly as a function of Po and aligns
+with the solid-black fit scaling as Po®. This abrupt jump occurs at
+different values of the Poincaré number, as previously observed in
+the Ra = 4Ra, and Ra = 6Ra, parameter sweeps. The abrupt jump
+occurs at Po = 0.16 for the Ra = 2Ra, parameter sweep and at
+Po = 0.17 for the Ra = 0 parameter sweep. Thus we also observe
+in this figure that the secondary transition to the turbulent state is
+facilitated by the convection such that it occurs at lower Po for larger
+Ra.
+
+Once the turbulent scaling has been reached all simulations are,
+within the error bars, consistent with the solid black fit scaling as
+Po? with ¢ = 0.09 up to and including Po ~ 0.35. At larger values
+of the Poincaré number higher-order effects seem to arise, and the
+energy injection seems to plateau or possibly decrease slightly as
+a function of Po, deviating from the solid-black fit. At even larger
+values of Po > 0.5 the energy injection does again increase a little
+bit, but the specific reason for this is unclear. It could be due to,
+for example, further higher-order effects, boundary layer effects, or
+possibly even the horizontal wavenumber decreasing sufficiently, as
+Po is increased, such that it is now no longer de-tuned as it selects
+a different mode available in the simulation. Finally, although all
+data points are consistent with the solid-black fit within error bars a
+trend does appear to arise as a function of the Rayleigh number. The
+energy injection rate decreases as the Rayleigh number is increased
+(which we will show in more detail in Sec. 5.3). This decrease is
+expected to continue with increasing values of the Rayleigh number
+until the turbulent energy injection of the precessional instability is
+overshadowed by the energy injection due to the effective viscosity.
+This has already happened to the burgundy circle with Ra = 15Ra,.
+at Po = 0.25 where the energy injection agrees with the Po? fit in
+solid-pink, even though it is in the continuously turbulent regime and
+visual inspection of the time series of this simulation (not shown)
+reveals the secondary transition.
+
+Having examined the time-averaged energy injection we now ex-
+amine the vertical velocity. We examine the time-averaged rms ver-
+tical velocity uz in Fig. 9. The velocities largely follow the same
+patterns as the energy injection: at low Poincaré numbers the con-
+
+MNRAS 000, 1-26 (2025)
+14. N.B. de Vries et al.
+
+1
+0? 10" 10°
+Po
+
+Figure 9. Same as Fig. 8, instead showing the time-averaged rms vertical
+velocity uz. The vertical velocity in the absence of convection agrees with
+two different fits in the laminar (dashed-black line), and continuously turbulent
+regimes (solid-black line), respectively. Both fits are consistent with scaling as
+Po. The velocities in the presence of convection match the convective velocity
+(i.e., with Po = 0), until the continuously turbulent precessional regime arises
+in the simulation (Po 2 0.16), at which point they align with the continuously
+turbulent scaling in the absence of convection. The vertical velocity plateaus
+around Po ~ 0.30.
+
+vection dominates and the vertical velocity is therefore independent
+of Po. The vertical velocities instead scale with the Rayleigh num-
+ber. As Po is increased these values start deviating from the purely
+convective result, with clearly noticeable departure from Po 2 0.06
+for Ra = 4Ra. and Ra = 6Ra,. At even larger values of Po these
+data points instead start aligning with what appears to be a linear
+scaling with Po in solid-black. This scaling was predicted in Sec. 2.3
+to derive the energy injection rate. The solid-black fit again tends to
+agree with the results in the continuously turbulent regime after the
+abrupt jump at all values, up until Po ~ 0.30, after which it appears
+to plateau again. Note that the burgundy data points corresponding to
+the parameter sweep with Ra = 15Ra, only agree in the continuously
+turbulent regime; in the convectively dominated regime the veloci-
+ties of this sweep are much larger than predicted by the Po scaling in
+solid-black. The purely precessional results with Ra = 0 in blue data
+points at low Po are consistent with a different fit than the one shown
+in solid-black. This fit, plotted in dashed-black, also scales as Po.
+The vertical velocities associated with this fit are about one order of
+magnitude smaller than those in the continuously turbulent regime.
+
+The Nusselt number in the convective, Ra # 0, simulations is plot-
+ted in Fig. 10. For these convective parameter sweeps the Nusselt
+number follows the same general behaviour as the vertical veloc-
+ity. Nu starts at the convective value for small Po, and then remains
+almost constant until it starts to transition into the continuously turbu-
+lent precessional regime. In the continuously turbulent precessional
+regime Nu is higher than in the absence of precession for most of the
+studied Rayleigh numbers, as also found in Wei & Tilgner (2013). In
+the case of Ra = 4Ra, and particularly in the case of Ra = 6Ra, this
+transition is very gradual. The Nusselt number in simulations with
+Ra = 2Ra, prior to the transition to the fully turbulent regime ex-
+hibits a downward trend. This is likely a result of the large-scale flow
+forming a vortex and becoming more energetic in these simulations
+as Po is increased. After the abrupt jump the results seem to agree
+roughly with a linear scaling with Po in the solid-black fit, just like the
+convective velocity. The Nusselt number once again deviates from
+
+MNRAS 000, 1-26 (2025)
+
+107
+
+PHteg
+
+0 1
+
+10
+107 107
+Po
+
+Figure 10. Same as Fig. 8, instead showing the time-averaged Nusselt num-
+ber, Nu. The parameter sweep with Ra = 0 has not been plotted as the
+Nusselt number is then one by definition. Nu appears to decrease slightly in
+the effective viscosity regime as the 2D energy gets stronger with stronger
+precessional driving for the Ra = 2Ra,. case. Then it jumps or increases to
+match the continuously turbulent regime, where the Nusselt number appears
+to collapse onto a linear scaling consistent with Po like the vertical velocity.
+Nu plateaus around Po = 0.35.
+
+this scaling from Po ~ 0.35 onwards. Note that the results obtained
+at Ra = 15Ra, do not agree with the solid-black fit, as the inherent
+Nu due to convection is larger than any effects of the precessional
+instability in this parameter sweep. However, we do notice a slight
+increase of the convective heat transport in this parameter sweep with
+increasing values of Po. We suspect this is because the convection
+is inhibited less by rotation due to the introduction of precession,
+which results in an effective rotation axis inclined with respect to the
+direction of gravity. This weakens the Taylor-Proudman constraint
+(along z), and thus allows for more efficient vertical heat transport.
+
+5.2 Scaling laws as a function of the rotation rate
+
+To start our examination of the effects of varying the rotation rate on
+the precessional instability — in the absence of convection — we have
+performed parameter sweeps as a function of Po with three different
+values of the Ekman number, Ek = [5 - 107°, 2.5 - 1075, 107], ob-
+tained by varying the rotation rate. The results are plotted in Fig. | 1a.
+These three parameter sweeps are indicated in blue, orange and pur-
+ple triangles, respectively. The pEDALUs simulations are plotted in
+yellow diamonds. The solid-black and dashed-black fits from Fig. 8
+are reproduced in this figure. The energy injection increases as the
+Ekman number decreases, but the same general behaviour is main-
+tained across all three parameter sweeps. All three parameter sweeps
+feature a laminar energy injection that appears to be consistent with a
+fit scaling as Po”. The energy injection of all three parameter sweeps
+starts deviating slightly from the laminar scaling and then abruptly
+jumps to one consistent with Po* scaling. The value of Po at which
+this abrupt jump occurs decreases with decreasing Ekman number.
+In Fig. 11b the x-axis of Fig. 11a has been rescaled in such a way
+that the jump occurs at roughly the same value for all three parameter
+sweeps at different values of the Ekman number. The best agreement
+(by eye) was found by rescaling the x-axis to Ek~4/!po, This rescal-
+ing seems to indicate that the continuously turbulent regime of the
+precessional instability appears to emerge when Ek-4/!po > 11.
+Both the effects of changing the viscosity and the rotation rate to
+
+10'76
+
+5-10°%
+25-10%
+10-*, Dedalus;
+
+os
+—Fit, 0.099°Po*
+(~~ Pit, 3.59?Po”
+
+(a) J as a function of Po at different Ek.
+
+10°
+107
+= 194
+Ss
+6 FEk=5-10°
+% 105
+-10-°, Dedalus|
+} Ek=10°
+r —Fit, 0.09Po"
+10° os . —
+10? 107 10°
+Po
+
+(c) Same as Fig. 11a, but rescaling the y-axis with Q?.
+
+Interactions of precession and convection 15
+
+10'2
+
+40°?
+
+— 40°
+
+6
+10 ss 5, Dedalus
+
+—Fit, 0.090" Po*
+- = -Fit, 3.50°Po?
+
+10
+10° 10"
+Ek-Y/po
+
+(b) Same as Fig. I 1a, but rescaling the x-axis with Bk4/10_
+
+107
+
+10° #
+
+art .
+
+S10 I Z ge
+104 yl fei |
+a } Ek=2.5- 10-5, Dedalus
+soo® } Ek=10%
+
+ab , [=:Fit, 0.025Po? _
+
+10 2 10" 10°
+
+Po
+
+(d) Same as Fig. | 1a, but rescaling the y-axis with Q?>.
+
+Figure 11. The time-averaged energy injection J as a function of the Poincaré number at different values of the Ekman number, in the absence of convection.
+The chosen values of the Ekman number are Ek = [5- 1075, 2.5- 10-5, 1075] in blue, orange and purple triangles respectively. The pEpALus results are plotted
+in yellow diamonds. The continuously turbulent scaling in solid-black and the laminar scaling in dashed-black from Fig. 8 are reproduced in the top-left panel. It
+shows that the transition to the continuously turbulent regime decreases with increasing Po, while the energy injection itself increases with increasing Q. Good
+
+agreement of the location of the transition in all three cases is found when rescaling the x-axis with Ek ~
+
+4/'9 in the top-right panel. In the bottom-left panel we
+
+have rescaled the y-axis with Q3, and find that all three parameter sweeps collapse to the solid-black fit of the continuously turbulent regime. In the bottom-right
+panel we rescale with Q°/? instead and find that now the parameter sweeps collapse to the laminar scaling in dashed-black.
+
+alter the Ekman number in these simulations has been tested, and it
+was found that it is the Ekman number that governs this transition,
+with the same location of the transition being found independently
+of varying the viscosity or rotation rate. The energy injection rate,
+however, depends on the tidal frequency, and thus it depends on the
+rotation rate and not the Ekman number. In astrophysical systems,
+with values of Po that are not too small and very small values of
+the Ekman number, we might thus expect to be in the continuously
+turbulent regime for the precessional instability in isolation.
+
+In Fig. llc the y-axis of Fig. 1la has been rescaled instead, to
+test the scaling of the energy injection with the rotation rate (tidal
+frequency). The energy injection rate of all three parameter sweeps
+was rescaled by dividing each by their respective rotation rate cubed;
+the predicted scaling of the energy injection in the continuously
+turbulent regime. Upon rescaling, the data points which are located
+in the continuously turbulent region collapse and agree remarkably
+well with the fit of the energy injection rate in solid-black as given in
+Fig. 8, with ¢ = 0.09. The data points located in the laminar regime
+in this panel do not collapse under this rescaling, and the dashed-
+black fit corresponding to the laminar regime is omitted in this figure.
+
+Finally, in Fig. 11d the energy injection rate is rescaled by dividing
+by Q°/? for each parameter sweep. This differs from the choice made
+previously in which the energy injection in the laminar regime scales
+as Q?. However, the data points collapse more uniformly and better
+agreement with the fit in dashed-black is achieved when the y-axis
+is rescaled by Q°/? instead. For consistency, the original definition
+in which the energy injection scales as Q? in the laminar regime is
+maintained and thus the proportionality factor is Y = 0.025Q!/?. All
+three parameter sweeps in the laminar regime agree very well with
+the Po? fit in dashed-black. The energy injection rate associated with
+the precessional instability in isolation, in this setup, therefore scales
+as:
+
+for Ek~*/!po < 11,
+
+_ $0.02525/2Po? (26)
+7 for Ek~“/!po > 11.
+
+0.0923Po?
+
+The scaling for the turbulent regime is diffusion-free and can there-
+fore be readily extrapolated to planetary conditions. The transition
+between the two regimes, however, depends on the diffusivities, as
+does the scaling in the laminar regime. Care should therefore be taken
+
+MNRAS 000, 1-26 (2025)
+16 = N.B. de Vries et al.
+
+when applying these results to planetary conditions, as the behaviour
+may be different at planetary diffusivities.
+
+5.3 Scaling laws as a function of the Rayleigh number
+
+The final aim of this work is to constrain the impact that convection
+has in decreasing the turbulent energy injection, as well as constrain-
+ing the energy injection due to the turbulent effective viscosity of
+convection acting on the precessional flow. To this end, we plot the
+results we have obtained in three large parameter sweeps as a function
+of the Rayleigh number with Po = [0.04, 0.10, 0.25]. The fitting of
+the precessional instability is complicated by the convection acting
+on the tidal flow like an effective viscosity and extracting energy from
+the precessional flow in our simulations, such that at high values of
+the Rayleigh number we expect the energy injection of the effective
+viscosity to overshadow that of the precessional instability.
+
+The behaviour of the three parameter sweeps presented as a func-
+tion of the Rayleigh number is plotted in Fig. 12. There is a clear
+difference between the parameter sweeps with Po = 0.04 and 0.10
+with Po = 0.25. The energy injection in the former two increases as
+the Rayleigh number is increased, while the energy injection in the
+latter appears to decrease as Ra is increased. This behaviour is ex-
+pected from Fig. 8; in the effective viscosity regime larger Rayleigh
+numbers increase the energy injection, whereas in the continuously
+turbulent regime larger Rayleigh numbers decrease the energy injec-
+tion. The parameter sweep with Po = 0.04 in blue squares portrays
+only the effective viscosity, as the precessional instability is expected
+to be unable to operate at this value of the Poincaré number, unless
+the convective driving is very strong, in which case the precessional
+instability is likely to be overshadowed by the effective viscosity re-
+gardless. Therefore, we have fitted this parameter sweep using the
+scalings of the effective viscosity in Eq. (24). In particular we have
+used the scalings of the high and intermediate frequency regimes in
+solid-red and solid-black, respectively. The energy injection agrees
+well with the high frequency prediction when Ra 2 3Rac, until
+the convective driving becomes too strong, such that the simula-
+tions enter the intermediate frequency regime, agreeing well with
+the solid-black fit instead of the solid-red fit. From the fits we have
+obtained, we find the following scalings for the intermediate and high
+frequency regimes:
+
+intermediate frequency,
+
+0.380Ra5/2Bk2 Pr! 23 d-4qy~2
+
+0.091Ra7/4Ek?Pr“!/443/2d-!@t/?
+= high frequency,
+
+(27)
+
+with w = Q. We assume that the fits for u. and /, as obtained previ-
+ously in De Vries et al. (2023b) still apply. This is a valid assumption
+in the absence of precession, but as seen in Fig. 9, the convective
+velocities do increase as Po is increased. Upon reproducing the low
+frequency regime scaling from Eq. (23) for completeness (since we
+do not observe it here), and reproducing the frequencies at which
+these regimes apply, we find that the effective viscosity is described
+well by:
+
+Sucle lel < 19-2,
+
+rope 0.78ucle( 2) lol (10-2, 5], (28)
+we) lal
+11Sucle( 22) lol 5,
+
+It appears that the scalings are fairly consistent between the elliptical
+(in De Vries et al. 2023b) and precessional background flows, but the
+specific flow appears to introduce different prefactors, even when its
+
+MNRAS 000, 1-26 (2025)
+
+form is already taken into account in the definition of the effective
+viscosity in Eq. (21).
+
+Furthermore, there appear to be two different behaviours of the
+parameter sweep with Po = 0.10 in Fig. 12 and as such we have not
+performed any fits to this set. Instead, we have plotted two vertical
+lotted lines to indicate the boundaries between the three regimes
+that appear to be present in this sweep. In the leftmost third of the
+figure the sweep follows the effective viscosity, when the convection
+is unstable, following the exact same pattern as the sweep in blue
+squares. In the middle third the energy injection no longer follows
+the same behaviour as the blue squares and instead appears to be
+weakly decreasing with increasing Rayleigh number. This agrees
+with the observations in Fig. 8; the convective driving has allowed
+the precessional instability to achieve the continuously turbulent
+regime. The orange squares in this middle third between the two
+jashed lines follow the same behaviour as the parameter sweep with
+Po = 0.25 in yellow squares. Finally, the energy injection due to
+the convection acting as an effective viscosity on the background
+flow overtakes the energy injection of the continuously turbulent
+precessional instability in the right-most part of the figure, and the
+two orange squares again follow the same trend as the blue squares.
+
+Finally, we examine the energy injection in the parameter sweep
+with Po = 0.25 plotted in the yellow squares, as well as purple di-
+amonds from the same simulations executed using DEDALUS. Good
+agreement is again found between the DEDALUS and NEK5000 re-
+sults. In this continuously turbulent regime, a continuous downward
+trend is present until Ra = 15Rac, where the energy injection of
+the turbulence acting like an effective viscosity again overtakes the
+precessional turbulence. We have fitted all yellow squares bar this
+last data point, by modifying the fit obtained for the continuously
+turbulent regime in Eq. (26) according to:
+
+T = 0.090? Po (1 + ERaPr7!Ek?)7!, (29)
+
+with & the fitting parameter to be determined. We have opted for
+RaPr~'Ek? instead of Ra to maintain the essence of N?/Q? in this
+fit, which is a dimensionless and diffusion-free ratio that most often
+arises in the linear stability analysis of Benkacem et al. (2022), for
+example. The proportionality factor £ = 1/Q3Po* thus depends on
+the convective driving, here represented by the Rayleigh number.
+Upon fitting this to the data, we find:
+
+I = 0.09Q3Po03(1 + 14RaPr7!Ek?)~!. (30)
+
+This fit is plotted in solid-burgundy in Fig. 12. No clear theoretical
+basis for this prescription has been identified, but it agrees very
+well with the data. Moreover, the parameter sweep is narrow, and is
+hindered by the presence of the effective viscosity in the simulations.
+We therefore caution the reader that this prescription may not be the
+correct one outside of the explored parameter regime. However, it
+clearly demonstrates the qualitative result that the energy injection
+due to the continuously turbulent precessional instability decreases
+as the convective driving is increased.
+
+6 ASTROPHYSICAL APPLICATIONS
+6.1 Simple estimates of the tidal dissipation
+
+Here we will attempt to obtain simple estimates for the tidal quality
+factor Qs 1,0 due to the precessional instability using the scaling laws
+obtained in Sec. 5. We choose to work with the scaling of the energy
+injection rate J oc £Po® for the precessional instability because the
+Ekman number in Jupiter and Jupiter-like planets is expected to be
+
+Interactions of precession and convection 17
+
+2
+I
+
+# Po =0.04,Ek =5- 10% F
+i Po=0.10,Ek = 5-10
+
+} Po=0.25,Ek=5-10-° H
+$ Po =0.25,Ek =5-10~°, Dedalus
+
+—Fit, 4.0- 107! . 40?Po?Ra‘/*
+—Fit, 5.9- 10-19 - 40?Po?Ra?/?
+—Fit, 0.090*Po?(1+ 14RaEk?)"!
+
+8 10 12 14 16
+Ra
+
+Figure 12. Time-averaged energy injection J as a function of the Rayleigh number at different values of the Poincaré number. The parameter sweeps executed
+
+using NEK5000 with Po = [0.04, 0.10, 0.025] are plotted in blue, orange and yellow squares respectively. The DEDALUs results with Po = 0.25 are plotted in
+
+purple diamonds. The agreement between results obtained using both codes is very good. Results with Po = 0.04 portray the effective viscosity for all simulation
+values plotted, and we have therefore fitted them using the prescriptions of the effective viscosity given in Eq. (24) in the high and intermediate frequency
+
+regimes in solid-red and solid-black respectively. We again observe good agreement for Ra > 3Ra... The parameter sweep with Po = 0.10 is split into three parts
+
+by the vertical dotted-black lines. In the left third, when Ra # 0 the results follow the same pattern as the blue squares, and thus portray the effective viscosity.
+In the middle third the results instead follow the same pattern as the yellow squares and thus portray the convectively enabled continuously turbulent regime.
+
+Finally, in the right third the energy injection due to the effective viscosity is larger than that of the continuously turbulent precessional instability and thus the
+
+results portray the effective viscosity regime again. The results with Po = 0.25 show that the convection does indeed decrease the energy injection due to the
+continuously turbulent precessional instability, which is fitted in the solid-burgundy line.
+
+so small (Guillot et al. 2004), such that the condition in Eq. (26) is
+satisfied if the Poincaré number is indeed O(107*) in Hot Jupiters
+(Barker 2016b). In addition, using the parameters in Guillot et al.
+(2004) we find that the convective modification of the precessional
+dissipation according to Eq. (30) is negligible. The tidal dissipation
+due to the precessional instability, after re-introducing dimensional
+units and multiplying by the volume of the planet, is given by:
+
+D = £MR;Q°Po°, BL)
+
+where M, is the planetary mass, and R, is the planetary radius. We
+have chosen to equate the size of our Cartesian box with the planetary
+radius in this expression. Although crude, it provides a first estimate
+of tidal dissipation rates, in the absence of global (spheroidal shell)
+simulations with convection, which is broadly consistent with our
+simulations. Next, the energy stored in the tidal response (Eo) is (to
+within an O(1) factor):
+GM ,
+
+Ey~ +e, (32)
+
+1
+
+with G the gravitational constant and € the tidal amplitude due to
+tides raised by a body Mz inside the planet, given by:
+
+cn (ar) = (avg) (pee)
+M,\a M,+Mp}\ Pow} ?
+
+with Por the orbital period and Payn = 27
+
+(33)
+
+j the dynamical or
+free-fall period of the body, which for Jupiter is ~ 2.8 hours. The
+
+tidal quality factor Qo, o is then given by (Barker 2016b):
+
+/
+Q5, 1,0 ~
+
+3. QF 1 3 Mp ) Pym Prot 3a)
+
+2k2 D ~ Po 2k2 \Mi+M2} PA,
+
+The rotation period Prot = 27/Q is equal to the tidal period for
+this component of the tide. We can find the Poincaré number using
+Po = Prot/Pp, where Py is the precession period given by (e.g. Kopal
+1959; Eggleton & Kiseleva-Eggleton 2001):
+
+Prot\ (Porn)? (Mi + M2) (1 e?)°?
+Id ld Mo cosi
+
+Pp ~ 0.2 yrs : (35)
+with 7 the inclination or obliquity of the body’s spin axis to its or-
+bital rotation axis, and e the orbital eccentricity. We have substituted
+characteristic values for Jupiter: W = 0.26, kp ~ 0.56, the latter
+being obtained through Juno observations (e.g. Durante et al. 2020)
+and theoretical calculations (Lai 2021; Dewberry & Lai 2022). We
+set Pory = Prot = 1 day, to mimic spin-orbit synchronisation already
+having occurred. We have chosen not to insert values of the eccen-
+tricity and inclination but instead included them in the expression for
+completeness. For the Poincaré number we find:
+
+3
+Po ~o.01(44 Ma
+Por Mi + M2
+
+cosi
+a = e2)3/2 .
+Next, we rewrite Eq. (34) by substituting Po using Eq. (36), to find:
+
+Oho 2+ 108 202 (Mit Ma) ( Prox 20 poe \? (1 —e2)3/2\3
+21,0 Z i a a =a
+
+(36)
+
+MNRAS 000, 1-26 (2025)
+18 NB. de Vries et al.
+
+(37)
+
+Our simple estimate therefore indicates that a Jupiter-like planet on
+a short-period orbit results in a low tidal quality factor of Q’ ~ 10°,
+of the same magnitude as was found for the elliptical instability
+(De Vries et al. 2023b).
+
+6.2 Detailed computations of the tidal dissipation
+
+To provide a more detailed estimate of the tidal dissipation and
+associated tidal quality factor due to the precessional instability, as
+well as the effective viscosity, in a (Hot) Jupiter-like planet, we require
+models for its internal structure, i.e. profiles of pressure and density
+(and other quantities) as functions of radius. As in De Vries et al.
+(2023b); Lazovik et al. (2023), we use a modified version of the test
+suite case make_planets of the Mesa code (Paxton et al. 2011, 2013,
+2015, 2018, 2019; Jermyn et al. 2023) with the Mesaspk (Townsend
+2022) to generate 1D interior profiles of giant planets, as also used
+previously (e.g. Miiller et al. 2020; Miiller & Helled 2023).
+
+We summarise here the parameters used to generate these models.
+The initial Jupiter model has a radius of 2R; and a mass of 1M,,
+of which 10 Earth-masses are located in an inert core with density
+10 g cm™*. The model is evolved for 4.5 Gyr to mimic the age
+of Jupiter and employs a constant surface irradiation of 5 - 10+ erg
+cm7? s7!, similar to what Jupiter receives from the Sun, which is
+deposited at a column depth of 300 g cm~? (about 0.7 bar). A Hot
+Jupiter model was also created with the same parameters except that
+we increased the surface heating to represent the irradiation of a one-
+day planet around a Sun-like star of 10° erg cm~? s~!. Furthermore,
+we incorporate additional interior heating with uniform rate 0.05 erg
+cm~> s~! throughout the fluid envelope, which can be thought to
+represent the impact of tidal heating or Ohmic dissipation (or other
+mechanisms) that could possibly inflate a number of Hot Jupiters.
+This allows us to determine the effects of the increased radius (and
+stronger convection) of a puffy Hot Jupiter on the tidal dissipation
+rates. The Mesa code by default treats convection using non-rotating
+mixing-length theory (MLT), for which we use the Cox prescription
+(Cox & Giuli 1968).
+
+Details of the calculations of the relevant quantities from these
+models can be found in De Vries et al. (2023b). We summarise the
+methods here. The convective velocities and lengthscales (mixing-
+lengths) obtained using Mesa are calculated using flux-based non-
+rotating MLT. Thus, we must convert these convective velocities
+and lengthscales to RMLT by introducing a correction scaling with
+the convective Rossby number. We will denote quantities calculated
+using non-rotating MLT with tildes. The converted RMLT versions
+of the effective viscosity are thus:
+
+lol < 10-2,
+
+lol (10-2, 5], (8)
+
+Veff
+
+Ie
+be
+2
+7
+—
+=
+——
+iS
+JE
+wv
+wn
+
+The Rossby numbers in both models were found to be much smaller
+than one, and hence convection is highly rotationally constrained,
+which justifies the use of RMLT (over MLT) in giant planets (see
+De Vries et al. 2023b). Likewise, it was found that the fast tides
+regime is the relevant one in both models, except for the final percent
+or so of the radius, which approaches the surface stable layer.
+
+MNRAS 000, 1-26 (2025)
+
+6.3 Tidal dissipation rates in Jupiter and Hot Jupiters
+
+Using the radial profiles of veg obtained in De Vries et al. (2023b)
+we compute the resulting damping of the precessional flow and the
+associated tidal quality factors Q’ in our planetary models. We follow
+the procedure outlined in Sec. 2.1 of Barker (2020), which follows
+e.g. Ogilvie & Lin (2004); Ogilvie (2013); Ogilvie (2014). Only the
+degree / matters for this calculation, such that the tidal quality factor
+associated with the effective viscosity is the same regardless of the
+value of the order m, and thus should be the same for the convection
+acting on the precessional flow with / = 2,m = 1,n = 0 as the
+1 =m =n = 2 tidal flow in Duguid et al. (2019, 2020); De Vries
+et al. (2023b). We therefore only compute this quantity using an
+imposed tidal potential given by 2,2, and apply this to find 2) 10°
+which should be the same as Q4 , ,. The only modification compared
+to Barker (2020) is that we account for the rotational dependence of
+Ver and w, as described above, otherwise we employ their Eq. (27)
+to obtain veg(r) in the various different frequency regimes. The
+resulting tidal quality factor is (Ogilvie 2014):
+
+, 321+ DRM fall?
+Ginn = TG Dy
+
+, G9)
+
+where A « € is the amplitude of the tidal perturbation (so that
+the ratio Dy/|A|? and hence Q/,,,, are independent of the tidal
+amplitude). We have already determined an expression for 10
+from the precessional instability in Eq. (37).
+
+To further put our results in context, we will also compute the tidal
+quality factor resulting from the dissipation of linearly-excited iner-
+tial waves in convective regions by applying the frequency-averaged
+formalism of Ogilvie (2013) to our planetary models. We follow the
+approach outlined in Section 3.1 of Barker (2020), fully accounting
+for the planetary structure. This prediction for (Qi maw) provides a
+tidal frequency-independent “typical level of dissipation" due to iner-
+tial waves according to linear theory. This is thought to be representa-
+tive of the dissipation of inertial waves excited by linear tidal forcing,
+i.e. not via the precessional instability. The frequency-averaged esti-
+mate of the tidal dissipation and associated tidal quality factor Q% | 9,
+ue to linearly-excited inertial waves for obliquity tides is, however,
+unreliable, because the tidal frequency of —Q also resonates with
+what is known as the spin-over mode (Ogilvie 2013). This mode
+ould not be dissipated viscously in a spherical body, even though
+ie frequency-averaged formalism predicts a large dissipation asso-
+‘iated with the spin-over mode resonance. The frequency-average
+f the tidal dissipation consequently massively overestimates the re-
+ulting dissipation (Ogilvie 2014). When shifting into the precessing
+tame, where this resonance vanishes, as in Lin & Ogilvie (2017),
+e associated viscous dissipation purely due to this mode also dis-
+ppears. The tidal dissipation associated with the / = 2,m = 1,n =0
+component calculated this way depends on the size of the convective
+egion, but generally turns out to have a similar order of magnitude as
+ie frequency-averaged dissipation of the / = 2, m = 2, n = 2 com-
+onent (Lin & Ogilvie 2017). Therefore, we opt not to plot (Q5 aw)»
+s itis unreliable (see also Damiani & Mathis 2018). Instead we point
+@) (Q) 9 1w)> which we will denote as (Q/,,) going forwards, to give
+s an idea of the magnitude of the frequency-averaged dissipation
+ue to linearly-excited inertial waves due to the obliquity tide.
+
+We show Q’ in Fig. 13 as a function of the tidal period for the
+precessional instability in black. We have incorporated Q’ due to the
+precessional instability together with our estimates for Q’ obtained
+for the elliptical instability in De Vries et al. (2023b). We set e = 0,
+such that we consider a circular orbit, and cosi = 1, when consider-
+ing the precessional instability. The latter implies that the spin and
+
+Ors
+
+pao
+
+as
+
+ane!
+
+PU Ss
+
+ec
+
+orbit are aligned, in which case the precessional instability does not
+operate. However, this is representative of the Q’ at small inclinations
+when cos ~ 1, while providing a lower bound on Q% , , due to the
+precessional instability. We show two predictions for the precessi
+
+instability, one with Por) = 1 day and the other with Por
+When considering tidal dissipation due to the effective visc
+ing on the precessional background flow in the RMLT regime, i.e.,
+when considering Q 10 for vemtt, the tidal frequency is set by the
+spin frequency, and thus only the tidal frequency corresponding to
+the rotation rate used to compute this curve should be considered for
+this background flow. The convective damping of the precessional
+flow by an effective viscosity in the Jupiter model in Fig. 13a is
+an inefficient tidal dissipation mechanism in giant planets and leads
+to large Q’ and thus large tidal timescales. The low tidal frequency
+regime in dashed-blue and dashed-magenta for MLT and RMLT,
+respectively, indicate their strongest dissipation when the tidal fre-
+quency is large. If RMLT applies, as is expected, Q’ is still O(10°)
+if we neglect the frequency reduction of ver for fast tides, thus the
+dissipation (and resulting tidal evolution) is weak. The combination
+of low, intermediate and high tidal frequency regimes for veg with the
+fitted prefactors in Eq. (23) dubbed vrrr in solid-blue and solid-red,
+indicates that the high tidal frequency regime significantly impacts
+the effective viscosity, particularly when Piige is small. Thus, we find
+weak tidal dissipation due to convection acting as an effective vis-
+cosity on the precessional flow throughout the entire range of tidal
+frequencies considered.
+
+The precessional instability on a 1 day orbit in solid-black on
+the other hand, is an efficient dissipation mechanism, particularly
+when the tidal frequency, and thus for the precessional instability
+the rotation rate of the planet, is high. Note that according to our
+calculations the precessional instability results in values of Q’ that
+are similar to those due to the elliptical instability. The precessional
+instability on a 3 day orbit in dashed-black is weaker than the | day
+orbit prediction, but would still predict more effective dissipation
+than the (irrelevant) slow tides MLT effective viscosity for almost all
+of the parameter range considered.
+
+The most efficient mechanism in this model, except for the very
+highest tidal frequencies, is the frequency-averaged dissipation due
+to inertial waves shown in solid-cyan, which produces Q’ = O(10°)
+for our chosen rotation period. Since the rotation period is known,
+we would thus predict a typical value
+
+2
+ra
+
+(40)
+
+"x 2-108
+2 (7
+
+for tidal dissipation due to inertial waves in the Jupiter model. Note
+that the inertial wave mechanism only applies when |w| < |2Q|, such
+that this mechanism is only valid when Ptiae = =*.
+
+The Hot Jupiter model in Fig. 13b, on the other hand, has a larger
+radius, stronger convection, and is rotating somewhat more slowly,
+so it has much higher effective viscosities and is impacted to a lesser
+extent by rotation. As a result, all mechanisms are more efficient. The
+elliptical and precessional instabilities are predicted to be particularly
+efficient for short orbital periods, e.g. 1 day orbit prediction for
+Q’ = O(10°) when the tidal period — and thus rotation period for the
+precessional instability — is 1 day. The increase in dissipation here
+due to the precessional instability (and elliptical instability) stems
+from the large radius of the Hot Jupiter, resulting in € ~ 0.095, also
+increasing the value of Po. Radius inflation and internal heating, as
+well as the marginally decreased rotation rate, allow the convective
+damping of equilibrium tides to operate more efficiently than in the
+Jupiter-like model in the top panel. However, once again the inertial
+wave mechanisms are predicted to be substantially more dissipative
+
+Interactions of precession and convection 19
+
+than the effective viscosity acting on equilibrium tides. For the linear
+dissipation of inertial waves in the Hot Jupiter model we find:
+
++ ae. goa { Pest)
+Q’ ~2-10 (=) 5 (41)
+which is predicted to be dominant for Prige 2 2 days.
+
+To estimate how quickly a precessing planet may align its spin and
+orbit, we define an alignment timescale 7;, like the one in Barker
+(2016b), as an e-folding timescale, i.e. the time in which the quantity
+under consideration decreases! by a factor of e:
+
+2
+82107 [MitM2)” Pow 2)-1/2
+
+jhe = a Gl ae (42)
+9 Qn M2 ProP ayn
+
+We substitute in characteristic values for Jupiter and the Sun. For the
+computations using the Jupiter model, we have set Ptide = Prot =
+10 hrs. We have computed values of Q’ from Eq. (37) at the specified
+tidal periods for the precessional instability. This yields 10
+3 - 10* upon setting the inclination to i = 30° and the eccentricity to
+zero. The timescale is then estimated to be:
+
+251.0) {Pow\*( 10h) (2.8 h\?
+= 6+ 10? yrs ( oe - . 43
+i vs (= mall id Pou || Pasn (43)
+
+Using Eq. (43) we provide estimates of the orbital period for which the
+alignment timescale is 1 Gyr in Table 1. A 1 Gyr timescale is chosen
+because it allows sufficient time for spin-orbit alignment of the Hot
+Jupiter to occur, and thus potentially be observable, while its (Sun-
+like) host star is on the main sequence. We produced these estimates
+for both the Jupiter-like and Hot Jupiter-like models. The computa-
+tions are done using either a fixed rotation period or by setting the
+rotation period equal to the orbital period, i.e. Prot = Pride = Porb-
+These are referred to as non-synchronised and synchronised, re-
+spectively. In the former case, we have set for the Jupiter model
+Prot = Ptide = 10 hrs, and used Jupiter’s dynamical period. For the
+Hot Jupiter-like model we have used Pro. = Pride = 1d, and computed
+the dynamical period to be Payn ~ 6.8 hrs.
+
+These estimates of orbital periods are obtained in a rather crude
+way as both cases omit evolution of the rotation period in tandem with
+evolution of the planetary obliquity, and are therefore for illustrative
+purposes only. The efficiencies of all mechanisms based on inertial
+waves increase as the rotation rate is increased. As a result, the
+non-synchronised case can be thought of as an upper bound on the
+dissipation and critical orbital period (lower bound on Q’), while the
+synchronised case represents a plausible lower bound. They indicate
+the upper bounds that planets with orbital periods up to 11 days for
+the Jupiter model, or 23 days for the inflated Hot Jupiter model, can
+achieve spin-orbit alignment within | Gyr due to the precessional
+instability. The estimated values of Q’ for the effective ‘osity
+mechanism are taken from the solid-red lines in Fig. 13, estimating
+Q’ ~9-10!3 (225) for the Jupiter model, and Q’ ~ 4-10° (44) for
+the Hot Jupiter model. The rotation and tidal periods are sufficiently
+low such that the effective viscosity is likely still in the RMLT fast
+tides regime. The resulting orbital periods for which the effective
+viscosity can achieve significant tidal evolution are extremely small in
+the non-synchronised case because the tidal frequencies are high. For
+the Hot Jupiter model in the synchronised case spin-orbit alignment
+can be achieved out to the same orbital distance as for the precessional
+instability due to the high values of the effective viscosity itself in this
+
+' Or increases, depending on the sign of Q5 9» Which depends on the sign
+of the tidal frequency, and the sign in the relevant equation.
+
+MNRAS 000, 1-26 (2025)
+20 = N.B. de Vries et al.
+
+---Ynr
+
+Mir IT
+
+---Yruir (Prot=10 hr)
+—vamur err (Prot=10 hr)
+IW (Pr = 10 hr)
+Elliptical (P,,=1 4)
+---Elliptical (Pj,=3 d)
+—Precession (P,p=1 4)
+-=-Precession (Porp=3 d)
+
+Piiae/days
+
+(a) Tidal quality factor Q’ in the Jupiter model
+
+108
+---yur
+errr
+b--vemir (Prot=1 d)
+I—venurpir (Prot=1 d)
+10% IW (Prot = 1 d)
+
+|—Elliptical (P,.»=1 d)
+lliptical (P,,=3 d)
+I—Precession (P2:b=1 d)
+|---Precession (P.:»=3 d)
+
+107 10° 10! 10?
+Pride /days
+
+(b) Tidal quality factor Q’ in the Hot Jupiter model
+
+Figure 13. Tidal quality factor Q’ as a function of tidal period for a myriad of mechanisms. In both panels, MLT and RMLT predictions for Q’ due to
+convective damping of equilibrium tides, using an effective viscosity with no tidal frequency reduction (low frequency regime), are shown in dashed-blue
+and dashed-magenta respectively. The frequency-reduced effective viscosities in solid-blue and solid-red for MLT and RMLT respectively indicate that the
+frequency reduction for fast tides significantly reduces the effectiveness of the dissipation. The elliptical instability in solid-green and dashed-green lines and
+the precessional instability in solid-black and dashed-black for two different orbital periods, and the (linear) frequency-averaged inertial wave dissipation in
+solid-cyan, are also plotted. Note that the inertial wave mechanism only applies when |w| < |2Q|, such that this mechanism is only valid when Prige => Prot /2-
+Inertial waves are considerably more dissipative than equilibrium tide damping by turbulent viscosity, whether they are linearly or non-linearly (i.e. via elliptical
+or precessional instabilities) excited. The elliptical and precessional instabilities are predicted to be dominant for the shortest tidal periods, and linear excitation
+of inertial waves is dominant for longer periods. The Hot Jupiter model has smaller Q’ (hence more efficient dissipation) for all dissipation mechanisms due to
+
+the larger radius and slower rotation.
+
+Table 1. Table of orbital periods in days at which the estimates of the align-
+ment timescales in Eq. (43), in Jupiter-like or Hot Jupiter-like planets, are 1
+Gyr. The tidal dissipation mechanisms are the precessional instability (PI),
+effective viscosity of convection (eff. viscosity) and frequency-averaged in-
+ertial waves (IW). In the non-synchronised (non-sync) Jupiter-like estimates
+we have used Pride = Prot = 10 hrs, while for the non-synchronised Hot
+Jupiter-like model we have used Prot = Ptide = 1 d. For the synchronised
+models (sync) we have set Prot = Pride = Por. We have taken values of
+Q’ from Egs. (37),(40) and (41), as well as Fig. 13. We have set an initial
+inclination i = 30° and the eccentricity to zero.
+
+PI eff. viscosity | IW
+Jupiter alignment non-sync lld 0.16 d 74d
+Hot Jupiter alignment non-syne | 23d 3.8d 142d
+Jupiter alignment sync 69d | 0.06d 26d
+Hot Jupiter alignment syne 14d 14d 53d
+
+model, as well as the low tidal frequencies. This can only be achieved,
+however, if another mechanism is able to first synchronise the spin
+and orbit at these orbital periods, because the effective viscosity is
+unable to achieve spin-orbit synchronisation in a planet with rapid
+initial rotation, and thus high tidal frequency. The frequency-averaged
+inertial wave dissipation based on Eqs (40) and (41) appears to be the
+most effective mechanism according to these estimates. Because this
+mechanism is most efficient when the rotation of the body is fast, the
+orbital period estimates for the non-synchronised case are particularly
+high. However, even the lower-bound synchronised estimate indicates
+alignment for Hot/Warm Jupiters with orbital periods up to 53 days.
+Although we caution that for such Warm Jupiters, the radius inflation
+is likely to lessened, and thus the Jupiter model might be more
+applicable. Furthermore, we caution that, as the orbital parameters
+evolve, the Poincaré number changes, and thus the regime the flow
+is in could change. According to Eq. (36) the Poincaré number drops
+if the orbital separation gets larger, the planetary obliquity increases
+or the eccentricity gets larger, which has not been taken into account
+in these estimates.
+
+MNRAS 000, 1-26 (2025)
+
+7 DISCUSSION AND CONCLUSION
+
+7.1 Conclusions
+
+We have simulated the precessional instability in a local Cartesian
+model and its interaction with rotating Rayleigh-Bénard convection.
+The precessional instability excites inertial waves in convective re-
+gions of planets and stars, and can potentially drive turbulence. Our
+goal was to explore this instability as a possible mechanism of tidal
+dissipation in convective regions of giant planets, which could play
+an important role for spin-orbit evolution in planetary (and stellar)
+systems. Hence, we have attempted to quantify and obtain scaling
+laws for the (tidal) energy transfers from the precessional flow, and
+its resulting dissipation, both with and without convection, as well
+as to understand the dynamics of the flow.
+
+The precessional instability in isolation in our model displays two
+main types of behaviour. In simulations with small values of the
+Poincaré number, bursty behaviour is observed, consisting of alter-
+nating periods of energy injection into the most unstable linear modes
+and periods where oscillating large-scale flows dominate. The forma-
+tion of large-scale vortices is not observed in these cases. Meanwhile,
+at larger values of Po we observe a slightly more turbulent state with
+a large-scale vortex forming, which, when sufficiently powerful, al-
+lows a rapid secondary transition to a continuously turbulent state
+in which the flow itself is characterised by (sheared) vortices. We
+expect that this transition has been seen before by Mason & Kerswell
+(2002) using the same setup, who describe a transition to a strongly
+energetic state in their 3D simulations at sufficiently large values of
+Po. This phenomenon therefore appears to be important in this local
+model of the precessional instability.
+
+We have furthermore identified that the introduction of convection
+replaces these two regimes. At small values of Po, a predominantly
+convective regime is found, where the energy injection rate resembles
+that associated with convection acting on the laminar precessional
+flow n effective viscosity. For sufficiently large Poincaré num-
+bers, an abrupt secondary transition to the continuously turbulent
+
+regime of the precessional instability is again observed. However,
+the presence of convection lowers the critical Poincaré number that
+is required to achieve the continuously turbulent regime, in which
+case the secondary transition is much more gradual. On the other
+hand, convection also reduces the energy injection in the continu-
+ously turbulent regime of the precessional instability, resulting in a
+lower energy injection with increasing Ra. Convection therefore al-
+lows a slightly weakened version of the continuously turbulent regime
+to be reached at lower values of Po.
+
+We fit the energy injection scalings of the precessional insta-
+bility in isolation as functions of Po. The energy injection rate in
+the laminar regime scales as YQ?Po’, with a proportionality factor
+Y = 0.025Q!/?. In the continuously turbulent regime, the energy
+injection rate, and hence tidal dissipation rate, scales as £23P 0°,
+with ¢ = 0.09. The scaling law Q3Po? was also identified for the
+precessional instability in triply periodic box simulations (Barker
+2016b; Pizzi et al. 2022). In our simulations of precessional instabil-
+ity in isolation, the condition to achieve the continuously turbulent
+regime can be described by Ek~*/!0po > 11. Based on this con-
+dition, we might expect that the continuously turbulent regime is
+the correct one for Hot Jupiters, with very small values of the mi-
+croscopic Ekman number and not too small values of the Poincaré
+number. When considering the presence of convection, the laminar
+regime is replaced by the energy injection rate of the convection act-
+ing like an effective viscosity scaling as 4Q?Po7, which also depends
+on the Rayleigh number. In both the continuously turbulent regime
+and the laminar regime, the vertical velocity scales linearly with Po,
+although with different proportionality factors. The velocities are en-
+hanced over the convective velocities in the absence of precession.
+The Nusselt number is enhanced by the precession (this was previ-
+ously observed in a different model by Wei & Tilgner 2013), except
+at very small Rayleigh numbers. The Nusselt number also scales
+linearly with Po in the continuously turbulent regime, as long as the
+inherent convective heat transport is not too large to overshadow this
+scaling. Fits to the sustained energy injection in the laminar regime
+in convective simulations as a function of the Rayleigh number show
+good agreement with the intermediate and high frequency regimes
+of the effective viscosity damping the background precessional flow.
+The prefactors of these regimes are very close to those previously
+found for the background elliptical (or oscillatory simple shear) flow
+in Duguid et al. (2020); De Vries et al. (2023b). Furthermore, we
+have attempted to fit the modification of the energy injection due
+to the presence of convection in the continuously turbulent regime.
+A proportionality factor that depends on the convective driving as”
+¢ = 0.09(1 + 14RaPr7'Ek?)~! is consistent with the data. This il-
+lustrates that convective driving reduces the energy injected by the
+precessional instability, even though no theoretical basis for this par-
+ticular form of modification has yet been found.
+
+By computing an expression for the (modified) tidal quality factor
+Q’ due to the precessional instability and applying it to the Mesa
+models computed in De Vries et al. (2023b), we predict that the
+precessional instability is efficient for very short orbital and tidal
+periods (with Q’ ~ 10° in Hot Jupiters for periods of order one
+day), but that its efficiency falls off rapidly with increasing (tidal
+and orbital) periods. We have also computed (Qj) arising from the
+frequency-averaged dissipation due to linearly excited inertial waves
+(as opposed to their “non-linear excitation" by the precessional insta-
+bility) in “realistic models" of giant planets (following Ogilvie 2013;
+
+2 Note that RaPr~!Ek? is related to N?/Q2, which is a dimensionless and
+diffusion-free ratio important for the precessional instability.
+
+Interactions of precession and convection 21
+
+Barker 2020). We find that inertial waves are by far the most efficient
+mechanism studied here, either those excited by the precessional in-
+stability for short orbital and tidal periods, or by the linear frequency-
+averaged dissipation. Based on our Hot Jupiter model, we predict an
+upper bound of 23 days for the orbital period of Hot/Warm Jupiters
+that should be aligned (i.e., to have zero planetary obliquities) on
+timescales shorter than 1 Gyr due to the precessional instability. We
+also find an upper bound for these same planets to be aligned within
+1 Gyr due to the linear frequency-averaged inertial wave mechanism
+out to even longer orbital periods of up to 142 days, but we caution
+that the evolution of the spin period has not been taken into account
+in this calculation. Lower bounds for these orbital periods assum-
+ing spin-orbit synchronisation are 14 days due to the precessional
+instability and 53 days due to the frequency-averaged inertial wave
+mechanism respectively. Hence, inertial waves (whether they are ex-
+cited by precessional instability or are directly tidally forced) are
+likely to be the dominant contributors of tidal spin-orbit alignment
+in giant planets (see also De Vries et al. 2023b; Lazovik et al. 2023).
+
+7.2 Future work
+
+Future work should study in more detail the modification of convec-
+tion by precession. Both a linear stability analysis of convection in the
+presence of precession, as well as an analysis of the precessional in-
+stability in the presence of stratification would be worthwhile. Next,
+a more detailed analysis of convective quantities such as the Nusselt
+number and convective velocity in non-linear simulations would be
+interesting, to more clearly constrain the effect that precession has
+on convective motions, although it appears that precession acts pri-
+marily to enhance convection in this setup. Additionally, simulations
+using local models with different aspect ratios should be performed.
+Boxes that are larger in the horizontal direction allow larger energies
+in the convectively generated vortices and possibly also in the pre-
+cessional vortices. This higher energy ceiling in the simulation may
+result in the secondary transition taking longer, or possibly multi-
+ple transitions will occur during one simulation. The continuously
+high energies in the vortices appears to have been important in the
+suppression of the elliptical instability (De Vries et al. 2023a), but
+their effects on the precessional instability are unclear. Furthermore,
+we have not probed the effects of stable stratification in non-linear
+simulations. Finally, a larger parameter sweep at larger values of the
+rotation rate, and thus smaller values of the Ekman number that are
+closer to astrophysical values, would be useful. This would reduce
+the effective viscosities, both because the tidal frequency would in-
+
+crease and the convective velocities and lengthscales would decrease.
+If the effective viscosity is less powerful, while the energy injection
+is larger due to larger rotation rates, the energy injection due to the
+precessional instability can be probed at larger Rayleigh numbers
+because it would no longer be overshadowed by the energy injection
+due to the effective viscosity. This would allow the effects of con-
+vection on the energy injection by the precessional instability to be
+constrained in a broader region of parameter space.
+
+In our model, the local box is located at the poles of the planet.
+It is important to examine the effects of different latitudes on the in-
+teractions of the precessional and convective instabilities. However,
+the precessional instability makes this particularly difficult, as the
+precessional flow would clash with the impenetrable boundaries at
+lower latitudes in boxes that are angled such that gravity still points
+in the z-direction. As such, global simulations that are sufficiently
+turbulent and rapidly rotating to capture regimes similar to those we
+have explored would probably be the only method of achieving this.
+Thus, we propose simulations similar to Wei & Tilgner (2013), but fo-
+
+MNRAS 000, 1-26 (2025)
+22 ~=N.B. de Vries et al.
+
+cussing on the tidal dissipation. Such a study with global simulations
+(in oblate spheroids or triaxial ellipsoids, for example) would further
+shed light on the modification of the background flow by interactions
+with the inertial waves excited by the precessional instability, and
+the effect of this modification on the resulting turbulence and tidal
+dissipation. Such global simulations also have the advantage that the
+inertial waves are no longer constrained by the (artificial) aspect ra-
+tio of the box. Furthermore, one might find that the inertial waves,
+excited by the precessional instability, can lead to wave attractors
+if one studies them in spherical shells (e.g. Hollerbach & Kerswell
+1995; Noir et al. 2001), which can be thought of as mimicking a giant
+planet with a dilute core that is sufficiently stably stratified.
+
+There are strong magnetic fields present in Jupiter, and there are
+observations tentatively indicating that a number of Hot Jupiters also
+pos: strong magnetic fields (Cauley et al. 2019). Therefore it is
+important to study the effects of magnetic fields in our simulations,
+as they could have significant effects on tidal dissipation. Magnetic
+fields may prevent LSV formation (Mak et al. 2017) by the preces-
+sional instability, and therefore allow continuous operation of the re-
+sulting energy transfers (Barker & Lithwick 2014). The precessional
+instability seems to achieve the continuously turbulent regime even
+at small values of Po when magnetic fields are introduced (Barker
+2016b), but it would be interesting to see if this is maintained if
+convection is also present. Furthermore, since our results point to a
+reduction in the energy injected by the precessional instability in the
+presence of convection, but the results in Barker (2016b) point to en-
+hanced energy injection in the presence of magnetic fields, magnetic
+fields could remedy this weakening of the precessional instability as
+a tidal dissipation mechanism. Furthermore, it would be important to
+study the precessional instability as a dynamo mechanism (Malkus
+1968; Kerswell 1996; Tilgner 2005; Wu & Roberts 2008; Le Bars
+et al. 2015) with convection also present, to study whether it is still
+efficient as a dynamo mechanism. On the other hand, our results, like
+those of Wei & Tilgner (2013), also point to more vigorous convec-
+tion in the presence of precessional flows, and it would be useful to
+study whether precession could act to enhance rotating convection
+as a dynamo mechanism.
+
+A final avenue of future work is related to the analysis of tidal
+dissipation rates using planetary models. It would be worthwhile to
+modify the equation of state in the interior models obtained with
+MESA in a manner akin to Miiller et al. (2020), which would allow
+us to obtain an extended dilute core, and to measure the impact of
+such a core on tidal dissipation rates. Furthermore, a stably stratified
+dilute core might provide an important additional contribution to tidal
+dissipation by permitting the excitation of internal (inertia-)gravity
+waves (e.g. Fuller et al. 2016; André et al. 2019; Pontin et al. 2020;
+Pontin 2022; Pontin et al. 2023; Lin 2023; Dewberry 2023; Pontin
+et al. 2024; Dhouib et al. 2024) as well as modifying the efficiency of
+inertial wave excitation in the overlying convective envelope (Pontin
+2022; Pontin et al. 2024). Finally, studying how Q’ evolves with
+planetary and orbital evolution for each of the mechanisms explored
+in Sec. 6 would be worthwhile, research which has been started in
+the investigation of Lazovik et al. (2023). For self-consistency, one
+might also consider evolving irradiation fluxes in tandem with the
+structural evolution.
+
+ACKNOWLEDGEMENTS
+
+We would like to thank the referee for their careful reading of the
+manuscript and for their constructive comments that helped us to im-
+prove the paper. NBV was supported by EPSRC studentship 2528559
+
+MNRAS 000, 1-26 (2025)
+
+and STFC grant ST/Y002164/1. AJB and RH were supported by
+STFC grants ST/S000275/1, ST/W000873/1 and UKRI1179. AJB
+and RH thank the Isaac Newton Institute for Mathematical Sciences,
+Cambridge, for support and hospitality, during the programmes
+“Anti-diffusive dynamics: from sub-cellular to astrophysical scales”
+(AJB) and “Frontiers in dynamo theory: from the Earth to the stars”
+(RH). RH’s visit to the Newton Institute was also supported by a grant
+from the Heilbronn Institute. Simulations were undertaken on ARC4,
+part of the High Performance Computing facilities at the University
+of Leeds, and the DiRAC Data Intensive service at Leicester, op-
+erated by the University of Leicester IT Services, which forms part
+of the STFC DiRAC HPC Facility (www.dirac.ac.uk). The equip-
+ment was funded by BEIS capital funding via STFC capital grants
+ST/K000373/1 and ST/R002363/1 and STFC DiRAC Operations
+grant ST/ROO1014/1. DiRAC is part of the National e-Infrastructure.
+
+DATA AVAILABILITY
+
+The simulation data used in this article will be shared on reasonable
+request to the corresponding author.
+
+REFERENCES
+
+Akinsanmi B., Barros S. C. C., Santos N. C., Oshagh M., Serrano L. M.,
+2020, Monthly Notices of the Royal Astronomical Society, 497, 3484
+
+André Q., Mathis S., Barker A. J., 2019, Astronomy & Astrophysics, 626,
+A82
+
+Ascher U. M., Ruuth S. J., Spiteri R. J., 1997, Applied Numerical Mathemat-
+ics, 25, 151
+
+Barker A. J., 2016a, Monthly Notices of the Royal Astronomical Society,
+459, 939
+
+Barker A. J., 2016b, Monthly Notices of the Royal Astronomical Society,
+460, 2339
+
+Barker A. J., 2020, Monthly Notices of the Royal Astronomical Society, 498,
+2270
+
+Barker A. J., 2022, The Astrophysical Journal Letters, 927, L36
+
+Barker A. J., 2025, arXiv e-prints, p. arXiv:2504.10941
+
+Barker A. J., Lithwick Y., 2013, Monthly Notices of the Royal Astronomical
+Society, 435, 3614
+
+Barker A. J., Lithwick Y., 2014, Monthly Notices of the Royal Astronomical
+Society, 437, 305
+
+Barker A. J., Dempsey A. M., Lithwick Y., 2014, The Astrophysical Journal,
+791, 13
+
+Barker A. J., Braviner H. J., Ogilvie G. I., 2016, Monthly Notices of the Royal
+Astronomical Society, 459, 924
+
+Barnes J. W., Fortney J. J., 2003, The Astrophysical Journal, 588, 545
+
+Benkacem N., Salhi A., Khlifi A., Nasraoui S., Cambon C., 2022, Physical
+Review E, 105, 035107
+
+Biersteker J., Schlichting H., 2017, The Astronomical Journal, 154, 164
+
+Bodenheimer P., Lin D. N. C., Mardling R. A., 2001, The Astrophysical
+Journal, 548, 466
+
+Boyd J. P.,2001, Chebyshev and Fourier spectral methods. Dover Publications
+
+Braviner H. J., 2015, Stellar and Planetary Tides at Small Orbital Radii,
+Doctoral dissertation, University of Cambridge
+
+Bryan M. L., et al., 2020, The Astronomical Journal, 159, 181
+
+Bryan M. L., Chiang E., Morley C. V., Mace G. N., Bowler B. P., 2021, The
+Astronomical Journal, 162, 217
+
+Burns K. J., Vasil G. M., Oishi J. S., Lecoanet D., Brown B. P., 2020, Physical
+Review Research, 2, 023068
+
+Carter J. A., Winn J. N., 2010, The Astrophysical Journal, 709, 1219
+
+Cauley P. W., Shkolnik E. L., Llama J., Lanza A. F., 2019, Nature Astronomy,
+3, 1128
+
+Cébron D., Le Bars M., Moutou C., Le Gal P., 2012, Astronomy & Astro-
+physics, 539, A78
+Cébron D., Le Bars M., Le Gal P., Moutou C., Leconte J., Sauret A., 2013,
+Icarus, 226, 1642
+
+Cox J. P., Giuli R. T., 1968, Principles of stellar structure. Gordon and Breach
+
+Cébron D., Maubert P., Le Bars M., 2010, Geophysical Journal International,
+182, 1311
+
+Cébron D., Le Bars M., Noir J., Aurnou J. M., 2012, Physics of Fluids, 24,
+061703
+
+Damiani C., Mathis S., 2018, A&A, 618, A90
+
+Dewberry J. W., 2023, Monthly Notices of the Royal Astronomical Society,
+521, 5991
+
+Dewberry J. W., Lai D., 2022, The Astrophysical Journal, 925, 124
+
+Dhouib H., Baruteau C., Mathis S., Debras F., Astoul A., Rieutord M., 2024,
+Astronomy & Astrophysics, 682, A85
+
+Dobbs-Dixon I., Lin D. N. C., Mardling R. A., 2004, The Astrophysical
+Journal, 610, 464
+
+Duguid C. D., Barker A. J., Jones C. A., 2019, Monthly Notices of the Royal
+Astronomical Society, 491, 923
+
+Duguid C. D., Barker A. J., Jones C. A., 2020, Monthly Notices of the Royal
+Astronomical Society, 497, 3400
+
+Durante D.., et al., 2020, Geophysical Research Letters, 47, e2019GL086572
+
+Eggleton P. P., Kiseleva-Eggleton L., 2001, The Astrophysical Journal, 562,
+1012
+
+Fischer P. F., Lottes J. W., Kerkemeier S. G., 2008, Nek5000 web page,
+http://nek5000.mcs.anl.gov
+
+Fuller J., Luan J., Quataert E., 2016, Monthly Notices of the Royal Astro-
+nomical Society, 458, 3867
+
+Goldreich P., Nicholson P. D., 1977, Icarus, 30, 301
+
+Goodman J., Oh S. P., 1997, The Astrophysical Journal, 486, 403
+
+Greenspan H. P., 1968, The Theory of Rotating Fluids. Cambridge University
+Press
+
+Guervilly C., Hughes D. W., Jones C. A., 2014, Journal of Fluid Mechanics,
+758, 407
+
+Guillot T., Stevenson D. J., Hubbard W. B., Saumon D., 2004, in Bagenal F.,
+Dowling T. E., McKinnon W. B., eds, , Jupiter. The Planet, Satellites and
+Magnetosphere. Cambridge University Press, pp 35-57
+
+Hollerbach R., Kerswell R. R., 1995, Journal of Fluid Mechanics, 298,
+327-339
+
+Jermyn A. S., et al., 2023, The Astrophysical Journal Supplement Series, 265,
+15
+
+Kerswell R. R., 1993, Geophysical & Astrophysical Fluid Dynamics, 72, 107
+
+Kerswell R. R., 1996, Journal of Fluid Mechanics, 321, 335-370
+
+Kerswell R. R., 2002, Annual Review of Fluid Mechanics, 34, 83
+
+Khlifi A., Salhi A., Nasraoui S., Godeferd F., Cambon C., 2018, Phys. Rev. E,
+98, 011102
+
+Kopal Z., 1959, Close binary systems. Wiley
+
+Kumar V., Pizzi F., Mamatsashvili G., Giesecke A., Stefani F., Barker A. J.,
+2024, Physical Review E, 109, 065101
+
+Lai D., 2012, MNRAS, 423, 486
+
+Lai D., 2021, The Planetary Science Journal, 2, 122
+
+Lavorel G., Le Bars M., 2010, Physics of Fluids, 22, 114101
+
+Lazovik Y. A., Barker A. J., de Vries N. B., Astoul A., 2023, Monthly Notices
+of the Royal Astronomical Society, 527, 8245
+
+Le Bars M., Lacaze L., Le Dizés S., Le Gal P., Rieutord M., 2010, Physics of
+the Earth and Planetary Interiors, 178, 48
+
+Le Bars M., Cébron D., Le Gal P., 2015, Annual Review of Fluid Mechanics,
+47, 163
+
+LiG., 2021, The Astrophysical Journal Letters, 915, L2
+
+LiJ., Lai D., 2020, The Astrophysical Journal Letters, 898, L20
+
+Lin Y., 2023, Astronomy & Astrophysics, 671, A37
+
+Lin Y., Ogilvie G. I., 2017, Monthly Notices of the Royal Astronomical
+Society, 468, 1387
+
+Lorenzani S., Tilgner A., 2001, Journal of Fluid Mechanics, 447, 111-128
+
+Lorenzani S., Tilgner A., 2003, Journal of Fluid Mechanics, 492, 363-379
+
+Lurie J. C., et al., 2017, The Astronomical Journal, 154, 250
+
+Maciejewski G., et al., 2016, Astronomy & Astrophysics, 588, L6
+
+Mak J., Griffiths S. D., Hughes D. W., 2017, Physical Review Fluids, 2,
+113701
+
+Malkus W. V. R., 1968, Science, 160, 259
+
+Interactions of precession and convection 23
+
+Martin R. G., Armitage P. J., 2021, The Astrophysical Journal Letters, 912,
+L16
+
+Mason R. M., Kerswell R. R., 2002, Journal of Fluid Mechanics, 471, 71-106
+
+Millholland S., Batygin K., 2019, The Astrophysical Journal, 876, 119
+
+Miiller S., Helled R., 2023, Astronomy & Astrophysics, 669, A24
+
+Miiller S., Helled R., Cumming A., 2020, Astronomy & Astrophysics, 638,
+Al21
+
+Naing M. M., Fukumoto Y., 2011, Fluid Dynamics Research, 43, 055502
+
+Nine A. C., Milliman K. E., Mathieu R. D., Geller A. M., Leiner E. M., Platais
+I., Tofflemire B. M., 2020, The Astronomical Journal, 160, 169
+
+Noir J., Brito D., Aldridge K., Cardin P., 2001, Geophysical Research Letters,
+28, 3785
+
+Ogilvie G. I., 2013, Monthly Notices of the Royal Astronomical Society, 429,
+613
+
+Ogilvie G. I., 2014, Annual Review of Astronomy and Astrophysics, 52, 171
+
+Ogilvie G. I., Lesur G., 2012, Monthly Notices of the Royal Astronomical
+Society, 422, 1975
+
+Ogilvie G. I., Lin D. N. C., 2004, The Astrophysical Journal, 610, 477
+
+Palma-Bifani P., et al., 2023, A&A, 670, A90
+
+Patra K. C., et al., 2020, The Astronomical Journal, 159, 150
+
+Paxton B., Bildsten L., Dotter A., Herwig F., Lesaffre P., Timmes F., 2011,
+The Astrophysical Journal Supplement Series, 192, 3
+
+Paxton B., et al., 2013, The Astrophysical Journal Supplement Series, 208, 4
+
+Paxton B., et al., 2015, The Astrophysical Journal Supplement Series, 220,
+15
+
+Paxton B., et al., 2018, The Astrophysical Journal Supplement Series, 234,
+34
+
+Paxton B., et al., 2019, The Astrophysical Journal Supplement Series, 243,
+10
+
+Penev K., Sasselov D., Robinson F., Demarque P., 2007, The Astrophysical
+Journal, 655, 1166
+
+Penev K., Sasselov D., Robinson F., Demarque P., 2009a, The Astrophysical
+Journal, 704, 930
+
+Penev K., Barranco J., Sasselov D., 2009b, The Astrophysical Journal, 705,
+285
+
+Pizzi F., Mamatsashvili G., Barker A. J., Giesecke A., Stefani F.,2022, Physics
+of Fluids, 34, 125135
+
+Poincaré H., 1910, Bulletin Astronomique, Serie I, 27, 321
+
+Pontin C. M., 2022, Wave propagation and tidal dissipation in giant planets
+containing regions of stable stratification, Doctoral dissertation, Univer-
+sity of Leeds
+
+Pontin C. M., Barker A. J., Hollerbach R., André Q., Mathis S., 2020, Monthly
+Notices of the Royal Astronomical Society, 493, 5788
+
+Pontin C. M., Barker A. J., Hollerbach R., 2023, The Astrophysical Journal,
+950, 176
+
+Pontin C. M., Barker A. J., Hollerbach R., 2024, The Astrophysical Journal,
+960, 32
+
+Poon M., Bryan M. L., Rein H., Morley C. V., Mace G., Zhou Y., Bowler
+B. P., 2024, The Astronomical Journal, 168, 270
+
+Salhi A., Khlifi A., Cambon C., 2019, Atmosphere, 11, 14
+
+Su Y., Lai D., 2020, The Astrophysical Journal, 903, 7
+
+Tilgner A., 2005, Physics of Fluids, 17, 034104
+
+Tilgner A., Busse F. H., 2001, Journal of Fluid Mechanics, 426, 387-396
+
+Townsend R., 2022, MESA SDK for Mac OS, doi:10.528 1/zenodo.7457723,
+https://doi.org/10.5281/zenodo.7457723
+
+Turner J. D., Ridden-Harper A., Jayawardhana R., 2021, The Astronomical
+Journal, 161, 72
+
+de Vries N. B., Barker A. J., Hollerbach R., 2023a, Physics of Fluids, 35,
+024116
+
+de Vries N. B., Barker A. J., Hollerbach R., 2023b, Monthly Notices of the
+Royal Astronomical Society, 524, 2661
+
+Vidal J., Barker A. J., 2020a, Monthly Notices of the Royal Astronomical
+Society, 497, 4472
+
+Vidal J., Barker A. J., 2020b, The Astrophysical Journal Letters, 888, L31
+
+Wei X., Tilgner A., 2013, Journal of Fluid Mechanics, 718, R2
+
+Wu C. C., Roberts P. H., 2008, Geophysical & Astrophysical Fluid Dynamics,
+102, 1
+
+Zahn J.-P., 1966, Annales d’Astrophysique, 29, 313
+
+MNRAS 000, 1-26 (2025)
+24 = N.B. de Vries et al.
+
+Zahn J.-P., 1977, Astronomy & Astrophysics, 57, 383
+Zahn J.-P., 1989, Astronomy & Astrophysics, 220, 112
+
+APPENDIX A: TABLE OF SIMULATIONS
+
+The parameters of the simulations performed using DEDALUs, as
+well as the associated resolutions of those simulations, are given in
+Table Al. We have verified that the quantities computed here are
+independent of the resolution chosen such that for the reported quan-
+
+tities the simulations
+show the number of g:
+a real Fourier basis,
+
+to Nx /2, Ny /2 in the
+
+panded by a factor of 3/2 for de-al
+
+non-linear terms and
+wise, a table of the p:
+NEK5000, as well as
+
+are all well-resolved. The resolutions reported
+rid points in the simulations. Because we utilise
+jowever, we only have wavenumber modes up
+x and y directions, respectively. The grid is ex-
+ing purposes when computing
+those with spatially variable coefficients. Like-
+rameters for the simulations performed using
+e associated resolutions, is given in Table A2.
+
+We utilise polynomials of order N = 9 in all directions, inside 10
+elements in all directions, thus resulting in a resolution of 903 for
+most simulations. For de-aliasing purposes we increase the polyno-
+mial order to 14 when calculating the non-linear terms, satisfying
+the 3/2 rule.
+
+Al Resolution of snapshots
+
+To ensure that the simulations executed in NEK5000 are well-resolved,
+without resorting to interpolating the data to generate energy spectra,
+we verified that the following criterion:
+
+kmaxla > 1, (Al)
+with
+la = (0 /Dy)'4, (A2)
+
+is satisfied. The quantity /y represents the Kolmogorov lengthscale,
+the scale at which viscosity dominates the flow, while kmax =
+(27/L,.)Nx is the maximum wavenumber in one direction available
+in the simulation. This is a conservative estimate because the spec-
+trum is steeper than the Kolmogorov spectrum, as shown in Fig. 6 and
+Fig. 7, with less power in smaller-scale modes near the dissipation
+scale. Wavevectors are not employed in NEK5000, and as such we
+have treated it is a regular grid for the purposes of this calculation,
+with N, = 90. We find for the simulations in Fig. 3d and Fig. 3f
+that the ratios are 1.8 and 1.6 respectively, and the criterion is also
+satisfied for all other simulations. Thus we conclude that these sim-
+ulations are indeed well-resolved, even though artefacts of the grid
+scale appear in the figures. The well-resolvedness of the simulations
+executed in DEDALUs, and the agreement between the simulations
+in NEK5000 and pEpa.us, further demonstrates the validity of our
+NEK5000 time series results.
+
+APPENDIX B: EXAMINATION OF THE 2D ENERGY
+
+To shed more light on whether and, if so, how, the convective insta-
+bility allows the precessional instability to achieve the continuously
+turbulent regime at lower values of the Poincaré number we exam-
+ined K2p obtained using pEDALUs simulations. We again note that
+the vortices in the snapshots in Fig. 3 do not appear to be z-invariant,
+and thus Kzp does not fully capture the energy in these vortices. To
+be able to better compare and study the values of K2p and its impor-
+tance in these simulations relative to K, we plot normalised values of
+
+MNRAS 000, 1-26 (2025)
+
+Table Al. Table of parameters used in the pEDALUs simulations to study
+the precessional instability. The Poincaré numbers of all simulations at each
+employed combination of Rayleigh and Ekman numbers are shown. All sim-
+ulations in this table were executed using a resolution Nx = Ny = Nz = 96
+and with box size Ly = Ly = Lz = 1. These resolutions are the resolutions
+prior to expanding the grid with a factor 3/2 for de-aliasing.
+
+DEDALUS Po
+
+Ek =2.5-10,R=0 | 0.15,0.17,0.18,0.20,0.25
+Ek=2.5-10,R=2 | 0.25
+
+Ek =2.5-10,R=4 | 0.0,0.10,0.15,0.25,0.40
+Ek=2.5-10>,R=6 | 0.25
+
+Table A2. Same as Table A1 for the NEK5000 simulations. All simulations in
+this table were executed using a resolution of Nx = Ny = Nz = 90, obtained
+by using polynomials of order 9 in all directions in a cube of 10 elements in all
+directions. We expand the polynomials to order 14 for de-aliasing purposes.
+
+NEK5000 Po
+
+Ek=5-10°,R=0 0.12, 0.14, 0.15, 0.16, 0.18, 0.20, 0.22, 0.24,
+0.25, 0.26, 0.28, 0.30
+
+Ek =2.5-10°°,R=0 0.06, 0.08, 0.10, 0.12, 0.14, 0.15, 0.16, 0.17,
+0.18, 0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50,
+0.60, 0.80, 1.00, 1.10
+
+Ek=107°,R=0 0.03, 0.04, 0.05, 0.06, 0.08, 0.10, 0.11, 0.12,
+
+0.13, 0.14, 0.15, 0.16, 0.18, 0.20, 0.25, 0.30
+
+Ek =2.5- 10°, R=1.5 | 0.04, 0.10, 0.25
+
+Ek =2.5-10°°,R=2 0.01, 0.02, 0.03, 0.04, 0.06, 0.08, 0.10, 0.12,
+0.14, 0.15, 0.16, 0.18, 0.20, 0.25, 0.30, 0.35,
+
+0.40, 0.45, 0.50
+
+5-10°,R=3 0.04, 0.10, 0.25
+
+5-10-°,R=4 0.01, 0.02, 0.03, 0.04, 0.06, 0.08, 0.10, 0.15,
+0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
+
+5-10°,R=5 0.04, 0.10, 0.25
+
+Ek =2.5-10°°,R=6 0.01, 0.02, 0.03, 0.04, 0.06, 0.08, 0.10, 0.15,
+
+0.20, 0.25, 0.30, 0.35, 0.40, 0.45, 0.50
+
+10°, R=8 0.04, 0.10, 0.25
+Ek =2.5-10°°, R=10 | 0.04, 0.10, 0.25
+Ek =2.5-107°, R=15 | 0.04, 0.10, 0.25
+
+the total kinetic energy K, the 2D energy Kp, as well as their ratio
+in Fig. Bl. We have normalised all these simulations by the same
+value, namely the largest value of the total kinetic energy reached
+in this set of six simulations, which is found in the simulation with
+Po = 0.2, Ra =0.
+
+In Fig. Bla the simulation with Po = 0.1, Ra = 0 is plotted.
+The expected bursty behaviour is evident in the values of K, and the
+behaviour closely resembles that of the simulation executed using
+NEK5000 in Fig. 4a. The 2D energy follows closely behind the burst
+in total kinetic energy, and is maintained more strongly after the burst
+than the 3D energy, such that after the burst the ratio of the total to the
+2D energy attains the largest values, while during the bursts this ratio
+dips. The 2D energy appears to peak at normalised values of O(1074)
+in this simulation. In Fig. B 1b the simulation with Po = 0.17, Ra = 0
+is plotted; this simulation was found, when examining the NEK5000
+
+simulations (not shown), to transition into the continuously turbulent
+regime after many rotation times in the lower energy turbulent state
+and we observe the same here. Prior to the secondary transition, the
+bursty behaviour has disappeared. It has been replaced by the flow
+containing a vortex, like the one in Fig. 3c. K2p keeps growing in this
+simulation, and the secondary transition starts once Kp has attained
+a normalised value of ~ 10-2. In Fig. Ble we plot the simulation
+with Po = 0.18, Ra = 0. This simulation goes through the secondary
+transition faster, because the K2p energy increases faster and more
+normalised K
+
+0.00 0.05 0.10 0.15
+t
+
+(a) Po = 0.1, Ra=0.
+
+ss
+ee]
+®
+B
+o
+a —K
+iS}
+s — Kap
+— Kop/K
+10-6
+0.00 0.05 0.10 0.15
+t
+(c) Po = 0.18, Ra = 0.
+
+10°
+s
+3 10-2
+®
+Q
+5
+& 10-4 —k
+s —_— Kap
+
+— Kop/K
+1038
+0.00 0.05 0.10 0.15
+
+t
+
+(e) Po = 0, Ra = 4Rac.
+
+Interactions of precession and convection 25
+
+10°
+
+X
+
+3 10-7
+
+oO
+
+Q
+
+o
+
+E 10-4 — ht
+
+s — Kop
+
+— Kop/K
+10-6 ,
+0.00 0.05 0.10 0.15
+
+t
+
+(b) Po = 0.17, Ra = 0.
+
+X
+ce)
+co)
+4
+Fi =F
+810-4 — &
+Ss — Kop
+: — Kyop/K
+10-6/_E ——
+0.00 0.05 0.10 0:15
+t
+(d) Po = 0.2, Ra = 0.
+X
+ce)
+oO
+BS)
+o
+E —xK
+°
+S —_— Kop
+— Kyop/K
+10-8 +
+0.00 0.05 0.10 0.15
+
+t
+
+(f) Po = 0.1, Ra = 4Rag.
+
+Figure B1. Normalised energy time series of the precessional instability and convection with Ek = 2.5 - 10~>, executed using pepacus. Vertical dotted lines
+correspond to the ends of the intervals of the spectra shown in Figs. 5, 6 and 7. The energies are normalised by the largest energy attained in this group of six
+simulations, which occurs in the simulation in the middle right panel. The expected bursty behaviour is observed in the top left panel, as well as dominance of
+Kp in the absence of the bursts of the precessional instability. The top right panel features an absence of bursty behaviour and a very gradual increase in energy
+until the secondary transition is reached. The middle left panel, with stronger precessional driving than the top right panel, attains the secondary transition faster,
+and the deciding factor when the secondary transition occurs appears to be the value of K2p. The precessional driving in the simulation in the middle right panel
+is even stronger, such that the secondary transition is achieved very rapidly. In the bottom left panel, a purely convective simulation is shown, which achieves
+rapid saturation with weaker fluctuations compared to the precessional cases, and a clear dominance of the K2p energy. In the convective and precessional
+simulation in the bottom right panel, the energy far exceeds that of the convective simulation and the precessional instability in isolation with Po = 0.1; thus the
+
+combination indeed allows for larger energies to be achieved.
+
+steadily than in the Po = 0.17, Ra = 0 case. The transition again
+occurs roughly when the normalised value of K2p exceeds 1072.
+Next, in Fig. Bld we plot the simulation with Po = 0.2, Ra = 0; the
+Kop energies attain large values more rapidly than the simulations
+at lower values of the Poincaré number, and again the transition
+happens faster than at lower values of Po. We also note that the
+
+final saturation energies increase with increasing Poincaré number,
+because the energy injection increases with Po.
+
+Next we examine these same quantities in the presence of convec-
+tion in the bottom panels of Fig. B1. In Fig. Ble the simulation with
+Po = 0, Ra = 4Ra, is plotted; we can see that the energies saturate
+rapidly at values around the required transition value, with K2p dom-
+
+MNRAS 000, 1-26 (2025)
+26 ~=N.B. de Vries et al.
+
+inating the flow from the start as we would expect. The flow saturates
+and attains its final statistically steady state very rapidly. Further-
+more, it displays much fewer high frequency fluctuations than the
+cases where the precession is present. Finally, we examine Fig. BIf
+in which we have plotted the simulation with Po = 0.1, Ra = 4Ra..
+A much higher energy state is achieved in this simulation compared
+to both simulations with precession and convection in isolation for
+these same parameters. The transition to the high energy state again
+appears more gradual than the secondary transitions of the preces-
+sional instability in isolation. This gradual transition arises roughly
+when the normalised value of Kxp exceeds 10~?. The ratio of Kxp
+to K is maintained at a larger value compared to the purely pre-
+cessional simulations that have gone through a turbulent transition,
+although the value is smaller than the one of the purely convective
+case. Therefore, if the convection reaches a certain energy, and the
+precessional instability is able to operate, then the convection assists
+the precessional instability in achieving the continuously turbulent
+regime.
+
+This paper has been typeset from a TeX/I4TpX file prepared by the author.
+
+MNRAS 000, 1-26 (2025)

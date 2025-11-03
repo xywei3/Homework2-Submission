@@ -1,0 +1,1048 @@
+sics.ao-ph] 29 Oct 2025
+
+2510.25633v1 [phy
+
+arXiv
+
+Predictability of Storms in an Idealized Climate
+Revealed by Machine Learning
+
+Wugqiushi Yao!?*, Or Hadas, and Yohai Kaspi!
+
+‘Dept. of Earth and Planetary Science, Weizmann Institute of Science, Rehovot, Israel
+?Key Laboratory of Earth System Numerical Modeling and Application, Institute of Atmospheric Physics,
+
+Chinese Academy of Sciences, Beijing, China
+3College of Earth and Planetary Sciences, University of Chinese Academy of Sciences, Beijing, China
+
+Key Points:
+
++ We use CNN to predict storm tracks skillfully in an idealized GCM, providing a
+novel framework studying storm predictability.
+
+* Storm growth is less predictable than displacement, with baroclinicity and jet me-
+anders revealing key source of uncertainties.
+
+¢ Explainable AI shows that jet meanders double the sensitivity of the uncertainty
+in storm intensity to jet structures.
+
+*Co-first author; both co-first authors contribute equally to this paper.
+Corresponding author: Wugqiushi Yao, yaowuqiushi@gmail.com
+
+Corresponding author: Or Hadas, or.hadas@weizmann.ac.il
+Abstract
+
+The midlatitude climate and weather are shaped by storms, yet the factors governing
+their predictability remain insufficiently understood. Here, we use a Convolutional Neu-
+ral Network (CNN) to predict and quantify uncertainty in the intensity growth and tra-
+jectory of over 200,000 storms simulated in a 200-year aquaplanet GCM. This idealized
+framework provides a controlled climate background for isolating factors that govern pre-
+dictability. Results show that storm intensity is less predictable than trajectory. Strong
+baroclinicity accelerates storm intensification and reduces its predictability, consistent
+with theory. Crucially, enhanced jet meanders further degrade forecast skill, revealing
+
+a synoptic source of uncertainty. Using sensitivity maps from explainable AI, we find that
+the error growth rate is nearly doubled by the more meandering structure. These find-
+ings highlight the potential of machine learning for advancing understanding of predictabil-
+ity and its governing mechanisms.
+
+Plain Language Summary
+
+Mid-latitude storms are key drivers of weather and climate variability, yet their pre-
+dictability remains limited. Using Convolutional Neural Network (CNN) trained on over
+100,000 storms from a 200-year idealized climate simulation, we assess the factors con-
+trolling forecast accuracy. Our results reveal that storm intensity is significantly harder
+to predict than storm position, with errors growing fastest in regions of strong vertical
+wind shear. We further show that a more meandering upper-level jet stream reduces fore-
+cast skill by amplifying small initial uncertainties, a factor often overlooked in predictabil-
+ity studies. Using Explainable AI, we pinpoint how storm forecast errors are particularly
+sensitive to subtle variations in jet structure. These findings highlight the potential of
+machine learning in diagnosing predictability limits and suggest that integrating AI with
+traditional dynamical approaches may improve future forecasting skills.
+
+1 Introduction
+
+Extratropical cyclones play a crucial role in mid-latitude atmospheric circulation,
+driving the meridional transport of heat, moisture, and momentum while shaping regional
+weather patterns and climate variability (Tamarin & Kaspil 2017} Priestley & Cattol 2022).
+Understanding their predictability is therefore of critical importance, both in terms of
+forecasting individual storms and in identifying how the large-scale flow modulates their
+nature of the atmosphere implies
+
+evolution. From a theoretical perspective, the chaoti
+inherent limits to long-term predictability This foundational insight, orig-
+inally derived from idealized models, has driven decades of research into the sources and
+limits of atmospheric predictability. Previous studies have shown that storms embed-
+
+ded in stronger jet streams tend to intensify more rapidly and exhibit lower predictabil-
+ity Pantillon et al. [2017 [Doitean et al} [2024] (2024). Over Europe, stronger
+storms have also been linked to greater ensemble spread and raduced forecast skill
+s align with the theoretical expectations that storms expe-
+(baroclinicity) will grow faster ( Furthermore,
+sted increased baroclinicity to reduced ility using
+
+an idealized model.
+
+However, storms evolve within a wide range of climatic and synoptic environments
+ility in the real atmo-
+sphere. This complexity obscures the fundamental relationships between background flow
+patterns and the predictability of individual storms. Idealized general circulation mod-
+els (GCMs) provide a controlled and statistically stable climate framework that simpli-
+fies the dynamics while enabling long integrations and large storm samples (
+
+Chemke & Kaspi Hadas & Kaspij |2
+
+The GCMs have therefore played an e
+of climate conditions
+Even in such simplified frameworks, assessing predictability and its response to per-
+
+urbations of the initial state often requires large ensemble simulations, which are com-
+utationally expensive and complex DelSole| 2004} |Zhang & Tao| 2013} |Emanuel & Zhang}
+2016} Coleman et al. |2024). Machine learning offers an efficient alternative by directly
+learning the mapping between initial conditions and the associated spread of possible
+outcomes. Recent studies have demonstrated the potential of such probabilistic neural-
+
+network frameworks: |Gordon & Barnes introduced a negative log-likelihood (NLL)
+
+loss that allows models to predict both the mean output (j) and its associated uncer-
+
+ainty (o), successfully identifying more predictable initial states, while|Brettin et al.
+
+applied this approach to sea-level forecasts.
+
+ictability studies across a range
+
+—)
+
+Therefore, combining machine learning with idealized GCMs is particularly fruit-
+ful: it allows efficient generation of large datasets and the development of accurate, uncertainty-
+aware models using relatively simple architectures compared with complex operational
+systems such as Pangu ( 3) and GraphCast 2025). The goal
+of this study is to uncover which aspects of the initial conditions control the forecast un-
+certainty of midlatitude storms. We train, validate, and test a CNN on 220,000 storm
+tracks from a 200-year idealized GCM simulation to predict storm displacement and vor-
+ticity growth. Section J describes the GCM setup, storm detection, and machine-learning
+methods. Section ses the overall predictability of storms, followed by demon-
+strations of how baroclinicity modulates predictability (Section [3.2) and how jet-stream
+meanders influence forecast uncertainty using an explainable AI technique (Section |3
+
+2 Data and Methods
+2.1 Idealized GCM
+
+Simulations are conducted using the Idealized Moist Spectral Atmospheric Model
+model, with a T42 resolution for 200 years . The model employs
+a spectral core that solves the primitive hydrostatic equations for an ideal-gas atmosphere
+O’Gorman & Schneider} 2008). The simulations are carried out in an aquaplanet con-
+figuration, where the lower boundary is represented by a slab ocean with a prescribed
+heat capacity. Further details on the physical process parameterizations are provided in
+(2017). The climatology of the large-scale circulation is shown in Fig-
+ure $1, which highlights the subtropical jet (Figure Sla), the eddy-driven jet, and the
+Hadley cells (Figure S1d). The subtropical jet exhibits stronger vertical shear than the
+eddy-driven jet near 45°N, reflecting differences in baroclinicity between the two jets.
+Since the aquaplanet setup ensures hemispheric symmetry, data is aggregated from both
+hemispheres and shown as the northern hemisphere.
+
+2.2 Tracking Algorithm
+
+An objective feature-point identification and tracking technique
+used to detect and track cyclones in the GCM. In this study, we identify cyclones be-
+tween 20°N-60°N and between 20°S-60°S using the 838 hPa vorticity field, with their cen-
+ters tracked every 6 hours. A minimum vorticity threshold of 10~> s~? is applied, and
+only cyclones that travel more than 1000 km and persist for over 2 days are included in
+the analysis. About 220,000 cyclones are identified within a 200 years’ run of GCM. The
+tracks are also used to produce cyclones’ initial conditions. For each cyclone identified,
+we place a box around its genesis location extending +30° and +60° in the meridional
+and zonal directions, respectively. Then, the initial conditions that the cyclones expe-
+rience are recorded, namely temperature, zonal wind, meridional wind, and specific hu-
+
+midity on 16 vertical levels, extending from 225 hPa to 963 hPa. The codes of storm
+ing from GCMs and postprocessing for running the CNN are shown in
+
+Neural Network Predictions
+Input ~~ “Hidden JABSeeRest es eecesSe sees a
+Layer Layer | ‘s Output ‘
+@ on Layer 1
+° ot 1
+4 e—lt-+—e Ax I
+‘ St I
+é eo; © Ay :
+e—__+—_e I
+e 4 Growth
+@ = isi /
+4 ee o
+See ae -
+
+Figure 1. A schematic diagram illustrating the input and output structure of the neural net-
+work. The model takes atmospheric conditions around the storm at genesis as input and predicts
+
+storm growth, Aw and Ay (defined in Section up to 42 hours ahead in 6-hour intervals.
+
+2.3 Machine Learning Model
+
+In this study, we train a machine learning model to predict the intensity change,
+zonal and meridional displacements (hereafter, growth, Az and Ay) of storm-center 838
+hPa vorticity anomalies using the atmospheric state around the storm at genesis as in-
+put (Figure 1; Section . All input and out variables are normalized by subtracting
+the ensemble mean across all storms and dividing by the corresponding standard devi-
+ation at each grid point. (see Table $1 for the mean and standard deviation of output
+variables.)
+
+The primary machine learning architecture employed in this study is a convolutional
+neural network (CNN). The CNN consists of six convolutional layers with hidden chan-
+nel sizes of [92, 184, 184, 368, 368, 732], followed by three fully connected layers of sizes
+512, 256, 16]. Each convolutional layer uses a kernel size of 3 with padding of 1. Except
+for the first layer (stride 1), a stride of 2 is applied, halving the spatial dimensions of the
+input maps at each layer. A dropout rate of 30% is applied after each convolutional layer
+o prevent overfitting, and ReLU is used as the activation function throughout. The model
+is trained using the Adam optimizer with a learning rate of 1 x 10~+. For validation,
+we additionally implement a dense neural network (DNN) and a Linear Regression. Among
+hese models, the CNN consistently achieves the best performance (Figure $2), while Lin-
+ear Regression shows the worst performance and nearly no skill in predicting the storms.
+Thus, CNN serves as the basic model of this paper. This study utilizes 77,000 cyclones
+from the idealized GCM output for model training, 33,000 for validation, and 110,000
+or testing. A large test set is employed to ensure the robustness of the analysis. All re-
+sults shown are based on the ”test” dataset. The analysis focuses on the first 42-hour
+forecasts, during which the model exhibits its highest skill. All codes regarding the model
+are included in|Y: 5).
+
+In this study, Negative Log-Likelihood (NLL) loss function (Guillaumin & Zanna|
+2021) Barnes & Barnes| 2021) has been adopted, which allows models to jointly predict
+oth the target variable and its associated uncertainty:
+
+1
+
+Lo(x) = 5 log 26 (x) +
+
+=5 ‘ (1)
+where £ is the NLL loss; y is the model input; f is the ground truth of the output— growth,
+Ax, and Ay estimated from the 6th to 42nd hours at a 6-hour interval in this study, there-
+fore f is a vector of (7,3); and @ represents model’s learnable parameters. In this frame-
+work, each output is treated as a Gaussian probability distribution, where yw and a, re-
+spectively, represent the center and spread of the Gaussian. The NLL loss acts to max-
+imize the Gaussian likelihood. Specifically, the formulation allows the model to reduce
+
+loss in multiple ways: by predicting a mean (js) close to the target, by
+variance (a) to less predictable inputs, or both
+high-error predictions are not penalized as long as they are accompanied by appropri-
+ately high predicted uncertainty, encouraging the model to learn and express initial-state-
+dependent predictability through the variable 7. In practice, for the optimization, the
+
+£ is averaged over all outputs and all time steps:
+
+N K — Up 4 : 2
+7(0) = — Sy ; log (2m03 4 (x;)) + (fice) = Mow ee)” ; (2)
+
+i=1 k=1 764 (Xi)
+
+where N denotes the number of samples, and K is the number of components(7x3) in
+the predicted j: and o?. Notably, our results show that the predicted variance o?
+sistent with the realized MSE, indicating that the network provides a statistically cal-
+ibrated estimate of forecast uncertainty (Figure $3; Text S1).
+
+is con-
+
+2.4 Explainable AI
+
+In order to quantify the weight of each input variable in the forecast uncertainty,
+we apply sensitivity analysis ; a gradient-based method widely
+used in machine learning to attribute model outputs to inputs. It allows to identify which
+variables dominate the prediction and to assess whether forecast errors or uncertainties
+are linked to these influential inputs. We define the sensitivity of the predicted mean of
+Gaussian as:
+
+Ope (Xx)
+
+S(x) =|— 2], 3
+(x) = |e), (3
+where S(y) measures the impact of small input perturbations on the predicted mean pr
+(Equation 1). Since the NLL loss optimizes both the center and the spread of a Gaus-
+sian, we can also calculate the sensitivity of this uncertainty spread to the input:
+
+2
+g(x) = |e)
+x
+where, E(x) quantifies how sensitive uncertainty of the output variables is to some small
+errors in the initial field x . Together, S(x) and E(x) offer insight into how initial con-
+ditions contribute to the output and its uncertainty. Since in machine learning models
+all variables are normalized, the S and € have no dimension, which allows comparison.
+
+, (4)
+
+3 Results
+3.1 The predictability of cyclone tracks
+
+We first examine storm predictability as revealed by the CNN’s forecasts applied
+to the aquaplanet GCM. For all variables: growth, Az and Ay, The forecast error in-
+creases monotonically over time (Figure 2a; see Figure S4a for MSE shown in dimensional
+form). In contrast, the R? peaks at the 18th hour rather than during the first few hours,
+likely because storm displacement and growth are too small to capture within the ini-
+tial 12 hours (Table $1), making these early changes less relevant to the initial state (Fig-
+ure S4b). However, storm growth remains the most difficult quantity, motivating our fo-
+cus on growth in the following discussion.
+To explore the predictability of growth, Figure 2b constructs a two-dimensional PDF
+of the predicted y and o? (abscissa and ordinate, respectively) of the predicted Gaus-
+sian distribution (Equation 1) for 42-hour growth. Variance reflects forecast uncertainty,
+with larger values indicating higher uncertainty. The 70% maximum density contour forms
+a tilted ellipse, while the contour connecting the peak density in each bin forms a dis-
+tinct “V” shape, centered around the point of maximum predicted growth. These pat-
+terns indicate that rare events are inherently more difficult to predict as expected. In
+addition to this trend, considerable variability in uncertainty remains even for a given
+growth rate. To test what drive this variability in predictability, two regions are selected
+that exhibit similar predicted growth (0-2.0x10~° s~1/42 h) but contrasting levels of
+uncertainty—one with low (good predictability) and the other with high (poor predictabil-
+ity) o?. Their implications for predictability will be examined in Sectional
+
+To uncover which input variables and physical processes contribute most to pre-
+dictability, Figure 2c presents the sensitivity (Equation 3) of the 42-hour growth predic-
+tion to all input variables. Sensitivity peaks at 838 hPa for all variables, as expected, since
+this is the storm-tracking level where environmental fields most directly influence vor-
+ticity dynamics. Among all variables, winds, which are directly linked to vorticity, con-
+tribute most to growth. Zonal wind slightly exceeds meridional wind due to its stronger
+association with the jet stream that guides storm motion. Mid-tropospheric tempera-
+ture (500-750 hPa) surpasses meridional wind, reaching its maximum influence on growth
+within this layer. The results above demonstrate that the combination of machine learn-
+ing and idealized GCM is able to make skillful and uncertainty-aware predictions, and
+identify which regions and variables contribute most to the predictability. Next, we would
+
+investigate what exact patterns are associated with high and lower predictability.
+a MSE of Predicted Variables y-o? PDF of Storm Growth c XAI: Saliency of Storm Growth
+0.25 200
+ime — Temperature
+0.20; —— dy = es Zonal Wind
+— Growth # & 400 —Meridional Wind
+— 2 Fi Moisture
+2 . a
+2 } &
+0.10 3 2
+8 §
+3 3
+0.05 3 8 800
+204 a
+0.00 100012 >
+6 12 18 24 30 36 42 -0. 15 25 7 2 3 4 6 6
+Prediction Lead Hours Predicted y (108s) Saliency (Unit: 10%)
+
+Figure 2. (a) Mean squared error (MSE) normalized by 42°¢-hour variance of the CNN-
+predicted Ax, Ay and growth . (b) Joint probability density function (PDF; shading) of the
+predicted ys and o® (defined in Equation 1) from the machine learning models for the 42"4_hour
+growth. The thin black contour encloses 70% of the maximum density, and the thick contour
+indicates the peak density within each bin of predicted yz. The two boxes denote regions used to
+separate good and poor predictions. Contours are plotted at intervals of 0.03 from 0.0 to 0.3. (c)
+Vertical structure of the sensitivity of the prediction to perturbations in each input variable S(x)
+
+calculated for growth at Agee hour, averaged horizontally for each variable and pressure level.
+
+3.2 Baroclinicity and predictability
+
+In the aquaplanet simulation, the climate varies primarily with latitude due to the
+zonally symmetric boundary conditions. This feature allows us to directly relate storm
+predictability to latitude-dependent background conditions. Figure 3a shows that well-
+predicted storms preferentially reach peak density near 44°N, whereas poorly predicted
+storms tend to cluster near 34°N. To explore the physical origin of this latitudinal de-
+pendence, we next examine the background climatology. In this idealized model, the most
+distinct and dynamically relevant feature of the climatology is the baroclinicity, which
+varies systematically with latitude. We quantify baroclinicity using the bulk vertical shear,
+defined as the difference in zonal wind between 275 hPa (model top layer) and 963 hPa
+(bottom layer). Using Eady growth rate yield qualitatively similar results. The zonal-
+mean structure (Figure 3b) reveals maximum baroclinicity around 25°N ciated with
+the upper-level jet, and a weakening toward higher latitudes. Notably, this baroclinic-
+
+ity peak lies just south of the latitude band where poorly predicted storms concentrate
+(around 34°N), suggesting a possible dynamical link between baroclinicity and forecast
+
+uncertainty.
+
+Consistent with|Hadas & Kaspi (2025a), storms embedded in more baroclinic re-
+gions exhibit faster growth (Figure 3c) and lower predictability, with the MSE of growth
+increasing with baroclinicity (Figure 3d). Interestingly, the error in Ay (propagating 2.8°
+northward, table $1) decreases with increasing baroclinicity, opposite to storm growth.
+Our interpretation is that stronger baroclinicity corresponds to enhanced upper-level potential-
+vorticity gradients, which improve the steering of storms by the large-scale flow
+sensitivity to small-scale, less predictable fluctuations. For Ax
+(propagating 20° eastward), this guiding effect seems to be offset by the chaotic back-
+ground flow, leaving predictability nearly unchanged.
+
+Overall, the systematic alignment between latitude, vertical shear, and forecast skill
+demonstrates that storms forming in regions of stronger baroclinicity are less predictable
+in growth, but more predictable in Ay. Our results provide a clear link between baro-
+clinicity and storm predictability in a medium-complexity aquaplanet model, consistent
+
+with findings from more realistic frameworks (Pirret et al. 2017)
+
+3.3 Jet meandering, predictability and error growth rate
+
+We next seek to isolate the synoptic-scale conditions that govern forecast predictabil-
+ity. As discussed in Section [3.2] climatic conditions vary only with latitude in aquaplanet
+models. Therefore, separating storms according to latitude removes the climatic vari-
+ability and leaves only the synoptic variability. To identify the dominant synoptic sig-
+nal, Figure 4 presents composites of 275 hPa zonal wind for storms with ” good” (Fig-
+ures 4a,b) and ”poor” (Figures 4d,e) predictability, separately for storms occurring north
+(Figures 4a,d) and south (Figures 4b,e) of 40°N. These structures have been confirmed
+to be insensitive to sample sizes (Figure S5).
+
+In general, the 275 hPa zonal wind patterns differ markedly between the good- and
+poor-prediction groups, both south and north of 40°N (Figures 4a,b,d,e). For storms form-
+ing south of 40°N, the good-prediction group (Figure 4a) exhibits a strong, coherent jet
+with a 36ms~! maximum at the storm center and relatively smooth meridional gradi-
+ents (Ou/Oy > 0 south of the storm). In contrast, the poor-prediction group (Figure
+4d) features a more intense core (>40ms~') but displays strong zonal variability (Ou/dx)
+east of the storm, with a pronounced meandering structure absent in the good-prediction
+counterpart. North of 40°N, both good- and poor-prediction storms are embedded in a
+jet regime characterized by decreasing wind speeds with latitude (Ou/0y < 0), consis-
+tent with the climatological background (Figure 3c). The good-prediction group (Fig-
+ure 4b) shows a relatively smooth jet with only weak meandering north of the storm. In
+contrast, the poor-prediction group (Figure 4e) reveals strong zonal asymmetry with sharp
+0u/Ox variations near and east of the storm center, while meridional gradients remain
+weak. A direct estimate of the relationship between 0u/0x and predictability (Figure
+S6) also supports that such a meandering structure increases forecast uncertainty of growth.
+Overall, the key distinction lies in the jet structure east of the storm center: poor-prediction
+storms are consistently associated with more meandering and zonally asymmetric upper-
+
+(a) PDF of Initial Latitude (b) Climatological Zonal-Wind
+
+0.04 45
+0.03 B35
+E
+x =
+2 is}
+wn =
+0.02 £25
+oy z
+a 3
+Ee
+0.01 ]{—— Poor Prediction | NEU
+—— Good Prediction — 275hPa zonal wind
++=) Combined — Bulk vertical shear
+0.00 = 5
+20 30 40 50 60 20 30 40 50 60
+Latitude (°N) Latitude (°N)
+a6 (c) Baroclinicity & Growth (d) Baroclinicity & Error
+|—— 6h —— 30h
+—— 12h —— 36h
+3 E
+a 6
+08 2
+7 w
+: 2
+x 0.4
+° et ee
+0.0 0.00
+10 20 30 40 50 10 20 30 40 50
+Zonal wind bulk vertical sheer (m/s) Zonal wind bulk vertical sheer (m/s)
+Figure 3. (a) PDF of the initial storm latitude for well predicted and poorly predicted
+
+storms (good and poor prediction, as defined in Figure 2b); (b) Climatological distribution of
+Zonal wind at 275 hPa (black) and bulk vertical shear (blue) in the idealized GCM; (c) The mean
+
+growth as a function of bulk vertical shear at the storm center, defined in Section [2.1]
+
+at different
+lead times; (d) The mean MSE of Az, Ay and growth averaged over all time steps as a function
+
+of bulk vertical shear. Shading indicates +1 standard error, computed as the standard deviation
+within each bin divided by VN. MSE is calculated using variables normalized by the mean and
+standard deviation (Table S1).;
+
+level winds, whereas well-predicted storms are embedded in smoother, more coherent jets.
+These structures likely modulate downstream uncertainty growth. Similar patterns are
+observed at lower levels (Figure $7).
+
+In order to quantify how these structures are linked to predictability, here we eval-
+uate the sensitivity of uncertainty to all the input variables (Equation 4). The results
+now that forecast uncertainty in 42-hour growth is most sensitive to variations in the
+onal-wind structure (Figure $8), highlighting the dominant role of jet dynamics in storm
+redictability. The “good prediction” group exhibits roughly half the sensitivity of the
+poor prediction” group to all input variables, indicating a strong correspondence be-
+ween reduced sensitivity of uncertainty (to input variables) and improved forecast skill.
+To probe the role of jet structure, we compare the sensitivity patterns of storms with
+well- and poorly- predicted meandering zonal winds (Figures 4c, 4f). Because storms oc-
+curring south and north of 40°N display similar sensitivity characteristics, we present
+the composite of them. Both prediction groups show peak sensitivity near the storm cen-
+ter, but the poor-prediction group displays twice the sensitivity. This enhancement sug-
+gests that meandering structures east of the storm center substantially accelerate error
+
+rg ND
+
+>
+
+growth. By contrast, a similar meander 10° north of the center in the good-prediction
+group (Figures 4a, 4b) contributes little to sensitivity, illustrating that such structures
+northward of the storm are irrelevant to the storm predictability (Figure 4c). Overall,
+these findings demonstrate that the spatial configuration of the jet, particularly down-
+stream of the storm center, plays a critical role in shaping the predictability of storm in-
+tensity.
+
+(a) Good | South of 40°N _ (b) Good | North of 40°N (c) Good | Sensitivity
+20
+© o o
+% 0 3 3
+4s 4s 8
+‘gy -10 ‘3 D
+z az <
+
+i
+N
+3
+
+-40 -20 0 20 40 -40 -20 0 20 40 -40 -20 0 20 40
+Ref. Longitude Ref. Longitude Ref. Longitude
+
+(d) Poor | South of 40°N (e) Poor | North of 40°N (f) Poor | Sensitivity
+
+o w wo
+Bo) Bo) 3
+2 Zz Zz
+6 s 5
+4 Ss 4s
+‘y 5) 9
+a ea a
+
+-40 -20 i) 20 40 -40 -20 0 20 40 -40 -20 0 20 40
+Ref. Longitude Ref. Longitude Ref. Longitude
+
+0 8 16 24 32 40 oO 8 16 24 32 40 0.0 0.4 0.8 im 16 2.0
+Zonal wind (m s~1) Zonal wind (m s~!) Sensitivity (x10-?)
+
+Figure 4. Composites of 275hPa zonal wind fields at storm initialization for (a) well and (d)
+poorly predicted storms located south of 40° N; (b) and (e) are as (a) and (d), but for storms
+north of 40° N. The number of samples used for the composites are: (a) 6824; (b) 8677; (d) 7406;
+and (e) 6353. (c) Horizontal distrubution of E(x) (equation 4), the derivative of uncertainty in
+the 42-hour growth to the initial zonal-wind field (unit: 10~*), shown for the good prediction set,
+the sensitivity vector is quantified as the vertical-column mean of the gradient components.; (f)
+
+Same as (c), but for the poor prediction set.
+
+4 Conclusion and Discussion
+
+This study investigates the predictability of mid-latitude storms by applying a con-
+volutional neural network (CNN) to forecast storm tracks in an aquaplanet GCM sim-
+ulation. By integrating explainable AI with an idealized modeling framework, we find
+that:
+
+1. Storm growth is less predictable than displacement, with large variability across
+storm samples. Zonal and meridional wind structures contribute most strongly
+to the predictions.
+
+2. Stronger baroclinicity enhances storm growth while reducing its predictability, yet
+simultaneously improves the predictability of meridional displacement.
+
+3. A more meandering jet is linked to decreased predictability of storm growth. Ex-
+planable AI results suggest that the more-meandering jet doubles thesensitivity
+of uncertainty in storm growth compared to a less-meandering jet.
+These findings demonstrate that combining explainable AI with traditional dynam-
+ical analysis can yield deeper insights into the mechanisms governing storm predictabil-
+ity. However, it remains uncertain whether the relationships identified in this idealized
+setting hold in the real atmosphere. Future work using reanalysis data and operational
+forecast models is essential to test the generalizability of these findings and evaluate their
+relevance for real-world weather prediction.
+
+Conflicts of Interest
+
+The authors declare no conflicts of interest.
+
+Open Research Section
+
+All datasets and code created or analyzed for this study are publicly archived in
+trusted repositories with persistent identifiers, enabling full transparency, reproducibil-
+ity, and reuse.
+
+Data Availability
+
+The data used in this study were generated using the publicly available Geophys-
+pa Fluid Dynamics Laboratory (GFDL) Idealized Moist Spectral eorogpbats Model
+fully documented and available at bh
+-noaa. gov. Tdealized-mois pectral-atmospheric-model- quickstart/ Simule-
+tions were performed at T42 resolution for 200 years. Due to the large data volume, one
+representative simulation year, along with configuration files and post-processing scripts,
+
+has been archived in Zenodo (Yao et al.|
+
+Software Availability
+
+The full analysis and machine-learning code, including the CNN architecture, train-
+ing algorithm, sensitivity-analysis tools, and figure-generation scripts, is archived at Zen-
+
+Global Research Statement
+
+This research did not involve any external collaborators, local institutions, field-
+work, sampling, or community-based data collection. All data were generated via a 200-
+year aquaplanet experiment using the GFDL model, run on institutional high-performance
+computing systems. All individuals who met the AGU Publications authorship criteria
+were included as co-authors; those providing technical support are acknowledged in the
+Acknowledgements section. No formal permits, agreements with local authorities, or au-
+thorizations were required.
+
+In line with AGU’s mandate on “Inclusion in Global Research” and mindful of the
+TRUST Code’s values of Fairness, Respect, Care, and Honesty, we ensured transparent
+attribution of contributions and open sharing of data and code. Co-authors jointly par-
+ticipated in the design, implementation, analysis, and interpretation stages of the exper-
+iment. The final manuscript was circulated to all co-authors, who verified the results and
+helped contextualize findings. Data and model scripts have been made publicly avail-
+able in a trusted repository in accordance with the AGU Data & Software policy.
+
+Overall, while no cross-regional or community-based collaboration was applicable,
+we confirm that ethical and scientific considerations have been met in full accordance
+with AGU policy and the TRUST Code values.
+
+[O-
+Acknowledgments
+
+W.Y. acknowledges Huayu Chen for inspiring discussions regarding explainable AI. O.H.
+acknowledges Laure Zanna for meaningful discussions. This research has been supported
+by the Azrieli fellowship and the Israeli Science Foundation (Grant 996/20).
+
+References
+
+Barnes, E. A., & Barnes, R. J. (2021). | Controlled abstention neural networks for
+identifying skillful predictions for regression problems. Journal of Advances in
+Modeling Earth Systems, 13, e2021MS002575.
+
+Bi, K., Xie, L., Zhang, H., et al. (2023). Accurate medium-range global weather fore-
+casting with 3d neural networks. Nature, 619, 533-538.
+
+Brettin, A. E., Zanna, L., & Barnes, E. A. (2025). Uncertainty-permitting machine
+learning reveals sources of dynamic sea level predictability across daily-to-seasonal
+timescales. arXiv preprint arXiv:2502.11293.
+
+Chemke, R., & Kaspi, Y. (2015). The latitudinal dependence of atmospheric jet
+scales and macroturbulent energy cascades. Journal of the Atmospheric Sciences,
+72(10), 3891-3907.
+
+Coleman, A., Ancell, B., & Schwartz, C. (2024). Can we predict the predictability of
+high-impact weather events? Monthly Weather Review, 152(11), 2483-2504.
+
+DelSole, T. (2004). Predictability and information theory. part i: Measures of pre-
+dictability. Journal of the Atmospheric Sciences, 61(20), 2425-2440.
+
+Doiteau, B., Pantillon, F., Plu, M., Descamps, L., & Rieutord, T. (2024). System-
+atic evaluation of the predictability of different mediterranean cyclone categories.
+Weather and Climate Dynamics, 5, 1409-1427.
+
+Eady, E. T. (1949). Long waves and cyclone waves. Tellus, 1(3), 33-52.
+
+Emanuel, K., & Zhang, F. (2016). On the predictability and error sources of tropi-
+cal cyclone intensity forecasts. Journal of the Atmospheric Sciences, 73(9), 3739-
+3747.
+
+Frierson, D. M. W., Held, I. M., & Zurita-Gotor, P. (2006). A gray-radiation aqua-
+planet moist gem. Part I: Static stability and eddy scale. Journal of Atmospheric
+Sciences, 63, 2548-2566.
+
+Froude, L. S. R., Bengtsson, L., & Hodges, K.I. (2007). The predictability of ex-
+tratropical storm tracks and the sensitivity of their prediction to the observing
+system. Monthly Weather Review, 135, 315-333.
+
+Gordon, E. M., & Barnes, E. A. (2022). Incorporating uncertainty into a regression
+neural network enables identification of decadal state-dependent predictability in
+cesm2. Geophysical Research Letters, 49, e2022GL098635.
+
+Guillaumin, A. P., & Zanna, L. (2021). Stochastic-deep learning parameterization
+
+of ocean momentum forcing. Journal of Advances in Modeling Earth Systems, 13,
+e2021MS002534.
+
+Hadas, O., & Kaspi, Y. (2021). Suppression of baroclinic eddies by strong jets. Jour-
+
+nal of the Atmospheric Sciences, 78 (8), 2445-2457.
+
+Hadas, O., & Kaspi, Y. (2025a). A lagrangian perspective on the growth of midlati-
+
+tude storms. AGU Advances, 6, e2024AV001555. doi: 10.1029/2024AV001555
+
+Hadas, O., & Kaspi, Y. (2025b). Quantifying the influence of climate on storm ac-
+
+tivity using machine learning. arXiv preprint arXiv:2504.20521.
+
+Hodges, K. I. (1995). Feature tracking on the unit sphere. Monthly Weather Review,
+123 (12), 3458-3465.
+
+Lorenz, E. N. (1963). Deterministic nonperiodic flow. Journal of the Atmospheric
+Sciences, 20(2), 130-141.
+
+O’Gorman, P. A., & Schneider, T. (2008). The hydrological cycle over a wide range
+of climates simulated with an idealized gem. Journal of Climate, 21, 3815-3832.
+
+Tis
+Pantillon, F., Knippertz, P., & Corsmeier, U. (2017). Revisiting the synoptic-scale
+predictability of severe european winter storms using ecmwf ensemble reforecasts.
+Natural Hazards and Earth System Sciences, 17, 1795-1810.
+
+Pirret, J. S. R., Knippertz, P., & Trzeciak, T. M. (2017). Drivers for the deep-
+ening of severe european windstorms and their impacts on forecast quality.
+Quarterly Journal of the Royal Meteorological Society, 143(702), 309-320. doi:
+10.1002/qj.2929
+
+Price, I., Sanchez-Gonzalez, A., Alet, F., et al. (2025). Probabilistic weather fore-
+
+ing with machine learning. Nature, 637, 84-90.
+
+Priestley, M. D. K., & Catto, J. L. (2022). Future changes in the extratropical storm
+tracks and cyclone intensity, wind speed, and structure. Weather and Climate Dy-
+namics, 3, 337-360.
+
+Rupp, P., Spaeth, J., Afargan-Gerstman, H., Bieler, D., Sprenger, M., & Birner, T.
+(2024). The impact of synoptic storm likelihood on european subseasonal fore-
+cast uncertainty and their modulation by the stratosphere. | Weather and Climate
+Dynamics, 5, 1287-1298.
+
+Sheshadri, A., Borrus, M., Yoder, M. R., & Robinson, T. A. (2021). Midlatitude er-
+ror growth in atmospheric GCMs: The role of eddy growth rate. Geophysical Re-
+search Letters, 48(24), e2021GL096126.
+
+Simonyan, K., Vedaldi, A., & Zisserman, A. (2014). Deep inside convolutional net-
+works: Visualising image classification models and saliency maps. In Proceedings
+of the workshop at the international conference on learning representations (iclr).
+Banff, Canada.
+
+Tamarin, T., & Kaspi, Y. (2017). The poleward shift of storm tracks under global
+warming: A lagrangian perspective. Geophysical Research Letters, 44 (20), 10,666—
+10,674.
+
+Vallis, G. K. (1983). On the predictability of quasi-geostrophic flow: The effects of
+beta and baroclinicity. Journal of the Atmospheric Sciences, 40(1), 10-27.
+
+Walker, C. C., & Schneider, T. (2006). Eddy influences on hadley circulations: Sim-
+ulations with an idealized gem. Journal of Atmospheric Sciences, 63, 3333-3350.
+
+Yao, W. (2025). Code for studying storm predictability. [Software]. Zenodo.
+
+https: /7d0i : org/ 10.5281/zenodo. 16741969]
+
+Yao, W., Hadas, O., & Kaspi, Y. (2025). Idealized gem dataset and post-processing
+
+results for studying storm predictability. [Dataset]. Zenodo. https://doi.org/10
+
+.5281/zenodo . 16907626)
+Zhang, F., & Tao, D. (2013). Effects of vertical wind sheer on the predictability of
+tropical cyclones. Journal of the Atmospheric Sciences, 70(3), 975-983.
+
+=
+Supporting Information
+
+Contents
+
+1. Text S1
+2. Table S1
+3. Figures $1 to $8
+
+Text S1. Interpretation of Figure $3
+
+Figure $3 provides complementary diagnostics for evaluating the probabilistic cal-
+ibration of the uncertainty-quantifying neural network. Panel (a) shows the mean nor-
+malized MSE as a function of the predicted variance o? for each variable (Aa, Ay, and
+growth), with shaded areas representing the +1 standard error. The overall monotonic
+relationship confirms that the model’s predicted variances increase proportionally with
+
+the realized errors, a necessary condition for statistical consistency. Panel (b) relates both
+quantities to the network confidence percentile a. For the relatively predictable variables
+Ax and Ay, the predicted variances closely follow the realized MSE, indicating sharp
+
+and well-calibrated uncertainty estimates. In contrast, for the less predictable growth
+component, 6” systematically exceeds the realized MSE, suggesting that the network
+adopts a more conservative uncertainty envelope—effectively “covering but not tight.”
+Collectively, these diagnostics confirm that the predicted variance o? faithfully charac-
+terizes the underlying forecast uncertainty, serving as a physically meaningful indicator
+
+of the system’s intrinsic predictability.
+
+Normalization Mean + Std at Each Time Step
+
+Ax (*) dy (*) Growth (10-° s~?)
+6h 2.749 + 1.788 0.178 + 1.142 0.324 + 0.505
+12h 5.544 + 3.291 0.507 + 2.086 0.605 + 0.895
+18h 8.340 + 4.752 0.904 + 3.006 0.848 + 1.235
+24h 11.123 + 6.183 1,353 + 3.907 1.043 + 1.537
+30h 13.888 + 7.573 1.842 + 4.778 1,195 + 1.803
+36h 16.626 + 8.922 2.359 + 5.613 1.303 + 2.035
+42h 19.327 + 10.227 2.894 + 6.409 1.365 + 2.244
+
+Table S1. Normalization mean and standard deviation of the variables: Az, Ay and growth
+
+used at each time step (Table $1).
+
+<li
+(a) (b) EMFC (m/s’) tess
+300 37.5 1.50
+ie A008 30.0 0.75
+= 5
+= BOO:
+ro) 225 0.00
+$
+D 600
+a 15.0 0.75
+3 700
+a
+9 is -1.50
+© 800
+o 0.0 595
+900 . oe
+75
+55 —3.00
+Latitude (°N) Latitude (°N)
+Temperature (K) (d) Streamfunction (kg/s) ed
+300
+300 0.3
+288
+‘e400 0.0
+&
++ 500 7ae a)
+$
+& oo 264 -0.6
+2
+5 700 252 -0.9
+a
+2 800 240 -1.2
+=
+900 228 -15
+216 -18
+10 20 30 40 50 60 70 80 10 20 30 40 50 60 70 80
+
+Latitude (°N) Latitude (°N)
+
+Figure S1. Zonally averaged climatology of the idealized GCM: (a) Zonal wind(U, ms~'); (b)
+oe m-s °, EMFC); (c) temperature (K); (d) Merid-
+
+ional overturning circulation stream function (kg -s~').
+
+Eddy Momentum Flux Convergence (—
+
+MSE of 400 Epochs
+
+1.2] | A
+/ A\
+\/\ /\ / . / {fj
+
+1.0; © nS Vw IV
+Ww CNN
+w 0.8 DNN
+= Linear Regression
+
+0.6
+
+oal
+
+0 50 100 150 200 250 300 350 400
+Training Epochs
+
+Figure $2. Comparison of MSE among the three neural-network models predicting storms in
+this study. The figure shows how the prediction error evolves over 400 training epochs, illustrat-
+ing the skill achieved by each model. MSE is computed and averaged across all variables, each
+
+normalized by its mean and standard deviation (Table $1).
+
+ets
+(a) o? vs MSE
+
+(b) MSE by confidence percentile
+
+0.6 7 os -e- Ax MSE
+—— — «we
+— Growth —m- Ay MSE
+057 ---. y=x os —ae
+% —*— Growth MSE
+c-} —— Growth &
+Wo4 a
+7) #04
+= cS
+3 3
+Pos -
+< & 03
+F
+2 «
+0 02 wu 0.2
+nu
+=
+o1 01
+0.0 0.0
+0.0 01 0.2 0.3 04 0.5 0.6 20 40 60 80 100
+Predicted o* (normed) Confidence percentile a
+Figure $3. (a) Mean MSE loss (calculated by variables normalized) of Az, Ay, and growth
+
+as a function of the predicted (normalized) variance (a? of each pre
+
+icted variable: Ax, Ay,
+
+and growth, respectively) at the 42th hour. Shading represents the +1 standard error. (b) Mean
+
+observed MSE (black dashed curves with markers) and predicted variance 6? (solid curves) as a
+
+function of the confidence percentile a (higher a corresponds to higher network confidence, i.e.,
+
+smaller predicted 6°).
+
+a
+MSE with Time
+— yw
+5 — & 12
+—— cfhwth
+4 10
+z, eg
+a a
+= ae 4
+2
+4
+a 2
+0
+7 & © -« 0 6 @
+Time Steps (Hour)
+Figure S4. (a) Mean squared error (M
+
+eo os © So » @&
+ie) PS oa & ° iN)
+MSE Growth
+
+bd
+°
+
+0.90
+0.88
+0.86
+
+wy 0.84
+x
+
+0.82
+0.80
+0.78
+0.76
+
+R? with time
+
+—— Ax
+— Ay
+—— Growth
+
+o
+
+12 18 24 30
+
+Time Steps (Hour)
+
+36 42
+
+SE) of the CNN-predicted Ax (unit: °), Ay (unit: °)
+and growth” (unit: 10~°s~'); (a) Coefficient of determination R? of the CNN-predicted Aa, Ay
+
+and ” growth”, calculated at each prediction lead time step.
+
+—15-
+
+manuscript submitted to Geophysical Res
+
+Good / Poor / Difference at ~275 hPa for Different Sample Sizes
+
+Full- Good Full. Poor
+
+Full Difference
+
+. 7
+# 4
+y
+2 hy y
+12-10 _ 4
+6 20
+3
+2 2h gy
+3 3
+gq 7 18% °
+: : |
+275 hPa (n=333) en 275 hPa (n=333) 275 hPa (n= 333)
+5s
+cs
+2 2h gy
+2 2
+3 18% :
+
+Longitude Longitude
+
+Fa
+
+-0 0 a
+Longitude
+
+Figure S5. Composite 275 hPa zonal wind fields at storm initialization for well-predicted
+
+storms (first column), poorly predicted storms (second column), and their difference (third col-
+
+umn), for storms located north of 40° N. The first row is based on 1000 samples, the second row
+
+on 500 samples, and the third row on 333 samples.
+
+=IB=
+() Yo7shPa Good
+
+20 | (c)
+3 Meandering & MSE
+8 10 4 :
+2
+5 0 a
+& -10 e
+20 &
+3
+-40 -20 0 20 40 s
+Ref. Longitude 3
+(>) Uo7shPa Poor =
+20 fa)
+=
+8 10
+2
+® 0
+3-10
+& Ustack > Upiue
+-20
+
+-40 -20 0 20 40
+Ref. Longitude
+
+Figure S6. (a-b) Composite initial 275 hPa zonal wind fields for (a) good and (b) poor pre-
+dictions, for storms located north of 40°N. (c) MSE of predicted storm intensity, latitude change
+and longitude change as a function of the Zonal-wind difference between 2 dots (as a quantifica-
+
+tion of du/dx in this ”meandering” region of the poor) identified in (a-b).
+
+South of 40°N North of 40°N
+
+(a) 725.948 hPa
+
+Ref. Latitude
+Ref. Latitude
+
+-40 -20 0 20 40 -40 -20 0 20 40 -40 -20 0 20 40 -40 -20 0 20 40
+Ref. Longitude Ref. Longitude Ref. Longitude Ref. Longitude
+
+hPa Poor
+
+Ref. Latitude
+_ Ref. Latitude
+
+-40 -20 0 20 40 -40 -20 0 20 40 -40 -20 0 20 40 -40 -20 0 20 40
+Ref. Longitude Ref. Longitude Ref. Longitude Ref. Longitude
+
+Figure $7. Composite lower-level zonal wind fields at storm initialization for well- (a-d) and
+poorly-predicted (eh) storms. Panels (a), (b), (e), and (f) show winds at 726 hPa; (c), (d), (g),
+
+and (h) show winds at 838 hPa. Panels (a), (b), (e), and (f) correspond to storms south of 40°N,
+while (c), (d), (g), and (h) correspond to storms north of 40°N.
+
+aE
+Uncertainty sensitivity  Unit:e-3
+
+Ml Good
+0.20 lm Bad
+
+0.15
+0.10
+0.05 .
+0.00
+T U Vv Q
+
+Figure S8. Uncertainty sensitivity E(x), as defined in Equation 4, of the predicted 42h inten-
+
+sity change to input temperature, zonal-wind, meridional-wind and specific humidity, for both
+good and poor predictions (as classified in Figure 2b). We are averaging the sensitivity vectors
+
+by taking the vertical and horizontal mean of the absolute value of each vector component for
+
+comparison.
+
+—18-

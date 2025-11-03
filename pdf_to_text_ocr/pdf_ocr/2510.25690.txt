@@ -1,0 +1,3780 @@
+arXiv:2510.25690v1 [astro-ph.CO] 29 Oct 2025
+
+A Light-Cone Approach to
+Higher-Order Cosmological
+Observables
+
+P. Béchaz,”” G. Fanizza,° G. Marozzi®’ and M. R. Medeiros Silva?
+
+“Dipartimento di Fisica, Universita di Pisa, Largo B. Pontecorvo 3, 56127 Pisa, Italy
+‘Istituto Nazionale di Fisica Nucleare, Sezione di Pisa, Largo B. Pontecorvo 3, 56127 Pisa,
+Italy
+“Dipartimento di Ingegneria, Université LUM, S.S. 100 km 18 - 70010 Casamassima (BA),
+Italy
+E-mail: pierre.bechaz@phd.unipi.it, fanizza@lum.it, giovanni.marozziQunipi.it,
+
+matheusmedeirosrs@gmail.com
+
+Abstract. We develop a second-order cosmological perturbation theory on a background
+geometry expressed in terms of light-cone coordinates, extending the first-order analyses
+available in the literature. In particular, we investigate the gauge transformations of second-
+
+order perturbative quantities on the light-cone and establish their connection with standard
+
+perturbation theory. Through a consistent matching procedure, we identify the second-order
+gauge fixing that corresponds to the non-linear Geodesic Light-Cone gauge within standard
+perturbation theory, known as the Observational Synchronous Gauge. We then emphasize its
+conceptual similarities and differences wrt the standard Synchronous Gauge. Finally, within
+his new perturbative framework, and adopting a fully gauge-invariant approach, we compute
+che luminosity distance-redshift relation up to second order with anisotropic stress as seen by
+a free-falling observer. Remarkably, we show how divergences at the observer position can be
+eliminated in a completely model independent way. These results validate our perturbative
+
+framework and establish it as a novel formalism for evaluating cosmological observables at
+
+second order.
+
+Keywords: angular distance-redshift relation, cosmological perturbation theory, geodesic
+
+light-cone gauge, observational synchronous gauge, relativistic cosmology
+
+Preprints:
+Contents
+
+7
+
+Introduction
+
+Beyond Linear-Order Perturbation Theory on the Light-Cone
+2.1 Definition of perturbations
+2.2 Standard and light-cone gauge transformations
+
+2.2.1 Gauge transformations at first order
+
+2.2.2 Gauge transformations at second order
+
+2.3 Map between standard and light-cone perturbation theory
+
+The Geodesic Light-Cone Gauge
+3.1 Fully non-linear framework
+3.2 Gauge modes at first order
+
+3.3 Gauge modes at second order
+
+The Observational Synchronous Gauge
+4.1 First order
+
+4.2 Second order
+
+Gauge-Invariant Variables and Observables
+5.1 Cosmological observables in the Geodesic Light-Cone gauge
+5.2 Gauge-invariant variables on the light-cone
+
+5.3 A unification of all the Geodesic Light-Cone approaches
+
+The Observational Angular Distance—Redshift Relation
+
+6.1 Perturbative expansion
+
+6.2 Gauge fixing at the observer position
+
+6.3 Detailed expressions for the angular distance-redshift relation
+6.3.1 First-order angular distance-redshift relation
+
+6.3.2 Second-order angular distance-redshift relation
+
+Summary and Conclusions
+
+A Free-Falling Observer
+
+Nona fp
+
+21
+
+22
+22.
+23
+24
+
+26
+26
+27
+
+29
+29
+30
+34
+
+36
+36
+43
+45
+45
+AT
+
+56
+
+58
+
+1 Introduction
+
+Accurate measurements of the distance-redshift relation form the cornerstone of modern
+observational cosmology. In the simplest homogeneous and isotropic Friedmann-Lemaitre-
+Robertson-Walker (FLRW) cosmology, the distance-redshift relation dy(z) is a direct probe
+of the expansion history of the Universe, underpinning the discovery of cosmic acceleration via
+Type Ia supernovae surveys. However, the presence of inhomogeneities — arising from density
+fluctuations, gravitational potentials, and peculiar velocities — modifies photon propagation
+and introduces corrections to the observed distance-redshift relation. Understanding these
+effects is essential for interpreting high-precision data from current and upcoming surveys
+such as the Vera C. Rubin Observatory’s LSST [1], Euclid [2], and the Nancy Grace Roman
+Space Telescope [3].
+
+At first order in cosmological perturbation theory, the impact of Large-Scale Structure
+on the luminosity distance-redshift relation has been extensively studied. Pioneer works
+4-9] derived expressions for the weak-lensing convergence, Shapiro time-delay, Sachs- Wolfe,
+and Doppler contributions. These results have been used to forecast the magnitude of cosmic
+variance in distance measurements and its correlation function [10, 11]. First-order calcula-
+ions have proven adequate for many applications, but as observational uncertainties shrink
+
+‘“owards the percent level and beyond, second-order effects become non-negligible.
+
+Second-order perturbations generate new phenomena and couple different modes of the
+
+inear theory. For instance, lensing-lensing and lensing—velocity couplings produce correc-
+
+‘ions of second-order, while post-Born lensing gives rise to non-Gaussian contributions in the
+magnification distribution [12-14]. Moreover, relativistic light-cone distortions and frame-
+dragging effects enter at second order, potentially biasing cosmological parameter estimation
+if left unaccounted for. In the literature, there are many possible approaches to compute
+such non-linear effects, as e.g. the cosmic rulers approach! [16-19]. In general, many authors
+have tackled these challenges in [20-24], by computing the second-order corrections to the
+luminosity distance-redshift relation, galaxy number counts and next-to-leading order lens-
+ing corrections [24-29], but focusing on specific gauge fixings and/or not totally considering
+the adequate choice for terms at the observer position.
+
+Indeed, the distance-redshift relation depends on the class of observers by whom it is
+measured. This has been clearly pointed out for linear-order corrections in [30], where it
+was shown that such a dependence also affects the well-posedness of the relation. At second
+order, several attempts have been made to consistently account for this effect in different
+types of observables, such as the redshift, the galaxy number counts, and the galaxy power
+spectrum [31-34].
+
+In these attempts, the observer is identified to be free-falling, which is well known to
+be the one associated with the definition of the proper time in the Synchronous Gauge (SG).
+
+However, as first shown in [35], this free-falling observer is also the one associated with the
+
+"See also [15] for a first attempt to go beyond second order for the galaxy number count.
+proper time of the Geodesic Light-Cone (GLC) gauge (first introduced in [36]) or of the
+
+Observational Synchronous Gauge (OSG) (first introduced in [37]). The latter is defined
+
+to be the standard, perturbative counterpart of the GLC gauge, and consists in a gauge
+
+which preserves all the advantages of the GLC one, order by order in perturbation theory.
+
+Therefore, the class of observers defined by the GLC gauge (or the OSG) is equivalent to the
+
+one associated with the SG, and it will then measure
+
+the same observables. On the other
+
+hand, far from the observer position, these two gauge fixings are not equivalent. For example,
+
+unlike the SG, photons travel on constant angles in the
+
+GLC gauge, and this is one of the key
+
+ingredients allowing us to obtain non-perturbative expressions for cosmological observables
+
+within this gauge, as the redshift and the luminosity distance (see, for example, (20, 36, 38]).
+
+With the aim of solving the above-mentioned issues, here we report a new method
+
+based on the GLC gauge to compute relativistic correc
+
+using it, we develop a comprehensive derivation of the
+
+ions to cosmological observables and,
+
+luminosity distance—redshift relation
+
+at second order in cosmological perturbation theory and as seen by a free-falling observer
+
+using a gauge-invariant and divergences free approach. Building upon the GLC formalism, we
+
+systematically expand the distance-redshift relation to
+
+second order and isolate the observer
+
+dependent contributions, as was done in [37] at linear order.
+
+Going into details, we will address three interrela‘
+
+e Identification of the observer-position terms. We
+order metric and geodesic perturbations evaluatec
+
+These include monopole and higher-multipole co
+
+ed technical goals:
+
+will systematically derive all second-
+at the observer’s spacetime position.
+
+ntributions to the redshift and lumi-
+
+nosity distance, which have often been neglectec
+
+works.
+
+or treated heuristically in previous
+
+e Second-order gauge fixing at the observer position. By building upon the general
+
+gauge transformation rules for cosmological perturbations, we implement a consistent
+gauge choice at the observer position to second order. This involves specifying residual
+gauge functions that uniquely fix time and spatial reparameterizations on the observer’s
+worldline, thereby eliminating unphysical degrees of freedom in the local expansion of
+
+the metric.
+
+e Gauge invariance and cancellation of divergences. We will demonstrate that, once
+observer-position terms and gauge conditions are properly accounted for (see the two
+points above), all would-be divergent contributions cancel in the final expression for
+the observed luminosity distance-redshift relation. In particular, we systematically
+
+10w that all the terms at the observer position safely do not induce any divergences,
+
+wn
+
+ensuring a manifestly finite and gauge-invariant result. Notably, these cancellations
+occur without any assumption regarding the theory of gravity or the matter content of
+
+the Universe.
+
+As mentioned, to achieve these aims we employ the GLC gauge [36, 38], which facilitates
+
+the separation of light-propagation effects into contributions along and orthogonal to the null
+direction. We expand the photon wave-vector, affine parameter, and Sachs basis up to second
+order, carefully tracking observer and source evaluations. Gauge transformations are handled
+via Lie derivatives of the metric perturbations, with explicit computations of second-order
+residual generators on the observer’s worldline. In particular, we methodically compare and
+find a proper matching of our source terms with the literature [20, 23, 38], thus validating
+our light-cone approach to cosmological observables at second order.
+
+This paper is organized as follows. In Sect. 2, we describe two possible approaches to
+cosmological perturbation theory: the standard one, where space-time is foliated into space-
+ike hyper-surfaces, and the light-cone one, where space-time is foliated into light-like hyper-
+surfaces. After a proper splitting of the perturbations according to their symmetry properties,
+we compute the gauge transformations in both the approaches, working up to the second
+perturbative order. We also establish a fully non-linear dictionary between the standard and
+ight-cone perturbations. In Sect. 3, we start by defining the GLC gauge at a fully non-linear
+order. Then, we impose the GLC gauge-fixing conditions at first and second order within
+he light-cone perturbation theory, ending up with the forms that gauge modes needed to
+ransform from a generic gauge to the perturbative definition of the GLC one. The standard
+counterpart of such a gauge fixing, namely the OSG, is then defined in Sect. 4, where we point
+out its similarities and differences wrt the SG. In Sect. 5, we recall how the GLC coordinates
+urn out to be a very powerful tool to compute cosmological observables to any order in
+
+perturbation theory. In particular, we provide exact, non-perturbative expressions for the
+redshift and the angular distance. Then, we compute a set of first- and second-order gauge-
+invariant variables associated with the GLC gauge and use them to define a new approach to
+evaluate higher-order cosmological observables. As an application of this new perturbative
+
+scheme, in Sect. 6 we focus on the computation of the angular distance-redshift relation as
+
+seen by a free-falling observer. Thanks to a complete gauge-fixing procedure at the observer
+position, we show a definite way to solve the long-standing issue of divergences associated
+
+with the observer. To conclude, we provide the ultimate, gauge-invariant expression for the
+
+angular distance-redshift relation, whose source terms are systematically matched with the
+literature. Finally, the main conclusions and possible future directions of investigations are
+summarized in Sect. 7. In Appendix A, we prove that the observer defined by the OSG is
+free-falling, as well as the one of the SG.
+
+2 Beyond Linear-Order Perturbation Theory on the Light-Cone
+
+In this section, basically following the formalism first introduced in [37] (see also [39-41] for
+further developments and applications of this perturbative framework), we will build a cosmo-
+logical perturbation theory up to second order on top of the background light-cone geometry.
+Afterwards, we will also establish a rigorous connection between this new perturbation theory
+
+and the standard one.
+2.1 Definition of perturbations
+
+In order to consistently fix the notation and provide the context in which we will introduce
+first- and second-order perturbations on a light-cone background, we just start by expressing
+the standard perturbation theory up to second order using spherical coordinates.
+
+Standard perturbation theory. We consider the perturbed FLRW metric using the
+conformal time and spherical spatial coordinates, y = (n,r, 0%), as
+
+(2)
+
+ds? = Guv dy" dy” = (Guv + a + giv )dy"dy”
+
+=a?(n) [ —(1+ 2g) + $))) da? — 2(B + B)) andr — 2(BW) + B?))dnage
+1402 +¢®)ar? + 2(C® + C@)arage + (FEERY +0) +c )aorae’] , (24
+Tr ra ra ab
+
+—. F ' ; . 1 2
+where g,,, is the homogeneous and isotropic background metric, while gD and go respec-
+
+tively stand for first- and second-order fluctuations. In this notation, the 2-dimensional
+
+spatial background metric in polar coordinates is
+aELRW = diag (r?, r? sin? 0). (2.2)
+
+Using an index i = (r,6,~) to label spatial coordinates and adopting from now on the
+superscript n = 1,2 to indicate first- and second-order perturbations, the Scalar-Vector-
+Tensor (SVT) decomposition splits the various functions according to their transformation
+
+properties under 3-dimensional rotations, that is,
+”) BB) + Bil,
+C&) = 2) 4 2D, EO + 2V,-F™ + 2h ,
+CM) = 2DraB +20 FS? + 2h),
+CH) = 2p) FLRW 4 oD B™ + 2V qk +20 , (2.3)
+
+or, in a more compact form for the tensor ci) jo
+
+CH) = 2 Fy + 2D GE + 2V GF +20), Fig = diag (L,Y). (2.4)
+
+Here we are indicating with Dj; the covariant derivative wrt the spatial background metric,
+1_
+
+Dig = VV 5) gs, (2.5)
+
+and the symmetrization between the two lower indices of two vectors is defined as X(,,Y,) =
+(1/2)(Xp¥p + XY).
+
+In this decomposition, the vectors BO”) and F. (n) are divergenceless and the tensor ne
+
+is traceless and divergenceless, namely
+
+VEe?=0 , VEM=0 , BP=0, FAP =o. (2.6)
+
+ua
+Next, from Eqs. (2.3) we can compute the SVT variables in terms of the metric perturbations
+of Eq. (2.1). Indeed, taking ViB™, together with the condition vip” = 0, we obtain
+
+i n n n 1 ; n
+A3BM =ViB™M =, BM =B! — (VIB ), (2.7)
+3
+
+Then, from the contractions Fic ) and Dich, thanks to the transverse and traceless
+
+conditions recalled above, we get
+yr = — tae) (A3)2E™ = 3 nie (2.8)
+Furthermore, using these two equations to compute vie” makes it possible to write
+. 1
+AgFe” = vic{) + 6Vi~™ — Vv; (vm + 5AaB™) . (2.9)
+
+Finally, by means of the last two equations, we have that
+
+AA
+As
+
+(») _ Law = ViVi 1 1 ok pln)
+
+np? = Sey pr) + (7 + pr 4 gAsE™ -h [V'V GR]. (2-10)
+Light-cone perturbation theory. We can now move to the set of background light-cone
+coordinates indicated as c! = (r, w, 6), where 7 is the proper time of a time-like particle,
+w defines the background light-cone of an observer and the angles 6 coincide with the two
+polar angles (0, ¢) we observe in the sky. These coordinates are related to y“ through the
+
+relations
+
+a 1 / a
+n(T) = / ST , r=w-—7(T) , OF = 6? — (2.11)
+Tj
+
+a(t’)
+
+where Tin is a very early initial time at which perturbations were negligible. Then, the
+
+in
+
+standard transformation rule under a diffeomorphism is given by
+
+Oy? Oy?
+
+wy = > a Ipo (2.12)
+
+Thus, the background light-cone metric can be directly computed using (2.12), yielding
+
+Fv da"da” = a?(r) Cardin + dw? + Fandd°dd?| , (2.18)
+a
+where
+Fab = [w— n(7)|*diag(1, sin? 6!) = [w — n(7)] Gab (2.14)
+
+and dap is the metric on the 2-sphere. Then, by adding perturbations on top of the metric
+Lit, we obtain
+
+ds? = fuda!da” = (fur + fD a FQ) dada”
+
+2
+=a"(r) (LY) 4 Lar? =(1 a(M 4 M®)))drdw
+a
++ av + V,2))araé* +(1+ NO 4 N))dw?
+
+(4 da" . (2.15)
+
+a
+
+aU + U))dwdb* + (Fas #4
+
+For the sake of clarity, in a more compact form, the background metric and the perturbed
+
+one read
+0 -1/a 0 LT) Me) y
+_ a
+fu =a |-1/a 1 0 , (9 =02 | MO NO UM]. (2.16)
+T T 7
+0 0 ab vit we )
+
+We indicate with Dg the covariant derivative on the sphere and with Da = Dp its dual,
+
+€ab = V det[Gea] Ead = Sin 6 ap (2.17)
+
+is the covariant volume form on the 2-dimensional sphere and €qp is the usual totally anti-
+
+where
+
+symmetric Levi-Civita symbol. Then, as also shown in [42, 43], we can decompose the
+
+vector/tensor-like perturbations of the metric as
+
+vi~) =r? [Dav™ + Dab] ‘
+
+ul” =r [Dau ~ Daa 5 (2.18)
+?) = Dr? (dapu™ a Dapp + Davi™| ,
+where we have defined the traceless derivative operators
+1 we os ~
+Day = DiaDy) — 5 an” ; Day = DaPr) = DaDs) (2.19)
+
+with D? the angular Laplacian.
+
+Note that L™, M(™, N®), yl), u”™, v™ and pr are scalars under rotations on
+he sphere, while 6), a”) and ji behave as pseudo-scalars. For this reason, in [37]
+his decomposition was dubbed Scalar-PseudoScalar (SPS) decomposition. Because of their
+different behavior under rotations, the scalar modes may also be referred to as electric and
+
+he pseudo-scalar ones as magnetic.
+
+2.2 Standard and light-cone gauge transformations
+
+Now we will proceed with a systematic computation of the first- and second-order gauge
+
+ransformations for standard and light-cone perturbations.
+
+2.2.1 Gauge transformations at first order
+Standard perturbation theory. Considering the first-order map y“ > g4 = y# + ey:
+where e) is the gauge field, the first-order metric fluctuation transforms as
+
+GD (y) = 92 (y) — Lea Surly) = 9D (y) — Vall? (y) — Vel (y) , (2.20)
+where Lea) is the Lie derivative along the 4-vector eA) and we underline that both go and
+Fi are evaluated at the same coordinate y. Consequently, according to Eq. (2.20), the
+
+FLRW metric perturbations introduced in (2.1) transform as
+
+aos
+
+() = g@) — Hel) ~ An€ (1) ;
+
+o
+
+p= BR) — Avely + One (ry »
+
+BO = BW _ daehyy 4 FabOn€(1) ;
+
+CD = CD — Wel — ref) 5
+
+T
+CM = cM — Oa€(1) — JabOr€ (1) ,
+~ 1 “ _
+ey = Cu ~ a(n (Aad) _ (Fac + 7WeOa) (1) > (2.21)
+
+with H = Ona/a the conformal Hubble expansion rate. Then, following e.g. [44], we can
+decompose ey) = dea) + er) (with Vie) = 0) and, using the decomposition of Eqs. (2.3)
+~ together with the fact that oe a iy because no tensor d.o.f. is present in the gauge
+
+transformations — we end up with the following transformation rules for scalars,
+F(1) _ al
+5 = 0 — yey —Hely
+* iL
+BO = oO +Hely + zAseay,
+
+BO = EO ey,
+
+BO = BO — fy + dneqy, (2.22)
+and for vectors,
+A) _ pW) ou a0) — pay _ &”
+By = BY? a,(“) ed: ea (2.23)
+
+Using the above gauge transformations, the metric can be gauge-fixed eliminating two scalar
+and one vector perturbations. The most popular gauge choices (writing them at any order
+in perturbation theory) are the following:
+
+e Poisson Gauge (PG)?: B™ =0= E),
+e Synchronous Gauge (SG): ge =0= Bl”).
+¢ Uniform Curvature Gauge (UCG): J =0= BM,
+
+Since physics is independent of the gauge chosen to describe it, one should write the
+particular physical quantity in which he is interested in a gauge-invariant way. A very
+
+?The PG is often referred to as “Newtonian/longitudinal gauge” at first order.
+important example is given by the gauge-invariant gravitational potentials 0 and U), also
+known as Bardeen variables. At first order, we define them as the value that the perturbations
+ge and yy acquire in the PG. In order to move to the aforementioned PG up to first order,
+
+we need the following conditions? on the gauge modes,
+”
+et) = BY 4+ a, EY » €1y= EY , ay a / dn BO (7!) : (2.24)
+
+obtained by imposing E® =0= BQ = BM, Then, by performing a gauge transformation
+on $“) and oO) using the above gauge fields, we end up with
+
+oY = gi) a, (BY a,E) H(BY 4 a,B),
+
+WY =~) + H(BO + a, BM) + zen) . (2.25)
+
+Light-cone perturbation theory. Let us now consider a gauge transformation acting on
+the light-cone coordinates, namely
+
+ah + gh = oh + fy ‘ iy = (1. €G)» 0) - (2.26)
+Then, using the formula
+FD (@) = FD (@) — VP @) — VY? (2), (2.27)
+
+as first computed in [37], we find that the first-order metric perturbations appearing in
+Eq. (2.15) transform as
+
+~ Q.
+LY = pO 4 2&
++ aS)
+
+2 H q 1):
+7) = mM =
+M MY) + 7 oll) &ty + q (Sa) + Away) »
+
+- 2
+N® = nO — one, 4 ~ wr) ~ 2wE)
+
+- OnE tt .
+@ _ 5
+
+0) =v) +O — sdb,
+oe Oak ( ‘
+i up =! S 081) VabOwe ls) ,
+
+can
+x al bs 1 7 = “
+af oO 8, (aan) — €{1)OwFar — (FacDo + FweDa) Ef « (2.28)
+
+From now on, when using the light-cone coordinates, a “dot” denotes 0,, i.e. a partial
+derivative wrt the time 7. Then, analogously to what usually done with the SVT decompo-
+sition, we can further decompose the angular entries of the gauge field fy according to their
+
+transformation properties under 2-dimensional rotations, that is,
+
+hy =” (Doxa) + DoXay) ; (2.29)
+
+3up to arbitrary constants of integration
+where (1) is a pure scalar d.o.f. and X(1) is a pure pseudo-scalar one. By doing so, we can
+
+(1)
+
+rewrite the transformation laws of Veo, yf) and y,,, as transformation laws of the variables
+
+vw), 6), uw), a, vQ), pO and po in the following way:
+
+. 1 1\) &
+BAN = wl — oP ay ein (# ) m
+
+ar
+p =p -xq), pO = pi
+Ee.
+I) =p 4 -B_ yy, 6 = 6) _ ¥
+ar
+fy &a =
+a — yO 4 au _ ae — Owxa) : a) = 4
+ar r
+
+2.2.2 Gauge transformations at second order
+
+Away. (2.80)
+
+Standard perturbation theory. Now, within the framework of standard perturbation
+
+theory, we consider an infinitesimal coordinate transformation, identified by the 4-vectors
+
+ey and €) at first and second order respectively,
+
+ns 1
+yt > gt x yh + eA) += (etydety + elo) :
+
+2
+
+where we mean
+
+ny = (Cys (ny) = (Cy Cn En) +
+
+2.31)
+
+2.32)
+
+Under the associated gauge transformation, the second-order perturbation of any tensor
+
+Xw = Xp + xD + xQ changes according to (see [45, 46])
+
+2 1
+2 2 2
+xD 5a ag Foe ED | 2 (2 Mi
+
+aL
+
+€(2)
+
+Ras) ; 2.33)
+
+Thus, the gauge-transformed metric tensor a2, omitting the dependence on y, is
+
+HY = Ghe — yy Oedia — Op Welyy — bp Ouelyy
+
+_il _
+5(¢ €() OpD uv + Gp ef 9) + Ivp Aue. (2 ) Tr €(1) OpGvo ne (1) +
+
++ Gup2o€( v1) + Gve€ )On9x€f1) + GvpAa€ net) :
+
+cy PobuoOy
+
+_ 1 _ _ _
+ji Goo v€/)On€(1) Fa (fa) €C1y 9G ab €() Oo Tu Pp) aS Gur) 901)
+
+(2.34)
+
+We can then compute the transformation laws for the second-order perturbations arising in
+
+Eq. (2.1):
+
++ hg .
++ one? ney (yeh) + santa (die) — 2B0? — FijAy¢1,))
+
+10
+ef Ou(Onefy — 20), (2.35)
+
+BO) = Be?) 5 Orel 4 5 nk(2) 5 (to 3On€(1y — Ar€(1y rely
+r £ l £ ¥.
+— BY (Bnef) + Oey) HOP One — 5 neta) + BOr€( ner)
+a 1 _— a
+(Oa€(1) — 2C(0 \Onety - 5 (28? = Aa€(i) + WMavOn€l1) Orel)
+
+{1) (20;BW — 8,d;e0) + OnOielyy) — Hef (BO — ret) + IneG)
+
+whe mn wore
+
+ee
+
+€
+
+1) (2OnBM — ,Op€h) + Ore), (2.36)
+
+BB.
+LL
+i
+
+et
+
+*S
+
+s
+
+ie ea) + sendy boy — Hef (BLY + FanOn€fry — Oathiy) — yy On BD
+
+ey
+- ey _ oe _ owt, — 260) dae) +c0 One (1)
+
+= 4) O7FavOn€l1y — FoeDa€(1n€lxy + Sane Ba€lhy — Mn€(1 ae
+
++ ee + (ay Oadie ty + Bey Oae(ay
+
+— Aan (el ety 9; a — 4) On D€Cr) — Aye {)On€(1) — eC) On€\a))] ; (2.37)
+
+if ana n r r
+a? =e Hel) — Or€(a 4 (0 + ) ety)” + Bret — CP) OreCr)
+
+a
+
++ (Bae fr) + FabOr€lr — CLP Orefay + (1) (2Ordiety + ACP)
+
++H [ea Orehy + 0p ely) + 4Orefay — 2CK)] + ef (2O,Dr€fr) — Onc?)
+
++ (2B\) — dp€ty + Inet Te (2.38)
+
+1
+é2) —¢2)— sith, 5 TabOr€(a) + 2He! Og + FabOrefyy — CD) — yy Oye?
+
+(1 (4) i - 7
+1 ACD) + 2B aye) — CU Dayehyy + ef) Orety ATan — Dae ly Arey
+
+oe
+
++ Aae(yPre(ry + WeAae(yAre(ay + 5 Satcher + 1%)
+
++ FabOr(€ ely On€(1) + (1 O€(1))] + (2.39)
+
+5(2 2 1 - - , 1 1 i 1
+OF = a ~ Fa3(2)On(0*Fan) - ola) €(2) ~ Hey Cap ~ ly OiCes ~ ey iCD
+
+1 1 i 1 -
++ 2Bi) Bethy — WHO) ea) + spel Sula” FecolOayefy — aely Defy — Fae(ayA€(uy
+
+<a i 9 ¢
++ Fed a€( Ovelry + (1) let) aa? Fav)| +7 Fe(a%) (4 1) An€(1) + €Oi€(1)) - (2.40)
+
+11
+Next, in order to work out the gauge transformations of the SVT perturbations, we make use
+of the above formulae together with the decompositions of Eqs. (2.3). Moreover, as usual,
+we write en = 0 €(n) + Gn) with Vien) = 0 and we exploit Eqs. (2.7)-(2.10). For the scalars
+
+we then ae
+
+x H. 1
+2g) 2 =
+or =¢ 7 (2) 5
+
+Ha :
+n€(oy + 2) 4 3(H+ id (Hel) + On ef 19 (1)
+
+a
+
+ns 2 ae? dye) +h €(1) + ey diel, et
+
+2
+1 . r ‘ ; a 4
+
++ 5On(Feqy + Ry) [Dey — 2AOBO + vt — FigOn(Pe(ay + &))|
+1 i at
+
++5 (ef) n + (0 €a) + ay) Or] [An€t,) = 2g] ;
+
+' 1 ; ;
+Bp) = wy? 4 Hy I g53€2) Help = ly Ono — (ea) + a0)
+
+1 2, ana n \2. ayn n i “a n 1
+3 H* 4 (€(1y) + Hef On€() + H(Peay + 71 )Oi€() 5 Ti; ,
+
+a
+EO = BO 5) Ta PMs),
+BO) = BO) — Feb + SAne(a) — ABM Oey — FyABO + Fel Dnehy + 5d eae
+4: sey 8ehy + vm, (2.41)
+
+where we have defined
+Th, = —[e2, (2H + O,) + [A.B + BY] — egy + 4 )AjBY — 26M 8;e2,
+
+— BY A(Heay + Fy) + {[-20 Fy + 2D EY + 2V GRY + WY ]O,
+
+— 2Hel Vig} [Peay + : + [On ecay + ey)] [201 — Oy Fie] [Peay + &y]
+
+XL " re F aa
+t el) (2H t ney av nel) + + (O*€q) + Ox] [On (A eq) + ey]
+
+= 5 e(1y VIA (He) + Ky) — FVsLAH(H’ (ay + &ry)] [One + €y)] »
+
+Ti; le + On) + (OR ey all Diy EO + V GFA? + hy]
+
+4{[-d Ang + Deg BO + Vay DARON a) + iy)
+
++ Ae Wei) ("ey + ey + 20° €qa) + 1) O07 (ea) + ey)
+
++ FeOi(O cay + Ey) Oj(Oeay + yy) + Wel (OWE + ely )OeVz
+
++ ely On Tis (O*e(a) + ey) +(0 Ke) of ey) O77 Ae(O" €qa) + ey)
+
+12
++ Fees Ley Oj) On(O*e cay + ery) + (O%e(ay + ery) Oe(O*eay + Ey)
+
++ On (Oey + ey) Oey) + Bele ry + €y)} (Oy + Ay) - (2.42)
+
+For the vectors we get
+
+~ 1 1 .
+BO = B® 4 <a.) +1, — a; A, (Vth),
+3
+
+: 1.) | iy 255 Lik
+: nae +a [vm Vill; + Vi( 31 re Thyx) (2.43)
+
+and finally the gauge-transformed of the tensor pe is
+
+2 (2 2 1 x 1ViVy
+1D = nD = hy Oh? + [4¢B + BYP ]Aye%) — sae eh) + sl tea, inp
+Tf, | ViNj Mk ke lie
+
+As an interesting application of the above formulae, we compute the gravitational gauge-
+
+invariant potentials at the second perturbative order. We need to make use of Eqs. (2.24),
+providing the form of the gauge mode €) to move to the PG, as well as
+
+3 7 (PC ui
+ey =2[B { EO + aD; »- OBOE © 4aB0 f dr! Buy (7’)
+
+1
++ 5(BO + ABO )Oy(BO + AE) + SE Oa(BO + A,B)
+
+1 vi
+~ 5 (BO + OnE) [ dy! Bi (n’) + Ag (PG |,
+
+3 ig (PG .
+
+€Q2) = 2]B0 + A
+
+respectively stemming from the conditions B®) =0 = E®) applied to Eqs. (2.41). In the
+above equations, We and neo are the quantities defined in Eqs. (2.42) where the first-
+order gauge fields have been replaced by the forms they must have to move to the PG,
+namely Eqs. (2.24). Therefore, by performing a gauge transformation using the first two of
+Eqs. (2.41) and Eqs. (2.45), we obtain
+
+3
+As)?
+
+= 6? — 0,(B® +0, B®) — H(B® + 0,E°) | ri (Dune)
+
+. n .
+— a,BMa'BY +.a,BM / dr! Biy (nf) + 3(B +, E)0,(BO + 0, E)
+
+4
+
+1. 1 n . Vv
++ 50 BM A(B + OnE) — 50(BY + A,B) / dr’ Bi (n') + a
+
+a
+
+3
+4(A3)?
+
+— a, (DENT) — a,BVa EO + a.BY / dr Biy)(1!)
+
+13
+Light-
+
+1.
++ =(BY 4+.a,E%)A,(BO + d,E%) + 50 EM A(BO + 0,E)
+
+1
+a)
+14 B®) ayy [rae pe on, Vpe@) 1 (4,2, aja (1) (1))2
+~ 90i(B +0,E) f dn! Boy(n') 4 Fags +5 He 4 a (BY + 0,E“)
+—2[H(BY +0, B%) + d,(BY + 8, EY)] gO + 2B) +0, E%)0,(BOY + A,E%)
+
+. n 5
+4b res" a / dn! Biy(r)) ,(B +a, EB)
+
++512, dE) + Bi] [A,B + 0,8) — 2B + BM) — 75(0,0'EM — BM)]
+
++5 5am 48, BO) Aq + (ae -[" arf Biy(n ») a [a,(BO + A,B) — 26] ,
+
+3
+4(A3)?
+
+n . 1
++ a | dy! Boy (1!) + 5(BO + AB )A,(BO + AE)
+
+0 + H(BO + A, E) + psn? +n ee 7 (Dine?) — a:BYA' EO
+
+1. 1 ”
++ 5018 9(BO + 0,8) — 50(B + 2,8) / aif Bila!) + 9
+
+1 ij (NG
++ meee ) 2H (BY + a, EO yO — (BY + a, Bab
+
+. n . Fa
+— 04 (0 — / aif Biy()) - 5 | (2+ i 8) (Bl +a, 20?
+
++H(BY + ,E%)A,(BY + 3,E%)
+
+r n . “3 +
++Hd,(BO + 0,60) (ant = / dr! Biy(n?) = avin? (2.46)
+
+cone perturbation theory. By applying the general gauge transformation rule
+
+(2.34) to the metric tensor #2), as written in the line element (2.15), and by considering two
+gauge fields fy and fio): as first done in [47], we obtain that the light-cone perturbations
+
+transform as
+
+72
+
+Me)
+
+= LO) + 8G) — Gy MLO — ALOT) + MOE) + Va?’ Gy)
+
+2H T ¢w tw \2 —- ¢aé
+Syl) + (Sy) + FavsQy SC)
+1 Ww iT ew 6 T
+~ ie + “wm + 24L€)], (2.47)
+H T
+M®) - 2082) sats (But + &)
+
+1
+J ra — (Ey)? — a(Ey Ankh) + ESL + 28 Busty) }
+
+14
+l {ca nor bn ca a
+~ Pate + Oakly Ouethy + (Owl) + Ly)” + et) Pw8Ey
++ 19 (Ey + Ow&{y) + 44€G) (M 0 gay}
+
+1 T Ww a
++ ;{ = 2( LM AweGy + os + Vi) OwEAy)
+
+— (MME) + NDE, + UD ERY) + Eth (EG) + Buty)
+
++ £6) Oak) ae MAavOwe ly E(u) =F Eh) O(-2MM cc a) | ; (2.48)
+
+2 2 T 1 l T Wo a T nT T
+NO = NO — HED) + —Bw8) — Ow6) + EG) (480) — 20w8Uy)
+i “Ww a ‘WwW 2 ‘WwW
+— (MM AEF) + NO Bvt) + UM veh) + (GwEGy)” + Oo (EK) OuéCy)
+
++ AaB Bury — Ely NO — 2 — al efn)? — fi Bu €fy + 20m OnE
+
+Bw (Ey Ouby) + 4G) (2NO — 43st) } (2.49)
+
+~, 1 5; 1_ ss. A
+V2) = V2) + 54 a8) 5 Vad§(0) ™ §(1) O08 (1)
+
+1 ¢ w oT w Hw T T xe
+~ 5 {2a(ehy bE) + 2(€G)Oa8() + ity 2nehy) } ~ 2A (Va? — Fav§(1)
+
+— (LM Baby + MO Agee + VP daedy) + VME + UME) + PE)
+
+1. ew w ~ if = co 5
+ab 7 1ab0r (Ey Ané0)) = ft O.Ve? + (1) Aa€(1) + £6) Ou Fav€lry + WeOa€lr Er) » (2.50)
+
+GP = UP) + 5 Batfa — Fda)
+
+1_ A
+2a 5 VavOwE lo) _ 7 oy Fa)
+
+2
+
+1
+2a
+
+— 2HEG) (UD — dak) — FavOw&lry) — (MM GakGy +N okey
+
++ UL Bobby + VM OueEy + UM OueH + 1YOuehy)
+
+{2e(6fy Qh) + 2(0a8(1)w8(1) + BaffyOut)
+
+1_
++ 5 Tabu (Ef) u€Cay) — (4 OnE? + Oh Dati) + E61) A FabOw&lr)
+
+*da(Et9 OuECi)) » (2.51)
+
+ye AeOa€lr) Ow) + 2
+
+3 _ 1 ~ _=
+A =f) - 5artlo Px (oan) ~ 9802) Awad — Ta(ePn&(2) 21 aN Eby — Eyer
+
+1 cf B Ww Ww
+~ Ely (@ at) — Elly Ow tga) + (HE + 2H?) (Ely) Fan + Bath OE) +
+
+15
+1 T L Ww 2 Ti Ww = T
+= 21M 0 Ey + UIE] — =AakLy Only + HA anklt IE)
+
++ 4H) Ve(aP 0&1) a 2HE, (EG )Vab + at Ow Jab) a 2&(1) On et a9) 1€a)
+
++ D(a fry Osby Ved + Tela) (Eli) WEG) + 569) ; (2.52)
+where we have defined
+2 6 = Be OR
+Go) = EF.) 0pDo Fao + Eh) OnE Ci) Oo Tab
+= (Sy) Fav + 2£(1)€(1) Ow'Vab + £71) £1) AcVab + (Ey)? Onan ae 2b (1) &(1) OwIcVab
+
+ar g fet) 0. Ou Vab st fa) & \Yab a i) Aw&(1) Yab ac £(1) Oc& Qa) Ya ste Eye) Quan
+
+“ €(1) OwS (1) Ow Vad + fy 9&1) OwVab “fe fy £9 Jab + i) Ow&(1) Oe Jab + & 1) Oa€ fy OcYab «
+(2.53)
+
+At this stage, we can make use of the SPS decomposition of Eqs. (2.18) to obtain the trans-
+formation properties of the SPS variables. In order to do so, we note that all the r.h.s. of
+Eqs. (2.50)-(2.52) can always be written according to this decomposition. In particular, for
+the vectors, calling H, each term appearing in Eqs. (2.50) and (2.51), this must have the
+form*
+
+Ty =r? (Dall + Dall) , (2.54)
+where II is a pure scalar and Tisa pure pseudo-scalar. We can now use the fact that,
+regardless of the coordinates we are using to parameterize the 2-sphere, it holds (see [37])
+
+g’DaPy=9 , g” DiaDy) = D? =a" DiaDs)- (2.55)
+Then, by contracting Eq. (2.54) with q*’D, and q@’Dy and by symmetrizing in the bottom
+indices a,b, we can express both II and II in terms of II, as follows:
+
+—1i4
+~ 72 pet
+
+a 11
+
+b oH
+a Dalle) ’ Us 2 pet D alloy « (2.56)
+
+A similar procedure can be adopted for tensor perturbations, by calling H,, each term of
+Eq. (2.52) and by decomposing it as
+
+Tay = 2r? (dap + Dayo + Dav&) , (2.57)
+
+where p contains the trace of Il,,, 7 is pure scalar and 6 is pure pseudo-scalar. Then, we
+need to compute the contractions ¢”M15, D%M1g5, D%Ma5 remembering that (see again [37])
+
+= a T ny ~ pm
+g Dey =0= 9" Day = D"Day —, DY Day = (DP = D® Day (2.58)
+For p we immediately get that
+
+1
+0" Uap - (2.59)
+
+P= Ar
+
+4We extract the factor r? from the decomposition of II, and Tas (see below) bearing in mind Egs. (2.18).
+
+16
+For o and 6 we must pay attention to the fact that, using the definition of the derivative
+
+operator Dap, we can write
+1
+D° TL, = DY” Dayo = D°D? Dayo = (v:v'D.4 — 30%") o, (2.60)
+where
+D*DD,Dyo = (D*D.D"D, + D*([Ds, DalD'))o. (2.61)
+
+Exploiting the usual definition of the Riemann tensor in terms of the commutator of covariant
+
+derivatives, the second contribution to the above expression is
+
+D®([Dp, Da|D°a) = D*(R?,,D°o) = D*qacD°o = D*o, (2.62)
+
+‘cba
+where, as provided e.g. in [48], we have used the general fact that, for a d-sphere of fixed
+radius r and metric Yap, the Ricci tensor is given by
+
+d= 1.
+Reap = Py) Yac = (d = 1)dac : (2.63)
+
+It follows that, summing the two contributions, we have
+
+D® Thay 3((e” 20°) a = 5Do = c= SPD" Tas (2.64)
+
+and similarly
+it 2
+6 = DD" Map - (2.65)
+Tr
+
+Dy, a2, v@, p2)
+
+Moreover, in order to work out the gauge transformations of v2), 62), ul),
+
+and p, we need to decompose the angular components of Ein) as
+
+Elny = 9 (Dox (ny + DoX (ny) + (2.66)
+where x(n) are pure scalar gauge d.o.f. while X(n) are pure pseudo-scalar ones.
+In this way, for 62) and 52) we get
+
+L 1 1 1
+25(2) _ pp2] ,,(2) ; ae We —y(2)
+Dw =D E =f a2) 9X2) Dar? (1) OHS (1) =f aad ;
+
+pore 1: 1 we
+D6?) = D? [a 5X) 4 a ; (2.67)
+where we have defined®
+
+VO) = 2H rg” Dae) (Dov + Dyo™) — 2Hr?eF) D?v
+
+5To get V2) (as well as U), see later), we have used the properties (2.55) and the fact that, for a vector
+X* it holds
+
+(e2qva = en gue) X* = —dewaX",
+
+Da, De]X* = €& R%-X4 = ¢
+2
+
+where d = 2 for the unit 2-sphere.
+
+17
+= Dak Ou[r?4”(Dyw + Dyo)] — u(r? D?o™)
+= rq" (Dax 1) + DaXay)(Dov\? + Dyi\) = g@ Dab Dog) — g"”DaM Dosti)
+= qq" Da(Dev™ + Deb) Dy (Dax + Day) — L D?E) — MD? EH)
+= rq” (Dav) + Dad) D? (Dexa) + DoXay) — 7°) D?v™ = ret) D?u)
+= 22g? gq Dalaev + Dect? + Drefi'?)(Dax(r) + Dax)
+r2q*’(Dav) + Dai! YD) Ds€y — 17g" (Dau"™ ) + Dati) DiEt)
+
+= 2r?q ab a (qacv Tr Dac + Dachi)Dy(DaXca) Tr Dax)
+
++ 2Hr?q™ Dakiy (Dox + DyXay) + 2H?) Dx)
+
+r : eA Be r :
+24" ( Gk) Deki) (Doxa + DoXay) + 2( ~ 78t) + ret Dw
+- E.G) Dist) —= a, Det) “(a Delf Doky + &)D°etty)
+at 7 a8(1)7bs() (yb (Sq)
+— F(a Dakiiy Dol) + 6) D'EGy) + 4 Daktiy oft + &) PEG)
++ rq" Da(Dex(1) + Dex(1y)% [44 (Daxcy + DaXcry)]
+
++ r2g"(Dax(y + DaXay)D? (Dox) + DoXqa))
+
+ar? % a
++ ze [Daft [a (Doxa) + DoXaay)] + €y9u(D*xa)|
+
++ a?r?q®(Dax(1) + DaX)(Doxay + Dox),
+VO) = 2H? D6) — 1? Da lq? (Dexa) + DeXay)] O[a"4(Dav™ + Dad]
+~ &y woo ) + 2r?e" (Dax(1) + DaX(1))(Dsva) + Dobqy)
+-r 7D -r *éty
+= 2r?q" sting Oy sl ) + Deeji) (Dax + DaXry)
+
+= org? ag (qacv\) + Dactt) + Dachi) Dy(Daxay + Dak) + 2H? GD? xq)
+
+r ~ a
++ 2( - fu) te ret) D?xqy $7? q"’ Da( Dex cy + DeX ay) [44 (Dax) + DaXay)]
+
++ a°r?d, [a Dal Dax + DaX(1y)0e[a” (Doxa + DoxXay)| + gi) 3,,(D°X «)|-
+(2.68)
+
+Regarding a) and a2), we obtain
+
+- 1
+Da = D? [e + xan)
+
+1 1 1
+§(2) — wa) ~ 9281) 8G)
+
+2r2
+
+18
+1 Le
++ xafly Akl) + GUO
+
+1... 1
+zw (2) 4 a JF (2.69)
+
+D242 = D?| 42)
+where
+UO) = -2Hr?q™ DakGy) (Dou) + Dy) — 2Hr?EG) Deu
+Dakt Ou [rq (Dou + Dya)] — €6)0,(r? D?u)
+
+= 1? g"(Daxcay + Da(ay)(Dou™ + Dei) — q@”DaM Diy — g” DaN™ Dyfi)
+= r2q% gt Da(Deu? + Det) Dy(Daxcay + DaXay) — MD?) — NO D?EH
+
+g% (Dau) + Dati) D? (Dex + DoXay) — 7? Owkly) Du = 1? Owe thy D?v
+= rr gg Da(qev™ + Dye) + Drcft)Ow(Daxay + Dak)
+
+= 12g (Dav + Dad) Ow (Dey) — 724" (Dau) + Dat) Ow (Ds&y)
+
+_ ar? a ag (dacv + Dac? + Dacki )Ou(DpDax1) + DpDaXq)
+
++ 2H rq” Dak) Ow( Dox cay + DoX ay) + 2H? 4) Ow(D?x 1)
+
+au a T Ww i v r Ter { Ww
++2 (- 7 Dakfy) + Daffy )Oa( Dax) + DoXay) 2( ou) 4 rey )Ou(D*x@)
+
+A
+_ 9" (Dak DokU) + &)D°&y) + 2H" (Daa) Doéi) + £G)D7Et))
+
+1 y T Ww 1 al W = i Ww T
+_ ola" Pw(Dakhy) Dos" “fb Ow&y D7 EK] _ a lq Ow (Da€tiy) Do€t a Owe) D7]
+
++g Ow(Dak{iy) Do§tiy + Iwgliy DE)
+2g Ow (DaDex ry + DaDeX (ay) Oa" (Dax cay + Dairy)
+$124? Ow(Dax(ry + DaX(1))D? (Doxa + DoXqay)
+
+a2r2
+
++ a Ow [Dott [a(Doxay + DoXay)] +€ (1) Ou(D? x«)|
+
++ @ rg” (Daxay + DaXay)Ow(Doxay + DoXay)
+
+UP) = 2H? Da) — 7? Da [q?*(Dexay + DeXay)] [a4 (Dau? + Dati]
+- hy u(r? D?a) + 2r'e(Daxaay + Da&1y) (Dou + Dy)
+ms POE) Da es POE DU
+= 272g Dalgeev) + Docu + Dteji)Ow(Daxay + DaXay)
+
+= or? ger" (qacv) + Dactt) + Dac )Ou(DeDax cy + DiDaX1))
+
+)
++ 2H1?&)Ow(D? %w)+2(- “Ey + ret Ja ho (D?X ay)
+
++ 12g” OwDa(Dex(1) + DeX(1y) A [a (Dax cay + DaXaay)]
+
++ oO [2 a(Daxcr) + DaX(1)) [4 Dox 1) + PeX(ay)] + €(4)0,(D a . (2.70)
+
+Finally, let us focus on the transformation properties of v), w) and ji). We find that
+
+1 1 1 166 1
+(2) (2) _ = p2 “er 28) T 2,9.(1)
+D V qP X(2) 362) (1 wa) a ape s(yOr(a rs?)
+
+1 :
+_ aE tty Ow(r?2V) + a(t a 2H?) (1 i)? + ee Buty
+
+2H ( ‘i 4 Oo) ao pet (2.71)
+where
+VO = { = 40? laecav) + Deca? + Decaf] — 2r[(Be(danv\) + Be(Davte)
++ Be(Dasfi)] + 4H?) deaDo) + 2) ul? ae(a%)]
++ 7 ge(adby(Eti)n) } [q°4(Daxay + DaXay)] + 56 — = aetna ty + 00€(1) OE (1)
++ 1° qea{ Oala(Dexcy + DeXay)] 4 [a (Drxay + DrXay)] }
+—2r 2{ [Div 0) + Dd ]O EG) + Deu + Dadi] O,EH) }. (2.72)
+Moreover
+BP) = uP) — xota +5 Do pemM”,
+i) = a2) — sto + SDD MY) . (2.73)
+where
+mM? = 4 47 lacav + Dat? + Deait!? Ds) + Hr) de(aP0) + Ef Ault” ae(a9b)]
+
+ce rT). 4 - Ww
+e(aby (E42) } [a (Dexa) + DoXay)] + Gc? - 5 aki) $1)
+
++7? {alae(Daxay + DaXa)] A [46(Dexay + BeXay)]}
+
+- 4r?{ [Diat WD + Bad] + Deu) + Dea] Et }
+Ww Ww i nn
++ 20(a8(1) 8a) — ar [207r? (das + Darn) + Davfi))|
+
+Bw [Eby Gaoy + Dave + Dav) - (2.74)
+
+20
+The results of this subsection are the technical pillars on which our light-cone perturbation
+theory at second order is based. They will also form the basis of the gauge-invariant formalism
+that we will develop in the next section.
+
+2.3 Map between standard and light-cone perturbation theory
+
+To conclude this section, we establish a dictionary between the standard metric perturbations
+f@ and the light-cone ones gh). In order to do so, exploiting the usual diffeomorphism law
+
+Oy? Oy?
+fw = Ban Bg 9°» (2.75)
+we obtain the following relations and their inverse expressions:
+
+aL = —2(¢ — $Crr — Br) ¢=-}(c?L +N +2aM)
+aM = —Brp — Crp B, =—N —aM
+MW = Cx Ce HN
+
+" = ™ . (2.76)
+OVe = —Ba.— Cra Ba= Ug —0Va,
+Ua = Cee Cm = U,
+OYab = Cad Cab = OYab
+
+We have omitted the superscript n = 1,2 in the above equations because they have a fully
+non-linear behavior, meaning that they are valid at any perturbative order.
+
+As a consequence, using Eqs. (2.76), we have the possibility to express the SPS variables
+in terms of the SVT ones at any order in perturbation theory. In particular, to obtain v, 0,
+u and t& from V, and Ua we use Eqs. (2.56), while to obtain v, jz and fi from dq» we use
+Eqs. (2.59), (2.64) and (2.65):
+
+2 1
+is {ote (v-v. jas)é 8B — By —VrF bee
+
+ale
+
+1
+{ 2y 4 2(v.¥, ss) + OpB + By + 2V Fy 4 2th
+
+N =—2u)4 2(V.¥. sha) bOV Ft Des ;
+
+11
+v= — apr mDs [2Vi-VyjE + OB + By + 2V Fy) + 2hro] \ ;
+~ lil 7D
+B= 5} Da [QV VinE + OB + By + 2V pF) + 2hn] b
+
+u= Bry T"Da [Vir Vi) EB + Vp Fey + Pro] \ ‘
+
+~ 2 faz
+a= a ’DalVirVo) E+ VF by + hro] \ ,
+
+21
+1 -
+v=-(o+ 34:8) + Flv. (ViE + Fh) + ha,
+
+2 1 a
+B= parE DM Val Woe A) ha]
+
+= Spee {Oa F) hus}. (2.77)
+
+>
+
+These new relations will be useful when we compute the angular distance in terms of the
+PG gravitational potentials ® and W defined in Sect. 2.2. We emphasize that, as previously
+shown at first order (see [37, 40]), the gauge transformations are properly mapped from the
+standard perturbations to the light-cone ones.
+
+3 The Geodesic Light-Cone Gauge
+
+In this section, we will define the so-called Geodesic Light-Cone gauge at a fully non-linear
+level. Then, we will show the realizations of the linearized and quadratic versions of such
+a gauge fixing within the light-cone perturbation theory. In particular, we will provide the
+explicit expressions of the the gauge modes needed to fix the GLC gauge at first and second
+
+order.
+
+3.1 Fully non-linear framework
+
+In order to describe light signals propagating along the past light-cone of a free-falling ob-
+server, it is convenient to resort to the so-called Geodesic Light-Cone (GLC) coordinates
+x! = (7,w, 6%), first introduced in [36]. These coordinates, defined by the line element®
+
+ds” 2Ydrdw + Y7dw? + gav(dd* — U*dw) (dd — U’dw) , (3.1)
+
+are such that 7 is the proper time of a free-falling observer and the level sets of w identify
+its past light-cone. Then, the intersection between constant 7 and constant w hyper-surfaces
+defines a space diffeomorphic to a 2-sphere parameterized by the angles 6°.
+
+In (3.1), we have introduced the six arbitrary functions YT, U% and gay = Joa, where the
+symmetric metric gap) corresponds to the metric induced on the 2-sphere generated by the
+
+vectors Ofja- In matrix form, the metric and its inverse read
+
+0 -Y oO -1 -1/Y -u*/T
+Qu =| -T Y?4+U? Uy j gv = —1/T 0 0 (3.2)
+0 —uy Jab -—(U%)"/T 0 g”
+
+with U* = gy, U2 =UU,g and g” = (Gav) Exploiting the above formulae, it is easy to
+check that
+
+J-H4) = YVJlal Owd,w=0 , OTV,(duT) =0, (3.3)
+
+°See [49] for a “bottom-up” derivation of this metric.
+
+22
+where 94) = det[g,] and g = det[gap]. The second equality confirms that w is indeed a null
+coordinate. The third equality, directly stemming from g’7 = —1, shows that 0,7 defines a
+geodesic flow, i.e. uy, = —OyT = =O; is the 4-velocity of a free-falling observer, solution to
+the time-like geodesic equations. Note also that
+
+1 ue
+a a
+u (1 r ¥ ) j (3.4)
+
+so, since light-rays propagate tangentially to the past light-cone of a free-falling observer
+sitting on the tip of its light-cone, future time-like motion (i.e. photons incoming to the
+observer) requires u“” > 0, hence T > 0. Furthermore, the normal vector to the w = const.
+hyper-surfaces can be identified with
+
+Wpbh
+_ Vv w phys «
+KE = —wphysgh Opw = —Wphysgh” = wa Or: (3.5)
+
+Using the metric (3.1), we see that this vector is null (k"k, = 0), geodesic (k”V Lk" = 0) and
+orthogonal to the 2-sphere parameterized by the angles 6 (kHA,0% x g”* = 0). Therefore,
+it can be correctly interpreted as the wave-vector of photons incoming to an observer, being
+the solution to the light-like geodesics 6* = const. So, Wphys is the physical frequency of the
+signal. The fact that, in these coordinates, photons propagate with constant values of w and
+6% makes it possible to obtain fully non-linear expressions for light-like observables, as shown
+in [36, 38].
+
+From a geometrical point of view, the standard FLRW metric (in spherical coordinates)
+is recovered starting from the GLC one once we set
+
+r=t , w=r4n(r) , Y=alt) , UX=0 , gapdb%dd’ = a?(t)r?2dQ?. (3.6)
+
+In particular, as we will use later on, U/% vanishes in the FLRW limit.
+
+To conclude, the metric (3.1) does not completely specify the gauge, because the fol-
+
+lowing residual gauge transformations, 7.e.
+wow =w'(w) , 6% > 6 = 6" (w, 6%) , (3.7)
+
+preserve the form of the metric. As first pointed out in [38] (see also [49]), the first transfor-
+mation amounts to relabelling light-cones, while the second one to relabelling light-rays with
+the angles 6 and to how such a labelling is transferred from one light-cone to another.
+
+3.2 Gauge modes at first order
+
+Following [37], now we recall which conditions must be imposed on the first-order perturba-
+tions appearing in the metric (2.15) such that the GLC gauge of Eq. (3.1) is recovered at a
+perturbative level.
+
+Fixing the GLC gauge in Eq. (2.15), such that its forms coincides with Eq. (3.1), requires
+
+that the 77 and 7a metric entries must vanish. This leads to the following conditions:
+
+ILM=0 , VO=o. (3.8)
+
+23
+Moreover, from Eq. (2.15) we also see that the rw and ww metric entries are related and
+
+lead to the following additional condition:
+NY +2aM =0. (3.9)
+The condition viv = 0 can be then be safely obtained by
+vh) =§69 =9, (3.10)
+
+Next, using Eqs. (2.28) and (2.30), we can determine the dependence of the gauge field gi)
+on the metric perturbations f to move from a generic gauge to the GLC one. In particular,
+
+we obtain the following differential equations for the gauge fields,
+
+7
+_ wk *@2L +N 42am)
+(1) @ 2 :
+w 27,0)
+--L
+§M) =75
+fa
+Yay =o 4
+ar
+xa = 6%, (3.11)
+with the following solutions:
+1 iT
+&y aha [ dr’ (aL) +N 4 2aM)) (7, w —n(t)+ n(r')) ‘
+¥ Tin
+1. f®
+E(1) = >| dr'aL© + wi) ,
+-
+To 1 To wr
+. _ , 1 u" 1. 0 (1)
+Xa) = -/ dr (x! dy ard [ dr"aL® + “0, PNG sy
+To 1
+Xa) = -[ dr’ 60) +96 (3.12)
+ST
+where 7, is the present time, w = w (w ; ie = x w, 6% and ree = 9) w, 6% . As
+0 0 0 0 0 0
+stressed in [37], these last three functions reflect the fact that the GLC gauge is defined up
+
+to the residual transformations of Eqs. (3.7).
+
+3.3 Gauge modes at second order
+
+Proceeding as above, the GLC gauge-fixing conditions at second order are
+
+L?) —0,
+VP) =0,
+4n@) — (NM)? + 8aM@) — 402) =0. (3.18)
+
+24
+Using these equations and Eqs. (3.11) and (3.12), we can then compute the expressions for
+the correspondent second-order gauge modes.
+
+The constraint L@) = 0, imposed in Eq. (2.47), gives the following differential equation
+for f(a):
+
+rE) = —aL +O, (aLME)) + abfy GLO — en (Me + a0)
+
++ 9; (Ey Iuétty) + arg ZO, (3.14)
+
+where we have introduced
+
+gPe= (Devt + Dad 4 aaPastt) (Div! + Bot — —sDakt \): (3.15)
+The solution can then be written as
+B= [ dr! a2) = aL + aL (aa + a) ~ 429)
+bab Er, + ti Inet + wh (w, 6%). (3.16)
+
+Using Eq. (3.16) we can now impose the constraints 62) = @) = 0 in Eqs. (2.67). From
+this, we obtain the following expressions for y(2) and X2):
+
+To & & nC)
+X(2) = — / dr’ [pu o Wo
+z=
+
+ar ar Tr
+
+To 1 To
+= -{ ar! {20 + Pall ar" a( £2 - Gy L™ + aL (a + o0))
+de ar 7! 4
+
+; . 2 . .
+Ppa) + aLME, + uf? (w.8)| + apav} + xP) (w, 6°),
+
+2 a
+| XP (w, 8%)
+
+To i x .
+Xa) =-2 / dr’ [a + ah] + Pw, 0°). (3.17)
+JT
+
+Finally, the condition AN) (N @)? + 8aM (2) 402) 0 gives the following partial
+differential equation for f(a)
+AwEF
+
+L 2) 27(2) 4 gM +N) +t
+L®) 4 2aM@) + N@) +4 =
+Ey + a (a a ) Z
+
+(NO)? » Re), (3.18)
+where we have defined
+
+FO) = ola, (azEy) + a€j) AL — PLO (ae f mG ) + 8, (Ey OuéC))
+
++ og 29) + 2aLO Ane) +2Ml age, yt Ow) + 2a£(1)
+
+25
+. 1.
++a wéthy| 4NO (Con + ak) + —Ovél,) + ae}
++ {2ar®(Dau" + Dati) — 2ar?Ow(DaXx(1) + DaXqa))
+
++ da(E() — agi) [a(Dexay + Dixay)]
+
+co {2r?[a(Dav™ + Dad) + Dau 4 Dy) 7 Ow(Daxaay + DaXaay)
+
+_ (OwE%y)
++ daft} [aA (Dox ay + DeXcy)] + —y"— + 2H Ely
+
+¢ Aw L., T Ww
++ ONO = a8 Ou(Ey — 2M) + Bu (EfryuSLy) — Aula) Ouktiy)
+oT w\2 fw T s¢T ¢w
++ (60) + OSG)” + 480) OwSGy — 4460) €(7)
++ £1) (Sy + Ow8") — a(S SC) + 3E Gt) Ow8U)
+
+nN“ 1 T w rs >
++ [P2Dant + Det) 4 qoastt) ~ Fa) 1,(Dexw + Daky)| - (3-19)
+
+The solution can then be written as
+
+rT 1
+Ef) / ar'( (aL?) + 2aM® + N@)) + qin)? + Fo) (7',w— (7) +n(7')) .
+Tin
+
+(3.20)
+
+4 The Observational Synchronous Gauge
+
+In this section we will show how to impose the analogous of the GLC gauge in standard
+perturbation theory at second order. This fixing is called the Observational Synchronous
+Gauge, first introduced in [37] at first order in perturbation theory. We will then examine
+the conceptual similarities and differences between this gauge and the Synchronous Gauge
+
+(SG).
+4.1 First order
+
+As first pointed out in [37], using Eqs. (2.76), it is easy to see that the first-order gauge fixing
+in standard perturbation theory, equivalent to the GLC one described in Eqs. (3.8)-(3.10), is
+
+given by
+
+1
+
+g@=0 , BM=- sc , BY=-cl, (4.1)
+
+rr
+
+where we note that we still have the condition go) = 0, as in the SG. Furthermore, let us
+recall that within the GLC gauge not only the time 7 is the one of a free-falling observer,
+but we also have that the angles 6¢, representing the directions of observation in the sky, are
+constant along the light-cone. Consequently, in [37] the standard counterpart of the GLC
+gauge, described in (4.1), was dubbed Observational Synchronous Gauge (OSG).
+
+26
+As a conclusive remark, note also that the naive to all-orders extension of the SG
+consists in imposing the conditions ¢ = 0 and B = 0 at a fully non-linear level, whereas here
+an order-by-order fixing of the OSG is performed.
+
+4.2 Second order
+
+Let us now show how to fix the OSG at second order and explain why this choice must be
+exploited order by order. Starting from Eqs. (2.76), which are valid at any perturbative
+
+order, the conditions L®) =0 and ve) = 0 immediately give
+
+BA=-ce@D gM = =5(w® +2aM)). (4.2)
+By considering the remaining constraint of Eqs. (3.13), ie. 4N@) + 8aM@) — (Nn)? -
+4UG,) = 0, we can then note that
+1 2
+2 i 2
+Mas [on Pry AUR) (4.3)
+Furthermore, using the above results and Eqs. (2.76) we can easily obtain the relation
+‘ 1
+BY) = 6) — 5c). (4.4)
+
+Summarizing, we have the following relations that can be used to define the OSG at the
+second perturbative order:
+
+9 =—2[(N)? +4v%)] , B= Fe , BO =-c@. (45)
+
+Let us note that 6) ¢ 0, whereas this is not the case at first order. However, as first
+pointed out in [35], the proper time 7 of the GLC gauge is non-perturbatively equal to the
+one of the SG. This implies that, at any perturbative order, the observers of the SG and
+OSG are both free-falling and then physically equivalent. Therefore, they measure the same
+physical observables. For the sake of completeness, and as a non-trivial check of our new
+
+perturbation theory, we will prove the above point that both the SG and OSG observers are
+
+free-falling in Appendix A by working at the perturbative level within light-cone perturbation
+theory.
+
+Instead, we now present a detailed comparison between the two gauges, focusing on their
+similarities and differences through the GLC gauge modes derived in the previous section.
+In particular, by expressing these gauge modes starting from the SG formulation defined on
+the light-cone background with perturbations, we demonstrate that the GLC/OSG and SG
+
+gauges are fully equivalent at the observer position, but differ elsewhere. More specifically, in
+the GLC/OSG gauge the hyper-surfaces w = const. non-perturbatively define the past light-
+cone of the observer, and the angular coordinates 6* remain constant along this light-cone
+(nce = 6
+
+source observer
+
+). These properties do not hold in the SG.
+
+27
+In order to show that, let us first derive the SG counterpart on the perturbed light-cone
+background. We have that the non-perturbative definition of the SG is given by ”) = 0,
+B) = 0 and Be”) = 0 for any perturbative order n. As a consequence, using Eqs. (2.76),
+the non-perturbative version of the SG in the perturbative light-cone framework is given by
+
+LE) +N + 2M” =0,
+
+N = -aM™,
+
+vo) = ty,
+a
+9) — balm) (4.6)
+
+a
+
+Let us now make an brief remark and first look at the gauge transformations needed to
+fix the GLC gauge. Starting from Eqs. (2.76), and using the expression of ¢“ in Eqs. (3.12),
+we obtain the first-order gauge mode to go to GLC gauge written in standard perturbation
+theory:
+T ”
+£11) a dr’ bY (7'w —(7)+ n(r')) = / drab (xf, r). (4.7)
+Tin Tin
+
+This shows how £1) corresponds to same time-shift of the SG, obtained by requiring g) =0
+
+and B = 0 in Eqs. (2.22). This first result already show at first order how the GLC proper
+time and the SG one are identical.
+
+In general, taking the limit tr > 7, in Eqs. (3.12) at first order and in Eqs. (3.16),
+(3.17) and (3.20) at second order, we see that the only non-zero gauge modes are the time
+ones, modulo a non-zero integration constant in €{” and €9. Thus, a priori the only difference
+
+between a general gauge and the GLC one would be in the definition of the proper time at
+
+the observer. Then, as a matter of fact, with a little of algebra one can prove that the first
+and second-order time gauge modes needed to move from the SG to the GLC one (or the
+OSG) are zero. Indeed, using the first of Eqs. (4.6), we immediately see that 1) =O.
+
+At second order, we can just use Eqs. (3.11) and (4.6) into (3.19) and (3.20), to show
+that, after some algebraic manipulations we get,
+
+_ Ow&f
++ =0. (4.8)
+
+a
+
+This proves that the solution for (2) is a constant, which can be safely taken to be zero.
+In this way, the conditions cise 08c) = i286 08c) = 0 are valid in general, not only in
+the limit 7 + 7). This is a consequence of the fact that both the observers in OSG and SG
+foliate the space-time into the same 7 = const. hyper-surfaces.
+
+On the other hand, the light-cone and angular gauge modes to go from the SG to the
+
+GLC gauge are non-zero and given at first order by
+
+1 te 1
+étiy = 3f dr’ M+,
+
+28
+To qr! 1 ts Price)
+= a“! (,,@) 4 = a (1)
+x1) [ 5 (« ap ap [ dr a +Xx0 >
+
+- tS da! “i
+Xa) = [ — il + x, (4.9)
+ST
+
+which is consequence of the fact that the two gauges share the same proper time and are
+physically equivalent at the observer position, but differ at a generic time different from the
+one of the observer. At the second order, we also have non-zero expressions for &(9)> x2) and
+Xz), that we do not show here for sake of brevity.
+
+5 Gauge-Invariant Variables and Observables
+
+In this section, we will first recall that cosmological observables admit non-perturbative
+expressions once the GLC gauge is fixed. As mentioned, this is ensured by the fact that,
+in the GLC gauge, observer and source are connected through 6* = constant geodesics on
+a w = constant past light-cone of a free-falling observer. We will then compute two sets
+of gauge-invariant variables which correspond to the first- and second-order versions of the
+GLC gauge. Finally, we will provide an unified treatment of all the GLC approaches to
+cosmological perturbations currently available in the literature.
+
+5.1 Cosmological observables in the Geodesic Light-Cone gauge
+
+Redshift. Considering that in the GLC gauge the photon 4-momentum and the 4-velocity
+
+of a free-falling observer are given by
+ky = O,w ) Up = —OpT , (5.1)
+in [36] it has been shown that the redshift in GLC coordinates is exactly given by
+
+(Wu) _ Tro. 6) on
+(kup)o — U(r, w, 02)” .
+
+where we have accounted for the fact that the source and the observer are lying on the same
+light-cone, namely ws = wo = w. The subscripts “s” and “o” stand for evaluation at the
+
+source and observer position.
+
+Angular distance. Another late-time cosmological observable admitting a simple, non-
+perturbative expression within the GLC gauge fixing is the angular distance, which we call
+da. In a generic framework, the latter can be computed as the square root of the determinant
+of the Jacobi map IRs connecting a source to a given observer via the relation (see [50])
+
+AO) = F800 0) (SE) , AB=1,2, (5.3)
+
+k’ uy
+
+29
+where C4 = ¢ Ast is the displacement between 2 geodesics due to the geodesic deviation effect,
+) is the affine parameter along the geodesics, (4 = Quv6"s4 and the vectors sh are defined
+by the conditions (see [51, 52])
+
+Gw8'48R = OAB j sup, =0= sky = WV 84, (5.4)
+
+with
+k¥ky, kPuy + uk,
+
+= kt TI} = 6h : a)
+Vy Vu ? v vy (ukp)? wkp (5 5)
+If we then fix the GLC gauge, in [38] it was first shown that, in this case, we have
+: g
+a = det [Jp] vet. (5.6)
+
+The determinant at the observer has a simple limit in the so-called observational gauge. This
+was proved in [53], and we will also demonstrate this in the next section using perturbation
+
+theory.
+
+5.2 Gauge-invariant variables on the light-cone
+
+GLC gauge-invariant variables. Here we report a set of first- and second-order gauge-
+invariant variables which will be exploited while evaluating the angular distance—redshift
+relation in a gauge-invariant way within the perturbative scheme defined in the previous
+sections.
+
+In particular, starting from Eqs. (3.12), (3.16), (3.17) and (3.20), which give the de-
+pendence of the gauge fields fy and fio) on the metric perturbations in order to move from
+a general gauge to the GLC gauge, we can perform a gauge transformation on the original
+perturbative light-cone variables using these fields. In this way, we obtain a set of variables
+which are automatically gauge invariant.
+
+Proceeding as above, the set of gauge-invariant variables corresponding to the linearized
+version of the fully non-linear GLC gauge of Eq. (3.1) was already obtained in [37] with the
+following result:
+
+1 1 ci
+() = /(@) _ = p?. 7 ( Q)
+# ¥ 2 M0) fin =)  *
+2
+WO) = NO _ 2H) 4 = Ea) — 2OwE thy »
+MY) = pO — yay
+MY) = pO) — kay
+fy &4
+1) (@) Q) :
+UY =u + 75 — “> — Ow)»
+LY = tO — ALK ay. (5.7)
+The above quantities are gauge invariant since they are the values of the perturbations of
+the GLC gauge written in a general gauge. Here, the gauge modes are the ones obtained in
+Eqs. (3.12), unlike the formulae written in Eqs. (2.28) and (2.30). The same reasoning holds
+for the second-order gauge-invariant variables that we report in the following,
+
+1 1 1
+7 =v) —— Dx) sto (# )
+
+4 ra
+
+180)
+
+r
+
+4 1 :
+NO = N© — HEL, + — duke — v€() +N,
+
+; _—
+M® = yl) — = (0) + =D Ip mM® ,
+
+ab?
+
+- I 1 “8
+MO = pO _ Xa) 7 = pipe ye)
+2 r2
+
+1 L 1 1 1 ’
+
+2)_ (2 , 2
+U?) = y 4 Sap S(2) ~ HpDSl2) ~ FOwWN(2) — FypwSy Only + pill’ D
+GU) = g) gw 2) t ape 5 (5.8)
+
+where, for convenience of notation, we have defined
+1 ; 1 T ak 2
+VO) Ss aay Oe(@rV) — BEG) Ou(r'v) + 5H + 2H)(G))
+H Si. &\_ 1
+be by (2)
+t 5 fy nhl) + 2H ( ai + a ) afr ae gq Vio ;
+
+N® = 1? [— 2(Dau 4+ Dat) + Ow(Dax(1) + DaXqay)] [@Ow(Dsxay) + DoXcay)]
+
+Gop eer a eT T w ay ew
+Bey (AEG) — 28) — 2M wgEy + NO Aw&Uty) + (Bw&Uiy)”
+
+sw. 1 aCeT, : a Q ¢T w
+T Ow (64) Ou&()) ~~ ehyOpN) ~ a ~~ au(EQ))? ~ 486) nS) + 201) wi)
+
+a
+
++ Ow (Er Aue) + aE) (2NO — socty)} : (5.9)
+
+Evaluation in terms of Bardeen potentials. To conclude, we now want to rewrite the
+first- and second-order gauge modes needed to fix the GLC gauge in terms of the gravitational
+potentials 6 and WU) at first and second order (see Eqs. (2.25) and (2.46)). These are also
+the values that the standard perturbations eo” and yw) acquire in the Poisson gauge, defined
+by the conditions E™) =0 = BM, Therefore, to do so we fix the gauge corresponding to
+PG within our new perturbation theory. By neglecting vector and tensor fluctuations and
+by imposing the two aforementioned relations in Eqs. (2.77), valid at any order, we obtain
+
+the following non-perturbative definition of the PG:
+
+2 2
+L=— 5640) , Mast , N= , vod,
+a
+
+v=0 , 6=0 , w=0 , @=0 , p=0 , f=0. (5.10)
+
+31
+From now on, following the notation of (20, 23, 54], we will use the definitions
+
+T To I
+P= al dr’ Bo) (w — (r) +n(r7')) ‘ Q= / ar (w) +0), (5.11)
+
+and we will omit the superscript “1” for the first-order perturbations ® and VY. Moreover,
+we define the isotropic and anisotropic parts of the Bardeen potentials as
+_¥+e wot?
+
+= ; an
+
+Keeping ® 4 W already at first order allows us to consider also the case of non-vanishing
+anisotropic stress in the Einstein equations, which would be relevant to dark energy or mod-
+
+wl (5.12)
+
+ified gravity models (see, for example, [55-59]).
+
+Then, the forms that the first-order gauge modes (3.12) acquire using Eqs. (5.10) are
+
+fa) =aP,
+
+E(1) =-Q+ ww) ;
+
+T° dr!
+x1) =| 5 [Q wh? (w)] | Pw),
+
+ar
+
+Ray = XP w). (5.13)
+
+Since we are adopting a gauge-invariant procedure, we can already fix the PG at the level of
+the gauge modes. For the sake of completeness, we also report the first-order GLC gauge-
+
+invariant variables (5.7) written in this notation:
+
+To /
+Vy) = (w+ WA) > ar D?Q a(a 2 jp + @- swe),
+2/, ar ar r T
+
+WY) = 200! + WA) — 2GHP + 20yP + 20nQ —20ywh)(w),
+
+To dr!
+M) / nal [Q wh) (w)| xh? (w) ,
+
+ar?
+
+A) = 3 w),
+
+WD) = i. dr! 72 — wp? (w)) Ow (Q w)” (w))
+
+ar r
+
+1 1 1
++ GP + 3Q— Sup (w) — duxow),
+
+GU) = — WX? (w) . (5.14)
+
+At second order, it is convenient to start from the differential equations for £ (2) and (0)
+written in terms of the Bardeen potentials:
+
+¢ Ww w 4 I 1a w Ww 4 I T 4H Ter
+Br [Eb — (OWE G))] = FV) — GI Aak A) AEG) + TW OwEO) + WET)
+
+32
+4 12
+be I IyA
+- 81) One + ae uv,
+a a 1 aya ‘WwW ‘Ww 4 T T Ww
+8; [E%) — (€49,€")] = a {ay [E() — (£4) On&Gy)] + SU net) + 2HEQ) AEG)
+
+4 fa _ _
++4 Gr - 1) Ane, + 2k (One + 9€EyDe7ra)
+
+r
+
+} 2 o Ww ind
++ 2(U! + WADE) + suk dnet | . (5.15)
+
+Next, using the differential equations (3.11) for the first-order gauge modes we have
+
+dP =-aHP +t Ww,
+dn
+a9 = 92 ag —"" 4 oat,
+dn dn
+dgé* dee
+(@) _ ~S(1) cabs
+Buh) = Ga Ob = Gy V"OHQ- (5.16)
+
+Then, using fa) = aP (see Egs. (5.13)), we obtain
+
+y= WA —awP Eh) = WT - WA + HOwP ~Ow(w" WA) + “LP (5.17)
+
+and, from Eq. (3.20) we can rewrite &(2) in a more compact form after repeated integra-
+tions by parts. Putting everything together, our second-order gauge modes in terms of the
+
+gravitational potentials can be expressed as
+
+iy / di’ [20% — 97+ (uP)? +70, POP] ~ OyP, / dr! OP
+
+in in
+
+a(W! — WA)P + aPAyP — a(Po — Q)OwP = a€%,)OaP ,
+
+, To d J
+Gy = / | a4 —~ 7%8, QQ + 4019,,Q — 3ulwA 40')| + ow! Pp, — 20'P
+P
+
++ 2PoIwPo + (Po — 2Q)0wQ — Q(Bw Ps — Ow Q) + Ef) IaQ + wl? (w, 6%) ,
+
+a ab f° ar’ ve dr"! I xed I lA 12
+fy =4 Ap [4V4y) + 7°%0-Q0UQ — 4V19,Q + BVA + 4(!)?]
+a Cae
+
+ar2
+
+— 285(£°0-Q) — Op| (Po — 2Q)OwQ] 4
+
+iN
+
+(Py — 2Q)AQ + 2I.Q (Aree + 7°E°O-7a)
+
+waa} t IPAQ + Ey Owklry + ry DEL) + Ey0(w- 8%) » (5.18)
+
+where w) (w, 6*) and Efyo(w, 8%) are the second-order residual gauge freedoms associated
+
+with the observer position.
+
+33
+Let us remark that Eqs. (5.13) and (5.18) are relevant outcomes of the general second-
+order perturbation theory developed so far. Indeed, any light-like cosmological observable can
+be first computed at a fully non-linear level using GLC coordinates. Then, it can be expanded
+up to the desired perturbative order within the framework of light-cone perturbation theory.
+After that, in order to have an expression valid in any gauge, we can use Eqs. (5.7) and
+(5.8). Finally, thanks to the gauge modes of Eqs. (5.13) and (5.18) we can write the general
+
+relativistic corrections in terms of the gauge-invariant gravitational potentials.
+
+5.3 A unification of all the Geodesic Light-Cone approaches
+
+Before proceeding with the computation of the angular distance-redshift relation, we first
+clarify the connection between our approach and the coordinate transformation methods
+employed in [20, 23, 38, 54, 60].
+
+In the gauge transformation given by Eq. (2.31), we have derived the conditions required
+to transform from a generic gauge fixing (later identified with the Poisson gauge) to the GLC
+gauge. Hence, the two systems of coordinates are related by
+
+2 1
+
+where we recall that y“ denote the coordinates in the PG, while gy“ correspond to the GLC
+coordinates. In other words, Eq. (5.19) explicitly provides the relations between our gauge
+modes and the fluctuations 72), w(t?) and 6°02) first derived in [35] through a full coor-
+dinate transformation stemming from
+
+_ oy oy” pu
+
+geL0 (g) = Oye Oyr PG (y) - (5.20)
+
+Indeed, using Eq. (5.19), and neglecting terms at the observer position, at first order these
+
+relations are
+7) = . w(t) = eH , 9 = (5.21)
+
+2) _ 1 T He T
+rel ae (& + étiy0uEly)
+; 1
+ane) = w He w
+w) = 5 (i + Ey Auéthy) »
+Pa? 1
+a(2) __ a be a
+OO = 5 (Ey 7 huey) : (5.22)
+
+On the other hand, the second approach described for the first time in [54] is based on the
+inverse coordinate transformation
+
+v Oy" OY" pg 7 ~
+gpaly) = age aga sero) » (5.23)
+where now gy are the GLC coordinates and y“ = (n,nt,0%), with nt = +1, are the PG
+background coordinates. At this point, we can expand y/ in terms of 7 up to the desired
+
+order as
+yf = (yh) OG) + YO D + YO +.-, (5.24)
+
+and then expand the PG components of (5.23) around (y)(g). In this way, we get differ-
+ential equations for the fluctuations (n,7+“), 0°), whose solutions, from [54], are
+
+.
+nq) = al dr’ Wi(7!,w —(7)+ n(r’), 0°) ;
+
+a
+Tin
+
+To
+nt) = 2 | ar Wr, w, 6%),
+T
+
+a(r')
+To dq! 7 To qr .
+oe) = =f ‘ Z aru.) [ T Op! (r", w, 6). (5.25)
+JT a(r ) tT a(r' ’)
+
+Hence, comparing the above formulae with Eqs. (5.13), we notice that
+
+$0) _
+
+a
+
+7 -P, qt) = -€), ga) = — Ey, (5.26)
+
+provided that we neglect the terms at the observer position wi (w), x6? (w) and 40) (w).
+
+At second order, the comparison of Eqs. (5.15) and (5.18) to Eqs. (4.19), (4.21) and
+(A.5) of [54] entails the following dictionary between our gauge modes (2); &(2): f(y) and the
+fluctuations (n®), n+), 922):
+
+fy
+n@) = H
+a — 56 * ath y9n(-@ a ‘),
+
+1 1
+mr ) = — 56) + 5 Ely Oubthy
+
+ted 1 a 1 a
+92) = — SE) + 581) Onl)- (p27)
+
+These are indeed the expected relations in our formalism because the gauge modes to go
+from the PG coordinates to the GLC can be computed considering that, in general, we have
+
+- 1 l,,
+y= pte + 5402) + 561) 5 (5.28)
+
+where now €4.9) are the gauge modes in the opposite transformation wrt (5.19). At first order,
+the relation between the perturbations of the two approaches — namely, those of Eqs. (5.20)
+which are equivalent to [20, 23] and (5.23) which are equivalent to the inverse approach
+developed in [54] — is simply fy = —et). At second order, Lie derivatives also come into
+play, which is why the relations between the fluctuations of the two methods described in
+[54] are
+
+an®) = —r°) + 4 OufG),
+
+35
+mt) = wi) + eh OnE
+09°) — — Gf + E4 Duet) - (5.29)
+
+The above analysis clarifies the connections between our approach, which is manifestly written
+as a gauge transformation, and the previous approaches of the GLC literature. In our case,
+we perform a background coordinate transformation, followed by a gauge transformation of
+the metric perturbations directly on the past light-cone. Instead, the previous approaches
+directly performed a perturbative coordinate transformation.
+
+6 The Observational Angular Distance—Redshift Relation
+
+Hereafter, we will apply the new perturbative scheme developed so far to compute the angular
+distance-redshift relation da(z), as measured by a free-falling observer and in a perturbative
+and gauge-invariant approach, starting from the fully non-linear formulae (5.2) and (5.6)
+valid within the GLC gauge. In the evaluation of such an angular distance, as anticipated at
+the end of the previous section, we will go through the following steps:
+
+1. First, in order to use and expand formula (5.6) in perturbation theory, we need to fix
+
+the GLC gauge at first and second order. Then we “unfix” the gauge by replacing each
+
+perturbation with each gauge-invariant counterpart provided in Eqs. (5.7) and (5.8);
+
+2. Then, using the observed redshift as a time coordinate, we add to da the corrections
+coming from expanding each quantity around the time at the source corresponding to
+the observed redshift, thus obtaining the fully gauge-invariant formula for the angular
+distance-redshift relation;
+
+3. Finally, we express each light-cone perturbation in terms of the Bardeen potentials ®)
+and ©) and compare the results with the one already present in the literature.
+
+In particular, we will show how the complete fixing of the residual gauge freedom (3.7) of
+the GLC gauge allows for the elimination of divergences at the observer position.
+
+6.1 Perturbative expansion
+
+Comparison between perturbed and unperturbed metrics. As a starting point, we
+consider the fully non-linear GLC metric introduced in Eq. (3.1) and we express the functions
+Y and Y* in terms of the GLC perturbations appearing in the metric (2.15), working up to
+
+second order. In general, we can write
+Y=TOt¢T9+7%) UX =U) UG), (6.1)
+
+where we have accounted for the fact that U% has zero background value, as we have specified
+after Eqs. (3.6). Then, we can conformally re-scale the 2-dimensional metric of Eq. (3.1) as
+Jab = aap. In this way, comparing the off-diagonal terms dwd6" of Eqs. (2.15) and (3.1),
+we can straightforwardly obtain that
+
+2a” yan(Uir + Uf )dwdd” = 2a2(UY) + U?))dwad. (6.2)
+
+By explicitly writing the perturbations of yp, we have
+
+2 = i =
++ 7b) Uy +l) = Fall) + ab Ula) + FaslAl
+
+=UM9 +2). (6.3)
+
+= 1
+(Tab a os
+
+Then, by equaling first- and second-order perturbations among themselves, we are simply
+left with
+
+(1) _ = b a _ xabr7(1)
+= Fart Us) = YU;
+” ) 7 ° ‘y (1) (1) . (6.4)
+a = av U(r + Fatll(oy Ub) = 7 (Us — he MUG)
+Next, taking the terms proportional to dw?, we have
+
+1? 4UU, = 7(1+NY +N), (6.5)
+
+Considering that the 2 x 2 spatial metric of Eq. (2.15) is gap = a?ab, from a perturbative
+
+point of view we have
+UU = gal U? = a Fn Uiy = PUR UL) = CUR). (6.6)
+
+Therefore, Eq. (6.5) becomes
+
+[1+ 2r + (1)? 427?) + U2) = @(14 NO +N), (6.7)
+
+By respectively equaling terms of first and second order together, we get the relations’
+
+< 1 , 1 1 2 1
+
+= @Q) = =n) (2) = -ny@) — =(nQ))? — =p?
+
+YT=a , T = GN , 7° = oN 8 N ) a: (6.8)
+Perturbative formula for the redshift and redshift parameterization. As first re-
+marked in [30], the angular distance is a bi-scalar, being affected by the gauge transformations
+both at the source and at the observer positions. So, to completely fix the gauge, we need
+
+to account for both these effects (see also [37] for a more detailed discussion). Regarding
+the latter, thanks to what we have discussed at the end of Subsect. 2.3, the usage of the
+sets of gauge-invariant variables (5.7) and (5.8) entirely fixes the observer’s gauge modes.
+Regarding the former, since da does not depend on the angles at the background level, we
+are left with 2 conditions to be fixed in order to eliminate the gauge freedom: (i) as for the w
+gauge mode, since formula (5.6) is valid within the GLC gauge, we are already imposing that
+the photons emitting the luminous signal propagate on the past light-cone; (ii) moreover, we
+
+"We choose Y? = a? = Y = +a consistently with the requirement that u” > 0 (see discussion after
+use the observed redshift of the source to fix the time gauge mode, as we are about to show
+hereafter.
+
+Starting from the exact formula (5.2) for the redshift and using Eqs. (6.8), we obtain
+
+l4+2=(14+2)(14+ 62 +672)
+
+= Bhi e 12+ 1% +My - 11]
+
+°
+
+ao ; NM | Ne prep NO v) NOD WO) diva (62)
+2 " 2 8 2 4 2° Mi,}°
+
+Cosmological surveys typically provide us with data sets of the form (z, da(z)), z being the
+redshift of the source. Thus, we perturbatively redefine the proper time at the source as
+
+r= 4 o®, (6.10)
+
+where T, is the proper time of the source evaluated at the observed redshift z and ft?)
+
+are the distorsions at first and second order caused by the presence of inhomogeneities and
+anisotropies along the line of sight (see, for example, [31, 32]). As a side remark, note that we
+do not have to do the same also for the coordinates w and 6% because, since we are working
+within the GLC gauge, observations are made on the past light-cone, namely w = const.,
+and the angles are precisely those of the background. Following this strategy, we first Taylor
+expand
+
+' 1
+a(t) = az|1+ Het) + Her? se) ; (6.11)
+
+where .
+a.
+az = a(Tz) ; H, = H(t.) ; = _ . (6.12)
+lz
+More in general, any scalar quantity X can be expressed in terms of the observed
+redshift working up to second order in perturbation theory, in the simplest case in which its
+background counterpart only depends on the time 7, namely X (a!) = X(r). Indeed, starting
+
+from
+X (al) = X(r) + XM (a) + XO) (cht) (6.13)
+
+and considering Eq. (6.10), we can Taylor expand as follows,
+
+X(r) = X (rz) + X (rz) 7) + X (72) ) +
+XO (oH) = XO(7,) + XO (7), (6.14)
+XA (eH) = X)(r,) F
+
+where, for the sake of brevity, we omit to also report the dependence of the perturbations on
+the coordinates (w, 6). In this way, we can write
+
+X(ae") = KX, 4+ XM 4x2) (6.15)
+with
+
+XY= X (te) +XO(r),
+
+X (re) (YP + XO (re. (6.16)
+
+XP) = X(r2)r?) + 5
+Then, Eqs. (6.11) and (6.16) can be applied to Eq. (6.9) to obtain
+
+dof), NO ND ay, NO 8 oyaye_ (NYP Liye yo NOUNS
+l+z {14 3 mae _ 3 + g(Nz ) 8 gUal: Z
+1 : 1
+— Hy) — Hy?) + (5 + 1) (7D)? — parte} . (6.17)
+
+Thus, following [37], by requiring that the redshift is the observed one, i.e. 1+ 2 = do/az,
+we obtain at first and second order that
+
+f= oH nye,
+z
+1 NG 2 2 1
+1!) = AR 4 (xi?) * : (x!) 7 gNOOND
+z
+21°, 1 a& (nayo\? NMon
+~ [wa]. + aH (v I2) a): an © (6.18)
+
+Perturbative formula for the angular distance—redshift relation. We are now ready
+to obtain an up to the second-order perturbative expression for dq and then expand it
+according to the redshift parameterization outlined in the previous paragraph, thus getting
+the relation for da(z).
+
+Looking back at Eq. (5.6), we first have to compute the (square root of the) determinant
+
+of the metric, which, using the GLC coordinates, is exactly given by
+
+J-94) = TVG ; g = det[gav] = a‘ det [a0] =a'y. (6.19)
+
+In order to calculate y, we simply use that yap is a 2x 2 matrix: exploiting the SPS decompo-
+sition (2.18) and the fact that, from the definitions given in (2.19), ¢*Das = 0, q*°Dav = 0,
+we can obtain
+
+y= Ht 7) +7) (6.20)
+
+with
+y= r* sin? 6! j
+YW) = 4), (6.21)
+2 = dv 4 a(v)2 + g® (n,n) .
+
+39
+having defined
+
+P 2 aan ~ nGQ)A a
+g” (u, a) = sin? 1 ere [Pac Dl + 2Dach Daf + Bach” Brat!)
+sin
+(6.22)
+It follows that
+
+~ 1 &
+Vy =r’ sino ( $2 4 a) + 59H, a) : (6.23)
+
+Note that the only genuine second-order contribution to \/7 stems from Qu), while the term
+g2)(w, A) contains quadratic combinations of the perturbations p“) and ji),
+
+Finally, just for the sake of completeness, by combining Eq. (6.19) with the above
+formula, we find that J- 4) perturbed up to second order is
+
+Vai = OVA [ia PTY 4972 + 71O@ +27O,O 4 500) (u (1) i ) , (6.24)
+
+and, by replacing Y‘”) with their forms given in Eqs. (6.8), we end up with the perturbed
+\/—4) Written in terms of SPS variables:
+
+1 1 z
+TH avai av 1+ et + av) 4 sue) gy ee) Ut
+
+1
+<q) (0. 4@ 5
++ at (u fl )] : (6.25)
+
+We now expand the angular distance in Eq. (5.6) up to second order in the light-cone per-
+turbations. As a first step, remembering that
+
+Jab = wr TL + 2v)qab + 2Davpe + Daft) ; (6.26)
+
+we find
+
+a = 2ar{ [(aHr 1)(1+2v)+4 arv| dab + 2(aHr —1)(Davp+ Davii) + Davit+ Davi} , (6.27)
+
+and, using that v =v +v®@, p= p© +p) and a = pi + pa), we obtain
+
+a Iarv™) Jarv(2)
+det [gap] = 4a7r? sin? 6'(aHr — 1)? i pA) 4 a I + dy) a 1
+aHr — aHr —
++ (9004 ey 45 © (u, a) |, (6.28)
+
+having defined
+
+~ ~ eve my ~ ye
+a (nu, a) = {2Dact (Dian + 2Dpat) + Dac Dra
+sin’ 0
+
+_ 7 (1) (1) NM, (4) WQ) pD, 9,0)
++ [Dac (Desai + Dra) + Dacki Draft
+
+40
+ae Te 1 . 1 . Sok
++Dacit! Drai| + (ate wap |Past (Dai + Dual)
+
+” Devil Daa \ (6.29)
+
+Thus, combining the above results with Eqs. (6.22) and (6.23) for \/7, we get that
+
+det [gas] =sin6!- lim { (attr 1)7|1+ 27 4 Zar + Qv?) — a(y))?
+4/9 /. TT) aHr—-1
+2ar arv) \2 4
+V2) — WYpD) 4 (a, g(2) 4 g@)
++ oni ue) (» aHr—-1 28 rg ;
+
+(6.30)
+where we recall that 7 indicates the proper time of the observer. Thus, the angular distance
+written in (5.6) is given by
+L4+py@ 4 p@) — Lv) fs tg?)
+
+da, =ar
+| lim, +7, [(aHr - 1)9] |
+
+(6.31)
+
+ait ayl2 ypa
+15 arv) 2) 1 wy arv®) arv)p@ 1@ 4. 1a (6.32)
+aHr—-1 aHr—-1 4 2
+
++ yf
+
+aHr—1 2
+
+As a next step, using Eqs. (6.16) and (6.18) we expand the the background and linear
+expression for the angular distance around the observed redshift as:
+
+1 1 , 1 A. ‘
+a(r)r(r) = arf + (1. = a + (a. - a 5(« +— Jerr}
+Osh» axl: 2 Gt
+
+(1)y2
+
+1 1 1 1 (NS)
+=arz,14+-(1 NOP += (41 Nye 2
+ard 2 ( Ex)! E 2 Gz Hy, 2 4
+
+3 1 NOON H
++ Fav? Sng — ogy SE A vinygyh
+z
+
+VO(r) = v()) + re ‘ (6.33)
+
+We can then obtain a formula for da(z) which is gauge invariant both at the source and at the
+observer positions. Indeed, as explained in the previous paragraph, the gauge at the source
+is fixed once we adopt the redshift parameterization, while the one at the observer is fixed
+once, in the expression (6.31) of da, we substitute each variable with its gauge-invariant
+counterpart provided in Eqs. (5.7) and (5.8) at first and second order respectively (this
+amounts to requiring that the observer is geodesic). By doing this, the result, as function of
+the redshift, can be written as
+
+| lim, 7, ae) (z)|
+
+da(z) = azrz
+
+(6.34)
+
+Al
+where
+
+de”) (z) 14970 4
+
+NIe
+
+1 1 1
+1 NYC 4 YA 4=(1 w®)e
+( aa! E+ % 2 a-H.rz 2
+
+1 1. 1 -
+— FIO + se VOWS + 92), 0)
+z
+1 1 1 3 1
+1 wopeg@ — yan 4 3 pa? bya ya)
++5 (2— ae ){ 7H — FUP + FUP 54s
+- a NY Of)
+— HP DaU + DoLM)(DyUO + Dye@)]2 — — \
+z
+H, (1) joy2
+a 8a,H3r, ley"
+(1) 1 72)
+(den) (,) _ _ ay oe .7vea—lyor, &
+dy (z) =(aHr—1)|1+7 + apo + YW (V7 4 aHroi
+VYOGO) 4 4 Tag i
+u : — <9) (a), A) + 92a, 4M) (6.35)
+aHr—-1 4 2
+
+Now, let us compute the limit of the above quantity for T — 7,. Since in this limit we have
+
+r — 0, it follows that
+
+lim ae) (z) 1-VY 4 arV) — 7) +5
+
+T To
+
+(VY)? + arV?)
+
+= arVOPY 4 442A, MM) — 142 a, AM). (6.36)
+4 " 2 5
+The terms (ar¥)o, (arY)). and (arV¥OY)), can not be straightforwardly set to zero
+despite the fact that ro = 0. Indeed, from Eqs. (5.7) and (5.8), we see that the gauge-invariant
+variables Y) contain terms diverging with negative powers of r, and we will analyze this
+issue in the next subsection.
+
+Then, by Taylor expanding up to second order formula (6.34) using the previous result,
+
+we have
+da(z) = aerz[1 + dQ (z) + d2)(2)] (6.37)
+
+where
+
+Fo gMeyt(y 1) yO 4 (arg)
+
+dy’ (2) 2 2 SETS ISt(arY™),,
+
+Zz zt
+d2(z) =-7@ 4 4(1- 2) wo 4 arV®), 42H O)I9 4 (VOY + 492)
+A z 2 azH.rz i 2 a ° 4%
+
+Loy 1. Ll... . .
+fs qo” _ sae ol spe Pk _ GYM) oh (arV), [yo Ms (arV™),
+z
+
+42
+1 1 cette 2 3
+ari +5(1 )f #17 Ie — FIP + FM?
+
+dgHats
+1 _ wm can ~
+_ 50M? _ [7 (Dew + Dg%#)(Dyw + DyUM))/o+
+
+1
+
++ Har 7 9 — se NODA) + OEY (6.38)
+z
+
+8a,H3r,
+
+Finally, once we replace in the above equations the explicit forms of the gauge-invariant
+perturbations (5.7) and (5.8), and we plug the expressions of the gauge modes (3.12), (3.16),
+(3.17) and (3.20), we obtain the fully gauge-invariant form of the angular distance-redshift
+
+relation on the past light-cone within the perturbative scheme developed in this paper.
+
+6.2 Gauge fixing at the observer position
+
+As we have already stressed, the GLC gauge at the observer position is not totally specified:
+this residual gauge freedom is encoded in the functions wi” (w, 6°), x (w, 6%) and eo (w, 6”)
+arising in the first and second-order gauge modes needed to fix the GLC gauge in perturbation
+theory.
+
+In this subsection, we will demonstrate how a well-motivated choice of these free func-
+tions is capable at once of completely fixing the “observational” gauge and eliminating po-
+tentially diverging terms at the observer position.
+
+First-order analysis. Let us first discuss about the choice of wh) (w, 6). Looking back
+
+at Eqs. (6.38), one can see that
+
+. D2y) : . 1 &F, 1 /&, DE
+(1) _ +(1) r rt @). en Vi; (1) ew (1)
+V Vy 5) HE) Heh +78 ( 4 et) t =a( a. &(i) 2 ) ® (6.39)
+Thus,
+‘ fae 1 /&;, pew
+(ar7 28 [o2-( A et) ; ( a éty 5 IE (6.40)
+
+which diverges as r~! when r — 0 at the observer position. In order to eliminate such a
+
+divergence, following [37], we impose the condition
+
+D’\ 4a) (%)
+(: + a) uf = "ae (6.41)
+Since (EA))o is a monopole (see Eq. (4.7)), the general solution is
+- & s
+wh) (w, 6) = (), +d) (w) Pi (cos 6") , (6.42)
+ao
+
+with ds) (w) a free function of w and P; the Legendre polynomial of order 1. However, at a
+fully non-linear order, the GLC gauge admits the symmetry w > w’(w), as we have recalled
+
+43
+in Eqs. (3.7). Thus, in order to be consistent with this symmetry, we require that ds =0,
+namely wh? is a pure monopole:
+(%)
+wh) =, (6.43)
+Ao
+
+The relevant consequence of this choice is that
+
+ty = Sunbly a + Ey (iy). =0. (6.44)
+
+Therefore, from a physical point of view, we are requiring that the observer is set at the
+center of the polar coordinates.
+
+Moreover, we can also reason in the opposite way wrt what done so far, that is, we start
+by requiring that the observer is set at the center of the polar frame, 7.e. ro = Wo— (To) = 0.
+Then, in order to preserve the condition wo = (7) in any other gauge, by taking the first-
+order gauge transformations
+
+TOTHT+EY) ’ wrw=wt fy , n> h=ntely, (6.45)
+
+we have to demand that, locally around the observer, it holds
+
+(<i), = 06 = (’), = (de, (6.46)
+
+do
+
+which is exactly condition (6.43). Therefore, at the observer we are left with
+VO =v) —Ha(Gy) A= NM —2H (By) - (6.47)
+oO oO
+Also the residual angular gauge modes Ww, 6°) and ” (w, 6°) can be fixed to require
+the observational gauge, where the angles 6* coincide with the observed angular directions
+of incoming photons in the sky, as in the so-called Fermi Normal Coordinates (see [53]). Let
+us consider the first-order gauge transformation mapping the angles as 6% + 6% + (EG) )o,
+with (ffi) = (Dox? + Dox?) at the observer position. In the GLC gauge, the angles
+are precisely the background ones of the polar frame, namely 6* = 6% (see also [54]), hence
+(ey) = 0, which is satisfied upon assuming that
+oO
+
+x =P), MP = Pw). (6.48)
+
+More in general, since no preferable angular direction at the center of the polar frame is
+allowed, any quantity X evaluated at the observer position must satisfy D,X, = 0.
+
+Second-order analysis. The techniques described above can be conveniently extended
+also to second order. In particular, upon requiring the monopole conditions
+
+w) = 5 XM ax) eM = Rw), (6.49)
+
+44
+we are able to eliminate all the divergences around the observer position. This is one of
+the key results of our work, showing for the first time in the literature that, both at first
+and second order, these cancellations can be achieved only by requiring the “geometrical” or
+“kinematic” conditions (6.49) (namely, no assumption on the underlying cosmological model
+is needed).
+To prove that this is indeed the case also at second order, we take
+: Go ¢ 2 (2
+
+-F) + (arF®) = +5 (&), — Le) — VO + (arV) (6.50)
+
+Using the first of Eqs. (5.9), one can compute
+
+V2) + (arv@) = DEE + EP Ov 5 (&y) Het ety + wVE) — 2avét
+
++ IaH. T EW 1 iT 2 1 T ET 1 Ww a iT a iT ew
+aHe" Sy — 5 (Say) — 9$G)8Gy ~ 98a) w8ty + 38S)
+a *
+
+T ew a ew Aw
++ 9SaSay + 5 audi] ; (6.51)
+
+devoid of any divergence.
+
+6.3. Detailed expressions for the angular distance—redshift relation
+
+We are now ready to fully open formulae (6.38) for da(z) and compare our results to the
+ones obtained directly in standard perturbation theory. This is also a consistency check of
+the perturbative scheme that we have developed in this paper.
+
+In order to do so, we express each light-cone perturbation in terms of PG quantities
+through the relations (5.10), which can be directly plugged into Eqs. (6.38) because the latter
+are valid in any gauge.
+
+6.3.1 First-order angular distance—redshift relation
+
+Following the strategy outlined above, for da(z) at first order we obtain
+
+(1) 1 o, Ll [ dr 4
+d w.-(1 b D
+(2) =-¥.- (1- EP ares Ze. Ps D°a
+
+1
+
+1
+
+Gs Het:
+
+Ho 1
+OwP> (cot Hote. i (6.52)
+
+GQvHsre Tz
+Before moving to standard coordinates, we recall that the partial derivatives transform as
+1 :
+Or = = (On Op) 5 Ow =r 5 Oa = Doe 5 (6.53)
+and that, for a generic quantity X, we have (see [31, 37])
+
+OwX (7!,w = (7) + (7')) = AX (no = 1) 5 (6.54)
+
+45
+and
+
+d
+OwX (7',w) = OX (1, Mo — 0') = Oy X (0! Mo — ') — Gap te —1). (6.55)
+
+Moreover, let us define the radial peculiar velocity
+1 pile
+Ula = Or Pa = al dn ad, ® ; a=0,2. (6.56)
+OS Tin
+Then, using Eqs. (6.54) and (6.55) and the definition (6.56) into the first-order gauge modes
+
+(5.13), we see that each gauge mode corresponds to a general relativistic effect. In particular,
+ft) is the velocity potential, the term Ow) _> namely
+
+No
+Owk ys = -2f dn 0,U' + 205 — 2UL, (6.57)
+gives the local and integrated Sachs-Wolfe effects, and finally
+2 fr NT Nez
+Daft), = D?x(1)2 = / dy Dy! 6.58
+af (1)z X(L)z v2 In, Me _ ( )
+
+amounts to lensing.
+
+Exploiting the above results, the first-order perturbation to the angular distance-redshift
+
+relation in standard coordinates is
+
+1
+dh? (2) (wi+ws)+(1 ar) lM we —(@- )]
+
+4 fm. ae . 2 me
+/ dn Ie pryl t / dn wv!
+Tze Jn, | No— 7 Te din
+1 ig 1
+—(1- 2 1n OU! + vy, ) — ——1
+( nai) ( [ dn On + 7) PAs Ylo
+
+Ho .1\1 [°
++ In a® 5
+(7 rH =) an dna® , (6.59)
+
+vin
+
+where we have rewritten
+
+To dn fm Noe de ft
+/ of dr! D?W!(n!) = | a da! D2W(n, — x")
+men 0 Jo
+
+x
+
+lz
+
+1 No—Nz i. — —2
+= | dx Me Tz 7 * n2Wl(n, — 2)
+No — Nz Jo «
+
+1 No m4
+/ dn! p2w'(n). (6.60)
+
+No — Nz No — 1)
+
+In the first line we have introduced the auxiliary variables x = 7, — yn and x! = n, — 7' and
+
+in the second one we have exploited the fact that, for a generic function f(a), it holds
+
+@ da aa @ © dx 1 /¢ —%
+| =f da’ f(x’) =f de’ f(z’) < = =f dx“ * f(x). (6.61)
+0 22 Jo 0 wv @ ado x
+
+46
+As a first consistency check of Eq. (6.59) with [37], one can easily verify that the same
+result is recovered by first moving to standard coordinates and then imposing the PG fixing
+conditions FE = 0 = B. However, from a computational point of view, it is more convenient
+(0 fix the PG conditions still within the GLC formalism, so as to write dy (z) only in terms
+
+of ® and W, and finally go back to standard coordinates, as we have done so far.
+
+As a final step regarding the first-order evaluation of da(z) in terms of the Bardeen
+potentials ® and W, we can now compare our result (6.59) with the ones present in the
+iterature. In particular, all but the last line of our Eq. (6.59) match with the works [6, 20]
+for vanishing anisotropic stress and with [23] for the case of case of non-vanishing anisotropic
+
+stress.
+
+Moreover, the last term of (6.59) at the observer position matches with the quantity
+
+hat the authors of [30, 31] called the time-shift. This is needed to re-express the angular
+distance-redshift relation of [20, 23] in a gauge where the observer is free-falling.
+
+6.3.2 Second-order angular distance—redshift relation
+
+In this final subsection, we will present our complete result for the angular distance-redshift
+relation as measured by a free-falling observer. Before reporting the full formulae, we will
+separately focus on the numerator and denominator of Eq. (6.34). In this way, we will be able
+to show that the purely source terms of da(z) agree with the ones of the literature as they
+are gauge invariant/observer independent. On the other hand, we will provide the explicit
+form of all the new terms at the observer position due to our complete gauge fixing procedure
+
+associated with the geodesic observer.
+
+Numerator of the angular distance—redshift relation. Let us start from the numer-
+ator of d2)(z) as written in (6.34), namely the first of Eqs. (6.35). We replace the GLC
+
+gauge-invariant variables with their explicit forms (5.8) and write everything in terms of WU!
+
+and U4. By defining = = 1— on , and omitting the superscript “1” for first-order gauge
+modes, the result is®
+
+a2") (.) 1 wi _wA_ He 4.y (© yx
+
+H, .
+: . 1 2u!
+x [-# #0, (2H) é" —SH (u' wA joes")
+a ar
+1 1 7 dr’
+s+ i 7 pv'|
+ar are J, a ¥
+€ ° el
+=| + WA + HET aw ( "| wl wA — SHE 5 Dak"
+a z re z
+
+’Here, our formula is obtained in terms of a set of fiducial coordinates, namely (Zepas Wobs; 6%,.). In the
+following we will omit it and just write da(z).
+
+47
+Soe?
+
+a
+
+Bu (et) — e¢0,€") + £ (ery + PET? - 2
+&7
+
+a
+
+a(w! 4 w4) (a oué") | (Bué)? + Far OE Due? + 269, (0! + V9)
+
+28y = aye + AHET (WI + WA) 4 SHE O48"|
+
+iB.
+
+rT 2
+ra w_wA_ He +0, ( ")|
+2 a oO
+
+7 2
++3 wi ws He +04 (© )]
+
+z
+
+°
+
+ae (a e Oa” Tncdué) (ar OnE" — |
+a a
+
+2| wi ws He +6 (© e")] x
+
+x [wl — A HE + Oe (© «)| }
+L a z
+
+ww He +4, (E ey] x
+
+a z
+
+z
+
+H
+
+nN
+
+a, 1 1 2
+x |W WA — ne — Hw! — v4) + =a, (w wA jou") joe
+a a a
+
+HL et oy2
+Zz _ yl Ajo _ Tr] So ew — wl)
++n | [We + wo — [HE E+ au g \ US
+
+@ z
+
+1
+2
+
+=“ 1
+(0) + BPD. +hhe, (UL + WE) +E + H+ a +)
+z
+
+i ry2 H, 1 (nad ewo ew) — 1 [xady & 9 ew
+5 (H:62) (2458) +36 Oak OE") AG Oa>-OE
+
+2
+
+He _ ee
++ HADI (He + a —syecer — = (2 en) pe
+
+ar, H, lz Lz Zz
+Lf db poy = d Lf abe cpa, ed 1 7 \2 1
++— Fa = —— H.
+5 (1EAeAaadh8") + 7 (A retOak OnE") + (EY? (He +
+_ 1 Tew Ll (Labeced x _il I Ay lis ry2_ 1 a2
+asl tg (WEED an) | — 5(UL + WE) — 5 (EHLEL)? — 5 (Da)
+
+q
+
+= 1
+— FALE Dabt — 582 Dake
+2 2,
+
+48
+1 r eS ry A
++= lage (Davx + Dav) (Deax — Dut)| j (6.62)
+2 | sin? gt :
+where, using ¥ = Xo(w) from (5.13), the last term on the last line can be recast as
+1 z : 1 1
+eel (Davx + Dasx) (Deax + Dear) = G(Dak*)— 5Dak Die". (6.63)
+2sin? 6! 4 2:
+
+Eq. (6.62) also represents a validation of t
+Indeed, by removing all the terms at the
+
+he new perturbation theory developed in this paper.
+observer position from (6.62) and taking the limit
+
+of vanishing anisotropic stress, this equation agrees with Eq. (A.17) of [54].
+
+In order to prove this, we just need
+
+o recall the relations connecting the PG quantities
+
+to the GLC gauge ones, obtained in [54] starting from the diffeomorphism law (2.12) for the
+inverse metrics, as we have done in Subsect. 5.3. Indeed, by plugging into Eq. (6.62) the
+expressions of each gauge mode in terms of (n@?), nt G2), 92.2) at first and second order
+using Eqs. (5.26) and (5.27), we precisely recover Eq. (A.17) of [54], which is the angular
+distance-redshift relation expressed in terms of observed quantities using the approach of
+[54] applied at the next-to-leading order.
+
+As a technical remark, in doing the comparison with [54], we noticed that the terms
+
+wl
+
+z
+a, H2r,
+
+(w" Bunt + Ayn aH) (6.64)
+
+z
+
+were accidentally missed in (A.17) of [54], but consistently included in the comparison of
+
+that work with [5, 6] for first-order results
+
+Therefore, the rigorous comparison o
+in [54] provides a first confirmation of the
+to second order. Moreover, Eq. (6.62) also
+neglected the effects of the anisotropic po
+
+and [20, 23] for second-order ones.
+
+the source terms obtained with our approach and
+correctness of our light-cone perturbation theory
+represents an improvement of [54], as we have not
+
+ential, as also done in [23].
+
+We emphasize that the terms at the observer position in (6.62) can not be directly
+
+matched with the literature. In particular, all the terms with the velocity potential ¢%
+
+represents genuine new contributions to the already existing formulae.
+
+Denominator of the angular distance—redshift relation. Thanks to the matching
+with the literature described in the previous paragraph, we have now validated our method-
+ology to compute dQ)(z). Thus, we can systematically proceed with the evaluation of the
+observer terms which do not have to perfectly match with the literature, as they are due to
+the observational gauge fixing, correspondent to the fact that the we are computing d,a(z) as
+
+measured by a free-falling observer.
+
+The first is contained in Eq. (6.62), as explained at the end of the previous paragraph.
+The second stems from the denominator of d2)(z). By Taylor expanding Eq. (6.36) and
+
+making use of
+
+rn
+
+(arV™), 5
+
+1 as He wl wA
+a
+
+fo)
+
+(6.65)
+
+49
+and of Eqs. (6.50) and (6.51), we get
+
+1
+dg)
+
+1-7 $arF) —7® 4 ar 4 3G/OY — gary 7
+2
+
+(2) g()
+gy _ 9g ey (1))2
+FZ yt (arV“’)
+
+°
+
+=1-—+0,¢7 - (wh + wAa,et — 2eera,e7 + 2a,,(u) — wd)
+Ao 0 Ao ro) fe) oO Qa re) re) a oO Oo
+
+1 Te g
+dr! Ow [poe — 67? 4+ (O,P)? +7 O,PA,P
+
+2do . Tin
+
+1 To
+fe Jqz Ow$o dr’ 02,P
+
+Tin
+= 14 dhe (z) + dQ (2). (6.66)
+
+By multiplying the above equation with ee (z) of Eqs. (6.35) up to second order, we obtain
+
+ane") (z) a qe) (z)dhee) (z) + ate”) (z)
+
+1 1 1
+= 7.2065 |Vi+ WE + 5 Date + Det
+
+(1 ! (ws + WS + Hof). — UL — UP
+
+az Har. fo) z z
+
+7 a6! ~ auét)] - AWS + W806
+
+1
+do
+
+Ho T T 6 I A
+Ft + = dy(W — WA)
+
+oO 0
+Te
+
+dr! dw [po — © + (O,P)? +7" d,PA,P
+
+2do Tin
+
+1 To I 9
++ Faz wso [ dr’ O.,P. (6.67)
+Therefore, the complete gauge-invariant formula for the angular distance-redshift relation is
+obtained once we sum Eqs. (6.62) and (6.67), by replacing the explicit forms of the second-
+
+order gauge modes. This is what we are going to do in the next final paragraph.
+
+Full expressions for the angular distance—redshift relation. To conclude, we are
+now ready to report the final, fully opened formulae for d?)(z) as measured by a free-
+falling observer, by collecting all the terms from Eqs. (6.35), (6.62) and (6.67). The purely
+source terms will be matched with [23], where analogous formulae were provided also with
+
+anisotropic corrections.
+Following the notation of [23], we define the second-order peculiar velocity
+
+1 file
+he ) = Varia +5] dnad, (26°) — 6 + (0,P)? + 7” Ou POpP| (6.68)
+Tin
+
+(for a = 0,z) and we decompose
+
+a2)(z) = d2)(z) 4 d?)
+
+(2) + dC) .a(2) +A) ,(2) + deh os(2) + Ae nixed) +AR(2), (6.69)
+where, in terms of GR effects,
+
+e “pos” indicates terms generated by peculiar velocities;
+
+e “mixed” refers to the cross effects “peculiar velocities x (SW/ISW/lensing)” ;
+
+e “path” contains all the effects due to SW, ISW and lensing;
+
+e The subscript “P” indicates all the corrections due to the monopole P,;
+
+e Finally, “int” refers to terms with peculiar velocities integrated between nin and na.
+
+We further split the contributions “mixed” and “path” into two subgroups of terms: the
+subscript “I” refers to couplings to the only isotropic potential U!, while “A” to couplings
+involving the anisotropic one U4.
+
+First we report the terms originating from the Taylor expansion of the denominator,
+Eq. (6.67). Once fully opened and written in terms of GR effects, they amount to
+
+dre") (x) _ der) (x) (1, den) (4) 4 ) +: ae den) Te )
+
+2Q lo
+Ullo [wavs +2 |” dnt lla ed / dnw!
+Nz No ~ Pz In:
+1
+(: x) Wh + Wd +HoP, + Ul — ws
+
+No >
+Uz — Ylo 2 fi aay") =f?)
+
+‘No
+He Pom P,d,(U) — WA) 4 = / dn ad,v}) . (6.70)
+‘O
+
+in
+
+Finally, our results for the full angular distance-redshift relation are the following ones:
+
+1 ft 1 é
+agh(z) = [1 - male vi Vale Hl Vo) Ord |} (Xo)? |
+
+lL @_lpe» H, 2 2 1»
+Her, lle ~ 2%ile + asp, Mle ~ Mle) + (1 ge ) Mlo%le + 9%
+
+(6.71)
+
+1 1 No Mo
+tna tlt )=]l-g—| +g t+ =u. f ay” le mone +p aot. f dnd."
+Haves Pz Ne Ne
+No No
+jt (u —wl_2 / dy OU! = 2H. [ an) 8,0)\2
+Hz nz Jnz
+No No
+420.02 f anon dr! vw] - Su: f dn wi
+n Ne
+
+lz
+
+1 Hy I I ce I
+fe (2 VJ) Pes (1 7a) (u: Ww 2 dn 0, U
+2 1 1 1 7
+wl +a, vt — au! / iy DW!
+Haz i Her, Ue Hz wee Hr2 Nz “a
+1 9 \_, 1\, 4 ia \
+dug bel = wi45(1— we = f anw
+U\lo [5( T+ a) 1 +5( an) oF dn
+1 1 1 i
+oe ~( - ») / dn dima wo ‘ s(1- a -) l" din On, v
+Hertz 2) In, No — fb
+3[° dn [ dr pew (6.72)
+
+1 A, 1 A_ yA He pth ah
+= =(1 = i) E U||z ap 5, Orie Ez Ws | Wr, (we we) (v2 UYJo)
+
+at
+Hr z
+
+1 1
+(202 — Wo )u24 (sara avs) 7, Mlle ~ Milo) + 4}0%
+(6.73)
+
+1 me :
+(2) _ 6) @4@@)\_ ge
+(1 =) {#4 ot [ dn Op (w +6 )} wl
+
+1 76 1 smo .
+/ dn ate al (uw) t 6) + / dn (vw ae 0)
+2rz Nz To — Tz Ine
+
+1
+ES ¢ ax) \l 20,V), — 20) Vs, + 0, UL + 20,4
+
+No . No 1
+#2 / an ope (2/ ay!) + 5 (le) + rw?
+lz Nez
+No ‘No _—4 No
+_ (u-u-2/ 2,4") 1 / dn 2—® pew! 4 au, [ dn 0, U!
+2 Tz Ine To — 7) Ne
+No
+4 /
+Ne
+
+No ‘No
++70 Aq (/ dr v') Op (/ dr! ay") |
+n n
+if” b me I "r 1 [” b me I
++20,u4 [ dny" an | di! W' + af dn Oa (On f dr! 7" a, | dr U \
+Ne ” B Ne nf
+
+No No
+dn [-wa,e! — 0,0" / da! Ayu! — wt / dr! OF"
+ui n
+
+No 3 5 9 13
++4! dn 0, ¥! + =(ul)? = uel
+if 1 On =F gt =) + 2 QH.rs z*Oo
+
+1 I 1 I I ie I 1 f”™ I
++ iL (au! - Hrs” :) (ui —-W,-2 ; dn On} — 20M 5 dn wv
+1 H, I 1)? I I "e I
+Ware (1 <) [cw Ws) - 2(v, Ws) 2 [ dr) 0, U
+No 2 2 mo No
++4 (/ dn ay") +— [ dn [e (w —-wi_2 / dn’ ay!)
+2 Tz In: Jn
+No No
++7" a (/ dn! v') on (/ dn! w)|
+n n
+No No No 2
++ (u- 2 anv) i [ dy I pr! + 5 (= / dy 1 = pew")
+Tz In, lz No — 1 2 Tz Ine To —
+No No No
++/— wowi-2f dn 0,U" ) — = / dn wv! ~ | dn D?v!
+Hats Nez Tz lz Tz lz
+No No 4 [ s% No No
++ anv! f ayaay f dru! — — Lf dn aut |” dr! aay | dr" |
+J nz n Tz ne 2 a
+No No 1 No No
++ (a [ dn v') i / dn | dn! a," -2f dn yaw
+Nz jz To — 1) n Nz
+No No
+4 ana” | dr! aro |
+n
+No 0
++a(f" “an 70. | dn! v) Oo ([” dn 7404 I an/0")
+n ze q
+No 1 lo
+-2( |” dn v ) / dn aor! dr Dv!
+Nz (No — n) Jn
+
+1 1 To
+——— spews | dn! A, (D2u! )|
+(No _ n)? (5 n ved ( )
+
+2 ie No No
++— dn ate, (pew) [ dn wa, f dr! v!
+zi 7 UT ue n
+
+Tz Nz To — lz
+1 1 sme
+as : / dn a” au wv]
+( : )) Tz No —
+sin 0 %
+
+No
+vi 2 f dn na)
+
+No
+ae / dn re [" (u-
+Tz Ine To — n
+dn! w')]
+n
+
+No
++704 (/” dr v) O (
+7
+No No
+a [ dn {wv dim (<< [ dn! bev")
+J ne mo \ (to — 1)? Ja
+
+ne nn
+ra [ arf 71a, (D?v')
+Jig ;
+
+Jo
+
+No — 1)
+
+No 1
++27tay( [ dr v) l af 2—2 cpa gie (DPY')
+Jn No — 1In No —
+No 1 No
+_ (us —2y'-2 [ dn! ot) ——,; / dn! D?v!
+dn (to — 0)? Jn
+No No No
++0,0' [im (ata dr! v') - 2f di’ ae | d Hoy
+No A n i!
+5 ( xbe net) of ir nails. of sagt
++20. ( 7 az [ dn v / dn’ Op ( 7 au | dn"
+n n nf
+
+No No
++279, (w! +f dr’ ay") an | dr uw} ; (6.74)
+0 7]
+2 1 1 pA_wA "re ay 7 ee wawa 4 (Ay
+path,A (2) 1 Herz 7! es o) ay) No — z¥ot ( z ) +
+
+n
+rwaw! + waw! — away af
+UE
+
+1 I I A qgA as I
+H. Gi pone 9,4) (Wo — WS) - ao! . dn Ww
+
+an ayco'wsy)
+
+d A A A rn ‘No
+HA Gos Gy, — OU ) [ww — (Wp- Wh) -2 a dn OnW!
+2 Mo il No _
+= =u; [ dn wy ows | dn 1% pw!
+Tz - Tz ne No -
+1 No .
++ wa wa / dn D2u!
+Hgts Yo) fan
+1 Hl, No
+[seas +20) + greed — 98) — wa] (2 f” ana,
+
+Lass
+5(uay + wAwAd — (A)? 4 wap! — Awl 4 wag! — opAul
+
+HL [1
++ FB, Ei (wa — way — wAw! 4 vous + 0sut— vat]
+
+af: us 1 wad dr’ w!
+as in dn 7 a [” n
+
+4 ft 2 f% n-ne.
+de =| dn (UWA) — = | an I p2(wiwa)., (6.75)
+
+Tz wi No — 1
+
+We thoroughly compared Egs. (6.71)-(6.75) to Eqs. (3.29)-(3.32) of [23] and found an almost
+perfect agreement for the purely source terms, with only few differences. One concerns the
+last term on the first line of (6.72) (the correspondent term of [23] has coefficient —a which
+is most likely a typo, as our result agree with [20, 38]), whereas others are probably related
+to the way to manipulate nested integrals and deal with integration by parts. We would
+also like to stress that, in [54] the authors use their Eq. (A.24) to facilitate the comparison
+of their result (A.17) with the previous ones in the literature [20, 38]. Instead, in our case,
+we have shown that the corresponding relations between the coordinate perturbations in the
+two approaches is explicitly given in Eqs. (5.29). Indeed, at first order, our gauge modes
+coincide with the coordinate perturbations obtained in the first approach of [20, 38], see our
+Eqs. (5.21).
+
+The most relevant outcome of the above results is that the systematic cross-check of
+
+our second-order source terms with the literature [20, 23, 38] provides a definite validation
+of the light-cone perturbation theory developed in this paper.
+
+To conclude, the terms with the monopole P, due to the OSG fixing are:
+
+1 1\ 1 "Ws
+dp ,o(2) 5 (74 ae { ) in dna (eo?) — 6? 4 oy + vee)
+
+Tz J Ao
+
+Pdy 1 4 Ho HoH! 9p 1 He H,, ‘
+0) Plo or, 2 Hr. \lz rs T Wr. We
+1 1 Ho
+( a) Or t (1 a) (1 72) aru.)
+H. H! 1 H2 UW!
+2 OF ic) \ ° z
+P35 E a) ¢ an) + er Gi 1)] , (6.76)
+1 He 1/1
+Fine, 1@ Pd ( “a Hiv: € sae) nt He (= Ho) ors
+o(1— 1 )a,wl +0,0h +2(4+42,) ut
+Hr,) 7 0 7 8 ref)
+
+ia 1 He 1 2Ho [ I
++ w In U
+( 2rz Hr? te a) ° Tz Inz ol
+
+Ho 1 ) ( 1 wn N—Nz pet whe P ')
+H. { dy ries w+ dn 0, WU
+° Herz Tz Tz Ine ; To Nz ren
+1/1 Ho "e Xypl I I l I
++ 3(=-— In D*W 4 Ww Wet? 1n On UV
+No 1
++ dn | -—== ai? Dw + ‘4 / [Pw 0, D> Vv! ;
+n 2r2 Jn
+
+(6.77)
+
+2 sixoaa(2) P.{ ays (2 2) aw (-q awd
+1 H. H!
+
+1 0, UA 4 o 4 z \pA
+
+( in) no a a) z
+
+1 1 QHo , HoH!,\ a
+
+, t | wi ;
+(5 Her. the Hr, | Hr,) °f’ ere)
+2 1 H, L\ 2 6
+dee (2) 5 (Ho He + *) uo ayo f dn av,
+
+Tin
+
+1 1 1 opm 1 pio
+5 (2 saz) rte = [ dn avy — a [ ayavy)
+
+1. 1 1 fl 1 me
+=(1 v dn ad;uy) — _/ dn ad,vu )
+2 Ln) io(=. [ Tr G I nin Te
+1 No 1 No
++ 5—Ulo [ dn adv) + aye f dn au - (6.79)
+2a “Tin TzQo Tin
+
+These last four equations represent one of the most remarkable results of this paper, be-
+cause they confirm that the GLC gauge is a very convenient gauge to compute cosmological
+
+observables to higher orders in perturbation theory, having a divergences free result.
+
+7 Summary and Conclusions
+
+In this manuscript we have developed a second-order cosmological perturbation theory adapted
+to the observer past light-cone, extending previous first-order results [37]. Starting from a
+homogeneous and isotropic background in the Geodesic Light-Cone (GLC) coordinates, we
+have constructed general perturbations and analyzed their gauge transformation properties.
+The corresponding GLC gauge fixing conditions have been derived at second order, both in
+terms of light-cone perturbations and within standard perturbation theory. In particular,
+following [37], the standard counterpart of the GLC gauge has been dubbed Observational!
+Synchronous Gauge (OSG).
+
+Within the GLC gauge, the past light-cone coincides with the background one, anc
+observables are factorized in terms of products of perturbations evaluated at the source
+and observer positions. Consequently, light-like cosmological observables expressed in the
+GLC gauge. or in the OSG one, are manifestly bi-scalar (as already stated in [30]) anc
+depend solely on local metric perturbations. When rewritten in terms of gauge-invarian
+
+Bardeen variables, the usual integrated effects such as gravitational lensing, the ISW effec
+
+and the Shapiro time-delay naturally emerge. This provides a systematic and gauge-invarian
+framework to compute cosmological observables to non-linear order using the exact relations
+of [36, 38] and the gauge transformations connecting the GLC gauge to the Poisson Gauge
+(PG).
+
+By applying this framework, we have derived the second-order expression for the angular
+
+distance-redshift relation, as an informative application and with the aim of validating our
+
+perturbative framework and method through the comparison of the results obtained to the
+ones of the present literature. In particular, our procedure has been based on the following
+
+steps:
+
+e First we identify the fully non-linear formula for the redshift and for the angular distance
+valid in the GLC gauge and we expand them up to second order within our perturbative
+
+framework;
+
+e Next, we express the angular distance in terms of the observed redshift, the observer’s
+
+past light-cone and the observed angles;
+e Thereafter, we promote each perturbations to its gauge-invariant counterpart;
+
+e Finally, we fix the PG to express the general relativistic effects in terms of the gravita-
+tional potentials.
+
+The above techniques represent a new approach to compute higher-order relativistic effects
+to cosmological observables, validated by the fact that our results exactly reproduce® all
+known source terms from the literature based on the GLC gauge (see [20, 23, 38]). They also
+provide additional observer’s contributions which, to our knowledge, have not been previously
+identified. Indeed, our observer terms come from the fact that we have considered the angular
+distance-redshift relation as measured by a free-falling observer, where, working in the GLC
+gauge, the residual gauge freedom is exploited together with the additional requirement tha‘
+the center of the coordinates coincides with the observer position. Thanks to this carefu.
+construction, non-physical divergences at the observer position have been eliminated, thus
+confirming the predictions and results of [30, 37].
+
+Another important point is that, while the GLC gauge provides a simple geometrica
+interpretation of cosmological observables, the associated perturbation dynamics is more
+intricate than in standard perturbation theory. On the other hand, the OSG is fully equivalen
+to the GLC gauge and it is entirely formulated within the standard perturbative framework.
+
+Consequently, the dynamics and all related physical properties can be studied using the usual
+tools of standard perturbation theory, which may lead to an alternative solution of the long-
+standing problem of the dynamics in the GLC gauge. This point is left for future studies.
+The use of GLC guauge directly in standadrd pertubraton theory will be the subject of future
+studies.
+
+In summary, we have presented a general framework to compute second-order cosmo-
+logical observables, within light-cone perturbation theory (the GLC gauge). We have val-
+idated our method by recovering the known source terms in the second-order angular dis-
+tance-redshift relation and identified new observer contributions, which renders the result
+
+free of divergences. This new perturbation theory can conveniently pave the way for the
+
+computation of other cosmological observables on the light-cone up to second order, as, for
+
+example, the galaxy number count [24, 61-64] or the redshift drift [65, 66).
+
+°A part from few terms out of hundreds, probably due to typos or differences in integration by parts and/or
+the way to expand terms.
+Acknowledgements
+
+We are very thankful to Ruth Durrer, Matteo Magi and Fabian Schmidt for useful discussions.
+PB and GM are supported in part by the Istituto Nazionale di Fisica Nucleare (INFN)
+through the Commissione Scientifica Nazionale 4 (CSN4), under the Iniziativa Specifica (IS)
+Theoretical Astroparticle Physics (TAsP) and the IS Quantum Fields in Gravity, Cosmology
+and Black Holes (FLAG). The work of GM and MRMS was supported by the research grant
+number 2022E2J4RK "PANTHEON: Perspectives in Astroparticle and Neutrino THEory
+with Old and New messengers” under the program PRIN 2022 funded by the Italian Ministero
+dell’Universita e della Ricerca (MUR) and by the European Union — Next Generation EU.
+GF acknowledges the COST Action CosmoVerse, CA21136, supported by COST (European
+Cooperation in Science and Technology). GF is also member of the Gruppo Nazionale per
+la Fisica Matematica (GNFM) of the Istituto Nazionale di Alta Matematica (INdAM).
+
+A Free-Falling Observer
+
+Let us now show how both the SG and OSG observers are free-falling. In particular, the
+observer defined by the OSG is free-falling despite the fact that O26 #0.
+
+As a first step, let us consider the observer associated with the proper time 7 in a
+
+TT
+
+generic gauge. Then, we can prove that the condition!® g77 = —1 non-perturbatively defines
+
+a free-falling observer, regardless of the specific form of the metric. Indeed, following [67], by
+
+taking the 4-velocity u, = —0,,7 = 47, associated with this observer, we have
+1
+TV (nT) = —9"" Ty = 59 I? OnIp - A.1)
+Since we are assuming g’” = —1, it follows that
+Ong" = On(9"? 9" Gup) = 9, A.2)
+
+from which we have
+
+Ty
+
+GG Ondpv = —9" pv"? — GF? GvpAg"” = —20,97" = 9, A.3)
+
+thus proving that 0’7V_(OuT) = 0.
+
+As a second step, and a non-trivial check of our new perturbation theory, we will now
+prove that this is indeed the case for both the SG and the OSG, by working directly within
+our new perturbation theory on the light-cone and up to the second perturbative order. Let
+us resume the GLC gauge-fixing conditions to the first and second perturbative order:
+
+10As a matter of fact, it is enough that g7” = const.
+6) =0, 6 =0,
+NO} 4 2aM =0, N®) — z(NOyP +2aM® — U2) =0 (A.4)
+and the SG non-perturbative ones
+?L +N 4 2M™ =0,
+
+N = -aM™,
+
+9 = — Lym
+a
+
+am — 1am, (A.5)
+a
+
+Then, inverting the light-cone metric (2.15), we can obtain g’” at first and second order in
+perturbation theory before fixing any gauge, namely
+
+,
+
+ga) =—2 LO — 2am) — NO
+
+Gf) = —@P L) — 2am — N@ — (PL)? — 4a LOM — 30?(MM)?
+
+= 22 LY NY — a@MONY 4 5 UOU +4 2eevVOVO + 2a7VOUM. (A.6)
+Then, by fixing the GLC gauge we have L( =0, v\ =0 and 6 = 0, so we are left with
+
+Iiauc) = —2aMM — NM =0,
+
+GEauc) = —2aM) _ yy + 2aM@) — UA) — a[3a(M)? + 2MMON) + UA)
+
+— 72am)? —a[3a(M)? — 4a(M)?] =0, (A.7)
+as expected. On the other hand, fixing the light-cone counterpart of the SG, we have
+
+Gisa) = —-7L — 2M — NM =0,
+
+GEsc) = —(NM + 24M)? + 4am (NO + 2aM) — 3a?(M))?
+
++2NY(NO 4 2aM) — 242M NO)
+
+= (NY)? 4.02(MM)? + 2aMONY = (A.8)
+thus confirming that the observer defined by the OSG is free-falling as well as the one defined
+by the SG.
+
+References
+
+[1] LSST Collaboration, Z. Ivezié et al., LSST: from Science Drivers to Reference Design and
+Anticipated Data Products, Astrophys. J. 873 (2019), no. 2 111, [arXiv:0805.2366].
+a
+
+0
+
+oO
+
+20
+
+Euclid Collaboration, Y. Mellier et al., Euclid. I. Overview of the Euclid mission, Astron.
+Astrophys. 697 (2025) Al, [arXiv:2405.13491].
+
+R. Akeson, L. Armus, E. Bachelet, and et al., The Wide Field Infrared Survey Telescope: 100
+Hubbles for the 2020s, arXiv e-prints (2019) [arXiv:1902.05569]. White paper summarizing
+mission design and capabilities (Astro2020 prep).
+
+M. Sasaki, The magnitude-redshift relation in a perturbed Friedmann universe, Mon. Not. Roy.
+Astron. Soc. 228 (1987) 653-669.
+
+T. Pyne and M. Birkinshaw, The luminosity distance in perturbed flrw spacetimes, Mon. Not.
+Roy. Astron. Soc. 348 (2004) 581, [astro-ph/0310841].
+
+C. Bonvin, R. Durrer, and M. Gasparini, Fluctuations of the luminosity distance, Phys. Rev. D
+73 (2006) 023523, [astro-ph/0511183]. [Erratum: Phys.Rev.D 85, 029901 (2012)].
+
+L. Hui and P. B. Greene, Correlated fluctuations in luminosity distance and the importance of
+peculiar motion in supernova surveys, Phys. Rev. D 73 (2006) 123526, [astro-ph/0512159}.
+
+C. Bonvin and R. Durrer, What galaxy surveys really measure, Phys. Rev. D 84 (2011) 063505,
+{arXiv:1105.5280].
+
+A. Challinor and A. Lewis, The linear power spectrum of observed source number counts, Phys.
+Rev. D 84 (2011) 043516, [arXiv:1105.5292].
+
+I. Ben-Dayan, R. Durrer, G. Marozzi, and D. J. Schwarz, The value of Ho in the
+inhomogeneous Universe, Phys. Rev. Lett. 112 (2014) 221301, [arXiv:1401.7973].
+
+G. Fanizza, B. Fiorini, and G. Marozzi, Cosmic variance of HO in light of forthcoming
+high-redshift surveys, Phys. Rev. D 104 (2021), no. 8 083506, [arXiv:2102.12419].
+
+I. Ben-Dayan, M. Gasperini, G. Marozzi, F. Nugier, and G. Veneziano, Average and dispersion
+of the luminosity-redshift relation in the concordance model, JCAP 1306 (2013) 002,
+{arXiv:1302.0740].
+
+P. Fleury, C. Clarkson, and R. Maartens, How does the cosmic large-scale structure bias the
+Hubble diagram?, JCAP 03 (2017) 062, [arXiv:1612.03726].
+
+T. Schiavone, E. Di Dio, and G. Fanizza, The skewness of the distance-redshift relation in
+ACDM, JCAP 02 (2024) 050, [arXiv:2307.13455].
+
+L. Gervani, D. Bertacca, and N. Bartolo, Observed galary number counts on the light cone up
+to third order, Phys. Rev. D 112 (2025), no. 8 083541, [arXiv:2503.11191].
+
+D. Jeong, F. Schmidt, and C. M. Hirata, Large-scale clustering of galaxies in general relativity,
+Phys. Rev. D 85 (2012) 023504, [arxiv:1107.5427].
+
+F. Schmidt and D. Jeong, Cosmic Rulers, Phys. Rev. D 86 (2012) 083527, [arXiv:1204.3625].
+
+D. Jeong and F. Schmidt, Large-Scale Structure Observables in General Relativity, Class.
+Quant. Grav. 32 (2015), no. 4 044001, [arXiv:1407.7979].
+
+A. Villey, Y. B. Ginat, V. Desjacques, D. Jeong, and F. Schmidt, Large-Scale-Structure
+Observables in General Relativity Validated at Second Order, arXiv:2506.11260.
+
+I. Ben-Dayan, G. Marozzi, F. Nugier, and G. Veneziano, The second-order luminosity-redshift
+relation in a generic inhomogeneous cosmology, JCAP 1211 (2012) 045, [arXiv: 1209. 4326].
+
+60
+21
+
+22
+
+23
+
+24)
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34)
+
+36
+
+37
+
+O. Umeh, C. Clarkson, and R. Maartens, Nonlinear relativistic corrections to cosmological
+distances, redshift and gravitational lensing magnification: I. Key results, Class. Quantum
+Grav. 31 (2014) 202001, [1207.2109].
+
+O. Umeh, C. Clarkson, and R. Maartens, Unified treatment of the luminosity distance in
+cosmology, Class. Quantum Grav. 31 (2014) 205001, [1402.1933].
+
+G. Marozzi, The luminosity distance-redshift relation up to second order in the Poisson gauge
+with anisotropic stress, Class. Quant. Grav. 32 (2015), no. 4 045004, [arXiv:1406. 11365].
+ferratum: Class. Quant. Grav.32,179501(2015)].
+
+M. Magi and J. Yoo, Second-order gauge-invariant formalism for the cosmological observables:
+
+complete verification of their gauge-invariance, JCAP 09 (2022) 071, [arXiv:2204.01751].
+
+G. Marozzi, G. Fanizza, E. Di Dio, and R. Durrer, CMB-lensing beyond the Born
+approximation, JCAP 1609 (2016), no. 09 028, [arXiv:1605.08761].
+
+G. Marozzi, G. Fanizza, E. Di Dio, and R. Durrer, CMB-lensing beyond the leading order:
+temperature and polarization anisotropies, Phys. Rev. D98 (2018), no. 2 023535,
+[arXiv:1612.07263].
+
+G. Marozzi, G. Fanizza, E. Di Dio, and R. Durrer, Impact of Next-to-Leading Order
+Contributions to Cosmic Microwave Background Lensing, Phys. Rev. Lett. 118 (2017), no. 21
+211301, [arXiv:1612.07650].
+
+G. Pratten and A. Lewis, Impact of post-Born lensing on the CMB, JCAP 1608 (2016), no. 08
+047, [arXiv:1605.05662].
+
+A. Lewis and G. Pratten, Effect of lensing non-Gaussianity on the CMB power spectra, JCAP
+1612 (2016), no. 12 003, [arXiv:1608.01263].
+
+S. G. Biern and J. Yoo, Gauge-Invariance and Infrared Divergences in the Luminosity
+Distance, JCAP 1704 (2017), no. 04 045, [arXiv:1606.01910].
+
+F. Scaccabarozzi and J. Yoo, Light-Cone Observables and Gauge-Invariance in the Geodesic
+Light-Cone Formalism, JCAP 06 (2017) 007, [arXiv:1703.08552].
+
+G. Fanizza, J. Yoo, and S. G. Biern, Non-linear general relativistic effects in the observed
+redshift, JCAP 09 (2018) 037, [arXiv: 1805 .05959].
+
+F. Scaccabarozzi, J. Yoo, and S. G. Biern, Galaxy Two-Point Correlation Function in General
+Relativity, arXiv: 1807 .09796.
+
+N. Grimm, F. Scaccabarozzi, J. Yoo, 8. G. Biern, and J.-O. Gong, Galaxy Power Spectrum in
+General Relativity, JCAP 11 (2020) 064, [arXiv: 2005 .06484].
+
+I. Ben-Dayan, M. Gasperini, G. Marozzi, F. Nugier, and G. Veneziano, Backreaction on the
+luminosity-redshift relation from gauge invariant light-cone averaging, JCAP 04 (2012) 036,
+arXiv: 1202.1247].
+
+M. Gasperini, G. Marozzi, F. Nugier, and G. Veneziano, Light-cone averaging in cosmology:
+Formalism and applications, JCAP 1107 (2011) 008, [arXiv:1104. 1167].
+
+G. Fanizza, G. Marozzi, M. Medeiros, and G. Schiaffino, The Cosmological Perturbation Theory
+on the Geodesic Light-Cone background, JCAP 02 (2021) 014, [arXiv:2009.14134].
+
+61
+38
+
+39
+
+G. Fanizza, M. Gasperini, G. Marozzi, and G. Veneziano, An exact Jacobi map in the geodesic
+light-cone gauge, JCAP 1311 (2013) 019, [arXiv:1308.4935].
+
+M. B. Frob and W. C. C. Lima, Cosmological perturbations and invariant observables in
+geodesic lightcone coordinates, JCAP 01 (2022), no. 01 034, [arXiv:2108.11960].
+
+G. Fanizza, G. Marozzi, and M. Medeiros, Gauge invariance on the light-cone: curvature
+perturbations and radiative degrees of freedom, JCAP 06 (2023) 015, [arXiv: 2303. 11743].
+
+G. Fanizza, G. Marozzi, and M. Medeiros, 6N formalism on the past light-cone, Gen. Rel.
+Grav. 56 (2024), no. 5 53, [arXiv:2311.08073].
+
+E. Mitsou and J. Yoo, Tetrad Formalism for Exact Cosmological Observables. SpringerBriefs
+in Physics. Springer, 6, 2020.
+
+E. Mitsou, G. Fanizza, N. Grimm, and J. Yoo, Cutting out the cosmological middle man:
+General Relativity in the light-cone coordinates, Class. Quant. Grav. 38 (2021), no. 5 055011,
+[arXiv:2009. 14687].
+
+V. F. Mukhanov, H. Feldman, and R. H. Brandenberger, Theory of cosmological perturbations.
+Part 1. Classical perturbations. Part 2. Quantum theory of perturbations. Part 3. Extensions,
+Phys. Rept. 215 (1992) 203-333.
+
+M. Bruni, S. Matarrese, S. Mollerach, and S. Sonego, Perturbations of space-time: Gauge
+transformations and gauge invariance at second order and beyond, Class. Quant. Grav. 14
+(1997) 2585-2606, [gr-qc /9609040].
+
+S. Matarrese, S. Mollerach, and M. Bruni, Second order perturbations of the Einstein-de Sitter
+universe, Phys. Rev. D 58 (1998) 043504, [astro-ph/9707278].
+
+P. Béchaz, dN Formalism and Second Order Perturbation Theory on the Light-Cone, Master’s
+Thesis at the University of Pisa (2024).
+
+S. Weinberg, Gravitation and Cosmology:
+
+Principles and Applications of the General Theory of Relativity. John Wiley and Sons, New
+York, 1972.
+
+P. Fleury, F. Nugier, and G. Fanizza, Geodesic-light-cone coordinates and the Bianchi I
+spacetime, JCAP 1606 (2016), no. 06 008, [arXiv:1602.04461].
+
+P. Schneider, J. Ehlers, and E. E. Falco, Gravitational Lenses. Astronomy and Astrophysics
+Library. Springer, 1992.
+
+P. Fleury, H. Dupuy, and J.-P. Uzan, Interpretation of the Hubble diagram in a
+nonhomogeneous universe, Phys. Rev. D 87 (2013), no. 12 123526, [arXiv:1302.5308].
+
+C. Pitrou, T. $. Pereira, and J.-P. Uzan, Weak-lensing by the large scale structure in a spatially
+anisotropic universe: theory and predictions, Phys. Rev. D 92 (2015), no. 2 023501,
+[arXiv:1503.01125].
+
+G. Fanizza, M. Gasperini, G. Marozzi, and G. Veneziano, Observation angles, Fermi
+coordinates, and the Geodesic-Light-Cone gauge, JCAP 01 (2019) 004, [arXiv:1812.03674].
+
+G. Fanizza, M. Gasperini, G. Marozzi, and G. Veneziano, A new approach to the propagation of
+light-like signals in perturbed cosmological backgrounds, JCAP 08 (2015) 020,
+[arXiv: 1506 .02003].
+
+62
+On
+a
+
+60
+
+61
+
+62
+
+63
+
+64
+
+65.
+
+66
+
+67
+
+IL. Sawicki, I. D. Saltas, L. Amendola, and M. Kunz, Consistent perturbations in an imperfect
+fluid, JCAP 01 (2013) 004, [arXiv:1208.4855].
+
+L. Amendola, M. Kunz, M. Motta, I. D. Saltas, and I. Sawicki, Observables and unobservables
+in dark energy cosmologies, Phys. Rev. D 87 (2013), no. 2 023501, [arXiv:1210.0439].
+
+L. Amendola, S. Fogli, A. Guarnizo, M. Kunz, and A. Vollmer, Model-independent constraints
+on the cosmological anisotropic stress, Phys. Rev. D 89 (2014), no. 6 063538,
+{arXiv:1311.4765].
+
+D. Sobral-Blanco and C. Bonvin, Measuring anisotropic stress with relativistic effects, Phys.
+Rev. D 104 (2021), no. 6 063516, [arXiv:2102.05086].
+
+S. Castello, N. Grimm, and C. Bonvin, Rescuing constraints on modified gravity using
+gravitational redshift in large-scale structure, Phys. Rev. D 106 (2022), no. 8 083511,
+[arXiv:2204.11507].
+
+I. Ben-Dayan, M. Gasperini, G. Marozzi, F. Nugier, and G. Veneziano, Backreaction on the
+luminosity-redshift relation from gauge invariant light-cone averaging, JCAP 1204 (2012) 036,
+arXiv: 1202.1247].
+
+D. Bertacca, R. Maartens, and C. Clarkson, Observed galaxy number counts on the lightcone up
+to second order: I. Main result, JCAP 1409 (2014), no. 09 037, [arXiv: 1405. 4403].
+
+D. Bertacca, R. Maartens, and C. Clarkson, Observed galary number counts on the lightcone up
+to second order: II. Derivation, JCAP 1411 (2014), no. 11 013, [arXiv:1406.0319].
+
+E. Di Dio, R. Durrer, G. Marozzi, and F. Montanari, Galary number counts to second order
+and their bispectrum, JCAP 1412 (2014) 017, [arXiv:1407.0376]. [Erratum:
+JCAP1506,no.06,E01(2015)].
+
+E. Di Dio, R. Durrer, G. Marozzi, and F. Montanari, The bispectrum of relativistic galaxy
+number counts, JCAP 1601 (2016) 016, [arXiv:1510.04202].
+
+O. H. Marcori, C. Pitrou, J.-P. Uzan, and T. S. Pereira, Direction and redshift drifts for general
+observers and their applications in cosmology, Phys. Rev. D 98 (2018), no. 2 023517,
+[arXiv:1805.12121].
+
+P. Bessa, R. Durrer, and D. Stock, Perturbations of cosmological redshift drift, JCAP 11 (2023)
+093, [arXiv:2306. 13911].
+
+G. Fanizza, The impact of inhomogeneities on cosmological observables. PhD thesis, Bari U.,
+2015.
+
+63

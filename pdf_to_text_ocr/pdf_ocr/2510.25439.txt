@@ -1,0 +1,2095 @@
+| 29 Oct 2025
+
+-SCl
+
+2510.25439v1 [cond-mat.mtrl
+
+arXiv
+
+Finite-Temperature Ferroelectric Phase Transitions from Machine-Learned Force Fields
+
+Kristoffer Eggestad, Ida C. Skogvoll, ®ystein Gullbrekken, Benjamin A. D. Williamson, and Sverre M. Selbach*
+Department of Materials Science and Engineering, Norwegian University of Science and Technology
+(Dated: October 30, 2025)
+
+Simulating finite temperature phase transitions from first-principles is computationally challenging. Re-
+cently, molecular dynamics (MD) simulations using machine-learned force fields (MLFFs) have opened a
+new avenue for finite-temperature calculations with near-first-principles accuracy. Here we use MLFFs, gen-
+erated using on-the-fly training, to investigate structural phase transitions in four of the most well-studied
+ferroelectric oxides; BaTiO3, PbTiO3, LINDO; and BiFeO;. Only using the 0 K ground state structure as in-
+put for the training, the resulting MLFFs can qualitatively predict all the main structural phases and phase
+transitions, while the quantitative results are sensitive to the choice of exchange correlation functional with
+PBEsol found to be more robust than LDA and r?SCAN. MD simulations also reproduce the experimen-
+tally observed order-disorder character of Ti displacements in BaTiO3, the abrupt first order transitions of
+BiFeO3 and PbTiO;, and the mixed order-disorder and displacive character of the ferroelectric transition in
+LiNbO3. Finally, we discuss the potential and limitations of using MLFFs for simulating ferroelectric phase
+
+transitions.
+
+I. INTRODUCTION
+
+Ferroelectric oxides, particularly perovskites, are of great
+technological and scientific interest and find applications
+in, e.g. sensors, actuators, transducers, and non-volatile
+memory technologies [1-3]. The mechanisms of their fer-
+roelectric phase transitions are imperative in order to un-
+derstand the microscopic origins of spontaneous polarisa-
+tion, and is thus enabling knowledge for designing new and
+improved ferroelectrics. Although first-principles compu-
+tational approaches have been tremendously successful in
+elucidating fundamental properties and mechanisms at 0
+K [4-7], the corresponding finite-temperature calculations
+have been prohibitively expensive. ab initio molecular dy-
+namics has been feasible only for relatively small systems
+where long-range electrostatic interactions, such as those
+in ferroelectrics, are not well captured or described.
+
+Machine-learned force fields (MLFFs), and in particular
+on-the-fly MLFFs [8, 9] have recently opened a new avenue
+for finite-temperature calculations with near-first-principles
+accuracy. Potentials are trained using a combination of
+molecular dynamics (MD), density functional theory (DFT),
+and machine learning to decide when to perform DFT steps
+and update force fields [10]. This approach can be utilised
+to train force fields for complex functional materials and al-
+low for calculations of very large supercells that are not fea-
+sible using standard DFT. MLFFs have recently been used to
+predict phase transitions in a wide range of materials [11-
+20], but ferroelectric materials and their phase transitions
+pose an additional challenge with their sensitivity to pres-
+sure and lattice parameters, and inherent balance between
+long- and short-range forces [21, 22].
+
+Ferroelectric materials show an electric field-switchable
+spontaneous electric polarisation that emerges from a phase
+transition from a centrosymmetric high-temperature struc-
+ture to a non-centrosymmetric low-temperature structure
+
+* selbach@ntnu.no
+
+at the Curie temperature (Tc). BaTiO3, PbTiO3, BiFeO3,
+and LiNbO are prototypical ferroelectric materials, with
+the first three belonging to the perovskite family, whereas
+LiNbO adopts a closely related structure. These four fer-
+roelectric oxides span I-V, I-IV and III-III distributions of
+formal oxidation states, they include two examples of d°-
+driven second-order Jahn-Teller mechanism of stabilising
+polarisation, and two examples of A-site 6s” lone pair-
+driven polarisation, the latter two of which we find one
+multiferroic with a non-d° B-site (BiFeO,) and one with a
+d° B-site (PbTiO;) cation. These four well-studied oxides
+thus constitute a robust testing ground for applying MLFFs
+to understand ferroelectric phase transitions and we briefly
+review the basics of their phase transitions below.
+
+BaTiO, undergoes three phase transitions upon heat-
+
+. ~193 K ~273 K 393 K = .
+ing; R3m « > Amm2 « > P4mm —> Pm3m with
+the latter being the paraelectric aristotype phase [23]. All
+three phase transitions are first order and are associated
+with diverging dielectric constants and discontinuous vol-
+umes. While BaTiO3 is a prototypical displacive (soft-mode
+driven) ferroelectric, recent studies support a microscopic
+order-disorder picture rather than coherent, uniform dis-
+placements of Ti** relative to the centre of mass of the TiO,
+octahedra [24-29].
+
+In contrast to BaTiO3, PbTiO3, LiNbO, and BiFeO3 each
+exhibit only a single bulk ferroelectric phase. PbTiO; un-
+
+: 8 768 K 7
+dergoes a first-order transition, P4mm <—> Pm3m[30],
+which is accompanied by a large, discontinuous decrease in
+
+molar volume. LiNbO; keeps its trigonal symmetry across
+
+. as ~1480 K
+the polar to non-polar ferroelectric transition, R3c <——>
+
+R3c[31, 32].
+
+The ferroelectric phase transition of BiFeO, initially
+proved difficult to study experimentally [33, 34] because of
+the high T¢, the volatility of Bi, and the chemical incompat-
+ibility towards common sample supporting materials like
+platinum, alumina (Al,03) and silica (SiO,)[35]. Arnold
+
+et al. conclusively established the nature of the ferroelec-
+
+tric transition of BiFeO3 to be R3c cs Pbnm[36]. The
+
+absence of a group-subgroup relationship between Pbnm
+and R3c implies that this transition must be first order, and
+this is corroborated by a large negative change in molar
+volume and discontinuous enthalpy and electrical resistiv-
+ity across T,[36, 37]. An even more debated phase transi-
+tion of BiFeO3 is that from paraelectric Pbnm (the 6-phase,
+Pnma is the standard setting) to the elusive y-phase, occur-
+ring just ~ 10 K below the peritectic decomposition temper-
+ature of ~ 1200 K [34, 35, 38].
+
+In this work, we generate and use machine-learned force
+fields (MLFFs) as interatomic potentials to accurately pre-
+dict phase transitions in the well-known ferroelectric ox-
+ides BaTiO3, PbTiO3, LiNbO, and BiFeO3. We use only their
+ground state structure as input for training the force fields.
+Similar to 0 K first-principles calculations, we show that the
+quantitative results are strongly dependent on the choice of
+exchange-correlation functional. Finally, we discuss the po-
+tential and limitations of MLFFs for studying ferroelectrics.
+
+II. METHODS
+
+Density functional theory (DFT) and molecular dynam-
+ics (MD) calculations were performed using the VASP code
+[39-41]. Interactions between core and valence electrons
+(Ba: (5s”, 5p°, 5d°°1, 6s!°°), Ti: (3s, 3p°, 3d°, 4s1), O:
+(2s?, 2p*), Pb: (5d?°, 6s”, 6p), Li: (1s?, 21), Nb: (4s?,
+4p°, 4d*, 5s1), Bi: (5d?°, 6s”, 6p%), Fe: (3s, 3p°, 3d’,
+4s1)) were described using the projector-argumented wave
+(PAW) method [42, 43]. A large plane-wave energy cutoff
+of 700 eV was used for all DFT calculations to avoid Pulay
+stresses associated with the large volume changes during
+the training of the MLFFs. Three sets of MLFFs were gen-
+erated using LDA [44], PBEsol [45] and r°SCAN [46] and
+used for MD simulations to assess the consequences of gen-
+erating interatomic potentials using different functionals.
+MD simulations were performed within the NpT ensemble
+using the Parrinello-Rahman barostat [47, 48] with a pres-
+sure of 1 atm and the Langevin thermostat [49]. Langevin
+friction coefficients were set to 5 ps! for all atoms. A ficti-
+tious mass of 1000 amu and a friction coefficient of 5 ps~!
+were used for the lattice degrees of freedom for all simu-
+lations. DFT calculations of BiFeO, were initialised with a
+G-type antiferromagnetism, and a Hubbard U of 4 eV was
+used when generating MLFFs with LDA and PBEsol.
+
+An initial equilibration was first performed of the DFT op-
+timised ground state structures using the on-the-fly scheme
+at temperatures of 50 K, 300 K, 500 K and 500 K for BaTiO,,
+PbTiO3, LiNbO; and BiFeO3, respectively. The equilibra-
+tions were performed using 50000 time steps with a step
+length of 1 fs. Supercells of 120 atoms, similar toa 2x2x1
+expansion of the conventional R3c unit cell of LiNbO; and
+BiFeO3, were used for the initial equilibrations and all train-
+ing. This supercell allows for anti-phase tilting of O octa-
+hedra in all directions and maximises the cell size without
+making the generation of interatomic potentials too compu-
+tationally demanding. y-centred k-point grids of 3x 3 x 2
+were used for all DFT calculations. All interatomic poten-
+tials generated during the initial equilibrations were dis-
+
+carded.
+
+Generation of MLFFs was done by heating (100 steps
+per K) the equilibrated structures from the initial tempera-
+tures to temperatures well above the respective ferroelectric
+phase transition (BaTiO3: 500 K, PbTiO3: 1000 K, LiNbO3:
+1700 K and BiFeO3: 1300 K) using the on-the-fly scheme.
+A cutoff radius of 8 A was used to limit the atomic environ-
+ments described by MLFFs. Generated MLFFs are uploaded
+to zenodo [50].
+
+Thereafter, production runs were done with equilibrium
+MD simulations at specific temperatures using the gener-
+ated potentials. Production runs were carried out in series,
+meaning that simulations were performed from low to high
+temperature, where the final structure of the previous cal-
+culation was used as the initial structure of the next calcu-
+lation. The length of all production runs was 40 ps with a
+time step of 1 fs. For all calculations, the lattice parameters
+converged within 20 ps, and only the final 20 ps of each
+simulation were analysed. For PbTiO,, LINDO, and BiFeO,
+a supercell containing 2000 atoms, similar toa 5 x5 x 4 ex-
+pansion of the conventional Pbnm unit cell of BiFeO3, was
+used for all production runs. Due to narrow temperature in-
+tervals of the different phases, simulations of BaTiO, were
+performed using a 4900 atom supercell (7x7 x5 expansion)
+to reduce thermal fluctuations.
+
+Ill. RESULTS
+
+Lattice parameters as a function of temperature for
+BaTiO3, PbTiO3, LiNbO; and BiFeO are displayed in Fig-
+ure 1, 4, 5 and 7, respectively. The top panels show average
+lattice parameters from equilibrium MD simulations using
+MLFFs generated with the PBEsol functional, while the bot-
+tom panels show experimental lattice parameters from the
+literature [36, 51-53]. In SI Figure $4, $7, $11 and S15 the
+experimental and simulated lattice parameters are plotted
+together as a function normalised to the Tc. Results from
+simulations using MLFFs generated with LDA and r?SCAN
+are displayed in the SI Figure S6, S10, S14 and S18.
+
+A. BaTiO,
+
+Equilibrium MD simulations, using MLFFs generated
+with PBEsol, qualitatively predict all the correct phases and
+transitions for BaTiO; upon heating. Estimated phase tran-
+sition temperatures are systematically about 70 K lower
+than experimentally observed transition temperatures [51].
+The calculated lattice parameters are in general about 0.01
+A larger than the experimental values, which can be at-
+tributed to the subtle underbinding tendency of PBEsol
+[54]. Except for the underestimated transition tempera-
+tures, the main difference between the experimental and
+our calculated lattice parameters is the change in volume
+over the phase transitions. Kay et al. [51] reports a small
+increase in volume at the transition from R3m to Amm2 and
+from Amm2 to P4mm. While our calculations predict a sub-
+tle decrease in volume at these transitions, the negative vol-
+ume change across the ferroelectric transition is correctly
+reproduced by our simulations.
+
+The LDA and r*SCAN functionals also predict the correct
+phases and transitions. However, LDA underestimates the
+lattice parameters (SI Figure S6), due to its well-known ten-
+dency to overbind [55], while r?SCAN overestimates the lat-
+tice parameters. Furthermore, this is reflected in the esti-
+mated phase transition temperatures, where LDA predicts
+erroneously low transition temperatures, while transition
+temperatures from r*SCAN are closer to the experimental
+values than those predicted from PBEsol (Figure 1).
+
+4.044
+4034
+fad
+
+3
+24.024
+
+€
+84.01), nawee
+
+é
+‘@ 4.004
+fe
+
+3.997
+
+-@- This work
++O» Exp. Kay et al.
+
+3.98 4
+
+4.044 :
+
+= / o-6
+
+J 403 i °
+$4.03 2s
+8 |
+
+$ 4.024
+
+Fao 10 OOO}
+goo ee ee ae
+“4.004 gro mo
+g "
+
+3997
+
+3.98 4 lg o H
+
+50 100 150 200 250 300 350 400 450
+Temperature (K)
+
+FIG. 1. Evolution of lattice parameters as a function of tempera-
+ture for BaTiO;. The top panel displays predicted lattice parame-
+ters from MD simulations performed using MLFFs generated with
+the PBEsol functional, while the bottom panel shows experimental
+results from Kay et al. [51]. The dashed and dotted vertical black
+lines indicate the phase transition temperatures.
+
+The probability distributions of the absolute Ti displace-
+ments in BaTiO, at various temperatures, shown in Figure
+2, reveal a decrease in the Ti displacements upon heating
+up to the formation of the cubic phase. As the tempera-
+ture increases further, the Ti displacements gradually in-
+crease. Each phase transition is marked by a step-like shift
+in the peak position, as indicated by the dashed vertical
+lines. Additionally, the probability distributions broaden
+with increasing temperature, reflecting enhanced thermal
+fluctuations.
+
+The direction of the Ti displacements at 50 K, 150 K,
+250 K and 350 K are displayed using Mercator projections
+shown in Figure 3. At 50 K, all Ti atoms are displayed in
+one of the (1, 1, 1) directions, consistent with the R3m space
+group. At 150 K, Ti atoms are displaced in two different
+(1,1,1) directions, and the average orientation of the dis-
+placements gives rise to the direction of the macroscopic
+polarisation observed in orthorhombic BaTiO3. Moreover,
+
+Probability (arb, unit)
+
+0.00 0.05 0.10 0.15 0.20 0.25 0.30
+Absolute Displacements of Ti (A)
+
+FIG. 2. Probability distribution of absolute displacements of Ti
+in BaTiO, from equilibrium MD simulations using MLFFs gener-
+ated with PBEsol. The colours indicate the average space groups
+(turquoise: R3m, orange: Amm2, blue: P4mm, green: Pm3m)
+and the dashed vertical lines are guidelines for the peak positions.
+
+at 250 K, Ti atoms are disordered in between four different
+(1,1, 1) directions, where the average gives rise to tetrag-
+onal BaTiO;. At 350 K, the orientation of the Ti displace-
+ments is disordered between all (1, 1,1) directions. A sim-
+ilar cation off-centring has, for instance, been reported by
+K. Page et al. for Nb-substituted cubic BaTiO; [56]. Ther-
+mal energy gives broader distributions, making the disorder
+between (1, 1,1) directions at higher temperatures less ob-
+vious.
+
+The temperature-dependent evolution of Ti displace-
+ments, as visualised in the Mercator projections, clearly
+supports the the order-disorder picture of phase transitions
+in BaTiO; [24-27, 57, 58]. Similar to work by Holma et
+al. [28], our calculations do not support the formation of
+static linear chains of correlated displacements proposed by
+Comes et al. [24, 58], but are instead more consistent with
+the dynamic description by Hiiller et al. and Harada et al.
+[29, 59, 60].
+
+B. PbTiO,
+
+Simulations of PbTiO; using PBEsol, Figure 4, show the
+same lattice parameter evolution as reported from the semi-
+nal experiments by Shirane et al. [52], albeit a significantly
+lower transition temperature of about 230 K. Both simula-
+tions and experiments show a slowly decreasing cell volume
+with increasing temperature up until the phase transition
+followed by a significant reduction at the transition temper-
+ature. Thereafter, a slow increase in volume with increas-
+ing temperature is observed. Similar results are shown by
+q > * a
+
+Ti Displacements
+@ 110
+° (0,0, 1)
+
+a
+
+Nis
+
+bal
++I
+wad
+vis
+
+a
+l
+A
+i
+i
+Ns
+|
+13
+°
+sia
+vis
+¢
+Al
+
+FIG. 3. Mercator projections showing the direction of the Ti displacements in BaTiO at 50 K, 150 K, 250 K and 350 K extracted from
+
+equilibrium MD simulations using MLFFs generated with the PBEso!
+
+functional. Small orange data points display the direction of the
+
+displacement of single Ti atoms from the centre of the respective O octahedra relative to the (1,0,0) (green squares) and (1,1,1) (blue
+diamonds) directions. Mercator projections for the orientation of the Ba displacements are shown in SI Figure S5.
+
+LDA and r°SCAN and are displayed in SI Figure $10. LDA,
+again, severely underestimates the lattice parameters and
+the phase transition temperature, while r?SCAN overesti-
+mates the lattice parameters.
+
+Probability distributions of the displacements of Pb and Ti
+from the centre of oxygen polyhedra, in SI Figure $1, show
+that both cations are significantly displaced at all tempera-
+tures. These distributions show a clear change in trend and
+jump in peak position from 500 K to 550 K (see also plotted
+peak positions in SI Figure $2). Similar to the ferroelectric
+transition in BaTiO3, at the Tc, the average atomic displace-
+ments from polyhedral centres reverts from decreasing, go
+through a minimum and start increasing upon further heat-
+ing.
+
+Contrary to BaTiO3, in the P4mm phase, cation displace-
+ments in PbTiO; are not disordered and only displaced
+along one (0,0, 1) direction, as reported experimentally by
+Kwei et al. [26] and supported by the Mercator projections
+in SI Figure S8 and S9. Above the Tc, in the paraelectric
+phase, the displacements are fully disordered in all direc-
+tions.
+
+The average B-cation displacement was also fitted as a
+function of the temperature to the power law A(T, —T)*,
+giving a value of 0.27 for the critical exponent f. This is
+reasonably close to the theoretical prediction of 0.25 for
+a tricritical phase transition, as expected for PbTiO3. For
+more details on the calculation of critical exponents, see SI
+Section II.
+
+ais| me =
+
+=<" ig —s
+J ~ a, i
+
+¥ 4.10 se — vol
+3 oe
+€ 4.054 ay
+&
+& 4.004
+@ @--0--0--0--0--0--0--9 9-99! -2-e-o-*%
+g zee ie--2-e
+i
+a -@- This work
+
+3.90 4 ©» Exp. Shirane et al.
+= 4.15 4
+=< omg |
+¥ 4.10 4 ee S '
+2 4.054 bon '
+& 4.004 H
+o O---O----O-----©--0-- aay
+£ 5 aa > Piboo
+i
+8 ae H
+
+3.90 4 ne a aaa |
+
+100 200 300 400 500 600 700 800
+Temperature (K)
+
+FIG. 4. Evolution of lattice parameters as a function of tempera-
+ture for PbTiO,. The top panel displays predicted lattice param-
+eters from the MD simulations using MLFFs generated with the
+PBEsol functional, while the bottom panel shows experimental re-
+sults from Shirane et al. [52]. The dashed and dotted vertical
+black lines indicate the phase transition temperatures.
+C. LiNbO,
+
+Similar to lattice parameters from experiments by Lehn-
+ert et al. [53] and Sugii et al. [61], the calculated a lattice
+parameter increases linearly up to and beyond the phase
+transition, while the c parameter starts decreasing when
+approaching the phase transition temperature (Figure 5).
+Due to the second-order nature of the phase transition in
+LiNbO}, the Curie temperature is very difficult to estimate
+exclusively from the changes in lattice parameters alone.
+However, similar to the probability distributions for cation
+displacements in BaTiO3, PbTiO, and BiFeO, (SI Figure $1),
+there is a clear abrupt change in the evolution of the abso-
+lute displacements of Li and Nb from 1100 K to 1200 K, in-
+dicating the T, to be in between these temperatures. Using
+MLFFs generated with PBEsol, the predicted T¢ is about 300
+
+K lower than the experimentally observed T,. With LDA
+and r?SCAN, lattice parameters are again underestimated
+and overestimated, respectively, see SI Figure $14.
+ee eer ee ee ee ee a
+= 4.007
+2
+ie —pb
+=i
+$3907 voiva
+£
+id
+& 3.804 a-e--o-
+a Pee cial =
+g
+Et -@- This work
+370) |S exp, tehnartetal, eee
+one
+gin} o a Se aaeecan “00-00-0000
+: j
+2 3.904
+%
+E
+83.804 aii SOOO OMO
+g giissiccentiee ye
+% 3.704 i OOO ORO
+5 — '
+o bad |
+400 600 800 1000 1200 1400
+
+Temperature (K)
+
+FIG. 5. Evolution of lattice parameters as a function of tempera-
+ture for LiINbO,. Lattice parameters are converted from the hexag-
+onal conventional unit cell to a pseudocubic cell by dividing a and
+c by V2 and 12, respectively. The top panel displays predicted
+lattice parameters from the MD simulations using MLFFs gener-
+ated with the PBEsol functional, while the bottom panel shows
+experimental results from Lehnert et al. [53]. The dashed and
+lotted vertical black lines indicate the phase transition tempera-
+tures.
+
+Below the Tc, both Li and Nb are displaced along the
+same (1,1,1) direction. Displacements along this [1,1,1]
+direction, displayed in Figure 6, highlight the differences
+between Li and Nb when approaching the phase transi-
+tion temperature. Li, Figure 6 (a), clearly show an order-
+disorder transition, while Nb show a displacive transition.
+Similar distributions and results have been reported from ab
+initio MD by Sanna et al. [62]. The order-disorder and the
+displacive transitions are also clearly shown in the Mercator
+
+projections in SI Figure $12 and S13, respectively. Mixed
+displacive and order-disorder characteristics of a ferroelec-
+tric transition have also been observed for other uniaxial
+ferroelectrics like hexagonal manganites, h-RMnO [63].
+
+From 1100 K to 1200 K, at the estimated Tc, there is a
+jump in the evolution of the displacements of both Li and
+Nb. However, the distributions of Li and Nb indicate that
+the material is still weakly polar, which could be explained
+by insufficient thermal energy to reach full ergodicity within
+the limited simulation time analysed.
+
+A power law fitting of the average B-cation displacement
+resulted in a 6-value of 0.34, in very good agreement with
+the expected value for a second-order ferroelectric phase
+transition, as well as the experimental value of 6 = 0.355
+measured for isostructural LiTaO; [64].
+
+D. BiFeO,
+
+Both the non-linearity and the thermal stability of the fer-
+roelectric R3c phase of BiFeOs is fairly well described by the
+PBEsol-based simulations, including the premonitory phe-
+nomenon of the lattice parameter c, parallel to the sponta-
+neous polarisation (similar to LINbO3), starting to contract
+as Tc, is approached [36]. The large negative and discon-
+tinuous volume change across the ferroelectric phase tran-
+sition of BiFeO, is also reproduced, as shown in Figure 7, in
+agreement with Arnold etal. [36].
+
+At the Tc, MLFFs generated using LDA and PBEsol pre-
+dict a transition from rhombohedral R3c to orthorhombic
+Pbnm, with LDA again underestimating the lattice parame-
+ters. r?Scan, on the other hand, gives a qualitatively differ-
+ent result and shows a transition from R3c directly to cubic
+Pm3m. Using LDA and PBEsol, the difference between the
+calculated a, b, and c lattice parameters in the Pbnm phase
+is substantially larger than experimentally reported. How-
+ever, DFT-optimised lattice parameters at 0 K give similar
+values, see SI Table $1.
+
+The volume contraction of the unit cell is also reflected
+in the distributions of absolute cation displacements, shown
+in SI Figure $1, with drastic changes to the peak positions
+for both the Bi and Fe distributions. Except for the abnor-
+mal changes at the Tc, these peak positions show only a
+weak temperature dependence (SI Figure $2). These dis-
+tributions show increased broadening as a function of in-
+creasing temperature for the displacements of both Bi and
+Fe.
+
+The Mercator projections for Bi and Fe, in SI Figure $16
+and S17, are relatively similar to the Mercator projections
+for LiNbO3, with the main differences being a very abrupt
+phase transition in BiFeO3 and the fact that the displace-
+ments of Bi are not disordered, but instead ordered in an
+alternating fashion in the high-temperature phase, in agree-
+ment with the structural degrees of freedom of the paraelec-
+tric Pbnm phase.
+
+Probability (arb. unit)
+
+a :
+-1.0 -0.5 0.0 0.5 1.0
+
+Li displacements (A)
+@)
+
+< !
+5 H
+€
+s
+2
+5 '
+8
+8 i
+T 1 5
+-0.6 —0.4 -0.2 0.0 0.2 0.4 0.6
+Nb displacements (A)
+(b)
+
+FIG. 6. Probability distributions, from equilibrium MD simulations using MLFFs generated with the PBEsol functional, of Li (a) and Nb
+(b) displacements in the polar direction [1,1,1] direction. The colours indicate the space groups (blue: R3c, green: R3c) and the gradient
+
+shows the temperature.
+
+IV. DISCUSSIONS
+
+The observed underestimation of phase transition tem-
+peratures may be caused by several factors. Finite size ef-
+fects, due to the use of limited cell sizes and periodic bound-
+ary conditions during both generation of MLFFs and pro-
+duction runs, will prevent the system from behaving as it
+would have done at the thermodynamic limit. As ferroelec-
+tric phase transitions are governed by long-range collective
+displacements of atoms, local fluctuations of the positions
+of individual atoms may easily destabilise the ferroic order.
+Moreover, MLFFs in VASP only describe the environment
+around atoms closer than a specific cutoff radius (default:
+8 A), and thus, long-range interactions are not directly de-
+scribed by the generated MLFFs. Furthermore, ferroelectric
+materials often experience decreasing and more diffuse T,
+with decreasing particle sizes [65-72]. Strain from the sur-
+faces hinders the collective displacements and suppresses
+the ferroelectric phase.
+
+A larger cutoff radius as well as larger supercells for both
+production runs and training of the interatomic potentials
+may mitigate the present errors in transition temperatures.
+However, increasing the cell size significantly will be com-
+putationally expensive. Supporting this notion, it has been
+reported that for LINDO; performing ab initio MD with a
+80 atom supercell underestimates the T, significantly [62],
+while a 640 atom supercell gives a Tc very close to the ex-
+perimental value [73]. Additionally, generating MLFFs us-
+ing different exchange correlation functionals has proven to
+give vastly different transition temperatures [12, 13], and
+thus, finding the optimal functional for the system is cru-
+
+cial. As of now, there is no "safe" choice of a single func-
+tional for training MLFFs for predicting ferroelectric phase
+transitions.
+
+In BaTiO3, the spontaneous polarisation is solely due to
+second-order Jahn-Teller distortions caused by partial co-
+valency between Ti 3d and O 2p. This results in Ti being
+displaced towards one of the faces of the O octahedron,
+causing polarisation in one of the (1,1,1) directions. The
+other directions of polarisation observed experimentally are
+just combinations of polarisation in multiple (1, 1, 1) direc-
+tions, as visualised with the Mercator projections in Figure
+3. PbTiO, also has Ti d®, but only shows polarisation in the
+(0,0, 1) directions, reflecting that the lone pair, caused by
+hybridisation of Pb 6s and 6p states, dictates the direction
+of the polarisation and the strongly coupled unit cell distor-
+tion. Furthermore, G. Laurita et al. showed that the intro-
+duction of lone pair cations, by Sn-substitution in BaTiO3,
+drives local ordering and results in a behaviour closely re-
+sembling that of PbTiO, [74].
+
+Similar to BaTiO3, polarisation in LiNbO is only caused
+by d° second-order Jahn-Teller distortions. In spite of this,
+LiNbO, only show two different phases (R3c and R3c). The
+small size of Li atoms stabilises antiferrodistortive rotations
+and thus also the R3c and R3c phases. This also explains
+the order-disorder character of Li observed in Figure 6 (a)
+and in the Mercator projections in SI Figure $12. Li is too
+small to be stable in the centre of the O polyhedra even at
+temperatures above the Tc.
+
+The simulated lattice parameters differ quantitatively
+from the experimental for the high-temperature Pbnm
+phase of BiFeO3, with the simulated unit cell being more
+Lattice Parameters (A)
+ww wos
+ic © ©
+8 8 38 8
+
+3.924
+
+4.044
+
+4.02 4
+
+4.00 4
+
+3.98 4
+
+3.96 4
+
+Lattice Parameters (A)
+
+400 600 800 1000 1200
+Temperature (K)
+
+FIG. 7. Evolution of lattice parameters as a function of tempera-
+ture for BiFeO,. Similar to LiNbO,, in the rhombohedral phase,
+lattice parameters are converted from the hexagonal conventional
+unit cell to a pseudocubic cell by dividing a and c by V2 and /12,
+respectively. Lattice parameters from the orthorhombic structure
+are converted by dividing a/b and c by 2 and 2, respectively. The
+top panel displays predicted lattice parameters from the MD sim-
+ulations in this work, while the bottom panel shows experimental
+results from Arnold et al. [36]. The dashed and dotted vertical
+black lines indicate the phase transition temperatures.
+
+metrically distorted. This is one possible reason why a tran-
+sition to the experimentally observed y-phase is not found
+in our simulations. Another obvious reason for the discrep-
+ancy is the possible evaporation of Bi and O at high tem-
+peratures, which would be very challenging to accurately
+predict and represent computationally. Our current sim-
+ulations within the isothermal-isobaric NpT ensemble do
+not allow exchange of particles, and extending the MLFF
+approach to the grand canonical ensemble implies several
+challenges we will not discuss further here. Experiments
+where 30 molar % of Fe has been replaced by Mn to lower
+the structural phase transition temperatures agree on the T;
+and the symmetries of the ferroelectric and the paraelectric
+phases, but not on the y-phase [75, 76], emphasizing the
+challenging nature of this particular phase transition and
+the need for further work to clarify e.g. the possible role of
+non-stoichiometry.
+
+In general, except for special situations, the choice of
+functional does not change the results qualitatively. More-
+over, disregarding thermal expansion, the generated MLFFs
+closely follow lattice parameters from regular DFT calcula-
+tions with the respective functional. LDA is known to un-
+derestimate lattice parameters [77], which is reflected in
+the MD simulations using MLFFs generated with LDA. This
+leads to further underestimation of phase transition tem-
+
+7
+
+peratures, which can make it difficult to separate and study
+phases that experimentally show narrow temperature win-
+dows such as BaTiO. Similarly, r>SCAN has been shown to,
+on average, overestimate lattice parameters [46], and our
+MD simulations, performed using MLFFs generated with
+r’SCAN, also tend to overestimate lattice parameters. Fur-
+thermore, these MLFFs fail to correctly describe both phase
+transitions in BiFeO3, which may partly be due to the over-
+estimated lattice parameters. Our results suggest that func-
+tionals that agree well with experimental values at the DFT
+level also result in MLFFs that accurately describe lattice pa-
+rameters at elevated temperatures. Therefore, PBEsol is, in
+most situations, a good choice in terms of both speed and
+accuracy.
+A major advantage of using MD simulations is access
+to massive supercells. This can allow for calculations of
+larger phenomena such as surfaces, grain boundaries, su-
+perstructures, amorphous materials, nanoparticles, and do-
+main walls and their interactions with defects. The flexi-
+bility of using on-the-fly machine-learned interatomic po-
+tentials makes it easy to apply the methodology shown in
+this work to phenomena such as those mentioned above,
+as well as to completely new and unknown systems. The
+balance between long-range and short-range electrostatic
+forces, and the dipole-stabilizing second-order Jahn-Teller
+effect (or improper ferroelectric mechanisms) is particu-
+larly challenging for MLFFs, necessarily leading to difficult
+trade-offs between cost and accuracy. However, this also
+implies that ferroelectrics are ideal test beds for further
+method development of MLFF approaches to achieve near-
+first-principles accuracy at a fraction of the cost.
+
+Vs CONCLUSIONS
+
+We have demonstrated that we can accurately predict lat-
+tice parameters and phase transitions of ferroelectric mate-
+rials using MLFFs trained from first-principles calculations.
+Qualitatively, our calculations get all the correct phases
+and transitions, except for the 6-y transition in BiFeOs, al-
+though predicted phase-transition temperatures are in gen-
+eral significantly lower than what is observed experimen-
+tally. This method can be used to resolve and describe more
+subtle structural changes, such as the magnitude of the B-
+cation displacements and the orientation of these displace-
+ments.
+
+ACKNOWLEDGMENTS
+
+The simulations were performed with resources pro-
+vided by Sigma2 - the National Infrastructure for High-
+Performance Computing and Data Storage in Norway
+through project NN9264K. Support for this project was
+provided from the Research Council of Norway through
+projects 302506, 301954, and 354614.
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+[16]
+
+Menghao Wu. 100 years of ferroelectricity. Nature Reviews
+Physics, 3(11):726-726, Nov 2021.
+
+J. E Scott. Applications of Modern Ferroelectrics. Science,
+315(5814):954-959, 2007.
+
+Gene H. Haertling. Ferroelectric Ceramics: History and Tech-
+nology. Journal of the American Ceramic Society, 82(4):797—
+818, 1999.
+
+Ronald E. Cohen. Origin of ferroelectricity in perovskite ox-
+ides. Nature, 358(6382):136-138, Jul 1992.
+
+J. B. Neaton, C. Ederer, U. V Waghmare, N. A. Spaldin, and
+K. M. Rabe. First-principles study of spontaneous polariza-
+tion in multiferroic BiFeO3. Phys. Rev. B, 71:014113, Jan
+2005.
+
+Bas B. Van Aken, Thomas T.M. Palstra, Alessio Filippetti, and
+Nicola A. Spaldin. The origin of ferroelectricity in magneto-
+electric YMnO3. Nature Materials, 3(3):164-170, Mar 2004.
+Oswaldo Diéguez, O. E. Gonzalez-Vazquez, Jacek C. Wojdel,
+and Jorge fitiguez. First-principles predictions of low-energy
+phases of multiferroic BiFeO,. Phys. Rev. B, 83:094105, Mar
+2011.
+
+Evgeny V. Podryabinkin and Alexander V Shapeev. Ac-
+tive learning of linearly parametrized interatomic potentials.
+Computational Materials Science, 140:171-180, 2017.
+Ryosuke Jinnouchi, Ferenc Karsai, Carla Verdi, Ryoji Asahi,
+and Georg Kresse. Descriptors representing two- and three-
+body atomic distributions and their effects on the accuracy
+of machine-learned inter-atomic potentials. The Journal of
+Chemical Physics, 152(23):234102, 06 2020.
+
+Ryosuke Jinnouchi, Kazutoshi Miwa, Ferenc Karsai, Georg
+Kresse, and Ryoji Asahi. On-the-Fly Active Learning of In-
+teratomic Potentials for Large-Scale Atomistic Simulations.
+The Journal of Physical Chemistry Letters, 11(17):6946-6955,
+2020. PMID: 32787192.
+
+Carla Verdi, Ferenc Karsai, Peitao Liu, Ryosuke Jinnouchi,
+and Georg Kresse. Thermal transport and phase transitions
+of zirconia by on-the-fly machine-learned interatomic poten-
+tials. npj Computational Materials, 7(1):156, Sep 2021.
+Peitao Liu, Carla Verdi, Ferenc Karsai, and Georg Kresse.
+Phase transitions of zirconia: Machine-learned force fields
+beyond density functional theory. Phys. Rev. B, 105:L060102,
+Feb 2022.
+
+Erik Fransson, Julia Wiktor, and Paul Erhart. Phase
+Transitions in Inorganic Halide Perovskites from Machine-
+Learned Potentials. The Journal of Physical Chemistry C,
+127(28):13773-13781, 2023.
+
+Ryosuke Jinnouchi, Jonathan Lahnsteiner, Ferenc Karsai,
+Georg Kresse, and Menno Bokdam. Phase Transitions of Hy-
+brid Perovskites Simulated by Machine-Learning Force Fields
+Trained on the Fly with Bayesian Inference. Phys. Rev. Lett.,
+122:225701, Jun 2019.
+
+Mingfeng Liu, Jiantao Wang, Junwei Hu, Peitao Liu, Haiyang
+Niu, Xuexi Yan, Jiangxu Li, Haile Yan, Bo Yang, Yan Sun,
+Chunlin Chen, Georg Kresse, Liang Zuo, and Xing-Qiu Chen.
+Layer-by-layer phase transformation in Ti,0; revealed by
+machine-learning molecular dynamics simulations. Nature
+Communications, 15(1):3079, Apr 2024.
+
+Johan Klarbring and Aron Walsh. Na Vacancy-Driven
+Phase Transformation and Fast Ion Conduction in W-Doped
+Na,SbS, from Machine Learning Force Fields. Chemistry of
+Materials, Sep 2024.
+
+17
+
+18
+
+19.
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+Chi Zhang, Jin-Yuan Yang, Tao Sun, Huai Zhang, and John P
+Brodholt. Strong precursor softening in cubic CaSiO, per-
+ovskite. Proceedings of the National Academy of Sciences,
+122(5):e2410910122, 2025.
+
+Xia Liang, Johan Klarbring, William J. Baldwin, Zhenzhu Li,
+Gabor Csanyi, and Aron Walsh. Structural Dynamics Descrip-
+tors for Metal Halide Perovskites. The Journal of Physical
+Chemistry C, 127(38):19141-19151, 2023.
+
+Thies Jansen, Geert Brocks, and Menno Bokdam. Phase tran-
+sitions of LaMnOg and SrRuO, from DFT + U based machine
+learning force fields simulations. Phys. Rev. B, 108:235122,
+Dec 2023.
+
+Erik Fransson, Petter Rosander, Fredrik Eriksson, J. Mag-
+nus Rahm, Terumasa Tadano, and Paul Erhart. Limits of
+the phonon quasi-particle picture at the cubic-to-tetragonal
+phase transition in halide perovskites. Communications
+Physics, 6(1):173, Jul 2023.
+
+M. Dawber, K. M. Rabe, and J. E Scott. Physics of thin-
+film ferroelectric oxides. Rev. Mod. Phys., 77:1083-1130, Oct
+2005.
+
+Eric Bousquet, Matthew Dawber, Nicolas Stucki, Céline
+Lichtensteiger, Patrick Hermet, Stefano Gariglio, Jean-Marc
+Triscone, and Philippe Ghosez. Improper ferroelectric-
+ity in perovskite oxide artificial superlattices. Nature,
+452(7188):732-736, Apr 2008.
+
+Walter J. Merz. The Electric and Optical Behavior of BaTiO,
+Single-Domain Crystals. Phys. Rev., 76:1221-1225, Oct
+1949.
+
+R. Comés, M. Lambert, and A. Guinier. Désordre linéaire
+dans les cristaux (cas du silicium, du quartz, et des
+pérovskites ferroélectriques). Acta Crystallographica Section
+A, 26(2):244-254, Mar 1970.
+
+R. I. Vedrinskii B. Ravel, E. A. Stern and V. Kraizman. Local
+structure and the phase transitions of BaTiO,. Ferroelectrics,
+206(1):407-430, 1998.
+
+S-W. Cheong George H. Kwei, Simon J. L. Billinge and
+Jay G. Saxton. Pair-distribution functions of ferroelectric per-
+ovskites: Direct observation of structural ground states. Fer-
+roelectrics, 164(1):57-73, 1995.
+
+M. S. Senn, D. A. Keen, T. C. A. Lucas, J. A. Hriljac, and
+A. L. Goodwin. Emergence of Long-Range Order in BaTiO,
+from Local Symmetry-Breaking Distortions. Phys. Rev. Lett.,
+116:207602, May 2016.
+
+N.N. Takesue M. Holma and Haydn Chen. Linear chain struc-
+ture in cubic KNbO and BaTiO3. Ferroelectrics, 164(1):237-
+251, 1995.
+
+Alfred Hiiller. Displacement correlation and anomalous x-ray
+scattering in BaTiO3. Solid State Communications, 7(8):589-
+591, 1969.
+
+VG. Bhide, K.G. Deshmukh, and M.S. Hegde. Ferroelectric
+properties of PbTiO;. Physica, 28(9):871-876, 1962.
+
+K. Nassau and H. J. Levinstein. FERROELECTRIC BEHAVIOR
+OF LITHIUM NIOBATE. Applied Physics Letters, 7(3):69-70,
+08 1965.
+
+J. Warner, D.S. Robertson, and K.E Hulme. The tempera-
+ture dependence of optical birefringence in lithium niobate.
+Physics Letters, 20(2):163-164, 1966.
+
+Gustau Catalan and James E Scott. Physics and Applications
+of Bismuth Ferrite. Advanced Materials, 21(24):2463-2485,
+2009.
+34
+
+35
+
+36
+
+37
+
+38
+
+39
+
+40
+
+41
+
+42
+
+43
+
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+50
+
+51
+
+R. Palai, R. S. Katiyar, H. Schmid, P Tissot, S. J. Clark,
+J. Robertson, S. A. T. Redfern, G. Catalan, and J. E Scott.
+f phase and y—f metal-insulator transition in multiferroic
+BiFeO3. Phys. Rev. B, 77:014110, Jan 2008.
+
+Sverre M. Selbach, Thomas Tybell, Mari-Ann Einarsrud, and
+Tor Grande. Phase transitions, electrical conductivity and
+chemical stability of BiFeO, at high temperatures. Journal of
+Solid State Chemistry, 183(5):1205-1208, 2010.
+
+Donna C. Arnold, Kevin S. Knight, Finlay D. Morrison,
+and Philip Lightfoot. Ferroelectric-Paraelectric Transition
+in BiFeO,: Crystal Structure of the Orthorhombic f Phase.
+Phys. Rev. Lett., 102:027602, Jan 2009.
+Sverre M. Selbach, Thomas Tybell, Mari-Ann Einarsrud, and
+Tor Grande. Structure and Properties of Multiferroic Oxygen
+Hyperstoichiometric BiFe,_,Mn,03,5. Chemistry of Materi-
+als, 21(21):5176-5186, 2009.
+Donna C. Arnold, Kevin S. Knight, Gustau Catalan, Simon
+A. T. Redfern, James E Scott, Philip Lightfoot, and Fin-
+lay D. Morrison. The f-to-y Transition in BiFeO,: A Powder
+Neutron Diffraction Study. Advanced Functional Materials,
+20(13):2116-2123, 2010.
+G. Kresse and J. Hafner. Ab initio molecular dynamics for
+liquid metals. Phys. Rev. B, 47:558-561, Jan 1993.
+
+G. Kresse and J. Furthmiiller. Efficiency of ab-initio to-
+tal energy calculations for metals and semiconductors us-
+ing a plane-wave basis set. Computational Materials Science,
+6(1):15-50, 1996.
+
+G. Kresse and J. Furthmiiller. Efficient iterative schemes for
+ab initio total-energy calculations using a plane-wave basis
+set. Phys. Rev. B, 54:11169-11186, Oct 1996.
+
+PE. Bléchl. Projector augmented-wave method. Phys. Rev.
+B, 50:17953-17979, Dec 1994.
+
+G. Kresse and D. Joubert. From ultrasoft pseudopotentials
+to the projector augmented-wave method. Phys. Rev. B,
+59:1758-1775, Jan 1999.
+
+J. R Perdew and Alex Zunger. Self-interaction correction
+to density-functional approximations for many-electron sys-
+tems. Phys. Rev. B, 23:5048-5079, May 1981.
+
+John P Perdew, Adrienn Ruzsinszky, Gabor I. Csonka, Oleg A.
+Vydrov, Gustavo E. Scuseria, Lucian A. Constantin, Xiaolan
+Zhou, and Kieron Burke. Restoring the Density-Gradient Ex-
+pansion for Exchange in Solids and Surfaces. Phys. Rev. Lett.,
+100:136406, Apr 2008.
+
+James W. Furness, Aaron D. Kaplan, Jinliang Ning, John PB
+Perdew, and Jianwei Sun. Accurate and Numerically Ef-
+ficient r>SCAN Meta-Generalized Gradient Approximation.
+The Journal of Physical Chemistry Letters, 11(19):8208-8215,
+2020. PMID: 32876454.
+M. Parrinello and A. Rahman. Crystal Structure and Pair
+Potentials: A Molecular-Dynamics Study. Phys. Rev. Lett.,
+45:1196-1199, Oct 1980.
+
+M. Parrinello and A. Rahman. Polymorphic transitions in sin-
+gle crystals: A new molecular dynamics method. Journal of
+Applied Physics, 52(12):7182-7190, 12 1981.
+
+Michael P Allen and Dominic J. Tildesley. Computer Simula-
+tion of Liquids. Oxford University Press, 06 2017.
+
+Kristoffer Eggestad, Ida Cathrine Skogvoll, ®ystein Gull-
+brekken, Benjamin Williamson, and Sverre M. Selbach. Ma-
+chine learned force fields, July 2025.
+
+H.E Kay and P Vousden. XCV. Symmetry changes in barium ti-
+tanate at low temperatures and their relation to its ferroelec-
+tric properties. The London, Edinburgh, and Dublin Philosoph-
+ical Magazine and Journal of Science, 40(309):1019-1040,
+1949.
+
+52
+
+53
+
+54
+
+55
+
+56
+
+57
+
+58
+
+59
+
+60
+
+61
+
+62
+
+63
+
+64
+
+65
+
+66
+
+67
+
+68
+
+69
+
+Gen Shirane, Sadao Hoshino, and Kazuo Suzuki. X-Ray
+Study of the Phase Transition in Lead Titanate. Phys. Rev.,
+80:1105-1106, Dec 1950.
+
+H. Lehnert, H. Boysen, E Frey, A. Hewat, and P Radaelli.
+A neutron powder investigation of the high-temperature
+structure and phase transition in stoichiometric LiNbO.
+Zeitschrift fiir Kristallographie - Crystalline Materials,
+212(10):712-719, 1997.
+
+John P Perdew, Kieron Burke, and Matthias Ernzerhof. Gen-
+eralized Gradient Approximation Made Simple. Phys. Rev.
+Lett., 77(18):3865-3868, oct 1996.
+
+A. Van De Walle and G. Ceder. Correcting Overbinding
+in Local-Density-Approximation Calculations. Phys. Rev. B,
+59(23):14992-15001, 1999.
+
+Katharine Page, Taras Kolodiazhnyi, Thomas Proffen, An-
+thony K. Cheetham, and Ram Seshadri. Local Structural Ori-
+gins of the Distinct Electronic Properties of Nb-Substituted
+SrTiO; and BaTiO . Phys. Rev. Lett., 101:205502, Nov 2008.
+I.B. Bersuker. On the origin of ferroelectricity in perovskite-
+type crystals. Physics Letters, 20(6):589-590, 1966.
+
+R. Comes, M. Lambert, and A. Guinier. The chain structure of
+BaTiO, and KNbO3. Solid State Communications, 6(10):715-
+719, 1968.
+Alfred Hiiller. Soft phonon dispersion in BaTiO,. Zeitschrift
+fiir Physik A Hadrons and nuclei, 220(2):145-158, Apr 1969.
+J. Harada, J. D. Axe, and G. Shirane. Neutron-Scattering
+Study of Soft Modes in Cubic BaTiO,. Phys. Rev. B, 4:155—
+162, Jul 1971.
+
+Kiyomasa Sugii, Hideo Koizumi, Shintaro Miyazawa, and
+Susumu Kondo. Temperature Variations of Lattice Param-
+eters of LiNbO;, LiTaO and Li(Nb,_,Ta,)O3 Solid-Solutions.
+Journal of Crystal Growth, 33(1):199-202, 1976.
+
+Simone Sanna and Wolf Gero Schmidt. Ferroelectric phase
+transition in LiNbO3: Insights from molecular dynamics.
+IEEE Transactions on Ultrasonics, Ferroelectrics, and Frequency
+Control, 59(9):1925-1928, 2012.
+
+Sandra H. Skjervg, Quintin N. Meier, Mikhail Feygenson,
+Nicola A. Spaldin, Simon J. L. Billinge, Emil S. Bozin,
+and Sverre M. Selbach. Unconventional Continuous Struc-
+tural Disorder at the Order-Disorder Phase Transition in the
+Hexagonal Manganites. Phys. Rev. X, 9:031001, Jul 2019.
+Anwar Hushur, Severian Gvasaliya, Bertrand Roessli, Sergey
+Lushnikov, and Seiji Kojima. Ferroelectric phase transition of
+stoichiometric lithium tantalate studied by raman, brillouin,
+and neutron scattering. Phys. Rev. B, 76:064104, Aug 2007.
+Kenji Ishikawa, Kazutoshi Yoshikawa, and Nagaya Okada.
+Size effect on the ferroelectric phase transition in PbTiO, ul-
+trafine particles. Phys. Rev. B, 37:5852-5855, Apr 1988.
+Kenji Ishikawa, Takashi Nomura, Nagaya Okada Nagaya
+Okada, and Kazumasa Takada Kazumasa Takada. Size Effect
+on the Phase Transition in PbTiO, Fine Particles. Japanese
+Journal of Applied Physics, 35(9S):5196, sep 1996.
+Jonathan E. Spanier, Alexie M. Kolpak, Jeffrey J. Urban, Ilya
+Grinberg, Lian Ouyang, Wan Soo Yun, Andrew M. Rappe,
+and Hongkun Park. Ferroelectric Phase Transition in Indi-
+vidual Single-Crystalline BaTiO, Nanowires. Nano Letters,
+6(4):735-739, 2006. PMID: 16608274.
+
+Dillon D. Fong, G. Brian Stephenson, Stephen K. Streiffer,
+Jeffrey A. Eastman, Orlando Auciello, Paul H. Fuoss, and
+Carol Thompson. Ferroelectricity in Ultrathin Perovskite
+Films. Science, 304(5677):1650-1653, 2004.
+
+V. Annapu Reddy, N.P Pathak, and R. Nath. Particle size de-
+pendent magnetic properties and phase transitions in mul-
+tiferroic BiFeO, nano-particles. Journal of Alloys and Com-
+
+[70]
+
+[71]
+
+[72]
+
+[73]
+
+pounds, 543:206-212, 2012.
+
+Millicent B. Smith, Katharine Page, Theo Siegrist, Pe-
+ter L. Redmond, Erich C. Walter, Ram Seshadri, Louis E.
+Brus, and Michael L. Steigerwald. Crystal structure
+and the paraelectric-to-ferroelectric phase transition of
+nanoscale batio3. Journal of the American Chemical Society,
+130(22):6955-6963, 2008. PMID: 18461943.
+
+Soma Chattopadhyay, Pushan Ayyub, V R. Palkar, and
+Manu Multani. Size-induced diffuse phase transition in the
+nanocrystalline ferroelectric PbTiO. Phys. Rev. B, 52:13177—
+13183, Nov 1995.
+
+V. Petkov, S. M. Selbach, M.-A. Einarsrud, T. Grande, and
+S. D. Shastri. Melting of Bi Sublattice in Nanosized BiFeO
+Perovskite by Resonant X-Ray Diffraction. Phys. Rev. Lett.,
+105:185501, Oct 2010.
+
+Felix Bernhardt, Leonard M. Verhoff, Nils A. Schafer, Alexan-
+der Kapp, Christa Fink, Wafaa Al Nachwati, Umar Bashir,
+
+74.
+
+75
+
+76
+
+TE
+
+10
+
+Detlef Klimm, Fatima El Azzouzi, Uliana Yakhnevych, Yuriy
+Suhak, Harald Schmidt, Klaus-Dieter Becker, Steffen Gan-
+schow, Holger Fritze, and Simone Sanna. Ferroelectric to
+paraelectric structural transition in LiTaO; and LiNbO3. Phys.
+Rev. Mater., 8:054406, May 2024.
+
+Geneva Laurita, Katharine Page, Shoichiro Suzuki, and Ram
+Seshadri. Average and local structure of the Pb-free ferro-
+electric perovskites (Sr, Sn)TiO, and (Ba, Ca, Sn)TiO,. Phys.
+Rev. B, 92:214109, Dec 2015.
+
+Sverre M. Selbach, Thomas Tybell, Mari-Ann Einarsrud, and
+Tor Grande. High-temperature semiconducting cubic phase
+of BiFey 7Mny 03,5. Phys. Rev. B, 79:214113, Jun 2009.
+Alexandra S. Gibbs, Donna C. Arnold, Kevin S. Knight, and
+Philip Lightfoot. High-temperature phases of multiferroic
+BiFey7Mno,303. Phys. Rev. B, 87:224109, Jun 2013.
+
+Philipp Haas, Fabien Tran, and Peter Blaha. Calculation of
+the lattice constant of solids with semilocal functionals. Phys.
+Rey. B, 79:085104, Feb 2009.
+SI - Finite-Temperature Ferroelectric Phase Transitions from Machine-Learned
+
+Force Fields
+
+Kristoffer Eggestad, Ida C. Skogvoll, Oystein Gullbrekken,
+
+Benjamin A. D. Williamson, and Sverre M. Selbach*
+Department of Materials Science and Engineering,
+Norwegian University of Science and Technology
+
+(Dated: October 30, 2025)
+
+All data presented in figures in the SI, unless explicitly stated, show results from MD simulations
+using MLFFs generated with the PBEsol functional. In general, the different functionals lead to
+qualitatively similar results, and thus, presenting all the data from the three different functionals
+investigated in this work is somewhat superfluous. We chose PBEsol to represent our results as it
+has been shown to give lattice parameters close to experimental values [1-3]. The main differences
+between the different functionals are the calculated lattice parameters and are highlighted in SI
+
+Figure $6, 510, S14 and $18.
+
+I. A- AND B-CATION DISPLACEMENTS
+
+Figure 51 shows probability distributions of the absolute displacements of cations from the O
+polyhedra centre calculated using the MLFFs generated using the PBEsol functional. From top
+to bottom, the panels show distributions for BaTiO3, PbTiO3, LiNbO3 and BiFeO3. The left
+and right panels display A-and B-cation displacements, respectively. The different colours indicate
+different phases and the brightness shows the temperature from which the distribution is extracted.
+The brightness of the colours increases with increasing temperature within the same phase. The
+yeak position of the B-cation distributions is shown in SI Figure $2.
+
+PbTiO3 shows the largest B-cation displacements in the ferroelectric phase. In the paraelec-
+ric phase, the magnitude of the displacements is closely linked to the temperature, consequently
+BaTiOs shows the smallest displacements while LiNbOs shows the largest displacements. All com-
+pounds in the ferroelectric phase, except BiFeO3, show a clear reduction in B-cation displacements
+
+with increasing temperature. In contrast, the Fe displacements in BiFeO3 increase slightly at low
+
+emperatures and start decreasing when approaching the phase transition temperature. In the
+
+* selbach@ntnu.no
+paraelectric phase, displacements increase approximately linearly with increasing temperature for
+
+the investigated materials.
+Probability (arb. unit)
+IPII II ITtI
+
+Probability (arb. unit)
+
+Probability (arb. unit)
+
+Probability (arb. unit)
+
+0.0 ; 0.4 0.6 0.8 . B E 0.2 0.3 0.4
+Absolute Displacements of A (A) Absolute Displacements of B (A)
+
+FIG. $1. Probability distributions of the absolute displacements of A- and B-cations from O polyhedral
+centres for BaTiO3, PbTiO3, LiNbO: and BiFeO3. The colours indicate different phases.
+0.325 e —@- BaTiO;
+‘e -@- PbTiO;
+N + LiNbOs
+0,300 + -@- BiFeO3
+®
+N
+®
+‘
+0.275 »
+< \
+2 1 .
+ra
+2 0.250 ye
+5 tng
+e =
+al \ 1
+a \ S 1
+a \ 5
+5 0.225 e a
+S 1 it
+2 \ NY
+3 ' 1
+0 \ Ne
+1 \
+* 0.200 \ — 2
+. 1 ' <9 e-~
+, oe
+i 2s Ss
+e \ x ea
+0.175 eee ted e
+5 ee
+\ 2
+0.150 oo
+te) 200 400 600 800 1000 1200 1400
+
+Temperature (K)
+
+FIG. $2. Peak position of distributions absolute B-cation displacements from the O octahedral centres seen
+in SI Figure S1.
+
+II. CRITICAL EXPONENTS
+
+To verify the correct characteristics of the ferroelectric to paraelectric phase transitions, we
+also investigated the power law behaviour of the order parameters and determined the critical
+exponent 3. This value can indicate whether the transition is strictly first-order, second-order or
+shares features of both. For each material, the average B-cation displacement as a function of the
+temperature was fitted to the expression f(T) = A(T¢ — T)°. For the 6-values and the curve fit,
+see Fig. $3. For BaTiO3 and BiFeOs, the values are very small, consistent with an abrupt jump
+in the order parameter, as expected from first-order transitions. This also means that the values
+do not correspond to any theoretical models.
+However, for PbTiOz and LiNbOs3 the values fit well with experiment and theoretical predictions.
+For PbTiO3, 6 = 0.27 is close to the theoretical value of 0.25 for a tricritical phase transition, which
+represents the boundary between first-order and second-order. This agrees with the first-order
+
+transition of PbTiO; becoming second-order under applied pressure [4, 5]. A 6-value of 0.34 is the
+observed and theoretically predicted value for a second-order ferroelectric transition, and has been
+measured to be 0.355 for isostructural LiTaO3 [6].
+
+Fitting the strain instead of the polarization, in the form of the tetragonal distortion (c— a)/c,
+resulted in essentially the same values. Fitting to other critical exponents than 3 was not attempted
+
+due to the difficulty of fitting a diverging parameter so close to the critical point.
+
+0.35
+f(T) =A(Tc -T)? — LiNbO;
+— PbTIO;
+BaTiO3
+
+0.30
+
+BiFeO3
+
+0.25 B= 0.34
+B=0.27
+B=0.10
+= 0.
+0.20 B= 0.08
+
+Average B-cation Displacement (A)
+
+0.00
+
+ie} 200 400 600 800 1000 1200
+Temperature (K)
+
+FIG. $3. Average B-cation displacements as a function of temperature up to the ferroelectric phase transi-
+
+tions together with curve fits used to determine the critical exponents.
+Ill. BaTiO;
+
+SI Figure S4 shows lattice parameters, calculated using PBEsol, plotted on top of experimental
+lattice parameters as a function of temperature normalised to Tc. The trend of the lattice pa-
+rameters is relatively similar for all phases. For the R3m phase the calculated lattice parameters
+are about 0.01 A longer. The Amm2 and P4mm phases show good overlap for the a-parameter,
+while our calculations tend to overestimate the longer lattice parameters. For the Pm3m phase,
+
+our calculations show perfect overlap with the experimental data from Kay et al. [7].
+
+-®- This work
+© Exp. Kay et al.
+
+404+ Sg me,
+—  vol"’3 . '
+“ oo. NI
+4.03 4 %, i.
+82-8225 4
+= 4.02 4 2 H
+5 2
+2 Hl ae
+v POD rs -e--ee | ee”
+5 4.014 7 e--0--® e--e--* i ed
+& @ee*=* 228 Orr |
+g oor” 2 e
+% 4.00 4 at vs
+3.99 4
+3.98 4
+;
+
+Normalised Temperature
+
+FIG. $4, Lattice parameters, calculated using PBEsol, compared to experimental lattice parameters by Kay
+
+et al. [7] as a function of temperature normalised to Tc.
+
+Mercator projections showing the direction of Ti displacements at 4 different temperatures are
+displayed in Figure 3. SI Figure $5 displays Mercator projections showing the direction of the Ba
+displacements at the same temperatures. The directions of the Ba displacements closely follow the
+Ti displacements, albeit they appear to be a bit more widespread. However, this is likely mainly
+an artefact of Ba being less displaced than Ti, see SI Figure S1.
+
+SI Figure S6 shows calculated lattice parameters using MLFFs generated using different func-
+
+tionals for BaTiOg. The training of interatomic potentials was carried out using the procedure
+150K ~ Ba Displacements
+
+@ ary
+{> Rc ° B (0,0,1) f
+
+als
+ais
+vis
+al
+an
+via
+
+FIG. $5. Mercator projections showing the direction of the Ba displacements in BaTiO3 at 50 K, 150 K,
+250 K and 350 K relative to the (1,0,0) (green squares) and (1,1, 1) (blue diamonds) directions.
+
+described in the method section in the main text. The MLFF's predict all the correct phases and
+phase transitions, albeit with very different lattice parameters and transition temperatures. There
+is a clear connection between calculated lattice parameter and transition temperatures, where in-
+creasing separation between the lattice parameters gives higher transition temperatures. r>SCAN
+gives transition temperatures closest to the experimental values, but significantly overestimates
+the lattice parameters. PBEsol results in lattice parameters closest to experimental values. Lattice
+parameters from LDA are not well described, as the temperature intervals are narrow and close to
+
+the transition temperature, lattice parameters tend to fluctuate between the different phases.
+LDA
+
+PBEsol
+r?SCAN
+
+» Exp. Kay et al.
+
+4.08 4
+4.06 4
+
+aval vol’
+
+4.02 4
+4.00 4
+3.98 4
+
+Lattice Parameters (A)
+
+3.96 4
+
+3.94
+
+4.08 4
+4.06 4
+4.04 4
+
+@=8:=@
+eo-2e-@
+
+4.024 perceenr--s
+
+4.00 4
+
+3.98 e-e-*
+
+Lattice Parameters (A)
+
+3.96 4
+
+3.94
+
+4.08 |
+4.06
+4.04)  penendenneh
+4.024
+4.004
+3.98
+
+Lattice Parameters (A)
+
+3.96 4
+
+&
+'
+1
+1
+t
+“J
+1
+1
+'
+
+3.94
+
+4.08 4
+4.06 4
+4.04 4
+4.02 4
+4.00 4
+3.98 |
+
+Lattice Parameters (A)
+
+3.96 4
+
+—.
+
+3.94
+
+50 100 150 200 250 300 350 400 450
+Temperature (K)
+
+FIG. S6. Average lattice parameters as a function of temperature calculated with MLFFs generated using
+the LDA (first panel), PBEsol (second panel) and r?SCAN (third panel) functional. The fourth panel show
+
+experimental data by Kay et al. [7].
+IV. PbTiO;
+
+Experimental and calculated lattice parameters as a function of temperature normalised to Tc,
+
+shown in SI Figure $7, perfectly align both below and above the Curie temperature.
+
+H
+' —aa
+'— b
+H
+{ me
+! — voll
+i
+H
+H
+H
+H
+H
+H
+H
+H
+H
+: H
+= -@- This work SQ i
+2 i . 1
+G -©- Exp. Shirane et al. ‘e '
+5 4.05 7
+5 |
+a 1
+& yy
+®
+= 4.00 4 i
+5 H
+H
+f---@---@--- 1
+@ e MH---00--0-0-0--- Side. '
+% --0-4
+3:95" h
+Pad
+H
+or
+3.904 eee H
+_ Poa Bsa
+|---@ '
+H
+H
+T
+
+a
+
+Normalised Temperature
+
+FIG. $7. Calculated lattice parameters compared to experimental lattice parameters by Shirane et al. [8]
+
+as a function of temperature normalised to Tc.
+
+Similar to the relation between a- and b-cations in BaTiO3, Mercator projections showing the
+direction of Pb and Ti displacements in PbTiO3, SI Figure $8 and S9, show that the Pb displace-
+ments follow the Ti displacements, but again appear more widespread. Moreover, in PbTiO; the
+magnitude of the Pb displacements is larger than the Ti displacements and can therefore not ex-
+plain the difference. However, the Pb displacements may look more widespread as Pb is larger and
+more polarisable and thus less energy is needed to slightly move it from its equilibrium position.
+
+Estimated lattice parameters as a function of temperature for PbTiO3 using interatomic po-
+tentials trained using different functionals are displayed in SI Figure $10. All the MLFF's under-
+estimate the transition temperature. PBEsol results in lattice parameters that are very close to
+the experimental values, while LDA and r?SCAN severely underestimates and overestimates the
+
+lattice parameters, respectively.
+Pb Displacements
+| airy
+B (0,0,1)
+
+als
+°
+and
+eee
+
+a
+als
+°
+an
+ua
+je
+
+FIG. $8. Mercator projections showing the direction of the Pb displacements in PbTiO; at 200 K, 500 K,
+550 K and 700 K relative to the (1,0,0) (green squares) and (1,1, 1) (blue diamonds) directions.
+
+200 K
+
+Ti Displacements
+wee : @ a1)
+wach B_ (0,01)
+
+FIG. $9. Mercator projections showing the direction of the Ti displacements in PbTiO3 at 200 K, 500 K,
+550 K and 700 K relative to the (1,0,0) (green squares) and (1,1,1) (blue diamonds) directions.
+1
+
+—#- LDA ' — 5
+es -@- PBEsol i — ‘5
+4.254 '
+< -hk- SCAN j —e
+oO aon fi ' 13
+£ Aaée <>. Exp. Shirane et al. H — vol
+€ H
+2
+© 4.05 4 1
+a wm, 1
+z ei OH,
+© 3.954 we
+te — he — te — he — he he - -+ 1 tenn ie aie te ie
+ei Hl
+i
+4.254 '
+g
+o e. H
+B4154 Onm-e-1, 1
+E T~O~N~@ !
+© ~“@. 1
+© 4.05 4 ere |
+g oe:
+§ 05-4 @--0--0--@ --0--0--9 --¢--»- Sie eee 8
+-@-e- H
+o--0--0--0--0-o-* '
+alte dat ee '
+Weg
+4254 Thay '
+" “ase !
+2 “th H
+@ 4.154 ~~ !
+£ sy |
+6 ‘a!
+© 4.05 4
+yu he — he — he — he — he he he - he - e-
+g whe hee Hae ee"
+© 3.954 ak al
+- ee ee al =
+ben te he ie = ie H
+Hl
+< 4.254 !
+g
+g
+4.15 4 \
+z CH !
+8 ~O~- 28 /
+& 4.05 4 ~~
+@ {
+Pa a. a ae
+® 3.954 a oS eo
+
+100 200 300 400 500 600 700 800
+Temperature (K)
+
+FIG. $10. Average lattice parameters as a function of temperature calculated with MLFFs generated using
+the LDA (first panel), PBEsol (second panel) and r?SCAN (third panel) functional. The fourth panel show
+experimental data by Shirane et al. [8].
+12
+V. LiNbO3
+
+Calculated and experimental lattice parameters as a function of temperature normalised to Tc,
+displayed in SI Figure $11, show a similar evolution of the structure with temperature. The calcu-
+lated c-parameters are systematically larger than the experimental values, while the a-parameters
+are shorter. However, there is an almost perfect overlap between the calculated and experimental
+
+volumes.
+
+4.00 4
+
+3.90 4
+
+3.80 4
+
+Lattice Parameters (A)
+
+3.70 4
+
+Normalised Temperature
+
+FIG. S11. Calculated lattice parameters compared to experimental lattice parameters by Lehnert et al.
+[9] as a function of temperature normalised to Tc. Lattice parameters are converted from the hexagonal
+
+conventional unit cell to a pseudocubic cell by dividing a/b and c by V2 and V/12, respectively.
+
+The Mercator projections in SI Figure $12 clearly show the order-disorder transition of the Li
+displacements. At low temperatures, Li is displayed along one of the (1 x 1 x 1) directions, while
+at higher temperatures the displacements are split between two opposite (1 x 1 x 1) directions.
+Mercator projections for Nb, Si Figure $13, show Nb following a displacive transition.
+
+SI Figure $14 shows calculated lattice parameters using MLFFs generated using different func-
+tionals for LiNbO3. The different interatomic potentials result in the correct phases, but the
+
+different functionals all underestimate the transition temperature.
+placements
+
+!
+4
+ay
+I
+
+als
+
+°
+and
+wa]
+
+a
+als
+°
+an
+via
+je
+
+FIG. $12. Mercator projections showing the direction of the Li displacements in LiNbOs at 500 K, 1000 K,
+1200 K and 1400 K relative to the (1,0,0) (green squares) and (1,1, 1) (blue diamonds) directions.
+
+Nb Displacements
+eo ain
+B (0,0,1)
+
+FIG. $13. Mercator projections showing the direction of the Nb displacements in LiNbO3 at 500 K, 1000
+K, 1200 K and 1400 K relative to the (1,0,0) (green squares) and (1,1,1) (blue diamonds) directions.
+
+13
+14
+
+7
+i
+a 4.0] tenn teeta e tee | tent
+< -#- LDA 1 —a
+& 3.9 | -@- PBEsol ' —b
+g -k- r°SCAN H —e
+& 3.84 .<- Exp. Lehnert et al. ! a — vol¥8
+a eee ea | eo
+gy 3.74 woe * '
+8 \
+= }
+6 er er 2
+S364 ate ok |
+3.6 fenton a '
+'
+3.5 + 4 t 4
+@--@---@--©@ --@--# --@--@---@ ' e--@---@
+2**|
+a Hl
+53.94
+——
+3.8 4 --e--@--@ | ©
+o--0---0-- 0-0 oO i
+a 1
+| | gianigae®
+237 ee e--e
+4 _-@--e--®-e"" '
+33.64 —- '
+3.5 1
+A--d---k-- d---h-- he --k-- ke --h-- ke --k | &--a
+= 4.04 i
+<
+a
+53.94 '
+£ ee oo
+63.84 ey Oy tale
+5 rial
+v9 374 4 | &-oaA
+g “7 ponte hohe a
+43.64 beam ne
+3.5 Li,
+i
+}
+= 4.04
+=
+e
+53.97
+o
+5384
+oO
+a
+gaz
+6
++364
+3.5
+200 400 600 800 1000 1200 1400
+
+Temperature (K)
+
+FIG. $14. Average lattice parameters as a function of temperature calculated with MLFFs generated using
+the LDA (first panel), PBEsol (second panel) and r?SCAN (third panel) functional. The fourth panel show
+
+experimental data by Lehnert et al. [9].
+15
+
+VI. BiFeO3
+
+SI Figure $15 shows large discrepancies between calculated and experimental lattice parameters
+of BiFeO3 for both the ferroelectric and paraelectric phases. However, the trends show a relatively
+good match. Additionally, calculated lattice parameters closely follow lattice parameters expected
+
+using standard DFT when considering thermal expansion. DFT optimised lattice parameters for
+
+the Pbnm structure are shown in Table S1 and are relatively similar to the lattice parameters
+calculated using MLFFs at elevated temperatures.
+7
+Hl =a
+H
+4.04 4 a:
+. & : omnes voll/3
+H
+4.02 4 iO '
+H
+o Pe ede.
+= 4.00 | aa
+< saeen® \ o----0
+a = :
+ov go 1
+© 3.984
+&
+©
+is
+©
+= 3.964
+'
+3.944 i
+é +
+-®- This work ie
+3.92 '
+-<- Exp. Arnold et al '
+i
+7
+
+a
+
+Normalised Temperature
+
+FIG. $15. Calculated lattice parameters compared to experimental lattice parameters by Arnold et al. [10]
+as a function of temperature normalised to Tc. Similar to LiNbO3, in the rhombohedral phase, lattice
+parameters are converted from the hexagonal conventional unit cell to a pseudocubic cell by dividing a/b
+and c by V2 and V/12, respectively. Lattice parameters from the orthorhombic structure are converted by
+dividing a/b and c by V2 and 2, respectively.
+
+The Mercator projections for Bi in BiFeO3, shown in SI Figure $16, appear very similar to Li
+in LiNbO3. However, at elevated temperatures, Bi displacements are not disordered between two
+directions, but instead ordered alternatingly. On the other hand, Fe shows a very abrupt change
+
+from being displaced in the ferroelectric phase to not being displaced above the Tc, see SI Figure
+16
+
+S17.
+1
+500 K Bi Displacements
+% 212)
+an > = q B (0,01) K
+a4 © ° ° q © © q
+ay 7 q = q
+
+an
+en
+ag
+x
+4
+EF
+I
+wel
+a
+a
+
+FIG. $16. Mercators projection showing the direction of the Bi displacements in BiFeO3 at 500 K, 950 K,
+1000 K and 1200 K relative to the (1,0,0) (green squares) and (1,1, 1) (blue diamonds) directions.
+
+Fe Displacements
+e@ ain
+BH (00,1) f
+
+FIG. $17. Mercator projections showing the direction of the Fe displacements BiFeO3 at 500 K, 950 K, 1000
+K and 1200 K relative to the (1,0,0) (green squares) and (1,1, 1) (blue diamonds) directions.
+
+Lattice parameters calculated using MLFFs generated with LDA, PBEsol and r?SCAN are
+shown in SI Figure $18 together with experimental lattice parameters by Arnold et al. [10]. LDA
+ib
+
+TABLE S81. DFT optimised lattice parameters for Pbnm BiFeO3 using the PBEsol functional.
+
+a 5.415
+
+b 5.641
+
+ce 7.793
+a, B,y 90°
+
+and PBEsol underestimates the lattice parameters, but show a transition from R3c to Pbnm at a
+temperature relatively close to the experimental Curie temperature. On the other hand, r2SCAN
+
+shows a transition from R3c to Pm3m at a temperature far above the experimental To.
+4.05 -%- LDA j —=%
+= -@- PBEsol ' <=
+< 2 H —
+-A- r?SCAN 1 c
+@ 4.007 .<. Exp. Amold et al. ' — vol?
+vo 1
+5
+& 395
+(a _---=--- Ain nn te tee fle = te
+B - ==
+® pass ee i
+
+3.90 4 ' “ee
+
+on se
+yee
+
+4.05 | '
+_ Hl
+=
+
+--@---e-@-@
+
+AOD) eis -----" i aiinias He
+¢ e-
+: ed
+| nme e----7 -oe
+© 3.9547 7 gana eee
+g cae
+Fs
+§
+
+3.90 4
+
+4.05 | 85
+
+_--é--- AL
+_ ee ae a
+< -ooo7
+~~ ---*k-"
+£400, “—~ apes =
+g eee
+Ss eeeewen &---& aoe
+e--oo ke a lata
+
+8 o> ee oe
+& 3.95 4 ca
+<3. ao
+g
+Fs
+§
+
+3.90 4
+
+4.05 |
+<
+ra
+@ 4.00 5
+vo
+£
+g
+& 3.954
+ov
+g
+Fs
+§
+
+3.90 4
+
+300 400 500 600
+
+700 800 900 1000 1100 1200 1300
+Temperature (K)
+
+18
+
+FIG. $18. Average lattice parameters as a function of temperature calculated with MLFFs generated using
+
+the LDA (first panel), PBEsol (second panel) and r?SCAN (third panel) functional. The fourth panel show
+
+experimental data by Arnold et al. [10].
+an
+
+a om
+
+[10
+
+19
+
+S. Amounas, A. Hbab, H. Chaib, and T. Ait-Taleb, Physica B: Condensed Matter 663, 415002 (2023).
+K. Eggestad, B. A. D. Williamson, D. Meier, and S. M. Selbach, J. Mater. Chem. C , (2024).
+
+N.S. A. Satar, A. W. Aziz, M. K. Yaakob, M. Z. A. Yahya, O. H. Hassan, T. I. T. Kudin, and N. H. M.
+Kaus, The Journal of Physical Chemistry C 120, 26012 (2016).
+
+A. Sani, M. Hanfland, and D. Levy, Journal of Solid State Chemistry 167, 446 (2002).
+
+G. A. Rossetti and N. Maffei, Journal of Physics: Condensed Matter 17, 3953 (2005).
+
+A. Hushur, S. Gvasaliya, B. Roessli, S. Lushnikov, and S. Kojima, Phys. Rev. B 76, 064104 (2007).
+
+H. Kay and P. Vousden, The London, Edinburgh, and Dublin Philosophical Magazine and Journal of
+Science 40, 1019 (1949).
+
+G. Shirane, S. Hoshino, and K. Suzuki, Phys. Rev. 80, 1105 (1950).
+
+H. Lehnert, H. Boysen, F. Frey, A. Hewat, and P. Radaelli, Zeitschrift fiir Kristallographie - Crystalline
+Materials 212, 712 (1997).
+
+D. C. Arnold, K. 8. Knight, F. D. Morrison, and P. Lightfoot, Phys. Rev. Lett. 102, 027602 (2009).

@@ -1,0 +1,375 @@
+2510.25583v1 [quant-ph] 29 Oct 2025
+
+arXiv
+
+Systematic Non-Binary Extension of LDPC-CSS
+Codes Preserving Orthogonality
+
+Kenta Kasai
+Institute of Science Tokyo
+Email: kenta@ict.eng.isct.ac.jp
+
+Abstract
+
+We study finite-field extensions that preserve the same support as the parity-check matrices defining a given binary
+CSS code. Here, an LDPC-CSS code refers to a CSS code whose parity-check matrices are orthogonal in the sense
+that each pair of corresponding rows overlaps in an even (possibly zero) number of positions, typically at most twice
+in sparse constructions. Beyond the low-density setting, we further propose a systematic construction method that
+extends to arbitrary CSS codes, providing feasible finite-field generalizations that maintain both the binary support
+and the orthogonality condition.
+
+I. INTRODUCTION
+
+In this paper, we address the problem of extending a binary CSS code to a finite-field representation while preserving
+its structural properties. Given a pair of binary parity-check matrices whose corresponding rows overlap in an even
+number of positions, we seek to construct non-binary matrices over a finite field that share the same pattern of nonzero
+entries and remain orthogonal. Although this task can be viewed as a multivariate quadratic feasibility problem over
+a finite field, it is generally hard to solve due to the nonlinear nature of the constraints and the exponential size of the
+solution space.
+
+The method originally proposed in [1] transforms a pair of orthogonal binary matrices into non-binary matrices
+over a finite field while keeping the same support pattern. This technique was first developed for quasi-cyclic LDPC
+codes [2] with column weight two, later applied to toric codes [3], and subsequently generalized to protograph-based
+constructions [4]. The resulting non-binary CSS codes, as demonstrated in recent works [4], [5], achieved decoding
+performance close to the hashing bound when joint belief propagation was used.
+
+However, these previous approaches were limited to cases where each column contains exactly two ones. Extending
+the construction to more general CSS codes—where column weights may vary across different rows and matrices—
+remains a challenging problem. In such settings, one must simultaneously preserve the binary support and maintain the
+orthogonality between the two parity-check matrices, while also avoiding short cycles and ensuring sufficient flexibility
+in assigning non-binary coefficients.
+
+Although orthogonality can be trivially maintained by assigning constant coefficients to each column or by setting all
+nonzero entries to one, such simple constructions tend to degrade important code properties such as minimum distance
+and error-floor performance. Our goal, therefore, is to characterize the entire space of feasible finite-field extensions so
+that one can systematically or randomly generate valid non-binary instances with diverse coefficient configurations.
+
+To achieve this, we parameterize the non-binary entries using multiplicative representations over the finite field
+and translate the orthogonality constraints into a sparse system of linear congruences among integer exponents. This
+system can be efficiently solved either in canonical form using Smith normal decomposition or through a lightweight
+elimination process involving only integer additions and row swaps. Once a feasible set of exponents is obtained, the
+corresponding non-binary matrices are recovered by standard linear algebra over the finite field.
+
+As a simple baseline, we introduce a separable assignment of coefficients that always guarantees orthogonality for
+any even-overlap pattern.
+
+II. PROBLEM SETTING
+This section formulates the finite-field extension problem for arbitrary CSS codes. Let (H¢,Hp) be a binary
+orthogonal pair with Hc € {0,1}“**% and Hp € {0,1}“2*%. Write the entries of Hc and Hp as ¢j,; and dij,
+respectively. They satisfy the binary orthogonality condition
+HoH} = 0,
+which is equivalent to
+
+N-1
+
+Ey
+
+j=0
+
+cj dij =0 for alli=0,...,Mx-1, i =0,...,Mz-1. (1)
+All arithmetic in (1) is over Fo.
+Our goal is to construct matrices Hp = (9j,;) € Een’ and Hy = (di) € RilzxN such that
+HrH\ =0, — supp(Hr) =supp(Hc), — supp(Ha) = supp(Hp).
+Equivalently, the support constraints enforce
+%q > 0 if Gy = 0, 6g = 0 iT dry —0,
+so in particular ¢;,; =1> yi,3 € Fy and dy. p= 1 => dug € ES.
+The orthogonality over F, is then
+N-1
+SO vig 6,3 =0 for alli =0,...,Mx -1, i =0,...,Mz-1. (2)
+j=0
+All arithmetic in (2) is over Fy.
+The unknowns are the entries {7,5 : ¢,; = 1} U {dij : dv; = 1}. The constraints (2) yield Mx Mz homogeneous
+quadratic equations in these variables over Fy. Thus, finding a feasible assignment is an instance of the multivariate
+quadratic (MQ) feasibility problem, which is NP-complete [6].
+
+III. FINITE-FIELD EXTENSION FOR LDPC-CSS CobEs
+
+The binary orthogonality condition (1) implies that every row pair (i,7’) has an even number of common nonzero
+columns. Let $j, {0,1,..., N — 1} denote the set of column indices where both ci,j = 1 and dy; = 1; that is,
+
+Sez def {j|¢,j =land dy; =1}.
+
+By construction, |Sj,;/| is always even.
+
+We focus on the canonical case in which each row pair shares either 0 or 2 columns. This covers many practical
+CSS constructions (e.g., quasi-cyclic and protograph-based designs) and arises frequently in sparse instances, where
+pairwise overlaps beyond two are unlikely.
+
+Assume Hc Hf, = 0, fix q = 2™, and let a € Fy be a primitive element. Let Hp = (11,5) and Ha = (6,3) preserve
+the binary support: each zero in (Hc, Hp) remains zero, and each nonzero entry is replaced by an element of Fy... We
+parameterize the nonzero entries multiplicatively as
+
+— ner — Ali
+Vig =O, yj = a,
+
+with exponents
+If a row pair (
+to
+
+vj €Z/(q—-1)Z.
+
+,) shares exactly two columns j and j’, the orthogonality condition )> : i,39:",7 = 0 over Fy reduces
+gig + Yi5/5i,y1 = 0.
+
+Since char(F,) = 2, we havex+y=0 <— > x=y. Hence
+
+"Vig Oi = i, 5:5" es Qt Cig Hh fit = 1,
+
+and therefore
+i,j — Cig + firg — Frgr =O (mod g—-1).
+
+Collecting these relations over all row pairs (i, 7’) with |S;,;/| = 2 produces a sparse system of linear congruences:
+
+Av=0 (mod q-1), (3)
+
+where v stacks the unknown exponents {ej : cij = 1}U {firy : diy = 1}. The coefficient matrix A € {0,+1}"™"
+has one row for each overlapping pair (i, 7’ ) and one column for each nonzero entry of Ho or Hp. Equation (3)
+compactly captures all additive consistency constraints among the exponents.
+
+A. Solving the Linear Congruence System
+
+For a modulus n = q— 1 > 0 and an integer matrix A, the homogeneous system Av = 0 (mod n) can be analyzed
+via the Smith normal form (SNF) of A over Z [7], which provides a canonical decomposition of the solution space.
+When gq — 1 is prime (that is, when 2” — 1 is a Mersenne prime), the ring Z/(q — 1)Z forms a finite field isomorphic
+
+to Fg_1. In this case, the system Av = 0 is an ordinary linear equation over F,—1, and its nul
+
+by standard Gaussian e
+Even when q — 1 is c
+SNF. This is because a
+
+elimination process tha
+nullspace can be read o:
+
+The elimination proceeds as follows: (1) at each step, choose a pivo
+ion; (2) for every other row having a nonzero in
+ry; (3) once an echelon pai
+) identify the free variables corresponding to columns without pivots.
+satisfied this condition, and all systems were succ
+
+row into the pivot posi
+row to zero out that en
++ row additions; and (
+
+In our experiments, every sparse LDPC-CSS instance
+reduced to a row-reduced form using only row swa
+Although a formal guarantee of solvability has not been established
+approach that exploits the sparsity of A. In this met.
+update individual variables in an iterative fashion so that the congruence relations are gradual
+scope of our experiments, this procedure consistent
+
+imination.
+
+produces a row-reduced
+by back-substitution.
+
+; col
+
+tern is obtained, clear
+
+omposite, it is often possible to solve Av = 0 (mod gq — 1) efficiently
+l nonzero coefficients of A are in {+1,—1}, so t
+swaps and addition or subtraction of rows modulo q — 1, without any division. In practice, this yie
+‘orm with unit pivots (each pivot being 1 or —1), after which the
+
+hat elimination can
+
+he same column, ai
+
+ps and + additions, wi
+
+hod, given random!
+
+ly produced feasib
+
+hout any modular
+
+e solutions.
+
+space can be computed
+
+without computing the
+proceed using only row
+ds a fraction-free
+
+umn containing an entry +1, and swap that
+
+d or subtract the pivot
+
+the entries above each pivot using the same
+
+ssfully
+
+ivision.
+
+, we also experimented with a heuristic iterative
+ly initialized exponents e; and f;, we successively
+
+ly satisfied. Within the
+
+Example 1. We briefly recall the hypergraph-product (HGP) construction [8]. Let H; € {0,1}"*™ and Hz €
+{0, 1}"?*"?. Define the CSS pair
+
+Hx =(M@l,, I, @ Hz )
+Hz=(In,®H2 Hf @I,, )
+
+with overall block length n = nirg + rinz. One checks Hx H} = 0 by the mixed-product property of the Kronecker
+product. This product code has non-vanishing rate and minimum distance scaling on the order of \/n when H, H
+
+are good cla:
+
+ical LDPCs [8].
+
+Binary inputs Hy), H2 (column-weight unconstrained):
+11 1 0 0
+a E 1 al i=[} 1 if
+Binary HGP matrices (Hx, Hz):
+1 0 0/1 0 0/1 0 Oj, 1 1/0 0 10 0/0 0 070 0 0}1 0/0 0
+0 1 0/0 1 0/0 1 0} 0 1)0 0 1 11/0 0 OF 0 0 O}0 1/0 0
+0 0 1/0 0 1/0 0 1/0 1)0 O 0 0 O0J1 0 OF 0 0 OJ1 OF 1 0
+Ax Az=
+0 0 0]1 0 0/0 0 0/0 Of 1 1 0 0 O0j/1 1 170 0 0/0 17/0 1
+0 0 0/0 1 0/0 0 OF 0 OFO0 1 0 0 0/0 0 Oj}, 1 0 O}1 O0F0 O
+0 0 0/0 0 1/0 0 070 070 1 0 0 0/0 0 O}f/1 1 :1/0 1)0 0
+By construction, Hy H} =0 (mod 2). Several columns have weights ranging from one to three.
+Fix q = 256 and a primitive element a € F3,,. For each nonzero entry of Hp and Ha, write 7; = a® and
+by; = ats, respectively. Then, for every row pair (i, i’) with Sj, = {j, 7}, the orthogonality condition implies
+
+ij — Cage + fej — firgr =O (mod 255).
+Let q = 256 so that g—1 = 255. Solving the sparse congruence system (3) yields exponent pairs (ei,j)s (fig) modulo
+
+255, which imply the following linear relations (a representative subset):
+€0,0 — €0,9 + fo,o — fo = 9
+
+€0,0 — €0,10 + fio — fi,1o = 0
+
+€0,3 — €0,9 + f2,3 — foo = 0
+
+€0,3 — €0,10 + f3,3 — f3,10 = 0
+
+€0,6 — €0,9 + fae — fay = 0
+
+€0,6 — €0,10 + fs,6 — fs,10 = 0
+
+€11 — 1,10 + fia — fio = 0
+
+€1,4 — €1,10 + f3,4 — f3,10 = 0
+
+€1,7 — €1,10 + fs,7 — f5,10 = 0
+
+€2,2 — €2,10 + fiz — fio = 0
+
+€2,5 — €2,10 + f3,5 — fa10 = 0
+
+€2,8 — €2,10 + fs,8 — fs,10 = 0
+
+€3,3 — €3,11 + fo3 — for =0
+
+€3,3 — €3,12 + f3,3 — fa,12 = 0
+
+€4,4 — e412 + faa — fa,12 = 0
+
+65,5 — 65,12 + f3,5 — fa12 = 0
+
+An explicit feasible pair (Hp, H,) (entries shown in hexadecimal for F25¢; 00 denotes 0) is
+E900 00 |F90000 |A00000 |/51BE |0000 E20000 |000000 |000000 |7B00 |0000
+006A00 |000B00 |001900 |}/00C9 |00 00 A530 3E |000000 |000000 |00DO |0000
+Hp 00006D |000001 |000011 |}OODA |0000 Hy 000000 |7A0000 |000000 |2300 |1600
+000000 |EF0000 |000000 0000 |542C | ’ 000000 |C6CODB |000000 |0002 |008A
+000000 |00B0 00 |000000 |/(0000 |OOE6 000000 |000000 |630000 |B200 |0000
+000000 |0000B7 |000000 |/(0000 |0009 000000 |000000 |OFA1BA |OOFO |0000
+
+One verifies that HrH\ = 0 over Fo56 and that all listed congruences are satisfied. Here, hexadecimal 00 denotes 0,
+while 01 = a°, 02 = a!, and 10 = a? according to our chosen primitive element a € FJ.
+
+IV. CANONICAL FEASIBLE ASSIGNMENT FOR ANY EVEN OVERLAP
+
+In this section, we assume that the finite field has characteristic two. We present a constructive example of a finite-
+field extension that always satisfies the orthogonality condition for any CSS pair whose corresponding rows overlap in
+an even number of positions. This baseline serves as a feasibility witness, showing that for any even-overlap pattern,
+it is indeed possible to assign finite-field coefficients that guarantee orthogonality without solving the full system of
+multivariate equations. Although this construction does not improve the code distance, it provides a useful canonical
+form that clarifies the algebraic structure underlying feasible non-binary assignments.
+
+We first present a baseline separable assignment that witnesses feasibility for any CSS pair whose row-row overlaps
+are even.
+
+Definition 1 (Canonical separable assignment (CSA)). Define
+Vig = OAS, bing = PVG, (4)
+where A;, By,C; € Zg_1 and a is a primitive element of Fy.
+For any (i,i’), the product i,;5i,3 = a4+?
+row i of Hg and row 7’ of Hp. Then, over Fy,
+
+YS %s6e,5 = [Sue] AB" = 0,
+
+is independent of j. Let $j; be the set of shared columns between
+
+because |S; 4/| is even and char(F,) = 2. Hence HpHX = 0 holds for any even overlap size |S;7| € {0,2,4,...},
+subsuming in particular the common 0/2-overlap case.
+While (4) provides a simple and verifiable construction, we present an example where this construction leads to an
+undesirable result.
+
+We define Cx = ker(Hx),Cz = ker(Hz),Cp = ker(Hr),Ca = ker(Ha). It was shown in [5] that extending to
+higher-order finite fields can effectively eliminate small-weight logical operators. Even if « € Cx \ C#, the nonzero
+entries of Hp were arranged so that there exists no vector € having exactly the same support as a and satisfying
+€ € Cr \ Cx. By doing so, we were able to increase the minimum distance of the code.
+
+However, this mechanism does not apply when the coefficients are assigned according to the CSA, since its separable
+structure preserves all binary codewords up to scalar multiples. In this case, for any x € Cx, there always exists a
+vector € with the same support satisfying € € Cp. Specifically, one can take
+
+gj = a Ca;.
+
+Using the same argument as in Section IV, we obtain
+
+(Hpé"); = bs att g = S otit©s g- Ci
+
+jieig=l jici,j=1
+
+since @ € Cy. Therefore, € € Cp. Hence, to eliminate such short logical operators, one must instead employ the
+approach based on solving the exponent congruence equations described in the previous section.
+
+V. CONCLUSION
+
+We have presented a systematic method for extending binary CSS codes to non-binary finite-field representations
+while preserving both the original support pattern and the orthogonality condition. By formulating the orthogonality
+constraint as a sparse system of linear congruences among integer exponents, we showed that feasible non-binary
+assignments can be efficiently obtained.
+
+As a baseline, we introduced the CSA, which guarantees feasibility for any CSS pair with even row-row overlaps.
+While the CSA provides a simple and verifiable construction, it preserves all binary codewords and thus cannot remove
+short logical operators. To overcome this limitation, we emphasized the importance of solving the exponent congruence
+equations and applying local rank conditions on small supports, which enable the elimination of low-weight logical
+operators in the non-binary extension.
+
+The proposed finite-field framework clarifies the algebraic structure underlying feasible non-binary CSS codes and
+opens up new possibilities for designing high-performance quantum LDPC and qudit codes. Future work includes
+applying this approach to HGP codes as well as to higher-degree quantum APM-LDPC and QC-LDPC codes [9], and
+evaluating their joint belief-propagation decoding performance.
+
+REFERENCES
+
+1] K. Kasai, M. Hagiwara, H. Imai, and K. Sakaniwa, “Quantum error correction beyond the bounded distance decoding limit,” [EEE
+Trans. Inf. Theory, vol. 58, no. 2, pp. 1223-1230, 2012.
+
+2) M. Hagiwara and H. Imai, “Quantum quasi-cyclic LDPC codes,” Jan. 2007, http://arxiv.org/abs/quant-ph/0701020.
+
+3] I. Andriyanova, D. Maurice, and J.-P. Tillich, “Quantum LDPC codes obtained by non-binary constructions,” in 2012 IEEE International
+Symposium on Information Theory Proceedings, 2012, pp. 343-347.
+
+4) D. Komoto and K. Kasai, “Quantum error correction near the coding theoretical bound,” npj Quantum Information, vol. 11, no. 1, p.
+154, 2025.
+
+5] K. Kasai, “Quantum error correction exploiting degeneracy to approach the hashing bound,” 2025, arXiv:2506.15636.
+
+6] M. R. Garey and D. 8. Johnson, Computers and Intractability: A Guide to the Theory of NP-Completeness. W. H. Freeman, 1979.
+
+7| H.J.S. Smith, “On systems of linear indeterminate equations and congruences,” Philosophical transactions of the royal society of london,
+no. 151, pp. 293-326, 1861.
+
+8] J. Tillich and G. Zémor, “Quantum LDPC codes with positive rate and minimum distance proportional to the square root of the block
+
+length,” IEEE Transactions on Information Theory, vol. 60, no. 2, pp. 1193-1202, 2014.
+9] D. Komoto and K. Kasai, “Sharp error-rate transitions in quantum QC-LDPC codes under joint BP decoding,” 2025. [Online].
+Available: https: //arxiv.org/abs/2507.11534
+

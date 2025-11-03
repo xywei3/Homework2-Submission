@@ -1,0 +1,2291 @@
+arXiv:2510.25326v1 [math.AP] 29 Oct 2025
+
+SELF-SIMILAR BLOWUP FROM ARBITRARY DATA FOR
+SUPERCRITICAL WAVE MAPS WITH ADDITIVE NOISE
+
+IRFAN GLOGIC, MARTINA HOFMANOVA, AND ELISEO LUONGO
+
+ABSTRACT. We consider stochastically perturbed wave maps from R!*+¢ into S?, in all
+energy-supercritical dimensions d > 3. We show that corotational non-degenerate Gaussian
+additive noise leads to self-similar blowup with positive probability for any corotational
+initial data. The same result without noise is conjectured, but unknown, for large data.
+
+1. INTRODUCTION
+
+The wave maps equation represents a generalization of the linear wave equation to maps
+that take values in Riemannian manifolds. More precisely, a map U from the flat Minkowski
+spacetime (R!*4,7) into a Riemannian manifold (M, g) is called a wave map if it is a critical
+point (under compactly supported perturbations) of the Lagrangian action functional
+
+1 24 - 2
+S[U] 5 Loca |u|? 4 2 |@elp) den
+
+By putting local coordinates on MW, and using the Einstein summation convention, we arrive
+at the following, more compact, form!
+1 . .
+s[tq = = I gij(U) all’ °US dty.
+2 Jpita
+The associated Euler-Lagrange equations consequently read as
+
+MOU + Ti, U)OHUIO,U =0, i= 1,...,0,
+
+U(0,-) = Ub, (1.1)
+where n is the dimension of the manifold M, Tin are the Christoffel symbols associated with
+the metric g, and 0;, according to custom, stands for 0p.
+
+In contrast to the linear wave equation, the wave maps system (1.1) is inherently nonlinear
+due to the curvature of the target manifold (IM, g). From a dynamical perspective, a general
+
+This research was funded in whole or in part by the Austrian Science Fund (FWF) 10.55776/PAT5825523.
+M.H. and E.L. are grateful for funding from the European Research Council (ERC) under the European
+Union’s Horizon 2020 research and innovation programme (grant agreement No. 949981) and for the financial
+support provided by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) — Project-
+ID 317210226-SFB 1283.
+
+Here, Greek indices go from 0 to d and Latin indices go from 1 to n, where n is the dimension of the target
+manifold M. According to the Einstein summation convention, whenever an index variable appears twice in
+a single term, once as a subscript and once as a superscript, it implies a summation over the understood range
+of values for that index. We also note that the indices are raised and lowered according to the Minkowski
+metric 7 = diag(—1,1,...,1); in particular @* = n°°0g.
+
+1
+goal is to understand the interplay between the geometry of the target and the behavior of
+solutions to the associated Cauchy problem (1.1). In particular, one of the central questions
+is that of finite-time blowup:
+
+Can smooth and localized initial data (Up,Uo) lead to singularity formation for (1.1) in
+finite time?
+Much research in the past fifty years has addressed this question, as we to some extent review
+in Section 1.4 below. In this section we mention only (some of) the works relevant for our
+main results below. We proceed by pointing out that, in the context of finite-time blowup,
+there is a useful guiding principle based on the energy functional
+
+EU (t) := I. 5° gi; U(t, X)) Call! (t, XO, (t, X)AX, (1.2)
+
+which is formally conserved by solutions of the system, and the scaling transform U(t, X) >
+U*(t, X) :=U(t/d, X/X), which preserves the wave maps equation (1.1). Namely, the func-
+tional F transforms under the scaling U +> U* according to
+
+EIU \(t) = XP EUW] (t/),
+
+which shows that shrinking the solution locally (i.e., letting 1 — 0*) leads to local energy
+dissipation precisely when d > 3. Singularity formation is therefore said to be energetically
+favourable in the so-called energy-supercritical case, d > 3, and one therefore heuristically
+expects finite-time blowup, at least for some large initial data. We remark in passing that
+for the energy-subcritical case, d = 1, where local energy dissipation precludes concentration
+of solutions, compactness of the target ensures coercivity of the energy E, which in turn
+provides sufficient control over the wave maps flow to guarantee global regularity for any
+smooth and localized initial data.
+
+In this paper, we consider the energy-supercritical case of a canonical model of the wave
+maps equation, where the target manifold is the d-dimensional sphere (S¢,h) endowed with
+the standard round metric h induced by the embedding into R“!. For our analysis, it is
+convenient to work with the so-called normal coordinates on S¢. Namely, for a function U/
+with values in S¢, we consider the coordinate representation U = (U!,...,U%) where
+
+Uu' :=00', for i=1,...,d,
+
+with @ being the polar angle, and 9! the coordinate functions of the embedding S¢“! — R¢,
+Concerning existence of blowup for this model, it is known that the corresponding wave maps
+equation (1.1) admits, in all supercritical dimensions d > 3, an explicit self-similar solution
+Ur, which is given in the normal coordinates by
+
+Ui(t,X) = (5) X', with &(p) = = arctan ( _ 5) , (1.3)
+
+and which forms singularity at the origin as t > T~. Originally identified by Turok and
+Spergel in [62] for d = 3, this solution was subsequently generalized by Bizon and Biernat in
+[7| to dimensions d > 4. We note that Up belongs to the class of the so-called corotational
+solutions
+
+Ui(t, X) = ult, |XX, i=1,...44. (1.4)
+2
+In fact, for initial data of corotational form
+Uo(X) = ug(|X|)X and U(X) = tio(|XIX, (1.5)
+
+(1.1) reduces by means of (1.4) to a Cauchy problem for a single (d + 2)-dimensional radial
+semilinear wave equation for the profile u = u(t,r)
+
+d+1, d-1
+
+O2u — Cu 7 Ort = (2ru — sin(2ru)),
+si, = wn (1.6)
+
+o,u(0, ‘) = tio,
+
+with the corresponding self-similar blowup solution
+
+ur(t,r) := ri" ( a ), T>0, (1.7)
+
+Tt T-t
+
+where ® is given in (1.3).
+
+To understand the role that wr plays in the dynamics of (1.6), numerical simulations have
+been performed, in [8] for d = 3, and in |7| for d > 4. Surprisingly, these have revealed a
+striking universality in the blowup behavior:
+
+For generic large corotational initial data, the solution blows up at the origin via the
+self-similar profile ur.
+In other words, irrespective of the choice of initial data (uo, fio) leading to finite-time blowup,
+if one dynamically self-similarly rescales the solution as it approaches the blowup time, then
+the profile ® emerges as an attractor of the rescaled evolution, i.e.,
+
+(T —t)u(t,(T —t):) > © (1.8)
+
+locally uniformly on [0,+00) as t > T~. This, in turn, translates for the corotational map
+U into
+
+U(t, (T — t)-) > ()®(|- 1), (1.9)
+which takes place locally uniformly on R¢@ as t > T~. Following these observations, consider-
+able effort has been devoted to their rigorous justification, starting with the pioneering works
+of Aichelburg, Donninger, and Schérkhuber [28, 27, 31]. This line of research, which relies on
+stability analysis localized to lightcones, eventually lead to a rigorous verification of, what
+could be called, a perturbative local version of the numerical observations above. Namely,
+for any fixed ball Br centered at the origin with radius R > 0, all corotational data that are
+close enough to that of the blowup solution wr, lead to finite-time blowup with (1.9) taking
+place uniformly on Br; see [18, 17, 14, 6, 30]. This was then followed by the work of the
+first author [40], which takes the global-in-space stability point of view, and thereby removes
+the assumption of a pre-fixed ball Br, hence establishing the convergence (1.8) globally on
+[0, +00), and consequently obtains (1.9) uniformly on compact sets; see [40, Theorem 1.1|
+for a precise, quantitative, statement of this result. The non-perturbative counterpart of
+this result, i.e., the assertion that blowup is governed by ur for (generic) large data that are
+not necessarily close to those of wr, is, however, open. Motivated by this, in this paper we
+take a probabilistic point of view, that is, we consider the stochastic variant of (1.1) with
+additive corotational noise. We then show that for arbitrary corotational initial data, the
+corresponding solution does, in fact, blow up via (1.3) with positive probability.
+
+3
+1.1. Wave maps with additive noise. We consider the following stochastic evolution
+equation on R¢
+HOU + Ti (U)OHUIOU* = XW, i=1,...,4,
+U(0,-) =Uo, (1.10)
+AU (0, +) = Uo,
+for an infinite dimensional Brownian motion W on a filtered probability space (Q, F, (F:):s0, P)
+satisfying suitable assumptions described below; see Assumption 2.1 and Assumption 2.4.
+To preserve the corotational structure of the solutions to (1.10), we assume that the noise W
+lies in the space of radially symmetric functions, and the initial data are corotational, i-e.,
+(1.5) holds for some radial uo, tig. Then, similarly to above, by setting U/(t, X) = u(t, |X|)X
+and n = d+ 2, the system (1.10) reduces to a single stochastic scalar wave equation”
+<2 3 F
+O?u— Au Tak (2|xju — sin(2\alu)) + W,
+1(0,-) = tp, (11)
+
+Ou(0, +) = to,
+
+with radial data posed on R”. Accordingly, we exclusively study the dynamics of solutions
+to (1.11), which we then ultimately translate back to the context of (1.10).
+
+There are at least two additional motivations for studying the system (1.10). In realis-
+tic physical models, idealized equations such as the wave maps system inevitably neglect
+small-scale external perturbations, imperfections in the environment, and unresolved ran-
+dom fluctuations. A standard modeling approach to incorporate such effects is to introduce
+stochastic forcing terms. In the context of wave-type systems, additive noise has been em-
+ployed to model, for instance, thermal fluctuations in plasma physics; see [43]. Following
+this modeling philosophy, we consider perturbations by an additive noise term. The spe-
+cific form of the noise, being proportional to the spatial variable X, is consistent with the
+imposed corotational symmetry and preserves the geometric structure of the problem. This
+choice ensures that the stochastic perturbation respects the corotational ansatz, and can be
+interpreted as modeling small, isotropic ambient forces. Moreover, additive noise introduces
+randomness independently of the solution itself, making it a clean model for external fluctua-
+tions that do not alter the underlying geometric structure. Consequently, additive noise acts
+as a “non-resonant” perturbation, allowing testing whether a mechanism of blowup is stable
+in a probabilistic sense. This is particularly important in supercritical problems, where the
+deterministic dynamics are often sensitive to small perturbations.
+
+The past forty years have seen a substantial amount of research on wave equations under
+stochastic forcing. Without aiming to be exhaustive, we refer to [11, 12, 24, 52, 15] and
+references therein for some of the earliest works on the subject. For wave equations tak-
+ing values in Riemannian manifolds, we mention [9, 10]. In situations where the equation
+becomes singular and renormalization procedures are required, we refer to [3, 41, 42, 61].
+Concerning local well-posedness of the stochastic equation (1.11) (or, equivalently, (1.10))
+there are, to our knowledge, no currently available results. Accordingly, we first establish the
+existence and uniqueness of solutions in suitable function spaces, and derive the associated
+blowup alternative. We then proceed to analyze the stability of the blowup dynamics.
+
+?For « = 0, the nonlinearity is interpreted in the limiting sense.
+4
+1.2. The main results. Due to the presence of noise, we have to work with a weak notion
+of corotational solutions to (1.10). To this end, we first establish a well-posedness theory
+for radial solutions to (1.11). For this, we adopt the functional framework developed by the
+first author in [40] for the deterministic variant of (1.11), and consider the radial intersection
+homogeneous Sobolev spaces
+
+a
+
+rad rad
+
+(R") 0 Afya(R") x Hag (R") 0 Hpag (R");
+for a precise definition see Section 1.6 below. The basic solution concept we rely on is
+that of a mild solution, as defined in, e.g., the classical monograph [23], to which we also
+refer for the basic notation in stochastic analysis used throughout the paper. By denoting
+u(t) := (u(t,-), @u(t,-)), we have the following well-posedness result, which we prove in
+
+Section 2.1.
+Theorem 1.1. Let n > 5 and s,k > 0 such that
+
+1 1 1
+Y_yes< "14 ,k>n, keN. (1.12)
+2 2 an—4
+Under Assumption 2.1, for each Fo-measurable random variable up = (uo, tio) with values in
+He", there exist a strictly positive stopping time T*(ug) : Q > (0, +0] and a progressively
+
+measurable process u: 2 x [0, +0) > H&*, such that:
+i) For any positive stopping time tT < T*(uo), the stopped process u(- A T) belongs to
+C({0, +00); H2*) P-a.s., and is a mild solution of (1.11) on [0,T].
+
+ii) We have that
+
+T*(uo,w) =+0 or  limsup |u(é)|
+t>r*(ug,w)
+
+yok = +00 P-a.s.
+
+rad
+Moreover, T*(ug) and u are unique in the following sense: if both (r#(uo), u') and (7X (uo), u?)
+satisfy the conditions above, then T(uo) = T¥(Uo) P-a.s., and for any stopping time T <
+Ti (uo) A T3(Uo), we have that
+
+P(ul(ta rt) = w(t a7) Vt>0) =1.
+
+Remark 1.2. The condition (1.12) on the Sobolev exponents s,k is imposed for several rea-
+sons. First, the assumption s,k > }— 1 ensures that the associated heat semigroup in
+similarity variables exhibits exponential decay. Additionally, if s is close enough to 5 — 1,
+and k is a large enough integer, the nonlinear operator in (1.11) is Lipschitz continuous
+in Hee. The two features above then allow for constructing local solutions by means of
+straightforward fixed point arguments, which, in particular, avoid having to use sophisti-
+
+cated dispersive equations tools like, e.g., Strichartz estimates.
+
+Remark 1.3. To remove possible ambiguity, we provide below the exact definition of the mild
+solution referred to in 7); see Definition 2.3.
+
+Now, by means of Theorem 1.1 we can derive the analogous well-posedness result for the
+system (1.10). For this, we consider spaces
+
+He* = HS(R*) 0 H*(R4) x HR) 9 HRY),
+
+and use the notion of corotational mild solutions to (1.10), for which we refer to Definition 2.3
+below. Now, in view of the equivalence between Sobolev norms of corotational maps and
+
+5
+their radial profiles (see [39, Proposition A.5, Remark A.6]), we readily obtain the following
+local well-posedness result for (1.10). We use the notation U(t) = (U(t,-), Ad(t,-)).
+Corollary 1.4. Let d > 3 and s,k >0 such that
+
+d d
+
+<s< Ly ht R, OM,
+2 2 2d ,
+
+Under Assumption 2.1, for each Fo-measurable corotational random variable Uy = (Uo, Uo)
+with values in H**, there exist a strictly positive stopping time T*(Up) : Q > (0, +00] and a
+progressively measurable process U : Q x [0,-+%) > H®* such that:
+i) For any positive stopping time t < T*(Ubo), the stopped process U(- A T) belongs to
+C([0,+0);HS*) P-a.s., and is a corotational mild solution on [0,7] of (1.10).
+ii) We have that
+
+T*(Up,w) =+0 or  limsup |U(t)\a.% = +00 P-as.
+)
+
+tor* (Uo,w
+Moreover, uniqueness holds in the following sense: if both (r#(Uo),U") and (t¥(Uo),U’)
+satisfy the conditions above, then T(Uo) = 74(Uo) P-a.s., and for any stopping time T <
+TE(Uo) A 73(Uo), it holds that
+
+P(UN(tAT) =U7(t Ar) Vt> 0) = 1.
+
+If the stopping time 7*(Up, w) above is finite, we say that the solution U (or UY) blows up
+in finite time, and we call r*(Uo,w) the blowup time. Having a well-defined dynamics for
+(1.10), as well as the corresponding blowup alternative, we are ready to state the central
+result of the paper, which establishes the occurrence of self-similar blowup via Up with
+positive probability for arbitrary data.
+
+Theorem 1.5. Let d > 3 and s,k > 0 such that
+
+c<s<s t =A k>d+2, ken.
+Given Assumption 2.4, for any corotational initial data
+Uy = (Uo, to) © HOR’) 0 A(R) x ASR) 0 A(R) (1.13)
+
+and any positive number T, the unique solution to (1.10) in HS* given by Corollary 1.4
+blows up with positive probability via Ur for some T < T. More precisely, for each choice of
+Up given by (1.13) and T > 0, there exist a set N <Q of positive probability such that for
+each we N the following hold:
+
+i) = <7*(Uo,w) <T;
+ti) For allt € (£,7*(Uo,w)) we have that
+
+x |X|
+Uo,w)-t* (sae = ) taf
+
+|x|
+eT (4, Lay Ker (t, (XL,
+(saa a eal XI) Ly
+6
+
+U(t, X) lw
+
+where z(t, |X|) is the solution of the linear wave equation with additive noise W (see
+
+2
+(2.4)) with zero initial data posed at t = z, and on N the profile Y satisfies
+
+|L(t,-)layse 20 as t—or*(Up,w).
+In particular, on N we have that
+U(t, (T*(Uo,w) — 4) -) > (-)®(\-1)
+locally uniformly on R4 as t > T*(Uo,w)-.
+
+Remark 1.6. As will be evident from the proof, the value ft in the statement above may be
+
+replaced with any 7; < 7. We have opted to avoid this additional level of generality in order
+to simplify the notation.
+
+1.3. On regularization by noise phenomena. Starting with the seminal works [64, 63],
+it has become well established that the addition of noise to (partial) differential equations can
+help prevent pathological behaviors such as non-uniqueness or blowup of solutions. We refer
+in particular to [34, 22, 21, 53, 5, 4, 35, 16, 43, 1, 19] for various instances of the so-called
+phenomenon of regularization by noise, including examples arising in the context of fluid
+dynamics. The heuristic underlying these results is that pathological behaviors in (P)DEs
+typically occur only along exceptional trajectories and are not generic. Consequently, a small
+random perturbation can move the system away from them, thereby restoring uniqueness or
+preventing blowup. For a detailed exposition of this idea, we refer to the lecture notes [33].
+
+In light of the results mentioned above and the preceding discussion, Theorem 1.5 suggests
+that the blowup profile U/p (or (-)®(|-|)) is not only in some sense generic but also that the
+corresponding blowup mechanism is so robust that the addition of noise, at least in the
+additive case, does not prevent the system’s pathological behavior. On the contrary, it
+may even amplify it, as we are able to establish blowup for arbitrarily small initial data,
+for which the deterministic dynamics would otherwise be globally well-posed. From this
+perspective, our result is in line with those obtained for the Schrédinger equation in [25, 26],
+where it was shown that the presence of smooth noise, whether additive or linear, provokes
+blowup with positive probability for generic initial data. Unlike our work, however, [25, 26]
+do not provide asymptotic information on the behavior of solutions near the blowup time.
+We also point to works [50, 49], which investigate the effect of multiplicative noise on the
+heat equation, demonstrating that such noise can induce blowup of solutions with positive
+probability. Further examples of this phenomenon can be found in [38, 37, 36, 44].
+
+We conclude by noting that, as with all previously cited results on blowup induced by
+noise, we provide no information on the size of the probability of blowup. Furthermore, we
+cannot assert that every instance of blowup occurs in a self-similar fashion. Although we
+expect this to be the case, and moreover that P(r*(Uo) < T) > 1 as T > +, we have no
+rigorous proofs.
+
+1.4. Brief history of blowup for (deterministic) wave maps. Wave maps provide a
+geometric generalization of geodesics to higher dimensions. More precisely, the wave maps
+equation for maps from the flat Minkowski spacetime (R‘*4,7) into a Riemannian manifold
+(M,g) defines a motion of the Euclidean space R¢ embedded into M, where in the extreme
+
+case, d = 0, the system reduces to the geodesic equation. Unlike geodesics, however, wave
+7
+maps in general exhibit rich dynamical behavior, including the formation of singularities in
+finite time.
+
+For the energy-subcritical case, d = 1, blowup is actually ruled out for compact target
+manifolds, regardless of their geometry. This simply follows from the strong well-posedness
+of the one-dimensional wave maps at the energy regularity, together with the positive def-
+initeness of the energy functional (1.2). For non-compact targets, however, there seems to
+be no known results on the existence of blowup so far.
+
+In the energy-critical case, d = 2, the fine geometric properties of the target manifold
+become relevant, even in the compact case. For spherical targets, a remarkable series of
+works has addressed the existence and stability of blowup; see, e.g., [47, 55, 54, 45, 46]. In
+all these cases, the blowup mechanism is non-self-similar and corresponds to the so-called
+bubbling off of a harmonic map. In contrast, for targets of constant negative curvature, e.g.,
+the hyperbolic plane, blowup is known to be impossible; see, e.g., [60, 58, 59, 48}.
+
+In the energy-supercritical case, d > 3, the construction of blowup is generally more
+accessible, as self-similar solutions often exist. The earliest results in this direction are works
+of Shatah and Tahvildar-Zadeh on rotationally symmetric targets with positive curvature
+[56, 57|. For targets of constant negative curvature, on the other hand, the existence of
+blowup remains a major open problem. However, when the assumption of constant curvature
+is dropped and the target is merely required to have negative curvature, self-similar blowup
+solutions have been constructed in sufficiently high dimensions; see, e.g., [13, 29].
+
+1.5. Outline of the proof of Theorem 1.5. The proof is thematically divided between
+Section 3 and Section 4. The main result of Section 3 is Theorem 3.1, which establishes
+the nonlinear stability of the blowup mechanism of (1.3) for the stochastic system (1.10).
+Loosely speaking, we show that if the initial data Uo are sufficiently close to Ur(0) for some
+T > 0, where Up = (Up,Ur) denotes the explicit self-similar solution of (1.1)
+
+i _aflAL\ xX xi as ang 3 (|X! x!
+up(t,x) = 0 (E Pop Ublt,X) = apt.) = & ( Toa
+
+with profiles ® and © given by
+
+2 Pp
+®(p) = = arct
+(p) © arctan (Po
+
+(equivalently, up := (uo, tio) is sufficiently close to ur(0), where ur := (ur, tir) denotes the
+explicit self-similar solution of (1.6)
+
+) and 8(9) = 810) + ob) (1.14)
+
+ur fis) = 7a? (+ ;) , tnthrh = Beker) = aa? (75) ) (1.15)
+
+then the corresponding solution U/ of (1.10) given by Corollary 1.4 blows up with a positive
+probability at time T < 2T by converging to U;. The proof of Theorem 3.1 is based on
+the now celebrated Da Prato-Debussche trick [20], combined with a deterministic stability
+analysis in the spirit of [40]. First, by the representation
+
+U(t, X) = ult, |X|) X (1.16)
+and [39, Lemma A.5| we reduce the analysis to that of the dynamics of the radial profile u
+
+evolving according to (1.11). Then, we define z as the stochastic convolution starting from
+8
+
+zero data for the linear wave equation (2.4). Consequently, as z is a regular object, in order
+to study the blowup dynamics of (1.11), it suffices to analyze the behavior of
+
+wi=Uu—z (1.17)
+
+solving
+
+@w — Aw Fra (lw + 2) sin(2|2|(w + 2))),
+
+w(0) = up, (1.18)
+
+6,w(0) = to,
+
+for « € R”. From this point onward, we adopt the standard approach of studying the flow
+near self-similar solutions by passing to similarity variables. More precisely, for a parameter
+
+T, which is assumed to be close to T and to be fixed later, we consider the change of
+independent variables
+
+r=r(t): ios (=), € = €(t,2) := a
+
+Furthermore, we define the new dependent variables (in their vector form)
+
+Z(r,£) := (Z(r,€),Z(7,€)), for Z(r7,€) = (T —2)a(t,x) and Z(r,€) = (Tt)? A(t, 2),
+W(r,€) := (W(r,€),W(1,8), for W(r,€) = (F —t)w(t,x) and W(r,€) = (T —t)* a(t, 2).
+
+Throughout the paper, we use the ‘hat’ notation to shortly denote the partial derivative
+with respect to the physical time ¢; in particular, above we have 2(t,x) := Oz(t,a) and
+w(t, x) := Ow(t, x). The advantage of the new coordinate frame is that self-similar profiles
+now become static, i.e., T-independent, and the problem of stability of self-similar blowup
+in finite time, becomes the one of asymptotic stability of a steady-state solution (note that
+
+T—>+0ast—T_). In the new variables, the first-order vector formulation of (1.18) takes
+the form
+
+0, W = LoW + n(W + Z),
+~ (1.19)
+W(0,-) = Wo(T),
+where the linear operator Lo is given by
+-1-€-V, 1
+tn = | a oy -e.v/> (1.20)
+the nonlinearity n is defined by
+n(K) := (0,0(IX)), where no(K) = _ (2|-|K — sin(2|-|K)) for K = (K,K), (1.21)
+
+and the trace of T shows up only in the initial data in the following manner
+W,(T) := (Tw(0,T-), T?a(0,T-)) = (Luo(T-), T?tio(T-)).
+We then proceed by analyzing stability of the static profile
+
+® := (6,6)
+9
+under small perturbations governed by (1.19). Since the system is semilinear, we adopt a
+perturbative approach based on spectral stability. In short, what we do is the following. We
+consider the ansatz
+W(r,:) = ®+ Wzs,:),
+
+linearize around ®, and then use dynamical systems tools such as fixed point arguments and
+Lyapunoy-Perron methods, along with spectral stability results from [40], to prove that for
+any (to, fio) close enough to ur(0) and T close enough to T, the initial data (0,-) is small,
+and there is, furthermore, a specific choice of 7’, possibly also depending on the realization of
+the noise, such that the corresponding profile W is global and exponentially decaying. Then,
+by undoing the similarity variables, we get that the solution w to (1.18) can be written for
+te [0,7) in the following form
+
+w(t, 2) 1 o(- ) =" (08 (=* ih ta :: (1.22)
+T—t T—t Tt T-t/ T-t
+
+where W(r,-) goes to 0 in H°*, as 7 > +00, for such realization of w. Consequently, we
+conclude from the embedding H°", o L® that
+
+(T —t)w(t,(T —t)-) > ®
+globally uniformly on R” as t > T~; cf. numerical findings (1.8). Consequently, by (1.17)
+the same applies to u, and by (1.16) to Y as well, though only locally uniformly. Now we
+provide a more detailed overview of the above summarized argument, and concentrate the
+discussion around the novelties brought about by the presence of noise.
+Linearization around ® leads to the following evolution equation for Uv
+
+0,W = LW +N(U+Z)+ VZ, 93
+fe = Wo ;, ”)
+
+where
+Vo 7 = (Yaar Yon) = (Tuo(T-) — ©, Tag(T-) ~ ) 24)
+
+and
+L:=Lo+V, with VK:= sienna | and .25)
+(ee+n=4)?
+0 ‘
+
+a a ls ((\e\(® + K)) — r(lel®) leone) Vy) = 2y—sin(2y). (1.26)
+
+Note that at least two differences arise between (1.23) and the system treated in [40]. One,
+which is quite minor, is that here we do not restrict ourselves to the choice of T = 1 and
+treat the general case of T’ > 0. The second, and much more fundamental, difference is the
+appearance of Z-terms in (1.23) which are due to the presence of noise in (1.11). We note
+that, in general, even when the noise W is smooth, it acts as an external forcing that may
+break the stability of the self-similar profile ®. Nevertheless, under suitable non-degeneracy
+assumptions on W, we show that this scenario does not occur with positive probability. In
+
+particular, there exists a Te (F, xo), depending on the realization of the noise W and on
+10
+the initial condition uo, such that one can construct a global solution of (1.23) which decays
+sufficiently fast to 0 in HS*, as T > +00.
+
+The guiding principle of the argument sketched above, in analogy with [40], is that small
+perturbations in H°"*, of the initial profile ur(0) still lead to blowup with positive probability,
+namely on those realizations where the noise does not dominate the dynamics. We also
+point out that, a priori, the solutions constructed via the ansatz (1.22) may exhibit poor
+measurability properties, since for each realization of the noise the parameter T’ depends
+on the entire realization of W, at least up to time aT. However, due to the uniqueness of
+w solving (2.6), it suffices to show that objects of the form (1.22) also solve (2.6), thereby
+recovering the corresponding measurability properties. Moreover, by the definition of the
+stopping time 7*(up, w), it coincides with T on the subset of Q identified by this construction.
+
+The main result of Section 4, stated in Theorem 4.1, informally asserts that if uo is
+sufficiently regular, then for any T,¢ > 0 and any u; € He, the solution provided by
+Theorem 1.1 has, with positive probability, no blowup before time 7 and, at time 7, lies in
+the open ball of radius ¢ in °*, centered at u;. This is an irreducibility result for (1.11)
+reflecting some ideas from [25, 32]. To implement our strategy, we first show that if u, is
+sufficiently smooth, then there exists a smooth function f such that the solution of
+
+n—3
+
+u(0) = uo,
+0,u(0) = to
+
+coincides with u; at time 7. Secondly, we establish a form of continuity of the solution
+map of the above system with respect to the controllers f. This is achieved by once again
+exploiting the Da Prato—Debussche trick: we introduce z as the solution of the linear wave
+equation (2.2) with forcing term 0;f, and w as the solution of (1.18) corresponding to this
+choice of z. Then we show that if there already exists a solution of the deterministic system
+(1.18) up to a deterministic time 7, then small perturbations of either the initial condition up
+or the controller z still permit the construction of solutions to (1.18) up to time T. Moreover,
+these solutions depend continuously on the data in C([0, 7]; Hee). With these two results
+in hand, the irreducibility of (1.11) reduces to a support theorem for z, where we once
+again make essential use of the non-degeneracy assumptions on the noise W. By combining
+Theorem 3.1 with Theorem 4.1, we conclude the argument leading to Theorem 1.5.
+Let us end the section by commenting on the restriction on the Sobolev exponents s, k
+
+d d 1
+<s<-4 ,k>d+2, ken,
+2 2 2d
+appearing in Theorem 1.1, Corollary 1.4 and Theorem 1.5. As already mentioned in Re-
+mark 1.2, it guarantees that the nonlinearity in (1.11) is locally Lipschitz in Hee both in
+physical and self-similar variables (see Lemma 2.2 below and [40, Lemma 7.1]), and that the
+
+semigroup generated by the wave operator Lo exhibits exponential decay in Het. see [40,
+
+Proposition 4.1, Proposition 6.2]. Additionally, if u = (u, a) ¢ H2%,, then u (resp. @) and its
+derivatives up to order [$]—1 (resp. [$]—2) are uniformly continuous functions. Therefore,
+U(X) = u(|X|)X is a well-defined object in H**, cf. [39, Proposition A.5, Remark A.6],
+and it is possible to assign a precise meaning to (1.10).
+
+1
+
+Frequently used conventions. The reader might feel disoriented by the simultaneous
+consideration of (1.10) and (1.11), as well as the fact we work with the former in both physical
+and self-similar variables. In addition, the combination of the Da Prato—Debussche trick
+and the self-similar ansatz, as described in Section 1.5, requires the introduction of several
+additional objects for our analysis. To assist the reader, we summarize our conventions here,
+providing a more compact overview of the notation used throughout the paper.
+
+Object Physical variables Self-Similar variables
+
+Solution of wave map Uu = (UU) N/A
+Solution of wave map with
+
+corotational symmetry = (u, a) U = (U,0)
+Stochastic convolution z= (z,2) Z=(Z,Z)
+Self-Similar Profile ur = (ur, ir) ® = (0, )
+Da Prato-Debussche ansatz |u=w+z, w=(w,w)|U=W+4+Z, W=(W,W)
+Self-Similar ansatz N/ W=64+8, Y=(U,0)
+Wave operator A Lo
+Wave Semigroup T(t) So(7)
+Nonlinearity n = (0,7), see (1.21) N, see (1.26)
+Linearization of the nonlinearity
+around the self-similar profile N/A Vv. = (0, rere
+Perturbed wave operator N/A L
+Perturbed wave semigroup N/A S(r7)
+
+Due to the vectorial nature of the wave equation when viewed as an evolution equation, we
+frequently deal with vector-valued quantities, where the second component is closely related
+to the time derivative of the first component.’ As indicated in the table, we adopt the
+convention that bold letters denote vector-valued quantities, while unbold letters represent
+scalar quantities. When it is necessary to refer to specific components, we use the corre-
+sponding unbold letter for the first component and the same letter with a hat for the second
+component.
+
+1.6. Notation. Let m > 3. We denote by C2(R™) the standard space of smooth and
+compactly supported test functions on R”, .7(R™) the space of Schwartz functions on R™
+and L?(IR™) the space of square integrable functions. We denote by ¢-,-) (resp. ||-||) the inner
+product (resp. norm) on L?(IR™). We also need to introduce the space
+
+Coraa(R”) = {f :[0,20) > R| f(l-l)e Ce”),
+
+c,rad
+
+Fraa(R”) = {F 10,00) +R | f() € HR")}.
+
+We will work with Sobolev spaces, both homogeneous and non-homogeneous variants. We
+denote by H7,,(R™) the closure of CZ,,q(R™) with respect to the standard H’(IR™) topology.
+Consequently, we define the product radial Sobolev spaces
+
+— -1
+H’(R™) := Ayga(R”) x rag (R")
+Tt corresponds exactly to the time derivative in physical variables, but this is not the case in self-similar
+
+variables.
+12
+with the corresponding inner product
+Cu, Vi (Rm) = (Ur, U1) #7, (@™) + (ue, V2) yr (qmys
+
+for u = (u1, ug) and v = (w%, v2).
+
+Concerning homogeneous Sobolev spaces, for r > —%, we define the inner product for test
+functions u,v € C%(R™)
+
+(U, ) Arecamy = "FA (u), LF (e)),
+
+F being the Fourier transform. Consequently, we have the norm ||u|
+It is well known that if re N then
+
+2
+Hr(R™) = <u, U) Fr (R™):
+
+||
+
+2 2
+2 amy =) Weal?
+
+lal=r
+
+(R™)) the closure of C2(R”) (resp. C%.,4(R™))
+
+c,rad
+
+We furthermore denote by H’(R™) (resp. H!
+
+rad
+
+with respect to ||-{ Hr (Rm)- For rg > 71, > re we define the intersection spaces
+Hy (R") = Hng(R") 0 Hy2(R”),
+and, in case of ry > 7, > —} +1, the following Cartesian product thereof,
+Hye (R™) == Ang(R™) 0 Hpy(R”) x Hyg (R™) 0 Ay (R™)
+
+with respective inner products
+Ct, UD F771 (Ryn 2 (R™) = Us VD FT ce) + Us VD F772 CRMs
+Cua, wD rgpaecimy = (Uns Pars (amy evttT2 (wm) + as V2) fr (Remy "2s T(RM)?
+
+for u,v € H™,(R™) 0 HT,(R™) and u = (u1, U2), Vv = (v1,%2) © H™2(IR™). Moreover, for
+each T, > 0, a€ (0, 5), p € (2, +0) with ap > 1, we define
+
+Ef = {2 = (2,2) € C((0,T)]; H"t*= (R™)) : 2(0) = 2(0) = 0, 2(t) = I a(s)as| ,
+
+n+1
+rH Ay
+
+Weer := {rf € W(0, Ty, 1", (R™)) : f(0) = 0}.
+
+endowed with the strong topology of C({0,7,];H™*+*= (R™)) and W°?(0,T;; we (R”))
+respectively. The equality z(t) = Si, 2(s)ds has to be understood in the sense of tempered
+distributions 7’. Obviously, €.7, , Wao. eo are separable Banach spaces. Finally, we adopt the
+usual asymptotic notation a < b to denote a < Cb for some constant C' > 0. Furthermore, we
+write a ~ bif both a < b and b < ahold. For simplicity, in the following we do not explicitly
+indicate the dependence of our function spaces on the underlying spatial dimension, unless
+it differs from n = d+ 2.
+
+2. PRELIMINARIES
+
+This section collects several auxiliary results needed for the proof of Theorem 1.5. In Sec-
+tion 2.1 we introduce the basic notation for the linear wave equation and provide proofs
+of Theorem 1.1 and a support theorem for the stochastic convolution originating from zero
+initial data. Section 2.2 then turns to the analysis in self-similar variables, and recalls the
+main elements of the linearized and spectral framework introduced in [40].
+
+13
+2.1. Analysis in physical variables: well-posedness and stochastic convolution.
+Denote by T(t) the semigroup associated with the linear wave equation and by A its infin-
+itesimal generator. According to [51, Chapter 7.4], these operators are well defined both in
+homogeneous and non-homogeneous Sobolev spaces and preserve radial symmetry. Hence,
+for each r2 > r, > —$ + 1, T(é) is a bounded linear operator on H717;? (resp. H") and its
+infinitesimal generator
+
+A: D(A) CH}? > Hiv? (resp. A: D(A) CH" > H")
+
+rad rad
+
+satisfies D(A) = H"%?*" (resp. D(A) = H+). For smooth initial data up = (uo, tio), the
+
+function u(t) = (u(t), @(t)) = T(£)uo is the unique solution of the wave equation
+
+O?u = Au,
+u(0) = uo, (2.1)
+Oyu(0) = to,
+
+that is, u(t) satisfies the first-order evolution system
+
+Ou = a,
+Oa = Au, (2.2)
+(0) = uo, ‘
+
+& <
+
+(0) = &.
+
+Consider a complete filtered probability space (Q,F, (F:):50, P) with right-continuous filtra-
+tion, and fix s,k as in Theorem 1.1 and Theorem 1.5. The Brownian motion W appearing
+in (1.11) is assumed to satisfy different, increasingly restrictive conditions depending on
+whether the focus is on local well-posedness, i.e., Theorem 1.1 and Corollary 1.4, or also on
+the blowup properties, i.e., Theorem 1.5. In the former case, the following assumption is
+imposed.
+
+Assumption 2.1. Let W be an infinite-dimensional Brownian motion adapted to (F;)iso0
+
+. « ers—1,k—-1
+with values in Hyg.
+
+More explicitly, W is P-a.s. continuous process taking values in i lee if U is aseparable
+Hilbert space and B; a cylindrical Brownian motion on U, there exists J € L(U; H°4'""')
+such that JJ* has finite trace and
+
+W, = SBi. (2.3)
+Under these assumptions on W, it follows from [23] that the stochastic wave equation
+Oz =Az+W,
+2(0) = 0, (2.4)
+0,2(0) = 0,
+
+sk
+
+admits a unique mild (equivalently, weak) solution z € C([0, +00); Hi74
+
+\ = Azdt + dW,
+
+), which satisfies
+
+2(0) =0 Wi = (0,Wi), (2.5)
+
+14
+and is given by the mild formulation
+t
+a(t) = I T(t — s)dW,.
+0
+We now turn to properties of the nonlinearity in (1.11). Let n and no be as defined in (1.21).
+Then no satisfies the following estimate on H*-)*,
+Lemma 2.2. Letn > 5 and s,k > 0 satisfy
+
+n 1
+l<s<> 14 mod’ k>n, keNn.
+
+Then we have that
+
+|mo(u) — roo) ese S fee — wl jas (el es, + Wel zy (1+ lel? tes)
+for all u,v € H*,
+Proof. Let us first write the nonlinearity no as
+n—3
+h) = —7(|a|h
+no(h) = Serle),
+
+where ¥ is defined in (1.26). Since 7/(0) = 7"(0) = 0, repeated application of the fundamental
+theorem of calculus yields
+
+y(v) = yu
+
+‘)
+=(v-u eK ju + Av) dA
+0
+
+fc
+
+te of (1— du sel (((1— A)u + Av) a) | o"(((1— Aju + dv) al)dldadd.
+
+me
+
+cy
+
+dv) | y"(((1 — A)u + Av) a)dadr
+
+So
+
+The desired estimate then follows from the Schauder estimate [40, Proposition A.1] with
+F(h) := 7/"(h) = 8cos(2h).
+
+From Lemma 2.2, one immediately obtains an analogous estimate for n on He. In
+particular, if ue H°, then n(u) is well defined as an element of H°%. With these definitions
+in place, we recall for the reader’s convenience the notion of a mild solution to (1.11), referring
+to [23] and [2] for further details.
+
+Definition 2.3. Let up = (uo, tio) be an Fo-measurable random variable with values in Hevas
+and let 7 be a stopping time. A progressively measurable process u : 2 x [0, +2) > Hee is
+called a mild solution of (1.11) on [0,7] if ue C([0,7];H24) P-a.s. and satisfies
+t t
+u(t) = T(t)uo + I T(t — s)n(u(s)) ds + I T(t — s) dW., P-a.s. for all t € [0,7].
+0 0
+15
+Furthermore, a progressively measurable process U = (U U ):Q x [0, +00) + H®* is called
+a corotational mild solution of (1.10) on [0,7] if it is induced by a mild solution u = (u, &)
+of (1.11) through
+
+ui(t,X) = ult,|X)X*, W(t, X) = a(t, |XX
+We are now in a position to state the local well-posedness result for (1.11).
+
+Proof of Theorem 1.1. We employ a fixed point argument and look for solutions of
+
+u(t) = T(t) + I
+
+0
+
+t t
+
+T(t — s)n(u(s))ds + | T(t — s)dW,.
+
+Due to the regularity of W,, we define
+
+a(t) = [ T(t — s)dW, € C([0, +0); He) P-as.
+
+0
+Then, finding a solution u is equivalent to solving the fixed point problem
+Yi
+
+w(t) = T(t)uo + I T(t — s)n(w(s) + 2(s))ds. (2.6)
+
+0
+Let r(w) = ||uo(w)|
+
+yok < +00 P-a.s. and define, for such w, the map
+rad
+
+T'[h](t) = T(t)uo + [ T(t — s)n(h(s) + 2(s))ds.
+Let M > 1 be such that
+DE) Maye
+
+We aim to show that I’ has a fixed point in the closed ball of radius 1+ (M + 1)r(w) in
+C((0, T*(w)]; H2%,) for sufficiently small T*(w). For notational simplicity, we omit the w in
+what follows. Since T(t) is a strongly continuous semigroup on He, it follows immediately
+that I[h] € C([0, +00); H2",) whenever h € C([0, +00); H°",). Moreover, by Lemma 2.2
+
+(| PEa](@)|
+
+< Me’. (2.7)
+
+unt, S < Me™r + Cu,s,k (\lzlleqo, TH im) + r) qd a \l2\|2 C((0,7*];H3:",) + rk) (e™ a 1)
+<1+(M +1)yr,
+
+if T* is sufficiently small. Hence, [ maps the closed ball of radius 1 + (M + 1)r into itself.
+Next, we verify that [ is a contraction. Using the properties of the wave semigroup, we have
+
+|| [hi ](t) — Pf] (4)
+
+S |i -
+
+halleqo,rs) ee) (\lzlle (oreynek,y + r)" (i+ Valcom yk) + rk\(eT™ — 1)
+
+for possibly smaller T*. This implies by standard arguments all the claims. In particular,
+the construction implies that 7* > 0 P-a.s.
+16
+
+In order to prove our main result, Theorem 1.5, we need some additional properties of z,
+both in terms of its regularity and the support of its law. To this end, we introduce the
+following assumption.
+
+Assumption 2. 4 Let W be an infinite-dimensional Brownian motion, adapted to (F;):50,
+a
+
+aot “
+with values in HS . Moreover, we assume that W is non-degenerate on H,,
+
+By non-degeneracy, we mean that the support of W coincides with the full space Wo. Pe
+for each choice of a, p,T satisfying
+
+TF = 0; ae (0,5), pe(2,+0), ap>l.
+
+This property holds provided that the operator J appearing in (2.3) satisfies
+
+Je L(U; Ht “By, JJ* has finite trace and Ker(J*) = {0}.
+
+rad
+
+Under this assumption, which is more restrictive than Assumption 2.1, we have
+2 € C((0, +90); HF),
+
+The following lemma, concerning the support of z, the solution of (2.5), is likely well-known
+to experts. However, since we were unable to find a suitable reference, we provide a proof
+for completeness.
+
+n+l
+
+Lemma 2.5. Let T > 0 and suppose that Assumption 2.4 holds. If z is the mild solution of
+(2.5) on [0,T], then the support of z is the full space E}.p.
+
+Proof. Let z€ for and ¢ > 0. It is enough to show that
+
+P((lz ~ allegory < e) >0.
+Let 2* = (z*, 2*) € Ef, be smooth and satisfy‘
+
+x og
+
+||z" — ||
+
+n <
+c(o.ra "Sy <2
+
+It is then enough to prove
+
+— gf E
+P (lz 2" ll cao) < | > 0.
+
+Since z* is smooth, there exists f* € Wo7-"" such that
+
+z*(t) = F(t) «| T(t— s)AF*(s)ds, with F*(t) = (0, f*(t)),
+
+4This can be done introducing two families of mollifiers: one in space, Xs, (x) = aX He), with x €
+Ce aa(R"), Sgn X = 1, and one in time, X5,(s) = HXUs ), with Ye C¥(0,1), ), $4 X(s) )ds = 1. Choosing 61, 62
+sufficiently small, the couple (i Sen Z(t — 8% — y) x5, (Y)X5q(s)dsdy: Sy Son Z(t — 8,0 — y)Xo, (y)Xo,(s)dsdy)
+
+satisfies the required properties.
+17
+or equivalently
+
+ek = 8%,
+a8" = Az* + d.f*,
+z*(0) =0,
+2*(0) =0.
+
+Moreover, the solution map is continuous from Ws. a to Efr. Therefore, there exists a
+neighborhood of f* in weer, denoted by B.,f*, such that for any f** ¢ Bz the solution
+
+of the wave equation with forcing 0; f ** which we denote by z**, satisfies
+€
+
+ntl. Sa.
+
+ae 7
+ae 2 lle qoryattty S 3
+
+In conclusion, we have
+
+P (\iz — all cqommat 4 < e) > P(We Beye).
+
+The latter is positive, due to the properties of the support of the Brownian motion W.
+
+2.2. Analysis in self-similar variables: linearized dynamics. As explained in Sec-
+tion 1.5, to study the stability of self-similar solutions, it is convenient to pass to similarity
+variables, thereby reformulating the wave maps equation in these coordinates. Additionally,
+in this section we recall some properties of the wave operator in these variables, referring to
+[40, Sections 4~7] for detailed proofs.
+
+For T' > 0 we define the new time and space variables
+
+P x
+T=lo = P ns .
+“(5) $ T-t
+
+U(r, €) = (F—tult,x), U(7,8) := (PT — t)*ai(t, 2).
+
+and, relative to (1.6), let
+
+The function U = (U, U ) then formally satisfies the evolution equation
+
+Ie = LoU + n(U)
+
+wld) = Up (2.8)
+
+where Lo is the wave operator in similarity variables, as defined in (1.20). According to
+[40, Proposition 4.1], the operator Lo, originally defined on smooth functions, is closable on
+H°",, and its closure generates a strongly continuous semigroup So(7) on H2*,.. We now
+decompose the solution in self-similar variables as
+
+U=64+ 8,
+
+where ® is the static self-similar profile associated with the nonlinear wave map introduced
+in (1.14). By construction, ® generates a blowup solution of (1.6) under the self-similar
+rescaling. The perturbation V then satisfies
+0,W = LY +N(P)
+W(0) = Up - ,
+18
+where L and N are defined in (1.25) and (1.26), respectively. As shown in [40, Sections 5-6],
+
+the operator L, like Lo, is closable on H°%,, and its closure generates a strongly continuous
+
+rad?
+semigroup S(r) on H°"). Most importantly, there exists @ € (0,s + 1— §) such that
+{A € o(L) : ReA > —} = {1}. (2.9)
+
+Moreover, eigenvalue 4 = 1 is simple and it does not correspond to a genuine instability as
+it arises from the time-translation symmetry of (1.15). The corresponding eigenfunction can
+thereby be explicitly computed, and is given by
+1
+= (g,€- Vg + 29), = ———_.
+g:=(9,€-Vgt2g9), 9(§) 2tn—4
+Consequently, due to the underlying spectral mapping relation between S(r) and its gener-
+ator L, we have that
+
+|S(7)(Z — P)K|
+
+ust, Se |(1— P)K|
+
+(2.10)
+
+sik 5
+Head
+
+where P stands for the Riesz projection of L relative to A = 1. Finally, according to [40,
+
+Lemma 7.1 and Proposition A.1], the nonlinearity N is locally Lipschitz continuous in qe,
+as it satisfies the estimate
+IN(1) — N(@a) lees, S Ma — Vales, (Valles, + ales) (2.11)
+* (IPlaen, + Hales + ares)
+
+x (14 [Pia + alga, + [Pal
+
+Qk )
+Arad
+
+for all U,, By e He"
+
+rad*
+
+3. STABLE SELF-SIMILAR BLOWUP PROFILE FOR STOCHASTIC COROTATIONAL WAVE
+MAPS
+
+The main goal of this section is to establish the following perturbative blowup result.
+
+Theorem 3.1. Let d > 3 and s,k > 0 such that
+
+Egat fl + am k>d+2, ken.
+
+2 2 2d
+Given Assumption 2.4, for each T > 0 there exists ¢ > 0 small enough such that for each
+Fo-measurable corotational random variable Ug = (Uo,Uo) € H°* for which
+
+P (Uo —Ur(0,-)|
+
+there exists a set N < Q of positive probability, such that for all w € N the unique corota-
+tional mild solution U of (1.10) given by Corollary 1.4, satisfies 0 < T*(Uo,w) < 2T, and,
+moreover, we have the following decomposition
+
+x |X|
+NE EL stew (suena) w
+
+es og (Tore) 1X] —
+' (Uy) a8 (: 6 (ag) aaa) ly + X2(t,|XI)lw (83-1)
+
+19
+
+qk <€) > 0,
+
+fort € [0,7*(Uo, w)), where z(t,|X]|) is the solution at time t of the wave equation (2.1) with
+additive noise W starting from zero initial data, and V satisfies on N
+
+IS(r)|
+
+yok 20 as T+.
+rad
+In particular, on N it holds
+U(t, (T*(Uo,w) — H)) > ()®( - |)
+locally uniformly on R*. As a consequence, with positive probability, the solution U(t) blows
+up in a self-similar way before T.
+
+3.1. Change of Variables. Let z be the stochastic convolution starting from 0, as defined
+in Section 2.1, and let ® be the background self-similar profiles defined in (1.14). As discussed
+in Section 1.5, for each 0 < T' < 2T, we introduce the change of variables
+
+and define
+
+(,t):= = ®|= C ———__—
+test T-t Ca |ar| ae V/n—A(T-t)/]’
+
+Z(7,€) = (T —t)z(t ),
+Z(r,€) = (T —2)?4(t, 2),
+Z(r,€) := (Z(1, 8), 2(7,8), (3.2)
+
+Writing u= @+2+ y with ~ = 0,4), we define
+
+U(r,6) = (T-tv(t,2), Wr, :=(T-t)d, (t,2),¥ = (¥,¥).
+Then W satisfies (1.23) with initial data (1.24). Thus, to prove Theorem 3.1, it suffices to
+study the system (1.23) pathwise. The existence of a positive-probability set follows from
+Lemma 2.5, which ensures that z has the required properties, together with the fact that z
+is independent of Fo.
+
+where @ is from the previous section; see (2.9). Let ¥, (resp B,, CrB,) denote the closed
+ball of radius r in Y (resp. H*,, C((0,2T]; H’* *"¥)) and P be the Riesz projection of L
+associated to the eigenvalue 1. We study (1.23) for a generic initial condition v ¢ H°", using a
+Lyapunov—Perron type argument. For v € He, Ke 2X, Ze C((0, +0); He), Z=(Z, Z),
+define
+
+3.1.1. Analysis of the perturbed system. Let us define
+
+i= ie O([0, +00); re) : Illy = ane ~ |o(t)|
+
++00
+
+C(v,K,Z) := P (« 4 [ e~* (N(K + Z) + VZ) as)
+
+20
+We look for fixed points of the map
+Ky 2(Y)(7) := S(7)(v — C(v, ©, Z)) 4 I S(7 — s) (N(U + Z) + VZ) ds,
+0
+where Z is obtained from z via the change of variables (3.2). This is the content of the
+following lemma.
+
+Lemma 3.2. For all sufficiently small 6 > 0 and all sufficiently large C > 0, the following
+holds. If v € Bsc and 2¢€ CrByyc, then there exits a unique UW € X5 such that
+
+w= ky,(W).
+Moreover, the map (v,z) > W is Lipschitz continuous from Bsyc x —_— into Xs.
+
+Proof. We start with the following observation on VZ. For each] eN, / > 3 —3 and fora
+multi-index a € N” of degree |a| = 1, the Leibniz rule gives
+
+gnaw) BOrs)eme
+
+B<a
+- a 1 = ~
+_ » » Pitl-ie-(4l- m( )e (Gaccca) 6° (TA _ e-7), €Te~’).
+2a La (eP+n—4)
+B\=%
+We now estimate the L? norm of each term. For a given 7 = |8], we have two cases. If
+i< as choosing ¢ < i; by Holder’s inequality with p = Saar we have
+
+J.
+
+ae (aq) ae-82(F(1 — 77), Te”)
+
+Ig? +n —
+
+5 1/2
+i)
+n+e—8—2i
+
+7 ata 2(n+e)
+< ([ Vi2(F(1— e), Fe) ac)
+
+a |xra -e~"))|
+
+vinta -e-)
+
+Latest HH! nwo
+n(n--e—8—2i) = a n(n-+e—8—2i) .
+(Te-") ~~ 2(n-Fe) (Te-7) ~20r-Fe)
+
+n—8
+2
+
+On the other hand, if i
+ab 1 qa—B (mp —T Po—T
+0 (e2+n—42 0° *2(T(1—e),€Te-")
+
+Therefore
+
+ (Gepncae?™9)
+
+Le
+
+2 1/2
+i) < |v2(Fa -e*))
+
+< |xfa - am)
+
+Hi nwo”
+
+APC = e*))|
+
+wy [ni — nte=8=21)
+max (Te~’) mre) + 1
+maw» \ j=0,...["53|
+
+(1 + e Eats)
+
+(T(1— ey
+21
+
+Hawise
+—T aoe =
+set |Fa-e7)] ie?
+due to our choice of ¢. Consequently, by interpolation and since k > s > 3—1 and
+@<s+1— 4 <1, we obtain
+8(n — 4)(n — 3) _
+Head (|-|2 +n 4)? HoH} te[0,27] Het?
+Similarly, and more simply,
+rad te[0,2T] rad
+
+where # = s+1—% <1. Note that, by our assumptions, @ < © < 1. Having these relations
+
+in mind, we can run the fixed point argument. First, we need to show that Ky, maps ¥5
+into itself. In view of (2.10), we rewrite it as
+Ky .(8)(r) = S(7)(1 — P)v 4 | S(7 — s)(I — P) (N(® + Z) + VZ) ds
+0
+
++00
+- | e'-*P (N(W + Z) + VZ) ds.
+
+a
+
+Thanks to our assumptions and estimates (2.10), (2.11), (3.3) and (3.4), we have
+
+|Ky2(W)(7)|
+
+—OT 6 7 —@(T-s) —2Ws 52 —20s ° —s é
+nek Se et e€ le “so +e ate fa ds
+ra 0
+
++00 7 . oe 5
++ | e* (a + Ns + 3) ds
+
+be
+
+= 6
+< eo 6 _).
+S€ ( =F >) ,
+
+since &@ < w <1. The last estimate implies the claim provided 6 is sufficiently small and C
+is sufficiently large. Secondly, we need to show that Ky, is a contraction. This follows from
+computations analogous to those above. Indeed, using (3.4), (2.10), and (2.11), we have
+
+s [ea (zt)
+
++00,
++ | e* (IZ(s)Iayee, + [Pa(s)Iyee, + [2l5)[lyuea,) [Ba(s) — ¥a(s)|
+
+a
+
+sk
+Head
+
+vue) [a(s) — ¥a(s)|
+
+sect, + [Pa(s) lager, + [W2(9)| weet, dS
+
+—WT 5
+5 (5+ 5) |i — Vol.
+
+Hence by choosing 6 sufficiently small and C sufficiently large, we obtain the contraction
+estimate
+
+1
+|Ky2(W1) — Ky2(W2)| x < 7 |Wi — Wally. (3.5)
+
+22
+It remains to show the continuity of the solution map. Let Y, corresponds to vj, z; and Wy»
+corresponds to v2, Z2. Using the triangle inequality, (2.10), and (2.11), we get
+
+|i (7) _ W.(7)| ee, = Ky, 2: (W1)(7) _ Ky,,22(W2)(7)|
+< |Kyya(G1)(7) — Kyo (1) (7) yet
+
++ |[Keve 20 (W1)(7) — Kyz,2,(¥1)(7)|
+
++ || Kove 29(W2)(7) — Kye ,22(¥1)(7)|
+
+PT Iva = Valle
+
+yk
+Had
+
+Head
+
+Hrad
+
+eA
+o
+
+a
+
+. (lela onset + alae ames, +8) be — Zl eoaryant
++e Jan — 2allogo omar #)
+Tr Kyo ,2.(W2)(7) ~ Kyy29(W1) (7 |
+Therefore, applying (3.5), we deduce
+
+|Wi(r) — alr) ly S [va — Vallaee
+
+Head
+
+aa
+
++ (lellagecrtett, + Palys rane, +8) I~ 2a ane
+
++ [21 — 2al oo oryark+ 8)
+
+and the claim follows.
+
+Note that, due to our construction, the initial perturbation Wy 7 and the stochastic term
+Z both depend on T . Explicitly, we have
+
+Ua. a) | LuolL:) -— Tuo(T-) Tu(T-) — ©
+Wop = UT, Uo, to) = ein) TP Dig (T- | + Eee _ A (3.6)
+Pwor(F-) |, | FOE) ©
+7 -|3 2 Gort E Ry} + Esa At (3.7)
+
+Similarly, the stochastic term in self-similar coordinates is
+Z(r,€) = Zp(r,€) = (Zp, Zz), where
+U(r, ) = Zplr,€) = Te 2(T( — €7),€Te),
+2(1,€) = Bplr,6) = Pe (7 — 77), Fe).
+Both expressions (3.6) and (3.7) will be used in the following analysis. 7
+The result of Lemma 3.2 applies to our initial condition W, 7, provided that T is suffi-
+ciently close to T and that the perturbation of the initial data is small in the sense that
+[wo - z® (=) | qysk 18 sufficiently small. The following lemma makes this statement precise
+rad .
+and quantifies the dependence of W) 7 on T.
+
+Lemma 3.3. For each 5 € (0, 4] and (uo, ti) € Ho" the map
+T + U(L, wo, to) : [T - 6,7 + 6] > He
+
+23
+is continuous. Moreover,
+
+[OCP wo, io)
+
+nek, S PP |4
+
+li; . [1,3
+Up 72 (=) for all Pe | sr 3r].
+
+Proof. Both statements follow from [40, Lemma 8.2], by observing that (3.7) corresponds to
+[40, equation (8.7)|, up to renaming £ as T.
+
+sk
+Head
+
+Thanks to Lemma 3.3, there exists 6 > 0 sufficiently small and N > 0 large enough such
+that 2 < zt and, for each T € [T — 2.7 + 4] and ||wo — 7® (=)| ok < x, we have
+
+6
+sk Ls
+Hoa C’
+
+H
+
+|U(T, uo, tio)|
+
+for C sufficiently large, as required in Lemma 3.2. Consequently, there exists a unique Uj
+solving
+
+U(r) = S(r) (u(t, uo, tty) — C(U(E, uo, tio), Vp, Z;))
+
++ [ S(r — s) (N(Wp + Ze) + VZe) ds
+0
+
+It remains to show that there exists a choice of T such that
+C(U(L, uo, tio), Vp, Zp) = 0.
+This is the content of the following lemma.
+
+Lemma 3.4. There exist constants 0 > 0 sufficiently small and N > 0 sufficiently large such
+that the following holds. If
+sk  N?
+
+then there exists T € [T — 2,7 + 2] such that
+
+}6
+<= and “Ee CrByy2
+
+W5(7) = S(7) (U(P, wo, fio) + [ S(r — s) (N(Wp + Zp) + VZz) ds.
+
+Proof. By Lemma 3.2 and Lemma 3.3, we can choose 6, N > 0 such that £ < 5 and for each
+
+Lr
+= 2
+Te (f—2,7 + 4] we have a unique WV, solving
+
+W5(7) = S(r) (U(T, wo, tio) — C(U(P, to, to), ¥7, Zz))
+
++ [ S(7 — s) (N(Wp + Zz) + VZp) ds.
+0
+
+By the definition of the map C(U (T , Uo, Uo), V7, Z7), it is sufficient to show that there exists
+a choice of T possibly depending on up, tio, T, z such that
+(C(U(T, uo, tio), Vp, Zz), Byes, = 0.
+
+First, we observe that, arguing as in |40, Lemma 8.2], we have
+
+Hs (7 ‘ + (« 29(5):7);
+
+24
+
+(PU(T, to, fo), 8) yee, = 2Vn— 4 Je
+
+1 Pr « 2 Lin mp aatio£
+where R, (up — Fe (=) j 9) is continuous in J’ and satisfies
+
+li7-\) T
+is (« tT? (a) 7)
+Here we jised again the argument from [40, Lemma 8.2], which applies to our case by re-
+
+naming + as T. Next, set Ro(z, up — ®, T) =F" e* (N(W7+ Zp) + VZ;) ds. Then the
+problem educes to finding T’ such that
+
+0)
+<—.
+= ys
+
+T
+
+n—A4 2/n—4 lel ,
+Defining the map
+F(f): I" _ op + >| —>R, F(T) Ri (Uo ®,7) Role, Wo — ®, Y)
+¢ c 2/n — 4|\g| He, 2/n—4|g| He,
+
+we are left to find a fixed point of F. Observe that Ry is continuous in T. Indeed, for
+T,, I> > 0, we can write
+
+Z5,(7,€) = Ta(1 — €)a(Tae™, €Ta(1 — e")
+Tracy e)z (Fa et ro “T(1 =)
+
+Ti T,
+
+~ ~ Tt {Tr, T,
+=T,(1- ec") Za, i (Tie ,ET\ (1 — am) ; 25, @(t,@) = R? (Fs te) .
+In particular 2%, 7, > 2 € C([0, 27]; Ht) as T; > T>. A similar argument applies to the
+second component of Z, and by the continuity of the solution map, cf. Lemma 3.2, we also
+have Wj, > Wy, in ¥ as T, > To. Combining this information with the estimates (3.3),
+(3.4) and (2.11), implies that Ro(z, up — ®, 7) is continuous in T. Moreover, by (3.3), (3.4)
+and (2.11), we have that
+
+Pr ~” - 20s 52 —20s oe Ds 4
+|Ro(z,Up — ®,T)| < |g ves, | e aC oO +e wire x) ds.
+
+Hence, by taking 6 > 0 sufficiently small and N > 0 wey large, we can ensure
+
+TN 5 (2v0=4 Isles)
+
+Therefore, F' is continuous and, by choosing 6 > 0 sufficiently small and N > 0 sufficiently
+large, it maps [T — 4, T+ =] into itself. The Brouwer fixed-point theorem then guarantees
+the existence of a fixed point, completing the proof.
+
+|Ri(uy — &, T)| + |Ro(z, up — ®,T)| <
+
+Lastly, we need a lemma that relates the mild solution constructed in self-similar variables
+to that obtained in physical variables. Indeed, we have shown that there exists a unique
+mild solution W to (1.23). Moreover, since ® is a classical solution of (2.8), it is also a mild
+one. Consequently, their sum is a mild solution of (1.19). The following result establishes
+
+the link between this solution and the fixed points of (2.6).
+25
+
+Lemma 3.5. If W = (W, W) is a (global) mild solution of
+Wo = (Tuo(T:), T?tio(T-)) then the function
+(
+
+(rane)
+
+[-t
+is a mild solution of (2.6) on [0,T) with initial condition wo =
+
+1.19) with initial condition
+
+Proof. Let us introduce, on H%*,, the family of operators $¢(t)
+
+|
+(uo, to).
+‘alls (=
+
+vi
+
+T—t
+
+1
+
+T—tpP
+
+x x
+
+w(t, x) =
+
+T—t
+
+T—t
+
+[Sp(t}ue](v)
+
+x
+
+Pp
+
+os
+To
+
+0,
+
+ior t < T defined by
+1 =—
+
+4 ) (Fou. 7207) |( “)s (3.8)
+
+(0
+where Up = (uo, fio). It is straightforward to verify that Si coincides with the standard wave
+semigroup on Hee for allt < T. Indeed, by density we can assume Up € -%pad X -Fraa- In this
+
+case, the wave semigroup yields the unique classical solution of the wave equation, namely
+
+u(t) = T(t)uo. Under the change of variables introduced in Section 2.2, we define
+Te, 0 rn —T ToT
+U(7,6) = 0, p>] u(T(1 — 77), €fe7").
+
+Then U is a classical (hence also mild) solution of the wave equation in self-similar variables,
+with initial condition Up = (Tuo(T-), T?4o(T-)), that is U(r, €) = [So(7)Uo](€). Observing
+
+that equa
+of U, the
+
+previous s
+
+w(t, 2) =
+
++
+
+ion (3.8) corresponds to inverting this change of variables in the mild formulation
+claim follows. We are now ready to prove our result. By the definition of v,
+tep and the chance of variables r = log( ee) we obtain for t < T,
+
++
+
+where
+
+S(#)uo]()
+
+a «(0 toe (72) i (n—3)E(|-\(W + Z)(s)) a
+
+S(t)uo| (x
+
+a (0 toe (72 P—s\\ (n—3)£(-|(W + Z) (log z*.)) a
+
+| 0 a fh So (» (F)) (F—9 a (<4):
+(3.9)
+
+f(a) = (0, 2a — sin(2a)).
+
+To identify the second term, note that by the definition of W
+(n — 3)£(|-\(W + Z)(log z°,-)) ?
+(T-r)?
+
+T.
+
+T—-r,
+FF
+q=)). Using (3.8) with the parameter to
+
+f(T =r) wt Dr, (L-7))
+(F —r)3|-3
+
+_0
+T-r
+
+T.
+
+Dat
+T-t
+
+0,
+T-r)
+
+)) = 80 (008 (;
+
+and, obviously, So (log (
+
+T —r, we deduce
+
+26
+P—r\\ (n—3)£(-\(W + Z)(log ))
+(= (=) a |
+
+= " t, ie ° ani [T(t —r)n((w + 2)(r))] (7 = t)-)
+
+Substituting this expression into (3.9) yields the claim.
+
+The proof of Theorem 3.1 now follows directly from Lemma 3.4 and Lemma 3.5.
+
+Proof of Theorem 3.1. Let us first select 6 > 0 and N > 0 so that the assumptions of
+Lemma 3.4 are satisfied, and choose ¢ in the statement of Theorem 3.1 small enough such
+that
+
+6
+P (ju — ur(0,-)| sk, < x) >0.
+
+Consequently, by Lemma 2.5 and the independence of z from Fo, there exists a measurable
+set of positive probability, denoted by N3,n, such that
+
+w—78(7)
+
+Therefore, for each w € N,v, there exists a time
+
+[2 aay <<
+sup ||z(t nti <=,
+te[0,27] H'r NN?
+
+6
+a: for each w é Nyn.
+
+Head
+
+7-Tw)e|r-Z.7+ 3]
+
+such that the claim of Lemma 3.4 holds, moreover 4 < z. Since W + ® is a mild solution of
+(1.19), it follows from Lemma 3.5 and uniqueness of the mild solutions for (1.11) (see also
+
+Theorem 1.1) that, on the set N,v we have the following representation
+
+1 IX] \ 1 7 |X|
+u(t, |X|) es «(4 +e -¥ (ie (25) gS) + te, (3.10)
+
+yok — +o ast > T.
+rad
+
+Consequently, T'(w) coincides with the blowup time 7*(U,w) for every w € Nyy. Hence,
+
+for all t < T. From (3.10), we immediately deduce that: ||u(t)|
+
+_ <T*Uo,w)lngy < Sf.
+
+and the first component of the unique corotational mild solution of (1.10), provided by
+Corollary 1.4, satisfies (3.1). To establish the final claim, we combine the representation
+(3.10) with the definition of Vs; and the embdedding of He
+
+vy i L®. Indeed, on Nj.v, we
+have that
+T
+W | lo =
+
+~ ~ d
+
+<(P—)" 4 (F—t)-? 0
+
++ (F—All2(t, (F -t))|
+
+(7 —tu(t, (F - |X) - &(X)] <
+
+73,k
+Fad
+
+Ek
+
+rad
+
+uniformly on R?@ as t > T-. Consequently, for each w € Ng.
+U(t, (T*(Uo, w) — t)X) > B(|X])X
+27
+locally uniformly in R¢, which completes the argument.
+
+4, IRREDUCIBILITY OF THE STOCHASTIC COROTATIONAL WAVE MAPS
+
+This section is devoted to establishing the second key component in the proof of Theorem 1.1,
+ie., the following result.
+
+Theorem 4.1. Suppose that Assumption 2.4 holds and let
+up € He” 1,k+2 x Ho Hee ue Ho
+
+rad
+Let u denote the unique solution of (1.11) with initial condition ug given by Theorem 1.1.
+Then
+
+and t,e>0
+
+rad? rad?
+
+P(r*(uo) 2 t, |u(t) — willy,
+
+This result establishes the irreducibility of the stochastic system (1.11). As a direct conse-
+quence, it implies that, with positive probability, the blowup of u can be prevented up to
+time t. The proof proceeds in two steps: (i) an approximate controllability argument, and
+(ii) continuous dependence of the solution map on the controls.
+
+sko< €) > 0.
+rad
+
+4.1. Approximate controllability. We study the translated nonlinear wave map
+dpw — Aw = oa 3 (2\a|(w + z) — sin(2|2|(w + z))),
+w(0) = uo, (4.1)
+
+where z is, as before, the stochastic convolution associated with the wave equation. We
+adopt (4.1) instead of the more standard formulation
+u(0) = uo, (4.2)
+
+0,u(0) = tio,
+
+since w enjoys better continuity properties with respect to z than u does with respect to f.
+For convenience, we define, for any T; > 0,
+
+gpk {z= = (2,8) € C([0, Ti]; #4) : 2(0) = (0) = 0, 24) = [ eeu.
+
+This is a aes Banach space if endowed with the topology of C([0,T;];H°",). Here, the
+
+equality z( = fh als s)ds has to be understood in the sense of tempered distributions, i.e. in
+-%', Now we can prove the approximate controllability result for equation (4.1).
+Pagppsthiant 4.2. For any T, > 0 and uo = (to, tio), wr = (1, %%) € HS? x Ae
+Ho", there exists z € ey, such that w = (w,0,w) solving (4.1) exists on [0,T1] and satisfies
+w(0)=uo, w(7i) +2(T1) = uw.
+Proof. Without loss of generality, let us assume 7, = 1. We aim to construct u = (u, Ou)
+such that
+u(0) = uo, u(1) = wi, Ou(0) = Go, Cu(1) = &.
+28
+Since four conditions must be satisfied, it is clear that if wu is taken as a cubic polynomial
+in time, the coefficients can then be chosen to meet all the conditions. However, in order to
+relax the regularity assumptions on Up and uj, and to construct z and w such that u = z+w,
+with both z and w satisfying the requirements of the statement, it is necessary to modify
+the polynomial behavior through a suitable regularization procedure. With this in mind,
+and with a slight abuse of notation, let P(t) denote the semigroup on H!_, associated to the
+infinitesimal generator A—I : D(A—1) = H!,40 Hi] CH! > Hig for each 1 > —3. Let
+u(t) = (1+ 203 — 3t?) up + (3 — 2t)u
+(3 — 2t) (Z-— A)“! — I-A)? + Z- A) P P(A) 0
+(I-A) (1 —#) P(t) — T— (I — A)! P(t) + (I— A)“ ain
++ #°(3 — 2t) (I-A)! + IZ - A)? - (- A) PP(1)) &
+—(1— A)" (tP(.—t) + (F— A) P= t) — 7 — A) P()) fr,
+a(t) = eu(t), u(t) = (u, a(t).
+Then, clearly, u(0) = uo, u(1) = u;. Moreover, we have the regularity
+
+ue C({0, 1]; He hk+ 2) ae C((0, 1]; Fey,
+
+rad rad
+
+b
+
+Next, define
+a
+
+F(t) = (t) — -| (Au(s) + no(u(s))) ds, F(t) = (0, f()-
+
+0
+
+By the regularity of u, a, together with Lemma 2.2, we have f € C([0, 1]; H*,/""). Therefore
+
+Now set
+z(t) = F(t) + [ T(t— s)AF(s)ds.
+It is straightforward to check that z sattities
+{ =Az+0,F
+z(0) = 0,
+
+and that u together with F solves equation (4.2). In particular, due to the smoothness of
+F, we have
+
+z€C((0,1];H2")).
+
+rad
+
+The claim follows.
+
+4.2. Continuity of the solution mapping along the controllers. The main result of
+this section is the following.
+
+Proposition 4.3. Let up € H°*, and z € Eee be such that there exists a unique solu-
+tion w € C({0,Ti];He",) to (4.1). Then, there exist neighborhoods Hy © H&*, of uo and
+
+rad. rad
+Zo rae of z such that for any Up € Ho and Z € Zo, there exists a unique solution
+29
+we C([0, Ti]; He) of (4. ce Moreover the solution map (uo,z) > w is continuous from
+Ho x Zo into C((0,Ti];H2%).
+
+Proof. We divide the proof into two steps.
+Step 1: Preparation. Let M > 1 be the constant appearing in (2.7). We first show the
+existence of a time T* = T*(r, R) such that for any
+
+|| wo] wt, ST ll2lleqorjaes) <R,
+
+there exists a unique solution w to (4.1) belonging to the closed ball of radius (M + 1)r in
+C((0, T*]; H°",). Define the map
+
+rad
+t
+
+Tuy2[h](t) = T()uo + I T(t — s)n(h(s) + 2(s))ds.
+0
+By the properties of the wave semigroup on He
+
+C([0, 1]; He"
+
+rad.
+
+|[Puo.2{h](¢)
+
+vq» it follows immediately that Py,2[h](¢) €
+
+). Moreover, applying Lemma 2.2, we obtain
+
+« <Me™r+ Curse (R+r)? (1+ BR + r*)(e® - 1)
+<(M+1)r
+
+provided that 7) is sufficiently small. Therefore for sufficiently small T* > 0 the operator
+
+Tup.2 maps the closed ball of radius (M + 1)r in C((0, T*]; H2%,) into itself. Next, ak have
+
+rad
+
+to show that I’, is a contraction. Using the properties of the wave semigroup on He va We
+have
+
+||Puo 2{ba](t) — Pup ello] (4) [lags
+
+$ [I — holleqorejaenky (R +7)? (1 + RP + 18) (e?* — 1)
+
+1
+S glib — bollocorsaray
+provided that T* is sufficiently small. This choice of T* may be smaller than in the previous
+step, but it depends only on r and R.
+Similarly, we can solve (4.1) on any interval [T*(r, R)k, T*(r, R)(k+1)] for k € {0, oe Ey Ine}
+yok, < 7. To keep track of the initial con-
+rae k+1/
+
+provided
+
+dition and the time interval considered, we denote by w Z, Ux,*) the unique solution of
+(4.1) in [T*(r, R)k, T*(r, R)(k+1)] with initial condition u;,. We now show that w**"(z, ug, -)
+depends continuously on u, and z in C([T*(r, R)k, T*(r, R)(k+1)];He%,). Indeed, since P.,
+is a contraction of constant 4 in the relevant parameter range, by Lemma 2.2 we have
+
+Iw (21, Una, t) _ witli
+
+< [Pua a2 [w*!(21, Uk,1, |) ~ Pa, 2.21 [wh*!(z, Uk,1; a) IG)
++ [[Pupo2ilw**"(z1, wea, I) —
++ [[Puy22olw*"(z1, Wea, I) —
+
+< Cc (ilu. = ux9|
+
+Z2, Un,2, t) || ys
+
+ay
+M(t)
+](4)|
+
+Up, 25 z2[W hg, Ug,1,
+kt
+
+E Hens
+.
+
+nin Tb,
+
+k
+
+1
+(Z2, Ux,2, Usk,
+
+Uk, oo [W
+
+nek, + lz — Zalloqomyes))
+
+1
++ sll’ (a, ug.,:) — wt! (29, Une, Ne qor jr):
+
+30
+for some positive constant C. The latter implies
+
+Jw"?! (zi, Ue1,-) — wh*!(a2, Un, ler (r,R)k,T*(r,R)(k+ 1]: H2,)
+
+< CG (lu. — ux2|
+
+are, + [lea — zalledoines)) » (43)
+
+rad
+which establishes the claim.
+Step 2: End of the proof. Let us introduce
+
+R= 1+ llelleqonpsegy 7 = 1+ Iwlleconiey
+with z and w the ones in the statement. Let us set
+Ty I
+N ; = 5
+nem) & oT
+where C is the constant in (4.3). Define Ho and Zp as the closed balls of radius d9 centered
+at Uo and z, respectively. Thanks to (4.3)
+
+1
+lw! (Z, Uo, ‘) ~~ w(Z, Uo, Neqo T*( R)|H2",) S Sos
+O([0,T*(r,R)]; QN-1(C v 1)N-1
+
+rad
+
+In particular
+
+il
+
+(one) + ITE yaya <"
+
+Iw! G, to, T(r. R))Ihyex, < IWlle
+and we can construct w?(z, v!(Z, to, T*(r, R)),-) extending w1(z, tip,-). Iterating the argu-
+ment, we can extend w1(Z, tig, -) to the whole [0,7] proving the first part of the claim and
+the continuity of the solution map in (uo, z). Replacing (uo, z) by any element in Ho, Zo the
+
+rest of the claim follows.
+
+As a direct consequence of Proposition 4.2 and Proposition 4.3 we obtain the following
+proof.
+
+Proof of Theorem 4.1. Let us start fixing Wy € Yad X Yaa Such that
+
+a, — us|
+
+qe < 2
+It then follows that
+P(r*(wo) >t, u(t) — wi]
+
+_ e
+st, e) >P (**(uo) >t, u(t) —Tif,yae, < =)
+By Proposition 4.2 with T; = t, there exists z € aan such that
+w(t) + 2(t) = 1.
+
+Furthermore, by Proposition 4.3, there exists a neighborhood Zp of z in eC such that for
+every Z € Zo
+
+€
+w(t) + 2(t) — th] <5.
+
+Consequently, we have
+P(r*(w) >t, u(t) —m|
+
+31
+
+€
+ek, < 5) > P(ze Zo).
+The latter probability is strictly positive due to the non-degeneracy of the noise W, i
+regularity and Lemma 2.5.
+
+n
+
+5. PROOF OF THEOREM 1.5
+
+As announced in Section 1.5, the proof follows by combining Theorem 4.1 and Theorem 3.1.
+For a given T > 0, let us fix
+
+pal
+3
+
+and subsequently ¢ > 0 small enough such that Theorem 3.1 applies with this choice of T.
+
+Define
+T 1 : €
+u(Z.-) raat, waa}
+
+where Cys. denotes the maximum of the hidden constants appearing in [39, Proposition
+A.5, Remark A.6] applied for s,s —1,k,k —1. Then, on Q9 we also have
+<é.
+
+By Theorem 4.1, P(Q) > 0, and clearly Q € Fy 2. Let us define
+
+— ne if w € A%
+
+T
+Q?
+
+OQ = \- EQ: r*(Uo) >
+
+0 otherwise.
+
+By Theorem 3.1, the solution of equation (1.10) with initial condition U(X) = tig (|X|)X
+
+and Brownian motion W, = Wr,,— Wr, denoted by U, blows up in a self-similar way
+2 2
+
+before aT = ft with positive probability. Due to pathwise uniqueness of solutions for (1.10)
+guaranteed by Corollary 1.4, it follows that (t+) coincides with U(t) on No. Consequently,
+U(t) also blows up in a self-similar way with positive probability before E+ aT =T. Finally,
+
+defining
+f 1) T*(Uo) — o oe
+Tt ¢ +t) =W (i (= 5) T ; ,a),
+
+the proof is complete.
+
+REFERENCES
+
+[1] Antonio Agresti. Global smooth solutions by transport noise of 3D Navier-Stokes equations with small
+hyperviscosity. arXiv preprint arXiv:2406.09267, 2024.
+
+[2] Antonio Agresti and Mark Veraar. Nonlinear SPDEs and Maximal Regularity: An Extended Survey.
+Nonlinear Differential Equations and Applications NoDEA, 32(6):123, 2025.
+
+[3] Sergio Albeverio, Zbigniew Haba, and Francesco Russo. Trivial solutions for a non-linear two-space-
+dimensional wave equation perturbed by space-time white noise. Stochastics and Stochastics Reports,
+56(1-2):127-160, 1996.
+
+[4] Lisa Beck, Franco Flandoli, Massimiliano Gubinelli, and Mario Maurelli. Stochastic ODEs and stochastic
+linear PDEs with critical drift: regularity, duality and uniqueness. Electronic Journal of Probability,
+24:Paper No. 136, 72, 2019.
+
+32
+10
+
+11
+
+12
+
+13
+
+14
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24]
+
+25
+
+26
+
+27
+
+28
+
+Federico Bertacco, Carlo Orrieri, and Luca Scarpa. Weak uniqueness by noise for singular stochastic
+PDEs. Transactions of the American Mathematical Society, 2025.
+
+Pawel Biernat, Roland Donninger, and Birgit Schérkhuber. Hyperboloidal similarity coordinates and a
+globally stable blowup profile for supercritical wave maps. International Mathematics Research Notices,
+2021 (21):16530-16591, 2021.
+
+Piotr Bizori and Pawel Biernat. Generic self-similar blowup for equivariant wave maps and Yang-Mills
+fields in higher dimensions. Communications in Mathematical Physics, 338:1443-1450, 2015.
+
+Piotr Bizon, Tadeusz Chmaj, and Zbislaw Tabor. Dispersion and collapse of wave maps. Nonlinearity,
+13(4):1411-1423, 2000.
+
+Zdzislaw Brzezniak and Martin Ondrejat. Strong solutions to stochastic wave equations with values in
+Riemannian manifolds. Journal of Functional Analysis, 253(2):449-481, 2007.
+
+Zdzislaw Brzezniak and Martin Ondrejat. Stochastic wave equations with values in Riemannian mani-
+folds. Stochastic Partial Differential Equations and Applications, pages 65-97, 2010.
+
+René Carmona and David Nualart. Random non-linear wave equations: smoothness of the solutions.
+Probability Theory and Related Fields, 79(4):469-508, 1988.
+
+René Carmona and David Nualart. Random nonlinear wave equations: propagation of singularities. The
+Annals of Probability, 16(2):730-751, 1988.
+
+Thierry Cazenave, Jalal Shatah, and A. Shadi Tahvildar-Zadeh. Harmonic maps of the hyperbolic
+space and development of singularities in wave maps and Yang-Mills fields. Annales de l'Institut Henri
+Poincaré. Physique Théorique, 68(3):315-349, 1998.
+
+Athanasios Chatzikaleas, Roland Donninger, and Irfan Glogié. On blowup of co-rotational wave maps
+in odd space dimensions. Journal of Differential Equations, 263(8):5090-5119, 2017.
+
+Pao-Liu Chow. Stochastic wave equations with polynomial nonlinearity. The Annals of Applied Proba-
+bility, 12(1):361-381, 2002.
+
+Michele Coghi and Mario Maurelli. Existence and uniqueness by Kraichnan noise for 2D Euler equations
+with unbounded vorticity. arXiv preprint arXiv:2308.03216, 2023.
+
+Ovidiu Costin, Roland Donninger, and Irfan Glogié. Mode stability of self-similar wave maps in higher
+dimensions. Communications in Mathematical Physics, 351(3):959-972, 2017.
+
+Ovidiu Costin, Roland Donninger, and Xiaoyue Xia. A proof for the mode stability of a self-similar
+wave map. Nonlinearity, 29(8):2451, 2016.
+
+Gianluca Crippa, Eliseo Luongo, and Umberto Pappalettera. Zero-noise selection and large deviations
+in L? L¥ for the stochastic transport equation beyond DiPerna-Lions. arXiv preprint arXiv:2506.06947,
+2025.
+
+Giuseppe Da Prato and Arnaud Debussche. Two-dimensional Navier-Stokes equations driven by a space—
+time white noise. Journal of Functional Analysis, 196(1):180-210, 2002.
+
+Giuseppe Da Prato, Franco Flandoli, Michael Réckner, and A. Yu. Veretennikov. Strong uniqueness for
+SDEs in Hilbert spaces with nonregular drift. The Annals of Probability, 44(3):1985—2023, 2016.
+Giuseppe Da Prato, Frando Flandoli, Enrico Priola, and Michael Réckner. Strong uniqueness for sto-
+chastic evolution equations in Hilbert spaces perturbed by a bounded measurable drift. The Annals of
+Probability, 41(5):3306-3344, 2013.
+
+Giuseppe Da Prato and Jerzy Zabczyk. Stochastic equations in infinite dimensions, volume 152. Cam-
+bridge university press, 2014.
+
+Robert C Dalang and Nicholas E Frangos. The stochastic wave equation in two spatial dimensions.
+Annals of Probability, pages 187-212, 1998.
+
+Anne de Bouard and Arnaud Debussche. On the effect of a noise on the solutions of the focusing
+supercritical nonlinear Schrédinger equation. Probability theory and related fields, 123(1):76-96, 2002.
+Anne de Bouard and Arnaud Debussche. Blow-up for the stochastic nonlinear Schrédinger equation
+with multiplicative noise. The Annals of Probability, 33(3):1078-1110, 2005.
+
+Roland Donninger. On stable self-similar blowup for equivariant wave maps. Communications on Pure
+and Applied Mathematics, 64(8):1095-1147, 2011.
+
+Roland Donninger and Peter C Aichelburg. Spectral properties and linear stability of self-similar wave
+maps. Journal of Hyperbolic Differential Equations, 6(02):359-370, 2009.
+
+33
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35
+
+36
+
+37
+
+38
+
+39
+
+40
+
+41
+
+42
+
+50
+
+51
+
+52
+
+53
+
+Roland Donninger and Irfan Glogié. On the existence and stability of blowup for wave maps into a
+negatively curved target. Analysis & PDE, 12(2):389-416, 2019.
+
+Roland Donninger and Matthias Ostermann. On stable self-similar blowup for corotational wave maps
+and equivariant Yang-Mills connections. arXiv e-prints: 2409.14733, September 2024.
+
+Roland Donninger, Birgit Schérkhuber, and Peter C. Aichelburg. On stable self-similar blow up for
+equivariant wave maps: the linearized problem. Ann. Henri Poincaré, 13(1):103-144, 2012.
+
+Franco Flandoli. Irreducibility of the 3-D stochastic Navier-Stokes equation. Journal of functional anal-
+ysis, 149(1):160-177, 1997.
+
+Franco Flandoli. Random Perturbation of PDEs and Fluid Dynamic Models: Ecole d’été de Probabilités
+de Saint-Flour XL—2010, volume 2015. Springer Science & Business Media, 2011.
+
+Franco Flandoli, Massimiliano Gubinelli, and Enrico Priola. Well-posedness of the transport equation
+by stochastic perturbation. Inventiones mathematicae, 180(1):1-53, 2010.
+
+Franco Flandoli and Dejun Luo. High mode transport noise improves vorticity blow-up control in 3D
+Navier-Stokes equations. Probability Theory and Related Fields, 180:309-363, 2021.
+
+Mohammud Foondun, Davar Khoshnevisan, and Eulalia Nualart. Instantaneous everywhere-blowup of
+parabolic SPDEs. Probability Theory and Related Fields, 190(1):601-624, 2024.
+
+Mohammud Foondun, Wei Liu, and Erkan Nane. Some non-existence results for a class of stochastic
+partial differential equations. Journal of Differential Equations, 266(5):2575-2596, 2019.
+
+Mohammud Foondun and Rana Parshad. On non-existence of global solutions to a class of stochastic
+heat equations. Proceedings of the American Mathematical Society, 143(9):4085—4094, 2015.
+
+Irfan Glogi¢. Stable blowup for the supercritical hyperbolic Yang-Mills equations. Advances in Mathe-
+matics, 408:108633, 2022.
+
+Irfan Glogié. Globally stable blowup profile for supercritical wave maps in all dimensions. Calculus of
+Variations and Partial Differential Equations, 64(2):46, 2025.
+
+Massimiliano Gubinelli, Herbert Koch, and Tadahiro Oh. Renormalization of the two-dimensional sto-
+chastic nonlinear wave equations. Transactions of the American Mathematical Society, 370(10):7335—
+7359, 2018.
+
+Massimiliano Gubinelli, Herbert Koch, Tadahiro Oh, and Leonardo Tolomeo. Global dynamics for
+the two-dimensional stochastic nonlinear wave equations. International Mathematics Research Notices,
+2022(21):16954-16999, 2022.
+
+Sebastian Herr, Michael Réckner, Martin Spitz, and Deng Zhang. The three-dimensional stochastic
+Zakharov system. The Annals of Probability, 53(3):848-905, 2025.
+
+Antoine Hocquet. Finite-time singularity of the stochastic harmonic map flow. Annales de l'Institut
+Henri Poincaré Probabilités et Statistiques, 55(2):1011-1041, 2019.
+
+Joachim Krieger and Shuang Miao. On the stability of blowup solutions for the critical corotational
+wave-map problem. Duke Mathematical Journal, 169(3):435-532, 2020.
+
+Joachim Krieger, Shuang Miao, and Wilhelm Schlag. A stability theory beyond the co-rotational setting
+for critical Wave Maps blow up. arXiv e-prints, page arXiv:2009.08843, September 2020.
+
+Joachim Krieger, Wilhel Schlag, and Daniel Tataru. Renormalization and blow up for charge one equi-
+variant critical wave maps. Inventiones Mathematicae, 171(3):543-615, 2008.
+
+Joachim Krieger and Wilhelm Schlag. Concentration compactness for critical wave maps. EMS Mono-
+graphs in Mathematics. European Mathematical Society (EMS), Ziirich, 2012.
+
+Carl Mueller. The critical parameter for the heat equation with a noise term to blow up in finite time.
+The Annals of Probability, 28(4):1735-1746, 2000.
+
+Carl Mueller and Richard Sowers. Blowup for the heat equation with a noise term. Probability theory
+and related fields, 97(3):287-320, 1993.
+
+Amnon Pazy. Semigroups of linear operators and applications to partial differential equations, volume 44.
+Springer Science & Business Media, 2012.
+
+Szymon Peszat and Jerzy Zabczyk. Nonlinear stochastic wave and heat equations. Probability Theory
+and Related Fields, 116:421—443, 2000.
+
+Enrico Priola. An optimal regularity result for Kolmogorov equations and weak uniqueness for some
+critical SPDEs. The Annals of Probability, 49(3):1310-1346, 2021.
+
+34
+54]
+
+56
+
+57
+
+58
+
+59
+
+60
+61
+
+62
+
+63
+
+64
+
+Pierre Raphaél and Igor Rodnianski. Stable blow up dynamics for the critical co-rotational wave maps
+and equivariant Yang-Mills problems. Publications Mathématiques. Institut de Hautes Etudes Scien-
+tifiques, pages 1-122, 2012.
+
+Igor Rodnianski and Jacob Sterbenz. On the formation of singularities in the critical O(3) o-model.
+Annals of Mathematics. Second Series, 172(1):187-242, 2010.
+
+Jalal Shatah. Weak solutions and development of singularities of the SU(2) o-model. Communications
+on Pure and Applied Mathematics, 41(4):459-469, 1988.
+
+Jalal Shatah and A. Shadi Tahvildar-Zadeh. On the Cauchy problem for equivariant wave maps. Com-
+munications on Pure and Applied Mathematics, 47(5):719-754, 1994.
+
+Jacob Sterbenz and Daniel Tataru. Energy dispersed large data wave maps in 2+ 1 dimensions. Com-
+munications in Mathematical Physics, 298(1):139-230, 2010.
+
+Jacob Sterbenz and Daniel Tataru. Regularity of wave-maps in dimension 2+ 1. Comm. Math. Phys.,
+298(1):231-264, 2010.
+
+Terence Tao. Global regularity of wave maps II-VI. arXiv preprints, 2008-2009.
+
+Leonardo Tolomeo. Global well posedness of the two-dimensional stochastic nonlinear wave equation on
+an unbounded domain. The Annals of Probability, 49(3):1402-1426, 2021.
+
+Neil Turok and David Spergel. Global texture and the microwave background. Physical Review Letters,
+64(23):2736, 1990.
+
+Alexander Ju Veretennikov. On strong solutions and explicit formulas forsolutions of stochastic integral
+equations. Mathematics of the USSR-Sbornik, 39(3):387, 1981.
+
+Alexander K Zvonkin. A transformation of the phase space of a diffusion process that removes the drift.
+
+Mathematics of the USSR-Sbornik, 22(1):129, 1974.
+
+FAKULTAT FUR MATHEMATIK, UNIVERSITAT BIELEFELD, D-33501 BIELEFELD, GERMANY
+Email address: irfan.glogic@uni-bielefeld.de
+
+FAKULTAT FUR MATHEMATIK, UNIVERSITAT BIELEFELD, D-33501 BIELEFELD, GERMANY
+Email address: hofmanova@math.uni-bielefeld.de
+
+FAKULTAT FUR MATHEMATIK, UNIVERSITAT BIELEFELD, D-33501 BIELEFELD, GERMANY
+Email address: eluongo@math.uni-bielefeld.de
+
+35

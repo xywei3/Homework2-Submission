@@ -1,0 +1,1082 @@
+2510.25703v1 [cond-mat.mes-hall] 29 Oct 2025
+
+arXiv
+
+Fast high-fidelity baseband reset of a latched state for quantum dot qubit readout
+
+Piotr Marciniec,!»* M. A. Wolfe,!:* Tyler Kovach,! J. Reily,! Sanghyeok Park,! Jared Benson,! Mark Friesen,!
+Benjamin D. Woods,! Matthew J. Curry,? Nathaniel C. Bishop,? J. Corrigan,? and M. A. Eriksson?
+
+‘Department of Physics, University of Wisconsin-Madison, Madison, WI 53706, USA
+2 Intel Corp., Hillsboro, OR, USA
+
+A common method for reading out the state of a spin qubit is by latching one logical qubit state,
+either |1) or |0), onto a different, metastable charge state. Such a latched state can provide a superior
+charge sensing signal for qubit readout, and it can have a lifetime chosen to be long enough that
+the charge sensed readout can be high fidelity. However, the passive reset out of latched states is
+inherently long, which is not desirable. In this work, we demonstrate an on-demand, high fidelity
+(> 99%) re-initialization of a quantum dot qubit out of a latched readout state. The method is
+simple to apply as it involves a single baseband voltage pulse to a specific region in the quantum
+dot stability diagram where the relaxation time from the latched state to the ground state is over
+50 times faster. We describe the mechanism for the reset process as well as the boundaries for the
+optimal reset region in the qubit gate voltage space.
+
+I. INTRODUCTION
+
+Latched readout is an important technique for qubit
+readout in quantum dots that maps a qubit state, ei-
+ther |1) or |0), onto a third, metastable state, called the
+latched state [1-3]. It offers two major advantages over
+non-latching, spin-to-charge conversion readout schemes:
+first, the latched state involves a reservoir transition, in-
+ducing a change in total charge occupation, and it thus
+generates a larger, more easily measured readout sig-
+nal [4-12]. Second, the lifetime of the latched state can
+be controlled by tuning the tunnel rates of the system.
+This feature is especially useful for systems in which the
+relaxation rate of the qubit is much faster than the read-
+out bandwidth of the measurement circuit [13-18].
+
+Latched states with a lifetime sufficient for measure-
+ment, however, will have a slow natural reset rate that
+inherently leads to long qubit re-initialization times, as
+described in [19]. Long initialization times not only dras-
+ically increase measurement times in qubit experiments,
+ut they can also be highly detrimental to quantum er-
+ror correction (QEC). For example, a measurement error
+rate budget of 0.5% has been proposed for practical im-
+lementations of QEC [20]. To achieve this threshold for
+oth measurement and initialization without an active
+reset, the latch natural decay must be slow compared to
+he measurement time, making the re-initialization time
+orders of magnitude longer than the minimum measure-
+ment time. This is not desirable because all other qubits
+waiting during this time will be prone to idling errors. An
+active reset would mitigate these errors by re-initializing
+he qubit out of the latched state quickly, on-demand,
+and with high fidelity. Further, since readout and idling
+errors contribute to the overall error budget, reducing
+hose errors eases those requirements for other contribu-
+ions to the error budget, such as gate errors [21].
+
+* These authors contributed equally
+
+In this work we demonstrate on-demand re-
+initialization of a quantum dot hybrid qubit (QDHQ)
+[22] out of a latched state using only baseband pulses.
+The active reset works by pulsing to a region in voltage
+space where the latched state quickly decays to the qubit
+ground state through a fast two-step process. The latch
+we employ is the 4-electron (3,1) state, which differs by
+an entire electron charge from the non-latched readout
+states (4,1) and (3,2). The active reset method proceeds
+in two steps: first, the (3,1) latched state quickly decays
+to a (3,2) charge state via a reservoir transition at a
+rate of Ip, which is tuned to be fast. Then, an inelastic
+tunneling event brings the (3,2) charge state of the
+qubit to (4,1),, the qubit |0), completing the qubit re-
+initialization. This step occurs at a rate of 1/T;, which
+can also be tuned to be fast via the interdot barrier
+gate. We demonstrate that this procedure produces
+on-demand re-initialization of the qubit at a rate that is
+more than 50 times faster than the natural decay of the
+latched state, achieving > 99.5% initialization fidelity
+within 4 js. We also describe the physical processes in
+the surrounding neighborhood of the optimal latch reset
+region, and demonstrate why those regions should be
+avoided for fast and effective reset.
+
+II. LATCHED READOUT
+
+Fig. la shows a scanning electron micrograph (SEM)
+image of an Intel Tunnel Falls Si/SiGe quantum device
+(23, 24] nominally identical to the one studied here. It
+hosts three quantum dots and a charge sensor. A dou-
+ble dot is formed under plunger gates Pl and P2, and
+charge sensing is performed with the single-electron tran-
+sistor (SET) formed under P20. Reservoirs for each dot
+are shown by red false coloring, with the finger gates of
+the third dot in the qubit channel acting as an extended
+reservoir. The SET response is measured through a bias
+tee, allowing both for slow, time-averaged measurements
+and for fast, single-shot measurements through a cryo-
+1.114
+Veg (V)
+
+1.118
+
+Detuning €
+
+10°
+Latching duration (us)
+
+FIG. 1. (a) SEM micrograph of a Tunnel Falls triple dot
+device lithographically identical to the one used in this ex-
+periment. The circuit shown is used both for time-averaged
+measurements and fast, single-shot measurements. For the
+latter, a cryogenic amplifier is mounted at the mixing cham-
+ber (MC) stage before the transimpedance amplifier (TIA)
+and the analog-to-digital converter (ADC), the latter of which
+both are at room temperature. (b) Stability diagram with
+an applied excitation pulse (inset) in the (4,1)-(3,2) charge
+configuration with tunnel rates tuned to latch onto a (3,1)
+charge state. The excitation pulse amplitude takes the sys-
+tem from point I/R (initialization/readout) to point O (op-
+eration). (c) Energy dispersion diagram of the QDHQ in the
+(4,1)-(3,2) charge regime with the latched state shown along
+with its tunable parameters. (d) A distribution of the life-
+times of many latching events showing the inherently long
+initialization times that come with long lived latched states.
+The inset reports the cumulative distribution of the latch du-
+rations as the fraction of latching events that have unlatched,
+Naniatchea/Ntotal, aS a function of time t, demonstrating that
+a non-active reset requires waiting much longer than the mini-
+mum measurement time in order for re-initialization to occur.
+
+genic amplifier thermalized to the mixing chamber plate.
+
+Fig. lb reports a stability diagram showing the
+(Npi,Np2) — (4,1)-(3,2) charge configuration, which
+hosts the |0) and |1) states of the 5-electron QDHQ, as
+shown in Fig. lc. The 2-electron energy splitting of the
+right dot, Egr, is a valley-like singlet-triplet splitting. In
+contrast, because there are two additional electrons in the
+left dot, which do not participate in the qubit dynamics,
+he lowest 4-electron energy splitting of the left dot is an
+orbital-like singlet-triplet splitting E*,, [25]. In order to
+enter the (3,1) latched state from the (3,2), state in the
+readout window, the right dot tunnel rate [rz must be
+uned to be faster than the interdot relaxation rate 1/T;,
+so that an electron tunnels out of the right dot into the
+right lead before an inelastic tunneling event relaxes the
+double dot from (3, 2) to (4,1), as shown in Fig. lc. The
+ifetime of the latched state is then tunable with the left
+dot tunnel rate ;, which controls how long it takes for
+an electron to load onto the left dot from the left lead,
+
+re-initializing the qubit to the (4,1) ground state [19].
+For these experiments, the lifetime of the latched state
+was tuned to the range of 50 — 85 pus.
+
+To confirm the readout is set to latch properly, we
+apply the voltage pulse shown in the inset of Fig. 1b.
+This pulse, which follows the path shown by the black ar-
+rows on the energy dispersion diagram in Fig. lc and the
+points on the stability diagram in Fig. lb (R > O- 1),
+populates the (3,2), state when the pulse abruptly re-
+turns across the polarization line. The readout win-
+dow is then visible in the stability diagram shown in
+Fig. 1b as the dark triangular region labeled I/R (initial-
+ization/readout). It appears as a darker shade of gray,
+closer to that of the (3,1) region, because the latching
+state (3,1) is occupied for a significant fraction of the
+time in the readout window.
+
+The natural reset out of the latched state is very slow,
+which we now demonstrate by applying the same pulse
+shown in the inset of Fig. 1b at point I/R and monitoring
+the charge sensor current using the cryogenic amplifier.
+We extract both latching events and unlatching events
+using single-shot readout (see Appendix A for measure-
+ment details). Fig. 1d shows the resulting distribution
+of lifetimes for ~ 3000 latching events with a character-
+istic lifetime of 85s. The blue region corresponds to
+duration times less than or of order the readout circuit
+bandwidth, 1/Af, where few unlatching events can be
+observed. The unlatching counts contained in the green
+region corresponds to the number of latching events that
+successfully unlatched, Nuniatchea, up to a time t. The
+unlatching counts contained in the red region then cor-
+respond to the number of latching events that failed to
+unlatch within t. We plot in the inset the cumulative
+number of unlatching events up to a time t, making it
+clear that t must get very large before the cumulative
+unlatching distribution plateaus. This long tail of un-
+latching events lasting hundreds of microseconds, visible
+in both the main panel and the cumulative distribution
+shown in the inset, motivates the need for an on-demand
+reset out of the latched state.
+
+Ill. ON-DEMAND, ACTIVE RESET OF
+LATCHED READOUT
+
+We now show that a baseband voltage pulse provides
+an on-demand reset by positioning the qubit at an appro-
+priate location in gate-voltage space. Fig. 2a illustrates
+the energy level manipulations for the active reset pro-
+cess corresponding to the gate voltage pulse shown in the
+inset of Fig. 2b. After applying the latching pulse and
+waiting twait = 5s, long enough to observe the latch-
+ing signal, we apply an active reset pulse that ramps the
+latched state to a point in voltage space where rapid un-
+latching occurs. By waiting at that location for a time
+tawell; the latched state resets far more quickly than the
+natural latch lifetime.
+
+To identify the proper location for active reset, we plot
+in Fig. 2c the probability P(4,1) of returning to a (4,1)
+state as a function of the position in gate voltage space
+of the reset pulse. For reference, this color plot is super-
+imposed on a gray scale plot showing a stability diagram
+acquired in the presence of the latching pulse from Fig. 1b
+with tawen = 2s and tmeas = 7.5 us, with the readout
+point shown in light blue and labeled R. P(4, 1) is clearly
+maximized near the dark blue point, corresponding to the
+optimum reset point.
+
+»
+o
+a
+3
+Ss
+
+Active reset
+Passive reset!
+
+Energy
+3
+8
+
+g
+8
+8
+
+2
+=
+=)
+fe}
+is}
+D
+¢
+r=)
+g£
+&
+<
+5
+
+10! 10?
+
+Detuning € d Latching duration (us)
+
+¢. State A- (3,1)
+—e a4 T.
+
+—¢ State B - (3,2)
+
+ate state c- (4,1)
+
+4.112 1.114 . 0 1 2 3 4 5 6
+
+a
+
+Latching probability
+
+i
+1
+'
+
+0 io, 20 30
+fas (8) noas (HS)
+
+FIG. 2. (a) QDHQ dispersion diagram showing how the
+reload pulse, shown in the inset of (b), initializes the qubit
+quickly out of the latched state in a fast two-step process.
+(b) Histogram showing the lifetimes of ~ 3000 latching events
+with (orange) and without (blue) the active reset pulse shown
+in the inset being applied. (c) Baseband reset data overlaid on
+top of a stability diagram showing the region where the initial-
+ization happens the best. This region is bounded in detuning
+by E34, which was measured using pulsed gate spectroscopy
+(inset). Two distinct regions are indicated by the blue dot
+and red diamond, where an abrupt change in reset fidelity
+is observed. (d) Reset fidelity as a function of tawe in both
+regions indicated in (c). Inset shows the model used to fit to
+the data in the red diamond region. (e) T; data measured in
+the blue dot region utilizing the pulse used in the inset. Two
+different curves are observed which are attributed to relax-
+ation from either (3,2), or (3,2)e to (4, 1)g. (f) Reset fidelity
+as a function of tmeas taken for four different values of the
+twait pulse parameter. The rate of change of the reset fidelity
+follows that of the natural decay of the latched state (fit to
+the red dashed line) until the reload pulse is sent at which
+point the rate of change significantly increases (black dashed
+line), showing that we can re-initialize our qubit on-demand,
+quickly, and with high fidelity.
+
+wo
+
+Figure 2b reports in blue the unlatching counts for
+measurements including the active reset pulse at the lo-
+cation of the dark blue circle in Fig. 2c, revealing a very
+rapid reset out of the latch. For comparison, the cor-
+responding distribution without the active reset pulse is
+also shown and labeled as a passive reset, revealing the
+expected slower re-initialization from the natural decay
+of the latched state.
+
+To demonstrate that the active reset can achieve high
+fidelity, we report as the blue curve in Fig. 2d the prob-
+ability P(4,1) as a function of the time tawe that the
+system sits at the optimal active reset point. This curve
+represents the reset fidelity for tmeas = 11.58, which
+rises to 99.5% within 4 jus.
+
+We now describe the mechanism for the active reset.
+The active reset in the high-fidelity region occurs through
+the two-step process shown in Fig. 2a. This high-fidelity
+region is bounded on the left by the extended P2 transi-
+tion line, shown as the black dashed line in Fig. 2c. To
+the right of that line, the (3,1) latching state is higher
+in energy than (3,2), and (3,2), enabling an electron to
+load quickly onto the P2 dot from the right reservoir at
+arate of Ir, which has already been tuned to be fast, as
+required for latched readout. In this device, the right dot
+ST splitting Esp < 16 eV, is quite small, making both
+the (3,2), and (3,2), states energetically accessible. Af-
+ter the system transitions out of the (3,1) latching state
+into (3,2), an inelastic tunneling event returns the system
+to (4, 1),, completing the re-initialization through this T,
+decay.
+
+The speed of this interdot decay process is important,
+and for that reason we now measure the J\ time using
+the pulse shown in the inset of Fig. 2e. The pulse con-
+sists of an adiabatic ramp across the polarization line be-
+tween the points labeled R (readout) and O (operation)
+in Fig. 2c, occupying a mixture of (3,2), and (3,2)¢ be-
+cause of the small Egy. The state then abruptly pulses
+to the region of high reset fidelity where the latched state
+is not accessible and is held for a time ftyolq to allow ei-
+ther (3,2) state to relax to (4,1),. After a time thoja, the
+pulse abruptly returns to the readout point where the
+latched state is accessible to the excited state. Plotted
+in Fig. 2e is the latching probability, which decreases as
+a function of thoig as more states relax to (4,1), through
+the T; process. Two exponential curves are visible in the
+data. We argue that these correspond to two relaxation
+processes to (4,1), from (3,2), and (3, 2)¢, respectively.
+The extracted T; times are 301 ns for (3,2)e > (4,1)g,
+and 4.3 ns for (3,2), — (4,1)g. We assign the slower
+transition rate to the (3,2)e — (4,1), process, because
+we measure the excited state tunnel coupling between
+(3,2). and (4,1), to be smaller than the ground state
+tunnel coupling between (3,2), and (4,1), (see Appendix
+B for details).
+
+To demonstrate that the active reset functions on-
+demand, Fig. 2f reports the reset fidelity as a function of
+tmeas acquired for four different values of the reset pulse
+parameter twait- The rate of change of the reset fidelity
+
+follows that of the natural decay of the latched state
+(slowly increasing curve fit with the red dashed line),
+until the reload pulse is sent at time tyait, at which point
+the rate of change significantly increases (four curves fit
+with black dashed lines), showing that with this active
+reset pulse, the qubit begins a rapid reset as soon as the
+active reset pulse is applied.
+
+Having discussed how and why the active reset works
+in the region indicated by the blue dot in Fig. 2c, we now
+look at what happens outside this region in voltage space.
+We look first at a region of similar double dot detuning
+€ but larger 6 (the direction perpendicular to the axis),
+as indicated by the red diamond in Fig. 2c, which marks
+a location in voltage space where there is a significant
+decrease in P(4,1). In this regime, the latched state (3,1)
+is higher in energy, so that additional (3,2) excited states
+are accessible for the latched state to decay into, and
+these states can be longer lived. Performing the same
+tawell Measurement as before in this region, the red line
+in Fig. 2d initially begins to increase rapidly, but after
+~ 1 ps, the rate of change of P(4,1) drastically slows
+down.
+
+This behavior suggests that the system becomes
+“stuck" in a long-lived (3,2) charge state when reseting
+at this location. We model this behavior using the three
+state model shown in the inset of Fig. 2d, where state A
+is the (3,1) latched state, state B is a higher lying (3,2)
+charge state, and state C is a (4,1) charge state. Assum-
+ing exponential decays as shown in the inset of Fig. 2d
+with decay rates given by I), Po, and Ts, and an initial
+condition of starting in state A, we solve a set of three
+coupled rate equations, similar to the model described
+in the supplemental material in Ref. [26], that yield a
+probability of ending up in state C given by,
+
+Ty —Tat
+P(t) =———*—__ (1 —e“™
+(6) T,-T)+Ts! eo)
+T3(T; —T2+T3) —TiT2 eo @itTs)t)
+
+ (P, —P: +1T3)01 +23)
+
+The dashed black line in Fig. 2d is a fit of the data to
+his expression, and it captures well the shape of the red
+curve. The extracted decay rates from this fit reveal that
+/T2 = 6.87 ps is approximately 10 times slower than
+/T1 = 0.64 ys and 1/['3 = 0.75 pus. These parameters
+are consistent with the hypothesis that there is a long-
+lived (3,2) excited state accessible at the location of the
+red diamond in Fig. 2c, and that the effect of that state
+is visible in the slow rise of the red curve in Fig. 2d. More
+generally, we note that in a double dot with 5 electrons
+here are other states that could also be long lived, and
+in Appendix C we describe one such example.
+
+Moving to the upper left from the blue point in Fig. 2c,
+he high-fidelity reset region stops at the location of the
+dashed red line, which corresponds to the singlet-triplet
+splitting of the left dot, E*,,, as determined by the pulsed
+gate spectroscopy measurements shown in the lower in-
+set. It is interesting to look at what happens when at-
+empting to reset at a location to the upper left of this
+
+a b ‘
+1.395] 1.39]
+08
+= 1.388)
+51.304 , 08
+of a
+1.386 4s
+1.391] az
+1.384)
+1.1120 1.114 1.116 4.112 1.116 4.12 1.112 1.116 4.12 4
+Veo (V) Vez (V) Vea (V)
+Tie Relax Retach
+
+antQ ©
+
+Detuning
+
+FIG. 3. Pulsed-gate measurements to understand the decay
+pathways for ¢ > E3,,. (a)-(c) The probability of transition-
+ing from the latched state to a (4,1) state using the pulse
+shown in the inset of Fig. 2b for three different tawen times.
+The increase in P(4,1) for ¢ > E3,, includes transitions to
+tate (4,1)e. (d) Dispersion diagram showing how the pulse
+shown in the upper inset can differentiate between the de-
+cay paths to (4,1). and (4,1),. The ramp between stages
+II and III maps the (4,1), state to itself, resulting in only
+one latching signal. That ramp maps the (4,1). state toa
+(3,2) state, which will then relatch, resulting in an observ-
+able second latching event. The probability of seeing a second
+latching event given that a first latching event, P(2nd|Ist), is
+shown in the lower inset as a function of the dwell times for
+each pulse, 71 and t2. P(2nd|1st) reaches a value as large as
+60%, indicating that the latched state often decays to (4, l)e
+when € > Ej.
+
+wn
+
+red line, because the behavior is qualitatively different
+in that regime. Figs. 3a-c show again a 2D map of the
+probability P(4, 1) acquired using the pulse shown in the
+inset of Fig. 2b, acquired now for three values of taweu-
+Focusing on the region to the upper left of the dashed red
+line, we note that in this region the (3,2) states, easily
+accessible from the (3,1) latched state, can decay in turn
+either to (4,1), (the desired re-initialization state) or to
+(4, 1)e, as shown by the blue decay paths in Fig. 3d.
+
+Because (4,1), and (4,1). produce the same charge
+sensing signal, to differentiate between them we employ
+a special pulse sequence that traverses the various energy
+states and anti-crossings in the dispersion diagram, as
+shown in Fig. 3d. Step I initiates the (3,1) latch; Step
+II offers decays to either (4,1), or (4,1)¢; to differentiate
+between these two, the voltage ramp to Step III shifts the
+states in detuning, mapping (4,1), to itself (which does
+nothing), and mapping (4,1). to the (3,2) state, which
+then relatches at Step IV. Thus, by employing this pulse
+sequence and looking for a second latching event, we can
+identify which (4,1) state was occupied and with what
+probability.
+
+The lower right inset of Fig. 3d shows the probability
+of seeing a second latching event given the observation
+
+of the first latching event, P(2nd|1st). The bright yel-
+low region indicates a significant probability of observing
+such a second latching event. In this region, the latched
+state (3,1) decays to (4,1)., which then maps adiabat-
+ically to a (3,2) state during the transition to Step III.
+
+For short 72, where little ti
+
+me is permitted for the qubit
+
+sition, then an inelastic tunneling event brings the qubit
+to the singlet ground state, |S(2,0)), completing the ini-
+tialization. This second step is the key component to
+having this active reset work quickly. In the QDHQ, we
+take advantage of the additional charge degree of free-
+dom at low double dot detunings to allow the qubit to
+
+at point III to relax to (4,1), the
+
+system transitions
+
+reach its ground state quic!
+
+kly. For L-PSB, the speed of
+
+to the red point, where during Step IV it relatches. For
+
+longer 72, the system decays to (4,1),
+III. This measurement confirms that
+
+before leaving Step
+o the upper left of
+
+the dashed red line in Figs. 3a-c the latched state decays
+
+this step will be set by the singlet-triplet relaxation rate.
+In materials with strong spin-orbit coupling, such as ger-
+
+manium, the singlet-triplet
+the order of microseconds,
+to initialize relatively quic
+
+relaxation rate is typically on
+which would allow the qubit
+ly. In materials with weak
+
+frequently to (4,1)., and therefore this region should be
+avoided when choosing an active reset location.
+
+IV. DISCUSSION
+
+To ameliorate the issue of long initialization times out
+of a latched state, we presented an active baseband re-
+set pulse that re-initializes a qubit on-demand, quickly,
+and with high fidelity. The efficiency of this reset relies
+on the fast inelastic tunneling process that occurs in the
+
+charge-like regime of a double quantum dot. The win-
+dow for this reset is bounded by the ST splitting, E*.,,
+
+and corresponds to the region of high reset fidelity shown
+in Fig. 2c. In this window, we are able to re-initialize
+our qubit out of a latched state on-demand, with a re-
+set fidelity > 99.5% within 4 ys, significantly faster than
+relying on the natural decay of the latched state while
+maintaining excellent latched readout.
+
+In addition to the regions of high reset fidelity, we also
+identified regions to avoid when using the active reset
+ulse. Within the ST splitting of the qubit, when at-
+tempting to initialize in regions of larger 6, like in the red
+diamond region in Fig. 2c, additional excited states be-
+come energetically accessible to the latched state. These
+additional excited states can have significantly longer re-
+axation times, resulting in a reduction of the reset fi-
+delity. We considered a simple three state model, which
+fits the data in this region quite well. The region at
+arger detuning, beyond the ST splitting, should also be
+avoided, because it enables relaxation out of the latch to
+(4,1)e, which is not the desired re-initialization state.
+
+The active reset out of a latched state in this work was
+performed on a QDHQ in Si/SiGe; however, this tech-
+nique can be applied to other types of spin qubits as well.
+Latched Pauli spin blockade (L-PSB) is a common read-
+out method employed in other types of spin qubits, such
+as singlet-triplet qubits, exchange-only qubits, and even
+Loss-DiVincenzo qubits for parity readout [27-29]. L-
+PSB latches standard PSB states onto a third metastable
+state by pulsing into the L-PSB window with the proper
+tuning of reservoir tunnel rates, analogous to how latched
+readout was performed here. The same two-step decay
+process discussed here can be applied to L-PSB, by puls-
+ing back into the standard PSB window. In this window
+the latched state first quickly decays to the excited triplet
+state |7>(1,1)) of the qubit through a fast reservoir tran-
+
+spin-orbit coupling, like silicon, the singlet-triplet relax-
+ation rate tends to be much longer, on the order of tens
+of milliseconds, which would significantly slow the rate
+of initialization. This technique could, however, be used
+in conjunction with other methods of increased singlet-
+triplet relaxation to speed up qubit initialization, such
+as the 7; “hot spots" around ST qubit anti-crossings, as
+demonstrated in Ref. [30].
+
+ACKNOWLEDGMENTS
+
+The authors thank HRL Laboratories for support and
+Joe Kerckhoff for valuable discussions. This research
+was sponsored in part by the Army Research Office un-
+der Award No. W911NF-23-1-0110 and under Coopera-
+tive Agreement No. W911NF-22-2-0037. This material is
+based upon work supported by the U.S. Department of
+Energy Office of Science National Quantum Information
+Science Research Centers as part of the Q-NEXT cen-
+ter, which was important for initial tuning of the Tunnel
+Falls device. The views, conclusions, and recommenda-
+tions contained in this document are those of the authors
+and are not necessarily endorsed by nor should they be
+interpreted as representing the official policies, either ex-
+pressed or implied, of the Army Research Office or the
+U.S. Government. The U.S. Government is authorized to
+reproduce and distribute reprints for U.S. Government
+purposes notwithstanding any copyright notation herein.
+
+APPENDIX A: SINGLE-SHOT DATA ANALYSIS
+
+The bias tee after the cryogenic amplifier acts as a high
+pass filter for the charge sensing signal. Because of this
+high pass effect, we use a two-part algorithm to effec-
+tively track the start and end times of latching events.
+Fig. 4 shows an example time trace that exhibits both
+parts of the algorithm. We start by applying a function
+to our SET data that uses the pruned exact linear time
+(PELT) method [31] to look for abrupt changes in its av-
+erage value, resulting in the yellow trace in Fig. 4. With
+this transformed data, we search for an initial latching
+event within 10 js of the applied pulse. Such events are
+cleanly identified by a sharp step up, and they can be
+easily timestamped. For long-lived latching events, the
+S2(t) (V)
+
+Pulse Marker X Latch in
+
+—— PELT © Latch out
+
+0 0.1 0.2 0.3 0.4 0.5 0.6 0.7
+Time (ms)
+
+FIG. 4. Example single-shot data used in this work. The
+blue trace is the raw SET data and the yellow trace is the
+transformed PELT data showing the abrupt changes in the
+average value of the SET data. The red trace is the pulse
+marker and shows when a pulse is applied. Visible are two
+example latching events, one that is long lived whose signal
+response is affected by the high pass filter, and a short lived
+atching event whose signal response isn’t affected by the high
+pass filter.
+
+high pass filter returns the SET response to 0 V before an
+unlatching event, as is visible in the first event in Fig. 4.
+n this case, when the system unlatches, the PELT trace
+shows a clear step down, which again is easy to times-
+amp. Short-lived latching events, on the other hand, are
+not affected by the high pass effect, and therefore the end
+of the latching event cannot be timestamped by looking
+for a negative peak: the downward step does not go very
+negative, because it is starting from a positive value. In-
+stead, when no negative steps are found, the algorithm
+looks for large negative changes in the PELT data close
+o the start of the latching event, which correspond to
+he unlatching event of a short-lived latched state, as is
+visible for the second event in Fig. 4.
+
+APPENDIX B: TUNNEL COUPLING
+MEASUREMENTS
+
+We measure the ground and excited state tunnel cou-
+plings of the double dot by inducing Landau-Zener transi-
+tions and measuring the probability of observing a latch-
+ing event as a function of the ramp times across the an-
+ticrossings, as shown in Fig. 5. The excited state tunnel
+coupling te, is extracted by fitting an exponential to the
+data in Fig. 5b, and it is found to be teg = 31 MHz, much
+smaller than the values for tj, and t,. that we report be-
+low.
+
+Due to asmall valley splitting in this device, it becomes
+difficult to ramp across the ground state anti-crossing tg,
+without also moving across the excited state anti-crossing
+tye. For this reason, we perform two experiments, as
+
+shown in Figs. 5c,d, in order to gain enough informa-
+tion to extract both tunnel couplings. Starting in (4, 1)4,,
+we calculate the probability of returning to state (4,1),
+after ramping in and out across all four anti-crossings.
+We employ a four-state model, taking into account all
+possible Landau-Zener transitions during the pulse. The
+complement of this expression is the probability of end-
+ing up in any excited state, which have the ability to
+enter a latched state. We then simplify this expression
+by taking the two extreme cases of an abrupt ramp out
+(corresponding to the data in Fig. 5c), and an adiabatic
+ramp in (corresponding to the data in Fig. 5d), resulting
+in
+
+‘ —20
+fi(t) =1— exp (soa (Ge nu HeDbsenn ) (1)
+
+and
+
+. —20
+fo(t) = exp (rear lean | (2)
+
+respectively. The data in Fig. 5c and d is then simulta-
+neously fit to equations | and 2 to extract the ground
+state tunnel coupling tj, = 517 MHz and the excited
+state tunnel coupling tye = 232 MHz.
+
+ow
+or
+es
+
+oad
+®
+
+:
+iD
+
+Latching probability
+°
+g
+
+S
+a
+
+S
+@
+
+Latching probability
+°
+ES
+
+o
+iD
+
+temp iN (NS)
+
+ramp
+
+FIG. 5. Ground and excited state tunnel coupling measure-
+ments. (a) Dispersion diagram showing which tunnel cou-
+plings are extracted. teg, highlighted in red, is extracted from
+the data in (b), and tg, and tye, highlighted in blue, are ex-
+tracted by simultaneous fitting to (c) and (d). (b). teg data
+acquired using the pulse shown in the inset. The pulse is
+tuned to abruptly move across the ground state anti-crossing
+to enter an excited state via a LZ transition. Then the ramp
+time across the teg anti-crossing is swept. (c-d). tgg and tge
+data acquired using the pulse shown in the inset. Both tunnel
+couplings are extracted by simultaneous fitting to both data
+sets.
+FIG. 6.
+
+(4.1), (4,1), or 4,
+
+Possible spin configurations when resetting a (3, 1)
+
+latched state through the excited valley state of the right dot.
+When first entering the latched state, the two remaining va-
+lence electrons can have either parallel or anti-parallel spins
+(row 2). When resetting through the excited valley, either a
+spin up or spin down electron can tunnel onto the right dot,
+leading to the four possible states shown in the bottom row.
+Here, the black arrows show the available (4,1) reset paths,
+with a spin-blocked configuration on the far left.
+
+(1)
+
+[2]
+
+[3]
+
+[4]
+
+P. Harvey-Collard, B. D’Anjou, M. Rudolph, N. T. Ja-
+cobson, J. Dominguez, G. A. Ten Eyck, J. R. Wendt,
+T. Pluym, M. P. Lilly, W. A. Coish, M. Pioro-Ladriére,
+and M. S. Carroll, High-fidelity single-shot readout for
+a spin qubit via an enhanced latching mechanism, Phys.
+Rev. X 8, 021046 (2018).
+
+S. A. Studenikin, J. Thorgrimson, G. C. Aers, A. Kam,
+P. Zawadzki, Z. R. Wasilewski, A. Bogan, and A. S.
+Sachrajda, Enhanced charge detection of spin qubit read-
+out via an intermediate state, Applied Physics Letters
+101, 233101 (2012).
+
+H. Kiyama, D. van Hien, A. Ludwig, A. D. Wieck, and
+A. Oiwa, High-fidelity spin readout via the double latch-
+ing mechanism, npj Quantum Information 10, 95 (2024).
+P. Harvey-Collard, N. T. Jacobson, C. Bureau-Oxton,
+R. M. Jock, V. Srinivasa, A. M. Mounce, D. R. Ward,
+J. M. Anderson, R. P. Manginell, J. R. Wendt, T. Pluym,
+M. P. Lilly, D. R. Luhman, M. Pioro-Ladriére, and M. S.
+Carroll, Spin-orbit interactions for singlet-triplet qubits
+in silicon, Phys. Rev. Lett. 122, 217702 (2019).
+M. A. Fogarty, K. W. Chan, B. Hensen, W. Huang,
+T. Tanttu, C. H. Yang, A. Laucht, M. Veldhorst, F. E.
+Hudson, K. M. Itoh, D. Culcer, T. D. Ladd, A. Morello,
+and A. 8. Dzurak, Integrated silicon qubit platform with
+single-spin addressability, exchange control and single-
+shot singlet-triplet readout, Nature Communications 9,
+4370 (2018).
+
+APPENDIX C: 5-ELECTRON EXCITED STATES
+
+INVOLVING A RIGHT DOT VALLEY
+EXCITATION
+
+There are many 5-electron double dot excited states
+that are not shown in the figures in the main text. Here,
+in the bottom row of Fig. 6, we illustrate four such states
+that have a valley excitation in the right dot. (Without
+loss of generality, in this figure we assume the unpaired
+spin in the left dot has $, = +1/2.) While during qubit
+operation these states are not expected to significantly
+
+couple to the four 5-electron double dot states
+in the main text, and therefore should not impact
+coherent manipulation of the hybrid qubit, they could
+principle be accessed when reloading from (3,1)
+at the location of the blue dot in Fig. 2(c). Since
+electron loading from the reservoir can be either spin
+
+shown
+
+he
+
+in
+
+‘0 (3,2)
+
+he
+up
+
+or spin down, the pathways shown result in four different
+spin configurations of the double dot system. The state
+
+shown on the lower lef
+cause a delay in
+such behavior here, suggesting that the excited val
+
+is spin blockaded, and i
+
+would
+he reset to (4,1). We do not observe
+
+ley
+
+state is not accessed in our experiments. However, these
+interesting states could be the subject of future study.
+
+DATA-AVAILABILITY
+
+The data that support the findings of this study are
+
+openly available in a Zenodo repository [32].
+
+{6] M. Urdampilleta, D. J. Niegemann, E. Chanri
+
+on,
+
+9] R-L. Ma, S.-K. Z
+
+B. Jadot, C. Spence, P.-A. Mortemousque, C. Bauerle,
+L. Hutin, B. Bertrand, S. Barraud, R. Maurand, M. San-
+quer, X. Jehl, S. De Franceschi, M. Vinet, and T. Me-
+unier, Gate-based high fidelity spin readout in a cmos
+device, Nature Nanotechnology 14, 737 (2019).
+
+7| E. J. Connors, J. Nelson, and J. M. Nichol, Rapid high-
+
+fidelity spin-state readout in Si/Si-Ge quantum dots via
+rf reflectometry, Phys. Rev. Appl. 13, 024019 (2020).
+
+8] W. Jang, M.-K. Cho, H. Jang, J. Kim, J. Park, G. Kim,
+
+B. Kang, H. Jung, V. Umansky, and D. Kim, Single-
+shot readout of a driven hybrid qubit in a gaas double
+quantum dot, Nano Letters 21, 4999 (2021).
+
+u, Z.-Z. Kong, T.-P. Sun, M. Ni, Y.-
+C. Zhou, Y. Zhou, G. Luo, G. Cao, G.-L. Wang, H.-O.
+Li, and G.-P. Guo, Singlet-triplet-state readout in silicon
+metal-oxide-semiconductor double quantum dots, Phys.
+Rev. Appl. 21, 034022 (2024).
+
+0] Y. Kojima, T. Nakajima, A. Noiri, J. Yoneda, T. Otsuka,
+
+K. Takeda, S. Li, S. D. Bartlett, A. Ludwig, A. D. Wieck,
+and S. Tarucha, Probabilistic teleportation of a quantum
+dot spin qubit, npj Quantum Information 7, 68 (2021).
+
+1] H. Geng, M. Kiczynski, A. V. Timofeev, E. N. Osika,
+
+D. Keith, J. Rowlands, L. Kranz, R. Rahman, Y. Chung,
+J. G. Keizer, 8. K. Gorman, and M. Y. Simmons, High-
+fidelity sub-microsecond single-shot electron spin read-
+out above 3.5k, Nature Communications 16, 3382 (2025),
+[12]
+
+13
+
+14
+
+16
+
+[17]
+
+[18]
+
+19
+
+20]
+
+21
+
+22
+
+23
+
+published April 10, 2025.
+
+K. Tsoukalas, U. von Liipke, A. Orekhov, B. Hetényi,
+I. Seidler, L. Sommer, E. G. Kelly, L. Massai, M. Aldeghi,
+M. Pita-Vidal, N. W. Hendrickx, S. W. Bedell, S. Pare-
+des, F. J. Schupp, M. Mergenthaler, G. Salis, A. Fuhrer,
+and P. Harvey-Collard, A dressed singlet-triplet qubit
+in germanium (2025), arXiv:2501.14627 |cond-mat.mes-
+hall].
+
+J. Corrigan, J. P. Dodson, B. Thorgrimsson, S. F.
+Neyens, T. J. Knapp, T. McJunkin, S. N. Coppersmith,
+and M. A. Eriksson, Latched readout for the quantum
+dot hybrid qubit, Applied Physics Letters 122, 074001
+(2023).
+
+N. W. Hendrickx, W. I. L. Lawrie, M. Russ, F. van Rigge-
+len, S. L. de Snoo, R. N. Schouten, A. Sammak, G. Scap-
+pucci, and M. Veldhorst, A four-qubit germanium quan-
+tum processor, Nature 591, 580 (2021), published March
+1, 2021.
+
+V. Marton, A. Sachrajda, M. Korkusinski, A. Bo-
+gan, and S. Studenikin, Coherence characteristics of
+a gaas single heavy-hole spin qubit using a modified
+single-shot latching readout technique, Nanomaterials
+13, 10.3390/nano13050950 (2023).
+
+Y. Song, J. Yun, J. Kim, W. Jang, H. Jang, J. Park,
+M.-K. Cho, H. Sohn, N. Usami, S. Miyamoto, K. M.
+Itoh, and D. Kim, Coherence of a field gradient driven
+singlet-triplet qubit coupled to multielectron spin states
+in 75Si/SiGe, npj Quantum Information 10, 77 (2024),
+published August 14, 2024.
+
+T. Nakajima, M. R. Delbecq, T. Otsuka, P. Stano,
+S. Amaha, J. Yoneda, A. Noiri, K. Kawasaki, K. Takeda,
+G. Allison, A. Ludwig, A. D. Wieck, D. Loss, and
+S. Tarucha, Robust single-shot spin measurement with
+99.5array, Phys. Rev. Lett. 119, 017701 (2017).
+
+E. G. Kelly, L. Massai, B. Hetényi, M. Pita-Vidal,
+A. Orekhov, C. Carlsson, I. Seidler, K. Tsoukalas,
+L. Sommer, M. Aldeghi, S$. W. Bedell, S. Paredes, F. J.
+Schupp, M. Mergenthaler, A. Fuhrer, G. Salis, and
+P. Harvey-Collard, Identifying and mitigating errors in
+hole spin qubit readout (2025), arXiv:2504.06898 [cond-
+mat.mes-hall].
+S. Park, J. Benson, J. Corrigan, J. P. Dodson, S. N. Cop-
+persmith, M. Friesen, and M. A. Eriksson, Single-shot
+latched readout of a quantum dot qubit using barrier gate
+pulsing (2024), arXiv:2408.15380 [cond-mat.mes-hall].
+
+J. M. Martinis, Qubit metrology for building a fault-
+tolerant quantum computer, npj Quantum Information
+1, 15005 (2015), published October 27, 2015.
+B. Hetényi and J. R. Wootton, Tailoring quantum er-
+ror correction to spin qubits, Phys. Rev. A 109, 032433
+(2024).
+Z. Shi, C. B. Simmons, J. R. Prance, J. K. Gamble,
+T. S. Koh, Y.-P. Shim, X. Hu, D. E. Savage, M. G.
+Lagally, M. A. Eriksson, M. Friesen, and S. N. Cop-
+persmith, Fast hybrid silicon double-quantum-dot qubit,
+Phys. Rev. Lett. 108, 140503 (2012).
+S. Neyens, O. K. Zietz, T. F. Watson, F. Luthi, A. Neth-
+wewala, H. C. George, E. Henry, M. Islam, A. J. Wag-
+ner, F. Borjans, E. J. Connors, J. Corrigan, M. J. Curry,
+
+[24]
+
+[27]
+
+28
+
+29
+
+30
+
+[31]
+
+[32]
+
+D. Keith, R. Kotlyar, L. F. Lampert, M. T. Madzik,
+K. Millard, F. A. Mohiyaddin, S. Pellerano, R. Pil-
+larisetty, M. Ramsey, R. Savytskyy, S. Schaal, G. Zheng,
+J. Ziegler, N. C. Bishop, S. Bojarski, J. Roberts, and
+J.S. Clarke, Probing single electrons across 300-mm spin
+qubit wafers, Nature 629, 80 (2024).
+
+H. C. George, M. T. Madzik, E. M. Henry, A. J. Wag-
+ner, M. M. Islam, F. Borjans, E. J. Connors, J. Corrigan,
+M. Curry, M. K. Harper, D. Keith, L. Lampert, F. Luthi,
+F. A. Mohiyaddin, 8. Murcia, R. Nair, R. Nahm, A. Neth-
+wewala, B. Neyens, Samuel Patra, R. D. Raharjo, C. Ro-
+gan, R. Savytskyy, T. F. Watson, J. Ziegler, O. K. Zietz,
+S. Pellerano, R. Pillarisetty, N. C. Bishop, S. A. Bojarski,
+J. Roberts, and J. S. Clarke, 12-spin-qubit arrays fabri-
+cated on a 300 mm semiconductor manufacturing line,
+Nano Letters 25, 793 (2024).
+
+A. P. Higginbotham, F. Kuemmeth, M. P. Hanson, A. C.
+Gossard, and C. M. Marcus, Coherent operations and
+screening in multielectron spin qubits, Phys. Rev. Lett.
+112, 026801 (2014).
+
+C. B. Simmons, J. R. Prance, B. J. Van Bael, T. S. Koh,
+Z. Shi, D. E. Savage, M. G. Lagally, R. Joynt, M. Friesen,
+S. N. Coppersmith, and M. A. Eriksson, Tunable spin
+loading and T} of a silicon spin qubit measured by single-
+shot readout, Phys. Rev. Lett. 106, 156804 (2011).
+
+L. Hutin, B. Bertrand, E. Chanrion, H. Bohuslavskyi,
+F. Ansaloni, T.-Y. Yang, J. Michniewicz, D. J. Niege-
+mann, C. Spence, T. Lundberg, A. Chatterjee, A. Crippa,
+J. Li, R. Maurand, X. Jehl, M. Sanquer, M. F. Gonzalez-
+Zalba, F. Kuemmeth, Y.-M. Niquet, S. De Franceschi,
+M. Urdampilleta, T. Meunier, and M. Vinet, Gate reflec-
+tometry for probing charge and spin states in linear si
+mos split-gate arrays, in 2019 IEEE International Elec-
+tron Devices Meeting (IEDM) (2019) pp. 37.7.1-37.7.4.
+A. Bogan, S. Studenikin, M. Korkusinski, L. Gau-
+dreau, P. Zawadzki, A. Sachrajda, L. Tracy, J. Reno,
+and T. Hargett, Single hole spin relaxation probed by
+‘ast single-shot latched charge sensing, Communications
+Physics 2, 17 (2019).
+
+E. Vahapoglu, J. P. Slack-Smith, R. C. C. Leon, W. H.
+Lim, F. E. Hudson, T. Day, T. Tanttu, C. H. Yang,
+A. Laucht, A. §. Dzurak, and J. J. Pla, Single-electron
+spin resonance in a nanoelectronic device using a global
+field, Science Advances 7, eabg9158 (2021).
+
+J. Z. Blumoff, A. S. Pan, T. E. Keating, R. W. Andrews,
+D. W. Barnes, T. L. Brecht, E. T. Croke, L. E. Euliss,
+J. A. Fast, C. A. Jackson, A. M. Jones, J. Kerckhoff,
+R. K. Lanza, K. Raach, B. J. Thomas, R. Velunta, A. J.
+Weinstein, T. D. Ladd, K. Eng, M. G. Borselli, A. T.
+Hunter, and M. T. Rakher, Fast and high-fidelity state
+preparation and measurement in triple-quantum-dot spin
+qubits, PRX Quantum 3, 010352 (2022).
+
+R. Killick, P. Fearnhead, and I. A. Eckley, Optimal de-
+tection of changepoints with a linear computational cost,
+Journal of the American Statistical Association 107,
+1590 (2012).
+
+Source data for the publication, “Fast high- fidelity base-
+and reset of a latched state for quantum dot qubit read-
+out," is available, 10.5281/zenodo.16616153.
+

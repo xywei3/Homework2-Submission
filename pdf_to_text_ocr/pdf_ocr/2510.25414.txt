@@ -1,0 +1,658 @@
+2510.25414v1 [cond-mat.mtrl-sci] 29 Oct 2025
+
+arXiv
+
+The Microscopic Nature of Orbital Disorder in LaMnO,
+
+Bodoo Batnaran,! Andrew L. Goodwin,! Michael A. Hayward,! and Volker L. Deringer! *
+‘Inorganic Chemistry Laboratory, Department of Chemistry, University of Oxford, Oxford OX1 8QR, UK
+
+We present a revised atomistic picture of the order—disorder transition in the archetypal orbital-
+ordered perovskite material, LaMnO3. Our study uses machine-learning-driven molecular-dynamics
+simulations which describe the temperature evolution of pair distribution functions in close agree-
+ment with experiment. We find the orbital-disordered phase in LaMnO to comprise a mixture of
+differing structural distortions with and without inversion symmetry, implying a mixture of different
+orbital arrangements. These distortions are highly dynamic with an estimated lifetime of ~ 40 fs at
+1,000 K, and their fluctuations converge with the timescales of conventional thermal motion in the
+high-T phase — indicating that the electronic instability responsible for static Jahn—Teller distortions
+at low temperature instead drives phonon anharmonicity at high temperatures. Beyond LaMnO3,
+our work opens an avenue for studying a wider range of correlated materials.
+
+Orbital correlations can play a key role in determining
+electronic and magnetic properties of materials. In many
+transition-metal compounds, the occupation of d-orbitals
+and their orientations control overlap, which influences
+electronic transport and magnetic coupling. These or-
+bital arrangements can be crystallographically ordered
+or disordered, and the balance between the two extremes
+can be critical to emergent phenomena such as supercon-
+ductivity [1, 2], colossal magnetoresistance [3-5], charge-
+orbital ordering [6], and ferroelectricity [7]. Therefore,
+understanding orbital-ordered and -disordered states in
+crystalline solids is an important research objective.
+While the long-range ordered structural distortions in-
+duced by orbital ordering can be directly deduced from
+bulk diffraction studies [8, 9], it is much more difficult
+to describe orbital- disordered states, both experimentally
+and computationally. In general, three pictures are usu-
+ally considered for orbital-disordered phases. The first
+is that of an orbital liquid or glass, where local orbital
+correlations resemble those of a low-temperature ordered
+state, but correlated only over finite lengthscales (e.9.,
+domains) [10, 11]; the second is a correlated-disorder
+model, in which the disordered state supports orbital cor-
+relations not found directly in the related ordered state
+12]; and the third involves suppression of structural dis-
+ortions through a displacive transition [13-15]. Differ-
+entiating these descriptions requires probes that are sen-
+sitive to the local distortions in the orbital-disordered
+hase and their corresponding dynamics.
+
+The archetypal orbital-ordered system is LaMnO, [10],
+which contains Mn*+ with a (t2,)%(e,)! high-spin con-
+figuration. Under ambient conditions, the compound
+adopts a perovskite structure in which each [MnOg] oc-
+ahedron is Jahn-Teller (JT) distorted to have two long,
+wo medium, and two short Mn-O bonds. The distor-
+ions order such that two opposing long Mn—O bonds al-
+ernate orientations between two orthogonal directions,
+in a way that repeats along a third direction (“C-type”
+ordering) [16]. This anisotropy is evident in the or-
+horhombic strain of LaMnO 3. Above 750 K, the lat-
+ice parameters collapse to yield a pseudo-cubic phase in
+
+which the JT distortion is apparently quenched [9]. How-
+ever, local-structure probes show that the asymmetry in
+Mn-O bond-length distributions remains after the tran-
+sition, which was interpreted as there being no change
+in the Mn-O bond lengths with increasing T. The im-
+plication is that the JT distortions persist, but now in
+a crystallographically disordered manner which, on aver-
+age, gives the observed pseudo-cubic phase [11, 17].
+Experiments have yielded conflicting descriptions of
+his order—disorder transition. Resistivity and thermo-
+electric measurements of the orbital-disordered phase of
+LaMnO, led to an interpretation involving dynamic co-
+operative JT distortions, in which the C-type order fluc-
+uates above 750 K [10]. Additionally, a model con-
+aining nanoregions of static C-type order was proposed
+based on neutron pair distribution function (PDF) anal-
+ysis [11]. In contrast, a three-state Potts (“3SP-type”
+model, which allows the two opposing long Mn—O bonds
+o align along all three principal axes, was found to repro-
+duce the behavior of LaMnO3 in resonant X-ray scatter-
+ing (12, 18]. Furthermore, reverse Monte-Carlo (RMC)
+fits to PDFs calculated from X-ray and neutron diffrac-
+ion experiments yielded a model with the long bonds in
+che JT-distorted octahedra aligning perpendicularly to
+each other (“L-type” ordering) [19]. Notably, the PDFs
+showed a discontinuous change at 750 K, indicating that
+he high-T’ phase has a different local structure to the or-
+dered one. However, the conclusions were not definitive
+as the differences between fits to high-T’ PDF data using
+C-type, 3SP-type, and L-type models were not meaning-
+ful in the presence of strong thermal fluctuations [19].
+
+The orbital order—disorder transition in LaMnO3 is
+similarly difficult to interpret using computations. First-
+principles studies indicated that the transition is multi-
+‘aceted, involving a combination of octahedral rotations,
+antipolar distortions of the A-site cations (La?+) and,
+importantly, a compressive tetragonal shear strain on
+he lattice stabilizing the cooperative JT distortions in
+he low-T antiferromagnetic phase [20]. Comparing the
+computed energies of different magnetic orderings in the
+high-T paramagnetic phase shows that antiferromagnetic
+
+(a) Expt. (Thygesen et al.) Computed (This work)
+
+5.8
+
+5.7
+
+5.6
+
+5.5
+
+Reduced cell parameter (A)
+
+(b)
+
+ATilt angle g (°)
+
+(c)
+
+Mn-O bond length (A)
+N
+
+400 600 800 1000 400 600 800 1000
+Temperature (K) Temperature (K)
+
+FIG. 1. Change in average structure of LaMnO; with tem-
+perature. Experimental (red) and simulated (black) data are
+shown. (a) Reduced lattice parameters. (b) Change in tilting
+angle, y, of octahedra along the (111) axis. (c) Mn—-O bond
+lengths showing two long, two medium, and two short bonds
+and their evolution. Experimental data taken from Ref. 19.
+
+(AFM) ordering yields a stronger stabilization of the JT
+distortion modes than ferromagnetic ordering. This sta-
+bilization results in an improved prediction of the transi-
+tion temperature, implying that spin symmetry breaking,
+and thus dynamics, affect the transition. While these
+simulations have allowed the study of distortion modes
+and magnetic ordering in LaMnOs, they have been lim-
+ited to relatively small system sizes.
+
+Here, we use large-scale, machine-learning-driven
+molecular-dynamics (MD) simulations to re-examine the
+microscopic nature of orbital order and disorder in
+LaMnO3. We first validate our simulations by computing
+the temperature evolution of average structural param-
+eters and PDF's, comparing to experimental data. We
+then analyze the evolution of JT distortions with temper-
+ature, demonstrating that the high-T’ phase of LaMnO,
+actually adopts a mixture of the orbital orderings from
+the 35P-type and L-type models. Finally, by comput-
+ing the time-dependent evolution of the amplitudes of
+JT distortions, we show that these distortions become
+dynamic with increasing temperature and that their life-
+times shorten to the same timescale as thermal fluctua-
+tions at 1,000 K. Hence the apparent persistence of JT
+distortions in orbital-disordered LaMnOs is really a sig-
+nature of JT-driven bond anharmonicity.
+
+(a) Expt. (Thygesen ef al.) (b) Computed (This work)
+
+Neutron j
+1.07 —O'
+nl
+
+4 6 10
+r(A)
+
+FIG. 2. Pair distribution functions for LaMnO3 and their
+evolution with temperature. Experimental (panel a) and com-
+puted (panel b) neutron (top) and X-ray (bottom) PDFs for
+the temperature range 500 to 1000 K are shown. Baselines
+are shown using dotted lines; features of particular interest
+are marked with arrows. As in Ref. 19, O’ (orange) denotes
+the orbital-ordered low-T and O (green) denotes the orbital-
+disordered high-T phase. Panel (a) adapted from Ref. 19.
+
+Our MD simulations are driven by a machine-learned
+interatomic potential (MLIP). Recent advances in on-
+the-fly-accelerated first-principles MD [21-23] provide a
+route for the efficient generation of training data for
+MLIPs [24, 25]. We here parameterized an MLIP model
+using the NequIP architecture [26, 27] together with
+an existing dataset of 1,384 LaMnOs structures from
+Ref. 28, generated initially from a 100 — 1,100 K heat-
+ing run of a 2 x 2 x 2 cubic unit cell with AFM ordering
+[28]. For MD simulations, the isothermal-isobaric (NPT)
+ensemble was used with a Nosé-Hoover thermostat and
+barostat as implemented in LAMMPS [29].
+
+To validate the MLIP model, we computed key struc-
+tural parameters and compared their change with tem-
+perature to the experimental data of Ref. 19 (Fig. 1). A
+6 x 6 x 6 expansion of the cubic unit cell was used for
+a heating simulation from 200 to 1,200 K at a rate of
+1 K/ps at constant atmospheric pressure. Reduced cell
+parameters were calculated using equations outlined in
+Ref. 28, and the tilting angle, y, along the (111) axis
+was calculated using the O-O-O angles 6; and 62 ac-
+cording to the methods in Refs. 33 and 34. The average
+structural parameters were obtained from a trajectory
+with a time averaging of 0.1 ps. For the lattice param-
+eters, a moving average was calculated and overlaid on
+the time-averaged values. The tilting angles and bond
+lengths were averaged over all 256 octahedra within the
+supercell. Overall, Fig. 1 shows excellent agreement be-
+tween simulated and experimental data: in particular,
+
+the orthorhombic/pseudocubic transition associated with
+orbital order/disorder is replicated. The temperature at
+which this transition occurs is underestimated by ~ 60 K,
+which may be due to the underlying DFT level [20, 28].
+With increasing T, the lattice parameters collapse to sim-
+ilar values accompanied by a decrease in shear strain [35],
+he octahedral tilting decreases, and the JT distortions
+appear to be suppressed. At ~ 1,200 K, the tilting pat-
+ern changes to a a~a_, consistent with a transition to
+
+he rhombohedral phase as observed experimentally [35].
+
+Next, we calculated averaged PDFs from structures
+sampled from 10 ps MD runs. Neutron and X-ray
+PDFs were predicted using DebyeCalculator [30] us-
+ing reciprocal-space ranges, real-space resolutions, and
+damping parameters from Ref. 19. Figure 2 shows that
+he calculated PDFs agree remarkably with experimen-
+al data from Ref. 19, indicating that the simulation cap-
+ures the change in local structure within the tempera-
+ure range. Notably, it replicates the change in peaks
+corresponding to the Mn—O bonds, from two split peaks
+0 a broad single peak at ~ 2 A. While the changes in
+attice parameters, volume, and Mn-O bond lengths have
+een previously simulated [12, 20, 31, 32], this is the first
+ime that the experimental PDFs for LaMnOz ~ and their
+evolution across the order/disorder transition — have been
+replicated from first principles.
+
+Overall, Figs. 1 and 2 show that the temperature de-
+endence of both average and local structure in LaMnO,
+is well described by our simulations. This observation
+
+justifies now using the atomistic configurations to explore
+he nature of orbital order and disorder in LaMnOs. Fig-
+ure 3 shows the orientations of the respective two longest
+Mn-O bonds in each [MnOg] octahedron with tempera-
+ure, as well as snapshots of slices in the zy-plane. The
+MD trajectory has been time-averaged with a window
+of 0.1 ps to remove thermal fluctuations. We found
+hat larger time-averaging windows resulted in the bond
+engths averaging out in the high-T’ phase due to the con-
+stant fluctuation of long-bond orientations [35]. As tem-
+erature rises, the system undergoes a drastic change,
+losing the C-type order and adopting a crystallographi-
+cally disordered configuration. Unexpectedly, the high-T
+hase consists of ~ 50% of L-type distortions and the re-
+maining distortions having opposing long bonds aligning
+along all three axes in equal proportions. This result is
+consistent with the meaningful change in local structure
+observed in experimental PDFs [19], but is a markedly
+different picture than previously considered.
+
+To draw a comparison to other materials, a clear
+
+change in local structure is also apparent from PDFs for
+orbital order transitions in the layered nickelates, LiNiO,
+[14] and NaNiO, [15]: the Ni-O peaks broaden and merge
+with increasing temperature, similar to the Mn—O peaks
+in LaMnO3. However, the change in the Ni-O peaks was
+interpreted to be due to the JT distortions disappearing,
+in contrast to the canonical understanding of the behay-
+
+= 1004 I «/y-axis I L-type IE z-axis
+= 80
+S 60
+= 40
+B 2
+a of
+
+400 600 800 1000
+
+t Temperature (Wt t
+pa pap b DS Pos foi T , -
+rededs bad 24: pea $ Ty
+SHSpeHp Oo6. ¢¢ VOVSHS
+$ohohs> oes b DQeoee
+apapap + eg o. ©oSe eS
+lel Seceet deca pods da] lppte te
+
+FIG. 3. Evolution of long Mn-—O bond orientations with tem-
+perature. We plot the percentage of parallel long bonds align-
+ing with the z- or y-axis (green) and z-axis (cyan) as well as
+L-type (magenta). Slices in the xy-plane highlighting the two
+longest bonds are shown at relevant temperatures [36].
+
+ior of LaMnO,. We can investigate this difference in in-
+terpretation by calculating the magnitude of the JT dis-
+tortions of each octahedron through Van Vleck vibration
+modes, using VanVleckCalculator [37]. We focus on the
+E, distortion space which is spanned by a planar rhombic
+Q2 component (compression of two bonds and stretching
+of two bonds) and a tetragonal Q3 component (compres-
+sion of four bonds and stretching of two bonds). Figure
+4a shows the evolution of the distributions of the octahe-
+dral distortions from snapshots of a 14 x 14 x 14 supercell
+heated for 10 ps at each temperature. At 400 K, there
+are two high-intensity regions showing that there are two
+major orientations of the JT distortions, as expected for
+C-type ordering. At 500 K, these regions are broader
+and closer together in distortion space. When slices of
+the 500 K configurations are visualized with color-coding
+based on the amplitude of the Q2 component (Fig. 4b),
+we see mostly C-type ordering, but a small proportion of
+the octahedra have near-zero Q2 amplitudes. At 1,000 kK,
+the heatmap in Fig. 4a shows a clear centering around
+(0,0), and the majority of the octahedra have reduced
+Qo- or Q3-amplitudes (~ 45% within +0.05 A). Slices
+of the 1,000 K configurations show essentially complete
+melting of the original C-type order.
+
+The unimodal distribution of octahedral distortion
+types we observe is inconsistent with previous interpreta-
+tions based on the 3SP model [32], for which the (Q2,Q3)
+heatmap would show three maxima at high tempera-
+ture, corresponding to JT distortions aligned along the
+three principal axes. Hence, our results indicate that the
+high-temperature phase of LaMnO3 involves suppression
+of the conventional JT distortion of [MnO,] octahedra
+on long timescales. The broadening and merging of the
+Mn-O peaks in the PDFs is probably a signature of this
+local-structure transition. Indeed, this interpretation has
+much in common with that of JT suppression in LiNiO,
+[14] and NaNiO, [15].
+
+4000 K
+
+Counts
+
+-~0.4-0.20.00204 -04-0.20.0 0.2 0.4
+(A) Q3(A)
+
+-0.4-0.2 0.0 0.2 0.4
+Q(A)
+T
+
+(c)
+
+Octahedra
+
+0 20 40 60 80 1000 20 40 60 801000 20 40 60 80 100
+Time (fs) Time (fs) Time (fs)
+
+FIG. 4. Evolution of octahedral distortions in a 13,720-atom
+supercell with temperature and time. (a) Heatmaps with con-
+tour lines of the octahedral distortion mode components, Q2
+and Q3, at 400 K, 500 K and 1,000 K. (b) Slices along the ry-
+plane of the supercells [36]. The amplitude of the Q2 compo-
+nent for each octahedra and Mn-O bonds longer than 2.05 A
+are colored. (c) Change in the amplitude of the Q2 compo-
+nent with simulation time for 20 randomly selected octahedra,
+ordered by the initial amplitude, at each temperature.
+
+Next, we ask whether the octahedral distortions in the
+high-T phase are static, as had been inferred from exper-
+imental studies [11, 38]. We qualitatively analyzed JT
+mode lifetimes by tracking the amplitude of the Q2 com-
+onent of each octahedron over time. Figure 4c compares
+he lifetimes at different temperatures for 20 randomly
+selected octahedra. Each horizontal line in the plot rep-
+resents the evolution of the Q2 component of one octa-
+hedron in the last 100 fs from 10 ps runs at constant T.
+While essentially static at 400 K, the lifetimes shorten
+and the distortions start to fluctuate between different
+directions at 500 K (red ¢+ blue in Fig. 4c). At 1,000 K,
+he distortions are constantly swapping orientations with
+a lifetime of ~ 40 fs [35], showing that distortions in the
+high-T’ phase are highly dynamic. This behavior is remi-
+niscent of JT-driven fluctuations in paraelectric BaTiOs,
+in which asymmetric broadening of the Ti-O PDF peaks
+at high temperatures is associated with anharmonicity
+of Ti-off-centering dynamics [7, 39]. Similar interplay
+of JT instabilities and strongly anharmonic lattice dy-
+namics is found in the thermoelectrics PbTe and SnSe
+[13, 40-42]. For PbTe, single-crystal inelastic neutron
+scattering showed that the electronic instability causes
+phonon anharmonicity resulting in dynamic dipoles that
+give asymmetric PDF peaks with increasing temperature
+[43]. The dynamic nature of the octahedral distortions in
+LaMnO3 might be confirmed experimentally by the same
+
+approach. For comparison with future studies, simulated
+single-crystal diffuse scattering patterns from the config-
+urations with 13,720 atoms are provided online [35].
+Our key result has been to show that the conven-
+tional JT distortion found in octahedral Mn?+ per-
+ovskites is actually quenched in the orbital-disordered
+phase of LaMnO3. The distortions that are present at
+high temperatures are more varied and fluctuate on a
+timescale that is similar to that of typical thermal mo-
+tion. Hence the orbital arrangements in LaMnOsg are not
+well described by a conventional order/disorder picture,
+but instead involve a transition from static correlated
+JT to dynamic JT-driven anharmonicity. Because CMR
+emerges from this “orbital-disorder” phase on doping, our
+analysis suggests that MLIP-driven MD simulations may
+offer new insight into the microscopic nature of the CMR
+phenomenon.
+B.B. acknowledges discussions with C. Ben Mahmoud,
+L.A.M. Rosset, R. Wernert, and Y. Zhou, and fund-
+ing from the EPSRC Centre for Doctoral Training in
+Inorganic Chemistry for Future Manufacturing (OxI-
+CFM), EP/S023828/1. A.L.G. acknowledges discus-
+sions with M.S. Senn, D.A. Keen, and L.A.V. Nagle-
+Cocco. The authors acknowledge the use of the Uni-
+versity of Oxford Advanced Research Computing fa-
+cility (http://dx.doi.org/10.5281/zenodo.22558). Data
+supporting this work are openly available at Ref. 35.
+
+volker.deringer@chem.ox.ac.uk
+
+1] J. G. Bednorz and K. A. Miiller, Possible high T, Super-
+conductivity in the Ba — La— Cu — O System, Z. Physik
+B - Cond. Mat. 64, 189 (1986).
+
+2] H. Keller, A. Bussmann-Holder, and K. A. Miiller, Jahn—
+Teller Physics and High-T. Superconductivity, Mater.
+Today 11, 38 (2008).
+3] A. J. Millis, P. B. Littlewood, and B. I. Shraiman, Dou-
+ble Exchange Alone Does Not Explain the Resistivity of
+Lai—.SrzMnOs, Phys. Rev. Lett. 74, 5144 (1995).
+
+4] A. J. Millis, B. I. Shraiman, and R. Mueller, Dynamic
+Jahn-Teller Effect and Colossal Magnetoresistance in
+La;—.SrzMnOs, Phys. Rev. Lett. 77, 175 (1996).
+
+J. Deisenhofer, D. Braak, H.-A. Krug von Nidda, J. Hem-
+berger, R. M. Eremina, V. A. Ivanshin, A. M. Balbashov,
+G. Jug, A. Loidl, T. Kimura, and Y. Tokura, Observation
+of a Griffiths Phase in Paramagnetic Laj—,SrzMnO3,
+Phys. Rev. Lett. 95, 257202 (2005).
+6] P. G. Radaelli, D. E. Cox, M. Marezio, and S.-W.
+Cheong, Charge, Orbital, and Magnetic Ordering in
+Lag.5Cap.;MnO3, Phys. Rev. B 55, 3015 (1997).
+
+7| M.S. Senn, D. A. Keen, T. C. A. Lucas, J. A. Hriljac,
+and A. L. Goodwin, Emergence of Long-Range Order
+in BaTiO; from Local Symmetry-Breaking Distortions,
+Phys. Rev. Lett. 116, 207602 (2016).
+
+8] A. Okazaki and Y. Suemune, The Crystal Structure of
+KCuF3, J. Phys. Soc. Jpn. 16, 176 (1961).
+
+9] J. Rodriguez-Carvajal, M. Hennion, F. Moussa, A. H.
+Moudden, L. Pinsard, and A. Revcolevschi, Neutron-
+
+i
+
+10
+
+11
+
+12
+
+13
+
+14)
+
+[15
+
+16
+
+17
+
+18
+
+19
+
+20)
+
+21
+
+22
+
+23
+
+24
+
+Diffraction Study of the Jahn-Teller Transition in Sto-
+ichiometric LaMnO3, Phys. Rev. B 57, R3189 (1998).
+J.-S. Zhou and J. B. Goodenough, Paramagnetic Phase
+in Single-Crystal LaMnO3, Phys. Rev. B 60, R15002
+(1999).
+
+X. Qiu, Th. Proffen, J. F. Mitchell, and S. J. L. Billinge,
+Orbital Correlations in the Pseudocubic O and Rhombo-
+hedral R Phases of LaMnOs, Phys. Rev. Lett. 94, 177203
+M. R. Ahmed and G. A. Gehring, Volume Collapse in
+LaMnO3; Studied Using an Anisotropic Potts Model,
+Phys. Rev. B 79, 174106 (2009).
+
+B. Jiang, J. Neu, D. Olds, 8. A. J. Kimber, K. Page, and
+T. Siegrist, The Curious Case of the Structural Phase
+Transition in SnSe Insights from Neutron Total Scatter-
+ing, Nat. Commun. 14, 3211 (2023).
+
+A. R. Genreith-Schriever, A. Alexiu, G. S. Phillips, C. S.
+Coates, L. A. V. Nagle-Cocco, J. D. Bocarsly, F. N.
+Sayed, S. E. Dutton, and C. P. Grey, Jahn-Teller Dis-
+tortions and Phase Transitions in LiNiOz: Insights from
+Ab Initio Molecular Dynamics and Variable-Temperature
+X-ray Diffraction, Chem. Mater. 36, 2289 (2024).
+
+L. A. V. Nagle-Cocco, A. R. Genreith-Schriever, J. M. A.
+Steele, C. Tacconis, J. D. Bocarsly, O. Mathon, J. C.
+Neuefeind, J. Liu, C. A. O’Keefe, A. L. Goodwin, C. P.
+Grey, J. S. O. Evans, and S. E. Dutton, Displacive Jahn—
+Teller Transition in NaNiOz, J. Am. Chem. Soc. 146,
+29560 (2024).
+
+E. Pavarini and E. Koch, Origin of Jahn-Teller Distortion
+and Orbital Order in LaMnO3, Phys. Rev. Lett. 104,
+086402 (2010).
+
+M. C. Sanchez, G. Subias, J. Garcia, and J. Blasco, Coop-
+erative Jahn-Teller Phase Transition in LaMnO3 Studie
+by X-Ray Absorption Spectroscopy, Phys. Rev. Lett. 90,
+045503 (2003).
+Y. Murakami, J. P. Hill, D. Gibbs, M. Blume, I. Koyama,
+M. Tanaka, H. Kawata, T. Arima, Y. Tokura, K. Hirota,
+and Y. Endoh, Resonant X-Ray Scattering from Orbital
+Ordering in LaMnOs, Phys. Rev. Lett. 81, 582 (1998).
+P. M. M. Thygesen, C. A. Young, E. O. R. Beake,
+F. D. Romero, L. D. Connor, T. E. Proffen, A. E.
+Phillips, M. G. Tucker, M. A. Hayward, D. A. Keen, an
+A. L. Goodwin, Local Structure Study of the Orbital Or-
+der/Disorder Transition in LaMnOs, Phys. Rev. B 95,
+174107 (2017).
+M. M. Schmitt, Y. Zhang, A. Mercy, and P. Ghosez,
+Electron-Lattice Interplay in LaMnO,z from Canonical
+Jahn-Teller Distortion Notations, Phys. Rev. B 101,
+214304 (2020).
+
+Z. Li, J. R. Kermode, and A. De Vita, Molecular Dy-
+namics with On-the-Fly Machine Learning of Quantum-
+Mechanical Forces, Phys. Rev. Lett. 114, 096405 (2015).
+R. Jinnouchi, J. Lahnsteiner, F. Karsai, G. Kresse, and
+M. Bokdam, Phase Transitions of Hybrid Perovskites
+Simulated by Machine-Learning Force Fields Trained on
+the Fly with Bayesian Inference, Phys. Rev. Lett. 122,
+225701 (2019).
+
+T. K. Stenczel, Z. El-Machachi, G. Liepuoniut
+Morrow, A. P. Barték, M. I. J. Probert, G. Csa
+Vai Deringer, Machine-Learned Acceleration for Molec-
+ular Dynamics in CASTEP, J. Chem. Phys. 159, 044803
+X. Liang, J. Klarbring, W. J. Baldwin, Z. Li, G. Csdnyi,
+and A. Walsh, Structural Dynamics Descriptors for Metal
+
+J.D.
+
+27
+
+28
+
+29
+
+[30] F
+
+31
+
+35
+36
+
+on
+
+Halide Perovskites, J. Phys. Chem. C 127, 19141 (2023).
+Z. El-Machachi, D. Frantzov, <A. Nijamudheen,
+T. Zarrouk, M. A. Caro, and V. L. Deringer, Ac-
+celerated First-Principles Exploration of Structure and
+
+Reactivity in Graphene Oxide, Angew. Chem. Int. Ed.
+63, 202410088 (2024).
+S. Batzner, A. Musaelian, L. Sun, M. Geiger, J. P.
+
+Mailoa, M. Kornbluth, N. Molinari, T. E. Smidt, and
+B. Kozinsky, E(3)-Equivariant Graph Neural Networks
+or Data-Efficient and Accurate Interatomic Potentials,
+at. Commun. 13, 2453 (2022).
+The model was trained with 3 message-passing layers,
+cach with 32 features and a radial cutoff of 6.0 A. Energy
+and force losses were weighted 1:1 and all other parame-
+ters were kept as is from the default NequIP configuration
+file (https: //github.com/mir-group/nequip).
+T. Jansen, G. Brocks, and M. Bokdam, Phase Transitions
+of LaMnO3 and SrRuO3 from DFT+U Based Machine
+Learning Force Fields Simulations, Phys. Rev. B 108,
+235122 (2023).
+A. P. Thompson, H. M. Aktulga, R. Berger, D. S. Bolin-
+tineanu, W. M. Brown, P. S. Crozier, P. J. in ’t Veld,
+A. Kohlmeyer, S. G. Moore, T. D. Nguyen, R. Shan,
+M. J. Stevens, J. Tranchida, C. Trott, and S. J. Plimpton,
+LAMMPS - a Flexible Simulation Tool for particle-Based
+Materials Modeling at the Atomic, Meso, and Continuum
+Scales, Comput. Phys. Commun. 271, 108171 (2022).
+ma Johansen, A. S. Anker, U. Friis Jensen, E. B. Dam,
+K. M. @. Jensen, and R. Selvan, A GPU- Accelerated
+Open-Source Python Package for Calculating Powder
+Diffraction, Small-Angle-, and Total Scattering with the
+Debye Scattering Equation, J. Open Source Softw. 9,
+6024 (2024).
+A. Sartbaeva, S. A. Wells, M. F. Thorpe, E. S. Bozin,
+and S. J. L. Billinge, Geometric Simulation of Perovskite
+Frameworks with Jahn-Teller Distortions: Applications
+to the Cubic Manganites, Phys. Rev. Lett. 97, 065501
+(2006).
+A. Sartbaeva, S. A. Wells, M. F. Thorpe, E. S. Bodin,
+and S. J. L. Billinge, Quadrupolar Ordering in LaMnO3
+Revealed from Scattering Data and Geometric Modeling,
+Phys. Rev. Lett. 99, 155503 (2007).
+M. O’Keeffe and B. G. Hyde, Some Structures Topolog-
+ically Related to Cubic Perovskite (£21), ReO3 (D0o)
+and CugAg (L12), Acta Crystallogr. B. 33, 3802 (1977).
+T. G. Parsons, H. D’Hondt, J. Hadermann, and M. A.
+Hayward, Synthesis and Structural Characterization of
+Lai_xA2zMnO25 (A = Ba, Sr, Ca) Phases: Mapping the
+Variants of the Brownmillerite Structure, Chem. Mater.
+21, 5527 (2009).
+https: //github.com/Batbodoo/LaMnO3-data.
+Structures were visualized using OVITO: A. Stukowski,
+Visualization and analysis of atomistic simulation data
+with OVITO-the Open Visualization Tool, Modelling
+Simul. Mater. Sci. Eng. 18, 015012 (2009).
+L. A. V. Nagle-Cocco and S. E. Dutton, Van Vleck Anal-
+ysis of Angularly Distorted Octahedra Using VanVleck-
+Calculator, J. Appl. Crystallogr. 57, 20 (2024).
+M. R. Ahmed and G. A. Gehring, Potts Model for the
+Distortion Transition in LaMnO3, Phys. Rev. B 74,
+014420 (2006).
+M. Pasciak, T. R. Welberry, J. Kulda, S. Leoni, and
+J. Hlinka, Dynamic Displacement Disorder of Cubic
+BaTiO, Phys. Rev. Lett. 120, 167601 (2018).
+
+[40] E. S. Bozin, C. D. Malliakas, P. Souvatzis, T. Proffen, [42] B. Sangiorgio, E. S. Bozin, C. D. Malliakas, M. Fech-
+
+N. A. Spaldin, M. G. Kanatzidis, and S. J. L. Billinge, ner, A. Simonov, M. G. Kanatzidis, S. J. L. Billinge,
+Entropically Stabilized Local Dipole Formation in Lead N. A. Spaldin, and T. Weber, Correlated Local Dipoles
+Chalcogenides, Science 330, 1660 (2010). in PbTe, Phys. Rev. Mater. 2, 085402 (2018).
+
+[41] O. Delaire, J. Ma, K. Marty, A. F. May, M. A. McGuire, [43] K. M. @. Jensen, E. S. Bozin, C. D. Malliakas, M. B.
+M.-H. Du, D. J. Singh, A. Podlesnyak, G. Ehlers, M. D. Stone, M. D. Lumsden, M. G. Kanatzidis, S. M. Shapiro,
+Lumsden, and B. C. Sales, Giant Anharmonic Phonon and S. J. L. Billinge, Lattice Dynamics Reveals a Lo-
+Scattering in PbTe, Nat. Mater. 10, 614 (2011). cal Symmetry Breaking in the Emergent Dipole Phase of
+
+PbTe, Phys. Rev. B 86, 085313 (2012).

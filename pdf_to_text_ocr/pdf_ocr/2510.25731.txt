@@ -1,0 +1,1724 @@
+2510.25731v1 [cs.LG] 29 Oct 2025
+
+arXiv
+
+LIESOLVER*: A PDE-constrained solver for IBVPs using Lie
+symmetries
+
+René P. Klausen®?’, Ivan Timofeev?, Johannes Frank*, Jonas Naujoks*, Thomas
+Wiegand**, Sebastian Lapuschkin*¢, and Wojciech Samek*>*
+
+® Department of Artificial Intelligence, Fraunhofer Heinrich Hertz Institute
+b Department of Electrical Engineering and Computer Science, Technische Universitat Berlin
+© BIFOLD - Berlin Institute for the Foundations of Learning and Data
+4 Centre of eXplainable Artificial Intelligence, Technological University Dublin
+
+t Equal contribution
+8 Corresponding author rene.pascal.klausen@hhi.fraunhofer.de
+
+Abstract
+
+We introduce a method for efficiently solving initial-boundary value problems (IBVPs) that
+uses Lie symmetries to enforce the associated partial differential equation (PDE) exactly by
+construction. By leveraging symmetry transformations, the model inherently incorporates the
+physical laws and learns solutions from initial and boundary data. As a result, the loss directly
+measures the model’s accuracy, leading to improved convergence. Moreover, for well-posed
+IBVPs, our method enables rigorous error estimation. The approach yields compact models,
+facilitating an efficient optimization. We implement LIESOLVER and demonstrate its application
+to linear homogeneous PDEs with a range of initial conditions, showing that it is faster and
+more accurate than physics-informed neural networks (PINNs). Overall, our method improves
+both computational efficiency and the reliability of predictions for PDE-constrained problems.
+
+Keywords: Physics-Informed Machine Learning, Physics-Informed Neural Networks, Scien-
+tific Machine Learning, Lie Symmetries, Partial Differential Equations, Initial-Boundary Value
+Problems
+
+1 Introduction
+
+Partial differential equations (PDEs) appear in nearly every scientific discipline, from fluid dynam-
+ics to quantitative finance. This ubiquity makes the development of reliable and efficient PDE
+solvers a central challenge in the field of computational science. In particular, the goal is to find
+specific solutions of PDEs that satisfy additional initial and/or boundary conditions; this setting
+is commonly referred to as the initial-boundary value problem (IBVP). While classical numerical
+methods, such as finite difference and finite element techniques [21], can effectively address these
+
+*In German, “Lies” is the imperative of “lesen” (“read”); “LieSolver” playfully suggests “Lies Olver”— to read
+Olver. We use Olver’s book [31] as our primary source on Lie symmetries, prolongation, and symmetry-generated
+solution transformations.
+roblems, their computational cost increases dramatically with the dimensionality of the problem.
+n particular, most classical methods require a domain discretization, which allows the evaluation
+of the function at a finite set of predetermined grid points only. As a result, high-dimensional PDEs
+resent particularly daunting challenges that necessitate innovative solution strategies as outlinec
+
+in [17].
+
+To this end, various approaches have been developed that employ machine learning techniques
+‘0 tackle these problems. Early approaches to solving differential equations with neural networks
+date back to the pioneering work by Lagaris et al.[19], who proposed feedforward architectures thai
+satisfy boundary and initial conditions by construction. Furthermore, various machine learning
+echniques have been explored to address these challenges, such as the work by [38], which aims to
+recover analytical closed-form solutions through genetic programming.
+
+The introduction of physics-informed neural networks (PINNs) [32] in 2017 revitalized interes
+in the field of physics-informed machine learning and the application of machine learning-based
+echniques for solving PDEs. Similar to the Deep Galerkin Method [35], PINNs utilize multiple
+loss terms corresponding to the PDE and the boundary and/or initial conditions to approximate
+solutions by minimizing the loss. Hence, the network is guided — but not guaranteed — to respec
+he physics. These methods have demonstrated notable success across various applications, by no
+means limited to physics, in solving IBVPs [17]. A large body of follow-up work has sought to
+improve training stability and scalability using a plethora of approaches, including domain decom-
+osition [15], adaptive loss balancing [42], improved optimizers [33, 39], resampling [20, 25, 44] an
+multifidelity extensions [23]. Although promising, PINNs often suffer from unstable convergence
+18, 41]. In practice, networks can reach very small PDE residuals while failing to approximate
+he true solution well. The reason is that the PDE loss term used in PINNs is not monotone with
+respect to the solution error. As a result, the training loss does not necessarily provide predictive
+ower: low loss does not automatically imply high accuracy. This issue limits the reliability o:
+PINNs as general-purpose PDE solvers. Despite numerous enhancements for PINNs, the afore-
+mentioned issue is inherent to the intrinsic structure of PINNs and their underlying optimization
+scheme.
+
+In general, there are several ways to incorporate physics into a machine learning model: (a)
+y informing the data, (b) through the loss function, or (c) by modifying the model’s architecture
+17]. Whereas classical PINNs inform the model solely through the loss function (b), there are
+also hybrid approaches, such as hard-constraint PINNs [22], which utilize a PDE-informed loss
+function in conjunction with a boundary-conditions-informed architecture. In addition, there are
+several approaches where physics is baked directly into the model architecture. Examples include
+convolutional networks that hard-code translation symmetry [8], equivariant networks for three-
+dimensional particle systems [37], and structure-preserving models such as Hamiltonian [13] or
+Lagrangian neural networks [9]. These architectures ensure physical consistency by design, but are
+usually specialized to certain physical aspects.
+
+In the realm of physics, symmetries play a dominant role [43], inspiring diverse machine learning
+approaches which are “symmetry-informed”. Examples include symmetry-informed data augmenta-
+ion for neural PDE solvers [5], self-supervised pretraining based on Lie symmetry transformations
+24], and symmetry-regularized PINNs [1], which all exploit the invariance structure of the un-
+derlying equations to improve generalization and sample efficiency. Similarly, [47] leverages Lie
+symmetry groups to generate data for supervised learning, providing an alternative to physics-
+
+informed training. Other methods embed invariant surface conditions into the loss [48] to enhance
+
+he PINN
+from data
+and facilit:
+
+In our
+y integra
+
+metries as
+solve PDE:
+
+optimizati
+
+used in PI
+
+Conse
+
+method. Yet another recent line of work [45, 46] utilizes Lie symmetries to discover them
+and integrate them into learning architectures, improving long-term predictive accuracy
+ating practical applications such as equation discovery.
+approach, we leverage the inherent symmetries of PDEs, namely their Lie symmetries,
+ting them directly into the model structure. This method is in principle possible for any
+
+PDE or any corresponding Lie symmetry, as these symmetries inherently generate parametrized
+and expressive solutions by themselves. Our work integrates predetermined parametrized Lie sym-
+
+learnable building blocks, enabling the model to compose symmetry transformations to
+$s while provably remaining in the space of solutions of the underlying PDE. Consequently,
+
+for every set of model parameters, the resulting model exactly satisfies the PDE. As a result, the
+
+on problem reduces to fitting the initial-boundary values only. This makes the optimiza-
+
+ion significantly more controllable and eliminates the need for difficult-to-handle PDE loss term
+
+NNs, which in our opinion represents the greatest challenge in the PINN method.
+
+uently, in our model, a decrease of the loss function directly corresponds to an enhance-
+
+ment of the accuracy of the prediction. Hence, in contrast to PINNs, the loss function serves as a
+reliable metric for evaluating training progress. In addition, for well-posed IBVPs, one can derive
+rigorous error bounds that scale with the test loss. Moreover, this approach allows us to design
+
+significant.
+
+ly smaller models (in terms of the number of parameters), while preserving a high degree
+
+of expressiveness. As a result, this enables more robust optimization leading to more accurate
+approximations in significantly less time compared to PINNs.
+
+The ar
+(section 2.
+
+icle is structured as follows: We begin by introducing the underlying problem: IBVPs
+2) with their associated PDEs (section 2.1). These concepts are introduced in a way
+
+that is useful for the study of Lie symmetries, which are reviewed in section 2.3. We complement
+the discussion of Lie symmetries with more details in appendix A.1. In section 3 we propose our
+new method LIESOLVER, which is specialized to linear homogeneous PDEs. section 4 presents our
+
+experiment
+
+s, testing the scope of LIESOLVER and comparing it with PINNs, demonstrating that
+
+our approach leads to more accurate solutions that can be computed significantly faster.
+
+To summarize the contributions of our work, we provide:
+
+e The
+
+new machine learning framework LIESOLVER based on Lie symmetries, which aims to
+
+solve IBVPs. This method will enforce PDE exactly, by the use of a PDE-informed architec-
+
+ture.
+
+Learning happens only on the boundary domain and requires no data, as arbitrary data
+
+points can be sampled as needed. Our approach is currently limited to linear homogeneous
+PDEs.
+
+e Anil
+
+lustration of how to derive rigorous error bounds from the test loss in well-posed problems.
+
+e The path towards theoretical convergence guarantees. We do not prove any bounds rigorously.
+
+e Benchmark experiments demonstrating higher solution accuracy and faster compute times
+compared to vanilla PINNs.
+
+e An improved interpretability through access to a symbolic decomposition of the solution.
+2 Theoretical Background
+
+The main focus of this article is to solve initial-boundary-value problems (IBVPs) effectively by us-
+ing machine learning techniques. We will introduce IBVPs in section 2.2 along with their associated
+artial differential equations (PDEs) (section 2.1), while placing a particular emphasis on their sym-
+metries in section 2.3. For readers seeking a quick overview, we recommend focusing on section 2.3.
+A more comprehensive description of the topics discussed will be compiled in appendix A.1. For
+a detailed exploration of these subjects, we refer to [31] as an extensive standard source, [2, 3, 30]
+‘or alternative presentations, [10] for a focus on Lie groups, and [27] for an overview, including a
+historical perspective.
+
+2.1 Partial Differential Equations (PDEs)
+
+n a nutshell, PDEs are just equations containing derivatives. When studying symmetries of PDEs,
+it is often convenient to think of their solutions as parametrized surfaces, instead of functions, which
+enables a geometric treatment. In the following, we develop this idea rigorously and introduce the
+
+key concepts. This summary is oriented
+erspective on PDEs we recommend [11,
+
+Consider n independent variables x
+u= (ul
+rom X to U. In addition to the depen
+derivatives. Therefore, we denote by d €
+
+towards the description in [31].
+6, 29, 34].
+
+For a more general
+
+(@1,...,2n) € X = R" and m dependent variables
+
+u”™) €U=R". This terminology reflects that we will later treat solutions as maps
+
+lent and independent variables, the PDE also contains
+the order of the considered PDE, i.e., the order of its
+
+highest derivative. For n independent variables, the number of distinct partial derivatives up to
+
+order d is given! by (eur We prolong the space U to include all partial derivatives up to order d,
+which we denote by U@ := RCT), By
+
+as a set of equations
+
+hese definitions, a system of p PDEs of order d is given
+
+D;(x,u) =0, j=l,...,p (1)
+where we assume D : X x U“ — R? to be smooth. Accordingly, we describe PDEs as functions of
+
+the independent variables and the prolonged dependent variables.
+
+In order to connect the placeholder variable u( to the actual derivatives, we introduce the
+prolongation of functions. For a sufficiently smooth function f :Q—+U with Q C X open, its d-th
+prolongation pr f : Q + U( is defined as the tuple
+
+) f(x) = (ds f(a « 2
+rr F(2) = (BF) yu CU (2)
+where [n]* := {o C€ {1,...,n} : |o| < d} contains all subsets of [n] with at most d elements
+(including the empty set), and we write for a set J = {j1,..., jx}
+. a a
+p= Bx; Ofjreie} = Oj Oj, and Apf:=f (3)
+
+1We will always assume smooth functions, such that derivatives will commute. The number of partial derivatives
+follows from the combinatorial identity 749 et) = 5") for d > 0 and n > 0, which can be easily shown by
+induction.
+for brevity. Thus, the prolongation explicitly lists all derivatives up to order d. For instance, for a
+function f :R? + R we get pr® f(x,y) =f. fer fys Fees fay: Fy) CU * RE.
+
+A sufficiently smooth function f : Q > U, with Q C X open, is called a solution of the PDE
+system D if
+
+D(z,pr%f(x))=0 VvWred. (4)
+
+It is important to note, that there is no general theory to find solutions of PDEs. However, for
+the further treatment, it is useful to classify PDEs with respect to their properties. We call a PDE
+(system) D linear if we can write it in the form
+
+D(x, pr f(x) = h(x) + D2 as(w)ds F(x) (5)
+
+JE[n]4
+
+for some functions h,ay : X — R?. If in addition h(x) = 0, we call the PDE (system) linear
+homogeneous. For any linear homogeneous PDEs, we have that if f; and fo are two solutions of
+the PDE, then so is af; + 6 f2 for any a, € R. In particular, it holds that f(x) = 0 is always a
+solution for any linear homogeneous PDE. If a linear homogeneous PDE does not contain a term
+depending on u, it additionally is true that every constant function solves this PDE.
+
+2.2 Initial-boundary value problems (IBVPs)
+
+Since PDEs usually admit infinitely many solutions, we impose additional constraints in the form
+of initial-boundary conditions (IBC) to ensure uniqueness. To simplify the notation, we will not
+explicitly distinguish between time and spatial coordinates. Hence, initial and boundary conditions
+get the same form. Let 2 C X be a bounded domain, where its boundary OQ contains smooth,
+connected components [';,...,IT,. C OQ. For each Ty, we introduce a condition of the form
+
+Bi. (x,u,Un) =0 for alla eT, (6)
+
+with B, :T, xUxU —-R. The symbol uy is a placeholder, which will later be associated with the
+normal derivative. A PDE system D together with associated IBCs B,,...,8, defines an initial-
+boundary value problem (IBVP). A sufficiently smooth function f : Q — U is called a solution of
+the IBVP if
+
+D(a,pr f(r))=0 VrEeQ (7)
+B, (2, f(c), (e)) =0 Ve ETy, k=l, (8)
+where Af (x) = V f(x) - A(x) is the normal outward derivative on Py.
+
+In the following, we will always focus on well-posed IBVPs, meaning that (i) the IBVP has a
+solution, (ii) the solution is unique, and (iii) the solution depends continuously on the prescribed
+initial and boundary data. The precise definition of these three properties depends on the specific
+problem being considered, and there is no commonly agreed definition, as noted in [16]. Typically,
+we restrict the space of possible solutions to smooth functions and may add further restrictions,
+e.g., certain assumptions on the growth at infinity, in order to specify uniqueness. To illustrate the
+last condition in practice, we give the following example.
+Example 2.1 [heat equation and reverse heat equation]: Consider the two IBVPs of the so-called
+reverse heat equation in the domain x € [0,27), t > 0 with
+
+up t+ Ure = 0, u(x,0) = 0, u(0,t) = u(2z7,t) = 0 (9)
+vu + Vee = 0, v(x, 0) = esin(x), v(0,t) = v(27,t) =0 , (10)
+
+with € > 0. It is not hard to verify the two solutions u(x,t) = 0 and u(x,t) = esin(x)e’. These
+two problems only differ in the initial condition, having the distance ||u(0) — v(0)||,, = €, with the
+norm || f(t)||,, ‘= MaxXze(o,27) |f(x,t)|. Hence, the initial conditions are arbitrary close for small e.
+However, the distance between solutions is given by ||u(¢) — v(t)||,, = € e’, which is not bounded on
+the domain. Hence, the solution will not depend continuously on the initial data, and this problem
+
+is ill-posed.
+
+In comparison, consider a slightly modified version of the problem (heat equation)
+
+Ut — Ure = 0, u(x, 0) = 0, u(0,t) = u(2z7,t) = 0 (11)
+Ut — Ure = 0, v(x, 0) = esin(x), v(0,t) = v(27,t) =0 , (2)
+which results in the solutions u(,t) = 0 and v(a,t) = esin(x)e~'. In that case, the distance
+
+between the solutions is given by ||u(t) — v(t)||,, =¢€e7' <«. Hence, the map from initial data to
+solutions is (locally) Lipschitz continuous
+
+lle(t) — e@lloo SC Ilu(0) — 200) loo (13)
+
+with Lipschitz constant C= 1. Hence, we confirmed the well-posedness of the heat equation with
+Dirichlet conditions. A
+
+2.3 Lie Symmetries
+
+PDEs can be invariant under certain symmetries, and so their set of solutions has to respect the
+same symmetries. Let us illustrate this behaviour on the differential equation uz, = 0. Obviously,
+if u = f(a) is a solution, then so is u = f(a) + J, as well as u =e” f(x) for any 0 € R. Hence, the
+underlying PDE comes with a translation and scaling invariance
+
+Tj: f(x) fl) +9 and Ty: fw) e"f(@) . (14)
+
+Moreover, these symmetry transformations will generate a group structure, i.e., we have a neutral
+
+element Tj = e, inversions (T}) = T', and Tj, oT), = Tj,4»,- Thus, we obtain a two-
+
+dimensional group, which is spanned by two one-parameter groups.
+
+The rigorous study of these symmetry groups naturally leads to the framework of Lie groups
+[10], which provide the mathematical structure for continuous transformation groups. A Lie group
+is a smooth, finite-dimensional manifold endowed with a group structure? such that both the mul-
+tiplication and inversion maps are smooth.
+
+Symmetry transformations can be described as actions of the Lie groups on manifolds. For a
+Lie group G and a smooth manifold M, this action o: G x M — M is required to be compatible
+
+2A group (G,:) is a set G equipped with a binary operation - : G x G > G that is associative, has a unique
+identity element e € G, and assigns to each g € G a unique inverse g~!.
+with the group axioms, i.e., we demand gj 0 (g2 0%) = (g1-g2)0 a and eox = 2 for any 91,92 €G
+and allx € M.
+
+Depending on the group G and the manifold M, not all of these actions may be defined, which is
+why we allow restricting these actions to a subset Y C Gx M containing the identity {e}x MC Y.
+We will call this restriction a local group of transformations. Note that this restriction to group
+elements around the identity do not pose any serious limitations, since every element of the full Lie
+group G' can be written as a finite product of elements which are close to the identity (compare [31,
+hm. 1.22 and prop. 1.24]).
+
+In order to connect a PDE solution to a manifold, let f : Q > U be a sufficiently smooth
+‘unction with 2 C X. Its graph is defined as
+
+Ty = {(2, f(z)) |e EQ} CNY , (15)
+
+a smooth submanifold of X x U. If G is a (local) group of transformations acting on X x U, then
+for g € G we define the transformed graph as
+
+goly := {(@,t%) =go(a,u) | (xu) ely} « (16)
+
+n the case where we can write the transformed graph g oT, = ry as a graph of another function
+As we simply write f = g0f. Note that for elements g close to the identity, we always find a
+(single-valued) function f with that property.
+
+A symmetry group of a PDE D is a local group of transformations G acting on MC X x UM,
+such that whenever u = f(x) is a solution of D, and go f is defined for g € G, then u = go f(x)
+will be a solution of D as well.
+
+To illustrate these concepts, we discuss the symmetry group of the 1-dimensional heat equation.
+
+We will provide a discussion on how to actually compute these symmetry groups in examples A.2
+
+to A.4.
+
+Example 2.2 {1-dimensional heat equation]: Consider the heat equation
+
+Dad, ul?) = Up — Une (17)
+
+where n = 2, d = 2, m 1 and p 1. It admits the following six one-parameter symmetry
+transformations [31]:
+
+Th: f(a,t) 4 f(x —0,t) (18)
+
+T3 : f(a,t) > e° f(a,t) (20)
+
+Ty: f(a,t) > f(e~®x, et) (21)
+
+TS: f(a,t) A cP" f(a — Qt, t) (22)
+1 0a? Me t
+
+T) + F(@,t) sam (in) (aaa) 8)
+
+for any V € O CR. Note that, we can use different values 0 for any of these transformations, and
+that — depending on the domain 9 of f — we may resctrict the domain for T° to © C R, to avoid
+singularities. In addition, there is an additional symmetry transformation, reflecting the linearity,
+ie., for any solution a(x,t) of (17), we have the symmetry
+
+Hence, for any solution u = f (x,t) of the heat equation (17), applying any of the aforementioned
+transformations produces another possible solution. As an example, for the constant solution
+
+f (x,t) =1 and after applying the transformation T%, obtains the function u = Tan exp(=4mn)
+that also solves the heat equation, whenever this function is defined, i.e. for 1 + 40t 4 0. A
+
+While the transformations T!,...,7* in example 2.2 can be found by carefully observing the
+differential equation (17), T° and T° are far from being trivial to be obtained by reading the PDE.
+However, there exists a concrete recipe for how to compute these transformations, which we will
+summarize in appendix A.1. There are also plenty of implementations for the computation of Lie
+symmetries, and we refer to [28] for a current approach, and [6, 7, 14, 36] for an overview about
+different implementations.
+
+3. LieSolver
+
+In this section, we introduce LIESOLVER, a solver for IBVPs of linear homogeneous PDEs that
+enforces the PDE exactly by construction. The model is a linear combination of functions generated
+by parameterized Lie-symmetry transformations. Since each term satisfies the PDE, optimization
+reduces to fitting initial and boundary conditions. We formalize this construction and the IBC
+loss in section 3.1, and outline the optimization algorithm, which includes greedy term selection,
+variable projection for linear coefficients, and nonlinear least squares for transformation parameters,
+in section 3.2.
+
+3.1 Basic structure & motivation behind LieSolver
+
+Let D(x,u) = 0 denote a linear homogeneous PDE and let f : Q — U be a solution of this
+PDE. As discussed in section 2.3, a Lie symmetry Ty of D is a smooth, invertible transformation,
+parametrized by J) € © C R, with the property that transforming the solution with Ty yields
+another solution of the PDE D. In particular, as noted in section 2.1 any linear homogeneous PDE
+will have the following symmetry:
+
+TH: fo) f(a) +9 a(x) , (25)
+
+where x € X, 0 € Randa: Q > UY is an arbitrary solution of the PDE. In different terms,
+for any linear homogeneous PDE, the linear combination of solutions is a solution as well, which is
+also known as the superposition principle.
+
+Since Lie symmetries form a group, concatenating different Lie symmetries yields another valid
+Lie symmetry. Thus, given a solution, one can generate a family of new solutions by successive
+applications of these transformations. Finding an initial solution is often straightforward. For
+instance, any linear homogeneous PDE admits the trivial f(x) = 0 solution. In addition, a constant
+function solves every linear homogeneous PDE without a term containing u, e.g. f(x) = 1 is a
+solution for heat equation, Laplace equation and wave equation. We refer to such solutions as seed
+solutions, denoted fzeoa, and they are typically easy to obtain for a given PDE.
+Hence, when starting with one or several seed solutions and applying various Lie transformations,
+the resulting functions will still constitute exact solutions of the PDE. This reveals a remarkable
+fact: a single seed solution, together with the action of a Lie group, can define expressive solution
+(sub)spaces via superposition. We illustrate this in the following example.
+
+Example 3.1: Consider the following seed solution of the heat equation (17):
+
+feeea(x, t) = sin(x)e* . (26)
+Applying the transformation T} from example 2.2 with J = — In J, one obtains the family of solution
+sin(Ar)e~>”* for any A> 0.
+
+It is a well-known result [4, sec. 10.5] that the IBVP for the heat equation u, = Ure on
+0,£) with u(0,t) = u(L,t) = 0 and u(r, 0) = D2 an sin(nwa/L) admits the unique solution
+u(x,t) = Py an sin(nra/L) e—(r7/L)"t Hence, even with one specific Lie transformation, we can
+approximate a certain type of IBVP arbitrary well. bs
+Thus, by applying a sequence of Lie symmetries T! to a given fxoog, We obtain an expressive
+function
+
+F(t; 01,--., De) =Ti 0... 0T5! © fecea(x) (27)
+
+hat remains a solution of the underlying PDE D for any value of 3 = (01,..., 0%) € R*®, whenever
+he composed function is defined.
+
+In the approach of LIESOLVER, we consider a set S = {f1(a;01),..., f% (w;0)} of expressive
+functions, where each function f’ is constructed from one or several seed solutions in the form of
+27). We refer to these functions as base solutions®. We will discuss in section 3.2 more in detail,
+how to choose “good” base solutions for a given problem.
+
+The central idea of LIESOLVER is to choose certain base solution and combine them linearly. In
+his procedure we can also use the same base solution several times with different parameters, i.e.
+
+M
+fis(asa1,---,aar,07',..., 00) = rai fi (0%) , (28)
+i=l
+
+which constitutes a very expressive function covering a major part of the solution space of the
+PDE. When the parameters ¥/' are specified to certain values ', we will call the collection of
+base solutions appearing in (28) the active set A= {ff(a; 04), ..., 2" (x; #4" )}. Note that each
+9’ may possibly consist of several parameters as given in (27). To shorten the notation, we write
+6 = (07,..., 058) and a = (a1,...,aar). Since frs is a solution of the PDE by construction,
+the problem of finding a solution to the IBVP is reduced to match given initial and/or boundary
+conditions 6,,...,B,, i.e. finding the optimal set of parameters a and 6. To formalize this, we
+introduce the loss function:
+
+“1
+L(a,0) = S Pal S
+k=1
+
+LEX
+
+2
+
+Bi, (x, fis(«; a, 9), sistent}
+
+dn (29)
+
+2
+
+3We borrow this term from the Finite Element Method. However, this set will not necessarily be minimal, but
+we will span a solution-(sub)space by these “base solutions”.
+where 4, C Ty are finite sets of randomly sampled collocation points from the boundary parts
+T;, C OQ according to section 2.2. The union X = U,_, %% forms the training dataset and consists
+of L points ¥ C R**" (rows are individual points  € R"). Consequently, boundary conditions
+B,,...,B, define set of target values Y € R’*™ at datapoints X.
+
+The seed solutions, the chosen transformations applied to them, and the number of base solutions
+are design choices of the model. The amplitudes a and transformation parameters 6 serve as the
+optimizable parameters.
+
+3.2. The LieSolver optimization algorithm
+
+LiESOLVER determines an optimal linear combination frs(2;a,0) = >, ai fi" (a; 02") via two stages.
+First, LIESOLVER employs greedy addition of the base solutions f?‘(x; 0"); it appends the active
+set A with the base solution with the largest absolute cosine similarity to the current residual
+
+r= )— fis(¥;a,6) , (30)
+
+and updates amplitudes a with ridge least squares (LS). Here, fis(¥;a,0) is to be understood as
+the natural extension of (28) to ¥ . Second, it employs variable projection to eliminate the linear
+amplitudes a and periodically refine only the nonlinear parameters 6 with nonlinear least squares
+
+(NLLS).
+
+Variable projection
+By employing variable projection [12, 26], we eliminate the amplitudes a by solving the LS sub-
+problem exactly for fixed 6,
+
+a*(9) = arg min (||)? — F(@)al); +Aljallz) =(FTF+ADFTY , (31)
+
+where fis (¥; a, ) is represented as the matrix-vector product with the matrix F(@) = Ri (ee 9") Ae
+and \ > 0 is the ridge parameter. Substituting a*(@) back into minimization objective yields the
+
+reduced problem:
+
+6* = argmin |) — F(0) a*(8)||3 (32)
+
+which we minimize over allowed values of @ with NLLS", specifically with bound-constrained trust-
+region reflective least squares. This reduces the optimization dimension to the nonlinear parameters,
+improves conditioning by solving the linear part exactly at each step, and stabilizes training.
+
+Educated guess of base functions
+
+The initial catalogue of bases S determines the expressivity of the constructed solution, and thus
+is crucial for performance. The bases should reproduce a wide range of patterns expected under
+the given PDE and initial-boundary data. Further, the parameter bounds and the chosen sampling
+rule (uniform or log-uniform) should cover relevant scales.
+
+For example, for the heat equation, the effective choice includes scaled/shifted Fourier modes
+from a seed solution like sin(a)e~', Gaussian blobs generated from a constant seed solution by
+applying diffusion/shift, and a hybrid that combines both behaviours.
+
+4nttps://docs.scipy.org/doc/scipy/reference/generated/scipy .optimize.least_squares.html
+
+10
+The LieSolver algorithm
+In conclusion to the details discussed above, we present the specific algorithm for LIESOLVER, which
+depends on the following inputs:
+
+e Training data ¥ C 0M € R**" (rows are points x € R”) and targets Y € R4*™ on the IBC
+set.
+
+e A set of base solutions S = {f'(x;9"),..., f%(x;9%)}. Each f* is defined by a seed solution
+and an ordered list of transforms with parameter bounds and a sampling rule (27). Composing
+them yields a symbolic expression and a fast numeric evaluator fis(x; a, 0).
+
+e Hyperparameters:
+
+— mse_tol: early stopping threshold on training MSE
+
+— max_terms: maximum number of bases in the active set A
+
+— P: parameter samples per base per addition for candidate scoring
+R: number of additions between NLLS refinements
+
+— 2: ridge parameter for ¢2 regularization in least squares
+
+sampling seed
+
+Algorithm 1 LieSolver
+
+Input: data (4, Y); base solutions S; hyperparameters mse_tol, max_terms, P, R, »
+Output: learned bases A = {(f?', 94')}4,, amplitudes a; predictor f(x) = ae a; f2' (a; 02")
+1: Ae0,ae[],r cy, mse € |r|[3/L
+
+2: while mse > mse_tol and |.A| < max_terms do
+
+3 for g=1to Rdo > Add R base terms to A
+4 for each i € {1,...,N} do > Sample and score candidates
+Bi sample {0,}/_, within bounds
+6 for p=1to P do
+7 Vip — f'(4; 9)
+? Url leiplla
+9: end for
+10: end for
+11 (i*,0*) + arg max 5;,p
+i,p
+12: append fj«(-;0*) to A > Best candidate added to A
+18: FH [f(% 8! )hies
+14: a* + arg min \|Y — Fal|3 + Ala\)3 > Amplitudes a by LS
+15: aca; reyY-Fa; mse |r|/3/L
+16: if mse < mse_tol or |.A| = max_terms then
+sa return
+18: end if
+19: end for
+20: @* & argmin 4 \|y — F() a*(6)||5 > Refine @ by NLLS (32)
+24: ata*(*); reY—F(O)a; mse ¢ |\r|[3/L > Amplitudes a by LS (31)
+
+22: end while
+
+11
+Poly Gauss Sine Sine Mix Step
+
+2 10 4 i 1 1.0
+0.84
+Heat
+1 oc 4 0) 04 05
+0.44 “1
+0) -1 0.0
+0 1 0) 1 0) 1 t) 1 0) 1
+x x x x x
+Gauss Gauss Mix Sine Sine Mix Step
+10 1.0 4 1 10
+if
+Wave 95 054 0) 04 05
+0.0 “| 0.045 -1 | = 0.0
+() 1 () 1 0) 1 t) 1 0) 1
+x x x x x
+
+Figure 1: Initial conditions (solution shapes at t = 0) for the test cases for the heat (top row) and
+the wave (bottom row) equations.
+
+Code availability
+The Python implementation is available at https: //github.com/oduwancheekee/liesolver.
+
+4 Experiments and results
+
+To evaluate performance and demonstrate the capabilities of the model, we apply LIESOLVER
+to several IBVPs for the one-dimensional heat equation, and the one-dimensional wave equation
+and compare its performance with standard PINNs and demonstrate its efficiency. LIESOLVER
+outperforms PINNs in our benchmarks regarding accuracy as well efficiency. Since both of these
+problems are well-posed, we can demonstrate the relation between accuracy and test loss as stated
+in section 2.2.
+
+4.1 Experimental setup
+
+In our experiments, we report the mean squared error (MSE) on the IBC data and the relative Ly
+error (L2RE) on the space-time grid in the domain 2. Since all targets are on the order of unity
+in their magnitude, MSEs are comparable across all problem instances. Unless stated otherwise,
+we use P = 1000, R = 5, nfev_global = 4 (number of trust-region reflective steps in global
+refine), X= 1071, L = 3000, mse_tol = 10~°, for a robust, empirically determined configuration in
+LIESOLVER.
+
+For the heat equation D(a,t,u?)) = u, — uex, we use (x,t) € (0,1) x (0,0.1) as the domain,
+and we consider five different profiles polynomial, Gaussian, sine, sine mix, and step for the
+initial condition u(x,0) = u(x), which are shown in figure 1. The boundary conditions are set to
+constant values defined by the initial condition u(0,t) = uo(0) and u(1,t) = uo(1). Similarly, for
+the wave equation D(x, t,u?)) = us — ure, we set (x,t) € (0,1) x (0,1) with u(0,¢) = u(1,t) = 0,
+uz(x,0) = 0 and consider the five IC profiles sine, sine mix, Gaussian, Gaussian mix, and step,
+also depicted in figure 1.
+
+12
+Reference solution
+
+In order to compare the predictions of LIESOLVER, we compute a reference ground truth solutions by
+expanding the initial data in a sine basis according to [4]. For the heat equation with Dirichlet BC,
+we set by, = u(0,0) and bg = u(1,0) and define w(x) = bp +(br—bz) x so that v9(x) = u(x, 0)—w(2)
+satisfies homogeneous Dirichlet conditions. We sample vp at the interior points tm = Ma for
+m = 1,...,M and obtain the coefficients A,, via orthonormal projection onto sin(m7a). The
+
+solution is
+M a
+fret(x,t) = w(x) + S Am sin(mma) e"™™ *. (33)
+
+m=1
+
+For the wave equation with homogeneous Dirichlet boundaries, we sample u(x,0) and w(x, 0) at
+the same interior points z,, and compute A,, and By, by orthonormal projection onto sin(mmz).
+The solution is then given by
+
+M
+
+fret(est) = SS [Am cos(mmt) + Brn sin(mat)| sin(mra). (34)
+
+Wim,
+
+m=1
+
+Base solutions
+LIESOLVER requires an educated choice of parametrized base solutions f(a; #) (see section 3.2).
+For the one-dimensional heat equation, we can use the constant solution feea,1(v,t) = 1 and
+feaol?,t) — e~' sina as possible seed solutions. Based on these seed solutions, we employ three
+complementary base solutions generated by Lie symmetries (18) — (23) of the heat equation:
+e fi(x,t; 9) = T3,° T}, 0 (e~' sina): scaled/shifted Fourier mode (variable phase/frequency).
+Qe 97) = 7h
+° f7(2,t,07) =T;,
+° P(e, t: 8°) = Tj,° T3,° Tj,° Ex o (et sina): Gaussian blob modulated by a scaled/shifted
+sine.
+
+° TS, o (1): diffusion-generated Gaussian blob (variable center and width).
+
+Figure 2 illustrates the variety of base solutions chosen to solve the heat equation.
+For the one-dimensional wave equation, we identify a subgroup of the Lie symmetry group and
+consider two transformations: spatial translation T! and spatiotemporal scaling T?:
+Ty : f(t) > f(a —9,t) (35)
+T? : f(x,t) > fle®x, et) . (36)
+
+We employ them to compose the following two base solutions for the wave equation:
+
+e fi(x,t; 0) = T3,0T}, o(sinx cost): scaled/shifted standing-wave (variable phase/frequency),
+which is suitable for homogeneous Dirichlet BCs.
+
+° f?(x,t;0) =Tj,0T3, o (e-@- 4+ e-(@+"): Gaussian pattern (variable centre and width).
+Zero velocity IC enables us to use travelling blob pair instead of just one travelling blob.
+
+4.2  PINN Baseline Setup
+
+We use a standard fully connected neural network fprnn : R? > R with input (x,t), tanh activation
+function and where the number of layers and their width is specified in table 2 in alignment with
+
+13
+f(x, 0; 92): sine f(x, 0; 92): gauss F(x, 0; 83): modulated gauss
+
+1.0 1.0 1.0
+0s OB os
+0.6
+0.0 0.0
+0.4
+-0.5 02 =0.5
+-1.0 0.0 -1.0
+0.0 0.2 0.4 0.6 08 1.0 0.0 0.2 0.4 0.6 0.8 1.0 0.0 0.2 0.4 0.6 08 1.0
+x x x
+Figure 2: Representative base families for one-dimensional heat equation at t = 0: f+ (sine), f?
+(Gaussian), and f? (Gaussian modulated by a sine) with illustrative parameter choices.
+
+[40]. The loss combines the PDE residual, a several weighted IBC terms:
+
+1 .
+Lres(w) = n. > (femnn,t(@e, tk, Ww) — FINN ve(@k, tk, W)) (37)
+” (wn ,te)EXr
+1
+Licsc(w) = L Ss (fein (aj, tj,w) — yj), (38)
+(25 ,tj)EX 5 EV
+1
+Lyei(w) = NW Ss (fewnt(2j,ty,w)) (39)
+Wl (5 t EA vet
+L(w) = Lres(w) + wicscLicsc(w) + Lve(w) . (40)
+
+Here, XC 2 are the collocation points in the domain, while Y and ) are the same sets of IBC
+points and targets used for LieSolver. The loss weight wicgc is tuned to mitigate ill-conditioning
+and facilitate training (see table 2). We warm up with Adam for 1000 iterations and then train
+with L-BFGS until convergence or optimizer stall.
+
+4.3. Results
+
+Table 1 summarizes representative runs of LIESOLVER for the considered IBVPs, while table 2
+reports the corresponding PINN runs. For all ICs except the step IC, LIESOLVER reliably attains
+BC MSE values of order 10~° using between 5 and 40 bases. The step IC requires more bases due
+o its sharp jump. PINNs match LIESOLVER in terms of attained MSE only on the easiest cases,
+ut falls short on the more challenging ICs. The sine mix IC requires a larger 6 x 100 PINN.
+Notably, the step IC does not reach the target tolerance even with larger PINN models.
+
+LIESOLVER is about one to two orders of magnitude faster than PINN across the considered
+cases. However, its runtime? increases sharply as the number of bases grows. Configurations with
+fewer than 20 bases train within 10 s, 40 bases — within 40 to 60 s, and around 80 bases take
+200 to 300 s. This growth is determined by the global parameter refinement stage. More targeted
+refinement strategies could mitigate this bottleneck.
+
+The choice of base solutions strongly influences performance. Employing sine and Gaussian
+ases, LIESOLVER naturally fits IC profiles with similar sine and Gaussian patterns and reaches
+
+5 All experiments were run on an Intel Core Ultra 7 165H CPU with 11 cores and 16 GiB RAM.
+
+14
+Table 1: Representative LIESOLVER results for the one-dimensional heat and wave equations, re-
+porting accuracy, runtime and model complexity.
+
+TBC MSE L2RE ,
+
+PDE Type (IBC) (domain) Runtime fel Nessexenae Niwwewevse
+polynomial 5.6-10-" 4.8-10-* 43 40 112
+Gaussian 7.8-10-7 8.6-10~4 5 i 32
+Heat sine 1.8-1077 1.6-107% 3 5 14
+sine mix 23-1077 1.9-107° 5 10 28
+step 8.9-107° 46-1077 91 58 196
+Gaussian 7.7-10° 3.8-10~ 6 13 26
+Gaussian mix 6.1-1077 4.0-10-% 44 40 80
+Wave sine 1.0-10-8 21-1074 3 5 10
+sine mix 7.6-10-7 2.0-10-% 5 9 18
+step 8.3-1077 5.1-107% 197 80 160
+
+Table 2: Representative PINN results for the one-dimensional heat and wave equations, reporting
+accuracy, runtime, and model configuration.
+
+IBC MSE L2RE . Training IBC
+
+EUR Type CBO) (domain); Beetine El iremrinny Network! sient
+polynomial 9.0-10-" 48-1077 110 3500 4x 50 107
+Gaussian 3.2-1077 49-1074 100 3500 4x 50 10%
+Heat sine 7.8-10-7 5.0-107-3 160 4200 4x 50 10°
+sine mix 4.6-10-° 1.9-107? 1580 9700 6 x 100 10°
+step 18-1073 2.2-1071 320 3000 6 x 100 10°
+Gaussian 1.5-10-" 1.6-10-% 1100 7300 4x 50 107
+Gaussian mix 2.7-10-° 8.2-107° 2500 17000 4x 50 10°
+Wave sine 2.0-1077 8.5-10-* 1200 7800 4x 50 10°
+sine mix 8.2-107° 1.8-107? 11000 21000 6 x 100 10%
+step 7.2-10-5 45-107? 900 6800 4x 50 10°
+
+the target MSE in under a minute. The step IC remains a challenging stress test and highlights
+model capability. In the following, we discuss three representative cases that illustrate LIESOLVER
+behaviour.
+
+Heat equation with Gaussian IC
+
+Figure 3 shows the evolution of the IBC MSE as a function of the number of added bases. The
+greedy stage begins with a Gaussian base f? that already captures most of the IC (MSE ~ 107%),
+followed by several Fourier-like additions (ft and f?) that enforce the Dirichlet BCs. The first
+global refinement stage (after 5 bases) yields a one-order-of-magnitude drop in MSE; the target
+tolerance (< 107°) is met after 11 bases. Details on performance metrics and computation are
+provided in table 1. Moreover, we confirm the considerations from section 2.2 that there is an
+upper bound for the ratio between MSE on the domain and the test MSE on the IBCs as indicated
+m (13). Hence, we show that the loss serves as a reliable metric for the overall domain accuracy.
+
+Figure 4 and figure 5 compare the model prediction with the ground truth in the domain and
+on the IBCs, respectively. The IBC plots include a decomposition into the weighted base terms,
+revealing dominant Gaussian-like contributors for the IC profile and additional base terms that fit
+the BCs. For reference, a vanilla PINN also fits this smooth case to an IBC MSE < 10~° (figure 6),
+albeit requiring a longer runtime, as indicated in table 2.
+
+10-2
+
+10-7 4
+
+10-3
+
+10-4
+
+10-5
+
+10-4
+
+domain MSE
+ratio MSEdomain / MSEtest
+
+—— train MSE | final 7.8e-07
+test MSE
+
+7.8¢e-07
+2.5e-07
+
+26
+
+is
+terMSparameters
+
+824
+
+1028
+
+Figure 3: Fit progress of LIESOLVER for the heat equation withGaussian IC: IBC MSE is shown
+as a function of the number of added bases. The vertical drops correspond to the global refinement
+
+step:
+
+0.00
+
+iS.
+
+Predicted
+
+10
+09
+08
+07
+06
+os
+04
+03
+
+oo 8602S
+
+Tue
+09
+08
+o7
+06
+os
+04
+03
+
+oo =602COAsHCBS
+
+Error | L2RE: 8.59¢-04
+
+0.10
+0.0020
+0.08
+0.0015
+0.08
+0.0010
+0.04
+and 0.0005
+0.00
+oo 8 =602—SO4siGst«C 10
+
+Figure 4: 2D domain fields (prediction, ground truth, and error) for the heat equation withGaussian
+
+t=0 | MSE=4.3e-07 x=0 | MSE=9.6¢-07 x=1 | MSE=1.3e-06
+035 0.35
+10 — he
+— Pred | 030 0.30
+terms
+08 028 025
+we 0.20 0.20
+— The — we
+oas — prea || 038 — prea
+o4 610 terms | 9.15 terms
+ee 0.05 0.05
+0.00 00
+0.0
+0.05 ons
+oo 02 04 06 08 FX) 000 (002=SsiHSStiCOHSSCSCM 000 = «002=SHHCOHCSCSCM
+
+Figure 5: IBC fits for the heat equation with Gaussian IC, including the decomposition into
+weighted base contributions. The transparent blue curves depict the individual contributions.
+
+16
+t=0.0 | MSE=1.06-06 xX=0.0 | MSE=5.1e-07 X=10 | MSE=8.5¢-07
+
+Lo — Tue | 0288 — Te | 0.288 — Te
+— Pred — Pred — Pred
+oe 0287 0.287
+oa
+ee 0.286
+
+0.285
+
+06 0285
+0.284
+0.284
+
+0283
+
+os 0.283 oze2
+
+oo oz 04 6 OB Lo (00 002 0.04 (006 008 10 0.00 0.02 Oba (006 008 ‘a0
+x t t
+
+Figure 6: Comparison of the PINN prediction with the ground truth on the IBCs for the heat
+equation with Gaussian IC.
+
+10-1 Le Neeoos
+
+10-2
+—— train MSE | final 8.9e-06
+10> —e— test MSE 9.1e-06
+—— domain MSE — 8.1e-07
+10-4 ratio MSEgomain / MSEtest
+10-5
+10-6
+1036 2066 30100 40128 50168
+termSparameters
+
+Figure 7: Training progress of LIESOLVER for the heat equation with step IC. IBC MSE is shown
+as a function of the number of added bases.
+
+Heat equation with step IC
+
+The step IC represents the most challenging case due to the jump in the profile. Figure 7 highlights
+three regimes of LIESOLVER optimization: (i) rapid improvement to MSE ~ 1074 within 15 bases,
+(ii) a stall where additional bases bring limited improvement, and (iii) resumed progress after 40
+bases culminating in < 107° with 58 bases. Figures 8 and 9 show that the dominant residual is
+localized near the initial jump. Despite IBC MSE being higher than the target, the domain L2RE
+reaches 4.6 - 10-3, which is comparable to other IC cases. The decomposition in figure 9 is less
+interpretable than in the Gaussian case due to the large number modulated base contributions. A
+standard PINN plateaus around 1073 IBC MSE (figure 10) and ~ 107! L2RE in the domain. The
+transition from an extremely sharp IC to a rapidly smoothening solution in the domain is hard
+for PINNs. Even larger networks fail to capture this dependency and underperform relative to the
+LIESOLVER.
+
+17
+Predicted True Error | L2RE: 4.61¢-03
+10 10 0.10
+0.0175
+08 008 08 0.08 0.0150
+0.0125
+0.6 0.06 06 0.06
+. 0.0100
+4 04 0.04 0.0075
+0.0050
+02 02 0.02
+0.0025
+0.00 00 000 0.0 0.00
+00 8602S oo ©6021 oo 6002~=COASCiBHSSC«CC
+
+Figure 8: 2D domain fields (prediction, ground truth, and error) for the heat equation with step
+
+IC.
+
+t=0 | MSE=1.5e-05
+
+x=0 | MSE=5,0¢-06
+
+x=1| MSE=4.4e-06
+
+008
+10 — The — The 0.20 Te
+= pred = he =
+03 tee] teons|| 925 on
+004 010
+os
+002 005
+os 100 | | 000
+o2 0.02 “pos
+-o10
+oo -0.08
+-oas
+ae 0106 os
+oo 02 04 06 08 10 000002 008 006 00s alo ooo 002 008 006 008 oo
+. t t
+Figure 9: IBC fits for the heat equation with step IC, including the decomposition into weighted
+base contributions. The transparent blue curves depict the individual contributions.
+
+t=0.0 | MSE=3.2¢-03
+
+X=0.0 | MSE=3.9e-05
+
+X=1.0 | MSE=5.7e-05
+
+he | e010 ie ihe
+ae — Pred — Ped | oo10 — Pred
+os o.ces cos
+we 1000 ovo
+oa 0.005 ee
+o2 210 -oo10
+oo 268 -o015
+a oboe a
+z t t
+Figure 10: Comparison of the PINN prediction with the ground truth on the IBCs for the heat
+
+equation with step IC.
+
+18
+10 | -earrnt - Fie cemeiee cor
+10+
+10-2
+103
+10-4
+—*— train MSE | final 7.4e-07
+10-54 —e— test MSE 8.3e-07
+—*— domain MSE —2.6e-06
+10-6 J --- ratio MSEgomain / MSEtest
+
+10(20) 20(40) 30(60) 40(80) 50(100) 60(120) 70(140) 80(160)
+
+Nterms(Nparameters)
+
+Figure 11: Training progress of LIESOLVER for the wave equation with step IC. IBC MSE is shown
+as a function of the number of added bases.
+
+Wave equation with step IC
+Figure 11 illustrates effective handl
+
+LiESOLVER. A Global
+
+MSE. With a sufficient number of act
+
+lower error. Figure 13 s
+
+and irregular, the algori
+regions.
+
+and right subplots in fig
+
+resented in figure 12. T.
+
+he domain.
+
+ing of the challenging wave PDE with a sharp step IC by
+
+arameter refinement at 60 and 80 base terms yields pronounced drops in
+
+he model achieves an L2RE of 5.1-10~ on the domain.
+
+19
+
+ive bases, the optimizer can adjust them effectively and achieve
+hows that the solution is primarily composed of Fourier sine modes with
+localized Gaussian corrections. During optimization, the greedy stage first selects sine bases to fit
+he dominant high-amplitude oscillatory component. As the remaining residual becomes localized
+hm increasingly adds Gaussian bases to correct for edges and boundary
+
+With Gaussian bases, the residual is fitted in two steps. First, the model picks a positive
+ulse propagating into the domain. Second, it adds opposite-sign contributions
+ositive pulses at the boundaries and to reproduce the r
+
+o compensate for
+
+eflected wave (see the BC plots, middle
+ure 13). This structure is straightforward for the optimizer, and further
+MSE reduction is attainable with additional bases and parameters refinement. The domain plot is
+
+The PINN handles
+
+he step IC better for the wave equation (Figure 14) than for the heat equation (Figure 10). The
+reason is that the wave PDE lacks parabolic smoothing; there is no abrupt transition from a sharp
+C to a rapidly smoothed interior solution. Nevertheless, it does not resolve the sharp features
+sufficiently well and underperforms relative to LIESOLVER, achieving only an L2)
+
+RE of 4.5-10~? in
+Predicted 1.00 Tue ee Error | L2RE: 5.09e-03
+Oe 0.0175
+075 075, Fo
+2 0.0150
+0.50 0.50
+f 0.0125
+025 0.25 ¢ .
+a 0.00 0.00 ©-0r00
+0.25 0.25 0.0075
+0.50 0.50 0.0050
+02
+0.75 0.75 0.0025
+100 0.0 =1.00 00 -
+10 Cr nr nr) 1 yy
+
+Figure 12: 2D domain fields (prediction, ground truth, and error) for the wave equation with step
+IC.
+
+t=0.0 | MSE=1.7e-06 x=0.0 | MSE=7.7¢-07 x=1.0 | MSE=7.4e-07
+10 — we | ors — we | ors — Wwe
+— Pred — Pred — Pred
+os tems | 919 terms | 0.10 terms
+O68 Frc 0.05
+o4 i 0.
+0,004 00 7
+02 } 0.05
+0.05
+00 0.10
+0.10
+02 0.15
+0.15
+0.20
+00 02 oa 6 os 10 00 o2 oa 6 os vo 00 02 oa os os 10
+x t t
+
+Figure 13: IBC fits for the wave equation with step IC, including the decomposition into weighted
+base contributions. The transparent blue curves depict the individual contributions.
+
+t=0.0 | MSE=7.8e-05 X=0,0 | MSE=7.8¢-05 X=1.0 | MSE=2.3e-05
+Lo —Tne|] °* — Tne |] 0.06 — Tue
+— red | 0.06 — Pred — Pred
+i oo 0.04
+06 0.02 02
+0.00
+0.00
+04 0.02
+=e 0.02
+02
+0.06 cee
+00 0.08
+oo on oa na 08 Fry 00 02 oa 06 oe Fi} oo oz oa 06 08 10
+x t t
+
+Figure 14: Comparison of the PINN prediction with the ground truth on the IBCs for the wave
+equation with step IC.
+
+20
+5 Conclusion
+
+Using Lie symmetries, we generate parametrized functions that exactly solve the corresponding
+PDE. By incorporating the underlying symmetry structures directly into the model, solving initial-
+oundary value problems reduces to optimizing these parameters to satisfy the initial-boundary
+conditions (IBCs). Thus, for any parameter values, the model will solve the PDE by design.
+Focusing on the common case of linear homogeneous PDEs, we introduced LIESOLVER, which
+represents the solution as a linear combination of Lie-symmetry-generated base solutions whose
+inear amplitudes and symmetry parameters are learned from the IBCs. LIESOLVER constructs
+his representation incrementally by greedily adding the base function that yields the largest MSE
+reduction at each step. We use variable projection to eliminate the linear amplitudes via least
+squares (LS), yielding a reduced problem in the symmetry parameters, which we solve with a
+ound-constrained nonlinear least squares (NLLS).
+
+The most notable difference between PINNs [32] and our proposed method is that we incorporate
+PDEs into the model’s structure rather than including the PDE as a loss term in the optimization
+procedure. This approach offers several advantages: in our model, the loss function effectively
+serves as a faithful indicator of predictive accuracy, providing a reliable measure of the progress of
+raining. Specifically, a decrease in the test loss — unlike in PINNs — always indicates an improvement
+in accuracy. In addition, this property implies the existence of rigorous error bounds for well-posed
+
+BVPs.
+
+Moreover, these tailor-made models use comparatively few parameters, which yields significant
+computational speedups without sacrificing expressivity. This also enables robust optimization
+with nonlinear least squares (NLLS), improving predictive accuracy. Across our benchmarks on
+D heat and wave equations with Dirichlet boundary conditions, LIESOLVER achieved IBC MSE
+elow 10~° with fewer than 40 bases (about 100 parameters) for smooth ICs and ran one to two
+orders of magnitude faster than PINNs. For the step IC with a sharp jump it required more bases
+yet still attained domain L2RE on the order of 10-3, whereas PINNs plateaued between 10~? and
+0-1 (tables 1 and 2). Furthermore, the compact models provably satisfy the underlying physics
+(that is, the PDE), which enables the prediction to be expressed as a sparse, analytical expression,
+hereby enhancing interpretability.
+
+Despite the notable advantages of using Lie symmetries, it is important to acknowledge the
+imitations of our approach. Currently, LIESOLVER applies only to linear homogeneous PDEs.
+Although this encompasses a large class of important problems, we aim to generalize our framework
+in future work. Another drawback is that, for every PDE, the Lie symmetries and at least one seed
+solution must be derived. However, Lie symmetries can be determined algorithmically and for the
+most standard problems, they can also be found in the literature. Finding seed solutions is trivial
+for the class of linear homogeneous PDEs and remains feasible in more general cases. A further
+weakness is that the performance of LIESOLVER heavily depends on the chosen set of base solutions,
+an aspect that requires further investigation to improve automatization. However, as is the case in
+conventional neural networks, performance highly depends on various design choices. Nonetheless,
+in our approach, the loss constitutes a rigorous means to assess whether a particular choice of base
+solution is effective or needs to be extended, providing useful criteria for these design choices. It
+is also important to note that we have tested LIESOLVER only on a limited number of problems.
+Therefore, more extensive studies will be necessary in future work.
+
+From the aforementioned, several next steps emerge naturally: a more detailed analysis of LiE-
+
+21
+SOLVER on various problems, an automated selection of base solutions, as well as an extension to
+more general classes of PDEs. For the latter task, genetic algorithms appear to be a promising di-
+rection. By pursuing these steps, we aim to enhance the capabilities and applicability of LIESOLVER
+and provide an interpretable, reliable and efficient solver of IBVPs for general PDEs.
+
+Code availability
+The Python implementation is available at https: //github.com/oduwancheekee/liesolver.
+
+Acknowledgements: The authors would like to thank Aleksander Krasowski, Théo Tyburn,
+Gleb Wassiltschuk and Moritz Weckbecker for helpful discussions.
+
+A Appendix
+
+A.1 Computation of Lie symmetry groups
+
+n addition, to the short summary in section 2, we will provide a brief overview of how to compute
+he symmetry group of a system. To keep the description as short as possible, we will omit many
+details and focus on a practical guide for calculating the symmetry group. For further details,
+we recommend [31, ch. 2], which the following is oriented towards. Before stating the so-called
+infinitesimal criterion, which is the key concept for the determination of symmetry groups, we have
+‘0 introduce some further definitions.
+
+Every Lie group G is related to a so-called Lie algebra g, which is defined to be the tangent space
+of G at its identity element (see e.g. [10] for further details). Due to their vector space structure,
+it is often much more convenient to work with the Lie algebra g, instead of the Lie group G. By
+Lie’s third theorem [31, thm. 1.54] there is a one to one correspondence between finite-dimensional
+Lie algebras g and connected Lie groups G. Thus, we will lose no generality, when considering Lie
+algebras. Elements of the Lie algebras are also called infinitesimal generators of a Lie group.
+
+A system of PDEs D(a, u\) is called to be of maximal rank, if its Jacobian Jp(x,u\) with
+respect to all variables has the maximal rank p, whenever D(z, uM) = 0. Bp, D(x, u) =
+Ut — Ura has Jacobian Jp(x,t; u, Ue, Ut, Uae, Ueet, Ut) = (0,0;0,0,1,—-1,0,0), which is of maximal
+rank, whereas D(x, u?)) = (wu, — uz) is not of maximal rank.
+
+Theorem A.1 [Infinitesimal criterion, see [31, thm. 2.31]]: Let D be a system of PDEs with
+mazimal rank defined over M C X x U and let G be a local group of transformations acting on M.
+
+pr v[D(a,u)] =0, whenever D(x, u) = 0 (41)
+
+holds for any infinitesimal generator v of G, then G is a symmetry group of D.
+
+In fact, this theorem gives us a computable criterion to determine the infinitesimal generators
+v of the symmetry group. To evaluate (41), we also need to prolong a vector fields, which can be
+
+22
+computed for a general vector field
+
+n a m a
+v= DiS wuz +) deus (42)
+i=l k=1
+by (31, thm. 2.36 and prop. 2.35]
+m a
+prYvav+y. SS Ge (a, ul) (43)
+k=1 Je(n]4\0 “7
+with
+n n
+di (a, ul) = Da (oe — Yo eat) + eho (44)
+i=l i=l
+and the total derivatives
+. ag i a
+Dj...) = Djs Dj, with Dj = ans +> Ss “UDR” (45)
+‘J k=1 JE[n]4 a
+
+Let us illustrate theorem A.1 and these relatively lengthy formulas through a practical example.
+
+Example A.2 [1d-heat equation]: Consider the heat equation
+D(x, u)) = up — Ure (46)
+
+with n = 2, m=1,p=1 and d=2. Applying (43) and (41) to a generic vector field
+
+we E(x, tuo + T(x, t, u) o + d(a,t, we (47)
+we will obtain the infinitesimal criterion for symmetry groups as
+¢' —¢** =0 whenever ujp=Ugy - (48)
+To resolve the functions ¢' and $7", we get by application of equations (44) and (45)
+of Dib — Ey — Tut) + Exe + TU = Did — Uz DeE — uz DiT
+= b1 — Ete + (bu — TH) Ut — Eutetle — TuU? (49)
+and
+o°* =D? (o — Ete — Tu) + Etre + TUeet
+=D2¢ - Uy D2E - u,D?2r — 2UeeDe€ — 2uetDeT
+xa + (2beu — Eva)Ux — Text + (Pun — %Kou)Ue — outlets — Suns
+— Tanti, + (bu — 2x)Uen — Wetter — SE ytleien — Tuten — 2utletler + (50)
+
+Since ¢' = $*” has to hold independently of the value of derivatives of u, we can compare them
+term-wise. When using in addition that uz; = uzz, we get the following system of equations, which
+are often called the determining equations:
+
+23
+(vi) fy = -2rwe — 3h
+
+(i) =
+
+(ii) —& = 2beu — bee (vii) 0 = —Twu
+(iii) 0 = duu — 2bcu (vill) —T) = —Tu
+(iv) 0 = ~Euu (ix) 0 = —27,
+(v) du—% =—Tee + bu — 2x (x) O=—2r,
+
+In order to find the most general infinitesimal generator v from (42), we have to solve this
+system, to determine the functions €(z,t,u),7(z,t, u) and ¢(x,t, u). From (ix) and (x), we get that
+7 = 7(t) depends only on t. In combination with (vi), € will not depend on wu. Hence, (v) takes
+the form 7 = 2€,, which implies €(#,t) = ana + (t) for some function y. Therefore, using (iii),
+¢ will only linearly depend on u, ie., (2, t,u) = a(x, t) + B(x, t)u for some functions a, 3. Hence,
+we have used every equation except (i) and (ii), which takes the form
+
+(i) At = Are; By = Bex (ii) —hryx = Ye = 2By
+
+By integrating (ii) w.r.t. x, we get B(z,t) = bra? — ya + p(t). Comparing with (i), we
+
+get Te = 0, Ye = 0 and m = — ite. Hence, r(t) = 4cegt? + 2c4 + cz is a quadratic function,
+
+y(t) = 2cst +c, and p(t) = —2ce + cg linear functions, with c1,...,cg € R. Thus, the general
+solution of the determining equations is given by
+
+E=c1 + c4u + 2est + 4egrt (51)
+
+T = C2 + 2cat + Acet? (52)
+
+@ = (c3 — ¢5u — 2egt — cet? )u + a(z,t) (53)
+
+where c;,...,cg € R and a(x, t) is any solution of the heat equation a, = az,. Using the usual
+
+basis in R®°, the Lie algebra is spanned by 6 vector fields
+
+vi = Or vo =O; v3 = Udy va = 20, + 2td;
+v5 = 2t0, — rudy vo = 4artd, + 4070; — (x? + 2t)udu (54)
+
+and the subalgebra vq = a(x, t)Ou. A
+
+Hence, by theorem A.1 we can determine the infinitesimal generators of the symmetry group.
+In a next step, we have to relate these generators in the Lie algebra to the group elements. This
+connection is provided by the exponential map exp : g > G, whose action on an element (x,u) €
+MCX xU is described by
+or
+exp(Jv) 0 (a, u) = ay e(@a) - (55)
+k>0
+
+Let us illustrate the application of the exponential map by continuing the previous example.
+Example A.3 [Continuation of example A.2|: To compute the one-parameter group G, associated
+
+to the generator v; from (54) we have to apply vi to a graph of a function, i.e., to an element
+
+24
+(a,t,u) € M. We get v1 0 (2,t,u) = Oy 0 (x,t, u) = (1,0,0) and v* o (a, t,u) = (0,0,0) for any
+k>1. Thus, the group G is acting by
+
+Gy : (z,t,u) > exp(8v1) 0 (x,t, u) = (z,t, u) + (1,0, 0)0 = (x + 0,8, u) (56)
+which is nothing else than a translation in the x coordinate. Analogue, we get a translation in time
+G2: (a,t,u) > exp(Pv2) o (x, t,u) = (z,t+0,u) . (57)
+
+To compute the group G3 note, that v¥ ou = u for all k € N. Hence, the generator v3 leads to a
+scaling invariance
+
+ik;
+G3 : (a,t,u) > exp(0v3) 0 (x,t, u) = (z,t.u- aa =(a,t,e%u) . (58)
+
+k>0
+Quite similar is the computation for v4, and with vi ox =x and vi ot = 2't we obtain
+G4: (x,t, u) > exp(0v4) o (x, t,u) = (er, e?"t,u) . (59)
+
+To compute the group action of G;, note that
+
+viou=u Ss (—a)*-?™ (4), (60)
+
+m\(k — 2m)!
+O<m<k/2
+
+which can be shown by induction including a distinction between even and odd k. Including that
+relation in the series of (55) we obtain
+
+Gs : (x,t, u) > exp(Uvs) o (x,t, u) = (x + 208, t,ue*-**) . (61)
+
+To find the action of the group Gg, we will use another useful property of the exponential map,
+which is
+
+Aoexp(B)o A~! = exp(Ao Bo A“) (62)
+
+for any functions A,B with appropriate domains and codomains and where Ao A~! = 1. This
+relation can directly be shown by the definition (55). In particular, the so-called inversion map
+
+1e,t)=(g a) (63)
+
+Pg?’ P27?
+
+has the property Jo I = 1. As we can write exp(Uvg) = I o exp(—V0,) oI we will find
+
+C t x2
+Gg : (a, t,u) > exp(Vve) o (x,t, u) = (> Ta uv 1 — 40t e~ in) . (64)
+
+The last generator vq will result in the action
+Go: (z,t,u) > (v,t,u+Va(a,t)) . (65)
+
+ras
+In summary, we have now determined the group actions on the graph of a function 'y C X xU,
+ie., the action on every point (z,u) of that graph. In a final step, we would like to transfer this
+action onto the function itself. For simplicity, we will focus on the case where the action of the
+group element g € G takes the form (#, @) = go (#,u) = (E(x), ®y(x, u)), ie., that the action of g
+on x will not depend on u. For the general case, we refer to [31, sec. 2.2]. In this particular case,
+
+we have « = ,(#)~! = 5,-1(#), and therefore
+
+F@) = Fy (By (8), f(Ey1 (@)) - (66)
+
+Example A.4 (Continuation of example A.3]: By using (66), we can relate the group actions from
+example A.3 to transformations of functions. For example, for G, we have By, ,(#) = «+0 and
+®,, ,(2,u) =u. With 3 (2) = 8, _» (x) =x — ¥, we get the transformation
+
+as expected. By applying (66) to the other groups Go,...,G¢,Ga, we obtain the results presentec
+in example 2.2. &
+
+Thus, we have a framework that, in principle, allows us to compute a symmetry group for any
+PDE system. For PDE systems with a certain additional property, we can give even a stronger
+statement. According to [31, Def. 2.70], a system of PDEs D is called local solvable at a point
+
+(xo, u) e€ X x UM, if there is a smooth solution u = f(a) for x in a neighbourhood of ao, with
+uw = pr f(a9). The whole PDE system D is called locally solvable, if this property holds for
+
+any point (29, u) satisfying D(a, u) = 0. For a locally solvable system, we can give a sufficient
+
+and necessary description of symmetry groups:
+
+Theorem A.5 [Infinitesimal criterion, see [31, thm. 2.71]]: Let D be a locally solvable system of
+PDEs with maximal rank defined over M C X x U and let G be a local group of transformations
+acting on M. G is a symmetry group of D, if and only if
+
+pr v[D(«, u)] = 0, whenever D(x, u) = 0 (68)
+
+holds for any infinitesimal generator v of G.
+
+Thus, for locally solvable systems, we can derive all symmetry groups of the PDE system with
+the aforementioned framework. We would like to conclude this section by recapping all the steps
+to compute the symmetry group:
+
+0. Check maximal rank and local solvability of D.
+
+1. Write an ansatz for a vector field v on X x U according to (42) and compute its prolongation
+equations (43) to (45).
+2. Derive the infinitesimal criterion theorems A.1 and A.5, i.e., the prolongation of v applied on
+the PDE should vanish whenever the PDE is satisfied.
+
+3. By comparing the coefficients of the infinitesimal criterion, one obtains an overdetermined
+system of simple PDEs (“determining equations” ).
+
+4. Solve the determining equations by elementary methods, to get the most general generators
+v and choose a basis of the subspace generated by v.
+
+26
+5. Derive l-parameter Lie groups from infinitesimal generators by the exponential map gy 0
+(x, u) = exp(Vv) o (x, u).
+
+6. Derive the transformation maps from these group actions by (66).
+
+There are several implementations available, which will solve this task step by step. We refer
+to [6, 7, 14, 36], which giving an overview about different available implementations.
+
+27
+References
+
+il
+
+10
+11
+
+12
+
+13
+
+14
+
+16
+
+17
+
+18
+
+T. Akhound-Sadegh, L. Perreault-Levasseur, J. Brandstetter, M. Welling, and S. Ravan-
+bakhsh. “Lie Point Symmetry and Physics-Informed Networks”. In: Advances in Neural In-
+formation Processing Systems 36 (2023), pp. 42468-42481. arXiv: 2311.04293.
+
+G. W. Bluman, A. F. Cheviakov, and S. C. Anco. Applications of symmetry methods to partial
+differential equations. Applied mathematical sciences. New York, NY: Springer, 2010.
+
+G. W. Bluman and S. Kumei. Symmetries and differential equations. Applied Mathematical
+Sciences. Berlin, Germany: Springer, 1989.
+
+W. E. Boyce. Elementary differential equations and boundary value problems, eleventh edition
+loose-leaf print companion. 11th ed. Nashville, TN: John Wiley & Sons, 2016.
+
+J. Brandstetter, M. Welling, and D. E. Worrall. “Lie Point Symmetry Data Augmentation
+for Neural PDE Solvers”. In: Proceedings of the 39th International Conference on Machine
+Learning. International Conference on Machine Learning. PMLR, 2022, pp. 2241-2256.
+
+J. Butcher, J. Carminati, and K. Vu. “A comparative study of some computer algebra packages
+which determine the Lie point symmetries of differential equations”. In: Computer Physics
+Communications 155.2 (2003), pp. 92-114. Dol: https: //doi. org/ 10. 1016 /S0010-
+4655 (03) 00348-5.
+
+B. Champagne, W. Hereman, and P. Winternitz. “The computer calculation of Lie point
+symmetries of large systems of differential equations”. In: Computer Physics Communications
+66.2 (1991), pp. 319-340. por: https: //doi.org/10.1016/0010-4655 (91) 90080-5.
+
+T. Cohen and M. Welling. “Group equivariant convolutional networks”. In: International
+Conference on Machine Learning. PMLR. 2016, pp. 2990-2999.
+
+M. Cranmer, S. Greydanus, S. Hoyer, P. Battaglia, D. Spergel, and S. Ho. “Lagrangian neural
+networks”. In: International Conference on Learning Representations. 2020.
+
+J. J. Duistermaat and J. A. C. Kolk. Lie groups. Berlin, Germany: Springer, 1999.
+
+L. C. Evans. Partial Differential Equations. 2nd. Vol. 19. Graduate Studies in Mathematics.
+American Mathematical Society, 2010.
+
+G. H. Golub and V. Pereyra. “The differentiation of pseudo-inverses and nonlinear least
+squares problems whose variables separate”. In: STAM Journal on numerical analysis 10.2
+(1973), pp. 413-432.
+
+S. Greydanus, M. Dzamba, and D. Yosinski. “Hamiltonian neural networks”. In: Advances in
+Neural Information Processing Systems. Vol. 32. 2019.
+
+W. Hereman. “Symbolic Software for Lie Symmetry Analysis”. In: CRC Handbook of Lie
+Group Analysis of Differential Equations. Ed. by N. Ibragimov. Vol. III. CRC Press, 1996,
+pp. 367-413.
+
+A. D. Jagtap, E. Kharazmi, and G. E. Karniadakis. “Extended physics-informed neural
+networks (XPINNs): A generalized space-time domain decomposition based deep learning
+framework for nonlinear partial differential equations”. In: Communications in Computational
+Physics 28.5 (2020), pp. 2002-2041.
+
+F. John. Partial Differential Equations. Applied mathematical sciences. New York, NY: Springer
+US, 1978.
+
+G. E. Karniadakis, I. G. Kevrekidis, L. Lu, P. Perdikaris, S. Wang, and L. Yang. “Physics-
+informed machine learning”. In: Nature Reviews Physics 3.6 (2021), pp. 422-440. Dot: 10.
+1038/s42254-021-00314-5.
+
+A. S. Krishnapriyan, A. Gholami, S. Zhe, R. M. Kirby, and M. W. Mahoney. “Characterizing
+possible failure modes in physics-informed neural networks”. In: (2021). arXiv: 2109.01050.
+
+28
+19
+
+20
+
+21
+
+22
+
+23
+
+24)
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+[34]
+
+[35]
+
+I. E. Lagaris, A. Likas, and D. I. Fotiadis. “Artificial Neural Networks for Solving Ordinary
+and Partial Differential Equations”. In: IEEE Transactions on Neural Networks 9.5 (1998),
+pp. 987-1000. por: 10.1109/72.712178. arXiv: physics/9705023.
+
+G. K. R. Lau, A. Hemachandra, S.-K. Ng, and B. K. H. Low. “PINNACLE: PINN Adaptive
+ColLocation and Experimental Points Selection”. In: The Twelfth International Conference
+on Learning Representations. 2023.
+
+R. J. LeVeque. Finite Difference Methods for Ordinary and Partial Differential Equations:
+Steady-State and Time-Dependent Problems. Philadelphia, PA: Society for Industrial and
+Applied Mathematics, 2007. Dol: 10.1137/1.9780898717839.
+
+L. Lu, R. Pestourie, W. Yao, Z. Wang, F. Verdugo, and S. G. Johnson. “Physics-informed
+neural networks with hard constraints for inverse design”. In: (2021). arXiv: 2102.04626.
+
+X. Meng, Z. Li, and G. E. Karniadakis. “PPINNs: Physics-informed neural networks with
+prior”. In: Journal of Computational Physics 401 (2020), p. 109020.
+
+G. Mialon, Q. Garrido, H. Lawrence, D. Rehman, Y. LeCun, and B. Kiani. “Self-Supervised
+Learning with Lie Symmetries for Partial Differential Equations”. In: Advances in Neural
+Information Processing Systems 36 (2023), pp. 28973-29004.
+
+J. R. Naujoks et al. Leveraging Influence Functions for Resampling Data in Physics-Informed
+Neural Networks. 2025. DOI: 10. 48550/arXiv . 2506 . 16443. arXiv: cs/2506 . 16443. Pre-
+published.
+
+D. P. O’Leary and B. W. Rust. “Variable projection for nonlinear least squares problems” .
+In: Computational Optimization and Applications 54.3 (2013), pp. 579-593.
+
+F. Oliveri. “Lie Symmetries of Differential Equations: Classical Results and Recent Contri-
+butions”. In: Symmetry 2.2 (2010), pp. 658-706. Dol: 10.3390/sym2020658.
+
+F. Oliveri. “ReLie: a Reduce program for Lie group analysis of differential equations”. In:
+(2021). arXiv: 2105.11534.
+
+P. J. Olver. Introduction to partial differential equations. en. 1st ed. Undergraduate texts in
+mathematics. Cham, Switzerland: Springer International Publishing, 2013.
+
+P. J. Olver. “Symmetry and explicit solutions of partial differential equations”. In: Applied
+Numerical Mathematics 10.3 (1992), pp. 307-324. Dor: https: //doi.org/10.1016/0168-
+9274 (92) 90047-H.
+
+P. J. Olver. Applications of Lie Groups to Differential Equations. 2nd. New York: Springer-
+Verlag, 1993.
+
+M. Raissi, P. Perdikaris, and G. E. Karniadakis. “Physics-informed neural networks: A deep
+learning framework for solving forward and inverse problems involving nonlinear partial dif-
+ferential equations”. In: Journal of Computational Physics 378 (2019), pp. 686-707. DOI:
+10.1016/j.jcp.2018.10.045.
+
+P. Rathore, W. Lei, Z. Frangella, L. Lu, and M. Udell. “Challenges in Training PINNs: A
+Loss Landscape Perspective”. In: Proceedings of the 41st International Conference on Machine
+Learning. Ed. by R. Salakhutdinov, Z. Kolter, K. Heller, A. Weller, N. Oliver, J. Scarlett, and
+F. Berkenkamp. Vol. 235. Proceedings of Machine Learning Research. PMLR, 2024, pp. 42159-
+42191.
+J. Rauch. Partial Differential Equations. en. Graduate Texts in Mathematics. New York, NY:
+Springer, 1991.
+
+J. Sirignano and K. Spiliopoulos. “DGM: A deep learning algorithm for solving partial dif-
+ferential equations”. In: Journal of Computational Physics 375 (2018), pp. 1339-1364. Dot:
+10.1016/j.jcp.2018.08.029. eprint: 1708.07469.
+
+29
+36
+
+37
+
+38
+
+39
+
+40
+
+S. Steinberg and R. de Melo Marinho Junior. “Practical Guide to the Symbolic Computation
+of Symmetries of Differential Equations”. In: (2014). arXiv: 1409.8364.
+
+N. Thomas, T. Smidt, S. Kearnes, L. Yang, L. Li, K. Kohlhoff, and P. Riley. “Tensor field
+networks: Rotation- and translation-equivariant neural networks for 3D point clouds”. In:
+Advances in Neural Information Processing Systems. Vol. 31. 2018.
+
+I. G. Tsoulos and I. E. Lagaris. “Solving Differential Equations with Genetic Programming” .
+In: Genetic Programming and Evolvable Machines 7.1 (2006), pp. 33-54. Dor: 10. 1007/
+s10710-006-7009-y.
+
+S. Wang, A. K. Bhartari, B. Li, and P. Perdikaris. “Gradient Alignment in Physics-informed
+Neural Networks: A Second-Order Optimization Perspective”. In: (2025). arXiv: 2502.00604.
+S. Wang, S. Sankaran, H. Wang, and P. Perdikaris. “An Expert’s Guide to Training Physics-
+informed Neural Networks”. In: (2023). arXiv: 2308 .08468.
+
+S. Wang, Y. Teng, and P. Perdikaris. “Understanding and Mitigating Gradient Flow Patholo-
+gies in Physics-Informed Neural Networks”. In: STAM Journal on Scientific Computing 43.5
+(2021), A3055-A3081. Dor: 10.1137/20M1318043.
+
+S. Wang, Y. Teng, and P. Perdikaris. “When and why PINNs fail to train: A neural tangent
+kernel perspective”. In: Journal of Computational Physics 449 (2022), p. 110768.
+
+E. P. Wigner. Symmetries and reflections: scientific essays. Indiana University Press, 1967.
+C. Wu, M. Zhu, Q. Tan, Y. Kartha, and L. Lu. “A Comprehensive Study of Non-Adaptive
+and Residual-Based Adaptive Sampling for Physics-Informed Neural Networks”. In: Computer
+Methods in Applied Mechanics and Engineering 403 (2023), p. 115671. Dor: 10.1016/j.cma.
+2022.115671.
+
+J. Yang, N. Dehmamy, R. Walters, and R. Yu. “Latent Space Symmetry Discovery”. In:
+Proceedings of the 41st International Conference on Machine Learning. Vol. 235. ICML’24.
+Vienna, Austria: JMLR.org, 2024, pp. 56047-56070.
+
+J. Yang, W. Rao, N. Dehmamy, R. Walters, and R. Yu. “Symmetry-Informed Governing Equa-
+tion Discovery”. In: Advances in Neural Information Processing Systems 37 (2024), pp. 65297—
+65327.
+
+Z.-Y. Zhang, S.-J. Cai, and H. Zhang. “A Symmetry Group Based Supervised Learning
+Method for Solving Partial Differential Equations”. In: Computer Methods in Applied Me-
+chanics and Engineering 414 (2023), p. 116181. Dor: 10.1016/j.cma.2023.116181.
+
+Z.-Y. Zhang, H. Zhang, L.-S. Zhang, and L.-L. Guo. “Enforcing continuous symmetries in
+physics-informed neural network for solving forward and inverse problems of partial differential
+equations”. In: Journal of Computational Physics 492 (2023), p. 124145.
+
+30

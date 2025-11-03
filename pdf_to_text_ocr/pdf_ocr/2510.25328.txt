@@ -1,0 +1,1267 @@
+s.med-ph] 29 Oct 2025
+
+SIC
+
+2510.25328v1 [phy
+
+arXiv
+
+THIS WORK HAS BEEN SUBMITTED TO THE IEEE FOR POSSIBLE PUBLICATION. 1
+
+Analytical Model of Prompt Gamma Timing for
+Spatiotemporal Emission Reconstruction in Particle
+Therapy
+
+Julius Werner, Graduate Student Member, IEEE, Malte Schmidt, Francesco Pennazio, Jorge Roser, Member,
+IEEE, Jona Kasprzak, Graduate Student Member, IEEE, Veronica Ferrero, and Magdalena Rafecas, Senior
+Member, IEEE
+
+Abstract—Particle therapy relies on up-to-date knowledge of
+the stopping power of the patient tissues to deliver the prescribed
+dose distribution. The stopping power describes the average
+particle motion, which is encoded in the distribution of prompt-
+gamma photon emissions in time and space. We reconstruct the
+spatiotemporal emission distribution from multi-detector Prompt
+Gamma Timing (PGT) data. Solving this inverse problem relies
+on an accurate model of the prompt-gamma transport and
+detection including explicitly the dependencies on the time of
+emission and detection. Our previous work relied on Monte-Carlo
+(MC) based system models. The tradeoff between computational
+resources and statistical noise in the system model prohibits stud-
+ies of new detector arrangements and beam scanning scenarios.
+Therefore, we propose here an analytical system model to speed
+up recalculations for new beam positions and to avoid statistical
+noise in the model. We evaluated the model for the MERLINO
+multi-detector-PGT prototype. Comparisons between the analyti-
+cal model and a MC-based reference showed excellent agreement
+for single-detector setups. When several detectors were placed
+close together and partially obstructed each other, intercrystal
+scatter led to differences of up to 10 % between the analytical and
+MC-based model. Nevertheless, when evaluating the performance
+in reconstructing the spatiotemporal distribution and estimating
+the stopping power, no significant difference between the models
+was observed. Hence, the procedure proved robust against the
+small inaccuracies of the model for the tested scenarios. The
+model calculation time was reduced by 1500 times, now enabling
+many new studies for PGT-based systems.
+
+Index Terms—image reconstruction, modeling, proton therapy,
+gamma-ray detectors
+
+I. INTRODUCTION
+
+OVEL imaging concepts based on inverse problem solv-
+ing require the development of appropriate models for
+
+Manuscript received 28 October 2025. This work was supported in part by
+the German Research Foundation (DFG) by Grants No. 516587313 (PROSIT)
+and No. 383681334 (COMMA). (Corresponding author: Julius Werner).
+
+This work did not involve human subjects or animals in its research.
+
+Julius Werner, Malte Schmidt, Jorge Roser, Jona Kasprzak, and
+Magdalena Rafecas are with the Institute of Medical Engineering,
+Universitit zu  Liibeck, Ratzeburger Allee 160, 23562 Liibeck,
+Germany (e-mail: friedemann.werner@uni-luebeck.de; m.schmidt@uni-
+luebeck.de; jorge.rosermartinez@uni-luebeck.de; j.kasprzak @uni-luebeck.de;
+magdalena.rafecas @ uni-luebeck.de).
+
+Francesco Pennazio is with the Istituto Nazionale di Fisica Nucle-
+are, Sezione di Torino, Via P. Giuria 1, 10125 Torino, Italy. (e-mail:
+francesco.pennazio @to.infn.it).
+
+Veronica Ferrero is with the Department of Physics, Universita degli Studi
+di Torino, Via P. Giuria 1, 10125 Torino, Italy, and the Istituto Nazionale
+di Fisica Nucleare, Sezione di Torino, Via P. Giuria 1, 10125 Torino, Italy
+(e-mail: veronica.ferrero @ unito.it).
+
+the corresponding direct (or forward) problem. In this work,
+we present the first analytical model of a recently introduced
+approach for in-vivo verification of particle therapy, namely
+Spatiotemporal Emission Reconstruction from Prompt Gamma
+Timing (SER-PGT). SER-PGT aims to retrieve the spatiotem-
+poral distribution of the secondary gamma photons emitted
+from the patient during the treatment [1] as a first step towards
+inferring the stopping power of the tissues traversed by the
+therapeutic particle beams [2].
+
+In contrast to the widely used gamma-based radiotherapy,
+where clinical patient-specific verification methods are well
+established, Charged Particle Therapy (CPT) still lacks a clin-
+ically implemented solution. Several approaches are currently
+under investigation, yet none has so far reached routine clinical
+practice [3]-[5]. The lack of in-vivo verification methods in
+CPT is of particular concern, since any mismatch between the
+dose treatment plan and the actual dose distribution can lead
+to drastic consequences for both tumor control and healthy
+tissue sparing. This is due to the nature of the dose delivered
+by charged particles like protons or heavier ions in matter,
+which is characterized by a highly localized energy deposition
+followed by a steep spatial dose gradient.
+
+Many of the approaches proposed for in-vivo CPT verifica-
+tion rely on the detection of the so-called Prompt Gamma (PG)
+radiation and its correlation with the dose distribution and
+the particle range; PG photons originate directly from nuclear
+reactions that occur almost instantaneously when charged
+particles interact with the atomic nuclei in the tissue, and thus
+carry information linking their emission position and time with
+the motion of the beam particles in the patient.
+
+SER-PGT expands the concept of Prompt Gamma Timing
+(PGT). PGT measures the time difference tp between incom-
+ing beam particles crossing a reference plane and the detection
+of prompt-gamma photons; the histogrammed distribution of
+detection times is called the PGT spectrum [6], [7]. Changes
+in the tissues traversed by the beam particles translate into
+changes in the PGT spectrum, allowing mismatches between
+the expected and the actual particle range to be inferred
+through the analysis of the PGT spectra [8]-[10]. Based
+on PGT, the more recent Prompt Gamma Time Imaging
+(PGTI) [11] aims to reconstruct the particle range using a
+geometrical model of the photon transport assuming point-
+like detectors and a precalculated model of the beam particle
+motion. Our approach SER-PGT goes one step beyond, as
+2 THIS WORK HAS BEEN SUBMITTED TO THE IEEE FOR POSSIBLE PUBLICATION.
+
+Fig. 1: The multi-detector PGT measurement principle: a beam
+particle passes a reference plane (black line) at time 0. After
+time tp the particle causes a PG emission at position P. The
+photon takes time t, to travel from P to a detector (green)
+outside the irradiated target (orange), where it is detected at
+time tp = tp + ty.
+
+it also incorporates the temporal dimension of the prompt
+gamma emission in addition to the spatial one thanks to
+the strategic placement of multiple PGT detectors [1]. The
+resulting spatiotemporal distribution allows the study of the
+motion of the charged particles, revealing the stopping power
+of the traversed materials [2]. The multiple PGT spectra are
+equivalent to the different views provided by tomographic
+systems. As in emission tomography, the measurement pro-
+cess can be described by a system of linear equations. The
+link between the expected measured data and the unknown
+spatiotemporal distribution of the PGs is given by the system
+response model. An accurate characterization of this model is
+therefore essential for reliable reconstruction.
+
+For our first studies, we used Monte Carlo simulations
+to calculate the system model. This approach can provide
+accurate models, but at the cost of long computing times, in-
+troduction of statistical noise and limited flexibility [12]-[14].
+To overcome these limitations and enable further extensions of
+SER-PGT, we have developed, for the first time, a probabilistic
+analytical model describing photon transport and detection in
+PGT. The new model has been exhaustively compared with the
+corresponding Monte-Carlo based approach at various levels,
+including the effects on the estimation of the beam range and
+the stopping power.
+
+Il. PROMPT GAMMA TIMING AND SPATIOTEMPORAL
+EMISSION RECONSTRUCTION
+
+The principle of PGT with multiple detectors is visualized in
+Fig. 1. The basis are coincidence time measurements between
+a beam particle detector and secondary photon detectors
+surrounding the patient. Histograms of the time differences
+between beam and secondary particle detection, tp, are called
+PGT spectra. tp includes the time the particle travels until it
+undergoes a nuclear reaction leading to a PG emission, tp,
+and the time it takes the photon to travel to the detector, ty.
+The latter (t,) depends on the emission position P relative
+to the detector. Therefore, each PGT spectrum contains com-
+plementary information about the PG emission distribution in
+time and space. Our method SER-PGT exploits these facts to
+extract the spatiotemporal emission distribution of PG photons
+from the PGT spectra from multiple detectors [1], [15].
+
+Central to SER-PGT is the modeling of the forward prob-
+lem, i.e., predicting the expected value Y of the measurement
+for a given emission distribution X. The measurement vector,
+Y = {yan}, consists of the PGT spectra from all detectors. In
+SER-PGT the discretized emission distribution, X = {2p},
+can have up to three spatial dimensions in addition to the
+temporal dimension. H is the so-called system matrix, whose
+elements hajn,j,p = P(d,n|j,p) express the conditional prob-
+ability of a detection in detector d within time interval n,
+given an emission within voxel j during time interval p. In
+the absence of background, the calculation of the expected
+measurement, Y, using X and H is expressed as a system of
+linear equations:
+
+Y = HX, or equivalently jan = 1 ha,n,jpTj,p- (1)
+jo P
+
+The inverse problem consists of estimating the emission dis-
+tribution, X, from a given measurement, Y. The accuracy of
+the reconstructed distribution depends, among other things,
+on how accurately H describes the emission and detection
+processes involved in PGT.
+
+Assuming that the data are Poisson distributed, we can
+construct the corresponding Poisson likelihood function and
+use the Maximum Likelihood (ML) criterion to find the sought
+distribution. In this work, Maximum-Likelihood Expectation-
+Maximization (ML-EM) is employed:
+
+KO _¥
+
+KEY -
+Ss HX(*)
+
+(2)
+
+with X(*) the estimated emission distribution after k iterations
+and sensitivity S [1].
+
+The relationship between P and tp encoded in X indirectly
+describes the beam particle motion, which is closely linked
+to the stopping power of the traversed tissue. SER-PGT does
+not require any assumptions about the dependencies between P
+and tp, but reveals them through the reconstructed distribution.
+The stopping power is a crucial parameter in treatment plan-
+ning; our method thus strives to confirm its values during each
+treatment fraction. To this aim, we have proposed to combine
+SER-PGT with motion models and non-linear regression to
+obtain the stopping power estimates [2], [16]. Consequently,
+the accuracy of the SER-PGT output, X, has a direct impact
+on the accuracy of the stopping power estimates.
+
+Ill. SYSTEM MODELS
+
+Here we describe the two methods to calculate the system
+matrix elements. Effects like the finite time resolution of the
+detectors are added in postprocessing to the models as a convo-
+lution along the detection time dimension with the normalized
+distribution of possible deviations in the time measurement. In
+the following sections, detector refers to secondary particle
+detectors and not the primary particle detector. Details of
+the detector system used for comparing the two models are
+described in section IV.
+WERNER et al.: ANALYTICAL MODEL OF PROMPT GAMMA TIMING FOR SPATIOTEMPORAL EMISSION RECONSTRUCTION IN PARTICLE THERAPY 3
+
+TABLE I: Mathematical symbols and short descriptions.
+
+Symbol Description
+
+hai system matrix element
+
+d detector index
+
+n index of detection time interval
+
+j index of emission position interval
+
+p index of emission time interval
+
+a index of traversed materials
+
+tn, Pj, tp centers of intervals n, j, and p
+
+Ax, Ay, Az _ spatial sizes of PG emission bins
+
+Atp temporal size of PG emission bins
+
+Q emission direction as an infinitesimal solid angle
+Atp temporal size of detection time interval
+
+z position along beam axis relative to isocenter
+P, tp point and time of PG emission
+
+dVp volume integrand related to P
+
+) polar angle of emission direction
+
+~g azimuthal angle of emission direction
+
+Ad, Ap angle discretization step sizes
+
+tp timestamp of detection event
+
+Q point of entry into detector for given ray
+
+1 distance from detector entry Q
+
+ly, ly depths within the crystal at the start and at the end of
+the detection time interval, respectively
+
+Ih path length in detector before the time interval
+
+Le path length in detector during time interval
+
+La intersection length between ray and detector d
+
+c speed of light
+
+ue linear attenuation coefficient
+
+Lp probability of detection along path element di
+
+Ep measured energy deposition
+
+Qd,2,0,9 attenuation between P and Q
+
+A. Monte-Carlo-based System Model (MCSM)
+
+We simulated a known number of photons being emitted
+along the spatial dimension of the Field of View (FOV). The
+origin of the photons were randomly selected following a
+uniform distribution. The emission directions were randomly
+sampled and isotropically distributed. All photons were emit-
+ted at time interval center t,, i.e., the width of the emission
+time bin Atp was not considered. In the simulated volume,
+everything but the scintillation crystals of the photon detectors
+was vacuum.
+
+For each energy deposition within a detector, we recorded
+the detector index d along with the photon emission position,
+P, detection time, tp, and deposited energy, Ep. Next, we
+counted the number of detections separately for each com-
+bination of detector d, emission position interval 7, emission
+time interval p, and detection time interval n. The elements
+of the system matrix, H, were estimated as
+
+i
+ie., the ratio of the number of events in detector d within
+detection time interval n after emission in emission position
+voxel j and emission time interval p, (Nan,j»), and the
+number of photons emitted within intervals j and p, (.Nj,»).
+
+: (3)
+
+P
+
+B. Analytical System Model (aSM)
+
+All mathematical symbols of this section are listed in
+Table I. Throughout this section the shorthand
+
+[a + Aa] := [a — Aa,a+ Aa] (4)
+
+will be used. If a is a three-dimensional position, (4) shall
+apply to each dimension separately, i.e., in that case [a + Aa]
+describes a cuboid centered in a. AB = BA is the distance
+between two points A and B. A ray is defined as the line
+defined by a three-dimensional start position and direction.
+
+First, we inspect the conditions necessary for a valid PGT
+detection event given a specified emission. Interactions leading
+to a detected event can only take place within the volume of the
+detector d. Consequently, the depth of the interaction within
+the detector, /, must be positive and not exceed the overall
+intersection length Ly(P,) of the given ray with detector d.
+If the ray does not cross the detector volume, the length of the
+interval and, thereby, the associated probability of detection is
+zero. The detection time, tp, must lie in the time interval n,
+ie., tp € [tn +Atp/2]. Since the photon is moving at a finite
+speed, we must consider which combinations of detection
+position and time are possible. Let Q(P,9,d) be the point
+at which the ray first enters the detector. The condition
+
+c(tp — tp) =1+ QP (5)
+
+derives from tp = tp +t,, with t, = (J+ QP)/c. This ensures
+that the distance from emission to the point of detection,
+1+ QP, is consistent with the photon traveling at the speed of
+light c in a straight line for time tp —tp. The energy of PGs is
+hundreds of keV and above. Therefore, we assume the speed
+of light in vacuum is a reasonable estimate for the photons
+speed in the irradiated target and detector material. Lastly,
+consider that we are searching for the detection probability
+preconditioned on an emission in a specified voxel j and time
+interval p. Therefore, an emission inside these intervals must
+be assumed for the following calculations. All these conditions
+can be summarized as
+
+P(d,nlj,p) = P(U(P,2, a) € [0, La(P,2)]
+and tp € Ibe aa Atp/2|
+and c(tp — tp) =1+ QP
+given P € [P; + AP/2]
+and tp € [tp Ss Atp /2]). (6)
+
+To calculate P(d,n|j,p), we derive dPp t, 4, ,1,0(d, n|j, p),
+which is the differential probability of detection at time tp
+at depth / in detector d given an emission at time tp and
+position P in direction 2. The emission position and direction
+defines the assumed photon path after emission (ray) as
+sketched in Fig. 2a. Once fully described, we integrate the
+differential probability dPp 1, ¢,,1,0(d,7|Jj,p) over each of the
+free variables P, tp, tp, 1, and Q, one at a time. This yields
+the total probability P(d,n|j,p) for the given combination of
+emission and detection intervals.
+
+The differential probability is decomposed into factors, each
+representing conditions outlined in (6). To describe the voxel,
+time interval and detector boundaries, the indicator function
+
+1, if r € [a, 0);
+0, otherwise.
+
+Ljasj(7) = (7)
+
+is used. The function
+
+1;(P) = Upejtax/2|(P) Uy, +ay/2\(yP) Uf2,4a2/2\(ZP)
+(8)
+4 THIS WORK HAS BEEN SUBMITTED TO THE IEEE FOR POSSIBLE PUBLICATION.
+
+indicates whether the emission position, P, lies within voxel 7
+with voxel center P;. Similarly, the intervals for the emission
+and detection times, as well as the valid interaction depths
+within the detector are indicated as follows:
+
+1,(tp) = Lp, tate (te), (9)
+In(tp) = Up, £arp/2i(tp), (10)
+Ipoa(l) = Lpr.e.a(); (1)
+
+where ¢, and ¢,, are the time interval centers, respectively,
+and Lag is the maximum possible path length of a photon
+in detector d based on the emission position and direction.
+Additionally, all possible emission directions (characterized
+by the emission solid angle 2) need to be considered. Here
+we assume the PG emission to be isotropic, altough the non-
+isotropy of PG emission could be modeled as a weighting
+factor dependent on 2. The indicator functions for P, 2 and
+tp are normalized with regard to their interval sizes Ax, Ay,
+Az, 4m and Atp, respectively, since we calculate the detection
+probability conditioned on an emission in spatiotemporal voxel
+(j,p) with arbitrary direction.
+
+The probability of a PG to be detected at a certain depth /
+requires that the photon first reaches that point (survival proba-
+bility) after which it interacts over an infinitesimal path length
+dl. According to the Beer-Lambert law for a material with
+attenuation coefficient 4, we describe the survival probability
+as
+
+fa(l) =e". (12)
+Section IV-A shows that build-up effects can be ignored when
+translating detection times into interaction positions using (5).
+Additionally, we consider jp, which is the probability of
+detection per infinitesimal path element dl. It may contain any
+effect that is independent of P, Q, tp, and tp. One example is
+the probability of a given interaction to deposit enough energy
+into the detector to be counted as a measurement event. This
+may include a detector-dependent efficiency calibration; up
+will be equal to or smaller than pu, since some interactions
+are not counted in the PGT spectra, based on event selection
+criteria.
+
+Combining the conditions described in (8) to (12) yields
+
+dPp tp tp t,a(d, n|j, p)
+
+1,(P) dQ. 1,(tp)
+AgxAyAz 4r Atp
+dtp 1,(tp) dppe™ Ip.oa(l)
+6 (tp — (1+ QP) /c- te);
+
+dVp dtp
+
+(13)
+
+the first line describes the probability of emission within
+the correct voxel and time interval in all possible direc-
+tions. The differential volume of P is dVp. The second line
+deals with detection probabilities, both in terms of detec-
+tion time and locations within the detector. Lastly, we use
+6 (tp — (1+ QP) /c— tp) to only include combinations that
+fulfill (5).
+
+1) > e
+2)>-———e
+3) >e
+4) > e
+5) | »+——e
+6) >e
+(a) (b)
+Fig. 2: (a) 2D representation of a detector (box) and three
+emission directions (dashed lines) with detector entry points
+
+Q;, Qi, and Qi; and path lengths in the detector before
+(Ly, red) and within detection interval [I,,/2] (L2, blue). (b)
+Sections of attenuation within the detector before detection
+time interval n (Lj, red) and detection (Zz, blue) for all
+relevant combinations of the start (>) and end (*) of the
+detection time interval relative to the detector volume (green).
+
+First, we integrate over tp, using the sifting property of the
+6 distribution:
+
+dPp tp 1.a(d, nj, p)
+
+= [ APP tp,tp,0(d, n|j,P)
+JtpeR
+
+1,(P) dO 1,(tp) —
+d d PA dn ((1+ QP) /e+t
+Ve ArAyAz 4r Ate (( Q ) le ’)
+dl pe Dp.o,a(2) (14)
+Next, we integrate this result over tp to obtain
+dPpze(d,n,j,p). The section A describes how _ this
+
+integral can be interpreted as a convolution of 1, and 1,,. To
+simplify the calculation, we evaluate P(d,n|j,p) only at the
+center of the emission time and position intervals, assuming
+that the change within the spatiotemporal voxel is negligible:
+
+dPi.o(d,n\j, p) © dPp tp 1,0(d, n|J, p)-
+
+(15)
+
+lim
+Az,Ay,Az,Atp30 Jpa
+
+Making use of
+1)
+
+acts 40 AnAyhs (te ~ 2) 8ur ~ ¥s)8(2p ~ 23),
+
+(16)
+
+and
+
+lim ty(t) =6(tp— tp),
+
+17
+Atp30 Atp ay)
+
+together with the sifting property of 6, we obtain
+dQ oye —
+= a dlp e Ip,,a,a(t) In((l + QP;)/¢ + tp). (18)
+
+By substituting the detection times in bin n,
+with distances within the detector via (5), ie.,
+(li, lo] = [e (tn — tp + Atp/2) — QP;], we rewrite the
+last indicator function to have / as an input
+1,((1 + QP;)/e+ te) = 1p, 1) 0- (19)
+WERNER et al.: ANALYTICAL MODEL OF PROMPT GAMMA TIMING FOR SPATIOTEMPORAL EMISSION RECONSTRUCTION IN PARTICLE THERAPY 5
+
+Together with (11) this results in
+. dQ in
+dP1.0(d, n|j, p) =7, eve Lorie), Un wiO
+(20)
+
+which contains two indicator functions with the same input
+variable. Their multiplication yields another indicator function:
+
+Lpo.c4;.) 2) Uy) = Uni tr42))- 2D
+with
+L, = max(0, 11) (22)
+and
+; if >L L. 7
+Ipaq a 3)
+min(I2,LZq4)— Li, otherwise.
+
+To better understand this result, we examine the overlap of
+detector volume and detection time interval more closely.
+Fig. 2a depicts three possible photon trajectories emitted from
+a P at time ¢, passing through the detector. Valid detection
+times can occur at distances between J; +PQ and l2+PQ from
+the photon origin P. This can be visualized as a hollow sphere
+centered on P, whose intersection with the detector volume
+contains all interaction positions, where a detection event in
+detector d would be counted in time bin n. For a given ray, Ly
+(red segment) represents the distance to be traveled through the
+detector before reaching the detection interval. The length of
+the intersection segment is Lz (blue), which cannot be larger
+than the total intersection length between the detector volume
+and the ray, Ly. Fig. 2b shows the six possible combinations of
+the intervals [/,, 12] and [0, Lg]: For a given ray, the detection
+time interval (blue region) either
+1) fully encloses the intersection of detector volume and
+ray,
+2) starts before and ends within the detector volume,
+3) lies entirely between the point of emission and the
+detector,
+4) starts within the detector and ends behind the distal edge
+of the detector,
+5) starts and ends within the detector volume, or
+6) lies entirely behind the detector as viewed from the point
+of emission.
+For emission directions where detector d is not crossed,
+Lq = 0 implies Lz = 0, i.e., an intersection length of 0. Using
+(21), the detection probability for a given emission direction
+reduces to
+
+doa futha ;
+dPo(d, n|j, p) = — di e~#
+o(d,n|j,p) dn LD [. die
+dQ
+= Serb” — enwlayPP (24)
+Ar U
+
+ie., four independent probabilities. ge is the differential
+
+probability of emission in a given direction. This is followed
+by the probability of the photon reaching depth L, inside
+the detector e~“4! and then the probability 1—e~"4? of
+the photon depositing any energy in an appropriate part of
+the detector. Since some energy depositions may be too
+small or are rejected for other reasons, we finally have the
+
+probability os of an energy deposition to be counted in the
+PGT spectrum.
+
+The final step is to integrate the differential probability over
+all emission directions to obtain the total probability. Using
+spherical coordinates, the probability of detection within time
+bin n in detector d given an emission in (j,p) is obtained
+through
+
+Qn
+P(d,n|j,p) = [ av [ dosing HP 4 _
+bb
+(25)
+
+For each direction, the entry point to the detector, Q, and the
+path length in the detector, Lg, must be calculated. Closed-
+form expressions for the two might not be found, depending
+on the detector geometry. Therefore, we approximate the prob-
+ability by applying the rectangular rule and discretizing the
+solid angle with equally spaced increments of the azimuthal
+(y) and polar (@) angles. The final form of a system matrix
+element is
+
+eT Hb2),
+
+asm sett LD
+
+‘din,jp =
+
+> : sin 0, e #42(1 — eH),
+
+m=0 k=0
+
+(26)
+Attenuation between emission and detector entry can be
+
+modeled into hi? , by adding the multiplicative term
+
+a(d, P, Q) = E> yy Hil(i,d,P,Q) |
+
+(27)
+with 7 being the index of traversed materials; a depends on
+the emission position, P, and direction, 9, as well as detector
+index d. In this work, we have implemented the additional
+attenuation of other detectors. Attenuation in the phantoms or
+other surrounding materials was not considered.
+
+IV. EVALUATION
+
+All tests were executed with a spatiotemporal FOV ex-
+tending from -—20cm to 20cm on the beam axis relative
+to the isocenter, and from Ons to 5ns with a discretization
+of Az = 0.25cm, Atp = 50ps, and Atp = 50ps. For both
+models, only the system matrix elements for emission time bin
+p = 0 needed to be calculated explicitly. Due to tp = tp +ty,
+a translation in emission time, tp, shifts the detection time,
+tp, by the same amount. Since Atp and Atp are equal, we
+obtained the system matrix values for p 4 0 by shifting the
+system matrix elements obtained for p = 0 in the detection-
+time dimension to match the desired emission time.
+
+Following our experimental setup [17], the detectors were
+modeled as LaBrs scintillation crystals with diameter and
+length of 3.8l1cm (unless stated otherwise) and density
+5.2gcem"?. In this work, we calculated both models assuming
+mono-energetic 4.4 MeV photons. For the Analytical System
+Model (aSM), the total attenuation coefficient for LaBrs,
+ji =17.71m~", was taken from XCOM NIST!.
+
+For the Monte-Carlo-based System Model (MCSM), we
+simulated a total of 6 x 10'° photons in FLUKA 2024.1.3 [18],
+which took approximately 160 core-hours using an AMD©
+Ryzen 7 pro 5750g. The number of primary photons was
+
+'https://physics.nist.gov/PhysRefData/Star/Text/PSTAR. html
+6 THIS WORK HAS BEEN SUBMITTED TO THE IEEE FOR POSSIBLE PUBLICATION.
+
+> 15000 MME tpe
+2 19-2 lm energy-weighted centroid
+g a Gee a, sl af
+£ z 10000
+2 49-3 3
+aa & 5000
+e
+10-4 0
+0 200 400 10
+Time difference first Depth (cm)
+and last interaction (ps)
+(b)
+(a)
+
+Fig. 3: (a) Time-difference spectrum between last and first
+energy deposition of a 4.4 MeV-photon in the MC simulation.
+(b) Number of energy depositions over path length in LaBr3
+in a MC-simulation. The path length is calculated either using
+an energy-weighted centroid (blue) or the time after entry and
+speed of light (red). The fit of the time-based calculation to
+an exponential function is shown in green.
+
+intentionally set very high to reduce the impact of statistical
+errors. The calculation of the aSM with AO = Ay = 1° for
+110 detectors took 6 core-minutes; a speedup of approximately
+1500 times compared to the MCSM implementation. In the
+following sections the MCSM and aSM implementations are
+compared.
+
+A. Timestamp calculation
+
+In the MCSM model, all interactions of secondary particles
+from the same photon within a detector are aggregated to
+form a net detection event, i.e., their energy is summed, and
+only one timestamp is assigned. However, as illustrated in
+Fig. 3a, the time difference between the first and last energy
+depositions related to one net event can be on the scale of
+hundreds of picoseconds. The median time difference was
+25 ps. This distribution is hereafter termed Detector Response
+Function (DRF), as it also serves as a stand-in for any
+effect changing the relationship of the time of photon-detector
+interaction and the measured timestamp. Depending on the
+timing resolution, this effect needs to be taken into account
+when comparing the system models. For all following results,
+we chose the timestamp of the very first energy deposition
+related to the given primary photon as the overall detection
+time tp.
+
+We have also tested whether the translation of the traveled
+distance from the point of emission, P, into the photon time
+of flight via (5) is a reasonable approximation. For this
+purpose we simulated a 100cm long cylindrical crystal of
+LaBr3 with diameter 3.81 cm. Fig. 3b shows a buildup effect
+in the first centimeters of the crystal, when calculating the
+interaction depth, J, as the energy-weighted centroid of energy
+depositions for the simulated data. The buildup effect is the
+initial rise of secondary particle fluence (and thereby counts),
+as the positions close to the borders of the crystal have less
+material surrounding them producing secondaries, which then
+travel some distance within the crystal. In contrast, when the
+timestamps from the simulation are translated into a distance,
+the results closely follow the Lambert-Beer Law: The fit to
+
+T T T T
+Ml MCSM - aSM 40
+Mm MCSM - aSM=0
+
+10°
+
+10°
+
+Counts
+
+101
+
+—5.0 -25 00 25 50 7.5 10.0
+Deviation (%)
+(a)
+20 1 1 1 T T 10.0
+th 7 [B75
+10% TT ;
+10 GEE Deviation for detector 73
+=== Photon emission positions 50 &
+5% a
+5 4 FI
+25 «8
+2
+e 8
+& —10 0 10 20 oo 8
+8 z (cm) . 2 =
+3
+&
+a
+
+| 7 Py -15
+=10.0
+—10 0 10 20
+z (cm)
+(b)
+fo as Fes Hi MCSM SM
+Fig. 4: (a) Element-wise histogram of hai, — han. jp tel-
+
+ative to max,,;,) hYCSM, in detector d with energy threshold
+
+1 MeV. (b) Maximum positive (red) and negative (blue) ele-
+mentwise differences of hYCSM, — hiM,, for each detector
+in the xz-plane. Inset: Maximum difference depending on the
+
+emission positions for detector position 73.
+
+(12) shows an attenuation coefficient of 17.6 m7!
+
+value from XCOM NIST of 17.71 m"!.
+
+, close to the
+
+B. Detection efficiency
+
+When calculating the MCSM, we applied no event se-
+lection unless stated otherwise. However, in simulations and
+experimental implementations of PGT a threshold is often
+applied to Ep, the measured energy, to reduce the number of
+non-informative detection events. Hence, we used an energy
+threshold of 1 MeV in some tests. To quantify the reduction
+in detection probability due to the energy threshold, we ran
+a simulation of a single detector facing a centered photon
+source. The ratio between the maximum detection probabilities
+of the MCSM with and without the 1 MeV threshold was
+0.91. Consequently, we set zp/p = 0.91 in the aSM for
+comparisons with MCSMs calculated with Ep > 1 MeV and
+[tp / = 1 when no event selection was applied.
+
+C. Scatter and attenuation in multiple detectors
+
+To study the effects of multiple closely-packed detectors,
+we simulated the detector geometry of [2] and [16]. A total
+WERNER et al.: ANALYTICAL MODEL OF PROMPT GAMMA TIMING FOR SPATIOTEMPORAL EMISSION RECONSTRUCTION IN PARTICLE THERAPY 7
+
+T 1
+D5M, single detector
+I detectors
+es 0.0020 , single detector 4
+‘all detectors
++ MCSM, single det., Ep > 1 MeV
+Z anniek + MCSM, all det., Ep > 1 MeV
+5
+8 0.0010 F 4
+g
+& 0.0005 4
+0.0000 3 UE BE East
+0.00 0.25 0.50 0.75 1.00 1.25 1.50
+Detection time (ns)
+r r r
+& 0.0004 F J
+0.00034 7
+S
+a
+8 0.0002 F 4
+sg
+& 0.0001 |
+0.0000 - - j -
+0.00 0.25 0.50 0.75 1.00
+Detection time (ns)
+(b)
+Fig. 5: System matrix elements without time resolution for
+detector position 73 and emission positions (a) z = —20cm,
+
+and (b) z =0cm. Red: aSM with (solid line) and without
+(dash dot) attenuation of neighboring detectors; blue: MCSM
+simulated with only detector 73 (dots) or all 110 detectors
+(dash dash dot), and green: MCSM with | MeV threshold on
+the detected energy).
+
+of 110 detectors were arranged in five planes of 22 detectors
+each: nine along a straight line and thirteen in an arc. To
+isolate the impact of intercrystal scatter and attenuation in
+neighboring crystals, we simulated detector 73 (see Fig. 4b)
+with and without the surrounding crystals present. In the aSM
+surrounding detectors were considered in (27). Intercrystal
+scatter was not modeled in the aSM. The results of the com-
+parison are included in Fig. 5. For a single detector, the aSM
+matches the MCSM closely. When including all neighboring
+crystals, a tail of late interactions appears in the MCSM, while
+the aSM values drop to 80% of the MCSM for emissions
+at z = —20cm. The tail in the MCSM is eliminated when
+imposing a 1 MeV energy threshold. For all 110 detectors, the
+median absolute difference? between aSM and MCSM with
+Ep > 1MeV is 0.01 % and, as shown in Fig. 4, the difference
+does not exceed 10.6 %. As demonstrated for detector position
+73 in the inset of Fig. 4, the largest deviations correspond to
+underestimations of the aSM values where the paths between
+the emission point and the detector are substantially obstructed
+by another detector. The error for the line of detectors lies
+below 3.5 %.
+
+Excluding errors of exactly 0, since the majority of system matrix elements
+is 0 when not considering a finite time resolution.
+
+2 . my . 100
+2 ise 2 1sE
+1008 = 10008
+5 10k OF 1k at
+3 800 800
+g OF a OF
+5 OF 1600 5 OF 1600
+i loo EOE L400
+ _10E
+1200 “ise 200
+a a a a a a a ee
+Emission time (ns) Emission time (ns)
+(a) (b)
+§ P00 &
+= ;
+2 E: 100 &
+Ea po &
+=
+§
+
+0-05 1 15 2 25
+Emission time (ns)
+
+(©)
+
+Fig. 6: Reconstruction of the spatiotemporal PG emission dis-
+tribution of a simulated 219 MeV proton beam using (a) aSM
+or (b) MCSM after convolution with the DRF (100 iterations,
+intensity threshold 20 %). Red markers show the spatial COG
+over time and its standard deviation. (c) Difference between
+(a) and (b).
+
+D. Reconstructed distributions and stopping power
+
+To evaluate the effect of the differences between the sys-
+tem models on the reconstructed distributions we used the
+Monte Carlo-simulated dataset from [16]. The beam particles
+were protons. The dataset contains 17 proton-beam energies
+impinging on a PMMA target (50 realizations per energy).
+To match the timestamp calculation of these simulations, we
+applied a convolution along the detection time with the DRF
+shown in Fig. 3a to the system models. To model the detector
+time resolution, a normal distribution with standard deviation
+106 ps was added both to the data (event-by-event) and the
+system models (convolution). Almost no differences between
+the reconstructed distributions shown in Fig. 6 are visually dis-
+cernible. Quantitatively, the maximum reconstructed intensity
+increased slightly from 1180 (MCSM) to 1200 (aSM). Fig. 6c
+shows errors up to 240 counts, which are related to pixel
+intensities slightly above and below the intensity threshold.
+The intensity threshold applied to the distributions differs
+by 4 counts, since the threshold was defined relative to the
+maximum intensity of the given distribution. The maximum
+difference of non-zero intensities is 50 counts, which is 4%
+of the maximum reconstructed intensity.
+
+To extract the stopping power from the reconstructed spa-
+tiotemporal distribution as in [2] and [16], we first applied a
+threshold to the distribution and then calculated the spatial
+Centers of Gravity (COGs) of the PG emission for each
+timestep (red markers in Fig. 6). The free parameters of the
+primary particle motion model were obtained via non-linear
+regression: The model equations were fit to the position-time
+pairs. Next, the corresponding stopping power profile over
+depth within the phantom was calculated. As a range estimate,
+8 THIS WORK HAS BEEN SUBMITTED TO THE IEEE FOR POSSIBLE PUBLICATION.
+
+T T ™ 100
+x aSM
+4n bk @ mcsm |
+& &
+ica] 50 a
+& 20 | c
+a a a
+4 25
+ede Se a *
+0 1 L hi ito
+50 100 150 200 50 75
+Primary particle energy (MeV)
+(a)
+T T
+S x aSM
+40+ 4 @ McsM |}
+Fe 4 ee
+& 20+ y 4 =
+
+50 100 150 200 50 75
+Primary particle energy (MeV)
+
+(b)
+
+Fig. 7: Average (marker), standard deviation (whiskers) and
+minimum and maximum (shaded area) of (a) MRE and (b)
+SPR error for reconstructions using aSM and MCSM after
+convolution with the DRF.
+
+we used the COG of the last emission bin (in time) above the
+threshold. The range and stopping power estimates are affected
+by the number of iterations in the reconstruction as well as by
+the post-reconstruction threshold. To find the optimum values,
+we applied the scenario-based approach optimizing the Mean
+Relative Error (MRE) introduced in [16]. The MRE compares
+the estimated stopping power to NIST PSTAR reference values
+for homogeneously spaced positions along the beam path.
+Additionally, we calculated the estimated Stopping Power
+Ratio (SPR) to water at 100 MeV. These metrics showed that
+the stopping power estimations based on reconstruction with
+aSM and MCSM were well within the statistical uncertainty
+(see Fig. 7). Compared to [16], the standard deviation related
+to the MRE was reduced significantly. The SPR is slightly
+worse than reported in [16], which is expected, since the
+optimization applied here only considered the MRE.
+
+VY. DISCUSSION
+
+We have shown that for single detectors the aSM is capa-
+ble of reproducing the MCSM values accurately. For many
+closely-packed detectors the error of some system matrix
+elements increased to 10.6%, but the median error was only
+0.01 %. As attenuation was included in the aSM, the remaining
+difference and the tail observed for the MCSM in Fig. 5 (with-
+out energy threshold) can be attributed to intercrystal scatter.
+In the Monte-Carlo simulation, the detectors were placed in
+vacuum. Therefore, any low-energy particle (e.g. electrons)
+leaving the detector where the first photon interaction happens
+had high chances of reaching another detector and contributing
+
+to the late-detection tail. The modeled attenuation in neighbor-
+ing detectors based on 44 was overestimated in the aSM, since
+intercrystal scatter offered an alternative route to detection. In
+any case, the late-detection tail is not relevant in experimental
+PGT data, as the threshold is usually set above 511 keV to
+avoid the contribution of positron-emitting isotopes, because
+they are not as closely correlated in time with the primary
+particles. The change in detection efficiency pup/j: caused by
+applying an energy threshold was successfully included in the
+aSM based only on a 30s simulation of a single emission
+position and detector. Since intercrystal scatter is complex to
+model and highly sensitive to the relative placement of the
+detectors, adding intercrystal scatter to the aSM is beyond the
+scope of this work.
+
+Neither the MCSM nor the aSM took scatter and attenuation
+within the phantom into account — not only because of the
+computational complexity (especially for voxelized cases), but
+also because the underlying assumption of a given phantom
+or patient geometry may bias the results. One goal of treat-
+ment verification is to confirm the assumed patient anatomy.
+Therefore, robustness against possible deviations is key when
+including information about the phantom or patient geometry.
+Using the dataset of [16], we have demonstrated that the two
+models are equivalent in terms of reconstruction and stopping
+power estimation performance, i.e., the differences in some
+system matrix elements did not cause significant changes in
+the reconstructed distributions.
+
+A. Adjustments to experimental data
+
+The PG energy spectrum consists of distinct peaks and
+a continuous background with the peak at 4.4MeV being
+one of the most prominent [19]. The full spectrum could
+be incorporated by calculating its effective ju and 1p while
+keeping in mind, that the spectrum depends on the beam
+energy and tissue composition and might change throughout
+the detector as low-energy photons are prone to be attenuated
+faster than higher energy ones (so-called beam hardening). The
+implemented system models only considered photon energies
+of 4.4 MeV. Nevertheless, the successful results obtained from
+reconstructions based on the MCSM applied to both simulated
+data with the full spectrum [2], [16], as well as experimental
+data [15], [20] shows this to be a reasonable simplification,
+as long as the attenuation coefficient is calculated using a
+sufficiently representative photon energy.
+
+Signal delay effects can be incorporated into the system
+models via a convolution with the DRF as demonstrated for the
+simulated PGT spectra from [16], although large shifts should
+be corrected at the data level since the observed detection time
+interval is limited. The DRF should also include the finite time
+resolution of the detector and effects of its readout. Depending
+on the detection system, several beam parameters need to be
+considered [21]. Both system model implementations included
+PG emissions only on the beam axis and did not model the
+emission time width Atp. Including the true Atp as well
+as the transversal beam distribution Ax and Ay are possible
+improvements based on the theoretical framework summarized
+in (14). Also, for the spatial emission bins other basis functions
+WERNER et al.: ANALYTICAL MODEL OF PROMPT GAMMA TIMING FOR SPATIOTEMPORAL EMISSION RECONSTRUCTION IN PARTICLE THERAPY 9
+
+instead of voxels could be implemented, since the aSM deriva-
+tion is independent of the shape of the indicator functions up
+to (14), provided that the L' norm of the distributions is finite
+and non-zero.
+
+The preliminary results with experimental data in [15], [20]
+were achieved by incorporating the detector efficiency, a con-
+stant detector-dependent signal delay, and the coincidence time
+resolution into the MCSM. Further details of the acquisition
+system were not needed to achieve reconstructions usable for
+stopping power estimation and the same adjustments could
+be applied to the aSM. Since the aSM and MCSM showed
+good agreement element-wise as well as in reconstruction and
+stopping power estimation, we expect the aSM to also be
+applicable to experimental data.
+
+B. Use-cases
+
+The execution time for the aSM scales inversely with AQ,
+Ay as well as linearly with the number of detectors and
+the number of spatial emission and temporal detection bins.
+For the MCSM, the execution time is mostly determined by
+the number of photons simulated, which directly affects the
+statistical error of the result. No significant errors caused
+by the numerical integration over emission directions in the
+aSM were observed. Depending on the detector geometry
+and positions, larger angle step sizes may be sufficient. More
+efficient sampling methods could be also considered. Even
+though the aSM does not lead to a closed solution for a
+system model, its fast execution time and minimal requirement
+for storage space make it useful for many studies related
+to PGT-based reconstruction methods like SER-PGT [1] and
+PGTI [11]. The aSM significantly speeds up investigations of
+new detector arrangements, optimization of detector configu-
+ration, as well as the calculation of a system model for off-
+center particle beams. Also, data-driven evaluations of PGT
+data [8]-[10] may benefit from studying the effects of the
+detector placement, material and geometry using the aSM to
+predict the expected measurements. Finally, changing 1, to
+d(tp — tn) in the aSM enables list-mode based SER-PGT.
+MCSMs can only estimate the detection probability for non-
+discretized measurements from counts in finite intervals. List-
+mode SER-PGT would remove the need for discretizing the
+time measurement and, depending on the number of measured
+events, may speed up the reconstruction. In that case, t;, would
+denote the detection time assigned to a given event, instead of
+the center of a detection time interval.
+
+VI. CONCLUSION
+
+We have derived and tested an aSM for SER-PGT. It is
+approximately 1500 times more computationally efficient than
+the reference MCSM. Although intercrystal scatter was not
+modeled in the aSM, no significant differences in performance
+were observed at the level of the SER-PGT output and
+stopping power estimation. While further improvements to the
+model are possible, the current version is ready to replace
+the MCSM in upcoming studies of SER-PGT and related
+techniques. The development of the aSM is a significant step
+towards the implementation and refinement of PGT-based
+verification methods for clinically relevant scenarios.
+
+APPENDIX
+
+The integration over tp to go from (14) to Ppy.q can be
+expressed as a cross-corelation x of 1, and 1,
+
+[ dtp 1,(tp) Un ((1+ QP) /e+ te)
+= (Lp * tn) (+ QP) /e),
+
+evaluated at time ( + QP) /c. A cross-correlation is equiv-
+alent to a convolution with the sign of one of the function
+arguments inverted. This leads to
+
+(28)
+
+dPpo(d,n, j,P)
+1,(P) dQ
+=dVp—— *
+Pe ArAyAz 4r
+1 —
+SE (Lp * In) ((2 + QP) /c) .
+This formulation eases the prediction of the shape of the distri-
+bution of valid detection positions, /, given by the distribution
+of accepted emission and detection times, since it can easily
+be calculated based on known convolution results.
+
+dl fa(1) Ip,o,a(1) uo
+
+(29)
+
+REFERENCES
+
+1] F Pennazio et al., “Proton therapy monitoring: spatiotemporal emission
+reconstruction with prompt gamma timing and implementation with PET
+detectors,” Physics in Medicine & Biology, vol. 67, no. 6, p. 065005, 3
+
+2022.
+
+2) V. Ferrero et al., “Estimating the stopping power  dis-
+tribution during proton therapy: a proof of concept,”
+Frontiers in Physics, vol. 10, 9 2022. [Online]. Available:
+
+https://www. frontiersin.org/articles/10.3389/fphy.2022.971767
+
+3] K. Parodi, “Latest developments in in-vivo imaging for proton therapy,”
+British Journal of Radiology, vol. 93, no. 1107, p. 20190787, 12 2019.
+4] C. Gianoli, M. De Simoni, and A. Knopf, “Treatment verification in
+particle therapy,” in Imaging in Particle Therapy, ser. 2053-2563. IOP
+Publishing, 2024, pp. 10-1 to 10-24.
+
+5] A.C. Kraan and A. Del Guerra, “Technological developments and future
+perspectives in particle therapy: a topical review,” JEEE Transactions
+on Radiation and Plasma Medical Sciences, vol. 8, no. 5, pp. 453-481,
+2024.
+
+6] C. Golnik et al., “Range assessment in particle therapy based on prompt
+y-ray timing measurements,” Physics in Medicine & Biology, vol. 59,
+no. 18, p. 5399, 8 2014.
+
+7) F. Hueso-Gonzalez et al., “First test of the prompt gamma ray timing
+method with heterogeneous targets at a clinical proton therapy facility,”
+Physics in Medicine & Biology, vol. 60, no. 16, p. 6247, 2015.
+
+8] T. Werner et al., “Processing of prompt gamma-ray timing data for
+proton range measurements at a clinical beam delivery,” Physics in
+Medicine & Biology, vol. 64, no. 10, p. 105023, 5 2019.
+
+9] S.M. Schellhammer, J. Wiedkamp, S. Léck, and T. Kégler, “Multivariate
+statistical modelling to improve particle treatment verification: Implica-
+tions for prompt gamma-ray timing,” Frontiers in Physics, vol. 10, 2022.
+10] A. Kieslich, S. M. Schellhammer, A. Zwanenburg, T. Kégler, and
+S. Lock, “Machine-learning-based integration of temporal and spectral
+prompt gamma-ray information for proton range verification,’ Physics
+and Imaging in Radiation Oncology, vol. 35, p. 100788, 2025.
+
+11] M. Jacquet er al., “A time-of-flight-based reconstruction for real-time
+prompt-gamma imaging in proton therapy,’ Physics in Medicine &
+Biology, vol. 66, no. 13, p. 135003, 6 2021.
+
+12] A. Iriarte, R. Marabini, S. Matej, C. Sorzano, and R. Lewitt, “System
+models for PET statistical iterative reconstruction: a review,” Comput-
+erized Medical Imaging and Graphics, vol. 48, pp. 30-48, 2016.
+
+13] J. Qi and R. H. Huesman, “Effect of errors in the system matrix
+on maximum a posteriori image reconstruction,” Physics in Medicine
+& Biology, vol. 50, no. 14, p. 3297, jul 2005. [Online]. Available:
+https://dx.doi.org/10.1088/003 1 -9155/50/14/007
+
+14] M. Rafecas, G. Boning, B. Pichler, E. Lorenz, M. Schwaiger, and
+S. Ziegler, “Effect of noise in the probability matrix used for statistical
+reconstruction of PET data,’ JEEE Transactions on Nuclear Science,
+vol. 51, no. 1, pp. 149-156, 2004.
+
+(15)
+
+[16]
+
+017]
+
+[18]
+
+THIS WORK HAS BEEN SUBMITTED TO THE IEEE FOR POSSIBLE PUBLICATION.
+
+V. Ferrero et al., “Proton therapy treatment verification: a spatio-
+temporal emission reconstruction with experimental data,” in 2023 IEEE
+Nuclear Science Symposium, Medical Imaging Conference and Interna-
+tional Symposium on Room-Temperature Semiconductor Detectors (NSS
+MIC RTSD), 2023, pp. 1-2.
+
+J. Werner ef al., “Stopping power and range estimations in proton
+therapy based on prompt gamma timing: motion models and automated
+parameter optimization,” Physics in Medicine & Biology, 06 2024.
+
+V. Ferrero et al., “The MERLINO project: characterization of LaBr3:Ce
+detectors for stopping power monitoring in proton therapy,” Journal of
+Instrumentation, vol. 17, no. 11, p. C11013, 11 2022.
+
+F. Ballarini et al., “The FLUKA code: overview and new developments,”
+
+[19]
+
+[20]
+
+Pu
+
+EPJ Nuclear Sci. Technol., vol. 10, p. 16, 2024.
+
+J. M. Verburg, H. A. Shih, and J. Seco, “Simulation of prompt gamma-
+ray emission during proton radiotherapy,” Physics in Medicine & Biol-
+ogy, vol. 57, p. 5459, 8 2012.
+
+J. Werner et al., “In-beam measurement of stopping power using multi-
+detector prompt gamma timing in proton therapy,” Physica Medica, vol.
+125, p. 103890, 2024, abstracts of the 5th European Congress of Medical
+Physi
+T. J. Kégler et al., “Modeling prompt gamma-ray timing spectra for
+treatment verification in proton therapy,” in 2024 IEEE Nuclear Science
+Symposium (NSS), Medical Imaging Conference (MIC) and Room Tem-
+perature Semiconductor Detector Conference (RTSD), 2024, pp. 1-1.
+

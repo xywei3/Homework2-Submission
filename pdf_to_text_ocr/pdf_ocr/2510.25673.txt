@@ -1,0 +1,1111 @@
+s.optics] 29 Oct 2025
+
+SiC
+
+2510.25673v1 [phy
+
+arXiv
+
+IOP Publishing Journal vv (yyyy) aaaaaa Author et al
+Journal Name
+
+Crossmark PAPER
+
+ae Spatiotemporal control of laser intensity using differentiable
+
+dd Month yyyy
+
+REVISED
+
+dd Month yyyy
+
+programming
+
+Kyle G Miller!*®, Tomas E Gutierrez!®, Archis S Joglekar?!3®, Amanda Elliott!®, Dustin H
+Froula!®, and John P Palastro!®
+
+1Laboratory for Laser Energetics, University of Rochester, 250 E River Rd, Rochester, NY 14623, United States of
+America
+
+?Ergodic LLC, 7511 Greenwood Avenue N #312, Seattle, WA 98103, United States of America
+
+3Pasteur Labs, 19 Morris Ave, Brooklyn, NY 11205, United States of America
+
+*Author to whom any correspondence should be addressed.
+
+E-mail: kmill@lle.rochester.edu
+
+Keywords: automatic differentiation, gradient-based optimization, nonlinear optics
+
+Abstract
+
+Optical techniques for spatiotemporal control can produce laser pulses with custom
+amplitude, phase, or polarization structure. In nonlinear optics and plasma physics, the
+use of structured pulses typically follows a forward design approach, in which the efficacy
+of a known structure is analyzed for a particular application. Inverse approaches, in
+contrast, enable the discovery of new structures with the potential for superior
+performance. Here, an implementation of the unidirectional pulse propagation equation
+that supports automatic differentiation is combined with gradient-based optimization to
+design structured pulses with features that are advantageous for a range of nonlinear
+optical and plasma-based applications: (1) a longitudinally uniform intensity over an
+extended region, (2) a superluminal intensity peak that travels many Rayleigh ranges with
+constant duration, spot size, and amplitude, and (3) a laser pulse that ionizes a gas to
+form a uniform column of plasma. In the final case, optimizing the full spatiotemporal
+structure improves the performance by a factor of 15 compared to optimizing only spatial
+or only temporal structure, highlighting the advantage of spatiotemporal control.
+
+1 Introduction
+Laser pulses structured in space, time, or coupled space-time provide additional degrees of freedom
+for optimizing laser-based applications. The spatial structure can be two-dimensional, as in pulses
+with constant orbital angular momentum (OAM) [1, 2], or three-dimensional, as in pulses with
+tailored trajectories [3] or spatially varying OAM [4, 5]. Common examples of temporal structure
+include pulse shape, chirp, or higher-order temporal and spectral phase. Coupled space-time
+structure offers the greatest flexibility and enables custom evolution of the amplitude, phase, and
+polarization [6-9]. A prominent realization is the “flying focus,” which features a peak intensity
+that moves independently of the group velocity over many Rayleigh ranges [10-14]. While known
+structures like these present new opportunities to enhance applications [15-22], they are somewhat
+limited in their adaptability. The optimal structure for a particular application may combine
+existing structures or take an entirely new form.
+The optimization of laser-based applications with structured pulses has typically followed a
+forward design approach, in which a known structure is evaluated for its ability to improve an
+outcome such as efficiency or yield. The flying focus, for instance, has found utility in plasma and
+nonlinear optical processes that require velocity matching or extended interaction lengths [11,
+19-22]. Inverse design, by contrast, begins with a desired outcome and seeks a structure that
+maximizes or minimizes that outcome. This approach can yield finely tuned optimizations of
+existing structures or reveal undiscovered structures. High-dimensional inverse design is particularly
+well suited to machine learning techniques for gradient-based optimization, where optimal input
+parameters are obtained by minimizing a loss function that is chosen to produce a desired outcome.
+Advances in software tools and specialized computing architectures have made gradient-based
+optimization increasingly accessible to the scientific community. As an example, the JAX [23]
+
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa
+
+Author et al
+
+Incident pulse
+
+Fresnel
+diffraction
+integral
+
+Figure 1. Diagram of the optimization
+
+Optimization loop in SUPER-JAX
+
+Optimized pulse
+
+Far field
+Desired behavior
+
+Far field
+Simulated bel
+
+loop in the differentiable program SUPER-JAX. The spatiospectral structure
+
+of the near-field electric field Ee’? is iteratively tuned via gradients of a loss function £ to find an optimized pulse
+
+that produces the desired far-field behay
+propagation equation, and gradients of
+
+library extends the NumPy [24] sc:
+
+wior. Far-field propagation is simulated with the unidirectional pulse
+£ are calculated with automatic differentiation for each tunable parameter @.
+
+ientific library in Python by adding support for automatic
+
+differentiation (AD) and acceleration on graphical processing units (GPUs), features that can
+substantially speed up gradient-based optimization. This is especially true for inverse design
+
+problems that involve many inpu'
+expensive [25, 26]. Reverse-mode
+
+s and few outputs, where computing finite-difference gradients is
+AD, in particular, efficiently computes gradients with respect to
+
+many input parameters: gradients are calculated at each step during forward evaluation and then
+
+accumulated in a reverse pass of
+accelerates inverse design in scien
+programming overhead. These ad
+
+he program—one pass for each output [26, 27]. This mode of AD
+tific software while adding minimal computational and
+vantages have motivated the adoption of AD across diverse fields,
+
+including optics [28-31], astronomy [32, 33], and plasma physics [34-37].
+Here, we present a differentiable implementation of the unidirectional pulse propagation
+equation (UPPE) [38-40] that enables inverse design optimization of near-field spatiotemporal
+
+structure for desired features in t
+with utility across a range of non
+the parameters of the laser pulse
+algorithm. The propagation of th
+
+he far field. The optimization is performed for three examples
+inear optics and plasma physics applications. In each example,
+in the near field are allowed to vary using a gradient descent
+
+e pulse in the far field is then simulated either in vacuum or in a
+
+nonlinear medium, and the gradients are computed using AD within the JAX framework. The
+
+three examples build in complexi
+focal region, (2) generation of an
+maintaining a constant spot size,
+uniform region of photoionized pl;
+latter two leverage full spatiotem;
+only be realized with coupled spa
+is sufficient to achieve the desired
+
+2 Methods
+2.1 Near-field parameterization
+Consider a laser
+the spatial and temporal structur
+structure to pro:
+evaluated in terms of a metric, or
+features
+gradient
+derivatives of the loss function wi
+framework for parameterizing the
+
+y: (1) production of a static, constant intensity over an extended
+intensity peak that travels at a prescribed velocity while
+duration, and amplitude, and (3) formation of an extended,
+asma. The first example uses pure spatial optimization, while the
+poral optimization. In the final example, the desired features can
+ce-time structure; neither spatial nor temporal structuring alone
+outcome.
+
+ulse incident on an optical assembly in the near field that can freely manipulate
+
+e of the amplitude and phase. The goal is to optimize the
+
+uce desired features in the far field. The performance of the structure can be
+
+loss function £, that approaches a minimum as the desired
+
+are obtained. This constitutes an inverse design problem that can be addressed with a
+descent algorithm, where the pulse parameters are iteratively adjusted according to
+
+th respect to those parameters (Fig. 1). The solution requires a
+amplitude and phase that is both general enough to represent a
+
+wide variety of spatiotemporal structures and specific enough to ensure effective tuning by the
+
+optimization algorithm.
+Att
+
+he exit of the optical assembly, the pulse propagates in the positive 7 direction and is
+
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+assumed to be cylindrically symmetric. In this configuration, the most general way to describe the
+structure of the amplitude and phase is to specify their values at every point in configuration (r-t),
+spectral (k,—w), or spatiospectral (e.g., r-w) space. However, optimizing over such a large
+parameter space could be challenging. To facilitate optimization, reduced representations for the
+near-field amplitude E and phase ¢ are used instead, where the hat denotes quantities that can be
+adjusted by the gradient descent algorithm. The amplitude is defined using familiar optical
+uantities, while the phase is parameterized to allow for a direct mapping onto optical elements
+such as diffractive optics, metasurfaces, spatial light modulators, or mirrors with custom sagitta.
+More specifically, the near-field amplitude is expressed in terms of a coefficient A(r), central
+frequency @(r), pulse duration 7(r), and an exponent p that describes the super-Gaussian order of
+
+the spectral profile:
+1 2 r \*° #(r) |?
+
+where wo is the near-field spot size of an approximately flat-top profile. The phase is decomposed
+into a polynomial expansion in frequency about a reference frequency wo and an expansion in
+cylindrically symmetric Zernike polynomials Z°(p) (defined in Appendix A). The coefficients of this
+expansion define the elements of the 4 x 4 matrix L:
+
+wore
+
+O(r,w) =— Ff az
+defo
+loo loo loa loo Z3(r/r0) (2)
+_ ors 1 Ae (22)" (22)’ ho be ha he | | 22(r/ro)
+4cfo #o wo wo loo toa laa Lae Z4(r/ro)
+I30 132 Isa Is6 Z8(r/r0)
+
+where 7g is the aperture radius, c is the vacuum speed of light, fo is a nominal focal length, and
+Aw = w — wo. Element — represents the contribution with power m in frequency and radial
+profile Z°(r/ro). Successive powers of frequency equal to 0, 1, 2, and 3 in the matrix Q represent
+diffractive contributions, radial group delay, radial chirp, and radial third-order spectral phase,
+respectively. An ideal lens, for example, has lea = Vier = hie = ie = 1, with all other elements equal
+to zero. Once the near-field profile Ee’? is specified, the pulse is propagated to the far field using
+the Fresnel diffraction integral (see Appendix B), providing the initial condition for far-field
+propagation with the UPPE.
+
+2.2 Far-field propagation
+With the initial condition determined, the UPPE is used to propagate the laser pulse through the
+far field. The UPPE is a reduced form of the electromagnetic wave equation that neglects
+backward-moving waves and their contribution to any nonlinearities [38-40]. By avoiding a
+paraxial or slowly varying envelope approximation, the UPPE is capable of modeling neutral
+dispersion to all orders and nonlinear processes such as harmonic generation and carrier steepening.
+These features have made the UPPE a standard for modeling processes such as filamentation, THz
+generation, and supercontinuum generation.
+
+In the UPPE implementation used here, the cylindrically symmetric electric field is linearly
+polarized perpendicular to the propagation direction. Configuration-space quantities are expressed
+in terms of the longitudinal coordinate z, radius r, and time t. Transformations to spectral space
+are made using quasi-discrete Hankel transforms [41] from r to the transverse wave number k, and
+Fourier transforms from t to frequency w. When expressed in a frame moving at speed v¢ along the
+z-direction, the UPPE takes the form
+
+er iK (kp,w)E = S(ky,w, E), (3)
+Oz
+where the tilde indicates a quantity is in spectral space, E(kp, w,z) is the electric field,
+K (kr, W) = kz — w/ve, kz = \/n?(w)w?/e2 — k2, and n(w) is the linear refractive index. The
+right-hand side of Eq. (3) contains the nonlinear polarization density of the gas P,, the current
+density of the plasma Ips and an effective current that accounts for the energy lost due to
+
+photoionization Jj:
+
+S(ky,w, E) iw Px — Jp — ii) ‘ (4)
+
+ay (
+~ Qeqc?kz
+
+IOP Publishing Journal vv (yyyy) aaaaaa Author et al
+
+Each of these terms can be calculated in configuration space:
+
+4
+P= qooenaE”, (5)
+OJ, e? .
+3 = —VenJp + more” (6)
+w(E)nnUy
+fe ( se n I (7)
+
+where nz is the nonlinear refractive index, ven is the electron—neutral collision frequency, ne is the
+electron density, w(E) is the photoionization rate, ny, is the neutral density, and Uj is the ionization
+energy. The electron density and neutral densities evolve according to 0jne = w(E)ny and
+Ny = No — Ne, Where no is the initial neutral density. In practice, Eq. (6) is solved in spectral space
+to avoid integrating in time.
+The UPPE is solved with a second-order predictor—corrector scheme for the nonlinear source
+terms (see Appendix C). The Ammosov—-Delone-Krainov (ADK) [42] rate is used for w(E), and a
+fixed electron-neutral collision frequency vey is implemented in Eq. (6) to account for inverse
+bremsstrahlung absorption. The linear refractive index n(w) is obtained from the Sellmeier
+equation provided in Ref. [43]. All computations employ the JAX [23], NumPy [24], SciPy [44],
+Diffrax [45], and Equinox [46] libraries, and the complete differentiable program is called
+SUPER-JAX (Simulation of the Unidirectional pulse Propagation Equation at Rochester in JAX).
+
+2.3 Parameter implementation and optimization
+Far-field quantities, such as the electric field and electron density, are used to define a scalar loss
+function £ that approaches a minimum as the quantities near the desired behavior. The
+minimization is accomplished with gradient-based optimization of the near-field parameters
+expressed by A(r), &(r), 7(r), p, and L as defined in Sec. 2.1 (and denoted by @ in Fig. 1). The
+form of these parameters and their allowed variation directly influence the efficacy of the algorithm.
+This section describes the methodology used for the form and variation.
+
+Optimization algorithms are generally more stable and converge more quickly when adjustable
+parameters are of order unity. At the same time, the optimal values of the linn may span many
+orders of magnitude. To address this, each element les in Eq. (2) is implemented as
+
+inn = 1, +10!» — 10hmm, (8)
+
+mn
+
+The /°,,, term is fixed and specifies the initial phase of the electric field, e.g., 1 in the upper-left
+
+quadrant of L and 0 elsewhere to model the phase applied by an ideal lens. The [*,,, and lve terms
+
+are initialized to the same value, which sets the sensitivity of ln to variations in [> ,,. For example,
+
+setting (+, and [;,,, to 0 (-3) means that variations of +0.05 in [%,, change linn by +0.1 (£0.0001).
+In other words, /°,,, is a constant that determines the initial phase, and (+, and [7,,, are optimized
+
+mn
+by the algorithm to find the phase or, w) that minimizes CL.
+As opposed to the finite number of parameters that determine 6 (Le., the 32 it,.), the
+coefficient, frequency, and duration comprising E should mimic continuous functions of r and, in
+principle, may have arbitrarily many parameters. Two implementations for these functions are
+used here. The first method balances generality and complexity by representing A(r), @(r), and
+7(r) with cubic B-splines. In this method, the parameters correspond to the weight of each
+B-spline, allowing the user to regulate the smoothness and variability of the functions by adjusting
+the number of B-splines. To enforce physical constraints (e.g., finite bandwidth), the spline outputs
+are passed through a hyperbolic tangent before initializing the pulse to limit the minimum and
+maximum function values (see Appendix D).
+The second method for implementing the near-field radial functions discretizes each function
+into np parameters on a uniform grid along the near-field radius. In this method, the parameters
+are the function values on the grid. The number of parameters can be equal to or less than the
+number of points yf in the near-field radial simulation grid. If np = ny, then the parameter grid
+exactly overlays the simulation grid, i.e., each function value is set by a single parameter. If
+Np < Mnf, then linear interpolation is used between the parameters to compute the npr function
+values on the simulation grid. Because this representation introduces many free parameters, the
+resulting functions can vary rapidly with radius. Smoothing is applied with a moving average of
+100 points on a grid containing nur = 1600 points to reduce the variation. Similar to the spline
+method, the outputs are passed through a hyperbolic tangent function to enforce constraints.
+
+IOP Publishing Journal vv (yyyy) aaaaaa Author et al
+
+Table 1. Simulation parameters for the three cases presented in Sec. 3. Parameters are given for the near-field pulse
+profile, the far-field domain, and the optimization algorithm.
+
+Case 1: longitudinally | Case 2: spatiotemporally | Case 3: spatially
+uniform intensity uniform intensity uniform density
+Xo (um) 1 1 1
+U (mJ) 0.1 0.3
+wo (cm) 3 2.85 3.64
+ro (cm) 3 3 3.64
+fo (cm) 63 63 51
+Mnf 1600 1600 1600
+A, 7, @ form 20 B-splines 1600 discrete points 20 B-splines
+Avi, Ao, Armas 0.25, 1, 1.75 0.25, 1, 1.75 0.25, 1, 1.75
+Winns Gos Wimme (we) 0.9, 1, 1.1 0.99, 1, 1.01
+Tminy Tos Tmax (£8) 14, 17.5, 1000 1261, 1375, 1489
+p 3.63 0.93
+L variation fon imn _
+Ny 2000 1000 622
+ne 6 768 16384
+Nz 300 200 800
+Rmax (mm) 2 1 0.622
+T (fs) 2.8 600 9500
+Lz (cm) 3 1.6 0.32
+Lioss (em) L7 0.8 0.16
+Nopt 409 3916 1161
+Twan (hr) LT 48 48
+L/Lo 0.015 0.023 0.066
+The choice of electric field parameterization strongly impacts convergence. The three cases
+described in Sec. 3 were evaluated with both the B-spline and discretized implementations, each of
+which resulted in different optimized pulses. Only the best performer is presented, with cases 1 and
+
+3 using 20 B-splines and case 2 using 1600 discrete parameters. Other approaches to the
+parameterization include representing the functions with alternative basis sets or neural networks.
+The convergence is also sensitive to the initial conditions, the choice of loss function, and the
+learning rate of the optimizer. Several optimizers were tested, and the L-BFGS-B method of the
+SciPy minimize function proved effective in all cases studied. Due to the many choices that affect
+convergence, the results presented here are not intended to be exhaustive or to represent global
+optima, but rather to show workable solutions that demonstrate the capabilities of AD in nonlinear
+optics and plasma physics.
+
+3 Results
+
+This section presents three simulations that demonstrate the utility and flexibility of
+gradient-based optimization for the inverse design of structured laser pulses. The first two cases are
+simulated in vacuum, while the third includes the effects of all nonlinear source terms in Eq. (4).
+Case 1 is initialized with a monochromatic, continuous wave and produces an extended focal region
+of constant intensity. Case 2 starts with a finite-duration pulse and creates a superluminal intensity
+peak that travels many Rayleigh ranges with constant spot size, duration, and amplitude. Case 3
+modifies a finite-duration pulse to generate a uniform column of plasma. The initial phase of the
+electric field is always set to that of an ideal focusing lens. In each case, the loss function L is
+reduced by at least a factor of 15 from its initial value Lo.
+
+Table 1 summarizes the parameters for each simulation, including the near-field pulse profile,
+far-field domain, and optimization metrics. The initial wavelength \o corresponds to the frequency
+wo at which w is initialized, and U is the initial pulse energy. Physical constraints on A, w, and T
+are listed as minimum, initial, and maximum values (e.g., Amin, Ao, and Amax). The number of
+UPPE grid points are given in radius, time, and longitudinal space as n,, n,;, and nz, respectively.
+The corresponding physical dimensions of the domain are the maximum radius Rmax, temporal
+width 7, and longitudinal width L,. The longitudinal distance over which the loss function is
+integrated is given as Lioss. The number of iterations nop_ and the total wall-clock time Tyan are
+also included. For case 1, convergence was reached after 409 iterations (1.7 hrs), whereas cases 2
+and 3 continued optimizing for the full job duration (maximum of 48 hrs).
+
+a
+IOP Publishing Journal vv (yyyy) aaaaaa Author et al
+
+(a) (b)
+T T T 277 T T T
+S 10+ | 2
+* =
+2 =
+& ait =
+= &
+@ O5- 1 ¢-z
+2 !|—— Optimized *
+~ --— Target
+Axiparabola
+0.0 1 I i. 0 1 1 1 1
+0 1 2 0 1 2 3
+Z(cm) r(cm)
+
+Figure 2. Optimization for case 1: producing an extended, uniform focal region with a monochromatic laser beam.
+(a) The simulated (solid blue) and target (dashed orange) on-axis intensity of the laser beam. For comparison, the
+on-axis intensity produced by an axiparabola with a 2-cm focal region is also shown (dashed-dotted green). (b) The
+near-field coefficient A as a function of radius, parameterized with 20 B-splines.
+
+Table 2. The learned lon coefficients for case 1, corresponding to row “Qo, learned” and column Ze. For
+comparison, the Zernike coefficients of an axiparabola with a 2-cm positive focal region are shown in the row “Qo,
+axiparabola.” This is the same axiparabola used to produce the green dashed—dotted profile in Fig. 2(a).
+
+i a nr Za
+Qo, learned 1.0000 0.9918 0.0082 — -0.0005
+
+Qo, axiparabola 1.0000 0.9844 —-0.0051 —_0.0000
+
+3.1 Case 1: longitudinally uniform intensity
+
+Unlike ideal lenses, which focus laser beams to a single plane, axicons [47, 48] and axiparabolas [49]
+produce longitudinally extended focal regions. Although these optics can be designed to yield an
+approximately uniform intensity profile, they often create longitudinal modulations in the on-axis
+intensity. Many applications that rely on an extended focal region would benefit from a truly
+constant intensity profile.
+
+The goal of the first simulation is to produce a longitudinally extended focal region with
+uniform intensity in vacuum. A monochromatic electric field is considered, requiring only spatial
+structuring through A and the first row of L (corresponding to zeroth-order terms in powers of
+frequency). The loss function is defined as £L = f |Isim(r = 0, z) — Itarget(z)| dz, where I = ceo|E|?/2
+is the intensity. Figure 2 shows (a) the optimized on-axis intensity profile (blue) alongside the
+target intensity profile (dashed orange), and (b) the optimal near-field coefficient A. The converged
+intensity is relatively flat and closely matches the target across the region included in the loss
+function. The optimal coefficients from the first row of L are listed in the first row of Tab. 2.
+
+An axiparabola generates an extended focal region that resembles the target intensity profile,
+albeit with modulations in the on-axis intensity. The green dashed—dotted line in Fig. 2(a) shows
+the intensity pattern for an axiparabola with a positive focal region of 2 cm, specified by the
+Zernike coefficients listed in the second row of Tab. 2. These coefficients are similar to those
+learned by the algorithm, but the loa term has opposite sign. The additional element los = —0.0005
+in the learned phase is an important modification, without which the loss value rises by a factor of
+6. For comparison, the axiparabola with a radially uniform A results in a loss value 7x greater
+than the optimum. This comparison illustrates how forward design can identify pulse-shaping
+techniques that produce a desirable effect, while inverse design can further refine or discover new
+pulse structures for specific applications.
+
+3.2 Case 2: spatiotemporally uniform intensity
+
+Many applications—such as laser wakefield acceleration (LWFA) [19-21] and THz
+
+generation [22]—require an intensity peak that moves with a prescribed velocity, finite duration,
+and constant spot size over an extended region. Several methods have been proposed to produce
+such intensity peaks [10-12, 50, 51], but these approaches involve trade-offs among non-uniform
+intensity, variable spot size, and limitations on the minimum pulse duration. As an example, an
+axiparabola combined with a radially stepped echelon produces an intensity peak with an
+ultrashort duration and a custom trajectory favorable for LWFA [20, 51], but the resulting spot
+size variation can complicate the interaction [21].
+
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+b)
+1.0 60 T 2 1.0
+—— wol(2)
+0.8 0.8
+z cy
+= 8S & €
+Ss & &
+N a =
+04 @ G
+c c
+2 2g
+= £
+0.2
+0.0
+200 400
+t- ic (fs)
+(c)
+T T 1.0 T T T T
+
+An
+oss
+aoa
+
+iy
+2 tn ——®,
+= g
+§ ge AP
+~ =
+S © ool f
+qq T T @) T T
+= 6of J
+g
+= 40f 1
+0 i * 205; 1 L |
+0.8 0.9 1.0 14 1.2 0 1 2 3
+w/o r(cm)
+
+Figure 3. Optimization for case 2: creating a uniform, superluminal (1.005c) intensity peak with constant duration
+(40 fs) and spot size (10 ym). (a) The optimized intensity profile as a function of z and t — z/c, which exhibits a
+focal velocity of 1.005c (dashed blue) over 8 mm. (b) Radial profile at the temporal location of maximum intensity
+along z. The fitted spot size (dashed blue) varies by only 6% over the target region. (c) Near-field electric field
+spectral amplitude. The individual near-field functions are shown for (d) A, (e) &, and (f) 7.
+
+Table 3. The learned Lav: coefficients for case 2, corresponding to row Qm and column Ze.
+a ae: aan
+Qo ~=1.0000 1.0158 0.0003 = -0.0017
+Q: 1.0000 1.2087 ~=0.0014_— -0.0001
+Q2 ~ -0.9872 0.0049 0.0382 0.0000
+Q3 0.0001 —-0.0002 0.0000 0.0000
+
+The goal of the second simulation is to create an intensity peak with uniform intensity, duration
+(40 fs), and spot size (10 wm) that propagates at a superluminal velocity (1.005c) over many
+Rayleigh ranges (8 mm, or 27 Rayleigh ranges). All parameters in E and a) are allowed to vary, and
+A, 7, and w are implemented with 1600 discrete points. The pulse energy is held constant at
+0.1 mJ. The loss function is defined as L = f |Isim(7,t, 2) — Ltarget (1, t, z)| dr dt dz, and regions in r
+and t are included only where Jtarget is within 90% of its maximum value.
+
+The optimized intensity profile closely reproduces the desired behavior and is shown in Fig. 3 as
+a function of (a) z and t — z/c and (b) r and z. In (a), the intensity peak propagates with the
+specified superluminal velocity, and regions of high intensity are mainly concentrated along the
+target trajectory (dashed line). The spot size in (b) is fit to 1/e? of the intensity and remains
+nearly constant, varying by only 6% over the region of interest (between 0.4 and 1.2 mm in z). For
+comparison, an axiparabola-echelon combination that achieves the same focal velocity, focal region,
+and duration has a spot size that varies by a factor of 2.4 over the target region [21, 49, 51]. The
+near-field pulse shape exhibits variations in the coefficient, central frequency, and duration [see
+Fig. 3(c-f)], yielding a complex structure that is unlikely to result from forward design. The
+coefficient function shown in (d) is largest between approximately 1.4 and 2.3 cm. This radial
+concentration of the pulse energy was also employed in Ref. [48] to reduce spot size variation when
+focusing with axicons.
+
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa
+
+Author et al
+
+(a)
+' / 8 1.0
+- f
+£& 6F 4 ~
+z oe:
+2 ar 1 =
+= . 0.6 =
+5 SP 1 8 0.4 >
+no} ab 4 mr
+i= =
+9 2
+8 8 um 025
+iit] —r=3.8 um
+4 —- Target a 0.0
+0 1 2 3 0 30
+Z(mm) t— zie (ps)
+(d)
+4 1 i) 1 1.0 27 1 i ) T 1
+z 1 ht XA ]
+os
+3h 4 = ol \ \ \ 1
+= 2 102 (e)
+& 06 5 : T T T T T
+Ss se
+ml | oe
+143 \ L \ 1 1
+= 0.98 a
+1b J _ 1 1 1 1 1
+0.2 g | ie et |
+= 13+ 4
+0 1 1 0.0 L L \ L \
+0.98 0.99 1.00 1.01 1.02 0 iv 2 3 4
+W/W r(cm)
+
+Figure 4. Optimization for case 3: producing a uniform-density plasma column. (a) Lineouts of the electron density
+at the final simulation time for the four innermost radial cells (solid blue), compared with the target density (dashed
+orange). (b) The on-axis far-field intensity profile, which propagates at a superluminal velocity of 1.14c.
+
+(c) Near-field electric field spectral amplitude of the optimized pulse, which exhibits a central frequency that
+increases quadratically with radius. The individual near-field functions for (d) A, (e) &, and (f) 7 are also shown,
+
+each implemented with 20 B-splines.
+
+Table 4. The learned law coefficients for case 3, corresponding to row Qm and column Ze.
+
+“a a a BB
+Qo 1.0000 0.9773 -0.0001 0.0001
+Q: 1.0000 0.9889 0.0000 0.0000
+Q2  -0.0002 0.0000 0.0000 0.0000
+Q3 0.0000 0.0000 0.0000 0.0000
+
+All 16 coefficients of L are included in the optimization of this dynamic profile, and their values
+in Tab. 3 reveal a richer structure than in the static case (Tab. 2). Notably, a large chirp is applied
+
+via the coefficient fy9 = —0.9872. Chirped pulses have been employed in previous flying-focus
+implementations [10-12], but typically with diffractive optics (e.g., loo = lo2 = 1 with all other
+
+elements of L set to 0). Here, the chirp is combined with a chromatic focusing optic exhibiting
+
+additional spherical aberration. This aberration plays a key role; for instance, without the large loa
+term the loss value increases by a factor of 41. The third-order spectral phase terms in the last row
+of Tab. 3 remain small.
+
+3.3 Case 3: Spatially uniform density
+Cases 1 and 2 focused on producing an extended, uniform intensity in the far field. Many
+plasma-based applications further benefit from a uniform, pre-ionized plasma density that enables
+pulses to propagate without extraneous energy loss or distortion from ionization effects. Localized
+ionization can cause refraction, and plasma introduces additional dispersion during propagation.
+Because of these effects, the optimal structured pulse for creating a uniform plasma column may
+differ from a structured pulse that produces a uniform intensity in vacuum.
+
+The third and final simulation aims to generate a 1.6-mm-long, 4-jm-radius column of uniform
+
+IOP Publishing Journal vv (yyyy) aaaaaa Author et al
+
+(a) Original, unoptimized (b) Spatially optimized (c) Temporally optimized — (d) Spatiotemporally optimized
+LiL = 1.000 LiLo = 0.998 LiLy = 0.999 LILy = 0.066
+
+T
+1.00
+0.75
+0.50
+0.25
+i 3 0.00
+0 1 2 3 40 1 2 3 40 1 2 3 40 1 2 3 4
+
+t—z/c (ps) t—z/c (ps) t- 2c (ps) t-z/c (ps)
+
+ab a 44 ak
+
+z(mm)
+
+Electron density (x 1019 cm-3)
+
+Figure 5. On-axis density profiles as a function of z and t — z/c for the labeled cases, along with the ratio of final to
+initial loss values £/L£o. (a) A laser pulse focused to the nominal focal point with no optimization. Cases optimized
+with (b) only spatial and (c) only temporal structuring are also shown, for which there is no appreciable reduction in
+the loss value. (d) Full optimization (same simulation shown in Fig. 4), for which the loss value is reduced by 93%.
+
+plasma using a single laser pulse. Hydrogen gas at atmospheric density is used as the propagation
+medium, with an ionization potential U; = 13.6 eV and a nonlinear refractive index
+nz = 7.5 x 10-74 m?/W. The pulse energy is held constant at 0.3 mJ, but all other parameters are
+allowed to vary. The near-field radial functions are implemented with 20 B-splines. The loss
+function, evaluated at the final simulation time t,, is defined as L = f Nsim(T, te, Z) — Mtarget| dr dz,
+where the integration is restricted to the central 1.6 mm in z and the four innermost radial cells
+(r <4 pm).
+The converged results shown in Fig. 4 demonstrate a type of superluminal flying focus similar
+to the “flying focus X,” where the central frequency increases quadratically with radius [50, 52].
+The electron density is shown in (a) as a function of z for the four innermost radial cells (shades of
+blue) along with the target density of 6 x 10!° cm~* (dashed orange). The electron density profile
+produced by the pulse is nearly equal to the target value across most of the region. The (b) far-field
+on-axis intensity peak propagates with a superluminal velocity of 1.14c, and the (c) near-field
+electric field amplitude has a central frequency that increases quadratically with radius. The
+individual near-field coefficient, central frequency, and duration are plotted in (d-f). All 16
+coefficients of L shown in Tab. 4 were allowed to vary, yet the values indicate only modest chromatic
+focusing, primarily through the Iz and fy) terms. This slight deviation from an ideal lens,
+combined with the spectral amplitude shown in Fig. 4(c), is sufficient to produce the target density.
+Two additional tests were performed to demonstrate the importance of spatiotemporal
+structure in creating a uniform plasma profile: the first optimized only spatial structure (i.e., A and
+
+the first two rows of L, with Ion = tix), and the second optimized only temporal structure (i.e., @
+and 7 as constants rather than radial functions, p, and the first column of L, with lo2 = loo and
+
+iyo = b9). The resulting density profiles are shown in Fig. 5(b) and (c), respectively, along with
+(a) the original, unoptimized case and (d) the optimized case with full spatiotemporal structuring.
+The ratio of final to initial loss values £/L£o is reported for each case. Optimizing with only spatial
+and only temporal structuring in (b) and (c) gives almost no improvement, reducing the loss by
+just 0.2% and 0.1%, respectively. A large improvement is achieved only when the phase and
+amplitude are optimized together in (d), reducing the loss by 93%.
+
+4 Discussion and conclusion
+A differentiable implementation of the UPPE enables the inverse design of spatiotemporal
+structures optimized for both linear and nonlinear processes. The optimization loop involves four
+steps. First, the near-field spatiospectral amplitude and phase of an incident laser pulse are
+parameterized as described in Sec. 2.1. The pulse is then propagated to the far field, after which
+the UPPE system presented in Sec. 2.2 is solved using the JAX Python package—complete with
+native GPU acceleration and AD. The third step evaluates a customized single-output loss function
+that is defined to yield desired features in the far field when minimized. Finally, the near-field
+parameters are optimized by a gradient descent algorithm, with gradients of the loss function
+obtained through reverse-mode AD.
+
+Optimization was performed for the three test cases described in Sec. 3, and the loss function
+decreased substantially in each case (see the last row of Tab. 1). In case 1, optimization of the
+coefficient A and the phase demonstrated the ability of inverse design to improve upon existing
+
+structures, such as those produced by an axiparabola. In case 2, the full Eet* expression was
+optimized to produce a rich near-field structure that would likely only emerge through inverse
+design. The optimization in case 3 generated a type of flying focus that achieved the desired
+
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+behavior, which was only possible with full spatiotemporal control.
+
+The utility of the differentiable framework ultimately hinges on whether the structured pulses
+can be realized in the laboratory. For instance, due to its few-percent bandwidth and relatively
+smooth profile, the near-field electric field profile obtained in case 3 [Fig. 4(a)] may be easier to
+realize than the profile from case 2 [Fig. 3(c)]. Further studies could investigate the significance of
+the rapid variations in A, @, and 7 observed in Fig. 3(d-f). These functions could be smoothed,
+then simulated again to test whether the variations are essential for good performance.
+Alternatively, the optimization loops could be restarted using the converged solution (or a
+smoothed version of it) as an initial condition. Restarting the loop in this way could improve the
+converged result, since the L-BFGS-B minimization method retains a history of gradients and
+parameter updates. A stochastic gradient descent algorithm could also be tested. Once a
+sufficiently simple pulse structure is determined for a given application, a range of experimental
+techniques for generating spatiotemporally structured light [50, 51, 53-58] could then be leveraged
+to produce the desired pulse.
+
+The parameterization of the incident electric field amplitude and phase described in Sec. 2.1 is
+only one possible approach to characterizing spatiotemporal pulse shapes, and other
+parameterizations may yield pulses with improved performance. Several descriptions more general
+than Eqs. (1) and (2) were tested: using B-splines to represent a functional form
+F[(w — &(r)) * #(r)| for the spectral amplitude instead of a super-Gaussian, a two-dimensional
+B-spline representation of E (r,w), and replacing the LZ matrix product with four free-form
+functions of radius 1, m(1). In each case, however, the optimization algorithm produced noisy
+far-field solutions with larger final loss values compared to the results presented in Sec. 3. The right
+balance must be found between generality and tractability in choosing the field parameterization.
+
+As tools for AD and GPU acceleration become more widely available, gradient-based
+optimization of physics simulations is poised to become an important tool for research and
+discovery. For future work, this differentiable framework could be applied to the inverse design of
+structured pulses for other nonlinear optical processes, including perturbative harmonic generation,
+high-harmonic generation, long-distance pulse propagation in air sustained by self-focusing and
+ionization refraction, and the generation of terahertz radiation. Further analysis of the results
+presented here could yield deeper insight into the spatiotemporal structure of the optimized pulses
+and guide strategies for their experimental realization.
+
+Funding
+This report was prepared as an account of work sponsored by an agency of the U.S. Government.
+Neither the U.S. Government nor any agency thereof, nor any of their employees, makes any
+warranty, express or implied, or assumes any legal liability or responsibility for the accuracy,
+completeness, or usefulness of any information, apparatus, product, or process disclosed, or
+represents that its use would not infringe privately owned rights. Reference herein to any specific
+commercial product, process, or service by trade name, trademark, manufacturer, or otherwise does
+not necessarily constitute or imply its endorsement, recommendation, or favoring by the U.S.
+Government or any agency thereof. The views and opinions of authors expressed herein do not
+necessarily state or reflect those of the U.S. Government or any agency thereof.
+
+This material is based upon work supported by the Office of Fusion Energy Sciences under
+Award Numbers DE-SC0021057, the Department of Energy (DOE) [National Nuclear Security
+Administration (NNSA)] University of Rochester “National Inertial Confinement Fusion Program”
+under Award Number DE-NA0004144, and the New York State Energy Research and Development
+Authority. Simulations were performed at NERSC under m4372.
+
+Author contributions
+
+K.G.M. was involved in Conceptualization, Data curation, Formal analysis, Investigation,
+Methodology, Resources, Software, Validation, Visualization, Writing — original draft, and Writing
+— review & editing. T.E.G. was involved in Formal analysis, Investigation, Software, Validation,
+and Writing — review & editing. A.S.J. was involved in Conceptualization, Data curation,
+Methodology, Resources, Software, and Writing — review & editing. A.E. was involved in Software.
+D.H.F. was involved in Conceptualization, Funding acquisition, Project administration, Resources,
+and Writing — review & editing. J.P.P. was involved in Conceptualization, Methodology, Project
+administration, Resources, Software, Supervision, Validation, Visualization, Writing — original
+draft, and Writing — review & editing.
+
+10
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+Data availability
+The datasets generated and/or analyzed during the current study and the software used to
+generate these datasets are available from the corresponding author on reasonable request.
+
+Appendix A. Zernike polynomial definitions
+The normalization for the Zernike polynomials is defined such that
+(2n + 2) So Z°(p)Z2,(p)p dp = Snn. The four Zernike polynomials used in Eq. (2) are then
+
+Z(p) =1 (9)
+Z3(p) = 2p? —1 (10)
+Z4(p) = 6p* — 6p? +1 (11)
+Z§(p) = 20p® — 30p* + 12p? — 1. (12)
+
+Appendix B. Transforming from the near field to the far field
+The near-field electric field E(r, wheter) is computed from the product of the spectral amplitude
+and phase, which are defined in Eqs. (1) and (2), respectively. The far-field electric field at focus is
+found by computing the Fresnel diffraction integral as follows:
+
+= iw iwr? . apes sure? wrr!
+E(r,w, fo) = -——-efo [ Bewye% “eho Jo ( - ) r dr’, (13)
+cfo cfo
+where r’ is the near-field radius and Jo is the zeroth-order Bessel function of the first kind. To
+initialize the simulation at the specified longitudinal location zo, the transformed electric field is
+multiplied by the linear evolution operator,
+
+Elkp,, 20) = (kr, w, foe), (14)
+
+which can be derived from Eq. (19) with S' = 0.
+
+Appendix C. Predictor—corrector scheme for the unidirectional pulse propagation
+equation
+This appendix details the predictor—corrector scheme used to solve the UPPE in the spectral
+domain, as defined in Eq. (3). First, the electric field is written as E= E(k, w, z)e'**, reducing
+Eq. (3) to
+aE
+Oz
+where the shorthand 5(E(z)) has been used for S(kp,w, E(z)). Equation (15) can be integrated
+directly to obtain
+
+= eK? 8(k,.,w, eX) = e 'K29(E(z)), (15)
+
+z
+E(z) = Elz) +/ e#2" §(B(2')) de (16)
+Jo
+Multiplying this solution by e’** to again get E and then evaluating at zo + Az yields
+. . zotAz Nw
+E(zq + Az) = E(zp)e'*4# +f eh ethene )8(E(z')) dz’ (17)
+20
+zs . Az [=~ Aisi
+~ E(z)e*4* 4 “ [5(B* (zo + Az)) 4 e925 (E(z0))| ; (18)
+
+where
+
+iz
+
+E* (29 + Az) = E(zp)et® 4? 4 = (1+ eK) 5(E(z0)). (19)
+Equations (18) and (19) give the solution. This method of solving the UPPE is similar to Heun’s
+method (a second-order Runge-Kutta method with two stages), and would be exactly Heun’s
+method if B*(zo + Az) = E(zo)e**4* + Aze'*4*$(E(zo)) was used in place of Eq. (19).
+
+ll
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+Appendix D. Parameter constraints
+The parameters contained in A(r), @(r), and 7(r) can take any value determined by the
+optimization algorithm, including values that may not be physical. For instance, the algorithm
+could adjust the bandwidth or pulse duration to be outside of the range achievable by a realistic
+laser system. Additionally, it may be desired to limit the relative contrast in A(r), even while the
+energy is kept constant. To constrain the values of the near-field functions, their raw output is
+passed through a hyperbolic tangent function before being used to compute the near-field
+amplitude E. As an example, let A(r) ) denote the direct output of the coefficient function after
+parameterization with either B-splines or discrete points (see Sec. 2.3). The coefficient function
+used in the calculation of Eq. (1) is then
+
+> 1 >
+
+A(r) = Amin + 5 (Amax — Amin) {1+ tanh [3 (A(r) 1+ Asnite) ] (20)
+where Amin (Amax) is the minimum (maximum) value allowed for the coefficient and
+
+Asgnitt = log [(Amin — Ao)/(Ao — Amax)] /6. Defined in this way, initializing the raw output to
+
+A(r) = 1 corresponds to A(r) = Ao, and any learned values —oo < A < 00 will yield an output
+Amin < A < Amax:
+
+References
+
+1M. J. Padgett, “Orbital angular momentum 25 years on [Invited]”, Optics Express 25, 11265
+(2017).
+
+?Y. Shen, X. Wang, Z. Xie, C. Min, X. Fu, Q. Liu, M. Gong, and X. Yuan, “Optical vortices 30
+years on: OAM manipulation from topological charge to multiple singularities”, Light: Science &
+Applications 8, 90 (2019).
+
+3Y, Aborahama, A. H. Dorrah, and M. Mojahedi, “Designing the phase and amplitude of scalar
+optical fields in three dimensions”, Optics Express 28, 24721 (2020).
+
+4A. Aiello, P. Banzer, M. Neugebauer, and G. Leuchs, “From transverse angular momentum to
+photonic wheels”, Nature Photonics 9, 789-795 (2015).
+
+5A. H. Dorrah, M. Zamboni-Rached, and M. Mojahedi, “Wavelength and topological charge
+management along the axis of propagation of multichromatic non-diffracting beams”, Journal of
+the Optical Society of America B 36, 1867 (2019).
+
+60. V. Angelsky, A. Y. Bekshaev, S. G. Hanson, C. Y. Zenkova, I. I. Mokhun, and Z. Jun,
+“Structured Light: Ideas and Concepts”, Frontiers in Physics 8, 10.3389/fphy .2020.00114
+(2020).
+
+TA. Forbes, M. de Oliveira, and M. R. Dennis, “Structured light”, Nature Photonics 15, 253-262
+(2021).
+SY. Shen, Q. Zhan, L. G. Wright, D. N. Christodoulides, F. W. Wise, A. E. Willner, K.-h. Zou,
+Z. Zhao, M. A. Porras, A. Chong, C. Wan, K. Y. Bliokh, C.-T. Liao, C. Herndndez-Garcia,
+M. Murnane, M. Yessenov, A. F. Abouraddy, L. J. Wong, M. Go, S. Kumar, C. Guo, S. Fan,
+N. Papasimakis, N. I. Zheludev, L. Chen, W. Zhu, A. Agrawal, M. Mounaix, N. K. Fontaine,
+J. Carpenter, S. W. Jolly, C. Dorrer, B. Alonso, I. Lopez-Quintas, M. Lépez-Ripa, I. J. Sola,
+J. Huang, H. Zhang, Z. Ruan, A. H. Dorrah, F. Capasso, and A. Forbes, “Roadmap on
+spatiotemporal light fields”, Journal of Optics 25, 093001 (2023).
+°Q. Zhan, “Spatiotemporal sculpturing of light: a tutorial”, Advances in Optics and Photonics 16,
+63 (2024).
+1A. Sainte-Marie, O. Gobert, and F. Quéré, “Controlling the velocity of ultrashort light pulses in
+vacuum through spatio-temporal couplings”, Optica 4, 1298 (2017).
+UD). H. Froula, D. Turnbull, A. S. Davies, T. J. Kessler, D. Haberberger, J. P. Palastro,
+S.-W. Bahk, I. A. Begishev, R. Boni, S. Bucht, J. Katz, and J. L. Shaw, “Spatiotemporal control
+of laser intensity”, Nature Photonics 12, 262-265 (2018).
+129. W. Jolly, O. Gobert, A. Jeandet, and F. Quéré, “Controlling the velocity of a femtosecond
+aser pulse using refractive lenses”, Optics Express 28, 4888 (2020).
+133. J. Pigeon, P. Franke, M. Lim Pac Chong, J. Katz, R. Boni, C. Dorrer, J. P. Palastro, and
+D. H. Froula, “Ultrabroadband flying-focus using an axiparabola-echelon pair”, Optics Express
+32, 576 (2024).
+
+12
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+4A. Liberman, R. Lahaye, S. Smartsev, S. Tata, 8. Benracassa, A. Golovanov, E. Levine,
+C. Thaury, and V. Malka, “Use of spatiotemporal couplings and an axiparabola to control the
+velocity of peak intensity”, Optics Letters 49, 814 (2024).
+
+IY. Yang, Y.-X. Ren, M. Chen, Y. Arita, and C. Rosales-Guzman, “Optical trapping with
+structured light: a review”, Advanced Photonics 3, 10.1117/1.AP.3.3.034001 (2021).
+
+167, Zhu, Y. Tai, H. Li, H. Hu, X. Li, Y. Cai, and Y. Shen, “Multidimensional optical tweezers
+synthetized by rigid-body emulated structured light”, Photonics Research 11, 1524 (2023).
+
+17M. Mirhosseini, O. S. Magaiia-Loaiza, M. N. O’Sullivan, B. Rodenburg, M. Malik,
+M. P. J. Lavery, M. J. Padgett, D. J. Gauthier, and R. W. Boyd, “High-dimensional quantum
+cryptography with twisted light”, New Journal of Physics 17, 033033 (2015).
+
+183. Wang, J. Liu, S. Li, Y. Zhao, J. Du, and L. Zhu, “Orbital angular momentum and beyond in
+free-space optical communications”, Nanophotonics 11, 645-680 (2022).
+
+19C. Caizergues, 8. Smartsev, V. Malka, and C. Thaury, “Phase-locked laser-wakefield electron
+acceleration”, Nature Photonics 14, 475-479 (2020).
+
+20J, P. Palastro, J. L. Shaw, P. Franke, D. Ramsey, T. T. Simpson, and D. H. Froula,
+“Dephasingless Laser Wakefield Acceleration”, Physical Review Letters 124, 134802 (2020).
+
+21K. G. Miller, J. R. Pierce, M. V. Ambat, J. L. Shaw, K. Weichman, W. B. Mori, D. H. Froula,
+and J. P. Palastro, “Dephasingless laser wakefield acceleration in the bubble regime”, Scientific
+Reports 13, 21306 (2023).
+
+22T. T. Simpson, J. J. Pigeon, M. V. Ambat, K. G. Miller, D. Ramsey, K. Weichman, D. H. Froula,
+
+and J. P. Palastro, “Spatiotemporal control of two-color terahertz generation”, Physical Review
+Research 6, 013041 (2024).
+
+233. Bradbury, R. Frostig, P. Hawkins, M. J. Johnson, C. Leary, D. Maclaurin, G. Necula,
+A. Paszke, J. VanderPlas, S. Wanderman-Milne, and Q. Zhang, JAX: composable transformations
+of Python+NumPy programs, version 0.4.23, 2018.
+
+240. R. Harris, K. J. Millman, S. J. van der Walt, R. Gommers, P. Virtanen, D. Cournapeau,
+E. Wieser, J. Taylor, S. Berg, N. J. Smith, R. Kern, M. Picus, S. Hoyer, M. H. van Kerkwijk,
+M. Brett, A. Haldane, J. F. del Rio, M. Wiebe, P. Peterson, P. Gérard-Marchant, K. Sheppard,
+T. Reddy, W. Weckesser, H. Abbasi, C. Gohlke, and T. E. Oliphant, “Array programming with
+NumPy”, Nature 585, 357-362 (2020).
+
+25M. E. JERRELL, “Automatic Differentiation and Interval Arithmetic for Estimation of
+Disequilibrium Models”, Computational Economics 10, 295-316 (1997).
+
+?6A. G. Baydin, B. A. Pearlmutter, A. A. Radul, and J. M. Siskind, “Automatic Differentiation in
+Machine Learning: a Survey”, Journal of Machine Learning Research 18, 1-43 (2018).
+
+27 A. Griewank and A. Walther, “Introduction to Automatic Differentiation”, PAMM 2, 45-49
+(2003).
+
+28J.-B. Volatier, A. Menduifia-Ferndndez, and M. Erhard, “Generalization of differential ray tracing
+by automatic differentiation of computational graphs”, Journal of the Optical Society of America
+A 34, 1146 (2017).
+
+29M. Minkov, I. A. D. Williamson, L. C. Andreani, D. Gerace, B. Lou, A. Y. Song, T. W. Hughes,
+and 8S. Fan, “Inverse Design of Photonic Crystals through Automatic Differentiation”, ACS
+Photonics 7, 1729-1741 (2020).
+
+30G. Alagappan and C. E. Png, “Group refractive index via auto-differentiation and neural
+networks”, Scientific Reports 13, 4450 (2023).
+
+31X.-Y. Zhang, Y. Wang, A. Du, H. Wang, L. Wang, and J. Liu, “Dynamic hologram generation
+with automatic differentiation”, Physical Review Applied 24, 024011 (2025).
+
+82B. J. S. Pope, L. Pueyo, Y. Xin, and P. G. Tuthill, “Kernel Phase and Coronagraphy with
+Automatic Differentiation”, The Astrophysical Journal 907, 40 (2021).
+
+331. Desdoigts, B. J. S. Pope, J. Dennis, and P. G. Tuthill, “Differentiable optics with OLux:
+I—deep calibration of flat field and phase retrieval with automatic differentiation”, Journal of
+Astronomical Telescopes, Instruments, and Systems 9, 10.1117/1.JATIS.9.2.028007 (2023).
+
+34N. McGreivy, S. Hudson, and C. Zhu, “Optimized finite-build stellarator coils using automatic
+differentiation”, Nuclear Fusion 61, 026020 (2021).
+
+13
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+35. §. Joglekar and A. G. Thomas, “Unsupervised discovery of nonlinear plasma physics using
+differentiable kinetic simulations”, Journal of Plasma Physics 88, 905880608 (2022).
+
+364. §. Joglekar and A. G. R. Thomas, “Machine learning of hidden variables in multiscale fluid
+simulation”, Machine Learning: Science and Technology 4, 035049 (2023).
+387A. L. Milder, A. S. Joglekar, W. Rozmus, and D. H. Froula, “Qualitative and quantitative
+enhancement of parameter estimation for model-based diagnostics using automatic differentiation
+with an application to inertial fusion”, Machine Learning: Science and Technology 5, 015026
+(2024).
+38M. Kolesik, J. V. Moloney, and M. Mlejnek, “Unidirectional Optical Pulse Propagation
+Equation”, Physical Review Letters 89, 283902 (2002).
+39M. Kolesik and J. V. Moloney, “Nonlinear optical pulse propagation simulation: From Maxwell’s
+to unidirectional equations”, Physical Review E 70, 036604 (2004).
+404. Couairon, E. Brambilla, T. Corti, D. Majus, O. de J. Ramfrez-Gongora, and M. Kolesik,
+“Practitioner’s guide to laser pulse propagation models and simulation”, The European Physical
+Journal Special Topics 199, 5-76 (2011).
+41M. Guizar-Sicairos and J. C. Gutiérrez-Vega, “Computation of quasi-discrete Hankel transforms
+of integer order for propagating optical wave fields”, Journal of the Optical Society of America A
+21, 53 (2004).
+#2. V. Ammosov, N. B. Delone, and V. P. Krainov, “Tunnel Ionization Of Complex Atoms And
+Atomic Ions In Electromagnetic Field”, in , edited by J. A. Alcock (Oct. 1986), p. 138.
+
+43h. R. Peck and D. J. Fisher, “Dispersion of Argon”, Journal of the Optical Society of America
+54, 1362 (1964).
+
+“4p, Virtanen, R. Gommers, T. E. Oliphant, M. Haberland, T. Reddy, D. Cournapeau, E. Burovski,
+P. Peterson, W. Weckesser, J. Bright, S. J. van der Walt, M. Brett, J. Wilson, K. J. Millman,
+
+N. Mayorov, A. R. J. Nelson, E. Jones, R. Kern, E. Larson, C. J. Carey, I. Polat, Y. Feng,
+
+E. W. Moore, J. VanderPlas, D. Laxalde, J. Perktold, R. Cimrman, I. Henriksen, E. A. Quintero,
+C. R. Harris, A. M. Archibald, A. H. Ribeiro, F. Pedregosa, P. van Mulbregt, A. Vijaykumar,
+
+A. P. Bardelli, A. Rothberg, A. Hilboll, A. Kloeckner, A. Scopatz, A. Lee, A. Rokem,
+
+C. N. Woods, C. Fulton, C. Masson, C. Haggstrom, C. Fitzgerald, D. A. Nicholson, D. R. Hagen,
+D
+
+G
+
+J:
+
+V. Pasechnik, E. Olivetti, E. Martin, E. Wieser, F. Silva, F. Lenders, F. Wilhelm, G. Young,
+A. Price, G.-L. Ingold, G. E. Allen, G. R. Lee, H. Audren, I. Probst, J. P. Dietrich, J. Silterra,
+T. Webber, J. Slavi¢, J. Nothman, J. Buchner, J. Kulick, J. L. Schonberger,
+V. de Miranda Cardoso, J. Reimer, J. Harrington, J. L. C. Rodriguez, J. Nunez-Iglesias,
+Kuczynski, K. Tritz, M. Thoma, M. Newville, M. Kimmerer, M. Bolingbroke, M. Tartre,
+{. Pak, N. J. Smith, N. Nowaczyk, N. Shebanov, O. Pavlyk, P. A. Brodtkorb, P. Lee,
+R. T. McGibbon, R. Feldbauer, S. Lewis, S. Tygier, S. Sievert, S. Vigna, S. Peterson, S. More,
+T. Pudlik, T. Oshima, T. J. Pingel, T. P. Robitaille, T. Spura, T. R. Jones, T. Cera, T. Leslie,
+T. Zito, T. Krauss, U. Upadhyay, Y. O. Halchenko, and Y. Vazquez-Baeza, “SciPy 1.0:
+fundamental algorithms for scientific computing in Python”, Nature Methods 17, 261-272 (2020).
++P. Kidger, “On Neural Differential Equations”, PhD thesis (University of Oxford, 2021).
+
+46P. Kidger and C. Garcia, “Equinox: neural networks in JAX via callable PyTrees and filtered
+transformations”, Differentiable Programming workshop at Neural Information Processing
+Systems 2021 (2021).
+
+47J, Sochacki, A. Kolodziejczyk, Z. Jaroszewicz, and S. Bara, “Nonparaxial design of generalized
+axicons”, Applied Optics 31, 5326 (1992).
+
+484 T. Friberg, “Stationary-phase analysis of generalized axicons”, Journal of the Optical Society
+of America A 13, 743 (1996).
+
+498. Smartsev, C. Caizergues, K. Oubrerie, J. Gautier, J-P. Goddet, A. Tafzi, K. T. Phuoc,
+
+V. Malka, and C. Thaury, “Axiparabol. long-focal-depth, high-resolution mirror for
+broadband high-intensity lasers”, Optics Letters 44, 3414 (2019).
+
+507. T. Simpson, D. Ramsey, P. Franke, K. Weichman, M. V. Ambat, D. Turnbull, D. H. Froula,
+and J. P. Palastro, “Spatiotemporal control of laser intensity through cross-phase modulation” ,
+Optics Express 30, 9878 (2022).
+
+5IM. V. Ambat, J. L. Shaw, J. J. Pigeon, K. G. Miller, T. T. Simpson, D. H. Froula, and
+J. P. Palastro, “Programmable-trajectory ultrafast flying focus pulses”, Optics Express 31, 31354
+(2023).
+
+J
+J
+N
+
+14
+IOP Publishing
+
+Journal vv (yyyy) aaaaaa Author et al
+
+521), Ramsey, A. Di Piazza, M. Formanek, P. Franke, D. H. Froula, B. Malaca, W. B. Mori,
+J. R. Pierce, T. T. Simpson, J. Vieira, M. Vranic, K. Weichman, and J. P. Palastro, “Exact
+solutions for the electromagnetic fields of a flying focus”, Physical Review A 107, 013513 (2023).
+
+53W.T. Chen, A. Y. Zhu, V. Sanjeev, M. Khorasaninejad, Z. Shi, E. Lee, and F. Capasso, “A
+broadband achromatic metalens for focusing and imaging in the visible”, Nature Nanotechnology
+13, 220-226 (2018).
+
+54M. Shaltout, V. M. Shalaev, and M. L. Brongersma, “Spatiotemporal light control with active
+metasurfaces”, Science 364, 10.1126/science.aat3100 (2019).
+
+558. Divitt, W. Zhu, C. Zhang, H. J. Lezec, and A. Agrawal, “Ultrafast optical pulse shaping using
+dielectric metasurfaces”, Science 364, 890-894 (2019).
+
+561, Chen, W. Zhu, P. Huo, J. Song, H. J. Lezec, T. Xu, and A. Agrawal, “Synthesizing ultrafast
+optical pulses with arbitrary spatiotemporal control”, Science Advances 8, 8314 (2022).
+
+57C. L. Panuski, I. Christen, M. Minkov, C. J. Brabec, S. Trajtenberg-Mills, A. D. Griffiths,
+J. J. D. McKendry, G. L. Leake, D. J. Coleman, C. Tran, J. St Louis, J. Mucci, C. Horvath,
+J. N. Westwood-Bachman, S. F. Preble, M. D. Dawson, M. J. Strain, M. L. Fanto, and
+D. R. Englund, “A full degree-of-freedom spatiotemporal light modulator”, Nature Photonics 16,
+834-842 (2022).
+
+58, Franco, 0. Martinez-Matos, and J. A. Rodrigo, “Curve-shaped ultrashort laser pulses with
+programmable spatiotemporal behavior”, Optica 10, 379 (2023).
+

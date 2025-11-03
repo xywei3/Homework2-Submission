@@ -1,0 +1,1955 @@
+Advanced structural characterization of single-walled
+carbon nanotubes with 4D-STEM
+
+Antonin LOUISET', Daniel FORSTER’, Vincent JOURDAIN’, Said TAHIR’, Nicola VIGANO’,
+Jean-Luc Rouviére!, Christophe BICHARA‘, and Hanako OKUNO!.
+
+'TRIG-MEM, CEA, Université Grenoble Alpes, Grenoble, France.
+
+Interfaces, Confinement, Matériaux et Nanostructures, ICMN, Université d’Orléans, CNRS,
+Orléans, France.
+
+3Laboratoire Charles Coulomb, CNRS, Université de Montpellier, Montpellier, France.
+
+4CINaM, CNRS, Université Aix-Marseille, Marseille, France.
+
+*Author to whom correspondence should be addressed: hanako.okuno@cea.fr
+
+Keywords
+Carbon nanotube, chirality, strain, 4D-STEM, electron ptychography.
+
+Abstract
+
+Single wall carbon nanotubes (SWCNT) exhibit remarkable optical and electrical properties
+making them one of the most promising materials for next generation electronic and optoelectronic
+devices. Their electronic properties strongly depend on their chirality, i., their structural
+configuration, as well as on the presence and nature of atomic defects. Currently, the lack of versatile
+and efficient structural characterization techniques limits SWCNT applications. Here, we report how
+four-dimensional scanning transmission electron microscopy (4D-STEM) can address critical
+challenges in SWCNT structural analysis. Using modern fast pixelated electron detectors, we were
+able to acquire rapidly a large number of low noise electron diffraction patterns of SWCNTs. The
+resulting 4D-STEM data allow to precisely determine the local chirality of multiple nanotubes at
+once, with limited electron dose (down to 1.7510? e-/A?) and nanometric spatial resolution (down
+to 3.1 nm). We also show how this approach enables to track the chirality along a single nanotube,
+while giving access to the strain distribution. Then, we report how 4D-STEM data enable to
+reconstruct high-resolution images with electron ptychography. With this second approach, structural
+information can be obtained with atomic scale spatial resolution allowing atomic defect imaging.
+Finally, we investigate how multi-slice electron ptychography could provide even further insight on
+
+nanotube defect structures thanks to its close to 3D imaging capabilities at atomic resolution.
+1. Introduction
+
+Single-walled carbon nanotubes (SWCNTs) exhibit remarkable electronic properties (high
+mobility, small capacitance) and have a wide range of current and potential applications in electronics
+[1,2], optoelectronics and photonics [3-5], bioimaging [6,7] and more. The electronic structure of
+SWCNTs is governed by its atomic arrangement imposed by the tubular form, enabling tunable optic
+and electronic properties. In particular, chirality is a unique structural parameter of SWCNTs playing
+a decisive role in the determination of their structure-dependent electronic properties. The atomic
+structure of SWCNT can be described as graphene sheets rolled into cylindrical form. Since the sheet
+can be rolled in countless ways, they exhibit a diverse range of helical structures. The helical
+configuration of a SWCNT (chirality) is defined by its chiral indices which are expressed by two
+integers (n,m). They set the nanotube chiral vector C, = na, + maz, with a, and a, being the unit
+vectors of the graphene honeycomb lattice and |C;,| being the perimeter of the tube. A SWCNT is
+metallic when n — m = 31, with / an integer, whereas semiconducting whenn — m = 31 + 1,
+with the bandgap, in a first approximation, scaling with the inverse of the tube diameter [8]. The
+performance of SWCNT-based devices thus fundamentally depends on the ability to control their
+chirality.
+
+For this purpose, significant efforts have been devoted to the development of both chiral-
+selective growth and effective post-growth sorting methods for large-scale applications. Today, the
+best candidate to achieve chiral-selective growth is the catalytic chemical vapor deposition (C-CVD)
+method [9,10]. It is capable of reaching 97% chiral purity [11] and even 99.9% semiconducting purity
+when combined with electro-renucleation [12]. However, this is still far from the chiral purity that
+would be required for modern transistor applications: > 99.9999 % of semiconducting tubes [1]. Most
+of the time, SWCNT-based devices require chirality-pure nanotubes which involve an additional
+sorting step after the growth [6,10]. In addition, recent studies showed that chirality mutations, i.e.
+variations of chiral indices along an individual nanotube, arise during nanotube growth, or can be
+induced afterwards [13-15]. These mutations can be engineered, opening new possibilities for
+nanotube electronics and nanoscale quantum devices [16]. However, the origins of chiral selectivity
+and chirality mutations as well as the mechanism underlaying the formation of the associated atomic
+defects remain controversial. As demonstrated in graphene, growth related atomic defects such as
+grain boundaries are expected to strongly influence the optical, chemical, and electronic properties of
+
+SWCNTs. In graphene, the detailed structures and formation mechanisms of such defects are
+relatively well understood, supported by numerous reliable experimental investigations and
+associated theoretical studies [17]. In contrast, the understanding of the structure and formation
+mechanism of intramolecular junctions, atomic defects formed between regions with two different
+chiralities along a SWCNT, is still mostly theoretical [18-20]. Only a few studies provided reliable
+characterization of their structure [21] and some results remain debatable [14]. This is due to the
+challenges associated with structural characterization of SWCNTs, arising from their peculiar
+structure: a high aspect ratio with ~1 nm diameter, lengths often exceeding a tenth of a micron, and a
+three-dimensional tubular structure. Therefore, robust analytical techniques capable of precisely
+determining local chirality and the structure of associated atomic defects in individual SWCNTs are
+still necessary to gain a deeper understanding of the fundamental growth mechanisms in C-CVD and
+further to achieve highly controlled electronic properties of SWCNTs, and which are crucial for next-
+
+generation carbon nanotube applications [10,16].
+
+The most common chirality assignment techniques, such as Resonant Raman Spectroscopy
+(RRS), Photoluminescence spectroscopy (PL) and Rayleigh Scattering Spectroscopy (RSS), are non-
+destructive, and allows rapid probing of a large number of nanotubes which enables efficient
+statistical analysis [10]. However, these methods are prone to artifacts and intrinsic biases, leading to
+errors in chiral index measurements or even the non-detection of certain chiralities [10,22—24]. To
+ensure robust chirality determination, optical methods often need to be combined. Furthermore, their
+spatial resolution is far above the nanometer scale, preventing the separate analysis of adjacent tubes
+
+or the high-resolution tracking of chirality mutations.
+
+One of the best alternatives to optical techniques is Transmission Electron Microscopy (TEM).
+To resolve the helical structure of nanotubes, researchers first used Nano Beam Electron Diffraction
+(NBED) [25], which is now a standard experiment for TEM equipment. Early works showed that
+there is an analytical solution to describe the structure factor of a (n, m) SWCNT, and therefore its
+diffraction pattern [26]. This allowed Jiang et al. to develop, a method for unambiguous chirality
+determination from these patterns, the “intrinsic layer-line spacing” (ILLS) [27], which is still in use
+today [28]. While this method is robust to assign the global chiral indices, it can only be applied to
+isolated and suspended SWCNTs, which requires dedicated sample preparation. Due to the small
+scattering power of SWCNTs, NBED requires large electron doses, typically between 10° to 10° e”
+.A” [29,30], to reach sufficient counts or Signal to Noise Ratio (SNR). Most of the time, this leads to
+a long exposure time when recording diffraction patterns, from a few seconds to more than 10 [30-
+
+32], which limits the possibility to perform many acquisitions in a row. Furthermore, a single
+
+3
+diffraction pattern only contains reciprocal space information, so local structural changes along a tube
+cannot be identified. Finally, due to the relatively large diameter of the electron beam (tens of nm
+[26]), it can only be applied to isolated nanotubes. Later, the advent of Aberration-Corrected TEM
+(AC-TEM) has enabled the use of direct imaging for chirality determination. Chiral indices can be
+measured from High-Resolution TEM (HR-TEM) images, either by analyzing the image Fourier
+transform [33] or directly from the moiré patterns appearing in the real space image using deep
+learning algorithms [34]. Furthermore, atomically resolved images offer the opportunity to study
+atomic defects, although, interpretation of HR-TEM images of SWCNTs heavily relies on simulation
+to resolve the defect’s structure [35]. While this method presents multiple advantages compare to
+NBED,, it is rarely applicable to free-standing nanotubes which tend to vibrate under electron beam
+irradiation. A workaround consists in transferring SWCNT ona graphene layer to act as a low contrast
+mechanical support [33,36] but this additional step complicates the sample preparation and images
+
+are harder to interpret.
+
+Here, we present two complementary approaches based on 4-Dimensional Scanning TEM (4D-
+STEM), to overcome the current limitations in chirality determination with TEM. 4D-STEM is a
+powerful technique that records a diffraction pattern at each probe position during a STEM scan,
+resulting in a dataset with both real and reciprocal space information [37]. In the first implementation,
+a small convergence angle is used, which enables quantitative analysis of diffracted intensities to
+extract chirality maps of SWCNTs. This NBED-like approach provides the best sensitivity to chirality
+while improving the spatial resolution compared to standard NBED and introduces an error metric to
+assess the measurement quality. This type of 4D-STEM dataset also contains information about the
+strain field in the material. In this work, we apply this 4D-STEM approach to map strain, specifically
+the radial strain component, since the diameter of SWCNTs directly influences their electronic and
+
+optical properties [8].
+
+Secondly, a large convergence angle is used to improve spatial resolution. This high-resolution
+4D-STEM configuration gives access to advanced computational image reconstruction methods, in
+particular electron ptychography. This technique reconstructs the complex transmission function of
+the sample and provides phase contrast imaging with sub-angstrom resolution [38,39], enabling the
+visualization of individual carbon atoms and fine structural details in SWCNTs [40-42]. Even with
+outstanding spatial resolution, resolving the structure of defects in SWCNTs remains challenging due
+to the projected moiré patterns intrinsic to tubular structures. To address this issue, we explore multi-
+
+slice electron ptychography, a more advanced phase retrieval technique that offers not only higher
+
+4
+spatial resolution than conventional (single-slice) ptychography but also enables three-dimensional
+imaging through numerical depth sectioning [43-45]. Finally, we discuss its potential for directly
+
+visualizing atomic defects in SWCNTs.
+
+2. Methods
+
+2.1. Sample preparation
+
+The nanotubes were synthesized by CCVD on homemade TEM grids. The latter were fabricated
+by optical lithography and plasma etching (RIE) from multiframe arrays purchased from Oxford
+Instruments. The catalyst (1 A cobalt) was deposited on one half of the grids by vacuum thermal
+evaporation. The grids were heat-treated in air, and then introduced into the CVD reactor airlock.
+After purging the reactor to remove oxygen and water, the furnace was heated to 850 °C. After a 5-
+minute temperature stabilization, the sample was rapidly introduced into the heated zone and the
+synthesis continued for 30 minutes. Ethanol was used as the carbon precursor, carried by a flow of
+argon (66.6 sccm) through a bubbler maintained at 0 °C. The total flow was supplemented by another
+line of argon at 832.7 sccm and dihydrogen at 189.0 sccm. After 30 minutes, the samples were quickly
+
+removed from the heating zone.
+
+2.2. Nanotube molecular dynamic simulations
+
+To evaluate the performance of electron ptychography, artificial 4D-STEM datasets were
+generated from defective nanotube structures. Realistic atomic configurations were obtained through
+molecular dynamics (MD) simulations computed with the LAMMPS package [46]. These MD
+simulations are based on the Tersoff potential [47] known to be a reliable description of carbonaceous
+structures [48,49]. The simulations start off at 6500 K to induce the formation of topological defects.
+The system is then rapidly cooled down to room temperature. The details of the simulation protocol
+are published elsewhere [34]. Once equilibrium is reached, 16 snapshots at 300 K are extracted as
+
+structural models for the 4D-STEM simulations (see next section).
+
+2.3. 4D-STEM experiments and simulations
+4D-STEM experiments were performed on a Titan Ultimate microscope equipped with an X-
+FEG gun and 2 spherical aberration correctors for probe and image modes. The incident electron
+
+beam energy was set at 80 keV to prevent the tubes from being damaged. For chirality and strain
+
+mapping, the convergence semi-angle of the beam (a) was set at 0.8 + 0.05 mrad (small angle
+configuration) and the real space pixel size was set at 1.04 nm with an exposure time of 50 ms per
+
+pixel. For the electron ptychography experiment, the convergence semi-angle of the beam was set at
+26.1 + 0.05 mrad (large angle configuration) and the exposure time per scan position was 2 ms. The
+real space pixel size was 0.76 A and the reciprocal space pixel size was 0.0152 A”!. The electron dose
+per area was approximately 10° eA. The STEM probe was in-focus to directly compare the
+reconstruction with the Annular Dark Field (ADF) image. All datasets were recorded on a Medipix3
+camera composed of 256x256 pixels. This hybrid pixel direct electron detector offers several
+advantages, including low noise and a large dynamic range. This wide range eliminates the need for
+a beam stop and prevents saturation near the direct beam. It is also crucial for electron ptychography,
+
+where both strong and weak signals must be captured simultaneously.
+
+Diffraction pattern and 4D-STEM dataset simulations were carried out with the abTEM
+package [50] within the multi-slice formalism. To simulate small convergence angle experiments,
+parameters were set at 0.142 A for the lateral real space sampling, with a slice thickness of 1.42 A.
+For the large convergence angles, parameters were set at 0.08875 A for the lateral real space sampling,
+with a slice thickness of 0.71 A. To emulate thermal vibrations at room temperature during the
+experiment, we use the frozen phonon approximation using 16 the molecular dynamics snapshots as
+input structures (only for large convergence angles). Simulations were carried out to emulate different
+experimental conditions. A first one to match our experimental conditions, meaning: 80 kV with a
+convergence angle of 26.1 mrad considering an energy spread of 1.2 eV, typical of a X-FEG gun. A
+second one to represent a more coherent cold-FEG (CFEG) gun with an energy spread of 0.4 eV at
+200 kV with the same convergence angle. For both large convergence angle simulations, a focal
+spread 5 was introduced to consider the energy spread of the electron beam and the chromatic
+
+aberration of the microscope. 5 values were computed using the formula
+
+AE
+E’
+
+where C, is the chromatic aberration, EF and AE are the energy and energy spread of the electron
+
+6=C, (1)
+
+beam, respectively. We used 7 probe wave functions using the weighted incoherent integral method
+to emulate the focal spread [51]. Then, Poisson noise was added to the final 4D datasets corresponding
+to an electron dose per area of 10° eA’. For all configurations, we used the finite projection
+
+approximation for the calculation of the electrostatic potential in each slice.
+
+2.4. Chirality determination
+
+2.4.1. Intrinsic layer-line spacing method
+To measure the chirality from small convergence angle diffraction pattern, we used the ILLS
+
+method described in [27]. We briefly summarize the method in what follows but first we need to
+introduce the specificities of the electron diffraction pattern of a SWCNT. When an electron probe
+with a small convergence angle is transmitted through a nanotube, as represented in Figure 1(a), the
+resulting diffraction pattern is composed of diffraction spots arranged in a set of lines which originate
+from the helical symmetry of the nanotube and are characteristic of its chirality. Figure 1(b), shows
+a typical experimental diffraction pattern of a chiral tube (m > 0 and n # m). The most intense line
+at the center is the equatorial line (Lo), then there are three 1‘‘-order lines, (L,,L , L3), and finally
+
+three 2"“-order lines, (L4, Ls, L¢). They are all oriented along the tube radial direction, k,.
+
+(a) e beam (c)
+
+—— Lo profile
+— At
+
+(b)
+
+gu 1 order
+La), — 2-4 order
+})-~~ Refined positions
+Le
+
+2
+r=
+rr
+
+Lo | i Ly
+
+°
+r=
+a
+
+3
+£
+2a
+2
+o
+2
+S
+
+Intensity (a.u.)
+
+°
+S
+&
+
+°
+=
+r=}
+
+5nm~*
+
+-10.0 -15 -5.0 -2.5 0.0 25 5.0 15 10.0
+—<—<—<—=
+
+Figure 1 - Chirality determination from a nanotube diffraction pattern. (a) schematic showing the orientation
+of a nanotube relative to the incident convergent electron beam. (b) experimental diffraction pattern of a
+SWCNT, without the direct beam and plotted with a square root intensity scale. (c) Intensity profile of the
+equatorial line extracted from (b), blue squares connected by a blue line and the associated fitted 0"-order
+Bessel function, red line. (d) kg intensity profiles integrated over k, considering only the 1* and 2" order
+lines, blue and orange lines, respectively, and refined peaks positions marked by black dashed lines.
+
+The ILLS method comprises two steps: first, the tube diameter, dg, is measured by fitting the
+Lo intensity profile, and then, the tube geometry is determined by measuring the spacing between
+each non-equatorial layer-line, L;, and Ly. By combining all this information, it becomes possible to
+determine the nanotube’s chiral indices while simultaneously correcting the tilt angle, 6, between the
+tube axis and the direction perpendicular to the electron beam propagation direction [27] (see Figure
+
+1(a)), without relying on diffraction calibration.
+Let us start by measuring the tube diameter by extracting and fitting the intensity profile of the
+equatorial line along k,: I,,(k,). Within the framework of kinematical diffraction theory, we can
+show that I fe (k,.) is proportional to the squared modulus of a Bessel function [26,27], such as:
+
+I, (k,) = Clo (atdok,)|?, (2)
+where C is a strictly positive real constant, dy is the diameter of the observed tube and Jo is the 0-
+order Bessel function (see Eq. (A2) in Appendix for the definition of Jy). The profile extracted from
+Figure 1(b) is plotted in Figure 1(c) (blue squares connected by a blue line) with its corresponding
+fit (red line). Note that the distances between the roots of Jo(mdok,.), i.e., distances between the
+
+I, (k,) minima, are all equal to gy = = [27]. Therefore, the refined dy value is reliable as long as
+0
+
+the positions of the maxima and minima of the experimental data and fitted function are the same,
+even if there is a large amplitude discrepancy between the two. In previous studies, the /,, fitting
+procedure was performed using an approximation of the 0'"-order Bessel function [27,52]. Here, we
+implemented a non-linear least square fitting procedure using the SciPy software [53], which includes
+direct computation of Bessel functions without approximations [54]. Because small variations in do
+induce large changes in J, periodicity and amplitude, we chose to manually pass a first guess for C
+
+and dp values prior to the fitting process to improve its robustness.
+
+Then we measure the layer-line spacings, G;,(i = 1,2,...,6), which are define as the
+reciprocal space distances between L; and Lo, along the tube axial direction kg. This is rather
+straightforward as it consists in getting the overall intensity profile along the tube axial direction kg,
+by integrating the diffracted intensity over k, and measuring the Kg coordinates of the peaks. Figure
+1(d), shows the integrated intensity profiles for the 1% and 2™ order lines, (blue and orange line
+respectively). They are composed of a series of peaks, each one corresponding to one layer-line. The
+black dashed lines represent the peak positions refined using the SciPy toolkits. Figure 1(d) lines
+
+with a positive k, component are labelled L; and lines with a negative one are labelled L;.
+
+G, contain information about the = ratio [26] but they depend on the tilt angle, 8. To determine
+
+the absolute values of chiral indices, we need to compute the unit less intrinsic layer-line spacings
+
+define as:
+
+fi = dG, = 3)
+Each €; are defined as a linear combination of the chiral indices (see Appendix). However, the
+quantities measured experimentally, zh , also depend on f. They are related to the intrinsic values
+
+following the relation:
+cosB = e (4)
+
+To determine the chirality of the tube, we need to solve for 3 unknowns: n, m and B. To do so, we
+have 12 available equations: 6 for all ¢; (Eqs. (A3)), and 6 times the cos f relation (Eq. (4)). After
+solving this system, we obtain real values for the chiral indices: n? and m¥. The actual chiral indices
+are obtained by recovering only the integer part of the measured values, such as:
+
+n= |n8 |, m= |m*|, (5)
+where |:] is the floor function. Some additional corrections are required for large 8 values and can be
+found in [27]. In addition of providing robust chirality measurement, this method does not require
+any prior calibration of the reciprocal space pixel size because ¢; are unitless. In the following, we
+will also frequently use calibrated data to evaluate the accuracy of the method for measuring
+
+diameters.
+
+2.4.2. Relative and absolute error estimation
+
+The hybrid pixelated detector used in this study only contains a few numbers of pixels compare
+to conventional CMOS or CCD cameras. As a result, a one-pixel error in the line position
+measurement can significantly alter the chirality determination. Therefore, it is crucial to estimate the
+potential errors in the chirality measurement. These can be directly estimated by the fitting procedure
+itself using the covariance matrix. A standard deviation error, o, for each parameter is obtained by
+taking the square root of the diagonal elements of this matrix. Therefore, when fitting the /, , intensity
+profile, a 3¢g, confidence interval can be directly recovered. However, in the case of layer-line
+spacings, the peak position refinement has to be done with a limited number of pixels (between 3 to
+11 pixels per peak, depending on the dataset). This reduced number of data points results in
+inaccuracies in the estimation of the covariance matrix. Fortunately, the errors in the layer-line
+
+spacings can be assessed using an alternative method.
+
+As detailed in the previous section, multiple ze can be combined to determine the tilt-affected
+chiral indices: n? and m*. Here, we chose to measure the indices with three different layer-line
+spacing combinations: a first one by combing a and Ee , a second one by combing ee and Ee anda
+
+last one by combing €: 4 and € : (see Eqs. (A3) in Appendix). To reduce possible errors, the 3 (n8 »mé )
+
+9
+values are averaged to give the final (n,m) results. Then, the intrinsic €; are computed which allows
+
+to calculate six different values for the tilt angle, using Eq. (4) and rearranging such as
+
+Bi = cos™* (5) (6)
+
+Once again, the final 6 value is obtained by averaging all six 8; values. The only piece of information
+not used for chirality determination is Eg . Therefore, it can be used to estimate the residual error. We
+
+can compute a theoretical value for ef using the relation
+n& — mB
+V3n
+
+(see Eqs. (A3) in Appendix). Absolute and relative errors can be calculated by comparing the
+
+a= (7)
+
+measured e with the right term in Eq. (7). The relative error, €,.¢), is expressed as
+
+v3neF —n? +mP
+nB — mB
+
+(8)
+
+Erel =
+
+Because Ca are unitless, they are not well-suited for estimating absolute errors, are not well-suited
+for estimating absolute errors, especially when expressing them as a number of pixels on the detector
+
+in reciprocal space. To do so, it is more convenient to scale the absolute error by re which allows it
+0
+
+to be represented in the same units as the layer-line spacing D;. By subtracting the two terms in Eq.
+
+(7) and using Eq. (3), we obtain the following for the absolute error, €g,,, expressed in reciprocal
+pixel scale:
+
+V3né? — nb +m
+
+Eabs = 3nd, do .
+
+Note that for armchair and zigzag tubes, this error cannot be estimated because there are not enough
+
+(9)
+
+layer-lines to get information redundancy. However, these structural configurations can be easily
+identified due to their characteristic diffraction signature, and chirality assignment errors arise only
+
+from uncertainties in diameter measurement.
+
+2.5. Chirality mapping
+To generate a chirality map, an ADF image of the captured area is reconstructed from the 4D-
+STEM dataset using a virtual detector. In the ADF image shown in the top of Figure 2(a), we see a
+typical nanotube bundle separation with its characteristic Y-shape [55-57], composed of two
+SWCNTs, NTI (left) and NT2 (right). There are also regions with a brighter contrast in this image
+highlighted by the yellow arrows. They correspond to residual contaminants (mostly carbon) which
+
+is common in CVD grown SWCNTs [22,58,59]. To determine the chirality of each nanotube, close
+
+10
+to the junction, we segment the ADF image to isolate regions of interest (ROD, i.e., individual tube
+without contamination. Then, we extract the diffraction corresponding to the ROI of NTI (blue area
+in Figure 2(a)), and NT2 (red area in Figure 2(a)). These “sub-datasets” are represented at the bottom
+of Figure 2(a), for NT1 (left) and NT2 (right).
+
+Figure 2 - 4D-STEM chirality mapping procedure. (a) Virtual ADF image extracted from a 4D-STEM dataset
+(top), with contaminated areas indicated by the yellow arrows; in the bottom left, stack of diffraction patterns
+extracted from the area attributed to NT1 (blue area in top) and in the bottom right, stack of diffraction patterns
+extracted from the area attributed to NT2 (red area in top). (b) and (c) processed PACBEDs associated to NT1
+and NT2, respectively. (d) and (e) schematics of the structures determined by the ILLS method for NT1 and
+NT2, respectively. All PACBEDs are shown without the direct beam and with a square root intensity scale.
+
+To increase the SNR, we can average all patterns in each sub-dataset, resulting in Position
+Averaged Convergent Beam Electron Diffraction (PACBED) patterns. For a robust averaging
+procedure, the sub-dataset needs to be descan corrected. When the electron beam is scanned across
+the sample, it may drift away from the optical axis, leading to an apparent shift of the diffraction
+patterns on the detector. This is usually compensated for by the descan coils, but some residual drift
+may still be present and can be numerically corrected by shifting the diffraction pattern images. To
+do so, we simply measure the position offset of the direct beam with template matching and cross-
+correlation and realign all diffraction patterns [60]. In addition, we need to compensate for the
+
+nanotube curvature. Indeed, nanotubes often curve within the field of view, i.e., the plane
+
+11
+perpendicular to the electron beam propagation direction. It results in an apparent rotation of the
+patterns relative to each other. Curvature compensation is performed by measuring the orientation of
+the equatorial line, which is always aligned with the tube radial axis and clearly visible in each
+individual pattern (bottom of Figure 2(a)). Note that this requires to first compute a polar transform
+of the pattern. Then, all images are rotated to align all equatorial lines and all patterns are summed.
+Finally, we apply a numerical mask on the direct beam and we remove the background intensity using
+
+the SNIP algorithm [61].
+
+The resulting pre-processed diffraction pattern are shown in Figure 2(b) and Figure 2(c), for
+NT1 and NT2, respectively. They have been rotated so the tube radial direction in reciprocal space,
+k,, and axial direction, kg, are horizontal and vertical, respectively. In Figure 2(c) (which is the same
+as Figure 1b), we can see six layer-lines which means NT2 is a chiral tube. However, Figure 2(b)
+
+does not contain as many layer-lines and some are superimposed. This is the typical pattern of an
+
+armchair tube where n = m. In this particular case, we have G, 0, Gz G3 Gy Gs and
+
+Ge = 2G). Note that there is another particular case for zigzag tubes when m = 0, which leads to
+Gy G2, G3 2G,,G, =OandGs = Gg = 3G,. The ILLS method is perfectly capable of dealing
+with these achiral cases [27]. When applied to the PACBEDs in Figure 2, it gives a chirality of
+(23,23) for NT1 and (15,12) for NT2. Simulated diffraction patterns can be found in the
+
+supplementary section | (Figure S1) for comparison. The corresponding ideal tube structures are
+
+represented in Figure 2(d) and Figure 2(e), for NT1 and NT2, respectively.
+
+Now, the local chirality can be mapped along an individual tube or even multiple tubes, simply
+by adjusting the size and the location of ROIs and analyzing many PACBEDs or even single
+
+diffraction patterns.
+
+2.6. Radial strain mapping
+
+Strain in carbon nanotubes is known to modify their electronic structure. More interestingly,
+the radial strain component directly modifies their diameter and affects the nanotube bandgap [8,62].
+Most of the time, radial strain relaxes in one direction, leading to an elliptical deformation of the tube
+[63,64]. When observing the projected diameter of a radially strained SWCNT, it can appear larger
+or smaller than the unstrained diameter, depending on the projection direction. Therefore, mapping
+these local projected diameter variations directly provides a radial strain map along the tube.
+Assuming there is an unstrained reference section with projected diameter d,.¢ on the nanotube, the
+
+radial strain component at any location with a projected strained diameter d, is defined as:
+
+12
+d, — dyer
+
+=
+" dyer
+
+(10)
+
+With this definition, positive strain values correspond to larger projected diameters, i.e., projections
+closer to the ellipse’s major axis, whereas negative strain values correspond to smaller projected
+diameters, i.e., projections closer to the minor axis. As discussed in section 2.4, fitting the equatorial
+line profile allows us to measure diameters. More precisely, it is the tube’s diameter projected along
+the axis perpendicular to the electron beam propagation direction. By applying this fitting procedure
+at multiple locations along the same tube, we obtain a spatial map of local projected diameter
+variations. Note that the manual first guess discussed in section 2.4, needs to be passed only once to
+efficiently measure diameter variations along a single SWCNT. This, in turn, provides the necessary
+
+information to construct a radial strain map for an individual nanotube.
+
+Furthermore, the measured radial strain values could be absolute or relative. Determining the
+absolute radial strain for a specific chirality would require a perfectly calibrated diffraction space and
+measuring the diameter of an ideal, unstrained nanotube. However, we cannot say for certain that
+such a nanotube is present in our sample. Instead, we analyze only relative radial strain by selecting
+a minimally strained reference area and comparing other regions to it. This area is chosen in an
+uncurved nanotube region and free from residual contamination, providing the closest approximation
+to an ideal unstrained reference. Although this does not guarantee that the zero radial strain reference
+corresponds to a perfectly circular tube, it is sufficient to analyze strain variations along the tube and
+
+identify the most strained regions.
+
+2.7. Electron ptychography reconstruction
+
+To generate high-resolution images of carbon nanotubes, we use electron ptychography. It is
+an advanced phase retrieval technique that reconstructs high-resolution images by analyzing
+overlapping diffraction patterns collected during a 4D-STEM experiment [65,66]. Unlike
+conventional imaging methods, ptychography can overcome lens aberrations and extend the
+resolution beyond the limits of traditional electron optics [38,43,67]. For single-walled carbon
+nanotubes (SWCNTs), electron ptychography is particularly valuable due to its ability to retrieve
+high-contrast phase images with sub-angstrom resolution, making it possible to visualize atomic-scale
+features with minimal electron dose [41].
+
+In this study, simulated and experimental 4D-STEM datasets were processed with the
+py4DSTEM package [60] to compute ptychographic images. The dataset was first binned down to
+
+128x128 pixels in diffraction space and then reconstructions were carried out using an iterative
+
+13
+method based on the stochastic gradient-descent algorithm [68]. We used the mixed-state multi-slice
+ptychography formalism to account for both the probe decoherence, and the tube diameter (thickness
+in the beam propagation direction). We used three different probe modes and two slices with a
+thickness of 3 nm. The reconstructions were additionally constrained using filters both in real and
+
+Fourier space to avoid high-frequency artifacts.
+
+3. Results & discussion
+3.1. Chirality mapping
+BDL. Chirality determination
+In this section, we discuss the efficiency of the proposed method to determine and map local
+chiralities in SWCNTs. As shown in Figure 2, the chirality mapping procedure allows to determine
+the chirality of nearby tubes. Here, the chirality of NT was measured as (23,23) with B = 4.6°, NT2
+was (15,12) with 6 = 10.1°. Prior to the experiment, the diffraction pixel size was calibrated at 0.0814
+nm! using a reference silicon sample. Even though calibration is not mandatory for chirality
+
+determination with the ILLS method, it allows us to measure the tube diameters directly from the
+
+diffraction patterns. We found a diameter of 31.33 + 0.17 A for NT1, while the theoretical diameter
+
+for a (23,23) SWCNT is 31.19 A. Note that the uncertainty in diameter measurement is given with a
+
+30g, confidence interval (see section 2.4.2). For NT2, the measured diameter is 18.19 + 0.11 A,
+
+compared to the theoretical diameter of 18.34 A for a (15,12) SWCNT.
+
+The relative error in the recalculation of ef for NT2 was 4.4 %, corresponding to an absolute
+error of 0.16 pixels on the L, position. As mentioned in section 2.4.2, the error cannot be estimated
+in the case of NTI! (armchair tube) but the measured diameter is in good agreement with the
+
+theoretical value of a (23,23) tube.
+
+Studying this system so close to the bundle separation point would not be possible during a
+conventional electron diffraction experiment because of the large diameter of the electron beam.
+Thanks to the capabilities of 4D-STEM, this is now achievable. We now explore the limiting criteria
+of this technique, particularly the spatial resolution limit, the minimum electron dose for chirality
+
+determination, and the influence of the probe convergence angle on the results.
+
+3.1.2. Spatial resolution and minimum dose.
+
+e Spatial resolution
+The obvious limiting parameter for spatial resolution is the diameter of the electron beam. In
+the previous experiment (Figure 2), the convergence angle of the probe was measured to be 0.85
+mrad which corresponds to a STEM probe full width at half maximum (FWHM) of approximately
+2.5 nm. Therefore, the optimal spatial resolution can only be larger than this value. In this case, this
+is sufficient to characterize the tube structure even within the bundle. Figure 3 features the same
+dataset as Figure 2, but this time, the dataset is processed to assess both the spatial resolution of the
+technique and the minimum electron dose required for chirality identification. Figure 3(a) is the
+virtual ADF image where colored pixels show the regions where diffraction patterns were extracted
+from. The cyan area contains only two patterns corresponding to NT2 and their sum is shown in
+Figure 3(b). The blue, red and green areas contain patterns extracted from the bundle and their
+respective sums are shown in Figure 3(c) (from left to right). We avoided the contaminated area on
+purpose to investigate only the SWCNT signals. The central red area contains the scattered intensities
+coming from both tubes, NT1 and NT2 (Figure 3(c)). On each side, the left blue area produces the
+typical pattern of an armchair tube (NT1) while the right green area gives the typical pattern of a
+chiral tube (NT2). Therefore, the chirality of both tubes can be determined even within the bundle,
+provided that the beam position is sufficiently far from the line where the tubes are in contact. This
+minimal distance between adjacent probes to resolved individual tubes in the bundle corresponds to
+the spatial resolution of the experiment. Here, because the red area has a width of 3 pixels, we can
+
+assert that the spatial resolution in this case is 3.1 nm.
+
+To confirm this, we performed the ILLS analysis to determine the chirality of each tubes inside
+the bundle and compared the results with the previously determined ones. After processing the green
+patterns in Figure 3(c), we measured a chirality of (15,12) for NT2, just as expected. For NT1 (blue
+pattern in Figure 3(c)), we measure a chirality of (20,20) instead of the expected (23,23) indices. This
+is due to a large radial strain component induced by the bundle in NT1, which is not considered by
+
+the ILLS method. We will discuss this aspect later in section 3.2.
+
+Other electron diffraction based techniques such as coherent diffraction imaging (CDI) or
+ptychography already reached higher spatial resolutions when studying carbon nanotubes [29,41].
+However, this is to our knowledge the highest spatial resolution ever reached to characterize
+
+SWCNTs chirality purely from electron diffraction, i.e., without phase retrieval data processing.
+b) NT2
+
+NT1+NT2
+
+Figure 3 — Extracted data to assess spatial resolution and minimum electron dose for chirality determination.
+(a) Virtual ADF image with areas used for minimal dose assessment (cyan) and spatial resolution determination
+(blue, red and green). (b) PACBED corresponding to cyan area in (a). (c) PACBEDs corresponding to blue,
+red, and green areas in (a), from left to right. All PACBEDs are shown without the direct beam and with a
+square root intensity scale.
+
+e Electron dose
+
+Then, to determine the minimal electron dose required for chirality determination, we can
+reduce the number of diffraction patterns within the PACBED and check when the ILLS method fails.
+With this configuration, we found that we had to sum at least two patterns to determine the chirality
+
+of NT2. We performed the ILLS method on the cyan pattern shown in Figure 3(b) and measured a
+
+chirality of (15,12), just as expected. The diameter was measured at 18.24 + 0.11 A, so the reduced
+electron dose does not affect the confidence interval of the diameter measurement, since Lg maintains
+sufficient intensity. However, the relative error on the L, position was 13.9 % (absolute error of 0.59
+pixels). Here, the error increases (see section 3.1.1) due to the poor SNR but the chiral indices are
+still the expected ones. However, the absolute error being more than half a pixel, this is the absolute
+limit we can reach with our experimental setup. In this experiment, the electron dose per area was
+estimated at 1.75x10 eA, so within 2 probe positions the minimal total electron dose is 3.8<105 e”
+. This lies at the lower end of the typical electron doses used for chirality determination of SWCNTs
+
+by electron diffraction [29,30], so our approach does not allow significant dose reduction. However,
+
+16
+thanks to the hybrid pixelated detector, it enables working with higher beam currents and shorter
+exposure times (on the order of tens of milliseconds instead of several seconds), making the
+
+acquisition of local chirality maps faster and thus feasible.
+
+3.1.3. Probe convergence angle limitations.
+
+As presented in section 2.4.1, to measure the G; spacings, we measure the peak positions in the
+integrated intensity profile shown in Figure 1(d). Intuitively, one might expect that increasing the
+probe convergence angle would broaden the peaks. The trivial limitation is that the convergence angle
+must remain small enough to prevent peak overlap. To define this limiting criterion, we need to
+express the width of the peak corresponding to one layer line L;, as a function of the convergence
+angle. Let us formulate the peak intensity profile along kg as:
+
+Krmax
+Pi (Ka) = I, 1, (k)dk,, (11)
+
+where 1, Ck) is the L; component of the diffracted intensities and k is the maximum recorded
+
+Tmax
+spatial frequency on the detector. I,, is the squared modulus of the complex electron exit wave
+component associated to L;, ¥,;. Within the kinematical theory of diffraction and using the weak
+phase approximation, Y,; is proportional to the electron probe incident wave function in reciprocal
+
+space, A, also called the aperture function convolved with the L; component of the nanotube structure
+factor, F,,, 80
+
+Pi(k) x (A@F,,) UO, (12)
+where ® is the convolution operator [69]. If we neglect all phase errors, i.e., residual probe
+
+aberrations!, A(k) is defined as:
+
+_ (LU |kKl Ss ke
+AW) = {9 ls ke (13)
+with kg = 5 A being the electron wavelength. We can rewrite P,, using Eqs. (11) and (12) as:
+Krmax : Krmax 2
+P,,(ka) = | |, Ck) | dk, « | |(A@F,,) Uo] dk. (14)
+—Krmax ~"rmax
+
+Therefore, the width of the P,, depends on F,, and will increase due to the convolution with the
+aperture function. The broadening is directly related to the size of the aperture; specifically, the larger
+kq, the wider the peak. After some calculations (see Appendix), we can show that Eq. (14) simplifies
+
+to
+
+' Valid in our case because we use a small condenser aperture (5 ym) recovering only the non-aberrated central
+part of the incident probe.
+
+17
+4[ka’ —(ka-G)?], Ika - Gil S Ke
+
+P, (k,) « 15
+ileal 0, Ika - Gil > ke a
+
+As expected, P,,(k,) reaches its maximum value when k, = Dj, which is proportional to 4k’. Asa
+
+result, we can estimate its FWHM which are the distances between the two roots of the equation
+
+Alka’ — (ka — Gi)?] = 2kq’. (16)
+Solving for Eq. (16), we obtain
+Ka
+kg = Gite (17)
+which leads to
+FWHM = y2ky. (18)
+
+Finally, to avoid peak overlap, the convergence angle criterion must satisfy the inequality
+V2kq < Gi — G;, (19)
+
+G; — G; being the distance between two lines L; and L;.
+
+This criterion can be tested experimentally with close to zigzag, (n,1), or close to armchair,
+(n,n — 1), tubes. Figure 4, shows the 4D-STEM data acquired from a close to armchair SWCNT.
+The virtual ADF image is presented in Figure 4(a), where brighter areas correspond to carbon
+contamination on the tube and the red areas are the regions used for chirality determination. It was
+identified as a (14,13) SWCNT with the ILLS method. However, it sits right at the convergence angle
+criterion limit of the given experimental configuration, requiring further refinement of the data
+processing protocol to reliably determine its chirality, as detailed in the following. In this experiment
+the convergence angle was measured to be 0.76 mrad (kg = 0.182 nm). For a (14,13) SWCNT,
+G, = G3 — G, = 0.10 nm! and G; — G, = 0.30 nm'!. The convergence angle criterion previously
+established gives a minimal resolvable distance between 2 layer-lines of V2kq = 0.257 nm’.
+Therefore, lines Ly and L, as well as Lz and L3 are superimposed due to their close spacing. On the
+other hand, lines L4 and Ls are separated by a distance greater than V2kq so they should be
+distinguishable. A simulated diffraction pattern corresponding to a (14,13) SWCNT and an
+experimental PACBED (extracted from the right most red area in Figure 4(a)) are shown in Figure
+4(b) and Figure 4(c), respectively. As expected, lines Lo and L, as well as Lz and L3 are
+superimposed, while L, and L, are separated in the simulated pattern. In the case of the experimental
+data (Figure 4(c)), this is not as clear, even though the L,/L, line intensity is broader than the other
+
+lines.
+(14,13) (14,13)
+
+—— — = oe)
+
+-
+
+Q.
+a7
+UO
+SS
+
+1
+
+Intensity (a.u.)
+w
+
+Figure 4 — Chirality determination of a close to armchair tube with the ILLS + multi-peak fitting method. (a)
+Virtual ADF image, with contaminated areas indicated by the yellow arrows and in red, areas used for chirality
+determination. (b) simulated diffraction pattern of a (14,13) SWCNT. (c) PACBED extracted from the right
+most red area in (a). (d) Kg intensity profiles integrated over k, extracted from the cyan areas in (c), blue
+squares connected by a blue line; gaussian fits attributed to the L, and L; components, orange and green dashed
+lines, respectively, and the sum of both fits shown by the red line. All PACBEDs are shown without the direct
+beam and with a square root intensity scale.
+
+To better assess whether the lines are resolved, we extracted the P,, we intensity profile from the
+
+cyan regions shown in Figure 4(c). These profiles are plotted in Figure 4(d) as blue squares
+connected by a blue line. The peak is asymmetric, suggesting that it is composed of multiple
+components. To model this, two peaks were used to fit the experimental data, corresponding to Ly
+(orange dashed line in Figure 4(d)) and Ls (green dashed line in Figure 4(d)). The total fitted curve,
+shown as a red line in Figure 4(d), matches the experimental data well. Although the lines are not
+perfectly resolved, their individual contributions can still be extracted through multi-peak fitting. The
+reciprocal space resolution appears lower than in the simulated pattern, probably because of
+imperfections in the microscope projection system and the detector's modulation transfer function
+(MTF). Nevertheless, it remains sufficient to measure the peak positions and determine the chirality.
+Note that instead of fitting with the P,, functions in Eq. (15), we found that fitting with multiple
+gaussian functions is more robust to compensate for the detector’s MTF. Using the ILLS method
+combined with multi-peak fitting, all four red regions were consistently identified as having (14,13)
+
+chiral indices.
+Besides chirality, the diffraction patterns also provide information about strain, allowing for
+
+more detailed structural characterization, which is discussed in the next section.
+
+3.2. Radial strain mapping
+
+3.2.1, Results
+
+As presented in section 2.6, multiple diameter values can be extracted from equatorial line
+intensity fits at various locations along the tube, and these can be used to generate radial strain maps.
+Figure 5 shows the resulting strain maps obtained from the previously presented datasets. The Y-
+shape bundle separation strain map is plotted in Figure 5(a), superimposed on the virtual ADF image.
+In addition, Figure 5(b) shows the higher resolution HAADF image of the same area. Then, the
+individual close to armchair nanotube strain map is plotted in Figure 5(c), also superimposed on its
+
+corresponding virtual ADF image.
+
+(a)
+
+Oo
+Radial strain (%)
+
+10 nm
+eel
+
+Radial strain (%)
+
+Figure 5 — Radial strain maps. (a) Virtual ADF image of the Y-shape bundle separation, with superimposed
+radial strain map. (b) Higher resolution STEM-HAADF of the same area as in (a). (c) Virtual ADF image of
+the close to armchair tube, with superimposed radial strain map. The reference unstrained areas are indicated
+by the yellow arrows.
+
+In the Y-shaped bundle separation map (Figure 5(a)), the upper region—where the tubes are
+clearly separated—shows that the nanotubes are mostly unstrained, except for NT1, which exhibits
+
+slight negative strain near a contaminated area in the upper left region of Figure 5(a)-(b). Closer to
+
+20
+the separation point, both nanotubes display negative strain, particularly NT 1 at the location indicated
+by the upper blue arrow in Figure 5(a). This strain arises because the nanotubes bend near the
+separation point, leading to a reduction in projected diameter due to stress relaxation. This buckling
+behavior in bent SWCNTs is well established in the literature [70,71]. It offers a valuable case for
+assessing the accuracy of the radial strain measurement method by comparing strain values obtained
+from diffraction with diameters measured directly in the HAADF image (Figure 5(b)). We find good
+agreement between the two approaches: the manually determined real-space strain is -4.33 %, while
+the diffraction-based strain is -4.26 %. This level of deformation is fully consistent with the expected
+
+buckling of the nanotube [71].
+
+Within the bundle, both nanotubes exhibit significant strain, with opposite trends in projected
+diameter variation. NT2 is positively strained, showing a projected diameter increase of +2.68 %
+relative to the reference region, while NT1 is negatively strained with a -8.56 % projected diameter
+variation. This opposing behavior suggests that both tube experience elliptical deformation in
+opposite directions, NT 1 projecting the minor axis of the ellipse and NT2 the major axis. While van
+der Waals forces may be responsible for this effect, a definitive conclusion cannot be drawn due to
+the presence of addition carbon contamination in this region, which can also affect the local tube
+apparent diameters [63]. Furthermore, the radial strain in NT1 is quite large. Although previous
+results show no breaking of the armchair symmetry in the diffraction pattern (see Figure 3(c)), the
+observed diameter is much smaller than expected for a (23,23) nanotube. This discrepancy led to a
+failure in chirality identification using the ILLS method, which incorrectly assigned a nanotube with
+similar symmetry but smaller diameter (see section 3.1.2). In contrast, NT2 is less strained, so in this
+case, the ILLS method still correctly identifies the (15,12) chirality. The mean 30g, confidence
+
+interval for the diameter measurement was estimated to be 0.76% here (Figure 5(a)).
+
+For the nanotube close to the armchair configuration shown in Figure 5(c), the radial strain
+ranges approximately from —2.4% to 2.1%. Radial strain is primarily observed in contaminated
+regions, while cleaner areas remain unstrained. This confirms previous results attributing radial
+deformation to the presence of carbon contamination on SWCNTs [63] and it highlights the
+importance of nanotube cleanness in maintaining a constant diameter and uniform strain. Such
+structural stability is critical for nanotube-based device performance, as both diameter and strain
+
+directly influence the electronic and transport properties of SWCNTs [15,72—74]. The mean 304,
+
+21
+confidence interval for the diameter measurement was estimated to be 0.77% in this case (Figure
+
+5(c)).
+
+3.2.1. Probe convergence angle limitations.
+
+The convergence angle also as an impact on radial strain measurements. In the method
+presented before (section 2.6), the radial strain mapping procedure considers that the equatorial line
+intensity profile is proportional to the squared modulus of Jy (Eq. (2)). In the case of convergent
+STEM probe, the diffracted intensities are once again convoluted with the probe aperture function.
+
+Therefore, Eq. (2) must be modified to consider the effect of the probe.
+2 2
+In(k) = |¥,,) | & |(A@Jo(tedok,)) (KD. (20)
+
+A brute force solution is to directly fit the data with the squared modulus of the convolution scaled
+by an amplitude factor. This approach is easy to implement since the probe aperture function can be
+directly measured using a reference vacuum diffraction pattern, assuming that we can ignore phase
+
+errors.
+
+Using simulated diffraction patterns and measuring the diameter for a wide range of chiralities
+(see supplementary section 2), we show that at 80 kV and for convergence angles a > 1 mrad, the
+residual errors in diameter measurements increase with a when fitting is performed using the simple
+Bessel function Jy (Eq. (2)). In contrast, the errors remain constant when using the convolution-based
+model (Eq. (20)). However, the latter model becomes highly non-linear and difficult to fit robustly to
+experimental data with the currently implemented fitting procedure. For a < 1 mrad, both models
+yield comparable errors, with Jy even achieving slightly lower residual errors (see supplementary
+section 2). Based on these observations, we chose to use Eq. (2) for fitting equatorial line profiles and
+
+to operate with convergence angles below | mrad.
+
+Ideally, the full strain tensor should be determined. However, this requires further investigation
+to distinguish the effects of axial strain from those of specimen tilt. While measuring shear strain may
+be feasible, additional study is needed to understand its influence on line positions. These
+
+considerations fall outside the scope of the present work.
+
+3.3. Imaging defects with electron ptychography
+
+3.3.1, Results
+While the previously presented approach (small convergence angle 4D-STEM) provides lots of
+
+information about SWCNTs’ structural properties, it is still limited by its intrinsic spatial resolution
+
+22
+of a few nanometers. This prevents the investigation of atomic scale defects in particular intrinsic
+topological defects. To overcome this limitation, one approach is to perform 4D-STEM mapping
+using a larger convergence angle, which improves real-space resolution. This enables the use of
+electron ptychography to reconstruct phase-contrast images at the atomic scale, allowing direct
+
+visualization of atomic structure and local defects in the nanotube.
+
+(b) (c) (d)
+
+(e)
+
+Figure 6 — Experimental electron ptychography reconstruction of a SWCNT. (a) model of a perfect (37,1)
+SWCNT. (b) Virtual ADF image of the nanotube. (c) Phase image reconstructed from the same dataset as (b)
+with electron ptychography. (d) enlarge view of the yellow square in (c). (e) Fourier transform of (c).
+
+Figure 6 presents the high-resolution images obtained from a 4D-STEM dataset acquired on a
+defective (37,1) SWCNT. The perfect tube model is shown in Figure 6(a) and Figure 6(b) shows
+the virtual ADF image. Then, the phase image of the ptychographic reconstruction is shown in Figure
+6(c) with an enlarged view of the defective region shown in Figure 6(d). Finally, the Fourier
+
+transform of the total phase image (Figure 6(c)) is shown in Figure 6(e).
+
+While the Moiré pattern of the tube and defects is barely visible in the ADF image, it appears
+clearly in the ptychographic reconstruction. First, the tube chirality can be determined from the phase
+
+image by measuring the tube diameter in real space and the = ratio from the image FFT (Figure 6(e)),
+
+following the method detailed in [33]. Here, we determined the tube chiral indices to be (37,1). The
+FFT enables to determine the spatial resolution of the reconstruction, here measured at 1.0 A. Finally,
+because the phase is proportional to the electrostatic potential within the sample, the phase image can
+be used to analyze the defect structure in the nanotube. It is clearly visible in Figure 6(d) that the
+Moiré pattern symmetry breaks revealing the structure of a topological defect at the surface of the
+
+tube. Areas enclosed by yellow dashed circles appear darker than their surroundings, indicating lower
+
+23
+potential and suggesting the presence of vacancies. In contrast, areas marked with red dots appear
+brighter, corresponding to higher potential and possibly representing additional atoms adsorbed on
+
+the surface, interstitial carbon atoms, or heavier impurity atoms.
+
+3.3.2. Discussion
+
+Using a large convergence angle in 4D-STEM together with electron ptychography provides
+improved high-resolution imaging capabilities for studying defects in SWCNTs. Because SWCNTs
+only scatters weakly the incident electrons, they could in principle be considered as pure thin phase
+objects [29,75], which require only the single slice ptychography formalism. However, our results
+suggest that multi-slice ptychography performs better (see supplementary section 3). This is because
+the wave front of an aberrated probe changes between the front and back sides of the nanotube (see
+Figure $3 in supplementary section 3), and multi-slice reconstruction helps to compensate for that.
+For a comparison between mixed-state-only and mixed-state plus multi-slice ptychography
+
+reconstructions, see the supplementary section 3 (Figure S4 and Figure S5).
+
+The helical structure of nanotubes produces a moiré pattern in (4D-S)TEM images, arising from
+the superposition of the tube’s front and back sides relative to the electron beam propagation direction.
+This overlap complicates the interpretation of atomic defect structures. Ideally, separating the two
+sides would provide deeper insight into the defect structure, which in principle can be achieved using
+the virtual depth sectioning capability of multi-slice ptychography [43,76]. Here, the idea is to
+numerically isolate the front and back sides from a single projection. We investigated the theoretical
+performance of this technique as presented in Figure 7. We simulated 4D-STEM datasets obtained
+from a defective (18,12) nanotube structure extracted from MD simulations. Figure 7(a) shows the
+structure which contains two 5-7 ring pairs, i.e., ensembles of pentagon and heptagon carbon rings
+instead of the standard hexagon graphene-like arrangement. The tube can be divided into two parts,
+the frontside, which corresponds to the first part of the tube that encounters the electron beam during
+propagation, and the backside, which “sees” the electron beam after propagation across the frontside.
+The 5-7 ring pairs are only present on the backside of the tube, and are marked by blue and green
+dashed lines in Figure 7(a). The goal here is to compare two multi-slice electron ptychography
+reconstructions, corresponding to two experimental conditions, a first one similar to our experiment,
+with partially coherent electron beam coming from a X-FEG gun operating at 80 kV (Figure 7(b))
+and a second one with more coherent electron beam coming from a CFEG gun operating at 200 kV
+
+(Figure 7(c)).
+
+24
+(a) Frontside (b) 80 kV - FEG (c) .._200kV-CFEG
+
+Reconstructed frontside Reconstructed frontside
+
+Nanotube model
+
+£
+:
+£
+¢
+a
+r
+t
+bs
+z
+2.
+2
+
+a
+°
+od
+
+Reconstructed backside Reconstructed backside
+
+3
+$
+
+é
+
+fF
+Ps
+-
+‘
+a
+2
+2
+
+3
+>
+i
+
+Bb
+°
+pe
+
+10A
+—<—
+
+|
+
+Figure 7 — Multi-slice electron ptychography reconstructions from simulated 4D-STEM datasets. (a) defective
+nanotube model projected structure (left), defect free frontside (right top) and defective backside (right
+bottom). (b) Slices of the multi-slice ptychography reconstruction corresponding to a microscope operating at
+80 kV with a X-FEG gun, frontside (top) and backside (bottom). (c) Slices of the multi-slice ptychography
+reconstruction corresponding to a microscope operating at 200 kV with a CFEG gun, frontside (top) and
+backside (bottom).
+
+The depth resolution of this technique is limited by the focal spread of the STEM probe which
+depends on the electron wavelength, convergence angle, and coherence, i.e., energy spread, of the
+electron beam. The reconstruction from the 80 kV simulated dataset shown in Figure 7(b) fails to
+separate both side of the tube. The tube’s moiré pattern is visible in both slices (frontside, top of
+Figure 7(b) and backside bottom of Figure 7(b)). This is mainly due to the large focal spread of 25
+nm induced by chromatic aberrations in this configuration which is larger than the tube diameter (2
+nm). Although the mixed-state formalism can, in principle, compensate for the partial coherence of
+the electron beam [77,78], its combination with decoherence from thermal vibrations is too significant
+to allow the ptychographic reconstruction to resolve both sides of the tube. In a more favorable
+configuration, at 200 kV with a smaller energy spread, the focal spread is now reduced to 3.4 nm.
+The corresponding mixed-state-multi-slice reconstruction is shown in Figure 7(c) and it is able to
+
+partially isolate both sides of the tube, even though the focal spread is larger than the tube diameter.
+
+25
+Although the contrast in each slice is not perfect, it is possible to directly visualize both defects
+
+(Figure 7(c) bottom).
+
+Therefore, multi-slice ptychography could be a way to directly image atomic defects in
+SWCNTs. However, the approach presented in this study suffers from several flaws. First, due to the
+small size of SWCNTs and the weak scattering power of individual carbon atoms, it requires large
+electron doses (on the order of 10° e~-A~), which can damage the nanotubes during acquisition.
+Second, achieving sufficient depth resolution to image both sides of a SWCNT from a single
+projection appears to require operating the microscope at high accelerating voltages (200 kV or
+higher). Such conditions, however, will induce even stronger knock-on damages during data
+acquisition and are not expected to be suitable for carbon nanotube imaging. Several technical
+strategies could, be explored to improve multi-slice ptychography performance on SWCNTs.
+Possible approaches include increasing the convergence angle and coherence, optimizing the defocus
+conditions, improving reconstruction algorithm performances, or combining ptychography with
+tomography. However, assessing the feasibility and efficiency of these strategies would require a
+
+dedicated study, which lies beyond the scope of the present paper.
+
+4. Conclusion
+
+We have demonstrated the efficiency of 4D-STEM using a hybrid pixelated detector for
+structural characterization of single-walled carbon nanotubes (SWCNTs) with multiscale capabilities.
+At small convergence angles, this approach enables efficient chirality determination with spatial
+resolution down to a few nanometers, making it possible to map chirality variations and track
+structural changes along the tube. Additionally, strain mapping was successfully implemented, with
+reliable measurement of the radial strain component. It allows to map projected diameter variations
+across individual tubes which potentially opens new investigations of the relation between their
+structural and electronic properties. We also discussed the influence of the STEM probe convergence
+angle on these measurements. First, they are inherently limited by the trade-off between spatial and
+reciprocal space resolution, as discussed section 3.1.3. This limitation will become even more
+significant when analyzing multi-walled carbon nanotubes (MWCNTSs), which are more likely to
+exhibit closed interlayer lines. This will severely restrict the maximum usable probe convergence
+angle, further reducing spatial resolution. Additionally, radial strain can introduce errors in chirality
+determination by altering the measured diameter. While Liu and Qin showed that radial strain should
+
+not impact chirality determination [63], we argue that large radial deformations can, in fact, lead to
+
+26
+incorrect chirality assignment when using the ILLS method. Despite these intrinsic limitations, we
+
+were able to define criteria to ensure robust chirality measurement as well as radial strain.
+
+At large convergence angles, 4D-STEM combined with electron ptychography achieves
+atomic-scale imaging, reaching a spatial resolution of 1.0 A on SWCNTs. Its strong phase contrast
+enables both chirality determination as well as visualization of atomic scale defects within nanotubes.
+Despite this, characterizing defects and distortions remains challenging due to the presence of moiré
+patterns. While multi-slice electron ptychography improves reconstruction quality, its current
+numerical depth sectioning capabilities are not sufficient to fully separate both side of the tubes with
+reasonable electron energies and dose. Even current state-of-the-art imaging techniques could fail to
+allow direct visualization of atomic defects in SWCNTs. A combination of ptychography and
+
+tomography could offer a solution [68], though such experiments remain technically challenging.
+
+Overall, this work paves the way toward multiscale structural characterization of carbon
+nanotubes, from hundreds of nanometers field of view to atomic-resolution imaging, and could be
+
+generalized to other 1D nano-objects.
+
+5. Acknowledgements
+
+The authors would like to thank the py4DSTEM team members, Stephanie M. Ribet, Georgios
+Varnavides, and Colin Ophus for useful discussions regarding ptychographic reconstructions. The
+authors acknowledge the support of the Agence Nationale de la Recherche (ANR) (grant ANR-20-
+CE09-0007-01). This project received funding from the European Research Council under the
+European Union’s H2020 Research and Innovation program via the e-See project (Grant No. 758385),
+as well as from the ANR via the PEPR “DIADEM” project METSA (No. ANR-22-PEXD-0013). A
+CC-BY public copyright license has been applied by the authors to the present document and will be
+applied to all subsequent versions up to the author accepted manuscript arising from this submission,
+
+in accordance with the grant’s open access conditions.
+
+6. Appendix
+
+This appendix contains mathematical definitions and some demonstrations supporting the paper
+
+main text:
+e Reciprocal space coordinates:
+k=k,Kk,+kgkg (Al)
+
+27
+e 0" -order Bessel function [26]:
+
+1 21
+—_ ix cost
+Io) = lh e dt (A2)
+
+e Layer lines corresponding to D; (i = 1,2, ...,6)
+
+n-m n+2m te
+a= V30 , 2 = 30 , & = V30 , M3
+¥3m Vv3n V¥3(n+m) se)
+4> nm 5 7 6 - :
+
+The same relations apply for € ‘ and (n8 ,mP ).
+e Squared modulus of the 1D integral of a 2D circular aperture:
+
+Let us define an aperture function in two dimensions of radius r centered at the origin of the
+coordinates system:
+xepy? sr?
+
+. A4
+x2+y2%>r? (A4)
+
+Ao =f
+
+The one-dimensional integral of this function is defined as:
+
+LQ) = I A(x,y) dex. (AS)
+
+Considering the function’s definition (Eq. A4), Eq. A5 can be written as:
+dx, <r
+no = ap bist, (A6)
+0 lyl>r
+Then, Eq. A6 can be simplified to become:
+2 a 2) <
+40 =| qe vo Whee (A7)
+0, lyl >r
+This allows to write the squared modulus of the integral of the aperture function which is expressed
+as:
+
+A(r? —y?), lyl sr
+
+wae = fOr ge (A8)
+
+e Simplification of the kg peak intensity profile:
+
+Let’s simplify the expression of P,,(kq) in Eq. (14). To do so, we first need to expand the expression
+(A@F, 1, )(K). For any layer-line L;, if we consider only the non-zero k, component, we know
+
+Fy (ky) % Jy(ttdok,), (A9)
+
+28
+where J, is a v'""-order Bessel function with v a linear combination of the chiral indices (n,m) [26].
+Thus, we can write F,,(k) as:
+
+F, Ck) = Fy, Ce ka) & yp tdok,, 0)@5(0, ka — Gi) Ck, ka), (A10)
+where 6 is the Dirac delta function. Using the convolution commutativity and the 5 properties with
+convolution products, we get:
+
+i(k) « (A@F,,)(K) & [ACK ka — G))®@Jy tdok,, 0)](K), (All)
+Now, Eq. (14) can be written as
+
+Krmax
+
+Pi (ka) & J” [LAC ka = 6) @v(doky» 0)](K) Pd. (A12)
+
+Krmax
+
+The only term in Eq. (A12) that depends on kg is A(k,, kg — G;). After all operations: convolution,
+squared modulus and integration over k,, the final width of P,,(k,) depends only on the size of the
+aperture ky and on the maximum value of J,(dyk,,0). Indeed, convolution with larger absolute
+values leads to a larger broadening of the line. Note that we are only interested in the proportions of
+P,,. If we replace J,(mdok,,0) in Eq. (A12) with 1, i.e., the maximum value of the normalized
+function, Eq. (A12) still preserves proportionality. We have
+
+Krmax
+P,, (ka) & | [Ak ka — G)@ 100 (2a, (AL)
+
+—Kkrmax
+
+which can also be written as
+
+Krmax
+Pu (ka) & |
+
+Krmax
+
+2
+dk,,. (Al4)
+
++00
+| Ake, — Uy, ky — G,) du,
+
+After the first integral, the resulting function inside the squared modulus in Eq. (A14) only depends
+
+on kq which means the integral from —k,,,,, to k;,,,,, over k, only adds another proportionality factor.
+
+Finally, Eq. (A14) can be simplified as:
+
++00 2
+Pi (Ka) & | A(k, — u,, kg — G;) du, (A15)
+Using Eqs. (A6), (A7) and (A8), we get the following solution for Eq. (A15)
+2 _£f.)2 _Pr.
+(ka) « {tke — ka G)"} Mea Gil Sea (Al6)
+‘ 0, |ka-Gil > ke
+
+7. References
+
+[1] Franklin AD. The road to carbon nanotube transistors. Nature 2013;498:443-4.
+https://doi.org/10.1038/498443a.
+
+29
+2] Hills G, Lau C, Wright A, Fuller S, Bishop MD, Srimani T, et al. Modern microprocessor built
+from complementary carbon nanotube transistors. Nature 2019;572:595—602.
+https://doi.org/10.1038/s41586-019-1493-8.
+
+[3] Li Y-T, Sun K, Luo D, Wang Y-M, Han L, Liu H, et al. A review on low-dimensional novel
+
+optoelectronic devices based on carbon nanotubes. AIP Adv  2021;11:110701.
+
+https://doi.org/10.1063/5.0063774.
+
+[4] Recent Advances in Structure Separation of Single-Wall Carbon Nanotubes and Their
+Application in Optics, Electronics, and Optoelectronics - Wei - 2022 - Advanced Science - Wiley
+Online Library n.d. https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/advs.202200054
+(accessed August 17, 2025).
+
+5] Borel A, Habrant-Claude T, Rapisarda F, Reichel J, Doorn SK, Voisin C, et al. Telecom Band
+Single-Photon Source Using a Grafted Carbon Nanotube Coupled to a Fiber Fabry—Perot Cavity
+in the Purcell Regime. ACS Photonics 2023;10:2839-45.
+https://doi.org/10.1021/acsphotonics.3c00541.
+
+6] Synthesis, Sorting, and Applications of Single-Chirality Single-Walled Carbon Nanotubes n.d.
+https://www.mdpi.com/1996-1944/15/17/5898 (accessed August 17, 2025).
+
+7] Acharya R, Patil TV, Dutta SD, Lee J, Ganguly K, Kim H, et al. Single-Walled Carbon Nanotube-
+Based Optical Nano/Biosensors for Biomedical Applications: Role in Bioimaging, Disease
+Diagnosis, and Biomarkers Detection. Adv Mater Technol  2024;9:2400279.
+https://doi.org/10.1002/admt.202400279.
+
+[8] Charlier J-C, Blase X, Roche S. Electronic and transport properties of nanotubes. Rev Mod Phys
+2007;79:677—732. https://doi.org/10.1103/RevModPhys.79.677.
+
+9] Jourdain V, Bichara C. Current understanding of the growth of carbon nanotubes in catalytic
+chemical vapour deposition. Carbon 2013;58:2-39.
+https://doi.org/10.1016/j.carbon.2013.02.046.
+
+[10] Yang F, Wang M, Zhang D, Yang J, Zheng M, Li Y. Chirality Pure Carbon Nanotubes:
+
+Growth, Sorting, and Characterization. Chem Rev 2020;120:2693—758.
+
+https://doi.org/10.1021/acs.chemrev.9b00835.
+
+11 Yang F, Wang X, Si J, Zhao X, Qi K, Jin C, et al. Water-Assisted Preparation of High-Purity
+
+Semiconducting (14,4) Carbon Nanotubes. ACS Nano 2017;11:186-93.
+
+https://doi.org/10.102 1/acsnano.6b06890.
+
+12] Wang J, Jin X, Liu Z, Yu G, Ji Q, Wei H, et al. Growing highly pure semiconducting carbon
+
+nanotubes by electrotwisting the helicity. Nat Catal 2018;1:326-31.
+
+https://doi.org/10.1038/s41929-018-0057-x.
+
+13 Pimonov V, Tran H-N, Monniello L, Tahir S, Michel T, Podor R, et al. Dynamic Instability
+
+of Individual Carbon Nanotube Growth Revealed by In Situ Homodyne Polarization Microscopy.
+
+Nano Lett 2021;21:8495—502. https://doi.org/10.1021/acs.nanolett.1c03431.
+
+14] Chai L, Yu Y, Xiong H, Chen X, Zhang W, Ren H, et al. Symmetry and Asymmetry in
+
+Mutations and Memory Retention during the Evolutionary Growth of Carbon Nanotubes. J Am
+
+Chem Soc 2024. https://doi.org/10.1021/jacs.4c 10400.
+
+15] Tang D-M, Erohin SV, Kvashnin DG, Demin VA, Cretu O, Jiang S, et al. Semiconductor
+
+nanochannels in metallic carbon nanotubes by thermomechanical chirality alteration. Science
+
+2021;374:1616—20. https://doi.org/10.1126/science.abi8884.
+
+16] Tang D-M, Cretu O, Ishihara S, Zheng Y, Otsuka K, Xiang R, et al. Chirality engineering for
+
+carbon nanotube electronics. Nat Rev Electr Eng 2024; 1:149-62. https://doi.org/10.1038/s44287-
+
+023-0001 1-8.
+
+17] Datt Bhatt M, Kim H, Kim G. Various defects in graphene: a review. RSC Adv
+
+2022;12:21520-47. https://doi.org/10.1039/D2RA01436J.
+
+18] WeiD, Liu Y. The Intramolecular Junctions of Carbon Nanotubes. Adv Mater 2008;20:2815—
+41. https://doi.org/10.1002/adma.200800589.
+
+30
+19
+
+20
+
+2
+
+—
+
+22
+
+24
+25
+
+[26
+
+[28
+
+29
+
+30
+
+31
+
+33
+
+34
+
+35
+
+Zhang X, Dong J, Gong X, Ding F. The formation and stability of junctions in single-wall
+carbon nanotubes. Nanotechnology 2018;29:485702. https://doi.org/10.1088/1361-6528/aae0b7.
+
+Ahmad MA, Quraishi AM, Jagnandan S, Jagnandan A, Baker JH, Ahamed MI, et al.
+Understanding into atomic structures and electronic properties from the analysis of intramolecular
+junctions in carbon nanotubes. Mater Today Commun = 2024;38:108096.
+https://doi.org/10.1016/j.mtcomm.2024.108096.
+
+Ouyang M, Huang J-L, Cheung CL, Lieber CM. Atomically Resolved Single-Walled Carbon
+Nanotube Intramolecular Junctions. Science 2001;291:97—100.
+https://doi.org/10.1126/science.291.5501.97.
+
+Castan A, Forel S, Fossard F, Defillet J, Ghedjatti A, Levshov D, et al. Assessing the reliability
+of the Raman peak counting method for the characterization of SWCNT diameter distributions:
+a cross characterization with TEM. Carbon 2021;171:968-79.
+https://doi.org/10.1016/j.carbon.2020.09.012.
+
+Araujo PT, Jorio A. The role of environmental effects on the optical transition energies and
+radial breathing mode frequency of single wall carbon nanotubes. Phys Status Solidi B
+2008;245:2201—4. https://doi.org/10.1002/pssb.200879625.
+
+Zhao Q, Zhang J. Characterizing the Chiral Index of a Single-Walled Carbon Nanotube. Small
+2014;10:4586-—605. https://doi.org/10.1002/smll.201401567.
+
+Ijima S. Helical microtubules of graphitic carbon. Nature 1991;354:56-8.
+https://doi.org/10.1038/354056a0.
+
+Qin L-C. Determination of the chiral indices (n,m) of carbon nanotubes by electron
+diffraction. Phys Chem Chem Phys 2006;9:3 1-48. https://doi.org/10.1039/B614121H.
+
+Jiang H, Nasibulin AG, Brown DP, Kauppinen EI. Unambiguous atomic structural
+determination of single-walled carbon nanotubes by electron diffraction. Carbon 2007;45:662-7.
+https://doi.org/10.1016/j.carbon.2006.07.025.
+
+He M, Magnin Y, Amara H, Jiang H, Cui H, Fossard F, et al. Linking growth mode to lengths
+of single-walled carbon nanotubes. Carbon 2017;113:231-6.
+https://doi.org/10.1016/j.carbon.2016.11.057.
+
+Zuo JM, Vartanyants I, Gao M, Zhang R, Nagahara LA. Atomic Resolution Imaging of a
+Carbon Nanotube from Diffraction Intensities. Science 2003;300:1419-21.
+https://doi.org/10.1126/science. 1083887.
+
+Hirahara K, Kociak M, Bandow S, Nakahira T, Itoh K, Saito Y, et al. Chirality correlation in
+double-wall carbon nanotubes as studied by electron diffraction. Phys Rev B 2006;73:195420.
+https://doi.org/10.1103/PhysRevB.73.195420.
+
+Zhang J, Zuo JM. Structure and diameter-dependent bond lengths of a multi-walled carbon
+nanotube revealed by electron diffraction. Carbon 2009;47:35 15-28.
+https://doi.org/10.1016/j.carbon.2009.08.024.
+
+Gao M, Zuo JM, Twesten RD, Petrov I, Nagahara LA, Zhang R. Structure determination of
+individual single-wall carbon nanotubes by nanoarea electron diffraction. Appl Phys Lett
+2003;82:2703-5S. https://doi.org/10.1063/1.1569418.
+
+Yu Y, Zhao Y, Li S, Zhao C, Liu W, Wang S, et al. Determine the Complete Configuration
+of Single-Walled Carbon Nanotubes by One Photograph of Transmission Electron Microscopy.
+Adv Sci 2023;10:2206403. https://doi.org/10.1002/advs.202206403.
+
+Forster GD, Castan A, Loiseau A, Nelayah J, Alloyeau D, Fossard F, et al. A deep learning
+approach for determining the chiral indices of carbon nanotubes from high-resolution
+transmission electron microscopy images. Carbon 2020;169:465—74.
+https://doi.org/10.1016/j.carbon.2020.06.086.
+
+Suenaga K, Wakabayashi H, Koshino M, Sato Y, Urita K, Iijima S. Imaging active topological
+defects in carbon nanotubes. Nat Nanotechnol 2007;2:358-60.
+https://doi.org/10.1038/nnano.2007.141.
+
+31
+36
+
+38
+
+39
+
+40
+
+[41
+
+42
+
+43
+
+44
+
+48
+
+49
+
+50
+51
+
+5
+
+N
+
+53
+
+Mustonen K, Hussain A, Hofer C, Monazam MRA, Mirzayev R, Elibol K, et al. Atomic-Scale
+Deformations at the Interface of a Mixed-Dimensional van der Waals Heterostructure. ACS Nano
+2018;12:8512-9. https://doi.org/10.1021/acsnano.8b04050.
+
+Ophus C. Four-Dimensional Scanning Transmission Electron Microscopy (4D-STEM): From
+Scanning Nanodiffraction to Ptychography and Beyond. Microsc Microanal 2019;25:563-82.
+https://doi.org/10.1017/S 143 1927619000497.
+
+Jiang Y, Chen Z, Han Y, Deb P, Gao H, Xie S, et al. Electron ptychography of 2D materials
+to deep sub-angstrém resolution. Nature 2018;559:343-9. https://doi.org/10.1038/s41586-018-
+0298-5.
+
+Chen Z, Odstrcil M, Jiang Y, Han Y, Chiu M-H, Li L-J, et al. Mixed-state electron
+ptychography enables sub-angstrom resolution imaging with picometer precision at low dose. Nat
+Commun 2020;11:2994. https://doi.org/10.1038/s41467-020-16688-6.
+
+Pennycook TJ, Lupini AR, Yang H, Murfitt MF, Jones L, Nellist PD. Efficient phase contrast
+imaging in STEM using a pixelated detector. Part 1: Experimental demonstration at atomic
+resolution. Ultramicroscopy 2015;151:160-—7. https://doi.org/10.1016/j.ultramic.2014.09.013.
+
+Yang H, Rutte RN, Jones L, Simson M, Sagawa R, Ryll H, et al. Simultaneous atomic-
+resolution electron ptychography and Z-contrast imaging of light and heavy elements in complex
+nanostructures. Nat Commun 2016;7:12532. https://doi.org/10.1038/ncomms 12532.
+
+Pennycook TJ, Martinez GT, Nellist PD, Meyer JC. High dose efficiency atomic resolution
+imaging via electron ptychography. Ultramicroscopy 2019;196:131-S.
+https://doi.org/10.1016/j-ultramic.2018.10.005.
+
+Chen Z, Jiang Y, Shao Y-T, Holtz ME, Odstréil M, Guizar-Sicairos M, et al. Electron
+ptychography achieves atomic-resolution limits set by lattice vibrations. Science 2021;372:826—
+31. https://doi.org/10.1126/science.abg2533.
+
+Kim J, Gilgenbach C, Bhat A, LeBeau JM. Quantifying Implantation-Induced Damage and
+Point Defects with Multislice Electron Ptychography. Nano Lett 2025;25:6927-34.
+https://doi.org/10.1021/acs.nanolett.5c00170.
+
+Dong Z, Zhang Y, Chiu C-C, Lu S, Zhang J, Liu Y-C, et al. Sub-nanometer depth resolution
+and single dopant visualization achieved by tilt-coupled multislice electron ptychography. Nat
+Commun 2025;16:1219. https://doi.org/10.1038/s41467-025-56499-1.
+
+Fast Parallel Algorithms for Short-Range Molecular Dynamics. J Comput Phys 1995;117:1—
+19. https://doi.org/10.1006/jcph. 1995.1039.
+
+Tersoff J. Modeling solid-state chemistry: Interatomic potentials for multicomponent systems.
+Phys Rev B 1989;39:5566-8. https://doi.org/10.1103/PhysRevB.39.5566.
+
+Meunier V. Energetics of bent carbon nanotubes. Phys Rev B_ 1998;57:2586-91.
+https://doi.org/10.1103/PhysRevB.57.2586.
+
+Magnin Y, Forster GD, Rabilloud F, Calvo F, Zappelli A, Bichara C. Thermal expansion of
+free-standing graphene: benchmarking semi-empirical potentials. J Phys Condens Matter
+2014;26:185401. https://doi.org/10.1088/0953-8984/26/18/185401.
+
+Madsen J, Susi T. The abTEM code: transmission electron microscopy from first principles.
+Open Res Eur 2021; 1:24. https://doi.org/10.12688/openreseurope.13015.2.
+
+Kirkland EJ. Advanced Computing in Electron Microscopy. Cham: Springer International
+Publishing; 2020. https://doi.org/10.1007/978-3-030-33260-0.
+
+Allen CS, Zhang C, Burnell G, Brown AP, Robertson J, Hickey BJ. A review of methods for
+the accurate determination of the chiral indices of carbon nanotubes from electron diffraction
+patterns. Carbon 2011;49:4961—71. https://doi.org/10.1016/j.carbon.2011.06.100.
+
+Virtanen P, Gommers R, Oliphant TE, Haberland M, Reddy T, Cournapeau D, et al. SciPy
+1.0: fundamental algorithms for scientific computing in Python. Nat Methods 2020;17:261—72.
+https://doi.org/10.1038/s41592-019-0686-2.
+
+32
+54
+
+56
+
+[57
+
+[58
+
+[60
+
+61
+
+62
+
+[63
+
+65
+
+66
+
+67
+
+68
+
+69
+
+[70
+
+71
+
+Amos DE. Algorithm 644: A portable package for Bessel functions of a complex argument
+and nonnegative order. ACM Trans Math Softw 1986; 12:265—73.
+https://doi.org/10.1145/7921.214331.
+
+Peigney A, Laurent Ch, Dobigeon F, Rousset A. Carbon nanotubes grown in situ by a novel
+catalytic method. J Mater Res 1997;12:613—5. https://doi.org/10.1557/JMR.1997.0092.
+
+Chen B, Gao M, Zuo JM, QuS, Liu B, Huang Y. Binding energy of parallel carbon nanotubes.
+App! Phys Lett 2003;83:3570-1. https://doi.org/10.1063/1.1623013.
+
+Kim D, Lee T, Kwon M, Paik H, Hun Han J, Kang M, et al. Polymer wrapping-induced
+dispersion of single walled carbon nanotubes in ethylene glycol under mild sonication. RSC Adv
+2020; 10:26262-7. https://doi.org/10.1039/DORA04061D.
+
+Towards the synthesis of semiconducting single-walled carbon nanotubes by floating-catalyst
+chemical vapor deposition: Challenges of reproducibility. Carbon 2022;195:92-100.
+https://doi.org/10.1016/j.carbon.2022.04.020.
+
+Jourdain V, Bichara C. Current understanding of the growth of carbon nanotubes in catalytic
+chemical vapour deposition. Carbon 2013;58:2-39.
+https://doi.org/10.1016/j.carbon.2013.02.046.
+
+Savitzky BH, Zeltmann SE, Hughes LA, Brown HG, Zhao S, Pelz PM, et al. py4DSTEM: A
+Software Package for Four-Dimensional Scanning Transmission Electron Microscopy Data
+Analysis. Microsc Microanal 2021;27:712-43. https://doi.org/10.1017/S143 1927621000477.
+
+Ryan CG, Clayton E, Griffin WL, Sie SH, Cousens DR. SNIP, a statistics-sensitive
+background treatment for the quantitative analysis of PIXE spectra in geoscience applications.
+Nucl Instrum Methods Phys Res Sect B Beam Interact Mater At 1988;34:396—402.
+https://doi.org/10.1016/0168-583X(88)90063-8.
+
+Park C-J, Kim Y-H, Chang KJ. Band-gap modification by radial deformation in carbon
+nanotubes. Phys Rev B 1999;60:10656-9. https://doi.org/10.1103/PhysRevB.60. 10656.
+
+Liu Z, Qin L-C. Electron diffraction from elliptical nanotubes. Chem Phys Lett
+2005;406:106—10. https://doi.org/10.1016/j.cplett.2005.02.103.
+
+Radial deformation and its related energy variations of single-walled carbon nanotubes | Phys.
+Rev. B n.d. https://journals.aps.org/prb/abstract/10.1103/PhysRevB.83.134113 (accessed August
+24, 2025).
+
+(IUCr) Electron Ptychography. I. Experimental Demonstration Beyond the Conventional
+Resolution Limits n.d. https://journals.iucr.org/paper?S0108767397010490 (accessed March 28,
+2025).
+
+Contrast transfer and noise considerations in focused-probe electron ptychography.
+Ultramicroscopy 2021;221:113189. https://doi.org/10.1016/j-ultramic.2020.113189.
+
+Nguyen KX, Jiang Y, Lee C-H, Kharel P, Zhang Y, van der Zande AM, et al. Achieving sub-
+0.5-angstrom-resolution ptychography in an uncorrected electron microscope. Science
+2024;383:865-70. https://doi.org/10.1126/science.ad12029.
+
+Varnavides G, Ribet SM, Zeltmann SE, Yu Y, Savitzky BH, Byrne DO, et al. Iterative Phase
+Retrieval Algorithms for Scanning Transmission Electron Microscopy 2024.
+https://doi.org/10.48550/arXiv.2309.05250.
+
+Deb P, Cao MC, Han Y, Holtz ME, Xie S, Park J, et al. Imaging Polarity in Two Dimensional
+Materials by Breaking  Friedel’s Law. Ultramicroscopy = 2020;215:113019.
+https://doi.org/10.1016/j-ultramic.2020.113019.
+
+Rochefort A, Avouris P, Lesage F, Salahub DR. Electrical and mechanical properties of
+distorted carbon nanotubes. Phys Rev B 1999;60:13824-30.
+https://doi.org/10.1103/PhysRevB.60.13824.
+
+Shima H. Buckling of Carbon Nanotubes: A State of the Art Review. Materials 2012;5:47—
+84. https://doi.org/10.3390/ma5010047.
+
+33
+72
+
+(73
+
+74
+
+Chen Y-R, Weng C-I, Sun S-J. Electronic properties of zigzag and armchair carbon nanotubes
+under uniaxial strain. J Appl Phys 2008; 104:114310. https://doi.org/10.1063/1.3033167.
+
+Laird EA, Kuemmeth F, Steele GA, Grove-Rasmussen K, Nygard J, Flensberg K, et al.
+Quantum transport in carbon nanotubes. Rev Mod Phys  2015;87:703-64.
+https://doi.org/10.1103/RevModPhys.87.703.
+
+Dmitrovié S, MiloSevi¢ I, Damnjanovié M, Vukovic T. Electronic Properties of Strained
+Carbon Nanotubes: Impact of Induced Deformations. J Phys Chem C 2015;119:13922-8.
+https://doi.org/10.1021/acs.jpcc.5b02455.
+
+Qin C, Peng L-M. Measurement accuracy of the diameter of a carbon nanotube from TEM
+images. Phys Rev B 2002;65:155431. https://doi.org/10.1103/PhysRevB.65.155431.
+
+O’Leary CM, Sha H, Zhang J, Su C, Kahn S, Jiang H, et al. Three-dimensional structure of
+buried heterointerfaces revealed by multislice ptychography. Phys Rev Appl 2024;22:014016.
+https://doi.org/10.1103/PhysRevApplied.22.014016.
+
+Thibault P, Menzel A. Reconstructing state mixtures from diffraction measurements. Nature
+2013;494:68—71. https://doi.org/10.1038/nature1 1806.
+
+Chen Z, Odstrcil M, Jiang Y, Han Y, Chiu M-H, Li L-J, et al. Mixed-state electron
+ptychography enables sub-angstrom resolution imaging with picometer precision at low dose. Nat
+Commun 2020;11:2994. https://doi.org/10.1038/s41467-020-16688-6.
+
+34
+Supplementary to
+
+Advanced structural characterization of single-walled
+
+carbon nanotubes with 4D-STEM
+
+Antonin LOUISET!, Daniel FORSTER?, Vincent JOURDAIN?, Said TAHIR?, Nicola VIGANO!,
+Christophe BICHARA* and Hanako OKUNO!.
+
+'TRIG-MEM, CEA, Université Grenoble Alpes, Grenoble, France.
+
+Interfaces, Confinement, Matériaux et Nanostructures, ICMN, Université d’Orléans, CNRS,
+Orléans, France.
+
+3Laboratoire Charles Coulomb, CNRS, Université de Montpellier, Montpellier, France.
+
+4CINaM, CNRS, Université Aix-Marseille, Marseille, France.
+
+*Author to whom correspondence should be addressed: hanako.okuno@cea.fr
+
+35
+1. Experimental and simulated diffraction patterns
+
+Figure S 1 shows the experimental and simulated diffraction patterns discussed in sections 2.5
+
+and 3.1 of the article main text.
+
+Figure S 1 — Experimental PACBEDs (a, c) and simulated diffraction patterns (b, d) of nanotubes NT1 (a, b)
+and NT2 (c, d). The direct beam had been masked and images are plotted using a square root intensity scale
+for better visualization. (b) corresponds to a (23,23) SWCNT tilted at B = 4.6° and (d) to a (15,12) SWCNT
+tilted at B = 10.1°, as determined by the ILLS method for NT1 and NT2, respectively.
+
+2. Convergence angle limitations for radial strain mapping
+
+To evaluate potential errors in diameter measurements, we simulated SWCNT electron
+diffraction patterns at 80kV for a representative set of chiralities: (15,11), (11,11), (23,17), (14,0),
+(13,6), (9,4) and (28,3); and for convergence angles between 0.6 and 2.4 mrad. For each diffraction
+pattern, we determined the tube diameter by fitting the equatorial line intensity profile along k,., using
+two fitting functions. The first one is the squared modulus of a 0"-order Bessel function, |Jo|?, which
+is the standard function used in the literature [1—3] and the second one is the squared modulus of a 0"
+2
+
+order Bessel function convolved with an aperture function, |A@Jo|*, which we propose as a correction
+
+36
+for the convergence angle of the STEM probe. We then calculated the relative diameter errors by
+comparing the measured diameters with the ground-truth values from the simulation input, using the
+following relation:
+
+d —d
+dorror = — a - cruth (2.1)
+truti
+
+The results are plotted in Figure S 2. Each marker corresponds to a single chirality and shows the
+relative error as a function of the probe convergence angle. Blue and orange markers indicate errors
+obtained when the diameter is measured using the |J,|* and the |A@/Jo|* functions, respectively. The
+averaged errors across all chiralities are shown by the colored lines, with blue corresponding to the
+
+Jol? function and orange to the |A®J,|? function.
+
+Chiralities Fitted functions oo
+@ (15,11) — |?
+107+ y (11,11) A® fol? 3
+x a (23,17) Jo id
+3 < (14,0) :
+Co a
+£ > (13,6) ‘ :
+re} * (9,4)
+5 * (28, 3)
+? 10-24 :
+vo
+2
+vo
+£
+=
+* e
+g * : a <
+a s
+8 10-34 5 5 4 >
+a
+<
+>
+0.50 0.75 1.00 1.25 1.50 1.75 2.00 2.25 2.50
+
+a (mrad)
+
+Figure S 2 — Relative errors on diameter measurement from simulated diffraction patterns. Each marker
+represents one of the 7 chiralities used in the simulations. The data plotted in blue, shows the error on the
+diameter measurement obtained when fitting the equatorial line profile with the |Jg|? function, for a given
+
+convergence angle. In orange, the same error but using the |A@Jo|? function to fit the intensity profile is
+shown. In addition, averaged errors for all chiralities are shown by the colored lines, in blue for | Jol? and
+
+orange for |A@Jo|?.
+
+For |A@Jo|?, the errors do not increase with the convergence angle and remain within a
+reasonable range between 10 and 10°. This is not the case for |J|*, where the errors gradually
+increase for convergence angles greater than 1 mrad. They reach values of several percents even for
+angles below 2 mrad which are no longer negligible for strain measurements. Therefore, conducting
+experiments with larger convergence angles to improve spatial resolution requires correcting for the
+convolution with the aperture function. However, the |A®Jo|* model becomes highly non-linear and
+difficult to fit robustly to experimental data with the currently implemented fitting procedure. For a
+[2
+
+< 1 mrad, both models yield comparable results, with |J)|* even achieving slightly lower residual
+
+37
+errors. This is why in this work, we decided to fit the equatorial line profiles with the |Jg|? function
+
+and to operate with convergence angles smaller than | mrad.
+
+3. Electron ptychography
+
+As introduced in the main text (section 3.3.2), SWCNTs can be described by the weak phase
+object approximation [4,5], which implies that their atomic structure can be resolved using the single
+slice ptychography formalism. However, because carbon nanotubes are three-dimensional objects
+with finite diameters, the wavefront of a convergent electron beam differs slightly between the
+entrance and exit of a tube. A STEM probe that is in focus on one side of the tube will be out of focus
+on the opposite side, by an amount corresponding to the tube diameter. For example, in the case of
+the (37,1) SWCNT presented in this paper, the exit wave front is equivalent to the entrance wave
+front propagated by 29.8 A, which corresponds to the theoretical diameter of this tube. This is
+illustrated in Figure S 3, where the entrance wave front reconstructed with ptychography is shown in
+Figure S 3(a) and the propagated wave front on the other side of the tube is shown in Figure S 3(b).
+These images represent electron wave functions by plotting their phase component (color scale)
+weighted by their amplitude component using color saturation. Because the diameter of the tube is
+relatively small (only a few nanometers), probe propagation does not drastically affect the wave front.
+Nonetheless, noticeable differences appear in both the phase and amplitude components, as illustrated
+in Figure S 3(c). In the following, we discuss how these differences can influence the ptychographic
+reconstructions.
+
+a) b) Difference
+
+Entrance probe Propagated probe
+
+2
+
+Amplitude
+Amplitude
+Se ¢
+Amplitude
+
+400
+Phase [rad]
+
+Figure S 3 — (a) Electron probe wave function at the entrance of the nanotube and (b), electron wave function
+when propagated by 29 A on the other side of the nanotube. The phase is shown in color scale weighted by the
+amplitude component using color saturation.
+
+Figure S 4 shows two ptychographic phase images of the (37,1) SWCNT, one reconstructed
+using the single slice formalism (Figure S 4(a)) and one using the multi-slice formalism with 2 slices
+of 29 A (Figure S 4(b), same as in the paper main text, Figure 6). Both reconstructions were run using
+
+the same parameters apart for the number of slices, with 3 probe modes. As expected, the phase
+
+38
+images are similar, although the single slice reconstruction exhibits more pronounced artifacts,
+particularly Fresnel fringes on the left side of the tube.
+
+a) b)
+
+Single slice Multislice
+
+=
+=
+a x10-3
+1
+= z
+_—s =} 3
+ooo =
+soe =)
+—e ae
+— =] 2
+——< —-+
+a} —
+——- SS o
+—| =<
+—= —_ nn
+9 1 @&
+— £
+—— a.
+0
+-1
+
+inm
+—
+
+AHL
+
+t
+
+Figure S 4 — (a) Ptychographic reconstruction using the single slice formalism and (b) Ptychographic
+reconstruction using the multi-slice approach (same as in the main text, Figure 6).
+
+A Ptychographic reconstruction error
+10
+
+x1073 — Single slice
+3.60
+\\ —— Multislice
+x
+
+Single NMSE \
+= 3.58x10-? IN
+
+lo“) 4
+
+NMSE
+
+10-?
+
+oO 25 50 75 100 125 150 175 200
+Number of iterations
+
+Figure S 5 - Ptychographic reconstruction residual errors as a function of the number of iterations for the single
+slice reconstruction (blue line) and the multi-slice reconstruction (orange line).
+
+This similarity, with the multi-slice method performing slightly better, is also reflected in the
+Normalized Mean Squared Error (NMSE) of the reconstructions. The NMSE quantifies the error
+between the modelled diffracted intensities, computed by applying the object and propagation
+operators to the modelled probe modes, and the experimental data [6]. Figure S 5 shows the residual
+NMSE as a function of the number of iterations for both reconstructions. The single slice and multi-
+
+slice formalisms are plotted with a blue line and orange line, respectively. The two lines are almost
+
+39
+superimposed, indicating comparable performance, however, the multi-slice reconstruction yields
+lower residual errors, as shown in the inset. Since using only two slices does not significantly increase
+reconstruction time or computational resource requirements, we adopted the multi-slice formalism
+
+for ptychographic imaging in this work.
+
+Finally, Figure S 6 shows the reconstructed probe modes of the multi-slice simulation. All
+modes are plotted in real (Figure S 6(a)) and reciprocal space (Figure S 6(b)). They are composed of
+one main probe mode: probe |, accounting for 98.9% of the total intensity and two additional modes:
+
+probe 2 and probe 3, accounting for 0.7% and 0.3% of the total intensity, respectively.
+
+a) Probe 1 - intensity: 98.9% Probe 2 - intensity: 0.7%
+
+Probe 3 - intensity: 0.3%
+
+0,04 zt 0.025 7
+Fi n
+3 is 00200, Mm! s
+a8 g 0.038 8 3 fd
+8° 3 am 3 00s So g
+O88 LE ook oe § 2
+oe = 0.010 a
+02 Ss oor | on
+3 2 0.005 | f=3
+b) Probe 1 - intensity: 98.9% Probe 2 - intensity: 0.7% Probe 3 - intensity: 0.3%
+20 > =
+a 4 ca
+4
+“ell = Pe hae 3g W's
+2 & 33 5s 2 &
+Zl}o @ 2 0% = og
+10 g a a = g
+Ea) i 28 é 28 é
+
+Figure S 6 — Reconstructed probe mode wave functions for the multi-slice reconstruction in real space (a) and
+in reciprocal space (b).
+
+4. Supplementary references
+
+1] Liu Z, Qin L-C. Electron diffraction from elliptical nanotubes. Chem Phys Lett 2005;406:106—
+10. https://doi.org/10.1016/j.cplett.2005.02.103.
+
+2] Jiang H, Nasibulin AG, Brown DP, Kauppinen EI. Unambiguous atomic structural determination
+of single-walled carbon nanotubes by electron diffraction. Carbon 2007;45:662-7.
+https://doi.org/10.1016/j.carbon.2006.07.025.
+
+3] Allen CS, Zhang C, Burnell G, Brown AP, Robertson J, Hickey BJ. A review of methods for the
+accurate determination of the chiral indices of carbon nanotubes from electron diffraction
+patterns. Carbon 2011;49:4961—71. https://doi.org/10.1016/j.carbon.2011.06.100.
+
+4] Qin C. Measurement accuracy of the diameter of a carbon nanotube from TEM images. Phys Rev
+B 2002;65. https://doi.org/10.1103/PhysRevB.65.155431.
+
+5] Zuo JM, Vartanyants I, Gao M, Zhang R, Nagahara LA. Atomic Resolution Imaging of a Carbon
+Nanotube from Diffraction Intensities. Science 2003;300:1419-21.
+https://doi.org/10.1126/science. 1083887.
+
+40
+[6] Varnavides G, Ribet SM, Zeltmann SE, Yu Y, Savitzky BH, Byrne DO, et al. Iterative Phase
+Retrieval Algorithms for Scanning Transmission Electron Microscopy 2024.
+https://doi.org/10.48550/arXiv.2309.05250.
+
+4l

@@ -1,0 +1,3122 @@
+arXiv:2510.25274v1 [astro-ph.HE] 29 Oct 2025
+
+DRAFT VERSION OCTOBER 30, 2025
+Typeset using IAT&X twocolumn style in AASTeX631
+
+A Dual-Resolution Prescription in the Sj Method for Boltzmann Neutrino Transport I: Proof of
+
+Principle and the Resolution of Collision Term
+
+Axira Iro®; Ryuicuiro AKAHo @,2 Hiroki Nacakura ©,3 and SHorcut YaMapA ©!
+
+1 Graduate School of Advanced Science and Engineering, Waseda University, 3-4-1 Okubo, Shinjuku, Tokyo 169-8555, Japan
+
+? Faculty of Science and Engineering, Waseda University, 3-4-1 Okubo, Shinjuku, Tokyo 169-8555, Japan
+3 Division of Science, National Astronomical Observatory of Japan, 2-21-1 Osawa, Mitaka, Tokyo 181-8588, Japan
+
+4 Department of Physics, School of Advanced Science and Engineering, Waseda University, 3-4-1 Okubo, Shinjuku, Tokyo 169-8555, Japan
+
+ABSTRACT
+
+We propose a dual-resolution prescription meant for the Boltzmann neutrino transport, in which the
+advection and collision terms are calculated with different angular resolutions in momentum space. The
+purpose is to address the issue of the low resolution that afflicts the Sj method in the multi-dimensional
+neutrino transport simulations for core-collapse supernovae. We handle with a high resolution the
+advection term alone, assuming that the collision term does not require such high resolutions. To
+confirm this surmise as well as our new conversion scheme, from low- to high-angular resolutions and
+vice versa, we run a couple of experimental one-zone (in space) simulations. Neutrino scatterings
+on nucleons are considered with small recoils fully taken into account whereas the advection term is
+replaced by the angle- and energy-dependent source terms that are designed to mimic the results of a
+Boltzmann simulation, inducing the anisotropy in momentum space. For the conversion from a low-
+resolution distribution function to a high-resolution one, we employ a polynomial interpolations in the
+zenith and azimuth directions separately with the number conservation and continuity (and periodicity
+only in the azimuth direction). We find that this dual-resolution scheme works well and that the current
+angular resolution employed in the canonical supernova simulations with our Boltzmann solver or a bit
+
+better in the ¢, direction will be sufficient for the collision terms if they are coupled with the advection
+
+terms calculated with a high-angular resolution via this prescription.
+
+1. INTRODUCTION
+
+Core-collapse supernovae (CCSNe) are explosive
+events that finish the lives of massive stars with
+Mzams 2 8M. Since they involve various physical
+processes coupled with one another nonlinearly, reveal-
+ing the explosion mechanism of CCSNe is a challeng-
+ing problem across astro-, nuclear and particle physics.
+It requires solving hydrodynamics and neutrino trans-
+port (and gravity) quantitatively and simultaneously.
+Although we have witnessed remarkable progresses in
+the theoretical understanding thanks to the growth of
+computational resources and the advances in numeri-
+cal methods over several decades, and multi-dimensional
+simulations produce explosions rather commonly these
+days (Burrows & Vartanyan 2021; Burrows et al. 2024;
+Janka & Kresse 2024), the details of the explosion
+mechanism are still not fully uncovered (Janka et al.
+2016; Mezzacappa 2023; Yamada et al. 2024; Boccioli &
+Roberti 2024).
+
+It is a well-known fact that the neutrino heating is
+crucial for explosion. Since neutrinos are neither in
+
+thermal nor in chemical equilibrium in general, their
+transport is described by a kinetic equation, for exam-
+ple, the Boltzmann equation if the quantum kinetics is
+ignored. They may be solved either by deterministic
+methods like the Sj method (Mezzacappa & Bruenn
+1993; Liebendorfer et al. 2001; Sumiyoshi et al. 2005;
+Sumiyoshi & Yamada 2012; Nagakura et al. 2014; Akaho
+et al. 2021) or by probabilistic methods such as the
+Monte Carlo method (Fleck & Cummings 1971; Fleck
+& Canfield 1984; Keil et al. 2003; Abdikamalov et al.
+2012; Richers et al. 2017; Kato et al. 2020; Kato et al.
+2021). As an aside, they may also be solved in the
+context of the neutron star merger simulations (Fou-
+cart et al. 2018; Miller et al. 2019; Foucart et al. 2021;
+Kawaguchi et al. 2023; Deppe et al. 2024; Kawaguchi
+et al. 2025a,b). Either way, numerically solving the clas-
+
+sical Boltzmann equation, not to mention the quantum
+kinetic equation, requires considerable computational
+resources (Mezzacappa & Bruenn 1993; Mezzacappa &
+Messer 1999; Liebendorfer et al. 2002; Sumiyoshi et al.
+2005; Sumiyoshi & Yamada 2012; Peres et al. 2014;
+Chan & Miiller 2020). In order to reduce the com-
+putational costs, various approximate methods have
+been conceived: the flux-limited diffusion approxima-
+tion (FLD)(Arnett 1977; Janka 1992), the isotropic dif-
+fusion source approximation (IDSA) (Liebendorfer et al.
+2009; Takiwaki et al. 2012), the ray-by-ray (plus) ap-
+proximation (RbR+)(Rampp & Janka 2002; Buras et al.
+2006), and the truncated moment methods with pre-
+scribed closure relations (Thorne 1981; Shibata et al.
+2011). In exchange for the reduction in the numerical
+cost, these methods shred some information on the neu-
+trino distribution in momentum space.
+
+In principle, solving the Boltzmann equation faith-
+fully is desirable. However, a resolution issue arises with
+the Sj method, from its high numerical cost mentioned
+above, as observed in our own simulations. In particular,
+the momentum space is covered with a rather small num-
+ber of angular mesh points (10 for 6,, the zenith-angle
+measured from the local radial direction, and 6 for ¢,,
+the azimuth-angle, in our typical computations) and the
+numerical solution tends to deviate from the true solu-
+tion in the optically thin region, where the neutrino dis-
+tribution function becomes remarkably forward-peaked
+(Richers et al. 2017). It is true that the neutrino transfer
+simulation with the Boltzmann solver is expensive and
+time-consuming but it is still important, particularly for
+gauging possible systematic issues with the approximate
+methods in realistic dynamical settings. It is hence cru-
+cial to address the resolution issue.
+
+The key observation here is that the numerical error
+is mainly caused by the advection term; the collision
+term suffers less from the angular resolution, since it
+is insignificant by definition in the optically thin re-
+gion, where the neutrino distribution is substantially
+anisotropic. On the other hand, the collision term is
+numerically stiff in the optically thick region. Hence it
+is a good idea to take advantage of these differences in
+the characteristics of the advection and collision terms
+and adopt different resolutions for them. Our strategy is
+hence to increase the angular resolution only of the ad-
+vection term while keeping the resolution of the collision
+term low at the current level.
+
+As a proof of principle, we run experimental one-zone
+(in space) simulations in this paper. We confirm that the
+current level of angular resolution is indeed adequate for
+the collision terms, testing at the same time our new pre-
+scription for the transformations between different res-
+olutions, both in time-independent and time-dependent
+settings. In particular, the conversion from a lower- to a
+higher-resolution is non-trivial. It is impossible in fact,
+mathematically speaking. However, we pursue a method
+with acceptable errors. Ideally, we should do this test
+by running a Boltzmann solver with the advection and
+
+collision terms with different angular resolutions fully
+implemented. It is admittedly costly, though. Consid-
+ering the nature of this study as a proof of principle,
+we take a simpler approach, in which one-zone calcula-
+ions are performed by utilizing the source terms that
+are designed to mimic the spatial advection. Note that
+he treatment of the advection term is rather trivial: we
+have only to increase the number of angular grid points.
+As we mentioned above, what is truly non-trivial is the
+ransformations of neutrino distribution functions with
+different angular resolutions.
+Sec. 2.1 gives the overview of our Boltzmann project.
+The numerical methods are described in Sec. 2.2; in par-
+icular, the one-zone model we employ in this paper is
+explained in Sec. 2.2.3. The results are presented in the
+‘ollowing two sections: Sec. 3 and Sec. 4. Finally, in
+Sec. 5, we summarize our results with discussions.
+
+2. NUMERICAL METHODS
+2.1. Boltzmann Transport
+
+The neutrino transfer may be described by the Boltz-
+mann equation if the quantum effect is ignored:
+
+OF pi yy OF
+
+Ox my Ox?
+
+P = —phu,Clf], (1)
+where f is the neutrino distribution function in phase
+space, x is the spacetime coordinates, p” is the four-
+momentum of neutrino, Ts is the Christoffel symbol,
+u, is the four-velocity of matter and C[f] is the colli-
+sion term; here index i runs from 1 to 3 while jz and
+vy run from 0 to 3. The first and second terms on the
+left hand side of Eq. (1) describe the advections in space
+and momentum space, respectively. The latter is non-
+vanishing even in the absence of external agents such as
+magnetic fields if the spacetime is not flat or curvilin-
+ear coordinates are employed even in the flat spacetime.
+The collision term on the right hand side describes the
+interactions between neutrinos and matters or among
+neutrinos themselves and is given as integrals over mo-
+mentum space at each spatial point. It is nonlinear in
+the distribution function if neutrino-pair processes are
+taken into account or the Pauli-blocking of neutrinos in
+the final state of scatterings is incorporated. Hence the
+Boltzmann equation is a nonlinear integro-differential
+equation in general.
+
+Over the years we have performed CCSN simulations
+with our Boltzmann solver that employs the Sy method
+and is coupled with a hydrodynamics code. They are
+mostly 2D simulations under the assumption of axisym-
+metry of the system (Nagakura et al. 2018; Nagakura
+et al. 2019; Harada et al. 2019, 2020; Akaho et al.
+2021; Harada & Nagakura 2022; Iwakami et al. 2022;
+
+Akaho et al. 2023) but 3D simulations are also under-
+way (Sumiyoshi & Yamada 2012; Nagakura et al. 2014;
+Nagakura et al. 2017; Nagakura et al. 2019; Iwakami
+et al. 2020). In the Sy method, the derivatives in the
+advection terms are replaced with the finite-differences
+in all coordinate directions in phase space; the integrals
+in the collision term are approximated by finite sums.
+In this process we normally handle the two terms with
+the same resolution, i.e., on the same numerical mesh.
+The Boltzmann equation is six dimensional (3 in space
+plus 3 in momentum space) and the inversion of the
+matrix is computationally demanding (Mezzacappa &
+Bruenn 1993; Mezzacappa & Messer 1999; Liebendorfer
+et al. 2002; Sumiyoshi et al. 2005; Sumiyoshi & Yamada
+2012; Peres et al. 2014; Chan & Miiller 2020). Richers
+et al. (2017) showed by the comparison with his Monte
+Carlo simulations that the Eddington tensor may be
+underestimated by ~ 10% in the optically thin region,
+where the neutrino distribution becomes highly forward-
+peaked, and that the angular resolution may need to be
+~ 4 times higher than the current one in order to get
+a good convergence of the numerical solution with our
+Boltzmann solver.
+
+The deviation from the true solution comes mostly
+from the evaluation of the advection terms with the low
+angular resolution in momentum space. Simply increas-
+ing the angular resolution is not feasible as mentioned
+above, though. Our strategy here is then to increase
+the angular resolution only for the evaluation of the ad-
+vection terms. To employ different resolutions for the
+advection term and the collision term, we adopt the
+operator-splitting method, which is commonly adopted
+in the truncated moment methods (Rampp & Janka
+2002; Skinner et al. 2019; Laiu et al. 2021). For ex-
+ample, Laiu et al. (2021) employ the DG-IMEX scheme
+based on the discontinuous Galerkin method and the
+implicit-explicit time integration. However, it has not
+been attempted in the Boltzmann transport so far. The
+most crucial ingredient in the use of dual resolutions
+
+is the conversion of the distribution functions obtained
+with the different resolutions. In this paper we apply
+different interpolation schemes based on polynomials to
+the zenith and azimuth directions separately.
+
+This is a pilot study. A full implementation of the
+scheme thus confirmed to our Boltzmann solver is be-
+yond its scope and is postponed to the next study.
+
+2.2. Numerical strategy
+
+In this subsection, we explain more concretely our
+ideas to treat the advection and collision terms with
+different resolutions. As stated before, they consist of
+two elements: (1) the operator-splitting treatment of the
+
+3
+
+two terms and (2) the conversion of a distribution at one
+resolution to a distribution at another resolution. They
+will be given in Sec. 2.2.1 and Sec. 2.2.2, respectively.
+
+In this paper, we focus on the neutrino scatterings on
+nucleons, the dominant scattering process in the super-
+nova core. In the previous version of our Boltzmann
+solver, it is assumed to be elastic, i-e., the energy ex-
+change between neutrino and nucleon is vanishing. It
+has been demonstrated (Raffelt 2001; Rampp & Janka
+2002; Thompson et al. 2003; Burrows & Thompson 2004;
+Buras et al. 2006; Marek & Janka 2009; Hiidepohl et al.
+2010; Plumbi et al. 2015; Melson et al. 2015; Skinner
+et al. 2016; Radice et al. 2017; Kotake et al. 2018; Suwa
+et al. 2019; Vartanyan et al. 2019; Burrows et al. 2019;
+Wang & Burrows 2020; Bruenn et al. 2020; Kato et al.
+2021), however, that nucleon recoils as well as other cor-
+rections of O(q/Mwy) have important roles to play for
+shock revival, where q is the magnitude of momentum
+transfer and My is the nucleon mass. In this paper, we
+consider the recoil alone for simplicity and neglect the
+weak magnetism and other form factors in the weak cur-
+rents as well as the possible contribution from strange
+quarks, i.e., the isoscalar correction to the axial vec-
+tor current (Alberico et al. 2002; Leitner 2005; Melson
+et al. 2015; Hobbs et al. 2016), and the many-body ef
+fects (Burrows & Sawyer 1998; Mornas & Perez 2001;
+Mornas 2003; Horowitz et al. 2017; Burrows et al. 2018)
+other than the effective nucleon masses. In order to in-
+corporate the small energy exchange by recoil, we deploy
+a subgrid in energy (Buras et al. 2006). We explain in
+Appendix its implementation rather in detail.
+
+This paper is meant to be a proof of principle. We
+hence adopt a toy-model approach instead of running
+he Boltzmann code with the new method fully imple-
+mented: we conduct spatially one-zone calculations, in
+which the advection term is replaced with the source
+erm, the details of which will be explained in the last
+subsection 2.2.3. One may wonder if such an approach
+can really address the problem. As we mentioned ear-
+ier, the evaluation of the advection term with a high-
+angular resolution is rather trivial and is not an issue.
+What is nontrivial is the transformations between the
+ow- and high-resolutions as well as the determination
+of an acceptable low resolution for evaluation of the col-
+ision term. They can be investigated quantitatively in
+he toy model considered in this paper as long as the
+source term is appropriately chosen. This will be ex-
+plained further in Sec. 2.2.3.
+
+2.2.1. Operator splitting
+
+The operator-splitting treatment of the advection
+and collision terms in the transport equation is rather
+4
+
+common particularly in the truncated moment method
+(Rampp & Janka 2002; Buras et al. 2006) and some ad-
+vanced formulations like the IMEX method have been
+developed (O’Connor 2015; Just et al. 2015; Kuroda
+et al. 2016; Skinner et al. 2019; Chu et al. 2019; Laiu
+et al. 2021). In this paper, we do not pursue such so-
+phistications, since our purpose is to demonstrate that
+the separate treatment of the advection and collision
+terms with different angular resolutions is possible. We
+will incorporate one of such advanced methods later in
+the actual implementation to the Boltzmann solver. We
+hence give here a brief description of what we do in this
+paper.
+
+Suppose that we have calculated the distribution func-
+tion up to the n-th time step and advance the calculation
+one step further to the (n + 1)-th time step. We first
+calculate the contribution from the advection term alone
+
+in an explicit manner:
+
+f= f" _ geen
+PS aay, (2)
+
+where f” is the distribution function at the n-th time
+step and f* is the distribution function at the interme-
+diate step; A stands for the advection term symbolically,
+which is replaced in this paper by the source term that
+will be explained later in Sec. 2.2.3.
+
+Next, we compute the contribution from the collision
+terms alone. Before doing so, we need to convert f* ob-
+tained with the higher resolution to the distribution ff,
+of lower resolution. This conversion is shown schemat-
+ically in Fig. la. The concrete method is given in the
+next subsection.
+
+The collision terms are calculated then at this low res-
+olution, this time in a time-implicit manner as follows:
+
+n+
+Jiow _~ Slow, = ibs = Cnt.
+“RE low
+The concrete expression of the collision terms is given
+in Appendix A. This is a system of nonlinear algebraic
+equations and the linearized equations are solved repeat-
+edly until a certain convergence criterion is satisfied.
+Finally, as shown schematically in Fig. lb, the dis-
+
+tribution function at the (n + 1)-th time step ft! of
+low resolution is converted back to the higher-resolution
+distribution function f”+1, which closes the entire pro-
+cedure of the single time step. Then we move on to the
+next time step. The concrete method to convert resolu-
+tions will be given in the next subsection.
+
+2.2.2. Conversions of resolutions
+
+The transformation of a high-resolution distribution
+to a low-resolution one is straightforward as long as the
+
+High Resolution Low Resolution
+
+ci,
+
+My Fy owe Fr Pit Pao Fi
+Hy Ka,
+
+(a)
+
+Interpolation > ; High Resolution
+
+. Low Resolution >
+
+Figure 1: Schematic pictures of the resolution conver-
+sions. (a) from high- to low-resolutions, (b) from low-
+to high-resolutions.
+
+cell boundaries of the two angular meshes coincide with
+each other, which we assume here. As shown in Fig. la,
+all we have to do is to combine the neutrino distribution
+unctions for the cells in the finer mesh that are included
+in a single cell in the coarser mesh. This is done for the
+zenith- and azimuth-angles separately. We assume that
+he distribution function is constant inside the coarse
+
+cell when calculating the collision terms (see Appendix
+The conversion of resolutions in the opposite direc-
+ion is non-trivial. It is in fact impossible, rigorously
+speaking. The goal is hence to find a reasonable ap-
+proximation. Here we try interpolations based on the
+polynomial fitting to the lower-resolution distribution.
+We begin with the treatment of the zenith-angle (6,)
+direction. In the neighborhood of each grid point in
+he low-resolution mesh, we approximate the distri-
+bution function with an Wee’ -th order polynomial of
+Ly = cos 6,. It is expressed as
+
+poly
+pe
+
+fanor(Hty) = S> anit (3)
+n=0
+
+Npoly ; which is a parameter to be determined, should
+be smaller than Ng, +2, the number of cells in the 6,
+0.35
+
+Before Interpolation. ——
+After Interpolation
+
+0.3
+
+0.25 + |
+
+0.24 J 4
+
+0.1 4
+
+Distribution f
+
+0.05 f A |
+
+0.04 1
+
+Before Interpolation ———
+0.035 After Interpolation ——
+
+0.03 4
+
+0.025 |
+
+0.02 4
+
+0.015 |
+
+Distribution f
+
+0.01
+
+0.005 1 I 4
+
+0 1 1 1
+0 0.5 1 1.5 2
+
+oy /
+
+(b)
+
+Figure 2: Representative results of interpolations (a)
+for the @, direction and (b) for the ¢, direction. In (a)
+the blue and purple lines correspond to the distributions
+in 6, with No, = 10 and Ng, = 40, respectively, whereas
+in (b) they show the distributions in ¢, with Ny, = 6
+and Ny, = 24, respectively.
+
+direction in the low-resolution mesh plus the number of
+boundary conditions. In the following, we vary both
+Ngely and Ng, independently under this constraint.
+For given poly and Ng, the coefficients a, in the
+polynomial are determined with two steps. In first step,
+we determine the values of the distribution function at
+
+Hy (= cos 6,) = +1 as follows. At each grid point of 6,
+in the low-resolution mesh, we take an average of the
+distribution functions over ¢, and build a mean distri-
+bution in 6,, f™*"(0,). If the distribution is axisym-
+metric, this procedure is not necessary. Then we ap-
+proximate it with an cnpe’y — 2)-th order polynomial
+of jy in each neighborhood of jz, = —1 and 1, individ-
+
+5
+ually unless Ngo = No, + 1. In the latter case, the
+two neighborhood coincide with the entire range [—1, 1].
+Each polynomial is expressed as
+
+Npoly_2
+Soe Sahl (4)
+n'=0
+
+and is determined by the following conditions for the
+N, poly — 1 consecutive cells from the boundary:
+
+HT),
+Pui, og = Ha) = fo da fae te)
+PIy_y
+poly
+~ a, 1 1
+= ay (nn) = (ad), 8)
+n=0
+
+where f°" is the mean distribution function in 6, and
+k runs from 0 to iypel — 2, specifying the cells. Note
+that we distinguish here the cell-interface values 1; from
+the cell-center ones 1; (Sumiyoshi & Yamada 2012).
+Equation (5) requires that the polynomial should re-
+produce the neutrino number densities exactly at these
+cells. We evaluate the distribution functions so obtained
+at fy = £1.
+
+In the second step, we approximate the low-resolution
+distribution function f(6,,¢,) at each ¢, separately
+with a polynomial given in Eq. (3) again. Here an
+in the rest of this paper we assume that the interpola-
+ions are done always in the zenith (6,) direction first.
+We determine these polynomials by requiring again tha’
+he neutrino number densities should be exactly repro-
+duced for all angular bins in the neighborhood of a grid
+point of concern. This time the number of those cells is
+
+Ngo +1 if the neighborhood contains no boundary cell.
+It is Np if one of the two boundary cells is include
+
+and Np — 1 if both boundary cells are contained. In
+
+he latter two cases, we require further that the poly-
+nomial should reproduce the boundary value(s) exactly.
+These conditions are expressed as follows: for each cel
+specified by 7 = 1,..., Ng, in the low-resolution mesh, we
+deploy a polynomial fappr and require
+
+HI,
+Fiow (Hix) (Ht, = Hx.) = | Atty fappr (My)
+PInoy
+Npoly™
+=> a (Hr)? = (Hm1)"**), (6)
+n=0
+
+flow (Hy = 1) = f™""(u, = 1),
+forty == IH =—1),
+6
+
+where k runs from 0 to ingelr and specifies the cells
+
+included in the neighborhood of cell 7; np” is the
+actual order of the polynomial determined as mentioned
+above.
+
+The neighborhood of a cell in the low-resolution mesh
+is chosen in principle so that it should be centered at
+the cell. In practice, if the number of cells included in
+this neighborhood is odd, it is exactly centered at the
+arget cell, whereas if it is even, the neighborhood is
+extended to the right, that is, to the side of larger p,.
+When it comes close to the mesh boundaries, however,
+his choice cannot be done. In that case, we extend the
+neighborhood in the direction opposite to the boundary:
+at i = 1, for example, the neighborhood is completely
+one-sided. If the distribution function is axisymmetric,
+having no ¢,-dependence, we skip the second step and
+Np = NRO simply.
+
+Once the polynomial is determined for each cell in the
+low-resolution mesh, the distribution functions for the
+cells in the high-resolution mesh inside that particular
+low-resolution cell are obtained by integrating the poly-
+nomial in those fine cells in the high-resolution mesh as
+‘ollows:
+
+F (Hi) = wo! du Qn,
+(bn na) Jun a .
+pol”
+
+~ (un a)"*)(8)
+
+1 an n+
+eS pail en)
+
+(Hn — Pa)
+
+where J runs from 1 to Nj*°, the number of the fine cells
+inside the single coarse cell.
+
+A representative result in the 6, interpolation is ex-
+hibited in Fig. 2a, where the distribution function ob-
+tained with a lower-angular resolution of Ng, = 10 is
+compared with the reconstructed distribution function
+with a higher-angular resolution of Ng, = 40. We as-
+sume that the distributions are both constant in their
+own mesh cells. One finds that the reconstructed dis-
+tribution function reproduces the original trend without
+generating artificial features but expresses the forward
+peak more sharply as expected. We hence judge that
+the polynomial interpolation works properly.
+
+For @,), the same strategy does not work well, since
+a high-order polynomial introduces undesirable oscilla-
+tory behavior in the interpolant. This is also the case for
+an interpolant based on the Fourier expansion, which we
+will not show here. This happens because the ¢, depen-
+dence of the neutrino angular distribution is in general
+weaker than its 4, dependence. We find that the follow-
+ing method works rather well in such situations. In each
+cell of the low-resolution mesh we deploy a polynomial
+
+of the second order in @, as follows:
+
+fappr(Or) =
+.,Ng,) specifies the cell in the low-
+
+bbb, + Bide + bb, (9)
+
+where i(=
+resolution mesh.
+
+The Ng, x 3 coefficients, bj,, are determined by re-
+quiring that the neutrino number densities should be
+reproduced exactly in each cell again:
+
+Pur
+Fieni(Guil due —tiye-1} = | dv firpe(bv)
+oi
+
+Pu,t-1
+2
+
+=D
+
+bi,
+
+q ((Gut yr -(by1-1)""7), (10)
+
+where J is the label for the cell interfaces; both 7 and I
+run from 1 to Ng,. This time we require further that
+the quadratic functions deployed in each cell should be
+joined continuously and smoothly at all cell interfaces
+including at ¢, = 27, which ensures the periodicity in
+the azimuthal direction of the angular distribution func-
+tion as a whole. These conditions are written as
+
+2
+
+roan Orr = > ON Oe, (11)
+n=0 n=0
+nti dig =S nis Orr's (12)
+
+n=1
+
+where I(= 7) runs from 1 to Ng, with bn?” *? = bl.
+
+Just as in the 6, direction, once the interpolant for ¢,
+is determined for each cell in the low-resolution mesh,
+the values of the distribution functions assigned to the
+individual cells in the high-resolution mesh are obtained
+by integrating the quadratic polynomial in those fine
+cells as follows:
+
+1 but
+
+od = ———_— di b;,
+Fou) (bv,1 — Gv,t-1) Jbv,1—a Dy Oy
+2 .
+> bn (but)! = (but1)"*4)
+nt bers ;
+
+(out — bvt-1) as)
+where i and I denote the center and interface, respec-
+tively, of the high-resolution mesh this time. As we men-
+tioned earlier, the ¢, interpolation is conducted after
+the 6, interpolation is done. The former interpolation
+is performed for the values of the distribution functions
+evaluated on the @, grid points in the high-resolution
+6,-mesh for each ¢, grid point in the low-resolution $,-
+mesh.
+
+A representative result in the ¢, interpolation is pre-
+sented in Fig. 2b, where the distribution function ob-
+tained with a lower-angular resolution of Ny, = 6 is
+compared with the reconstructed distribution function
+with a higher-angular resolution of Ng, = 24. Again we
+assume that the distribution functions are constant in
+their own mesh cells. It is also apparent that the result is
+qualitatively satisfactory with no undesirable artifacts.
+
+2.2.3. One-zone model with Source Terms
+
+We next move on to the treatment of the advection
+terms in this paper. Since our main purpose here is
+to study the angular-resolution issues, particularly the
+appropriate resolution for the collision term and the
+conversion of resolutions, the advection terms are not
+treated squarely but are modeled as explained shortly.
+
+The spatially finite-differenced form of the Boltzmann
+equation may be expressed as
+
+1 afi
+c Ot
+
++ Ailfi-as fis fis] = Cilfil, (14)
+
+where f; is the neutrino distribution at the spatial grid
+oint specified with 7; all other labels, e.g., the index
+for neutrino energy, angular in both space and momen-
+tum space, are omitted for simplicity. The term A; in
+he above equation represents the advection terms at the
+same spatial point, whereas the term denoted by C; cor-
+responds to the collision terms there. The arguments of
+hese terms in Eq. (14) reflect their natures: the advec-
+tion terms are non-local in the sense that they depend
+not only on the neutrino distribution on the same spa-
+ial grid point but also on those at nearby grid points;
+the collision term, on the other hand, is local, being
+determined solely by the distribution on the grid point
+of concern. As a result, the advection terms couple the
+equations at different spatial grid points, making it much
+more involved (and difficult) to solve the equations. If
+the advection term were local, the calculation would be
+
+considerably easier. That is what we want to do in this
+paper and what we will explain shortly below.
+It is probably suggestive to recast Eq. (14) as follows:
+
+c Ot
+
+=Ci[fil + Si, ( 5)
+
+where the second term on the right hand side, Sj, is
+nothing but the advection terms with the sign reversed:
+S; = —Aj[fi-s, fi, fi-i]. In this paper, we replace it
+with the same function but evaluated for known distri-
+bution functions, fg, that are obtained in one of our
+Boltzmann simulations of CCSNe. By this replacement,
+S; is a known function now. Then the equations for
+different spatial grid points are all decoupled and can
+be solved independently of each other. As mentioned
+earlier, this makes it very much easier to solve them nu-
+merically and enables us to focus on the collision terms
+
+7
+
+alone and deploy a (substantially) larger number of the
+angular grid points for the resolution study. Moreover,
+he resultant solution should be equal to fg by construc-
+ion (see the explanation given below), the fact we will
+use to evaluate the error produced by a limited angu-
+ar resolution in momentum space. Note that we may
+incorporate into A; also the collision terms other than
+he nucleon scatterings, the feature we actually employ
+in the following. Since Eq. (15) can be solved pointwise,
+we call the above treatment a one-zone model and refer
+
+o S; as its source term.
+
+In order to validate the dual-resolution strategy pro-
+posed in this paper, we perform two types of test cal-
+culations using the one-zone model. We refer to them
+as the steady-state test and the time-evolution test. In
+he former test, we give a time-independent source term
+and integrate Eq. (15) numerically to obtain the steady
+solutions for different angular resolutions in momentum
+space. We compare the asymptotic solutions so obtained
+o find the resolution necessary to get accurate enough
+solutions. In the latter test, on the other hand, we
+
+compare time-dependent solutions with different angu-
+ar resolutions, employing time-dependent source terms.
+We will explain how to set the source term for each test
+in the following.
+
+We begin with the steady-state test, in which we are
+interested in the asymptotic states alone although we
+solve the time evolutions leading to them. The time-
+independent source term that is deployed in this test and
+is denoted by Ssteaay is constructed as follows. We take a.
+neutrino distribution function at a certain spatial point
+at a certain postbounce time from a simulation result
+(see below for details) and interpolate it to grid points in
+the finer mesh. The advection term for this distribution
+function, A;(fg), is then evaluated not by the direct
+calculation, which is a bit cumbersome because of the
+
+spatial derivatives involved, but by using the following
+relation valid for steady states:
+
+Ai(fa)(= —Ssteaay) = Cilfa]- (16)
+
+Strictly speaking, fg is not a steady solution but a
+snapshot of a time-dependent solution. The source term
+obtained this way is an approximation to the actual (mi-
+nus) advection term. It does not matter for our pur-
+pose, however. The reference distribution, fg, can be
+anything as long as it is reasonably close to the actual
+distribution and gives an equally reasonable approxima-
+tion to the advection term. There is another merit with
+this treatment. The steady solution of Eq. (15) for the
+source term given by Eq. (16) satisfies the following sim-
+ple equation:
+
+Cilfi] = Cilfa], (17)
+calculations at the innermost point of the region (p =
+10!!g/cm3). For the time-evolution test, as we explain
+ater, we construct the source term so that the neutrino
+ransfer in this region could be mimicked.
+
+The Boltzmann simulation, from which the reference
+neutrino distribution is constructed as above, has rather
+ow-angular resolution (10(0,) x 6(@,)). We hence need
+first to interpolate the neutrino distribution obtained on
+he coarse grid to the grid points on much finer meshes so
+
+hat the resu
+ions indeed.
+
+original distribution
+
+metric, and
+
+ts cou
+
+d be used as the reference distribu-
+
+This is done as follows. For the investiga-
+
+ion of the 6,-resolution, we first take an average of the
+
+hen fi
+
+function over $,, making it axisym-
+the resultant distribution with an
+
+11 th order Legendre function and the forward-peaked
+
+structure is represented.
+
+For the study of
+
+he @,-resolution and combined res-
+
+olution, on
+aken from t
+
+che other hand, the original distribution
+he Boltzmann simulation is approximated
+
+10% 1
+ay density —
+8 10+
+as
+20 1910
+2
+10°
+
+0.5 T T T T T T T
+
+0.4
+so 0.3
+
+0.2
+at 5 temperature |
+2 4e- |
+R 2 :
+6. 1 L L L L L L L a=
+I
+& 60 80 100 120 140 160 180 200
+
+Radius [km]
+(a) Radial profiles of background
+
+Figure 3: radial profiles of density p, electron frac-
+tion Y. and temperature T. Steady-state test and time-
+evolution test are performed at the edge and throughout
+the entire yellow-shaded region.
+
+that is, f; should be equal to fg if the same resolution
+is used on both sides of this equation. If the resolution
+is lower on the left hand side, f; will be deviated from
+fp, the fact which we will exploit to estimate the errors
+induced by the low-angular resolution. Note that the
+right hand side of this equation is given on the finest
+
+in the 6, direction for eac
+ant functions is evaluated
+
+oy so obtained are then aj
+
+points on the highest-reso!
+
+is rotational and, as a cons
+
+modestly. In order to conc
+
+series up to the 3rd order an
+
+earlier, the original model in
+
+with the Legendre polynomials, P;, up to the 11th order
+
+h ¢, grid point. The resul-
+at the 6, grid points on the
+
+highest-resolution mesh. The distribution functions in
+
+proximated with a Fourier
+evaluated at the ¢, grid
+ution mesh. As mentioned
+he Boltzmann simulation
+equence, the neutrino distri-
+
+bution extracted from it is non-axisymmetric but rather
+
+uct the ¢,-resolution test in
+
+angular mesh for the left
+The reference neutrino
+
+hand side in this test.
+istribution and matter prop-
+
+erties are taken from our Boltzmann simulation of CCSN
+
+for a 15M, progenitor
+2022). This is a rapid ro
+
+model (Harada & Nagakura
+
+ation model. In fact, we added
+
+more extreme con
+which we modify t
+
+utilizing the transformation of the soli
+he distribution function used for the
+
+ation, we incline t
+6,-resolution test
+bers of angular gri
+
+he distribu
+
+coward the
+points dep
+
+itions, we consider another mo
+
+ion artificially as fo
+
+z-axis by 7/4. The
+
+loyed in
+
+el, in
+lows:
+
+d angle under ro-
+
+nhum-
+
+hese test ca.
+
+cula-
+
+ions, (No, Ng,,), as well as those used for the reference
+istribution function, (Ng°, N3°), and the degrees of
+he polynomial for interpolation are listed in Table 1.
+
+We move on to
+
+he time-evolution
+
+by hand a nearly uniform rotation of a period of 4 rad/s
+
+»
+
+est, in which we
+
+re interested in the validity of the dual-resolution strat-
+
+to the originally non-ro
+
+is chosen because we wait
+
+ating stellar core. This model
+to investigate the resolution
+
+egy in the time-dependent situation. For that purpose,
+he time-dependent source terms are constructed so that
+
+issue both for ax:
+
+ymmetric and non-axisymmetric neu-
+trino distributions in momentum space. We extract at
+100ms after bounce a matter profile along the radial ray
+at 0 = 7/4, where the deviation from axisymmetry of
+the neutrino angular distribution in momentum space is
+expected to be largest. It is shown in Fig. 3. In this
+paper, we will focus on the yellow-shaded region, which
+spans the density range of p = 101° — 10"g/cm3. For
+the steady-state test, we perform the one-zone model
+
+he resultant time evolution o:
+
+the distribution function
+
+could follow the original change of the distribution along
+he radial stream line of neutrino in the region of our
+concern indicated by the yellow highlight in Fig. 3. This
+
+may be understood as follows.
+
+The (spatially finite-
+
+ifferenced) Boltzmann equa
+
+1Df;
+ce Dt
+
++ Ailfi-i, fir fia] = Cil fal,
+
+ion can be rewritten in
+
+; agrang ivative 2 = 2+c2.:
+erms of the Lagrange derivative 5; = 5; + Cp, :
+
+(18)
+Table 1: Models with various resolutions and reference
+models from steady-state and time-evolution tests
+
+modal resolution | Ng, | Ng, | N§t® Nee Npoly
+10 6 100 6 9
+6.-resolution Test 20 e 100 8 i
+40 6 100 6 9
+80 6 100 6 9
+10 4 10 24 =
+¢v-resolution Test 10 6 10 24 -
+FA (Boltzmann model) 10 8 10 24 a
+Es io | 12 | 10 | 24 | -
+3 wo | 4 | 10 | 24 =
+i. @,-resolution Test io | 6 | 10 | 24 =
+3 inclined model)
+§ (inclined model 10 8 10 24 =
+na 10 12 10 24 =
+Combined-resolution 5 3 40 24 6
+Test 10 6 40 24 6
+(Boltzmann model) 20 12 40 24 6
+Combined-resolution 5 3 40 24 6
+Test. 10 6 40 24 6
+(inclined model) 20 12 40 24 6
+8 6 40 6 4
+. 10 6 40 6 2
+6,-resolution 1 6 4 4
+Test 0 6 0 6
+10 6 40 6 9
+20 6 40 6 4
+wii 10 4 10 24 =
+ov-resolution. 10 6 10 24 _
+Test
+(Boltzmann model) 10 8 10 24 ~
+zB 10 12 10 24 im
+a a io | 4 10 | 24 =
+& ¢v-resolution 10 6 10 24 _
+=| Test
+3 (inclined model) 10 8 10 24 ~
+3 10 12 10 24 =
+E 5 | 3 | 40 | 2 | 6
+a Combined-resolution 10 6 40 24 6
+Test: 10 6 40 24 11
+(Boltzmann model) 20 12 40 24 6
+20 12 40 24 21
+5 3 40 24 6
+Combined-resolution 10 6 40 24 6
+Test. 10 6 40 24 1
+(inclined model) 20 12 40 24 6
+20 12 40 24 21
+
+where the advection term is changed as
+mp a.
+Allfi-a, fi, fia] = Ailfi-s, fi, fia] — ¢ 3f) Then,
+i
+as in the steady-state test, we move this modified ad-
+vection term, A‘, to the right hand side of Eq. (18) and
+replace it with the source term, S!:
+
+IDfi _
+c Dt
+
+Cilfi] + 5}. (19)
+
+9
+
+In the equation, S/ is known and local function of time.
+As a result, all the equations thus obtained are decou-
+pled from one another and can be solved independently
+as in the steady-state test. The source terms are con-
+structed again from the Boltzmann simulation data as
+explained below.
+
+Equation (19) is finite-differenced in time as
+
+A frog fr
+ec At
+
+clr"]+s"[fa, 0)
+
+where the superscript n denotes the time step and At
+is the (constant) time increment between the consecu-
+tive time steps used in the test; fg is the distribution
+function taken from the Boltzmann simulation (and in-
+terpolated to a finer mesh). In this expression, we omit
+the spatial label i intentionally, since we are considering
+in this test the time evolution that one would observe if
+one moved radially at light speed in the region in Fig.
+3. The source term S”[fg] is nothing but the (mod-
+ified) advection term (with the sign reversed) that is
+evaluated f at appropriate times and positions. Using
+the Boltzmann equation that fp satisfies +
+
+; we rewrite
+
+it as
+
+, 1Df 1 fis n
+
+rife] = 2222 ofp) = 2B Bs _ orp
+(21)
+
+where the subscript j specifies the grid point in the fic-
+titious radial mesh, the cell width of which is equal to
+cAt. The time increment At is the same as that in
+Eq. (20) and is set to At = 2 x 107s in our tests. Note
+that the second term on the right-most expression in
+Eq. (21), ie., the collision term for fg, is evaluated at
+the (n + 1)-th time step. It is obvious that Eq. (21) is
+an extension of Eq. (16). By substituting Eq. (21) into
+Eq. (20), the equation can be cast into
+
+1frt—- Fits 1 f* = Bj en+1 n+1
+LE bie LP Bs | oyymtsy — crypt
+(22)
+
+This indicates clearly that the difference between the
+calculated distribution, f, and the reference distribu-
+tion, fg, is originated from the difference in the angular
+resolutions used for the evaluation of the collision terms,
+ie., the last two terms on the right hand side of Eq. (22).
+
+In this test, we solve Eq. (20) with the source term
+given by Eq. (21), varying the angular resolution in mo-
+mentum space (see Table 1) and compare the results
+to quantify the errors that the low-angular resolutions
+
+! Strictly speaking, the interpolated distribution does not satisfy
+the finite-differenced Boltzmann equation exactly. This minor
+deviation is not a concern for the purpose of this paper, though.
+10
+
+produce. The source term, Eq. (21), is evaluated nu-
+merically from the same Boltzmann data. Since the
+Boltzmann data are not provided uniformly in space,
+we interpolate them when need be. Note that the an-
+gular resolution employed for the evaluation of C[fz]
+is the same as the highest resolution considered in this
+test. It should also be obvious now why we evaluated
+C[fp) at the (n + 1)-th time step. Since the collision
+term, that is, the second from the last on the right hand
+side of Eq. (22) is stiff, it needs to be treated in the
+time-implicit manner. As mentioned above, the source
+terms are designed to cancel the corresponding terms in
+
+3. STEADY-STATE TEST
+
+In this section, we perform the one-zone calculations
+with the time-independent source term (see Sec. 2.2.3).
+
+We first consider the 6,- and ¢,-resolutions separately
+because they are qualitatively different. We will inves-
+tigate how many grid points are needed in each angu-
+lar direction to evaluate the collision terms accurately
+for the typical neutrino distribution. Then we explore
+the appropriate combination of angular resolutions by
+varying the number of grid points in the two angular
+directions simultaneously.
+
+3.1. 6,-Resolution Test
+
+In this test, we use an axisymmetric neutrino distribu-
+tion in momentum space as a target, which is obtained
+by taking the average over ¢, of a snapshot of our Boltz-
+mann simulation. It is shown for three representative
+neutrino energies in Fig. 4. Note that this target dis-
+tribution, ftarget, is represented with 100(0,) x 6(d,)
+grid points. We deploy the typical number, 6, of ¢, grid
+points in this test although it has no influence on the re-
+sult. We perform the one-zone simulations, varying the
+number of grid points in 6, from 10 to 80 (see Table 1).
+By construction, we would get the target distribution
+exactly if we deployed 100 grid points.
+
+The numerical solutions are shown in Fig. 5. Note
+that all of them use the 9-th order polynomial, that is,
+new = 9 in Egs. (3) and (8), to reconstruct the dis-
+tribution function on the finer mesh from the one on
+the coarser mesh; this value of Ngee is also employed
+in building the target distribution. We choose the same
+three different energies: one of them corresponds to the
+average energy whereas the other two are either higher
+or lower than this. Since the scattering rate is propor-
+tional to the incident neutrino energy squared, the angu-
+lar distribution is more forward-peaked for lower-energy
+neutrinos. One finds that in all three cases, the results
+tend to converge to the target distribution as Ng, be-
+
+comes larger.
+
+0.6
+
+a,
+£04
+2 03
+S 0.2
+PP
+- O14
+
+0
+
+-1 —05 0 0.5 1
+
+by
+(a) « = 1MeV
+
+0.08
+
+0.07
+
+0.06
+
+0.05
+
+0.04
+
+target distribution f
+
+0.03
+
+0.02
+=I —0.5 0 0.5 1
+
+My
+
+(b) ¢ = 11.1MeV
+
+ribution f (x10~° )
+
+“=1 -0.5 0 0.5 1
+Hy
+
+(c) «= 41MeV
+
+Figure 4: The target distributions with (NGS, NS) =
+(100,6) for (a) « = 1MeV, (b) € = 11.1MeV and (c)
+e = 41MeV.
+
+In order to see this convergence quantitatively, we de-
+fine the relative error, err(¢,4,,¢,,No,,No,), and its
+0.6
+5
+0.4
+0.3
+"2 0.2 “0.95 1
+401
+
+0
+= 107!
+£107
+210%
+3107
+
+10-5
+
+0.6
+
+Z
+
+101
+
+stribut:
+
+i
+
+d
+
+—l —0.5 0 0.5 1
+by
+
+(a) « = 1MeV
+
+0.08 £ 0.08
+0.07
+0.06
+9.05, 0.076 -
+Zoo °”
+0.03
+_ 10-7
+F103
+S10
+210%
+210-6
+
+10-7
+
+i
+
+distril
+
+—l1 —0.5 0 0.5 1
+My
+
+(b) = 11.1MeV
+
+0.23 [0233
+
+al. —0.5 0 0.5 1
+by
+
+(c) « = 41MeV
+Figure 5: The numerical solutions (upper half) and
+the relative errors (lower half) for (a) « = 1MeV, (b)
+
+€ = 11.1MeV and (c) € = 41MeV. The line color shows
+the angular resolution.
+
+maximum, errmax(€, No, ,No,) as
+err(e, 01, dv, No, No.)
+
+Finvo,, Noy (6 vs Ov) — fearget(€, Ov, bv)
+(frarget(€; Ov; dv)
+
+(23)
+
+il
+
+10?
+
+3.0MeV —*—
+=<
+
+10-?
+
+10-4
+
+2
+
+10-%
+
+10-6
+
+10 20 40 80
+
+(a) 6.-Resolution Test
+
+Figure 6: The relative errors in the steady-state 6,-
+resolution test. The reddish (bluish) lines correspond to
+lower (higher) energies.
+
+extnax(€, No, ,No,,) = max{err(e, 0, ov, No,,Nov)},
+
+(24)
+where (-) means the average over @, and ¢,. We plot
+his quantity as a function of Ng, for several energies
+in Fig. 6. As the angular resolution gets higher, the er-
+ror becomes smaller monotonically for all energies. The
+error is largest at the lowest energy. This is because
+he neutrino distribution is the most anisotropic (see
+Fig. 4). The relative error becomes larger again at very
+high neutrino energies, € 2 90MeV, simply because the
+population becomes smaller quickly at these energies.
+We find that the maximum relative error is ~ 2 x 1073
+around the average neutrino energy (~ 15MeV) even
+‘or Ng, = 10, the resolution employed typically in our
+Boltzmann simulation. This suggests that Ng, = 10
+is sufficient for the collision term if the dual-resolution
+prescription is used.
+
+3.2. @,-Resolution Test
+
+For this test we adopt two target distribution func-
+ions of @, as described in Sec. 2.2.3. One of them
+referred to as Boltzmann model in Table 1 uses the dis-
+ribution extracted from our Boltzmann simulation as it
+is. Since this model is rotational, the angular distribu-
+ion is non-axisymmetric. The other named the inclined
+model is an extreme model, which exaggerates the ¢,-
+dependence artificially. They are displayed in Fig. 7 as
+unctions of ¢, for a fixed value of cos@, = 0.97. We
+choose the same three neutrino energies as in Figs. 4
+and 5. This time we deploy 24 grid points in the ¢,
+direction for the target distribution. We fix Ng, to 10,
+he canonical number.
+
+0.52 0.0785 2.32
+0.515 0.078 S 2315
+x
+0.51 0.0775 > 97
+0.505 0.077
+0.5 = 0.0765
+0.495 0.076
+( 05 i 15 2 0 05 1 15 2 05 1 15 2
+6./m b/e ov/t
+(a) Boltzmann model at ¢ = 1MeV (b) Boltzmann model at ¢ = 11.1MeV (c) Boltzmann model at ¢ = 41MeV
+0.35 0.074 23
+0.072 L
+03 =|
+0.07 &
+se, (205.
+O25 0.068
+02 0.066
+0.064
+0.15
+0.062
+0. 0.06
+0 0.5 1 15 2 0 05 1 15 2 05 1 15 2
+u/ ulm oy |r
+
+(d) Inclined model at « = 1MeV
+
+Figure 7: The target distributions at cos 6, = 0.97 (outwar
+NG) = (10,24). They are shown for three representative
+
+scr
+
+panels) and the inclined model (lower panels) with (Nj°
+
+(e) Inclined model at ¢ = 11.1MeV
+
+(f) Inclined model at « = 41MeV
+
+) as functions of Ng, for the Boltzmann model (upper
+
+energies: € = 1MeV (left column), 11.1MeV (middle column) and 41MeV (right column).
+
+The distribution has one peak and one trough for both
+the Boltzmann and inclined models. The degree of non-
+axisymmetry around the average energy is ~ 3% for
+the Boltzmann model but that for the inclined model is
+~ 20%. At the two other energies, non-axisymmetry of
+the inclined model is enhanced from that of the Boltz-
+
+mann model by similar
+occurs at d, = 7/2.
+dragged by rotating mat
+
+factors. In most cases, the peak
+That is because neutrinos are
+ers and the relativistic beaming
+
+occurs in the rotational direction. Low energy neutrinos
+
+in the Boltzmann mode
+exceptional, having the
+
+(upper left panel in Fig. 7) are
+eak at @, = 7. This is because
+
+finds again a general trend for both models that the er-
+ror decreases with the number of the ¢, grid points. The
+Boltzmann model with Ny, = 6 is an exception, where
+he error is disproportionately small. This is mainly be-
+cause the original Boltzmann simulation was performe
+with this number of ¢, grid points. It also contributes
+hat one of the cell centers in this angular mesh with
+Ng, = 6 coincides with ¢, = 5, where the peak occurs
+n the distribution function. We should emphasize that
+the Boltzmann (in-
+ined) model obey a power law expected for the ~ 3r
+
+~ 4th) order accuracy, which we believe better reflects
+
+he errors at other resolutions in
+
+fe)
+
+heir neutrinospheres are smaller, making the relativis-
+tic beaming less important compared with the influence
+of the oblate density distribution, which tends to incline
+he neutrino distribution in the direction of the rota-
+he peak occurs at ¢, = 7.
+Varying Ng, from 4 to 12, we run the one-zone simula-
+ions. The results are exhibited in Fig. 8 for both mod-
+
+tional axis; as a result,
+
+els. We choose the same three
+For all energies and both mod
+ecome closer to the target dis
+
+The results are plotted in Figs.
+or the Boltzmann model and
+
+neutrino energies again.
+els, numerical solutions
+ribution with Ng,. The
+
+relative error defined in Eq. (23) with the target distri-
+ution replaced appropriately is evaluated for each run.
+
+9a and 9b, respectively,
+he inclined model. One
+
+he true performance of this method.
+
+The errors tend to be larger both toward the highes'
+and lowest neutrino energies in the Boltzmann model.
+The reason is the same as in the 6,-resolution test:
+at very high energies, the neutrino population becomes
+
+smaller with the energy very rapidly whereas at very low
+energies, the neutrino distribution is highly anisotropic.
+The inclined model has greater errors than the Boltz-
+mann model in general. This is just as expected, since
+the inclined model is designed so that the anisotropy
+should be artificially exaggerated. Since the distribu-
+tion function is almost isotropic at very high energies
+even in the inclined model, the errors are almost the
+same there between the two models. The error around
+0.076
+
+10-8
+10-4
+210°
+
+= 19-6
+
+error
+
+\
+
+0 05 I 15 2
+bu/m
+
+(a) « = 1MeV
+
+Lf vi Vi va
+
+\ {\
+1
+0 0.5 1 15
+
+oy |
+
+(c) €= 41MeV
+
+N
+
+=o
+
+0.07
+
+0.065
+
+S 0.06
+
+Oe
+o-4
+
+KGAA
+
+len een Ce
+
+10-*
+
+relative error distril
+
+ptt fw» LA,
+
+0 0.5 1.5 2 0 0.5
+
+I
+oy/m
+
+(d) « = 1MeV
+
+ui =
+bo|m 0 05
+
+(e) « = 11.1MeV
+
+1.5
+
+N
+
+1
+ov/t
+
+(£) «= 41MeV
+
+Figure 8: The numerical solutions (upper half) and the relative errors (lower half) at cos @, = 0.97 for the Boltzmann
+model (upper panels) and the inclined model (lower panels) with (Nj°", N3<") = (10,24). They are presented for three
+representative energies: € = 1MeV (left column), 11.1MeV (middle column) and 41MeV(right column). The line color
+
+represents the angular resolution.
+
+the average energy is < 1% even in the inclined model
+for Ny, = 6, the canonical number in our current Boltz-
+mann simulation. At lower energies, the error tends to
+be larger, < 5% in the same extreme model. In the
+Boltzmann model, however, the error is smaller, < 1%,
+at all energies. The canonical ¢,-resolution will be hence
+reasonable for the collision term if it is combined with
+the dual-resolution prescription.
+
+3.3. Combined-Resolution Test
+
+Finally we conduct the time-independent resolution
+test, varying both Ng, and Ny, simultaneously. As
+in the ¢,-resolution test, we use both the Boltzmann
+and inclined models. In this test, the target distribu-
+tion functions are built on the mesh with (No,,Ny,) =
+(40,24). We perform the one-zone calculations for
+(No,,No,) = (5,3), (10,6) and (20,12). Note that
+(No, No, ) = (10,6) is the resolution we normally use
+in our Boltzmann simulations of CCSNe. For quantita-
+tive assessment, we evaluate the relative error defined in
+Eq. (23) with the target distribution replaced as in the
+év-resolution test.
+
+The results are plotted in Figs. 10a and 10b for the
+Boltzmann model and the inclined model, respectively.
+We take some representative energies as in Fig. 9. The
+results are as expected and the error obeys a power law
+of the ~ 1.4-th (~ 1.25-th) order in the Boltzmann (in-
+clined) model. Although we choose Ng, as the horizon-
+tal axis in these plots, the results are not changed if we
+use Ng, instead.
+
+The error is highest at the lowest neutrino energy,
+since the angular distribution is most anisotropic there.
+For the same reason the error is greater for the inclined
+model than for the Boltzmann model in general.
+
+4. TIME-EVOLUTION TEST
+
+In this section, we perform one-zone calculations with
+the time-dependent source term (see Sec.2.2.3). We con-
+sider an evolution of the neutrino distribution function
+that would be seen by an imaginary observer moving
+radially outward with the speed of light in the yellow-
+highlighted region in Fig. 3. As in the steady-state
+test, the 0,- and ¢,-directions are studied individually
+first; then the combined-resolution dependence is inves-
+tigated.
+
+14
+
+107+
+
+3.0MeV —%—
+6.6MeV —~e—
+14.
+
+155.2MeV —*—
+
+10-8
+
+10-4
+
+(a) Boltzmann model
+
+10°
+
+3.0MeV —*—
+
+-9MeV —*—
+
+10-2 155.2MeV
+
+107?
+
+4
+2
+
+10-%
+
+10-4
+
+*
+
+6 8 12
+
+(b) Inclined model
+
+Figure 9: The maximum relative errors as functions
+of Ng, in the steady-state ¢,-resolution test for (a) the
+Boltzmann model and (b) the inclined model. The color
+coding is the same as in Fig. 6 .
+
+4.1. 6,-Resolution Test
+
+In this test, we use the axisymmetric neutrino distri-
+butions in momentum space, which are derived by tak-
+ing the average over ¢, of the distributions at different
+radial positions of the same snapshot of our Boltzmann
+simulation as employed for the corresponding steady-
+state test. The target distributions so obtained are rep-
+resented with 40(6,) x 6(¢,) grid points and regarded
+as the time evolution. We deploy the typical number,
+6, of ¢, grid points again although it has no influence
+on the result. In Fig. 11, we plot them for three repre-
+sentative energies at three different times. As the time
+passes (or as the imaginary observer moves outward),
+the neutrino distributions become more forward-peaked
+at all energies.
+
+In this test, we investigate not only the dependence
+of results on Nog,, the number of the grid points in the
+
+10?
+
+31.9M
+
+ae
+10-2 155.2MeV —*x—
+
+10-8
+
+10-* 4
+
+10->
+
+(a) Boltzmann model in combined-resolution test
+
+10°
+
+3.0MeV
+6.6MeV
+14.5
+
+aa
+—
+—+—
+—*—
+1o-! ———
+
+10%?
+
+2 19-3 4
+
+1o-* 4
+
+3 6 12
+No.
+
+(b) Inclined model in combined-resolution test
+
+Figure 10: Same as Fig. 9 but for the combined-
+resolution test. In the horizontal axis, Ny, = 3, 6 and 12
+correspond to (Nog,,Ny,) = (5,3), (10,6) and (20, 12),
+respectively.
+
+coarse mesh, but also the dependence on Np ; the de-
+gree of the polynomial used for interpolation. We try
+Npow = 2 and 4 in addition to the default choice of
+9. The relative error is evaluated by Eq. (23) with the
+target distribution given at the final time of the calcu-
+lation. The results are plotted for the same three repre-
+sentative energies in Figs. 12 and 13. As No, increases,
+the relative errors decrease for all energy bins irrespec-
+tive of N, ee. For example, the maximum relative errors
+around the average energy (see Fig. 12b) are ~ 2x 107,
+~ 6x 1073, ~ 3 x 1074 for No, = 8,10 and 20, re-
+spectively, at NRO =4. As Noy rises, on the other
+hand, the error becomes smaller again as demonstrated
+for No, = 10.
+
+The higher-order polynomials are particularly effec-
+tive at low energies. This is because the collision term
+becomes less important than the advection term and the
+distribution function is more forward-peaked as the neu-
+
+1=008 js
+t=83x 10-5 s
+0.5 t=17x10-4s ——
+
+e=1MeV
+
+0.4
+
+0.3
+
+0.2
+
+target distribution f
+
+0.1
+
+-l —0.5 0 0.5 1
+by
+
+(a) «= 1MeV
+
+0.08
+t=0.08 —
+
+> t=83x10-%s
+0.07 t=L7x10-4s
+
+e=11.1MeV
+
+0.06
+0.05
+0.04
+0.03
+0.02
+0.01
+
+target distribution f
+
+3.0 x 107°
+“. C”:C<i«éaCSS AE ME
+10-°° s ——
+
+2.5% 10-5 t=1.7x 10-45
+
+f
+2.0 x 107%
+
+1.5 x 10-5 fx 15
+
+1.0 x 10-6
+
+target distribution f
+
+5.0 x 10-% f x 100
+
+0.0 x 10°
+oil, —0.5 0 0.5
+
+by
+
+(c) «= 41MeV
+
+Figure 11: The target distributions for the time-
+evolution 6,-resolution test. They are presented at three
+different times for the neutrino energies of (a) « = 1MeV,
+(b) « = 11.1MeV and (c) « = 41MeV. We adopt
+Ngi* = 100 and NG = 6.
+
+4.0 x 107+
+
+f
+
+3.0 x 107!
+
+N
+x
+
+om
+
+1.0 x 10-!
+
+distribution
+
+0.0 x 10°
+
+a
+
+4.0 x 107?
+
+x
+
+N
+x
+
+1.0 x 10°?
+
+distribution f
+
+0.0 x 10°
+510%
+108 i
+ne
+
+10
+
+2 10%
+10-7 :
+=i —0.5 0 0.5 1
+
+Hy
+
+(b) «= 11.1MeV
+
+2.0 x 10-7
+
+8, Np
+
+15
+
+x
+
+5.0 x 10-8
+
+distribution f
+
+0.0 x 10°
+2
+
+510 “
+
+-l —0.5 0 0.5 1.
+by
+(c) «= 41MeV
+
+Figure 12: The numerical solutions (upper half) and
+the relative errors (lower half) as functions of ji, in
+the time-evolution 6,-resolution test for the neutrino
+energies of (a) « = 1MeV, (b) € = 11.1MeV and (c)
+e= 41MeV.
+
+trino energy gets lower. At high energies, on the other
+hand, the neutrino distribution is almost isotropic in
+
+momentum space and can be represented well with low-
+order polynomials alone. As a result, little improvement
+is observed in Fig. 12c even if higher-order polynomials
+are employed. It should be also mentioned that rather
+16
+
+10°
+
+1o-t
+
+8
+
+0-2
+
+Max rela’
+
+10=*-
+
+lo-4
+
+1 10 100
+
+Energy €
+
+(a)
+
+10-1
+
+3.0MeV —x—
+6.6MeV —x—
+14.5MeV ———
+31L.9MeV —x—
+119.2MeV —%e—
+107?
+
+10-3
+
+10-4 :
+2 n 9
+the degree of the polynomial N?*"
+(b)
+10-!
+3.0MeV —*K—
+6.6MeV —*—
+
+14.5MeV —%e—
+31.9MeV —*—
+119.2MeV —%e—
+
+10-8
+
+10-4
+
+(c)
+
+Figure 13: The maximum relative errors as functions of
+(a) neutrino energy, (b) Npoly and (c) No, in the time-
+evolution @,-resolution test. Ng, is set to 10 in panel
+(a) while ngely is fixed to 4 in panel (c).
+
+high relative errors, ~ 1%, at € = 50MeV (see Fig. 13a)
+are mainly due to the small population of these high en-
+ergy neutrinos. The maximum errors obey power laws
+approximately for both Ng, and Ne. sad (see Figs. 13b
+and 13c): the power is roughly ~ —2 and ~ —3.3.
+
+Based on these results, we judge that the combination
+of No, = 10, the current canonical value in our Boltz-
+mann simulation, with the dual-resolution prescription
+with N, pony = 9 will be a reasonable choice.
+
+4.2. @,-Resolution Test
+
+For this test, we also adopt two target distribution
+functions of ¢,: the Boltzmann model using one of our
+Boltzmann simulation data, and the inclined model with
+an artificially exaggerated anisotropy of ¢,-dependence.
+This time we introduce a time-dependence in the tar-
+get distribution by moving an (imaginary) observer (see
+Sec. 2.2.1). They are displayed in Fig. 14 for a fixed
+value of cos 6, = 0.97. We choose the three representa-
+tive values of neutrino energy € as usual. As the time
+passes, the distribution becomes more anisotropic for all
+energies.
+
+In Fig. 15 we plot the numerical solutions and the
+relative errors as functions of @, at a fixed value of
+cos 6, = 0.97 for the same three representative neutrino
+energies at the final time step. As in the ¢,-resolution
+test for the steady-state test, the numerical solutions
+tend to converge to the target distribution as Ny, in-
+creases, for all energies and in both models. Around the
+average energy, the relative energy is less than 1% for
+Ng, = 6, the canonical number employed in our cur-
+rent Boltzmann simulations. In the Boltzmann model,
+
+this is true for the other two energies. In the inclined
+model, where the anisotropy is exaggerated artificially,
+the relative error is larger than in the Boltzmann model
+in general and at low and high energies in particular.
+With Ny, = 8, however, the relative error is still < 1%
+for the three energies.
+
+The maximum relative errors are plotted for both
+models as functions of neutrino energy in Fig. 16 and
+as functions of Ng, in Fig. 17. As the ¢, resolution
+increases, the relative errors decrease in general. The
+errors for Ng, = 6 tend to be disproportionately small.
+This is the same artifact that we observed earlier and
+
+hat arises from the fact that this is the number of grid
+points employed in the original Boltzmann simulation,
+rom which the target distributions are built. The trend
+is more remarkable in the inclined model: the relative
+errors for Ny, = 6 are smaller than those for Ny, = 8.
+This issue is more apparent in the right panels, in which
+he relative errors are displayed as functions of Ng,.
+However, the general trend is clear. At Ny, = 8, the
+relative error is much less then 1% around the average
+energy in the Boltzmann model; it is a few % even for
+he inclined model, where the anisotropy is exaggerated
+artificially. Again the relative error tends to be larger
+at very high energies both in the Boltzmann model and
+
+0.1
+
+Le
+
+2.6 x 10-5
+
+t= 008
+
+t= 83 x 10-8: —_
+t=L7x10-'s
+
+7=008
+1=83x 1075s
+
+t=L7x 10-4 s
+
+2.4 x 10-5
+
+0.45 0.06
+
+f
+
+0.35 pee E18 x 10%
+03 pe ee 16 x 10 fx 100
+0.25 0.03 .
+0 0.5 1 15 0 05 1 15 2 14x 10-5 - -
+6, apie 0 05 1 15 2
+byt
+(a) Boltzmann model at ¢ = 1MeV (b) Boltzmann model at ¢ = 11.1MeV
+(c) Boltzmann model at ¢ = 41MeV
+zs 3.0 x 10-5
+0.35 0.08 20081. —
+t=0.05. — t=83x 10s
+i 2=83x 10-53 —— 7 . t=17x 104s
+0.3 taLrx iets i 25x 10-5 *
+035 0.06 a ee |
+0.05 5
+0.2 0x 10
+0.04 ae A
+oe et 0.03 i 5x 10°
+0.05 0.01 peer mba 10 fx 100
+0 0 t=17x10's ——
+0 05 1 15 2 0 0.5 1 15 2 5.0 x 10-® = -
+dle Jn 0 0.5 1 15 2
+oy /T
+
+(d) Inclined model at ¢ = 1MeV
+
+(e) Inclined model at € = 11.1MeV
+
+(f) Inclined model at ¢ = 41MeV
+
+Figure 14: The target distributions in ¢, at cos 6, = 0.97 for the Boltzmann model (upper panels) and the inclined
+
+model (lower panels) with (Nj
+
+. NS) = (10,24). They are presented for three representative energies: « = 1MeV
+
+(left column), 11.1MeV (middle column) and 41MeV (right column).
+
+the inclined model. The errors follow approximately the
+power law with the power of ~ —4. One may notice that
+the energy dependence of the relative error for the lower
+energy region (< 20MeV) is opposite between the Boltz-
+mann and the inclined model. This is because the degree
+of anisotropy increases (decreases) with energy in the
+Boltzmann (inclined) model (see Fig. 15). These results
+are consistent with the counterparts for the steady-state
+test. Based on these results, we judge that Ng, = 6, the
+canonical value in our Boltzmann simulations, is not a
+bad choice but Ny, = 8 is a bit more preferred.
+
+4.3. Combined-Resolution test
+
+As the last test of all, we study the accuracy of our
+dual-resolution prescription, varying both No, and Ng,
+(and poly as well) simultaneously for the same two tar-
+get distributions as in the ¢,-resolution test. The time
+dependence is also the same but they are constructed
+on the fine mesh with (Nj"°, N3"°) = (40, 24) this time.
+The relative error is again measured by Eq. (23) for the
+distribution obtained at the final time of each run. The
+results are plotted for both the Boltzmann model and
+the inclined model as functions of neutrino energy in
+Fig. 18 and as functions of Ny, in Fig. 19. The general
+
+trend is the same as in the previous two tests: the er-
+ror decreases monotonically as the resolution becomes
+higher with pol fixed for both models; the error is
+
+larger for the inclined model, in which the anisotropy is
+
+amplified by hand. The error is also reduced by increas-
+ing NPY with Ny, and Ny, fixed although the reduc-
+
+tion rate gets smaller as the angular resolution becomes
+higher. Figure 19 indicates again that the relative error
+in the Boltzmann (inclined) model obeys a power law
+with ~ —1.67 (~ —1.1) as its power, which is a little bit
+different in modulus than the value observed in Fig. 10
+
+for the steady-state test. We can see some peculiarities
+again at Ng, = 6.
+
+These results suggest that if the dual-resolution pre-
+scription is implemented, (No,, Ng,) = (10,6), the cur-
+rent resolution employed in our Boltzmann simulations
+of CCSNe, will be acceptable although a bit larger num-
+ber is preferable for Ng,. It seems that the higher the
+polynomial order is for the 6, interpolation, the better
+the results are. In fact, the best results are always ob-
+tained with Ngely = No, +1, ie., the entire interval
+{-1,1] of uw,
+order polynomial.
+
+cos 6, is expressed with a single high-
+1.9 x 10-7
+
+0 05 1 15 2
+bu/m
+
+(a) « = 1MeV
+
+0 0.5 Ay
+is
+
+(c) €= 41MeV
+
+No, =4 —
+ef Ng, =6 —
+
+1.2x 1077
+S11 x 107
+81.0 x 10-7
+9.0 x 10-*
+0x 10-8
+37.0 x 10-8
+
+6.0 x 10-8
+
+yt
+
+ANP; 7
+\. os VY
+
+3 =
+TEENA
+0 0.5 1, 15 2 0.5
+o/t
+(d) « = 1MeV
+
+ul
+ou/t
+(e) « = 11.1MeV
+
+= 0 0.5 1, 1.5 4
+15 2 2 gba :
+
+(£) «= 41MeV
+
+Figure 15: The numerical solutions (upper half) and the relative errors (lower half) at the end of simulations as
+functions of ¢, at cos, = 0.97 for the Boltzmann model (upper panels) and the inclined model (lower panels) with
+(Nps, Ng") = (10,24). They are presented for the neutrino energies of ¢ = 1MeV (left column), 11.1MeV (middle
+column) and 41MeV (right column). The line color represents the angular resolution.
+
+5. CONCLUSION
+
+In order to address the issue of the angular resolution
+in momentum space in the Sj method for Boltzmann
+neutrino transport, we propose a dual-resolution pre-
+scription and conduct some test calculations meant for
+proof of principle in this paper. We treat the advection
+term and the collision term separately with different res-
+olutions in the operator-splitting manner. The distribu-
+tion function in one of the resolutions is converted to the
+one in the other and vice versa. In this paper, the first
+of a series of papers, we focus on the resolution appro-
+priate for the collision term, since we already have some
+information on the resolution needed for the advection
+term (Richers et al. 2017) and the treatment of the ad-
+vection term in the high resolution is rather straightfor-
+ward. As the collision term, we consider only the neu-
+trino scatterings on nucleons, one of the most important
+interactions in the supernova core, with its angular de-
+pendence and small energy transfer taken into account.
+On the other hand, the advection term (and other in-
+teractions) is (are) taken from one of our Boltzmann
+simulations and treated as known quantities, which we
+call the source term. Then the test calculations become
+
+local with different spatial points decoupled from one
+another. We hence refer to these test calculations as the
+one-zone models in this paper.
+
+The conversion of resolutions is non-trivial. In fact, i
+is impossible to reproduce the distribution function in
+a higher resolution from the one given in a low resolu-
+ion, mathematically speaking. We hence seek for a way
+© reconstruct it with a reasonable accuracy. We trea
+he zenith and azimuth directions separately and em-
+ploy different polynomial interpolations for them. This
+is because the functional behaviors are quite differen
+
+between them.
+We test the prescription with both time-independen
+and time-dependent source terms. The former is mod-
+
+eled on a single point near the neutrinosphere whereas
+he latter is designed so that it should mimic the the
+advection term (and the interactions other than the
+neutrino-nucleon scattering combined) viewed by the
+imaginary observer moving radially outward at the light
+
+speed.
+
+In both tests, we find a convergence of the numerical
+solutions to the exact solution as the number of grid
+points increases. For the zenith-angle, 0,, direction, the
+10°
+
+10-1
+
+10-2
+
+1or#
+
+10-4
+
+1 10 100
+Energy
+
+(a)
+
+10!
+
+10°
+
+10-1
+
+19-3 1 L L
+1 10 100
+
+Energy
+(b)
+
+Figure 16: The maximum relative errors as functions
+
+of neutrino energy in the time-evolution ¢,-resolution
+test for (a) the Boltzmann model and (b) the inclined
+model. No, is fixed to 10. The color denotes the value
+of Ny,. The errors are evaluated at the final time step
+of each run.
+
+higher order polynomials give better results whereas for
+he azimuth-angle, ¢,, direction the quadratic functions
+deployed locally and combined together smoothly serve
+our purpose well. In both directions the error follows
+some power-laws. We judge that the angular mesh with
+0(@.) x 6(¢,), which is the grid used normally in our
+Boltzmann simulations, is reasonable for the calculation
+of the collision term if the dual-resolution prescription
+roposed in this paper is employed.
+This study is just the first step mainly meant for
+
+the proof of principle of the dual-resolution prescrip-
+ion. Now that we find the angular resolution suitable
+
+for the collision term and confirm the resolution con-
+version works well, in the next step we will consider
+
+he advection term squarely to confirm the conclusion
+of this paper in real neutrino transfer simulations. In so
+
+19
+
+10°
+1 31.9MeV —a—
+5 10-7 119.2MeV —e— 4
+g
+I
+&
+2
+2 10°? q
+o
+x
+2 10% 4
+10-4
+4 6 8 10 12
+(a)
+j 3.0MeV —+—
+10° 6.6MeV —#— 4
+145) ~~
+31.9MeV —e—
+BI 119.2MeV ——
+5
+1
+2 10 J
+g
+Be}
+&
+©
+&
+5 10? |
+a
+10-3 1 1 1 1 1
+
+Figure 17: The relative errors as functions of Ny, in
+the time-evolution ¢,-resolution test for (a) the Boltz-
+mann model and (b) the inclined model. The color
+shows the neutrino energy.
+
+doing, we will also implement all other interactions in
+the collision term; more elaborate schemes will be tried
+for the operator splitting of the advection and collision
+terms. We find that errors tend to become larger at
+low energies. This is mainly due to repeated resolution-
+conversions despite the collision term contributes very
+little and the same situation is expected for higher ener-
+gies at larger radii. In such situations, the collision term
+may be calculated less frequently or only the increment
+by the collision term should be interpolated to the finer
+mesh. These possibilities will be also tested next.
+
+6. ACKNOWLEDGMENTS
+
+We thank Yudai Suwa for fruitful discussions. This
+work used high-performance computing resources pro-
+vided by Fugaku supercomputer at RIKEN, the Wis-
+teria provided by JCAHPC through the HPCI System
+Research Project (Projects ID No. 240041, No. 240079,
+
+20
+
+10!
+
+10°
+
+107!
+
+107
+
+10-$
+
+1 10 100
+
+Energy
+
+10!
+
+ae OR a
+
+oe
+10-2 TTR He a IE
+
+yo-2 Lis L
+
+Energy
+(b)
+
+Figure 18: The maximum relative errors as func-
+tions of neutrino energy in the time-evolution combined-
+resolution test for (a) the Boltzmann model and (b) the
+inclined model. The color shows different combinations
+of No,, Ng, and Npoly as specified in the legend.
+
+No. 240219, No. 240264, No. 250006, No. 250166,
+No. 250191, and No. 250226, JPMXP1020200109,
+JPMXP 1020230406), Yukawa Institute of Theoretical
+Physics, the FX1000 provided by Nagoya University,
+Cray XC50 and XD2000 at the National Astronomical
+Observatory of Japan (NAOJ), the Computing Research
+Center at the High Energy Accelerator Research Organi-
+zation (KEK), and Japan Lattice Data Grid (JLDG) on
+Science Information Network (SINET) of National In-
+stitute of Informatics (NII). R.Y. is supported by JSPS
+KAKENHI Grant No. JP24K00632. H.N. is supported
+by Grant-in-Aid for Scientific Research (23K03468).
+S.Y. is supported by Grant-in-Aid for Scientific Research
+(25K01006).
+
+REFERENCES
+
+Abdikamaloy, E., Burrows, A., Ott, C. D., et al. 2012, ApJ,
+755, 111, doi: 10.1088/0004-637X/755/2/111
+
+Akaho, R., Harada, A., Nagakura, H., et al. 2021, ApJ, 909,
+210, doi: 10.3847 /1538-4357/abelbf
+
+—. 2023, ApJ, 944, 60, doi: 10.3847/1538-4357/acad76
+
+Alberico, W. M., Bilenky, S. M., & Maieron, C. 2002,
+Physics Reports, 358, 227,
+doi: 10.1016/S0370-1573(01)00058-8
+
+Arnett, W. D. 1977, ApJ, 218, 815, doi: 10.1086 /155738
+
+Boccioli, L., & Roberti, L. 2024, Universe, 10, 148,
+doi: 10.3390/universe10030148
+
+Bollig, R., Yadav, N., Kresse, D., et al. 2021, ApJ, 915, 28,
+doi: 10.3847/1538-4357 /abf82e
+
+Bruenn, S. W. 1985, The Astrophysical Journal Supplement
+Series, 58, 771, doi: 10.1086/191056
+
+Bruenn, S. W., Blondin, J. M., Hix, W. R., et al. 2020,
+ApJS, 248, 11, doi: 10.3847/1538-4365 /abTaff
+
+Buras, R., Rampp, M., Janka, H.-T., & Kifonidis, K. 2006,
+Astronomy & Astrophysics, 447, 1049,
+doi: 10.1051 /0004-6361:20053783
+
+Burrows, A., Radice, D., & Vartanyan, D. 2019, Monthly
+Notices of the Royal Astronomical Society, 485, 3153,
+doi: 10.1093/mnras/stz543
+
+Burrows, A., & Sawyer, R. F. 1998, Physical Review C, 58,
+554, doi: 10.1103/PhysRevC.58.554
+
+10°
+
+lo“?
+
+10-?
+
+10-8
+
+10°
+
+10-t
+
+10-?
+
+5 10 20
+No,
+
+Figure 19: The maximum relative errors as functions of
+Ngo, in the time-evolution combined-resolution test for
+(a) the Boltzmann model and (b) the inclined model.
+The color shows the neutrino energy whereas the line
+type distinguishes the polynomial order used in the
+0,-interpolation: Npoly is fixed to 6 for dashed lines
+whereas NRO = No, +1 is adopted for solid lines.
+
+Burrows, A., & Thompson, T. A. 2004, in Astrophysics and
+Space Science Library, Vol. 302, Astrophysics and Space
+Science Library, ed. C. L. Fryer, 133-174,
+doi: 10.1007/978-0-306-48599-2_5
+
+Burrows, A., & Vartanyan, D. 2021, Nature, 589, 29,
+doi: 10.1038/s41586-020-03059-w
+
+Burrows, A., Vartanyan, D., Dolence, J. C., Skinner, M. A.,
+& Radice, D. 2018, Space Science Reviews, 214, 33,
+doi: 10.1007/s11214-017-0450-9
+
+Burrows, A., Wang, T., & Vartanyan, D. 2024, ApJL, 964,
+L16, doi: 10.3847/2041-8213/ad319e
+
+Chan, C., & Miiller, B. 2020, MNRAS, 496, 2000,
+doi: 10.1093/mnras/staal666
+
+21
+
+Chu, R., Endeve, E., Hauck, C. D., & Mezzacappa, A.
+2019, Journal of Computational Physics, 389, 62,
+doi: 10.1016/j.jep.2019.03.037
+Deppe, N., Foucart, F., Bonilla, M. S., et al. 2024, Classical
+and Quantum Gravity, 41, 245002,
+doi: 10.1088/1361-6382/ad88cf
+Fleck, J. A., J., & Canfield, E. H. 1984, Journal of
+Computational Physics, 54, 508,
+doi: 10.1016 /0021-9991(84)90130-X
+Fleck, J. A., J., & Cummings, J. D. 1971, Journal of
+Computational Physics, 8, 313,
+doi: 10.1016 /0021-9991(71)90015-5
+Foucart, F., Duez, M. D., Hébert, F., et al. 2021, ApJ, 920,
+82, doi: 10.3847/1538-4357/acl1737
+Foucart, F., Duez, M. D., Kidder, L. E., et al. 2018,
+PhRvD, 98, 063007, doi: 10.1103/PhysRevD.98.063007
+Furusawa, S., Togashi, H., Nagakura, H., et al. 2017,
+Journal of Physics G: Nuclear and Particle Physics, 44,
+094001, doi: 10.1088/1361-6471/aa7f35
+Harada, A., & Nagakura, H. 2022, ApJ, 924, 109,
+doi: 10.3847/1538-4357 /ac38a0
+Harada, A., Nagakura, H., Iwakami, W., et al. 2019, ApJ,
+872, 181, doi: 10.3847/1538-4357/ab0203
+—. 2020, ApJ, 902, 150, doi: 10.3847/1538-4357/abb5a9
+Hobbs, T. J., Alberg, M., & Miller, G. A. 2016, Physical
+Review C, 93, 052801, doi: 10.1103/PhysRevC.93.052801
+Horowitz, C. J. 2002, Physical Review D, 65, 043001,
+doi: 10.1103/PhysRevD.65.043001
+Horowitz, C. J., Caballero, O. L., Lin, Z., O’Connor, E., &
+Schwenk, A. 2017, Physical Review C, 95, 025801,
+doi: 10.1103/PhysRevC.95.025801
+Hiidepohl, L., Miiller, B., Janka, H. T., Marek, A., &
+Raffelt, G. G. 2010, PhRvL, 104, 251101,
+doi: 10.1103/PhysRevLett.104.251101
+wakami, W., Okawa, H., Nagakura, H., et al. 2020,
+Astrophysical Journal, 903,
+doi: 10.3847/1538-4357/abb8cf
+wakami, W., Harada, A., Nagakura, H., et al. 2022, ApJ,
+933, 91, doi: 10.3847/1538-4357/ac714b
+anka, H. T. 1992, A&A, 256, 452
+—. 2025, arXiv e-prints, arXiv:2502.14836,
+doi: 10.48550/arXiv.2502.14836
+anka, H.-T., & Kresse, D. 2024, Ap&SS, 369, 80,
+doi: 10.1007/s10509-024-04343-1
+anka, H.-T., Melson, T., & Summa, A. 2016, Annual
+Review of Nuclear and Particle Science, 66, 341,
+doi: 10.1146/annurev-nucl- 102115-044747
+ust, O., Obergaulinger, M., & Janka, H.-T. 2015, Monthly
+Notices of the Royal Astronomical Society, 453, 3386
+
+22
+
+Kato, C., Nagakura, H., Hori, Y., & Yamada, S. 2020, The
+Astrophysical Journal, 897, 43,
+doi: 10.3847/1538-4357/ab97b2
+
+Kato, C., Nagakura, H., & Morinaga, T. 2021, ApJS, 257,
+55, doi: 10.3847/1538-4365/ac2aa4
+
+Kawaguchi, K., Fujibayashi, $., & Shibata, M. 2023,
+PhRvD, 107, 023026, doi: 10.1103/PhysRevD.107.023026
+
+—. 2025a, PhRvD, 111, 023015,
+doi: 10.1103/PhysRevD.111.023015
+
+—, 2025b, PhRvD, 112, 043001, doi: 10.1103/yygv-6268
+
+Keil, M. T., Raffelt, G. G., & Janka, H.-T. 2003, ApJ, 590,
+971, doi: 10.1086/375130
+
+Kotake, K., Takiwaki, T., Fischer, T., Nakamura, K., &
+Martinez-Pinedo, G. 2018, The Astrophysical Journal,
+853, 170, doi: 10.3847/1538-4357/aaa716
+
+Kuroda, T., Takiwaki, T., & Kotake, K. 2016, The
+Astrophysical Journal Supplement Series, 222, 20
+
+Laiu, M. P., Endeve, E., Chu, R., Harris, J. A., & Messer,
+O. E. B. 2021, ApJS, 253, 52,
+
+loi: 10.3847/1538-4365/abe2a8
+
+Leitner, T. J. 2005, Dipl. Justus-Liebig-Universitat GieBen
+
+Liebendorfer, M., Mezzacappa, A., Thielemann, F.-K.,
+
+et al. 2001, Physical Review D, 63, 103004,
+
+loi: 10.1103/PhysRevD.63.103004
+
+Liebendo6rfer, M., Rosswog, S., & Thielemann, F.-K. 2002,
+
+ApJS, 141, 229, doi: 10.1086/339872
+
+Liebend6rfer, M., Whitehouse, S. C., & Fischer, T. 2009,
+
+ApJ, 698, 1174, doi: 10.1088/0004-637X/698/2/1174
+
+Marek, A., & Janka, H. T. 2009, ApJ, 694, 664,
+
+joi: 10.1088/0004-637X /694/1/664
+
+Melson, T., Janka, H.-T., Bollig, R., et al. 2015, The
+
+Astrophysical Journal, 808, L42,
+
+oi: 10.1088/2041-8205/808/2/L42
+
+Mezzacappa, A. 2023, in IAU Symposium, Vol. 362, The
+Predictive Power of Computational Astrophysics as a
+Discover Tool, ed. D. Bisikalo, D. Wiebe, & C. Boily,
+215-227, doi: 10.1017/S1743921322001831
+
+Mezzacappa, A., & Bruenn, S. W. 1993, ApJ, 405, 669,
+doi: 10.1086/172395
+
+Mezzacappa, A., & Messer, O. E. B. 1999, Journal of
+Computational and Applied Mathematics, 109, 281,
+doi: 10.1016/80377-0427(99)00162-4
+
+Miller, J. M., Ryan, B. R., Dolence, J. C., et al. 2019,
+PhRvD, 100, 023008, doi: 10.1103/PhysRevD.100.023008
+
+Mornas, L. 2003, NuPhA, 721, C1040,
+doi: 10.1016/S0375-9474(03)01280-6
+
+Mornas, L., & Perez, A. 2001, Neutrino-Nucleon Scattering
+Rate in Proto Neutron Star Matter, arXiv.
+http: //ascl.net /nucl-th/0106058
+
+Nagakura, H., Furusawa, S., Togashi, H., et al. 2019, The
+Astrophysical Journal Supplement Series, 240, 38,
+doi: 10.3847/ 1538-42
+
+Nagakura, H., Iwakami, W., Furusawa, S., et al. 2017,
+ApJS, 229, 42, doi: 10.3847/1538-4365/aa69ea
+
+Nagakura, H., Sumiyoshi, K., & Yamada, S. 2014, The
+Astrophysical Journal Supplement Series, 214, 16,
+doi: 10.1088/0067-0049/214/2/16
+
+Nagakura, H., Sumiyoshi, K., & Yamada, S. 2019, ApJ,
+878, 160, doi: 10.3847/1538-4357/ab2189
+
+Nagakura, H., Iwakami, W., Furusawa, S., et al. 2018, The
+Astrophysical Journal, 854, 136,
+doi: 10.3847/1538-4357 /aaac29
+
+O’Connor, E. 2015, The Astrophysical Journal Supplement
+Series, 219, 24
+
+Peres, B., Penner, A. J., Novak, J., & Bonazzola, S$. 2014,
+Classical and Quantum Gravity, 31, 045012,
+doi: 10.1088/0264-9381 /31/4/045012
+
+Pllumbi, E., Tamborra, I., Wanajo, S., Janka, H.-T., &
+Hiidepohl, L. 2015, ApJ, 808, 188,
+doi: 10.1088/0004-637X /808/2/188
+
+Radice, D., Burrows, A., Vartanyan, D., Skinner, M. A., &
+
+Dolence, J. C. 2017, ApJ, 850, 43,
+
+doi: 10.3847/1538-4357/aa92c5
+
+Raffelt, G. G. 2001, ApJ, 561, 890, doi: 10.1086/323379
+
+Rampp, M., & Janka, H. T. 2002, A&A, 396, 361,
+
+doi: 10.1051 /0004-6361:20021398
+
+Richers, S., Nagakura, H., Ott, C. D., et al. 2017, The
+Astrophysical Journal, 847, 133,
+doi: 10.3847/1538-4357 /aa8bb2
+
+Shibata, M., Kiuchi, K., Sekiguchi, Y., & Suwa, Y. 2011,
+Progress of Theoretical Physics, 125, 1255,
+doi: 10.1143/PTP.125.1255
+
+Skinner, M. A., Burrows, A., & Dolence, J. C. 2016, ApJ,
+831, 81, doi: 10.3847/0004-637X/831/1/81
+
+Skinner, M. A., Dolence, J. C., Burrows, A., Radice, D., &
+Vartanyan, D. 2019, ApJS, 241, 7,
+doi: 10.3847/1538-4365 /ab007!
+
+Sugiura, K., Furusawa, S., Sumiyoshi, K., & Yamada, S.
+
+5/aafac9
+
+2022, Progress of Theoretical and Experimental Physics,
+2022, 113E01, doi: 10.1093/ptep/ptac118
+
+Sumiyoshi, K., & Yamada, S. 2012, The Astrophysical
+Journal Supplement Series, 199, 17,
+doi: 10.1088/0067-0049/199/1/17
+
+Sumiyoshi, K., Yamada, S., Suzuki, H., et al. 2005, ApJ,
+629, 922, doi: 10.1086/431788
+
+Suwa, Y., Tahara, H. W. H., & Komatsu, E. 2019, Progress
+of Theoretical and Experimental Physics, 2019, 083E04,
+doi: 10.1093/ptep/ptz087
+
+23
+
+Takiwaki, T., Kotake, K., & Suwa, Y. 2012, ApJ, 749, 98, Vartanyan, D., Burrows, A., Radice, D., Skinner, M. A., &
+doi: 10.1088/0004-637X/749/2/98 Dolence, J. 2019, MNRAS, 482, 351,
+doi: 10.1093/mnras/sty2585
+Thompson, T. A., Burrows, A., & Pinto, P. A. 2003, ApJ, Wang, T., & Burrows, A. 2020, Physical Review D, 102,
+592, 434, doi: 10.1086/375701 023017, doi: 10.1103/PhysRevD.102.023017
+Yamada, S., Nagakura, H., Akaho, R., et al. 2024,
+Thorne, K. S. 1981, MNRAS, 194, 439, Proceedings of the Japan Academy. Series B, Physical
+
+doi: 10.1093/mnras/194.2.439 and biological sciences, 100, doi: 10.2183/pjab.100.015
+24
+
+APPENDIX
+
+A. COLLISION TERMS AND ENERGY-SUBGRID
+
+In this appendix we describe the treatment of col-
+lision terms. In our dual-resolution formulation, they
+are handled with the low-resolution angular mesh. Al-
+though there are various channels, through which neu-
+trinos interact with matter, we focus on the scattering
+on nucleon, the dominant reaction that has non-trivial
+angular dependence. In particular, we explain how to
+deal with small energy transfer between neutrino and
+nucleon in this almost iso-energetic scattering.
+
+The collision term for the scattering process in the
+Boltzmann equation is expressed in general as
+
+1 ef?
+Clfl= oar (Rscat (€’, 0; €, OQ) f(€/, OD [1 — f(e, Q)]
+— Recar(e, 2; €, O') f (e, Q)[1 — fle, Q)]), (Al)
+
+where f is the neutrino distribution, Rscat (e, 0; €, 9’) is
+the reaction kernel of the scattering (€,9) > (€,’),
+where ¢€ and ¢’ are the energies of the incident and out-
+going neutrinos, respectively, and 9 and (’ are the cor-
+responding solid angles in momentum space.
+
+The reaction kernel is taken from Sugiura et al. (2022),
+neglecting the weak magnetism and other momentum
+transfer-dependent form factors in the weak currents of
+nucleon for simplicity. Reinstating the omitted effects
+poses no difficulty. Note also that the reaction rate
+adopted in this study incorporates the effective masses of
+proton and neutron provided by the Furusawa-Togashi
+EOS (Furusawa et al. 2017).
+
+Figure 20 shows the reaction kernel Rygcat(€, €’, cos O,),
+where 0, is the angle that the momentum of the outgo-
+ing neutrino makes with that of the incident neutrino,
+for different incident energies. In the upper panels, we
+fix the scattering angle 0, in addition to the incident
+energy € and plot the scattering kernel as a function
+of ¢’, the energy of the outgoing neutrino, for different
+choices of 9,. The reddish and bluish lines represent
+the forward and backward scatterings, respectively. It
+is apparent that the reaction rate drops quickly as the
+modulus of the energy transfer, |e — €’|, increases, which
+indicates that the recoil of nucleon is indeed small. It is
+still important for quantitatively accurate CCSN simu-
+lations as we explained earlier. In fact, the width of the
+kernel in energy depends on the scattering angle rather
+sensitively and becomes larger for backward scatterings.
+In the same panels, we show for reference the energy grid
+employed normally in our Boltzmann simulations. Note
+that the incident energy is chosen to coincide with one
+
+of the cell interfaces of that grid. The widths of the ad-
+jacent energy bins are much larger than that of the reac-
+tion kernel for the forward scatterings, cos 0, > 0, in all
+cases. In the backward scatterings with cos O, < —0.5,
+the kernel extends beyond the next bins, accounting for
+= 10% of these scatterings in some cases, which may not
+be negligible.
+
+In the lower panels, we show the kernel as a function
+of the scattering angle for the fixed energies of incident
+and outgoing neutrinos. It is again apparent that the
+scattering depends on the scattering angle. For most
+of the values of ¢’, the backward scatterings are domi-
+nant. The exception is the scatterings with small energy
+transfer, which tend to occur in the forward direction.
+
+In our previous simulations, we treated this scattering
+as iso-energetic (Bruenn 1985), since the energy transfer
+yetween neutrino and nucleon was thought to be smaller
+han the cell width of the energy grid with the current
+standard resolution. In most of the recent simulations
+oy other authors, the small energy transfer is treated ap-
+proximately via the formula given by Horowitz (2002).
+Buras et al. (2006) were the first to introduce an energy-
+subgrid treatment in the truncated moment method and
+others followed suit (Melson et al. 2015; Bollig et al.
+2021; Janka & Kresse 2024; Janka 2025). It seems that
+its accuracy has not been explored yet in the literature.
+In this paper, we also adopt a subgrid method, which is
+similar to but is more involved than that for the trun-
+
+cated moment method, since the angular dependence is
+retained in our method. At each interface in the original
+energy grid we deploy a small subgrid with finer cells,
+the widths of which are determined from the width of
+the scattering kernel as depicted schematically in Fig. 21
+and explained more in detail shortly.
+
+At each interface of the original energy grid and for
+all the scattering angles that the momenta of the inci-
+dent and outgoing neutrinos on the angular grid points
+make, we first determine the energy range [émin, €max
+that the energy subgrid should cover. The values o:
+€min and €max are determined so that Rscat(€min, €1; Ov)
+and Rscat(€max; €I; Bs) should be equal to 10-3 x
+Rscat (€1,€1,Ov) (see Fig. 21a). We deploy the same
+number of energy bins in the energy range, [émin, €7
+and {e7,€max| individually, which is denoted by Neup-
+Then we calculate for each scattering angle 0, the tota
+number of down-scatterings across the cell interface er,
+iLe., the scatterings from the energy range of [e7, émax
+to that of [émin, €7] and the number of the upscatterings
+
+-6
+10” Foos®, ="10 ——"1 Feds, $03] Fos 6, £05
+mt agel 7 | F 0.0 —— | 0.7
+‘= -0.5 —— 0.3 —— 0.9
+a 10-8 L d
+°
+3 10~°
+a 19710
+Fy
+ef 107%
+10-?
+15 2 25 3 35 6 7 8 9 10111213 14 16 18 20 22 24 26 28
+energy [MeV] energy [MeV] energy [MeV]
+(a)
+10-° T T T T T T T T T
+1.43MeV ——2.99MeV 5.35MeV ——11.2MeV — 11.8MeV ——24.7MeV —
+S7 49-7 [£1-82MeV —3.38MeV [ 6.81MeV ——12.7MeV —j|  [ 15.0MeV ——27.9Mev —]
+] 2.21MeV ——3.78MeV 8.27MeV ——14.1MeV 18.2MeV ——31.1MeV
+5 19-8 [260Mev f 9.73MeV | 21.5MeV
+ne}
+ic 10°
+A, 19~10
+ef lo
+10"?
+
+cos 90,
+
+cos 0,
+
+Figure 20: The reaction kernel for the fixed incident energy: € = 2.60 MeV, € = 9.73 MeV and € = 21.5 MeV in the
+left, middle and right columns, respectively. In the upper row, it is plotted as a function of the energy of the outgoing
+neutrino for some fixed scattering angles. The reddish (bluish) lines represent the forward (backward) scatterings. In
+the lower row, the kernel is plotted as a function of the scattering angle for fixed energies of the outgoing neutrino.
+
+The reddish (bluish) lines denote the up-scatterings (down-scatterings).
+
+from [émin, €r] to [€7,€max] individually (see Fig. 21b).
+Note that these energy ranges may cover more than one
+original cells as depicted in Fig. 21a. In such a case, we
+take all the latter cells into account (see Eqs. (A3) and
+(A4) below).
+
+In so doing, we need the neutrino distribution. We ap-
+proximate it in each original energy bin with the Fermi-
+Dirac distribution modulo the overall normalization; its
+chemical potential is set to the value in 6-equilibrium
+for y.. Note that we treat 1. alone in this paper. The
+choice should be different for other species of neutrinos
+when they are incorporated. The scaling of the distri-
+bution is done for the linear and nonlinear terms on the
+right hand side of Eq. (Al) separately. The latter is
+
+originated from the Pauli-blocking fac For the lin-
+ear term the distribution function is scaled so that the
+be reproduced.
+ermined so that
+
+Or.
+
+number of neutrinos in the cell should
+The scaling of the nonlinear term is de’
+the integral of the product of the distribution functions
+on the (fine) subgrid should coincide with the product of
+the actual distribution functions on the original (coarse)
+energy grid (see Eq. (A4)). Note that only these scalings
+ion.
+
+are done in real time during the simula’
+26
+
+scat
+
+Reeal€r€®,) Reals €, 8)
+
+OF RoealEn €p Oy) or
+
+i F dj
+€min ce; € €; max
+
+(b) The subgrid model.
+
+Figure 21: (a) Schematic picture of the determination
+of the energy range spanned by the subgrid. For each
+energy interface €7, the values of émin and €max are de-
+termined. They also depend on the scattering angle. (b)
+
+Schematic picture of the calculations with the subgrid of
+
+down-scatterings (blue arrow) from the j-th cell to the
+i-th cell in the original grid and up-scatterings (red ar-
+row) from the i-th cell to the j-th cell. The energy range
+[€min, €max] of the subgrid is determined as in (a). The
+subcells are created in the ranges [€min, €7] and [€7, €max|;
+individually. The summation with respect to €;, in Eqs.
+(A3) and (A4) runs over the finer cells in the orange
+region whereas the summation with respect to €j;, runs
+over those in the blue region. The leftmost subcells in
+the orange and blue regions are overlapped with those
+regions only partially. Their contributions are reduced
+according to the overlaps.
+
+The collision terms on the original (coarse) energy grid
+may be now expressed as follows:
+
+ee
+Ne A-& No, xNe
+
+Loe Db AM
+1=1
+
+k=l
+
+C( ft (a, Qm)) =
+
+x (Realer, 4; €1, Am) fF" (ex, M1)
+
+— REF (4, O15 €:, Om) f° (ex, A) FT (Eis Mm)
+
+— Ble (€:, Gms ex, U)f"** (Ci, Om)
+
++ REE (ei, Qin ee %),F"** (Cs, Om) F"** (Ce, M1))(A2)
+
+where the effective scattering kernels, Rly and Rif ofp aTe
+given for €; < €&; as
+
+Ac Aeé
+i Xe In)8 Om cag Racat (Cis €3;) fea.)
+Rig (6 6) = a i x
+(rn)? ( Bay feal )
+Ae Ae (A8)
+‘s ai 32 Tir Rec 64H) Fea) Fea)
+Rages) = —a-aa
+Gr? ( Gaptealei i) feq(€;)
+(A4)
+
+respectively, whereas for €; > €; they are given by the
+detailed balance condition as
+
+€; — €j
+Rigleies) = Riglesayex(S55), (As)
+
+6 — 6;
+Riflese)) = Rleredew (S52). (a6)
+
+As mentioned earlier, the j-th energy cell may not be
+restricted to the cells next to the i-th cell, ic., 7 =i+1.
+In Eqs. (A3)-(A6), the angle arguments are omitted
+‘or notational simplicity; feq(e) = 1/(1 + exp (G*)) is
+
+he Fermi-Dirac distribution function in 3-equilibrium,
+
+where the neutrino chemical potential py is given by the
+chemical potential of proton, 4p, electron, jie and neu-
+TON [yn aS fl = [lp + fle — Mn} €i, and €j, are the en-
+ergies at the subgrid cells inside the i-th and j-th cells
+of the original grid, respectively (see Fig. 21b). Since
+he boundaries of the subgrids do not coincide with the
+interfaces of the original energy grid, some subcells may
+overlap with more than one original cells. In that case
+
+he contributions from those subcells are distributed to
+he latter cells according to the overlapped ranges (see
+Fig. 21b again).
+
+Now we determine how many cells to be deployed in
+he energy-subgrid. For this purpose, we evaluate the
+relative error in the following numerical integration of
+
+he scattering kernel on the subgrid:
+
+a(e,cosO,) = 5 if Ome!” Recat (e, €’, cos O, de’,
+
+ne
+(A7)
+
+where the incident energy € is chosen from the cell in-
+
+terface values in the original energy grid. We calculate
+this integral numerically for different combinations of €
+and 0, by the piecewise quadrature. Varying Nsup, the
+number of cells in the energy-subgrid, we evaluate the
+relative error defined as
+
+Fnum(€, COS Oy) = Fex(€, COs Oy)
+
+, (A8)
+
+Tex(€, cos O,,)
+where Onum and dex are the numerical and exact val-
+ues, respectively; the latter is obtained with a very large
+number of grid points (Ngup = 27 = 10°).
+
+The results are presented in Fig. 22. One finds that
+the relative error decreases quadratically with Ngup ir-
+respective of the values of € and @,. The error is larger
+for backward scatterings in general. This arises from
+the fact that the peak of the scattering kernel, which
+gives the largest errors in the piecewise quadrature, is
+more shifted from the cell interface to the cell center for
+the backward scatterings than for the forward scatter-
+ings. We find at Nsup = 8 that the relative error gets
+<5 x 1073, which is sufficiently small normally for the
+CCSN simulation. We henceforth employ Nsup = 8 in
+the energy-subgrid. It is incidentally noted that in the
+previous implementations by other authors (e.g., Buras
+et al. (2006)), the original mesh cells are subdivided into
+
+Ngub Subcells, where Ngup is typically 6, which may not
+always be sufficient particularly for the forward scat-
+terings, for which the kernel is narrow-peaked near the
+original cell-interface.
+
+ve error
+
+7
+fo}
+e
+z
+Oo
+©
+an
+aa
+4
+o
+g
+
+ive error
+
+&
+
+10°
+
+0
+(mu
+07
+os
+
+(md
+
+27
+
+cos, = -1.00 —=—
+-0.50 —a—
+-0.10 —w— |
+
+0.10 —n—
+0.50 —x—
+0.90 ——
+
+10 100 1000
+The number of energy mesh points N,
+
+(a) € = 3.86MeV
+
+cos @, = -1.00 —e—
+-0.50 —e—
+
+0.50 —«—
+0.90 —»—
+
+10 100 1000
+The number of energy mesh points N,
+
+(b) € = 11.1MeV
+
+cos, = -1.00 —»—
+-0.50 —a—
+-0.10 —»— |
+0.10 —w—
+0.50 —»—
+0.90 ——
+
+10 100 1000
+The number of energy mesh points N,
+
+(c) ¢ = 41.5MeV
+
+Figure 22: The relative error of o in Eq. (A7) as
+functions of the number of energy mesh points for (a)
+€ = 3.86MeV, (b) 11.1MeV and (c) 41.5MeV. The color
+coding is the same as in Fig. 20.

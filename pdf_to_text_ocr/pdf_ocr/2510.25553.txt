@@ -1,0 +1,4216 @@
+2510.25553v1 [cond-mat.dis-nn] 29 Oct 2025
+
+arXiv
+
+Sel
+well-d
+corre
+Stand
+
+Renormalization group for deep neural networks:
+Universality of learning and scaling laws
+
+Gorka Peraza Coppola
+Institute for Advanced Simulation (IAS-6),
+Computational and Systems Neuroscience,
+
+Jiilich Research Centre,
+
+Jiilich, Germany and
+
+RWTH Aachen University,
+
+Aachen, Germany
+
+Moritz Helias*
+
+Institute for Advanced Simulation (IAS-6),
+Computational and Systems Neuroscience,
+Jiilich Research Centre,
+
+Jiilich, Germany and
+Department of Physics,
+
+RWTH Aachen University,
+Aachen, Germany
+
+Zohar Ringel*
+The Racah Institute of Physics,
+The Hebrew University of Jerusalem,
+Jerusalem, Israel
+
+Self-similarity, where observables at different length scales exhibit similar behavior, is ubiquitous in
+natural systems. Such systems are typically characterized by power-law correlations and universality,
+and are studied using the powerful framework of the renormalization group (RG). Intriguingly, power
+laws and weak forms of universality also pervade real-world datasets and deep learning models,
+motivating the application of RG ideas to the analysis of deep learning. In this work, we develop an
+RG framework to analyze self-similarity and its breakdown in learning curves for a class of weakly
+non-linear (non-lazy) neural networks trained on power-law distributed data. Features often neglected
+in standard treatments—such as spectrum discreteness and lack of translation invariance—lead to
+both quantitative and qualitative departures from conventional perturbative RG. In particular, we
+find that the concept of scaling intervals naturally replaces that of scaling dimensions. Despite these
+differences, the framework retains key RG features: it enables the classification of perturbations as
+relevant or irrelevant, and reveals a form of universality at large data limits, governed by a Gaussian
+Process-like UV fixed point.
+
+I. INTRODUCTION
+
+similarity is a highly structured property of probabilistic systems that possess both a notion of scale and a
+efined coarse-graining procedure under which observables become indistinguishable across scales; in particular,
+ations decay as power laws with distance. Many physical systems exhibit near self-similarity—for example, the
+ard Model at high energies, turbulent flows, and all second-order phase transitions (i.e., critical phenomena).
+
+These behaviors are often accompanied by universality, the insensitivity of observations on one scale to microscopic
+
+detai!
+In
+tailed
+
+is or perturbations introduced at a different scale.
+he realm of machine learning, power-law behavior is similarly pervasive. Zipf’s law in natural language, heavy-
+distributions in vision and audio datasets, and power-law learning curves with respect to model or dataset scale
+
+(known as scaling laws) all point to potential underlying structure. Moreover, the robustness of these scaling laws to
+architectural and algorithmic variations [1, 2] hints at some degree of universality that also aligns with the prevailing
+
+view
+
+hat scale and compute dominate performance trends | However, a critical gap remains: unlike in physics, we
+
+lack a precise, let alone a canonical, notion of what defines “scale” in data or models, and how coarse-graining should
+
+* Equal contribution. Correspondence: g.peraza.coppola@fz-juelich.de
+1 See Sutton’s opinion paper, “The Bitter Lesson" (2019)
+be implemented. As a result, the potential self-similar origin of these behaviors remains obscure, and limits our ability
+to import tools from critical phenomena, such as the renormalization group.
+
+The renormalization group (RG) [3] is one of the central theoretical tools in physics, particularly for understanding
+critical phenomena. At its core, RG describes how probability distributions evolve under a process of marginalizing
+high-energy (or small-scale) degrees of freedom and rescaling the remaining ones. This process effectively changes the
+parameters of the theory (e.g., the coefficients of the action or negative log-probability), often leading to a continuous
+parameter flow, and allows for controlled non-perturbative approximations. When the flow reaches a fixed point, the
+system exhibits self-similarity and power-law correlations. Perturbations away from the fixed point may decay, grow, or
+remain unchanged under this flow, corresponding to irrelevant, relevant, or marginal directions, respectively. Via those
+notions of relevance, RG is also a central modelling framework, as the effect of microscopic changes on the coefficients
+of irrelevant perturbations to the action can often be ignored.
+
+Motivated by the conceptual parallels between deep learning and field theory [4, 5], several works have proposed
+analogies between RG and neural networks. A brief survey of these perspectives is provided below. Following some of
+these works, we adopt the Neural Network Field Theory viewpoint [4, 5], treating deep neural network (DNN) outputs
+as fields, and the stochasticity of training as inducing a distribution over these fields. However, unlike previous studies
+that focus primarily on qualitative analogies or formal RG constructions, we seek a concrete analytical advantage. To
+this end, we focus on data exhibiting power-law correlation and confront challenges specific to DNNs—such as spectral
+discreteness and lack of translation invariance—that complicate conventional coarse-graining and rescaling procedures.
+
+In this work, we propose an RG framework that connects empirically observed DNN scaling laws to underlying
+self-similar structure. Starting from DNNs in the infinite-width (lazy or Gaussian Process) limit, where the kernel
+spectrum follows a power law, we introduce weak non-linearities representing either quartic loss terms or finite-width
+corrections. We identify the low eigenmodes of the kernel (the 2-point function, in physics terms) as the high-energy
+degrees of freedom and construct a consistent RG procedure that tracks the impact of removing these modes and
+rescaling the remaining ones. This setup enables several key insights:
+
+(1) We establish a concrete correspondence between neural scaling laws [1], self-similarity, and RG fixed points.
+
+(2) We show that peculiarities of neural network field theories—namely, their non-locality and discrete kernel
+spectra—render the conventional notion of scaling dimension ill-defined. In its place, we introduce the concept of a
+scaling interval.
+
+(3) We develop a dimensional analysis framework that connects these scaling intervals to power laws in learning
+curves as a function of dataset size P.
+
+(4) For the class of models we study, we demonstrate a form of universality at large P, analogous to asymptotic
+freedom, governed by a UV fixed point corresponding to a non-interacting Gaussian Process and derive leading order
+corrections to the GP scaling laws.
+
+(5) Finally, we propose a novel view on hyperparameter transfer as pairs of systems with small and large P,
+respectively, that reside on the same RG trajectory and thus have statistically comparable properties.
+
+Related works. Several recent lines of work have developed formal analogies between exact RG (ERG) and Bayesian
+Inference [6-8] , formulated notions of coarse-graining on untrained neural networks, or augmented or interpreted
+neural network training with regards to performing RG on data [9-11]. Only the first line of work pertains to do RG
+on trained neural network, however the suggested coarse-graining procedure is non-explicit and executing it requires a
+full understanding of the Bayesian posterior. Furthermore, the notion of a critical fixed point is not present, and, in
+a related manner, it is difficult to define a rescaling transformation, an essential piece in RG, on this abstract form
+of coarse-graining. On the technical level, our choice of marginalization/integration-out is that of Ref. [12], which
+reduces the resolution of the DNN by marginalizing/blurring the low-lying PCA components network outputs and
+pre-activation over the data [13]. It is also closely connected to compression techniques [14]. However, unlike these
+earlier works, we develop a notion re-scaling allowing us to define relevant and irrelevant perturbations as well as
+roper RG flows.
+
+Another branch of related works studies random feature model with an underlying power-law data distribution in
+erms of regression [15-17] where the analog of interactions in these works are finite sample effect and RG techniques,
+central to this work, are not being used (see however the work [12], which, as a aforementioned, avoids re-scaling
+step). Other works focus on dynamical effects in such linear networks [18-20]. A recent work along these lines [21]
+studies focuses on two-layer linear networks, in the rich regime. They find that in the fat-tailed regime (8 < 0 in our
+erminology below), the rich regime alters the time exponent. While we mainly study the data exponent here, it is
+interesting to note that our UV fixed-point becomes unstable for 8 < 0, consistently with their findings.
+
+II. FIELD THEORY OF WEAKLY NON-GAUSSIAN DNNS
+
+Consider, for concreteness ?, a deep non-linear fully-connected network with width N at each layer with a scalar
+output. For each choice of network parameters 0 such DNN generates a function on the input space. Thus, stochasticity
+in the weights, as induced by training the network using Langevin dynamics [22] induces a distribution on functions.
+Using properly scaled mean-squared error (MSE) loss L(f,y) = 1/2 Sie a fe — Yo)” on the P training points and a
+weight decay term (quadratic potential «x ||9||?) as the potential for the Langevin training dynamics [23]
+
+O06 = Vo [L446 \|0 wr) +€(t)
+(E(t)E(s)) = 2n 6(t— 8),
+
+the stationary distribution of network parameters is of Boltzmann form @ ~ exp (— «1 — ||6||?/2g) (see Section A 2
+for the example of a linear network). Furthermore taking N —> oo, the distribution of f becomes Gaussian at any point
+during the Langevin dynamics. This is a considerable simplification, dubbed lazy learning [24-26], which quantitatively
+describes learning of networks at large width. This description here serves us the non-interacting theory around which
+we will perform the renormalization group (RG) treatment.
+
+More specifically, our starting point for analysis is such a field theory description of wide neural networks governing
+the equilibrium distribution of outputs of the trained network (f(x)) which is furthermore averaged over all choices
+of datasets of size P that are drawn from the dame data distribution paata(z). For large ridge (, corresponding to
+Langevin noise temperature) leads to [4, 27] *
+
+ZU] = [u- df, e7? 5S dpedpy f(@)K~*(@,y)f(y)— ae S due (f(e)—y(@))? +f dues (x) f(@) (1)
+
+where djiz = Paata(x) dx is the integration measure and K(x,y) is the neural network Gaussian process (NNGP)
+kernel [24, 28] eA acts on a function g as f duty K(x,y)g(y) (its inverse above is defined w.r.t. to this action). We
+may expand f(x =e 1 n(x) fr, into dp(x), the eigenfunctions of the kernel with respect to the data measure
+Pdata(x), where = = J durdx( x) f(x), and the cutoff A regulates the rank of the kernel operator and will be taken to
+infinity at the end of the computation. Quantities of interest, such as the DNN predictor averaged over said ensemble
+of datasets, are obtained using functional derivatives (Sj (a5 (y) = 6( — y)/Paata(x)) via f(a.) = 5j(2,) log(Z[j])|j=0-
+Here we also note that constant multiplicative factors in front of the carton function (Z) are inconsequential and
+hence, from now on, when comparing partition functions we ignore such factors.
+
+Next, it is computationally convenient to separate the modes of the field f(x) by rewriting Z[j] in the spectral
+representation (analogous to k—space in standard RG)
+
+25] = [ae fy SFL a Ie se @)
+A
+
+S(f) = 358 Me OK rm Sth = yn)? (3)
+=1
+
+where we defined the action S which is, conveniently, diagonal in the eigenmodes numbered by the k-index. Following
+this one can derive the equivalent kernel (EK) estimator [29] (cf. Section A6) and for the dataset averaged GPR
+predictor for an input x, given by
+
+A
+F(e«) = S52.) log(Z[j))|j=0 = > be(x)Oj, 1og(Z[7))ly=0 ,
+k=1
+A
+Ak
+= Ps Net + Emon le a),
+
+which predicts that target modes with AyP < k are copied from the target to the predictor, whereas modes with
+AxP > # are effectively projected out.
+
+? similar derivation applies for CNNs and transformers by trading width with suitable redundancy hyperparameters
+
+3 Decimation only RG capturing finite sample effects was carried in Ref. [12]
+Power-law spectrum. Next, we note that for many real-world datasets and kernels the eigenmode spectrum follows
+a power law [15]
+
+Ap xk71-%, (5)
+
+We show an example of such a power law in Figure 8 in the appendix Section H2. Furthermore, it is common to
+assume a power law for the target function as well yz x k-1-8 [15, 20]. Using the above formula for \, in our action
+(3), the first term appears as San Ref which for a = 1 and, pretending k is momentum, appears as a standard
+kinetic term. Notwithstanding, the discrete summation over k which is related to the effectively finite support of
+Paata(x), both suggest an analogy with finite-size systems’.
+
+Within this analogy, the second term appears as a mass term P/«, which, in a machine learning context (see also Eq.
+4), sets the scale under which modes are learnable. The learnable modes are massive while unlearnable modes with
+ye > P/k are governed by the first term and are hence termed massless or critical. Our RG will focus on integrating
+out those latter critical modes until the mass scale kp set by Nee = P/k or equivalently
+
+kp = (P/n) 7 (6)
+
+Notably, kp is set both by P and the type of data and network architecture, which determine a as well as &.
+
+Adding interactions. Various real-world effects induce non-Gaussian terms in this action, which correspond to
+interactions in field-theory language. These include finite N corrections [27, 30], as demonstrated in Section B, changes
+to the loss (e.g. cross entropy loss instead of MSE loss), different scaling of weight decay terms at infinite N [31],
+and finite learning rates. Taking a physics-like RG perspective, it is plausible and in fact quite common that very
+different microscopics underlying these corrections all lead to the same leading relevant term in the action, only with
+different coefficients. In physics, relevancy is easily determined using the scaling dimensions of the fields. One aim
+of the current work is to establish an analogous tool at hand for neuronal networks that would allow us to predict
+relevance or irrelevance of specific terms of the neuronal network action.
+
+We here proceed concretely by adding a f dix (f(x) — y(x))* interaction, which from a microscopic perspective
+can either be considered as a finite-width correction (cf. Section B) or a quartic addition to the MSE loss function.
+As shown in Section A5 under reasonable assumptions on the eigenmodes ¢;,(a”) (which we empirically verify in
+Section H 2) one has
+
+A
+Sin = Ef duel £02) — la) =F Te — Fe — we ta — va) Fu — 40) f dade) ov (2) bq) bn(0)
+. kk! .q.q/= ,
+
+A 2 2
+~PU Ste = ns =PU [/ dpa (f(x) — we)? : (7)
+k=l
+
+The form of this interaction terms reveals a subtlety in neural network field theories, which is the lack of locality
+and translation invariance. The former is manifested by the last term on the r.h.s. and the latter by the lack of k
+conservation in the interaction. These two properties will turn out to be crucial in shaping the analysis of relevancy of
+terms in the action.
+
+Ill. THE CONTINUUM THEORY AND TREE-LEVEL RG
+
+Next, we set up the basic form of the renormalization group that at first neglects all fluctuation effects. We follow
+the common nomenclature and call it “tree-level RG”, referring to the fact that only tree-like diagrams with no loops
+are taken into account. We here pay specific attention to the two peculiarities of the interaction term, the non-locality
+and the lack of translation invariance. Our first modest goal is to integrate out a thin shell k € [A/é, A] (¢€ = 1) of
+modes f, in the free (U = 0) theory, then rescale k such that the cutoff goes from its new A’ value back to A. This
+rescaling prescription is important in standard RG as it determines the scaling dimension of perturbations to the
+model, which implies their relevancy.
+
+To address the discreteness of k we take cues from physics, where this discreteness can be understood by working
+in a finite-size system. As long as all the terms in the action are smooth on the discretization scale of k (ie. 1),
+
+4 In periodic or finite systems, the allowed k values are discrete
+physical locality means that this discreteness can be traded from a continuum, with suitable changes reminiscent of
+the transition from Fourier series to Fourier transforms. We follow this route here by defining the following auxiliary
+(or infinite) theory with continuous k. The process of construction is described in detail in Section C. It proceeds by
+first defining a family of systems which, between any pair of discrete modes, possesses n additional discrete modes.
+Second, we define all quantities such that they become intensive in n, so that in the third step the limit n — 00 can be
+taken which by construction then approximates the original, discrete system. The result of this procedure yields an
+intuitive form for the partition function and action
+
+ge / Df elf (8)
+1 A
+
+P
+
+B= 5 [ axginy [ag +2] se) + = fw? - 27008) 0
+
+which leads to the following expectation values, which we refer to as the two-point and one-point correlation functions,
+(FE) FO) = 6(k — 0 gt + P/al* + (F(A) (FO) (10)
+
+(F(8)) = 5h ath)
+
+where these correlations, via Wick’s theorem, determine all higher-order correlations.
+
+Correspondence between the original and continuum observables. As shown in Section C, the above continuum
+
+heory is set up such that computing an observable in the discrete theory and taking a continuum approximation for
+he resulting summations over k’s (>, > f dk) would be the same as first replacing the observable by a continuum
+observable (defined below), then taking its expectation value under the continuum theory.
+The simplest observables to take a continuum version of are ones where each eigenvalue index (“momentum”) is accom-
+anied by a distinct summation, e.g. 74, 4, V(kis--- > Ka) fea feo fies fey and where V(ky,...,k4) is a smooth function.
+Here, the continuum limit amounts to replacing summations by integrals f dk; ...dk4 V(k1,.--, ka) f (ki) f (ko) f (ka) f (ka)
+as one would expect also naively.
+
+Observables containing more f’s than summations, and hence products of two or more f(k) with the same argument,
+have a more subtle continuum limit. Indeed taking a naive continuum limit as done above, averaging f(k)? would
+result in a term 6(k — k), which is of course infinite. This is the same situation in physics where these terms are
+removed by normal-ordering; in the current setting, however, normal ordering becomes cumbersome due to the lack of
+locality and translation invariance. Instead, we show in Section C4 (i.p. in (C16)) that such partly diagonal terms
+need to be treated in a point-splitting-like procedure to obtain an intensive limit n — oo. Here a quantity such as
+>), f(k)? is taken, in the continuum limit to
+
+ioae / dk dq f (k) f(q)5(k — 4) (11)
+
+where 5(k — q) obeys (i) [dk 6(k—q) f(K) = f(g) + O(f'(q)). (ii) f dq o(k — q) 6(q— k’) = 0(k —k’) and (iii) 4(0) = 1.
+In the appendix we show that the here appearing modified 6-functions may for example be implemented by smearing
+out the unit mass on an interval of unit interval width; a concrete way to interpret 0 is to define the limit
+
+A pA 7 yoo Pe pr
+il | dk dk! 5(k —k’)... "2° | | dk dk! 5\xjn||Ke/n} > (12)
+1 1 n n
+
+where 4;; is the usual Kronecker 6 and |2| denotes the next lower integer of x. In the limit n — oo the dependence on
+k/n and k'/n of the right hand side effectively behaves as a dependence on k — k’. As advertized in the beginning of
+this subsection, following this procedure taking the continuum version of an observable and averaging it under the
+continuum theory, reproduces the continuum limit of the original discrete observable under the original/discrete theory.
+
+Tree level RG in the continuum theory. Next we define the RG flow of the action (9). Being non-interacting and
+already diagonal in the k index, the first stage of RG, which is the integration over the f;,’s with k € [A/é, A] (¢€= 1) in
+the partition function — is trivial here, and amounts to simply yields a constant. As a result, the modes are removed
+from the action. The emphasis here is thus on the second part of the RG procedure which is the rescaling step. Here
+define the scaled momentum k’ = ¢k in terms of which the cut-off is again at A and similarly define
+
+OF F(R) = F(R) (13)
+
+where 7p is the, soon to be determined, native (or mean-field) scaling dimension of f.
+
+We proceed by rewriting the action in terms k’ and f’(k’). Concretely, we first rewrite the action in terms of k’,
+yielding (up to constants)
+a i “ a ‘ -1 P y Pp, a /
+5=-& fF aw sei) [age + 2] s'/0 - 2 5@'/Ome' 10 (14)
+next we use \(k’/0) = A(k’) 2+%, y(k'/0) = y(k’)e2+81/2 following from their power-law dependencies (5) and
+f(k’/0) = fk) = © f(k’) to obtain
+
+ae ie P P ay/:
+> dk! 20 f'(k’) [avers + “] f'(k) _ SEER YR? (15)
+Je
+
+Seeking to conserve the scaling of the first “kinetic-like” term, we choose —1+ 2y¢ — 1— a = 0, implying yp = 1+ a/2.
+We further define r(¢) :=P/k ¢'+°, which can be viewed an (1+ rescaling of the P/« mass-like term. Turning to the
+final term, rewriting it using r(@), and gathering all the power of ¢, one obtains (~!~7s +11+8)/2+1+a — glat6]/2-1/2,
+Note that for 8 = a+ 1, it does not acquire any scaling beyond that of r(¢). In the main text, we focus on this case
+for simplicity. For general a, 3, one requires introducing more “dimension-full” quantities such as a temperature scale,
+which we show in the appendix Section D3. Interestingly, the condition 6 = a + 1 is also the threshold value for 6
+separating the in-RKHS case oA, Ag ye < co as A + oo), where the target function y may be expanded in terms of
+eigenmodes of the kernel, and the out-of-RKHS scenario Ory Ap ye — oo), where this is not possible.
+
+Under the above choices of yf and 8, the tree-level RG amounts to rescaling « by £-™,y,zy = 1+ a. This has the
+effect of raising the k at which modes are half-learnable (kp), which is a direct consequence of our rescaling of k.
+
+Rescaling of the interaction U. Similarly, rescaling can now be applied to any perturbation to the action, in
+particular the quartic perturbation (7). Specifically, adding a power of yp for each f(k) and y(k) and a power of —1
+for each k integral we obtain
+
+PU | dk dq 5(k — q) [f(&) — y(k)] [F(@) — va]
+
+4 purty [a8 aa 58/0 = 0/0 [F'@) ~ 1) La) - va)|
+
+Had we worked with regular Dirac delta distributions, 6(k’/¢ — q'/¢) = €6(k' — q’) and we would have obtained a
+(-2+477 — (20+) — 928 scaling factor
+
+ay = 28. (16)
+
+The exponent being positive indicates that the interaction term grows under the RG flow. We refer to this scaling
+dimension as the native scaling dimension. As we next show, this replacement is correct under certain momentum
+integrals but wrong for others, which contain a free momentum loop. Using the concrete implementation of 6 given by
+(12), the replacement 6(k’/é — q'/¢) = ¢6(k’ — q’) corresponds to trading a change of the integration boundaries into a
+multiplicative factor @
+
+oe a (17)
+
+pe + [k’J41
+elk /e| Lk’ }
+
+which is only approximately correct if the integral is smooth, in particular, if the integrand does not contain any Dirac
+distribution in the integration variable, for example from a connected propagator. Discerning those cases and judging
+their effect on the actual scaling of the perturbation is the topic of the next section.
+
+IV. RELEVANCE AND IRRELEVANCE
+
+In standard RG, the scaling dimension is the strongest source of renormalization whereas decimation effects lead to
+smaller O(U) corrections to the flow. Perturbations which grow under rescaling (have positive dimension 7), such as
+the above U or r = P/k, are thus deemed Infrared (IR) relevant, meaning that their effect appears larger when focusing
+on low energy (high kernel) modes. Next, we establish a similar notion for our neural network field theory. The main
+complication here is that, due to the aforementioned lack of locality and momentum conservation, which we solve by
+the point-splitting d-delta functions appearing in the replacement of diagonal fields (11)— The interaction vertex has a
+scale-full momentum dependence and does not, strictly speaking, maintain its functional form after rescaling. One
+potential route of treating this is to simply keep track of this scale and work with explicit dependent 6 functions.
+However, we argue below that an alternative route is possible, which helps us understand the relevancy of scale-full
+perturbations such as U, via the notion of scaling intervals introduced below.
+
+To simplify the discussion it is advantageous to express the action instead of in the fields f in terms of the discrepancy
+A= f -—y, so that the Gaussian part of the action takes the form (D33) and the interaction term is given by (D23)
+
+A VN
+S(A,y) =— 0 | {r(0) A(k)? + (AG) + y(k))”
+
+16 } dk + Sine(A), (18)
+
+A A A A
+Sin(A) = —U(O) P | dk [ dK / dg / dq! 5(k — k)5(q = 4)
+x A(k) A(k’) A(q) A’),
+
+where any terms that are independent of A have been dropped. The parameter s(¢) = (°°! in front of the Gaussian
+part captures the overall change of the amplitude of fluctuations and is required to obtain a fixed point in the presence
+of the non-zero target y in the general case 6 4 a + 1, as outlined in Section D3. The ridge parameter at the initial
+point of the RG flow ¢ = 1 is given by r(1) := P/k and the strength of the interaction is controlled by U(é). The
+connected correlators are correspondingly expressed as (D20)
+
+d(k; 0) = ONE uk) = A) D (19)
+
+Ak)
+
+O(k — k’) c(k; 0) := 5(k — k’) 8(0)7+ PORE =
+
+A(t) ———= Ar’) (20)
+
+To illustrate how the interaction term may contribute term that have different scaling, we consider two examples
+that illustrate the two different scenarios in which the point-splitted 6 may appear when computing observables or
+perturbative corrections. Subsequently we will generalize these examples to a generic rule.
+
+As a first example, we show how the interaction vertex may contribute to the decimation step of the RG flow a term
+that follows the native scaling dimension (16). To this end, consider the diagrammatic contribution from integrating
+out the modes at the cutoff |k| = A to the self-energy, the quadratic part of the action. Here the two legs A(q) and
+A(q') of the four-point interaction vertex Sint in (18)
+
+Atk’) Aq)
+Sint(A) =: ba (21)
+A(k) Aq)
+are contracted, which amounts to computing the second moment (A(q) A(q’)). First consider the contribution due to
+
+the unconnected part of this correlation (A(q)) (A(q’)) = d(q, 4) d(q’, 2), which is a smooth function in both momenta
+qand q' and which yields
+
+(22)
+
+4 u/ i d(q, 0)d(q',0) dqdq’' = - ANZ
+lq’ |=A J |ql=A
+
+Here the 6 of the interaction has eliminated the second momentum integral over I’.
+Now consider the corresponding contribution, but with the connected propagator c(q, q';£) = (A(q)A(q’))* « 5(q—-’),
+which hence contributes a diagram of the form
+(23)
+
+where an additional factor 1/f appears, because this time the Dirac 6 of the propagator has eliminated one of the
+integrals; in consequence the replacement (17) cannot be made, thus we lack one factor £ compared to the case of a
+smooth integrand. Alternatively, we may regard this as a factor 6 (0) appearing.
+
+To generalize these results, we first note that in an n-th order perturbative correction, a maximum of n such 4(0)
+factors may appear in a connected diagram, because at each four-point vertex at most two fields may be contracted to
+one another, leaving the other two free to connect with other elements of the perturbative expansion. Thus, while in
+standard field theories the n-th order correction would scale as ("7 ,, here its scaling would range between ("7 , when
+no 6(0) factor appears, down to £”%~", when the maximal number of such factors appear.
+
+The above implies that our interaction does not have a well-defined scaling dimension, which is no surprise given that
+it contains the scale-dependent }-function. Still, we may bound its scaling behavior, by attributing to the interaction
+a range of scaling dimensions y € [yy, 7], such that ¢7” can produce all the scaling dimensions seen in n’th order
+perturbation theory. Specifically for our interaction we find y € [yu — 1, yw] which we refer to as its “scaling interval".
+While short of being a proper RG scaling-dimension, it still allows us to treat yu < 0 as a strictly irrelevant interaction
+(i.e. all its perturbative contributions decay under rescaling) and yy > 1 as a strictly relevant interaction (i.e. all its
+perturbative contributions increase under rescaling).
+
+Generalizing this to other types of interactions, the scaling interval may grow or shrink compared to [yuv,7u — 1].
+For instance, interaction such as [}>), k" fi, M which do not involve contributions of two or more fields with identical
+momentum, would follow the native scaling dimension; thus the scaling interval contains a single point. On the other
+hand, higher order generalizations of the previous interaction such as V[}>, k’f7]°, will allow a maximal number
+
+of two 6(0) factors per interaction term, by self-contracting four of its legs and leaving two for connectedness. This
+implies a scaling interval of [yy — 2,7] where 7 is the native scaling dimension associated with that interaction.
+
+Finally, we note that any interaction without explicit negative powers of k will have its lower end of the scaling
+interval larger than zero. Hence any such interaction is IR-relevant. Indeed, consider an n-th order interaction with m
+integrals which yields a native scaling dimension ny¢—m. Taking into account the implied n—m 6 factors, coming from
+point-splitting the required pairings”, the lowest contributions can scale as nyy —m —(n—m—1)=nyyp—n+1>1,
+and is hence relevant. Similar reasoning shows that since yr > 1, each integral contributes —1 to the exponent and,
+within a perturbation, there cannot be more integrals than f(k)’s — any perturbation which does not contain explicit
+negative powers of k is hence IR relevant. Obtaining IR-irrelevant observables requires introducing inverse powers of
+Xp, and hence kernel inverses as in the kinetic term.
+
+UV Irrelevance and large P universality. The mass term, £ f dk A?(k) in (18) acts as an IR regulator for the
+theory, so that all modes k < kp (cf. (6)) for which \~!(k) < P/k are learnable and largely set by y(k), as seen from
+10. Well above this scale, modes fluctuate and interact in a critical and therefore scale-free manner. It is thus natural
+to apply RG reasoning for those critical modes and proceed until an ¢ such that the new cutoff A/¢ agrees to the
+learnability threshold kp (6), which means that all critical modes have been removed. This can also be thought of as
+setting ¢ = fp given by
+
+w=a(2)™ (24)
+
+K
+
+Thus the more data we have (large P) the closer £p approaches 1, and relevant terms grow less until the point where
+RG stops.
+
+We may also take an opposite perspective (common in high-energy physics) on relevance and define the notion
+of UV irrelevance. To this end, say we observe the model behavior at some value of P at which ¢p > 1 and tune
+the model parameters to get some behavior which differs, say by 10% from that of a Gaussian theory by setting U
+such that ule = O(1/10) is small but non-negligible. As €p decreases with P, this means that as we increase P,
+the effect of U measured at the initial point of the flow for that higher P needs to be determined such that its effect
+
+5 Note that triplet pairing such as >), FR have a continuum limit of f dkdqdl fx fy f15(k —q)4(q —1), and so forth with higher order pairings
+TO
+
+Ao/é No Ay
+
+FIG. 1. Initial conditions for the flow equation and the meaning of the cutoff. One may choose different cutoffs,
+denoted as Ag and A; with corresponding initial conditions (so,ro,Uo) and (81,71, U1), respectively. The two corresponding
+systems behave the same in the low momentum range for any k = Ao/é, if the two systems’ parameters lie on the same RG
+trajectory. This also allows the definition of the A — oo limit.
+
+on the learnable modes stays the same; it thus needs to shrink, implying a GP-like behavior at large P. Thus, we
+may say that an IR relevant perturbation is an UV irrelevant one. This can also be understood as a statement about
+universality at large P — two models which differ at small P due, say, to different values of an IR relevant U would
+ecome more similar and GP-like as P grows.
+
+An alternative but equivalent view is illustrated in Figure 1). To determine the renormalization group flow, we need
+
+‘0 specify the initial conditions on the parameters r(¢), U(é), and s(¢) that define the action (18). A special property
+of this action is the appearance of the d-functions in the interaction term, which possess an explicit scale dependence.
+We will subsequently see that this also implies an explicit dependence of the set of renormalization group equations on
+he scale ¢
+The initial condition for s(¢ = Ap) = 1 is given by construction, as in the original action this factor is unity. Choosing
+he cutoff Ag we may choose the initial values r9 = P/« and Up at this scale, as illustrated in Figure 1. To obtain
+redictions for a mode k below this cutoff, we employ the renormalization group to integrate out the modes between k
+and Ag, so choosing ¢ = Ao/k. The resulting parameters (s(é),r(@), U(€)) together with the action (18) then describe
+he statistics of the mode k while implicitly taking into account the indirect effect of all modes beyond it.
+An entirely equivalent choice of initial conditions is the cutoff A; > Ao where, in order to observe the same behavior of
+mode k as before, we now need to specify the initial values (s1,71, U1) such that integrating out the modes k € [Ao, Ai]
+y choosing £; = A;/Ap one obtains the renormalized values r(¢,) = ro, U(é1) = Up, and s(;) = 1 that agree to the
+first ones, as illustrated in Figure 1. In brief, we choose the initial conditions such that they lie on the same RG
+rajectory. As a result, all modes below Ao are again described by the same effective theory.
+
+As a consequence, one may define the limit A; — oo by considering a family of models and each time setting the
+corresponding initial values (s;,71,U,) such that one stays on the same RG trajectory. In high energy physics this is
+sometimes called the freedom of choice of the renormalization point [32]. This limit, by construction, produces for all
+modes k < Ap the same predictions as for finite cutoff Aj, independent of how large A is chosen. As the set of RG
+equations shows that both, r(¢) and U(¢), are infrared relevant, taking the limit A, — oo, conversely, both of their
+initial values need to converge to zero, thus approaching a free critical theory; a property called asymptotic freedom.
+
+V. FULL RG TREATMENT AND THE SEPARATRIX
+
+We now want to employ the renormalization group approach to quantitatively predict the behavior of a non-Gaussian
+process. In particular, we would like to predict the discrepancies between target and network output and obtain the
+non-Gaussian corrections to the scaling of the loss as a function of the number of training points, a characteristics
+known as neural scaling law.
+10
+A. Full set of renormalization equations
+
+To describe the renormalization group flow, we study the flow of the three renormalized parameters (s(¢),r(¢), U(@))
+that control the action (18), which we show in Section D to obey the set of RG equations
+
+ip Bs(Or(Q) +4A PU(E) [d(A, 0)? + c(A, 0/4] , (25)
+ras) = 28U(¢) — 2A PU(E)? [e(A, 0)?/ + c(A, 2) d(A, 0)? ] , (26)
+s(0) = (Poet, (27)
+
+The respective first, linear terms in the set of RG equations (25) and (26) stem from the rescaling of the fields which is
+here chosen such that the target y and the network output f have identical scaling (described in detail in Section D 3).
+The decimation step that integrates out an infinitesimally thin shell of modes just below the cutoff A contributes to
+
+the flow of s(€)r(¢) in (25) the terms
+4AU(Od(A, 0)? = -A \4 A, (28)
+
+where a pair of fields A has been contracted and each yields the mean of the field d. The factor 4 here comes from
+the combinatorial factor 2 of choosing either pair of fields A(1), A(U’) or A(k), A(k’) of the interaction term (18) to
+be contracted and another factor of 2, because s(é)r(€) appears with a factor 1/2 in the action (18). Likewise, the
+connected propagator contributes
+
+AAU (€)c(A, 0)/€ = ‘ (29)
+
+where a factor 1/¢ stems from the discreteness of the scale-dependent interaction term, as explained above (as described
+in detail in the context of (D22)).
+
+Analogously, the RG equation for the interaction U(¢) (26) is composed of a linear rescaling term with the native
+rescaling term 23 U(¢) which requires us to take into account the additional factor 1/¢ in each contraction with a
+diagonal connected propagator between two modes that are constrained by a 5. The decimation step involves two
+diagrams (as outlined in detail in Section D6),
+
+2U(0)?P Ac(A, ) d(A, 2)? = : i : (30)
+k re x k
+
+and
+
+2U(02P Ac(A, 02/0 = << ; (31)
+ke oN ASE
+
+where each diagram comes with a combinatorial factor 2-2, because at each vertex we may choose either pair (k, k’) or
+(1,1') to be contracted to the respective other vertex and another factor 1/2!, because there are two interaction vertices
+involved, which would appear at second order in perturbation theory.
+FIG. 2. Renormalization group flow field. Renormalization group flow fiel
+scales T := In £. The plot represents the normalized rate of change of the vectoi
+
+are set to a = 0.2 with the special choice 8 = 1+ a which ensures that s(¢)
+magnitude of the flow vectors, In N(U,r). Black dashed curves show the r-nul.
+
+11
+
+=1.
+
+rr a
+
+|
+
+. given
+r field (U,r) 4 (U +dU,r +dr)/N(U,r), where
+dU and dr follow the flow equations (26) and (25), respectively, and N(U,r) denotes the vector norm at each point. Parameters
+
+i
+
+y (26) and (25) at different decimation
+
+The color scale indicates the logarithmic
+
+cline given by (32).
+
+The RG flow also produces a six point vertex, which requires two interaction vertices, to its magnitude is x U?. Its
+
+flow is neglected here.
+
+he presence of a non-
+
+of the RG equations of a ¢4-theory known
+
+zero mean of the fie
+
+Second, the ex]
+scale; in an or
+
+licit appearance of the
+
+inary ¢*-theory, the flow
+
+fielc
+
+may
+
+In (25) and (26) we obtain a system of inhomogencous, nonlinear, coupled differential
+rom statistical physics. There are, however, important differences. First,
+id shows up by the flow equations depend
+ow parameter ¢ on the right hand side renders
+as a function of r and U alone, without explicit reference
+
+e studied
+
+equations that are reminiscent
+
+ing on this mean (terms « d).
+the flow field a function of the
+
+Nevertheless, we may
+‘or which s =
+
+rom criticality, toward
+
+by 0-!, so tha
+
+he nullcline keeps on
+
+here, too, requires the
+
+ehaviors, separated by nontrivial nul!
+is constant is shown in
+depends on the value of ¢ = e7: At small scales (r
+
+dominates. For larger scales (r > 5),
+for negative r a nullcline emerges
+with negative slope due to the linear d
+rameter regime where the rescaling and
+
+which is shown in the figure. The points on the nu
+fine-tuning of the relevant mass-like parameter r; the parameter is relevant, as a slight detuning
+rom the nullcline leads to a departure from that line.
+
+o the scale. As a result, the flow equations do not exhibi
+lent regions in which both r as well as U
+er. An example of such a
+he flow field can hence be expressed
+
+identify scale-depend
+c
+Figure 2. T:
+
+of r. This is
+he contribut:
+
+s larger values
+
+lependence o
+ecima
+bending up and in the limi
+
+0= Br(
+
+In principle, the evo!
+
+0+ U(é) (26 — 2U(0) PAc(A, )d(A, 02) ,
+
+a Wilson—Fisher fixed point in the conventional sense.
+
+ines for each paramet
+
+because t
+ion to the
+in the r-d:
+
+= 1), the decimation term
+
+display qualitatively different
+flow field for the case 8 =1+a
+in terms of r and U alone and
+in the flow of r drives the system away
+
+he positive decimation contribution (second term in (25))
+decimation part from the
+irection. This line depend
+
+connected correlator is reduced
+Is approximately linearly on U
+
+the decimation contribution and corresponds to the set of points in
+
+ion contri)
+approaches the expression
+
+L)+4PAU(Od(A,0)?,
+
+butions in (25) cancel each other. As 7 increases further,
+
+(32)
+
+Icline correspond to the critical point in the usual $4 theory, which
+
+ution equation for U for large ¢ possesses a nullcline as well when
+
+(33)
+
+so either at the trivial choice U = 0 or at U(¢) = 28/| PAc(A, ¢) d(A, £)?]. The latter condition, however, typically
+leads to values that are outside the validity of the approximation for small U employed here. This nullcline in principle
+limits the growth of U along the RG flow. The fact that it is lying far above the typical values of U explains why the
+RG flow for U is dominated by the rescaling term 23 U(¢) alone.
+12
+B. Predictor in non-Gaussian process regression
+
+We now use the renormalized action to obtain an improved estimate for the mean predictor in form of the mean
+discrepancy (A). In the simplest case, this is achieved by computing the stationary point 5$/dA|a—a, = 0 of the action
+to obtain an implicit equation for the mean as the stationary point (A) ~ A,. To compute this mean discrepancy for
+a mode k, we first integrate out all modes above k, hence setting = A/k and finally using the relation between the
+mean discrepancy D of the discrete system (F9), the EK’s (A) and the renormalized system’s (A’) (D12) given by
+
+(D(k)) = VP (A(R) = VP (A(M)) | coyucey eng © VPHO MA) | otoen (34)
+
+The mean discrepancy is hence given by the highest mode A in the renormalized system. We find in Section G that
+he stationary point A’ (A) is mainly determined by the Gaussian terms of the renormalized actions — the terms due to
+he interaction Sin, only contribute little, so that we here approximate A/(A) ~ d’(A, 0) = y(A)/(r() A(A) + 1) by the
+mean of the Gaussian part.
+
+Figure 3a shows a this theoretical prediction to agree well with the numerically measured discrepancy. In particular,
+he prediction is more accurate than neglecting the non-Gaussian terms alltogether (GP prediction) and is also improved
+compared to a first order perturbative treatment of the interaction term. In summary, knowing the renormalized ridge
+arameter r(¢) is sufficient to obtain an accurate estimate for the mean predictor.
+
+Scrutinizing the difference between the numerical result and the RG prediction in the lower panel of Figure 3a shows
+hat deviations are mainly observed in the intermediate momentum range of k — this is to be expected, because for
+small k, the effective mass term r() is large, so that fluctuations are small and hence the saddle point approximation
+yecomes accurate. Likewise for large k, because U(¢) is UV irrelevant, the interaction becomes small and hence the
+mean-predictor is effectively given by the perturbative result or, for larger k, even by the Gaussian part of the theory.
+This also explains why all curves converge in the large k limit. Only in the intermediate momentum regime, close to the
+ransition between learnable (r(¢) > A(A)) and non-learnable (r(@) < A(A)) modes, fluctuations remain and interaction
+erms are non-negligable, leading to an improvement by RG and yet to small deviations due to taking a simple
+saddle-point approximation that neglects the renormalized interaction term « U(é). A quantitative improvement in
+he intermediate regime could be obtained by computing corrections (e.g., one-loop or perturbation theory) on the
+renormalized theory.
+
+Analogously, we use the renormalization group to obtain a theoretical prediction for the covariance. We here again
+use that the discrepancies in the discrete system (D(k)?)° = P (A(k))° and then express the variance of the original
+system in terms of the variance in the renormalized system where all modes beyond the mode k of interest have been
+integrated out
+
+(D(k)?)° = P (A(K)?)? =P 2?(0) (A"(A)?)* | 5 & P(A, /d, (35)
+
+r(0),u(£),=4
+where in the last step we again used the finite part of the variance c/(A, ¢)/6 = s(€)~! A(k’)/(r(0) A(K’) + 1) given by
+(D20) of the Gaussian process, albeit with renormalized ridge parameter r(¢). The comparison of this prediction to the
+numerical result is shown in Figure 3b to agree well, considerably better than the bare Gaussian variance and also
+compared to the first order perturbative result.
+
+C. Hyperparameter transfer
+
+Since the RG allows us to relate systems with different numbers of degrees of freedom, it is natural to ask whether the
+approach can be used to make predictions for hyperparameter transfer, namely, predicting how to rescale the optimal
+hyperparameters of one system at model scale L (e.g. width or depth) to the optimal ones at model scale L’. One
+strategy of achieving this is to formulate an effective theory at low P’s (e.g. using dynamic mean-field theory [33, 34]),
+which depends on L and on the other hyperparameters such as weight-decay, learning rate, and ridge-parameter. The
+central idea is then to scale those other hyperparameters such that the L-dependence drops out of this effective theory.
+Provided that what is optimal for low P’s is also optimal for all higher P’s, a plausible statement given neural scaling
+laws °, such scaling with L allows us to increase model capacity while staying on the optimal learning curve.
+
+From a standard RG viewpoint, the ability to change parameters of the low-energy theory in a way that compensates
+a microscopic change to the model (e.g. the change of network width and all compensating parameters from L
+
+6 More specifically, assuming that the power-law is independent /universal across the relevant hyperparameter range.
+13
+
+a b
+* sim
+0.6 7 — RG
+—iGP
+o 2.69 4 --- lin. order PT
+) cS
+0.35 2
+0.0 5
+T T T T T T
+oO
+& a
+|
+® 9.06 0.09 L,
+0 500 1000 0 500 1000
+k k
+
+FIG. 3. Predictor in non-Gaussian regression. a Upper panel: Numerical result for the mean discrepancy (A) (red
+dots) obtained by Langevin sampling until equilibrium. Gaussian process prediction that neglects the non-Gaussian terms
+(orange). Perturbative result to linear order in U (black dashed). Prediction of Gaussian discrepancy VP z(¢) d(A, 4)|e-a/x from
+the renormalized theory (blue). Lower panel: Difference between numerical result and prediction from RG. b Corresponding
+numerical and theoretical results for the variance (A*)*, same color code as in panel a. Other parameters: a = 0.2, 8 = 0.3,
+U = 0.05. Numerical results obtained by sampling the learning dynamics for T = 50 - 10° steps with time resolution 6t = 107,
+measuring each AT = 10 steps and an initial equilibration time of TO = 20 - 10° steps.
+
+to L’), implies that increasing L is an IR-irrelevant or marginal perturbation. This then suggests a more general
+formulation of optimal hyperparameter transfer, namely, to determine how L affects the renormalization group flow of
+all compensating parameters and thus find their joint effect on the low energy theory. The flow equations may then be
+used to counter the change of L by adapting the bare values of the compensating parameters to leave the effective
+low-energy theory invariant.
+
+We here want to illustrate the concept on a slightly simpler problem: Suppose we have trained the system with a
+large number of data points P and a given optimal set of hyperparameters (19 = P/«, Uo). How would one need to
+change the hyperparameters so that one obtains a comparable accuracy using a smaller number of training samples
+P! < P? This can be regarded as a question about sample efficiency.
+
+To achieve this goal, we start with system 1 which is trained on P = 1000 training samples, which achieves a certain
+accuracy, shown in Figure 4 in terms of the mean discrepancies (A”). Keeping all hyperparameters, such as « and
+U identical as before but reducing the number of training samples to P’ = 500, one obtains larger discrepancies per
+square root of P in system 2, as seen in Figure 4. We now want to use the RG to obtain a set of new parameters
+(&,U) that define system 3, which is trained on P’ = 500 samples so that its discrepancies agree to those in the large
+system 1 within the overlapping range k € [1,..., P’]. To this end, we need to find the effective theory in the larger
+system which describes the statistics of its lower P’ degrees of freedom, hence we set the RG time to = P/P’. This
+yields renormalized parameters
+
+r= Olea z ;
+U' =UMaz:
+
+which we obtain by integrating the set of RG equations (25) and (26) with initial condition r(1) = ro and U(1) = Up.
+
+The renormalization group transform, however, rescales the momentum range such that before and after the RG
+transform the two ranges apparently agree, k € [1, A]. To make predictions for the smaller system, which indeed only
+has P’ = A/¢ degrees of freefom, we thus need to undo this rescaling. As shown in detail in Section E the resulting
+action S(A; #,U, P’) for the smaller number of degrees of freedom then has the same form as (3), only with the
+14
+
+7 (Asim-P (9, Uo))/WP
+(Asim. P'( (r0,Uo))/VP" /PT
+& 0.02 4 © (As™P" 6) /VPF
+> A*
+4
+~ 0.01 4
+& 0.00 4 r ; 1
+ca
+= 0.0025 4
+4
+| 0.0000 4
+at 0 P’ = 500 P = 1000
+k
+
+FIG. 4. Hyperparameter transfer. Upper panel: Numerical result for the mean discrepancy (A) (dots) obtained by Langevin
+sampling until equilibrium. Three systems are compared. System 1 was trained with P = 1000 samples and ridge parameter
+ro = P/k (blue). System 2 was trained with P’ = 500 samples and ridge parameter ro = P’/« (green); system 1 and 2 both use
+the same k ~ 3.98 and Up = 0.05. System 3 (red) was trained with P’ = 500 samples but with parameters 7 and 0 given by
+(36) so that it resides on the same RG trajectory as system 1. Prediction of the discrepancy VP z(¢) d(A, £)|¢=a/x from the
+renormalized theory (black) for system 1. Lower panel: Difference between numerical results (system 1 and system 3) and
+prediction from RG. Other parameters: a = 0.2, 6 = 0.3. Numerical results obtained by sampling the learning dynamics for
+T =50-10° (T =55- 10° for the red dots to suppress noise) steps with time resolution dt = 10~*, measuring each AT = 10
+steps and an initial equilibration time of To = 20 - 10? steps.
+
+parameters replaced as
+
+AvP’, (36)
+s(t) > 1,
+1) FF = sOr(QlP ip =O |p,
+P oy Ry
+U(e) 3 U= ple k= a 678 U' |p
+
+These expressions show that the trivial change due to the rescaling is undone: 7, for example changes by a factor of
+¢-(1+0); the factor P/P’ in front of the interaction part, in addition, arises because of the explicit appearance of P in
+(3). The system 3 with P’ degrees of freedom and parameters («’ = P’/#, U) then by construction lies on the same
+RG trajectory as system 1: its P’ modes behave according to the renormalized theory S$, which takes into account the
+indirect effect of the presence of the P — P’ upper modes in system 1. The discrepancies for comparable modes in
+systems 1 and 3 are thus the same (A(k)) s(A;r9,U0,P) = (A(R) 8(a;7,68,P7)> 8°
+
+(Dp(k))/VP = (A(k)) s(A;10,U0,P) = (Ak) 3(a;7,0,P) = (Dpi(k))/VP".
+Since the contribution of the mean discrepancy to the loss per sample is given by 1/(2P) }>,,(Dp(k))?, this implies an
+identical contribution to the loss in the two systems. The validation of this prediction is shown in Figure 4: The mean
+discrepancies per square root of samples is preserved by these rules of hyperparameter transfer (36).
+
+D. Neural scaling laws
+
+Next we aim to compute the neural scaling law for the non-Gaussian process and compare it to the Gaussian process.
+We want to show that in the limit of large data P — oo the two converge to one another due to the UV irrelevance of
+the interaction U. The observable of interest is the mean loss per sample that can readily be expressed as
+
+(OP =55 f ((E0R) ~ u(b))?) ak.
+
+We decompose the expected loss into the loss due to the mean discrepancy (A(k)) = (f(k)) — y(k) and due to the
+variance (A?(k))° = (f?(k))° of the predictor which we determine in the same approximations as before, integrating
+out all modes beyond the mode k of interest, so = A/k to get (cf. (F10) and (F13))
+
+(0)/P == il - been (37)
+“24, [FO k-O+e) + 1]? lease
+
+de —(1+a
+sf moe ~ dk,
+2h, FO k-O+e) 4 Leak
+where the first line is the bias part and the second the variance contribution and #(0) := r(¢) €~“+® is the renormalized
+ridge parameter, where r(¢) solves the RG equation (25) and the factor (“+ undoes the rescaling part, as in the
+case of hyperparmeter transfer (cf. Section E).
+
+For the Gaussian case U = 0, we have the solution of the RG equation (25) rep(@) = P/K 00+), so that * = P/k is
+constant. The predictions of these theories are shown in Figure 5 to produce different power-laws for the Gaussian and
+for the non-Gaussian process. For large P, however, the two curves approach the same exponent.
+
+To quantitatively understand this convergence, we extract the scaling of the mean loss (37) with P by first treating
+the terms due to the finiteness of the discrete system, which causes the finite summation boundaries, from the
+P-dependence inherent in the parameter 7. We exemplify this here for the bias part; the variance part is treated
+analogously (see Section F for details). These operations yield
+
+tg, pee f — ee |g 38
+bias/ ab FROR-Gt9Y $12 lease 28” ey
+
+where the second term stems from the — f, = ...dk and using the fact that for large k, the integrand approaches
+
+— k~“+*) in either case. In the Gaussian case, the remaining P-dependence can readily be extracted by substitution
+of the integration variable 7qp k-O+e) = P/« kU 40) Ws k- Gta), which yields a P-independent integral I,ias (defined
+n (F5)) and a P-dependent power law
+
+Pout PoP
+Loias,cp/P ~ Ibias * (2) ney
+
+where we see that first term from the integral part dominates at large P due to its slower decay over the second, which
+stems from the finiteness of the system. Analogous computations for the variance contribution to the loss of the GP
+yield
+
+(39)
+
+Powe. Po KP-1
+Lyar,ap/P ~ Ivar (=) ES a
+
+where the last term comes from the replacement of the lower integration bound 1 + 0. Again, the contribution due to
+he P-dependence of the parameter 7 in the integral yields the dominant scale at large P. This analytical result for
+he Gaussian process is shown to agree well to the discrete expression (37) for P = 10° in Figure 5.
+
+For the non-Gaussian process, the contributions due to the boundary terms can be treated analogously (see Section F 3
+for details). We here only focus on the contribution due the the integral part in (38). To extract the resulting corrections
+‘© the scaling law, we make a couple of approximations. First, we use the fact that the non-Gaussian corrections
+‘o the ridge parameter can be treated as a small perturbation r(¢) = rgp(¢) + €(¢), which allows us to expand the
+denominator in (38) into a geometric series, only keeping first order terms in the self-energy correction e(¢). Second, we
+solve the set of RG equations (25) by neglecting the decimation contributions for U(é) and expand the flow equation
+for r(¢) up to linear order in e(€), which yields a closed form solution for the resulting linear flow equation for e(¢) in
+erms of an integral (D47). Performing a corresponding substitution in the integral (38) as in the Gaussian case then
+allows us to extract the P-dependence as a prefactor and we are left with multiple P-independent integrals, which we
+denote as I... We thus obtain correction terms to the Gaussian scaling (39) that are of linear order in the interaction
+U (F25) given by
+
+(40)
+
+2 Bta
+Ta ~ THe
+5(Lias)/P = — 4U 6 1a, - (=) —4UK i. (=) + F(A), (41)
+16
+
+10° 4
+0 GP discrete
+
+» GP continuous
+RG discrete
+» RG continuous
+
+(£)/P
+
+10-! 4
+
+T
+10? 104 10° 108 1918
+
+FIG. 5. Neural scaling law. Expected training loss (£)/P per data sample of a system trained with power-law exponents
+a= 0.2 and 8 = 0.3. Full lines describe the prediction from the discrete sum (37) obtained by solving the full flow equations
+(25) and (26) numerically for the Gaussian process (U = 0, full blue curve) and the non-Gaussian process (U = 0.05, full red
+curve). The dashed lines describe the analytical continuous approximation (39) and (40) for the Gaussian process (dashed blue
+curve) and the continuous approximation (42) for the non-Gaussian process (dashed red curve).
+
+where the term F(A~+) that depends on the cutoff vanishes in the limit A — oo and in the finite system with A = P
+can be absorbed as changed prefactors of the other two terms. The analogous steps for the variance terms yield a
+correction to the Gaussian scaling (40) given by (F27)
+
+i
+
+te
+
+5(Lyax)/P ~ —4U x Ted - (=) 8 aug Tell. (4) Ga),
+
+where again the cutoff dependent term G vanishes for A + oo and can be absorbed in the the other two terms for the
+finite system with A = P.
+The resulting continuous prediction for the resulting mean loss
+
+Lee’ /P = Loias,ap/P + Lyar,ap/P (42)
++ d(Lpias)/P + b(Lvar)/P,
+
+is shown compared to the discrete explicit expression (37) in Figure 5 to agree well for P > 10°. Due to the steeper
+slopes of the correction terms 6(Lpjias) /P and 5(Lyar)/P compared to the Gaussian scaling of Lpias,ap/P and Lyar,ap/P,
+the scaling law for the non-Gaussian process converges to the one of the Gaussian process in the large-P-limit. This
+is what we expected based on the UV irrelevance of the interaction term U, which makes the non-Gaussian process
+approach the Gaussian process for high modes.
+
+VI. EFFECT OF PERTURBATIONS ON LEARNING CURVES — HEURISTIC DERIVATION
+
+Next we provide a heuristic explanation for how the perturbation U affects the learning curve, to demonstrate the
+power of the scaling dimensions identified for the different quantities.
+
+As a preliminary computation, let us evaluate the learning curves in the free theory using a scaling argument. To
+this end we perform RG to integrate out all critical (non-learnable) modes k € [kp, A], where kp is defined by (6)
+as the mode for which the kinetic and the mass term agree, r(1) = P/k = \~!(kp), as illustrated in Figure 6. This
+
+‘ =i
+implies that we choose ¢ = fp = A/kp 4) A (4) ™s Tn the renormalized theory, the mode at the cutoff A is thus
+massive, because by construction its mass agrees to the kinetic term, r(€p) = \~1(A); all non-learnable modes beyond
+this scale have thus been integrated out. Evidently, any explicit P dependence has been removed from the free part of
+17
+effective theory
+
+S'[A';r(lp), PU (Ep), £p|
+
+non-learnable
+modes
+
+learnable modes
+
+1 kp =A/£p Ak
+
+FIG. 6. Extraction of scaling laws from critical action and scaling dimensions of operators. The original theory is
+efined in terms of its parameters r(1) and U(1) when all modes k € [0, A] are present. Modes with \~'(k) > P/k have a high
+mean discrepancy (A(k)) ~ y(k) and are hence termed “non-learnable”. Modes with \~'(k) < P/« have a small discrepancy
+(A(k)) 0 and are hence called learnable. Since the overall magnitude of y(k) declines, the main contribution to the loss comes
+rom the modes at the intersection of these two regimes at k ~ kp. We hence use RG with ¢p = A/kp to obtain an effective
+cory S’ [A r(€p),U (Ep), fp] to predict the loss for modes as kp, which in the renormalized action appear to lie at the cutoff
+‘> = A, due to the rescaling (pk'p = kp.
+
+xt
+
+he renormalized action $5{A’;r(¢p), 4] (cf. first line of (18)). So no observable computed from $j contains any P
+dependence. Also the parameter r(€p) = \~!(A) is independent of P, as it is fixed by the cutoff alone. Obviously P
+dependence must enter and it does so by noting that the mean discrepancy of the original system (A(k)) and the
+renormalized one (A’(A)) relate by (34) (A(kp)) = 2(€p) (A‘(A)) | s'(¢=tp)? Where the wavefunction renormalization
+factor z(2) appears. We finally note that the scaling of the loss must be identical to how the mode kp at the learnability
+areshold scales, since by self-similarity in the critical regime, the entire critical region must scale identically with P.
+
+We get one additional factor ¢~!, because the loss operator contains an integral lin ... dk over all modes, which gets
+rescaled by the RG, dk = dk’/€ (cf. (D11)). We thus obtain the scaling of the bias part of the loss as
+
+D16
+
+Loias/P ~ (A(kp))? ~ 2p)? tpt OO” poses , (43)
+which agrees to the dominant term of (39) (the sub-leading term there stems from considering a system with a finite
+set of modes A = P).
+
+On a more abstract level, we may summarize the argument very briefly: The bare loss 1/2 ear A? in the continuum
+limit becomes 1/2 f dk dqd(k — q) A(k)A(q), which has a native scaling of z(¢)? ¢-! = ¢%, so a scaling dimension of
+YLvias = G. This implies that the bias part of the loss declines as a x P-8/A+%) | which agrees with the argument
+above (43) and with the explicit calculation (cf. Section F 1 i.p. (F5) and with (43)). This argument shows the power
+of the dimensional analysis: Determining the dimension of the operator alone is sufficient to derive its P-dependence.
+
+To extract the scaling of the variance in a similar manner, we need to take into account that the renormalized
+variance (A?)° receives another factor (~°+¢+1 = s(€)~! from (27), so (A(kp)?)° ~ 2(¢p)? s(€)~+ and the scaling
+dimension of the variance part has an additional factor (~! due to the 5(0) appearing in the definition of the loss,
+which together yields the expected scaling with P of the variance contribution to the loss as Lyar/P ~ P~°/C+% (in
+line with Section F 1 ip. (F7)).
+
+Next we extend the argument to extract the leading order contribution to the scaling law in the interacting theory.
+We here focus on the special case 8 = 1+ a for which s(@) = 1 and for which PU(¢p) = PU(DE? ~P1\0
+for large P to simplify the argument. Following again the RG flow up to the learnability threshold, ¢ = fp, the
+renormalized action $’[A’;r(¢p), PU(¢p),¢p] contains the only P-dependence in the interaction PU(¢p). There is
+no implicit P-dependence from r(¢p) = A~1(A), which is fixed by the cutoff. For sufficiently large P we will ultimately
+reach a regime in which we may treat PU(¢€p) ~ P~! perturbatively; say to first order perturbation theory.
+
+18
+The effect of the interaction term on the loss depends on the second moment
+Ay _ 7-1 FAN AY2 9S’ [Auirler), PU (Er), LP]
+(AA) ) 6 [asr(tp), U (ee), €0] =e [oa AN(Aye
+
+perturbagon theory 5 { / DA’ A'(Ay? e147] (1 + PUL Ep) a} +O((PU)®).
+
+connected
+
+The leading order terms «x O([PU]°) of course reproduce the bias and variance contributions of the Gaussian case
+
+above, (A’(A)?) = (A’(A))? + (A’(A))2. For the perturbative corrections SAA) ofa (tp), PU) te] «x PU(p) we
+‘ wep), tp) tp
+
+only need to take into account connected diagrams (the others are cancelled by the normalization Z~'). The diagram
+appearing requires two connected propagators to attach each A’(A) of the integrand to one leg of the interaction
+vertex. The remaining two legs of the interaction vertex may either be contracted with a connected correlator, which
+yields a factor x Lee or to a mean, which yields a factor x 1, so together we have
+
+5L~ 5{(A(kp)?)} = x(lp)*ep! 5{(A"(A))}
+= 2(lp)*lp' PU(Ep) [er + c2 &p'|
+~Cy PO? + co Peet
+oy fla : ge
+temple pi 4 oy pita
+p= = ne
+coe oP 2 +c2P 1~ Ta ;
+
+which agrees to the two terms we have found in the quantitative computation (41).
+
+Again, on an abstract level this result can be understood very simply in terms of the scaling dimension of the loss
+operator, which is 2(¢)? ¢~! = ¢° and the scaling interval defined by the two parts of the interaction vertex, which are
+0?8 and 028-1, respectively; the product of the operator’s scaling dimension and the dimensions of the two parts of
+the interaction vertex then yields the two exponents of the perturbative correction, demonstrating the power of this
+dimensional analysis.
+
+VII. DISCUSSION AND OUTLOOK
+
+An important insight of modern machine learning and AI is the benefit of highly overparameterized neuronal
+networks [1]. Such networks, whose expressivity is much higher than required to fit the training data, show the
+remarkable feature of neuronal scaling laws, where the test loss behaves as a power law in the number of training
+samples and in the number of network parameters. Such power laws point towards scale-free behavior of the training
+process, which is found to hold across many neuronal architectures and thus exposes a form of universality of the
+learning problem per se. Understanding the resulting exponents is of practical importance to predict the required
+resources (network size, training time / compute) to reach a desired accuracy. It is also of theoretical importance,
+because it may expose the deeper physical nature of the learning problem. The simplest possible theory to explain
+such behavior employs the Gaussian process limit [15], which corresponds to a non-interacting field theory. Careful
+analysis of taking the limit of the number of network parameters and the number of training samples, however, shows
+hat marked departures from this limit are expected and are also crucial to explain the power of modern deep learning,
+for example in terms of the reached sample efficiency [35-37].
+
+From the physics point of view, the renormalization group is the tool of choice to analyze phenomena of statistical
+self-similarity that underlie scaling laws and which are known from high-energy physics and from statistical physics
+of critical phenomena. We here specifically develop the Wilsonian renormalization group for neuronal networks and
+apply it to the neural field theory of learning and inference. The neural field theory is derived from the underlying
+learning problem and its structure bears important consequences: The momentum space of field theories in physics
+seamlessly maps to the eigenmodes of principal components of the data that enter our derivation. For the typical
+case of power law spectra, the role of the spatial dimension is here played by the dispersion relation of the spectrum;
+a connection that has been noted in the context of biological neuronal networks previously [13, 38]. As in physics,
+we also here find that the leading order correction to the non-interacting limit of infinite networks N > co isa @
+interaction vertex. Different to previous work [39] however, we find that the interaction vertex does not conserve
+momentum; instead, it has an internal structure where pairs of legs are local in momentum space. This structural
+difference compared to an ordinary ¢4-theory has marked consequences for the RG analysis. It requires us to develop
+
+a novel concept for relevance and irrelevance o
+
+can be
+
+renormalized couplings r(¢), u
+also the
+despite
+we find
+he coar:
+
+-functions of the renormalization
+
+se-graining scale.
+
+fi
+PC mod
+he N — oo limit. This insight allows us
+
+non-learnable modes up in the spectrum
+
+‘0 predic
+renormal
+derive ap
+Gaussian
+find that
+
+he similarity to an ordinary ¢*-theory,
+hat the phase space spanned by the renormalized parameters shows separatrices whose positions
+
+Despite this slightly more involved picture,
+eld theory of neuronal networks is asymptotically free, which means tha’
+es of low spectral power, the interaction terms decline to zero, r
+he scaling exponen
+
+oints P — oo, as this limit shifts the transition between low-momentum, learnable PC modes and high-momentum,
+
+grou
+
+to derive
+
+, into the
+
+critical exponents. We demonstrate that the extend
+corrections to these neural scaling
+ization group of non-momentum conserving and momentum-local
+proximations of the full 6-function. We obt
+limit that are in line with numerical simula
+even though the Gaussian limit is reached ultimately, corrections decay as power laws and may t
+
+aws.
+
+significant deviations at any realistic, finite P.
+
+ualita
+
+ive and quantitative
+
+realm of validity o
+
+Likewise, the analy
+
+ions obtained in a
+
+ed rules of relevanc
+
+19
+
+interaction terms. We find that, in general, interactions of this form
+hought of as multiple operators of different scaling dimensions. The difference in scaling results from
+locality of the interaction vertex in conjunction
+
+he
+
+with the locality of the connected propagator. More formally, we show
+hat this finding corresponds to the effective Wilsonian action being a functional that not only depends on a set
+
+of
+
+(2), etc., but that is also explicitly a function of the coarse-graining scale @. As a result,
+p equations are inhomogeneous in @. An important consequence is that,
+there is no Wilson-Fisher-
+
+ike fixed point in the usual manner. Rat
+epend
+
+ner
+on
+
+that the
+learnable
+havior of
+training
+
+e statements can be made. We fin
+at high momenta, which are non-
+ecovering the Gaussian process be
+s in the limit of large numbers o
+
+the free Gaussian theory with its known
+e and irrelevance can be brought to action
+ical framework to deal with the Wilsonian
+interactions that we derive here allows us to
+
+ain quantitative predictions for neural scaling laws beyond the
+
+eacher-student setting [40]. Importantly we
+
+nus Cause
+
+Another potential application of the presented RG approach is hyperparameter transfer. The aim here is to
+
+extrapolat
+expected
+oO power
+
+‘orm of
+
+he width so as to maintain the relevant an
+with the smaller model.
+
+The presented theoretical framework pre
+of learning. For concreteness we here em)
+imit of sufficiently strong regularization o
+of data samples, formally by replacing th
+Also, we employed the empirically foun
+component modes. An exciting step for ft
+hese idealizations and study their impact.
+he data-averaged free energy F’ [42], whic
+main insight of such an extension may inc
+kernel theory yields identical predictions.
+
+networks with the theoretical predictions o
+
+e from (cheap) numerical experiments on small mode
+
+h needs to
+
+insights regarding the leading order correc’
+
+sents a stepping-stone towarc
+ployed the equivalent kernel aj
+the training process. Concre'
+e quenched average —6F := (
+approximate orthogonality between higher order products of principal
+arther developments of the theory is to include fluctuation effects beyond
+This typically requires the use of established replica aj
+
+turned
+ively re
+
+ture wor!
+by [33, 34
+
+Ss
+
+be combined with t.
+
+ude the separation of the training and test error, for
+
+is, both in terms of capacity and training-set size, the
+ehavior of (costly) larger models. The RG setting, in particular the critical nature at large P that leads
+aws, provides a concrete link between small-scale and large-scale behaviors, thus placing the question of
+optimal hyperparameter-transfer on firm analytical grounds. This link is demonstrated by performing an artificial
+nyperparameter-transfer where hyperparameters are
+decreases. While this demonstrates the feasibility of quantita
+erformance with less data relied heavily on working in the strong-regularization/equivalent-kernel regime. Studying
+more practical notions of transfer, for instance, those involving increasing model width, requires a more detailed
+analysis of generalization and overfitting effects and is left for fu
+our conjectured RG prescription for optimal transfer, inspired
+
+© maintain performance as the dataset size
+ating systems of different sizes, maintaining
+
+Similarly, it would be interesting to explore
+: Co-tuning hyperparameters together with
+
+marginal parameters of the renormalized action at £ = fp, for P associated
+
+a mechanistic understanding of universality
+pproximation [29, 41], which is valid in the
+ely, it neglects fluctuations across drawings
+n tre?) data by the average In tre~F(S)aata |
+
+proaches to compute
+up presented here. A
+which the equivalent
+
+he renormalization gro
+
+Another line of future investigations concerns the quantitative comparison of scaling laws observed in real-world
+tained from the ¢*-like momentum-local RG theory «
+work has shown that the fluctuations of the Gaussian process kernel indeed capture leading orc
+eature learning beyond the Gaussian limit across many architectures [43-47]. We therefore expect that qualitative
+ions to neuronal scaling to carry over. We believe that the presented work
+provides a stepping stone to a quantitative analysis of universality of learning with help of RG methods that have
+
+lerived here. Previous
+er corrections due to
+
+uncovered the true nature of universality in physics within the past decades.
+
+[1] J. Kaplan, S. McCandlish, T. Henighan, T. B. Brown, B. Chess, R. Child, S. Gray, A. Radford, J. Wu, and D. Amodei
+
+(2020), 2001.08361. I, VIT
+iS
+
+ES
+
+es)
+
+11
+12
+
+13
+14
+
+15
+
+16
+17
+18
+19
+20]
+21
+
+22
+
+23]
+24
+
+25
+26
+27
+
+28]
+29|
+30
+31
+32
+33
+
+34]
+
+35
+[36
+37
+38
+
+39
+
+20
+
+J. Hestness, S. Narang, N. Ardalani, G. Diamos, H. Jun, H. Kianinejad, M. M. A. Patwary, Y. Yang, and Y. Zhou, Deep
+learning scaling is predictable, empirically (2017), 1712.00409, URL https: //arxiv.org/abs/1712.00409. I
+
+J. Cardy, Scaling and Renormalization in Statistical Physics, Cambridge lecture notes in physics (Cambridge University
+Press, 1996), ISBN 9787506238229, URL https: //books.google.co.il/books?id=g5hfPgAACAAJ. I
+
+O. Cohen, O. Malka, and Z. Ringel, Physical Review Research 3, 023034 (2021). I, I
+
+J. Halverson, A. Maiti, and K. Stoner, arXiv preprint arXiv:2008.08601 (2020). I
+
+H. Erbin, V. Lahoche, and D. Ousmane Samary, Machine Learning: Science and Technology 3, 015027 (2022), ISSN
+2632-2153, URL http://dx.doi.org/10.1088/2632-2153/ac4f69. I
+
+H. Erbin, R. Finotello, B. W. Kpera, V. Lahoche, and D. O. Samary (2023), 2310.07499.
+
+J. Cotler and S. Rezchikov, Physical Review D 108, 025003 (2023), ISSN 2470-0029, URL http://dx.doi.org/10.1103/
+PhysRevD. 108.025003. I
+
+P. Mehta and D. J. Schwab (2014), 1410.3831. I
+
+M. Koch-Janusz and Z. Ringel, Nature Physics 14, 578-582 (2018), ISSN 1745-2481, URL http://dx.doi.org/10.1038/
+s41567-018-0081-4.
+
+C. Bény (2013), 1301.3124. I
+
+J. N. Howard, R. Jefferson, A. Maiti, and Z. Ringel, Wilsonian renormalization of neural network gaussian processes (2024),
+2405.06008, URL https: //arxiv.org/abs/2405.06008. I, 3
+
+S. Bradde and W. Bialek, Journal of Statistical Physics 167, 462-475 (2017), ISSN 1572-9613, URL http: //dx.doi.org/
+10.1007/s10955-017-1770-6. I, VII
+
+M. Jaderberg, A. Vedaldi, and A. Zisserman, Speeding up convolutional neural networks with low rank expansions (2014),
+URL https://arxiv.org/abs/1405.3866. I
+
+Y. Bahri, E. Dyer, J. Kaplan, J. Lee, and U. Sharma, Proceedings of the National Academy of Sciences 121, e2311878121
+(2024), https: //www.pnas.org/doi/pdf/10.1073/pnas.2311878121, URL https: //www.pnas.org/doi/abs/10.1073/pnas.
+2311878121. I, II, Il, VIL
+
+A. Maloney, D. A. Roberts, and J. Sully, A solvable model of neural scaling laws (2022), 2210.16859, URL https:
+//arxiv.org/abs/2210.16859.
+
+L. Defilippis, B. Loureiro, and T. Misiakiewicz, Dimension-free deterministic equivalents and scaling laws for random feature
+regression (2024), 2405.15699, URL https: //arxiv.org/abs/2405.15699. I
+
+B. Bordelon, A. Atanasov, and C. Pehlevan, A dynamical model of neural scaling laws (2024), 2402.01092, URL https:
+//arxiv.org/abs/2402.01092. I
+
+L. Lin, J. Wu, S. M. Kakade, P. L. Bartlett, and J. D. Lee, Scaling laws in linear regression: Compute, parameters, and
+data (2025), 2406.08466, URL https: //arxiv.org/abs/2406 .08466.
+
+E. Paquette, C. Paquette, L. Xiao, and J. Pennington, 4+3 phases of compute-optimal neural scaling laws (2025), 2405.15074,
+URL https: //arxiv.org/abs/2405.15074. I, II
+
+B. Bordelon, A. Atanasov, and C. Pehlevan, Journal of Statistical Mechanics: Theory and Experiment 2025, 084002 (2025),
+2409.17858. I
+
+M. Welling and Y. W. Teh, in Proceedings of the 28th International Conference on International Conference on Machine
+Learning (Omnipress, USA, 2011), ICML’11, pp. 681-688, ISBN 978-1-4503-0619-5, URL http://dl.acm.org/citation.
+cfm?id=3104482.3104568. II
+
+H. S. Seung, H. Sompolinsky, and N. Tishby, Phys. Rev. A 45, 6056 (1992), URL https://link.aps.org/doi/10.1103/
+PhysRevA.45.6056. IT
+
+J. Lee, J. Sohl-dickstein, J. Pennington, R. Novak, S$. Schoenholz, and Y. Bahri, in International Conference on Learning
+Representations (2018), URL https: //openreview.net/forum?id=B1EA-M-02Z. II, II
+
+A. Jacot, F. Gabriel, and C. Hongler, arXiv e-prints arXiv:1806.07572 (2018), 1806.07572.
+
+L. Chizat, E. Oyallon, and F. Bach, arXiv preprint arXiv:1812.07956 (2018). II
+
+G. Naveh, O. Ben David, H. Sompolinsky, and Z. Ringel, Physical Review E 104 (2021), ISSN 2470-0053, URL http:
+//dx.doi.org/10.1103/PhysRevE.104.064301. II, II
+
+R. M. Neal, in Bayesian Learning for Neural Networks (Springer, 1996), pp. 29-53. I
+
+B. W. Silverman, The Annals of Statistics 12, 898 (1984), URL https: //doi.org/10.1214/aos/1176346710. II, VII
+
+S. Yaida, in Mathematical and Scientific Machine Learning (PMLR, 2020), pp. 165-192. II
+
+G. Yang, arXiv preprint arXiv:1902.04760 (2019). II
+
+J. Zinn-Justin, Quantum field theory and critical phenomena (Clarendon Press, Oxford, 1996). IV
+
+G. Yang, E. J. Hu, I. Babuschkin, S. Sidor, X. Liu, D. Farhi, N. Ryder, J. Pachocki, W. Chen, and J. Gao, Tensor programs
+v: Tuning large neural networks via zero-shot hyperparameter transfer (2022), 2203.03466, URL https: //arxiv.org/abs/
+2203.03466. VC, VII
+
+B. Bordelon, L. Noci, M. Li, B. Hanin, and C. Pehlevan, in NeurIPS 2023 Workshop on Mathematics of Modern Machine
+Learning (2023), URL https: //openreview.net/forum?id=6pfCFDPhy6. VC, VII
+
+M. Geiger, L. Petrini, and M. Wyart, arXiv preprint arXiv:2012.15110 (2020). VII
+
+G. Yang and E. J. Hu, arXiv preprint arXiv:2011.14522 (2020).
+
+D. Yu, M. Seltzer, J. Li, J.-T. Huang, and F. Seide, in International Conference on Learning Representations (2013). VII
+L. Tiberi, D. Dahmen, and M. Helias, Hidden connectivity structures control collective network dynamics (2023), 2303.02476,
+URL https: //arxiv.org/abs/2303.02476. VII
+
+M. Demirtas, J. Halverson, A. Maiti, M. D. Schwartz, and K. Stoner, Machine Learning: Science and Technology 5, 015002
+(2024), URL https: //dx.doi.org/10.1088/2632-2153/adi743. VII
+
+21
+
+40| G. Hinton, O. Vinyals, and J. Dean, Distilling the knowledge in a neural network (2015), 1503.02531, URL https:
+
+//arxiv.org/abs/1503.02531. VII
+
+41] C. E. Rasmussen and C. K. I. Williams, Gaussian Processes for Machine Learning (Adaptive Computation and Machine
+
+Learning) (The MIT Press, 2005), ISBN 026218253X. VI, A6
+
+42] B. Bardelon, H. Shan, A. Canatar, B. Barak, and C. Pehlevan, Replica method for the machine learning theorist (2021),
+
+research blog, URL https: //www.boazbarak.org/Papers/replica.pdf. VII
+
+43] G. Naveh and Z. Ringel, Advances in Neural Information Processing Systems 34 (2021). VII
+
+44] J. Zavatone-Veth, A. Canatar, B. Ruben, and C. Pehlevan, Advances in neural information processing systems 34, 24765
+
+(2021).
+
+45] I. Seroussi, G. Naveh, and Z. Ringel, Nature Communications 14, 908 (2023).
+
+46| K. Fischer, J. Lindner, D. Dahmen, Z. Ringel, M. Kramer, and M. Helias, Critical feature learning in deep neural networks
+
+(2024), 2405.10761, URL https: //arxiv.org/abs/2405.10761.
+
+47| N. Rubin, K. Fischer, J. Lindner, D. Dahmen, I. Seroussi, Z. Ringel, M. Kréimer, and M. Helias, From kernels to features:
+A multi-scale adaptive theory of feature learning (2025), 2502.03210, URL https://arxiv.org/abs/2502.03210. VII
+
+Appendix A: Gaussian process regression
+1. Setup
+
+Consider a linear network
+f=w's
+with a scalar output f € R and P tuples of training data D = {(1,Ya)}i<a<p. The data points are combined to
+form the matrix {R?*¢ 5 X},; = qi. Assume a Gaussian prior w; Lg N(0,gw/d) then the fq follow a multivariate
+Gaussian distribution
+{fa} ~N(0,C@),
+
+In addition assume a readout noise €, ty N(0,k), so that ya = fo +. Then the joint prior distribution of the
+network output f and the y is
+
+p(y, FLX) = Nyt, 0) N(f10,0&) (Al)
+x ef) |
+where we defined the action
+1 1 oe
+Sy, f) = -scIlf — yl? — 5 FCPS. (A2)
+K 2
+In particular we are interested in the posterior f when conditioning on the training data D, which is given by
+ply, FLX)
+P(fID) = — > - (A3
+1) Fat py. 1X)
+
+We have the simple relation for the free energy F
+Fain [apse (A4)
+
+1 5; 1 _
+=- sve +«)7ty- zindet((co] +7").
+
+2. Langevin training
+
+The action (A2) can alternatively be considered as resulting from Langevin training of the weights until equilibrium,
+following the stochastic differential equation
+
+0 0
+
+I|w I?
+w= -~—
+ot’ Ow;
+22
+where (€(t)€(s)) = 6(t — s) is a unit variance white noise and
+‘ L
+L(fiy) = silt — yl? (A6)
+
+is the squared loss, because the stationary distribution of the stochastic differential equation is
+
+[[e||?
+
+2qw/d
+
+po(tw) exp (~~ [C(wtasy) + )), (a7)
+
+f
+
+which is hence identical to (A1).
+
+3. Training loss
+
+In particular we may be interested in averages over the posterior (A3), such as the training loss
+
+1 d,
+
+(Ilf — yl?) = 5 Uf) — 9)? + (fF - Cf)? (A8)
+
+(0) = ;
+
+Nile
+
+Such observables thus only require the free energy (A4). We further note that y plays the role of a source field for
+f —y. The free energy (A4) has two terms, one that depends on y and another that is independent of y. Only the first
+one determines correlations of f — y and hence correlations of f.
+
+Another important observable is the mean discrepancy
+
+(Aa) — (Ya = fo) (A9)
+
+=-kK iF =i —K FO),
+
+The training loss (A8), correspondingly, may be expressed in terms of derivatives by y alone, namely with
+
+O° < :
+WFR = 5a F = baa t+ (Ya ~ fa)(a — fa) — Wa — fa) us — fa)
+= bap k + (AaAg) — (Aa) (Ag),
+
+the loss follows as
+
+&
+nT
+
+5 tr (AAT) (A10)
+
+-2
+= - tr [FO 4 FO FOTW.
+
+4. Transformation to eigenspace
+
+We may transform the action into the eigenspace (principal components) of C(**)
+C®) Uy = Ap tip. (A11)
+
+The set of U := {u,,} being a complete basis, we write the target vector y € R? asy= Ln Y,, Uz. In particular we
+will be interested in power law decays of the eigenvalues
+
+Ay = Arpt, (A12)
+wow, (A13)
+
+where a > 0 and 3 > 0, because otherwise the variance of the kernel or of the target would be infinite.
+23
+
+Likewise the vector f € R? is f = re Fi), U,. The basis being orthonormal uty = dyv, the integration measures
+for y and f remain unchanged, so we get the action (A2)
+
+(E.-¥,)? | FE
+S(P.Y)=—5 is 7 ae (A114)
+p=1
+A completion of the square
+1 1 1 cot 2 .
+S(FY) =—5 pa {(Ag? +87) [FE - eat y,] (A15)
+it 2
+— |——_¥Y, (I .
+lee w(d)] }
+allows us to read off the mean and covariance of each mode as
+ah) = Ae Y, (A16)
+me A Aye?
+_ -1\-1
+uv == (FF) — (Fy)(B) = bv (Ag? + 872) (A17)
+aa BM = Suv Cu
+
+where we defined the non-trivial part of c,, as c,. Since Y does not fluctuate, the covariance of F' is the same as the
+covariance of A, := Y, — Fy,
+
+Cu = (Ay Av) ~ (Ay) (Av) - (A18)
+The mean discrepancy is
+
+K
+
+dy, = (Ay) = ¥, — (Fy) = i, fa Y,.- (A19)
+The expected loss (A8) can be expressed in terms of m, and the non-trivial part c, as
+1 3 1
+(0) =Z(0) —)? + 30 — (NP (A20)
+iv
+=5 dln 2 fs Cus
+The free energy F takes the form
+Fe=in jae eSlu-f) (A21)
+-14 71
+a ye Ne * K n (Ay ).
+= 1
+
+which again has a first term the controls the correlations of f — y and a second term that is independent of y and
+hence does not affect correlation functions.
+
+5. Additional quartic loss term
+
+Now consider an additional quartic part of the loss in (A5) and (A6) of the form
+
+P
+
+L(Fs9) == Ff — al +5 SS (We - fa)’ (A22)
+
+a=1
+24
+
+so in total one obtains the action
+
+a!
+
+p
+Sty, f) =~ 5c - ul? — 5 YD a= fa) = 5ATICHY. (A23)
+a=1
+
+Expressed in the eigenbasis (A11) the quartic term reads
+
+Ss ( Uya (Ye — F,))
+
+a=1 p=1
+
+“|&
+
+P P
+Ss (~~ Upya Upoa Upga tiger) (Yue = Fi) (Yue — Puy) (Yus = Fi3) (Yiu ee Bieg)'s
+
+1415H2,H3,Ha=1l a=1
+
+We now use that the eigenmodes behave similar as Gaussian variables which fulfill Wick’s theorem (this is shown to
+hold empirically for real data sets in (H 2))
+
+P PB
+
+approx
+Vit jenpos it = > Uprallpratpsatpsa ~ y (UpratlpratpgaUpsa)
+a=l a=
+
+3 1
+= P Sprpopnapa + P (1- Spruausya) (Surper Soma + Syrws 5 p24 + Spx a paps) ,
+
+which reduces the above expression to
+
+KU 4
+ee OL te Ku = Fu) (A24)
+
+MiAl2=1
+P
+KU a?
+pel
+which yields the action in eigenspace of C“™*)
+P a 2
+1W(h-Y,)  F
+FLY) =-> etl 4 4 A25
+SIFY) = 5 » x A, (A25)
+
+ag 2
+S(A,Y) : > An 4 Aus Yu) (A26)
+6. Equivalent kernel
+
+Instead of operating on one concrete data set, we are interested in the behavior on average over data sets. To this
+end we follow [41, Sec 7.1] and assume that data and labels come from a joint distribution
+
+p(y, ®) (A27)
+
+of which we denote as p(x) = f dy p(y, x) its marginal for x.
+To change back from this continuum formulation to the discrete formulation, we set the probability measure as the
+empirical measure
+
+1&
+o=l
+
+In the continuum assume a pairwise orthogonormal basis with regard to the integration measure p(x) dx
+
+buy = / $u(2) b(a) pla) de. (A29)
+These basis functions are eigenfunctions of the kernel K : R¢ x R¢+4 R defined as
+K(a,2') = So Ay oula)ou(z’), (A30)
+HM
+in the sense
+[ Ko) 6a!) pla! da! = ope). (A31)
+
+We would like to know how the eigenvalues ,, relate to the eigenvalues A,, introduced in (A11). To this end, we
+insert the empirical measure (A28) into (A31) to obtain
+
+p
+Au@u(a) =P! ST K(x, 28) bu(as).
+B=1
+
+Evaluated on the set of data points, the right hand side is now of similar form as (A11) if we set
+K(#a,%8) = CS,
+except the additional factor P~!. We thus identify the eigenvalues as
+Ay = Pag: (A32)
+Likewise, the orthogonality relation (A29) with the empirical measure inserted reads
+
+p
+Sy =P Ss Gn (®a) bv (La).
+
+a=1
+
+The relation between the discrete modes u,, and those on the continuum is hence
+Ly :
+Upa = VP Op(®a) : (A33)
+Defining the expected target as
+
+y(x) = [ evvetle
+26
+
+the first term in (A2) therefore takes the form
+
+P
+D (lo ~ te)? =P f (0) — 1)? rla2) dedy (A34)
+
+o=1
+
+=P f (He) lx) w~ ule)))’ la.) ded
+=P f (He) ula)” oe) ae
++P / (y—y(a))” ply.x) de dy,
+
+where the latter term, the variance of the target, is independent of f, hence does not influence its statistics and we
+used that cross terms vanish. In the eigenspace of the kernel A and expanding f and y in these modes
+
+Evaluated at the data samples x = aq, the fields must assume the same values as in the discrete. The coefficients f,,
+and y,, are therefore related to those of the discrete system as
+
+F,=VP fu, (A36)
+Y,=VP y,.
+which is due to (A33).
+The f-dependent term in (A34) of the action reads
+
+Pf (#2) — ula)” oe) de =P f (Shu — up) Oya)? le) ae
+
+LB
+
+=P (fu-y,)": (A37)
+
+where we used the pairwise orthonormality (A29) of the ¢.
+The second term in the action (A2) can be written as what is known as the reproducing kernel Hilbert space (RKHS)
+norm
+
+1 @x))— _ 1 (
+—sFTICO FSSA),
+(f.g) = FCO g.
+
+2
+The second term of the action in eigenspace becomes -4 > in fu , So together with (A37), we have the approximate
+7"
+action
+Lo (fu Yn)? , Sh
+3 —e : + z A
+Sh = 5 pt 5, (A38)
+
+Since the eigenvalues are by definition independent of P (they only rely on the functional form of K(x, x’) and the
+measure p(x)), this form has the advantage of exposing the explicit P-dependence of the first term. The sum over ju
+here extends to infinity, as there are infinitely many modes of the kernel. We also note that the mean of each mode f,,
+by the relation between A,, = P,, is the same as in the original action (A14), because both terms are scaled with the
+same factor P. Also the action only depends on P/« as an effective parameter. So we have
+
+ees, (A39)
+yee?
+27
+Appendix B: Quartic theory from finite-width corrections
+
+An alternative motivation to study a quartic theory similar to (A23), we may consider corrections due to finite
+width. In the simplest case, one may consider a single hidden layer network architecture
+
+ho =Vite, (B1)
+fa = 7" O(ha)
+
+which is trained on P tuples of training data D = {(ra, Ya) }i<a<p with rq € R¢ and y. € R. Here ¢ denotes a
+non-linear activation function and f, € R is the scalar network output.
+
+We study the Bayesian setting with Gaussian priors on the readin weights V € RN*¢ as Vij ~ N(0,gv/d) and the
+readout weights w € RN as w; ~ N(0,gw/N). To keep the notation concise, we use the shorthands fp = (fa)i<a<p;
+X= (fa)i<a<P and y = (Ya)i<a<P in the following. Further, summations over repeated indices are implied
+Veit = Se Vivi.
+
+Training is performed with a squared error loss function £ = Sly — f|? and gradient descent with weight decay and
+Gaussian noise, so that the weights follow the equilibrium distribution
+
+Loy
+IVP -
+
+1 1
+Viw~ z exp ( = we Lly, f(w, V|X)] = ag. Boe
+
+Ile!” ,
+where Z is the partition function. After some standard manipulations, the latter takes the form
+2) = fat f dont. 0).N(F10.0)
+
+x [ac exp(—tr€TC + W(ElC@))) ,
+Ay or a Iw 4 oF
+w(C|c@) = N In (exp (Fro) COA), .nr(o,c2) ,
+Hex) Joy yT
+Cc al '
+The scaling form of the cumulant-generating function W implies that the mean W «x O(1) and the variance
+
+W®) x O(N-!), which shows that the inner kernel matrix C concentrates. Keeping fluctuation effects up to Gaussian
+order, one may expand W into the first two cumulants as
+
+x a bb) il. hOB) OF ~
+W(CIC™) = CyB? Cap + ZSnarre” CaaCys + O(C*), (B2)
+CO += gw (dads) ,
+gibedd) = (9 6875) — (babs) (ob s)|
+ops WV a PB PY PS PB) \PyP5)) >
+
+where all expectations are with regard to the Gaussian measure (.. aw (0,0): The approximation (B2) implies a
+Gaussian distribution of the kernel C,,. Rewriting
+
+2) = [ HN W.C +42) )g (B3)
+= [ af (exp(— Fut SFC +80 A) )o.
+we may perform the integral over C with the cumulant-expansion of W (B2), which yields
+Z(y) = / dj exp(- Fy + 5 FC) + al) f+ ow fafabyds) - (B4)
+
+For the special case of a linear activation function ¢(h) = h, we obtain with Wick’s theorem
+
+2
+Soars = $2 [OPC + GP OL],
+28
+
+which allows us to write
+z ray 1 er r(we) 7 Iu (wx) 5
+2ly) = f af ep (— Fy + 5F(Co + a) F+ 88 [CS jaf] ).- (B5)
+
+We may move into the eigenspace of C(*”) as f =Ugso
+
+2(y) = [a exp(—y™Uy4 5 +k) a4 fs w Lee] ) : (B6)
+
+Now redefine the auxiliary variables as real variables Ay := i VK Xa Ya € R, to get the partition function
+
+2ly) = c [ dd exp (iy" UVnt Tan y Dieta A2 4+ =. [S242]’). (B7)
+
+a
+
+where we obtain an inconsequential factor c due to the change of measure and A is a diagonal matrix with entries \,.
+
+The last form has an identical structure to our starting point (A26), with the only additional assumption that the
+transformed target y™U in (B7) has power law entries. Also we get an imaginary unit in the mixed term « yA and
+the sign of the interaction term is such that U < 0.
+
+Appendix C: Continuum limit of the action
+
+To perform the renormalization group calculation it is useful to have a continuum representation rather than having
+a sum over a discrete set of modes. In this section we perform the step from the discrete representation to a continuum
+representation by ensuring that all observables maintain the same value in the discrete and in the continuum theory.
+
+1. General setting
+
+We here consider the general setting of a theory that consists of a Gaussian, solvable part and non-Gaussian
+perturbations. Let the ground truth solvable theory represented as a sum over a discrete set of modes be the centered
+Gaussian diagonal action
+
+1 N
+g)= 75 S Gude,
+p=
+
+We assume a source term J‘ which allows us to also describe the situation of a non-vanishing mean. The free energy
+then is
+
+N
+= N 4 Sol(d)+ste — 1 pPGr)
+Fo(J) =n fa bol) = DG 2Ge LMG. (Cl)
+The theory implies connected correlation functions (cumulants)
+
+(Ou) = Ga dy =p
+
+(bydv)e = Suv Ga! =! Spy Cus
+
+where the mean also follows from the stationary point of the action including the source. In addition, we would like to
+compute the effect of a perturbation
+
+Sint ( = 3 Vivre Ou bo Pn be (C2)
+
+By, t=1
+29
+
+and we are interested in expectation values of observables O(@)
+
+ad 40(9) 8)
+(0) = ee : (C3)
+
+We assume that observables can be decomposed into a series of field monomials, so that it is sufficient to ensure that all
+cumulants of the fields are treated faithfully to maintain the expectation value of any such observable. Since correlation
+functions can be expressed entirely in terms of the J-dependent part of the free energy in (C1), it is sufficient to ensure
+that this part be treated faithfully when going from the discrete to the continuum.
+
+The full free energy of the interacting system then is
+
+F(J) =In / dN GeSot Sim tI" (C4)
+
+—In CoD) i.
+grveSo(J)—ITe
+
+where @ ~ eS0+J"? ig meant as @ is distributed as Gaussian implied by the quadratic action So + J™¢, namely
+p(d) = eS0(#)+4"—-Fo(J) where Fy (C1) is the normalization.
+
+2. Fine-grained free energy
+As an intermediate step of transitioning to the continuum, we insert n additional modes between any pair of original
+modes. Our aim is to obtain a form of the free energy F(™ (J) with the following two properties:
+e First, the value of the source of the fine-grained system J‘) should be an interpolation of the source for the
+original system in the sense
+hee Jiisn|s (C5)
+where |...| denotes down-rounding to the next lower integer.
+
+Second, the J‘")-dependent part of the free energy of the fine-grained system should be intensive in n and its
+value should correspond to the J-dependent part of the original discrete theory
+
+F(J) 2 FM (IM). (C6)
+Here ~ means up to J-independent terms.
+
+The second property is required so that we may ultimately take the limit n — oo and obtain a finite result.
+The properties (C5) and (C6) imply by the chain rule that
+
+OF Or”
+
+— ate C7)
+~ Sa (
+On i: |i/n|=p OJ;
+
+This shows that any derivative 0/OJ,, needs to be replaced by )>;., li/n|=ke asad”, because changing a single point js
+of J,, in the discrete system, by (C5), implies a change for n points i of the fine-grained source J”; we call this set of
+modes the “n-vicinity” of mode y in the following.
+
+An expectation value of any observable (C3) amounts to computing the cumulants of the theory. The relation
+
+o o
+
+OI, Oy
+
+0 dm
+Ss we S an one”
+
+é:li/nla=n js Lj/nj=v
+
+(C8)
+
+(Gu -++ Gude
+
+tells us how to compute cumulants of the original system in terms of the fine-grained system: it incurs a summation
+over the fine-grained modes in the n-vicinity of the original modes. In a sense this means that the two theories have
+the same cumulant-density per degree of freedom.
+30
+3. Form of the Gaussian fine-grained action
+
+Next, we ask which form of the free part of the theory obeys properties (C5) and (C6). Consider the choice
+
+nN
+1
+
+5” (6) = “75 S Ganj Pe»
+ken
+
+so the pairwise correlation is
+ct = (bot) = Gin NOK = NOK C|/n|
+
+and we set the source term as
+
+limr,._1 ae (n) ,
+1 jotg at FW oy (9
+kan
+(51 <
+= So e/a} Gk -
+k=n
+
+This source term assures that, assuming the same value for the source by the interpolation property (C5), that the
+mean of the field due to the Gaussian part stays the same, because Ss (6) + 157% has the same stationary point
+
+mn”) = (bx) = Grey! J k/n} = MLk/n|
+
+as before. We obtain FO) as
+
+FOYT) s= aoe
+nN
+
+aN
+1 1
+aoe Sin n(Gk/nj/n) + = > Tinjns Fam)
+R=1,
+
+The source-independent term -3 yer In(Gz/nj) has changed by approximately a factor n, because the function G,
+is sampled in the same range as before, but at n additional intermediate points. The source-dependent term of the free
+energy, however, is the same as in the original system, thus it satisfies (C6), as desired.
+
+4. Non-Gaussian terms
+
+Next, consider how non-Gaussian corrections in the original system transfer to corresponding corrections in the
+fine-grained system. We aim to show by induction in the number of interaction vertices that the full free energy (C4)
+maintains the property (C6).
+
+To this end, we follow the same steps as in the inductive proof of the linked cluster theorem found in many text
+books (e.g., Zinn-Justin or Kleinert), in the concrete form as presented in Kuehn & Helias 2018, J Phys A, (Appendix
+A.3 https: //iopscience.iop.org/article/10.1088/1751-8121/aad52e/pdf).
+
+We here use this proof to show by induction in the number of interaction vertices that all terms in F(” share the
+property (C6). The induction start is given by the result of the previous section, the case of no interaction vertex. To
+prepare the induction step for the fine-grained theory, we first derive what happens in the original, discrete theory. So
+rewrite the full free energy of the interacting system given by (C4) as
+
+@F (J) a [ eipesmtnresiersre
+
+= pSime(Z) / AN eS0ld)4I76
+
+= eSint (Fy) CFD) |
+
+Next rewrite eS = limg 406 [1 + € Sint] * and multiply the last expression from left with e~fo()
+ch (D)-Fo) = Yim en Fol)
+K-00
+
+The left hand side has in the exponent the difference of the
+
+right hand side produces all contributions to this difference
+
+decompose
+
+1
+=: Sal
+
+[Lt
+
+= [1+
+into a product of K identical factors (differential operators)
+Each factor contains S$; in linear power, so that each such
+final result. The induction step now considers one fixed va.
+the K factors in (C11).
+
+For the induction step we assume we have applied k fac
+
+K
+
+3l
+
+o
+
+K OFo(J)
+ap! ee.
+
+1
+[1 + K Sint (
+
+ree energies of the full and the non-interacting system, the
+as a sum of connected graphs. The idea of the proof is to
+
+(C10)
+
+1
+
+Sint] +++ [1+ 5 Sint] (C11)
+
+and track the additional diagrams produced by each factor.
+term has the potential to add one interaction vertex to the
+ue of K and the step is the application of the k + 1—st of
+
+ors of the form 1 + € Sint and have already obtained the
+
+free energy F* defined as
+
+1
+[1+ K Sint]
+
+1 Ie
+1+ Sint] hh ),
+
+K
+
+oP)
+
+=[
+
+RAL Fo(J) (C12)
+
+Multiplying from left with e-F*W) and taking the logarithm we have
+
+, . 1 Kana Oo
+FE1(J) — FE(J) =In [1+ K eF*() Sint(az) oF] :
+
+Since we need to take the limit K — oo ultimately in (C10), we may expand the logarithm In(1+ K7!...)= Ko}...
+This is no additional approximation, because it is easy to show that the omitted terms O(K~?) vanish in the limit. So
+each induction step produces additional terms of the form
+
+1
+
+PHAGI) — PED) = Ee) Sie Se. (c13)
+
+The right hand side, on the other hand, is the expectation value (Sint) computed with the theory F*. This is the
+result obtained by the original discrete theory.
+
+Now consider the same steps for the fine-grained theory. From (C8) we have the replacement ao > SE li/nJ=n 9g oa
+
+which, applied to the free energy obeying (C6) yields identical results as the discrete theory. The induction assumption
+is that F(”)*(J(™) has this property (which is true at induction start, as shown in Section C3). The step corresponding
+to (C13) for the fine-grained theory thus reads
+
+1
+
+é)
+POR Z(n)) pln), k(n) — = Ge
+(7) (IM) =5
+
+KP OE TO) gy (f
+e€ ‘in
+(oD ag”)
+
+i: Li/njap OMG
+
+errr) (C14)
+
+’
+
+which on the right hand side produces the same terms as in the original theory (C13) due to the property (C7). As a
+consequence, all additional terms corresponding to the difference FO k+l _ 7: thus have the same value as in the
+original theory. By induction the full free energy then has the properties required in Section C 3.
+
+As an example consider that the interaction be given by (C2). By the replacement rule (C8) and the source term
+n-1J\™@, we have that each derivative )>,, li/n|=p ae leads to n™! Y),. ijn |=, Gis 80 the interaction term takes the
+form
+
+nN
+
+Sint (?) = ne S Ss Vii/nj.Li/n].Lk/nJ,L/n] PiPj Put »
+
+i,j, kl=1
+32
+so that the additional perturbative corrections are to first order in V
+
+(m),1 oo
+
+N
+
+nf pS Vein ifab lem Ll) (Pibj PRL). oar ste-
+ig kil=
+
+For any function Vij/nj,|j/n|,{&/n],|t/n]> @ contraction with the mean of the field (@,,) together with the n-fold summation
+and the 1/n factor yields the same contribution as in the original system. Each contraction (¢,¢1)¢ yields an ndxi,
+which eliminates one sum and one factor 1/n, so that the contribution is again the same as in the original system.
+Concretely, we obtain
+
+nN
+(n)1 _ 1
+Fe’ = vt S Vii/n| Li /nl.Lk/n l/r] (C15)
+igkl=n
+[mi m;mpm
+oP ee of) + 2 permutations
+
+mem, +5 permutations] :
+The result is thus the same as in the original system and in particular all terms are intensive in n, so that the limit
+n — oo can be taken.
+
+We may also consider the case that the Vj;,; in the original discrete system is partially diagonal, for example
+Vu! vt = ya) Suu’ Ov» Such a constraint may meet a corresponding constraint from the covariance in the Wick
+contraction, Or ut = 6,y’. In the fine-grained system, by the rule (C8), we get
+
+Sow > buy SS S
+
+Hyp! bul i: i/nJ=p j: |j/n jan!
+
+=k se &
+
+H é:Li/nj=n i: |i/nJ=n
+
+=») > Sli/n|Li/n] oe + (C16)
+ij
+
+We may interpret the last line as treating the Kronecker 5 by point-splitting, namely decomposing each discrete interval
+into n sub-intervals and assigning a one if |i/n| = [j/n]|; so this corresponds to a particular form of smearing out the
+Kronecker 6. The contribution of the corresponding sums yields for a contraction (¢j)¢ = ij Ci/n; 80
+
+1 oN
+wa Dy A lifns inj 25:5 Clin)
+ij=n
+1 oN N
+= inl = De
+i=n p=1
+which hence yields the value in the original system. A contraction with two mean values, correspondingly, is
+1 2N
+sa De HLi/mlLi/n] Mi/nj ™Lj/n)
+ijn
+
+N
+
+_ 2
+
+= me, »
+p=
+
+The result is thus again the same as in the original system. This example shows that also partially diagonal forms of
+interaction vertices are treated correctly by the derived rules of discretization.
+33
+5. Final form of action in the continuum
+
+In conclusion, we may take the limit n — oo and replace Pha ele x nN oye ty dk with k =i/n
+
+to write the action as a functional
+
+1 N
+
+Sod] = = | dk G(k) ¢?(k) (C17)
+
+1
+N N
+Sint [4] = il dk -- | dka V(ky,...,ka) b(ki) +++ (ka),
+
+1 1
+N
+
+J’o= il dk J(k) 0(k) .
+1
+
+Here the function G(k) is the interpolation of the original discrete quadratic form Gz and likewise for the function
+V(k,...,k4) and the source term J(k). The first two cumulants of the fields due to Sp are
+
+(6(B)) = G(R)" I(h),
+(6(k) OD) = 6(k — G(R). (C18)
+
+The point-splitted Kronecker 5 (C16) 5\:/n| {i7/n| in the limit n — oo ensures that i/n =: k and i’/n = k’ may only
+differ by their non-integer part, so we replace
+
+SLifn| Lit/m] = Ole, LeT +
+
+We employ this replacement rule for interactions Vjirpn O Oi: Oke? +++
+
+Sit > Olej [Rr - (C19)
+
+All contributions to the non-vacuum part (the one that depends on sources) of F are then identical to those of the
+discrete system.
+
+Computing expectation values of observables O(¢) so that they agree to their original value defined by (C3), by the
+
+same argument as used in the derivation of the replacement rule (C8), requires us to replace any terms of the form ra
+by the point-splitted ones (C19). For example with k = 1/n
+
+(ef) = > dw (Pidv') (C20)
+a
+> | dK! 8) [wry (G(R) O(K'))
+
+Lk] 41
+= / dk! (6()4(#))
+
+k|
+
+In the free theory this for example yields with ((k)(k’)) = 6(k — k') G(k)~1
+(ot) + G"(k)
+
+a finite result, as it has to be.
+
+Applied to the problem at hand (A38) including the interaction term (A25) the action is
+
+A f 2
+sien =—3 [2 euce)— 109)? + ak (C21)
+
+_uUP L [ (y(k) — #(B)) (y(H) — £@)) ak dk! |
+
+Written in terms of the discrepancies A(k) := y(k) — f(k) this is
+34
+
+S(A.y) 5/7 P W(k) 4 “n dk (C22)
+
+ve
+-uP| [f° I, )A(w) dean’ |”
+La)
+
+For the perturbative computation of the RG equations we need the mean and covariance of the Gaussian part which
+are
+k yk
+m(b) = (90) = sq a B)
+
+dk) :=(A(k)) = y(k) — (F(R) (C23)
+= <r y(k) ,
+e(k, 1) = (f(k) F)° = (A(R)A())® (C24)
+= 5(k-1) oh
+
+6. Non-diagonal correction terms to the quadratic part
+
+A final sublety arises when computing perturbative corrections to the Gaussian part that stem from an interaction
+vertex that is partially diagonal in the original discrete system and has been replaced by (C16). If these fields remain
+non-contracted they may constitute a Gaussian term to the action which, however, is not perfectly diagonal, but only
+diagonal in a point-splitted manner, namely of the form
+
+a fh [k]+1
+=f ax [ dk! 6(k) o(k"). (C25)
+2h Lk
+
+We will here show that these may indeed be replaced by properly diagonal terms. To see this, remember that all
+observables of interest originate from the discrete system, so that they can be written in terms of pairs of the fields
+that come with momenta closeby in the sense
+
+HE
+[ dk I, i 6k) 4(K), (C26)
+
+where hence the momenta k’ are summed over within range [|], |k| +1]. We will now show that a non-diagonal term
+such as (C25) can be absorbed into an effectively diagonal term without changing any expectation value of either an
+observable or a perturbative correction term.
+
+To see this, we again move to the discretized version of (C25) together with a diagonal Gaussian part gi”)
+
+S= iy +6 (C27)
+nN
+5) (¢) = -— a> Gu /n| PE »
+k=n
+
+nN n |i/nj+n
+
+3h") (¢) = bn 257s 13 di dj.
+
+i=n " j=n|i/n|
+
+The resulting quadratic part is therefore block-diagonal with blocks that are homogeneous. Within one block of n
+fine-grained modes there are n x n matrices of the form
+
+Gx/n| = Glk/nj 1- = 1
+where 1 is an n x n-matrix of all ones. An expectation value of a term of the form (C26) leads to expressions
+
+nN |i/nj+n nN n|i/nj+n
+
+M= YL @e%=SO VM ty (C28)
+i=n j=n|i/n| i=n j=n|i/nj
+nN
+
+=So(G719},
+
+where
+
+i B88
+
+; i
+
+14 = (0,..., 1 ag ae ge Ot onal) i
+Ww
+
+n|i/n|—th position
+To obtain the inverse G~! applied to 1, we need solutions x to equations of the form
+
+Gx =19, (C29)
+Now observe that by
+
+G1 = [Ghinj a] 1,
+
+the 1 are eigenvectors of G, so that the solution x of (C29) is
+
+x = [Ghimny — al" 1 (C30)
+and (C28) becomes
+nN ,
+(=o xP =n [Gum -—q
+
+The result for an expectation value of the form (C28) in the presence of both terms So and S2 in (C27) will hence be
+the same as produced by a diagonal action of the form
+
+nN
+
+a(n’ 1 1
+82? = — © [Gem — 4] ¢- (C31)
+
+i=n
+
+So far we neglected the presence of a source term (C9) i en J\&/n| Ok, Which also resides in the same subspace
+
+spanned by the 1“. The mean of the Gaussian part of the theory
+nN
+
+1
+5 = Sot So+= Yo Iieyny be
+k=n
+
+nm
+
+is given by its stationary point
+
+nN nN
+m= SP Iajnj G71 = YP Iejny x
+k=n k=n
+
+which is a superposition of solutions x") (C30). Such solutions are identical whether we consider (C27) or (C31), so
+we may use the latter instead of the former, as before. Since the mean is the same in both cases, all expectation values
+involving this mean turn out to be identical.
+
+In summary, this shows that we may replace terms that are diagonal only in an n-vicinity, such as (C25), by properly
+diagonal term.
+36
+Appendix D: Renormalization
+1. Idea of the renormalization procedure
+
+This section recapitulates the main idea of renormalization in general terms, before applying it to the problem of
+interest in the following sections.
+
+Quantities of interest follow from the free energy F(©), which is a function of the parameters ©; in the example of
+non-linear regression, these are © = {r = P/«,U,s}, where s will be a scale factor of the action to be introduced later.
+The free energy can be defined as
+
+F(®):= in [ DF exp (S(f;9)) , (D1)
+
+where we denote the parameter dependence as arguments.
+The idea is to split the degrees of freedom into two parts and to perform the integration over one part only. To this
+end, we first introduce an upper cutoff A into the integrals
+
+0° A
+[ ar | ak.
+Jt J1
+
+We will find that the theories considered here become close to Gaussian for large J, so that the contributions from the
+finiteness of the cutoff can be accounted for.
+
+We here split the degrees of freedom in terms of the eigenmodes f = (fc, fs), where fe = ficr<a/e and
+fs = fayeck<a- It then holds that
+
+Fe) =in [ Df< [ Df. exp(S(fe + F558)
+= in [ Df exp [m [Pt exp (S(fe + f0))| ;
+
+which motivates the definition of the action for the lower degrees of freedom f< as the partial free energy of the higher
+degrees of freedom
+
+Sc(fei®) i=in f Df exp (Slfe + £558):
+The partition function e” in both representations, by construction, stays the same, namely
+exp(F(6)) = | Df exp (S(F:6)) (D2)
+= [Pt exp (S<(f<:®)).
+
+Let us now assume we had found a form of S< that is identical to the form of the original S, but possibly with changed
+degrees of freedom f< — f’ and changed parameters 0 + ©’. The decimation step may also have produced terms
+G(Q) that are independent of the low degrees of freedom, but are still functions of the parameters 0, respectively. We
+therefore have the action
+
+S[f’,6'] +nG(e),
+[ P< ew (Se(t<:0)) = [ Ds ex (S(F',0') +G0')). (D3)
+
+Because the functional form S$ is the same as before and also the integral boundaries are the same as before (after
+rescaling), the integral on the right
+
+F('‘)=In [or exp (S(f’, 0’)
+is denoted by the same function F'(0’) as the original free energy (D1). It follows from (D3) that
+
+FO) = FO'()) + G00). (D4)
+
+Determining the dependencies of all parameters ©’(¢) as functions of the coarse-graining variable ¢ allows us to compute
+the free energy F (and therefore the observables as its derivatives) from any value of @ on the right hand side of (D4)
+that we like.
+37
+2. Decimation step of RG: Gaussian part
+
+The following section will make the conceptual steps outlined in the previous section concrete for the case of linear
+regression: We would like to know how the parameters O = {r := P/«,s} change as a function of the coarse-graining
+scale ¢. To make the analogy to the usual RG procedure, the eigenvalue \(k)~! here plays the role of the kinetic term
+proportional to momentum squared; so large \ correspond to the nearly critical modes with momenta close to zero.
+Likewise, P/k plays the role of a mass term, limiting fluctuations of the field f(k) when \(k)~! becomes small. The
+linear term « y(k) f(k) plays the role of an external magnetic field. In this analogy, one would perform the RG flow,
+starting at a high k cutoff A where one has
+
+MA)“ > r= P/K, (D5)
+
+so fluctuations are limited by the spectrum ~! rather then the regulator «. As one progresses to smaller k, \~1(k)
+declines and ultimately the mass term P/k limits fluctuations. As long as one is sufficiently far in the UV regime,
+so that (D5) holds, the presence of the regulator does not matter. To find the point at which the regulator matters,
+we look for the kmin so that the two terms are of similar magnitude using the power-law dependence (A39) of the
+eigenmodes
+
+r= (min)
+P= t= kat ;
+Bo 22s
+kin = [=] (D6)
+
+The factor £ > 1, because we want to regularize weak modes and the exponent 1 + a is in the vicinity of 1, so also
+kmin >> 1. This is the effective low momentum cutoff where the scaling region ends is thus typically above the strict
+cutoff k = 1, which is the lower bound of the integral in the action (C21) after rescaling.
+
+We may wish to integrate out the high momentum modes fs for k > A/¢ with ¢ > 1 to obtain the action S< for
+the remaining modes for k < A/¢, splitting the functions f = fe + fy as well as y = ye + ys into their low and high
+momentum parts
+
+Sc(ferye) =In / Dfs exp (S(fe + fete tys))- (D7)
+
+The Gaussian part of the action (C21) can be written in terms of linear and quadratic coefficients for the corresponding
+mode f (J), so we rewrite is as
+
+A 1
+stra =f (= 5) r+ A] 1? +r ulh) £8) (Ds)
+
+-5r y(k)?
+
+where the second line contains the term that is independent of the field f and hence does not influence its statistics.
+Since the action is diagonal in k, it splits into high and low modes (they are uncoupled)
+
+S(fe t+ fo. ¥< + us) = S(feiy<) + S(fs.us)-
+
+The decimation step (D7) therefore explicitly reads
+
+S<(fes¥<) = S(fevve)-+le [ af, exp (S(fs,¥5)) - (D9)
+
+The latter integral contains the term -4 dine ry(k)? dk of (D8) that does not depend on fy as well as the Gaussian
+integral
+
+A
+in { Dfsexm( fo (5) [r+ Mb") 0)? + rus) F(0) t)
+
+A/e
+_l “ -1) _ 2 2 .)-1) 71
+= afm tae ] =r? ys(k)? [r+ X(k)*] ~ dk,
+38
+
+so that we obtain from (D9)
+
+S<(fes¥<) = S(fe,¥<) + Giys) (D10)
+_ 1 ys (k)?
+Guar) i= Sha Mk) + rot
+
+where we combined the terms in G(ys,r) = —4 tier In [r + A(k)“4] =r? ys (kK)? [r + ACK) hy r ys (k)? dk so that
+the result is of similar form as (A21); in detail the coefficients in front of y2. from the integral and from the original
+part of the action are rewritten as —r? ( [r + A] Thr [A@) + mal ~* In the next step we need to rescale the
+momentum range so that the functional form of the action becomes identical to the beginning — in particular, both
+actions needs to map functions f(k <A) of identical momentum ranges to the reals.
+
+3. Rescaling of Gaussian part: maintaining the target
+
+We are choosing a rescaling that attempts to maintain the target field y in both systems. For momenta for which
+(D5) holds, the action for the coarse-grained system (D10) has the same form as for the original system, only with the
+cutoff A replaced by A/¢. To make the actions comparable, the range of modes must therefore be rescaled so that after
+rescaling the cutoff is again at A. This can be achieved by defining
+
+ki =k. (D11)
+Likewise we allow for a wavefunction renormalization factor
+2 f'(h’) = fe(k) (D12)
+
+demanding that the action in terms of the rescaled field be the same as before
+
+‘ !
+Sf y<) = S(fesy<):
+The left hand side is with (D8) fe(k) = fe(¢~'k’) = z f’(k’) and rewriting the action in its original form (C21)
+
+s(0) 2 Faery dk!
+
+A
+s(five) =D [fro ere) - ey? + FE} S (p13)
+
+2
+where in addition we introduced an overall scale factor s(¢) with initial value s = s(1) = 1 that controls the overall
+scale of the fluctuations and r(¢) is given by r(1) = P/«k. The low momentum cutoff has changed from 1 to ¢; this
+only means the we need to stop the flow earlier. We will come back to this point after we know how the effective low
+momentum cutoff r scales. Otherwise, the integral over k’ is now again of the same form as the original integral over k,
+so we rename k’ — k in the following.
+
+Demanding self-similarity in the momentum regime away from the lower momentum cutoff implied by r = P/k, we
+demand the term that is quadratic in y to be identical between the original action and the rescaled one
+
+s() r(1) y(6-2k)? = s(¢) r(0) y(k)? dk. (D14)
+=1.
+
+From the assumed power law (A13) one has y(€~'k)? = +8 y(k), so that r(1) 0 y(k)? dk 4 s(¢) r() y(k)? dk and
+hence
+
+s(0)r(0) =r(1) e. (D15)
+The term « f which is linearly combined with y must scale identically to y, so we need
+2 f'(h) — We*k) = (2 f'(h) — O* yh),
+so
+
+(Q)=08. (D16)
+39
+
+This choice assures that all terms involving f instead of y scale identically to the terms involving y; the latter maintain
+its form by the choice of s(¢) r(¢) above.
+
+Considering the last the term s Aas
+ite "(k)? dk 08 f'(k)2
+way Oe 8 10) ap
+a a Nek) € ele (ky
+Loy LRP
+= ef dk
+(0 ay a
+it follows that
+a(t) ere, (D17)
+
+Together with (D15) we have
+r(€) =r(1) 0 s(@)-?
+= r Pb g-Btat+l
+—ppite,
+
+as expected from the mass term r kicking in at some sufficiently large ¢.
+Taken together we get the rescaled action (renaming f’ as f again)
+
+A fi 2
+sta =—"2 [ {ro UH - wo)? + SY ae, (D18)
+s(@) = eP-e-}
+r()a=r ere,
+Splitting the action into the quadratic and the linear part, we have the form
+1 “ s(0) 2
+SLY) -| (-3 ae [r(2) + A*(K)] F(k)? + 8(0) (2) yh) f(B) dk (D19)
+
++ const.(f) ,
+
+which more clearly shows that r(¢) plays the role of a mass term limiting fluctuations for small k, when ~+ is small.
+The RG procedure leaves the scaling regime when the mass term and the kinetic term are of similar magnitude, so
+when (D6) is fulfilled.
+
+The propagators of the renormalized action (D18) in the new variables k’ = ¢k are
+
+d(k'; 0) := (D20)
+
+MEST! uk),
+(kU; _ a
+c(k’,U; 0) = 6(k’ —1') s(Q)7! TOMMY HI"
+
+4. Rescaling of the interaction term
+
+The interaction term in (C22) rescales under the above rescaling (D11) k’ = ¢k and (D12) z f’(k’) = fe(k) with
+(D16) 2(é) = 0% as well as y(l-tk’) = oF y'(k’) as
+
+A apr pele /el+e gtr pA apr poll /ej4e at
+dk ah dl v2
+
+Sin(f',y! )=-up [> | ~ |
+
+me elR’ /e) ¢ ele
+
+"RAR AU) ANE)
+
+xA
+A ee £[L/el+e a!
+ep | anf ai’ a f
+e elk /e) e|L/e|
+x
+
+A(R) A(R) AU) A).
+
+40
+The change of the integral boundaries Riva *¢ increases the width of integration by a factor of £ compared to
+
+before rescaling.
+We here need to distinguish two cases of the scaling, depending on the smoothness of the integrand.
+
+1. For a smooth integrand, we may replace (| k’/¢| ~ [k’|, so we replace
+
+elk! /E\ +8 [kJ +1
+[ we Oe | ; (D21)
+JeLk! /e] k’|
+
+which again brings the interaction term to the same form as before rescaling. So we obtain two additional factors
+£, one from each of these integrals, so that the interaction term rescales as
+
+UO=u. (D22)
+Since 6 > 0 this shows that the interaction term is IR relevant.
+
+2. For a non-smooth integrand, for example when the pair of fields A’(I’), A’(i’) or the pair of fields A’(k’) A’(k’)
+is contracted by a connected propagator c (D20) that contains a Dirac 6 (as in (D31)), we cannot treat the
+extension of the integration interval by ¢ for a prefactor 0, so we get the scaling U(¢) = (?°-1 U in this case, if
+the replacement (D21) can be made only for a single momentum integral. This is giving rise to what we call
+“scaling intervals” in the main text. Since this case appears whenever a contraction with a connected propagator
+is performed, in this appendix we take care of this factor by an additional factor (~+ in each contraction with ¢
+and in return scale the interaction by its native scaling dimension (D22).
+
+5. Decimation step: Contribution of the interaction to the flow of the quadratic part
+
+The decimation step for the interaction part considers the four-point vertex (7) written in terms of the discrepancy
+
+A(k) := y(k) — f(k) as
+He I
+Sim(A,y) = — U(0) P fi dk * Ie a dl [, 2 (D23)
+A(k) A(k!) A
+
+Integrating out the highest mode at the cutoff A in a thin shell we choose = 1+. To linear order in the interaction
+vertex, we obtain contributions from the Wick-contractions with means (A(k, @)) and covariance c(k,1,¢) given by
+(D20).
+
+Writing the contracted (high momentum shell) momenta as > and the uncontracted (low momenta) as <, in terms
+of Wick’s theorem, we obtain the following contributions
+
+i) (AG) (AC) A(<)A(<), (D24)
+li) ess A(<)A(<),
+
+where we dropped terms where all momenta are high and contracted, because they only contribute a constant
+which does not affect the statistics of the f< (this constant, however, typically affects the y.-dependence and hence
+the discrepancies at high momenta, as in (D10)). Also we left out the contractions (A(>)) A(<) A(<)A(<) and
+(A(>)) (A(>)) (AC>)) A(<) as well as cys (A(>)) A(<) due to the constraints on the momenta in the interaction
+vertex (D23), which imply that there cannot be any contractions where only a single momentum is low or high, because
+there must be at least one more momentum in the low or high regime, respectively.
+
+In addition to the two remaining Wick-contractions (D24), we need to distinguish contractions in terms of the
+remaining low-momentum integrals: Because of the constraint that k’ € [|k|,|k| +1] (and likewise for / and 1’), if
+such a pair remains uncontracted, the effective contribution is still diagonal in this very sense. If, however, a k and an
+1 (or likewise k’ and I’) remain uncontracted, their momenta are not necessarily constrained to be diagonal.
+
+Concretely, for contraction pattern i) we have only a single variant
+
+i) (A(ks)) (AGS) A JAUE) (D25)
+
+because the other possibility (A(ks)) (A(/s)) A(kL)A(iL) does not appear: if ky is high then also kL would need to
+be high.
+41
+
+Considering contraction pattern ii), we have
+ii) c(hs, kL) AU )A() (026)
+
+where again the other arrangement of momenta c(ks,l,) A(kL)A(IL) cannot appear, because k and k’ both need to
+be high or low at the same time. We are hence left with the contribution (D25) (with a factor 2, because we may
+contract the pair k,k’ or the pair 1,1’)
+
+1™
+
+US Raa
+
+(Uj+1
+
+A/(1+e)
+= -2U (0) P(A(A, 8) aca,o) f dl I, d! ADA), (D28)
+
+where we denote the appearance of the mean as (A(A,)) =v.
+The other contribution (D26) yields
+
+ii) OX) (D29)
+uy
+A/(1+e) [UJ+1
+= —2U(0) P(A(A, OA(A, 2) | dl | dl’ ADA(l). (D30)
+1 LU
+
+So both terms contribute to the quadratic part of the action as they are proportional to A?.
+
+The difference of the new terms compared to those that preexisted in the action is the non-diagonal quadratic
+interaction. It is, however, only non-diagonal within an interval that belongs to the same discrete index. When
+including such a new term in the action, the covariance will hence be affected. As shown in Section C6 such a term
+can effectively can be absorbed into a diagonal term if all observables and all future perturbative corrections of interest
+
+only depend on expectation values of the form fee dk ie dk! (A(k)A(k’)), that is to say that the non-diagonal
+terms only appear within such sums. So we may replace the sum of (D27) and (D29) by
+
+— 2U (0) P[d(A, 0)? + c(A, 2/2] i. “ dk A(k)’, (D31)
+yi
+
+where an explicit factor (~' appears for the contraction with the connected propagator, as explained above (close to
+(D22)). Treating the RG as an infinitesimal momentum shell integration, we consider the difference of the actions
+before and after decimation as
+
+dS¢ 9
+Cat = oe > 4 loa Si). (D32)
+The decimation integrals are of the form
+A
+T= fo dk(A(kOA(,0) FAL<)),
+A/(1+e)
+where f is some function of A(<). Expanding to linear order in € to obtain the limit (D32) we have
+qe
+tim = A(A(A,QA(A,O) FAL<)).
+So the contributions to the flow equation for r(é) in the renormalized action (D19) written in terms of the fields A
+3 (AO +O)?
+\ = r(t) A()? + = dl D332
+sd,y) = [ foams AO+O") (D33)
+are for sr(f) := s(¢) r(0)
+dsr(@)
+de
+
+é = Bsr(0) (D34)
++4 AU (0) P [d(A, 0)? + (A, 0)/€) ,
+
+where the first line stems from the rescaling step (D15). We note that the angular bracket is proportional to the
+A-mode’s contribution to the expected loss.
+42
+
+6. Decimation step: Contribution of the interaction to the flow of the interaction
+
+Likewise at one-loop order we expect a contribution to the interaction U which would be x U?. For small 1 > 6 > 0,
+the interaction part is weakly relevant due to the rescaling term U(¢) = U(1) @°. The decimation will lead to a term
+«x —U?, which in an ordinary ¢* theory is responsible for the appearance of a Wilson-Fischer fixed point, where U x 8,
+because we will get a flow equation of the form
+
+dU _ 2
+(sp = 2BU - CU
+
+= (28 —CU)U
+
+with some constant C' to be determined. Two differences, though, will be that the mean value of the fields is
+non-vanishing here and that the contraction with the connected propagator comes with an additional factor @~ when
+the contraction collapses one weak non-diagonal integral, as explained above (close to (D22)). The latter leads to a
+suppression of the quadratic term, so that no Wilson-Fisher fixed point exist here.
+
+To compute the decimation contributions, one needs to contract two pairs of fields A(>) from the interaction and
+leave four A(<) of them in the low momentum sector uncontracted. The interaction vertex is
+
+ee eee
+Sint(A, y) ef arf af af dl’
+Lk] 1 uJ
+
+A(k) A(kK) AD) A).
+Denote the fields of the two vertices in the diagram to be considered as
+
+vertex 1) Ai(<) Aj(>),
+vertex 2) Ao(<) Ag(>),
+
+and likewise use subscripts 1,2 for the momenta on their legs. Only connected diagrams can appear due to the
+logarithm in the definition of S<.
+
+So we have the following contributions
+i) Ai(<)Ai(<)Ai(<) (Ai(>)A2(>)) Ao(<)A2(<)A2(<) — unconnected part, (D35)
+ii) Ai(<)Ai(<) (A1(>)A2(>)) (Ar(>)Ae2(>)) Ar(<)Ai(<) — unconnected part. (D36)
+
+Due to the momentum constraints of the interaction vertex there are no contributions where only a single field A(>)
+of an interaction vertex is in the high-momentum sector or a single field A(<) is in the low momentum sector and all
+others are in the respective other sector.
+
+The first diagram (D35) contributes a six-point vertex. It rescales as z(0)°/0° @ = (873*—-6+3 — (38 but is driven
+only by U?, so we will here neglect it first; if we seek a theory where U < 1, we may neglect this contribution.
+
+3
+
+The second diagram (D36) is a contribution to the four-point vertex. Due to the momentum constraints implied by
+the interaction vertices, the only possible momentum assignment is
+
+Ai(ky <)Ai (ky <) Ao(k <)Ao(kh <)
+x(Ai(l, >)Ag(l2 >)) (Ar(U, >)Ag(I5 >)) — unconnected part.
+
+The diagram comes with a factor 27, because at each vertex we may choose either pair (k,k’) or (1,1) to be contracted
+43
+to the respective other vertex. The value of this contribution is
+
+2 . 2
+2. (UP)
+
+A/(L+6) Ler |+1 A/(+e) [ko J +1
+| dk | dk’, | dky | dk,
+1 [ki] 1 lke]
+
+x A(ki) A(R) A(k2) ARS)
+
+A la j41 A [aJ+1
+x | dl, | dl, i dla | dl
+Aydte) Alb Ate)” J te]
+
+x [(A(L) A()) (AUG) A(G)) + (ACL) AG)) (A(h) A())
+~ (A(i))(A()) (A) (AG))]
+
+where the subtraction in the last line is the unconnected part and the factor 1/2! comes from the diagram being second
+order (expansion of exp(V) for two vertices V).
+
+Proceeding diagrammatically, we obtain the contributions (leaving out the fields A(k) of the amputated ----~ legs as
+well as their corresponding low-momentum integrals for brevity here)
+
+XQ yon Y ne y
+ky 7 ly lg 7 ko 4 92 Ai \ / ke (D37)
+rN pt oN 7 N,
+
+MY Nh bY \ko KY SRS
+
+1 , fh [J+
+=». supp [ an f dl, c(ly) e(4) /é
+2! ajate J lh
+A
+
+~ 2(UP)? | dly e(,)?/€
+
+A/(1+e)
+xe.
+The latter contribution is x €, so it contributes to the flow equation. Contracting the legs connecting the two vertices
+
+cross-wise (1, — 15; 1, — lz) yields
+
+SIN A
+ki \ Zl a \ 7 ke
+x x
+
+2k NN A
+> fa “Ke go &a
+Ne 2 vf Nope
+Nhe Re oe
+
+A A
+=». suey [ an f dly c(l,)/€c(lz)/€
+
+A/(1+e) A/(1-+e)
+
+1 7% UG
+ay NG nf
+
+aN
+
+xe,
+the contribution is « €?, because there are two independent momentum integrals. This contribution thus vanishes in
+the limit lim.\.o 4 ...,; 80 it does not contribute to the flow equation.
+Likewise, we get contributions where two fields are contracted to the mean (denoted as WU)
+
+Y Ps
+BEN eo nS Var (D38)
+. 1 A [ua J41 [4a J41
+-2.sUP) [ anf at, | dl, c(1,) d(li,) d(lh)
+2! A/(Q+e) ln] Ln]
+
+A 5
+
+~2upy [ dl; e(l1) d(i)?,
+JA/(1+6)
+
+which is a contribution « €, so it contributes to the flow equation. Contracting the moments J, and Jp to the means,
+instead,
+44
+
+ca ly
+aN a aN o s, ,
+ka \ A by la NH hea ® a J
+NZ \ -¥ 92 ki 7 ka
+RA NU i Spy
+wv Not 2 a iY \\ Fa
+
+5 A A (a j41
+=». sup) [ an f ats | dli, c(U,) /€d(,) d(lz)
+= A/(1+e) A/(1+e) La
+
+xe,
+
+which is x €?, because there are two independent momentum shell integrations.
+Lastly, we may contract the momenta cross-wise
+
+:
+4 UB
+aN SoouN a .. Z
+ki 7h iN “Ak “ N. 7
+VA ila NY ke 2 ks Yk
+EX ah Bs. > Deka a
+Me NU bb ONE i yf SS. KE
+na gt Sar NA mY \\Fa
+
+> 5 A A [laj+t ;
+=. (UP) | an f ats | dlls, (I) /€ d(Ix) d(14)
+. A/(1+e) JA/(1+e) [le]
+
+xe,
+
+which again contains two independent momentum integrations, so it does not contribute to the flow.
+Taken together, the non-vanishing contributions to the decimation part of the flow equation of U are (D37) and
+(D38)
+
+dU P
+
+b a 26U (D39)
+— 2U?P A [e(A)?/€ + e(A) d(A)?] ,
+
+where one factor P is gone because the interaction term is x P itself and the first line is the contribution from the
+
+rescaling (D22).
+
+7. Complete set of RG equations
+
+We may now assemble the set of RG equations from (D34) and (D18) and (D39) as
+
+s(@) =e8-2-1 | (D40)
+dsr(t) _
+L a =B6 sr()
++4U(0) PA [d(A, €)? + c(A,0)/€] ,
+dU (6)
+&— 7 = BuO)
+
+= 2U (0)? PA [e(A,£)7/€ + e(A, 0) d(A, £7] .
+
+These flow equations depend explicitly on the cutoff A. The equation for U shows that as £ — oo, the decimation
+contributions decline due to the factors ~! and £~?, respectively. This shows that the flow equation is not homogeneous
+and in particular it does not possess a fixed point, since for sufficiently large @, always the rescaling term 26 U(¢) will
+dominate.
+
+8. Analytical solution of the flow equations
+
+In order to make predictions about the scaling laws of the expected loss we need an analytical expression of the
+solutions of (D40). To simplify, we neglect second order corrections to the flow of U(é) and here only keep the
+self-energy corrections implied by the flow equation for sr.
+Transforming the flow variable 7 = In ¢ we obtain from (D40) for U the differential equation of an exponential
+function, solved by
+
+U(r) = U(0) exp(287). (D41)
+Inserting this into the differential equation of sr(¢), yields(D42)
+
+dsr()
+de
+
+vA? pa _s(Q2AA)
+
+‘ OMA) + IP "" r(ONA) +1
+
+= Bsr(0)+4U(1) C8 PA (D42)
+where we used the explicit expressions for the mean and covariance (D20). This differential equation must be solved
+together with s(@) = ¢°—¢—1; it is a first order non-linear differential equation with ¢-dependent coefficients, which in
+general is not easy to solve.
+
+9. Perturbative approach to the flow equations
+
+We are interested in the analytical solution of the flow equation of r(é) in (D42). To treat the non-linearities in the
+equation, we will treat the flow of r on the right hand side in a perturbative manner. We perform the perturbative
+computation around the Gaussian part (rescaling only) of the evolution of the mass term, namely sr(¢) = sr(1) €° and
+s(¢) = 08-1 which together yields
+
+rP (0) = r(ljyere, (D43)
+
+Formally, we are assuming that the main contribution comes from the Gaussian process, such that we can write
+r(7) =rSP(r) + €(r), where rSP (7) > e(r). The equation for the perturbation ¢(¢) derived from (D42) reads
+
+det) _ 4 aye(r) + |A(P,A) 2 5 + BUPA) me oe (D44)
+dr [Be@+a)ra(A) +1] Betta) \(A) +1
+=f (7)
+where s(r) = e(8-°—-)7 and
+A(P, A) := 4U(0)PAy(A)*, (D45)
+
+B(P, A) = 4U(0)PAX(A).
+
+The Gaussian contribution vanishes since it satisfies the homogeneous part of the equation. As a result, we obtain a
+linear inhomogeneous differential equation for e.
+
+We know that the Green’s function of the linear differential operator (#4 — (1+ 4)) is given by H(r) el+9)7 so we
+find a particular solution by convolving this Green’s function with the inhomogeneity f(r). As r(0) = P/K = rSP(0) it
+follows that the initial value for «(0) = 0, so the solution obeying this initial condition is
+
+i
+(7) = [ ett) (r-7') f(r) dr’. (D46)
+0
+Written explicitly
+T , e(Btatl)r’
+r= abies f en (ita)r [ae A) ,
+0. [EeGta)r’A-G+e) op 1]
+
+e(2(a+1)-1)7"
+: dr’
+Ee(ita)r’A-Ata) + |
+
++ B(P, A)
+and undoing the transformation ¢ = e7 we have
+
+£
+( = ital | E P, A) ——_______,
+i) fs (P, ) parang a?
+
+y ihed dt!
+Egi+a)A-(+a) 4 1 v-
+
+ep
+
++ B(P, A) (D47)
+46
+Appendix E: Use of RG for hyperparameter transfer
+
+The RG flow provides a relation between the original theory given in the form on an action S(A;r1,u1) for the
+degrees of freedom A(1 < k < P) and an action S(A’; re, uc) for the degrees of freedom A’ which are obtained after
+integrating out the upper P — P’ degrees of freedom, controlled by ¢ = P/P’. The rescaling part of the RG flow is
+made such that the functional form of these two actions is the same, only the parameters change (r1,u1) +> (re, we).
+To accomplish this, the degrees of freedom are rescaled versions of the original ones, which undergo the transform
+(D11) and (D12)
+
+lk =k, (E1)
+zp A'(k’) = A(k).
+
+We would like to use the RG to map one system with P degrees of freedom to another system with P’ < P degrees of
+freedom. To do this, we need to set
+
+£=P/P’.
+
+We start with the larger system with P degrees of freedom. The relation between the discrete system’s the degrees of
+freedom and the continuous ones is given by (A36), so
+
+D(k) = VP A(k)
+
+Likewise, the target rescales as Y = VP y.
+
+The action describing the A has the form (18) with parameters r(é = 1) = P/«, s(@=1) =1, U(@=1) =U. The
+RG transform integrates out the upper P — P’ degrees of freedom and writes the result as an action of the same
+functional form as before. In particular, the momentum range again covers the range k € [0, A = P]. We would like to
+re-interpret this action as one for the smaller number of P’ of degrees of freedom. We thus need to undo the rescaling,
+we thus need to re-express the action (18) in terms of the original degrees of freedom A. This yields
+
+S(A; re, ue, P’) =S(z* A; re, ue, P)
+
+’
+
+=-= —2 r2 (y(tk) = 2¢7 Atk i)” j.
+ee rez At(k a ae tdk
+VL . . 22
+—upP U | 7? Ak) A(R) 2 dk dk |
+[ek] /é
+
+The goal is to interpret this system again as a system of P’ degrees of freedom. We insert ze = oe (D16) as well as
+
+sp = (8-°—! (D17) and assume a smooth integrand to replace ¢ Se a thus obtaining
+
+CF yh) CF Am)
+e- (+e) \(k) :
+
+cr
+“wr fl f cP A(k i) AW) deal’ |”
+Lz
+
+__!1 2 (y(k) ACh)?
+=i" Sr¢ A“(k) + ay
+
+P! Me.
+= ule wee [ f I. A(h) AG) aka’ |”
+
+=p P?
+
+7
+S(A:re, we, P!) =— 5 | gout A2(k) + 0-« £
+1
+47
+
+We have thus found the action
+
+pI
+S(A; Srp, tp, P!) = 3 / Sry A? (k) + cy)
+
+Lé|+1 ~ ew 72
+— wr" fo Td, A(k) A(k’) dk dk |
+Lk
+
+Srp := sere Bx p-Ate) >, Te,
+
+E P /
+he = py el” 2A
+
+which is again of the same form as before, but the momentum range extends only up to P’. The rescaling of the
+sr and w corresponds the native rescaling due to dimensional analysis, as it has to be, because we simply undid the
+rescaling performed by the RG.
+
+We may thus interpret the system (E2) as a small system with P’ degrees of freedom. To map it to the discrete
+numerics, we need to determine the parameters as
+
+sre =: P'/k,
+P
+w= p uel 28 ,
+L=P/P'.
+The discrepancies in the small system are
+(Dp(k))/VP = (A(k)) s(r.u1,P) +
+(Dp (k))/v P= (A(k)) 8(51,a,P/) «
+
+These are the natural units to express the loss per sample (L)/P = f((Dp(k))/WP).
+
+Appendix F: Scaling of the loss with P
+
+In this section we derive how the loss scales with the number of training patterns P to obtain the neural scaling
+law. We begin with the scaling for the Gaussian process and subsequently derive how the scaling law changes due
+to non-Gaussian corrections. To this end we employ the renormalization group to incorporate the effect of the
+non-Gaussian corrections. We find that the loss is most sensitive to corrections to the ridge parameter, while the direct
+effect of the interaction term can be neglected. As a result, we obtain the loss from an effective Gaussian process with
+a renormalized ridge parameter.
+
+1. Scaling for the Gaussian process
+
+We would like to know how the loss per samples declines as a function of P. To this end, we decompose the loss into
+its bias and variance part. For the Gaussian process, we have
+
+P
+1
+Loias /P = 55 SOD)? Fl)
+k=l
+
+where mean discrepancy (D(k)) measured in the discrete system is related to the EK theory as
+D(k) = VP A(k) F2)
+
+P — uk) ‘i
+and (A(k)) = Ex@ar 7 8°
+
+1 ve) .
+Liéjas [P= = ———__—_—_.,. F3
+Bima 32 Pam +i: )
+
+48
+
+The asymptotics of the terms for small k where © \(k) > 1 and for large k, where © \(k) < 1 are
+
+(p)°
+
+k- +8)
+
+B+2a (kK) >1
+
+£n
+B ,
+EMK) <1
+
+so the terms become small on either end of the summation interval. We may therefore approximate the sum by an
+integral
+
+1 re p48) 1 se
+
+Loias /P ~ a ——______, dk - al k- OF) dk (F4)
+
+2 Jo [4 k-(ta) 4 2J)p
+
+1 fe p-1+8) p-8
+
+= [ x dk — ;
+
+2 Jo [é k-(ta) 4 28
+
+so that we could remove the P-dependence of the upper bound. T
+
+ko +8)
+[2 k-G+) 41]
+
+he correction Fi fe dk~ ney Io k0-8+20) dk =
+
+5 a ee (s)* from replacing the lower bound 1 — 0 is negligible.
+To extract the scaling of the remaining integral in (F4) with P we perform a substitution, first combining © k-O+e) =
+(ak)-H+®) with a = (4) ns and then substituting ak —> p to get
+P-o& 1% -(1+8) gq
+Loias /P 4 ~= [ (v/a) es (F5)
+28 2 Jo p- Ate) 4 q] a
+_ 1 2° p78) d
+2 —(1+a) 2 oP
+0 [ p~( of 1
+P._ 8
+=: (=) FP lias »
+K
+where the integral becomes a constant Ipias as a function of P. The bias term hence scales as
+PP, pe ,
+Loving /P = Ibias (=) a a “28° (F6)
+The variance contribution likewise can be written as
+12
+Lvar/ P= =
+WIP 3X XH aT
+The asymptotics of the summand is here different, namely
+Mk) JB EX(k) > 1
+Exk) +1 | kG) Ek) «1?
+
+so that the integrand does not vanish at the lower bound. Performing the analogous computation as for the bias term
+
+1% A(R) 1 in K [
+Lyar/P ~ = = dk - = Mk) dk —-~~ | dk
+var/ at E X(k) +1 2Jp (r) QP Jo
+i [ (p/a)-"F dp | sf pot) ap — Ke
+2), pUY+1a 2p 2P
+1 co p (te) P-% K
+=a | dp ;
+2Jq purty +1 2a =P
+
+so that we may again approximate the integral by a constant Iya, to obtain the scaling of the variance term as
+
+Loar! P ~ Ivar (&
+
+Trae (=) FF -
+
+p-%
+2a
+
+KP-1
+
+5] (F7)
+49
+2. Scaling for the non-Gaussian process
+
+To perform an analogous computation for the non-Gaussian process, we employ the RG is to compute renormalized
+parameters of an effective Gaussian process. To this end, we make use of the observation that the mean discrepancies
+are effectively those of the Gaussian system, albeit with a renormalized ridge parameter rp (see Figure 7). This means
+we may neglect the direct contribution of the interaction term and only take into account that the interaction affects
+the flow equation for the ridge parameter. To obtain the bias part of the loss, we thus need to compute
+
+1
+Loin = 5 WR))?. (F8)
+k=P
+
+The mean discrepancy (D(k)) measured in the discrete system is related to the EK as
+D(k) = VP A(k). (F9)
+
+To compute A(k) the presence of the modes above k needs to be taken into account. This is done with help of the
+RG by integrating out all modes above k. We assume a cutoff for the modes, k < A. This implies a flow parameter
+é = A/k that depends on the mode & currently considered. The mean discrepancy is then given by the highest mode A
+in the renormalized system where all modes beyond the mode k of interest have been integrated out
+
+(A(k)) = 2(6) (A’(A)) | -ee),u(e),e=8 c
+We observe that the (A’) depends only weakly on uy and is effectively given by the result for the Gaussian theory (20),
+so that
+
+1
+! ~
+A) = r(Q) MA) +1 UA)| pag -
+Inserted into (F8) one obtains with (D16) 2(¢) = CE
+
+nl
+
+P y(A)?
+_P > ila AT G+8)
+22.) Pwo ep
+L —(1+B
+= . >; —— +122’ (F10)
+kop UV
+where r(¢ = ) is the solution of the RG equation (26).
+
+As in the Gaussian case in (F4), we may replace the sum by an integral and take the boundaries to 0 and oo
+(correcting for the change of the upper bound) to get, analogous to (F4)
+
+1 k-(1+8) p-8
+
+a dk — Fll
+Ly / 2 [ [r(A) A-G+e) hs i? 28 ( )
+
+Lf? k-G+8) it P-8
+off [r(A) (A) G9 k- GF) 4 IP OB"
+
+The P-dependence of the integral here appears in the form of r(¢) €~"+, which for the GP reduces to P/k, as it
+should.
+For the variance contribution to the loss one obtains similarly
+
+d(H) =F (ArH). (Fi2)
+k=P
+
+Lvar = a
+RSP
+
+NIle
+
+Expressing the variance of mode k in terms of the variance of the highest mode in the decimated system with
+¢ = A/k we need to take the factor s(¢) into account which scales the amplitude of all fields. Also we need to take into
+50
+account that the diagonal part of the covariance comes with a Dirac-6 whose argument gets rescaled by ¢ (see also the
+discussion close to (D41) for the appearance of the factor 1/¢ for observables that contain a Dirac 6)
+
+(A(4))*5(0) = 20? (A(A))*L ayuen eng (C2)
+
+So together with z2(¢) = ¢'+8 and 5(€0) = 0-1 5(0) this is
+
+(A°(k))°5(0) = OFF €* (APA), 6) ace ena OC)
+=P (8(A))*Ioeo acoyeng 5(0)-
+
+Assuming that we may neglect the explicit dependence of the variance on up we may use (20) and (25) with s(¢) = 02-e-+
+to obtain
+
+a s(e)~ a P
+Lowe 2 on & r( MA TT les (F13)
+
+i AW (l+a)
+
+P I+a
+2 yy r(@) (A) +1 ling
+
+1 Ko +e)
+
+P
+Dy By r(#) A~Gta) +10
+
+Like in the bias contribution we can compute this as an integral by correcting for the change in boundaries
+
+(F14)
+
+1 se fe (ta) pre pl
+Leas /P [
+0
+
+e dk =
+2 r A) A-Gta) +1 2a 2K
+
+1% k- Gta Pp-o ppl
+= dk — - :
+> r(A) (A)-G+e) p- G+) 4.1 2a Ok
+
+3. Extraction of the P-dependence of the training loss
+
+To obtain the expected loss we need to determine the solution of r(¢) of the corresponding RG equation. Decomposing
+this solution into the Gaussian part r¢P and corrections € due to the interaction, leaves us with the problem to compute
+€ from (D46), which cannot be solved exactly. Our main goal here is to extract the scaling of the loss with P. To this
+end, it turns out to suffice that we work with the implicit analytical solution of (D46).
+
+a. Bias part of the loss
+
+The goal is to extract the P-dependence of the loss. Starting with (F11)
+
+P-o 1 K-48)
+
+(Coin)/P +H = 3
+b 2B sf [r(a/n) (aye) kote) 4 i
+
+dk ,
+
+the idea is a. decompose the ridge parameter into the Gaussian part and corrections r(A/k) = r&P(A/k) + €(A/k),
+where rSP(¢) = P/k 0+) is given by (D43), such that we can expand for r¢P(A/k) > €(A/k) the denominator
+1 1
+= (F15)
+ram @ Roos) ER]
+p-+a) Wace)
+[2 k-Gte) 4 q k
+
+51
+
+The first term corresponds to the Gaussian case of which we already know the scaling as FGE (P/n)-8/ +o) given by
+We are thus left with finding the non-Gaussian corrections contained in
+
+2 fe R-(+8)p-A+a) 7 yy ~A+e)
+b(Lpias)/P = —5 A/k) dk. Fl
+(Cuan P= 3 [ae ca () 0 a (Fi6)
+
+Similarily to the Gaussian case, we want to do a substitution to extract the P-dependence in e(A/k) without necessarily
+solving its convolution equation (D47). To this end, we perform a substitution in the integration variable, namely
+j-G+e) .— P p-(+e) op
+
+6
+
+k= (4) (F17)
+
+so that we get
+
+_ Lats
+
+Tha fo.) j-—(2+8+a) _
+5(Lrias)/P = — (=) [ = ete) Ol ape) cde pF (F18)
+K 0 [i-a+a) + 1] =A(2) /
+
+Next we need to determine (~@+®) e(2). We can do this in two steps. First, we split the integral Je in (D47) into
+
+f -f
+
+€ ps1
+e-O+9) 60) = [ [aay ———— Se
+0 [£edte)A-G+a) 4 1]
+
+gloat
+
++ B( dt’ (F19)
+
+P,A) Eyre) \—C4+0) $ J
+—¢- (+a) deo(£) ,
+
+We first compute
+
+af eip-1
+(A+) 569 (0) =| [ace A)
+ln [2erta)A-A+a) 4 1]
+
+gla-t
+
+L li
++ BP.) Pp(it+ea) A-(+a) 4 1 ae
+rs
+
+by exploiting that for small ¢’ € [0,1] we may approximate the denominator by 1 to obtain
+
+A(P,A) . B(P,A)
+
+0-O4%) feg(@) vy tp a (F20)
+B a
+For the remaining integral in (F19) we substitute gate) h(a) =: (0+) or likewise
+é:= (4) A-té, (F21)
+K
+dé = (=) Avlde’,
+K
+
+which yields
+52
+
+£4) (0) = Cr(P) Ler) (F22)
++ Crr(P) Terr (0) (F23)
+— £- +4) §¢9(0) ,
+
+where we have defined constants C7,;; that are still functions of P and P-independent integrals I, ;/17 as
+
+7 6 jip-1 .
+LO := [ di’, (F24)
+0 [eens cr 1]
+2 jra-1
+. in -
+fan(Os= ———— dt’,
+arf) [ for 41
+
+_ B-a-1
+
+where we used (D45). In (F18) we need to evaluate (~(+®) (|, A(B)- che ji so that the upper bound of the integral
+—A( 2) Te /k
+in (F22) and hence in (F24) becomes with (F21)
+
+(e=a(2) =1/k,
+
+so that the P-dependence is gone. The P-dependence has hence been recast into C; and C7; alone. In particular we
+see that the integrand is also cutoff independent.
+The contribution from ~“+ deg to (F18) with (F20) is
+
+(468 | BRA) “y* '
+
+B Of K bias >
+
+where we defined the P-independent integral
+co f.-(24+B-+a) .
+0 [a-a+9) + 1|
+
+The contributions of € proportional to I.1(0) and T..11(0) to (F18) likewise motivate the definition of the P-independent
+integrals
+
+cr co f-(2+a+8) Pare
+
+ett co R.-(2+a+8) Puy oe
+Tia =f oi let lh) ak,
+0 [kOe 44]
+
+which finally allow us to express the contribution J(Lpias)/P of order O(c) to the bias part of the loss together with
+the Gaussian part (F6) as
+
+B 6
+P\ he 4-8 (p\?
+(Lias)/P = IEP. - (=) - 7 5 (2) + 5(Loias) /P (F25)
+
+P -& P\ We
+5(Crim)/P=— aba) Ria, (2) <arayn gat - (2)
+
+_ (AUG)ATP | AU) A Lats A
+
+53
+
+where only the last line due to de€9 depends on the cutoff A and vanishes for A + oo.
+
+b. Variance contribution to the loss
+
+For the variance contribution we can proceed analogously. We have from (F14)
+
+a —1
+(Len) /P+e—+P =}
+
+[ k- (te)
+2a 2k 2 Jo r(A/k) (ayer k-(+e) 44
+
+dk.
+
+We can use the same expansion up to linear order in e(¢) as in (F15). The leading order is again the Gaussian
+contribution, which we determined in (F7) to be 1G? (P/«)~ =. And we are interested in the non-Gaussian
+corrections « O(e)
+
+co —(1+a) 2 —(1+a)
+d(Lvar)/P a i | (3) e(A/k) dk (F26)
+
+Pp-(l+e) 41
+
+14+2a ~ 2
+"phe jp (1+
+— P\ “ ee) c-OF+9) (0) | 1. dk
+2\k 0 k-A+e) 4] t=A(2) Tk”
+
+where we used the same substitution (F17) as for the bias part. We proceed in the same manner as for the bias part,
+using that € is given by (F22). In summary we have
+
+1420 ~ 2
+1 (P\7 te eo ko Ute)
+5(Lvar)/P = -5 (= [ A
+K > [Gra 41
+
+x lew) Te(k-1) + Cr (P) Te,rr(k)
+
+_ APA) | BUPA)
+
+B dk.
+a
+
+Analogously, we define the following constants
+
+r = 2
+1 fone) k- (te) 2 -
+r= =f ——_|_ I. ,(k) ak,
+0
+
+k-Gt+e) 4.4
+roe 2
+1°} &- Gta) “2 -
+eI. + -1
+TAF ff Gea] Ter1(k~") dk,
+
+ro 2
+1 fone) k- (te) sa
+I, = = [ >——_———| dk.
+6 2: Jo k-(+e) aL
+
+And putting everything together with the contribution (F7) of the Gaussian process we finally find
+
+(Lrax)/P = 1S? (2) a= (2) " aah (2) + 5 (Loar) /P (F27)
+
+2a K 2
+p\ te P\ ts
+BlCm)/P = -aucaye tel (2) —avayn rat! (2)
+K K
+-B re 14+2a a
+1 1, (“ AU(1)A ) at poe.
+Bp Qa
+
+The first two lines are again independent of the cutoff A, while the last line contains an explicit cutoff-dependence
+that, however, vanishes for A > oo.
+54
+Appendix G: Saddle-point approximation of the renormalized action
+
+By decimating and re-scaling we got the renormalized action (18). Now we are interested decimating all modes
+eyond the mode of interest. Decimation will contribute non-trivially until we get a sufficiently massive theory, where
+uctuations are suppressed by the mass-term. At such a point, a saddle point approximation on the action is expected
+0 provide good results for the mean of the field. Based on the Gaussian part of the action this condition translates to
+
+r=" Lath) =, (ca)
+
+where kp is the mode up to where we decimate. Therefore, A/ly = ko fixes the value of the flow parameter at which
+he non-trivial flow is expected to stop.
+
+By fixing ¢ and integrating the flow equations up to this point to get renormalized parameters r(¢) and U(¢), we may
+use the resulting action to determine an approximation of the mean of the field by a saddle-point approximation, or, if
+L > to, possibly take some fluctuation corrections into account. We will here only perform the former, i.e. maximize
+he probability distribution with respect to A as
+
+. =maxel4!
+max pi] maxe?'.
+
+As the action is a negative quantity, this condition translates to minimizing S[A] with respect to A. The saddle-point
+approximation yields an equation for the mean discrepancies A*(m). The minimization problem reads
+
+5S[A] + JSo[A] 5 Sint [A]
+can) BAGay TAG (G2)
+Such functional derivatives can be computed using the following identities
+SACK) _
+sam 75m),
+5 A(k)? Aan? 5 A(s) _
+3A(m) ~ J, OA lacs) 5A(E) ds 6(k — m) = 2A(k) 6(k —m).
+We can directly see by using these and the free part of (18) that
+6 SolA] _ 1 -1
+3A(m) ~ —s(¢) (r(0) + A(m)~*A(m) + A(m)~*y(m)) . (G3)
+
+In order to compute the derivative of the interacting part of the action, we argue as in Section D4 that we may
+effectively replace the non-diagonal terms described by the integral boundaries [|{k|,|k| +1] with diagonal terms, such
+that
+
+A A
+Siem f aceyeat [ A(a)?ay.
+£ £
+
+We can now derive with respect to the discrepancies, and by noting that both integrals are symmetric we can simplify
+the expression. The functional derivative gets rid of one integral and sets the index, either k or g, to m. The second
+integral remains, but both terms of the product rule are equivalent, such that
+
+6 Sint [A]
+
+dA(m)
+
+Because of the interacting part, we have a non-local term which still depends on A. Therefore, we get a self-consistent
+equation in terms of the A-fields. We get the final expression by adding (G3) and (G4) and setting the result to zero
+
+A
+=-4u(oPa(m) | A(k)? dk. (G4)
+
+y(m) -
+A“(™) = "Om +1 +40 (OPAQ)s(O)— RIA ’ (G5)
+
+where we define the functional (non-locality)
+
+R[A*] = [ A*(k)? dk.
+
+We see that for U + 0 we get the Gaussian result (C23). A comparison of this saddle point to the one computed only
+from the renormalized Gaussian part of the action is shown in Figure 7. The direct contribution of the non-Gaussian
+term
+0.6
+a
+0.3
+0.0 T T T
+0 500 1000
+k
+
+FIG. 7. Mean of the interacting theory computed from the saddle point of the action of the Gaussian process (blue GP), and
+of the non-Gaussian theory (red: taking U 4 0 into account with help of RG and in solving the saddle point equation; black:
+taking U # 0 into account with help of RG but neglect U when solving the saddle point equation)
+
+1. Fixed parameters by artificial power law statistics
+
+In order to implement the theory, we generate artificially data whose correlations show a power law decay in its
+eigenspectrum. In order to find the parameters for the Langevin dynamics we compute the variance of the output
+
+(fofa)w = Oy Wi Lai S W; Xpj)w
+i i
+
+= S Lait Bj (WiWi)w ;
+
+ij
+which is fixed by the artificially generated power law in its spectrum. Therefore,
+
+(fafaw = CO =)" rasta; ,
+a9
+
+yields a unit variance for the prior of the weights. This means g,,/d = O(1) and therefore, 7 must be equal to k.
+
+Appendix H: Random data set with power law statistics
+
+To test the theory, we use an artificial data set which allows us to generate arbitrary amounts of training data
+that possesses power law statistics. To this end, we first generate a matrix of preliminary data vectors X, € R@ for
+l<a<P
+
+Xai SS N(0,1/d).
+
+. A P 2 8 Sa) Sox : :
+The covariance matrix Ci; := Doeer XoiXaj = XTX is then diagonalized
+C Up = Ap Up
+Up = Bey «
+
+Decomposing the data vectors into these modes one has
+
+d
+Xqg= > Gop Up
+y=
+10°
+
+10 4
+
+101
+
+107+
+
+10-3
+
+10>
+
+Otte eee
+
+T
+10° 10? 10? 1
+Uu
+
+FIG. 8. Power law falloff of eigenvalues constructed from the CIFAR-10 dataset.
+
+The coefficients obey
+
+aw j= vu, Cu, (H1)
+
+d PB
+Ur [ ) ) Up! Gay! Gav! up| Up
+
+wy'=1a=1
+P
+= > Gapdav
+a=
+
+which shows that also the coefficient vectors are orthogonal
+
+aT. .. a
+a, ay = Oy Ay
+
+Now assume we want to shape the spectrum to take on a desired form. To this end, we may define new coefficients
+
+Au =
+Gop t= x. Gop:
+mn
+
+d
+Xg= S Bap (H2)
+p=
+
+Inserted into (H1) we obtain data vectors
+
+with a covariance matrix C := XTX with the same eigenvectors v, but different eigenvalues ,,.
+57
+1. Power law target
+
+Besides the data x giving rise to a power law in the kernel eigenvalues, we also want to assume that the coefficients
+yp of the target follow a power law. To this end diagonalize the kernel K = X XT as K uz = A, Uj, We would like to
+construct a test data set which realizes this condition. In particular, we would like to have a linear teacher
+
+Yo=wit, Va=1,...,P.
+Now consider that the target y is expanded into eigenmodes of the kernel
+
+#
+Y= DO yet,
+
+p=
+ap
+Yu = Upy-
+
+We would like these coefficients to decay with jy: following some prescribed form y, = f (1), for example a power law.
+
+We get
+
+P d
+Yu = > Up > XoqiWi
+
+a=1 i=1
+= uy xX w.
+Combining all eigenvectors U = (ui,...,U,) into a single matrix U € RP*™in(?.4) and fixing the coefficients yi<,<p
+to prescribed values, the latter equation reads
+y=U'Xw.
+
+We may hence determine the coefficients w as
+-1
+w= [UTX ] Ups
+
+In case that d > P, we need to regularize this problem UTX > UTX + él.
+
+2. Overlaps
+
+Another quantities we need for treating non-linear networks are the feature-feature overlaps of higher order
+
+Wg
+Veer pspapa = > Uppatpratypzapsa > (H3)
+
+a=1
+which is shown in Figure 9. The overlaps are partially diagonal
+V all indices identical
+Vir pongus & § V) two indices pairwise identical , (H4)
+0 else
+
+so they behave as overlaps of random i.i.d. vectors. Assuming the effective model for the overlaps Up ig N(0,1/P),
+so that ||v,,||? ~ 1, one has for
+
+ll
+M»
+
+approx
+
+‘ 5
+Mip2pisia Vp aVp2aVpgaVpger (H5)
+
+2
+I
+
+(praYp2a% saps)
+
+2
+Mr
+
+a=1
+3/P Syrpanata
+ae 1/P a ~ Sus joo 1s pea ) (Gnas Susp f Sys 13 9 per p04 oh Oped Dieas) .
+58
+
+Vo,0,u,v Vo, 1. v
+
+0 VAP, us, i 20
+
+FIG. 9. Overlap of four eigenvectors of Gaussian i.i.d. dataset given by (H3).
+
+In the special case of a diagonal kernel C(“*) = > pai Aw Gens where e,, are canonical basis vectors, which are also
+eigenvectors €ya = dpa, the overlaps obtain the exact expression
+
+P
+Via pensna = y Cp ol peal pgal psa (H6)
+
+a=1
+
+I
+Me
+
+Sy, 9 p20 5 p30 9 p40
+=1
+
+2
+
+a
+
+Hib2sHa *
+
+Appendix I: Numerical Workflow
+
+In this appendix, we provide a detailed description of the numerical workflow used to ensure the correctness and
+reliability of the results presented in this work. This includes the steps taken to validate the theoretical predictions
+against numerical simulations and the criteria used to assess the accuracy of the findings.
+
+In -Figure 13, we outline the main steps of the verification process. It is separated into four main blocks: data
+generation (navy blue), numerical simulations (orange), theoretical implementation (dark red), and comparison of
+results or data visualization (dark green).
+
+Inside one process, the workflow is indicated by same colored arrows. Conceptual relations between different processes
+are indicated by solid boxes with the same color, meaning that the processes in these boxes can run independently
+from each other. Dashed outlined boxes indicate hierarchical dependencies, meaning that the processes in such boxes
+require the output of the corresponding solid-colored ones. Finally, colored dots indicate intermediate outputs that can
+59
+
+T T T
+I I
+x
+10° 4 rx
+mY
+x
+I if I
+4 x | I r
+4 I I I
+10 1x I I
+I I I
+x I I I
+I I I
+x
+107 4 x | :
+I I
+xix et |
+I ge Pr I
+10? 3 r= 1 x
+* I x 4 I
+I I I
+10! 4 I a 1 xX I
+1 x x |
+eK | x ' 0 ibe
+ly lll
+10° 4 I I OK XX 1 KK
+| y 1
+0 uP 3/P
+
+FIG. 10. Histogram of entries in the overlap tensor Vj, j:24314 for Gaussian iid. dataset together with prediction (H5) (dashed
+vertical lines) from the assumption of random vectors.
+
+‘0 create artificial data se
+
+rain the neural networks
+for the numerical simulati
+Nevertheless, from the da‘
+covariance matrix (C*)),
+
+Hence, the data collection
+The dashed black box con
+
+perturbation strength U,
+
+e reused in different processes.
+
+as descri
+ons.
+
+which is
+
+box in t
+
+a class called Langevin Dynamics.
+
+and the
+
+For instance, data generation (navy blue) is the first step in the workflow. It involves the implementation of Section H
+s with power law statistics. For this we need to define the data dimension d, the number of
+data points P, and the power law exponents a and { of the covariance matrix and the labels, respectively (light green
+ox). The data is necessary for the numerical simulations by Langevin Dynamics (dashed black box),
+
+specifically to
+bed in Section A2. I. e. the data generation’s output (black box) is a prerequisite
+
+a generation we can directly extract the eigenvector-matrix (in figure denoted as u) of the
+
+needed to project the output of the network onto the eigenbasis and to compare it
+
+‘o the theoretical predictions. Figures which require this projection, hence, have a black dot indicating this connection.
+
+he navy blue block has a subleading dependency on the data visualization step.
+
+ains the general algorithm to train the neural networks. This was implemented in Python as
+
+One object is instantiated with the regularization noise x, the weight bias 7, the
+earning rate dt. The main training loop has Tp burn-in steps, to ensure that the
+
+network reaches equilibrium, followed by T training steps where the weights are updated according to the Langevin
+equation (A5). The outputs are sampled every AT steps to reduce correlations between samples.
+
+To simulate the free theory, we simply set U = 0 (pink box left). For the interacting theory, we set U > 0 (pink box
+right). The outputs of these cases will be plotted in the eigenbasis of the covariance matrix (pink dashed box). See,
+for example, Figure 3. There is a t
+ransfer in Section VC (dashed violet box in simulation). To run this simulation, we first need to determine the
+hyperparameters according (36).
+
+hird simulation, which is implemented to show the validity of the hyperparameter
+
+This requires the theoretical implementation (dark red box), where we implemented the RG flow equations (25) and
+(26) in a class called Wilson (dashed light green box). An object is instantiated with the assumed power law exponents
+
+60
+
+Vo,0,u,v Vo, 1. uv
+
+0 VAP, i 20
+
+FIG. 11. Overlap of four eigenvectors of CIFAR-10 given by (H3).
+
+a and 3, the cutoff A and the dataset size P, that need to coincide with the parameters in data generation. In
+addition to the scipy numerical integrator of the flow equations, we also implemented the self-consistent saddle-point
+approximation in (G5). This allows us to predict the mean and variance of the discrepancies (pink box) for either the
+free or interacting theory. These predictions are then compared to the numerical simulations (pink dashed box).
+With the algorithm outlined in Section VC, we can compute (7,0) to compare two systems of sizes P and P’ (violet
+box). The mass term 7 implies an effective regularization noise & according to the definition of the mass term, which
+is then used together with U to run the third simulation (violet dashed box in simulation). The outputs are again
+projected onto the eigenbasis (black dot) and compared to the theoretical predictions (pink dot) and plotted together
+(violet dashed box in data visualization, see Figure 4). The last implementation is for the scaling laws of, both, the
+free and interacting theory (light blue box). For this, we implemented, both, the discrete summation in (37) and the
+superposition of power laws in (F25) and (F27), whose coefficients are P-independent integrals which can be integrated
+numerically (see Section F 3). These results are plotted independently (light blue dashed box, see Figure 5).
+
+Finally, the data visualization block (dark green) contains the plotting routines to visualize the results of the different
+simulations and theoretical predictions. The only plot, we have not discussed yet, is the phase portrait of the flow
+(light green dashed box), which does not require explicit numerical integration. There we also plot the separatrix,
+which is given by (32) and (33) (see Figure 2).
+
+61
+
+x
+10° 4 |
+*
+
+10° 4
+
+* 1x
+
+rk.
+
+104 4
+
+103 4
+
+10? 4
+
+10: 4
+
+xX
+
+10° 4 x x X41 xK
+
+!
+!
+!
+!
+!
+I
+!
+I
+!
+!
+!
+!
+I
+!
+!
+!
+!
+I
+!
+!
+!
+!
+!
+t
+0
+
+1/P 3/P
+
+FIG. 12. Histogram of entries in the overlap tensor Vij j243.4, for CIFAR-10 dataset together with prediction (H5) (dashed
+vertical lines) from the assumption of random vectors.
+62
+
+Data generation
+
+Gaussian iid. sampling Rescaling of dataset Teacher weights generation
+
+_ A with powerlaw spectrum
+X ~ N(0,1) x= io
+
+wt = [UT xX)'9
+
+Data collection:
+D=(X,Y), wt, C@), A=(Aq,..., Ap), u = (u1,...,up)
+
+RG implementation
+
+~
+class Wilson: class Langevin:
+
+init. params.: (a, 8, Ac, P)
+dsr = Bsr + 4A, PU[c/é + d?]
+dU = 28U — 2A, PU?[c2/0 + cd?)
+
+solved with numerical integration from scipy
+
+init. params.: (K, Jw, U, 6t)
+weight init.: wo ~ NV(0, 1)
+wey = we — Vo(L(w) + % lw?) wav, St
+
+saddle-point approx.:
+0 a= =
+TAFI+4A, Ps 1U R{d]
+; numerical solver with Newton-Krylov method
+
+loss: L(wy) = an 4 (Ya — wp ta)?
+
+I
+I
+I
+I
+I
+I
+H +V 26tK by, ~N(0,1)
+I
+H
+I -_
++62 (ya — wEte)4
+
+Mean and variance:
+computation of:
+(A) _ A
+Dig =z d®)
+
+OLAA) — 42. (AA) (7,0)
+ne for fixed P and P’
+
+HPT params:.: | To burn-in steps
+
+I -
+computation of: 1 T training steps
+
+| sampling each AT steps
+
+lin. pert. th.
+
+Data collection: Dats, collection; poe feu oon -
+DA. CAS) pi Gas (Ke FU) j HPT sim.: | uss. sim.:| |Pert. sim.:
+I
+
+RG?ORG “Min. Cin. ! (RU, 6t) (K, &, 0, dt) (kK, «, Uo, 6t)
+
+Data collection:
+
+(), D2, c2®), MO wy
+
+sim? “sim sim?
+
+Mean loss:
+computation of:
+loss by discrete sum
+loss by P-indep.
+integrals
+
+Data collection:
+(Laiscrete) (P)
+
+(Lp-indep. int.) (P)
+
+Comparison HPT sim.
+sim. of system of size P: (ro, Uo) .
+sim. of system of size P’: (r9,Uo) and (7,U) i
+
+1° Comparison of D‘4) and C‘44)
+; for sim., RG pred., and lin. pert. pred.
++ Raster plot for free scaling law
+
+portrait
+quiver implementation of
+(r,U) > (r+ dr,U + dU)
+
+Scaling law
+for Gauss. and pert. theory
+discrete and continuous result
+
+Data visualization
+
+FIG. 13. Numerical workflow. The validation procedure used to compare theoretical predictions with numerical simulations
+comprises four main stages: data generation (dark blue), network training (orange), RG implementation (dark red), and data
+visualization (dark green). The workflow within each stage is represented by arrows following the same color scheme as the
+corresponding box. Conceptual relations between different stages—which can run independently—are shown by continuous
+boxes with matching colors. Hierarchical dependencies are indicated by dashed boxes, meaning that the processes in dashed
+boxes require the output of the corresponding solid-colored ones. There are also colored dots, which denote intermediate outputs
+that can be reused in different stages.

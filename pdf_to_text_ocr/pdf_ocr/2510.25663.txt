@@ -1,0 +1,2304 @@
+2510.25663v1 [math.AP] 29 Oct 2025
+
+arXiv
+
+DISSIPATIVE STRUCTURE AND DECAY RATE FOR AN
+INVISCID NON-EQUILIBRIUM RADIATION HYDRODYNAMICS
+
+SYSTEM
+
+CORRADO LATTANZIO, RAMON G. PLAZA, AND JOSE M. VALDOVINOS
+
+ABSTRACT. This paper studies the diffusion approximation, non-equilibrium
+model of radiation hydrodynamics derived by Buet and Després (J. Quant.
+Spectrosc. Radiat. Transf. 85 (2004), no. 3-4, 385-418). The latter de-
+scribes a non-relativistic inviscid fluid subject to a radiative field under the
+non-equilibrium hypothesis, that is, when the temperature of the fluid is dif-
+ferent from the radiation temperature. It is shown that local solutions exist
+for the general system in several space dimensions. It is also proved that only
+the one-dimensional model is genuinely coupled in the sense of Kawashima
+and Shizuta (Hokkaido Math. J. 14 (1985), no. 2, 249-275). A notion of en-
+tropy function for non-conservative parabolic balance laws is also introduced.
+It is shown that the entropy identified by Buet and Després is an entropy
+function for the system in the latter sense. This entropy is used to recast the
+one-dimensional system in terms of a new set of perturbation variables and to
+symmetrize it. With the aid of genuine coupling and symmetrization, linear
+decay rates are obtained for the one dimensional problem. These estimates,
+combined with the local existence result, yield the global existence and decay
+in time of perturbations of constant equilibrium states in one space dimension.
+
+1. INTRODUCTION
+
+The field of radiation hydrodynami
+where (thermal) radiation effects are
+motion. While at moderate temperat:
+
+namics of the fluid is by means of energy exchanges due to radiative processes
+
+high temperatures the thermal radia‘
+
+cs (cf. [6,36,39]) is concerned with situations
+aken into account in the description of fluid
+ures the contribution of radiation to the dy-
+at
+ion may become comparable or even domi-
+
+nate the fluid state variables, and when this is the case the radiation significantly
+affects the dynamics of the fluid. Radiation hydrodynamics finds applications in
+
+various astrophysical phenomena (suc
+stellar winds, or nonlinear stellar pu
+
+h as supernova explosions, the description of
+sations; see, for example, Kippenhahn and
+
+Weigert [24]), as well as in high-temperature plasma physics (cf. Zel'dovich and
+
+Raizer [48]).
+The most general system of equati
+hydrodynamics is quite complicated
+
+ons describing the coupling of radiation and
+o solve, both analytically and numerically.
+
+Radiation, for instance, is described by an assembly of photons, which are massless
+particles travelling at the speed of light c, and thus a description in the framework
+of special relativity is needed. The radiation is described by a transport equation
+
+2020 Mathematics Subject Classification.
+
+76W05, 76N10, 76N06, 35B40, 35A01.
+
+Key words and phrases. Non-equilibrium radiation hydrodynamics; decay structure; global
+
+existence.
+C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+for photon distribution with a non-local source term. Coupling the standard hydro-
+dynamics equations for a gas and the radiative transfer equation results into a very
+complicated system which can be approximated in different physically valid regimes
+and, therefore, it is natural to consider reduced models. One of these approximation
+regimes is called the diffusion approximation (also called the Eddington approxi-
+mation), which quantifies the energy flow due to radiation in a semi-quantitative
+sense (cf. [12,13]). This approximation is valid for optically thick fluids for which
+he photons emitted by the gas have a high probability of reabsorption. In mos
+applications the fluid velocities are small compared to the velocity of light, so the
+flow description can be made through the classical Euler hydrodynamics system
+and by taking an approximation of order O(v/c), where v is the characteristic ve-
+locity of the fluid. It is important to keep terms of order O(v/c) even when |u/c
+is small, in order to avoid neglecting the work done by radiation pressure and no
+© give rise to an incorrect radiation spectrum (see, e.g., Buchler [4]). Neglecting
+erms of order O(v?/c?) is, on the other hand, consistent with using non-relativistic
+hydrodynamics equations for the material fluid. Under this point of view, Lowrie et
+al. [35] derived a set of equations describing radiation hydrodynamics to which one
+can apply Eulerian conservative high-order Godunov-type schemes commonly use
+
+oX-
+
+in hydrodynamics [10,27]. The authors applied a simpli
+ansion, very similar to a Chapman-Enskog or Hilbert
+
+he equilibrium diffusion mo:
+riori equal to the radiation
+of Lowrie et al., Buet and
+
+fied asymptotic analy:
+expansion, and considere
+
+del, that is, when the mai
+
+temperature. In a later work and in the same spiri
+
+ter temperature is taken a
+
+Després [5] performed the same asymptotic analysis
+
+in the diffusion approximation regime in order to derive for the first time the non-
+equilibrium diffusion model, that is, when the temperature of the fluid, 6, is differen
+rom the temperature of radiation, 0,. This is the physical model that we address
+in the present paper. Notably, this limiting model has been rigorously justified in
+recent works, both in R® [28] and in a three-dimensional torus [15].
+
+The non-equilibrium diffusion radiation hydrodynamics model derived by Bue
+and Després (see system (67) in [5]) reads
+
+Xxp+V- (pu) = 0,
+
+O,(pu) + V+ (pu®u) +V(p+ 4n) =0,
+(pL +) + V- ((pE + )u + (p+ 3n)u) = V- (35-0),
+On+V> (nu) + 9nV-u=V- (s-Vn)
+
+(1.1)
+
+oa(04 —n).
+
+Here t > 0 denotes time, x € R¢ denote space variables, with d = 1, 2,3, and V is the
+space gradient operator. The unknowns are the density p, the velocity field u € R¢,
+the absolute temperature @ of the fluid and the energy of radiation 7 (which is equal
+to 64 and depends on the radiation intensity). As usual, p is the thermodynamic
+pressure and E = e+|u|?/2 is the total energy of the fluid, with e the internal energy
+(per unit mass). The pressure and the internal energy are (smooth) function of the
+independent thermodynamic variables p and @, that is, p = p(p,@) and e = e(p,).
+The absorption coefficient a, and the scattering coefficient a, are assumed to be
+positive constants (for simplicity, the analysis by Buet and Després is made under
+
+the gray hypothesis, that is, constant emissivity across wavelengths). The first three
+equations are the usual balance laws describing an inviscid, non-heat-conducting
+compressible fluid in which the momentum and energy equations have been modified
+
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 3
+
+accordingly to account for the effect of the radiation energy 7. System (1.1) is a non-
+conservative system of hyperbolic-parabolic type, where the only parabolic term is
+proportional to An, due to the inviscid and non-heat-conducting nature of the fluid.
+Also notice that there are no damping terms, that the only balance term appears
+in the radiation equation and that for a constant state (p, a, E,7) to be a solution
+it must satisfy 7 = 6+, an equation that defines the equilibrium manifold. System
+(1.1) is often referred to as the non-equilibrium-diffusion limit [36,39].
+
+.1. Previous works on the non-equilibrium model. The most studied model
+in the context of radiation hydrodynamics is obtained from (1.1) by neglecting
+he time derivative for the energy of radiation which, as a consequence, is time-
+asymptotically at equilibrium. Thus, the resulting system is an hyperbolic-elliptic
+coupled system, and it is also referred to as a non-equilibrium model because the
+gas is not in thermodynamical equilibrium. There is a vast mathematical literature
+concerning these hyperbolic-elliptic coupled models which we will not review here;
+for an abridged list of references see [5, 17-19, 25, 26, 29-32, 34, 42-45]. In contrast,
+he evolution non-equilibrium model (1.1) has been less analyzed. In most cases,
+he model is further endowed with physical fluid viscosities [12, 14,23, 46], or with
+damping terms [2,3]. For instance, Jiang et al. [14] showed the global (in time)
+existence and uniqueness of solution for the one-dimensional initial-boundary value
+roblem of a viscous and heat-conducting fluid, for suitable smooth initial data
+and when the heat conductivity satisfies a physical growth condition with respect
+o the fluid temperature. The model studied by Jiang et al. has been subsequently
+studied in other works. Jiang [12] established the global well-posedness in Sobolev
+spaces for the Cauchy problem in the perturbation framework in the case of the
+3d-polytropic ideal gas system, and obtained the convergence rate (1 + t)~9/4 for
+he H%(R3)—norm of solutions when the initial data belongs to L1(R*). Simi-
+ar results have been obtained by Wang et al. [46], where the authors have used
+Littlewood-Paley decomposition. Later Kim et al. [23] extended the previous re-
+sults to more general fluids, and have also obtained the decay rate (1+t)~*/? of the
+HN (R*)—norm (N > 3) of the solutions when the initial data belongs to the ho-
+mogeneous negative Sobolev space H~*(IR°), for s € [0, 1/2]. We also mention the
+work by Jiang and Zhou [13], where they have established the local well-posedness
+of smooth solutions for the 3d polytropic gas case of the same model studied by
+Jiang et al. [14], in which viscous and heat-conduction effect for the fluid are ig-
+nored and the radiation pressure term is considered but only for the momentum
+balance equation, that is, a term proportional to V(4n) is incorporated.
+Regarding the models with damping, Blanc et al. [2] established the global in
+time existence of solutions to the Cauchy problem for the system (1.1) in three
+dimensions with damping and heat conduction effects for the fluid, provided the
+initial data is a small perturbation of a constant equilibrium state. The authors
+in [2] have also obtained the same results for the equilibrium-diffusion limit, that
+is, system (1.1) where 77 is replaced by 64 and there is no equation for the energy
+of radiation.
+
+To sum up, although there are several works that studied the well-posedness
+of the non-equilibrium-diffusion limit system, most of them do not consider the
+original inviscid, non-heat-conducting and non-damped system (1.1) derived by
+Buet and Deprés [5].
+
+4 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+1.2. The contributions of this work. In the present work we are interested in
+the global (in time) existence of solutions for the Cauchy problem of system (1.1)
+with initial data being a small perturbation of a constant equilibrium state, and
+study their asymptotic behaviour. In our study, we combine local (in time) exis-
+tence of solutions results with a priori energy estimates and (nonlinear) decay rates
+of the local solution, via an continuation argument to get the global existence and
+asymptotic behaviour of solutions. For the local existence of solutions we apply a
+result by Kawashima [16] for hyperbolic-parabolic system of composite type. For
+obtaining the a priori energy estimates as well as the decay rates, we employ a tech-
+nique developed in the same work of Kawashima [16] and that consists in studying
+the dissipative structure of the linear system around the constant equilibrium state.
+The dissipative structure mentioned above refers to the fact that the system
+es any of the properties stated in Theorem 2.1 below. As those properties are
+equivalent, the genuine coupling condition, which is straightforward to verify, tells
+us that in order to posses this structure, the system needs to have enough dissipation
+
+due to “relaxation” (zero-order space derivatives terms) and “viscosity” (second-
+order space derivatives) mechanisms. For the linear version around a constant
+equilibrium state of system (1.1), it turns out that the one-dimensional space system
+has enough dissipation, but this fails to be the case when the space dimension is
+
+d > 2 (see Appendix B). Thus, in the present work we consider the one-dimensional
+case because of this technicality.
+
+It should be noted that our results can be easily extended to the several space
+dimensions case if we take into consideration damping, as it has been done in [2], or
+viscosity effects for the fluid in system (1.1). In this sense, our results complement
+
+hose of Blanc et al. [2], as we also provide decay rates for the solutions. Notably,
+he authors use the compensating matrix K, given by the Equivalence Theorem
+2.1, for performing some energy estimates but not for obtaining the decay rates, as
+we do it in the present work. In addition, although one might think that the one
+dimensional case is easier to handle, this is not the case at the time of performing
+
+he nonlinear energy estimate for getting the a priori energy estimates and the decay
+rates. In order to do so, the system has to be written in a very specific way and this
+is related to the existence of an entropy function/flux entropy pair (see [16, Chapter
+IV] or [22, Section 7]), which is the case for the system under consideration and
+hat we explain in detail below; see Section 3. It turns out that the entropy that
+works for system (1.1) is the classical one for the fluid plus the entropy associated
+to radiation and which was proposed by Buet and Després; see [5, Corollary 2],
+or equation (3.15) below. Up to the authors’ knowledge this entropy structure of
+system (1.1) has not been reported in previous works.
+
+1.3. Equations and assumptions. In this paper we consider the non-equilibrium
+system of equations (1.1) describing a non-relativistic inviscid fluid under the effects
+of radiation. It is a non-conservative system in Eulerian variables and in several
+
+space dimensions. Substituting the equation for the energy of the radiation into
+the energy equation and performing some straightforward algebra, it is possible
+to recast system (1.1) as the following equivalent system (details are left to the
+reader):
+
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 5
+
+Onp + V > (pu) = 0,
+O,(pu) + V+ (pu®u) +V(p+ $n) =0,
+O(pE) + V+ (pBut (p+ 4n)u) = -04(0* — 1) + AnV-u,
+On+tV-(qu=V- (sz Vn) 4 oa(6* — 7) — anV U.
+(1.2)
+In the forthcoming analysis, system (1.2) will often appear more suitable for our
+needs and we shall be working with both variants of the physical model almost
+without distinction.
+Let us state the physical assumptions for system (1.1) (or equivalently, for system
+(1.2)) under consideration in this paper.
+
+(H,) The independent thermodynamic variables are the density p > 0 and the
+absolute temperature 6 > 0. They take values in convex open set
+
+D={(p,0): p>0, @> 0}.
+
+(Hz) The thermodynamic pressure p, the internal energy (per unit mass) of the
+fluid e, and the specific entropy of the fluid s are smooth functions of p and
+6, that is p, e, and s € C*(D). They satisfy
+
+p>0, pp>0, pa>0, e9 >0, (1.3)
+
+as well as the volumetric First Law of Thermodynamics
+
+1
+de = 0ds — pd (4).
+p
+
+which implies the relations
+
+ep = (p—Ope)/p”, 8» =—pe/p’, 89 = €0/0. (1.4)
+
+(H3) The absorption coefficient a, and the scattering coefficiente a, are positive
+constants.
+
+Remark 1.1. Notice that, for convenience, we have chosen p and @ as the indepen-
+dent thermodynamic variables. In addition, it is to be observed that the hypotheses
+(1.3) on the thermodynamic potentials p and e are quite general and satisfy the
+conditions for an arbitrary Weyl fluid [47], namely, a generalized Gay-Lussac’s law
+(po > 0), adiabatic increase of pressure effects compression (pp > 0) and the in-
+crease of internal energy due to an increase of temperature at constant volume
+(eo > 0). A typical example is that of an ideal gas satisfying
+RO
+
+p(p,0) = Rp, —e(p,0) = yaT?
+where R > 0 is the universal gas constant and y > 1 is the adiabatic exponent.
+In radiation hydrodynamics one may consider other types of potentials which fall
+under the category of Weyl; see [6,36,39] for further information.
+
+As we have already mentioned, we specialize our stability analysis to the case
+of one space dimension (d = 1). Hence, let us write the one-dimensional version of
+6 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+system (1.1):
+
+Op + 0; (pu) = 0,
+O;(pu) + A, (pu? +p + 4n) =0 (15)
+O(pE +7) + On((oE +n + p+ ¥n)u) = xOren, ”
+
+2
+
+n + O, (mu) 4 ane oe Oran 4 oa(04 1).
+1.4. Main result. Let us now state the main result of the paper.
+
+Theorem 1.2 (global existence and time asymptotic decay). Suppose hypotheses
+(H,) - (Hg) hold. Let V = (p, 7, 0,7) € R* be a constant equilibrium state satisfying
+7p, 9,7 > 0, = 7. Assume that Vy —V © (A(R) n L+(R))* with s > 3. Then
+there exists a positive constant ¢ > 0 such that if
+I|Vo — Vlls + Vo - V1lza Se, (1.6)
+then the Cauchy problem for system (1.5) with initial condition V(0) = Vo has a
+unique global solution V(x,t) = (p,u,9,)(x,t) satisfying
+
+p—p,u-U,0—8 € C((0, 00); H*(R)) NC! ((0,00); H*"1(R)) ,
+
+1-7 € C ((0, 00); H*(R)) NC" ((0, 00); H*?(R)).
+
+Moreover, the solution satisfies
+
+t
+sup IVT) fF de(.0,0)rIIB 1+ lem) dr < CVV, (7)
+
+as well as
+I(V —V)()[s—1 $ CO+ t)-MA(IIVo —V]ls-1 + ||Yo — Vili), (1.8)
+for allt > 0 and for some uniform constant C > 0.
+
+Remark 1.3. It is to be observed that Theorem 1.2 establishes the global well-
+posedness of classical solutions (thanks to the Sobolev embedding) to the non-
+equilibrium diffusion limit system (1.1) in the perturbation framework and in one
+space dimension. The constant state is supposed to belong to the equilibrium
+manifold (that is, it satisfies a= 7), although the system itself is in the non-
+equilibrium regime. The initial (perturbation) conditions are assumed to have
+finite energy (Vj — V € H*(R)*, s > 3) and finite mass (Vj — V € L1(R)*). If the
+initial perturbations are sufficiently small then global classical solutions exist and
+decay as t + oo. Theorem 1.2 also determines rates of decay for the perturbation
+variables of algebraic type.
+
+Plan of the paper. In Section 2 we recall the notions of strict dissipativity and
+genuine coupling, and state the local existence result and their consequences (local
+energy estimates). In Section 3 we extend the definition of entropy to the case of
+non-conservative viscous balance laws, symmetrize the system and define the new
+perturbation variables. Section 4 examines the linear dissipative structure of the
+system in the new variables and establishes the desired linear decay rates. The
+last Section 5 is devoted to closing the nonlinear energy estimates and to the proof
+of the main Theorem 1.2. We make some final comments in the dicussion Section
+6. In addition, we have included three Appendices. Appendix A states the local
+existence theorem in several space dimensions. In Appendix B we prove that the
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 7
+
+system is not genuinely coupled when the dimension is d > 2. Appendix C contains
+a spectral analysis of the generated semigroup, which is needed for some of the
+energy estimates in Section 4.
+
+Notations. Standard Sobolev spaces of functions on the real line will be denoted
+as H*(R), with s € R, endowed with the standard inner products and norms. The
+norm on H*(R) will be denoted as || - ||, and the norm in L? will be henceforth
+denoted by || - ||o. Any other L? -norm will be denoted as || - ||z» for p > 1. We
+denote the real and imaginary parts of a complex number A € C by ReA and
+Im), respectively. For any a € R we denote as [a| € Z the integer satisfying
+la] <a < la] +1. 0pxq will denote the zero p x q block matrix, for any p,q € N.
+The square zero and identity p x p matrices, with p € N, will be written as 0, and
+
+I,, respectively. The canonical (row) basis in R!*" is denoted by é;, 1 <j <n.
+
+2. PRELIMINARIES
+
+In this section we present some preliminary material. Section 2.1 contains
+the definition of strict dissipativity and the Equivalence Theorem by Shizuta and
+Kawashima [40] for second order systems (see Theorem 2.1 below). In Section 2.2
+we state the local (in-time) existence of solutions to the Cauchy problem for system
+(1.1) in one space dimension and with initial data close to a constant equilibrium
+state. This result is a consequence of a more general theorem by Kawashima [16]
+(see Theorem A.1 below). In Section 2.3 we present some a priori energy estimates
+for the local solutions.
+
+2.1. Strict dissipativity and the Equivalence Theorem. Consider a linear
+second order system in any space dimension d > 1 of the form
+
+d d
+AU, + 3° AU 2, FLV = SO BYU zy24, (2.1)
+j=l gik=L
+
+where U = U(a,t) € R” is the vector of state variables, and x € R¢ and t > 0
+represent space and time, respectively. The coefficients A°, AJ, L and B’*, j,k =
+
+1,...,d, are constant square real matrices of order n satisfying:
+(A1) A°, AY, 7 =1,
+(Ag) L, BY", j,k =1,..
+and the symbol ‘ae wj wp, BIF is positive semi-definite for all w € S¢~!.
+
+d, are symmetric with A° positive definite (A° > 0);
+.,d, are symmetric with L positive semi-definite (L > 0)
+
+Apply the Fourier transform to system (2.1) in order to obtain
+AU, + (ilé|AWw) + E+ [EP BWw)) T = 0, (2.2)
+where
+d ; d
+A(w) := Sou, A%, Biw) := S wju,B?*,
+j=l ie
+
+for w = €/|€|, € € R¢, € £0. The solutions to this linear system are related to the
+eigenvalue problem
+
+(AA° + aA) + L + [EP B(w))v = 0, (2.3)
+
+with A = A(€) € C, v = v(€) € R", v £0. Under these circumstances, we have the
+following Equivalence Theorem by Shizuta and Kawashima [40].
+8 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+Theorem 2.1 (equivalence theorem [40]). Under assumptions (Ai) — (Ag), the
+following statements are equivalent:
+
+(i) For each € € R*, € £0, the real part of \ = X(E), solutions of (2.3), satisfy
+Re A <0.
+
+ii) For any p € R", w 4 0, satisfying B(w)p = Lw = 0 for some w € S41,
+
+y ying
+there holds
+pAd + Aw) £0, for any uw ER.
+(iii) There exists a smooth real matrix valued function K(w), w € St,
+S&l5wH> Kw) € M,(R)
+
+such that
+(a) K(w)A® is skew-symmetric for all w € S41, and
+(b) [K(w)A(w)]* + Bw) +L > 0 for allw € St},
+where [M|* denotes the symmetric part of the matrix M, that is [M]* =
+
+3(M+M").
+(iv) There exists a positive constant c such that there holds
+cléP
+ReA < -— ,
+~ 1+'iéP?'
+
+for \ = X(€) solution of (2.3), for all € E R¢, € 40.
+
+When the system (2.1) satisfies (i) in Theorem 2.1 we say that the system is
+strictly dissipative, and if (ii) holds true we say that the system satisfies the genuine
+coupling condition or to be genuinely coupled. The matrix K in Theorem 2.1 (iii)
+is known as a compensating matrix for the system (2.1).
+
+Remark 2.2. The seminal work by Kawashima and Shizuta [20,40] established the
+conditions for the strict dissipativity of a large number of second order systems (such
+as linearizations around constant states of the Navier-Stokes and the Navier-Stokes-
+Fourier models). Thanks to the Equivalence Theorem 2.1, the genuine coupling
+condition (which is an algebraic condition) implies the existence of compensating
+matrix functions which are very useful to obtain energy decay estimates at the linear
+level. These estimates can be applied to the nonlinear problem around constant
+states or even around small amplitude shock profiles.
+
+2.2. Local existence. Consider the one-dimensional non-equilibrium diffusion ra-
+diation hydrodynamics system (1.5) and define the state variables
+
+V(a,t) == (0,u,0,n)(2,1),
+which belong to the set
+V:= {(p,u,0,n) €R*: p> Ci, 8 > Co, n> C3}, (2.4)
+
+for some fixed (but arbitrary) positive constants C;, i = 1,2,3. We now pose the
+initial value problem of system (1.5) with initial data
+
+V(x, 0) = Vo(x) = (po, uo, 80, M0) (x). (2.5)
+For system (1.5), the equilibrium manifold is defined by
+Ueq = {V EV: 9 =O};
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 9
+
+for more details, see Section 3. Let us fix a constant equilibrium state V =
+
+(p, U, 8,77) € Ueq of system (1.5), satisfying thus the relation
+
+7=9.
+
+Then the local existence of perturbations of such equilibrium state is given by the
+next result.
+
+Theorem 2.3. Let V = (p,U, 0,7) € Ueq be a constant equilibrium state for system
+(1.5). Consider the initial value problem (1.5) and (2.5) with Vo -V € H*(R)},
+5 > 2. Then there exists ¢ > 0 such that if
+
+a:=|Yo-Vls <e,
+
+then we have that for m1 < po(x) < Mi, m2 < O0(x) < M2, m3 < no(x) < M3 for
+all x € R and positive constants 0 < m; < Mj, i =1,2,3, and for some To = To(a),
+there exists a unique solution V(x,t) to the initial value problem satisfying
+
+p—p,u-U,0—-0€C((0, To]; H*(R)) NC! ([0, 7]; H*-*(R)) , jas)
+n-HE C ((0, To]; H°(R)) NC? ((0, To]; H*7(R)) . ,
+
+Moreover, the following estimate
+
+sup lw Tre f \|O.(p, u,)(T)II5-1 + Oxn(r)|I$ ar < CollVo— VIS. (2.7)
+
+O<r<t
+holds for all t € [0,7] and for some positive constant Co depending on ||Vo — V|\s-
+
+Remark 2.4. It is to be observed that, since s > 2, the continuous embedding
+H*(R) c L®(R) implies that for sufficiently small initial data the solution V =
+
+and will be such that
+™1 < p(v,t) < Mi, M2 < O(x,t) < Mo, M3 < n(a,t) < Ms,
+
+for all 2 € R and ¢ € [0,75], and some uniform positive constant ™m; and M;,
+i = 1,2,3, so that V(a,t) € V, with V as in (2.4) for some positive constants
+C; = Ci(a), i =1,2,3.
+
+Motivated by the energy estimate (2.7), for any local solution on a time interva
+[0,7] of the Cauchy problem (1.5) and (2.5), we define
+E,(t):= sup |(V —V)(r)Iks, (2.8
+O<r<t
+t
+F(t) = [ \|Ox(p, u, O)(r)I—1 + Oen(7)II5 ar, (2.9
+as well as
+N,(t)? = E,(t) + F,(t), (2.10
+
+for any t € [0,7].
+10 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+2.3. A priori energy estimates. Next, we enunciate some a priori energy es-
+timates for the local solution of the Cauchy problem of system (1.5) with initial
+data Vo(x) close to a constant equilibrium state V = (p,U, 0,77) € Ueq. As we have
+already mentioned, we invoke a general result by Kawashima [16] in order to obtain
+such estimates. For that purpose, we verify that the linearized system around the
+constant equilibrium state V satisfies the genuine coupling condition.
+
+We start by writing the linear system around V, which is just the one-dimensional
+version of the linear system (B.1) in Appendix B, and it reads
+
+A'V, + AlV, + LV = BV ex, (2.11)
+where the constant matrix coefficients are given by
+10 0 0 90 0 0
+ra 0 0 0 0
+gou| ? & 0 es 3
+0 0 peo 0 0 0 40.0 —O4
+oo 0 1 0 0 408° oq
+U p 0 0 000 #0
+1_|2B, pu Dy 1/3 _{9 0 0 0
+é 0 Opg pueg 0 }’ B 000 O
+0 47/3 0 u 000 =
+We use the symmetrizer
+Op,n/p 9 0 O
+_ 0 67 0 0
+S= 0 0 7 0 ,
+0 0 0 0/4
+to get the next symmetric version of system (2.11),
+AV, + A'Ve + LV = BV ex, (2.12)
+with the constant matrix coefficients having the form
+3p,m/p 0 0 0
+FZ. 9 40 _ 0 pen 0 0
+A :=SA°= 0 0 peeH 0
+0 0 0 0/4
+0 0 0 0
+_ 0 0 0 0
+L:=SL= =
+oe le a do Ee agi
+0 0 -oaH 46/4
+UOND,/P ONDp 0 0 000 O
+Biagai_| 07, Puy OP, 97/3) B._gp_]® 9% 0
+A :=SA = 0 07D, BUTZ 0 »B=SB=]9 9 0 0
+0 67/3 0 wa/4 000
+
+Here we have used the equilibrium relation 7 = a; see expressions (B.2)-(B.5) in
+Appendix B for more details. From the expression above for B, we clearly have
+that
+
+ker (B) = span{(1,0,0,0), (0, 1,0, 0), (0,0, 1,0)}.
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 11
+
+Regarding TZ and in view that 7 = a, one can easily verify that the third and
+fourth rows of L are linearly dependent, so that dim ker (Z) = 3. Since the vec-
+tors (1,0,0,0), (0,1,0,0) and (0, 0,1,40°) are linearly independent and belong to
+ker (Z), we have that
+
+ker (Z) = span{(1,0,0,0), (0, 1,0,0), (0,0, 1,40°)}.
+Thus, there holds
+ker (Z) O ker (B) = span{(1,0,0,0), (0, 1,0,0)},
+
+implying that ~ € ker (Z) O ker (B), w # 0, if and only if ¢ is of the form wy =
+(a1, @2,0,0) with a; and a2 not simultaneously equal to zero. Hence, for vectors
+of this form we have that
+10197 Pp/P + 1UO7D,/p + a297D,
+pagpO7 + aO7P, + aspuen
+a20 7] Dg
+a20 7/3
+
+pA of Aw = KER.
+
+0 1. -
+Let us assume that for some pp € R, uA ~+A y = 0. As 0, 77, and Py > 0, from the
+above computations we conclude that az = 0. Now, as p, > 0, the second column
+. . =0 30. . .
+
+in the expression for ~A y+ A yw implies that a; = 0, which contradicts the fact
+that ~ 4 0. Thus, we have proved the following result.
+
+Lemma 2.5. Under assumptions (H,) — (H3), the one dimensional linear system
+(2.12) satisfies the genuine coupling condition.
+
+The lemma above and the Equivalence Theorem 2.1 imply the existence of a
+compensating matrix K for system (2.12). Then we have the following a priori
+energy estimate for the solutions of the initial value problem (1.5)-(2.5).
+
+Lemma 2.6. Let us consider the Cauchy problem (1.5) and (2.5), with Vo(«)
+satisfying Vo - V € H*(R)*, s > 2. Let V(a,t) be a local solution on a time
+interval {0,T], then there exists a constant ag such that if
+
+Ns(T) < ao,
+
+then there holds the a apriori energy estimate
+
+t
+nV N51 +f |OZn(7)|I5-1 + |P*AxV (7) I|51 a7 < Ci (l]OxVoll3_1 + Ne(T)’),
+0
+
+(2.13
+for every t € [0,T], and some positive constant C, = C,(ag). Here P* denotes the
+orthogonal projection onto the range of L.
+
+Proof. See the proof of Lemma 3.1 in [16].
+
+Lemma 2.7. Under the same assumptions as in Lemma 2.6 and for the same ao,
+there exists a constant Cz = C2(ao) such that as long as
+
+N,(T) < ao
+12 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+is satisfied, the following energy estimate
+
+[1020.9 12-2 dr — CalOeVCOIR a + fWORnte IRs + WP OV IE dr)
+
+< ale +N,(T)’)
+(2.14)
+holds for t € [0,T]. As in Lemma 2.6, P+ is the orthogonal projection on the range
+of L.
+
+Proof. See the proof of Lemma 3.2 in [16].
+
+Remark 2.8. Lemmata 2.6 and 2.7 are essentially restatements of Lemmata 3.1
+and 3.2 in [16], respectively. In this subsection we have simply verified that system
+(1.5) satisfies the underlying hypotheses.
+
+Remark 2.9. Notice that estimates (2.13) and (2.14) are not sufficient to get the
+global existence of solutions. For instance, if we multiply estimate (2.14) by a > 0
+and add it to estimate (2.13), where a is such that aC2 < 1, we arrive at
+
+4
+|. V (E)|I5— +f | (pu, O)(T)IIS_2 + [lOen7)IISa ar < C(]A-Volls1 + Ns(L)?),
+0
+
+for some C > 0. However, in the left-hand side of the inequality above we are
+missing the terms ||(V —V)(t)|| and fo \|0,,V (r)||8 dr to obtain an energy estimate
+as the one given =~ Moot A.l.
+
+In the next section we perform a change of perturbation variables which will allow
+us to close the a priori energy estimates. The latter will eventually lead to the decay
+rate in time of solutions, which is a fundamental information not contained in the
+statements of Lemmata 2.6 and 2.7.
+
+3. ENTROPY AND SYMMETRIZATION
+
+In this section we perform a change of variables to recast system (1.1). The
+system in the new variables has some features that allow us to obtain a sharp linear
+energy estimate, which is needed to close the nonlinear analysis. This change o
+variables is motivated by the notion of an entropy function for a viscous system o:
+conservation laws [16,20] and that of for a system of balance laws [21,22]. These
+definitions are extensions of the classical notion of an entropy function for hyperbolic
+systems of conservation laws first introduced by Godunov [8] and by Friedrichs anc
+
+Lax [7].
+
+3.1. Entropies for non-conservative viscous balance systems. Let us star’
+by recalling the case of hyperbolic balance laws. Consider a system of the form
+
+W.+ f!(W)x = Q(W). (3.1
+Here x € R and t > 0 denote, respectively, the space and time variables. W =
+(Wi,...,Wn) represents the vector of quantities under examination taking values
+
+in an open convex set Ow C R”. The flux function f! and Q are smooth functions
+of W with values in R”.
+Let us define the sets
+
+M := {W ER": (Y,Q(W)) =0, for all W € Ow}
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 13
+
+and
+Ocqg = {W € Ow : Q(W) = 0}.
+We have the following definitions.
+
+Definition 3.1. We say that system (3.1) has an entropy function if there exists
+a function S : Ow — R satisfying the following properties:
+
+(a) S isa strictly convex function of W, that it, its Hessian D?,,S(W) is positive
+
+definite.
+
+(b) For W € Ow the matrix
+
+Dw f'(W)DyS(W)-* (3.2)
+is symmetric.
+
+(c) Let W € Ow, then W € Ogg if and only if DwS(W)' € M.
+
+(d) For W € Ogg, the matrix DwQ(W)D?,S(W)~' is symmetric and non-
+positive definite, and its null space coincides with M.
+
+One consequence of the existence of an entropy for system (3.1) is that we can
+write it in symmetric form. To this end, let S be an entropy of system (3.1) in the
+sense just defined above. Therefore, the mapping
+
+U(W) := DwS(W)" (3.3)
+
+is a diffeomorphism from Ow onto Oy = U(Oyw) (this is a consequence of property
+(a)). Thus if we use W = W(U) in (3.1) we obtain
+
+A°(U)U, + Al(U)Uy = h(U), (3.4)
+where 7
+A°(U) = DuyW(U), (3.5)
+MU) := Du f'(U) = Dwf(W(U))DuWU), ,
+and
+
+AU) = QW(U)).
+Since Dy W(U) = D?,,S(W(U))~* because of (3.3), we have that
+
+AY) = Diy S(W(U)),
+ANU) = Dw fh (WW))Di-S(W(D)) 7,
+
+which are symmetric matrices with A° > 0.
+
+The radiation hydrodynamics system under consideration is a set of viscous
+balance laws with non-conservative terms. Hence, let us consider a generic system
+of the form
+
+W, + f'(W). = (G(W)W,), + C(W)W, + Q(W), (3.6)
+where G and C are smooth function of W with values in R"*". Consequently,
+we modify Definition 3.1 to account for non-conservative viscous balance systems
+having this form. In particular, we replace condition (b) by
+
+(b’) For W € Oy, the matrix (Dw f'(W) — C(W)) Dj, S(W)~! is symmetric,
+and add a new condition for the viscous term:
+
+(e) For W € Ow, G(W) Dj, S(W)* is symmetric and positive semi-definite.
+14 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+Definition 3.2. We say that system (3.6) has an entropy function if there exists
+a function S : Ow — R satisfying the conditions (a), (b’), (c), (d) and (e) above.
+3.2. Entropy for non-equilibrium radiation hydrodynamics. Now, we shal
+verify that the entropy function proposed by Buet and Després [5] “almost” satisfies
+Definition 3.2 for the one-dimensional version of system (1.1). Indeed, regarding
+condition (b’), it will hold only for W € Ogg. Although this may seem as a difficulty,
+it turns out that it is sufficient for our purposes, as we shall see in the sequel. Le
+us start by writing the system under consideration as
+
+Hp + Ax(pu) = 0,
+O,(pu) + Ox (pu? + (p+ 4n)) = 0,
+d;(pE) + On (pEu t (p t 4n)u) oa(04 = n) n dnue,
+Om + Oy(Nu) = s4-Nee + Fa(8* — m) — F1Ue,
+
+(3.9
+
+which is the one dimensional version of system (1.2). Here the variables describing
+the fluid are the mass density p, the scalar velocity u, the pressure p, the tota
+energy E and the absolute temperature @, while 7 is the radiation intensity. The
+absorption coefficient oq and the scattering coefficient a, are, once again, positive
+constants.
+
+Clearly, this system is written in the form (3.6) for the conserved quantities
+W := (p,m,€,7) = (p, pu, pE,n) and with the notations
+
+pu
+2 il
+1 | pw+p+an
+fW)= pEu+ (p+ inu
+nu
+0 0 0 0
+0 0 0 0 =
+GW) = 000 0 = G,
+0 0 0 1/(80s) G0)
+0 ;
+0
+QW) = oa(n — 64)
+—oa(n— 6")
+0 0 0 0
+_ 0 0 00
+CM) =| _an/(3p) n/p) 0 0
+un/(3p) —n/(3p) 0 0
+
+Notice that G is a constant matrix. In the definitions above, we understand u =
+m/p, while p and @ are functions of W. This is indeed the case if we choose p and
+e as thermodynamic variables (see Remark 1.1) so that we have
+p=plp.e), 9=(p,e),
+and as
+E€ =pE = p(e+u’/2), (3.11)
+we can write e = e(p,m, €), implying that
+
+p=v(p,m,E), 8=O6(p,m,€). (3.12)
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 15
+
+The non conservative term C(W)W,, will play a crucial role in the sequel. It clearly
+comes from the differentiation
+
+m m 1 U 1
+Uz Pax + —Mz —Px + —Me.
+Ply p Pp Pp p
+
+Finally, the sets M and Ogg are given, respectively, by
+M = span {(1,0,0,0), (0,1,0, 0), (0,0,1,1)}, (3.13)
+and
+Ocg = {WE Ow: n=H1(W)}. (3.14)
+
+As stated before, the variables we use to symmetrize the system are connected
+with the entropy functions of the model. In our case we consider the entropy
+function proposed by Buet and Després (see Corollary 2 in [5]), namely
+
+4
+S = —pe— gins (3.15)
+
+The quantity $n°/ 4 is formally the radiative (physical) entropy at equilibrium. The
+function s appearing in (3.15) denotes the specific entropy (per unit mass) of the
+fluid and, as in the case of p and @ in (3.12), it is understood as a function of W
+which satisfies
+
+Sp =—po/p’, 89 = €0/8. (3.16)
+
+It turns out that the function S defined above works as a (mathematical) entropy
+for our system in the sense of Definition 3.2, where, as already pointed out, con-
+dition (b’) will hold only at equilibrium. We claim, for instance, that the needed
+symmetrizer is given by the Hessian of the entropy function, D?,,S(W).
+
+Remark 3.3. Given that the pressure p, the internal energy e and the specific
+entropy s are related through the thermodynamic relations (1.4) when p and @ are
+chosen as independent thermodynamic variables, it is more convenient to perform
+our computations by introducing the (non conserved) variables V := (p,u, 6,17).
+Then, the expression (3.11) defines a diffeomorphism W = W(V) and the differen-
+tiation with respect to W is performed using the chain rule involving the matrix
+
+DwV(W) = DyW(V) |) va , where
+
+)?
+1 0 oO 0
+y _ u p 0 0
+DyW(V) = e+u?/2+ pep pu pep 0}’
+0 0 oO ol
+
+which is clearly non-singular. A direct computation then yields
+
+1 0 0 0
+
+i _ —u/p 1/p 0 0
+DyW(V)" = | (tu? —e—pep)/(pe0) —u/(peo) 1/(oeo) 0
+0 0 0 1
+
+Finally, we obtain
+
+DyS(W(V)) = ( — 8 — ps,,0, —pso, -1/n'/4),
+16 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+and
+u p 0 0
+2 9
+gn as u? + Dp 2pu Pa 1/3
+Dyf'(V)= u(e + 4u?) + PUEp + Ppt ple t gu?) tpu-+tptn/3 pueg+pou u/3
+0 n 0 u
+
+In view of the above remark, by the chain rule we have that
+DwS(W) = DyS(V(W))DwV(W) = DyS(V(W))DyW(V) "vay:
+Thus, after some straightforward computations and using relations (1.4) we obtain
+
+—s+(e-—u?/2+p/p)/0
+u/O
+-1/0
+-1/n/4
+
+O(V) := U(W(V)) = DwS(W(V))' = (3.17)
+
+where U is as in (3.3). From this expression it is easy to see that for W € Ow,
+
+W € Ocg if and only if DwS(W)! € M. This is true because, if W € Ocq, then
+
+7 = 6*, which means that the third and fourth entries of DyS(W)' are the same.
+
+Next, we are going to show that D?,,S(W) is positive definite. Once again, we
+verify this fact indirectly, using that W = W(V). The chain rule implies that
+
+Diy S(W) = DwU(W) = DyO(V(W))DwV(W) tai)
+
+= DyO(V(W))DvW(V)"" |vevw): ‘
+
+Using relations (1.4) it is easy to see that
+
+Pp/p@ —u/@ —(e— zu? + pep) / 0
+
+0 1/6 —u/60? 0
+
+bya) =| 9 she f
+0 0 0 1/(4n5/4)
+
+Now, let us define the matrix
+A(W) := DvW(V)"|vaviwyDivS(W)DvW(V)|vaveny:
+
+Thus using (3.18) and after some straightforward computations we get
+
+Pp/Op 0 0 0
+0 0 0 0
+AW) = DWV) vevonDvoviwy) =| Py nie
+
+0 0 0 1/(4n°/4)
+which is positive definite, and so is the matrix D?,,S(W). By (3.18) we obtain
+AW) = DiyS(W)'wewew)
+= (DyW(V)|veviwyPv9(V(W))") |lwawiw)
+
+pO/Dp pud/pp a 0 (3.19)
+pud/p, pA(l+u?/pp) b 0
+— a b ec 0 ,
+0 0 0 4n>/4
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 17
+
+where U is defined by (3.3), and the coefficients a, b and c are given by
+_ O(epp? + ple + w?/2))
+nn
+5 = wOleop? + ele + u?/2) + oP»)
+Pp
+pO(((e+u?/2) + ep)” + (u? + 4 e9)pp)
+Pp
+
+Now, use the chain rule to write
+Dwf'(W) = Dy f\(V(W))DwV(W) = Dy f'(V(W))Dy WV) |veviaw):
+so that
+Dwf'(W)DyS(W)* = Dy f'(V(W))Dve(v(W))*.
+Thus
+ANU) = (Dw f'(W) — CW) DwS(W)"|w=wwwy
+
+= (Dv f'(V(W))Dy@(V(W))* — C(W)DyW(V)|veviw)PvE(V(W))7") waww)
+
+= [Dv f(V(W)) — OW) DvW(V)|v=vawy] DVOV(W)) "| w=ww);
+(3.20)
+and after some computations we get
+
+a1 a2 a3 0
+
+By) =| U2 G2 3 aa (3.21)
+@13 423 433° G34 ,
+
+O daz 43 aa
+where the coefficients are given by
+a1 = pud/Dp,
+a12 = pO(Dp + u”) /Dp,
+aig = U0 (Epp? + ple + u?/2) + pp) /Pp.
+a22 = pud(3pp + u’)/Dp,
+a93 = O(pu? (e+ u?/2) + uepp? + (p+ pe + 5pu?/2)pp) /Dp,
+aoa = 4n?/4/3,
+a33 = uO((p"ep + ple + w?/2))” + p(2(p + (e+ u”)p) + pO €6)Dp)/(P Pp)
+az4 = 4u nP/4 /3,
+a42 = 40 7/3,
+agz = 4u0 7/3,
+
+a44 = 4u n?! =
+From the expression for the coefficients a24, @34, @42, and a43 is easy to see that
+A'(U) is symmetric as long as 7 = 6+, that is, for W € Oeq. This shows that
+condition (b’) is satisfied for W € Og. Observe that in (3.20) we have redefined
+the expression for A'(U) in (3.5) in order to account for the non-conservative term
+18 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+that appears in (3.6). To compute DwQ(W)D},S(W)~! we proceed in the same
+fashion as we did for the term Dw f!(W)D?,S(W)71. This yields
+DwQ(W)DiS(W)* = DvQ(V(W))Dve(v(W))
+
+0 0 0 0
+0 0 0 0
+0 0 400°  4oan?/* |?
+0 0 40,05 —4ogn®/4
+which is non-positive definite for W € Oeg and its null space coincides with M
+given by (3.13) for W € Ogg.
+
+Finally, let us compute G(W)D?,,S(W). For that purpose we use the relation
+for D?,,S(W) given by (3.18) and obtain
+
+G(W)DiyS(W)7? = GDyW(V)|veviwyDvO(V(W)) 7
+
+000 0
+_ {0 0 0 0
+000 0
+
+0 0 0 4n°/4/(30,)
+
+which is clearly positive semi-definite. Thus, we have shown that S given by (3.15)
+is indeed an entropy function according to the modified Definition 3.2 for system
+
+3.3. New perturbation variables. Next, let us consider a constant state W €
+Ocg and define
+Z:= DuW(U)"'(W -W), (3.22)
+where U = U(W). Thus W —W = Dy W(0)Z. Now observe that
+L(W)2 = Dw S'(W)(W We + (FW) — f'(W) — Dw (W)(W -W)),
+=Dwf'(W)DyWO)Z, + (f'(W) — FW) - Dw f (WW -W)),,
+(G(W)W2) , = GWer = GDUW(U) Zee,
+C(W)W, = C(W)W, + (C(W) — C(W))W,,
+= C(W)DyW(U)Z, + (C(W) — C(W))W,,
+
+and
+
+QW) = DwQ(W)(W —W) + (Q(W) - Q(W) — DwQ(W)(W —- W))
+
+= DwQ(W)DuW(W)Z + (Q(W) — Q(W) — DwQ(W)(W —W)).
+
+Then system (3.9) transforms into
+
+AZ, + AZ, +0Z = Blow + 2+ (3.23)
+where 7 7
+A® = A°(U),
+A‘=A'O),
+
+L:=-—DwQ(W)D2,s(W)-!,
+B:=G(W)D?,s(W)"?,
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 19
+
+with L and B positive semi-definite, while g and q are given by
+g=-(fW)-£'W) - Dw Ff (W\w-W)),
+
+q= (c(W) m= C(W))W. + (QW) — Q(W) — DwQ(W)(W — W)) :
+We can rewrite g and q above by noticing that
+0 0
+aa _ 0 _ 0
+(CWC) We = | ay yas | = | By mua) ne
+—3(7 — Tue —3(7-7)(u-T) —U)nx
+so that
+Gu +9 = Gx +4,
+where
+0
+Ps 0
+994) 3q—mMu-w)
+“Honea fan)
+q= tu an + (Q(W) — Q(W) - DwQ(W)(W -W)).
+
+Essentially, in order to obtain system (3.23) one multiplies system (3.6) on the left
+by the Hessian of the entropy function evaluated at U.
+
+Remark 3.4. It is worth observing that the special shape of the non conservative
+terms implies in particular that the full quantity g belongs to M+, where M is the
+orthogonal space of Q(W); see (3.13). This feature will be crucial in the sequel, to
+obtain the improved linear decay rate established by Lemma 4.5 below.
+
+To sum up, we collect the previous observations into the following result.
+
+Proposition 3.5. The Hessian of the entropy function S defined in (3.15) is a
+symmetrizer for the linearization of system (3.9) around a constant equilibrium
+state and through the change of variables defined in (3.22).
+
+To finish this section we state a result (without proof) that relates the solutions to
+the Cauchy problem (1.5) and (2.5) with the ones for system (3.23) with initial data
+Zo corresponding to the initial data Vo for (1.5) through the change of variables
+(3.22). The proof of the result is based on the following observation. We have
+already mentioned that the correspondence V ++ W defines a diffeomorphism; see
+Remark 3.3 above. Thus for V close to V we can write
+
+W-W=DyW(V.)(V —V),
+
+which, in turn, implies that
+
+Z = DyW(U)(W — W) = DupW(U) Dy W(V.)(W -W),
+
+for some V, between V and V. Then, if the solutions V remain close to V. (see
+Remark 2.4), so do the variables W and W, and from the expressions above we get
+
+that Sobolev norms for any two of the three perturbed variables V—V, W —W
+and Z are equivalent. For more details, see the proof of Lemma 3.7 in [38].
+
+20 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+Proposition 3.6. Assume (H,) —- (H3) and consider the initial value problem of
+system (1.5) with initial data Vo(x) such that Vo —V € H*(R)*, s > 3. Let V(z,t)
+be the local solution in the interval [0,T|, T > 0, which is given by Theorem 2.8.
+Then the new perturbation variables
+
+Z(w,t) = DuWO)(W(V(2,t)) - WV)
+solve system (3.23) with initial data
+Zo(2) = Z(#,0) = Du W(O)(WVo(2)) - WV).
+
+In addition, the following relations hold:
+
+(i) There exist positive constants co, Co such that
+coll(V —V) (lle < IZ@llx < Coll(V -— V@)|lx,
+
+for all0 <k <s, andt € (0,T).
+(ii) There exist constants c;, C > 0 such that
+
+IV -V) Ole < IW -W) Olle < CIV -V lle
+
+for al0 <k <s, andt € (0,7).
+(iii) If, in addition, the initial perturbation satisfies Vy — V € L'(IR)*, so does
+the initial data for the system in Z, and there holds
+
+|Zollz2 < CllVo — Vln,
+
+Cy
+
+for some constant C > 0.
+
+4. DISSIPATIVE STRUCTURE AND LINEAR DECAY RATE OF SOLUTIONS
+
+As we have already mentioned at the end of Section 2, we need an additional
+energy estimate to get the correct a priori estimate and to complete the nonlinear
+analysis. To this end, in this section we examine the dissipative structure of the
+system at the linear level, which will also imply the linear decay rate of solutions.
+These linear properties play a key role to obtain the desired a priori estimate and
+the decay rate of the solutions for the full nonlinear system.
+
+It is to be noticed that we could have performed the analysis in the system
+written in the variables V. Indeed, the computations prior to the statement of
+Lemmata 2.6 and 2.7 imply the dissipative structure of the system. However, we
+need a sharper linear energy estimate to close the nonlinear one and this is possible
+only if we work with the set of variables identified in the previous Section 3.3.
+
+4.1. Dissipative structure of the linear system. Let us start by recalling the
+system that we obtained in Section 3. Let us fix a constant state V. To this
+constant state corresponds a (unique) constant state in the conserved variables
+W = (p, pu, pE,n) which we denote by W; see Section 3, Remark 3.3. Thus the
+system in the new perturbed variables reads
+
+PR AA Det LE = Ble + Ge, (4.1)
+where
+
+Z=DyW(U)(W -W),
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 21
+
+with U being the gradient with respect to W of the entropy function of the fluid,
+and U = U(W). The (constant) matrix coefficients are given by
+
+Po/D, —pue/p, a 0
+
+P=) = pud/p, pol+u/p,) b 0
+a b [a 0
+
+0 0 0475/4
+
+(4.2)
+
+a1 G2 az 0
+Re A) — | G2 @22 das G24
+
+a3 G23 G33 G34
+O G24 G34 G44
+
+already computed in the previous section and evaluated here at UV = U(W(V)); see
+in particular (3.19) and (3.21) and the subsequent expressions. Moreover,
+
+0 0 0 0
+“ 0 0 0 0
+B= 10 0 dou —dou7°/4
+_Aq 5/4
+0 0 40,0 4o7 (4.3)
+0 0 0 0
+a 00 0 0
+B=10 0 0 0
+0 0 0 47°/4/30,
+and the terms g and @, defined in (3.25), are such that
+g=0(\W-WP), aa)
+q= 0 (\W-W\|\ne| + |W -W/?),
+with ¢ € M+, where M is the null space of Ls
+Next we verify that system (4.1) at the linear level, that is,
+AZ, + AZ, + LZ = Ble, (4.5)
+
+satisfies the genuine coupling condition. To this end, observe that, from the expres-
+sion for L and B, it is easy to verify that
+
+ker L Aker B = span {(1,0, 0,0), (0,1,0,0)}.
+
+Then if w € ker LO ker B, w #0, then ~ is of the form ~ = (a1, a2,0,0) with a,
+and az not being simultaneously zero. Thus we have
+
+pa1p 0/D, + parpt/D, + a1 11 + G2412
+
+pA + Ady _ pa, puo/D, + Ha2(1 + w/B,) : a1a12 + agd20 | (4.6)
+[a1@ + pagb + aya13 + aragz
+a2024
+
+Let us assume that pA + Aly = 0, for py = (ay, a2,0,0) 4 0. Then, as a4 =
+49° /3, we conclude that az = 0. Using this, the first row of (4.6) implies that
+
+0 Harp 0/D, + a1 G11 arp 9/D, + a1pu/D,,
+22 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+so that yp = —u. However, if we use this relation for the expression in the second
+row of (4.6) we obtain
+
+0 = p01 pU8/p, + a1d12 = —ai pw O/p, + apO(1 + /p,) = apd,
+which holds only if a; = 0 as B, 6 > 0 and this contradicts the fact that p 4 0.
+Therefore we have proved that for any w € ker L ker B, w 4 0, it holds
+
+pAy+ Aly 40, WWeR.
+
+We summarize the computations above in the following result.
+Proposition 4.1. The linear system (4.5) satisfies the genuine coupling condition.
+
+As a consequence of the Equivalence Theorem, there exists a compensating ma-
+trix for system (4.5) which can be used, in turn, to obtain the following pointwise
+energy estimate in the Fourier space for the solution of system (4.5). This is a
+standard result that can be found in [1, 16].
+
+Lemma 4.2. The solutions Z(x,t) of the linear system (4.5) satisfy the estimate
+
+ke? \ 5
+Sat) (26.0), (4.7)
+
+for all€ € R andt > 0, with some positive constants C and k. Here Z denotes the
+Fourier transform of Z.
+
+I2(g,1)| < Cexp (-
+
+Proof. See the proof of Lemma 3.A.1 in [16], or that of Lemma 5.1 in [1].
+
+4.2. Linear decay of solutions. In this section we obtain the decay rate of solu-
+tions to the linear system (4.5). This is a direct consequence of the pointwise energy
+estimate (4.7) in the Fourier space upon application of Plancherel’s Theorem. For
+instance, estimate (4.7) directly yields the following result, which establishes a lin-
+ear decay rate for the solutions. We omit its proof because it can be easily obtained
+using the arguments of Lemma 4.5 below, which contains an improved decay rate.
+
+Lemma 4.3. Let us consider the Cauchy problem for system (4.5) with initial data
+Zo(a) € (H8(R)N Lt (R))’, for s>0. Then for each fixed 0 < € < s there holds
+-é —(£/24+1/4
+AE Z(t)|lo < Ce“ AL Zollo + CL +t) PPM Zola, (48)
+fort >0, and some positive constants C, c1.
+
+Now we define
+
+(e!®h) (= oa
+
+[etingye'® ag, (4.9)
+R
+
+where mencestitipee 7 _
+
+®(i€) == —(A°) (L + i€ A? — (i€)?B).
+Then (e'®h) (2) is the solution to the Cauchy problem of (4.5) with initial condition
+Zo =h. Thus the estimate (4.8) can be rewritten as follows.
+
+Corollary 4.4. For h € (H°(R)N LiR))*, s>0, we have the following estimate
+
+\|aket*Allo < Cem" JALAlfo FOL +) OO fan. (4.10)
+
+for each (fixed) 0 < €< s, and some positive constant C, cy.
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 23
+Next, we follow [22] and improve estimate (4.8) in the case when h € M+, where
+M is the null space of L.
+
+Lemma 4.5. Let h € (H*(R) NL" (R))*, s > 0, be such thath € M+. Then there
+holds
+
+\|abet® (A) *hljo < Cem" aL hlfo + CA $4) C?7 9/9 lh]fzn, (4.11)
+or al0 <£<s andt> and some positive constants C1.
+for all a d 0, and Pp Cc,
+Proof. As ( (4°) *n) (x) is the solution of the linear system (4.5) with initial
+
+data (A°) a(x), taking Fourier transform and using the pointwise energy estimate
+(4.7), we obtain
+
+~ a 2 ~ —1>
+le9 (A) HOP < Comp (Fe) ((A9) tO?
+mph, (4.12)
+< Cexp (-) (EP,
+
+which holds for all € € R. Now, we invoke Lemma C.1 in Appendix C: there exist
+positive constants c, C and R such that
+40\-17 —ct)p 2 —cé? t 7 ?
+
+[e699 (AP) HOP < Ce“ [AP + CléPe“* “|A(OP, (4.13)
+for |€| < R. Next, we choose and fix an integer @ such that 0 < ¢ < s, multiply
+let®8) (A) h(E? by |€|?¢ and integrate over all € € R to get
+
+if) 70\-13 @(it) (7O\-13
+[ishiet0 (a) tae? ag = ff letle'®® (49) HEP ae
+R ll<R (4.14)
++ fleet) (A) (EP ag = J + J,
+|gl2R
+
+with the same R as the one for which estimate (4.13) holds.
+
+We estimate J2 first. In this case, for || > R we have exp ( = 2S t) < em et,
+
+for some constant constant c; > 0. This implies that
+[Reo MOP ag scene | ep eile) ag
+[gar [glaR (4.15)
+< Ce“ atnlP,
+
+where we have used estimate (4.12). In the case of J,, we use estimate (4.13) to
+get
+
+[i _leee*(4)gyrag < f cee iiceyl ae
+JIEISR
+
+J\glcR
++f ciererre sh (eyP ag
+lé|<R
+
+S Ce OEh|? + C+ 1) CP alia.
+(4.16
+Thus combining (4.14), (4.15) and (4.16) together with the Plancherel’s Theorem
+we get
+abet (A) lip < Ce~* a Als + CA +1) C9 |ialiia,
+which implies estimate (4.11) after taking the square root.
+
+24 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+This last estimate is going to play an important role in the establishment of the
+nonlinear energy estimate on the system (3.23), where we use the fact that ¢ € M+;
+see (3.25) and the subsequent Remark 3.4.
+
+5. GLOBAL WELL-POSEDNESS AND DECAY RATE OF SOLUTIONS
+
+Once the linear decay of solutions from the previous section is obtained, we are
+in a position to perform the nonlinear energy estimate which, in turn, will allow
+us to close the a priori energy estimate and to get the decay rate of solutions to
+the nonlinear problem. We get the estimate for the perturbed variable Z, which is
+also valid for the conserved perturbed variables W — W as well as for V — V, in
+view of Proposition 3.6. Here W = (p, pu, pE,n) and V = (p,u,0,7), while W =
+(P, PU, DE,7) € Ogg is the (unique) constant equilibrium state which corresponds to
+
+ia ros aR os * P a4 _ * ‘
+the constant state V = (p,U, 0,7) satisfying @ = 7, and vice versa; in other words,
+the invertible map W = W(V) maps Ueg into Ocg back and forth; see Remark 3.3
+in Section 3.
+
+5.1. Nonlinear energy estimate. Let us start by taking V = (p,0,0,7) € Ueq,
+a constant equilibrium state. As previously explained, we can rewrite system (1.5)
+linearized around V as in (4.1) in a new set of variables:
+
+AZ, + AZ, + LZ = Blow + Gn +4. (5.1)
+
+Let us take the initial data
+
+Vo(x) € HS(R)NL(R)
+
+for system (1.5), and consider the unique local solution V(2,t) on the time in-
+terval [0,7;] satisfying (2.6) and the estimate (2.7) because of Theorem 2.3. By
+Proposition 3.6, the initial data Vo(x) corresponds to an initial data
+
+Zo(x) € H*(R)OL'(R), (5.2)
+with s > 3, for the Cauchy problem (5.1)-(5.2), with solution
+Z (x,t) = DuW(O)(W(V(a,t)) — W(V)),
+
+satisfying the same regularity and energy estimates as those of V; see Theorem 2.3.
+Using the Duhamel’s formula we can express the variables Z(x,t) as
+
+Z(a,t) = (e'? Zo) (a) + [ (e682) "Ge + ‘)) (x) dr,
+
+with the definition of the semigroup e’® given by (4.9). Then, apply Corollary 4.4
+to obtain
+
+t
+J2£Z(0llo < le" Zallo+ f la (9 (A) Ge +) (lode
+< Ce" |, Zollo + CA + 1) CPN | Zo ln (5.3)
+t
++f \jaf (e798 (A) Ge + a) (r)|lo dr.
+
+Let us compute the last term on the right-hand side of (5.3). First, since the
+identity
+
+af (e!® (Ix f)) (0) = af" (el f) (a)
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 25,
+
+holds for f € H*(R) and ¢ such that 0 < ¢+1< s, we have
+t t
+[Waele (4) 4s) (nlaar = fae (eA) (adr
+0 0
+t
+<¢ foal" a(r\lodr
+
++0 fae en |G ar
+
+For the term involving q, we are going to use that q € M+, where M is the null
+space of L. Thus Lemma 4.5 implies the estimate
+
+t t
+| \|as (e%-® (A) "G) (7) lodr < C [ eC G(r) Ilo drt
+0 0
+
+t
+40 f 4 =n) Gr) ar.
+0
+
+Substituting the last two estimates into (5.3) yields
+|0,Z(t)llo < Ce~" ||, Zollo + CA +t) C74 | Zolla
+
+t
++C | eH) (}19(7) Io + LGC) lo) ar
+0
+
++C | (1+ (t= 7) 284 (g(r) Ila + la7)llea) ar.
+
+Summing up this last estimate for = 0,...,s — 1 we obtain
+|Z()\Is—1 S$ Ce“ |[Zol|s-1 FC + 1) |[Zoll ns
+t
+#0 [ eX) (157) lg + C7Dlle—a) ar (5.4)
+
+t
+re [a+ =) (lala + aCe)
+0
+Next we estimate the Sobolev and L+ norms of g and g appearing on the right-
+hand side of (5.4). For this purpose, let us remember that (see (4.4))
+g = O(|W -W?),
+G= O(|W — Wi Ine| + |W — WF).
+
+Since we are assuming s > 3, we can use the Banach algebra properties of H*(R)
+and the Sobolev calculus inequalities (see, e.g., Theorem 7.77 in [11] and Lemma
+3.2 in [9]) to obtain
+
+|W - WP lls < C|W -W||s|W -W|n~ < CW -W||s||W - Whi
+< OW — Wl - Wr,
+and
+[IW — Wlinellla1 <C (IW — Wlle-slinellem + llnelle1|W — Willa)
+<C (|W —W]s—allrella + Ilnells—1||W — Wl)
+< C||W —W||s-1|lnells—1,
+
+26 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+so that we have
+la(7)Ils < Cl(W — W)(7)|s-al]W — W)(r)II5,
+
+om - (5.5)
+la(7)|]s1 < C(W — W)(7) || — W)(7)II>-
+In addition, it is easy to verify that
+W7)\lL1 < CMW —W)(r) IIo < CW — W))I5-. (5.6)
+
+la(r)llea < C\|(W —W)(r)||t < CW —W)(r)Io 4.
+Thus, using estimates (5.5) and (5.6) in estimate (5.4), we are lead to
+
+Z@)||s—-1 < Ce" || Zol]s-1 + CU. + 1) 4 || Zoll za
+
++0 feo Wal - Wear 5.7
+
++0 faery ~My adr,
+
+Next we apply Proposition 3.6 to recast the estimate above in terms of the original
+
+perturbation variables V — V:
+
+IV —V)()Ilsa < CA +4) ([|Vo — Vlx—a + [IVo — Vila)
+
++0 sup NV —V)(r)e fe UY = Vela ar
+
+t
+O<r<t 0
+
++0 f Ue enV - VIG) ar
+
+Now, let us define
+
+IY ~VOl, = sep A+) ~VO)Ils-
+
+With this notation, from estimate (5.8) we obtain
+IY — VOI], $C (Mo — Vs + [Mo = Vs) + Crm IIl(V - VOI] 25)
++ Cualé|V -VEOII,
+
+(5.9)
+where j1;(¢) and j12(t) are given by
+
+pa(t):= sup (1+7)*/4 [ eH BT) (1 4) V4 dry,
+O<r<t Jo
+
+pio(t) = sup (1+7)*/4 [ (+r—n) P40. 47)7/? dn.
+O<r<t Jo
+As 1; (t) and j1(t) are uniformly bounded in t (see, for example, Lemma A.1 in [37]),
+we can rewrite (5.9) as
+IY —V)@II], $ € (Mo — Visa + M0 — Vilan) + Cl]V -V) |, 250
+= 2
++el\v -V)@l-
+(5.10)
+
+Hence we have proved the following result.
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 27
+
+Proposition 5.1. Assume hypotheses (H,) — (H3). Let V(a,t) be the local solution
+on the time interval [0,T] of the Cauchy problem for system (1.5) with initial data
+
+Vo(x) satisfying Vo —V € (H8(R)N LR)", s > 3, and define
+Vo — Vlaa = Vo — Vle + [Vo - Vl,
+for0<k<s. Then there exist positive constants ai(< ao) (with ag as in Lemmata
+2.6 and 2.7) and 6, = 6;(a1) such that if Ns(T) < ay and ||Vo —V||s-1,1 < 61, then
+the estimate
+I(V —V)@)I[s-1 < Ca + 7/4 1]M0 — VJs—a (5.11)
+holds for all t € [0,T], with a positive constant C3 = C3(a1, 51).
+
+As a consequence of the proposition above we obtain the a priori energy estimate
+that we were missing.
+
+Corollary 5.2. Under the same assumptions of Proposition 5.1, the estimate
+
+Iv - 7). oita+ fo laeV (naar <CalVo-Vi2aa (6-12)
+
+holds for all t € [0,T] and some positive constant C4 = C4(a1, 61).
+
+Proof. We follow the same steps to get estimate (5.11). At the point where we
+obtain estimate (5.4), we sum up from ¢ = 1 to = s — 1 to obtain the estimate
+
+|.V(r)I|s—2 < Cx +t) 9/4 [Vo — Visa.
+Then, by taking the square of this estimate and integrating on time we arrive at
+t
+[ laVOl22¢r < Cl -ViR aw
+Jo
+where C is a positive constant uniform in ¢t. Here we have used that the function
+
+(1+t)~%/? is integrable in [0, 00). Finally, combining the last estimate and estimate
+(5.11) we obtain the result.
+
+5.2. Global decay rate of small perturbations and proof of Theorem 1.2.
+Up to this point, we are almost ready to prove the main result of the paper: the
+global existence and asymptotic decay of small perturbations of constant state
+solutions to system (1.5). For this, we only need the appropriate a priori energy
+estimate to perform the standard continuation argument of the local solution. This
+estimate is a direct consequence of Lemmata 2.6 and 2.7 and Corollary 5.2, and it
+is the content of the next result.
+
+Corollary 5.3. Let V(x,t) be the local solution on [0,T] of the initial value problem
+of system (1.5) with initial data Vo satisfying Vo —V € (H°(R)N D(R))*, $23,
+with the regularity (2.6) from the local existence Theorem 2.3. Then there exist
+positive constants aa(< a,) and Cs = Cs(a2,61), with ay and 6, as in Proposition
+5.1, such that if N,(T) < ag and ||Vo — V 5-11 < 51, then the estimate
+
+sup ||(V—V)(r)|I3 + [Wi (0,4, 4)(r)I[5-1 + lOem(7)II5 dr < Cs||Vo — VIE,
+
+O<r<t
+(5.13)
+holds for allt € [0,T).
+28 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+Proof. Combine the estimates given by Lemmata 2.6 and 2.7 and that of Corollary
+5.2 in the form (2.13) + a (2.14) + (5.12) for some a > 0 satisfying aC < 1. Thus
+we are lead to
+
+Ns(t)? < sup ||(V—V)(r)|Sa + sup |]@eV(7)|5-1
+O<r<t O<7r<t
+
++ ff eB e.. 8) Na + NOR 2 a) ar
+
+far
+< CO (|IVo-VI2. + No(D)’),
+
+from which we get (5.13) by taking N,(T) small enough.
+
+Proof of Theorem 1.2. Follows directly from the local existence Theorem 2.3, Propo-
+sition 5.1, Corollary 5.3 and a standard continuation argument; for further details,
+see the proof of Theorem 6.1 in [37] or that of Theorem 5.1 in [38].
+
+6. DISCUSSION
+
+In this paper we have studied a non-equilibrium diffusion limit system of equa-
+tions, derived by Buet and Després [5], which describes the dynamics of a non-
+relativistic, strongly radiative inviscid fluid. The system can be viewed as a sin-
+gular limit in the non-equilibrium diffusion regime, that is, when the temperature
+of radiation is a priori different from the fluid temperature. The radiation appears
+through an extra equation of parabolic type for the radiative temperature. This
+parabolic term, together with the relaxation term (which also comes from the equa-
+tion for radiative energy), are the only dissipative mechanism within the system. In
+previous works, damping, viscous or heat conduction effects for the fluid have been
+incorporated into the equations in order to show global existence of perturbations
+of (and stability of) constant states. Up to our knowledge, this is the first con-
+tribution addressing this issue for the original (inviscid, non-heat-conducting and
+without damping) set of equations proposed in [5]. We show the global existence
+and decay in time of perturbations of constant equilibrium states for the system in
+one space dimension.
+
+Instead of working directly with the model equations and of performing ad hoc
+energy estimates, we adopted an abstract methodology that involves the strict dissi-
+pativity and the linear decay structure of the system, which can be extrapolated to
+the nonlinear problem. This method falls under the framework of the classical work
+by Kawashima and Shizuta [20,40] for systems of hyperbolic-parabolic type. For
+this purpose, we proved that the entropy function identified by Buet and Després [5]
+can be used to symmetrize the system and to recast the problem in terms of new
+perturbation variables. The latter and the resulting system of equations play a cru-
+cial role in the establishment of the linear decay of the associated semigroup, based
+on the genuine coupling condition in one space dimension. In addition, we proved
+that for dimensions d > 2 the system fails to be genuinely coupled; see Proposition
+B.1 below. This fact justifies the application of the methods to the system in one
+dimension only. The lack of dissipative terms such as material viscosities, the lack
+
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 29
+of damping terms, as well as the non-genuinely coupled nature of the system, make
+the multi-dimensional model worthy of further investigations.
+
+ACKNOWLEDGEMENTS
+
+J. M. Valdovinos is grateful to the Department of Engineering, Information Sci-
+ences and Mathematics of the University of L’Aquila for their hospitality during
+a research visit when this work was initiated. The work of C. Lattanzio is par-
+tially supported by INCAM-GNAMPA. The work of R. G. Plaza was supported
+by SECIHTI, Mexico, grant “Ciencia de Frontera” CF-2023-G-122. The work of
+J. M. Valdovinos was supported by SECIHTI, Mexico, Program “Ayudantes de
+Investigacion 2025” of the Sistema Nacional de Investigadoras e Investigadores.
+
+APPENDIX A. LOCAL EXISTENCE IN
+
+In this appendix we state the local (in
+problem of the non-equilibrium system (1.1)
+
+SEVERAL SPACE DIMENSIONS
+
+ime) well-posedness for the Cauchy
+in any space dimension d > 1 in the
+
+perturbation framework around a constant equilibrium state, provided that the
+initial data is sufficiently smooth and close to the constant equilibrium state. This
+local existence result follows directly from a previous theorem by Kawashima [16].
+Here we verify that the generic radiation system (1.1) can be put into the non-
+homogeneous quasilinear form needed in [16]. For this purpose, first we use the
+continuity equation to simplify the momentum equation as follows:
+
+p(Vu)u+ V 0.
+
+Next, take the inner product of the resulting momentum equation with the velocity
+field u to obtain
+
+0, (4 |u|?) + pV(Slul?) -w+ Vp-u= -4Vn-u.
+
+poyvu p+ 3n)
+
+(A.1)
+Let us recast the energy equations as
+O(pE)+V > ((pE +p)u) = V-(g-Vn) — (in + V- (nu + fnu)).
+
+The latter can be simplified, using the continuity equation, the equation for the
+radiation intensity and the fact that E = e+ 3/ul?, into
+
+paz (e + $\ul?) + pV(e4
+Now subtract equation (A.1) from the last equation to obtain
+
+64).
+
+il,
+
+Bos
+
+sul?) w+ Vp-u+ pV -u=o,(n — 64) —$Vn-u.
+)
+
+pV -u
+
+poye + pVe-u oa(n
+
+In this last equation we use again the continuity equation and e; = e,p; + eg and
+Ve = e,Vp + e9V9 (we are assuming that the internal energy is a function of the
+density and temperature) to arrive at
+
+peo (0,0 + VO-u) + (p— prep) V -u=oaln— 6).
+
+Finally, using the thermodynamic relation p— prep = Opp in the last expression, we
+arrive to the following quasilinear form of system (1.1)
+
+d d
+A(V)Vi + > AMV) Ve; + Q(V) = D2 BV) Veyargs
+
+ij=l
+
+(A.2)
+
+j=l
+30. C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+where V = (p,u, 6,7) € R4*8, w= (w,...,ua) € R4, and
+
+1 O1xa =O 0 0
+Oax1 Pla Oax1 Oax1 Oax1
+A(V) = 4 V)= ‘ AB
+= 10 One pea 0 J? CM=1 5,6) as)
+0 On OO 1 a(n — 04)
+The first- and second-order matrix coefficients are given in terms of their symbols:
+4 weg ps 0 0
+. T -£)L eT 1eT
+AVV)E; = Pef& Pp (u g) d Po 3 AA
+» MEH LO “Ome peo(u-é) 0 (Ad)
+0 in€ 0 we
+
+and
+0 Ona 0 0
+
+d
+sk Oaxi1 Ola Oax1 Oax1
+
+DS BV EGE=1 0 Oy =O (A.5)
+
+jk=1 le?
+
+0 Olxa 0
+
+for € = (&1,..., 4a) € R®.
+In order to state the local existence of solutions, we multiply the first and second
+equations in (A.2) by @p,/p and 6, respectively, to obtain
+
+p a p
+AY(V) ; + ALY) ; = filV, Vn),
+j=l
+
+t Ps &
+
+(A.6)
+
+a
+
+m — xAn = falV, VV),
+where the matrix coefficients are given by
+
+9 p,/p O1xa 0
+AYV) =| Oax1 pla Oaxi |,
+0 Oixa peo
+
+. 9 pp(u- é;)/p 9 pes 0
+Ai, (V) = O ppc} pO(u-é;)Ia A pee}
+0 6 poe; peo(u-é;)
+and the non homogeneous terms take the form
+0
+fi(V, Vn) = | -0(Vn) 1/3
+a(n — 6)
+
+f2(V, VV) = 04(64 —n) — V(u) — nV -u.
+In the expression above, VV denotes the tensor containing all the derivatives of
+order one of V = (p, u, 0,1).
+We are interested in the initial value problem for system (A.6) with initial data
+
+V(x, 0) = Vo(2) = (p0; to, 80, 10) (x). (A.7)
+System (A.6) falls into the general class of quasilinear symmetric hyperbolic-parabolic
+system of composite type for which Kawashima (see [16, Section 2.1]) proved the
+
+local well-posedness. Thus we have the following theorem, which is a restatement
+of Theorem 2.9 in [16].
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 31
+
+Theorem A.1. Let V = (p,u, 0,7) € R“*® be a constant equilibrium state. Con-
+sider the Cauchy problem for system (A.6) with initial data Vo(x) such that Vy—V €
+H*(R¢), s > so +1, with so := |$] +1. Then there exists « > 0 such that if
+
+ag := ||[Vo-V|s <6,
+
+we have that m, < po(x) < Mi, m2 < O0(x) < Mo, m3 < mo(x) < Mz for all
+x € R®@ and for some positive constants 0 < mj; < Mj, i = 1,2,3, and there exists
+Ty = Tp(ao) > 0 such that the Cauchy problem has a unique solution V = (p,u,6,n)
+satisfying
+
+p-p,u-t,0-8 eC ((0, TM]; H°(R*)) NC? ([0, To]; HS" 1(R)) ,
+—7 € C((0, To]; H4(R%)) NC! (0, To]; H°-7(R9) ,
+
+and the estimate
+
+t
+isp MY VCE + ff 100.4, IRA + ICI adr < ColVa — VB,
+
+holds for all t € [0, Tp], and some positive constant Cy depending on |\|Vo — V|s-
+
+APPENDIX B. NON-GENUINE COUPLING IN DIMENSION d > 2
+
+In this section we prove that system (1.1) (at the linear level) does not satisfy the
+genuine coupling condition when the space dimension is d > 2. For this purpose,
+let us first write the itneat2e< system around a constant equilibrium state V =
+(7,4, 9,7), with 7 = 0°. Based on the calculation of its quasilinear form (A.2), the
+linearized system around V reads
+
+d
+AV, + $7 AMV, + LV = > BEV, sexs (B.1)
+j=l jk=1
+where A°, AJ and BJ" are the matrices given in (A.3)-(A.5) evaluated at V, and
+L = DyQ(V). More precisely,
+1 Oixa =O 0
+a, Oax1 Pla Oax1 Oaxi
+A = AV) =| ae
+(V) 0 Oixa Peo 0
+0 Oixa 0 1
+
+0 Oixa 0 0
+
+_ Oaxi Oa Oaxi = Oax1
+
+L=DyQV) = 0 Oixa do, Oa
+
+0 Oixa —40,0° Ca
+we; Pej 0. o
+I= AV Pee; Poe; 3)
+
+Sa) = 0 Peg(u-é;) 0
+
+0 0 U-é;
+
+0 Oixa 0 0
+
+‘le ke Oax1 Oa Oax1 Oax1
+jk — pik) —
+BM=BYV)=1 9 Oa «0
+
+0 Oxa 0 ge
+
+32 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+System (B.1) is not in symmetric form, but using the relation 7 = @* one can easily
+see that _
+Op n/P Oixa 0 0
+
+ga] Oaxt O7La Oixad O1xa
+0 Oixa 7 9
+0 One 0 O/4
+
+is a symmetrizer. Indeed, we have
+
+Op,n/p Oixa 0 0
+
+ri ‘ Oax1 pOmTa Oax1 Oax1
+A :=SA°= oe 5 B.2
+0 Oixa peo 9 . (B2)
+0 Oe 0 O/4
+0 Oixa 0 0 0 Oixa 0 0
+— Oaxi 0a Oaxa  Oaxa Oax1 0a Qaxd Oaxa
+L:=SL= 33 f= <3 —
+0 O1xa 4000 —oa7 0 O1xa 4000 —oa8
+0 Oixa —o.8° o,0/4 0 Oixa -o,0° o,0/4
+(B.3)
+using the relation 7) = a, and
+Open (%-e;)/p _AD,ne; _ 0 _0
+Baga a Op,ne; pOn(a- é;)da OTP oe} 306;
+0 ONDoe; peom(U-e;) OO
+0 2076; 0 0 (u-é;)/4
+(B.A)
+0 O1xa 0 0
+k ah Oax1 0a  Oax1  Oax1
+=SB=) 9 a, 0 0 |e (B.5)
+
+0 Ona 0 $8
+
+T20.
+Hence, if we multiply system (B.1) by S on the left we arrive at the following
+symmetric constant coefficient system,
+
+ad. d
+AV. + \\A'Ve, + LV = S> BY Vase: (B.6)
+j=l jyk=1
+
+Proposition B.1. If d > 2, then system (B.6) is not genuinely coupled.
+Proof. Applying the Fourier transform to (B.6) we end up to
+
+AV, + (i€|AW) +E + [ePBW))? =
+where w = €/|€| € S41, € € R4, € £0, and
+
+1 Op, 1 - w/P Op,nw 0 0
+_ ai | 9p,mw" = peta wla ONPw' = FOTW!
+Ay) = DA 7 0 ONDw peojU-w 0
+0 307w 0 w-w/4
+
+jk=1
+
+6
+a 0 Oixa
+jk Oax1 Oa oa be
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 33
+for w € St!, and where F is given by (B.3). By the form of E and the relation
+R= a, it is easy to check that
+
+ker(Z) = span ({(1,01a; 0,0), (0,€),0,0),(0,0rxa, 1/(48"), 1) Ljs 1,...,a}),
+while
+
+ker(B(w)) = span ({(1, 01xa;0, 0), (0, €;,0,0), (0, 01a, 1,0) : 7 =1,...,d}),
+which is independent of w. Thus we obtain
+
+ker(Z) Nker(B(w)) = span ({(1,01xa,0,0), (0,é;,0,0) : 7 =1,...,d}).
+
+Let us take  € ker(Z) Nker(B(w)), w = (0, ég,0,0) #0. Then for all directions
+Ww = (w1,W9,...,Wa) € S¢ such that wy = 0, which always exist as we are assuming
+d > 2, we obtain
+
+0 0
+amie. \aT = aaeat
+Ate = |ROTO eee | salty | HPeMED |
+0 0
+0 0
+so that
+0
+= DOn(u- el
+yA + A(w)y) = pega } +med | _ 0,
+0
+as long as we take 4 = —t%-w. The computations above show that the linear system
+
+(B.6) does not satisfy the genuine coupling condition when d > 2.
+
+Remark B.2. Let us observe that the argument of the proof above does not apply
+to one space dimension (d = 1) because in that case w = £1 and hence we cannot
+choose w such that wq = 0.
+
+APPENDIX C. SPECTRAL ANALYSIS OF THE SEMIGROUP FOR SMALL WAVE
+NUMBERS
+
+Next, we prove a result that was used along the proof of Lemma 4.5. The analysis
+is basically the same as that presented in [22, Appendix A]. However, a small
+modification must be made to take into account the dissipation due to viscosity
+mechanisms. Let us start by defining U(z) := '(z)~1, where TP := (A°) 1? and
+®(z) is defined after (4.9):
+
+O(z) = —(A°)* (Z + 2A — 2B) :
+
+Then we consider ¥(0) = T0(0)P-! = —-[-!ZP-!, which is real symmetric and
+non-positive definite. Thus (0) has an spectral representation of the form
+
+W(0) = S> AjIl;, (C.1)
+j=l
+34 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+where the js are the distinct r eigenvalues of (0) and Is are the corresponding
+eigenprojections. The IIs are real symmetric satisfying
+r
+
+Yih =s, TA, dl,
+
+j=l
+where 6;x is the Kronecker delta. In (C.1) we sort out the eigenvalues such that
+Ay = 0 and \; < 0 for j = 2,...,r. Then II, R* is the null space of U(0), which
+implies
+
+IL,R*=TM, (C.2)
+
+where M is the null space of L.
+
+As U(z) is a polynomial family of matrices depending on the complex parameter
+z €C, there is only a finite number of coalescing points in the complex plane; see
+Texier [41, Proposition 1.3]. This implies that the coalescing points are isolated.
+Thus for z close to 0, but different of 0, the eigenvalues of (z) are of constant
+multiplicity, and we can write the spectral decomposition
+
+U(z) = D> Ae(z) H(z), (C.3)
+1
+
+where 7 is constant. In the above representation the eigennilpotent part of each
+eigenvalue is zero, as a consequence of Y(z) being real symmetric (and hence diag-
+onizable) for z real and because of analytic continuation to z complex. Moreover,
+one can easily show that Ag(z) and II¢(z) are analytic at z = 0 (see, e.g., Liu and
+Zeng [33, Lemma 6.8]), and the IIp(z) are real symmetric for z real and they satisfy
+
+> Ig(z) =I, Te(z)Ue(z) = 5TH e(z), (C.4)
+f=1
+
+for ¢,k =1,2,...,7. Evaluating (C.3) at z = 0 and using (C.1) we get
+
+S> Ae(0)He(0) = S> AjHy.
+e=1 j=l
+
+Thus by the uniqueness of the spectral decomposition as the sum of a diagonalizable
+operator and a nilpotent one, we obtain that for each j = 1,2,...,r, there exists
+nj; of the 7 eigenvalues Ag(z) such that A; = A¢(0). We rename these n, eigenvalues
+by Aja(z), with a = 1,2,...,n;, so that the spectral decomposition (C.3) can be
+rewritten as
+
+W(z) = S02 YO Aja(2)Hja(2), (C.5)
+j=la=l
+while (C.4) becomes
+SOS Wel2) =1,  Wja(2)Ujrar (2) = 65515aa’Hjo(2)- (C.6)
+j=la=l
+In addition, there holds
+Th; = $0 Wja(0), Ay = Ajo (0). (C.7)
+
+a=1
+DISSIPATIVITY AND DECAY FOR A
+
+In what follows we are going to der
+
+5,
+
+RADIATION HYDRODYNAMICS SYSTEM 3:
+
+ive some bounds on the Ajq(z)'s appearing
+
+in (C.5) for z close to zero, specifically for z = i€ for € € R small. In doing so we
+
+consider the cases 7 = 1 and j = 2
+that is for 7 = 2,...,r. We know that
+
+.,7 separately. We start by the latter case,
+
+Aja(0) = Ay S 0, fOr PE Vjgeoey My,
+
+Thus by continuity of the eigenvalues (see [41, Proposition 1.1]), there holds
+
+Re Aja
+
+for some uniform constant c; > 0 for |€
+and some 0 < Ri <1.
+
+For j = 1, by the Equivalence Th
+W(ié) are the same as those of the e
+system (4.5), which is genuine coupled
+
+(i) < -e1, (C.8)
+q Rip ford = 2y.0ng 6 aNd WOL,Y, cxay MGs
+eorem 2.1 (observe that the eigenvalues of
+
+igenvalue problem associated to the linear
+; we have
+
+Re Ata (i) < “eye
+for some uniform constant cz > 0, and for all € € R and all a = 1,2,...,nj (see
+
+statement (iv) of Theorem 2.1). Thus
+
+‘or |€| < Ri we can write
+
+Re Ara (ig) < —e36?, (C.9)
+for all a = 1,...,n 1, and some other positive uniform constant c3.
+As the Ajq(z) and Hjq(z) are analytic at z = 0, they can be written in the form
+oO ES
+Aol) = Sage, Thiel?) = So mse (C.10)
+k=0 k=0
+The representation above together with (C.2), (C.6) and (C.7) imply
+TR = T1,,(0)R* c ThR* =F, (C.11)
+
+fora =1,2,...,m1.
+We are ready to prove the following
+
+Lemma C.1. Assume that g(€) € M
+and R such that
+
+jet (AP) 9(€)| < Co“19(E)| + Cele“ *""14)
+
+for € < R, and for allt > 0.
+
+lemma.
+
++, then there exists positive constants c, C
+
+)
+
+Proof. Using the spectral decomposition (C.5), (C.2) and that ®(z) = T-!W(z)P,
+
+T= (A°) ue we get
+ef (AP) 96) = E>
+
+1ee4C8) p19 (¢)
+
+Hee . (C.12)
+= ee OT Ta UE 19(6).
+j=la=l
+We consider the cases 7 = 1 and j = 2,...,r. For the latter one, thanks to the
+bound (C.8) and the analiticity of the IIj,(z) at z = 0 we get
+rn;
+OY ek OTT, 4 (E-19O)] < Cre“) (C.13)
+
+j=2a0=1
+36 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+for some uniform constants Cj, c; for |€| < Ri, with c; and R, such that (C.8)
+holds.
+For j = 1, we use the hypothesis g(€) € M+ and (C.11) to obtain
+
+(Ma (0)P~"9(€), 6) = (96), P "Mia (0)¢) =0, a=1,...,m1,
+
+for all @ € R*, where we have used the fact that [~1 and II,4(0) are real symmetric.
+Thus MO P-19(€) = Tha (0)P-19(€) = 0, so that
+
+Tha (i€)0-19(€) = S> UY? (ig)*P19(6),
+k=1
+
+for a = 1,...,n1. Then combining the expression above and the bound (C.9) we
+are led to
+
+ny
+| Do rote CTT, «(iE 14()| < Caléle***19O), (C.14
+a=l
+for some uniform constants C2 and cg for |é| < R,, with cz and R, such that (C.9
+holds.
+
+The proof concludes by combining (C.13) and (C.14), and by taking C =
+max{C}, C2} > 0, c= min{cei,c3} > 0 and R= Rj.
+
+REFERENCES
+
+1] F. ANGELES, C. MALAGA, AND R. G. PLAZA, Strict dissipativity of Cattaneo-Christov systems
+for compressible fluid flow, J. Phys. A 53 (2020), no. 6, pp. 065701, 23.
+
+2] X. BLanc, B. Ducomer, AND 8S. NeGasova, On some singular limits in damped radiation
+hydrodynamics, J. Hyperbolic Differ. Equ. 13 (2016), no. 2, pp. 249-271.
+
+3] X. BLANc, B. Ducomer, AND S. NEGAsovA, On some models in radiation hydrodynamics,
+in Research in mathematics of materials science, M. I. Espafiol, M. Lewicka, L. Scardia,
+and A. Schlomerkemper, eds., vol. 31 of Assoc. Women Math. Ser., Springer, Cham, 2022,
+pp. 79-102.
+
+4] R. BuCHLER, Radiation transfer in the fluid frame, J. Quant. Spectrosc. Radiat. Transf. 30
+(1983), no. 5, pp. 395-407.
+
+5] C. Bur anb B. Despres, Asymptotic analysis of fluid models for the coupling of radiation
+and hydrodynamics, J. Quant. Spectrosc. Radiat. Transf. 85 (2004), no. 3-4, pp. 385-418.
+
+6] J. I. Castor, Radiation Hydrodynamics, Cambridge University Press, 2004.
+
+7| K. O. FriepRIcHs AND P. D. Lax, On symmetrizable differential operators, in Singular
+Integrals (Proc. Sympos. Pure Math., Chicago, Ill., 1966), Amer. Math. Soc., Providence,
+R.1L., 1967, pp. 128-137.
+
+8] S. K. Gopunov, Non-unique “blurrings” of discontinuities in solutions of quasilinear sys-
+tems, Soviet Math. Dokl. 2 (1961), pp. 43-44.
+
+9] H. Harrori and D. N. Li, Global solutions of a high-dimensional system for Korteweg
+materials, J. Math. Anal. Appl. 198 (1996), no. 1, pp. 84-97.
+
+(10] C. Hirscu, Numerical Computation of Internal and External Flows: The Fundamentals of
+Computational Fluid Dynamics, Butterworth-Heinemann, second ed., 2007.
+
+(11) R. J. Iorio, Jr. AND V. D. M. Iorio, Fourier analysis and partial differential equations,
+vol. 70 of Cambridge Studies in Advanced Mathematics, Cambridge University Press, Cam-
+bridge, 2001.
+
+[12] P. JIANG, Global well-posedness and large time behavior of classical solutions to the diffusion
+approximation model in radiation hydrodynamics, Discrete Contin. Dyn. Syst. 37 (2017),
+no. 4, pp. 2045-2063.
+
+(13] P. JIANG AND Y. ZHOU, Smooth solutions to diffusion approximation radiation hydrodynamics
+equations, J. Math. Anal. Appl. 466 (2018), no. 1, pp. 324-337.
+
+14)
+
+15)
+
+16
+
+17
+
+18}
+
+19
+
+20)
+
+21
+
+(22)
+
+(23)
+
+24)
+
+25)
+
+26)
+
+(27)
+
+28)
+
+(29)
+
+30)
+
+34)
+
+35)
+
+36)
+
+37
+
+38)
+
+DISSIPATIVITY AND DECAY FOR A RADIATION HYDRODYNAMICS SYSTEM 37
+
+S. JIANG, F. X1B, AND J. ZHANG, A global existence result in radiation hydrodynamics, in
+Industrial and applied mathematics in China, T.-T. Li and P. Zhang, eds., vol. 10 of Ser.
+Contemp. Appl. Math. CAM, Higher Ed. Press, Beijing, 2009, pp. 25-48.
+
+Q. Ju, L. Li, AND Z. ZHANG, Non-equilibrium-diffusion limit of the compressible Euler radi-
+ation model, J. Nonlinear Sci. 35 (2025), no. 5, pp. Paper No. 89, 1-44.
+
+S. KAWASHIMA, Systems of a Hyperbolic-Parabolic Composite Type, with Applications to the
+Equations of Magnetohydrodynamics, PhD thesis, Kyoto University, 1983.
+
+S. KAWASHIMA, Y. NIKKUNI, AND S. NISHIBATA, The initial value problem for hyperbolic-
+elliptic coupled systems and applications to radiation hydrodynamics, in Analysis of systems
+of conservation laws (Aachen, 1997), vol. 99 of Chapman & Hall/CRC Monogr. Surv. Pure
+Appl. Math., Chapman & Hall/CRC, Boca Raton, FL, 1999, pp. 87-127.
+
+S. KAWASHIMA, Y. NIKKUNI, AND S. NISHIBATA, Large-time behavior of solutions to
+hyperbolic-elliptic coupled systems, Arch. Ration. Mech. Anal. 170 (2003), no. 4, pp. 297-329.
+S. KAWASHIMA AND S. NISHIBATA, A singular limit for hyperbolic-elliptic coupled systems in
+radiation hydrodynamics, Indiana Univ. Math. J. 50 (2001), no. 1, pp. 567-589.
+
+S. KAWASHIMA AND Y. SHIZUTA, On the normal form of the symmetric hyperbolic-parabolic
+systems associated with the conservation laws, Tohoku Math. J. (2) 40 (1988), no. 3, pp. 449—
+464.
+
+S. KAWASHIMA AND W. YONG, Dissipative structure and entropy for hyperbolic systems of
+balance laws, Arch. Ration. Mech. Anal. 174 (2004), no. 3, pp. 345-364.
+
+S. KAWASHIMA AND W. YONG, Decay estimates for hyperbolic balance laws, Z. Anal. Anwend.
+28 (2009), no. 1, pp. 1-33.
+
+H. Kim, H. Hone, anp J. Kim, Global existence of smooth solutions for the diffusion ap-
+proximation model of general gas in radiation hydrodynamics, Acta Math. Sin. (Engl. Ser.)
+39 (2023), no. 10, pp. 1855-1873.
+
+R. KIPPENHAHN AND A. WEIGERT, Stellar Structure and Evolution, vol. 16 of Astronomy and
+Astrophysics Library, Springer-Verlag, Berlin—Heidelberg, 1990.
+
+C. Larranzio, C. Mascia, T. NGUYEN, R. G. PLAZA, AND K. ZUMBRUN, Stability of scalar
+radiative shock profiles, SIAM J. Math. Anal. 41 (2009), no. 6, pp. 2165-2206.
+
+C. Larranzio, C. MAscIA, AND D. SERRE, Shock waves for radiative hyperbolic-elliptic sys-
+tems, Indiana Univ. Math. J. 56 (2007), no. 5, pp. 2601-2640.
+
+R. J. LEVEQUE, Numerical Methods for Conservation Laws, Lectures in Mathematics ETH
+Zirich, Birkhauser Verlag, Basel, second ed., 1992.
+
+L. Li AND Z. ZHANG, Nonequilibrium-diffusion limit of the compressible Euler radiation model
+in R?, Math. Methods Appl. Sci. 47 (2024), no. 18, pp. 14054—14078.
+
+C. Lin, Asymptotic stability of rarefaction waves in radiative hydrodynamics, Commun.
+Math. Sci. 9 (2011), no. 1, pp. 207-223.
+
+C. Lin, J.-F. COULOMBEL, AND T. Goupon, Shock profiles for non-equilibrium radiating
+gases, Phys. D 218 (2006), no. 1, pp. 83-94.
+
+C. Lin, J.-F. COULOMBEL, AND T. GouDoN, Asymptotic stability of shock profiles in radiative
+hydrodynamics, C. R. Math. Acad. Sci. Paris 345 (2007), no. 11, pp. 625-628.
+
+C. Lin and T. Goubon, Global existence of the equilibrium diffusion model in radiative
+hydrodynamics, Chinese Ann. Math. Ser. B 32 (2011), no. 4, pp. 549-568.
+
+T.-P. Liv AND Y. ZENG, Large time behavior of solutions for general quasilinear hyperbolic-
+parabolic systems of conservation laws, Mem. Amer. Math. Soc. 125 (1997), no. 599,
+pp. viii+120.
+
+Y. Liu AND S. KAWASHIMA, Asymptotic behavior of solutions to a model system of a radiating
+gas, Commun. Pure Appl. Anal. 10 (2011), no. 1, pp. 209-223.
+
+R. B. Lowrik, J. E. MoreL, AND J. A. HITTINGER, The coupling of radiation and hydrody-
+namics, Astrophys. J. 521 (1999), no. 1, pp. 432-450.
+
+D. MIwALAs AND B. WEIBEL-MIHALAS, Foundations of Radiation Hydrodynamics, Oxford
+University Press, New York—Oxford, 1984.
+
+R. G. PLAZA AND J. M. VALDOVINOS, Dissipative structure of one-dimensional isothermal
+compressible fluids of Korteweg type, J. Math. Anal. Appl. 514 (2022), no. 2, p. Paper No.
+126336.
+
+R. G. PLAZA AND J. M. VALDOVINOS, Global decay of perturbations of equilibrium states
+for one-dimensional heat conducting compressible fluids of Korteweg type. Preprint (2023).
+arXiv:2307.16300.
+
+38 C. LATTANZIO, R. G. PLAZA, AND J. M. VALDOVINOS
+
+39] G. C. POMRANING, The Equations of Radiation Hydrodynamics, vol. 54 of International Series
+
+of Monographs in Natural Philosophy, Pergamon Press, 1973.
+
+40] Y. Suizura AND S. KAWASHIMA, Systems of equations of hyperbolic-parabolic type with appli-
+
+cations to the discrete Boltzmann equation, Hokkaido Math. J. 14 (1985), no. 2, pp. 249-275.
+
+41] B. TExiER, Basic matrix perturbation theory, Enseign. Math. 64 (2018), no. 3-4, pp. 249-263.
+
+42] J. WANG AND F. Xin, Asymptotic stability of viscous contact wave for the 1D radiation
+
+hydrodynamics system, J. Differ. Equ. 251 (2011), no. 4-5, pp. 1030-1055.
+
+43] J. WANG AND F. XIE, Asymptotic stability of viscous contact wave for the one-dimensional
+
+compressible viscous gas with radiation, Nonlinear Anal. 74 (2011), no. 12, pp. 4138-4151.
+
+44] W. WANG AND W. WANG, The pointwise estimates of solutions for a model system of the
+
+radiating gas in multi-dimensions, Nonlinear Anal. 71 (2009), no. 3-4, pp. 1180-1195.
+
+45] W. WANG AND F. Xin, The initial value problem for a multi-dimensional radiation hydrody-
+
+namics model with viscosity, Math. Methods Appl. Sci. 34 (2011), no. 7, pp. 776-791.
+
+46] W. WaNG, F. XIE, AND X. YANG, Large time behavior of solutions to a diffusion approxi-
+
+mation radiation hydrodynamics model, J. Differ. Equ. 366 (2023), pp. 518-564.
+
+47) H. WrYL, Shock waves in arbitrary fluids, Comm. Pure Appl. Math. 2 (1949), pp. 103-122.
+
+48] YA. B. ZEL'/DOVICH AND Yu. P. RAIZER, Physics of Shock Waves and High-Temperature
+Hydrodynamic Phenomena, Dover Publications Inc., Mineola, New York, 2002.
+
+(C. Lattanzio) DIPARTIMENTO DI INGEGNERIA E SCIENZE DELL’INFORMAZIONE E MATEMATICA,
+UNIVERSITA DEGLI STUDI DELL’ AQUILA, VIA VETOIO (SNC), Copprro I-67010, L’AquiLa (ITALY)
+Email address: corrado.lattanzio@univaq.it
+
+(R. G. Plaza) DEPARTAMENTO DE MATEMATICAS Y MECANICA, INSTITUTO DE INVESTIGACIONES
+EN MATEMATICAS APLICADAS Y EN SISTEMAS, UNIVERSIDAD NACIONAL AUTONOMA DE MEXICO,
+CircuiTo EscoLar s/N, CIUDAD UNIVERSITARIA C.P. 04510 Cp. Mx. (MExICco)
+
+Email address: plaza@aries.iimas.unam.mx
+
+(J. M. Valdovinos) DEPARTAMENTO DE MATEMATICAS Y MECANICA, INSTITUTO DE INVESTI-
+GACIONES EN MATEMATICAS APLICADAS Y EN SISTEMAS, UNIVERSIDAD NACIONAL AUTONOMA DE
+Mexico, Circuito ESCOLar $/N, CIUDAD UNIVERSITARIA, C.P. 04510, Cb. DE MEx1co (MEXICO)
+
+Current address: INS’ JT DE MATHEMATIQUES DE TOULOUSE, UNIVERSITE DE TOULOUSE,
+118, ROUTE DE NARBONNE, F-31062, TOULOUSE CEDEX 9 (FRANCE)
+
+Email address: jvaldovi@math.univ-toulouse.fr
+

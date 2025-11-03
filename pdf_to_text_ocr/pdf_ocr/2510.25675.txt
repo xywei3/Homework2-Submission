@@ -1,0 +1,2080 @@
+Quantum simulation of actinide chemistry:
+towards scalable algorithms on trapped ion
+quantum computers
+
+Kesha Sorathia!”, Cono Di Paola!, Gabriel
+Greene-Diniz!, Carlo A. Gaggioli!, David Zsolt
+Manrique!, Joe Gibbs”, Sean Harding?, Thomas M.
+Soini!, Neil Gaspar?, Robert Harker?, Mark Storr?
+and David Munoz Ramo!
+
+'Quantinuum, Terrington House, 13-15 Hills Road, Cambridge
+CB2 1NL, United Kingdom.
+2 AWE, Aldermaston, Reading RG7 4PR, United Kingdom.
+
+*Corresponding author(s). E-mail(s):
+kesha.sorathiaQ@quantinuum.com;
+
+Abstract
+
+Due to the wide range of technical applications of actinide elements, a
+thorough understanding of their electronic structure could complement
+technological improvements in many different areas. Quantum comput-
+ing could greatly aid in this understanding, as it can potentially provide
+exponential speedups over classical approaches, thereby offering insights
+into the complex electronic structure of actinide compounds. As a first
+foray into quantum computational chemistry of actinides, this paper
+compares the method of quantum computed moments (QCM) as a noisy
+intermediate-scale quantum algorithm with a single-ancilla version of
+
+2510.25675v1 [quant-ph] 29 Oct 2025
+
+quantum phase estimation (QPE), a quantum algorithm expected to
+run on fault-tolerant quantum computers. We employ these algorithms
+to study the reaction energetics of plutonium oxides and hydrides. In
+order to enable quantum hardware experiments, we use several tech-
+
+arXiv
+
+niques to reduce resource requirements: screening individual Hamiltonian
+Pauli terms to reduce the measurement requirements of QCM and vari-
+ational compilation to reduce the depth of QPE circuits. Finally, we
+derive electronic structure descriptions from a series of representative
+chemical models and compute the energetics from quantum experiments
+2 Quantum simulation of actinide chemistry with quantum computers
+
+on Quantinuum’s H-series ion trap devices using up to 19 qubits. We
+find our experiments to be in excellent agreement with results from
+classical electronic structure calculations and state vector simulations.
+
+Keywords: Quantum computing, ab-initio simulations, actinides chemistry,
+actinides corrosion
+
+1 Introduction
+
+Actinides play a vital role in a wide range of applications, including energy
+generation, medical diagnostics and imaging technologies, nuclear safety, and
+catalysis [1, 2]. Despite their significance, experimental studies of actinide
+compounds are often limited by their toxicity and radioactivity. Moreover,
+actinide-containing materials are typically characterised by strong electron cor-
+relation due to the near-degeneracy of the 5f, 6d, and 7s orbitals and significant
+relativistic effects due to spin-orbit coupling. These features often render con-
+ventional computational methods, such as density functional approximations
+and coupled cluster theory, unreliable for accurately describing their elec-
+tronic structure. Multireference approaches and complete active space (CAS)
+methods provide more accurate descriptions in such cases [3]. However, their
+applicability is limited to moderately small systems due to their exponentially
+scaling computational costs [4].
+n this context, quantum computing has the potential to usher in a new era
+in modelling the electronic structure of actinides [5]. Recent advances in quan-
+tum computing algorithms for fault-tolerant devices offer near-linear scaling
+in the computational cost of CAS methods [6, 7]. This enables large-scale CAS
+descriptions providing near-exact solutions for complex and strongly correlated
+chemical systems.
+
+This study explores the application of quantum computational techniques
+to the investigation of the electronic structure and reactivity of actinide sys-
+tems. A particular focus of this foray into quantum computational actinide
+chemistry lies thereby on the chemical behavior of prototypical species like
+plutonium oxides and plutonium hydrides and their role in hydride-catalysed
+oxidation and corrosion reactions. A detailed understanding of such processes
+is critical for developing efficient and safe technologies as, for example, hydride-
+catalysed oxidation of actinides like plutonium can lead to thermal excursions,
+a variety of other hazards, and ultimately a higher risk of containment failure
+during storage. [2, 8, 9]
+
+The quantum algorithms used in this work can be grouped into two main
+categories. The first category is Quantum Phase Estimation (QPE) [10] that
+offers an efficient way, given a state with sufficient overlap with the true
+wave function, to determine the eigenvalues of a unitary by reconstructing the
+unknown phase to a high precision. In quantum chemistry, QPE enables accu-
+rate computation of ground- and excited-state energies and, notably, provides
+
+Quantum simulation of actinide chemistry with quantum computers 3
+
+a polynomial-time solution to the full configuration interaction (FCI) prob-
+lem [11]. However, the practical implementation of standard QPE is hindered
+by its substantial circuit depth and the need for a large number of ancilla
+qubits; challenges that are exacerbated further by the limitations of current
+and near-term utility-scale quantum hardware. To address these limitations, we
+employ a single-ancilla-qubit variant of QPE known as the Quantum Complex
+Exponential Least Squares (QCELS) technique [12], combined with a circuit
+recompilation strategy, which ensures that the circuit depth remains constant
+with respect to the powers of the unitary operator used in phase estimation.
+
+[he other category of algorithms, quantum subspace expansion, is based
+on projecting the Schrédinger equation to a subspace spanned by a finite
+number of basis states, resulting in a low-dimensional eigenvalue problem
+that can be diagonalized classically [13]. In particular, a Lanczos tridiagonal-
+ized form of the Hamiltonian can be derived from the expectation values o:
+Hamiltonian moments [14]. Measuring these moment expectations quantum
+
+computationally and evaluating the corresponding lowest eigenvalue of the
+Lanczos subspace, are the key concepts of the method of Quantum Computec
+Moments (QCM) [15]. In this work, we focus on QCM4, the expansion of the
+ground state energy in terms of Hamiltonian moments truncated to fourth
+order [16]. This approximation describes electron correlation interactions no
+accessible by mean-field theories like Hartree-Fock [17].
+
+The algorithms discussed above were applied to various systems containing
+plutonium (Pu) using Quantinuum’s H1 and H2 trapped ion quantum hard-
+ware and emulators. Where feasible, Complete Active Space Configuration
+Interaction (CASCI) and CASSCF (Complete Active Space Self Consistent
+Field) calculations were performed to benchmark the accuracy of the quantum
+results.
+
+This paper is structured as follows. We begin by describing the two quan-
+tum algorithms employed in this work: statistical QPE [18] and QCM4. Next,
+we outline the rationale behind our choice of model systems and, then, we
+present the results of our simulations, followed by a discussion of the key chal-
+lenges encountered during the project. Finally, we conclude with a summary
+and offer perspectives for future research.
+
+2 Methods
+
+In this section, we describe the two quantum algorithms employed in this work,
+along with key details of the quantum hardware used for their implementation.
+
+2.1 QPE and Hamiltonian Simulation
+
+The canonical QPE algorithm for chemical electronic structure problems uti-
+lizes the time evolution operator U(r) = e~*#7 of the Hamiltonian H, where
+T is time. If 7 is chosen such that the eigen-spectrum of Hr (phase angles) lies
+within [0, 277) the eigenvalues of the unitary and the eigenvalues of H (energies)
+have a one-to-one correspondence. The canonical QPE estimates the phase by
+
+4 Quantum simulation of actinide chemistry with quantum computers
+
+applying controlled powers of the unitary time evolution operator, where the
+controls are on an auxiliary qubit register. The phase is then read out from this
+auxiliary register using an inverse Quantum Fourier Transformation (QFT).
+While several methods have been proposed to construct the controlled-unitary
+operator, such as Quantum Signal Processing [19], the Trotter-Suzuki decom-
+position is the most widely used [20, 21]. Trotterization, as it is commonly
+called, splits the exponential of a sum of non-commuting terms into a product
+of exponential factors. As particular example, first-order Trotterization can be
+
+r
+expressed as e~'7 = ( TT, eit/" | with H = ); Hj, 7 number of dis-
+
+crete Trotter steps. While exact in the infinitesimal case, r + oo, any finite
+number of steps introduces so-called Trotter error, which accumulates with
+time 7 and depends on the number of terms H; and their magnitude. While
+larger values of r reduce Trotter errors, they quickly lead to quantum circuits
+of prohibitively large depths for current and near-term quantum computers.
+This is exacerbated even more in the Trotterization of the controlled powers
+of unitaries needed to obtain the quantum phase with higher precision.
+
+Due to these considerations, we focus on statistical phase estimation based
+on Hamiltonian simulation. This variant of QPE uses only a single ancilla
+qubit, reducing the canonical QPE circuit to a Hadamard-test circuit [Fig. 1
+(al)|. Canonical QPE stores a superposition of many time-evolved states
+with evolution times of multiples of 7, and recovers the phase with a QFT,
+optimally with a single measurement of the ancilla register. In contrast, the
+statistical QPE we consider replaces the entire QFT stage with classical sta-
+tistical analysis and requires multiple measurements. At each time step t
+we independently prepare the time-evolved state and measure the complex
+overlap (w|~(t)) between the initial state |) and its evolved counterpart
+|W(t)) = e~“# |). Because only one ancilla is required, the circuit contains
+a single controlled time-evolution operator, dramatically decreasing the depth
+relative to canonical QPE.
+
+The overall accuracy of this approach relies heavily on the effectiveness of
+the classical statistical analysis which is an active area of research [12, 22]. In
+our experiments the phase is retrieved by means of the QCELS [12] method,
+which performs a non-linear least-squares fit to the overlaps recorded at
+multiple times (see Sec. $1 in the Supplementary Information (SI) for details).
+
+2.1.1 Variational compilation
+
+While statistical QPE requires only a single application of the controlled
+time-evolution unitary, even a single Trotter step becomes very deep for large
+systems. Increasing circuit depth not only extends the simulation time but also
+leads to noise accumulation. Tab. 1 shows the typical two-qubit depth of the
+single step trotterized time evolution operator for the molecules we investigate.
+Because a single Trotter step is usually insufficient for chemical accuracy, the
+
+actual depth of a controlled time-evolution circuit can be orders of magnitude
+larger than the numbers in Tab. 1. A practical way to bypass this prohibitive
+Quantum simulation of actinide chemistry with quantum computers 5
+
+depth is variational compilation [18, 23-27]. Variational compilation enables us
+to prepare shallow measurement circuits and thus demonstrate the potential
+performance of statistical phase estimation. The main goal of this prototyping
+effort is to evaluate how well such algorithmic combinations work for simple
+Pu models.
+
+The workings of the variational compilation method are illustrated in
+Fig. 1, panels (a2) and (a3), and additional details are provided in the SI,
+Sec. $2. Panel (a2) shows that the ansatz replaces the deep controlled-time-
+evolution part of (al), as well as the initial state preparation. Tab. 1 lists the
+number of two-qubit gates used in the ansatz for each active space, and the
+mean fidelities quantify how successful the compilations are. Here, fidelity is
+defined as | (|y)(t)) |?, and its mean is obtained by averaging over t. The vari-
+ational compilation is limited both by the expressibility of the ansatz and by
+the global optimization procedure.
+
+In general, the computational complexity of variational compilation grows
+
+with the dimensionality of the unitary being compiled, the resulting num-
+ber of parameters, and the difficulty of the associated minimization problem.
+Consequently, the compilation technique used here becomes impractical for
+
+large active spaces. The insights gained from these tests should motivate the
+development of scalable recompilation techniques for future QPE experiments.
+
+al a3
+
+a2 b
+0) |
+0) ae é =
+Ansatz State prep B,
+|0) Circuit oj " ai =
+(oy Fea
+
+Fig. 1 Circuits diagrams for QPE/QCELS and QCM4. (al) Hadamard test that measures
+the complex overlap between the initial and time-evolved states, (1)| e~H |). For the real
+part we set V = J, whereas for the imaginary part we use V = Si. The green dashed
+line labeled |W(t)) marks the exact state after the controlled time evolution. (a2) Circuit
+schematic in which the deep controlled time evolution is replaced by a variationally compiled
+ansatz that prepares an approximation |W) ~ |W(@)). (a3) First layer of the recompiled state-
+preparation circuit for the 2 + 1-qubit case. Single qubit gates: Hadamard in yellow and
+rotation gates around the X-axis (Rx) and Z-axis (Rz) of the Bloch sphere in red and light
+green, respectively. 2-qubit gates: ZZPhase gate between ancilla qubit (qo) and the qubits
+in the state register (qi or q2). (b): Quantum circuit for the calculation of the expected
+value of Pauli string i contributing to the Hamiltonian moment n on a 4-qubit model. The
+qubit register is initialized to zero. Then, a state preparation circuit is applied to prepare
+the QCM4 input state. After preparing the input state, a Pauli string PP of H” is measured
+in the computational basis. This procedure is repeated for all Pauli strings (or for all sets
+of commuting Pauli strings, when commuting sets are used) contributing to Hamiltonian
+moments up to n = 4.
+Structure AS Nqubits -trotter 2q-depth ansatz 2q-depth mean fidelity (%) | min-max fidelity (%) | Nparameters
+Pu203 (2,2) 3 5 12 99.999986 99.99991-99.9999987 75
+(2,3) 5 410 24 99.880 99.5-99.9968 129
+(2,4) iG 823 36 99.87 99.5-99.9996 183
+(2,5) 9 6013 48 99.1 97.5-99.7 237
+(2,6) 11 4585 60 96.2 85.4-99.8982 291
+(2,8) 15 45787 84 84.7 49.7-99.9973 399
+PuHy (6,8) 9 5847 48 96.3 59.7-99.99994 237
+PuH3 (5,7) 8 3149 42 99.98 99.6-99.999991 210
+Reactant (C1) (10,10) 19 127622 108 6.9 1.4-19.9 507
+Product (C2) (10,10) 19 28826 108 16.5 4.8-48.1 507
+
+Table 1 Two-qubit depth of the controlled time evolution operator with a single trotterization step for various active space sizes. The ansatz is a
+hardware efficient circuit with a number of repetitions of the basic unit equal to 6. Ansatz 2q-depth is the depth calculated in terms of two-qubit
+
+gates for the ansatz used in the variational compilation of systems in Fig 1 in their active spaces AS and the mean fidelities indicate how accurately
+the compiled states approximate the time evolved states across the whole time range. The numbers of variational parameters for the ansatz are also
+
+reported.
+
+9
+
+suaynduos wnyuonb yin fiagsvumayo apruyov fo uoyojnuas wnquoné)
+Quantum simulation of actinide chemistry with quantum computers it
+
+2.2 Subspace methods: Quantum Computed Moments
+
+QCM4, the fourth order expansion of the quantum computed moments
+method [16, 17], is used as an example of quantum algorithms suitable for near
+term intermediate scale quantum computers.
+
+Like variational quantum algorithms, QCM4 relies on the same type of
+measurements of expectation values of Pauli strings. However, QCM4 is a
+quantum subspace expansion algorithm. As such it does not rely on variational
+optimization of a parameterized ansatz to obtain an accurate approximation
+to the ground state energy, which can be plagued by barren plateau effects.
+Compared to QPE, QCM4 does not require the application of a time evolution
+operator and therefore results in significantly shallower quantum circuits.
+
+However, the drawback of QCM4 is its generally large number of mea-
+surement samples (also called “shots”) required to obtain accurate results,
+especially for large molecules and states. This is due to the need to measure
+the expectation values of different moments of the Hamiltonian operator, i.e.
+(H) as well as (H?), (H?) and (H+), Investigating the differences between
+QCM4 and QPE and their effect on the quantum computed energies for Pu
+molecules of different sizes is the main aspect of the algorithmic comparisons
+in this paper.
+
+In the QCM4 method, expectation values of powers of the Hamiltonian
+operator (H”) are measured with respect to a simple initial guess for the
+molecular wavefunction, which we refer to as the QCM4 input state |Yqcma).
+An approximation to the ground state energy is then obtained [17] in terms of
+these expectation values, using Eq. 1
+
+2:
+
+2) °
+E = cy — Coq — | 1/32 — 2c2e4 — 3] , 1
+QoM4 = C1 ag# | cs — Weal, — C3 (1)
+
+where the cumulant functions c, are related to these (i ") values via
+
+n-2
+en = (H") — > (" "eps? (2)
+p=0 pP
+For Pu2Q3 the input state |Vaoma) is a 2-electron, 2-determinant wavefunc-
+tion consisting of the Hartree-Fock determinant plus its closed shell double
+excitation, which can be prepared using 3 2-qubit gates [28]. The procedure
+for running QCM4 is represented in Fig. 1, panel (b); one such circuit can
+be measured for each Pauli string contributing to A” for n = 1,2,3,4. By
+grouping Pauli strings into commuting sets, the number of circuits to mea-
+sure for moment n is significantly less than the number of Pauli strings L,.
+For more technical details on the use of commuting sets to measure Hamil-
+tonian moments in relation to QCM4, we refer the reader to works on this
+method [15, 17].
+To further reduce the quantum resource requirements, a simple truncation
+procedure is applied to remove Pauli strings with coefficients below a threshold
+8 Quantum simulation of actinide chemistry with quantum computers
+
+value in each H”. This was carried out in the H1-1 experiment for PuzO3 (see
+Sec. 3.2.2).
+
+Due to the shallow input state used for QCM4, the main source of error is
+likely due to the noise from measuring individual contributions of Pauli strings
+Press The latter contribute to the Hamiltonian moments as
+
+Ln
+
+i
+
+To investigate this, and to possibly determine the Pauli strings whose measure-
+ment contributes the most to noise, the ideal values of each (Pin) with respect
+to |Waoma) are determined classically, to compare the noisy measured result
+to its ideal value. We observe that for PuH, and PuHg3 only those Pauli strings
+consisting of Z rotations (with no X or Y) were non-zero, likely due to the
+high spin multiplicity combined with the state-average CASSCF procedure to
+obtain the appropriate spin orbitals within the small active space (discussed
+in Sec. 3.3). For PugOs, in addition to the Z strings the following 4 are also
+non-zero: (YO X1 X2 Y3), (X1X2Y3Y4), (Y1Y2 X3 X4), and (X1Y2Y3
+X4), where X0 denotes an X gate applied to qubit 0, etc. Hence, Pauli strings
+that provide no numerical contribution to expectation values with respect to
+
+|Wacma) can be discarded for the purposes of calculating the energy. This
+leads to vast reductions in the number of required measurements, reported in
+Sec. 3.2.3. We refer to moments with Pauli strings removed by this procedure
+as being “Pi, filtered”.
+
+2.3 Quantum hardware, software and emulators
+
+We have performed our experiments on the H1-1 and H2-1 Quantinuum
+quantum computers. These computers have a quantum charge-coupled device
+(QCCD) ion trap architecture, in which the qubits are encoded as hyperfine
+states of electrostatically trapped Ytterbium (3+) ions [29, 30]. The quantum
+gates acting on these qubits are implemented via a series of microwave laser
+pulses located on specific points of the chip, the so-called gate zones. When-
+ever a gate operation is applied to one or two qubits, the corresponding ions
+
+are shuttled to a scheduled gate zone and exposed to the microwave pulse
+corresponding to the gate. The main features of this hardware are:
+
+e Allto all connectivity between qubits, which prevents the use of extra SWAP
+gates (and extra noise) to implement complex circuits.
+
+¢ Two-qubit fidelities above 99.8%.
+
+e Mid-circuit measurements and qubit reuse.
+
+e Long coherence times for the qubits.
+
+H1-1 and H2-1 Quantinuum devices provide 20 and 56 qubits, respectively.
+There are also classical emulators available, called H1-1E and H2-1E, which
+can recreate, to high fidelity, noisy experiments of the devices.
+
+All quantum computational calculations were performed using a develop-
+ment version of our in-house software suite, InQuanto [31].
+
+Quantum simulation of actinide chemistry with quantum computers 9
+
+3 Results and Discussion
+
+In this section we present and discuss the results obtained from QPE sim-
+ulations and QCM4 measurements with emulator (H1-1E) runs as well as
+quantum experiments on the H1-1 quantum computing system. But first, we
+introduce the atomistic models used in the present study.
+
+3.1 Classical models and reference calculations
+
+We aim to model two hypothetical plutonium reactions; Firstly, the oxidation
+of PuH2 in the gas phase (g) as an analogue for the oxidation of plutonium
+hydride in the solid state [32, 33].
+
+3 1
+3PuH2(g) + 4029) + gPu20s(y) + 2PuHs(q) (4)
+
+We generated a representative set of orbitals for the sesquioxide PugO3 and
+the hydrides PuHz and PuHsy (structures depicted in Fig. 2, panel (a)). With
+these orbitals, we defined subsets of them (the so-called active spaces or AS)
+to balance description of the chemistry of each model with resources needed
+to perform the quantum calculations. Each AS is specified by the number of
+electrons and the number of orbitals that contribute to the wavefunction of
+the chemical model considered.
+
+The second reaction examined in this paper is the dissociation of
+physisorbed Oz on a PuHpy surface (s) [34] defined by cuts along the
+crystallographic (110) direction
+
+O2@PuH2(110)(s) + 20@PuH2(110)(s). (5)
+
+To this end, we first performed (at the DFT level) the geometry relaxation
+of a single O2 molecule (S1, Fig. 2, panel (b)) and two oxygen atoms (S2,
+Fig. 2, panel (b)) on top of a periodic crystalline PuH2(110) surface model. We
+then truncated the periodic structures to small non-periodic clusters with sto-
+ichiometry PusH1202, depicted in C1 and C2, Fig. 2, panel (b), respectively.
+This was motivated by the observed weak perturbative effect of the oxygen
+adsorption on the electron density of the PuHy, surface, affecting at most the
+surface and first subsurface layers (see D1 and D2, Fig. 2, panel (b)). More
+technical information about the creation of these models is provided in the
+Sec. $3 of the SI.
+
+An analysis of various spin states carried out at the DFT level in the PuH2,
+PuHg and PuzO3 fragment models reveals that states with high multiplicity
+(6, 5 and 10 unpaired electrons, respectively) are energetically most stable.
+Similarly, for the PusHj202 model we found a multiplicity as high as 29 (28
+unpaired electrons) most stable. These high spin states require all f-orbitals
+of the Pu atoms to be included in the active space, which would require an
+
+active space description of 14 qubits per Pu atom. Clearly, for the Puz2Os
+10 Quantum simulation of actinide chemistry with quantum computers
+
+a PuH PuH;
+
+“3 5
+x2. A
+102.56 10048
+
+Fragment ‘SPu’
+
+“PusH202"
+
+1 Putt,(110) + 20| |
+
+Fig. 2 Plutonium, hydrogen and oxygen are represented by light blue, yellow and red
+spheres, respectively. (a): Structural arrangements (bond lengths in A, angles and dihedrals
+in degrees relaxed at the DFT level) of plutonium dihydride (PuH2), trihydride (PuH3) and
+plutonium sesquioxide (Pu2O3) isolated fragments. (b): Structural arrangements of: S1, S2)
+Oz and atomic oxygen on PuHg (110) fluorite-like face-centred cubic (FCC) surface, respec-
+tively, in periodic boundary conditions (PBS). D1, D2) periodic supercell depicted with the
+difference in total electron density (DFT) as Ap = p(PuH2+O2/20)—p(PuH2)—p(O2/20))
+where p is the total density. Red and blue volumetric data with isovalue 10~4 {e/bohr?]
+represent gain and loss in p, respectively. C1, C2) 5 plutonium atoms clusters (19 atoms
+in total, also called 5Pu or PusHi2 model) obtained by cutting a smaller fragment (area
+delimited by red boxes) from the periodic surface. Cl model also referred to as PusH12+O2
+or O2@PuH2 and C2 as PusHi2+20 or 20@PuHzg in the main text.
+
+structure and PusHj202 surface model this requirement exceeds our avail-
+able quantum hardware resources. In contrast, using singlet multiplicity in our
+classical CASSCF simulations (please refer to Sec. 3.4) shows reasonable con-
+vergence of the O2-dissociation energy on the PusH)2 model with respect to
+the active space, allowing for a description up to 20 qubits, AS(10e,100). To
+overcome this issue, we decided to use singlet state results whenever the high-
+spin ground states cannot be feasibly computed and the true ground state
+results otherwise. This allows us to generate experiments for quantum hard-
+ware on all systems considered in this study. In particular, we calculated the
+energies of the Pu2O3, C1 and C2 structures in a closed-shell singlet state. In
+contrast, we computed the energies of the PuH2 and PuH3 fragment models in
+their high-spin ground state (5 and 6 unpaired electrons respectively) as the
+presence of a single Pu atom in each of these models allowed us to consider
+active spaces that could fit within the constraints of our hardware.
+Quantum simulation of actinide chemistry with quantum computers 11
+
+»
+4
+Ky
+
+~18751
+
+~197.52
+
+Real Part
+
+2 ebctvons
+SG electrons
+“2 Belectrons
+“2 10 cectrons
+-S Welectrons
+Saw olectons
+
+Te State vector
+Se Measured
+
+CASCI energy (Ha)
+
+187.56
+
+Imaginary Part
+
+-187.57
+PTisseTes HUN Is
+Number of active orbitals
+
+b2
+
+Function Value
+QCM4 energy (Ha)
+
+“ae
+
+ny 300
+
+° 7 cy
+Phase (radians) Resample index
+
+Fig. 3 (a): CASCI energies of Pu2O3 as a function of active space size. At (2e,20), roughly
+16 mHa of correlation energy (relative to Hartree-Fock) is obtained. Large plateaus in energy
+are seen with increasing active space size, indicating the importance of excitations to higher
+virtual orbitals; (b1): Real and imaginary part of the complex overlaps (1|q(t)) calculated
+with state vector (blue curve) and measured with the hardware H1-1 with 100 SPC (red
+curve). The total number of qubits is 3. Values of the standard deviations over the hard-
+ware measured overlaps due to shots sampling are shown in Tabs. $1 and $2 in the SI; (b2):
+Phase estimation with QCELS using the overlaps from state vector (blue curve) and from
+measurements with the hardware H1-1 with 100 shots per circuit (red curve). The total
+number of qubits is 3. The x axis is the phase while the y axis represents the QCELS objec-
+tive function (Eq. S6 in the SI); (c): QCM4 method applied to the active space (2e,60), for
+Puz2O3, obtained from moments measured on the H1-1 device using 500 SPC. The measure-
+ment results are resampled using a bootstrapping technique to emulate a distribution over
+statistically independent device runs (100 resamples). Orange shaded region indicates the
+standard deviation of the resampled results.
+
+3.2 Scaling of resources with active space sizes of Pu2O3
+
+In the following, we report the results for the variationally compiled QCELS
+and QCM4 algorithms, for the plutonium sesquioxide (PuzO3) fragment in sin-
+glet spin multiplicity with different active space (AS) selections. We analyzed
+the PuzO3 structure as a proxy for the formation of plutonium sesquioxide
+through the oxidation of plutonium dihydride (see Eq. 4 in gas-phase). To
+determine a suitable AS for our experiments, we studied the energy depen-
+dence of the PuzO3 molecular model with respect to the number of selected
+orbitals. This step was performed by means of classical CASCI calculations,
+since it allows for smoother energy change with AS size, owing to the fact that
+orbitals are not reoptimized and therefore do not change between AS sizes.
+In panel (a), of Fig. 3 we show the CASCI energy profile of Pu2O3 (singlet
+spin state) as a function of the active space size, going from 2 electrons in 2
+orbitals [(2e,20)] until 16 electrons in 16 orbitals [(16e,160)].
+
+12 Quantum simulation of actinide chemistry with quantum computers
+
+Focusing on the two-electron results (blue curve), we noticed that until 4
+orbitals, the CASCI energy remains similar to that obtained from 2 electrons
+in 2 orbitals, but decreases noticeably between 5 and 6 orbitals to then reach a
+plateau until 9 orbitals. The inclusion of additional orbitals beyond an AS size
+of 8 therefore does not result in a substantially improved CASCI energy (see
+Fig. 3, panel (a)) but causes significantly larger computational costs (classi-
+cally and quantum) for the variational recompilation. Hence, execution of the
+circuits beyond (2e,80) would become very expensive compared to the gain in
+the absolute value of the total energy. For these reasons, we decided to anal-
+yse the performance of the statistical QPE algorithm for active spaces up to
+2 electrons in 8 orbitals.
+
+8.2.1 Statistical QPE Experiments on H1-1E and H1-1
+
+In this section, we report results for the statistical QPE (with QCELS) algo-
+rithm using both emulator and hardware runs; unless mentioned otherwise,
+hese results were obtained with 100 shots per circuit (SPC). The measure-
+ment circuits were prepared for 33 time steps over a total simulation time
+hat includes at least two apparent periods for the overlaps, as can be seen
+in Fig. 3 panel (bl). With this choice of time step and total simulation time,
+the QCELS energies extracted from the state vector simulation are close to
+she CASCI energies as it is shown in Tab. 2. For each of the 33 time steps in
+he QPE calculations, we variationally compiled the circuits to prepare mea-
+surement circuits for the real and imaginary parts of the overlap. For the
+variational compilation we used an ansatz with repeated layers of rotations
+and entangling gates (see Sec. $2 in the SI for additional information). Fig. 1,
+panel (a3) depicts the first layer of the ansatz for a 2 + 1-qubit system. For
+larger systems the structure is similar: each layer consists of single-qubit rota-
+ions and a cascade of 2-qubit ZZPhase gates (native on Quantinuum devices)
+that sequentially couple the ancilla to the system qubits. We found that this
+ansatz works reasonably well up to 11 qubits with the allocated 2-qubit counts,
+yielding a mean fidelity, across all time steps, of 96.2% (see Tab. 1). Beyond
+11 qubits the mean fidelity drops significantly. However, the errors in the over-
+laps, crucial for QCELS post-processing, remain much smaller. Fig. 5 shows
+we performed hardware measurements up to 19 qubits.
+
+We initially considered an AS of 2 electrons in 2 molecular orbitals. By
+exploiting symmetries such as particle and spin conservation [35], we were able
+to reduce the 4 Jordan-Wigner mapped [36] qubits to 2 plus one additional
+ancillary qubit (three qubits in total), necessary to perform our experiments
+(with the total of 12 2-qubit gates). We prepared our initial state by including
+all determinants with coefficients greater than 0.03 in the CI expansion (after
+carrying out a CASCI(2e, 20) calculation), to maximize the overlap between
+initial and target ground state. For larger active spaces, we used the same 0.03
+threshold for the determinant inclusion in the initial state. In all cases the
+initial states have larger than 96% fidelity with the exact ground state, which
+is sufficient for the QCELS method [12].
+
+i=}
+
+Quantum simulation of actinide chemistry with quantum computers 13
+The overlap (w|v(t)) measured after 100 SPC on the quantum device is
+shown for the real and imaginary parts (red curve) in Fig. 3, panel (b1). We
+noticed a good agreement with the state vector (SV) results (blue curve),
+with only minor deviations arising from statistical noise of the hardware
+measurements.
+The agreement with theory is also reflected in the estimated phases
+obtained with the QCELS approach (as shown in Fig. 3, panel (b2)) from the
+complex time series of the overlap evolution (see Eq. $9 in SI). The phases
+correspond to total energies of —187.51989 Ha and —187.51924 Ha for state
+vector and hardware, respectively. Our hardware experiments using 100 shots
+are thus very accurate. With a deviation only 0.7 mHa from the state vec-
+tor energy, we find our quantum experiments to yield results well within the
+threshold of chemical accuracy.
+We now proceed to analyze results for more complex active spaces. In
+Tab. 2 we provide an overview of the different experiments in terms of active
+spaces, number of qubits, 2-qubit gates depth, state vector QPE energy, ener-
+gies obtained from emulator and hardware runs, and the difference between
+emulator (or hardware) and state vector results. We can see that, as the active
+space size increases (and therefore the number of qubits and 2-qubit depths
+are larger), the differences in energy between state vector (SV) and emula-
+tor increase, with the maximum difference being around 6 mHa for the active
+space of (2e,80). We attribute this effect to the ansatz that is unable to capture
+the full complexity of the exact state, which is also reflected by the deviation
+between the SV simulation with the original |W) and variationally compiled
+|W(0)) (see Figs. S1 and $2 in the SI).
+For the hardware runs, we can see a similar trend as the emulator runs,
+namely the differences in energy between state vector and hardware increase
+with increasing active space, being around 5 mHa for an active space (2e,80).
+For this AS, we find that increasing the number of shots to 500 SPC reduces
+the difference to the state vector result back to 3 mHa, indicating the need for
+higher statistical averaging in this case (see also Fig. $3 in the SI).
+
+3.2.2 QCM4 Experiments on H1-1E and H1-1
+
+H1-1 experiments for PugO3 were performed using the largest active space
+accessible by this method, 2 electrons in 6 orbitals, which translates to 12
+qubits.
+
+To measure all Pauli terms required for QCM4, 2412 measurement circuits
+are required (after grouping the terms into commuting sets). To reduce this
+quantum resource requirement, Pauli strings with coefficients below a thresh-
+old are removed after the full set of Pauli strings required for all 4 Hamiltonian
+moments is obtained. We find that a Pauli coefficient threshold of 0.001 pro-
+vides a good approximation to the QCM4 energy, with error ~0.1 mHa. At
+this threshold, the number of Pauli circuits to be measured after grouping into
+fully commuting sets (as implemented in TKET [37]) reduces to 516.
+
+AS (elec,orb) — Ngubits _2¢-depth FE CASCI (Ha) ESV (Ha) Eemu (Ha) — Enar(Ha) AEemu (mHa) ~~ AEpar (mHa)
+(2,2) 3 12 -187.51993 -187.51989  -187.51969 -187.51924 0.0002 0.0007
+
+(2,3) 5 24 -187.51995 -187.51992 -187.51976 - 0.0002 -
+
+(2,4) 7 36 -187.51995 -187.51995  -187.52092- 0.001 -
+
+(2,5) 9 48 -187.52289 -187.52289 -187.52049 - 0.0024 -
+
+(2,6) 1 60 -187.55148 -187.55156  -187.55262 -187.55569 0.001 0.0041
+
+(2,8) 15 84 -187.55178 -187.54758 -187.54101 -187.54288 0.0065 0.0047
+
+(2,8) 500 SPC 15 84 -187.55178 -187.54758 — - -187.54483- 0.0028
+
+Table 2 Pu20O3 (singlet) active spaces, number of qubits, number of 2-qubit gates depths, CASCI energies, energies for the state vector, emulator
+and hardware runs (calculations with 100 SPC when not specified), and energy differences between the emulator(emu) /hardware(har) and state
+
+vector (AEemu and AEpar) in the QPE framework.
+
+cal
+
+suajnduos wnqguonb yyn fiugsvumays apruyov fo uoynnuis wnrzuoné)
+Quantum simulation of actinide chemistry with quantum computers 15
+
+The corresponding results are shown in panel (c), Fig. 3. To establish a
+standard deviation for our experiments, the hardware result is bootstrapped
+to emulate 100 resamples of the same measurement procedure; the resulting
+standard deviation amounts to 0.18 Ha (orange shaded region). This error
+largely originates from two aspects related to statistical precision. First, from
+the large number of measureable circuits that remain even after omitting Pauli
+strings below the threshold and grouping into commuting sets. Second, from
+the relatively small number of shots (500 SPC).
+
+Furthermore, the Pin filtering procedure (see Sec. 2.2) was performed for
+Pu2O3 and this resulted in 2 circuits to measure after also accounting for
+commuting sets (see also Sec. 3.2.3). The contributions to the QCM4 energies
+can be reconstructed from these 2 circuits, allowing for highly accurate QCM4
+energies even in the presence of device noise and measurement sampling error
+(10,000 SPC was used for the Pauli filtered QCM4 results for PugO3). This is
+shown by 5 independent runs of the QCM4 method on the H1-1 emulator, the
+results of which are reported in Tab. 3.
+
+As also highlighted for the hydrides in Sec. 3.3.2, the QCM4 method gen-
+erally compares well with statistical (variationally recompiled) QPE, and with
+the ideal classical result, once Pauli filtering is used. The low number of mea-
+surements and relatively shallow circuits allow for a high accuracy of the
+emulated QCM4 experiment. However, when all Pauli terms are measured (no
+filtering), measurement noise leads to larger errors in the QCM4 method, where
+even for smaller SPC the statistical QPE approach achieves a higher accuracy.
+We also note the ability of variationally compiled QPE to reach larger active
+spaces, since the number of measurable Pauli terms involved in QCM4 for the
+(2e,80) active space becomes too large to be tractable with current methods,
+as discussed further in section 3.2.3.
+
+Table 3 QCM4 energy of Pu2O3, AS (2e,60), calculated from QCM4 by measuring
+circuits corresponding to filtered Pauli strings. Measurements performed on the H1-1
+emulator, using 2 circuits and 10,000 SPC. Note all values are less than 0.1 mHa above the
+
+CASCI value.
+
+Run Egoma Error
+
+1 -187.550982 0.000578
+2 -187.550757 0.000803
+3 -187.550874 0.000686
+4 -187.550908 0.000652
+5 -187.550776 0.000784
+
+8.2.3 QCM4 Scaling
+
+The number of Pauli strings L; in the Hamiltonian H (i.e. the first moment)
+
+scales as Ne iies where Ngubits is the number of qubits. For higher moments,
+
+the commuting properties of Pauli strings contributing to HI” allow the reduc-
+
+tion of the number of terms L,, significantly below NB es and Lyn can even
+16 Quantum simulation of actinide chemistry with quantum computers
+
+Table 4 Number of terms (Ln) in the QCM4 moments for n = 1, 2,3, 4, for various
+actives spaces of Pu2O3. Also shown are the total number of circuits required for QCM4
+when fully accounting for commuting sets of Pauli terms (Neircuits)- For small active
+spaces, note the saturation in the number of Pauli strings for higher moments [38]. For the
+(2,8) active space, the QCM4 moments for n > 1 are not calculated due to large
+computational overhead, and hence Ly +1 are omitted.
+
+AS (elec,orb) Nqubits Ly D2 Lz I4 Neirantts
+2,2) 4 % 10 20 20 3
+(2,3) 6 117 AIT 544 544 14
+(2,4) 8 360 3503 7303 8320 85
+(2,5) 10 875 21546 78868 126293 A475
+(2,6) 12 1818 99654 679818 1650045 2412
+(2.8) 16 5793 . . : 2
+
+saturate as a function of n [15, 38]. The precise scaling is system dependent
+and determined by the commutativity of individual Pauli strings comprising
+H and the strings resulting from product terms of H">?. For the QCM4 simu-
+lations carried out on Pu2O3, we show in Tab. 4 the specific numbers of Pauli
+terms with respect to Nuits and n, along with the corresponding number
+of circuits to measure when fully accounting for the commuting properties of
+Pauli strings.
+
+The large number of measurements is a major bottleneck in QCM4 calcula-
+tions. Even when commutativity is taken into account, the number of circuits
+to measure for larger active spaces is prohibitive; for the (2e,80) active space,
+Ly is already 5793, which potentially translates into millions of terms for L,s1.
+When considering Pauli filtering for the (2e,80) active space, the large number
+of Pauli terms translates to a large number of Pauli string expectation val-
+ues to evaluate classically, requiring large classical compute resources. Overall,
+the overhead caused by the number of Pauli terms required by QCM4 seems
+indeed more restrictive than the corresponding QPE simulations. The largest
+QCM4 calculation we report in this paper therefore corresponds to the 12
+qubit, (2e,60) active space of Pu2O3.
+
+3.3 The molecular hydrides: PuHz and PuHs
+
+Unlike plutonium sesquioxide, we found that, in order to describe the nature
+of the correlation of the molecular proxies of PuHg and PuHs, all plutonium
+forbitals must necessarily be included in the active space.
+
+A CASCI description of these systems would imply very large active spaces,
+beyond the reach of currently feasible quantum experiments. For this reason,
+we opted for the state-average CASSCF (SA-CASSCF, with 5 roots) proce-
+dure to avoid a poor description of the virtual orbitals at the HF level and
+consequently to include an optimised set of f-orbitals within a smaller active
+space. We then used these orbitals as initial guesses for the ground states. Since
+the fully spin-polarized state is used, only one spin type (spin-up) is included
+in the active space, which results in Hamiltonian Pauli strings containing X
+or Y rotations having no effect on the energy (maintaining spin symmetry).
+Quantum simulation of actinide chemistry with quantum computers 17
+
+As reported in Sec. 2.2, this effect on the Pauli strings continues for higher
+order moments of the Hamiltonian, resulting in nonzero expectation values
+only for those Pauli strings consisting of Z rotations, for all moments required
+
+for QCM4.
+
+3.3.1 Statistical QPE Experiments on H1-1E and H1-1
+
+The hardware results for PuH2 are reported in Tab. 5. The active space
+required for a suitable description of this fragment amounts to at least 6 elec-
+trons in 8 orbitals, with a septet spin multiplicity, implying that all 6 electrons
+in the active space are spin-aligned. In such a fully spin-polarized AS no oppo-
+
+site spin orbitals can contribute to the electronic structure description. After
+removal of these orbitals, we are left with 6 electrons and 8 alpha spin-orbitals,
+leading to a total of 9 qubits (8 + 1 ancillary qubit needed for the phase). The
+corresponding quantum computational experiment with 100 SPC yields a total
+energy of -71.44511 Ha, which is in nearly complete agreement with the refer-
+ence energy of -71.44508 Ha from the state vector QPE simulation. Increasing
+the SPC count to 500 slightly increases the difference with the theoretical
+value, but only by ImHa.
+The same strategy was adopted for the experiments of PuH3 on quantum
+
+hardware, the results of which are also shown in Tab. 5. In this case the active
+space required to describe the electronic structure of the PuH3 fragment was
+5 electrons in 7 orbitals with a sextet spin multiplicity (28+1 with S=5/2).
+As before, the fully spin-polarized active space can be reduced to effectively 5
+electrons and 7 alpha spin-orbitals, therefore requiring only 8 qubits (7 qubits
+for the wave function description + 1 ancilla qubit needed for the statistical
+QPE). The state vector QPE energy is -72.00839 Ha, while the hardware run
+(with 100 SPC) yields -72.00522 Ha, with an energy difference of about 3 mHa
+between the two. The error of this experiment therefore exceeds chemical
+accuracy moderately. Increasing the shot count to 500 SPC leaves the result
+largely unaltered, with 4 mHa difference instead of 3 mHa with respect to the
+state vector result.
+
+8.3.2 QCM4 Experiments on H1-1E and H1-1
+
+In Fig. 4 we show the results of measuring the QCM4 energies of PuHy and
+PuH3 using the H1-1 emulator. For these fragments, accounting for commu-
+tativity of Pauli terms (without Pauli filtering or truncating) results in 7
+quantum circuits to be measured. To investigate the distribution of errors in
+the QCM4 energies, the measurement results of the moment expectation values
+are bootstrapped to generate ensembles from the original measurement results.
+For each SPC value shown in Fig. 4, 500 resamples of the H1-1E measurements
+are taken.
+
+The results show a consistently decreasing standard deviation with an
+increasing number of measurement shots. For PuH2 and PuHs, respectively,
+standard deviations of 1.6 mHa and 1 mHa are obtained at 104 SPC. The
+18 Quantum simulation of actinide chemistry with quantum computers
+
+-71.41
+
+71.42
+
+ga} Gem oh a
+=
+ere)
+4
+S745
+5
+2
+= ~7-451 6, HIE, bootstrapped
+S ya.g7 | — State vector
+= casscr
+71.484 «+++ By filtered
+L. stddev
+-749
+To To? 10*
+SPC
+-n.98
+71.99 Gen Gennes
+
+772-31 6. 141-16, bootstrapped
+
+— State vector
+cASScF
+=72.05 4 +++) Bq filtered
+TD std-dev
+
+QCM4 energy (Ha)
+
+72.04
+
+=72.06
+107 10 10"
+SPC
+
+Fig. 4 QCM4 energies, with bootstrapped values obtained from the H1-1 emulator (H1-
+1E). “State vector” refers to the ideal, classically evaluated value. The green dotted line
+corresponds to measurements of the Hamiltonian moments filtered by Pauli strings (in this
+case only strings of Z rotations remain after filtering). Bootstrapping corresponds to 500
+resamples. Blue circles correspond to QCM4 energies averaged over the bootstrapped ensem-
+ble, while orange error bars represent the standard deviations. Top: PuH2; bottom: PuH3.
+
+corresponding errors of these experiments amount to 16 mHa and 18 mHa,
+respectively.
+
+To obtain QCM4 energies for PuH3 and PuH, from H1-1 hardware, the
+Pauli filtering procedure was performed before compiling the measurement
+circuits. However, applying this technique resulted in all Pb, containing only
+Z strings, for both PuH3 and PuHg. All these Pauli strings commute with each
+other, requiring the measurement of only a single circuit. Since only the +1
+eigenvalues of the Z operator are required, the result can be trivially extracted
+in the computational Z basis (simply taking +1 or —1 according to the Z
+string). Hence, the ideal energy is reliably reproduced when Pauli filtering
+reduces the moments to Pauli strings containing only Z operators.
+
+To summarize; applying QCM4 without error mitigation or Pauli filtering
+techniques to the hydrides PuH2 and PuHsg results in larger errors compared to
+statistical QPE (see values in Tab. 5), even at 104 SPC. When Pauli filtering is
+used, the QCM4 yields a near-exact energy simply from the eigenvalues of the
+resulting Z strings. The energies obtained from Pauli-filtered QCM4 therefore
+match the statistical QPE results very well.
+
+Quantum simulation of actinide chemistry with quantum computers 19
+
+a b1 b2
+
+Real Part
+
+{
+J
+
+Funetion Value
+
+$4:
+feat
+
+‘Active space (nun) Time i Phase (radians)
+
+Fig. 5 (a): Oxygen dissociation energy (in eV) on PuH2 surfaces with respect to the active
+space (n electrons in n orbitals) used in classical CASSCF calculations, with n=0 corre-
+sponding to the Hartree-Fock calculation. Calculations have been carried out in the singlet
+spin state; (b1): cluster system 20@PuHp real and imaginary part of the complex overlaps
+(w|(t)) calculated with state vector (blue curve) and measured with the hardware H1-1
+with 500 SPC (red curve). The total number of qubits is 19. Values of the standard devi-
+ations over the hardware measured overlaps due to shots sampling are shown in Tabs. S1
+and 82 in the SI; (b2): cluster 20@PuHy2 phase estimation with QCELS using the overlaps
+from state vector (blue curve) and from measurements with the hardware H1-1 with 500
+SPC (red curve).
+
+3.4 Reaction energy of O2 dissociation on PuHz2 surface
+
+In the previous sections, we analyzed molecular-fragment systems, as their
+orbital subspace is easily reduced to a size tractable with quantum comput-
+ers. However, a realistic description of the plutonium oxidation and corrosion
+processes requires an atomistic modeling of extended surfaces.
+n this section, we therefore study the O2 dissociation on truncated and
+capped surface models of crystalline PuH2. To this end, we relaxed the
+extended surface models of PuH2 (with O2 physisorbed and Op» dissociated)
+with a periodic DFT formalism and subsequently converted them into cluster
+models containing 5 Pu atoms (C1 and C2 shown in Fig. 2, panel (b)). While
+the resulting electronic structures are significantly more complex than the
+models previously discussed, they nonetheless remain accessible to electronic
+structure calculation.
+Based on the analysis of the electronic structure of the fragments PuH2
+and PuH3 discussed in Sec. 3.3, we expect a very high spin multiplicity also
+for the electronic ground states of the cluster models of the PuH2 surface. As
+a quantum computational description of such high-spin polarizations would
+lead to qubit counts exceeding available quantum resources, the total energies
+and corresponding dissociation energetics of these systems were obtained from
+a closed-shell (singlet) description of the electronic structure. Note that this
+is analogous to the treatment of Pu2O3, with the only difference that the
+electronic structure description is based on CASSCF-optimized orbitals rather
+than Hartree-Fock orbitals.
+In Fig. 5, panel (a), we show the classically computed CASSCF oxygen dis-
+sociation energies on the 5Pu clusters, i.e. AE=E(20@PuH>2)-E(O2@PuHg),
+obtained for different active space sizes. We find the resulting AE to converge
+to -6.7 eV at an active space of 10 electrons in 10 orbitals.
+
+20 Quantum simulation of actinide chemistry with quantum computers
+
+In Tab. 6 we report the total electronic structure energies for both reactant
+and product (C1 and C1 in Fig. 2, respectively).
+
+We compare classical CASSCF results to state vector simulations of QPE
+and to quantum experiments (using 100 and 500 SPC). To this end, we also list
+the deviation of the quantum computed results from the state vector reference.
+All these results were obtained at the active space of 10 electrons in 10 orbitals.
+
+After taking the symmetry of these systems into account and leverag-
+ing variational recompilation, the quantum experiments comprise a total
+of 19 qubits (18 qubits for the state register + 1 ancillary qubit for the
+Hadamard test) and 2-qubit gate depths of 108. To the best of our knowledge,
+these experiments are the largest QPE calculations of a realistic electronic
+structure problem successfully executed on quantum hardware, surpassing pre-
+vious QPE hardware experiments on one-dimensional organic chains of up
+to 13 qubits [39]. However, we note that they also performed 33-qubit QPE
+experiments for 1-D Hubbard models.
+
+First, we observe the state vector QPE simulations to produce virtually
+identical total energies as the classical CASSCF, validating our quantum com-
+putational approach. Comparing then state vector simulations with quantum
+experiments, we find a difference of around 5-6 mHa, which decreases to 0.9-2.6
+mHa (see Tab. 6). This error reduction is a direct result of the higher num-
+ber of samples from which the experimental result is obtained. This increased
+precision at 500 SPC brings this value very close to the chemical accuracy
+threshold of 1.6 mHa.
+Finally, we compare the reaction energies resulting from classical CASSCF
+calculations with those obtained from our quantum computational experiments
+(with 500 SPC). The quantum computational result of -6.69 eV deviates only
+by 0.04 eV (1 kcal/mol) from the CASSCF reaction energy -6.73 eV. This
+demonstrates the ability of present-day QPE implementation to match the
+results of classical approaches in experiments executed on quantum hardware
+with chemical accuracy. In Fig. 5, panel (bl), we further report the overlaps
+(for both real and imaginary parts) measured after 500 SPC on the quantum
+device (red curve), and the overlaps calculated with state vector (blue curve)
+for the cluster system 20@PuHy. We notice a general good agreement between
+the two curves, with only a few outliers being noticeable. We attribute the
+latter to the variational compilation procedure which becomes increasingly
+more approximate for higher dimensional Hilbert spaces and deeper circuits;
+
+see Fig. $5 in the SI for more detailed comparisons and information. As the
+QCELS method is a statistical approach, the individual data points do not lead
+to significant differences in the quantum phases obtained from simulations and
+quantum experiments; the total difference in phases amounts to only 0.002,
+see Fig. 5, panel (b2).
+4 AS ; P ESV Ehar QPE  Enar QPE  AEnar AEhar
+Structure (elecor) Naudits 2a-depth Gz, 100 (Ha) 500 (Ha) 100 (Ha) 500 (Ha)
+PuHy (6,8) 9 48 -71.44508 -71.44511 -71.44379 0.0000 0.0013
+PuH3 (5,7) 8 AQ -72.00839  -72.00522 -72.01243 0.0032 -0.0040
+
+Table 5 Active space used, number of qubits, state vector and QPE energies (hardware (har) runs with 100 and 500 SPC) for the hydrides PuH2
+and PuH3. The differences in energy between QPE and SV are shown in the last two columns (AEhar)
+
+Enar QPE  Epar QPE = AEpay QPE AE ay QPE
+
+Structure E CASSCF (Ha) Egy QPE (Ha) 100 (Ha) 500 (Ha) 100 (mHa) 500 (mHa)
+Reactant (C1) —-389.02641 -389.02648 -389.02154 — -389.02560 4.9 0.9
+Product (C2) -389.27382 -389.27408 -389.26781  -389.27145 6.3 2.6
+
+Table 6 CASSCF energies, QPE energies for the state vector (SV) and hardware (har) runs (with 100 and 500 SPC), and energy differences
+between the state vector and hardware (AEpa,) for the reactant and product fragments of the oxygen dissociation reaction on PuH2 surfaces
+(singlet spin state).
+
+suagndwuos wnquonb yun fiugsvuayo apruyov fo woypjnuis wnzunné)
+22
+
+Conclusions
+
+Quantum simulation of actinide chemistry with quantum computers
+
+The classical simulations and quantum experiments conducted in the course
+
+of
+chemistry to model actini
+stal
+sion algorithm, to simulate
+employed a variational compi
+ing quantum circuit and w
+the largest QPE experiment
+chemistry use-case so far,
+SPC. A complementary pic
+
+NG
+
+with QCM4, where we are ab!
+
+Dp
+
+are shallow compared to Q.
+leads to a steep increase in
+tum experiments, due to a lar;
+number of qubits and more int
+more complex state preparati
+limi
+
+QCM4 results more sensitive
+
+i,
+
+on circuits. As
+
+of coherence times of the quantum device, this could potentially render
+
+to noise unless error mitigation strategies are
+
+applied [17]. In general, the
+methods is an active area of researc!
+elec
+
+active space was still accessible in s
+the measurement overhead of
+also note that further research into
+
+thai
+
+ment
+end,
+on
+
+o
+
+corresponding direc
+When such input s
+the measurement overhead of
+ican
+state.
+
+to problems of practical interest requires the capabilities of future quantum
+The combination of hardware advancements, quantum
+error correction protocols and algorithmic techniques like qubitization [41-43],
+stochastic Trotter compilation [44-46] and other methods [47, 48] may enab
+s with the deep circuits resulting from electronic structure
+actinide chemistry models.
+
+KS, CDP and DMR designed the project and con-
+lem. KS, CDP, JG, SH, TMS, NG, RH and MS performed
+
+computing systems.
+
+quantum experimen’
+problems of realistic
+
+Author contributions.
+ceptualised the prob
+
+s could enable larger applicatio:
+we mention previous work tha
+he quality of their input state, which can
+
+ates are Sparse
+
+heoretical limi
+
+reducing
+
+ly to linear combinations of electronic configurations [28].
+
+(number
+
+QCM
+
+In more general terms, the application of these quantum chemistry method
+
+variational compilation the
+atistical QPE experiments. This indicates
+QCM4 is more restrictive in
+
+ms of QCM4 on quantum har
+shows the dependencies of t
+
+4 or the runtime of QPE, could be signi
+ly reduced with only a small overhead in the circuit depth for the input
+
+his study clearly demonstrate the applicability of quantum computational
+e chemistry. To this end, we successfully applied
+istical quantum phase estimation and QCM4, a quantum subspace expan-
+the electronic structure of actinide structures. We
+ation method to reduce the depth of the result-
+timately enabling, to the best of our knowledge,
+performed on quantum hardware for a quantum
+leveraging a total of 19 qubits and up to 500
+ure emerges from the simulation results obtained
+e to obtain accurate energies with circuits that
+. With increasing qubit sizes, however, QOM4
+he number of measurements during the quan-
+ge number of Pauli terms. Furthermore, a larger
+ricate electronic structure problems will require
+
+he circuit depth approaches the
+
+s of error in quantum subspace
+
+1 [40], and in this study, the description of
+ronic structures of Pu2O3 with active spaces beyond (2e,60) turned out
+to be a threshold prohibitively expensive to surpass.
+n comparison, when leveraging
+
+arger (2e,80)
+
+this case. We
+he number of required measure-
+ware. To this
+hese methods
+e assessed by preparing circuits
+
+QNqubits
+Naubits
+
+))s
+
+of configurations € o
+
+Ss
+
+e
+Quantum simulation of actinide chemistry with quantum
+
+computers 23
+
+literature review to choose the chemical reactions and atomistic models most
+suitable for this study. KS performed classical quantum chemistry calculations
+and hybrid simulations on quantum emulator and hardware. CDP built the
+
+PBC models, performed DFT and quantum chemistry simu
+
+Jations and some
+
+preliminary experiments on emulator. GGD conceptualised and developed the
+quantum-classical workflow for the QCM4 method, in addition to preparing
+
+and performing the experiments on emulator and hardware
+alised the right strategy to perform classical quantum chemi
+
+. CAG conceptu-
+istry calculations
+
+and prepared and performed classical calculations and QPE quantum exper-
+iments on emulator and hardware. DZM conceptualised and developed the
+quantum-classical workflow for the QPE method, in addition to performing
+
+preliminary tests. KS, CDP, GGD, CAG, DZM, TMS and
+
+DMR wrote the
+
+manuscript with input from all the authors. JG, SH, TMS, NG, RH, MS and
+
+DMR provided critical feedback and supervised the researc
+phases. All authors have read and approved the manuscript.
+
+Conflicts of interest. There are no conflicts to declare.
+
+Data availability. The data that support the findings of
+made available from the corresponding author(s) upon reaso:
+
+1 study in all its
+
+his study will be
+nable request
+
+Acknowledgments. The authors thank Georgia Prokopiou and Duncan
+Gowland for their feedback on the manuscript. The authors also thank Joshua
+
+Savory, Vanya Eccles and Isobel Hooper for assistance in
+hardware experiments.
+This study was supported by Innovate UK, part of t'
+
+he software and
+
+he UK Research
+
+and Innovation (UKRI) agency [SBRI: Quantum Catalyst Fund, project no.
+
+10107055]. The authors performed this work partially using
+
+the mat3ra plat-
+
+form, a web-based computational ecosystem for the development of new
+
+materials and chemicals [49].
+References
+1] Peterson, A. & Wacker, J. N. Six degrees of actinide se
+
+s41570-024-00610-5 .
+
+semanticscholar.org/CorpusID:30991689.
+
+Chemistry A 121 (12), 2523-2530 (2017). https://doi.
+jpca.7b01344 .
+
+paration. Nature
+
+Reviews Chemistry 8 (6), 408-409 (2024). https://doi.org/10.1038/
+
+2] Haschke, J. M., Allen, T. H. & Morales, L. A. (2000). https://api.
+
+3] Kovacs, A. Relativistic multireference quantum chemical study of the
+electronic structure of actinide trioxide molecules. The Journal of Physical
+
+org/10.1021/acs.
+
+4] Vogiatzis, K. D., Ma, D., Olsen, J., Gagliardi, L. & de Jong, W. A. Pushing
+
+configuration-interaction to the limit: Towards massively parallel MCSCF
+24
+
+10
+
+Tt
+
+12
+
+13
+
+14
+
+Quantum simulation of actinide chemistry with quantum computers
+
+calculations. The Journal of Chemical Physics 147 (18), 184111 (2017).
+https://doi.org/10.1063/1.4989858 .
+
+McArdle, S., Endo, $., Aspuru-Guzik, A., Benjamin, S. C. & Yuan, X.
+Quantum computational chemistry. Rev. Mod. Phys. 92, 015003 (2020).
+https: //doi.org/10.1103/RevModPhys.92.015003 .
+
+Lee, J. et al. Even more efficient quantum computations of chemistry
+through tensor hypercontraction. PRX Quantum 2, 030305 (2021). https:
+//doi.org/10.1103/PRXQuantum.2.030305 .
+
+Lee, S. et al. Is there evidence for exponential quantum advantage in
+quantum chemistry? (2022). http://arxiv.org/abs/2208.02199.
+
+Haschke, J. M. Corrosion of uranium in air and water vapor: consequences
+for environmental dispersal. Journal of alloys and compounds 278 (1-2),
+149-160 (1998). https: //doi.org/10.1016/S0925-8388(98)00639-2 .
+
+Haschke, J. M. & Dinh, L. N. Chemistry and kinetics of the pyrophoric
+plutonium hydride-air reaction. Journal of Alloys and Compounds 698,
+44-48 (2017). https://doi.org/10.1016/j.jallcom.2016.12.162 .
+
+Kitaev, A. Y. Quantum measurements and the abelian stabilizer problem
+(1995). https://doi.org/10.48550/arXiv.quant-ph/9511026.
+
+Abrams, D. S. & Lloyd, S. Quantum algorithm providing exponential
+speed increase for finding eigenvalues and eigenvectors. Physical Review
+Letters 83 (24), 5162 (1999). https://doi.org/10.1103/PhysRevLett.83.
+5162.
+
+Ding, Z. & Lin, L. Even shorter quantum circuit for phase estimation
+on early fault-tolerant quantum computers with applications to ground-
+state energy estimation. PRX Quantum 4 (2), 020331 (2023). https:
+//doi.org/10.1103/PRXQuantum.4.020331 .
+
+Lanczos, C. An iteration method for the solution of the eigenvalue problem
+of linear differential and integral operators. J. Res. Natl. Bur. Stand. B
+45, 255-282 (1950). https://doi.org/10.6028/jres.045.026 .
+
+Hollenberg, L. C. L. Plaquette expansion in lattice hamiltonian models.
+Phys. Rev. D 47, 1640-1644 (1993). https://doi.org/10.1103/PhysRevD.
+47.1640 .
+
+Vallury, H. J., Blunt, M. A., Hill, C. D. & Hollenberg, L. C. L. Quantum
+computed moments correction to variational estimates. Quantum 4, 373
+(2020). https: //doi.org/10.22331/q-2020-12- 15-373 .
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+Quantum simulation of actinide chemistry with quantum computers 25
+
+Hollenberg, L. C. L. & Witte, N. S. General nonperturbative estimate of
+the energy density of lattice hamiltonians. Phys. Rev. D 50, 3382-3386
+(1994). https://doi.org/10.1103/PhysRevD.50.3382 .
+
+Jones, M. A., Vallury, H. J., Hill, C. D. & Hollenberg, L. C. L.
+Chemistry beyond the hartree-fock energy via quantum computed
+moments. Scientific Reports 12 (1), 8985 (2022). https://doi.org/10.
+1038/s41598-022-12324-z .
+
+Blunt, N. S., Caune, L., Izsdk, R., Campbell, E. T. & Holzmann, N.
+Statistical phase estimation and error mitigation on a superconducting
+quantum processor. PRX Quantum 4, 040341 (2023). https://doi.org/
+10.1103/PRXQuantum.4.040341 .
+
+Childs, A. M., Maslov, D., Nam, Y., Ross, N. J. & Su, Y. Toward the first
+quantum simulation with quantum speedup. Proceedings of the National
+Academy of Sciences 115 (38), 9456-9461 (2018). https://doi.org/10.
+1073/pnas.1801723115 .
+
+O'Malley, P. J. J. et al. Scalable quantum simulation of molecular energies.
+Phys. Rev. X 6, 031007 (2016). https://doi.org/10.1103/PhysRevX.6.
+031007 .
+
+Tranter, A., Love, P. J., Mintert, F., Wiebe, N. & Coveney, P. V.
+Ordering of trotterization: Impact on errors in quantum simulation of
+electronic structure. Entropy 21 (12), 1218 (2019). https://doi.org/10.
+3390/e21121218 .
+
+Ding, Z. & Lin, L. Simultaneous estimation of multiple eigenvalues with
+short-depth quantum circuit on early fault-tolerant quantum computers.
+Quantum 7, 1136 (2023). https://doi.org/10.22331/q-2023-10-11-1136 .
+
+Tazhigulov, R. N. et al. Simulating models of challenging correlated
+molecules and materials on the sycamore quantum processor. PRX Quan-
+tum 3, 040318 (2022). https://doi.org/10.1103/PRXQuantum.3.040318
+
+Benedetti, M., Fiorentini, M. & Lubasch, M. Hardware-efficient. varia-
+tional quantum algorithms for time evolution. Phys. Rev. Res. 3, 033083
+(2021). https://doi.org/10.1103/PhysRevResearch.3.033083 .
+
+Mc Keever, C. & Lubasch, M. Classically optimized hamiltonian simula-
+tion. Physical Review Research 5 (2), 023146 (2023). https://doi.org/10.
+1103/physrevresearch.5.023146 .
+26
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+[34]
+
+[35]
+
+[36]
+
+Quantum simulation of actinide chemistry with quantum computers
+
+Kikuchi, Y., Mc Keever, C., Coopmans, L., Lubasch, M. & Benedetti,
+M. Realization of quantum signal processing on a noisy quantum com-
+puter. npj Quantum Information 9 (1), 93 (2023). https://doi.org/10.
+1038/s41534-023-00762-0 .
+
+Sun, S.-N. e¢ al. Quantum computation of finite-temperature static
+and dynamical properties of spin systems using quantum imaginary time
+evolution. PRX Quantum 2, 010317 (2021). https://doi.org/10.1103/
+PRXQuantum.2.010317 .
+
+Greene-Diniz, G., Prokopiou, G., Manrique, D. Z. & Ramo, D. M.
+Quantum state preparation of multiconfigurational states for quantum
+chemistry (2025). https://doi.org/10.48550/arXiv.2508.05390.
+
+Pino, J. M. et al. Demonstration of the trapped-ion quantum ccd com-
+puter architecture. Nature 592, 209-213 (2021). https://doi.org/10.1038/
+841586-021-03318-4 .
+
+Moses, S. A. et al. A race-track trapped-ion quantum processor. Phys.
+Rev. X 18, 041052 (2023). https://doi.org/10.1103/PhysRevX.13.041052
+
+Tranter, A. et al. InQuanto: Quantum Computational Chemistry (2022).
+https: //www.quantinuum.com/products-solutions/inquanto.
+
+Balasubramanian, K., Felter, T. E., Anklam, T., Trelenberg, T. W. &
+McLean, W. Atomistic level relativistic quantum modelling of plutonium
+hydrogen reaction. Journal of Alloys and Compounds 444-445, 447-452
+(2007). https://doi.org/10.1016/j.jallcom.2006.11.068 .
+
+Zhang, C., Hu, $.-X., Liu, H.-T., Yang, Y. & Zhang, P. Bonding properties
+and oxidation states of plutonium in pu2on (n = 1-8) molecules studied by
+using screened hybrid density functional theory. The Journal of Physical
+Chemistry A 122 (16), 4085-4091 (2018). https://doi.org/10.1021/acs.
+jpca.7b12324 .
+
+Smith, T. et al. Structure and properties of cubic PuH2 and PuH3: A
+density functional theory study. Crystals 12 (10), 1499 (2022). https:
+//doi.org/10.3390/cryst12101499 .
+
+Bravyi, S., Gambetta, J. M., Mezzacapo, A. & Temme, K. Tapering
+off qubits to simulate fermionic hamiltonians (2017). https://doi.org/10.
+48550/arXiv.1701.08213.
+
+Jordan, P. & Wigner, E. Uber das paulische aquivalenzverbot. Zeitschrift
+fiir Physik 47 (9), 631-651 (1928). https://doi.org/10.1007/BF01331938 .
+37
+
+38
+
+39
+
+40
+
+41
+
+42
+
+43
+
+44
+
+45
+
+46
+
+47|
+
+Quantum simulation of actinide chemistry with quantum computers 27
+
+Sivarajah, S. et al. t|ket): a retargetable compiler for NISQ devices. Quan-
+tum Science and Technology 6 (1), 014003 (2020). https://doi.org/10.
+1088 /2058-9565/ab8e92 .
+
+Claudino, D., Peng, B., Bauman, N. P., Kowalski, K. & Humble, T. S.
+Improving the accuracy and efficiency of quantum connected moments
+expansions*. Quantum Science and Technology 6 (3), 034012 (2021).
+https: //doi.org/10.1088/2058-9565/ac0292 .
+
+Kanno, S. et al. Tensor-based quantum phase difference estimation
+for large-scale demonstration. Proceedings of the National Academy of
+Sciences 122 (30), e2425026122 (2025). https://doi.org/10.1073/pnas.
+2425026122 .
+
+Kirby, W. Analysis of quantum Krylov algorithms with errors. Quantum
+8, 1457 (2024). https://doi.org/10.22331/q-2024-08-29-1457 .
+
+Low, G. H. & Chuang, I. L. Hamiltonian Simulation by Qubitization.
+Quantum 3, 163 (2019). https://doi.org/10.22331/q-2019-07-12-163 .
+
+Berry, D. W. et al. Improved techniques for preparing eigenstates of
+fermionic hamiltonians. npj Quantum Information 4 (1), 22 (2018). https:
+//doi.org/10.1038/s41534-018-0071-5 .
+
+Poulin, D., Kitaev, A., Steiger, D. S., Hastings, M. B. & Troyer, M. Quan-
+tum algorithm for spectral measurement with a lower gate count. Phys.
+Rev. Lett. 121, 010501 (2018). https: //doi.org/10.1103/PhysRevLett.121.
+010501 .
+
+Campbell, E. Random compiler for fast hamiltonian simulation. Phys.
+Rev. Lett. 123, 070503 (2019). https: //doi.org/10.1103/PhysRevLett.123.
+070503 .
+
+Kivlichan, I. D., Granade, C. E. & Wiebe, N. Phase estimation with
+randomized hamiltonians (2019). https://doi.org/10.48550/arXiv.1907.
+10070.
+
+Wan, K., Berta, M. & Campbell, E. T. Randomized quantum algorithm
+for statistical phase estimation. Phys. Rev. Lett. 129, 030503 (2022).
+https: //doi.org/10.1103/PhysRevLett.129.030503 .
+
+Babbush, R. et al. Exponentially more precise quantum simulation of
+fermions in the configuration interaction representation. Quantum Science
+and Technology 3 (1), 015006 (2017). https: //doi-org/10.1088/2058-9565/
+aad463 .
+28 Quantum simulation of actinide chemistry with quantum computers
+
+[48] Babbush, R. et al. Low-depth quantum simulation of materials. Phys.
+Rev. X 8, 011044 (2018). https://doi.org/10.1103/PhysRevX.8.011044 .
+
+[49] Bazhiroy, T. Data-centric online ecosystem for digital materials science
+(2019). https://arxiv.org/abs/1902.10838.
+Supplementary Information:
+Quantum simulation of actinide chemistry:
+towards scalable algorithms on trapped ion
+
+quantum computers
+
+Kesha Sorathia!”, Cono Di Paola!, Gabriel
+Greene-Diniz!, Carlo A. Gaggioli!, David Zsolt
+Manrique!, Joe Gibbs”, Sean Harding’, Thomas M.
+Soini!, Neil Gaspar”, Robert Harker?, Mark Storr?
+and David Munoz Ramo!
+
+'Quantinuum, Terrington House, 13-15 Hills Road, Cambridge
+CB2 INL, United Kingdom.
+2 AWE, Aldermaston, Reading RG7 4PR, United Kingdom.
+
+*Corresponding author(s). E-mail(s):
+kesha.sorathia@quantinuum.com;
+
+S1 Energy Estimation via QCELS
+
+For an n-qubit electronic problem we write the Hamiltonian as a sum of
+Hamiltonian fragments
+H=hol+h >> Hy, (S1)
+f
+where each Hy is a linear combination of mutually commuting Pauli strings.
+The scalings
+1 4 7
+ho = gn eH), hy= sll ~ hol (S2)
+
+ensure that the reduced operator H:= Ys Hy has eigenvalues in [-3, +3].
+If the ground state |) is known,
+
+Z(t) = (bole |abo) =e, (83)
+2 SI: Quantum simulation of actinide chemistry with quantum computers
+and the ground-state energy is
+Eo = ho + hyo. (S4)
+however typically the ground state is not known and an initial state is a |w)
+for which | (qo|~) | >> 0. Following the QCELS procedure we sample the time
+ty, = nt with n=0,...,N —1 and fixed 7. With measuring
+Zn = Z(tn) = wlemtn# |), ($5)
+
+we use the QCELS objective
+
+(S6)
+
+whose maximiser 6* yields the energy estimate
+EX = hy +d". (S7)
+Each Z,, is obtained with a single-ancilla Hadamard test, in which we prepare
+
+1
+
+|W(tn)) = V2
+
+(10) ® lw) +1) @ U(r)" y)), (S8)
+
+where U(r) = ei” and we measure the real and imaginary parts via
+RZ, = (U(tn)|X @1|W(tn)), — TZ = (U(tn)|Y @I|W(tn)). — (S9)
+
+$1.1 Trotterization costs for the time evolution operator
+
+We define the costs as the 2-qubit circuit depth. We approximate the time
+evolution operator with a first-order Trotter approximation,
+
+U(r) = eit ny lor", (S10)
+f
+
+where the fragments are ordered by ascending operator norm in the Trotter
+product, that is, the largest norm is applied to the reference first. To prepare
+|W(tn)) we would need the controlled time evolution operator for time t,,, that
+is we would need to evaluate cost for the circuit of controlled-U(r)”. Since the
+cost is proportional to n, we only calculated cost for the circuit of a single
+trotter step Il; e-'7 4 For the costs in Tab. 1 of the main text, the circuit
+optimizations are performed with pytket, using TermSequenceBox and greedy
+
+optimization, [1] and fully commuting sets determined by largest-first graph
+coloring method. [2, 3]
+SI: Quantum simulation of actinide chemistry with quantum computers 3
+
+$2 Variational compilation for hardware
+experiments
+
+To demonstrate the capability of QCELS on realistic fragments, we first car-
+ried out exact time evolution with state vector simulation: we computed each
+|W(tn)) state vector and evaluated the corresponding Z,, values for the QCELS
+objective function.
+
+For hardware runs we variationally compiled every exact state |W(t,)) into
+the ansatz
+
+|¥(o)) =u) " u@. uf] |+) @ |0..0) (S11)
+
+where stot ~
+ofl = TL weton) aos) x2) (s12)
+
+and nd
+v= TT Repco), (813)
+
+q=1
+
+and nq is the number of qubits including the ancilla and L is the number
+of layers indirectly controlling the circuit depth and the number of varia-
+tional parameters. An example of the beginning of ansatz circuit representation
+shown for the 2+1-qubit case in panel (a3), Fig. 1 in the main text. The com-
+pilation employed pytket—Qujax/InQuanto together with the optax Adam
+optimiser for 500 iterations and randomized initial parameters, minimising
+the objective |||W(tn)) — |Y(9)) \|’. The variational compilation was performed
+independently for each t,,, using the same ansatz, so the circuit-resource profile
+is identical across all time steps, while the optimal parameters ¥ vary with t,.
+
+$3 DFT geometry optimization of structures
+and periodic systems
+
+Based on previous structural studies on plutonium hydrides [4] and oxides, [5]
+for our models of PuH,, with x = 2,3, and sesquioxide Pu2O3, we built an ab
+initio model by carrying out simulations in gas phase by using the Quantum
+Espresso (QE) Density Functional Theory (DFT) package. [6, 7] We performed
+non collinear spin-orbit coupling (SOC) calculations with DFT-D3 van der
+Waals dispersion correction [8] for geometry optimization of structures of inter-
+est. In all DFT calculations, we employed the Perdew-Burke-Ernzerhof (PBE)
+GGA exchange correlation functional [9] together with projector-augmented
+wave (PAW) pseudopotentials. [10] We used the wave function and charge den-
+sity cut-offs of 75 Ry and 600 Ry, respectively, together with a Brillouin zone
+sampling at the T point and a Marzari-Vanderbilt smearing of 0.005 Ry. The
+number of Kohn-Sham states was increased by approximately 20% to assist
+4 SI: Quantum simulation of actinide chemistry with quantum computers
+
+with convergence of the SOC simulations. At this level of theory, we found a
+reaction energy of —9.286 eV.
+
+We also built a supercell (1x2x6) for cubic Fm-3m PuH, (110) periodic
+surface, since it was suggested as the most stable reactive surface system by
+Smith et al. [11] This model was geometrically relaxed. We then generated
+the initial and final states by depositing O2 and 2 oxygen atoms on top of the
+surface, respectively (structures $1 and S2, panel (b), Fig. 2 in the main text,
+inspired by the most stable model 3P1 found in reference: Shi et al. [12]). The
+geometries of the adsorbates and the first two layers of the surface were further
+relaxed.
+
+We adopted a DFT setup similar to that used for the simulations describec
+at the beginning of the present section. In this particular case, we needed
+to correct the PBE functional by applying an Hubbard energy U = 4.88 eV
+to the plutonium f-orbitals. The U was derived from scratch by means o
+the Density Functional Perturbation Theory (DFPT) tool [13] included in
+the Quantum Espresso package and with a non-polarised PBE+SOC DFT
+calculation. We finally found a lattice parameter a = 5.380 A in accordance
+with an experimental value a = 5.395 A (as reported by Zheng et al. [14
+together with theoretical calculations).
+
+Since the entire periodic model was extremely complex to be treated a
+the Hartree-Fock (HF) level of theory with the basis set of choice, we studiec
+how the electron density of the surface was modified by the presence of oxygen
+atoms. In this way, we identified a smaller active region that was cut from the
+surface as an isolated cluster of 5 plutonium atoms (structures Cl and C2,
+panel (b), Fig. 2 in the main text). The obtained clusters were electronically
+relaxed inside the spin-polarised framework to obtained the correct multi-
+spin ground state 25+1=29, with a dissociation energy at DFT level Ey;, =
+E(C2) — E(C1) = —5.547 eV.
+
+For the whole set of final models, we adopted a cubic box of length between
+16 and 20 A and applied the Martyna-Tuckerman correction, [15] in order to
+avoid the interaction among the atoms from adjacent unit cells.
+
+$3.1 Classical quantum chemistry methods
+
+The restricted(R)- and restricted open-shell(RO)-HF mean-field calculations
+as well as post-HF multi reference calculations (namely CASCI, CASSCF
+and SA-CASSCF) have been performed with the CRENBL basis set with
+relativistic effective core potential (ECP) for plutonium [16] and oxygen [17]
+and 6-311G** basis set for hydrogen, as implemented in the PySCF quantum
+chemistry suite. [18, 19] We leave more accurate treatment of relativistic
+effects, such as with exact 2-component or 4-component Hamiltonians, to
+future work. The Newton solver (Second-order SCF solver) has been used in
+all calculations.
+SI: Quantum simulation of actinide chemistry with quantum computers 5
+
+$4 Overlap Analysis
+
+For considerations on the quality of the ansatz recompilation process and noise
+deviations due to the quantum device, please compare the data shown in: 1)
+Figs. S1 — $3 for PugO3; 2) Fig. $4 for PuHy and PuHsg; 3) Fig. $5 for the
+clusters.
+
+The standard error committed in sampling over 100 or 500 SPC (also
+referred to as number of shots Ngpc) the complex overlaps on the quantum
+
+device are presented in Tabs. S1 and S2 and calculated as ,/ JRO)? and
+
+similarly for the imaginary part, where (~|(t)) is the complex overlap at time
+t.
+6 SI: Quantum simulation of actinide chemistry with quantum computers
+
+Pu,O, (100 SPC)
+AS(2e,30)
+0
+
+t 05,
+
+é
+
+gs
+
+& os
+
+Bos
+
+Ease
+
+AS(2e,40) “{AS(2e,50)
+
+£ os £ os
+é é
+os f-os
+
+Imaginary Part
+
+Vv
+. tie Compiled SV
+ea
+
+FS
+
+Imaginary Part
+
+a at
+VV Compiled SV
+
+Figure $1 Pu203 with 100 SPC: Comparison between complex overlaps (¢)|~(t)) at dif-
+ferent time steps and active spaces for the state vector before (SV, full blue circle) and after
+ansatz recompilation (Compiled SV, full green triangle). Point mismatch between state vec-
+tor calculations before and after recompilation represents divergence due to approximation
+in the recompilation procedure.
+
+Pu,O, (100 SPC)
+AS(2e,20) AS(2e,60)
+
+tos tos
+
+é é \
+
+© oe & on
+
+A A
+
+dos bos
+
+Eg  Seansy
+
+£ 3 uo
+5
+
+Eno
+
+fy 3 10 ra Fa zB
+Time
+
+Figure S2 Pu203 with 100 SPC: Comparison between complex overlaps (~|q)(t)) includ-
+ing hardware experiments at different time steps and active spaces for the state vector
+before (SV, full blue circle), after ansatz recompilation (Compiled SV, full green triangle)
+and measured on a hardware device (Measured, red empty squares). Point mismatch: i)
+between state vector calculations before and after recompilation represents divergence due
+to approximation in the recompilation procedure; ii) between recompilation and hardware
+experiments represents divergence due to noise in the quantum measurements. Values of the
+standard deviations over the hardware measured overlaps due to shots sampling are shown
+in Tabs. S1 and S2.
+SI: Quantum simulation of actinide chemistry with quantum computers 7
+
+Pu,O, (100 SPC) Pu,O, (500 SPC)
+AS(2e,80) AS(2e,80)
+10 7 10
+£ os £ os
+fi fo
+3 3
+gos gos
+-10 a0
+# 10 # 1
+H H
+@ os @ os
+eid ral
+i good &
+B05] compiessv B05] compiessv
+By | a Mensed en ee
+3 i ra b 2 F3 3 i 7 b 2 Fs
+Time Time
+
+Figure $3 Pu203 with 100 and 500 SPC for the largest complex overlaps (¢|7)(t)) including
+hardware experiments considered for the molecular oxide: comparison between overlaps at
+different time steps and active spaces for the state vector before (SV, full blue circle), after
+ansatz recompilation (Compiled SV, full green triangle) and measured on a hardware device
+(Measured, red empty squares). Point mismatch: i) between state vector calculations before
+and after recompilation represents divergence due to approximation in the recompilation
+procedure; ii) between recompilation and hardware experiments represents divergence due
+to noise in the quantum measurements. Values of the standard deviations over the hardware
+measured overlaps due to shots sampling are shown in Tabs. S1 and S2
+
+PuH, (500 SPC) PuH, (500 SPC)
+t 05 t 05
+fo. a
+= =
+gos Bos
+t t
+Elid Eos
+> lew > =u
+= 3) Measured = 3) Measured
+3 F
+
+Time Time
+
+Figure S4 PuH2 AS(6e,80) and PuH3 AS(5e,70) with 500 SPC: comparison between com-
+plex overlaps (w|~(t)) including hardware experiments at different time steps for the state
+vector before (SV, full blue circle), after ansatz recompilation (Compiled SV, full green tri-
+angle) and measured on a hardware device (Measured, red empty squares). Point mismatch:
+i) between state vector calculations before and after recompilation represents divergence due
+to approximation in the recompilation procedure; ii) between recompilation and hardware
+experiments represents divergence due to noise in the quantum measurements. Values of the
+standard deviations over the hardware measured overlaps due to shots sampling are shown
+in Tabs. S1 and S2
+8 SI: Quantum simulation of actinide chemistry with quantum computers
+
+PusH,, + O, (500 SPC) PusH,, + 20 (500 SPC)
+
+Real Part
+Real Part
+
+‘ Af
+
+ov
+te Compiled Sv
+3 Measured
+
+Imaginary Part
+w
+e
+3
+Imaginary Part
+
+o 3 10
+Tim
+
+00
+10
+ry 2 Fa o 3 70 ri 7 Fa
+e
+Figure S5 Cluster systems PusH12 + O2 (C1 in Fig. 2, panel (b) main text) and PusHi2
++ 20 (C2 in Fig. 2, panel (b) main text), both with AS(10e,100) and 500 SPC: comparison
+between complex overlaps (7|x(t)) including hardware experiments at different time steps
+for the state vector before (SV, full blue circle), after ansatz recompilation (Compiled SV,
+full green triangle) and measured on a hardware device (Measured, red empty squares). Point
+mismatch: i) between state vector calculations before and after recompilation represents
+divergence due to approximation in the recompilation procedure; ii) between recompilation
+and hardware experiments represents divergence due to noise in the quantum measurements.
+Values of the standard deviations over the hardware measured overlaps due to shots sampling
+are shown in Tabs. S1 and $2
+time step Pu203 Pu203 Pu203 Puz203 PuH2 PuH3 PuH20O2 PuH220
+“* AS(2,2) 100 AS(2,6) 100 AS(2,8) 100 AS(2,8) 500 AS(6,8) 500 AS(5,7) 500 AS(10,10) 500 —AS(10,10) 500
+0 0.020 0.020 0.034 0.014 0.011 0.016 0.014 0.045
+1 0.020 0.078 0.081 0.039 0.029 0.023 0.043 0.045
+2 0.073 0.099 0.095 0.038 0.041 0.042 0.023 0.045
+3 0.094 0.051 0.034 0.018 0.044 0.045 0.037 0.044
+4 0.099 0.057 0.085 0.042 0.028 0.038 0.033 0.028
+5 0.095 0.095 0.096 0.042 0.013 0.012 0.031 0.044
+6 0.065 0.083 0.039 0.016 0.027 0.019 0.045 0.018
+7 0.020 0.034 0.083 0.036 0.043 0.033 0.045 0.043
+8 0.020 0.057 0.098 0.042 0.044 0.044 0.045 0.033
+9 0.034 0.100 0.020 0.019 0.029 0.039 0.018 0.045
+10 0.075 0.073 0.089 0.031 0.011 0.025 0.043 0.019
+11 0.097 0.039 0.100 0.044 0.025 0.016 0.045 0.041
+12 0.099 0.083 0.028 0.021 0.040 0.029 0.037 0.029
+13 0.091 0.092 0.067 0.029 0.044 0.042 0.039 0.045
+14 0.069 0.028 0.100 0.044 0.032 0.044 0.025 0.024
+15 0.039 0.044 0.051 0.027 0.014 0.032 0.044 0.037
+16 0.028 0.098 0.051 0.033 0.022 0.015 0.031 0.030
+17 0.044 0.080 0.099 0.045 0.042 0.017 0.045 0.039
+18 0.075 0.034 0.054 0.025 0.044 0.036 0.020 0.029
+19 0.098 0.054 0.071 0.032 0.035 0.045 0.039 0.031
+20 0.100 0.099 0.099 0.045 0.021 0.039 0.045 0.036
+21 0.092 0.069 0.054 0.026 0.020 0.024 0.045 0.038
+22 0.060 0.020 0.054 0.026 0.040 0.015 0.041 0.033
+23 0.028 0.092 0.100 0.045 0.045 0.031 0.022 0.029
+24 0.020 0.098 0.044 0.030 0.035 0.042 0.044 0.038
+25 0.065 0.047 0.051 0.019 0.015 0.044 0.045 0.040
+26 0.065 0.057 0.098 0.044 0.019 0.032 0.043 0.041
+27 0.098 0.099 0.075 0.034 0.038 0.016 0.021 0.028
+28 0.099 0.090 0.047 0.029 0.045 0.019 0.037 0.042
+29 0.090 0.020 0.091 0.043 0.036 0.040 0.036 0.027
+30 0.054 0.073 0.084 0.032 0.018 0.045 0.045 0.042
+31 0.034 0.100 0.047 0.017 0.021 0.041 0.042 0.021
+32 0.000 0.047 0.091 0.042 0.039 0.022 0.021 0.043
+
+Table S1 Standard deviation for the real part of the overlap (%(w|~(t))) measured on the quantum device and calculated over 100 or 500 SPC.
+
+suajnduoo wnjunnh ypin fugsvumayo apruyon fo uoynjnuns wnzuon?) 7g
+
+6
+Pu203
+
+time step Pu203 Pu203 Puz203 PuH2 PuH3 PuH20O2 PuH220
+“* AS(2,2) 100 AS(2,6) 100 AS(2,8) 100 AS(2,8) 500 AS(6,8) 500 AS(5,7) 500 AS(10,10) 500 —AS(10,10) 500
+0 0.100 0.100 0.099 0.045 0.045 0.045 0.045 0.045
+1 0.097 0.057 0.077 0.027 0.038 0.038 0.018 0.044
+2 0.069 0.028 0.051 0.030 0.020 0.025 0.041 0.045
+3 0.039 0.080 0.099 0.045 0.015 0.017 0.027 0.016
+4 0.020 0.089 0.057 0.028 0.036 0.031 0.036 0.044
+5 0.047 0.039 0.057 0.016 0.045 0.044 0.039 0.034
+6 0.075 0.054 0.098 0.044 0.037 0.043 0.045 0.044
+7 0.091 0.096 0.069 0.031 0.018 0.031 0.045 0.019
+8 0.098 0.083 0.060 0.025 0.018 0.013 0.014 0.045
+9 0.092 0.020 0.097 0.043 0.035 0.023 0.044 0.045
+10 0.063 0.063 0.078 0.037 0.044 0.039 0.019 0.042
+11 0.034 0.100 0.044 0.019 0.038 0.044 0.045 0.019
+12 0.020 0.044 0.098 0.042 0.023 0.040 0.034 0.042
+13 0.060 0.020 0.081 0.036 0.014 0.023 0.033 0.045
+14 0.069 0.091 0.039 0.023 0.032 0.017 0.041 0.040
+15 0.094 0.084 0.098 0.043 0.044 0.034 0.031 0.027
+16 0.100 0.039 0.083 0.037 0.039 0.044 0.045 0.037
+17 0.085 0.057 0.034 0.017 0.026 0.043 0.018 0.033
+18 0.060 0.100 0.097 0.040 0.014 0.034 0.043 0.036
+19 0.028 0.078 0.077 0.037 0.030 0.016 0.026 0.034
+20 0.028 0.020 0.047 0.014 0.044 0.026 0.045 0.031
+21 0.039 0.093 0.095 0.039 0.039 0.039 0.045 0.039
+22 0.073 0.098 0.092 0.042 0.026 0.044 0.029 0.033
+23 0.097 0.063 0.047 0.013 0.012 0.037 0.042 0.038
+24 0.100 0.047 0.089 0.038 0.028 0.022 0.016 0.028
+25 0.092 0.097 0.093 0.041 0.043 0.015 0.045 0.044
+26 0.067 0.092 0.020 0.019 0.041 0.036 0.028 0.035
+27 0.020 0.028 0.083 0.039 0.027 0.044 0.041 0.038
+28 0.028 0.075 0.094 0.043 0.015 0.040 0.026 0.033
+29 0.054 0.099 0.054 0.020 0.026 0.026 0.035 0.038
+30 0.081 0.069 0.081 0.032 0.042 0.014 0.045 0.023
+31 0.085 0.020 0.098 0.043 0.044 0.028 0.025 0.042
+32 0.100 0.084 0.034 0.017 0.028 0.040 0.044 0.022
+
+Table S2 Standard deviation for the imaginary part of the overlap (3(7|~(¢))) measured on the quantum device and calculated over 100 or 500 SPC.
+
+OL
+
+suagndwuos wnguonb yyun fiugsruays apruyon fo uoynjnuas wnquon?y “J
+SI: Quantum simulation of actinide chemistry with quantum computers 11
+
+References
+
+1
+
+on
+
+Paykin, J., Schmitz, A. T., Ibrahim, M., Wu, X.-C. & Matsuura, A. Y.
+Pcoast: A pauli-based quantum circuit optimization framework, Vol. 1,
+715-726 (IEEE, 2023). https://doi.org/10.1109/QCE57702.2023.00087.
+
+Sivarajah, S. et al. t|ket): a retargetable compiler for NISQ devices. Quan-
+tum Science and Technology 6 (1), 014003 (2020). https://doi.org/10.
+1088 /2058-9565/ab8e92 .
+
+Tranter, A. et al. InQuanto: Quantum Computational Chemistry (2022).
+https: //www.quantinuum.com/products-solutions/inquanto.
+
+Balasubramanian, K., Felter, T. E., Anklam, T., Trelenberg, T. W. &
+McLean, W. Atomistic level relativistic quantum modelling of plutonium
+hydrogen reaction. Journal of Alloys and Compounds 444-445, 447-452
+(2007). https://doi.org/10.1016/j.jallcom.2006.11.068 .
+
+Zhang, C., Hu, $.-X., Liu, H.-T., Yang, Y. & Zhang, P. Bonding properties
+and oxidation states of plutonium in pu2on (n = 1-8) molecules studied by
+using screened hybrid density functional theory. The Journal of Physical
+Chemistry A 122 (16), 4085-4091 (2018). https://doi.org/10.1021/acs.
+jpca.7b12324 .
+
+Giannozzi, P. et al. QUANTUM ESPRESSO: a modular and open-
+source software project for quantum simulations of materials. Journal of
+Physics: Condensed Matter 21 (39), 395502 (2009). https://doi.org/10.
+1088 /0953-8984/21/39/395502 .
+
+Giannozzi, P. et al. Advanced capabilities for materials modelling with
+quantum ESPRESSO. Journal of Physics: Condensed Matter 29 (46),
+465901 (2017). https://doi.org/10.1088/1361-648x/aa8f79 .
+
+Grimme, $., Antony, J., Ehrlich, S. & Krieg, H. A consistent and accurate
+ab initio parametrization of density functional dispersion correction (dft-
+d) for the 94 elements h-pu. The Journal of Chemical Physics 132 (15),
+154104 (2010). https: //doi.org/10.1063/1.3382344 .
+
+Perdew, J. P., Burke, K. & Ernzerhof, M. Generalized gradient approx-
+imation made simple. Phys. Rev. Lett. 77, 3865-3868 (1996). https:
+//doi.org/10.1103/PhysRevLett.77.3865 .
+
+Blochl, P. E. Projector augmented-wave method. Phys. Rev. B 50, 17953—
+17979 (1994). https://doi.org/10.1103/PhysRevB.50.17953 .
+
+Smith, T. et al. Structure and properties of cubic PuH2 and PuH3: A
+density functional theory study. Crystals 12 (10), 1499 (2022). https:
+12
+
+SI: Quantum simulation of actinide chemistry with quantum computers
+
+//doi.org/10.3390/cryst12101499 .
+
+[12] Shi, J., Li, G., Wan, L., Gao, T. & Luo, W. New insights into the
+
+13
+
+14
+
+16
+
+4
+
+18
+
+19
+
+interfacial interactions of 02 and h2o0 molecules with puh2 (110) and
+(111) surfaces from first-principles calculations. International Journal of
+Hydrogen Energy 47 (86), 36593-36604 (2022). https://doi.org/10.1016/
+j.ijhydene.2022.08.213 .
+
+Timrovy, I., Marzari, N. & Cococcioni, M. Hp — a code for the cal-
+culation of hubbard parameters using density-functional perturbation
+theory. Computer Physics Communications 279, 108455 (2022). https:
+//Aoi.org/10.1016/j.cpc.2022.108455 .
+
+Zheng, J.-J., Wang, B.-T., Di Marco, I. & Li, W.-D. Electronic structure
+and phase stability of plutonium hydrides: Role of coulomb repulsion and
+spin-orbital coupling. International Journal of Hydrogen Energy 39 (25),
+13255-13265 (2014). https: //doi.org/10.1016/j.ijhydene.2014.06.140 .
+
+Martyna, G. J. & Tuckerman, M. E. A reciprocal space based method for
+treating long range interactions in ab initio and force-field-based calcula-
+tions in clusters. The Journal of Chemical Physics 110 (6), 2810-2821
+(1999). https://doi.org/10.1063/1.477923 .
+
+Ermler, W. C., Ross, R. B. & Christiansen, P. A. Ab initio rela-
+tivistic effective potentials with spin-orbit operators. vi. fr through pu.
+International Journal of Quantum Chemistry 40 (6), 829-846 (1991).
+https://doi.org/https: //doi.org/10.1002/qua.560400611 .
+
+Fernandez Pacios, L. & Christiansen, P. A. Ab initio relativistic effective
+potentials with spin-orbit operators. i. li through ar. The Journal of
+Chemical Physics 82 (6), 2664-2671 (1985). https://doi.org/10.1063/1.
+448263 .
+
+Sun, Q. et al. Pyscf: the python-based simulations of chemistry frame-
+work. WIREs Computational Molecular Science 8 (1), e1340 (2018).
+https://doi.org/10.1002/wems.1340 .
+
+Sun, Q. et al. Recent developments in the pyscf program package. The
+Journal of Chemical Physics 153 (2), 024109 (2020). https://doi.org/10.
+1063/5.0006074 .

@@ -1,0 +1,2694 @@
+2510.25449v1 [quant-ph] 29 Oct 2025
+
+arXiv
+
+Variational quantum computing for quantum simulation: principles, implementations, and
+challenges
+
+Lucas Q. Galvao,!?»* Anna Beatriz M. de Souza,!:? Marcelo A. Moret,? and Clebson Cruz**
+
+'QulIN - Quantum Industrial Innovation, Centro de Competéncia Embrapii Cimatec. SENAI CIMATEC,
+Av. Orlando Gomes, 1845, Salvador, BA, Brazil CEP 41850-010
+? Universidade SENAI CIMATEC, Salvador, BA, Brazil
+3Centro de Ciéncias Exatas e das Tecnologias, Universidade Federal do Oeste da Bahia - Campus Reitor Edgard Santos. Rua Bertioga,
+892, Morada Nobre I, 47810-059 Barreiras, Bahia, Brasil.
+
+This work presents a comprehensive overview of variational quantum computing and their key role in ad-
+vancing quantum simulation. This work explores the simulation of quantum systems and sets itself apart from
+approaches centered on classical data processing, by focusing on the critical role of quantum data in Varia-
+tional Quantum Algorithms (VQA) and Quantum Machine Learning (QML). We systematically delineate the
+foundational principles of variational quantum computing, establish their motivational and challenges context
+within the noisy intermediate-scale quantum (NISQ) era, and critically examine their application across a range
+of prototypical quantum simulation problems. Operating within a hybrid quantum-classical framework, these
+algorithms represent a promising yet problem-dependent pathway whose practicality remains contingent on
+trainability and scalability under noise and barren-plateau constraints. This review serves to complement and
+extend existing literature by synthesizing the most recent advancements in the field and providing a focused per-
+spective on the persistent challenges and emerging opportunities that define the current landscape of variational
+
+quantum computing for quantum simulation.
+
+Keywords: variational quantum computing, variational quantum algorithms, quantum machine learning, quantum simulation
+
+I. INTRODUCTION
+
+The simulation of physical systems constitutes a promis-
+ing field of research, since it enables the identification of
+fundamental properties of natural phenomena [1]. The ad-
+vent of digital computing significantly expanded this capa-
+bility, allowing researchers to numerically investigate scien-
+tific problems that resist analytical solution [2, 3]. However,
+the inherent computational complexity of simulating quantum
+mechanical systems presents a formidable challenge, as their
+probabilistic nature necessitates resources that grow exponen-
+tially with system size [4]. This fundamental limitation delin-
+eates the computational boundary where classical resources
+encounter their most profound constraint: the inability to effi-
+ciently solve problems in a polynomial time [5-7].
+
+This challenge establishes the central motivation for the
+emergence of quantum computing: the potential to circum-
+vent these fundamental limitations by employing inherently
+quantum architectures to emulate quantum systems [8, 9].
+Indeed, Feynman’s seminal insight established the vision-
+ary framework of a universal quantum simulator [4], which
+catalyzed foundational research in quantum computing [8—
+10]. This paradigm subsequently expanded beyond its original
+scope to encompass diverse computational domains [5, 11—
+14]. While classical simulations operate through the manip-
+ulation of discrete binary digits (bits), quantum simulations
+utilize quantum bits, or qubits, as their fundamental unit of in-
+formation [15]. This unique capability has enabled significant
+advances across diverse applications, including molecular en-
+
+* Iqgalvao3 @ gmail.com
+* Corresponding author: Clebson Cruz
+Email: clebson.cruz@ufob.edu.br
+
+ergy calculations [16, 17], quantum dynamics [8, 10], and
+the study of strongly correlated many-body systems [18, 19],
+establishing quantum simulation as a cornerstone of modern
+quantum information science [9].
+
+However, a primary impediment to the widespread appli-
+cation of quantum simulation is its reliance on fault-tolerant
+quantum computation, a technological milestone that has not
+yet been realized [20]. This requirement severely constrains
+the scope of current implementations, as existing quantum
+processors are limited to the so-called Noisy Intermediate-
+Scale Quantum (NISQ) hardware, characterized by limited
+numbers of qubits and noise processes that limit circuit depth
+[21]. In this context, variational quantum computing emerges
+as a promising paradigm designed to leverage these imperfect
+devices with a hybrid quantum-classical architecture: a pa-
+rameterized quantum circuit (ansatz) is executed on the quan-
+tum processor to prepare a trial state and estimate a cost func-
+tion, while a classical optimizer iteratively adjusts the parame-
+ters to minimize this cost [22, 23]. In principle, this approach
+mitigates the impact of noise and depth constraints by dis-
+tributing the computational workload, positioning variational
+quantum computing as a leading strategy for achieving prac-
+tical quantum utility without full error correction [21].
+
+In the literature, the use of quantum variational algorithms
+for quantum simulations has demonstrated applications in ar-
+eas such as quantum chemistry [24, 25], dynamics of conser-
+vative [26], and open systems [27, 28], quantum thermody-
+namics [29, 30], many-body simulation [31], fundamentals of
+quantum physics [32], among others [22, 23]. However, re-
+cent studies have revealed fundamental challenges related to
+barren plateaus (BP) and classical simulability that may limit
+its scalability [33]. Thus, evaluating the applicability of vari-
+ational quantum computing for quantum simulation remains a
+central challenge in current quantum computing research.
+This work provides a comprehensive overview of varia-
+tional quantum computing and their applications to quantum
+simulation. Our focus is restricted to the domain of simulat-
+ing quantum systems, explicitly excluding its applications to
+classical data processing. We delineate the foundational prin-
+ciples, challenges, and illustrative applications. While pre-
+vious reviews have separately covered quantum simulation
+[9, 34, 35] and variational quantum computing [22, 23], this
+work specifically addresses their intersection by focusing on
+the critical role of quantum data. We define quantum data
+as initial states prepared by a quantum mechanical process of
+interest, typically generated within a quantum device. By in-
+tegrating advances in variational methods with quantum sim-
+ulation tasks reliant on quantum data, this work provides a
+unified perspective that highlights practical strategies, chal-
+lenges, and future directions for achieving the ultimate goal
+of practical “quantum advantage”.
+
+The structure of this paper is organized as follows. Section
+IL surveys quantum-simulation paradigms emphasizing strate-
+gies on NISQ devices. Section III develops the variational
+toolkit: IIL.A frames the motivation and provides evidence-
+based contrasts with classical baselines; III.B discusses
+the physics-motivated ansatze and expressibility—trainability
+trade-offs; III.C presents the fundamentals of cost functions
+and gradients, while III.D reviews classical optimization un-
+der noise;IIL.E provides a critical view of BP, their origins,
+when they can be avoided, and the attendant trade-offs with
+classical simulability. Section IV presents implementations
+relevant to quantum simulation: IV.A shows the ground/ex-
+cited states (VQE/VQD) simulations, IV.B highlights quan-
+tum dynamics (including open-system settings), 1V.C presents
+the finite-temperature preparation (free-energy—based meth-
+ods), and, finally IV.D describes the quantum machine-
+learning models for the simulation of quantum systems. Sec-
+tion V concludes the review by synthesizing the state of the
+field with a balanced outlook, outlining the research directions
+that align algorithm design with hardware realities.
+
+II. QUANTUM SIMULATION
+
+Recent technological advances have significantly impacted
+the scientific scenario, enabling the development of new the-
+ories and approaches to various natural phenomena [36, 37].
+Particularly, the development of increasingly powerful com-
+puters has enabled the approach to problems in physics that
+were considered to have no analytical solution, which has con-
+tributed to the advancement of numerical simulations [38].
+In fact, the local, reversible, and causal aspects of classical
+physics do not, in principle, present difficulties in terms of
+adaptation to classical computers [3], allowing the application
+of temporal discretization techniques, as long as in extremely
+small intervals [39].
+
+However, the probabilistic nature of quantum mechanics
+imposes a barrier to conventional simulations, since a large
+number of computational resources are required to achieve a
+certain accuracy [5]. For example, a quantum system com-
+posed of N particles would require knowledge of the proba-
+
+bilities of these particles at distinct points x;,x2,...,xy fora
+time f in order to achieve its complete description. If the rep-
+resentation of these particles requires S points in space, the
+number of possible configurations would be of the order of
+S [9]. Thus, a time evolution operator for this system will
+require around S% x S inputs. This exponential dependence
+on the number of particles makes the problem intractable for
+conventional computers when N > 1 (see Ex. 1).
+
+Example 1: Simulating spin-
+
+cal computers
+
+Spin-1/2 systems require S$ = 2 points in space to
+be represented, so the computer needs to store 2”
+configurations. In the literature, N = 40 is considered
+an intractable problem for the vast majority of current
+computers, since it results in 24° ~ 10!? configu-
+rations, while the time evolution operator (unitary
+matrix of size 2 x 2”) would require 2*° x 24° ~ 1074
+elements to be represented [4, 8, 9]. Converting to
+bits, this would result in about ~ 3.2 x 10! bits.
+The effect of exponential dependence is visible when
+doubling the number of particles, now resulting in
+= 3.8 x 107 bits.
+
+For comparison purposes, Hilbert and Lopez (2011)
+[40] estimated the amount of information stored by all
+of humanity in 2007, resulting in ~ 2.4 x 107! bits
+— ten thousand times smaller than the simulation of a
+system with N = 80 particles! In 2024, this number
+was updated to ~ 1.9 10” bits [41], still smaller than
+the amount of bits required for the simulation.
+
+In this scenario, quantum computing emerges as a powerful
+tool to simulate physical systems using genuinely quantum ar-
+chitectures. In fact, the genesis of the proposition of quantum
+computers is marked by Richard Feynman’s series of lectures
+on computer simulations in 1981 [4], although other works
+have independently pointed out ways for this insertion [42].
+This is because, being quantum systems themselves, the stor-
+age of large amounts of information could be encapsulated in
+arelatively small amount of physical space. This led Feynman
+to a foundational question that would fuel decades of research
+in quantum computing:
+
+What is the universal quantum simulator? [...]
+If you had discrete quantum systems, what other
+quantum systems are exact imitators of it, and
+is there a class against which everything can be
+matched? (Feynman, 2018) [4].
+
+In 1985, Deutsch [15] established a crucial theoretical
+foundation by proposing a quantum generalization of the Tur-
+ing machine, thereby demonstrating the principle of universal
+quantum computation. Over a decade later, Lloyd (1996) [8]
+provided a direct response to Feynman’s conjecture by formu-
+lating a framework for a universal quantum simulator capable
+of emulating the dynamics of a quantum system with local in-
+teractions. For systems whose Hamiltonian terms commute,
+the time-evolution operator can be exactly decomposed into
+a sequence of unitary quantum operations. For the general
+case involving non-commuting observables, Lloyd (1996)
+[8]discussed an algorithm leveraging the Trotter-Suzuki de-
+composition to approximate the time-evolution operator as a
+product of exponentials of the individual Hamiltonian terms.
+
+Within this framework, the first-order approximation is
+given by
+
+", t/At
+U(t) = eH (1 cum , a
+
+jel
+
+where the total Hamiltonian H is decomposed into n local
+terms, H = wei H,, each acting on a limited subset of parti-
+cles. The accuracy of this approximation is controlled by the
+number of steps t/Ar; a finer discretization (larger n) yields a
+more precise simulation at the expense of increased compu-
+tational resources [43-45]. Each exponential e~!”“' must be
+further decomposed into a sequence of fundamental quantum
+gates. Consequently, the algorithmic precision is intrinsically
+linked to the circuit’s gate complexity and depth [46]. This
+formalism establishes that any physical system governed by a
+well-defined Hamiltonian can, in principle, be simulated on a
+quantum computer, a property that encompasses the vast ma-
+jority of quantum mechanical problems [47].
+
+These propositions played a fundamental role in the con-
+solidation of the theory of quantum simulations and have been
+implemented in several contexts, such as quantum chemistry
+[17], quantum thermodynamics [48], and many-body sys-
+tems [18, 49]. The practical application of these simulations
+promises to transform materials science, offering solutions to
+problems considered intractable by classical computing [9].
+Furthermore, the field of quantum simulations was responsi-
+ble for some of the first experimental demonstrations of quan-
+tum advantage, as evidenced in recent works [50, 51].
+
+Formally, quantum simulations are divided into three main
+categories: inspired, analog, and digital. Inspired simula-
+tions use classical algorithms motivated by quantum struc-
+tures to achieve greater computational efficiency, being espe-
+cially promising for many-body problems [45, 52]. In analog
+and digital simulations, the purpose is to reproduce the dy-
+namics of a quantum system |v) in a dedicated quantum de-
+vice. In this case, an initial state |W) is prepared, a mapping
+of the desired time evolution U to an effective operator U’ is
+implemented in the simulator, and, finally, the system is mea-
+sured to extract the physical quantities of interest (see Fig. 1).
+
+In analog quantum simulations, a known quantum system is
+controlled to mimic the behavior of another system of interest,
+as shown in the diagram below:
+
+Simulated (Sim) Physical (Phy)
+6
+Is) — |p)
+\v |v
+P|
+|s(T)) — \pr)
+
+where the evolution from |s) to |S (T)) occurs through the time
+evolution operator U. However, note that this evolution occurs
+
+quantum
+system
+
+quantum
+simulator
+
+|(0)) > |p(t))
+
+Figure 1.
+First, an initial state |y) is prepared, and then the desired evolution U
+is mapped onto an effective operator U’ implementable in the simu-
+ator. After applying U’, measurements of the system are performed
+to extract the physical quantities of interest associated with the sim-
+ulated state |v(t)).
+
+Schematic of digital and analog quantum simulations.
+
+indirectly: the state |s) is taken to the state of the physical sys-
+tem |p) from the map ¢, which has its evolution mapped from
+the operator Vr = ¢-'U¢ [10]. At the end of the process, the
+mapped state |p;) is then taken to the corresponding state of
+the simulator |S (7)) through the map ¢~!. This mechanism is
+useful when the goal is to perform specific quantum simula-
+tions on simple manipulation systems (see Ex. 2).
+Example 2: /
+
+alog quantum simulation of the
+Bose—Hubbard model
+
+{htpb] A controllable quantum system can be repre-
+sented by a Hamiltonian describing a gas of bosonic
+atoms interacting in a periodic potential.
+
+Him =- JY) 4; +)" eifts + su Shula, -1),
+ij i i
+
+where at and G; are, respectively, the creation and an-
+nihilation operators for an atom at site i, A; = ala;
+counts the number of atoms at that site, ¢; is the energy
+gap due to the external confinement potential, J quan-
+tifies the tunneling rate between neighboring sites, and
+U measures the interaction strength between atoms at
+the same site. This model formally coincides with the
+Bose—Hubbard Hamiltonian,
+
+H=-J) bb) + hu) ala, - D-u Dim
+
+ti.) i
+
+where y is the chemical potential and BD obey the
+same site interpretation. The analog simulation with
+atoms in an optical lattice directly follows this Hamil-
+tonian. In contrast, in systems such as Josephson junc-
+tion arrays, the quantum phase model is used, in which
+the operators @; are rewritten in terms of the ampli-
+tude and phase of the superconducting order parameter
+in each circuit element, thus establishing the mapping
+Hy; @ Hsim. For a more detailed description, see ref.
+[53].
+
+Digital quantum simulations employ the quantum circuit
+model (see Fig. 2) to reproduce the evolution of physical sys-
+tems [5]. In their most basic form, an initial state |W) is pre-
+pared, a sequence of carefully designed unitary gates that ap-
+proximate the dynamics generated by a Hamiltonian of in-
+terest is applied, and finally, measurements are performed to
+extract the desired observables [54], as demonstrated in Ex.
+3. Although they share the same goal of imitating a physical
+system in quantum hardware, digital simulations explicitly as-
+sume that such a system can be described by universal digital
+logic gates [55]. This paradigm enables the construction of
+general simulation algorithms, in which local interactions in
+Hamiltonians can be implemented in a controlled and scalable
+manner [8].
+
+U fre
+
+Figure 2. General representation of a quantum circuit. The circuit is
+read from left to right and represents a controlled operation: the top
+line is the control qubit and the bottom is the target qubit. When the
+control qubit is in the |1) state, the unitary operation U is applied to
+the target qubit. Finally, the target qubit is measured in an appropriate
+basis (represented by the semicircular gauge).
+
+mple 3: Digital quantum
+
+Lamor prece
+
+The precession of a state |W) can be understood by ap-
+plying a transverse magnetic field, represented by the
+Hamiltonian
+
+H= Foz (2)
+where wp is the frequency of the field. The time evo-
+lution operator is then given by
+
+U =exp (-< Hor) = exp (-- wore) (3)
+
+apo t HO")
+
+= diag [e~ en
+which is implemented by applying the gate
+Rz(@) = diag [e°?* —e?*] (4)
+
+decoding ¢ = wt. For a more detailed description, see
+ref. [56].
+
+Considering the many possibilities offered by quantum
+simulations, especially for problems intractable for classical
+computers, it is natural that much of the scientific commu-
+nity’s attention is focused on the development of these ap-
+proaches [9, 57]. However, although digital quantum simu-
+lations (DQS) present significant theoretical advantages, their
+practical application still faces significant limitations. These
+restrictions are largely related to the current state of quan-
+tum hardware technology, whose construction and control re-
+main considerable technical challenges, as will be discussed
+in more detail in the following section.
+
+II. VARIATIONAL QUANTUM COMPUTING
+
+A standard classification in variational quantum comput-
+ing delineates two primary paradigms: Variational Quantum
+Algorithms (VQAs), which are problem-driven and typically
+Parameterrs
+Cost Function
+Ansatz
+Quantum State
+
+Updated parameters
+
+Parameterrs
+Cost Function
+Ansatz
+Bitstring
+Quantum State
+
+Figure 3. General representation of a variational quantum algorithm. Inputs: initial parameters 6, cost function C(6), parametrized ansatz
+U(@), and the input state |). The ansatz is applied on an input state |) or training instances p,, followed by an optional basis—change
+or post-processing block W and measurements of observables {O;}. The measured expectations define the cost function C(@) = Di; fx(9, pr),
+which a classical optimizer minimizes by updating the initial parameters 6 > 6°. The procedure outputs the optimized parameters 0°, minimized
+cost C(9*), the optimized ansatz U(0*), and the prepared state |¥(@")). The inset cost landscape (bottom right) illustrates the “hypersurface”,
+where variational training corresponds to searching for the global minimum under NISQ constraints.
+
+target specific objectives such as ground-state preparation of
+physical systems [22, 23], and Quantum Machine Learning
+(QML) models, which are data-driven and encompass diverse
+tasks including supervised learning and generative modeling
+[14, 58]. Despite these distinct operational contexts, where
+VQAs focus on solving well-defined physical problems and
+QML models on learning patterns from data, both paradigms
+share a fundamental variational structure comprising parame-
+terized quantum circuits and classical optimization [58]. This
+work consequently adopts a unified analytical framework, ex-
+amining VQAs and QML models jointly to extract insights
+that transcend their particular applications.
+
+A. Motivation
+
+Advances in quantum computing have allowed the first
+quantum simulation experiments to be carried out on real de-
+vices, reinforcing their potential [10, 59, 60]. In 2016, IBM
+made the first quantum computer available in the cloud, mark-
+ing the beginning of public access to quantum processors
+based on superconducting circuits [61]. Years later, other
+companies began offering similar services, exploring differ-
+ent physical platforms, such as architectures based on trapped
+ions, neutral atoms, and photonics, contributing to the expan-
+sion of the range of available technologies [62, 63].
+
+However, current quantum computers still face significant
+challenges, such as high noise levels and qubit limitations, ei-
+ther due to restricted connectivity or decoherence. These char-
+acteristics define Noisy Intermediate-Scale Quantum (NISQ)
+devices, which operate with a limited number of qubits and
+without real-time error correction [21]. In contrast, the era of
+fault-tolerant quantum computing (FTQC) envisions systems
+that can operate reliably even in the presence of errors, due to
+the full implementation of error correction protocols [64-67].
+
+In this context, any proposal for leveraging quantum com-
+puting during the NISQ era must account for the stringent
+limitations of contemporary hardware to yield practical out-
+comes. These constraints include a limited qubit count, the
+necessity to minimize the number of logic gates, and the con-
+struction of quantum circuits with minimal depth to mitigate
+error accumulation [21, 68]. A central challenge in quantum
+simulation thus emerges: while the number of qubits required
+to represent a system scales linearly with its size, the number
+of logical operations needed to simulate its evolution scales
+super-linearly or exponentially. This disparity creates a funda-
+mental bottleneck, as the computational overhead grows pro-
+hibitively quickly compared to the system’s physical scaling.
+
+In an exploratory study, Kassal et al. (2008) simulated a
+quantum system composed of N particles subjected to a paired
+Coulomb potential, using a total of n(3N — 6) + 4m qubits,
+where n is the number of basis levels used in the represen-
+
+tation and m is the number of ancillas required to achieve a
+given accuracy [16]. Although this number scales linearly
+with N, the number of steps required to evaluate the poten-
+tial is on the order of O(N?m7), which implies an equivalent
+number of logic gates. Note that this number still follows a
+polynomial scale, maintaining the quantum advantage but re-
+maining incompatible with current quantum computers [21].
+A summary of these results is shown in figure 2 of reference
+[16], where the authors shows the qubit resources and elemen-
+tary gates for the quantum simulation of particles interacting
+via the Coulomb potential, indicating the need for at least 100
+qubits and more than 200 000 gates to overcome the limit to
+classical simulations.
+
+As a potential alternative to these limitations, VQAs
+emerge as a class of digital quantum algorithms with the
+promise of a quantum advantage in the NISQ era, using com-
+putational resources in a hybrid way — The quantum archi-
+tecture represents the quantum state information through a pa-
+rameterized circuit, while the classical part of the algorithm is
+responsible for adjusting these parameters based on the min-
+imization of a cost function C [22], as shown in the diagram
+in Fig. 3. This hybrid approach leverage a powerful synergy
+between quantum and classical processors. The quantum de-
+vice is tasked with executing a parameterized quantum circuit
+(PQC) that prepares a trial state and computes a cost func-
+tion, a task often intractable for classical computers. The re-
+sult of this quantum computation is then fed to a classical op-
+timizer, which calculates a new, improved set of parameters
+for the quantum circuit. This iterative feedback loop contin-
+ues, dynamically refining the quantum operation until the cost
+function converges to an optimal value, effectively training the
+quantum system to solve a specific problem.
+
+Unlike classical variational methods, VQA and QML ap-
+proaches natively exploit the exponentially large Hilbert space
+[14, 22]. While classical approaches require explicit repre-
+sentation of quantum states, demanding memory that grows
+exponentially with system size or facing severe sampling bar-
+riers. These limitations of the classical approaches become
+particularly relevant in systems affected by the sign problem,
+where the simulations face exponential sampling overhead.
+This situation is exemplified in Example 4, which discusses a
+typical model applied to quantum many-body systems where
+the signal-to-noise ratio decays exponentially with system size
+and inverse temperature. As a result, the classical sampling er-
+ror diverges, making simulations infeasible in physically rele-
+vant regimes.
+
+In contrast, VQAs leverage parameterized circuits whose
+structure can incorporate problem-specific knowledge, often
+avoiding the overhead associated with classical state descrip-
+tions. This shifts the computational burden from storing expo-
+nential state representations to optimizing a compact parame-
+ter vector and estimating expectation values through quantum
+measurements. These results illustrate the type of problems
+where VQAs may offer tangible advantages. As we will see
+in Sec. IIE, the resulting scaling advantage is conditional:
+it requires an expressive yet trainable ansatz and must over-
+come challenges like measurement shot noise, device deco-
+herence, and BP. Nevertheless, emerging benchmarks demon-
+
+strate regimes where VQAs achieve superior accuracy and
+more favorable scaling than leading approximate methods
+based on tensor networks and neural networks [50, 51, 69].
+
+Quantum Monte
+
+Consider a classical estimator for the average of an
+observable:
+
+dic Pc Oc
+
+1
+O) = sTr[O exp (-BH)] = ————.,
+(O) =, MO exp (- BH) Tore
+
+where C enumerates configurations and the (classi-
+cal) weights pc € R (or C) can be signed or phased.
+The standard approach to handle negative weights in
+fermionic systems is to sample using the bosonic sys-
+tem with absolute weights |p(c)|, while assigning the
+sign s(c) = sign p(c) to the measured quantity:
+
+YeACplo) _ (Asy’
+Tere) sy
+
+where (-)’ denotes sampling with respect to |p(c)|. Al-
+though this enables Monte Carlo simulations, the er-
+rors grow exponentially with system size N and in-
+verse temperature B. The average sign (s) = Z/Z’ is
+the ratio of fermionic and bosonic partition functions.
+Since partition functions are exponentials of free ener-
+gies, this ratio becomes:
+
+(A) =
+
+(5) rene?
+
+where Af is the free energy density difference. Con-
+sequently, the relative error scales as:
+
+As PNAS
+Gs) VM
+
+where M is the number of samples. Similarly, the error
+in measured observables grows exponentially, and the
+computation time required for a fixed accuracy scales
+exponentially with N and £ (see [6] for detailed com-
+plexity analysis).
+
+B. Ansatz
+
+Similar to conventional variational algorithms, the effi-
+ciency of VQAs depends explicitly on the definition of the
+cost function. This is because it represents a hypersurface in
+which the solution of the desired problem lies (see Fig. 3), so
+that the optimization process must lead to this solution with a
+certain accuracy [70]. To this end, we need to represent the
+state considering the application of a parametrized operator
+
+|G) = UG) . (5)
+where U(@) represents the quantum circuit parameterized in
+G= {61,...,0,}, which is applied to the input state of the al-
+gorithm |y). This circuit is called an ansatz, and can be repre-
+sented as
+
+U@) = UjG,)...U,(O;)... U2(@2)U1 1), (6)
+where
+
+U(6;) = I] eo lintn Wy, (7)
+
+m
+
+The representation provided by Eq. (7) allows to write the
+ansatz in terms of the optimization parameters 6}, unparame-
+terized unitary {W} and Hermitian operators {H} [22, 25, 71].
+Note that the parameters 6 can, in theory, be freely controlled
+in the circuit, by changing the probability amplitudes of the
+state iG) as demonstrated in Ex. 5. In this sense, they are
+able to encode the desired information of the quantum system,
+such as its temporal evolution or, simply, a specific amplitude
+[22]. Therefore, the choice of ansatz defines the expressibility
+and trainability of the algorithm, since they delimit the search
+space covered during the optimization [25, 72].
+
+Example 5:
+
+-qubit ansatz
+
+The solution sought by the optimization process in the
+Hilbert space of a 1 qubit basically consists of travers-
+ing the Bloch sphere in search of the state of interest.
+The representation of any qubit in the Bloch sphere is
+given by
+
+WG, 6)) = UG, 6) kb) = cos(/2) |0) + e~* sin(6/2)|1)
+
+which can be obtained by applying the gate Ry(6) and
+Rz(). Therefore, the task of VQA is to find the opti-
+mal parameters {6*, 6*} that lead to the state of interest
+
+We", b*)).
+
+In general, ansdtze can be divided into two main classes:
+Physical Motivated Ansatz (PMA) and Hardware Heuristic
+Ansatz (HHA) [17]. As the name suggests, PMAs are built
+inspired by the physical problem of interest, and are com-
+monly used in quantum simulations [73-76]. On the other
+hand, HHAs are built considering the architecture of the quan-
+tum computer on which the algorithm will be executed, aim-
+ing to optimize the connectivity of the qubits [77, 78]. Thus,
+both meet specific requirements and must be chosen accord-
+ing to the objective of the VQA. For a detailed description
+of the most well-known types of ansatz in the literature, see
+[17, 22, 25, 79].
+
+C. Cost Function
+
+After applying the ansatz, the state \¥@) is measured
+considering the set of observables {O;} [5]. The value of
+these measurements, together with the parameters, is then for-
+warded to the optimization process considering the cost func-
+
+7
+
+tion C@). This process is repeated until the value of the pa-
+rameters that minimizes the function is found, represented as
+& = {6;,...,67} (see Fig. 3). Thus, VQA problems are re-
+duced to optimization problems of the type
+
+& = arg min cé). (8)
+
+In general, the cost function must depend explicitly on the
+circuit parameters. However, it is constructed implicitly from
+the quantum state p;, which results from the application of
+the ansatz U (6) on the initial state |W;,), together with the mea-
+surement operators O;. Thus, its general form is written as
+
+CB) = flit. (Ont. (UA) , (9)
+
+where f is the chosen cost function. In the context of VQAs,
+it is useful to define it as a function that depends explicitly on
+
+the trace of p, written in the basis of ub, Le.,
+
+CO) = > fi(THOLU@pxU" Gl) . (10)
+k
+
+with {f,} being the set of functions used to define the cost
+function. This representation enables generalizations of
+VQAs from their variations in terms of the parameters of in-
+terest [80], using the parameter shift-rule:
+
+aC
+
+1 r
+a = S(T rOKU' (04) .UO.)] dt)
+06; py 2sina
+
+-Tr[OxU" (9_)pxU@)))),
+
+where 6.. = 6 + ae; for an arbitrary number a € R, where e;
+is a vector containing the value | in its first component and
+0 in the others [81-83]. Note that the accuracy of eq. 11 is
+directly influenced by the term 1/2 sina, which is minimized
+for a = 2/2. This definition allows to analytically evaluate
+the effect of gradient-based optimizers, which defines an im-
+portant step in the progress of VQAs [22]. This is because
+choosing the right optimizer is essential for greater accuracy
+in convergence, since it will define how the search will be per-
+formed in the solution space [84].
+
+D. Classical optimization
+
+The efficacy of a Variational Quantum Algorithm is fun-
+damentally governed by the optimization of its parametrized
+quantum circuit. This process constitutes a classical optimiza-
+tion loop nested within the hybrid quantum-classical architec-
+ture. The classical optimizer’s objective is to navigate a high-
+dimensional, non-convex parameter landscape to minimize a
+cost function c@), which is evaluated on the quantum proces-
+sor. This task is particularly challenging due to the noisy na-
+ture of the quantum hardware (which introduces stochasticity
+into cost function evaluations), the presence of BP that expo-
+nentially suppress gradients, and the inherent computational
+overhead of each quantum evaluation [22].
+There are various classical optimization methods avail-
+able for minimizing cost functions in variational algorithms,
+such as Constrained Optimization BY Linear Approxima-
+tion (COBYLA), Nelder-Mead, BFGS, and L-BFGS-B [85].
+COBYLA and Nelder-Mead are derivative-free approaches,
+making them robust and straightforward to apply without re-
+quiring gradient calculations, but they may converge more
+slowly on smoother problems [86-89]. In contrast, BFGS and
+L-BFGS-B are gradient-based quasi-Newton methods that uti-
+lize information about the function’s slope to determine ef-
+ficient search directions, often achieving faster convergence
+rates [90, 91]. The choice between these methods depends
+on factors like problem differentiability, computational re-
+sources, and the trade-off between robustness and speed.
+
+E. Barren plateau: origins, scope, and mitigation.
+
+The performance of variational quantum computing is con-
+strained by fundamental challenges inherent to their optimiza-
+tion landscapes [22, 23]. Principal among these are the limited
+expressibility of the parameterized ansatz, which may fail to
+capture the exact solution [92, 93]; the proliferation of sub-
+optimal local minima that trap classical optimizers [94-96];
+and the emergence of BP, where the cost function’s gradient
+vanishes exponentially with system size [97]. The BP prob-
+lem is widely considered the most prohibitive obstacle to scal-
+ing these algorithms [33]. This phenomenon is illustrated in
+Fig. 4: a landscape afflicted by a BP (left) exhibits a vanish-
+ing gradient, providing no directional preference for optimiza-
+tion. In contrast, a well-behaved, smooth landscape (right)
+features a well-defined gradient that guides the optimizer to-
+ward a minimum.
+
+Intuitively, this implies a predominantly flat and feature-
+less optimization landscape, where infinitesimal variations in
+the parameters induce only exponentially small changes in
+either the loss Cy(p, O) or its partial derivatives dg,Cg(p, O)
+[98-100]. This creates a fundamental challenge for gradient-
+based optimization, as identifying a descent direction requires
+resolving minute differences in the loss function, which is a
+task severely complicated by the statistical uncertainty inher-
+ent to quantum measurement. Since expectation values are
+estimated from a finite number of shots NV, the resulting un-
+certainty scales as O(1/ VN), which can easily obscure expo-
+nentially small gradients and make determining a minimizing
+direction infeasible without an exponentially large number of
+measurements [33], as shown in Ex. 6.
+
+Example 6: Finite-size effects on sampling
+
+In practical implementations, the expectation value of
+the loss function, Cg(p, O) = E,i[O], is not computed
+exactly but is statistically estimated using a finite num-
+ber of measurement shots N. We denote this finite-
+sample estimator as Co(p, O). When these N measure-
+ment outcomes are independent, the sample variance
+(or standard error) of this estimator is given by:
+
+Vatp@lO] _ E,@[O7] — (Ep lO?
+N N ,
+
+Vars[Co(p, O)] =
+
+This variance quantifies the statistical uncertainty in
+the computed loss value, which arises from two fac-
+tors: the intrinsic quantum mechanical variance of the
+observable O in the state o(@) (numerator), and the
+finite-sample error scaling as 1/N (denominator). Ap-
+plying Chebyshev’s inequality confirms that the sta-
+tistical fluctuations of the estimator are of the order
+O(1/ VN) (see [101]). A critical consequence of this
+relationship is that in regions of the parameter land-
+scape where the true gradient is exponentially small,
+resolving a descent direction typically requires an ex-
+ponentially large number of measurement shots N to
+overcome this inherent statistical noise (see [33] for a
+detailed analysis).
+
+The origin of BP can be attributed to several factors, such
+as circuit expressiveness [72, 102], input states and measure-
+ments [103, 104] or even the noise in the quantum hardware
+105, 106]. Most recently, its origin has been discussed in
+terms of the so-called curse of dimensionality [107], which
+implies that the inner product between two exponentially large
+parametrized objects will be (on average) exponentially small
+and exhibit concentration. The statistical uncertainty in esti-
+mating such minuscule gradients makes it practically impos-
+sible to determine reliable descent directions without an ex-
+ponentially large number of measurements [33]. Therefore,
+what once was seen as an advantage (i.e., the exponentially
+large dimension of the Hilbert space) starts to seen as core of
+the BP phenomenon.
+
+The BP problem has inpired extensive research into mit-
+igation strategies for variational quantum computing [108].
+Promising approaches often involve constraining the quantum
+model’s expressibility to avoid the concentration of measure
+in high-dimensional Hilbert spaces [33]. This includes em-
+ploying shallow circuits [77, 80, 109] or designing PQC with
+restricted dynamical Lie algebras [110, 111], which inher-
+ently limit the exploitable state space and prevent the expo-
+nential gradient decay. Similarly, variable-structure ansatzes
+[112] and carefully crafted initialization strategies [113-115]
+have shown empirical success as practical heuristics. How-
+ever, this approach introduces a critical trade-off: these same
+constraints often render the variational model efficiently clas-
+sically simulable, thereby negating its potential for a quan-
+tum advantage [107, 116-118]. In contrast, techniques such
+as merely switching classical optimizers [119-121] or apply-
+
+Figure 4. The cost function landscapes with different behaviors. On
+the left, the mostly flat cost function represents the vanishing of the
+gradient function, which makes the minimum inaccessible. On the
+right, the smooth loss function allows for the identification of the
+minimum point.
+
+ing standard error mitigation [106, 122, 123] have been shown
+to offer no direct impact to avoid the BP problem itself.
+
+These aspects denote how the area of variational quantum
+computing studies still lacks a greater theoretical and empir-
+ical repertoire for further conclusions regarding the sought
+“quantum advantage”. The progress made in recent years has
+led to the development of numerous applications. This is be-
+cause VQA and QML are characterized as a tool with an im-
+mense degree of diversification, whether for quantum simula-
+tions or optimization processes in general. In addition, works
+have already proven the universality of VQAs [124], which
+makes their practicality applicable even in eras after NISQ
+[125]. Accordingly, any promise of advantage is inherently
+problem- and regime-specific, hinging on ansatz structure, ini-
+tialization, and depth budgets that avoid BP while preserving
+non-classical expressivity
+
+IV. IMPLEMENTATIONS
+
+In this section, we present concrete implementations of
+VQAs for quantum simulation and organize them into four
+application pillars that will guide the discussion that follows:
+(i) ground- and excited-state problems, where these methods
+are employed to obtain molecular energies and spectra; (ii)
+quantum dynamics, covering both conservative (closed) evo-
+lutions and open-system scenarios, including variational treat-
+ments built upon Lindblad and quantum-state-diffusion for-
+mulations; (iii) finite-temperature physics, where variational
+thermalization and imaginary-time methods are used to pre-
+pare Gibbs states and study thermodynamic behavior; and
+(iv) a concise note in quantum neural networks when used in
+simulation-adjacent tasks. Table I provides a compact sum-
+mary of the principal algorithms referenced throughout this
+section, including their canonical use cases and representative
+cost functions, serving as a roadmap for the detailed subsec-
+tions that follows.
+
+A. Find the ground and excited states
+
+The task of finding the ground state of molecules is of fun-
+damental importance, since it allows the determination of es-
+
+sential chemical properties, such as binding energy, electronic
+structure and reactivity [126-128]. Computational chemistry
+methods, such as density functional theory, are widely used
+for this purpose, allowing results to be obtained with good ac-
+curacy and relatively low computational cost [129]. However,
+for larger systems or those involving significant electronic
+correlation, the same problems regarding computational re-
+sources arise again (see Ex. 1).
+
+In 1995, Kitaev developed a quantum algorithm capable
+of estimating the eigenvalues of Hermitian operators with
+logarithmic complexity using the Quantum Fourier trans-
+form (QFT) [130]. This proposal laid the foundation for the
+Quantum Phase Estimation (QPE) algorithm [131]. Years
+later, Lloyd and Abrams (1997; 1999) proved the exponen-
+tial speedup of the algorithm by computing eigenvalues and
+eigenvectors of Hermitian operators [132, 133]. Inspired by
+these algorithms, Aspuru-Guzik et al. (2005) proposed using
+these techniques to find the ground state of molecules [134],
+which set new limits for the field of quantum chemistry [17].
+
+However, the approach faces similar problems to ref. [16]:
+while the number of qubits scales linearly, the number of
+gates needed to achieve a certain accuracy scales in N*,
+where k is a problem constant (for details see figure 2 in ref.
+[16]).Considering these limitations, Peruzzo et al. (2014) pro-
+posed the variational quantum eigensolver (VQE) for circuit
+depth reduction using classical hardware resources to opti-
+mize a cost function cé [24]. In terms of structure, the VQE
+resembles the standard description of VQAs (Fig. 3), but uses
+two components aimed at the ground state problem: the vari-
+ational principle and specific classes of anséitze [25, 135].
+
+For this task, these structures are built to find the state |‘P nin)
+that provides the lowest possible energy of the system, de-
+scribed by the Hamiltonian H, such that
+
+Emin = (Ymin| A Ymin) « (12)
+
+This value is achieved during the optimization process by
+applying the variational theorem to ensure that
+
+Enin < E@) = (¥G| H|¥@O) = Tr.U'@peu@l, (13)
+
+where E,,i, corresponds to the mean of the observables (Ox)
+of interest. Eq. (13) denotes that the method consists of an
+approximation capable of ensuring that the optimization never
+exceeds the ground state limit [24, 25, 135].
+
+Regarding anséitze, HHAs always stand out when the is-
+sue is hardware optimization, with their main applications
+being concentrated in the Hardware Efficient Ansatz (HEA)
+[78, 136]. However, the emphasis of simulations in quan-
+tum chemistry is to use the characteristics of the molecule to
+ensure that eq. (13) approaches equality. In the literature,
+there is a certain consensus on the use of the quantum unitary
+coupled cluster (qUCC) ansatz to achieve greater accuracy in
+these simulations, given its potential to exploit the symmetry
+of the molecule [137].
+
+This technique has its origins in classical quantum chem-
+istry simulations, which define the wave function |Wcc) by ap-
+plying the excitation operator e” to the reference state, usually
+10
+
+Table I. Main variational algorithms applied to quantum simulations. In implementations, we list its original propositions.
+
+Algorithm
+Variational Quantum Eigensolver (VQE)
+Variational Quantum Deflation (VQD)
+
+Quantum Imaginary Time Evolution (QITE)
+
+Variational Quantum Simulation (VQS)
+
+Implementations
+- Finding the ground state [24]
+- Finding the excited state [126]
+
+- Finding the ground state [127]
+- Thermal state preparation [127]
+
+- Quantum dynamics of conservative systems [26]
+
+Cost Function
+Expected Value
+Expected Value
+
+Norm minimization
+
+problem
+
+Trajectory equation
+
+- Quantum dynamics of open systems [27, 28]
+
+Variational Fast Forward (VFF)
+
+Variational Quantum Thermalizer (VQT)
+
+Quantum Neural Network (QNN)
+
+- Quantum dynamics of conservative systems[ 128]
+
+- Thermal state preparation [30, 129]
+
+- Electronic structure [130]
+
+Global and local over-
+laps between unitary
+
+Free energy
+
+Depends on the prob-
+
+- Quantum state preparation [131, 132] lem *
+- Quantum dynamics [133-135]
+- High energy physics [136]
+
+Quantum Generative Adversarial Network - Quantum dynamics of many-body systems [137]
+
+(QGAN)
+
+Quantum Support Vector Machine (QSVM)
+
+Quantum Convolutional Neural
+
+(QCNN)
+
+- High energy physics [138]
+
+Network - Phase transition [139]
+
+Trace distance
+Modified trace loss
+Fidelity-based metrics
+(convergence criterion)
+
+Hinge loss
+
+Mean-squared error
+Expected Value
+
+* The principal cost functions are the cross-entropy on measured class probabilities [140], expectation value of energy [130], mean-squared or absolute
+error computed on expectation values [136, 141, 142], hinge loss [143, 144], and less commonly, one encounters fidelity/overlap-based criteria that maxi-
+mize the overlap with label states or local/global fidelities [80, 134, 144] Hilbert-Schmidt Test cost (HST) [133], and truncated free energy [132].
+
+represented by the Hartree-Fock state |HF), so that
+Wc) =e" HF) , (14)
+
+where T = >), T;, with T; representing an excitation of order i
+[138, 139]. However, the problem with this technique lies in
+the non-unitariness of the excitation operator, which becomes
+a problem when dealing with conservative quantum systems
+[140]. In this sense, we redefine e” —> e7-T (UCC), thus
+ensuring the unitarity of the operator [141]. Therefore,
+
+luce) =e" " |HF) , (15)
+
+which fits into the class of universal quantum simulators de-
+scribed by ref. [8], and can be easily implemented in a quan-
+tum computer by applying logic gates (see Ex. 7). Tak-
+ing a similar approach, Quantum Imaginary Time Evolution
+(QITE) can be seen as a natural extension of VQE, in that
+both employ parameterized circuits and classical optimization
+to approximate the lowest energy state of a quantum system
+[142]. While VQE directly minimizes the expected energy
+(W@)|HW(8)), QITE simulates the evolution in “imaginary
+time” e~”* through McLachlan’s variational principle [143],
+adjusting to successively approximate the Gibbs state or the
+ground state from an arbitrary initial state [144]. Thus, QITE
+replaces the energy measurement steps of VQE with over-
+lap measurements between nearby states in parameter space,
+
+but maintains the same hybrid quantum-classical structure and
+low-depth ansatze flexibility, making it equally suitable for
+implementation on NISQ devices [145, 146].
+
+There are also algorithms that use VQE as previous routines
+to find the excited state of molecules. In 2019, Higgott et al.
+proposed the variational quantum deflation (VQD) algorithm
+[147], using VQE to find the ground state and then applying
+the same principle by rewriting the Hamiltonian as
+
+H! = H + amin) Wink (16)
+
+ensuring that the energy of the state is E.. < E(@) =
+(¥A| H’ G)) when the value of a is greater than or equal
+to the distance between the first excited state and the ground
+state [148]. This makes it possible to obtain an even more
+complete description of the molecule in terms of its stability
+and reactivity.
+
+In the vast majority of algorithms focused on quantum
+chemistry, the qUCC have been widely advocated for their
+ability to replicate the accuracy patterns of classical gold-
+standard methods like coupled cluster theory while maintain-
+ing physical interpretability[137, 149, 150]. In fact, PMA of-
+fer significant advantages in chemical accuracy and parame-
+ter efficiency compared to HHA, as they incorporate domain
+knowledge through physically motivated operator selection
+and initialization strategies [140, 151]. However, recent rigor-
+ous analyses have revealed a more pessimistic outlook. The-
+oretical work by Mao et al. (2024) demonstrates that even
+relaxed versions of unitary coupled cluster ansatzes exhibit
+exponential cost concentration when incorporating two-body
+excitations essential for chemical accuracy, with numerical
+evidence showing this BP behavior persists even at shallow
+depths [152]. This fundamental trade-off between expressive-
+ness and trainability suggests that the scalability advantages of
+PMA may be limited by the same BP phenomena that affect
+their hardware-efficient counterparts.
+
+luster for H>
+
+First, the Hartree-Fock reference state is chosen,
+which for Hz corresponds to occupying the two
+lowest-energy orbitals (reduced basis), resulting in the
+state
+
+|HF) = |1100) , (17)
+
+in four spin-orbitals.
+
+Next, the cluster operator T is defined, restricted to
+single excitations (singles), that is, to the movement of
+a single electron from an occupied orbital to a virtual
+orbital. In the case of H> there are exactly two possible
+excitations:
+
+O: a\ao,
+O2: aia
+so that the excitation operator becomes
+T(61,02) = 9 ala + O2 aha, , (18)
+and the UCC ansatz is given by
+|W(01, 02) = exp(T — T*) |HF). (19)
+
+To implement this operator on a quantum computer,
+one applies the Jordan—Wigner mapping (for example)
+to convert each fermionic term into a sum of products
+of Pauli matrices:
+
+I
+ala, - aay —> 5%2ZiZ0¥o - Y2Z1ZoXo) (20)
+
+which can ultimately be implemented on a quantum
+computer [8].
+
+B. Quantum dynamics
+
+The task of finding the ground state of molecules is charac-
+terized as a static problem, with a time-invariant solution. On
+the other hand, simulating the evolution of quantum systems
+requires understanding the dynamics of the problem, in order
+to characterize the behavior of the system in a time interval
+t = [f,...,T] [9]. In general, dynamic quantum simulations
+are classified into two categories: simulation of conservative
+
+11
+
+quantum systems and simulation of open quantum systems.
+While the first considers closed systems !, the second consid-
+ers dissipative dynamics from exchanges between the system
+and the environment [153]. In the following subsections, the
+theoretical aspects of both categories are discussed.
+
+1. Conservative systems
+
+The evolution of a conservative quantum system is a topic
+already widely explored in the literature [9]. The Schrodinger
+equation for unitary evolutions provides a description of these
+systems from the relation
+
+sp Oi is
+ha Wy = HW) (21)
+
+such that the evolution of the state |y) must guarantee that
+
+time evolution
+
+Ws to) Wa) (22)
+
+where both states are mapped by the time evolution operator
+
+Ulws to) = eM ys 10) = WO) - (23)
+
+As described previously, this operator can be implemented
+directly for the case of Hamiltonians with commuting opera-
+tors (see Ex. 3), or using the Trotter-Suziki formula (1) for
+more general contexts. This procedure is known as trotteri-
+zation, which maps the temporal evolution of the system by
+applying short steps, at the cost of greater circuit depth (see
+Ex. 8).
+
+' Isolated systems, which may or may not be influenced by external fields,
+as long as they do not interact with the particles generating the field [47].
+Example 8: Trotterization
+
+Consider a qubit whose Hamiltonian can be written as
+the sum of two non-commuting terms,
+
+w A
+H=—-—X+—-Z. 24
+ko (24)
+
+The exact time evolution ¢ is given by
+Use, (25)
+
+but we can approximate it by first-order trotterization
+in two steps, for example. To do this, we define the
+time step At = t/2 and write
+
+. 2
+u(t) Bi (ents At eta “) . (26)
+
+Each exponential corresponds to simple rotations:
+en x At — p-H/DXAt — RW AN), (27)
+ent Mt — p-MAIDZAt — ROCA AL), (28)
+
+Therefore, the resulting approximated circuit first ap-
+plies a rotation in X by angle w 5 followed by a ro-
+tation in Z by angle A5, and repeating them a sec-
+ond time. The approximation error of this first-order
+scheme decreases as O(t?/4), and the error can be fur-
+ther reduced by increasing the number of steps or us-
+ing higher-order formulas.
+
+Considering these aspects, VQAs emerge with the possi-
+bility of reducing the circuit depth, optimizing the result for
+different times. In 2017, Li and Benajamin proposed the
+variational quantum simulation (VQS) algorithm [26], using
+McLachlan’s variational principle to approximate the evolu-
+
+tion of the simulated state [¥@)) to the state of interest, ac-
+cording to the equation below
+
+6
+
+ing = a| ['¥(6)) =0. (29)
+
+In sumary, the application of this variational principle can
+be represented by the calculation of the trajectory equation
+[143], written as
+
+> Mis8) = Vi (30)
+j
+where
+a(¥Gn)| a|¥@n))
+Mj; = Re —36~SC (31)
+and
+ave]
+V,=-Im A|%6o)) . (32)
+
+/ 00;
+
+12
+
+In this case, both Eq. (31) and (32), can be computed on
+quantum computers using the Hadamard transform [71], while
+Eq. (30) can be solved using the fourth-order Runge-Kutta
+method [154]. In the original work, Li and Benjamin (2017)
+[26] demonstrated that this method can achieve the same ef-
+ficiency as the trotterization technique using fewer layers to
+simulate the evolution of the system.
+
+Taking a different approach, Cirstoiu et al. proposed the
+variational fast forwarding (VFF) algorithm to study the tem-
+poral evolution of these systems [155]. In this case, instead of
+decomposing the propagator U(r) = e~”' into multiple Trotter
+steps, VFF employs a parameterized circuit U' (6) that maps
+the state to the lowest energy eigenvectors and eigenvalues.
+This circuit can be acquired via optimization with VQE, re-
+sulting in the evolution
+
+(etry yy & UBYACE, Dy" UG") (33)
+where
+
+7() = D7 exp (iE jt) |W) (wil - G4)
+
+p
+
+Note that the evolution is employed directly from 1(£, t),
+which does not depend on parameter optimization or circuit
+depth [22]. This makes it possible to reduce the computa-
+tional cost in terms of iterations and/or implementation of
+logic gates.
+
+2. Open Systems
+
+Unlike closed quantum systems, open quantum systems
+deal with dissipation and absorption phenomena that make
+the evolution of the system’s Hamiltonian a non-unitary pro-
+cess, and consequently, non-conservative [153]. In this case,
+there are two primary theoretical tools for the description of
+open quantum systems: the representation in terms of Kraus
+operators and the Lindblad master equation. The first charac-
+terizes the dynamics through a completely positive and trace-
+preserving mapping, where the state of the system evolves ac-
+cording to
+
+p= > Kee Ky, i KK, (35)
+k k
+
+with {K;} being the Kraus operators that incorporate decoher-
+ence and dissipation effects in a discrete manner [156, 157].
+The second describes the continuous evolution of the state via
+a Markovian differential equation”, given by
+
+dp
+
+i '
+ap =~ qlteel + Di(tets - HLjLep}), 36)
+
+2 A Markovian process is a stochastic process that satisfies the Markov prop-
+erty, that is, whose conditional probability of future transition depends only
+on the present state and not on the previous history [153].
+where H is the Hamiltonian of the system and {Z;} are the
+jump operators that model the interaction with the environ-
+ment in a continuous manner [158].
+
+In the context of quantum computing, there is a certain
+preference for characterizing open quantum systems from the
+Lindblad master equation, since it is possible to simulate
+the evolution of the system from the diffusivity of individ-
+ual states, computing its average trajectory to reconstruct the
+density operator p [71, 159, 160]. In this sense, the quan-
+tum architecture deals with the first (conservative) term of Eq.
+(36), while the second (dissipative) term is incorporated from
+classical optimization techniques, which offers a potential ad-
+vantage for open quantum systems (see Ex. 9).
+
+Example 9: Variational quantum simulation ad-
+
+vantage for open-systems
+
+Classical limitations. Exact classical methods, such
+as hierarchical equations of motion or tensor network
+approaches, face exponential memory growth with
+the number of bosonic modes and simulation time.
+This limits simulations to small environments or
+short-time dynamics. The exponential Hilbert space
+dimension makes studies of strong coupling or large
+baths intractable [8].
+
+Variational quantum simulation advantage. In
+VQS, the system is represented by a parameterized
+circuit state |W), with evolution governed by the
+time-dependent variational principle:
+
+Mij0;=Ci, — Mip = RAWOW), Ci = SCO).
+The quantum advantage arises from efficient state
+preparation and measurement: the cost scales polyno-
+mially with the number of parameters p and inverse
+precision 1/¢, independent of the Hilbert space dimen-
+sion [27, 71]. For an ansatz with p = poly(N), the per-
+time-step cost is poly(N, t, 1/¢), enabling simulations
+of large baths and long-time dynamics beyond classi-
+cal reach [161].
+
+Following this approach, Endo et al. proposed an expansion
+of VQS considering the description of the dynamics of open
+systems through the stochastic Schrédinger equation, whose
+evolution can be considered as an average of wave functions
+that undergo a continuous measurement induced by the envi-
+ronment [27]. To this end, the algorithm parameters take into
+account the state non-normalization factor @, resulting in
+
+|¥@)) = ew . G7)
+
+so the parameters forwarded to Eq. (30) are redefined as
+6 = (a, 8}. With this, it is possible to define the effective
+
+Hamiltonian of the system as
+
+i ‘
+Hog = ~iH — 5 py JALIL; + (L'Ly), (38)
+
+13
+
+which can be simulated via McLachlan’s variational principle
+[143] in a similar way to the previous proposition. However,
+note that now the system suffers decohesion due to dissipa-
+tive dynamics of the interaction with the environment, charac-
+terized in the non-normalization factor @ of the state ¥6)),
+according to Eq. (37).
+
+Complementing this approach, Luo et al. (2024) proposed
+the variational quantum simulation via quantum state diffu-
+sion algorithm (VQS-QSD) [28] by replacing the diffusivity
+term (L‘L) in Eq. (38) by a Gaussian noise z := {z;(¢)}, refer-
+ring to individual trajectories of the state in the environment.
+As a result, the stochastic evolution of the system is described
+as
+
+O|w1) _ . 1 + *
+ae = [iw “5 py ALi L + py «il le) 39)
+
+= —iAery li)
+
+which again can be simulated using Mclaunch’s variational
+principle (30).
+
+In addition to the aforementioned methodologies, a diverse
+family of variational algorithms has been developed, adhering
+to the core principles of hybrid quantum-classical optimiza-
+tion [159, 162, 163]. These methods universally employ pa-
+rameterized quantum circuits to approximate both dynamical
+evolution and target quantum states. A fundamental character-
+istic of this approach is its inherent capacity to describe mixed
+states, where Tr[p?] < 1, making it particularly well-suited
+for simulating open quantum systems and finite-temperature
+ensembles. Consequently, the variational quantum simula-
+tion (VQS) framework has been successfully deployed across
+a wide spectrum of applications. This includes the study of
+strongly correlated electron dynamics in lattice models [164],
+the investigation of electronic properties in periodic materials
+[165], and the simulation of nonnative dynamics [166].
+
+C. Thermal state preparation
+
+Thermal state preparation is key to expanding the scope
+of quantum simulations to problems in quantum thermody-
+namics and nonequilibrium dynamics, as it allows to correctly
+model the statistics of these systems [167]. In NISQ devices,
+VQAs have shown particular promise for this task, by replac-
+ing long-time adiabatic heating protocols with shallow param-
+eterized circuits that minimize the free energy or other ther-
+modynamic metrics [29, 30, 159].
+
+In 2019, Wu and Hsieh et al. introduced a variational al-
+gorithm to prepare entangled Gibbs states between a system
+A and ancillas, represented by state B [29]. The protocol al-
+ternates evolutions under the Hamiltonian of interest H and
+under an entanglement Hamiltonian H4,, which acts simulta-
+neously on A and B. For reduced-dimensional systems, it is
+possible to optimize the entire circuit on a classical computer
+and execute it in sequence in the quantum simulator. Thus,
+in a hybrid quantum-classical scheme, the free energy of the
+
+subsystem A is defined as the cost function:
+F = Trl psH] - TS(pa). (40)
+
+where pa is the reduced density of A, S(o4) = —Tr[pa Inpa] is
+the von Neumann entropy, and T is the effective temperature.
+In this case, minimization of F ensures convergence to the
+Gibbs state of A [29].
+
+Inspired by this method, [30] proposed the Variational
+Quantum Thermalizer (VQT), which follows a similar pro-
+tocol to the previous ones, considering the preparation of the
+thermal state PG, ¢) from the cost function defined from the
+free energy
+
+CG, 4) = BF(G, 8) = BTrlp@, &H] - SoG, 4), (41)
+
+where { 6, 3} are parameters to be optimized in the circuit. Note
+also that the variational principle recovers the behavior of the
+VQE for zero temperature, since
+
+CG,b) = TrOpG,d)1. (42)
+
+In 2021, Sagastizabal et al. demonstrated this technique
+experimentally using a gate-based quantum processor [168].
+More recently, Consiglio et al. (2024) [169] also demon-
+strated in practice the faithful generation of Gibbs states for
+transverse-field and Heisenberg magnet models, both in state-
+vector simulations and on real hardware, paving the way for
+applications in condensed matter physics.
+
+In summary, variational quantum algorithms provide a
+powerful and flexible framework for the preparation of ther-
+mal states on near-term quantum devices. By minimizing the
+free energy of a parameterized ansatz, these hybrid quantum-
+classical methods circumvent the need for deep, coherent
+quantum circuits required by purely unitary approaches, mak-
+ing them particularly suitable for the NISQ era. The versa-
+tility of this methodology is evidenced by its growing num-
+ber of applications, which extend beyond fundamental state
+preparation to include the modeling of quantum thermody-
+namic processes [170]. Notably, this algorithm has been suc-
+cessfully applied to problems such as work extraction [171-
+173]. These applications underscore the potential of varia-
+tional thermal state preparation to open new avenues for ex-
+ploring finite-temperature quantum phenomena and quantum
+thermodynamics in experimentally relevant settings.
+
+D. Quantum Machine Learning
+
+Quantum Machine Learning (QML) compounds a set of
+methods and algorithms that aim to achieve computational
+advantages. Based on the pattern recognition capabilities of
+classical machine learning (ML), QML also utilizes quan-
+tum computing to achieve better results [14]. Many QML al-
+gorithms are direct counterparts to well-established machine
+learning algorithms, the main difference being that they are
+now implemented in quantum circuits. Similar to classical
+ML, the vast majority of QML algorithms focus on using clas-
+sical data [58], so that the many of the aforementioned algo-
+rithms fall beyond the scope of this work. In this section, the
+
+14
+
+main application of QML presented is through the use of neu-
+ral networks.
+
+Neural networks are exemplary ML models characterized
+by the application of layers with adjustable parameters. Orig-
+inally proposed to emulate biological neural activity, the neu-
+ral networks were rapidly adapted for applications in quantum
+computing [174]. The quantum counterpart of classical neu-
+ral networks, Quantum Neural Networks (QNN), have been
+explored in diverse areas and, because of the variational ap-
+proach, share a common structure with VQA [175].
+
+Quantum Machine Leaning, in general, is a versatile new
+area with multiple definitions and possible uses. Cerezo et
+al.(2022) identify four key applications for using QML: Quan-
+tum simulation, enhanced quantum computing, quantum ma-
+chine perception, and classical data analysis [58]. In this re-
+gard, the authors also predict the relationship between QML
+and quantum advantage in terms of sample or time complex-
+ity for quantum-mechanical processes. Even though there are
+only a few studies in the area, the range of applications for
+quantum simulation varies from chemistry to many-body dy-
+namics. It is also expected that, in the fault-tolerant era of
+quantum computing, QML will play a central role in learn-
+ing directly from quantum data produced by accurate quantum
+simulations [58].
+
+The extensive list of QML applications presented in ref.
+[176] highlights the diversity of the area. On the other hand,
+the applications of QML in quantum simulation (the main fo-
+cus of this paper) bring advantages not only in physics but also
+for material science and chemistry. Among the mentioned
+applications, the preparation of the quantum Gibbs state and
+Hamiltonians stands out due to the use of a variational quan-
+tum circuit with a Taylor series [177]. The hybrid algorithm
+proposed by Xia and Kais [178], uses a restricted Boltzmann
+machine to calculate the energy levels of a quantum system.
+Using (n + m) qubits, where n is the number of visible layers
+in the Boltzmann machine, while m represents the hidden lay-
+ers composed of auxiliary qubits, the simulations can be per-
+formed requiring only 13 qubits. The algorithm has a satisfac-
+tory performance (under the metrics of the study) in calculat-
+ing the electronic structure of small molecular systems, open-
+ing up the perspective of material discovery through QML
+[178].
+
+In addition, Guan et al. review a series of QML applications
+in high-energy physics [179]. Although all the applications
+presented being based on classical data, quantum simulation
+is presented as a future tool for simulating HEP, while QML
+can be used to analyze the obtained results. Another approach
+would be employing quantum objects, extracted from HEP
+experiments, directly in QML [179]. The kernel QML al-
+gorithm for classification, Quantum Support Vector Machine
+(QSVM), was utilized by Wu et al. in the analysis of Higgs
+boson production [180]. Tests were performed on both quan-
+tum simulators and hardware [180]. In this regard, the forth-
+coming work [181] discusses the employment of a quantum-
+mechanical harmonic oscillator in QML for the simulation of
+bosonic quantum states.
+
+Beyond the QML applications in quantum simulation dis-
+cussed, there is also a possibility for quantum dynamical sim-
+ulation [182]. A QNN is trained as a part of the Resource-
+Efficient Fast-Forwarding algorithm proposed by Gibbs et ai..
+When simulating the XY spin models, the algorithm achieved
+a high fidelity, but with times significantly longer compared to
+Trotterization [182]. QNNs have also been used in quantum
+simulation to study many-body quantum systems [183-186].
+In ref. [183], a variational Monte Carlo neural network is uti-
+lized in a D-Wave quantum sampler, while in [184], the dis-
+sipative dynamics of many-body open quantum systems are
+simulated. Additionally, Baul et al. use a Quantum Convo-
+lutional Neural Network as a classifier to identify the phase
+transition region in the Hubbard Model [185].
+
+Ref. [186] proposed a Hamiltonian Quantum Generative
+Adversarial Network (QGAN) using Quantum Optimal Con-
+trol to learn and generate many-body quantum states. The
+QGAN framework, introduced by Goodfellow et al. [187],
+involves a generator that creates data resembling the original
+distribution and a discriminator that identifies real versus syn-
+thetic samples, with both improving through adversarial train-
+ing. This concept extends to hybrid quantum-classical mod-
+els, such as in [188], where a quantum generator pairs with a
+assical or quantum discriminator, demonstrating the adapta-
+ion of classical machine learning for quantum simulation.
+Therefore, while QML remains an emerging field, it has
+demonstrated remarkable potential for quantum simulation
+through variational quantum circuits. These approaches have
+shown applicability to preparation of quantum states [177,
+181], high energy physics [179], electronic structure [178],
+phase transition and quantum dynamics [182-184, 186].
+However, recent studies highlight persistent challenges in-
+uding barren plateaus and classical simulability that must
+be addressed for scalable applications [33, 107]. Collectively,
+these advances suggest QML is expanding the frontiers of
+computational physics, materials science, and drug discovery
+while paving the way for practical quantum simulation across
+diverse scientific domains.
+
+fe}
+
+fe
+
+V. CONCLUDING REMARKS AND OUTLOOKS
+
+Variational quantum simulations have demonstrated signif-
+icant flexibility and robustness in solving complex problems
+on NISQ devices. Their effectiveness stems from the use of
+shallow parameterized circuits, which mitigate the detrimen-
+tal effects of decoherence and noise by limiting circuit depth.
+This approach facilitates a tunable trade-off between compu-
+tational precision and the hybrid quantum-classical resource
+cost. With well-designed strategies, VQAs have achieved
+competitive fidelities in diverse applications, including quan-
+tum chemistry, quantum thermodynamics, and system dynam-
+ics. Furthermore, they serve as a vital testbed for novel hard-
+ware architectures and calibration protocols, providing critical
+insights for the co-design of future quantum algorithms and
+technologies.
+
+In this work, these aspects were explored across various
+quantum simulation contexts, encompassing the determina-
+tion of molecular ground states, the preparation of thermal
+states, and the dynamics of quantum systems, as illustrated
+
+15
+
+in Fig. 5. Each application, focusing on a distinct domain,
+necessitates the development of tailored algorithms. Conse-
+quently, specific VQAs were formulated with cost functions
+meticulously aligned to the problem’s physical characteristics
+and objectives, guiding the optimization towards the most rel-
+evant regions of the state space. The ansatz structure was care-
+fully selected to efficiently represent the families of states of
+interest, ensuring a balance between expressibility and com-
+putational efficiency. This process was complemented by op-
+timization strategies chosen for their compatibility with the
+ansatz, thereby promoting more effective convergence and en-
+hancing the probability of successfully finding the desired so-
+lution.
+
+This exploration reveals three fundamental challenges
+within current variational quantum simulation frameworks:
+
+e Achieving scalability and efficiency in modeling
+higher-dimensional quantum systems.
+
+e Incorporating more complex temporal dynamics,
+including non-unitary interactions and  system-
+environment correlation effects.
+
+e Developing theoretical tools to generalize and unify
+variational approaches, thereby extending their scope
+and robustness.
+
+In principle, the primary obstacle to achieving practi-
+cal near-term quantum utility remains the BP phenomenon,
+which necessitates problem classes where avoidance condi-
+tions (structured ansitze, shallow circuits, and informed ini-
+tialization) can be satisfied without rendering the problem
+classically simulable. This challenge echoes historical de-
+velopments in classical machine learning, where neural net-
+works were once considered impractical until seminal work
+by Krizhevsky, Sutskever and the Nobel Prize laureate in
+Physics G. Hinton demonstrated their revival through ar-
+chitectural and training innovations for high-resolution im-
+ages classification [190]. Similarly, while BP analyses help
+identify fundamental limitations in scaling variational quan-
+tum models, they also guide research toward more promis-
+ing avenues. By leveraging these insights and developing
+novel strategies including problem-inspired ansatze and noise-
+resilient optimization techniques, the field may ultimately re-
+alize the potential of variational quantum computing for quan-
+tum simulation, mirroring the transformative trajectory that
+reshaped classical deep learning.
+
+Therefore, a central focus for future work is to address these
+limitations by developing applications for systems closer
+to demonstrating a genuine quantum advantage. The field
+of variational quantum simulation remains a highly fertile
+ground for research. It is anticipated that this work will con-
+tribute to the advancement of the area by discussing and pre-
+senting practical problems across different contexts, thereby
+elucidating both the opportunities and the challenges that de-
+fine the current scientific landscape.
+Thermal state
+preparation
+
+Quantum
+chemistry
+
+Eletronic
+structure
+
+16
+
+o Open systems
+*s . | Conservative
+systems
+
+°
+
+Quantum
+dynamics
+
+4
+A
+
+'
+Many-body
+dynamics
+
+_ Hight energy
+physics
+
+~ Phase transition
+
+Figure 5. Opportunities in variational quantum computing for quantum simulation. Variational quantum computing offers a versatile framework
+for quantum simulation, with multiple algorithms demonstrating diverse applications across quantum system characterization. The VQE
+enables ground state determination [24], while its extension VQD targets excited states [147]. For dynamical simulations, VQS handles
+both conservative [26] and open quantum systems [27, 28], complemented by VFF for long-time evolution [155]. Thermal state preparation
+is addressed through both QITE [142] and VQT approaches [30, 189]. Quantum machine learning further expands these capabilities, with
+QNNs applied to electronic structure [178], state preparation [177, 181], dynamics [182-184], and high-energy physics [179]. Additional
+QML architectures include QGANs for many-body system dynamics [186], QSVMs for classification tasks in high-energy physics [180], and
+QCNNs for phase transition detection [185]. This diverse algorithmic landscape, employing cost functions ranging from energy expectation
+values to fidelity-based metrics, demonstrates the rich potential of variational methods for advancing quantum simulation across multiple
+
+scientific domains.
+
+ACKNOWLEDGMENTS
+
+C. Cruz , Lucas Q. Galvao and Anna Beatriz M. de Souza
+thank the Fundacio de Amparo 4 Pesquisa do Estado da
+Bahia - FAPESB for its financial support (grant numbers
+APP0041/2023 , PPP0006/2024 and BOL2154/2025). This
+work has been funded by the project “Master’s and PhD in
+Quantum Technologies - QIN-FCRH-2025-5-1-1” and iNO-
+VATeQ Lato Senso Especializagéo em Computagao Quantica
+- Pesquisador, both supported by QuIIN - Quantum Indus-
+trial Innovation, EMBRAPII CIMATEC Competence Center
+in Quantum Technologies, with financial resources from the
+PPI loT/Manufatura 4.0 of the MCTI grant number 053/2023,
+signed with EMBRAPII. Also, this work received partial fi-
+nancial support from CNPq (Grant Numbers: 305096/2022 —
+2 MAM).
+
+FUNDING
+
+This work has been partially funded by: Fundagao de Am-
+paro 4 Pesquisa do Estado da Bahia - FAPESB (grant num-
+bers APP0041/2023, PPP0006/2024) and BOL2154/2025;
+the project “Master’s and PhD in Quantum Technolo-
+
+gies - QIN-FCRH-2025-5-1-1” and iNOVATeQ Lato Senso
+Especializagaéo em Computac4o Quantica - Pesquisador, both
+supported by QuIIN - Quantum Industrial Innovation, EM-
+BRAPII CIMATEC Competence Center in Quantum Tech-
+nologies, with financial resources from the PPI loT/Man-
+ufatura 4.0 of the MCTI grant number 053/2023, signed
+with EMBRAPII; and Conselho Nacional de Desenvolvi-
+mento Cientifico e Tecnolégico - CNPq (Grant Numbers:
+305096/2022 — 2).
+
+DATA AVAILABILITY
+
+This literature review did not generate or analyze any new
+datasets. All information is available in the published studies
+cited in the References.
+
+AUTHOR CONTRIBUTIONS STATEMENT
+
+Conceptualization: Lucas Q. Galvao, Clebson Cruz.
+Methodology: Lucas Q. Galvéo, Anna Beatriz M. de Souza,
+Clebson Cruz. Investigation: Lucas Q. Galvao, Anna Beatriz
+M. de Souza. Visualization: Lucas Q. Galvao, Anna Beatriz
+M. de Souza. Writing - original draft: Lucas Q. Galvao, Anna
+Beatriz M. de Souza. Writing - review & editing: Clebson
+Cruz, Marcelo A. Moret. Supervision: Clebson Cruz, Marcelo
+A. Moret. Project administration: Clebson Cruz. Resources:
+
+Ne
+
+20
+21
+22,
+
+23
+
+24
+
+25
+
+F. Rohrlich, PSA: Proceedings of the Biennial Meeting of the
+Philosophy of Science Association 1990, 507-518 (1990).
+
+J. G. Brookshear, D. Brylow, and S. Manasa, (2009).
+
+R. P. Feynman, Feynman lectures on computation (CRC Press,
+2018).
+
+R. P. Feynman, in Feynman and computation (cRe Press,
+2018) pp. 133-153.
+
+M. A. Nielsen and I. L. Chuang, Quantum computation and
+quantum information (Cambridge university press, 2010).
+
+M. Troyer and U.-J. Wiese, Phys. Rev. Lett. 94, 170201
+(2005).
+
+M. Qin, T. Schiifer, S. Andergassen, P. Corboz, and E. Gull,
+Annual Review of Condensed Matter Physics 13, 275 (2022).
+S. Lloyd, Science 273, 1073 (1996).
+
+I. M. Georgescu, S. Ashhab, and F. Nori, Rev. Mod. Phys. 86,
+153 (2014).
+
+S. Somaroo, C. H. Tseng, T. F. Havel, R. Laflamme, and D. G.
+Cory, Phys. Rev. Lett. 82, 5381 (1999).
+
+P. W. Shor, SIAM Review 41, 303 (1999).
+
+L. K. Grover, in Proceedings of the Twenty-Eighth Annual
+ACM Symposium on Theory of Computing, STOC °96 (Asso-
+ciation for Computing Machinery, New York, NY, USA, 1996)
+p. 212-219.
+
+A. W. Harrow, A. Hassidim, and S. Lloyd, Phys. Rev. Lett.
+103, 150502 (2009).
+
+J. Biamonte, P. Wittek, N. Pancotti, P. Rebentrost, N. Wiebe,
+and S. Lloyd, Nature 549, 195 (2017).
+
+D. Deutsch, Proceedings of the Royal Society of London. A.
+Mathematical and Physical Sciences 400, 97 (1985).
+
+I. Kassal, S. P. Jordan, P. J. Love, M. Mohseni, and A. Aspuru-
+Guzik, Proceedings of the National Academy of Sciences 105,
+18681 (2008).
+
+Y. Cao, J. Romero, J. P. Olson, M. Degroote, P. D. Johnson,
+M. Kieferova, I. D. Kivlichan, T. Menke, B. Peropadre, N. P.
+Sawaya, et al., Chemical reviews 119, 10856 (2019).
+
+S. Bravyi, D. P. DiVincenzo, D. Loss, and B. M. Terhal, Phys.
+Rev. Lett. 101, 070503 (2008).
+
+A. Chenu, M. Beau, J. Cao, and A. del Campo, Phys. Rev.
+Lett. 118, 140403 (2017).
+
+J. Preskill, Physics Today 78, 42 (2025).
+
+J. Preskill, Quantum 2, 79 (2018).
+
+M. Cerezo, A. Arrasmith, R. Babbush, S. C. Benjamin,
+S. Endo, K. Fujii, J. R. McClean, K. Mitarai, X. Yuan, L. Cin-
+cio, et al., Nature Reviews Physics 3, 625 (2021).
+
+K. Bharti, A. Cervera-Lierta, T. H. Kyaw, T. Haug, S. Alperin-
+Lea, A. Anand, M. Degroote, H. Heimonen, J. S. Kottmann,
+T. Menke, W.-K. Mok, S. Sim, L.-C. Kwek, and A. Aspuru-
+Guzik, Rev. Mod. Phys. 94, 015004 (2022).
+
+A. Peruzzo, J. McClean, P. Shadbolt, M.-H. Yung, X.-Q. Zhou,
+P. J. Love, A. Aspuru-Guzik, and J. L. O’Brien, Nature Com-
+munications 5, 4213 (2014).
+
+J. Tilly, H. Chen, S. Cao, D. Picozzi, K. Setia, Y. Li,
+E. Grant, L. Wossnig, I. Rungger, G. H. Booth, and J. Ten-
+nyson, Physics Reports 986, | (2022), the Variational Quan-
+tum Eigensolver: a review of methods and best practices.
+
+17
+
+Marcelo A. Moret, Lucas Q. Galvaéo, Clebson Cruz. Fund-
+ing acquisition: Clebson Cruz, Marcelo A. Moret. All authors
+read and approved the final version of the manuscript.
+
+26
+
+2h
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35
+36
+37
+38
+39
+
+40
+4l
+
+42
+43
+44
+45
+46
+47
+
+48
+
+49
+
+50
+
+51
+
+52,
+
+Y. Li and S. C. Benjamin, Physical Review X 7, 021050
+(2017).
+
+S. Endo, J. Sun, Y. Li, S. C. Benjamin, and X. Yuan, Phys.
+Rev. Lett. 125, 010501 (2020).
+
+J. Luo, K. Lin, and X. Gao, The Journal of Physical Chemistry
+Letters 15, 3516 (2024), pMID: 38517759.
+
+J. Wu and T. H. Hsieh, Phys. Rev. Lett. 123, 220502 (2019).
+G. Verdon, J. Marks, S. Nanda, S. Leichenauer, and
+J. Hidary, “Quantum hamiltonian-based models and the varia-
+tional quantum thermalizer algorithm,” (2019).
+
+C. K. Lee, P. Patil, S. Zhang, and C. Y. Hsieh, Phys. Rev. Res.
+3, 023095 (2021).
+
+A. Arrasmith, L. Cincio, A. T. Sornborger, W. H. Zurek, and
+P. J. Coles, Nature communications 10, 3438 (2019).
+
+M. Larocca, S. Thanasilp, S. Wang, K. Sharma, J. Biamonte,
+P. J. Coles, L. Cincio, J. R. McClean, Z. Holmes, and
+M. Cerezo, Nature Reviews Physics , 1 (2025).
+
+Y. Zhang, X. Zhang, J. Sun, H. Lin, Y. Huang, D. Lv,
+and X. Yuan, WIREs Computational Molecular Science 15,
+e70020 (2025), e70020 CMS-1125.R1.
+
+C. W. Bauer, Z. Davoudi, N. Klco, and M. J. Savage, Nature
+Reviews Physics 5, 420 (2023).
+
+G. Bachelard, The new scientific spirit (Beacon Press, 1984).
+S. Wolfram, A New Kind of Science (Wolfram Media, 2002).
+S. K. Saha and M. Mukherjee, Recent Advances in Computa-
+tional Mechanics and Simulations (Springer, 2021).
+
+W. H. Press, Numerical recipes 3rd edition: The art of scien-
+tific computing (Cambridge university press, 2007).
+
+M. Hilbert and P. Lopez, Science 332, 60 (2011).
+
+K. Bartley, URL https://rivery. io/blog/big-data-statistics-how-
+much-data-is-there-in-the-world (2024).
+
+P. Benioff, Phys. Rev. Lett. 48, 1581 (1982).
+
+G. Kluber, arXiv preprint arXiv:2310.13296 (2023).
+
+M. H. Kalos, Monte Carlo methods in quantum problems, Vol.
+125 (Springer Science & Business Media, 2012).
+
+D. Poulin, A. Qarry, R. Somma, and F. Verstraete, Phys. Rev.
+Lett. 106, 170501 (2011).
+
+M. Heyl, P. Hauke, and P. Zoller, Science Advances 5,
+eaau8342 (2019).
+
+J. J. Sakurai and J. Napolitano, Modern quantum mechanics
+(Cambridge University Press, 2020).
+
+F. H. Somhorst, R. van der Meer, M. Correa Anguita,
+R. Schadow, H. J. Snijders, M. de Goede, B. Kassenberg,
+P. Venderbosch, C. Taballione, J. Epping, et al., Nature com-
+munications 14, 3895 (2023).
+S. L. Cornish, M. R. Tarbutt,
+Physics 20, 730 (2024).
+
+H.-Y. Huang, M. Broughton, J. Cotler, S. Chen, J. Li,
+M. Mohseni, H. Neven, R. Babbush, R. Kueng, J. Preskill,
+and J. R. McClean, Science 376, 1182 (2022).
+
+A. J. Daley, I. Bloch, C. Kokail, S. Flannigan, N. Pearson,
+M. Troyer, and P. Zoller, Nature 607, 667 (2022).
+
+F. Verstraete, J. I. Cirac, and J. I. Latorre, Phys. Rev. A 79,
+032316 (2009).
+
+and K. R. Hazzard, Nature
+53
+54
+55
+[56
+
+ST:
+
+58
+
+59
+
+60
+
+(61
+
+62
+63
+
+64
+
+[65
+66
+67
+68
+
+69
+
+70
+
+(71
+(72
+B
+
+14
+
+A. van Oudenaarden and J. E. Mooij, Phys. Rev. Lett. 76, 4947
+(1996).
+
+G. Benenti and G. Strini, American Journal of Physics 76, 657
+(2008).
+
+M. A. Nielsen, M. R. Dowling, M. Gu, and A. C. Doherty,
+Science 311, 1133 (2006).
+
+E. M. Alves, F. D. Gomes, H. S. Santana, and A. C. Santos,
+Revista Brasileira de Ensino de Fisica 42, e20190299 (2020).
+Y. Zhang, X. Zhang, J. Sun, H. Lin, Y. Huang, D. Ly,
+and X. Yuan, WIREs Computational Molecular Science 15,
+e70020 (2025), e70020 CMS-1125.R1.
+
+M. Cerezo, G. Verdon, H.-Y. Huang, L. Cincio, and P. J.
+Coles, Nature computational science 2, 567 (2022).
+A. M. Childs, D. Maslov, Y. Nam, N. J. Ross, and Y. Su,
+
+Proceedings of the National Academy of Sciences 115, 9456
+(2018).
+
+A. J. Daley, I. Bloch, C. Kokail, S. Flannigan, N. Pearson,
+M. Troyer, and P. Zoller, Nature 607, 667 (2022).
+
+IBM, “IBM Makes Quantum Computing Available on IBM
+Cloud to Accelerate Innovation,’ IBM Newsroom (2016),
+acesso em: 10 de jan. 2025.
+
+M. Gebheim, “The state of the qubit and quantum computing,”
+(2021), accessed: 2025-05-01.
+
+SPINQ, “Top 11 companies working on quantum computers
+[2025 updated],” (2025), accessed: 2025-05-01.
+
+J. PRESKILL, “Fault-tolerant quantum computation,” in Jn-
+troduction to Quantum Computation and Information, pp.
+213-269.
+
+P. Shor, in Proceedings of 37th Conference on Foundations of
+Computer Science (1996) pp. 56-65.
+
+D. Aharonov and M. Ben-Or, in Proceedings of the twenty-
+ninth annual ACM symposium on Theory of computing (1997)
+pp. 176-188.
+
+D. Gottesman, Phys. Rev. A 57, 127 (1998).
+
+M. Fellous-Asiani, J. H. Chai, R. S. Whitney, A. Aufféves,
+and H. K. Ng, PRX Quantum 2, 040335 (2021).
+
+A. D. King, A. Nocera, M. M. Rams, J. Dziarmaga,
+R. Wiersema, W. Bernoudy, J. Raymond, N. Kaushal,
+N. Heinsdorf, R. Harris, K. Boothby, F. Altomare, M. Asad,
+A. J. Berkley, M. Boschnak, K. Chern, H. Christiani,
+S. Cibere, J. Connor, M. H. Dehn, R. Deshpande, S. Ejtemaee,
+P. Farre, K. Hamer, E. Hoskinson, S. Huang, M. W.
+Johnson, S. Kortas, E. Ladizinsky, T. Lanting, T. Lai,
+R. Li, A. J. R. MacDonald, G. Marsden, C. C. Mc-
+Geoch, R. Molavi, T. Oh, R. Neufeld, M. Norouzpour,
+J. Pasvolsky, P. Poitras, G. Poulin-Lamarre, T. Prescott,
+M. Reis, C. Rich, M. Samani, B. Sheldan, A. Smirnov,
+E. Sterpka, B. T. Clavera, N. Tsai, M. Volkmann, A. M.
+Whiticar, J. D. Whittaker, W. Wilkinson, J. Yao, T. J. Yi,
+A. W. Sandvik, G. Alvarez, R. G. Melko, J. Carrasquilla,
+M. Franz, and M. H. Amin, Science 388, 199 (2025),
+https://www.science.org/doi/pdf/10.1126/science.ado6285.
+
+E. F. Combarro, S. Gonzalez-Castillo, and A. Di Meglio, A
+practical guide to quantum machine learning and quantum
+optimization: Hands-on approach to modern quantum algo-
+rithms (Packt Publishing Ltd, 2023).
+
+X. Yuan, S. Endo, Q. Zhao, Y. Li, and S. C. Benjamin, Quan-
+tum 3, 191 (2019).
+
+Z. Holmes, K. Sharma, M. Cerezo,
+Quantum 3, 010313 (2022).
+
+A. Choquette, A. Di Paolo, P. K. Barkoutsos, D. Sénéchal,
+I. Tavernelli, and A. Blais, Phys. Rev. Res. 3, 023092 (2021).
+J. Lee, W. J. Huggins, M. Head-Gordon, and K. B. Whaley,
+Journal of chemical theory and computation 15, 311 (2018).
+
+and P. J. Coles, PRX
+
+ifs)
+
+76
+UL
+
+78
+
+79
+
+80)
+
+81
+
+82
+
+83
+
+84
+
+85
+
+86
+
+87
+
+88
+
+89
+
+90)
+
+91
+
+92
+
+93
+
+94
+95.
+
+96.
+
+97
+
+98
+
+99
+
+00.
+
+Ol
+
+02
+
+03
+
+04
+
+05
+
+18
+
+R. Wiersema, C. Zhou, Y. de Sereville, J. F. Carrasquilla, Y. B.
+Kim, and H. Yuen, PRX Quantum 1, 020319 (2020).
+
+C.-Y. Park and N. Killoran, Quantum 8, 1239 (2024).
+
+L. Leone, S. F. Oliviero, L. Cincio, and M. Cerezo, Quantum
+8, 1395 (2024).
+
+A. Kandala, A. Mezzacapo, K. Temme, M. Takita, M. Brink,
+J. M. Chow, and J. M. Gambetta, nature 549, 242 (2017).
+
+J. Qin, Journal of Physics: Conference Series 2634, 012043
+(2023).
+
+M. Cerezo, A. Sone, T. Volkoff, L. Cincio, and P. J. Coles,
+Nature communications 12, 1791 (2021).
+
+G. G. Guerreschi and M. Smelyanskiy, arXiv preprint
+arXiv:1701.01450 (2017).
+
+K. Mitarai, M. Negoro, M. Kitagawa, and K. Fujii, Physical
+Review A 98, 032309 (2018).
+
+M. Schuld, V. Bergholm, C. Gogolin, J. Izaac, and N. Killo-
+ran, Physical Review A 99, 032331 (2019).
+
+M. KGOlle, T. Witter, T. Rohe, G. Stenzel, P. Altmann, and
+T. Gabor, in 2024 IEEE International Conference on Quantum
+Software (QSW) (2024) pp. 157-167.
+
+E. Bressert, (2012).
+
+M. Powell, in Proceeding of the 6th Workshop on Optimization
+and Numerical Analysis (1994) pp. 5-67.
+
+L. Cheng, Y.-Q. Chen, S.-X. Zhang, and S. Zhang, Commu-
+nications Physics 7, 83 (2024).
+
+H. Singh, S. Majumder, and S. Mishra, The Journal of Chem-
+ical Physics 159 (2023).
+
+A. Pellow-Jarman, I. Sinayskiy, A. Pillay, and F. Petruccione,
+Quantum Information Processing 20, 202 (2021).
+
+Y. Xie, R. Byrd, and J. Nocedal, SIAM J. Optim. 30, 182
+(2019).
+
+A. Berahas and M. Takac, Optimization Methods and Soft-
+ware 35, 191 (2017).
+
+S. Sim, P. D. Johnson, and A. Aspuru-Guzik, Advanced Quan-
+tum Technologies 2, 1900070 (2019).
+
+V. Akshay, H. Philathong, M. E. S. Morales, and J. D. Bia-
+monte, Phys. Rev. Lett. 124, 090504 (2020).
+
+L. Bittel and M. Kliesch, Phys. Rev. Lett. 127, 120502 (2021).
+E. R. Anschuetz and B. T. Kiani, Nature Communications 13,
+7760 (2022).
+
+E. Fontana, M. Cerezo, A. Arrasmith, I. Rungger, and P. J.
+Coles, Quantum 6, 804 (2022).
+
+A. Uvarov and J. D. Biamonte, Journal of Physics A: Mathe-
+matical and Theoretical 54, 245301 (2021).
+
+E. Fontana, D. Herman, S. Chakrabarti, N. Kumar, R. Yalovet-
+zky, J. Heredge, S. H. Sureshbabu, and M. Pistoia, Nature
+Communications 15, 7171 (2024).
+
+H. Qi, L. Wang, H. Zhu, A. Gani, and C. Gong, Quantum
+Information Processing 22, 435 (2023).
+
+J. R. McClean, S. Boixo, V. N. Smelyanskiy, R. Babbush, and
+H. Neven, Nature communications 9, 4812 (2018).
+
+G. Casella and R. Berger, Statistical inference (CRC press,
+2024).
+
+M. Larocca, P. Czarnik, K. Sharma, G. Muraleedharan, P. J.
+Coles, and M. Cerezo, Quantum 6, 824 (2022).
+
+M. Ragone, B. N. Bakalov, F. Sauvage, A. F. Kemper, C. Or-
+tiz Marrero, M. Larocca, and M. Cerezo, Nature Communi-
+cations 15, 7172 (2024).
+
+N. L. Diaz, D. Garcfa-Martin, S. Kazi, M. Larocca, and
+M. Cerezo, “Showcasing a barren plateau theory beyond the
+dynamical lie algebra,” (2023), arXiv:2310.11505 [quant-ph].
+S. Wang, E. Fontana, M. Cerezo, K. Sharma, A. Sone, L. Cin-
+cio, and P. J. Coles, Nature Communications 12, 6961 (2021).
+106
+
+107
+
+108
+
+109
+
+118
+
+119
+
+120
+
+121
+
+122
+
+123
+
+124
+
+125
+
+126
+
+127
+
+128
+129
+
+130.
+
+131
+
+132,
+
+D. Stilck Franga and R. Garcia-Patrén, Nature Physics 17,
+1221 (2021).
+
+M. Cerezo, M. Larocca, D. Garcfa-Martin, N. L. Diaz,
+P. Braccia, E. Fontana, M. S. Rudolph, P. Bermejo, A. Ijaz,
+S. Thanasilp, E. R. Anschuetz, and Z. Holmes, Nature Com-
+munications 16, 7907 (2025).
+
+J. Cunningham and J. Zhuang, Quantum Information Process-
+ing 24, 1 (2025).
+
+H.-K. Zhang, S. Liu, and S.-X. Zhang, Phys. Rev. Lett. 132,
+150603 (2024).
+
+J. Lee, A. B. Magann, H. A. Rabitz, and C. Arenz, Phys. Rev.
+A 104, 032401 (2021).
+
+E. Kokcii, T. Steckmann, Y. Wang, J. K. Freericks, E. F. Du-
+mitrescu, and A. F. Kemper, Phys. Rev. Lett. 129, 070501
+(2022).
+
+M. Bilkis, M. Cerezo, G. Verdon, P. J. Coles, and L. Cincio,
+Quantum Machine Intelligence 5, 43 (2023).
+
+K. Zhang, L. Liu, M.-H. Hsieh, and D. Tao, in Proceedings
+of the 36th International Conference on Neural Information
+Processing Systems, NIPS °22 (Curran Associates Inc., Red
+Hook, NY, USA, 2022).
+Y. Wang, B. Qi, C. Ferrie, and D. Dong, Phys. Rev. Appl. 22,
+054005 (2024).
+
+C.-Y. Park, M. Kang, an
+ansatz without barren plateaus in any depth,”
+arXiv:2403.04844 [quant-ph].
+P. Bermejo, P. Braccia, M. S. Rudolph, Z. Holmes, L. Cincio,
+and M. Cerezo, “Quantum convolutional neural networks are
+(effectively) classically simulable,” (2024), arXiv:2408.12739
+[quant-ph].
+
+A. Basheer, Y. Feng, C. Ferrie, and S. Li, in Proceed-
+ings of the Thirty-Seventh AAAI Conference on Artificial
+Intelligence and Thirty-Fifth Conference on Innovative Ap-
+plications of Artificial Intelligence and Thirteenth Sympo-
+sium on Educational Advances in Artificial Intelligence,
+AAAT’23/IAAT’23/EAAT’23 (AAAI Press, 2023).
+
+M. L. Goh, M. Larocca, L. Cincio, M. Cerezo, and F. Sauvage,
+Phys. Rev. Res. 7, 033266 (2025).
+
+M. Cerezo and P. J. Coles, Quantum Science and Technology
+6, 035006 (2021).
+
+A. Arrasmith, M. Cerezo, P. Czarnik, L. Cincio,
+Coles, Quantum 5, 558 (2021).
+
+S. Thanasilp, S. Wang, N. A. Nghiem, P. Coles, and
+M. Cerezo, Quantum Machine Intelligence 5, 21 (2023).
+
+K. Wang, Y.-A. Chen, and X. Wang, Science China Informa-
+tion Sciences 66, 180508 (2023).
+
+Y. Quek, D. Stilck Franga, S. Khatri, J. J. Meyer, and J. Eisert,
+Nature Physics 20, 1648 (2024).
+
+J. Biamonte, Phys. Rev. A 103, L030401 (2021).
+
+Z. Zimboras, B. Koczor, Z. Holmes, E.-M. Borrelli, A. Gilyén,
+H.-Y. Huang, Z. Cai, A. Acin, L. Aolita, L. Banchi, et al.,
+arXiv preprint arXiv:2501.05694 (2025).
+
+W. Kauzmann, Quantum Chemistry: An Introduction (Aca-
+demic Press, 1970).
+
+I. Levine, Quantum Chemistry, Pearson advanced chemistry
+series (Pearson, 2014).
+
+C. Costain, The Journal of Chemical Physics 29, 864 (1958).
+
+R. G. Parr, Density-functional theory of atoms and molecules
+(1989).
+
+A. Y. Kitaev, “Quantum measurements and the abelian stabi-
+lizer problem,” (1995).
+
+W. van Dam, G. M. D’ Ariano, A. Ekert, C. Macchiavello, and
+M. Mosca, Phys. Rev. Lett. 98, 090501 (2007).
+
+D. S. Abrams and S. Lloyd, Phys. Rev. Lett. 79, 2586 (1997).
+
+J. Huh, “Hardware-efficient
+(2024),
+
+and P. J.
+
+33
+34
+
+35
+
+36
+
+37
+
+38
+39
+
+40
+
+4l
+
+42
+
+43
+
+44
+
+45
+
+46
+
+47
+48
+
+49
+
+50
+
+51
+
+52,
+
+53
+
+54
+
+55
+
+56
+
+ST.
+
+58
+
+59
+
+60.
+
+61
+
+62)
+63
+
+19
+
+D. S. Abrams and S. Lloyd, Phys. Rev. Lett. 83, 5162 (1999).
+A. Aspuru-Guzik, A. D. Dutoi, P. J. Love, and M. Head-
+Gordon, Science 309, 1704 (2005).
+
+J. R. McClean, J. Romero, R. Babbush, and A. Aspuru-Guzik,
+New Journal of Physics 18, 023023 (2016).
+
+B. Choy and D. J. Wales, Journal of Chemical Theory and
+Computation 19, 1197 (2023), pMID: 36749922.
+
+W. Sennane, J.-P. Piquemal, and M. J. Ranéi¢, Physical Re-
+view A 107, 012416 (2023).
+
+R. J. Bartlett and M. Musial, Rev. Mod. Phys. 79, 291 (2007).
+M. Ravi, A. Perera, Y. C. Park, and R. J. Bartlett, The Journal
+of Chemical Physics 159, 094101 (2023).
+
+J. Romero, R. Babbush, J. R. McClean, C. Hempel, P. J. Love,
+and A. Aspuru-Guzik, Quantum Science and Technology 4,
+014008 (2018).
+
+J. Lee, W. J. Huggins, M. Head-Gordon, and K. B. Whaley,
+Journal of Chemical Theory and Computation 15, 311 (2019).
+M. Motta, C. Sun, A. T. K. Tan, M. J. O’Rourke, E. Ye, A. J.
+Minnich, J. R. McClean, and G. K.-L. Chan, Nature Physics
+16, 205 (2020).
+
+A. McLachlan, Molecular Physics 8, 39 (1964).
+
+S. McArdle, T. Jones, S. Endo, Y. Li, S. C. Benjamin, and
+X. Yuan, npj Quantum Information 5, 75 (2019).
+
+H. Nishi, T. Kosugi, and Y.-i. Matsushita, npj Quantum Infor-
+mation 7, 85 (2021).
+
+H. Kamakari, S.-N. Sun, M. Motta, and A. J. Minnich, PRX
+quantum 3, 010320 (2022).
+
+O. Higgott, D. Wang, and S. Brierley, Quantum 3, 156 (2019).
+E. Knill, G. Ortiz, and R. D. Somma, Phys. Rev. A 75, 012328
+(2007).
+
+M. Hodecker and A. Dreuw, The Journal of Chemical Physics
+153, 084112 (2020).
+
+Y. Shen, X. Zhang, S. Zhang, J.-N. Zhang, M.-H. Yung, and
+K. Kim, Phys. Rev. A 95, 020501 (2017).
+
+P. J. J. O'Malley, R. Babbush, I. D. Kivlichan, J. Romero,
+J. R. McClean, R. Barends, J. Kelly, P. Roushan, A. Tran-
+ter, N. Ding, B. Campbell, Y. Chen, Z. Chen, B. Chiaro,
+A. Dunsworth, A. G. Fowler, E. Jeffrey, E. Lucero,
+A. Megrant, J. Y. Mutus, M. Neeley, C. Neill, C. Quin-
+tana, D. Sank, A. Vainsencher, J. Wenner, T. C. White, P. V.
+Coveney, P. J. Love, H. Neven, A. Aspuru-Guzik, and J. M.
+Martinis, Phys. Rev. X 6, 031007 (2016).
+
+R. Mao, G. Tian, and X. Sun, Communications Physics 7, 342
+(2024).
+
+H.-P. Breuer and F. Petruccione, The theory of open quantum
+systems (OUP Oxford, 2002).
+
+J. Dormand and P. Prince, Journal of Computational and Ap-
+plied Mathematics 6, 19 (1980).
+
+C. Cirstoiu, X. Wang, S. Brierley, E. Kashefi, and A. Ekert,
+npj Quantum Information 6, 82 (2020).
+
+R. Wu, A. Pechen, C. Brif, and H. Rabitz, Journal of Physics
+A: Mathematical and Theoretical 40, 5681 (2007).
+
+P. Stelmachovié and V. BuZek, Physical Review A 64, 062106
+(2001).
+
+D. Manzano, Aip advances 10 (2020).
+
+H.-Y. Su and Y. Li, Phys. Rev. A 101, 012328 (2020).
+
+S. Barison, F. Vicentini, and M. Dalmonte, Quantum 5, 512
+(2021).
+
+H. Kamakari, S.-N. Sun, M. Motta, and A. J. Minnich, PRX
+Quantum 3, 010320 (2022).
+
+H.-Y. Su and Y. Li, Physical Review A 101, 012328 (2020).
+H. Chen, N. Gomes, S. Niu, and W. A. d. Jong, Quantum 8,
+1252 (2024).
+164
+
+165.
+
+166
+
+167
+
+168
+
+169
+
+170
+
+171
+
+172
+
+173
+
+174
+
+175
+
+176
+
+C. Kokail, C. Maier, R. van Bijnen, T. Brydges, M. K. Joshi,
+P. Jurcevic, C. A. Muschik, P. Silvi, R. Blatt, C. F. Roos, and
+P. Zoller, Nature 569, 355 (2019).
+
+N. Yoshioka, T. Sato, Y. O. Nakagawa, Y.-y. Ohnishi, and
+W. Mizukami, Phys. Rev. Res. 4, 013052 (2022).
+
+L. Q. Galvao, C. Cruz, A. C. do Prado Rosa Junior, and M. A.
+Moret, “Variational quantum simulation of a nonadditive re-
+laxation dynamics in a qubit coupled to a finite-temperature
+bath,” (2025), arXiv:2505.12013 [quant-ph].
+
+C.-F. Chen, M. J. Kastoryano, F. G. S. L. Brandéo, and
+A. Gilyén, “Quantum thermal state preparation,” (2023).
+
+R. Sagastizabal, S. Premaratne, B. Klaver, M. Rol,
+V. Negirneac, M. Moreira, X. Zou, S. Johri, N. Muthusubra-
+manian, M. Beekman, ef al., npj Quantum Information 7, 130
+(2021).
+
+M. Consiglio, J. Settino, A. Giordano, C. Mastroianni, F. Plas-
+tina, S. Lorenzo, S. Maniscalco, J. Goold, and T. J. G. Apol-
+laro, Phys. Rev. A 110, 012445 (2024).
+
+A. C. das Neves Silva, L. Queiroz Galvao, and C. Cruz, Phys-
+ica Scripta 99, 095131 (2024).
+
+L. Q. Galvao, A. C. das Neves, M. F. Anka, and C. Cruz,
+Phys. Rev. E 111, 064119 (2025).
+
+D. T. Hoang, F. Metz, A. Thomasen, T. D. Anh-Tai, T. Busch,
+and T. Fogarty, Phys. Rev. Res. 6, 013038 (2024).
+
+I. Medina, A. Drinko, G. I. Correr, P. C. Azado, and D. O.
+Soares-Pinto, Phys. Rev. A 110, 012443 (2024).
+
+M. Schuld, I. Sinayskiy, and F. Petruccione, Quantum Infor-
+mation Processing 13, 2567 (2014).
+
+S. Jeswal and S. Chakraverty, Archives of Computational
+Methods in Engineering 26, 793 (2019).
+
+M. Sajjan, J. Li, R. Selvarajan, S. H. Sureshbabu, S. S. Kale,
+R. Gupta, V. Singh, and S. Kais, Chemical Society Reviews
+51, 6475 (2022).
+
+UE.
+
+78
+
+719
+
+80.
+
+81
+
+82
+
+83
+
+84
+
+85
+
+86
+
+87
+
+88
+
+89
+
+90,
+
+20
+
+Y. Wang, G. Li, and X. Wang, Physical Review Applied 16,
+054035 (2021).
+
+R. Xia and S. Kais, Nature communications 9, 4195 (2018).
+W. Guan, G. Perdue, A. Pesah, M. Schuld, K. Terashi, S. Val-
+lecorsa, and J.-R. Vlimant, Machine Learning: Science and
+Technology 2, 011003 (2021).
+
+S. L. Wu, S. Sun, W. Guan, C. Zhou, J. Chan, C. L. Cheng,
+T. Pham, Y. Qian, A. Z. Wang, R. Zhang, et al., Physical Re-
+view Research 3, 033221 (2021).
+
+S. Kan and Y. Mao, in Quantum Computational AI (Elsevier,
+2026) pp. 153-170.
+
+J. Gibbs, Z. Holmes, M. C. Caro, N. Ezzell, H.-Y. Huang,
+L. Cincio, A. T. Sornborger, and P. J. Coles, Physical Review
+Research 6, 013241 (2024).
+
+B. Gardas, M. M. Rams, and J. Dziarmaga, Physical Review
+B 98, 184304 (2018).
+
+C. Long, L. Cao, L. Ge, Q.-X. Li, Y. Yan, R.-X. Xu, Y. Wang,
+and X. Zheng, The Journal of Chemical Physics 161 (2024).
+A. Baul, H. Fotso, H. Terletska, K.-M. Tam, and J. Moreno,
+Quantum Reports 7, 18 (2025).
+
+L. Kim, S. Lloyd, and M. Marvian, Physical Review Research
+6, 033019 (2024).
+
+I. J. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu,
+D. Warde-Farley, S. Ozair, A. Courville, and Y. Bengio, Ad-
+vances in neural information processing systems 27 (2014).
+
+J. Romero and A. Aspuru-Guzik, Advanced Quantum Tech-
+nologies 4, 2000003 (2021).
+
+J. Selisko, M. Amsler, T. Hammerschmidt, R. Drautz, and
+T. Eckl, Quantum Science and Technology 9, 015026 (2023).
+A. Krizhevsky, L Sutskever, and G. E. Hinton, in Advances
+in Neural Information Processing Systems, Vol. 25, edited by
+F. Pereira, C. Burges, L. Bottou, and K. Weinberger (Curran
+Associates, Inc., 2012).

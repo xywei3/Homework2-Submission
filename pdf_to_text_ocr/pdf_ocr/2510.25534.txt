@@ -1,0 +1,1501 @@
+2510.25534v1 [gr-qc] 29 Oct 2025
+
+arXiv
+
+Characteristic Critical Collapse of a Yang-Mills Field With Null Infinity
+
+Rita P. Santos®\!+? Krinio Marouda®|! and David Hilditclo}
+
+'CENTRA, Departamento de Fisica, Instituto Superior Técnico — IST,
+Universidade de Lisboa — UL, Avenida Rovisco Pais 1, 1049-001 Lisboa, Portugal
+? Institut de Ciéncies de l’Espai (ICE, CSIC), Campus UAB,
+
+Carrer de Can Magrans s/n, 08193 Cerdanyola del Vallés, Spain
+(Dated: October 30, 2025)
+
+Solutions to the Einstein equations near the threshold of black hole formation exhibit remarkable
+behavior known as critical phenomena gravitational collapse. In this work we perform characteristic
+evolution in compactified Bondi coordinates in order to study the critical collapse of a Yang-Mills
+field, allowing for the extraction of global quantities such as the Bondi mass and news function. Our
+numerical approach is fourth-order accurate. First, we demonstrate that the collapsing field exhibits
+local Discretely Self-Similar (DSS) behavior, characterized by an echoing period of A ~ 0.7388,
+agreeing with previous works up to the second decimal place. We find that global quantities such as
+the Bondi mass and news function display the same DSS behavior. We furthermore show that the
+mass of the black holes formed during near-threshold evolutions scales as a function of the distance
+to the critical parameter, with a critical exponent of approximately y = 0.1977 + 0.0009. Finally, our
+findings indicate that these results are universal, irrespective of the initial data.
+
+I. INTRODUCTION
+
+Critical phenomena in gravita
+discovered by Chop
+
+ional collapse were first
+uik [1], who studied
+
+the dynamical
+
+evolution of one-parameter families of initial data that
+
+describe a real mas scalar fie!
+It was found
+generically to
+
+one of two
+
+spacetime. Close to
+Choptuik found a very interesting
+complicated form of
+
+specific initial data are insignificant.
+
+s in spherical symmetry.
+hat the evolution of such da’
+ossible end-sta'
+data is strong enough, a black hole wil
+sufficiently weak data will disperse to leave behind
+the threshold of collapse however,
+behavior.
+he Einstein Field E
+at the threshold of black hole formation
+the system become relatively simple and exhibi
+behavior in which, as described below, the details of
+
+a asymptote
+
+es. If initial
+form, whereas
+flat
+
+Despite the
+uations (EFEs),
+he dynamics of
+it universal
+he
+In the context of
+
+spherical symmetry, similar behavior has been observed
+
+with various different matter mo
+
+Universal
+
+solutions that lie at the threshold are called the critical
+
+solution.
+The picture
+
+hat emerges from this work is
+for many matter models in the spherica
+
+hat, at least
+context, near the
+
+threshold between black hole formation and dispersion,
+solutions to the EFEs show features of the critical solution,
+
+such as
+
+power-law scaling with respect to
+
+he distance
+
+to the threshold, self-similarity and universality. Firstly,
+
+scaling refers to the fact
+quantities | with units o
+runs, depend on a parame
+and tha
+
+length, in
+
+l~ |p—p.l7,
+
+where the critical value p, depends on
+parame
+
+er p of a family o:
+this relation follows a power-
+
+er family of initial data. Simi
+
+that the global maximum of
+
+barely subcritical
+initial data
+
+aw
+
+(1)
+
+he particular one-
+ar behavior, also
+
+referred to as scaling, can be observed in certain quantities
+with the same units on the barely supercritical runs. The
+
+critical exponent is often found to
+
+be universal for a
+
+given matter model.
+
+approximately self-similar for a while
+
+Secondly, near-critical evolutions are
+before dispersion
+
+or collapse. In the particular case of DSS, a case which
+
+is realized in the massless scalar fiel
+
+conforma!
+
+model, up to a
+
+rescaling the solutions are found to be periodic
+
+in similarity time with a period A. Finally, it is found
+
+that near-critica!
+the evolu
+For example, in the
+our initial data
+evolution will show
+before dispersing to
+
+ion. This
+
+o the critical parameter
+
+solutions look the same for some time of
+
+is what is referred to as universality.
+sub-critical side, the more we tune
+he longer this
+the features of the critical solution,
+flat spacetime. This means besides
+
+the distance from the threshold of black hole formation,
+
+all details of the initial data are irrelevan
+
+that, as well as
+the perio
+
+. This means
+
+ower-law values y, parameters such as
+A are universal.
+
+In the case that the super-critical evolutions near the
+
+threshold lead to the
+the critical collapse
+
+formation of infinitesimal black holes,
+is characterized as type-II, which is
+
+the type we are concerned with in this work. On the other
+
+hand, in
+in the mass scaling,
+
+ype-I critical collapse there is a discontinuity
+
+and it is not possible to form black
+
+holes with mass smaller than a certain universal value
+
+dependen:
+In this work, we
+
+on physical scale set by the model.
+
+restrict to spherical symmetry and
+
+study solutions to the Yang-Mills matter model minimally
+
+coupled to General
+
+Relativity (GR) near the threshold
+
+of collapse. It is known that, depending on the initial
+
+data and field ansa
+collapse
+general s
+two free potentials,
+
+can display
+herically symmetric Yang-Mills connection has
+
+z considered, the Yang-Mills field
+types I or II behavior [4] [5]. The
+
+but most numerical work so far has
+
+considered the so-called magnetic ansatz, in which one
+
+of potentials is set t
+II collapse withing
+aim is to explore cri
+
+o zero. Here, we focus on the type-
+the purely magnetic ansatz. Our
+ical collapse using compactified null
+
+coordinates. While the echoing period in the DSS critical
+
+solution for the sca!
+
+ar field is A ~ 3.44, in the Yang-
+Mills field case, we have A ~ 0.7 [6]. At a practical
+evel this means that the Yang-Mills field allows for a less
+computationally demanding study of critical collapse.
+
+The code developed is based on the solution of a
+Characteristic Initial Value Problem (CIVP), in which the
+initial data is specified on a null hypersurface. Our space-
+ime is then foliated by a family of non-intersecting outgo-
+ing null hypersurfaces. We compactify our domain in order
+o include both the origin and future null-infinity 4+ in
+our computational domain. Our motivation for this choice
+of evolution is that it allows us to study the collapse from
+he point of view of .%*, corresponding to an idealized
+astrophysical observer. In this manner, our choice of nu-
+merical setup allows us to study global quantities such
+as the Bondi mass and the news function familiar from
+discussions of gravitational waves in asymptotically flat
+spacetimes.
+
+Different aspects of the gravitational dynamics of a
+Yang-Mills field have been studied with different con-
+inuum formations and numerical approximations. For
+instance, the system has been studied as a CIVP, with
+an evolution based on compactified null hypersurfaces [7],
+with a focus on the late-time behavior of subcritical evolu-
+ions far from the critical regime. Again focusing on late-
+ime tails, results have been presented using compactified
+nyperboloidal evolution [8]. In their setup the foliation is
+spacelike but leaves nevertheless terminate at %*. Criti-
+cal collapse with the model was first studied in [4] is) using
+a Cauchy formulation. Building on B], critical collapse
+of a Yang-Mills field has been examined in [10) with a
+hyperboloidal foliation, with a particular focus on type-
+III collapse, a rare finding in which the two final-states
+on both sides of the threshold are black holes, but the
+Yang-Mills field is in different vacuum states. The state-
+of-the-art was provided in Schwarzschild-like coordinates
+by [5]. For the type-II collapse of the magnetic ansatz,
+hey find a critical exponent of ~ = 0.19714+ 0.00074 and
+an echoing period of A = 0.7364 + 0.0007 which, we will
+see, are compatible with our findings.
+
+In [11], the threshold o
+
+collapse for two interacting
+spherical fields, a massless scalar field and a Yang-Mills
+field, was studied. Based on numerical results the exis-
+tence of a “quasi-discretely self-similar” solution shared by
+the two fields was conjectured. Empirically this solution
+is equal to the Choptuik solution at infinitely small scales
+and the type-II Yang-Mills critical solution at large scales,
+with a gradual transition from one to the other. This
+work employs the use of single-null coordinates, but in
+an non-compactified domain, not allowing for radiation
+studies at Zt.
+
+Using a complementary strategy to the hyperboloidal
+approach, global aspects of critical collapse of a scalar field
+were studied in [12]. A self-gravitating massless scalar
+field in spherical symmetry was evolved numerically with
+a characteristic formulation, using a compactified grid
+and thus including .7* in the computational domain.
+
+In view of the above, in this work we follow the formula-
+tion of [12] but make adjustments to achieve fourth-order
+
+accuracy on compactified null-slices, which allows efficient
+computation of radiative quantities at .7+. The novelty
+consists of the combination of a characteristic formulation
+and the study of the radiation emitted during a Yang-Mills
+field collapse. The advantage is not only that it allows
+for the study of .%*, but also the fact that the evolution
+equations, at least in the spherical setting, are much sim-
+pler than in other formulations such as hyperboloidal or
+Cauchy. The study of solutions close to criticality then
+becomes very computationally efficient, allowing for a
+more straightforward tuning to the critical solution. A
+characteristic approach also simplifies the study of the
+causal structure of our solution and, as observed in [13]
+can be used to side-step the need for mesh refinement.
+Recent further discussion of characteristic formulations
+can be found in [14].
+
+The paper is organized as follows. In section [II] we
+present our formulation the field equations. In section [IT]
+we presents our numerical approach. Our results concern-
+ing critical collapse are presented in section[IV] Finally, we
+conclude in section [V] Geometric units are used through-
+out.
+
+II. CONTINUUM MODEL
+
+In this study we focus on the threshold of collapse of
+a purely magnetic SU(2) Yang-Mills field in spherical
+symmetry. We begin in this section by formulating the
+equations of motion for this model along the lines of [10)
+
+i.
+
+Our work differs from these as we consider a charac-
+teristic foliation of spacetime with compactified Bondi
+coordinates, as opposed to the non-compactified form used
+in [1] or the hyperboloidal evolution of [10] [15]. Ulti-
+mately this has the advantage that we do not need to solve
+constraints for initial data but can resolve the dynamics
+out to infinity. Our continuum model follows the charac-
+teristic formulation of GR previously used in [12] to study
+the collapse of a massless scalar field. Their work uses
+compactified Bondi coordinates, which simplifies the study
+of the region close to the center of spherical symmetry.
+Their approach allows for the study of the gravitational
+collapse from the point of view of an observer at future
+null-infinity, which we now utilize to study the collapse
+of a purely magnetic SU(2) Yang-Mills field. Since the
+period of the critical solution is significantly smaller in
+comparison with that of the massless scalar field, we are
+able to calculate nearby solutions accurately without the
+use of either mesh-refinement or infalling coordinates with
+regridding. Our adjustments to the numerical approach
+of [12] are discussed below in section
+
+A. Geometry
+
+The line element in Bondi coordinates {u,r,,¢} is of
+the form
+
+ds? = — e287) WAG), ®) du? — 2628") dudr
++r?(d6? + sin? 6d¢?),
+
+in which 8(u,r) and V(r) are smooth metric functions.
+
+Our gauge choice will be such that our outgoing null
+
+slices are parameterized by the proper time of an observer
+
+located at the origin, where the strong field dynamics are
+
+happening.
+
+In order to obtain a fully regular system of evolution
+
+equations, we work with the Misner-Sharp mass func-
+
+ion (3). In this way, we eliminate V by using
+
+m(u,r) = : : = ve] . (3)
+
+n numerical studies of GR, it is often useful to perform a
+compactification of the radial coordinate r. We perform
+a coordinate transformation which maps a half-line [0, 00)
+0 a finite segment [0,1], according to
+
+=
+l+r
+
+(4)
+
+Points at %+ are then included in our grid at x = 1. In
+such a manner, we can simulate observers at null-infinity
+which will allow us to extract global properties of our
+roblem.
+
+B. Yang-Mills Field Collapse
+
+As in [II], the purely magnetic Yang-Mills field in
+spherical symmetry can be parametrized as
+
+F =dW A (71d6 + 72 sin 0d¢) — (1 — W?)r3d0 A sin Odd,
+(5)
+where 7; are the Pauli matrices with tr(7;7;) = ;;. (See
+also [4], which used a similar parametrization to study
+the critical collapse of a Yang-Mills field in Cauchy co-
+ordinates.) In the presence of a Yang-Mills field W the
+Einstein Equations are
+Gap = 8, (6)
+with
+
+7 - dL. mer
+Th? = 149 — host,
+
+TY) & diag(2r2V..WVLW, Pr?yas), (7)
+Par °V WW tr 41- Wy,
+
+where Yap = diag(1,sin? 4) is the unit metric on the 2-
+sphere, and P has units of pressure. Observe that 7!)
+
+is block diagonal in the wu, ur and rr components, and
+diagonal in the rest. The Einstein Equations result in the
+hypersurface equations
+w2
+Br =4n—
+"
+
+on (8)
+Wg: = aa ((W? — 1)? + 2r(r — 2m)W?).
+Following [II], W obeys the wave equation in the 2-
+dimensional ur plane (the angular dimensions are sup-
+pressed due to spherical symmetry), with a potential term,
+namely
+
+al(V V
+,W =0728 (=) On = 2p + “Oer| W
+LX TS yr r (9)
+Ww(l-W?)
+Sin og
+in which OD, denotes the two dimensional D’Alembert
+
+operator, which is given by
+
+(=) A, — 20,0, + 7a . (10)
+Li Pe r
+
+— 6728
+
+h
+
+Using @). Equation can be rewritten as
+
+28
+Wig salW —W? +2W,,.(m— rm, +r(r — 2m)6,,)
+ie ‘
+
++r(r —2m)W,pr). (11)
+
+‘We can then use Equation ( to perform our time evolu-
+tion and find our field W on slices of constant u. In fact,
+we introduce a parametrization for W such that we regu-
+larize Equation (i). An appropriate ansatz for W [4 [1]
+
+is given by
+
+(12)
+
+2
+r
+Ww=1 —_ =14+2°y,
+
+in which x(u, x) = O(1) both at the origin and at .%*. To
+make the numerical implementation more straightforward,
+we define a new variable €(u, 7) = 27(u, 2).
+
+Our final evolution system of equations is then com-
+posed of two Einstein equations (3 and the wave equation
+originating from W (i). regularized by the parametriza-
+
+tion given by (2).
+
+C. Asymptotic Quantities
+
+We now define the radiation quantities at %* for the
+collapse, namely the Bondi mass and the news function.
+
+1. Bondi Mass
+
+If we define the total energy enclosed by a surface, this
+energy definition is said to be quasilocal. The Misner-
+Sharp mass, given by Equation is one such quantity.
+
+On the other hand, the Bondi mass is a global mass
+definition for asymptotically flat spacetimes. It captures
+he mass that remains on a null hypersurface of constant wu,
+and is defined as
+
+M(u) = Jim (0,7) eeonse: (13)
+
+Because this hypersurface doesn’t intersect any of the
+radiation emitted prior to the retarded time u, it turns
+out that the Bondi mass can only decrease with increasing
+retarded time uw. For instance, in an isolated system,
+outgoing waves can radiate physical energy to .%+. The
+Einstein equation in {rr} gives us an expression for the
+mass change that can be written as
+
+My, = he ?F py? Tule)
++8ar (r — 2m) Tur(u,r) (14)
+—2re?8 (r — 2m)? T,,.(u, 1).
+
+Equation is valid for a general matter model in
+spherical symmetry. For the case of a Yang-Mills field,
+the mass loss formula at .%* is simply
+
+Ma = —8mre 2 2 (15)
+
+su?
+
+in which wu is equal to the central time uc. We can con-
+clude that the Bondi mass is in general not conserved,
+being monotonically decreasing in u. This is as expected
+physically since no mass can enter our compactified do-
+main.
+
+2. News Function
+
+The news function N(w) is a quantity related to the
+emission of energy momentum through .%+. The Bondi
+mass-loss equation provides a relation between N(u) and
+the Bondi mass M(u) [7]. It can be written as
+
+e72H (uc) dM (uc)
+“ duc
+
+in which H = B(uc,0o). As discussed in [16], H is related
+o the redshift. It can be argued that if H — oo, then a
+finite amount of central time uc corresponds to an infinite
+amount of time ug (see Equation (17)). This means that
+ight rays being emitted from the center are infinitely
+redshifted.
+
+We denote the Bondi time by wg. In [16], it is shown
+hat the relation between central and Bondi time in the
+imit r — oo is
+
+= —4nN?(uc), (16)
+
+dup =e?" duc. (17)
+
+Using the mass loss formula we derived for the Yang-Mills
+system and the Bondi mass-loss Equation (6),
+find an expression for the News at .7+ for the case of this
+hysical system
+
+we
+
+N(ug) = Vue: (18)
+
+This can be translated onto Bondi time as
+
+N(ug) = V2e7" Eu. (19)
+
+Ill. NUMERICAL METHOD
+
+As in [12] we solve the CIVP numerically, meaning that
+we use a null foliation of spacetime and specify our initial
+data on a hypersurface of constant u. The main difference
+here, besides the fact that they study a scalar field criti-
+cal collapse, is that we use a different integration scheme.
+Piirrer et al. [12] integrate over a null parallelogram, devel-
+oping a code based on a Diamond Integral Characteristic
+Evolution [17]. We instead use a Runge-Kutta integrator
+for both the time u and space x integrations, which are
+done separately. Our integration scheme is straightfor-
+ward to apply and has the advantage of being globally
+fourth-order accurate. We started by implementing a
+second-order accurate method and found, somewhat un-
+surprisingly, that our results improved substantially once
+we upgraded to fourth-order accuracy. Derivatives were
+approximated using a fourth-order finite difference scheme
+given by
+
+4
+)  Uj—2 — 8Uj—-1 + 8Ui41 — Wi42 j h ©)
+
+“ 12h " 30
+
+(20)
+
+At the first and second gridpoints of our grid, our finite
+difference operator is not defined, thus we need to use
+a different stencil, lopsided by two and one gridpoints
+respectively, and we need to make sure that the error
+terms match. Following [18], we use lopsided derivative
+operators, which are found to be
+
+a —2uj_1 — 15u; + 28uj41 — l6uip2 + 6uit3 — Ui4a
+
+Un %
+12h :
+re —27u; + 58ui41 — 56uj42 + 36ui43 — 13ui44 + 2ui4s
+~ 12h ;
+
+(21)
+
+which have the same leading error as Equation (20). We
+use Kreiss-Oliger dissipation to damp the formation of
+high frequency modes.
+
+The code developed for this project (a combination of
+Julia, Python and Mathematica files) can be found at
+
+the GitHub repository
+
+IV. NUMERICAL RESULTS
+
+We implemented the evolution system of equations (3
+and (11) as derived in Section
+begin with a description of given data and diagnostics,
+before briefly presenting a representative validation test
+and finally moving on to discuss our physical results.
+
+A. Initial Data and Diagnostics
+
+We construct initial data families for € that are
+Gaussian-like:
+
+&(uo, x) = Ar(x) exp - (ea (22)
+
+We fix ro = 0.3 and o = 0.1, and study the influence of
+changing the amplitude A, our tuning parameter.
+
+The critical solution is parameterized by a critical am-
+litude A = A, which determines the separation between
+wo different scenarios in parameter space: supercriti-
+cal solutions, which correspond to black hole formation,
+and subcritical evolutions, in which the initial data even-
+ually disperses to flat spacetime. We find the critical
+amplitude that produces such evolutions by performing
+a bisection search in the parameter A. From each bi-
+section, we extract relevant quantities of critical solu-
+ions, such as the self-similarity echoing period A and the
+accumulation time u,. For a near-critical solution, the
+approximate value of the accumulation time defines an ap-
+roximate location (advanced time) of the Self-Similarity
+Horizon (SSH).
+
+In practice, we detect the formation of an apparent
+10rizon by monitoring the value of the compactness 2m/r
+hroughout the evolution, with 2m/r = 1 signifying the
+presence of an apparent horizon. In our particular null
+coordinates, our slices do not penetrate apparent horizons.
+Therefore, we soften the condition by using 2m/r > 0.71
+as the condition to mark evolutions as supercritical, as
+is common practice. We have adjusted the specific value
+chosen for this criteria and find that within some range
+this has little effect on the outcome.
+
+Evolutions closer to criticality are required to ‘slow
+down’ according to a Self-Similarity Horizon (CFL)-type
+condition, which is a condition that guarantees that the
+full numerical domain of dependence contains the physical
+domain of dependence. This condition can be written as
+
+C= <1, (23)
+
+in which C is the Courant number and v =
+value of v can be obtained from Equation
+dé = dd = 0, and can be rewritten in terms of m and x
+as
+
+dx (1- x)3e?9 (2m/x i)
+du 2 ,
+
+We start the evolution with Au = 0.5 Ax, updating Au
+
+at each iteration according to Au = 0.5 Ax (22) This
+ensures that the distance any information travels during
+a timestep At must be smaller than the distance between
+mesh elements (Az). Our scheme is not strictly causal but
+this poses no difficulties beyond this (expected) restriction
+on the timestep.
+
+As we tune closer to A, our solutions are expected
+
+to exhibit critical behavior. One of the characteristics is
+
+(24)
+
+on
+
+7 Individual norms 7 Single norm
+— Am — a
+61.— 6
+4) Ox
+5 Qer 5
+3 3
+o4 o4|————_~
+3 =
+2
+0.0 02 04 06 O08 10 00 02 04 O06 O8 1.0
+
+Proper time u Proper time u
+
+FIG. 1. Convergence factor Q(u) throughout the evolution,
+using a code that is fourth-order accurate. The dotted and
+solid lines correspond to a grid with 100 and 200 points at
+the lower resolution, respectively. We see that as we increase
+resolution, Q gets closer to 2. The initial data is constructed
+using Equation 2. and setting A = 0.01, ro = 0.3 and o =
+0.08. We stop the convergence test when the magnitude of
+all fields is smaller than 10~*. We use a lower resolution here
+than in our near-critical runs, but as we increase resolution
+and data strength, the solution converges in a similar manner.
+
+discrete self-similarity of the collapsing field solution. This
+self-similarity is characterized by an echoing period A,
+which we will extract from our evolutions.
+
+Based on our Bondi coordinates {u,r,6,¢}, we define
+the specific DSS-adapted time coordinate as
+
+T = —In(u, — u), (25)
+
+where u is the proper time at the origin, and u, is the
+the accumulation time, at which the curvature diverges
+in the limit of infinite tuning to the threshold. T is then
+what we will call the similarity time, which is defined for
+a constant u,» > 0 and u < uy [19].
+
+The accumulation time u, can be estimated by tak-
+ing two pairs of consecutive zero-crossings of the magni-
+tude of the collapsing field at the origin, (un,un41) and
+(Umstm41). Assuming that each pair differs in half of the
+period A/4, we can solve for the accumulation time [19]
+obtaining
+
+UnUm+1 — Un+1Um
+
+Un — Un+1 — Um + Um+1
+
+The same reasoning can be applied to provide an esti-
+mate for the echoing period A [19] resulting in
+
+A=2In (2). (27)
+
+Ux — Un+1
+
+Each self-similar repetition of the solution at progressively
+smaller scales is referred to as an echo.
+
+B. Convergence Tests
+
+To validate our numerical solutions we perform conver-
+gence tests. We compute the solution f at three different
+N Ax Ux A
+2-107 0.088640998 1.05541
+4-10° 0.088640996 1.053
+6-10 0.088640995 1.05374 0.0001 0.73
+
+TABLE I. Critical parameters obtained for the same family of
+initial data. All values presented are calculated for grids with
+different basis resolutions N. A. denotes the critical amplitude,
+ux denotes the accumulation time and A is the self similarity
+echoing period defined in Equation (27). To calculate u. and A
+we average the possible pairs of zero-crossings (excluding the
+first echo) and use the standard deviation as the uncertainty.
+The evolution is fine-tuned up to 9 decimal places.
+
+resolutions A;, Ao, and A3, with A3 = A)/2 = A,/4.
+
+The convergence factor Q is defined as Q(u) = emda
+2— tas
+
+with ||-|| a discrete approximation to the L? norm, which
+we evaluate throughout the evolution for each variable
+separately, as shown in the left panel of Figur Since
+all the numerical methods we implement are fourth-order
+accurate, we expect Q to remain close to ~ 4 through-
+out the evolution. Global zero-crossings of a particular
+variable cause jumps in the apparent convergence rates,
+and so a more informative plot is given by the overall
+code convergence rate, obtained by computing the norm
+taking into account all the variables together, which is
+shown on the right panel of the same figure. We stop the
+convergence test once the variables disperse and get to
+values close to the numerical precision, which happens
+at u = 1.0. At this point, we can no longer trust the
+computed convergence factor. In Figure [I] we see that
+as we increase resolution the convergence factor Q gets
+closer to~ 4, indicating good fourth-order convergence as
+desired.
+
+C. Identification of Critical Behavior
+
+We now turn to analyze different evolution regimes of
+a Yang-Mills field collapse. As an illustrative example, in
+Figure [2] we present the field €(u, x) for both subcritical
+and supercritical initial data. We see that the subcritical
+evolution disperses completely at the end of the evolution
+whereas the supercritical evolution stops at earlier times,
+when our compactness criteria is met. To close in on the
+threshold of collapse we perform bisection searches, as is
+common, for grid setups with different resolutions. The
+results of our bisections are summarized in Table
+Regarding the results shown in Tab. e [I] we first notice
+hat the critical parameters obtained for each resolution
+are consistent. Using Equation (27), we estimate an
+echoing period of A = 0.73. At the continuum level,
+here’s one single critical amplitude value. However, the
+numerical error depends on the resolution considered, so
+as we use more gridpoints, the runs become more accurate
+(in practice, ‘less dissipative’) and we are better able to
+oetter resolve runs with stronger initial data.
+
+FIG. 2. € = W — 1 throughout the evolution. The top panel
+shows a subcritical evolution with initial amplitude A = 0.001
+and the lower a supercritical evolution with A = 0.089 for
+N = 400. For clarity only a subset of the data points are
+shown.
+
+In [6] perturbative arguments are used to calculate
+the echoing period, and it is found that A = 0.73784 +
+0.00002, consistent with the value we report in Table
+Additionally, the work of [5] estimates a value of A =
+0.7364 + 0.0007, and [4] estimates A = 0.74. The error
+estimation here is non-trivial as there is both numerical
+error and also error from the method used to estimate A,
+so that it is easy to underestimate the error associated
+in these estimates. Nevertheless, the results we pointed
+out are consistent with our findings, despite using very
+different continuum and numerical setups.
+
+In the next subsections we discuss local and global
+self-similarity of critical solutions, then black hole mass
+scaling and finally present evidence that our results are
+universal with respect to initial data.
+
+0.6 0.6
+
+04 n\ 04
+4 \
+
+0.2 fs 0.2
+> 0.0 fads \ > 0.0
+-0.2 \ -0.2
+-0.4 -0.4
+-0.6 -0.6
+
+0.0 05 00.25 50 75
+
+Proper time u Similarity time T
+FIG. 3. X at the origin as a function of proper time u and
+
+similarity time T for a run of N=6- 10%, tuned to 9 decimal
+places, with A. = 0.088640995.
+
+D. DSS Behaviour in Local and Global Quantities
+
+In this section, we investigate how local and global
+quantities behave in evolutions that approach the critical
+solution. Following [IT], we observe that x (recalling that
+W =1+27y =1+€) is not compatible with exact DSS.
+The critical solution observed should instead be of the
+form
+
+x= e Tx, (28)
+
+where T is the similarity time.
+
+We perform a bisection search with N = 6 - 10° points
+and find a critical amplitude of A, = 0.088640995, tuned
+o 9 decimal places. We find that, for this resolution,
+further tuning our solution did not improve the number of
+echoes observed. Observe This result is achieved without
+he use of mesh refinement. In Figure] we show the value
+of X¥ at the origin as a function of proper time wu and of
+similarity time T, for our best tuned run. We see that
+indeed ¥ is DSS with an echoing period of A ¥ 0.737.
+
+Although we can observe a significant number of echoes
+or the Yang-Mills field without using mesh refinement,
+his is much more difficult for the scalar field collapse,
+as the echoing period is around five times larger in that
+case.
+
+The shape we find of the solutions near-criticality agrees
+with the picture found in previous works, that the features
+of critical solutions in a region around the origin {4} [5]. Our
+main goal is, however, to inspect these features at %+.
+
+In fact, the SSH is the past light cone of the accumula-
+ion time. Hence, it is the region of spacetime where we
+expect that the solution is self-similar. Moreover, since
+we are using a characteristic foliation of spacetime, we
+are able to show that the dynamics of the critical solu-
+ion, and particularly discrete self-similarity, are radiated
+o %*. This is shown in Figure|4] where the news func-
+ion is plotted. An observer at .4~ is then able to observe
+eatures of critical collapse. These are imprinted also in
+he Bondi mass, the other asymptotic quantity discussed
+in Section
+
+The redshift factor H = B(uc, oo) — introduced in Sec-
+ion [I1C]— is shown in Figure [5] for a barely supercritical
+
+03
+0.2
+0.1
+0.0 \
+
+-01 \
+
+|
+-0.2 \ |
+as HI
+
+Bondi time ug
+
+News
+News
+
+Similarity time T
+
+FIG. 4. News function at .%* as a function of Bondi time
+
+u and similarity time T for a run of N=6 - 10°, tuned to 9
+decimal places, with A = 0.088640995.
+0.8 VN 0.8
+2 wy |e
+. 0.7 | = 0.7
+ce}
+G £
+£06 506 \
+# | a \
+= bd
+a 0.5 < 0.5 |
+& 3. off |
+0.4 “0.4
+|
+9309 0.5 1.0 03 (¢) 2 4
+Proper time u T
+FIG. 5. Redshift factor H(T) = 8(uc,0oo as a function ol
+
+Bondi time u and similarity time T for a run of N=6 - 10%,
+tuned to 9 decimal places, with A. = 0.088640995.
+
+0.75
+
+0.70
+£0.65
+ist
+” 0.60
+uv
+(ad
+$0.55
+Qa
+£0.50
+U
+0.45
+0.40
+
+0.0 0.2 0.4 0.6 0.8 1.0
+
+Proper time u
+
+FIG. 6. Compactness max (22) for a near-critical evolution as
+
+a function of similarity time 7’. The data shown corresponds to
+arun of N=6- 10° points, tuned to 9 decimal places, with A =
+0.088640995.
+
+evolution. This quantity also shows discrete self-similarity
+as the outgoing light rays that approach %+ are them-
+selves subject to an oscillating compactness 2m/r, caused
+by the near-critical collapse of the Yang-Mills field.
+Figure [6] shows that indeed the compactness 2m/r os-
+cillates in a near-critical evolution, caused by the near-
+-20 -15 -10 —5
+
+In(A-A*)
+
+FIG. 7. Scaling of the final black hole mass as a function
+of the distance to the critical amplitude A. for supercritical
+evolutions. We fit the data and find a scaling of the black hole
+mass In(mpu) ~ 0.1977 In(A — Ax) — 1.6, yielding a critical
+exponent of y = 0.1977 + 0.0009. Each point in this figure
+corresponds to the final black hole mass of an evolution with 4-
+10° gridpoints.
+
+critical collapse of the Yang-Mills field.
+
+To summarize, our near-critical solutions share the
+same universal features as the critical solution, both at
+the origin and at .%*. Lastly, our parameter estimates
+are consistent with those from previous numerical works
+and with the perturbative results of [6].
+
+E. Black Hole Mass and Curvature Scaling
+
+As discussed in Section [I] the mass of the black holes
+formed in evolutions that are barely supercritical has been
+found to follow a power-law described by Equation (.
+For the case of the spherical Yang-Mills, this scaling
+has been derived by perturbing the critical solution [6],
+yielding a critical exponent of 7 = 0.1964 + 0.0007.
+
+In this Section, we restrict ourselves to the criti-
+cal solution previously obtained for 4 - 10? gridpoints,
+with A, = 0.088640996, as shown in Table [I] In Figure[7]
+we plot the values of the estimate mass of the black hole,
+as a function of the distance to the critical parameter.
+We fit the data present in Figure with an
+ansatz In(mpy) = yIn(A — Ax)+b (see Equation (i) and
+find that the final black hole mass scales as In(mpy) =
+0.1977 In(A — A.) — 1.6171. We then extract a critical ex-
+ponent of 7 = 0.1977. This value is again compatible with
+that from perturbation theory in [6], but and also with the
+values estimated in earlier numerical studies. In particu-
+lar [5] finds an exponent y = 0.19714 + 0.00074, and [4]
+estimates 7 = 0.20, both using Cauchy formulations.
+
+This same scaling behavior happens for barely sub-
+critical evolutions. In this scenario, we compute the
+maximum value of T,,)T#?, which is a proxy for the max-
+
+-7.012
+7.5 10.0
+
+12.5 15.0 17.5 20.0 22.5
+
+-In(A*-A)
+
+FIG. 8. Scaling of max(TapT?”) as a function of the distance
+to the critical amplitude A. for subcritical evolutions. We
+fit the data and find a scaling law of In(max(Ta»T*?)) ~
+0.197 In(A — A.) — 8.263, yielding a critical exponent of 7 =
+0.197 + 0.002. Each point in this figure corresponds
+to max(TapT?”) from an evolution with 4- 10° gridpoints.
+
+0.10
+
+2
+°
+a
+
+2
+°
+°
+
+In(max(TapT?”))—(y x + b)
+| |
+o So
+ar)
+on
+
+|
+2
+i
+u
+
+10.0 12.5 15.0 17.5 20.0 22.5
+n(A-A*)
+
+FIG. 9. Here we plot the same data from Figure [3] after
+subtracting the linear fit 0.197 In(A — A.) — 8.263. The un-
+derlying periodic behavior in the scaling of max(TapT*”) is
+very evident.
+
+imum curvature within an evolution. In Figure 8] we plot
+this quantity as a function of the distance to A,, and ex-
+tract a scaling law of In(mpy) ~ 0.197 In(A — A.) —8.263,
+with y = 0.197+0.002. This exponent is consistent within
+errors with the 7 extracted from supercritical evolutions,
+as well as with those from [4] [6] and [5]. In Figure [9] we
+plot the same data from Figure} but with the linear fit
+subtracted, revealing the underlying periodic behavior.
+
+We recall that the values of the black hole masses are
+estimated by taking the value of the Misner-Sharp mass
+at the gridpoint in which the compactness reaches our
+criterion to mark an evolution as supercritical, without
+interpolation between gridpoints. In fact, assuming the
+
+a 10-1
+= 107 ay ©
+iS \ Es :
+a % 107
+2 10-3 } gre :
+€ €
+310-4 ao}
+§ § 10-3
+a a
+10-5
+-4
+0 2 4 10 0 2 4
+Bondi time ug Similarity time T
+FIG. 10. Bondi mass as a function of Bondi time ug an
+
+similarity time T. The data here presented corresponds to the
+same run as Figure B] We find that the Bondi mass in the
+last time step of this evolution (Tr) is mg,r, = 1.9 * 10°
+mp(t = 0). The right panel shows a zoom-in of the region
+where the periodicity is visible. The vertical lines are spaced
+in 0.73, which is approximately the same value we calculate
+for A.
+
+Cosmic Censorship Conjecture holds true, there will still
+be mass-energy left outside of the compactness peak that
+will later fall through the horizon, and thus this estimate
+will indeed not correspond to the true final black hole mass.
+This, together we the fact that we do not interpolate to
+estimate mgu, could wash out fine structure, which may
+explain why we do not see the periodic behavior on the
+supercritical side in Figure [7] Nevertheless, this approach
+is sufficient to observe the scaling as predicted with per-
+urbation theory, with a critical exponent y = 0.1977, in
+agreement with theoretical computations and numerical
+estimations from previous works. If we take the closest
+simulation to the critical solution on the supercritical side,
+we can get an estimate of the smallest black hole we can
+uild for this family of initial data, at this resolution. We
+find that the smallest black hole is 2.75% of the initial
+Bondi mass in that evolution. At the time the horizon
+forms, about 71% of the Bondi mass is contained within
+he Black Hole.
+
+F. Bondi Mass Decay
+
+As discussed in Section the Bondi mass is an
+asymptotic quantity which measure the total mass present
+on an outgoing null hypersurface. We also observe this
+global quantity to be DSS (see Figure , and thus
+features of the critical collapse which happen around the
+center of spherical symmetry are radiated towards future
+null infinity. In fact, the period at which the Bondi mass
+is shown to decay is approximately the same as the one
+which is estimated for the echoing around the region of
+the center of the collapse.
+
+The mass loss 0,,(mp) at %* throughout the evolution
+is expressed by Equation , which was obtained from
+the {r,r} Einstein equation, combined with our m and
+8 hypersurface equations. In Figure we plot the
+
+0.00 o~ ee
+\ 7. Win th
+J N\S\ EVA \ Al
+WU PAL BS Vy
+Sos! i\| vai
+£0. VV
+S
+a
+8 -0.10
+a
+8
+=
+-0.15
+coal Numerical
+Analytical
+0.205 i 2 3 4
+
+Bondi time ug
+
+FIG. 11. We compare the mass loss at .%* for the Yang-Mills
+collapse code. The numerical values refer to the values ob-
+tained by taking a time derivative of m solved throughout our
+evolution. The analytical value refers to the values computed
+using a derived equation for the mass loss at 4+. The data
+here presented corresponds to the same run as Figure]
+
+numerical results obtained by taking a time derivative
+of the variable m, computed with our numerical scheme,
+along the value we obtain analytically from the Einstein
+equations. We see that these values correspond almost
+exactly to the analytical expected result.
+
+This is in fact a non-trivial test of our numerical scheme
+since we don’t directly solve all Einstein equations, and
+in particular we don’t solve equation (15). Instead, we
+calculate m in slices of constant u by integrating out
+an expression that depends on the remaining evolution
+variables. This provides additional evidence that our
+results and implementation are valid.
+
+G. Universality
+
+So far, we have been studying families of initial data
+that are described by Equation (22), in which we fix rg =
+0.3 and o = 0.1. We have studied the influence of chang-
+ing the amplitude A and fine-tuning to its critical value A...
+We now study the collapse of different families of initial
+data, in particular by considering initial data with differ-
+ent o and rp values. For several combinations of {0,79}
+values, we performed a bisection search to find the criti-
+cal amplitude, and the associated power-law and scaling
+period parameters. These are shown in Tab. e [IT]
+
+As expected, runs with initial data that is more local-
+ized (with smaller 7) have a smaller accumulation time,
+meaning that the apparent horizon starts to form at an
+earlier time in the evolution. Moreover, the critical ampli-
+tude is smaller in the evolutions with denser initial data.
+We obtain the same picture as in the Section|I
+threshold solutions characterized by the same echoing
+period A, despite using different initial data. This gives
+supporting evidence that, regardless of the initial data
+profile, a near-critical solution will ‘lose’ its features along
+the evolution and approach the critical solution.
+
+To 0 Ax Ux A
+
+0.3 0.1 0.08864100 1.05375286 0.73746089
+0.3 0.08 0.06977534 0.95649628 0.70009564
+0.4 0.1 0.06512129 1.23750094 0.73611316
+0.4 0.08 0.05111100 1.14037085 0.73883653
+
+TABLE II. Critical parameters obtained for the same family
+of initial data, with different grid setups and code accuracy.
+All values presented are calculated for grids with resolution
+of N = 2-10. A, denotes the critical amplitude, u. denotes
+the accumulation time and A is the self similarity echoing
+period defined in Equation (27). To calculate u,. and A we
+use the 2nd and 3rd echos. All evolutions are fine-tuned up to
+8 decimal places.
+
+V. CONCLUSIONS
+
+In this work, we examined the critical collapse of Yang-
+Mills field using a null foliation of spacetime in spherical
+symmetry with a purely magnetic ansatz. Our main goals
+were to use a formulation that would allow the study
+of this process from the point of view of an observer
+located at future null infinity and to achieve fourth-order
+accuracy. This allowed for the computation of radiation
+quantities, and was achieved by virtue of compactified
+Bondi coordinates.
+
+The evolutions that are near-critical exhibit features
+of the critical solution of the Yang-Mills field. They are
+‘ound to be DSS with an echoing period of A = 0.7388.
+n barely supercritical evolutions, the mass of the black
+holes formed was shown to follow a power-law in relation
+o the distance to the critical parameter. This relation
+is characterized by a critical exponent of y = 0.1977 in
+agreement with earlier work. We also presented evidence
+hat near the threshold of collapse, all solutions approach
+he critical solution, which is thus universal.
+
+The critical parameters estimated are not only consis-
+ent with the computations of [6], but also agree with pre-
+vious numerical works that were restricted to the strong
+field region. Our key finding is that, as in the case of
+scalar field collapse, known features of the critical solution
+in the strong-field region, such as the echoing period A,
+are inherited at future null infinity.
+
+Possible future directions consist in exploring dropping
+he magnetic ansatz to investigate all the degrees of free-
+dom of the Yang-Mills connection in spherical symmetry,
+as explored in [5] with null infinity. Another promising
+direction would be to drop spherical symmetry, as has
+been done for scalar fields in [[9}23]. The study of as-
+herical perturbations of spherical critical solutions from
+a matter model with a small echoing period is desirable,
+as it is easier to study perturbations given many periods
+of periodic data. This will most likely yield more accu-
+rate results than using a scalar field, as one needs much
+less resolution to observe the same critical phenomena.
+Recent work [14] presents a roadmap for critical collapse
+simulations in null coordinates of nonspherical data, and
+he treatment by Cauchy evolution could be performed
+
+10
+
+with more common methods.
+
+Moreover, a limitation of our work consists in the fac
+hat we use compactified Bondi coordinates which become
+singular at the event horizon. In this way, we are limited
+o the spacetime exterior to black hole formation. Since
+we focus on the spherically symmetric case, the horizon
+orms simultaneously in all radial null directions from the
+center of collapse. However, in the collapse of nonspherica
+initial data, the horizon forms at different retarded times
+or different angles. Thus, for data that is not spherically
+symmetric, it could be helpful to use a formulation tha’
+can penetrate horizons. In [24], for example, an evolution
+algorithm is presented for the CIVP based upon an affine
+parameter rather than the areal radial coordinate, which
+is potentially applicable to the entire exterior spacetime
+extending additionally to the interior of the black hole.
+The use of carefully chosen coordinates may not only
+allow for the study of the collapse of non-spherically
+symmetric data, but also help advance the study of the
+scaling quantities within barely supercritical simulations.
+In closing, our results show that the standard picture
+of critical collapse for the Yang-Mills field in spherical
+symmetry is indeed observable at future null infinity, and
+that the features of the critical solution are preserved in
+this region of spacetime.
+
+ACKNOWLEDGMENTS
+
+We are grateful to Thanasis Giannakopoulos, Sascha
+Husa and Alex Vaiié-Viiuales for helpful conversations
+and/or feedback on the manuscript. The work is based
+on the Master thesis of the first Author [25]. We ac-
+knowledge financial support provided by FCT/Portugal
+through grants UID/99/2025, 2024.03599.BD, and PeX-
+FCT (Portugal) program 2023.12549.PEX. The authors
+thankfully acknowledge the computer resources, techni-
+cal expertise and assistance provided by CENTRA/IST.
+Computations were performed at the cluster “Baltasar-
+Sete-Sdis” supported by the 2020 ERC Advanced Grant
+“Black holes: gravitational engines of discovery” grant
+agreement no. Gravitas—101052587 and ERC-Portugal
+program Project “GravNewFields”. This study was as
+well supported by Ministerio de Ciencia, Innovacién y Uni-
+versidades, with funding from European Union NextGen-
+erationEU (PRTR-C17.I1) and the Comunitat Autonoma
+de les Illes Balears through the Conselleria d’Educacié i
+Universitats (SINCO2022/6719).
+
+1
+
+2
+
+7
+
+8
+
+10
+
+12
+
+26, 035004 (2009
+
+M. W. Choptuik, Universality and scaling in gravitational
+
+collapse of a massless scalar field,|Phys. Rev. Lett. 70, 9
+
+1993
+
+yundlach and J. M. Martin-Garcia, Critical phenom-
+ena in gravitational collapse, Living Reviews in Relativity
+10,10.1204i-2007-5 (2007.
+C. Gundlach, D. Hilditch, and J. M. Martin-Garcia,
+Critical Phenomena in Gravitational Collapse, (2025),
+arXiv:2507.07636 [gr-qc]
+
+M. W. Choptuik, T. Chmaj, and P. Bizon, Critical be-
+
+haviour in gravitational collapse of a yang-mills field,
+Physical Review Letters 77, 424-427 (1996)
+
+M. Maliborski and O. Rinne, sritical phenomena in
+the general spherically symmetric einstein-yang-mills sys-
+
+is
+
+ou
+
+11
+
+C. Gundlach, D. Hilditch, and T. W. Baumgarte, Simula-
+tions of gravitational collapse in null coordinates. I. For-
+mulation and weak-field tests in generalized Bondi gauges,
+Phys. Rev. D 110, 024018 (2024)) arXiv:2404.15105 [gr.
+qe
+
+O. Rinne, An axisymmetric evolution code for the einstein
+
+equations on hyperboloidal slices, [Classical and Quantum|
+Gravity 27, 035014 (2010)
+
+a
+
+M. Piirrer, Global versus Local Aspects of Critical Collapse,
+Ph.D. thesis, Wien University (2007).
+
+S. Husa, C. Lechner, M. Piirrer, J. Thornburg, and P. C.
+Aichelburg, Type ii critical collapse of a self-gravitating
+nonlinear ¢ model
+
+, Phys. Rev. D 62, 104007 (2000)
+M. Alcubierre, Introduction to 3+1 numerical relativity,
+
+tem, Physical Review D 97,|10.1103/physrevd.97.044053
+
+(2018).
+C. Gundlach, Echoing and scaling in einstein-yang-mills
+critical collapse,
+M. Piirrer and P. C.
+
+stein-yang—mills system,
+
+Physical Review D 55, 6002-6013 (1997
+
+Aichelburg, Tails for the ein-
+assical and Quantum Gravity
+
+O. Rinne, An axisymmetric evolution code for the einstein
+
+9
+
+20
+
+ntroduction to 3+1 Numerical Relativity (2006)
+T. W. Baumgarte, Aspherical deformations of the chop-
+
+tuik spacetime, Physical Review D 98, 10.1103/phys
+
+revd.98.084012| (2018).
+
+M. W. Choptuik, E. W. Hirschmann, S. L. Liebling, and
+F. Pretorius, Critical collapse of the massless scalar field in
+
+equations on hyperboloidal slices, ¢ lassical and Quantum
+
+Gravity 27, 035014 (2010)
+
+revd.71.104005) (2005).
+13
+
+M. W. Choptuik, E. W. Hirschmann, and R. L. Marsa,
+New critical behavior in einstein-yang-mills collapse, Phys-
+
+ical Review D 60, 10.1103/physrevd.60.124011) (1999).
+O. Rinne, Formation and decay of einstein-yang-mills
+black holes, Physical Review D 90, 10.1103/phys
+
+revd. 90.124084 (2014).
+11) C. Gundlach, T. W. Baumgarte, and D. Hilditch, Crit-
+
+ical phenomena in gravitational collapse with two com-
+peting massless matter fields, Physical Review D 100,
+hysrevd. 100.1040 10 (2019).
+
+P. C. Aichelburg, News
+fore critical collapse: Bondi mass, tails, and quasi-
+
+normal modes, Physical Review D 71, 10.1103/phys
+
+. Husa, an
+
+rarfin’ hoptuik scaling in null coordinates,
+
+Rev. D 51, 5558 (1995 arXiv:gr-qc/9412008
+
+21
+
+axisymmetry, Phys. Rev. D 68, 044007 (2003), ar. gr.
+qe/0305003
+M. W. Choptuik, E. W. Hirschmann, S. L. Liebling, and
+
+F. Pretorius, Critical ee of a anes scalar field
+
+. R. Riiter, F. Atteneder, and
+D. Hilditch, Twist-free axisymmetric critical collapse of a
+complex scalar field, Phys. Rev. D 109, 124042 (2024)
+
+C. Gundlach, T. W. Baumgarte, and D. Hilditch,
+ulations of gravitational collapse in null coordinates. II.
+Critical collapse of an axisymmetric scalar field, Phys
+
+Sim-
+
+24
+
+Rev. D 110, 024019 (2024)| arXiv:2404.15839 [gr-qc]
+J. Crespo, H. iveira, and J. Winicour, me-null
+formulation of the gravitational equations: Spherical case,
+
+Physical Review D 100, 10.1103/physrevd.100.104017
+
+(2019).
+
+5] R. P. Santos, Critical Collapse with Null Infinity, Master’s
+
+thesis, Universidade de Lisboa - Instituto Superior Técnico
+(2023).

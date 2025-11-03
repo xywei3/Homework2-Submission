@@ -1,0 +1,3428 @@
+s.chem-ph] 29 Oct 2025
+
+SiC
+
+2510.25288v1 [phy
+
+arXiv
+
+Reactive capacitance of flat patches of arbitrary shape
+
+Denis 8. Grebenkov!»* and Raphael Maurette!?
+
+Laboratoire de Physique de la Matiére Condensée (UMR 7643),
+CNRS — Ecole Polytechnique, Institut Polytechnique de Paris, 91120 Palaiseau, France
+(Dated: October 30, 2025)
+
+We investigate the capacity of a flat partially reactive patch of arbitrary shape to trap indepen-
+dent particles that undergo steady-state diffusion in the three-dimensional space. We focus on the
+total flux of particles onto the patch that determines its reactive capacitance. To disentangle the
+respective roles of the reactivity and the shape of the patch, we employ a spectral expansion of
+the reactive capacitance over a suitable Steklov eigenvalue problem. We derive several bounds on
+the reactive capacitance to reveal its monotonicity with respect to the reactivity and the shape.
+Two probabilistic interpretations are presented as well. An efficient numerical tool is developed for
+solving the associated Steklov spectral problem for patches of arbitrary shape. We propose and
+validate, both theoretically and numerically, a simple, fully explicit approximation for the reactive
+capacitance that depends only on the surface area and the electrostatic capacitance of the patch.
+This approximation opens promising ways to access various characteristics of diffusion-controlled
+reactions in general domains with multiple small well-separated patches. Direct applications of these
+results in statistical physics and physical chemistry are discussed.
+
+PACS numbers: 02.50.-r, 05.40.-a, 02.70.Rr, 05.10.Gg
+Keywords: diffusion, capacitance, Steklov problem, partial reactivity, Robin boundary condition, first-
+
+reaction time
+
+I. INTRODUCTION
+
+In many biochemical scenarios, a particle diffuses in a
+complex medium and searches for small reactive patches
+hat are dispersed on reflecting walls [1-5]. Depend-
+ing on the considered application, the reactive patch
+can represent an ion channel, an active site or a cat-
+alytic germ, a hole, a magnetic impurity, etc. The mean
+first-passage time (MFPT) to the patch is often used
+o characterize the efficiency of the diffusive search [6—
+0]. Starting from the Lord Rayleigh’s seminal result
+for the MFPT to a small circular patch on the sphere
+11], considerable progress has been achieved in solving
+his so-called narrow escape problem [12-21] (see also
+overviews in [22, 23]). Among various analytical tools,
+one can mention the method of matched asymptotic
+expansions [24-31], homogenization techniques [32-37],
+constant-flux approximation [38-43], Wiener-Hopf inte-
+gral equation [44], as well as conformal mapping in two
+dimensions [45, 46]. Other characteristics of diffusion-
+controlled reactions [47-52] such as the overall reaction
+rate (or the total flux) and splitting probabilities were
+also analyzed.
+
+Former works were mainly focused on the idealized sit-
+uation of perfectly reactive patches when the reaction
+event occurs immediately upon the first contact with the
+patch. In other words, the kinetic step of the reaction
+event was ignored, by assuming that it occurs much faster
+than the diffusion step. However, in most practical set-
+tings, once the particle has arrived onto the patch, it has
+
+* denis.grebenkov@polytechnique.edu
+t raphael.maurette.public@gmail.com
+
+© overpass an energy activation barrier to react, or an
+entropic barrier to squeeze through a hole. In biochem-
+istry, a macromolecule has to be in the proper conforma-
+ional state to bind its partner, an ion channel has to be
+open to pass the arrived ion, and so on. As discussed
+in [39], the ignorance of this kinetic step may cause mis-
+leading conclusions on the asymptotic behavior of the
+mean first-reaction time (MFRT) and other characteris-
+ics. The important role of partial reactivity in diffusion-
+controlled reactions, first recognized in the seminal work
+by Collins and Kimball [53], has been revealed in different
+contexts [54-64]. In particular, the asymptotic behavior
+of the MFRT on partially reactive targets was shown to
+be considerably different from the idealized case of per-
+fect reactions [64-66]. Recently, the problem of diffusion-
+controlled reactions on multiple small well-separated par-
+tially reactive patches in both two and three dimensions
+was revisited [67-69]. In particular, the MFRT in three
+dimensions was shown to be determined, to the leading
+order, by the reactive capacitance, which is proportional
+to the flux of particles reacted on the patch and thus
+naturally generalizes the electrostatic capacitance to the
+case of partial reactivity (see Sec. II for details). For a
+circular patch, the reactive capacitance was thoroughly
+investigated in [68].
+
+In this paper, we push this analysis to another direc-
+tion and investigate the reactive capacitance for patches
+of various shapes. First, we deepen the theoretical de-
+scription of the reactive capacitance in Sec. II by uncov-
+ering its monotonicity properties and probabilistic inter-
+pretations. We also get useful bounds on the reactive ca-
+pacitance and the principal Steklov eigenvalue. For this
+purpose, we reformulate the exterior Steklov problem for
+flat patches as an eigenvalue problem for an integral op-
+erator with an explicit kernel. Second, we employ this
+
+ORS \T
+
+FIG. 1. (a) A domain Q with reflecting boundary 0p (in
+gray) A flat patch TI on the horizontal plane of the upper half-
+space.
+
+reformulation to conceive an efficient method for solv-
+ing the exterior Steklov problem numerically. Various
+numerical results are present in Sec. III. In particular,
+we inspect how the Steklov eigenvalues and eigenfunc-
+tions depend on the shape of the patch by considering
+several families of shapes such as ellipses and rectangles.
+We show that the principal eigenfunction provides the
+dominant contribution to the reactive capacitance and
+validate a simple, fully explicit approximation for this
+quantity. Section IV discusses physical implications of
+this analysis and concludes the paper by summarizing
+the main results and highlighting open questions.
+
+Il. REACTIVE CAPACITANCE
+
+Throughout this paper, we consider a flat partially re-
+active bounded patch T of arbitrary shape on the hori-
+zontal reflecting plane in the upper half-space R3. (Fig.
+1). To avoid eventual mathematical issues on the well-
+posedness of the considered problems, we assume that the
+boundary of the patch is piecewise smooth. We consider
+steady-state diffusion of particles with constant diffusion
+coefficient D > 0, concentration Ap > 0 imposed at in-
+finity, and reactivity « > 0 on the patch. The concentra-
+tion profile in the upper half-space can be expressed as
+A(y) = Ao(1—w(y; )), where pp = «/D and the function
+w(y; 4) solves the boundary value problem
+
+Aw=0 (yeR4), (la)
+Onw+pw=p (yeT), (1b)
+dnw=0 (y € OR3\D), (1c)
+
+C(u :
+we H+ o('y?) Uivl-ro0), (aa)
+where y = (y1,¥y2,y3) and 0, = —Oy, is the normal
+
+derivative. The coefficient C(j:) in the far-field behavior
+of the solution is called the reactive capacitance of the
+patch [. More explicitly, the divergence theorem yields
+
+Clu) = x | Onte)ay, (2
+A eg
+
+i.e., C() is proportional to the flux of particles onto a
+partially reactive patch T. In the limit 4p — oo, one re-
+
+trieves the electrostatic capacitance (also known as har-
+monic or Newtonian capacity) of the patch T [70], as if it
+was perfectly reactive (absorbing). Note that the solution
+w can be extended to the lower half-space by symmetry
+so that the considered setting is actually equivalent to a
+“two-sided” patch in the whole space, without the aux-
+iliary Neumann condition (1c). However, as the patch is
+flat (of zero thickness), it is more convenient to deal with
+the problem (1) in the upper half-space.
+
+Even for a circular patch, there is no explicit solution of
+the boundary value problem (1). In order to investigate
+the dependence of the reactive capacitance on the reac-
+tivity parameter 4 and the patch shape, we will employ
+spectral expansions, variational formulations, probabilis-
+tic interpretations and numerical analysis.
+
+A. Exterior Steklov problem
+
+In order to obtain a spectral expansion of the reactive
+capacitance, we consider the exterior Steklov problem in
+the upper half-space R3, which consists in finding the
+eigenpairs {j1,, U;,} that satisfy [68]
+
+AV, =0 (yeR), (3a)
+OnVe = eUe (yer), (3b)
+On¥, =0 (y € OR3\L), (3c)
+
+This is a special case of the Steklov eigenvalue problem
+for the exterior of a compact domain [71-73], which is
+known to have a discrete spectrum, i.e., a countable set
+of eigenvalues jz, that can be enumerated by an integer
+index k = 0,1,... in an increasing order:
+
+0<po Swi <... ZA +00. (4)
+
+The first eigenvalue jz is simple and strictly positive,
+whereas the associated eigenfunction Vo does not change
+sign. The restrictions of the Steklov eigenfunctions onto
+the patch T, U;|r, form a complete orthonormal basis of
+the L?(L) space of square-integrable functions on T:
+
+/ Ve(y) Ver(y)dy = See (5)
+rT
+
+(see [74-76] for a broad overview of spectral properties
+of the conventional interior Steklov problem).
+
+To gain a more practical insight onto this spectral
+problem, let us introduce the Green’s function G(y, y’)
+in the upper half-space RS with Neumann boundary con-
+dition on the horizontal plane OR}:
+
+-AG(y,y') =d(y-y') (ye Ri), (6a)
+nGly.y') =0 (ye OR’), (6b)
+Giy,y') +0 (|y| > 00), (6c)
+where 6(y—y’) is the Dirac distribution. By the method
+of images, one gets immediately
+
+1 1 1
+Gly, y’ | — |, ih
+wy) ae 7a) 7)
+
+where y’ is the mirror reflection of y’ with respect to the
+horizontal plane. Multiplying Eq. (3a) by G(y, y’), mul-
+tiplying Eq. (6a) by U;.(y), subtracting these equations,
+integrating them over y € R3, using the Green’s formula
+and the boundary conditions, one finds
+
+Ue (y") = mn / Gly.yWUelydy (y! RR). (8)
+
+Restricting y’ to I’, one can introduce an integral opera-
+tor G, acting on a continuous function f(y) on T as
+
+(Gf) (y )= [esa y')dy’, (9)
+
+with the kernel
+
+1
+Gy. y') = Say yl wy eT, yA#y') (10)
+(even though the operator G is formally defined on the
+space of continuous functions, it can be extended to
+L? (I) space via embedding theorems, see [77] for details).
+Since the kernel G(y, y’) is symmetric and weakly singu-
+lar, G is a self-adjoint compact operator [77]; moreover,
+if T was replaced by the whole plane R*, G would be
+the Riesz potential of order 1 [78], which is known to be
+positive definite (this is a direct corollary of the Fourier
+transform representation of Riesz potentials, see [79]).
+As a consequence, there is an infinite sequence of posi-
+tive eigenvalues, enumerated by the index k = 0,1,2,...
+that accumulate to 0, whereas the associated eigenfunc-
+tions form an orthonormal basis of L?([). Rewriting Eq.
+
+(8) as
+
+1
+GUy|p = —Vy|p (k =0,1,2,...), (11)
+Mk
+
+one sees that 1/u, and W;|p are the eigenvalues and
+eigenfunctions of G. This is an alternative way to access
+the eigenvalues and eigenfunctions of the Steklov prob-
+lem (3); note that once V,|p is found, its extension to the
+upper half-space follows immediately from Eq. (8). We
+finally stress that the integral operator G is the inverse
+of the Dirichlet-to-Neumann operator associated to the
+exterior Steklov problem (3).
+
+This reformulation reduces the original three-
+dimensional problem in the unbounded domain (the
+upper half-space) to an equivalent eigenvalue problem
+for the integral operator G with the explicit kernel on the
+two-dimensional bounded patch I. Note that a modified
+integral equation with the kernel (10), in which the
+right-hand side is a constant, was employed by Bernoff
+
+and Lindsay to investigate diffusive capture rates for
+an array of perfectly reactive circular patches [30].
+The eigenvalue problem (11) will serve us to develop
+an efficient numerical tool for computing the Steklov
+eigenfunctions (see Appendix A). Moreover, it yields a
+variational (minimax) characterization of the Steklov
+eigenvalues [77]
+
+1
+
+— = sup {(Gu,u)r2(ry}, (12a)
+HO |jul|=1
+
+1
+
+—= inf s § Be Sy Dive) h,
+
+ees
+
+(12b)
+
+for test functions u and u, from L?(L) of the unit L?(P)-
+norm. This variational form implies the domain mono-
+tonicity property:
+
+Trcls = p>yp? (k=0,1,...). (13)
+This property can be shown by a standard construction,
+namely, by using a test function u(y), which is equal to
+
+the k-th eigenfunction vi (y) for y € T; and 0 otherwise:
+
+1
+
+1
+
+r r
+
+ne = (Gi lr Vii Ira) pace) =
+k
+
+(Gu, u) pa¢p,) S ne
+
+where the last inequality follows from the minimax char-
+acterization (12b).
+
+We emphasize that the domain monotonicity property
+does not hold for the Steklov problem in a more general
+setting of the exterior of a compact set. For instance, if T
+is an oblate spheroidal surface with semi-axes a, a,b, the
+domain monotonicity property (13) fails, as illustrated
+in Fig. 7 of [80], which shows the non-monotonous de-
+pendence of the principal Steklov eigenvalue on the as-
+pect ratio a/b. This example highlights that the domain
+monotonicity property for patches strongly relies on the
+flatness of these domains.
+
+B. Spectral expansion and basic properties
+
+Since the Steklov eigenfunctions W,|r form the or-
+thonormal basis of L?(I'), they can be used to expand
+w(y; )|r and thus to determine the normal derivative of
+w(y; 1). Substituting this expansion into Eq. (2), one
+gets the spectral representation of the reactive capaci-
+tance (see [68, rs for details)
+
+9 He + Be
+(14)
+
+By expanding a constant function on the basis of eigen-
+functions ;|p, one can easily check that
+
+oo
+SOR =1, (15)
+k=0
+
+so that the coefficient Fj, > 0 of the spectral expansion
+(14) can be interpreted as the relative contribution of
+the k-th Steklov eigenfunction to the reactive capacitance
+C(u). In particular, the Fo characterizes the closeness of
+the principal eigenfunction Vo to a constant. A similar
+spectral expansion was earlier derived for the spectro-
+scopic impedance of an electrochemical cell, though in a
+slightly different mathematical setting [82].
+Evaluating the derivative of C(j),
+
+a - Hs" HF
+Dy (He + 1)?
+
+one sees that C(j1) is a monotonously growing function
+of yz for all » > 0. A Taylor expansion of C'(js) around 0
+reads
+
+C(u) = ~ Yeal- Bw)”,
+
+In [68], alternative representations for the first three co-
+efficients were derived:
+
+Ir} 1 1
+ass @=5 ferty)dy, c= 5 | wry) dy,
+T Tr
+
+>0, (16)
+
+with c, =
+
+. (17)
+TO st
+
+Qn
+
+where
+
+_ dy!
+wr(y) -/ oly 9 (19)
+i
+
+In the following, we will also employ the notation:
+
+: [ody = / Gly, y')dydy’. (20)
+
+Ac= TP
+£
+
+xr
+
+This constant, re-emerging in various contexts [66], will
+play an important role in the analysis of the reactive
+capacitance; note that ec, = Ap|I'|?/(27).
+
+In the opposite limit of large , Eq. (14) yields the
+ectral expansion for the electrostatic capacitance:
+
+w
+
+rs
+= on aan (21)
+k=0
+
+(here we employ the convention that the capacitance of
+a ball of radius R is equal to R).
+
+If the patch is dilated by a factor a, ie., IY = al,
+the Steklov eigenvalues are rescaled by 1/a, pj, = pe/o,
+F;, remain unchanged, so that the reactive capacitance
+of the rescaled patch reads
+
+C'(p) = aC(ap). (22)
+
+C. Alternative spectral expansion
+
+The reactive capacitance C(j:) admits an alternative
+spectral expansion, which is based on the eigenpairs
+{uy , UN (y)} of the following exterior Steklov problem:
+
+Avy =0 (ye R%), (23a)
+OnVE =p UY (y eT), (23b)
+On¥f =0 (ye ORS\T), (23c)
+ly|?|VEN| +0 (ly| > 00). (23d)
+
+While the decay condition (3d) could be interpreted as a
+Dirichlet condition at infinity, the decay of the gradient
+of an eigenfunction in Eq. (23d) can be understood as
+a Neumann condition at infinity (that is reflected by the
+superscript ’N’). The latter condition was studied in [83—
+87] in the context of sloshing or ice-fishing problems in
+hydrodynamics (see also [88, 89] and references therein);
+moreover, the eigenpairs {uy ; WN } naturally appear in
+the asymptotic analysis of the mixed Steklov-Neumann
+problem [66, 68]. In Appendix A, we present an efficient
+numerical tool to solve the spectral problem (23).
+
+The distinction between the spectral problems (3) and
+(23) becomes clearer from the form of their asymptotic
+decay at infinity. For instance, in the exterior of a ball,
+a general isotropic solution of the Laplace equation is a
+linear combination cy + cp/|y| with arbitrary constants
+cn and cp. The Dirichlet condition (3d) imposes cy = 0,
+whereas the Neumann condition (23d) imposes cp = 0.
+For general domains (including the case of flat patches),
+the chosen Dirichlet or Neumann condition fixes the far-
+field behavior of the solution.
+
+In analogy to the spectral problem (3), the spectrum
+of the mixed Steklov-Neumann problem (23) is discrete,
+with a countable set of eigenvalues, which can be enu-
+merated by the index k in increasing order
+
+O= ny <p <p) <... 7 +00. (24)
+
+The restrictions of eigenfunctions onto the patch, wy Ir,
+form a complete orthonormal basis of L?([). Note that
+the principal eigenvalue pi’ = 0 is associated to the con-
+stant eigenfunction UY = ST AVAINE and all other eigen-
+functions are orthogonal to it.
+
+The following spectral expansion was derived in [68]:
+
+oo
+
+pany [wi ( ECO) (25)
+
+= Wt py
+
+il 1
+Cu) Cle)
+
++ an
+
+In this subsection, we discuss the complementary insights
+onto the reactive capacitance that can be gained from this
+expansion.
+
+D. Sigmoidal approximation and several bounds
+Neglecting the positive sum in Eq. (25), one gets im-
+mediately the lower bound:
+
+1 Lin 1
+O(n) ~ = G(x) HIP] CapP(ys) ”
+
+(26)
+Rewriting the right-hand side of this bound as
+
+1 C(o)
+
+app
+on) = p+ 2nC(co)/|P|’
+
+(27)
+
+we retrieve the sigmoidal approximation for the reactive
+capacitance. This relation was proposed in [68] as an
+empirical approximation that correctly reproduces both
+small-z and large-y limits of C(j). In turn, it follows here
+directly from the spectral expansion (25) by neglecting
+its last term, thus allowing one to control its accuracy
+(see below). Note that a similar approximation appeared
+in [90] in the analysis of the principal eigenvalue of the
+Laplace operator with Robin boundary condition, as well
+as in [37, 65]. In the special case of a circular patch, the
+approximation (27) was shown to be accurate over the
+entire range of within the maximal relative error of
+4% [68]. One of the aims of the present work consists in
+extending this result to patches of arbitrary shape. For
+this purpose, we need to compute numerically the Steklov
+eigenvalues ju, and the spectral weights Fy, (see Sec. III).
+To obtain an upper bound on 1/C(), one can rewrite
+
+1 1, 4 [BN (00) }?
+Otay = Otosy * an +2" ea a
+
+ani [Wi (co)?
+
+<u (uy + 2)
+
+Taking the limit ys + 0 and using the Taylor expansion
+(17) with two terms, C(j) © cio — cop? + O(p), one
+can compute the third term in the right-hand side of Eq.
+(28) as
+
+1 [UN (co)? n( 1 )
++ 2 i -
+30) pe uy ™ Cw) all
+
+= 5 = 2nAp, (29)
+q
+
+where we used c; = |I'|/(27) and expressed c2 in terms of
+the constant Ap defined in Eq. (20). As a consequence,
+Eq. (28) reads
+
+1 Qn [HY (00)?
+~ 2nAp 4 Qn ke > (30)
+Clu) HT » LR (Hy + 1)
+that yields the upper bound
+1 20
+
+< 20 Ap + (31
+up TA cary
+
+The two bounds can be written together as
+
+A As 20
+
+< 2a Ap. (32)
+
+Coo) ~ Clu) HIT] ~
+
+We also note that the sum evaluated in Eq. (29) gives
+the upper bound on the absolute error of the sigmoidal
+
+on
+
+approximation (27):
+
+14 = [W (00))2 .
+Gay Cammy GS i)
+
+< on)> Ce =2nAp — a ;
+
+Dividing this relation by C*PP(j:), we get the maximal
+bound on the relative error:
+
+CPP (wu) — C(u) Enns (34)
+Clu) ~ 1+ 2nC(co)/(uIT|)’
+with
+Emax = 2mApC(oo) — 1. (35)
+
+One sees that the upper bound monotonously increases
+with y and reaches the maximum Emax at UW = oo.
+However, the actual relative error decreases in the limit
+jt > co because C(j) approaches to its limit C(co), and
+the sigmoidal approximation correctly captures this be-
+havior. As a consequence, the value Emax is expected to
+be a conservative over-estimation. Using the spectral ex-
+pansions (17, 21), one can represent the maximal bound
+
+According to Eq. (15), one sees that if Fo is close to 1,
+the dominant contributions to two sums are pio Fo and
+F/o respectively, and the maximal bound is close to 0.
+
+The bounds (32) can be further improved. For in-
+stance, rewriting Eq. (30) as
+
+Ag, Ft omy > MEO)?
+(a OAT or ne ah?
+
+bmi? > al’ ceyP : (37)
+
+= [ rE a +p)
+
+Q
+
+one can neglect the last sum to obtain the improved lower
+bound on 1/C (1):
+
+20
+ae > QWAp + ii ar — pB, (38)
+where the constant
+oo ,
+[WX (co)P _ 3 = e103 ,
+B=2r>> ue 3 (39)
+k=1 k a
+
+was expressed in terms of c; from Eq. (18) via the Taylor
+expansion (17). Repeating this trick, one can get more
+and more accurate bounds that include, however, higher-
+order Taylor coefficients cn.
+E. Probabilistic interpretations
+
+From a physical point of view, the reactive capacitance
+is proportional to the flux of particles diffusing from in-
+finity, as stated earlier. In this subsection, we provide
+several probabilistic interpretations of C(j:) that will al-
+low us to establish its additional properties.
+
+Let W; be the standard Brownian motion in R® with
+diffusion coefficient D, that starts from a fixed point y at
+ime 0. The reflected Brownian motion X;, in the upper
+1alf-space RS can simply be obtained by reflecting any
+random path W, with respect to the horizontal plane
+y3 = 0; in other words, X; = (W/,W?,|W?|), where W;
+are three independent components of W,. To incorporate
+artial reactivity of the patch I’, we follow the encounter-
+sed approach [64]. For this purpose, we introduce the
+oundary local time £; on I’ as the limit of the rescaled
+
+residence time wo of X;, up to time t, in a thin boundary
+ayer of thickness o near [:
+
+t
+. D
+_ lim 9 = = [ee — |X, —T)dt’, (40)
+0
+
+where O(z) is the Heaviside step function: O(z) = 1 for
+z > 0, and 0 otherwise. We note that both ¢, and go)
+have units of length, despite their name. The bound-
+ary local time @; can also be interpreted as the rescaled
+number of arrivals of X; onto T up to time t. By con-
+struction, ¢; is a nondecreasing stochastic process, with
+fo = 0. Since the reflected Brownian motion in R3 is
+ransient, its ability to revisit the patch is limited so
+nat the boundary local time ¢; has a finite (random)
+imit @,, as t + oo. Let us denote its probability density
+Y Poo (lly).
+At each arrival onto the patch I’, the diffusing parti-
+cle modeled by reflected Brownian motion may react and
+nus disappear. For a constant reactivity parameter p,
+he reaction event is triggered when the number of ar-
+rivals (i.e., failed reaction attempts), represented by ¢;,
+
+exceeds a random threshold ¢ that obeys the exponential
+distribution: P{@ > ¢} = e~#® (see [64] for details). In
+his way, the first-reaction time (FRT) on the patch T is
+defined as the first-crossing time of the threshold é by £;:
+7 =inf{t>0 : & <Q. Since the reflected Brownian
+motion in RS is transient, there is a finite probability of
+escaping to infinity without reacting on the patch; in this
+case, the FRT is infinite: 7 = +o0. In turn, the prob-
+ability of the reaction event, Py{7 < +00}, is known to
+satisfy Eq. (1) and is thus given by w(y; 14). We conclude
+that the auxiliary function w(y; 4) admits a simple inter-
+pretation as the probability of reaction on the patch [
+with the reactivity parameter jz, when the starting point
+is y. Inturn, 1—w(y; 1) is the escape probability without
+reaction. We also note that the reaction time 7 is finite
+if and only if the limit ¢, is above the threshold @, i.e.,
+the reaction event {r < +00} is identical to {l. > 0}.
+
+As a consequence, we get
+
+wus) =Py{r < +00} = Py {loc > (41)
+oo
+= fu pe. Pyf{l.. > bf
+“oO —_—~_—
+0 PDE of 0 f° poo(0’|y)de!
+
+~
+=1- f due px(lly) =1- Bye},
+0
+
+where we integrated by parts. We conclude that 1 —
+w(y; ) is the moment-generating function of the random
+variable 0...
+
+In the last step, we consider the situation when the
+starting position of the particle is not fixed but randomly
+chosen on the patch with the uniform density. The asso-
+ciated escape probability reads
+
+dy _ 2rO(u)
+
+oy AMM (an
+ry ary
+
+Pou) = f= wey)
+
+where we used the boundary condition (1b), the diver-
+gence theorem, and the asymptotic behavior (1d) at in-
+finity (the subscript o refers to the uniform distribution
+of the starting point on I’). Inverting this relation, one
+can express the reactive capacitance C'(j.) in terms of the
+escape probability on the patch. In turn, using Eq. (41),
+we can relate C(j:) to the moment-generating function:
+
+ty — 2C(H)
+E.feM}= acl (43)
+
+where
+Bem y= [Byfe} (as)
+
+corresponds to the uniform starting point on the patch.
+Comparing this expression with the Taylor expansion
+(17), we get an interesting probabilistic interpretation of
+the Taylor coefficients c,, as the moments of the boundary
+local time ¢..:
+
+E.{@,} = mes (n=0,1,...). (45)
+
+For instance, we retrieve c; = |[|/(27) at n = 0, whereas
+cg is proportional to the mean boundary local time.
+Moreover, substituting the spectral expansion (14) into
+Eq. (43) and performing the inverse Laplace transform
+with respect to pz, one gets the probability density of (45:
+
+poo(tle) = > a Fre te’ (46)
+k=0
+
+(see [64, 91] for further discussions on such spectral rep-
+resentations).
+An alternative probabilistic interpretation of C(j:) can
+be deduced by multiplying Eq. (1a) by w(y;00), Eq. (la)
+with ps = 00 by w(y; 4), subtracting and integrating these
+equations over y € Ri, and using the Green’s formula,
+boundary conditions and the behavior at infinity:
+
+J etusn)2nulysco)ay = [ evwtwsay = nC (pn).
+Tt eg
+
+(47)
+
+Dividing this expression by 21C (oo), we get
+
+C
+Pau) = [wlumntady =F, (as)
+r
+where
+1
+
+Ay) = BaC(o) Or OO) Ir (49)
+
+can be interpreted as the (conditional) harmonic measure
+density for a particle arriving from infinity, ie., h(y)dy
+is the probability of the first arrival onto the patch T ina
+dy vicinity of the point y € T. In other words, h(y) is the
+normalized flux density of particles from infinity. In this
+light, the integral in Eq. (48) can be interpreted as the
+probability of reaction for the process that has managed
+to arrive from infinity onto the patch.
+
+F. Domain monotonicity
+
+The electrostatic capacitance C(oo) is known to sat-
+isfy the domain monotonicity property (see [70, 78] for
+details):
+
+fly Clg. = Cy(co) < Co(co), (50)
+ie., the larger patch has the larger trapping ability. This
+property is an immediate consequence of the classical
+variational formulation of the electrostatic capacitance,
+which can be defined for compact sets (including the case
+of flat. patches) as
+
+C(oo) = zint{ | |Vul?dy : we OS (R%), ulp > i},
+
+(51)
+where C§°(R®) is the space of smooth functions in R*
+with a compact support, and the factor 47 is included to
+ensure our convention that the electrostatic capacitance
+of a ball of radius R is R; a similar definition can be
+written for the upper half-space. Note that the functional
+space C§° can be replaced by the Sobolev space H1(R*)
+with appropriate restrictions.
+
+It is intuitively appealing that the same statement
+should hold for partially reactive patches, i.e., a larger
+patch captures diffusing particles more efficiently. In this
+subsection, we establish this domain monotonicity prop-
+erty and some other monotonicity relations.
+
+First monotonicity relation
+
+For this purpose, we first derive another representation
+of C(y) by setting w(y; 4) = 1—w(y; 1), which satisfies
+
+Aw=0 (ye€R%), (52a)
+Ont + po=0 (yeT), (52b)
+Ont =0 (y € AR \P), (52c)
+Clu
+w~ 1-H) + oliyi-*) (y| +20). (624)
+
+Multiplying this equation by w and integrating over R3,
+we get
+
+0= [ ® Away = — | ivapPay+ [ wanndy
+g is
+
+3 3
+RS Re
+
+oe — | I9aP ayy f aay + 2c),
+
+3
+RY Hy
+
+where we used the Green’s formula to integrate by parts,
+the Robin boundary condition (52b), and the behavior
+(52d) at infinity. As a consequence, we have
+
+CW) = me | [Vul? dy +1 | (way), (63)
+
+where we returned to the original function w(y; 11).
+Following the standard arguments, one can recast this
+relation in a variational form:
+
+1
+=— inf 2d 1—u)?dy>.
+Cn) Fe acdtys (| Wuau +o [( u) u}
+r
+
+cot
+
+(54)
+The variational formulation immediately implies the do-
+main monotonicity property for the reactive capacitance:
+
+IT clg = Ci(u)<Co(u) Vu>o, (55)
+
+where C}(j1) and C2(j) refer to the reactive capacitances
+of Ty; and [2, respectively. Indeed, as one searches the
+infimum over the same functional space, any reduction
+of the patch diminishes the second term in Eq. (54) and
+thus the associated Cj(). This is an extension of Eq.
+(50) to a finite reactivity yp > 0.
+
+Second monotonicity relation
+
+In the same vein, one can multiply Eq. (1a) by w(y; 1)
+and then integrating over R3 to get:
+
+0= ic Aw dy = - f uP ay + [ wanwdy
+Re RS. QD
+
+=- / |\Vw|? dy + u(ulP| — 27C(p)) — p fw? dy,
+
+3
+RS r
+where we used again the Green’s formula, the boundary
+condition (1b), and the behavior (1d) at infinity such
+that
+
+«fa —w)dy = fe dy = 2nC (1). (56)
+
+5B
+
+We have thus
+
+1
+dC(p) = mat / |Vwl|? dy + p fw? ay}. (57)
+a r
+<
+
+1B
+with a shortcut notation
+HI|
+6 = ———-C(p). 5
+ow) =" - cw) (58)
+
+The variational form reads
+
+1
+oC(w) = —— inf [ivura +n | way} 59
+(#) Fri vedlen{ [Vul"dy +4 yp (59)
+Re T
+and thus yields the second domain monotonicity prop-
+erty:
+HET, CT. +S 6Cy(p) < 6C2(u) Vu >o. (60)
+This property could alternatively be obtained from the
+probabilistic interpretation. For any fixed y and jp, the
+boundary local time on the larger patch I) is greater
+than or equal to the boundary local time on the smaller
+patch, so that the first-reaction time on [2 is smaller and
+thus the particle has more chances to react with 2 before
+escaping to infinity. As a consequence, one has
+
+i, Clg. > O< wilysp) < wo(y; 1) ( HE, ) .
+~ ue , yeER?
+(61)
+The integral of this inequality over [; yields then
+
+exc: p)dy < [etme < [vate u)dy,
+
+TQ TQ T2
+from which Eq. (56) implies
+
+[P2| = |Ps|
+SH
+
+Ca(u) S Cr(u) +
+
+(62)
+
+Third monotonicity relation
+
+Next, we establish another monotonicity relation. For
+this purpose, let us consider the auxiliary function
+
+_ w(y; 0) .
+Clo) * (63)
+
+w(ys 4)
+C(x)
+
+wy: HW) =
+
+which satisfies, by construction,
+
+Aw=0 (yeR%), (64a)
+
+Ont + pd = aw 3 Biss —2nrh(y) (y eT), (64b)
+On =0 (y € OR§\D), (64c)
+
+w~ Olly!) (Iy| > 00), (64d)
+
+where h(y) was defined in Eq. (49). Since w decays
+faster than 1/|y|, the divergence theorem implies
+
+/ 608 =, (65)
+
+r
+from which the boundary condition (64b) yields
+
+r
+
+where we used that te h(y)dy = 1. Multiplying Eq.
+(64a) by w and integrating over R4., we get
+
+0 [wae fiver [ ani
+
+3 3
+Re Re r
+
+Substituting 0,2 from the boundary condition (64b), we
+have
+
+eg ~)2 ~2 BR a
+0s [iva pf of (a ats) fe
+RB Pr; ig
+- on [wh
+
+r
+
+To evaluate the last term, we multiply Eq. (64a) by
+w(y; co), multiply Eq. (la) with pp = oo by w(y; w), sub-
+tract them, integrate over R3, use the Green’s formula,
+boundary conditions and the decay at infinity to get
+
+fan = [ow 00) Onw = 0, (67)
+Nekguae7
+P Tost
+
+where we used Eq. (65). Finally, substituting Eq. (66),
+we obtain
+1 1
+
+alE\( Sep - at) Ga aay am)
+
+= fivar +n fa. (68)
+
+Using again the variational form, we obtain the following
+inequality
+
+l(a aes) (ain Bos ain)
+Wal (am
+
+fly CTs.
+
+as) (aa - Tale) - ity)
+(69)
+Fourth monotonicity relation
+
+From the last inequality, let us deduce a weaker yet
+more appealing monotonicity property. Denoting n; =
+|Ti|/Ci(u) — 1/Ci(co)), we rewrite Eq. (69) as
+
+mm — 27/H) — n2(n2 — 27/1)
+mS Cal i
+
+or, equivalently,
+
+(m= 7/uy? = 7? 0? (ne = 1 / pm) = [ne
+IP1| ~ \P2| ‘
+
+(71)
+
+Since |[;| < |[2], multiplication of two inequalities
+yields, after few simplifications,
+
+Im —7/p| < |In2— 7/p- (72)
+
+Since 7; > 27/j. due to Eq. (25), we conclude that 1 <
+No, Le.,
+
+This inequality allows one to control the large-reactivity
+behavior of the reactive capacitance.
+
+G. Large-reactivity limit
+
+When the reactivity parameter jy goes to infinity, the
+reactive capacitance C(j:) approaches its limit C(oo).
+However, the behavior of the reactive capacitance is not
+analytic at infinity. In fact, according to Eq. (2), the
+reactive capacitance is the integral of the flux density,
+which may diverge at the boundary of the patch in the
+Dirichlet setting. This is well-known for an elliptic patch
+with semiaxes a < 6, for which the flux density is given
+by (see, e.g., [94])
+
+(1 = y/o? — y3/0?) 0?
+aK (\/1 — a?/b?)
+
+where K(z) is the complete elliptic integral of the first
+kind:
+
+Onw(y; 00) |r (74)
+
+x/2
+do
+K(z)= / ih (75)
+J V1 — 22 sin? 0
+
+The effect of this singular behavior onto the mean first-
+reaction time on a circular patch was analyzed in [44] by
+using a Wiener-Hopf integral equation. Relying on this
+analysis, the large-y asymptotic behavior of the reactive
+capacitance for the unit disk was deduced in [68]:
+
+Co(p) & Co(oo) — Binge) yd) (woo), (76)
+
+ied)
+
+where 7 ¥ 0.5772... is the Euler constant, C.(co) = 2/7,
+and subscript o refers to the unit disk. The presence of
+the logarithm makes this expression non-analytic. Does
+this behavior hold for noncircular patches?
+
+While a systematic analysis of this problem for arbi-
+trary patches remains an open problem, we argue here
+that the non-analytic large-j, behavior is a generic fea-
+ture of flat patches. For this purpose, we first rewrite
+
+1 1
+
+_ n(n) +7+1
+Co(H)
+
+C.(00) Qu
+
+(u > 00). (77)
+
+This relation can now be used as a bound according to
+the monotonicity relation (73). In fact, for any given
+patch I, one can inscribe a small disk [9 of radius rp. As
+To CT, one has
+
+Tro 1 a. 1 dL.
+iy (on - ax) <a ey
+
+where we used the rescaling relation (22). Even though
+the asymptotic relation (77) is not a bound, one can add
+an additional prefactor to turn it into a bound for large
+L, i.e.,
+
+In(2rou) +Y +1 1 il
+pee oa toh (79)
+with some constant 6 > 0. We conclude that the dif-
+ference in the right-hand side cannot vanish faster than
+In(u)/p, i.e., the logarithmic singularity is also expected
+at infinity, as for the circular patch. A further work is
+needed to characterize this behavior more accurately.
+
+The non-analytic behavior of C'(j) is tightly related to
+the divergence of the sum of coefficients [V,V(oo)]?. In
+fact, the above asymptotic behavior, together with the
+spectral expansion (25), implies that
+
+1 1 = HR (00)?
+ML - Qn x In(u oo
+(aay aa) Darr arena
+(80)
+as 44 — oo. This divergence suggests that their partial
+sum also diverges logarithmically:
+
+Swi (co)P x(k) (K + ox). (81)
+k=1
+
+It is instructive to give an alternative insight. For this
+purpose, let us multiply Eq. (23a) by w(y;0o), Eq. (la)
+by WN (y), subtract them, integrate over R34 and use the
+boundary conditions and the asymptotic behavior at in-
+finity to get
+
+WN (00) = | h(y) WY (y)dy, (82)
+where h(y) is defined by Eq. (49). Since {WN} form a
+complete basis of L?([), one can formally write
+
+oo
+
+(wR (oy? = f dyrhtan) [dye h(ys)
+» k | 1 1 | 2 ‘2
+x 2 WY (Wi) (2) = [es 12(y) = 00.
+k=0 r
+=d(y1—y2)
+
+In other words, the squared harmonic measure density di-
+verges logarithmically due to the edge singularity. This
+is exemplified by Eq. (74) that provides an explicit form
+of h(y) for elliptic patches. In summary, even though
+the coefficients [Wj (oo)]? determine the relative contri-
+butions of the Steklov eigenfunctions UY to the reac-
+tive capacitance via Eq. (25), in analogy to the coeffi-
+cients F, in Eq. (14), the latter are summed to 1 that
+facilitates their interpretation as relative weights of the
+Steklov eigenfunctions U,.
+
+H. Bounds for the principal eigenvalue
+
+While there were numerous studies on isoperimetric
+inequalities for Steklov eigenvalues in the conventional
+setting of interior domains (see [74—76] and references
+therein), much less is known about the exterior Steklov
+problem [73, 92]. Moreover, the assumptions on the reg-
+ularity of the boundary that were used in former works,
+do not necessarily hold for flat patches. For instance, a
+circular patch can be seen as the limit of thinning oblate
+spheroids, whose curvature diverges (the edge singular-
+ity). To fulfill this gap, we briefly mention some inequal-
+ities that follow from our spectral expansions, without
+retending for rigorous proofs.
+
+Since 4, and F; are positive, one can use the spectral
+expansion (21) to recover the Payne’s upper bound for
+he principal eigenvalue jig [93]:
+
+(83)
+
+n a similar way, one can substitute fo < pz, into the
+spectral representations (17) of the Taylor coefficients cy,
+
+0 get
+<( Ir| )"
+MoS ,
+27 Cn41
+
+Moreover, keeping only the first term in the spectral ex-
+pansion (17), one gets the lower bound:
+
+FIT) \i/n
+10> ( 0 -) ; n=1,2,..., (85)
+
+27 Cn41
+
+n=1,2,.... (84)
+
+which is less explicit as it includes the spectral coefficient
+Fo. For instance, one has for n = 1
+Fo 1
+<HoS :
+Ap|C| Ap|T|
+
+(86)
+
+10
+
+with Ap being defined in Eq. (20). Alternatively, the
+inequality (85) can be seen as an upper bound on Fo:
+
+one n
+Foe Cone, n=1,2,..., (87)
+IT]
+or, equivalently,
+[ % < Vf 2ren 41H , n=1,2,... (88)
+
+P
+To illustrate these bounds, let us consider the circu-
+lar patch of unit radius, for which the first three Taylor
+coefficients were obtained in [68]:
+1
+4 2 ne
+vE?(x)dx ~ 0.3651,
+
+72
+
+1 4
+q=-, =a
+
+oy
+
+C3 =
+0
+
+(89)
+where E(x) is the complete elliptic integral of the sec-
+ond kind. Substituting the values of C(co) = 2/7, c2
+and c3 into Eqs. (83, 84), we get three upper bounds:
+1.263 (Payne’s bound), 1.178 (n = 1), and 1.170 (n = 2),
+whereas the numerical value of the principal eigenvalue
+is 1.159. One sees that the bound becomes tighter as n
+increases, as expected from the spectral form (21). Using
+the numerical value Fo ~ 0.978, we get the lower bounds
+1.152 and 1.157, where the last value is very close to the
+numerical value of fg. We recall that c2 and c3 for ar-
+bitrary patches are expressed via Eq. (18) in terms of
+the function wr(a) from Eq. (19). In Appendix B, we
+compute Ap for rectangular and elliptic patch
+latter case, we also compare the upper bounds (83) and
+
+(86).
+
+I. Relation to the patch shape
+
+To gain further insights onto the relation between the
+reactive capacitance of the patch and its geometric shape,
+one needs to solve the exterior Steklov problem (3). In
+Appendix A, we develop an efficient numerical approach,
+which relies on the reformulation (11) of the original
+problem. This is a finite-element method, which employs
+linear basis functions on a triangular mesh on the patch.
+The key step to achieve good accuracy and rapidity of
+the method is a semi-analytical representation of the in-
+tegral kernel G(y, y’) on these basis functions. The ac-
+curacy of the method, which is controlled by the mesh
+size, was validated by considering the circular patch, for
+which an alternative very accurate approach based on
+oblate spheroidal coordinates is available [80].
+
+Using this numerical tool, we aim at answering the
+following questions:
+
+(i) How does anisotropy of the patch affect the Steklov
+eigenvalues and eigenfunctions?
+
+(ii) Does the principal eigenfunction Vo always provide
+the dominant contribution to the reactive capacitance?
+
+(iii) What is the accuracy of the empirical approxima-
+tion (27) for different patches?
+
+k=0, pe © 1.159, Fi = 0.978
+
+b=, we 4.125, Fe x0
+
+k=6, 1 5.405, Fe =O
+
+FIG. 2. First 9 Steklov eigenfunctions WV, restricted to the
+circular patch of unit radius (the associated eigenvalues jax
+and weights F% are shown in the titles). These eigenfunctions
+were obtained by using a mesh with 688 triangles and 375
+nodes.
+
+K=4, my 4.125, FXO k=5, we ©4321, Fe = 0017
+
+h=8, we = 5.898, 0
+
+Ill. NUMERICAL RESULTS
+A. Steklov eigenpairs
+
+Since the Steklov eigenfunctions determine the reac-
+tive capacitance, it is instructive to first inspect their
+behavior for different patches. We start with the circu-
+lar patch as a standard benchmark example, and then
+explore other patch shapes.
+
+Yircular patch
+
+Figure 2 presents the first 9 Steklov eigenfunctions
+W,|r on the circular patch of unit radius. The asso-
+ciated eigenvalues ju, and weights F;, are shown in the
+panels. As discussed in Appendix A 3 (see also [80]), the
+axial symmetry of the problem implies that the eigen-
+functions can be written in polar coordinates (r,¢) as
+e*'™y,, n(r), with positive integer m and n. For any
+m # 0, a linear combination of two non-axially sym-
+metric eigenfunctions eu, ,(r) and eum »(r) is
+also an eigenfunction, implying that the associated eigen-
+value is at least twice degenerate. This is confirmed by
+the shape of the shown eigenfunctions (which are cho-
+sen to be real-valued), e.g., UY; and WV» correspond to
+the same eigenvalue. Our numerical results suggest that
+the eigenvalues corresponding to axially symmetric eigen-
+functions are simple, whereas the eigenvalues correspond-
+ing to non-axially symmetric eigenfunctions are twice de-
+generate. We stress that only axially symmetric eigen-
+
+11
+
+k= 0, pe © 1.685, F = 0.974
+
+08 2
+08 os
+° °
+
+b=5, eX O372, FXO
+
+| ap
+°
+
+K=8, ye 7.885, FS 10
+
+k=, me 3416, Fx O k=2, jy 4.804, 20
+
+k= 3, jy, © A.865, F 0.014
+
+|
+0
+08
+
+k= 6, me 7528, FXO
+
+' A 5
+08 08 i
+° ° os
+
+k=4, my 6.192, XO
+
+KAT, je 7.756, Fi © 0.007
+
+FIG. 3. First 9 Steklov eigenfunctions UV; restricted to the
+elliptic patch of semiaxes 0.5 and 1 (the associated eigenvalues
+/tx and weights F}, are shown in the titles). The eigenfunctions
+were obtained by using a mesh with 756 triangles and 413
+nodes.
+
+functions (here, with indices k = 0 and k = 5) do con-
+tribute to the reactive capacitance C(j.) because the pro-
+jection of any non-axially symmetric eigenfunction onto
+a constant is zero.
+
+Elliptic patches
+
+The trapping capacity of a perfectly reactive elliptic
+patch was studied by Strieder [94]. In particular, the
+exact solution of Eq. (1) at 4 = oo, that determines
+the concentration profile w(y; oo) in the upper half-space,
+was given in ellipsoidal coordinates (see also [95]), from
+which the flux density in Eq. (74) follows. Integrating
+this density over the patch, one retrieves the electrostatic
+capacitance [70]:
+
+b
+
+Unfortunately, these analytical results do not admit ex-
+plicit extensions to partially reactive elliptic patches. In
+turn, one can express the flux density and the reactive
+capacitance in terms of the Steklov eigenfunctions.
+Figure 3 presents the first 9 eigenfunctions V;|r and
+related eigenvalues jz; for an elliptic patch with semiaxes
+1 and 0.5. In contrast to the circular patch, all shown
+eigenvalues are simple, i.e., anisotropy generally removes
+the degeneracy of eigenvalues. At the same time, the
+continuous dependence of the eigenvalues on the aspect
+ratio a/b allows one to construct ellipses, for which some
+eigenvalues are degenerate (e.g., the shown eigenvalues
+2 and pz are close, and they can be made equal by
+
+Nik=0, po =0 Nik=1, yy = 3416 NER=2, py = 4.733
+
+1
+<>
+
+Nik=3, yy = 4.804
+
+Nik=4, jy = 6.192 Nik=5, pt = 6.372
+
+NiR=6, tg = 7.528 NeR=T py = 7.587 NiR=8, jie = 7.885
+
+-&>
+°
+
+FIG. 4. First 9 Steklov eigenfunctions U7 restricted to the
+elliptic patch of semiaxes 0.5 and 1 for the Neumann ver-
+sion (the associated eigenvalues are shown in the titles). The
+eigenfunctions were obtained by using a mesh with 756 trian-
+gles and 413 nodes.
+
+varying a/b). The symmetry of the elliptic patch implies
+hat some eigenfunctions are antisymmetric with respect
+o the horizontal or vertical axis, so that their projec-
+ion onto a constant is zero. Such antisymmetric eigen-
+functions do not contribute to the reactive capacitance.
+Among the shown eigenfunctions, only Up, U3, U7 and
+Ws do contribute to C(), with their relative weights:
+Fo © 0.9741, Fy © 0.0138, Fy = 0.0074 and Fg © 107°.
+One sees that, as for the circular patch, the first eigen-
+function Vo provides the dominant contribution of 97%.
+
+We complete this discussion by illustrating the differ-
+ence between the Steklov problems (3) and (23). Figure
+4 presents the first 9 eigenfunctions U}’|p for the ellip-
+tic patch of semiaxes 1 and 0.5. Their comparison with
+anels of Fig. 3 indicates that, apart from the principal
+eigenfunctions Yo and WW, which are substantially dif-
+ferent, the other eigenfunctions look quite similar, up to
+matching their indices. Moreover, antisymmetric eigen-
+functions are actually identical, up to their signs, e.g.
+WN = -W,, WN = —Wpy, etc. This is not surprising
+(see Appendix A for details): as the kernels G(y, y’) and
+GN (y,y’) differ by a function wr(y)/|P| + wr(y’)/|L| -
+Ar, which is symmetric on the elliptic patch, the anti-
+symmetric eigenfunctions of these kernels should be iden-
+tical.
+
+Rectangular patches
+
+Figures 5 and 6 present similar results for a quadratic
+patch (—1,1) x (—1,1) and for an elongated rectangular
+patch (—1,1) x (—0.2,0.2). As in the case of a circular
+patch, symmetries of the square make some eigenvalues
+
+12
+
+k=1, py, © 2.465, FO
+
+k=2, py © 2.465,
+
+os:
+ra :
+
+k=5, = 3.959, Fh =0
+
+yi % 1.036, Fe 0.974
+
+k=3, pe 3.465, FXO
+
+k= 4, py © 3.782, F, = 0.019
+
+R= 8, jy = 5.35
+
+FIG. 5. First 9 Steklov eigenfunctions VU, restricted to the
+square patch (—1,1) x (—1,1) (the associated eigenvalues pp
+and weights F), are shown in the titles). The eigenfunctions
+were obtained by using a mesh with 674 triangles and 372
+nodes.
+
+K=O. jy 2.686, Fy 0.97 R=, me 4418, FXO k= 2. ye 5.82, Fe 0018
+
+09 os
+i on © fe Ff fF
+
+k=3, 27.256, FXO 4, pe 8.056, Fi, ~ 0.004 k=5, S103, x0
+Eee \ feasea Es feesed bs
+
+k=6, mw 10.31, FO R=, my 10.95, FXO
+
+k=8, me © 11.53, Fe 0.002
+
+FIG. 6. First 9 Steklov eigenfunctions VU; restricted to the
+rectangular patch (—1,1) x (—0.2, 0.2) (the associated eigen-
+values jz and weights F;, are shown in the titles). The eigen-
+functions were obtained by using a mesh with 704 triangles
+and 400 nodes.
+
+degenerate, ¢.g., ju) = fig and wg = plz. In turn, this
+degeneracy is generally removed for rectangular patches,
+even though continuous variations of a/b can be used to
+obtained some degenerate eigenvalues.
+Disconnected patches
+
+To give a broader view onto the spectral properties, we
+also discuss the case of disconnected patches. In sharp
+contrast to Laplacian eigenfunctions, for which the con-
+nectivity of the domain plays the crucial role, it is less rel-
+evant for the considered Steklov problem. For instance,
+splitting a patch into two disconnected subsets by a curve
+has no effect onto the spectrum. Moreover, since the ker-
+nel G(y,y’) decays slowly with the distance between y
+and y’, even if two subsets are separated by a significant
+istance, they still compete with each other for capturing
+iffusing particles. This long-range interaction, known as
+iffusional screening [96-99] or diffusive interaction [100],
+implies that the electrostatic capacitance is not additive,
+i.e., the capacitance of the union of two patches is always
+smaller than the sum of their individual capacitances.
+For perfect reactions, this competition for the case of
+wo circular patches on the reflecting plane was charac-
+erized analytically in [101, 102], whereas Lindsay and
+Bernoff derived asymptotic formulas in the case of mul-
+iple small circular patches [29] (see also [36]). A further
+extension to partially reactive patches of arbitrary shape
+was given in [69]. It is therefore instructive to inspect
+he behavior of the Steklov eigenfunctions in the case of
+disconnected patches.
+
+Figure 7 shows the first 15 Steklov eigenfunctions Up
+for two circular patches of radii 1 and 0.5, separated by
+distance 0.5. Interestingly, the presence of the smaller
+atch has only a minor effect on the principal eigenvalue
+fo and the spectral weight Fo of the associated eigen-
+‘unction. We also note that, despite the proximity of two
+atches, some eigenfunctions are localized on one patch
+(i.e., they almost vanish on the other). The refined struc-
+ure of the Steklov eigenpairs gives access to the reactive
+capacitance and its dependence on the spatial arrange-
+ment of the disconnected patches. Further analysis of
+his problem presents an interesting perspective of this
+work.
+
+B. Effect of patch anisotropy onto the eigenvalues
+
+To investigate more quantitatively the role of patch
+anisotropy, we inspect three families of patches: (i) el-
+ipses of semi-axes a and 8, (ii) rectangles (—a, a) x(—b, b),
+and (iii) rhombuses with diagonals 2a and 2b. The patch
+surface areas are respectively ab, 4ab, and 2ab. We fix
+b = 1 and then change the anisotropy by varying a from 0
+o 1. In the limit a — 0, all three shapes approach the in-
+erval (—1,1), which is inaccessible to three-dimensional
+Brownian motion and thus presents a singular limit.
+
+We first inspect the asymptotic behavior of the eigen-
+values j1;, for an elliptic patch as a — 0. Since the elliptic
+atch shrinks to an interval, the eigenvalues are expected
+o diverge as a + 0. The principal eigenvalue jo cannot
+diverge faster than the right-hand side of the Payne’s in-
+
+13
+
+k=O, me P1113, Fs 0.944
+
+e °
+03
+
+b=3, ©2887, 0013
+
+ne 05
+02
+° ° ii
+04 05 08
+
+b= 1, me 2.897, Fe 0.029 POE ups AIS Dealt
+
+0s
+e@ r a
+°
+0
+05
+
+k=4, 3425, ASO R= e413, Fs 1-4
+
+© =6, pe © 4.390, 5 = 0.007 RET. me 89.39, Hy = 10-4 RSS, my 85.397, SO
+
+1 os 45
+c 7 i » y
+0 05 05
+
+05 1 1
+B=9, pe = 5.827, FXO
+
+1
+1 1
+os. 05 ‘as
+os os os
+1 :
+
+1
+
+= 10, me 9.540, FS 10-4 R= U1, (,¥5.908, FRO
+
+;
+te il € i
+
+FIG. 7. First 15 Steklov eigenfunctions WV; restricted to the
+patch formed by two disks of radii 1 and 0.5 (the associated
+eigenvalues jz and weights F}, are shown in the titles). The
+eigenfunctions were obtained by using a mesh with 964 trian-
+gles and 536 nodes.
+
+R= 15, pe 6.041, FS 0 k=, py 6.012, Fs 0
+
+equality (83). Substituting the asymptotic behavior
+
+K(z) ~ 2In(2) - sma -2) (31) (1)
+
+to Eq. (90), one gets
+
+C(co) ~ b/ In(4b/a) (a 0). (92)
+As a consequence, j/i9 cannot grow faster than «
+(aln(4b/a))~!. Figure 8 shows 1/(ajo) (circles) as a
+function of In(b/a) to confirm this behavior. Indeed, one
+observes a linear dependence,
+
+1 4
+— # 0.59 In(b, 71
+ae 0.59 In(b/a) + 0.7
+
+(a<b), (93)
+
+with the coefficients obtained from a linear fit (shown by
+dashed line).
+
+To our knowledge, there is no analytic expression for
+the capacitance of a rectangular patch. For this reason,
+we employ the asymptotic behavior (B8) of the coefficient
+Ar for elongated rectangles (see Appendix B). According
+to the lower and upper bounds (86), the asymptotic be-
+havior of Ap is expected to control that of the principal
+eigenvalue jig. Substituting Eq. (B8) into Eq. (86), we
+get approximately
+
+7 1 T
+MO* Ap a( +2in(2b/a))
+
+(a<b). (94)
+
+or, equivalently,
+
+1 14+2!1n(2b/a)
+
+apo T
+
+= 0.64 In(b/a) + 0.76 (a <b).
+
+(95)
+Figure 8 presents by squares the left-hand side of this
+relation, with jo obtained numerically. A linear fit of
+these values is shown by solid line and yields 1/(ajig) *
+0.63 In(b/a) + 0.83, in an excellent agreement with our
+prediction (95).
+
+A similar asymptotic analysis could be performed for
+rhombic patches. However, we skip this analysis and just
+present a linear fit of 1/(ayo) versus In(b/a), obtained
+from numerical values of jg and shown in Fig. 8 by
+dash-dotted line:
+
+1
+— ® 0.52 In(b/a) + 0.45
+- (b/a)
+
+(a<b). (96)
+
+In all three cases, the asymptotic behavior is similar
+ut the coefficients are slightly different. We outline that
+he numerical results in Fig. 8 are in agreement with the
+domain monotonicity property (13), i-e., the curves of
+/ (apo) are ordered according to the fact that a rhombus
+is inscribed into an ellipse, which in turn is inscribed into
+a rectangle (of the same aspect ratio a/b). In particular,
+he numerical coefficients in front of In(b/a) are 0.52, 0.59
+and 0.64 for these three shapes.
+
+For all three shapes, we also observed the asymp-
+otic behavior pu, x 1/(aln(b/a)) for some other eigen-
+values (not shown). It is worth noting that a simi-
+ar behavior of the principal eigenvalue was obtained
+for the exterior Steklov problem for elongated prolate
+spheroids with semiaxes a, a, b [80]. The explicit con-
+struction of a matrix representation of the associated
+Dirichlet-to-Neumann operator allowed one to show that
+Hon « 1/(aln(b/a)) as a > O for the eigenvalues jU0,n
+corresponding to axially symmetric eigenfunctions.
+
+C. Spectral weights
+
+Next, we look at the coefficient Fy that represents
+the relative contribution of the principal eigenmode to
+the reactive capacitance. For a circular patch, one has
+Fo ® 0.97 [68], i.e., the principal eigenmode provides
+the dominant contribution. A similar observation was
+reported for the exterior Steklov problem for tori and
+two balls [81]. We inspect how the patch anisotropy may
+affect the coefficient Fo. Figure 9 shows Fo as a func-
+tion of the aspect ratio a/b for three considered shapes.
+The first observation is that Fo remains the dominant
+
+14
+
+4
+= rectangles
+© ellipses
+3.57 y rhombuses
+a
+me 3
+= ”
+= ae
+25
+we Pl fi
+2 ge
+ae
+Per
+15 ! f ! . f
+2 25 3 3.5 4 45 5
+In(b/a)
+FIG. 8. Asymptotic behavior of the principal eigenvalue j1o
+
+for elliptic, rectangular and rhombic patches with b = 1 and
+variable a. Symbols show 1/(aio) as a function of In(b/a),
+whereas lines indicate linear fits given in the text.
+
+contribution for all three shapes on the considered range
+0.01 < a/b < 1. Curiously, the behavior is quite differ-
+ent between rectangles and elliptic/rhombic patches: the
+coefficient Fo is almost constant for rectangles, whereas
+it exhibits a very slow decay for ellipses and rhombuses
+as a decreases. A clarification of this distinction remains
+an interesting open problem.
+
+0.95
+
+0.9
+
+0.85
+
+08} rectangles
+ea - - ellipses
+=-=-'rhombuses
+
+0.75
+107 10"! 10°
+a/b
+
+FIG. 9. Relative contribution Fo of the principal eigenmode
+as a function of a/b, for rectangles, ellipses and rhombuses,
+with b = 1 and variable a.
+
+The empirical observation that Fo remains above 0.78
+for the considered domains and aspect ratios raises sev-
+eral geometric questions. Even though Fp decreases on
+the range 0.01 < a/b < 1, it is yet unclear whether this
+decay holds in the limit a + 0. Moreover, even if Fy > 0
+as a — 0, such a slow decay requires to consider ex-
+tremely thin patches to achieve small Fo. Is it possible
+to construct other types of shapes to diminish Fp? While
+the actual value of Fp does not look relevant, the close-
+ness of Fy to 1 may have important consequences. For
+instance, the upper and lower bounds (84, 85) are close
+when Fp * 1, yielding thus an accurate estimate for the
+rincipal eigenvalue jo. Moreover, we showed in Sec.
+IID that the accuracy of the sigmoidal approximation
+(27) is higher when Fo is close to 1. For these reasons,
+urther analysis and eventual decrease of Fy may provide
+a better understanding of the reactive capacitance.
+
+For such an attempt, we consider a rectangular dumb-
+ell patch formed by two squares that are connected by a
+ong thin rectangular channel. When the channel width
+goes to 0, the connection progressively disappears, and
+he dumbbell patch reduces to two disconnected squares.
+The asymptotic behavior of the eigenvalues and eigen-
+functions of the Laplace operator in dumbbell domains
+was thoroughly investigated in the past (see [103] and
+references therein). In particular, Laplacian eigenfunc-
+ions can be localized in one part of the dumbbell when
+hey cannot “squeeze” through a thin channel, and this
+ehavior strongly depends on the type of the boundary
+condition (Dirichlet vs Neumann). In contrast, the con-
+nectivity of a patch is expected to be much less rele-
+vant for the exterior Steklov problem. In fact, even in
+he disconnected setting, there are long-range interac-
+ions between distinct parts of the patch via the kernel
+(y.y’) =1/(2n|y — y').
+Figure 10 illustrates the first 9 eigenfunctions U;,|p on
+such a dumbbell patch. The first and most important
+observation is that the weight Fy + 0.56 of the principal
+eigenfunction is diminished as compared to that of ellip-
+ic, rectangular and rhombic patches. In turn, the con-
+tibution of the eigenfunctions Y; and V4 became more
+
+©
+
+significant, wit
+‘unctions in ei
+
+ized in the smal
+
+h Fy » 0.22 and Fy & 0.20
+
+we also observe the effect of localization
+
+her of two squares, e.g.,
+
+are localized in the larger square, where
+
+. Interestingly,
+of some eigen-
+2, Ws and Vg
+as Wg is local-
+
+ler square. Note that a minor shift of the
+
+k=O, fe ¥ 2.000, Fi, © 0.563 2 Rab mes 2828, Fw une k= 2, pe © L801, Fi 0.003
+; i
+. =| ,, . tt aio
+a
+k=3, S493, Fe 0 R=, py 5.64, Fy 0.202 R=). jy 66.006, Fe = 10+
+1s
+:
+H j
+Z af #e at.; = i
+k=6, ye = 6.93, Fe SO k=, eX 6.961, Fe 20 BSB de ATOR BEAD
+15 5 2
+i
+os
+os
+= 2° &—— a> © =i
+
+FIG. 10. First 9 Steklov eigenfunctions VY; on a rectangular
+dumbbell patch formed by two squares of lengthsides 1 and
+0.7 and connected by a rectangular channel of length 10 and
+width 0.1 (the associated eigenvalues 4, and weights Fi, are
+shown in the titles). The eigenfunctions were obtained by
+using a mesh with 1499 triangles and 965 nodes.
+
+elliptic patches, one can use the exact relations (90, B10)
+for C(oo) and Ap to get Emax = 32/(377) — 1 © 8.1%.
+This conservative bound is twice larger than the actual
+maximal relative error. For the unit square patch, Eq.
+(B7) yields Ap * 0.4733, whereas the electrostatic capac-
+itance was found numerically to be C(oo) © 0.3667874
+[104] so that Emax © 9.1%. This bound is again twice
+
+smaller square breaks the mirror symmetry of the consid-
+ered dumbbell patch with respect to the horizontal axis,
+but does not affect the localization of eigenfunctions (not
+shown).
+
+D. Sigmoidal approximation
+
+We inspect the quality of the explicit approximation
+C*PP(y) from Eq. (27). For this purpose, we evaluate
+the maximal relative error of C#PP(j:) as compared to
+C(), over a broad range of yz from 10~? to 107. Since
+the approximation (27) reproduces correctly the leading-
+order asymptotic behavior of C'(js) in both limits pz + 0
+and 4 > oo, this estimate is expected to actually cover
+the whole range of 4 from 0 to oo. For the considered
+
+larger than the actual maximal relative error.
+
+IV. DISCUSSION AND CONCLUSION
+
+In this paper, we studiec
+for planar patches of arbi
+
+the reactive capacitance C'(j1)
+rary shape. The spectral rep-
+
+resentation (14) determines its functional dependence on
+
+the reactivity parameter ju.
+
+, in which the geometric prop-
+
+erties of the patch are incorporated through the eigen-
+
+values 4, and the weights F},.
+
+an efficient numerical too!
+
+Moreover, we developed
+for computing these geomet-
+
+ric parameters for a given patch. This tool was ap-
+
+plied to inspect the spec
+ing reactive capacitances
+derived variational formu!
+
+ral properties and the result-
+of various patches. We also
+ations, probabilistic interpre-
+
+family of elliptic patches wit
+imal relative error takes the
+
+h a from 0.01 to 1, the max-
+argest value of 4.1% for the
+
+circular patch (a = 1), and then decreases for smaller
+a. A similar trend was observed for rectangular patches,
+with the maximal relative error of 4.4% corresponding to
+
+tations and various bounds for the reactive capacitance.
+Apart from these theoretical achievements, we obtained
+several practical results with potential applications in
+chemical physics that we summarize below.
+
+The first practical resu!
+
+t is that the principal eigen-
+
+the quadratic patch.
+According to Eq. (34), t
+moidal approximation canno
+
+he relative error of the sig-
+exceed Emax. In the case of
+
+mode provides the dominant contribution to the reactive
+capacitance. On one hand, an important role of the prin-
+cipal eigenmode could be expected; indeed, as Vo is the
+unique eigenfunction that does not change sign on the
+patch, its projection onto a constant cannot vanish, ie.,
+Fy > 0. In turn, the other eigenfunctions VY; are or-
+thogonal to Wo and thus must change sign, so that their
+projections onto a constant are expected to be smaller.
+On the other hand, our numerical results indicate that
+the contribution Fy exceeds 96% for all considered rect-
+angular patches, irrespective of their aspect ratio (see
+Fig. 9). For elliptic and rhombic patches, the situation
+is different: the relative weight Fo is still dominant but
+it decreases very slowly as the aspect ratio a/b goes to
+0. However, even for the value a/b as small as 0.01, the
+principal eigenmode provides 88% for the elliptic patch
+and 78% for the rhombic patch. The dominant role of
+Fo suggests that the associated principal eigenvalue de-
+termines the most relevant lengthscale of the problem as
+1/po. Rewriting Eq. (21) as
+
+F (uo So Fe + Fils - 10) (97)
+k=0 k=1
+
+=.
+
+Cleo) =
+
+and neglecting the second sum, one gets a rough approx-
+imation pig ® 27C(oo)/|P| (in practice, the right-hand
+side is the Payne’s upper bound (83)). For instance, for
+he circular patch of unit radius, this approximation gives
+fio © 4/m & 1.27, whereas the actual numerical value is
+.159, i.e., one gets only 10% relative error. More accu-
+rate bounds that involve the constant Ap were discussed
+in Sec. ITH. A systematic analysis of the accuracy of
+hese approximations presents an interesting perspective.
+Another related open question is to characterize the
+atches, for which Fo is smaller than a given threshold.
+According to our numerical results, one may probably
+achieve this condition by taking extremely thin elliptic
+or rhombic patches, but are there other ways to dimin-
+ish Fy? We provided an example of a dumbbell domain,
+for which the relatively low value Fo + 0.56 could result
+from the localization phenomenon. However, a rigorous
+analysis of this phenomenon via local estimates on the
+eigenfunctions seems to be much more challenging than
+in the conventional setting of Laplacian eigenfunctions
+(see [103]). Moreover, one can inspect the contribution of
+other eigenfunctions and ask whether there exist patches,
+for which the relative contribution of the principal eigen-
+function is not maximal? Even though these questions
+sound rather abstract, a better understanding of the re-
+ation between the shape of the patch and the geometry
+of its Steklov eigenfunctions may help to design more
+efficient catalysts with desired reactive properties.
+The second practically important result is that the sim-
+le sigmoidal approximation C#P? (j:) from Eq. (26) turns
+out to be accurate for a variety of patch shapes that we
+considered. This numerical observation suggests that, for
+many practical purposes, it is sufficient to know the elec-
+rostatic capacitance C(oo) and the surface area |I| of
+he patch. The additive form of Eq. (26) allows one to
+interpret C*PP() as a consecutive connection of a “dif-
+
+16
+
+fusion resistance” 1/C(oo) and a “reaction resistance”
+2x/(pI\T|), in the language of electrostatics. In fact, as
+a resistance is the ratio between the applied voltage and
+ihe induced electric current, 1/C(j1) plays the role of a re-
+sistance in diffusion-reaction problems. The above inter-
+pretation was proposed as an empirical way to describe
+che Laplacian transport, which is decomposed into the
+first diffusive step and the second reactive step [96-99].
+Its mathematical validation for electrochemical transport
+was provided in [82], while our work justifies it for steady-
+state diffusion-controlled reactions on partially reactive
+flat patches. Moreover, we obtained an upper bound
+(34) for the relative error of the sigmoidal approxima-
+tion, which is expressed in terms of |I'|, Coco), and the
+constant Ap defined in Eq. (20). We derived a useful
+representation (B3) for an efficient numerical computa-
+ion of Ap for general polygonal patches and provided
+he exact explicit formulas for elliptic and rectangular
+patches. The versatile roles of this constant in various
+contexts were discussed in [81].
+Following [81, 90], we introduce the reactive size Lp =
+A|P|/(m?C(co)) of a flat patch of arbitrary shape. The
+numerical prefactor 4/7? was included for convenience,
+o ensure that the reactive size of a circular patch is its
+diameter 2a. For instance, the reactive size of a quadratic
+patch with edge length L is Lp + 1.11L, where we used
+he numerical value C(oo) ~ 0.3667874 for the capaci-
+ance of the unit square [104]. For an elliptic patch with
+semiaxes a < b, one has
+
+Fe EL (98)
+
+T
+
+For elongated elliptic patches with a < b, one gets Lp ©
+4aln(4b/a), i.e., the reactive size vanishes as a — 0, as
+expected.
+
+While this paper was focused on flat patches, most re-
+sults can be immediately generalized to bounded targets
+of arbitrary shape with sufficiently smooth boundary in
+R°. In turn, the large- behavior of C(j) that origi-
+nated from the edge singularity, as well as the domain
+monotonicity of the Steklov eigenvalues, are not valid in
+general. The efficient numerical tool that we developed
+here is also not applicable for general targets. In some
+special cases, the symmetries of the target allow one to
+employ orthogonal curvilinear coordinates to represent
+Steklov eigenfunctions on the basis of special functions.
+This technique was used for prolate and oblate spheroids
+in [80], as well as for a pair of balls and a torus in [81].
+For instance, the spectral expansion (14), the role of the
+principal weight Fo, and the accuracy of the sigmoidal
+approximation (27) were discussed for these targets in
+[81]. However, the numerical computation of Steklov
+eigenmodes for an arbitrarily-shaped target requires the
+knowledge of the Green’s function G(y, y’) in the exte-
+rior of the target, as well as a suitable boundary integral
+method. A further development in this direction presents
+an interesting perspective. More generally, the proposed
+theoretical description of the reactive capacitance opens
+
+P33
+1;
+33 Tj! pad
+Thj2
+3 Ti;
+L Ti
+2 >
+Pj Pin
+nj
+
+FIG. 11. Triangle 7; of a mesh, its vertices Pj, and normal
+and tangent vectors nj, and Tjx.
+
+promising ways for modeling diffusion-reaction phenom-
+ena in complex media and for solving shape-optimization
+problems in chemical engineering and other disciplines.
+
+ACKNOWLEDGMENTS
+
+The authors thank Prof. N. Nigam and Prof. I.
+Polterovich for fruitful discussions. D. S. G. acknowl-
+edges the Simons Foundation for supporting his sabbati-
+cal sojourn in 2024 at the CRM, University of Montréal,
+Canada, as well as the Alexander von Humboldt Foun-
+dation for support within a Bessel Prize award.
+
+Appendix A: Numerical approach
+
+This Appendix describes the practical implementation
+of our numerical approach for solving the spectral prob-
+lems (3) and (23).
+
+1. Finite-element method
+
+We employ a finite-element method to solve the in-
+tegral eigenvalue problems numerically. The patch I is
+covered by a triangular _" composed of N;, triangles
+denoted as Tj, j = 1,. We denote three vertices
+of the j-th gangle as — = "(Ph Pi): with k = 1, 2,3,
+and the total number of vertices is Ne. For convenience
+of notations, we allow the index k to take values 4 and 5
+by setting Pja = Pj; and Pj5 = Pjz. We also introduce
+the unit tangent vector T;, and the unit normal vector
+njx to the edge (Pjx, Pj(z41)) (see Fig. 11):
+
+Pinta) — Pik (Al)
+
+ad ;
+’ Piet) — Pyr|
+
+(ths —T 3x)"
+
+Njk=t (A2)
+
+(the sign + is adjusted to ensure that nj, is oriented
+outward the triangle).
+
+17
+
+We employ linear basis functions to represent eigen-
+functions on the mesh in order to achieve higher accuracy
+as compared to piecewise-constant basis functions. For
+the sake of clarify, we start with barycentric basis func-
+tions {yjx}, i.e., Yjx(y) is a linear function on the j-th
+triangle T; (and 0 otherwise) such that yj (Pj) = dk,n
+for k,k’ € {1,2,3}. They form so-called discontinuous
+Galerkin or “broken P1” space, to be distinguished from
+nodal basis (or hat) functions that we will reconstruct at
+the end. The barycentric basis functions can be written
+explicitly as
+
+pik (y) = 1—(y — Pix, vjx); (A3)
+where (-,-) denotes the scalar product, and
+1 : o i
+Vik = ar Pate42) — Phapiy Pitcsay ~ Pies) (A4)
+
+ensures that pjx(Pj(n41)) = Pik (Pjce+2)) = 0 (with |Tj|
+
+being the surface area of the j-th triangle). One can
+easily check that
+|Picet2) — Pjatay|
+Vik = eal?) IE atest - (A5)
+
+2|T3|
+
+We use the double index jk to enumerate the basis
+functions, as well as matrix elements constructed with
+the help of these functions. An eigenfunction U(y) is
+searched as a linear superposition:
+
+Ne 3
+Uy) = > >oVievinly
+
+g=lk=1
+
+(A6)
+
+with unknown coefficients Vj,. Substituting this super-
+position into the integral equation, multiplying it by an-
+other basis function yj, and integrating over I’, we get
+the system of 3N, linear equations
+
+Ne 3 3
+DD VinGinarw = 7 1S VieMinge (A7)
+
+j=lk=1 MG bal
+where
+
+Mjrjre = [eneinedy= 55 f einen dy
+
+r Tj
+
+= 65,5" Fil + dk,k') (A8)
+
+is the standard mass matrix, and
+
+Grin = f devine) f eiulv)Gevdy (Ad)
+
+r T
+
+is the matrix representation of the kernel G(a, y) given
+by Eq. (10).
+
+Up to now, this was a standard procedure for an ar-
+bitrary kernel G(a,y). In the following, we rely on the
+explicit form of the kernel and the flat geometry of the
+patch to obtain a semi-analytical representation of the
+matrix elements G'jx,;-y. In fact, we aim to evaluate ez-
+actly the integral
+
+Qinle) = f einlwGlew) dy. (ALO)
+r
+Using Eq. (A3), we get
+Qin (@) = ie (1+ (Pins vjn)) — ees (All)
+where
+_ f_%¥
+A@= | 4. (a1)
+Tj
+_ f wyidy i
+H, (x, v) = | pee. (A13)
+
+j
+
+For the first integral, we use the identity Ayla — y| =
+1/|x — y| to get by the divergence theorem
+
+Fi(e) = J (ny, Vyle — yl)dly
+
+(Ald)
+
+-~{* ics qi ly,
+
+lop,
+
+where OT;;, denotes the edge of the j-th triangle between
+vertices Pj, and Pj(,41) (here Ay is the two-dimensional
+mae operator). Using the parameterization y(t) =
+ibe + (Pj(n41) — Pjx)t on this edge (with t € (0,1) and
+= |y’ (t)|dt), we have
+
+njrs (y(t) — ®))
+|Pieta) — Pyal j' ee at,
+“> a my Ty =al
+(A15)
+where nj, is the outward unit normal vector to the edge
+(Pir, Pi(eeiy) After lengthy but elementary computa-
+tion of the last integral, we get
+
+3
+=> njk, Rjr) L (A16)
+k=1
+where Rjx = Pix — x, and
+(Rycetays Tk) + wt)
+Ij, =1n ; Al7
+am ( (Rjk, Tie) + |Rjx| ‘ (an)
+
+with the unit tangent vector 7;, given by Eq. (A1).
+For the integral (A13), we use (v, Vy|x—y|) = (v, (y—
+x))/|y — | and the divergence theorem to get
+
+Hy(a,v) = (v,2)Fy(a) + [je yl(vsmy)dy. (A28)
+8T;
+
+18
+
+As previously, we use the parameterization over each edge
+to get
+
+3
+H;(x,v) = (v, x) Fj (a) + So, rjK) Jin; (A19)
+k=1
+
+where
+Jjx = — yl dly = * (Rye? — (Rye tn)?
+OT jx
+1
++ $( Rian. 70) Riee - (Rn. 74)1 Ri).
+(A20)
+
+As the function Qjx(a#) is known exactly, the matrix
+elements can be found as
+
+Garg = J ei@) Qiao) dx
+
+Tye
+
+(A21)
+
+The simplest quadrature employs the barycentric rule.
+However, one of the major numerical difficulties for solv-
+ing the spectral problem (11) is that the matrix G is not
+sparse that significantly limits its size and thus requires
+using relatively coarse meshing. In order to improve the
+accuracy, it is therefore convenient to apply more ac-
+curate quadratures when integrating over triangles. We
+employ Dunavant 7-point quadrature rule [105]: for a
+smooth enough function f(y), we set
+
+[t ) dy = mi om f(M%aP. i + Yi2P. ia + VigPj3),
+
+(A22)
+
+where
+
+wy = 0.225, 41 = 12 = 143 = 1/3,
+w2 = 0.132394, vo, = 0.059716, v22 = 123 = 0.470142,
+ws = 0.125939, 51 = 0.797427, vs52 = v53 = 0.101287,
+
+whereas w3 = wa = w2 with v3; and 14; being obtained
+by permutations from 2;, and wg = w7 = ws with v6;
+and v7; being obtained by permutations from v;;. This
+quadrature is known to be exact for polynomials up to
+degree 5.
+
+Once the matrix elements Gjx,;~7 are found, one can
+solve numerically the generalized eigenvalue problem for
+square matrices G and M, that allows one to approxi-
+mate some Steklov eigenvalues and eigenfunctions. This
+final step can be further improved by transforming the
+above representation in terms of barycentric basis func-
+tions {~~}, associated with triangles, into more con-
+venient nodal basis (or hat) functions {¢;}, associated
+to the nodes of the mesh. For each node P; (with i =
+1,2,...,.Np), ¢:(a) is a linear function on the triangles
+that contain P; (and 0 otherwise) such that ¢;(P;) = 1
+and 0 at all other nodes. In fact, on the j-th triangle
+
+containing the vertex P;, ¢; is simply the barycentric
+function yj, with the index k such that Pj, = P;. As a
+consequence, one can regroup the earlier defined matrix
+elements Gjx,j7h and Mjx,;-~/ into new matrix elements
+
+Gi and Mi as
+S Gyege (i,7’ =1,..-,.Np),
+
+ik ak!
+
+PIR Pi Pigs =P
+
+(A23)
+Miv= SSS Myst =1,..., Np).
+PiR=Pi Py =Pyr
+(A24)
+
+In this way, one has to solve numerically the generalized
+eigenvalue problem for square matrices G and M:
+GV =\MV. (A25)
+Let us denote the eigenvalues and eigenvectors of this
+problem as A, and V;, and enumerate the eigenvalues to
+form a decreasing sequence: Ayo > Ai > A2 > --:. One
+sees that 1/\, is an approximation of the k-th eigen-
+value j1%, whereas the components of the vector V; are
+the coefficients of an approximate expansion of the k-th
+eigenfunction Y;, on the nodal basis functions:
+
+Np
+
+Vly) = S[Vahi oily). (A26)
+i=1
+
+Moreover, the value of W;, on a node P; is simply [V,]j.
+Note that the normalization of eigenfunctions is fixed
+by requiring
+
+N,
+
+t= [Ve dy = Yo VahlVile f ocdudy. (A27)
+“ iva Z
+_—s—
+=M,
+
+We also compute the projection of UV, onto a constant:
+
+Np
+dy = [vw dy = 7 [Vali [ow dy , (A28)
+ws i=1 ae
+= > ml
+
+kU =P;
+
+from which the weights follow as Fj, = dz/|I'|. We out-
+line that the representation in terms of nodal basis func-
+tions has two practical advantages: (i) the matrices G
+and M of size N, x Np are much smaller than G and
+M (of size 3N;, x 3N;) that allows for their faster nu-
+merical diagonalization; and (ii) the continuous nature
+of nodal basis functions yields a smoother representation
+of eigenfunctions. We employ this method throughout
+the manuscript.
+
+19
+2. Solving the alternative Steklov problem
+
+An equivalent reformulation of the spectral problem
+(23) was discussed in [66, 83]. To ensure that all eigen-
+functions wy with k = 1,2,... are orthogonal to the
+constant function &2’ = 1/,/|T], the kernel G(y, y’) can
+be replaced by
+
+wr(y) +wr(y’) + Ap
+
+GN x , n
+(yy’') iW
+
+Gy, y') (A29)
+
+where wr(y) and Ap were defined in Eqs. (19, 20). In
+this way, the integral of GY (y, y’) over y € TI’ vanishes
+so that a constant function is an eigenfunction of the
+associated integral operator. It was shown in [66] that
+the eigenfunctions UY satisfy for k = 1,2,...:
+
+[Suv wo ay' = itu) (yer).
+k
+r
+(A30)
+
+In other words, one can search for the eigenpairs
+{uy Vi} (with k > 1) of the spectral problem (23) by
+solving the eigenvalue problem (A30). The missing eigen-
+pair i’ = 0 and oY = 1/VITl can be added manually.
+
+The numerical technique from Sec. A 1 is applicable for
+solving the Steklov problem (23), which is equivalently
+described by the kernel G% (y,y’) from Eq. (A29). In
+fact, we need to find
+
+Qh. (@) = [ex yo™(e.v)ay
+Tr
+(A31)
+
+where 2; is the barycenter of Tj, and we used
+the barycentric approximation f,, yjx(y)wr(y)dy ~
+i
+wr(x;) fp eje(y) dy (it can further be improved via
+3
+Dunavant 7-point quadrature).
+tions
+
+Using the approxima-
+
+I N
+ur(@)= 5 File), Are TD IBw@)
+j=l
+
+Qn -
+j=l
+(A382)
+we get
+Gyx jk! = 3 Qi (@;") (A33)
+~ Guy ~ Hill wea borer) _ 4),
+
+from which the matrix elements ere are deduced via
+Eq. (A23). As previously, one searches for eigenpairs
+{A VX} solving the generalized eigenvalue problem
+G*vy = AYMVY, enumerated by k = 1,2,... (here
+the index starts from 1, given that pj’ = 0).
+Once the eigenfunction UV (y) is constructed on the
+patch, it can be easily extended into the upper half-space
+R3. For this purpose, one can multiply Eq. (23) by the
+Green’s function G(y, y’), multiply Eq. (6a) by UN (y’),
+subtract them, integrate over y’ € Ri, use the Green’s
+formula with boundary conditions and behavior at infin-
+ity to get
+
+WN (y) = VE (00) + ut [ Cluy WR ')ay, (834)
+T
+
+where G(y,y’) is given by the explicit formula (7). In
+turn, the value at infinity, UN (oo), can be determined
+by expressing G(y,y’) from Eq. (A29) and using Eq.
+(A830):
+
+Td
+Wi (00) = Th wr (y) Uh (y)dy. (A35)
+I ke
+
+3. Validation
+
+To check the accuracy of our numerical method, we
+compute the Steklov eigenvalues for the circular patch
+of unit radius. This geometric setting can be consid-
+ered as the limit c — 0 of an oblate spheroid with semi-
+axes 1,1,c, for which an efficient numerical method for
+solving Steklov problems was developed in [80]. This
+method employs the oblate spheroidal coordinates to
+achieve an accurate matrix representation of the asso-
+ciated Dirichlet-to-Neumann operator. Its numerical di-
+agonalization yields very accurate eigenvalues, which will
+be referred to as “exact”.
+
+Table I reports the first ten eigenvalues for both ver-
+sions of the Steklov problem (see also Fig. 2 for eigen-
+functions ©;,). Two different meshes were used to illus-
+trate the role of the mesh size on the accuracy. The rel-
+ative error of the presented eigenvalues does not exceed
+0.1% even for the coarser mesh.
+
+The rotational symmetry of the patch implies that an
+eigenfunction on T can be represented in polar coordi-
+nates (r,@) as e’""?Umn(r), with integer indices m and
+n. Moreover, the structure of radial functions Umn(7)
+is inherited from spherical harmonics Yj,» (see [80] for
+more details); in particular, one can set n = 0,1,2,-:-
+and m = —n,—n+1,--- ,n, as shown in the bottom row
+of Table I. Note that the eigenvalues with (+m)n coin-
+cide. As discussed in [80], the eigenfunctions satisfying
+Neumann boundary condition (3c) correspond to even
+
+m+n. Finally, as the difference G(a, y) — GN (x,y) is
+
+a radial function (given thai
+
+wr(y) is a function of |y|),
+
+only axially symmetric eigenfunctions with m = 0 differ
+
+between the two versions 0!
+is clearly seen from Table I.
+
+the Steklov problem. This
+Note also that our approach
+
+does not recover the eigenvalue pi’ = 0 that corresponds
+
+to a constant eigenfunction.
+
+20
+Appendix B: Computation of the constant Ar
+
+The function wp (a) from Eq. (19) and the constant Ap
+from Eq. (20) play an important role in the reformulation
+of the spectral problem (23); see also [66] for various
+applications of these quantities. For a circular patch,
+their exact forms were obtained in [66]:
+
+8
+
+2
+
+(BL)
+where E(z) is the complete elliptic integral of the second
+kind. In this Appendix, we discuss an alternative com-
+putation of these quantities for other domains, beyond
+the basic FEM representation (A32).
+
+1. General patch
+
+For any triangular patch, the function wr(a) is simply
+proportional to the function F(a) defined by Eq. (A12),
+for which the representation (A16) provides the exact
+solution. Moreover, the exact representation (A16) can
+be generalized to any polygon. As a consequence, this
+representation allows one to compute exactly the function
+wr(a) from Eq. (19) for any polygonal patch, without
+resorting to triangulations:
+
+¥ (ny, (Pe — 2)
+
+wp(@) (B2)
+
+where P;, are the vertices of the polygon, nx is the unit
+normal vector to the k-th edge between vertices P, and
+Pri (ng is oriented outward the polygon), I, is given
+by Eq. (A17), and the sum is over all edges. In turn, the
+constant Ap can be written as follows
+
+1
+Ar = sere | tela Ve) [le ule
+ar r
+1
+= sare | tela Ve) | (me Vale — y|?/9)dlx,
+ar ar
+
+where we used that A,.|a — y|?/9 = | — y|. As a conse-
+quence, we obtain
+
+Are sare | Bolre Ve) [ir Vele — y|(@ — y))dle
+or or
+1
+=- sae | (menial
+orxor
+(Mews =e - Del (B3)
+
+This formula opens a purely geometric way to access Ar,
+allowing one to skip the computation of wr(a) and its
+integration. We recall that the constant Ap determines
+via Eq. (20) the coefficient cz of the Taylor expansion
+(17) of the reactive capacitance.
+21
+
+Nt 0 1 2 3
+
+Ez
+
+4 5 6 7 8
+
+688
+1032
+exact,
+
+1.1588
+1.1585
+1.1578
+
+2.7573
+2.7565
+2.7548
+
+2.7573
+2.7565
+2.7548
+
+4.1252
+4.1240
+4.1214
+
+4.1252
+4.1240
+4.1214
+
+4.3209
+4.3196
+4.3169
+
+5.4053
+5.4036
+5.4003
+
+5.4053
+5.4036
+5.4003
+
+5.8984 5.
+5.8924| 5.8924
+
+688
+1032
+exact,
+
+2.7573
+2.7565
+2.7573
+
+2.7573
+2.7565
+2.7573
+
+4.1252
+4.1240
+
+0 4.1252
+
+4.1252
+4.1240
+4.1252
+
+4.1239
+4.1230
+4.1213
+
+5.4053 5.8984 5.8984
+5.4036] 5. 3) 5.8962] 5.8963
+5.4003] 5.4003 | 5.8924 | 5.8924
+
+oo |(-1)1] 11 | (-2)2
+
+22 | 02 |(-3)3| 33 [(-1)3] 13
+
+TABLE I. Comparison of the Steklov eigenvalues for the circular patch of unit radius between our FEM method and semi-
+analytical computation via oblate spheroidal coordinates in [66, 80], referred to as “exact”. The number of vertices (Np) and
+
+the number of triangle (V;) are indicated, whereas the letters
+(23). The bottom line indicates an alternative enumeration of t
+For the “Neumann version”, the eigenvalue 4.1213 an
+
+D and N distinguish respectively the spectral problems (3) and
+he eigenpairs according to the symmetries of the eigenfunctions.
+
+its numerical estimates were placed into the column with k = 5 to
+
+respect the radial symmetry mn = 02 of the associated eigenfunction, despite the artificially induced error in ordering of the
+
+eigenvalues.
+
+2. Rectangular patch
+
+For a rectangle (—a,a) x (—b,b), Eq. (B2) yields
+
+Qn
+
+wr(e,y) = (B4)
+
+a-x+
+
+a-a-+
+
+b— — as hoe
++(a—2)in( y+ V@-2P + 6-9) )
+—b-y+VJ(a— 2x)? + (b+ y)?
++ (b—y)In
+(-») (5 as)
+ste b+yt Jat? +btyP
+After a lengthy but elementary integration of this expres-
+sion over the rectangle (—a,a) x (—b,b), we deduce the
+
+atat/(ata)? + (—y)P
+—b+y+JS(a+ 2)? + (b-y)?
+associated constant Ap:
+
+an(b/a) | bn(a/b)
+a INDESE, pS INOEYD, B5
+Ap abet ona (B5)
+where
+(y) 1t+y®-(1+y?)3/? 1+ y2-1
+ny : t
+
+2
+
+3
+1+ V1l+y?
+
+2
+y
+
++ in( i: B6
+
+4 -l+vVl+y (86)
+
+For instance, we get for the square of edge 2b
+2n(1)
+=—, B
+Ar mb” (B7)
+
+with (1) = 4(1 — V2) + $In(1 + V2) © 0.3717.
+In the limit a > 0, we use the asymptotic behavior of
+the function 7(y), namely, n(y) ~ y/2 + O(1) as y > 00
+
+and n(y) = y?(—1 + 2In(2/y))/4 + Oly?) as y > 0, to
+obtain
+
+In fact, as the rectangular patch shrinks to an interval,
+which is inaccessible to reflected Brownian motion, the
+constant Ap diverges logarithmically.
+
+1
+
+1422
+er)
+
+Ar mi
+
++ 5 In(0/a)) +O(a/d). (BB)
+
+3. Elliptic patch
+
+For an elliptic patch with semi-axes a and b, we em-
+ploy the parameterization a1(t1) = (acost,,bsint,)' so
+
+that c(t) = lah (t)| = Va? sin? t; +b? cos? t; and
+
+Nz, = (bcosty,asint;)'/c(t1) and similar for a(tz). As
+a consequence, Eq. (B3) reads
+
+Qn
+
+-1
+Ar = =~ | dti | dto (y? cos ty cos t2 + sin ty sin tz)
+673d
+0 0
+
+)P \ (B9)
+
+Qn
+
+[1 — (cos ty cos t2 + sin ty sin tg
+D(ti, t2)
+
+x D(ti, te) —
+
+where 7 = a/b and
+
+D(ti,t2) = /7?(cos ty — costg)? + (sint, — sin tz)? .
+
+To proceed, one can split the integration domain
+(0, 27) x (0,27) into four twice smaller squares and use
+the symmetry of sine and cosine functions to reduce the
+integration domain to (0,7) x (0,7). By introducing the
+new integration variables ty = (t; +t2)/2, these integrals
+can be reduced to the complete elliptic functions. Skip-
+ping these tedious lengthy computations, we just provide
+the final result, which takes a particularly simple form:
+
+K(V/1- @/8),
+
+16
+ 373b
+
+Ar (B10)
+where K(z) is defined by Eq. (75). In the particular case
+of a circular patch (a = b), we use K(0) = 7/2 to retrieve
+the result (B1). In turn, in the limit a > 0, we use the
+asymptotic relation (91) to get
+
+Ar © 8 in(4b/a)
+
+b).
+373d (a<d)
+
+(B11)
+
+Substituting Eq. (B10) into our upper bound (86), we
+get for any 0<a<b:
+
+30?
+
+16aK (x/1 — a2/b?) | (B12)
+
+Ho S
+
+It is instructive to compare this inequality with the
+
+Payne’s upper bound (83). Substituting Eq. (90) for
+the electrostatic capacitance, one has
+2
+Ho < (B13)
+
+~ aK (\/1 — a/b?)
+
+Remarkably, both bounds have the same functional form
+and differ only by the numerical prefactors: 317/16 =
+1.85 in Eq. (B12) and 2 in Eq. (B13). One sees that our
+upper bound is slightly more accurate for any 0 < a < b.
+
+4. Circular annulus
+
+Finally, we consider a circular annulus of radii Ry <
+Ry. As the boundary of the annulus is split into two
+circles, the integral in Eq. (B3) has four contributions
+when a and a run over the inner/outer circles:
+
+Ar = Alf + Ag? + Ai? + AP,
+where superscripts indicate inner and outer circles. Ac-
+cording to Eq. (B1), we get
+
+Ri + R3
+
+Te (B14)
+
+F 8
+
+Ap + Ap’ = 5
+
+3
+
+with || = 1(R3
+contributions.
+
+For the outer circle, we employ the parameterization
+Ne, = (costi,sinti)', ai(t1) = Rone,, diz, = Redt,
+
+— R?). We now compute the remaining
+
+{1] J. E. House, Principles of chemical kinetics, 2nd Ed.
+(Academic press: Amsterdam, 2007).
+
+{2} J. D. Murrey, Mathematical Biology II: Spatial Models
+and Biomedical Applications, 3rd Ed. (Springer: Berlin,
+Germany, 2003).
+
+[3] Z. Schuss, Brownian Dynamics at Boundaries and In-
+terfaces in Physics, Chemistry and Biology (Springer:
+New York, USA, 2013).
+
+[4] P. C. Bressloff and J. Newby, Stochastic models of intra-
+cellular transport, Rev. Mod. Phys. 85, 135-196 (2013).
+
+22
+
+and similar for a2. For the inner circle, we have ng, =
+—(costi,sinti)', vi(t1) = —Rine,, dle, = Ridti, and
+similar for a. We get then
+
+/R2 + Re
+Ae Rifay Ri + Fe [alone V/1— ycos(t)
+
+— 3IrR
+
+, 24s ext),
+
+1—ycos(t)
+
+where y = 2R) Ro/(R? + R3) < 1. The last integral can
+be expressed in terms of the complete elliptic integrals as
+
+io 4B Ro/R3 + BB ;
+Ap = Sri (a =) K(/27/1 +7)
+
+= (1+) B(V270¥9))).
+
+By symmetry, one also gets A?’ = A‘? that completes
+the computation of Ap.
+
+For a thin annulus, one can set Ry = R and Ro =
+R-+a. Using the asymptotic behavior of the complete
+elliptic integrals K(z) and E(z) as z + 1, we get after
+simplifications the small-a behavior of Ap:
+
+(B15)
+
+Ap 2 BER) + 3/2 (B16)
+
+Comparing this expression with Eq. (B8) for a thin
+rectangle, we conjecture the following leading-order de-
+pendence for any thin patch, which can be seen as a
+“thickening” of a planar curve C by “width” 2a (ie.,
+
+T= {xe OR’ : |x—C| <a}):
+Ap = EEE) + of (a0), (B17)
+
+where |OI| is the perimeter of the patch. Combining this
+relation with the bounds (86) and assuming that Fo is
+close to 1, we get another conjecture that
+
+ss ~ A wend +O(1), (B18)
+apo ce
+
+independently of the actual shape and length of the thin
+patch, which affect the constant (subleading) term.
+
+[5] K. Lindenberg, R. Metzler, and G. Oshanin (Eds.)
+Chemical Kinetics: Beyond the Textbook (World Scien-
+tific: New Jersey, 2019).
+
+[6] S. Redner, A Guide to First Passage Processes (Cam-
+bridge, Cambridge University press, 2001).
+
+[7] R. Metzler, G. Oshanin, and S. Redner (Eds), First-
+Passage Phenomena and Their Applications (Singapore,
+World Scientific, 2014).
+
+[8] J. Masoliver, Random Processes: First-passage And Es-
+cape (World Scientific Publishing, 2018).
+10
+
+11
+
+12
+
+13
+
+14)
+
+ou
+
+22
+
+27
+
+28
+
+D. S. Grebenkov, R. Metzler, and G. Oshanin (Eds),
+Target Search Problems (Springer: Cham, Switzerland,
+2024).
+
+L. Dagdug, J. Pea and I. Pompa-Garcia, Diffusion Un-
+der Confinement. A Journey Through Counterintuition
+(Springer, 2024).
+
+J. W. S. Baron Rayleigh, The Theory of Sound, Vol. 2,
+2nd Ed. (Dover, New York, 1945).
+
+V. Grigoriev, Y. A. Makhnovskii, A. M.
+Berezhkovskii, and V. Y. Zitserman, Kinetics of
+escape through a small hole, J. Chem. Phys. 116,
+9574-9577 (2002).
+D. Holeman and Z. Schuss, Escape Through a Small
+Opening: Receptor Trafficking in a Synaptic Membrane,
+J. Stat. Phys. 117, 975-1014 (2004).
+
+A. Singer, Z. Schuss, D. Holcman, and R. 8. Eisenberg,
+Narrow Escape, Part I, J. Stat. Phys. 122, 437-463
+(2006).
+A. Singer, Z. Schuss, and D. Holeman, Narrow Escape,
+Part II. The circular disk, J. Stat. Phys. 122, 465-489
+(2006).
+A. Singer, Z. Schuss, and D. Holeman, Narrow Escape,
+Part III Riemann surfaces and non-smooth domains, J.
+Stat. Phys. 122, 491-509 (2006).
+
+Z. Schuss, A. Singer, and D. Holeman, The narrow
+escape problem for diffusion in cellular microdomains,
+Proc. Nat. Acad. Sci. USA 104, 16098-16103 (2007).
+O. Bénichou and R. Voituriez, Narrow-Escape Time
+Problem: Time Needed for a Particle to Exit a Confin-
+ing Domain through a Small Window, Phys. Rev. Lett.
+100, 168105 (2008).
+
+A. Singer, Z. Schuss, and D. Holeman, Narrow escape
+and leakage of Brownian particles, Phys. Rev. E 78,
+051111 (2008).
+J. Reingruber, E. Abad, and D. Holeman, Narrow es-
+cape time to a structured target located on the bound-
+ary of a microdomain, J. Chem. Phys. 130, 094909
+(2009).
+C. Caginalp and X. Chen, Analytical and Numerical
+Results for an Escape Problem, Arch. Rational. Mech.
+Anal. 203, 329-342 (2012).
+
+D. Holeman and Z. Schuss, Control of flux by narrow
+passages and hidden targets in cellular biology, Phys.
+Progr. Rep. 76, 074601 (2013).
+
+D. Holeman and Z. Schuss, The Narrow Escape Prob-
+lem, SIAM Rev. 56, 213-257 (2014).
+
+S. Pillay, M. J. Ward, A. Peirce, and T. Kolokol-
+nikov, An Asymptotic Analysis of the Mean First Pas-
+sage Time for Narrow Escape Problems: Part I: Two-
+Dimensional Domains, SIAM Multi. Model. Simul. 8,
+803-835 (2010).
+
+5] A. F. Cheviakov, M. J. Ward, and R. Straube, An
+
+Asymptotic Analysis of the Mean First Passage Time for
+Narrow Escape Problems: Part II: The Sphere, SIAM
+Multi. Model. Simul. 8, 836-870 (2010).
+
+A. F. Cheviakov, A. S. Reimer, and M. J. Ward, Mathe-
+matical modeling and numerical computation of narrow
+escape problems, Phys. Rev. E 85, 021131 (2012).
+
+D. Gomez and A. F. Cheviakov, Asymptotic analy-
+sis of narrow escape problems in nonspherical three-
+dimensional domains, Phys. Rev. E 91, 012137 (2015).
+A. E. Lindsay, A. Bernoff, and M. J. Ward, First Pas-
+sage Statistics for the Capture of a Brownian particle
+by a structured spherical target with multiple surface
+
+30
+
+oO
+a
+
+36
+
+40
+
+Al
+
+A2
+
+43
+
+44
+
+46
+
+23
+
+traps, SIAM Multi. Model. Simul. 15, 74-109 (2017).
+A. E. Lindsay and A. Bernoff, Numerical approxima-
+tion of diffusive capture rates by planar and spherical
+surfaces with absorbing pores, SIAM J. Appl. Math. 78,
+266-290 (2018).
+
+A. J. Bernoff and A. E. Lindsay, Numerical approxima-
+tion of diffusive capture rates by planar and spherical
+surfaces with absorbing pores, SIAM J. Appl. Math. 78,
+266-290 (2018).
+
+P. C. Bressloff, Narrow capture problem: An encounter-
+ased approach to partially reactive targets, Phys. Rev.
+E 105, 034141 (2022).
+
+H. C. Berg and E. M. Purcell, Physics of chemorecep-
+tion, Biophys J. 20, 193-219 (1977).
+
+A. M. Berezhkovskii, Yu. A. Makhnovskii, M. I. Monine,
+V. Yu. Zitserman, and S. Y. Shvartsman, Boundary ho-
+mogenization for trapping by patchy surfaces, J. Chem.
+Phys. 121, 11390 (2004).
+
+A. M. Berezhkovskii, M. I. Monine, C. B. Muratov, and
+S. Y. Shvartsman, Homogenization of boundary condi-
+tions for surfaces with regular arrays of traps, J. Chem.
+Phys. 124, 036103 (2006).
+
+C. B. Muratov S. Y. and Shvartsman, Boundary Ho-
+mogenization for Periodic Arrays of Absorbers, Multi-
+scale Modeling and Simulation 7, 44-61 (2008).
+
+A. J. Bernoff, A. E. Lindsay, and D. D. Schmidt, Bound-
+ary Homogenization and Capture Time Distributions
+of Semipermeable Membranes with Periodic Patterns
+of Reactive Sites, SIAM Multiscale Model. Simul. 16,
+411-1447 (2018).
+C. E. Plunkett and S. D. Lawley, Boundary homogeniza-
+tion for partially reactive patches, SIAM Multi. Model.
+Simul. 22, 784-810 (2024).
+
+D. Shoup, G. Lipari, and A. Szabo, Diffusion-controlled
+imolecular reaction rates. The effect of rotational dif-
+fusion and orientation constraints, Biophys. J. 36, 697
+(1981).
+
+D. S$. Grebenkov and G. Oshanin, Diffusive escape
+through a narrow opening: new insights into a clas-
+sic problem, Phys. Chem. Chem. Phys. 19, 2723-2739
+(2017).
+
+D. S. Grebenkov, R. Metzler, and G. Oshanin, Effects
+of the target aspect ratio and intrinsic reactivity onto
+diffusive search in bounded domains, New J. Phys. 19,
+103025 (2017).
+
+D. S. Grebenkov, R. Metzler, and G. Oshanin, Towards
+a full quantitative description of single-molecule reac-
+tion kinetics in biological cells, Phys. Chem. Chem.
+Phys. 20, 16393-16401 (2018).
+
+D. S. Grebenkov, R. Metzler, and G. Oshanin, Full dis-
+tribution of first exit times in the narrow escape prob-
+lem, New J. Phys. 21, 122001 (2019).
+
+D. S. Grebenkov, R. Metzler, and G. Oshanin, Distribu-
+tion of first-reaction times with target regions on bound-
+aries of shell-like domains, New J. Phys. 23, 123049
+(2021).
+
+T. Guérin, M. Dolgushev, O. Bénichou, and R. Voi-
+turiez, Imperfect narrow escape problem, Phys. Rev. E
+107, 034134 (2023).
+
+D. S. Grebenkov, Universal formula for the mean first
+passage time in planar domains, Phys. Rev. Lett. 117,
+260201 (2016).
+
+J.S. Marshall, Analytical Solutions for an Escape Prob-
+lem in a Disc with an Arbitrary Distribution of Exit
+
+47
+
+48
+
+61
+
+62
+
+63
+
+64)
+
+66
+
+67
+
+Holes Along Its Boundary, J. Stat. Phys., 165 (2016),
+920-952.
+
+A. M. North, Diffusion-controlled reactions, Q. Rev.
+Chem. Soc. 20, 421-440 (1966).
+
+G. Wilemski and M. Fixman, General theory of
+diffusion-controlled reactions, J. Chem. Phys. 58, 4009—
+4019 (1973).
+D. F. Calef and J. M. Deutch, Diffusion-Controlled Re-
+actions, Ann. Rev. Phys. Chem. 34, 493-524 (1983).
+O. G. Berg and P. H. von Hippel, Diffusion-Controlled
+Macromolecular Interactions, Ann. Rev. Biophys. Bio-
+phys. Chem. 14, 131-160 (1985).
+
+S. Rice, Diffusion-Limited Reactions (Elsevier: Amster-
+dam, The Netherlands, 1985).
+
+D. S. Grebenkov, Diffusion-Controlle
+Overview, Molecules 28, 7570 (2023).
+F. C. Collins and G. E. Kimball, Diffusion-controlled
+reaction rates, J. Coll. Sci. 4, 425-437 (1949).
+
+H. Sano and M. Tachiya, Partially diffusion-controlled
+recombination, J. Chem. Phys. 71, 1276-1282 (1979).
+H. Sano and M. Tachiya, Theory of diffusion-controlled
+reactions on spherical surfaces and its application to
+reactions on micellar surfaces, J. Chem. Phys. 75, 2870-
+2878 (1981).
+D. Shoup and A. Szabo, Role of diffusion in ligand bind-
+ing to macromolecules and cell-bound receptors, Bio-
+phys. J. 40, 33-39 (1982).
+
+R. Zwanzig, Diffusion-controlled ligand binding to
+spheres partially covered by receptors: an effective
+medium treatment, Proc. Natl. Acad. Sci. USA 87, 5856
+(1990).
+
+P. C. Bressloff, B. A. Earnshaw, and M. J. Ward, Diffu-
+sion of protein receptors on a cylindrical dendritic mem-
+rane with partially absorbing traps, SIAM J. Appl.
+Math. 68, 1223-1246 (2008).
+
+A. Singer, Z. Schuss, A. Osipov, and D. Holcman, Par-
+tially reflected diffusion, SIAM J. Appl. Math. 68, 844-
+868 (2008).
+
+S. D. Lawley and J. P. Keener, A New Derivation of
+Robin Boundary Conditions through Homogenization
+of a Stochastically Switching Boundary, SIAM J. Appl.
+Dyn. Sys. 14, 1845-1867 (2015).
+
+F. Piazza and D. S. Grebenkov, Diffusion-controlled re-
+action rate on non-spherical partially absorbing axisym-
+metric surfaces, Phys. Chem. Chem. Phys. 21, 25896-
+25906 (2019).
+
+T. Guérin, M. Dolgushev, O. Bénichou, and R. Voi-
+turiez, Universal kinetics of imperfect reactions in con-
+finement, Commun. Chem. 4, 157 (2021).
+
+F. Piazza, The physics of boundary conditions in
+reaction-diffusion problems, J. Chem. Phys. 157,
+234110 (2022).
+
+D. S. Grebenkov, Paradigm shift in diffusion-mediated
+surface phenomena, Phys. Rev. Lett. 125, 078102
+(2020).
+
+A. Cengiz and S. D. Lawley, Narrow escape with imper-
+fect reactions, Phys. Rev. E 110, 054127 (2024).
+
+D. S. Grebenkov, Steklov-Neumann spectral prob-
+lem: asymptotic analysis and applications to diffusion-
+controlled reactions, SIAM Multi. Model. Simul. 23,
+607-1664 (2025).
+
+D. S. Grebenkov and M. J. Ward, Competition of small
+targets in planar domains: from Dirichlet to Robin
+and Steklov boundary condition (submitted; ArXiv
+
+Reactions: An
+
+68
+
+69
+
+70
+
+pa
+
+72
+
+73
+
+74
+
+76
+
+77
+
+78
+
+79
+
+80
+
+81
+
+82
+
+83
+
+84
+
+86
+
+87
+
+88
+
+89
+
+24
+
+2509.26367v1)
+
+D. 8S. Grebenkov and M. J. Ward, Partially reactive tar-
+gets in a 3-D spherical domain: MFPT, splitting prob-
+abilities, and mixed Steklov eigenvalue problems (sub-
+mitted; ArXiv 2509.17394)
+
+D. S. Grebenkov and M. J. Ward, The Effective Reac-
+tivity for Capturing Brownian Motion by Partially Re-
+active Patches on a Spherical Surface (submitted; ArXiv
+2509.26381v1)
+
+N. Landkof, Foundations of Modern Potential Theory
+(Springer Verlag, Berlin, 1972).
+
+G. Auchmuty and Q. Han, Representations of Solutions
+of Laplacian Boundary Value Problems on Exterior Re-
+gions, Appl. Math. Optim. 69, 21-45 (2014).
+
+W. Arendt and A. F. M. ter Elst, The Dirichlet-to-
+Neumann Operator on Exterior Domains, Potential
+Anal. 43, 313-340 (2015).
+
+L. Bundrock, A. Girouard, D. S. Grebenkov, M. Levitin,
+and I. Polterovich, The Exterior Steklov problem for
+Euclidean Domains (in preparation).
+
+{. Levitin, D. Mangoubi, and I. Polterovich, Topics in
+Spectral Geometry (Graduate Studies in Mathematics,
+vol. 237; American Mathematical Society, 2023).
+
+A. Girouard and I. Polterovich, Spectral geometry of
+the Steklov problem, J. Spectr. Th. 7, 321-359 (2017).
+B. Colbois, A. Girouard, C. Gordon, and D. Sher, Some
+recent developments on the Steklov eigenvalue problem,
+Rev. Mat. Complut. 37, 1-161 (2024).
+
+R. Kress, Linear Integral Equations, 2nd Ed. (AMS, Vol.
+82; Springer New York, NY, 1999).
+
+D. R. Adams and L. I. Hedberg, Function Spaces and
+Potential Theory (GL, volume 314, Springer Berlin, Hei-
+delberg, 1996).
+
+E. M. Stein, Singular Integrals and Differentiability
+Properties of Functions (PMS-30, Princeton University
+Press, 1970).
+
+D. S. Grebenkov, Spectral properties of the Dirichlet-
+to-Neumann operator for spheroids, Phys. Rev. E 109,
+055306 (2024).
+
+D. S. Grebenkov, Imperfect diffusion-controlled reac-
+tions on a torus and on a pair of balls, J. Chem. Phys.
+163, 034106 (2025).
+
+D. S. Grebenkov, M. Filoche, and B. Sapoval, Mathe-
+matical Basis for a General Theory of Laplacian Trans-
+port towards Irregular Interfaces, Phys. Rev E 73,
+021103 (2006).
+
+P. Henrici, B. A. Troesch, and L. Wuytack, Sloshing
+requencies for a half-space with circular or strip-like
+aperture, Z. Angew. Math. Phys. 21, 285-318 (1970).
+A. M. J. Davis, Waves in the presence of an infinite dock
+with gap, J. Inst. Math. Appl. 6, 141-156 (1970).
+
+B. A. Troesch and H. R. Troesch, A remark on the slosh-
+ing frequencies for a half-space, J. Appl. Math. Phys.
+23, 703-711 (1972).
+
+J. W. Miles, On the eigenvalue problem for fluid slosh-
+ing in a half-space, Z. Angew. Math. Phys. 23, 861-868
+(1972).
+
+D. W. Fox and J. R. Kuttler, Sloshing frequencies, Z.
+Angew. Math. Phys. 34, 668-696 (1983).
+
+V. Kozlov and N. Kuznetsov, The ice-fishing problem:
+the fundamental sloshing frequency versus geometry of
+holes, Math. Methods Appl. Sci. 27, 289-312 (2004).
+M. Levitin, L. Parnovski, I. Polterovich, and D. Sher,
+Sloshing, Steklov and corners: Asymptotics of sloshing
+
+90
+
+91
+
+92
+
+93
+
+97
+
+98
+
+eigenvalues, J. Anal. Math. 146, 65-125 (2022).
+
+A. Chaigneau and D. S. Grebenkov, First-passage times
+to anisotropic partially reactive targets, Phys. Rev. E
+105, 054146 (2022).
+
+D. S. Grebenkov, Encounter-based approach to the es-
+cape problem, Phys. Rev. E 107 (2023), 044105.
+
+C. Xiong, Sharp bounds for the first two eigenval-
+ues of an exterior Steklov eigenvalue problem, ArXiv
+2304.11297v1 (2023).
+L. E. Payne, New isoperimetric inequalities for eigen-
+values and other physical quantities, Comm. Pure Appl.
+Math. 9, 531-542 (1956).
+
+W. Strieder, Diffusion-controlled reaction on an elliptic
+site, J. Chem. Phys. 130, 176103 (2009).
+
+P. M. Morse and H. Feshbach, Methods of theoretical
+physics, Part II (McGraw-Hill, 1953).
+
+B. Sapoval, General Formulation of Laplacian Transfer
+Across Irregular Surfaces, Phys. Rev. Lett. 73, 3314-
+3317 (1994).
+B. Sapoval, M. Filoche, and E. Weibel, Smaller is better
+— but not too small: A physical scale for the design of
+the mammalian pulmonary acinus, Proc. Nat. Acad. Sci.
+USA 99, 10411 (2002).
+
+M. Felici, M. Filoche, and B. Sapoval, Diffusional
+
+99
+
+00
+
+Ol
+
+02
+
+03
+
+04
+
+screening in the human pulmonary acinus, J. Appl.
+Physiol. 94, 2010 (2003).
+
+MI. Felici, M. Filoche, C. Straus, T. Similowski, and B.
+Sapoval, Diffusional screening in real 3D human acini:
+a theoretical study, Resp. Physiol. Neurobiol. 145, 279
+(2005).
+
+S. D. Traytak, The diffusive interaction in diffusion-
+imited reactions: the steady-state case, Chem. Phys.
+Lett. 197, 247-254 (1992).
+
+W. Strieder, Interaction between two nearby diffusion-
+controlled reactive sites in a plane, J. Chem. Phys. 129,
+34508 (2008).
+
+S. Saddawi and W. Strieder, Size effects in reactive
+circular site interactions, J. Chem. Phys. 136, 044518
+(2012).
+
+D. S. Grebenkov and B.-T. Nguyen, Geometrical struc-
+ture of Laplacian eigenfunctions, SIAM Rev. 55, 601-
+667 (2013).
+
+F. H. Read, Improved extrapolation technique in the
+oundary element method to find the capacitance of
+the unit square and cube, J. Comput. Phys. 133, 1-5
+(1997).
+
+D. A. Dunavant, High degree efficient symmetrical
+Gaussian quadrature rules for the triangle, Int. J. Nu-
+mer. Methods Engrg. 21, 1129-1148 (1985).
+

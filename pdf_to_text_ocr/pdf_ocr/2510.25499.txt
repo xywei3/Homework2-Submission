@@ -1,0 +1,2166 @@
+arXiv:2510.25499v1 [hep-th] 29 Oct 2025
+
+Matter Sourced Bubble Nucleation in the Asymmetron Scalar-Tensor Theory
+
+Usama Syed Aqeel, Clare Burrage, Oliver Gould, and Paul M. Saffin
+Centre for Astronomy & Particle Theory,
+The School of Physics & Astronomy, University of Nottingham,
+University Park, Nottingham, NG7 2RD, UK
+(Dated: October 30, 2025)
+
+We investigate how matter density distributions affect thin-wall bubble formation in the
+asymmetron mechanism, a scalar-tensor theory with a universal coupling to matter and ex-
+plicit symmetry-breaking, and analyse the stability of its metastable state. We show that
+the screening mechanism of the asymmetron inside dense objects induces a surface tension
+associated with the boundary of the screening object, leading to a richer class of bubble solu-
+
+tions than the standard Coleman—Callan bulk nucleation. These boundary surface tensions
+
+are used to modify the Nambu-Goto action for instantons, allowing for the computation
+
+of the corresponding Euclidean action for bubbles nucleating on flat planes, as well as on
+
+concave and convex cylindrical surfaces. We find that the smallest Euclidean action occurs
+for bubbles nucleating along the edge of a concave spherical surface. Comparing this edge
+nucleation channel with the bulk one, we determine the maximum curvature radius for which
+concave edge nucleation is preferred. Since the maximum radius of curvature is exponentially
+suppressed by the action of a bulk bubble, we find that within the regime of the instanton
+approximation, edge nucleation is always preferred. This is largely due to the weak cou-
+
+plings of the asymmetron. We apply these findings to determine the maximum curvature
+
+radius of a cosmic void and discuss how our results affect the seeding of N-body simulations
+
+of asymmetron domains, showing that domain wall nucleation preferentially occurs at the
+
+edges of cosmological voids. We also demonstrate that the presence of a homogeneous gas
+around the dense substrates reduces the maximum curvature radius, enabling bulk bubbles
+
+to form preferentially as the asymmetron undergoes a density-driven phase transition.
+I. INTRODUCTION
+
+The dynamics of scalar fields in the early Universe provide essential insights into cosmological
+phase transitions [I], vacuum stability 2H5] and the origin of cosmic structure [6}H8]. In particular,
+non-perturbative Euclidean solutions of the field equations, known as instantons [9] [10], describe
+
+tunnelling from a metastable vacuum to the true vacuum of a theory.
+
+A well-studied application of scalar fields in Cosmology is the symmetron mechanism introduced
+in Ref [II], a scalar-tensor theory in which the scalar has a bare symmetry-breaking potential. In
+the Einstein frame, the scalar is minimally coupled to gravity, while in the Jordan frame, it couples
+universally to Standard Model matter fields. The presence of matter shifts the effective mass of
+the symmetron at the origin, making it tachyonic in low-density environments and real in regions
+of high density. Consequently, the effective potential has a single minimum in the high-density
+environment of the early Universe, but as the matter density redshifts below a critical density,
+the Zz symmetry spontaneously breaks and the potential develops two minima [12]. As the scalar
+rolls into the different minima in distinct patches of the Universe, a domain wall network forms.
+A crucial feature of the symmetron in the cosmological picture is that it delays the formation of
+domain walls to a redshift of z ~ 1, as mentioned in Ref [12], which prevents the energy density of
+the Universe from becoming dominated by the domain wall network during the inflationary epoch
+
+{13} [14], which ensures the symmetron model is consistent with current cosmological observations
+
+in Ref [5].
+
+The more general asymmetron potential [I6}HI8] introduces a cubic term that explicitly breaks
+the Z 2 symmetry of the bare potential. The effective potential features false and true vacua
+2). As in the symmetron, the onset of symmetry-breaking at low densities generates domains
+separated by unstable walls [16]. The pressure difference from the true domain onto the false domain
+destabilises the network. The earliest systematic treatment of metastable decay was given by
+J. S. Langer in Ref. [20], who developed the theory of nucleation of first-order phase transitions
+in thermodynamic systems. Building on the world of Langer, Coleman and Callan [2] [3] established
+the semiclassical method for computing the associated decay rate, which remains a cornerstone of
+modern studies of vacuum stability. A pedagogical review of false vacuum decay and modern
+
+applications beyond bubble nucleation can be found in Ref. [2]].
+Recently, there has been a rise in interest in seeding false vacuum decay in analogue condensed
+matter systems [23]. Semiclassical analyses suggest that nucleation may be enhanced at bound-
+aries, such as the edge of a cylindrical substrate [22]. However, Ref. [23]|24] argues that for analogue
+experiments to faithfully mimic cosmological tunnelling, boundary effects, such as bubble nucle-
+ation on the interior edge of a spherical chamber, should be suppressed, since bubble nucleation in
+
+the early Universe is a bulk process.
+
+Seeded nucleation has also been considered in curved spacetimes. For example, the nucleation of
+scalar bubbles around black holes in Schwarzschild-de-Sitter (SdS) spacetimes has been explored
+in Refs. [25}{28]. In such settings, decay of the false vacuum acquires a thermal interpretation,
+since the Euclidean continuation renders time compact [29], which induces a continuation of the
+Euclidean action into a statistical thermal free energy of the scalar field. Additionally, spacetimes
+with horizons, such as de Sitter space, have an associated temperature known as the Gibbons-
+Hawking temperature [30]. However, spacetimes with multiple horizons, such as SdS, exhibit
+different surface gravities, implying different temperatures; thus, a global thermal equilibrium is
+absent, except in special cases, like the Nariai limit (where the temperatures of the cosmic and
+black hole horizons are equal and constant [31]). While these studies neglect the quantum effects
+of the black hole, such as black hole evaporation, the approximations can be justified on timescales
+
+shorter than the horizon, where non-equilibrium effects are negligible.
+
+In this work, we investigate how quantum fluctuations render the asymmetron false vacuum
+metastable: the scalar field can tunnel through the barrier, nucleating a spherical bubble of true
+vacuum. The decay rate is computed semiclassically from the Euclidean continuation of the path
+integral [3] [4] [9] [10]. We extend the calculations of Coleman and Callan to discuss the role that
+boundaries play in bubble nucleation. Unlike the discussion in Ref. [23] [24], boundary nucleation is
+physically relevant here, since the explicit coupling of the asymmetron to dense astrophysical ob-
+jects such as stars and the edges of galactic voids acts as an effective boundary for the scalar field.
+This raises the question of whether bubble nucleation is enhanced on such geometries, and under
+
+what conditions does edge nucleation dominate over bulk nucleation? Moreover, we are motivated
+
+oy laboratory searches for symmetron-like fifth forces, which remain sensitive to parameter ranges
+
+in which these effects could be tested [32] [33].
+
+The remainder of this paper is organised as follows. In Sec. we use the Nambu-Goto instanton
+action to calculate bubble nucleation rates in the presence of a constant background density. We
+then expand this in Sec. [V]to bubbles nucleating on planar and cylindrical boundaries. We identify
+convex and concave edge nucleation channels and show that concave edges minimise the Euclidean
+action. In Sec. we compare bulk and edge decay rates, determine the maximum curvature
+radius for which edge nucleation dominates, and apply this both to laboratory vacuum chamber
+
+geometries and to cosmological settings such as galactic voids.
+
+II. BACKGROUND
+A. Universal Coupling of Scalars to Matter
+
+1. The Symmetron Mechanism
+
+The symmetron mechanism, first introduced in Ref. [II], is a screening mechanism for the addition
+of scalar degrees of freedom in modified theories of gravity, known as scalar-tensor theories [34] [35].
+
+The symmetron has the following action,
+, 1 1
+sto a) = f ataya | 5MgR — 50.00.80 V0)
++ fae V5 Landis)
+
+where g,, and g,, are respectively the Einstein and Jordan frame metrics, and R is the Ricci
+
+(1)
+
+scalar in the Einstein frame. Mp is the Planck mass in the Einstein frame. The first line in
+Eq. (i), expressed in the Einstein frame, is familiar, as it describes the theory of a scalar field
+that is minimally coupled to gravity. The second line is the action of the Standard Model, which
+is manifestly expressed in the Jordan frame. The two metrics are related to each other by the
+
+following Wey] transformation,
+
+Guy = A?(0) guv- (2)
+
+We can see that @ universally couples to all matter fields, w;, through the term Vo Ly, Gur):
+
+The equation of motion for the scalar field is given by,
+
+dV
+
+= — ~ A*(d) Ag? 3
+
+b= AOA (3)
+
+where T = gy Tw is the trace of the energy-momentum tensor of the matter in the Jordan frame,
+~ 2 6S;
+
+i, = i (4)
+
+(V9 5G
+Asymmetron potential with (\, «)=(1,0.05)
+
+Symmetron potential
+0.2 ° - - 0.2 - -
+a ie t fb 3 fol 4
+a! yy \ : PF of) gd
+|i fyi 1 My
+\ fit \ fii
+0.1 . + 7 O21 i + 5
+\ pd \ / |i
+1 1
+\ | \ / H
+\ i : i
+‘| ' H — 5=0
+Veale) °° h A °° i p~ gigs
+ree \ /| oo p=0.5u?M?
+——: p=1.0n?M?
+—0.1 -o1p|—_} —_f Ye p=2.0p2M?
+-0.2 —0.2
+-0.3 -0.3
+-15  -10 -05 0.0 05 1.0 15 -15 -10 -0.5 0.0 05 1.0 15
+@ @
+0 $0
+
+FIG. 1: On the left, we show the symmetron effective potential from Eq. (sh. On the right, we
+show the asymmetron effective potential Eq. with parameter choices (A, «) = (1,0.05). In
+both cases, it is observed that for densities p < j:?2M?, the potentials exhibit symmetry breaking
+and have two minima. We show the potential at the critical density p = u?M?, where it can be
+seen that the potentials acquire a single minimum. For densities larger than p > ?M?, the
+potentials have a single global minimum. However, the asymmetron potential exhibits explicit
+symmetry breaking as the degeneracy-breaking in the potential in the right-hand figure is clear.
+For both potentials, we have rescaled the scalar field by the VEV of the bare potential, ¢9, which
+allows us to factorise out some of the parameter dependence of the potential, leading to the
+prefactor, Ad6, by which we scale Veg(¢). In the symmetron case, this makes the potential only
+dependent on the local matter density p. In the case of the asymmetron, however, the ratio «/A
+
+contributes to the size of the explicit symmetry-breaking of the minima.
+
+We will model the matter as a classical, pressure-free gas with density in the Jordan frame /, in
+
+which case, T = —p. The corresponding Einstein frame density is given by, o = A?(¢)p, and thus,
+
+the equation of motion for ¢ can then be written as,
+
+_ d _ Wor
+b= a4V + pA) = 58 (5)
+
+where Veg(¢) is the effective potential. The bare symmetron potential, V(@), is chosen in Refs. [T2]
+[32] [33] to be the discrete Z) symmetry-breaking potential given by,
+
+1 ey
+V(¢) = -5w¢? + <4" (6)
+2 4
+with minima given by ¢9 = tyr: where 1 is the mass parameter and A is the quartic dimensionless
+
+coupling constant of the scalar. The symmetron is a theory for which we require the effective
+potential to have a Z2 symmetry and correspondingly, the Weyl transformation is required to
+
+respect the symmetry (¢ > —¢),
+
+Ale) =14 5 +0(4) (7)
+2M2 M4
+
+where M is a cut-off scale that is introduced to ensure that A(¢) is dimensionless ({¢] = [J/]).
+This choice also reflects the fact that when ¢ vanishes, one retrieves Einstein gravity. It should
+be noted that the expansion in Eq. is valid for 6 < M as discussed in Ref. [36]. Thus, the
+
+symmetron effective potential is given by,
+
+Verr() = V(d) + pA(4)
+
+1, P 2, Ao4
+= 1 +
+of ( ain)? a?
+
+which is shown on the left-hand panel of FIG. The symmetron mechanism is an example of a
+
+(8)
+
+screening mechanism, which is defined as a coupling of the scalar field to its environment which
+prevents the occurrence of long-range fifth forces. In the symmetron mechanism, the environment
+is defined as the density distribution in spacetime. This explicit coupling to matter gives the
+
+symmetron an effective mass parameter [Jeg defined by,
+
+Pp
+Hog = —1 (1 = fn) . (9)
+
+The scalar mass in Eq. (9) is tachyonic (neg < 0) when p < p?M? resulting inl spontaneous
+symmetry-breaking effects but, when p > ?M?, the mass parameter becomes real (u2¢ > 0) and
+the Zz symmetry is restored. The spontaneous breakdown of symmetry in the symmetron model is
+driven purely by fluctuations in the local density of matter p. The critical density of the symmetron
+potential is p, = ?M?. We further define a region of subcritical matter density when p < p, and
+
+a supercritical one when p > px.
+
+The symmetron potential in Eq. admits domain wall solutions separating regions in distinct
+vacua that resemble the Zz domain walls described in Ref. [14]. This is derived from the energy
+
+functional, E[¢], defined as,
+
+Bio) = [| 56 + 5079)? + Vente] av. (10)
+We can use Bogomolnyi’s method in Ref. [14] [87] to find the explicit profile and the associated
+energy. In three spatial dimensions (2, y, z), the infinite, static planar domain wall ¢ = ¢(z) parallel
+
+to the xy-plane and centered at z = 0 is given by,
+
+ole) = 40 (1 2) can |e (: 2)') (11)
+
+When the density is supercritical, the domain walls vanish because the Zz symmetry of Vog(¢) is
+
+fully restored, resulting in a trivial vacuum manifold of the potential. We define Lo = (V2) as
+the Compton wavelength of the symmetron. The domain wall, ¢(z), carries a surface energy, o(p),
+which is localised around the core of the domain wall, given by,
+
+ato) = faz [5o(e) + Vato)|
+
+—co
+, 3
+0 p 2
+= / dd/Wewl@) = 0 ¢ - 2)
+0 *
+where o = o(0) is the surface tension of the domain walls solution of the bare potential in Eq. (6.
+_ 2/2p3
+7 BN
+
+discussed in Ref. [I4]. On scales much larger than Lo, the domain wall appears to be a thin,
+
+(12)
+
+(13)
+
+flexible membrane, in which case, o(p) represents the surface tension, which is formally defined
+as the differential energy input, dE’, required to increase the surface area of the domain wall by a
+
+differential amount dA = dxdy.
+
+For spatially-varying scalar field profiles, A(¢) contributes to a conservative potential for matter
+
+particles, leading to a fifth force,
+Fs = —V(In A). (14)
+
+This is most clearly demonstrated by taking the geodesic equation of a particle in the Jordan
+frame and expanding g,, using Eq. (7). which generates an additional tensorial term that survives
+when one moves into a local inertial frame. The dynamics of ultra-cold atoms interacting with
+symmetron domain walls in vacuum chamber experiments are discussed in Ref. [32], and there is
+a great interest in developing experiments, as in Ref. [33], to test for the existence of fifth forces.
+In high-density environments such as the solar system, the symmetron mechanism plays a crucial
+role in hiding these fifth forces [38}{40]. Local solar system tests constrain the parameter space (ju,
+A, M) of the symmetron such that the critical density is lower than the density of the solar system
+[33]. This means that the effects of these fifth forces should be below the sensitivity of current
+
+experimental tests of the Strong Equivalence Principle (SEP).
+2. The Asymmetron Potential: Explicitly Breaking the Symmetron Degeneracy
+
+To construct an effective potential with explicit symmetry-breaking, one can either modify the bare
+
+potential V(@) in Eq. and/or the Wey] factor A(@) in Eq.
+
+(7). These modifications define a
+landscape of models with varied phenomenology. However, we are interested in a symmetron-like
+effective potential that exhibits explicit symmetry breaking of the minima in low-density environ-
+
+ments. Consider the addition of a cubic term in A(¢) such as,
+
+¢ e
+aa hae (15)
+
+A(o) =1+
+breaking the Zz symmetry in the Weyl factor. This generates T-weighted corrections in the effective
+potential (e.g p¢3/K) and spoils the screening mechanism in high-density regions. Essentially,
+one would measure a non-zero scalar field value in regions of high density; therefore, the scalar
+asymmetron would register a fifth force that cannot be hidden from local solar system experiments.
+Higher-order odd terms would exacerbate the problem, resulting in an unbounded potential at large
+field values. Thus, we prefer to introduce a cubic term to the bare potential V(¢). This can be
+done most directly by adding a linear or cubic term to V(¢) without further modifications. Within
+the bare potential, it is always possible to remove a linear term by a shift ¢ + @+ constant,
+at the expense of modifying the coefficients of the quadratic and cubic terms. Considering our
+asymmetron to be a low-energy effective theory, we avoid quintic or higher-order terms, which are
+non-renormalizable or irrelevant in that their coefficients run to zero at low energies. We note that
+theories that derive from rescaling the metric, such as the Weyl transformation, will necessarily
+contain non-renormalizable operators. In the context of the Higgs metastability, which is induced
+by renormalisation group running, such non-renormalisable operators have been shown to have a
+sizeable influence on the decay rate and even on the existence of metastability [41}43]. However,
+if metastability is present already in the tree-level potential, the effects of such non-renormalizable
+operators are expected to be smaller. We follow Refs. [16] [I7] in adopting a cubic deformation of
+
+the bare potential V(),
+
+gow
+3
+
+e (16)
+
+2,
+V(b) = — 516? + Fo!
+
+where « is a dimensionless parameter such that k < X, ¢o is the VEV of the potential in Eq. (6)
+
+and is introduced in the coupling to make « dimensionless. Thus, we build the following effective
+
+potential for the asymmetron,
+
+1 nN
+Ver(d) = — 51° (: duit) + ot — OR gs (17)
+shown in the right-hand panel of FIG. Several properties of the asymmetron potential can be
+
+calculated exactly. We define a convenient factor A,
+
+2, _1,__?P KY?
+A%(K,p) =1 pum (ox) (18)
+
+which appears frequently. The potential minima can be expressed as,
+
++ = $0 [5 + A(«,p)| ; (19)
+
+where $4 is the true vacuum (global minimum) of Veg(¢) and ¢~ is the false vacuum (local
+minimum), both of which are classically stable equilibrium states. The critical density discussed
+
+earlier also receives a correction from this cubic term,
+
+pe = PM? (14+ ca 5 (20)
+Ay? ]?
+
+Since O(x?) terms are sub-leading, we will ignore them in the subsequent analysis; however, we
+
+shall acknowledge the existence of such corrections when they appear in important expressions.
+
+The energy difference between the vacua is given by,
+
+AV = Vea(—) — Ver(o4) = eA. (21)
+
+We denote the value of AV for p= 0 andk <A bye = 2 and the leading-order contribution
+is given by AV =e+ O(K?). The masses of small fluctuations around either vacua are given by,
+
+O? Vest
+O¢?
+
+2 _
+my=
+
+2[ar a
+= 2u eam z by (22)
+o=O4 4?
+
+If « < X, the mass splitting Am = m+ — m-_ is kept small and the masses about both vacua are
+
+approximately equal to
+
+n= sm + m_—) V2 /1 ae [1 t o(5)]. (23)
+
+Am=m,—m_=0O (m x =) :
+
+Furthermore, we define the Compton wavelengths around each minimum, L+ = ml.
+
+B. Vacuum Decay
+
+The early work of Langer in Refs. established a framework for investigating the behaviour
+
+of thermal systems exhibiting metastable states. This was built upon by Coleman and Callan in
+10
+
+Refs. [2)[3], to describe the behaviour of a zero-temperature quantum field theory system exhibiting
+explicitly-broken symmetry as discussed in Section [ITA 2} In essence, they provide a generalisation
+of the Wentzel-Kramers-Brillouin (WKB) approximation to quantum field theory, yielding non-
+trivial semiclassical amplitudes associated with tunnelling processes. A detailed account of the
+
+mathematical framework of instanton calculations can be found in Refs. [9] [IO].
+
+In the WKB methods for transitions between vacua of a potential ¢; — ¢¢ in a scalar field theory,
+
+one encounters the Euclideanized path integral given by,
+
+(ore Io) =" [ Does (—5°)) (24)
+
+where WV is an appropriately chosen normalisation constant. An instanton is a classical solution to
+the Euclidean equations of motion, derived from the Euclidean action, Sz, which itself is obtained
+by analytically continuing real time, t, to imaginary time 7, via a Wick rotation, t + —ir (see
+
+Ref. [9 [10)),
+
+S ~iSp =i / drd®x [5(.00.0) +V(4) (25)
+
+54\2
+Here, (0,,¢)(O.¢) = (3) +(V)? such that repeated indices downstairs are understood to mean
+asum under a Euclidean signature and V refers to the spatial components of the gradient operator.
+
+The Euler-Lagrange equation is given by,
+
+Oo _ dV
+
+On = aut Vo= ie (26)
+
+where V (¢) is a potential with an explicitly broken symmetry as with Eq. (16). The solution to this
+equation of motion, with appropriate boundary conditions, is the instanton. The path integral in
+Eq. can be evaluated using the saddle-point approximation, in which we expand the Euclidean
+
+action to second order around the instanton (the saddle-point of the Euclidean action),
+1 ;
+Srldl|y, © Selo] + 5 pes lnb2 +... (27)
+
+where ¢, are the normalised eigenfunctions of the second order fluctuation operator Si4[¢] =
+
+—$[0,0), + Vei-(p)]@ around the bounce and £,, are their corresponding eigenvalues.
+
+It is shown in Ref. [44] that in D dimensions, a scalar field obeying the equation of motion in
+
+Eq. (26), the solution is O(D) symmetric. In Refs. [2] [10] this spherically symmetric solution is
+11
+
+called the bounce, ¢4(x), where y? = 77+ ean x? is the radial displacement from the origin. The
+
+Euclidean action of the O(4)-symmetric solution of Eq. can be expressed as,
+
+Seld) =20? [ax x8 | (2 “+V@) (28)
+# 0 2 \dyv .
+In four Euclidean dimensions, the equation of motion is given by,
+
+Cola) fs 3d¢_ dv
+dy2 ' ydy dd’
+
+This resembles Newton’s second law for a scalar field rolling down the inverted potential V with a
+
+(29)
+
+drag term inversely proportional to vy. One often resorts to using the thin-wall approximation to
+solve equations of this form [2] 45]. The influence of the drag term is to force the scalar to remain
+near the true vacuum over a scale comparable to a radial distance R < Lo. Then, ¢@ quickly
+rolls down the potential valley over a width that is much smaller than R and quickly comes to
+rest on the false vacuum. One can use numerical methods to solve such equations away from the
+thin-wall approximation [46] 47]. Ref. discusses a perturbation series method to determine the
+bounce solution and its Euclidean action away from the thin-wall approximation using a quantity
+
+analogous to & as an expansion parameter.
+
+For a small energy difference between minima, k < A, the bounce is approximately given by,
+
+O+ for (x < R)
+
+LL
+
+B anh E for ~
+(x) Evan ( Fx *) fon (ra (30)
+
+oe for (vy > R)
+On this scale, the bounce has Euclidean action contributions that are proportional to the area and
+volume of a spherically symmetric profile. Like a bubble or a droplet separating the vapour and
+
+liquid phases, a scalar field bubble separates the true vacuum from the false vacuum.
+
+The thin-wall bubble, with surface area A and volume V, can be equally thought of as a closed
+hypersurface embedded in flat Euclidean spacetime R* with a tension o, defined in Eq. on the
+
+bubble membrane and an outward-pointing pressure, ¢, acting on the membrane,
+Sp=oA-—ev. (31)
+
+The question of finding the solution of lowest Euclidean action can now be answered using a
+
+geometric interpretation, where performing variations of Eq. (31) gives the equation of a constant
+iP)
+
+mean curvature hypersurface K = £, where K is the mean curvature of the bubble profile. In the
+thin-wall approximation, the bubble is a compact hypersurface of constant mean curvature - the
+
+only example of which is a sphere, S°, for D = 4.
+
+The decay rate, I’, of the false vacuum, derived in Ref. [3] is given by,
+
+r=vx (38) a (3) exp (8H) (32)
+
+aol
+2
+
+h
+Here, Op = —0,0,+V" (dp) denotes the second-order fluctuation operator evaluated on the bounce
+solution ¢», while O_ = —0,0, + V"(@_) is the corresponding operator around the false vacuum
+
+solution ¢_. The symbol det refers to the determinant of the positive-definite part of the spectrum,
+with the negative eigenvalue (_ and the zero modes separated explicitly. The existence of a negative
+mode in the fluctuation spectrum is the signifier of the metastability of the false vacuum. The
+
+prefactor V x (35) ° arises from integrating over the zero modes of the spectrum using the method
+of collective coordinates, discussed in Ref. [49], where V represents the infinite spatial volume of
+the Euclidean background. The Euclidean action, Sg, defined in Eq. also appears in the
+exponential suppression factor - a result of a WKB approximation discussed in Refs. [2] [0]. A
+
+comprehensive derivation of these factors is presented in Ref. [9].
+
+An in-depth review of the thin-wall approximation applied to domain walls and instanton methods
+is presented in the series by Mégevand & Membiela in Ref. with higher-order corrections
+
+included in subsequent papers [51] [52].
+
+C. Classical Bubble Nucleation
+
+We now turn to the nucleation of classical bubbles in the presence of substrates. To address this, we
+adapt techniques from classical nucleation theory, focusing on bubble formation on surfaces (com-
+monly referred to as heterogeneous nucleation). We aim to investigate how density inhomogeneities
+
+affect the rate of bubble formation.
+
+For a thin membrane separating two phases (true and false vacua separated by our bubble wall)
+to be stable, two conditions from hydrostatics must be satisfied simultaneously, found in Ref. [53].
+
+These are:
+13
+
+(a) A diagram showing the planar bubble-substrate (b) A slice of the bubble-substrate system showing
+system. The contact hypersurface, 0X, (yellow) as the equilibrium junction condition at the contact
+
+well as the definition of the area Ag. hypersurface (yellow point).
+
+FIG. 2: (a) shows the bubble and planar substrate system and the definition of the contact
+hypersurface 0X as well as the substrate, S and the bubble hypersurface U. (b) shows how the
+Dupré-Young condition determines the equilibrium junction condition in Eq. for the bubble
+
+(blue) nucleating on the substrate (grey). The blue arrows represent the normal vector field to
+
+the bubble surface, nj, and the red arrows represent the normal vector to the substrate, ng.
+
+e The Laplace condition: the pressure difference (€) and the surface tension (o) across the
+membrane with D — 1 principal radii of curvature obey the following relation,
+
+aa €
+en (33)
+
+a
+
+where R; are the principal radii of curvature and K is the mean curvature of the membrane
+{54]. The bubble and substrate share a boundary UMS = OX which is a codimension-2
+hypersurface that we shall call the contact hypersurface. In F 1G Pal the contact hypersurface
+
+is represented by a yellow loop (in D = 3 this is referred to as the contact line).
+
+e The Dupré-Young condition: imposes a junction condition between the surface tensions at
+
+the contact hypersurface given by,
+
+cones C= Ee Ae (34)
+
+oO oO
+
+B is the equilibrium contact angle defined as the internal angle between the tangent to the
+
+bubble wall and the tangent to the substrate at the contact hypersurface shown in FIG.
+14
+
+In light of instanton calculations discussed earlier, the presence of the substrate modifies the Eu-
+
+clidean action in Eq. (33), which follows from the discussions of Ref. [22],
+
+Sp=oA-—eV +0,A,—0_As
+(35)
+=o0A-—eV —ocosBA,
+
+where A, is the area on the substrate enclosed by the contact hypersurface, and we have used the
+
+Dupré-Young condition to eliminate ox.
+
+For a planar substrate, the area enclosed by the contact hypersurface, As, in Eq. can be
+projected onto the bubble surface. We can calculate the areas using a single integration measure
+f dA, where dA is the area differential on the bubble surface. We define d As as the scalar differential
+area enclosed by the contact hypersurface. These area differentials are related to each other by
+projecting the components of the vector area differential, dA, in the direction of the normal vector
+
+to the substrate, ns,
+dA, =n,- dA. (36)
+In this way, we can calculate the area enclosed by the contact hypersurface on the bubble,
+Ay= fi(ng-ne) dA (37)
+
+ny is the unit vector field normal to the bubble, and the - represents the inner product between
+
+two vectors. Therefore, our action in Eq. can be written more compactly,
+Sp=-efaveo faa (1 — ng + np cos f). (38)
+
+This representation of the action will prove useful when we consider the tree-level contributions to
+
+the Euclidean action, especially in the case of a bubble forming on a planar substrate.
+
+Ill. NON-TRIVIAL FIELD PROFILES AROUND DENSITY INHOMOGENEITIES
+
+A. Vacuum Screening Inside Dense Spheres
+
+We now consider some non-trivial solutions of the asymmetron field around a dense spherical
+
+object, such as a star [12] [55]. In this section, we are primarily interested in obtaining scalar field
+15
+
+profiles as @ undergoes a density-driven phase transition. We will consider the radial step-function
+
+density distribution,
+
+ps forr <R,
+(r) = (39)
+0 forr > Rs
+
+where ps > p?2M?. A spherically symmetric scalar field profile obeys the following quasi-static
+
+(@ = 0) equation of motion,
+
+dr? or dr d¢
+
+2
+O'S, Pe _ aati (40)
+
+with ¢'(0) = 0 to keep ¢(r) regular at r = 0 and the asymptotic condition, ¢(00) = d+. We can
+expand the potential to quadratic order both inside (r < R,) and outside (r > R,) the source,
+ua ¢ for r < Rs
+
+V() = 4 2M? (41)
+zmild —os)? forr> Rs.
+
+where d+ and mz are defined in Eq. (19) and Eq. (22) respectively. We further impose the
+
+continuity of $(r) and ¢/(r) to ensure C!-smoothness on ¢(r).
+
+In Ref. [12], the scalar field profile around a sphere with arbitrary radius Rs was found. However,
+
+we are interested in calculating the energetic properties of the solution in the thin-shell limit,
+
+Rs > Lz, such that the dynamics of the scalar field are concentrated at the surface of the sphere
+
+r = Rg. In the fully-planar limit, we further perform a change of variables and follow Ref. [45] to
+
+define z = r — Rs, in which case, Eq. is well-approximated by,
+ao Wer
+
+dz dé
+
+(42)
+maintaining the boundary conditions imposed on ¢(r) as before. The scalar profile in the thin-shell
+
+limit is found to be,
+
+gin(z) = Az exp (SF) for z <0
+
+o(2) = (43)
+dout(z) = ¢4 — Bee™™** for z > 0
+where the coefficients A+ and Bi are determined by matching the solution at r = Rs,
+Ag= — we,
+
+VP
+
+m4+M *
+
+16
+
+1.0 0.0
+0.8 -0.2
+0.6 -0.4
+So
+S —-
+=
+ce —
+04 -0.6
+0.2 -0.8
+0.07 -1.0 ==
+0 2 4 6 8 10 12 14 0 2 4 6 8 10 12 14
+r r
+Lo Lo
+
+FIG. 3: Numerical plots of the true (left) and false (right) vacuum field profiles for several values
+of Rs with « = 0.01\ and ps = 10u?M?. Lo = (\/2j)~! is the symmetron Compton wavelength.
+The scalar field, ¢, is normalised in terms of the magnitude of the VEV of the bare symmetron
+
+potential, go. We use the variable r because we are solving the full radial equation found in
+
+Eq. (40).
+
+where $4 and m are the minima and masses outside the object for p = 0. For z < 0, the scalar
+field is screened and is locked at the local minimum ¢ = 0. As the scalar approaches z = 0, a
+symmetry-breaking transition occurs, and as @ leaves the object, it very quickly rolls towards one
+of the minima of Eq. as z — oo. The variation in ¢(z) is concentrated within a thin shell.
+The screening mechanism weakly couples ¢ to the core of the sphere. Numerical plots of ¢(z) with
+
+several values of R, are shown in FIG.
+
+B. Surface Energy Density at the Interface
+
+In the limit, R, >> L+, we can calculate the surface energy density of 4(z). This is given by,
+ory cLo
+a= / [507 + 1o)| dz~ / b7dz (45)
+—oo 2 —cLo
+
+where c is some O(1) number greater than unity. In the thin-shell limit, A, ~ 0, thus the
+contributions from inside the sphere are suppressed in Eq. (45). To the solution ¢(z) in Eq.
+
+approaching ¢4 as z — oo, we assign the corresponding surface energy defined as a+, which is
+ib
+
+2 4 6 8 10
+Lp d
+
+FIG. 4: Ao versus sphere radius Rs (for « = 0.01A and ps = 10p,) shows a plateau at large Rs.
+The red-dashed line shows the planar-limit value of Ao derived in Eq. (51).
+
+obtained by solving the integral in Eq. (4),
+
+_ m4By Ps or . dims
+
+~ a (46)
+f + V/ ati|
+
+2 2m+.M?2
+The approximation assumes that R, > D+ and p > mM 2. Through m4 and By, o+ is a function
+
+Ot
+
+of «, and since we keep « as a small parameter, we capture the leading order behaviour of ox by
+
+the expansion given by,
+
+at
+ox =01(0) +h at
+dk
+
++ O(n?). (47)
+K=0
+
+o+(0) is the value of this surface tension in the regular symmetron case,
+
+Th
+o4(0) = a (48)
+
+In the degenerate case (k = 0), we recover the symmetron potential and Ac = 0. To determine
+
+the first-order correction to a4, we need to evaluate the first derivative,
+
+Obs Oo+ _ [Oma Oox
+<0 OK OO+ | p09 "| OK Oma REO
+
+dox
+
+dk
+— | 20x ox
+| On Obs K=0
+18
+
+where the second equality is obtained since m+(«) has a local minimum at « = 0. Thus, the Taylor
+
+expansion of g4(«) around « = 0, is given by,
+
+Ta K
+oe) 2 VE (+5) O(n?) (50)
+
+and the difference in the surface tensions, Ao = 04 — a_, is non-vanishing,
+
+J23 kK
+Ao = EO
+
+(51)
+
+This is independent of both ps and Rs as we would expect in the planar limit, since the geometry
+of the plane is trivial. In FIG. [4| we see Ao approaches a constant as R, —> co. Thus, we see in
+Eq. (34) that the jump in surface tensions, Ac, is proportional to «. This means that we have an
+
+angle 8 = arccos (—#). For k < A, this means 6 = } + 3 up to higher order corrections.
+
+1.00 5
+
+0.754
+
+0.50 4
+
+0.25 4
+
+$/%o
+
+0.00
+
+025-4
+
+—0.50 4
+
+-0.75 4
+
+—1.00
+
+0 5 10 15 20 25 30 35 40
+
+r/Lo
+
+FIG. 5: The spherical domain wall coupled to a dense matter sphere with radius Rs (for « = 0.2A
+
+and ps = 50p.).
+
+C. Unstable Spherical Domain Walls around Spherical Objects
+
+Another non-trivial solution of Eq. (40), with the same boundary conditions, is a spherical domain
+wall of radius R, engulfing a dense spherical object of radius Rs. When the domain wall is present,
+
+there are additional energy contributions compared to the environment, which come from the
+19
+
+surface tension of the domain wall and the AV. The numerical profiles of the domain wall are
+shown in FIG.|5| Though this solution is difficult to obtain analytically, we can discuss the energy
+of such a configuration. The total energy of the configuration is given by,
+1
+B16) =, [5¢v0)? + Val) — Vento] av. (52)
+R:
+
+Assuming that R > R, >> Lx, as arises in the thin-wall approximation, the energy can be expanded
+in powers of (L+/R) and (Li/Rs),
+
+4a R38 ;
+atk e+ 4nR?o + An Roy,
+
+4r R3 2 R
+( 3 c+ dno.) -0(e).
+
+We have indicated the size of the leading corrections in this expansion, which are linear in the large
+
+Eid] =
+
+(53)
+
+radial scales; see e.g. Refs. [56}{59]. An important consideration in this analysis is the notion of
+the critical bubble. This unstable configuration extremizes the bubble energy, balancing the inward
+
+collapse due to the surface tension against the outward pressure difference across the wall. The
+
+radius of the critical bubble is given by Ro = 2e
+
+Evaluating the energy on the critical bubble, shown in Fig. |5| we find,
+
+————— (me)
+
++ a Rs +4nR?Ac,
+
+- 3e2
+where Ao is defined in Eq. (51), and we have indicated the size of the leading and next-to-
+leading terms, for simplicity assuming R, = O(R). The leading effect of the matter source is to
+set to zero the contribution to the energy within the source. This decreases the magnitude of the
+negative energy density contribution from the volume inside the critical bubble in Eq. (53), thereby
+suppressing the decay rate for such a configuration. Note that the term containing Aco is the same
+parametric size as terms dropped in Eq. (63), so to leading order there is no surface energy cost at
+
+the boundary of the matter source.
+
+IV. THE INSTANTONS
+
+A. Coleman-Callan Instantons coupled to a homogeneous gas
+
+In the thin-wall approximation, the instanton can geometrically be described as a codimension-1
+
+hypersurface embedded in R? [2] 4] [60H62]. The thin-wall Euclidean action of the instanton offers
+20
+
+a low-energy effective description of the scalar dynamics,
+
+Snld] ~ o fares - ef d?x/G. (55)
+
+where © = Q2. is the bubble hypersurface. The first term is the Nambu-Goto action of the bubble
+wall © and is proportional to the area of the hypersurface, and o is the surface tension of the
+bubble in Eq. (30). The wall is furnished with coordinates €“. The second term is the volume
+enclosed by the bubble multiplied by ¢ from Eq. across the wall. We will first address the
+spherical bubbles of Ref. but now include corrections from the asymmetron mechanism in
+
+the presence of a pressure-free gas of homogeneous matter density p.
+
+To begin with, we write the metric of R? as a foliation of (D — 2)-spheres,
+ds? = guydada” = dr? + dr? + r2dN?,_» (56)
+where dQ? is the metric over a unit n-sphere. The induced metric yg on the bubble hypersurface,
+
+&, is obtained by the pullback map of the background metric onto ©,
+
+OX" OX”
+
+Yab = Ee Bee Tey (57)
+
+where X" = X¥(€%) is the function that embeds 5 into R?. The radial location of the bubble,
+
+r = R(r), is treated as a free component of the induced metric, ds?, which is written as,
+do? = Yopdétde? = ( + Re) dr? + R?(r)d3,_». (58)
+
+We aim to solve for the function R(r). So, the action with the surface and volume terms is evaluated
+
+as,
+
+Sq = 2Vp_-1 [ " dr [RoR??V 1+ R2- Rr (59)
+JO
+
+where Rp = (Deis and Vp = Ses is the volume enclosed by a unit D-ball. Ro is the critical
+radius of the bubble which balances the internal energy contribution and the surface energy such
+that Sg is minimised for this radius as determined in Ref. [2]. This reformulates the instanton
+
+calculation into a problem of one-dimensional Lagrangian mechanics, in which we solve for the
+
+function, R(r). Since the action does not explicitly depend on 7, we have a conserved energy,
+
+E=p,R-L=—R??
+
+Ro A (60)
+
+V1+R
+21
+
+where L is the Lagrangian of the action in Eq. (59). On rearranging Eq. we obtain the
+
+instanton equation, which has the form,
+
+R? + 2U(R, E) = 0 (61)
+
+where the potential function, U(R, E), is given by,
+
+RH
+
+2U(R, E) =1- RD ERE DE:
+
+(62)
+
+We are interested in the E = 0 case since the instanton calculation assumes a zero input Euclidean
+
+energy, SO We can rearrange to find,
+_ iid dR
+
+Ro —2U(R)
+where U(R) = U(R,0). The solution is a (D—1)-sphere with radius Ro with the equation given by,
+R47?= Ri. We can directly calculate the action by using Eq. to eliminate 7 from Eq. (59).
+
+Ro
+Bo = 22Vp-. | dR RP~*,/R3 — R? (64)
+
+0
+
+Tr
+
+(63)
+
+where Bo refers to the bulk action in the vacuum (g = 0). A further change of variables to
+
+R= Rosin(u) gives the following integral expression,
+
+2 VpRP
+Bo = 2eVo-iRb |” sin?-?(u) cos?(u)du = ae ek (65)
+0 D-1
+We are interested in the D = 4 case for which Bo has the familiar form,
+We 270204
+B= — R=
+0 6 Ro 963 (66)
+
+found in Ref. 2]. To obtain the modification due to the symmetron, we promote both o and « to
+
+2
+. 3 2
+their symmetron counterparts, ¢ > 0 (1 bi ) ande +e (1 a ) 5
+7 -
+
+3
+
+Bou = Bo (1 - 2) - (67)
+Px
+
+The action is suppressed in denser regions and ultimately vanishes at p,, since the symmetry of
+
+the potential in Eq. is restored and we only have one minimum at ¢ = 0 thus the scalar
+
+cannot tunnel as there is no barrier to penetrate. The symmetron modification does not change in
+
+other dimensions because the action always obeys the ratio,
+
+D D 3
+o o p\2
+Bouk & gD=1 ~” 2D=1 ( ~ Py : (68)
+22
+
+By following a similar argument, the critical radius, Ro = Be is unchanged under the modification.
+
+Given a sufficiently large static ball of gas with density p in Euclidean spacetime, we can assume
+that the translational invariance of the solutions is approximately preserved, and thus, we retain
+the form of the decay rate per unit volume, we can compare the decay rate of this system by
+dividing out by the decay rate of a similar system but at p = 0. The semiclassical contributions to
+
+the ratio of decay rates are given by,
+
+na x (1 PY eo f ( 2)']| (69)
+
+where the proportionality symbol contains the non-zero modes of the fluctuation spectrum. Since
+
+zero modes are translational symmetries of the instanton, they constitute a classical contribution
+
+to the decay rate, so these contributions are explicitly shown in Eq. (69).
+
+We now compute the decay rate per unit volume, ['/V, for a bubble forming in a subcritical gas
+of density p. We use the BubbleDet package from Ref. to calculate the one-loop functional
+determinant around the spherically-symmetric background field profile. We shall first define a
+more simplified representation of [/V that BubbleDet can calculate directly. Firstly, we define the
+
+logarithm of the determinant ratio,
+
+(70)
+
+S,= zm E =|
+
+det O_
+The determinant ratio is defined as the sum of one-loop vacuum Feynman diagrams, including
+both connected and disconnected ones. The effective one-loop action contains zero modes, negative
+
+modes, and positive modes. Thus, the decay rate for a general free bubble can be written as,
+
+T (So+81)
+p= eR (71)
+
+where 59 = Bpuik is the semiclassical contribution to the bulk decay rate. The negative eigenvalue
+
+£_ is also contained in the one-loop effective action, $1.
+
+For the numerical calculation using BubbleDet, the ratio is given by,
+
+T(p) ASo(p) + AS1(p)
+T(0) exp 7 (72)
+
+where we defined AS; = S;(~)—5;(0). In the thin-wall limit, the functional determinant expression
+
+can be represented by the geometric properties of the bubble hypersurface as discussed in Ref. [60].
+23
+
+500 j
+400;
+—™~"
+ele
+& |e 3007
+NS
+|
+200 ;
+100;
+—— I/V: tree-level + one-loop
+0.0 0.2 0.4 0.6 0.8 1.0
+p
+De
+FIG. 6: A plot showing the functional dependence of he with p (k = 0.9A). For p~ 0,
+
+no ~ O(1) and a calculated value of Bp = 547.55h. For an increasing density, no increases
+
+rapidly. As the density is increased beyond p ~ 0.1p:?2M?, the gradient of the ratio begins to
+decrease, until a maximum ratio is reached which occurs at a peak density, Ppeak © 0.98).-
+Increasing the density beyond ppeak results in a sharp drop-off, suppressing the rate of vacuum
+
+bubble production.
+
+In FIG. {6 we show a plot of the ratio of the decay rate as a function of p. The BubbleDet package
+in Ref. [63] was used to calculate the ratio of the decay rates since it does not trivially cancel. The
+functional determinant expression in BubbleDet calculates the sum of all one-loop contributions
+
+to the quantum effective action.
+
+To understand the initial enhancement in the decay rate with density, note that the width of the
+potential barrier A¢ and the height of the barrier AVinax = |Ver(¢_)| both decrease as the density
+increases. Each of these effects increases the nucleation rate. The sharp decrease as the density
+approaches p, is due to the zero mode contribution, (1 - ae dominating over the exponential
+term. Within the validity of the instanton approximation, this pushes the peak density, Ppeak,
+
+ever-closer to px.
+24
+
+FIG. 7: In R?, bubbles (blue) interact with cylindrical substrates (grey): (left) one fully
+engulfing the substrate, and (right) one forming at its edge. The time-evolution of the static
+
+substrate traces out a cylinder, R x S?~?.
+
+Given that the instanton approximation is only valid when Bpux >> h, we note that the decay
+rate is exponentially enhanced for homogeneous densities in the range 0 < p S p,(1— e~Bouk/@M)),
+with the upper bound very close to the critical density. The rate is then suppressed for even
+higher densities, falling rapidly to zero as p + px from below. The peak enhancement occurs at
+Ppeak & (1—(2h/, Bo)?/) px, at which point the rate is no longer exponentially suppressed. While the
+validity of the instanton approximation is compromised at this density, implying that the precise
+value of P(Ppeak) cannot be trusted, the approximation is nevertheless valid either side of this value,
+and it predicts that the transition proceeds rapidly for Ppeak — p < O((Bo/h)~?/*), i.e. for densities
+slightly below the critical density.
+
+V. NUCLEATION OF BUBBLES ON CURVED SURFACES
+
+A. Bubble Nucleation on Substrates
+
+In the previous analysis, we demonstrated that for p < px, the decay rate '(p), for a bubble forming
+in a gas with density p, increases with increasing density p, for larger densities. However, I'(p)
+is maximised for a density Ppeak, such that Ppeak — Pp» < px. When p > p,, tunnelling can no
+longer occur, because the barrier of Veg(¢) vanishes. However, another interesting question arises:
+
+Can asymmetron bubbles nucleate on the boundary between super- and subcritically dense media?
+25
+
+There are several ways in which the bubble can form on such a substrate, as discussed in Ref. [22].
+
+We are interested in the following three,
+(i) Planar Substrate Case - when the bubble forms on the edge of a flat matter source,
+
+(ii) Engulfing Cylindrical Case (interstitial in Ref. [22]) - when the bubble wraps around a
+
+spacetime cylindrical substrate,
+
+(iii) Edge Cylindrical Cases - when the bubble forms on the edge of a spacetime cylindrical
+
+substrate.
+
+For instanton calculations, we are interested in substrates that are flat in the imaginary time
+direction; otherwise, this would have the interpretation of a dynamical surface. We have not yet
+considered the effects or the interpretation of the Wick rotation of a surface that is curved in the
+imaginary time direction. We also note a point of possible confusion: static spherical objects trace
+out a cylindrical hypersurface in the imaginary time direction - S = R x S?-?. So we will refer
+
+to such a substrate as cylindrical, even though the object itself is a sphere, S?~?
+
+, in space. For a
+planar substrate R?-?, the imaginary time evolution is given by S = R x R?-? = R?-!. Thus,
+
+the substrate is the evolution of the static object through imaginary time.
+
+We further split the edge case into two subcategories: convex edge, when the bubble forms on the
+exterior of the cylindrical substrate; and the concave edge, when the bubble forms on the interior of
+a cylindrical substrate. FIG. [2a] shows a diagram of a bubble nucleating on a flat planar substrate.
+FIG. [7|shows diagrams of a bubble nucleating in the engulfing (left-hand figure) and convex (right-
+hand figure) edge cases. In all cases, we will refer to the curvature radius of the substrate as Rg.
+In what follows, we assume that the substrate has density p > p, and is embedded in a matter
+vacuum, so that bubble nucleation can occur only at or beyond the substrate boundary. Using the
+modified asymmetron parameters, we will demonstrate how the presence of matter with p < px
+
+alters the relevant bubble properties as in Eq. (67).
+
+1. Bubbles on Planar Substrates
+
+We begin with a most straightforward case of a bubble forming on a planar substrate. The z-axis
+is the spatial direction normal to the plane, which is located at z = 0 and ns points in the z > 0
+
+direction. The substrate lies parallel to the mutually-orthogonal axes of imaginary time, 7, and the
+26
+
+remaining D — 2 spatial directions. Thus, the plane is a codimension-1 hypersurface. The normal
+vector to the bubble must meet the normal of the flat substrate at the contact angle 6, at the
+contact hypersurface, thus we assume that the system has a symmetry, SO(D — 1), for rotations
+
+about the z-axis. We choose a background metric with this symmetry in mind,
+
+ds* = dz? + dr? + r°dO}_» (73)
+where r is the radial displacement from the origin r defined by, r2 = 7? + wey x. The function
+
+describing the bubble is r = R(z) so the induced metric is,
+dc? = yapdéde? = (1+ R?) dz? + R?(z)dNG_». (74)
+
+The normal vectors on the substrate and the bubble are
+
+1 dr — R'dz
+Ns = dz, ny
+1+ R?
+Ww (75)
+Ny Ns = Vr
+Thus, we construct the Euclidean action,
+zm
+Sig = eV / dz RP? [Rov +R? + RoR! cos B — R| (76)
+0
+
+which is structurally similar to the integrand in Eq. (59). Since the Lagrangian does not depend
+
+explicitly on z, we can derive a conserved quantity once more given by
+
+R
+_ D-2 0
+I=-R a H Rl 0. (77)
+
+II and is called the spatial momentum density and is identical in structure to the expression for E
+
+in Eq. (60), and the analysis of the previous calculation follows. Again, we set II = 0 and find that
+the bubble profile is described by a spherical cap. We use the Dupré-Young condition to obtain a
+natural boundary condition for the bubble at the substrate, given by R’(0) = tan (3 = 8), (where
+
+" denotes a derivative with respect to z), so we find the spherical cap is parametrised by 8,
+R(z) = 4/ RR (z+ RocosB)? for z >0 (78)
+
+which is the equation of a spherical cap with the correct equilibrium contact angle on the substrate.
+
+The integration limit in Eq. is given by,
+Zm = Ro(1— cos B). (79)
+
+B is obtained by substituting the instanton equation and changing to an angular variable, R =
+
++R sin(u),
+
+2¢
+
+8B
+By(B) = eVp-1 RY i sin?~(u) [eos?(uw) — cos(8) cos(u)] du. (80)
+
+The integral here deviates from Eq. (65), with the additional boundary substrate term this
+additional term subtracts the volume inside the substrate from the volume enclosed by the spherical
+bubble to give the volume of the spherical cap. For example, in the D = 4 case, the action is given
+
+by
+B,(8) = 7 [3 — sin eos 3 — £ sin’ Bcos 8 (81)
+
+as found in Ref. [22] with Bo defined in Eq. (66). Since 8 ~ 5, the bubble is approximately a
+hemisphere with action, B,($,0) ~ 4 Bo. When the density outside the substrate is 0 < p < px,
+we can promote o and ¢ to their symmetron counterparts to obtain the density dependence of the
+
+planar substrate-bubble system,
+
+B,(8,p) = Ay B —sin B cos 8 — jain! soos] (: -_ 2) ° (82)
+T 3 Px
+
+The symmetron modification has the same effect in this case as the bubble nucleating in the bulk
+
+of the scalar field.
+
+The decay rate for bubble nucleation on such a substrate in D = 4, is given by,
+
+a (2)’ 1 ( TEL=O,0 + Ven(o0))) * Be (83)
+A \2nh) Vie] \ det[-.8, V6] )
+
+Since the plane breaks translational invariance of the bounce in the z direction, we lose one zero
+
+mode in the spectrum, and thus, the method of collective coordinates [9] [10] [49] results in a factor
+of the area, A, instead of the conventional volume factor, V. Essentially, a particular bubble with
+some radius can form anywhere on the plane with a contact angle 8, but cannot form arbitrarily
+
+Bp ) ° factor, which
+
+far away from the plane. The loss of this zero mode is also expressed in the (=
+
+can be compared to the decay rate initially described Eq. (69). The negative eigenvalue is denoted
+
+by @.
+
+2. Engulfing Instanton
+
+For cylindrical substrates, we will first consider the case of the engulfing instanton. In this case, a
+
+spacelike slice of the diagram in FIG. [7] through the bubble results in a pair of concentric (D— 1)-
+28
+
+spheres, the smaller one representing the substrate and the larger one the bubble wall. The time
+
+evolution of the bubble is given by a function r = R(r), and the background metric is the same as
+
+Eq. (56).
+
+The background metric, ds”, and induced metric, ds?, are given by,
+
+ds* = dr? + dr? + r°d},_»
+
+, (84)
+de? = (1+ BR?) dr? + R°(r)d%_y.
+Thus, the action for this system is given by,
+Ts -
+Sp =2Vp-4 | dr [Re (Rov 1+ Re R) — RP-? (Ro cos 8 — Rs)| (85
+0
+The conserved energy F is given by,
+R RP-2
+E on + RP-1 = — Ry RP cos B + RP, (86
+V1+R?
+Finally, we change variables using the instanton equation to obtain,
+Rx
+Beng = 2€Vp-1 | dRR?~?,/R2 —(R- ERP), (87
+where R,, is the largest positive root of the equation,
+RP-14 RoR??? -E=0. (88
+
+and R, depends on R, through Eq. (88). The solution to the Euclidean action Beng is numerically
+calculated for several angles for spheres of various radii, Rs and presented in FIG.|8} For 6 > 5, we
+see that for R, < Ro, then the Euclidean action is close to that of the bulk bubble. As the seed is
+made bigger, a larger critical bubble must be nucleated, which has a greater Euclidean action cost,
+making the bubble less likely to engulf a large seed. This motivates edge nucleation in Ref. [22].
+
+For angles 6 < 5, the small R, behaviour is much the same. However, when R, ~ Ro, the
+Euclidean action acquires a local minimum, for which the rate of bubble nucleation is enhanced.
+For Rs > Ro, the Euclidean action again increases as a larger bubble must be formed, which again
+
+suppresses the rate of bubble nucleation on larger seeds.
+
+While 6 > 5 exhibits interesting behaviour for R, ~ Ro, the only physically relevant range of
+
+angles for the nucleation of asymmetron bubbles satisfies the inequality, 6 2 5. Thus, for the
+
+angles we are interested in, the Euclidean action is always greater than Bo.
+29
+
+2.5 T 7
+ss Bot I H
+. if
+2.04/~—~ 8=a io
+= |
+Beng 1,54 (" b=n I H
+Bo i
+1
+i
+!
+t
+i
+t
+t
+10-2 10-1 10° 10! 102
+Rs
+Ro
+FIG. 8: Numerical plots showing how the action in Eq. (sz), Beng, of an engulfing bubble varies
+with the seed radius, Rs, in D = 4 with various contact angles: 3 = $, 4, 5,7.
+
+3. Edge Instantons: Perturbative Expansion
+
+To extend the analysis to nucleation of bubbles on a cylindrical substrate, we can perturbatively
+calculate corrections to the Euclidean action from the planar case introduced in Ref. [53]. Thus,
+
+the Euclidean action can be split into the planar contribution and an R,-dependent perturbation
+
+part,
+Beage = Bp + AB (89)
+
+where AB is the O(R;") correction to the Euclidean action. For simplicity, we consider the bubble
+forming on the edge of a cylindrical substrate. The correction to the Euclidean action in Eq.
+on a convex (taking the + sign) or concave (taking the — sign) cylindrical surface is given by,
+
+A
+
+The term with the + sign was determined in Ref. [22]. The — sign is explained by following the
+
+conventions in Ref. [53], or rather more simply using the calculation presented in Ref. [22], and
+
+(90)
+
+switching the sign in terms containing Rs. It can be seen that the smallest Euclidean action is
+
+achieved by a bubble forming on a concave substrate (such as the interior of a spherical cavity or
+30
+
+Planar)
+Engulfing)
+
+Edge - Convex)
+Edge - Concave)
+
+aan
+
+FIG. 9: B for D = 4 instantons forming on cylindrical substrates with curvature radius R, with
+6 = 5. Additionally, the action of the bubble forming on a flat, planar substrate is plotted. It
+
+can be seen that the edge spherical actions approach the flat planar action in the large R, limit.
+
+vacuum chamber), which takes the negative sign in Eq. (90). The concave and convex cylindrical
+substrate actions are plotted in FIG. [9] for 6 = 5 along with the actions for the corresponding
+planar and engulfing bubbles. The edge cases diverge for R; < Ro as the perturbative calculation
+
+breaks down.
+
+VI. DISCUSSION
+
+A. What is the preferred nucleation channel?
+
+Consider an approximately spherical vacuum chamber with radius Rs and the density inside the
+sphere p = 0. The instanton equations are solved by the slightly concave solution or the spherical
+bulk instanton with p = 0 in Eq. (59). We can compare the decay rates to determine whether there
+is a preference for a particular bubble at some radius of curvature. We know that the concave edge
+case has the smallest Euclidean action, making it the preferred decay channel semiclassically. We
+
+are interested in whether quantum corrections can present a maximum curvature radius for which
+31
+
+edge nucleation is preferred. The decay rates for the edge and bulk cases are given by,
+
+3 — “4
+Tedge = An R? x (5°) ° oe 1 x ( det Ocage] ) e7 Beage/h
+
+Qrh edge det[Ocage,—]
+Cc edge,
+. view Vie . on
+4 4 pt) 1 ( det Opuix] ) 2 _B h
+Thu = 73 x x x 7 Boutk/h
+bulk 3 Ss ( Qrh [| goutk| det [Opux,—]
+
+where det[O] is the determinant of the fluctuation spectrum with zero and negative modes removed.
+
+We take the ratio of the decay rates, Deage /Touk = K, which is given by,
+det[Ocage]
+
+Brags) ( )?
+bulk
+K 3 . ( Qh jeeurs| ye NIC edge.-] 4 eA B/h
+
+x
+z — =
+Rs ( Bout ) erase Tet [Ovun] \~2
+aah det [Opui,—]
+
+wie
+
+(92)
+
+where AB = Bpuk — Bedge. It is not immediately obvious that this is dimensionless, since we have
+an overall dependence on the radius of the vacuum chamber R,. However, heuristically, we know
+that the full ratio of determinants is dimensionless,
+
+( det[Opu] ) (93)
+
+det [Obutk,—]
+
+vie
+
+The zero modes make this expression formally divergent; thus, one employs the method of inte-
+grating over collective coordinates by performing an integration over the location of the instantons
+
+[49]. The usual method would turn the above expression into one that looks like this,
+
+a1 ° det °
+( det[Opurx] ) * dinerommodes). on sp Vehamber (ZS) * ( rel “
+
+det [Opbutr,—] removed 2rh det [Oputk,—
+
+where det is the fluctuation determinant with the zero modes removed. This means that the
+functional determinant ratio on the right-hand side has an overall dimensionality of [length]~4.
+Similarly, for the edge case, the method of collective coordinate would result in the following
+
+expression,
+
+NIK
+
+1 3 7 _
+det[Ocage]_\~? 3 zero modes Beage \? det[Ocage] 5
+T - . 95
+(= [Ocage,—] removed * Achamber * 2rh * det [Ocage,—] ( )
+
+In this case, the functional determinant on the right-hand side has an overall dimensionality of
+
+flength]~*.
+32
+
+Assuming both fluctuation operators only contain one negative mode each, this means that there
+is one additional positive fluctuation mode in the edge case operator compared to the bulk case,
+which we need to isolate from the fluctuation spectrum to explicitly show the correct dimensions
+in the formula for the ratio. This gives the following expression for the ratio K,
+
+K oc 20 y -AB/n (96)
+
+Rs
+
+We wish to condense all of the length dependence into the exponential part of the expression without
+introducing further length scales into the problem. Irrespective of the nuance of evaluating the
+functional determinants and negative eigenvalues in the thin-wall approximation, the only length
+scale available to the instanton will be Ro; thus, at least heuristically, the negative modes of both
+the bulk and edge cases are x Ro 2 This is explicitly shown for the bulk instanton in Ref. [9]. The
+ratio of the negative modes does not contribute any new length scale to the formula. Computing
+the one-loop functional determinant as done in Ref. [63], the standard result is that the tree-level
+contributions are scaled by the exponential of a dimensionless number, e*, where K is an O(1)
+number. When combined with the semiclassical exponent, K is much smaller by several orders of
+magnitude than the Euclidean action; thus, we shall ignore it in the subsequent analysis. Thus,
+
+we obtain the effective action difference, Jor,
+
+AB Rs
+Test = ho In (i) (97)
+where AB is defined as,
+4 i 5
+AB = Byux {1 — f(S) 4 Ro) ind B (98)
+5m \ Rs
+where f(3) = 4 [8 — sin B cos 8 — 3 sin? 8 cos 8]. The exponent is then given by,
+Bouk ; 4 (Ro\ . 5 Rs
+Tek i f (B+ Bx (@ sin? 6] —In Ro (99)
+
+e If Z.¢ > 0 then the edge case is the dominant decay process,
+
+e but, if Sea < 0, then the bulk case is the dominant decay process.
+
+But the equation for Z.g¢ = 0 is transcendental, so an explicit expression that can be numerically
+solved using the Newton-Raphson scheme as shown in FIG. In any case, we can obtain a
+
+leading-order closed-form expression within the regime of our approximations,
+
+ie = ews 1-1(8)) x exp re (7) sin? 6| ‘ (100)
+
+33
+
+The convergence of the Newton-Raphson scheme is shown in FIG. using a representative value
+
+of Bo = 100h, p = 0 and 6 = § so that f(8) = 3. We solve the equation,
+
+Du 4B; il
+h(x) =a — eB exp bik (=)| =0. (101)
+5th \ax
+where x = ze. The iterated values of the Newton-Raphson scheme are calculated by the formula,
+h(2n)
+Ha = fn — ; 102
+Tn+1 Ln Wi (&n) , ( )
+
+where we have used 9 = 100, we define convergence by a tolerance such that when 62 = an41—2n =
+
+10-1°, the iterative scheme is terminated.
+
+On the contrary, the scale hierarchy of the thin-wall and perturbative approximations used to obtain
+the action of the instanton forming on a concave substrate: Lp < Ro < Rs. The first inequality is
+the regime of the thin-wall approximation, and the second inequality gives the perturbative regime
+for the approximately planar substrate. We can then expand the expression in terms of powers of
+
+(#) such that the leading-order contribution to Rs/Ro is given by,
+
+Aw Roe [1-F(8)] (103)
+
+where A is the critical radius of curvature of the chamber for which Zg ~ 0. In the case of a
+hemispherical bubble 6 = 5, this critical radius for a substrate surrounded by a matter vacuum is
+
+approximately,
+Bo
+Ax Roe. (104)
+
+Thus, if Rs < A, then the decay of the false vacuum on the edge is dominant, whereas for Rs > A,
+the bulk decay is dominant. Using the representative value presented in FIG. we see that the
+
+result of this approximation gives an estimate for the order of magnitude of the ratio A/Ro, since
+
+A 50 21
+
+a 8 er & 10°", 105
+
+Ro (105)
+The instanton calculation is valid when Bo >> h and thus, the proportionality constant between A
+
+and Ro is a large number, so this critical radius A lies in the region of validity of the perturbative
+
+spherical edge calculations performed earlier.
+
+B. Estimating A in Vacuum Chamber Experiments
+
+Using the estimated values of the parameters of the symmetron suggested in Ref. [33], we can
+
+provide an estimate of this upper limit of edge nucleation in a vacuum chamber with radius R,.
+34
+
+A
+Ro 10134 ---- zx = 100
+---- 23 5.18 x 1071
+
+Iteration
+
+(100) using the
+
+Newton-Raphson method with a representative values of By = 100h, p = 0 and 8 = § so that
+
+FIG. 10: A graph showing the convergence of the solution of A to Eq.
+
+f(8) = 3. We use a tolerance of 62 = 1071, and we observe convergence after only 8 iterations of
+the Newton-Raphson scheme. It can be seen that even for small values of Bo within the instanton
+approximation, this critical radius converges on an enormous factor of Ro, A ~ 10??Ro, which
+
+matches the order-of-magnitude estimate in Eq. (105).
+Then we can apply the symmetron modification to Eq. (104) and obtain,
+
+a
+'g 8
+A = Roexp B (1 - *) / (106)
+
+Bo is given by Eq. and we use a representation of Ro that is directly expressed in term of the
+
+asymmetron parameters (j, /, A, «),
+
+(107)
+
+and we take « ~ 0.01). In Ref. [33], Clements et. al suggest a spherical chamber with internal radius
+Rs = 10cm (which they call L) and use their symmetron parameter values, pp = 2 x 107!8 GeV,
+
+M
+
+100GeV and A = 107!°. With this equivalent choice of parameters, we find our critical
+35
+
+instanton bubble to have a radius,
+
+_{_3v2 1
+Ro = (rn) x (100) GeV
+
+1
+=2~x 105 Gev-! (108)
+
+= 40 cm.
+
+Ro is of the same order of magnitude as the suggested chamber radius Rs = 10 cm in Ref. [33];
+therefore, bubble nucleation is a physically relevant phenomenon that would be observable at the
+
+scale of these vacuum chamber experiments.
+
+To determine the value of the exponent, we use the value of Ro determined in Eq. (108),
+
+Bo _ mW Rée
+Hh ~—s«d12
+2 4
+_ m(uRo)" (£)
+2 soot (109)
+__7™ * (400)" ool
+
+(18) x (10-10)
+=4~x 108
+
+thus, the critical radius of curvature, A ~ 40 x 101-74x10"* or, Thus, in the vacuum chamber in
+Ref. [33], we expect the nucleation rate to be dominated by bubbles forming on the edge of the
+vacuum chamber as opposed to the bulk of the scalar field. However, this is the leading order
+correction to A, which means we are ignoring explicit curvature corrections to the size of the
+vacuum chamber. In principle, neither the edge planar nor the bulk vacuum bubble would form on
+
+a time scale comparable to the age of the Universe since their Euclidean actions are of the same
+
+order of magnitude. Setting « = KA, we can express A = 52 exp (Bx). This means that A
+decreases as A is made larger in magnitude. Similarly, as we make y larger, A decreases.
+
+For a chamber filled with a subcritical gas with density p, the critical radius of curvature receives
+a density-dependent correction as shown in Eq. (Los). When ps — p < px, we see that the critical
+radius of curvature at leading order is of the same order as the critical bubble radius, A 2 Ro.
+Ref. suggests that to observe the symmetry-breaking transition that leads to the formation of
+domain walls, the vacuum chamber must be filled with a gas to restore the Zz symmetry of the
+potential. Then the gas should be released from the chamber. As the density in the chamber falls
+
+below p,, the scalar field forms domains of the false and true vacuum. Patches within the chamber
+36
+
+that settle in ¢_ will immediately begin to proliferate bubbles in the bulk phase; however, as the
+
+density is decreased further, the bubbles preferentially form on the chamber walls.
+
+C. Applications to Cosmic Voids
+
+The critical radius of curvature, A, of a hollow spherical void can be calculated for the symmetron
+at the cosmological scale. As the symmetron is proposed to be a candidate for dark matter and
+dynamical dark energy in Ref. [12], such a calculation is worth considering for the asymmetron. An
+example of cosmological symmetron parameters (j, //, A) are presented in Ref. [7]. We shall again
+
+take « = 0.01, as a representative example. A cosmic void is a large-scale structure analogous to
+
+a vacuum chamber. They are defined to be a region of space in which the density of matter is
+~ 10% that of the average density of the Universe. We ignore the self-gravitation of the domain
+
+walls and the expansion of the Universe for the sake of simplicity.
+
+Using the equations in Ref. [17] and in Appendix [A] the exemplar cosmological symmetron param-
+
+eters are given by,
+pe 0.5 (Mpc)7!
+M ~ 5.72 x 10° GeV (110)
+d ~ 6.312 x 10714,
+
+Using Eq. (107), we can calculate the radius of the critical bubble,
+Ro ~ 85 Mpc. (111)
+
+We determine that j1Ro ~ 42.5, which enters into the Euclidean action,
+
+2
+Bouk 7
+
+2h 18A
+
+(wRo)* x 5
+
+oe
+
+~ 78 x 6.312 x 10-104
+~ 2.834 x 10107
+
+x (42.5)* x 0.01 (112)
+
+and so we find that at the cosmological scale, a cosmic void with radius greater than the critical
+radius of curvature, A, given by,
+107
+A = 85e2834x10" Mine
+
+(113)
+~ 85 x 1013x108" Mie
+37
+
+is the upper limit to edge bubble nucleation. Thus, it is safe to say that at the cosmological
+scale for a spherically symmetric cosmological void, the edge instanton is always preferred. This is
+significant for the assumptions of cosmological simulations like those of Ref. [I7] where the authors
+randomly seed asymmetron domains in a region and perform N-body simulations. Our calculation
+shows that at least for instantons, the cosmological asymmetron shows a preference for forming
+
+true vacuum bubbles at the edge of a cosmological void.
+
+We saw previously that the semiclassical decay rate and thus the probability of bubble nucleation
+are maximised for a peak matter density that is very close to the px. The cosmological symmetron
+parameters in Appendix [A] allow us to determine the critical density of the symmetron potential
+
+to be,
+px ~ 3.4 x 10-8 g/cm? (114)
+
+To determine the density of a galactic void, we would like to calculate the average matter density
+
+of the Universe. The critical density, perit, is given by,
+3H5 30 3
+Perit = —— ~ 8 x 10°" g/cm (115)
+81G
+and the average matter density, p» is given by,
+
+Pm = ImPerit = 0-315 X Perit X 2.7 x 107°° g/cm, (116)
+
+Finally, a cosmic void has a matter density, pyoia ~ 0-lpm, which gives,
+
+Proid & 2.7 X 1073! g/cm’. (117)
+
+which is again quite disconcerting for the bulk bubble nucleation within a cosmic void with density
+corrections since 1 — pm/ps 1. Within a cosmic void, the density corrections cannot sufficiently
+reduce A to allow bulk nucleation. However, in more dense environments that are still subcritical,
+
+we expect the decay rate to be much larger.
+
+VII. CONCLUDING REMARKS
+
+In this work, we have shown that the coupling of the asymmetron to environmental density distri-
+butions allows bubbles to nucleate in more elaborate ways than the bulk nucleation mechanism of
+
+Ref. 2]. We first demonstrated that dense objects immersed in a false vacuum background acquire
+38
+
+a surface energy density o, due to the screening mechanism of the asymmetron. For sufficiently
+large and dense objects, the planar limit yields a surface energy density that is determined solely
+by the properties of the vacuum potential, such as the external VEV and mass of the asymmetron.
+Using the Nambu-Goto action, we calculated the decay rate of the false vacuum in the presence
+of a homogeneous gas of subcritical density. The enhanced nucleation rate in such environments
+arises because the barrier in the effective potential is both lower and narrower in regions of higher
+density. As the system undergoes density-driven symmetry breaking, there is a rapid proliferation
+of bubbles, which diminishes as the gas continues to diffuse and the density decreases. The Nambu-
+Goto action was then extended to include nucleation on substrates of supercritical density. Such
+substrates carry a surface tension and introduce boundary terms into the effective Nambu-Goto
+action. For the planar substrate, we found that bubbles nucleate as spherical caps, and we paid
+special attention to the hemispherical bubbles, which contribute half the Euclidean action of a
+bulk bubble. Thus, boundary nucleation is preferred semiclassically. For cylindrical substrates,
+our results reproduce the earlier semiclassical analyses in Ref [22] for convex geometries, and we
+extended these calculations to concave cylinders. We find that concave cylindrical substrates give
+the smallest Euclidean action, implying the strongest enhancement of nucleation rates. This is
+especially relevant for laboratory searches for fifth forces of Ref. [33], where the walls of a vacuum
+chamber may be modelled as concave cylindrical substrates and possible bubble formation in cos-
+mic voids. Our results suggest that bubble nucleation is amplified in regions of high curvature,
+
+with additional enhancement from the presence of a surrounding subcritical gas.
+
+While our analysis provides a consistent framework for nucleation catalysed by density distributions
+and substrates, we have limited ourselves to the hierarchy of scales Li < Ro and, in places, also
+to Rs < Ro. Firstly, our perturbative inclusion of curvature effects in Section [V A3] breaks down
+when the bubble radius and curvature radius of the substrate become comparable. This could be
+overcome by solving the Nambu-Goto equations for the worldsheet instantons numerically, perhaps
+extending methods developed for worldline instantons [64]. Secondly, the Nambu-Goto formalism
+itself breaks down when the bubble wall thickness becomes comparable to its radius. While the
+effects of the bubble wall width can be carried out perturbatively [50}52], eventually they must be
+included to all orders by solving the instanton field equations directly. Another limitation is the
+assumption of zero temperature. At low temperatures, the spherical bounces we have considered
+simply become periodic in imaginary time with frequency proportional to the inverse temperature,
+
+- but in the high-temperature regime (T’ >> j2), the system undergoes dimensional reduction, with
+39
+
+the 5° bounce replaces by a cylindrical configuration R x S?, [22] [60]. A systematic analysis of
+
+thermal nucleation rates in the asymmetron model remains an important extension.
+
+Finally, because the asymmetron is a scalar-tensor theory, gravitational effects are essential for a
+complete description. In particular, we expect that regions near the critical density (where nucle-
+ation is most prolific) could lead to collisions and coalescence of bubbles, producing gravitational
+wave signatures. Such processes may contribute to the stochastic gravitational wave background,
+
+offering a potential observational window into the dynamics we have described.
+
+ACKNOWLEDGMENTS
+
+CB would like to thank Alex Jenkins for interesting conversations regarding bubble nucleation
+within analogue systems and pointing out the work of Canaletti and Moss in Ref. [22]. USA and
+CB would like to thank Jan Moss and Peter Millington for useful comments. USA would like to
+thank Lauren Gaughan for assistance in producing FIG. [2] and Joonas Hirvonen for conversations
+on perturbative expansions of functional determinants. CB and PMS would like to thank the STFC
+for partial support under grant number ST/X000672/1. OG was supported by a Royal Society
+Dorothy Hodgkin Fellowship. USA was supported by the University of Nottingham.
+
+DATA AVAILABILITY
+
+The code developed and used to generate the numerical solutions and graphs provided can be found
+
+in the GitHub repository at: https://github. com/usama-bit137/asymmetron-bubbles|
+
+Appendix A: Deriving the cosmological asymmetron parameters
+
+The conversion between the standard parameters of the symmetron (1, A, M@,«) and the cosmolog-
+
+ical parameters (&,@%, 84, 8—) are given by the formulae presented in Ref. as,
+
+iL
+Lo = — =6& x 2998Mpc/h Al
+
+M = My€x1/6Qmo/a3 (A2)
+
+He a? 2
+\= 7202 WB (as) (48)
+
+40
+
+where (x is the strength of the asymmetron fifth force relative to the Newtonian gravitational force
+on either of the scalar domains $+, & is the Compton wavelength in units of the Hubble length,
+and a, is the scale factor at symmetry breaking. Ref. [17] neglects the factors of M, in Eqs. (A2}
+[A3). Since our instanton calculations are within the thin-wall limit, it is more appropriate for us
+to take the symmetron convention where 6, = 6, = G_. A representative choice of the symmetron
+parameters from Ref. [I7] is given by (&, a4, 8.) = (3.3 1074, 0.33, 1) which we can use to calculate
+the critical radius of curvature of a large spherical and hollow cosmological structure such as an
+
+intergalactic void.
+
+The symmetron mass parameter can be calculated by rearranging Eq. (A1),
+
+h
+= ——_______ (Mpc)!
+Jax é, x2008 | Pe)
+
+0.73
+~ Mpc)7! (A4)
+Jax 33x 10-1 x 2008 | Pe)
+
+~ 0.5 (Mpc)7+
+
+fe
+
+which is good because this results in a cosmologically large value for Lc. Similarly, the dimension-
+
+less quartic coupling of the symmetron is given by,
+
+y- He (ab)
+7202, M2 \ 3.8
+(8.761 x 10~8!)2(0.73)2 (0.33) \? (A5)
+72(0.3)2 (3.3 x 10-48
+
+~ 6.312 x 107104
+
+where we have used the value of Hy = 2.1332h x 10-4? GeV from Ref. [65]. The symmetron mass
+
+cut-off, IW, is given by,
+
+M ~ 3.3.x 1074 x My x v/6 x 0.3/(0.33)3
+
+~ 5.72 x 10! GeV.
+
+[1] A. Mazumdar and G. White, Review of cosmic phase transitions: their significance and experimental
+
+signatures, Reports on Progress in Physics 82, 076901 (2019
+
+[2] S. Coleman, Fate of the false vacuum: Semiclassical theory, Phys. Rev. D 15, 2929 (1977)
+[3] C. G. Callan and S. Coleman, Fate of the false vacuum. ii. first quantum corrections, Phys. Rev. D 16,
+1762 (1977
+a
+
+10
+
+11
+
+12
+
+13
+
+14
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+23
+
+24)
+
+41
+
+S. Coleman and F. De Luccia, Gravitational effects on and of vacuum decay, |Phys. Rev. D 21, 3305
+(1980)
+
+I. Affleck, Quantum-statistical metastability, Phys. Rev. Lett. 46, 388 (1981)|
+
+A. H. Guth, Inflationary universe: A possible solution to the horizon and flatness problems, Phys. Rev.|
+A. Linde, Chaotic inflation, /Physics Letters B 129, 177 (1983)|
+
+V. F. Mukhanoy, H. A. Feldman, and R. H. Brandenberger, Theory of cosmological perturbations,
+M. Paranjape,|The Theory and Applications of Instanton Calculations| (Oxford University Press, 2018).
+
+S. Coleman, Aspects of Symmetry: Selected Erice Lectures
+U.K., 1985).
+
+K. Hinterbichler and J. Khoury, Screening long-range forces through local symmetry restoration, |Phys.|
+Rev. Lett. 104, 231301 (2010)
+
+K. Hinterbichler, J. Khoury, A. Levy, and A. Matas, Symmetron Cosmology, Phys. Rev. D 84, 103521)
+
+2011), arXiv:1107.2112 [astro-ph.CO
+
+A. Vilenkin and E. Shellard, Cosmic Strings and Other Topological Defects (Cambridge Monographs
+
+(Cambridge University Press, Cambridge,
+
+on Mathematical Physics, 1994).
+
+T. Vachaspati,| Kinks and Domain Walls : An Introduction to Classical and Quantum Solitons (Oxford
+
+University Press, 2007).
+M. Abdul Karim, J. Aguilar, S. Ahlen, S. Alam, L. Allen, C. Allende Prieto, ..., and H. Zou, Desi
+dr2 ii: Measurements of baryon acoustic oscillations and cosmological constraints, arXiv (2025),
+
+L. Perivolaropoulos and F. Skara, Gravitational transitions via the explicitly broken symmetron screen-
+
+ing mechanism, Phys. Rev. D 106, 043528 (2022))
+
+O. Christiansen, F. Hassani, M. Jalilvand, and D. F. Mota, Asevolution: a relativistic n-body imple-
+
+mentation of the (a)symmetron, Journal of Cosmology and Astroparticle Physics 2023 (05), 009
+
+P. Chen, T. Suyama, and J. Yokoyama, Spontaneous-scalarization-induced dark matter and variation
+of the gravitational constant, Physical Review D 92, 10.1103/physrevd.92.124016] (2015).
+
+J. Langer, Statistical theory of the decay of metastable states, Annals of Physics 54, 258 (1969)}
+
+J. Langer, Theory of the condensation point, [Annals of Physics 41, 108 (1967)
+
+F. Devoto, S. Devoto, L. Di Luzio, and G. Ridolfi, False vacuum decay: an introductory review, Journal]
+
+M. Canaletti and I. G. Moss, Seeding the decay of the false vacuum, Phys. Rev. D 110, 105015 (2024
+
+A. C. Jenkins, H. V. Peiris, and A. Pontzen, Bubbles in a box: Eliminating edge nucleation in cold-atom
+
+simulators of vacuum decay, arXiv (2025 | 2504.02829 [cond-mat.quant-gas |
+
+K. Brown, I. G. Moss, and T. P. Billam, Mitigating boundary effects in finite temperature simulations
+
+of false vacuum decay (2025), arXiv:2504.03509 [cond-mat.quant-gas|
+
+26
+
+27
+
+28
+
+29
+
+30
+
+3l
+
+32
+
+33
+
+34)
+
+36
+
+37
+
+38
+
+39
+
+40
+
+41
+
+42
+
+43
+
+44
+
+42
+
+I. G. Moss, Black-hole bubbles, Phys. Rev. D 32, 1333 (1985
+
+R. Gregory, I. G. Moss, and B. Withers, Black holes as bubble nucleation sites, Journal of High Energy
+Physics 2014, 10.1007 /jhep03(2014)081 (2014).
+
+R. Gregory, I. G. Moss, N. Oshita, and S$. Patrick, Hawking-moss transition with a black hole seed,
+Journal of High Energy Physics 2020, 10.1007/jhep09(2020) 135) (2020).
+
+A. Shkerin and S. Sibiryakoy, Black hole induced false vacuum decay from first principles, JHEP 11,
+
+197, jarXiv:2105.09331 [hep-th]}
+
+A. R. Brown and E. J. Weinberg, Thermal derivation of the coleman-de luccia tunneling prescription,
+Physical Review D 76, (2007).
+
+G. W. Gibbons and S. W. Hawking, Cosmological event horizons, thermodynamics, and particle cre-
+R. Bousso and S$. W. Hawking, (anti-)evaporation of schwarzschild-de sitter black holes, Phys. Rev. D|
+C. Llinares and P. Brax, Detecting Coupled Domain Walls in Laboratory Experiments,
+
+Lett. 122, 091102 (2019), arXiv:1807.06870 [astro-ph.CO]
+
+K. Clements, B. Elder, L. Hackermueller, M. Fromhold, and C. Burrage, Detecting Dark Domain Walls,
+A. Joyce, B. Jain, J. Khoury, and M. Trodden, Beyond the cosmological standard model, [Physics]
+Reports 568, 1-98 (2015)
+
+T. Clifton, P. G. Ferreira, A. Padilla, and C. Skordis, Modified gravity and cosmology,
+
+C. Burrage, B. Elder, P. Millington, D. Saadeh, and B. Thrussell, Fifth-force screening around extremely
+
+compact sources, Journal of Cosmology and Astroparticle Physics 2021 (08), 052
+
+E. B. Bogomolny, Stability of Classical Solutions, Sov. J. Nucl. Phys. 24, 449 (1976).
+
+P. Brax, S. Casas, H. Desmond, and B. Elder, Testing screened modified gravity, Universe 8, 11 (2021)]
+C. D. Panda, M. J. Tao, M. Ceja, J. Khoury, G. M. Tino, and H. Miiller, Measuring gravitational
+attraction with a lattice atom interferometer,
+
+H. Fischer, C. Kading, and M. Pitschmann, Screened scalar fields in the laboratory and the solar
+
+system, Universe 10, 297 (2024)
+
+A. Eichhorn, H. Gies, J. Jaeckel, T. Plehn, M. M. Scherer, and R. Sondenheimer, The Higgs Mass and
+
+the Scale of New Physics, JHEP 04, 022) arXiv:1501.02812 [hep-ph]
+
+V. Branchina and E. Messina, Stability and UV completion of the Standard Model, EPL 117, 61002
+
+arXiv:1507.08812 [hep-ph
+
+H. Gies and R. Sodenheimer, Renormalization group flow of the Higgs potential, Phil. Trans. R. Soc.
+
+A (2018), 37620170120
+
+S. R. Coleman, V. Glaser, and A. Martin, Action Minima Among Solutions to a Class of Euclidean
+
+Scalar Field Equations, Commun. Math. Phys. 58, 211 (1978
+
+50
+
+51
+
+52
+
+56
+57
+
+58
+
+59
+
+60
+
+61
+62
+
+63
+
+64)
+
+43
+
+M. Udemba and P. Millington, Quantum corrections to symmetron fifth-force profiles
+
+arXiv:2508.16726 [hep-th]
+
+(2025),
+
+U.S. Aqeel and A. Rajantie, Gravitational Aspects of False Vacuum Decay, Master’s thesis, Imperial
+College London (2022).
+C. L. Wainwright, Cosmotransitions: Computing cosmological phase transition temperatures and bub-
+
+ble profiles with multiple fields, Computer Physics Communications 183, 2006-2013 (2012
+
+M. Matteini, M. NemevSek, and L. Ubaldi, Analytic false-vacuum decay rate in the thin-wall approxi-
+
+mation, PoS , 116 (2023)| arXiv:2304.02290 [hep-th]
+
+A. Bhattacharya, J. Cotler, A. Dersy, and M. D. Schwartz, Collective coordinate fix in the path integral,
+
+Phys. Rev. D 110, 116023 (2024
+
+A. Mégevand and F. A. Membiela, Thin and Thick Bubble Walls. Part I. Vacuum Phase Transitions,
+JCAP (06), 007,
+
+A. Mégevand and F. A. Membiela, Thin and thick bubble walls ii: expansion in the wall width, Journal]
+
+of Cosmology and Astroparticle Physics 2024 (04), 003
+
+A. Mégevand and F. A. Membiela, Thin and thick bubble walls iii: wall energy (2025), arXiv:2501.05612
+
+M. Soleimani, R. J. Hill, and T. G. M. van de Ven, Bubbles and drops on curved surfaces,
+
+pMID: 24093829, |https: //doi.org/10.1021/la403088r)
+
+A. Pressley, Elementary Differential Geometry (Springer, 2001).
+
+B. F. de Aguiar, R. F. P. Mendes, and F. T. Falciano, (2021),
+J. Ignatius, Bubble free energy in cosmological phase transitions,
+
+(2012),
+
+H. Widyan and M. Al-Wardat, \Classical solution for the bounce up to second order
+arXiv:1206.2734 [hep-th]
+
+K. Kajantie, J. Potvin, and K. Rummukainen, Curvature effects on the free energy of QCD bubbles,
+Preprint (1992).
+
+O. Gould and J. Hirvonen, Effective field theory approach to thermal bubble nucleation, Physical
+Review D 104, 10.1103/physrevd.104.096015) (2021).
+
+J. Garriga, Instantons for vacuum decay at finite temperature in the thin wall limit,
+5497 (1994), jarXiv:hep-th/9401020)
+
+J. Garriga, Nucleation rates in flat and curved space, Physical Review D 49, 6327-6342 (1994)
+C. G. Callan and J. Maldacena, Brane dynamics from the born-infeld action,
+
+A. Ekstedt, O. Gould, and J. Hirvonen, Bubbledet: a python package to compute functional determi-
+nants for bubble nucleation, Journal of High Energy Physics 2023, {10.1007 /jhep12(2023)056| (2023).
+O. Gould and A. Rajantie, Thermal Schwinger pair production at arbitrary coupling, |Phys. Rev. D 96,|
+
+[65] E. W. Kolb and M. S. Turner, The Early Universe, Vol. 69 (Taylor and Francis, 2019).
+
+44

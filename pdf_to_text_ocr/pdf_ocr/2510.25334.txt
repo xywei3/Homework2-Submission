@@ -1,0 +1,2734 @@
+Astronomy & Astrophysics manuscript no. CRX_main_ALL ©ESO 2025
+October 30, 2025
+
+2510.25334v1 [astro-ph.EP] 29 Oct 2025
+
+arXiv
+
+The CARMENES search for exoplanets around M dwarfs
+
+Understanding the wavelength dependence of radial velocity measurements
+
+S. V. Jeffers!, J.R. Barnes”, P. Schéfer?, S. Reffert*, V.J.S. Béjar>®, A. Quirrenbach’*, A. Reiners’, Y. Shan”8, M. R.
+Zapatero Osorio’, B. Fuhrmeister!°, P. J. Amado’, J. A. Caballero’, I. Ribas!!!2, C. Cardona Guillén>-®,
+F. Del Sordo!!: !2, M. Fernandez, A. Garcia-Lépez? A. Guijarro}?, A.P. Hatzes!, M. Lafarga!* 15 N. Lodieu>-®,
+M. Kiirster!®, K. Molaverdikhani!”, D. Montes!8, J.C. Morales!!>!2
+
+' Thiiringer Landessternwarte Tautenburg, Sternwarte 5, D-07778 Tautenburg, Germany
+
+e-mail: sandrajeffers.astro@gmail.com
+
+? School of Physical Sciences, The Open University, Walton Hall, MK7 6AA, Milton Keynes, United Kingdom
+
+3 Instituto de Astrofisica de Andalucia (CSIC), Glorieta de la Astronomia s/n, E-18008 Granada, Spain
+
+4 Landessternwarte, Zentrum fiir Astronomie der Universitit Heidelberg, KGnigstuhl 12, D-69117 Heidelberg, Germany
+
+> Instituto de Astrofisica de Canarias, c/ Via Lactea s/n, E-38205 La Laguna, Tenerife, Spain
+
+& Departamento de Astrofisica, Universidad de La Laguna, E-38206 Tenerife, Spain
+
+7 Institut fiir Astrophysik and Geophysik, Georg-August-Universitat, Friedrich-Hund-Platz 1, D-37077 Gottingen, Germany
+
+8 Centre for Planetary Habitability, Department of Geosciences, University of Oslo, Sem Saelands vei 2b, 0315 Oslo, Norway
+
+° Centro de Astrobiologia (CSIC-INTA), ESAC, Camino Bajo del Castillo s/n, E-28692 Villanueva de la Cafiada, Madrid, Spain
+
+‘0 Hamburger Sternwarte, Universitat Hamburg, Gojenbergsweg 112, D-21029 Hamburg, Germany
+
+'! Institut de Ciéncies de l’Espai (CSIC), Campus UAB, c/ de Can Magrans s/n, E-08193 Bellaterra, Barcelona, Spain
+
+!2 Institut d’Estudis Espacials de Catalunya, E-08034 Barcelona, Spain
+
+3 Centro Astronémico Hispano en Andalucia (CAHA), Observatorio de Calar Alto, Sierra de los Filabres, E-04550 Gérgal, Almeria,
+Spain
+
+14 Department of Physics, University of Warwick, Gibbet Hill Road, Coventry CV4 7AL, UK
+
+'5 Centre for Exoplanets and Habitability, University of Warwick, Coventry CV4 7AL, UK
+
+'6 Max-Planck-Institut fiir Astronomie, Kénigstuhl 17, D-69117 Heidelberg, Germany
+
+'7 Fakultat fiir Physik, Universitats-Sternwarte, Ludwig-Maximilians-Universitat Miinchen, Scheinerstr. 1, D-81679 Miinchen,
+Germany
+
+'8 Facultad de Ciencias Fisicas, Departamento de Fisica de la Tierra y Astrofisica & IPARCOS-UCM (Instituto de Fisica de Particulas
+y del Cosmos de la UCM), Universidad Complutense de Madrid, E-28040 Madrid, Spain
+
+Received 20 July 2023 / Accepted 20 October 2024
+
+ABSTRACT
+
+Context. Current exoplanet surveys are focused on detecting small exoplanets orbiting in the liquid-water habitable zones of their host
+stars. Despite the recent significant advancements in instrumental developments, the current limitation in detecting these exoplanets
+is the intrinsic variability of the host star itself.
+
+Aims. Our aim is to use the full CARMENES guaranteed time observations (GTO) data set spanning more than 8 years of observations
+of over 350 stars to investigate the wavelength dependence of high-precision radial velocities (RV), as stellar activity features should
+exhibit a wavelength dependence while the RV variation due to an orbiting planet will be wavelength independent.
+
+Methods. We use the chromatic index (CRX) to quantify the slope of the measured RVs as a function of logarithmic wavelength. We
+investigate the dependence of the CRX in the full Carmenes GTO sample on 24 stellar activity indices in the visible and near-infrared
+channels of the CARMENES spectrograph and each star’s stellar parameters. We also present an updated convective turnover time
+scaling for the calculation of the stellar Rossby number for M dwarfs.
+Results. Our results show that approximately 17% of GTO stars show a strong or a moderate correlation between CRX and RV. We
+can improve the measured RVs by a factor of up to nearly 4 in rms by subtracting the RV predicted by the CRX-RV correlation from
+the measured RVs. Mid M dwarfs with moderate rotational velocities, moderate CRX-gradients and quasi-stable activity features have
+the best rms improvement factors.
+Conclusions. We conclude that the CRX is a powerful diagnostic in mitigation of stellar activity and the search for low mass rocky
+planets.
+
+Key words. stars: activity — stars: low-mass — stars: starspots — stars: magnetic field — techniques: radial velocities; planets — detection
+
+1. Introduction highly-stable instrumentation with the aim of detecting small
+rocky exoplanets orbiting in the liquid-water habitable zones
+
+In recent years there has been exceptional progress in wave- of their host stars using the RV technique. These include
+
+length calibration and the development of high-precision, ESPRESSO (Pepe et al J2021), EXPRES (Jurgenson et al. 2016)
+
+Article number, page 1 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+and MAROON-X (Bean|2020) among others with tens of cm s~!
+precision. Recently,|Suarez Mascarefio et al. (2020) reported the
+achievement of a precision of 30 cm s~' for ESPRESSO obser-
+vations of Proxima Centauri. The current limitation in detecting
+small rocky planets is not instrumental capability, but the intrin-
+sic variability of the host stars themselves (see recent works such
+as|Crass et al.[2021} [Zhao et al.[2022| and references therein).
+All stars with masses just above and lower than the Sun pos-
+sess an internal convection zone and exhibit some degree of mag-
+netic activity from very low (e.g. the early M dwarf GJ pies
+to very high (e.g. the early and mid M dwarfs
+AU Mic and EV Lac: |Cale et al./[2021} [Klein et al.|/2022} \Jef-|
+fers et al.[2022} [Bellotti et al./2022). The presence of this ac-
+tivity induces an asymmetry in the shape of the stellar photo-
+spheric absorption lines which limits our ability to determine the
+star’s centre-of-mass motion via the position of the line’s cen-
+tre (Dravins et al.]1981}|Saar & Donahue} 1997}|Lagrange et al.
+Meunier et al.[2010) [Reiners et al.J2010} [Bares et al.
+2014). This con-
+
+sequently results in an additional activity-induced RV contribu-
+tion which impacts the detection and the measurement of the
+masses of small planets orbiting close to their host stars. There
+are also a large number of methods that have been developed
+to remove the activity-induced component to the RVs. However,
+the conclusion is, from the extensive testing of different activity-
+removal methods gg SE ie | that no method succeeds
+in routinely achieving a reduction in the RV rms to sub-meter-
+per-second levels.
+
+In this work we aim to understand the wavelength depen-
+dent activity diagnostics of the full data set secured as part of the
+CARMENES GTO survey (Calar Alto high-Resolution search
+for M dwarfs with Exo-earths with Near-infrared and optical
+Echelle Spectrographs; |Quirrenbach et al.| (2018 2020). The
+CARMENES GTO sample was selected to contain the brightest
+stars in the J band for each M dwarf sub-spectral type bin that are
+observable from Calar Alto Observatory in southern Spain and
+have no stellar companion within 5 arcsec. This selection pro-
+cedure for the GTO sample ensures that it includes both mag-
+netically active and inactive stars, and now after over 8 years
+of operation, and with more than 20000 spectra in hand
+{et al. [2023), ensures that we have a statistically significant sam-
+ple to understand the impact of stellar activity on high-precision
+RV measurements. One important diagnostic parameter in the
+search for exoplanets orbiting stars showing stellar activity is an
+analysis of the wavelength dependence of the measured RV val-
+ues. This is because features of stellar activity such as dark cool
+starspots are typically wavelength-dependent because the con-
+trast between starspots and the stellar photosphere is smaller at
+longer wavelengths. In contrast, the RV signal from an orbiting
+exoplanet is wavelength independent.
+
+The chromatic index (CRX) is a measure of the RV varia-
+tion as a function of wavelength. It is defined by taking the slope
+of the RVs in every spectral order as a function of logarithmic
+wavelength (Zechmeister et al./2018). The CRX-index has been
+shown by Jeffers et al.}(2022), using a low-resolution Doppler-
+imaging technique, to be directly correlated with starspot cover-
+age for the mid M-dwarf EV Lac. This is consistent with (i) the
+simulations of (2020), who combined the CRX-
+index with photometric observations of YZ CMi to constrain the
+spot-filling factor and YZ CMi’s spot and photosphere tempera-
+ture contrast, and (ii) the previous work of [Tal-Or et al-] (2018),
+who investigated the CRX-index for only the most active stars
+in the CARMENES GTO sample using the first 1.5 years of
+
+CARMENES data. More recently, |Lafarga et al.) (2020) inves-
+
+Article number, page 2 of 26
+
+BJD = 2458903.42635 —@—
+CRK slope = -337.54 Np"! (+ 9.9%) ——
+RV =-135.97 ms" + 5.07 ——
+
+100
+
+580
+
+Radial Velocity [ms~!]
+
+5500 6000 6500 7000 7500
+
+Wavelength (A)
+
+8000 8500 9000 ©9500
+
+Fig. 1. Illustration of the RV variation with wavelength, where the cen-
+tral wavelength is given for each order. Shown are the same data as in
+Figure A with the steepest positive slope shown by red points. The
+green line indicates the slope of these points, which is the CRX-index
+for each individual spectrum. The weighted RV measurement is shown
+
+by the purple line. The wavelength spacing is logarithmic.
+
+tigated periodicities found in RVs and nine activity indicators in
+the CARMENES GTO sample. They concluded that the CRX is
+
+as efficient as the line bisector (Queloz et al.|/2001) as indica-
+tor of activity for active M dwarfs. Other recent work by|Collier|
+
+Cameron et al. (2021) (and also|Lisogorskyi et Eu has ex-
+ploited the wavelength dependence of RV induced by stellar ac-
+tivity to separate RVs with dynamical origin from stellar activity
+induced variability.
+
+In this paper we aim to empirically understand the wave-
+length variations of RVs using the CRX-index, and to quantify
+how to remove this contribution from the RVs. In Section 2 we
+define the CRX-index and in Section 3 we describe the obser-
+vations and define how the CRX stars were selected from the
+full CARMENES GTO sample. Section 4 we investigate the de-
+pendence of CRX-index on fundamental stellar parameters. In
+Section 5, we use the wavelength information contained in the
+CRX-index to remove stellar activity from the RVs. We discuss
+the implications of our results in Section 6.
+
+2. CRX: dependence of RVs with wavelength
+2.1. Definition of the CRX
+The CRX-index is defined as the slope of the RV as a function
+
+of logarithmic wavelength (Zechmeister et al.|[2018)
+spectrum. The RV of each spectrum is computed using weighted
+averages to account for the wavelength dependence of the RVs
+(more details later in Section 3.1). This is illustrated in Figure(I}
+which shows the wavelength dependent RVs of 10 spectra o
+the mid-M dwarf EV Lac. The spectrum exhibiting the steepest
+positive gradient is illustrated with red points and a linear fit in
+green. The RV value computed by serval is shown as a hori-
+zontal purple line.
+
+Figure [2] shows the CRX calculation in more detail for
+the same 10 spectra that are illustrated in Figure in Because
+the spectra span less than two complete rotations of EV Lac
+(Prot = 4.349 d; Jeffers et al-[2022), the effects of evolution due
+to stellar activity should be minimal. Each spectrum is coloured
+according to the stellar rotation phase. The CRX-index measured
+for each of the spectra in Figure [2] (top left panel) is shown as a
+function of RV in Figure 2] (top right panel), where the colour
+coding is the same in both panels.
+
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+300 1
+150 Py " ‘ ‘ ‘
+Z 100 200+ & |
+£ a e e 8
+> 50 = 100; 4 =
+Oo =
+2 0 — all e 6 |Boss
+s 5 e 2
+= 50 oa r x
+s © -100 + | od
+UD a
+& -100 é é
+~150 6 -200 +
+L 1 1 n 0
+6000 7000 8000 9000 -100 -50 0 50
+Wavelength (A) Radial Velocity [m/s]
+300 ¥. 1 T T T T T T T 1
+L. e ct
+200 % ny 50
+~ i z 8 8
+Q r = D
+= 100 * = ot a £
+2 ry =) e a
+=o 2 08 &
+& 65 | =z -50F © - te
+S ~100 ey sg &
+¢é¢je °e
+200 -100+ @ 4
+1 1 rt 4 1 4 4 4 0
+0 0.2 0.4 0.6 0.8 1 0 0.2 0.4 0.6 0.8 1
+
+Rotation Phase [d]
+
+Rotation Phase [d]
+
+Fig. 2. Illustration of the behaviour of the CARMENES visible channel CRX for the mid-M dwarf EV Lac. Top Left: Variation of RV as a function
+of wavelength (spacing is logarithmic). The CRX-index is the slope of RV vs log(A) for each spectrum. A total of 10 CARMENES spectra are
+shown covering approximately one stellar rotation. The upper and lower boundaries are the fits to the most positive and negative RV values. Top
+right: The CRX-gradient, illustrating the CRX-index as a function of mean RV. Bottom Left and Bottom Right: CRX vs rotation phase and RV vs
+rotation phase illustrating the anti-correlation of CRX-index (i.e. the negative CRX-gradient shown in the top right panel). The plotted points in
+
+each panel are colour coded according to stellar rotation phase.
+
+The gradient of the CRX-index versus RV distribution for a
+series of spectra is referred to as the CRX-gradient in the work
+that follows. For each star, we define the CRX-length as RVmax
+- RVmin, Where the RVmin and the RVmax are the minimum and
+maximum RV values from all of the available spectra (using 90
+and 10 percentiles). We prefer this definition since CRX vari-
+ation (CRXmax - CRXmin) and CRX are directly related, while
+CRX-length is most readily calculated directly from the RVs,
+even in the absence of CRX-index measurements. The large vari-
+ations in the CRX-index as a function of rotation phase (as illus-
+trated in Figure[2) demonstrate how the CRX-index evolves over
+the stellar rotation period due to the presence of activity features
+on the stellar surface. The CRX-index for each individual spec-
+trum, and consequently the CRX-gradient for a series of spectra,
+has been directly linked to the distribution of dark starspots on
+the stellar surface using low resolution Doppler imaging tech-
+niques by [Jeffers et al.](2022). The lower two panels of Figure
+show the variation of CRX-index and RV as a function of stellar
+rotational phase, with the same colouring as in the upper panels.
+
+The data shown in Figure [2] are for the VIS channel only
+as the errors in the NIR channel are too high for meaningful
+interpretation for the case of EV Lac. Even though the NIR data
+are not shown, we do not expect to see a convergence of the
+slopes at longer wavelengths as is suggested by the outer edges
+of the light grey region in Figure[2|(top left panel). As discussed
+), a black-body scaling of the spot and
+
+by
+
+photospheric flux ratios will remain constant continuing to NIR
+wavelengths, in agreement with PHOENIX models for the spot
+/ photosphere ratio. A more detailed description of the full data
+
+set of EV Lac was previously presented by (2022
+
+2.2. Comparison of the CRX with different instruments
+
+The CRX will show different behaviour when investigated with
+different spectrographs with varying wavelength coverage and
+spectral resolution. The comparison of the CRX between data
+secured with HARPS and CARMENES has been previously in-
+
+vestigated by (2018) for the stars YZ CMi,
+and GJ 3379, and for AD Leo. In
+general the CRX shows a negative slope for both HARPS and
+CARMENES datasets of YZ CMi while for GJ 3379, only the
+CARMENES data show a significant chromatic variation. Simi-
+eae CARMENES M dwarf K2-18 has been reported by|Radica|
+to show chromatic behaviour at a level that is be-
+ioe our threshold of Pearson’s r > 0.5. Similar to GJ 3379, this
+is not visible in the HARPS dataset of K2-18. Surprisingly, the
+CRX of AD Leo shows a positive slope for archival HARPS data
+
+and a negative slope for CARMENES data (Kossakowski et al.
+[2022}[Zechmeister et al.[2018) and significantly lower amplitude
+for much redder wavelengths (Carmona et al.]2023). The com-
+
+parison of chromaticity of RVs across a very broad wavelength
+regimes has the potential to give a crucial insight into the activ-
+ity of these stars. However, simultaneous observations across a
+broad wavelength range are required to truly compare the wave-
+length dependence as features of stellar activity can evolve on
+timescales of a few stellar rotation periods.
+
+2.3. Modelling the CRX
+
+The effect of dark starspots on the wavelength dependence of
+RVs has previously been investigated by (2007);
+[Bames et al, (2011); (2021) among many
+
+others. In particular, the CRX has been simulated by
+
+A&A proofs: manuscript no. CRX_main_ALL
+
+fet al] (2020) using spectroscopic and photometric data for the
+mid-M dwarf YZ CMi. They demonstrated that the CRX-index,
+computed for each spectrum, can be used to determine, and
+break the degeneracy between, the spot-filling factor and temper-
+ature contrast between the starspot and unspotted photosphere.
+Recent work has shown that the CRX-index versus RV re-
+lation can have an inclined lemniscate (00) or figure-of-eight
+shape, with a typically negative slope, which results from a slight
+phase offset between the phase curves of the RVs and the CRX
+values (examples include|Baroch et al.[2020} Jeffers et al.[2022}
+for YZ CMi and EV Lac respectively). This is comparable to
+
+the inclined-lemniscate shape established for RV versus Bisector
+
+Inverse Slope (BIS) relations for co-rotating cool spots
+
+let al. [2007 1997} [Boisse et al.|2011). For the
+BIS, (2011) attribute this to result from foreshorten-
+
+ing and limb-darkening effects, while for the CRX|Baroch et al.
+consider that the offset results from the combined effects
+of limb darkening and convective blue shift. The example of the
+CRX-index versus RV relation shown Figure 2 for the mid-M
+dwarf EV Lac is almost a straight line due to the dominance of
+high-latitude spot features (see the surface brightness maps re-
+constructed by [Jeffers et al-|(2022)) and to the limited time sam-
+pling of the data which covers only a few rotation periods. We
+would expect a higher amplitude lemniscate shape if there was a
+higher degree of spot coverage located at equatorial latitudes as
+has been modelled for the BIS (Boisse et al.[2011)
+
+2.3.1. Spot to photosphere contrast
+
+The spot to photospheric temperature contrast decreases towards
+redder wavelengths because the contrast between dark starspot
+and the photosphere is smaller at longer wavelengths. As this
+is one of the key diagnostic parameters of the CRX, we first
+update the temperature contrast relation originally published by
+who only used contrasts derived from photo-
+metric data sets for spectral types earlier than M3V. Here, we ad-
+ditionally include values used in Doppler imaging studies cover-
+ing the full spectral type range from early-G to late-M (Table[Ip,
+as well as the MHD simulations of starspots for different spectral
+types (Panja et al./2020). Our revised spot to photosphere tem-
+perature contrast (using Doppler Imaging results only) is equated
+as follows:
+
+AT = aT pho +b (1)
+where a = 0.47 and b = —926.97K. The fit to all Doppler
+Imaging data is plotted in Figure[3]
+
+2.3.2. CRX-gradient and length
+
+The simulations of (2020) show that the gradient
+of the CRX-RV relation is an important diagnostic as it provides
+
+a key insight into how quickly the RV variations induced by a
+cool starspot decrease as a function of increasing (logarithmic)
+wavelength. In the simulations o (2020), the CRX-
+gradient primarily depends on the spot to photosphere temper-
+ature contrast ratio for the case of one large spot located at a
+
+latitude of 78°. In addition to the CRX-gradient, [Baroch et al]
+
+also reported that the length of the CRX-index versus RV
+relation depends on both the spot-to-photosphere contrast and
+the spot filling factor. This is expected because for a given sin-
+gle spot size (i.e. a star with a fixed filling factor), the wave-
+length dependent RV amplitude and hence gradient measured by
+
+Article number, page 4 of 26
+
+2000
+
+Doppler Imaging (new) @ a
+Poe Photometry (Berdyugina 2005) 0
+Solar max + min ©
+MHD (Panja+ 2020) & we
+1600 °
+es
+1400
+g en
+= 1200 °
+&
+= 1000 ° a
+rs e ©
+= 800 . @
+=
+600 ®
+400 wee 0 0
+°
+200- @ °
+0 1 1 1 1 1 1
+2000 2500 3000 3500 4000 4500 5000 5500 6000
+T photosphere (K)
+Fig. 3. Revised photospheric to spot temperature. Original photometric
+
+data points from are shown as light blue open cir-
+cles. Doppler imaging values are shown as filled red circles where the
+values are taken from Table[I]and the values for the Sun are shown as
+two large open light blue circles with a temperature of 5800 K.
+
+Table 1. Empirical data used to derive spot to photospheric temperature
+contrasts using the Doppler imaging technique.
+
+Star Sp. Tpnot — Tspot AT Ref.
+type () (K) &)
+
+HD 106506 Gl1.0V 5870 4000 1870 1
+EK Dra G1.5V 5561 3861 1700 2
+HD 171488 G2.0V 5808 4200 1600 3
+HD 29615 G3.0V 5820 3920 1900 4
+AB Dor KO.0V 5000 3500 1500 5
+EV Lac M3.5V 3300 2300 1000 7
+V394 Peg M4.0V 3200 2800 400 8
+HU Del M4.5V 3000 2700 300 9
+GJ 65A M5.5V 2800 2400 400 10
+GJ 65B M6.0V 2800 2400 400 10
+LP 944-20 M95V 2300 2100 200 9
+
+2022
+20
+
+CRX-index is larger for a larger spot-to-photosphere contrast.
+Similarly, for a fixed spot to photospheric contrast, increasing
+a spot’s size, and thus the spot filling factor, will also lead to a
+greater CRX-length.
+
+The models of (2020) considered the impact
+
+of one starspot located at high latitudes on the surface of the
+mid-M dwarf YZ CMi. However results from Doppler imaging
+studies (examples are listed in Table[I) show that in reality, the
+surfaces of M dwarfs are likely to be much more densely spot-
+ted. In this work we use the CRX-gradient and the CRX-length
+as the two main diagnostic parameters of our investigation. We
+investigate how the CRX-gradient and CRX-length of stars in the
+CARMENES GTO sample depend on their fundamental stellar
+parameters and levels of stellar activity.
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+CARMENES GTO stars
+
+400 CRX-all sample =m
+
+Count
+
+M0.0 M1.0 M2.0 M3.0 M4.0 M5.0 M6.0 M7.0 M8.0 M9.0
+
+Spectral Type
+
+CARMENES GTO stars
+
+400 CRX-all sample =m
+
+Count
+
+<=20 2.0-4.0 4.0-6.0
+
+6.0-8.0 8.0-10.0
+vsini (km/s)
+
+>10.0
+
+Fig. 4. Spectral type distribution (left panel) and the distribution of vsini of the CRX-all sample, coloured in blue. Also shown are all of the
+
+CARMENES GTO stars with more than 25 observations as indicated by
+
+CARMENES GTO stars (Nobs > 24)
+CRX-allsamole =m
+
+100
+
+Count
+
+te) 500
+
+1000
+CRX-length [m/s]
+
+1500 2000 2500 3000
+
+Fig. 5. Distribution of CRX-length for the CARMENES GTO sample
+(light grey) and the CRX-all sample (navy). For clarity, the CRX-length
+
+values of the CARMENES GTO sample are only shown up to a value
+of 3000 ms~!
+
+100000 -1
+-
+°
+=
+s 10000 -
+€
+x =
+ae 1000 | IRXYZ Ls oy
+oO e s x
+be oe =. 5
+e fy
+
+3
+8
+
+i -16
+10
+
+RV pay-RV min $"]
+Fig. 6. The variation of CRX (CRXmax -CRXmin) as a function of RV
+variation (CRX-length = RVmax - RVmin)- Fitted is a straight line to mod-
+
+erate slopes (coloured navy). Points are coloured by CRX-gradient.
+
+3. Data
+3.1. Observations and data processing
+
+The data investigated in this work are the full set of CARMENES
+Guaranteed Time Observations (GTO) of more than 350 M
+dwarfs which have been observed since the start of the
+
+shaded grey bars.
+
+CARMENES GTO survey in 2016. The CARMENES spectro-
+graph is installed at the 3.5m telescope at Calar Alto Obser-
+vatory in Spain. It comprises two fibre-fed and cross-dispersed
+spectrographs, one at visible wavelengths (VIS, 520-960 nm)
+and the other at near-infrared wavelengths (NIR, 960-1710 nm)
+with a resolution of ~94 600 in the VIS and ~80400 in NIR
+and an average sampling of 2.8 pixels (Quirrenbach et al. [2018).
+The data were processed in the usual manner for CARMENES
+data, i.e. with caracal (CARMENES reduction and calibration
+
+the RVs were calculated using serval (Spectrum radial veloc-
+
+ity analyzer{Zechmeister et al.|2018) using weighted averages to
+
+account for the wavelength dependence of the RVs, where the
+
+individual orders are weighted. The impact of telluric lines on
+2
+
+the measured RVs was removed
+template division telluric modeling technique. The nightly-zero-
+point (NZPs) were also subtracted from the serval RV measure-
+ments (see [Ribas et al.| section 4.4 for a detailed explana-
+tion).
+
+3.2. CARMENES NIR channel
+
+In this work we only use data from the CARMENES VIS chan-
+nel and not from the CARMENES NIR channel because the
+NIR channel yields RV measurements of less precision than the
+VIS channel. This is partly because of the diminished RV in-
+formation content in the observed NIR domain
+(2018). But also, the CARMENES NIR channel suffered from
+thermo-mechanical instability since the start of operations and
+until some corrective measures were applied a few years later.
+Consequently, the NIR RV data were in general not used dur-
+ing the exploitation of Guaranteed Time Observations (but see
+strument upgrades have dramatically improved the precision of
+the NIR channel (Schaefer et al. 2024; Varas et al. 2024, in prep)
+and a careful analysis of the newly collected NIR data is under-
+
+going
+
+3.3. Activity Indices and CCF parameters
+
+Given the large wavelength coverage of CARMENES we have
+a large number of activity indicators available. We use a total of
+26 indicators as follows
+
+Article number, page 5 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+1 x 10
+e C62 9
+sk
+- 8
+_ of
+= 7
+= 2
+g &
+2 8 =
+% 2
+S001 5.
+4
+CRX-slope (Ha active)
+CRX-slope (Ho nacte) 2 3
+0.001 CRX-Pearson sample (strong)
+CRX-Pearson sample (moderate) x >
+7 0.9 0.8 0.7 0.6 0.5
+Pearson's r
+10 10
+CRX-slope (Ha active) @
+CRX-slope (Ha inactive) ©
+CRX-Pearson sample (strong) 9
+CRX-Pearson sample (moderate)
+1 * x 8
+z ,
+mal o
+s &
+= ae
+x ES
+g 5
+4
+3
+0.001 2
+200 300 400 «500. «600-700 800900
+Spot contrast (K)
+1 10
+x Pi 9
+8
+- of
+= cas ve 7
+2 [560 ane °
+= én = wt z
+2 LS fa os 8 z
+££ a oO
+z x Soe wv g
+5 0 ¥" 5
+0.01 x e —
+x
+4
+CRX-slope (Ho active) ©
+CRX-slope (Ho inactive) © 3
+CRX-Pearson sample (strong) *
+GRX-Pearson sample (moderate)
+0.001 2
+1 10
+Rotation period (a)
+Fig. 7. Dependence of the CRX-length as a function of Pearson’s r
+value (upper panel) and spot contrast (middle panel) and rotation period
+(lower panel) for the CRX-all stars sample. Closed symbols indicate
+Ha active stars and open symbols Ha inactive stars. Points are coloured
+by projected stellar rotational velocity (v sin i). The CRX-slope stars are
+
+labelled as indicated in Tabl In the top panel, the two arrows indi-
+cate two stars with positive Pearson’s r correlation. Their true Pearson’s
+value is shown in the label for each point.
+
+— Six RV, CRX and differential line widths (dLW) calculated
+by serval - i.e. RVyis and RVnir, CRXvis and CRXnir,
+dLWyjis and dLWnir.
+
+— Sixteen activity indices at VIS and NIR wavelengths
+computed following the procedure described by |S
+aun The full list of spectral line indices com-
+prise: log(Lpe/Lpo), PEW(Ha), HeD3, NaD, Ca IRT-a,-
+b,-c, He I 10830, Pa 8, CaH2, CaH3, TiO 7050, TiO 8430,
+TiO 8860, VO 7436, VO 7942, and FeH Wing-Ford. We de-
+fine stars with positive pEW(Ha), where Ha is in absorp-
+tion, to be Ha inactive stars and with negative values, where
+
+Article number, page 6 of 26
+
+Ha is in emission, to be Ha active stars. The minimum de-
+tectable emission in the Ha line depends on the resolution
+of the spectrograph and the signal-to-noise of the data and
+has been shown by Schifer et al] ) to be —0.3A for
+CARMENES.
+
+— Four cross correlation function (CCF) parameters, CCF-
+Contrast, CCF-RV, CCF-FWHM, and CCF-BIS were
+
+computed following |Lafarga et al.
+
+3.4. CRX-all sample
+
+From the full CAMRENES GTO sample of 350 stars, firstly,
+we select stars with a minimum number of observations Nops >
+25 as this is the minimum number of observations required
+to give a reliable CRX-index versus RV relation, and to pro-
+vide a statistically significant correlation with activity indica-
+tors. The CARMENES GTO sample with No»; > 25 com-
+prises a total of 215 stars and is referred to as CARMENES
+Neto25 sample in the rest of this work. Parameters for all 215
+CARMENES No7025 stars are listed in Table B.1 (Appendix).
+
+We then computed the statistical significance of the corre-
+lation of CRX-index with RV for each of the 215 stars using
+Pearson’s r coefficient. We define a strong correlation (or anti-
+correlation) where Pearson’s r > |0.7| , and a moderate correla-
+tion to be 0.5 < |r| < 0.7 . The statistical significance is com-
+puted by the Student’s t-test probability value, p. We assumed
+values of p < 0.03 imply no strong evidence to reject the (no
+correlation) null hypothesis. There are a total of 39 stars with a
+strong or a moderate correlation and these stars are referred to
+as CRX-all in the work that follows and are listed in Table[A.1]
+From this, 21 stars have strong correlations between the CRX-
+index and RV and 18 stars have a moderate correlation.
+
+3.5. CRX-slope sample
+
+The CRX-all sample is further classified based on a visual in-
+spection of the CRX-index versus RV relation for each star. A
+total of 13 stars exhibit a tight linear CRX-index versus RV rela-
+tionship and comprise both strong and moderate statistical CRX-
+index versus RV correlations. This sample is referred to as the
+CRX-slope sample in the rest of this work. To avoid confusion
+we refer to the actual measured value of the CRX slope as the
+CRX-gradient in the rest of this work. The CRX-index versus
+RV relation is shown for each of these stars in Figure[A-T]
+
+3.6. CRX-Pearson sample
+
+The 26 remaining stars are refereed to as the CRX-Pearson
+sample in the rest of this work and are subdivided into Pearson-
+strong sample comprising 9 stars and Pearson-moderate sample
+comprising 17 stars. The CRX-index versus RV for these two
+samples are respectively shown in Sey and
+RV-CRX correlation deviates from a straight line in this sample,
+where the deviations can take the form of a high degree of
+scatter or a generally extended cloud shape. The reasons for
+these deviations are not well understood and are beyond the
+current scope of this work.
+
+Sample Summary:
+
+- CRX-all: 39 stars with Pearson’s strong, |r| > 0.7 (21 stars),
+or moderate, 0.5 < |r| < 0.7 (18 stars) correlations
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+- CRX-slope: 13 stars with a tight linear relationship, as in-
+spected visually; they are a subset of the the CRX-all sample
+
+— CRX-Pearson: 26 stars with non-linear but moderate (17
+stars) or strong (9 stars) Pearson’s r values
+
+3.7. Comparison to the CARMENES Nero25-sample
+
+The distribution of the CRX-all stars compared to the
+CARMENES Noer1o025-sample in terms of spectral type and pro-
+jected stellar rotational velocity, or vsini is shown in Fig-
+ure [4] The 39 stars in the CRX-all sample cover all spectral
+types and broadly follows the spectral type distribution of the
+CARMENES Noe71o025-sample. The distribution of v sini values
+for the CRX-all stars and the CARMENES Ng7o25-sample are
+shown in Figure [4] (right panel). Approximately one third of the
+CRX-all stars have vsini values < 2.0kms~', one third have
+vsini values between 2.0-4.0 kms~! and the remaining third
+have values 4.0-10.5 kms~!. The wavelength dependence of the
+RVs depends on many fundamental stellar parameters and in the
+following sections we will investigate the correlations and trends
+in the activity indices available from the CARMENES spectra.
+
+4. Results: CRX: gradient and length
+
+As previously discussed, preliminary models indicate that the
+two most useful parameters to characterise the CRX-index ver-
+sus RV relation are its gradient and length. For the CRX-slope
+sample, the measured CRX-gradient values typically have slopes
+ranging from —2.65 Np~! to —3.70 Np! (8 stars), with 4 stars
+having slopes in the range —4.6 Np~! to —17 Np~!, and 1 star
+having a very shallow slope of —1.16 Np~!. The colouring of
+points in Figure [6] and subsequent Figures is chosen to reflect
+these broad groupings. We caution the direct interpretation of
+the steepest slopes for the 3 stars with the latest M-dwarf spec-
+tral types as for these stars there is less flux in the bluer orders
+and may potentially bias the results. Since our aim is to apply
+uniform analysis to all stars we have included these stars but do
+not draw any conclusions from them. In contrast, the steep slope
+of the young M 3.0 dwarf K2-33 results from very high levels of
+stellar activity given its young age.
+
+CRX-length values range from 30 ms~! also for the M 2.5
+dwarf TYC 3529-1437-1 to 2897 ms~! for the M 3.0 dwarf K2-
+33. The distribution of CRX-length values for the CRX-all sam-
+ple compared to the CARMENES GTO sample is shown in Fig-
+ure[5] In the work that follows we normalise the CRX-length by
+dividing the measured length by the stellar v sini.
+
+Furthermore, in Figure {| we show the CRX variation,
+CRXiax -—CRXmin, aS a function of the total RV variation,
+RVmax—RVmin, Which we define as the CRX-length. The
+CRX-slope stars with moderate gradients show a linear increase
+with increasing RV variation.
+
+Figure [/]illustrates the correlation between the CRX-length
+and the Pearson’s r value where longer CRX-length / v sini val-
+ues have a higher Pearson’s r value indicating a stronger sta-
+tistical correlation. We note that low CRX-length values occur
+at low vsini values. There was no correlation noted between
+the CRX-gradient and the Pearson’s r value. We further inves-
+tigated the correlation of CRX-gradient with the CRX-length.
+We find no correlation between these two parameters (plots not
+shown). We also examined the dependence of the CRX-gradient
+on the inferred spot to photospheric temperature contrast (see
+Section 2.2.1). While the results do not show a correlation with
+CRX-gradient, the CRX-slope stars lower contrasts for stars with
+
+higher CRX-length / vsini values as shown in the middle panel
+of Figure [7] Stars with low vsini values show the lowest CRX-
+length / vsini values over a range of medium to high contrasts.
+Increasing the vsini value for a given contrast often results in a
+higher CRX-length / vsini value. The lower panel of Figure [7]
+shows that there is a tendency of stars with short stellar rotation
+periods to show slightly higher CRX-length / v sini values.
+
+Our initial results indicate that the interpretation and under-
+standing the nature of the CRX is more challenging than sug-
+gested by the models (Baroch et al.|[2020). However, it should
+be noted that only one starspot was modelled on the surface of
+YZ CMi and the reality is certainly more complicated. M dwarfs
+in general are likely to have more complicated distributions of
+starspots, where the latitude of the starspot will also have an im-
+pact on the CRX-gradient and length (Barnes et al.J2011), as well
+that M dwarfs typically have much lower levels of convective
+blueshift compared to the more massive G and K dwarfs, its im-
+pact on the RV precision is unlikely to be a large effect
+et al./2021) compared to more massive solar-type stars. The de-
+pendence of the CRX gradient and length as a function of stellar
+activity parameters will be investigated in later sections of this
+work.
+
+4.1. Dependence on activity indicators
+
+In this section we investigate how the CRX gradient and CRX-
+length of each of the 13 CRX-slope stars depend on their
+measured activity indices in relation to the CRX-Pearson and
+CARMENES Noe1o025-samples. The general patterns of activity
+in the CARMENES GTO sample have previously been presented
+and discussed in detail by(Jeffers et al.|(2018).
+
+In the following Figures [8]to[13} the stars in the CRX-slope
+sample are shown as diamond symbols, CRX-Pearson strong
+stars with an asterisk symbol, CRX-Pearson moderate stars as
+a cross, and the remaining stars in the CARMENES Ner1o025-
+sample are shown as small grey circular points. For each figure,
+the left and right panels are colour-coded based on the CRX gra-
+dient and the CRX-length / v sini, respectively.
+
+The colouring for the CRX gradient and the CRX-length
+plots were chosen to represent the sample in terms of global
+groups rather specific stars. In the text that follows we discuss
+these plots in terms of the shallowest to the steepest slopes, and
+the shortest to the longest CRX-length values. The stellar activ-
+ity indices that we investigate are stellar (i) rotational velocity or
+vsini (Figure[8) (ii) chromospheric emission via Ha (Figure[9),
+(iii) diagnostic of spot coverage via Ti07050 A band (Figure [11 ig
+and finally (iv) average magnetic field strength (Figure[13p.
+
+4.2. CRX-gradient
+
+In Table[2]we have summarised the information contained in the
+left-hand panels of Figures to[I3}to understand how the CRX
+gradient varies as a function of a range of stellar activity param-
+eters. Comparing the gradients of the CRX-slope sample with
+the full CARMENES Ng7o25-sample (see (2018),
+we conclude that the stars with the shallowest CRX-gradients
+are among the least active stars. Since there is only one star in
+this category we do not include the shallowest slopes in Table[2|
+Stars with moderate CRX gradients occur at early to mid-M
+spectral types, have high levels of stellar activity (Figures [8] [)
+and show saturated log(Lyo/Lpo) and average magnetic field
+strengths (Figures [0] [13). Similarly, the steepest slopes occur
+
+Article number, page 7 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+vsini [km/s]
+
+3
+
+CRX-gradient sample (Ha active)
+CRXCgradient sample (Har inactive
+CRX-Pearson sample (strong
+CRX-Pearson sample (moderate)
+Carmenes GTO
+
+«
+oF? x 560
+°
+or
+° EV o
+73
+° e
+AD
+vy Oi 783,
+° » ©
+
+of
+
+vsini [km/s]
+
+CRX gradient
+3
+x
+
+Usa
+
+CRX-gradient sample (Ho: active}
+CRX-gradient sample (Ha: inactive)
+CRX-Pearson sample (strong
+CAX-Pearson sample (moderate!
+(CARMENES GTO
+
+xKOo
+
+or
+wz
+e ve
+« Pr 1
+Xap"
+
+Pee ee ce ee x
+
+0.0 M1.0 M2.0 M3.0 M4.0 M5.0 M6.0 M7.0 M8.0 M3.0
+
+Spectral Type
+
+M0.0 M1.0 M2.0 M3.0 M4.0 M5.0 M6.0 M7.0 M8.0 M9.0
+
+Spectral Type
+
+=
+g
+=
+a
+&
+x
+ica
+oo 2
+0.001
+
+Fig. 8. Variation of projected rotational velocity (v sini) as a function of spectral type for the CARMENES GTO sample with Nop; > 25. Stars in
+
+the CRX-slope sample are coloured according to the measure
+
+Table 2. CRX-gradient with activity.
+
+gradient(left panel) and CRX-length (right panel). Stars in the CRX-slope sample
+is 2kms~!. The stars
+
+that are Ha active are indicated by closed symbols and Ha inactive stars as open symbols. The minimum v sini value plotte
+
+are labelled as indicated in Table[A-Tand also whether their large-scale magnetic field geometry is SS: Stable + Strong or CW: Complex Weak.
+Parameter Moderate gradients Steep gradients Figure No
+Spectral Type early to mid M late-M
+vsini <11kms"! low to moderate g|
+log(Lita/Lbo1) active (high) active (moderate)
+Ha sat / unsat saturated saturated
+TiO 7050 lowest value per SpT bin late M hook
+log(Lx/Lpo1) saturated not shown!
+Ave mag. field highest moderate
+Ave mag. field sat / unsat saturated saturated 13
+
+Notes. The shallow gradients are not shown as this group only comprises only | star. © The log(Lx/Lpo1) plot is not shown as many of the stars in
+the CRX-all sample do not have X-ray values.
+
+Table 3. CRX-length with activity
+
+Parameter Shortest lengths Moderate lengths Longest lengths
+
+Spectral Type mid M early to mid M mid to late M
+
+vsini <2-3.5kms7! moderate to high moderate
+
+log(Lita/Lbo1) active: low to moderate active: moderate to high | active: moderate to high
+
+Ha sat / unsat unsaturated both saturated
+
+TiO 7050 lowest value per SpT bin | lowest value per SpT bin late M hook +
+
+log(Lx/Lpo1) saturated saturated not shown!
+Ave mag. field moderate highest
+Ave mag. field sat / unsat unsaturated both
+
+Notes. “ The log(L,/Lpo1) plot is not shown as many of the stars in the CRX-all sample did not have X-ray values.
+
+at later M spectral types at moderate levels of activity (e.g.
+vsini and log(Lye/Lpol); Figures} 1)
+tion at lower log(Ly/Lpo1) values compared to stars with mid-M
+
+spectral types (Figures [1].
+
+Article number, page 8 of 26
+
+4.3. CRX-length
+
+. These stars show satura-
+
+are summarised in Table Bl
+
+The correlations of the CRX-length / v sini with the stellar activ-
+ity indicators as shown in the right-hand panels of Figures[8]to
+for ease of comparison. Generally,
+
+the shortest CRX-lengths are found for stars with low to mod-
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+erate Ha activity levels, with early to mid-M spectral types and
+moderate average magnetic field strengths (Figures [8] [9] [13).
+The moderate CRX-length values occur for very active stars and
+the longest lengths are for very active stars at late M spectral
+types. As noted in for the CRX gradient, activity in the latest M
+dwarfs saturates at lower log(Lyq/Lpo1) values compared to mid
+
+M dwarfs (Figures[10][13).
+
+4.4. CRX-Pearson
+
+The remaining stars in the CRX-Pearson sample follow the same
+trends. Stars with a strong Peason’s correlation typically have
+longer lengths and are located at mid to late M spectral types.
+The correlation of the CRX-length with various parameters was
+previously discussed in more detail in Section 3.
+
+4.5. Noteworthy points
+
+Our aim has been to present the results of the CRX-gradient and
+length in the context of stellar activity in a clear and concise
+manner. In addition to the points already discussed, there are a
+few additional noteworthy points
+
+- Can H&K: We also investigated the dependence of the CRX
+on the Ca n H&K lines as derived for the CARMENES GTO
+sample by|Perdelwitz et al. (2021). However, there were only
+a few measurements available for the stars in the CRX-all
+sample from archival observations and it was not possible to
+determine any distinct correlations or trends; therefore these
+plots are not shown.
+
+—- X-ray: As summarised in Tables |2| and [3] X-ray data were
+only available for a small number of stars and it was not pos-
+sible to derive any trends or correlations. As part of determin-
+ing the log(Lx/Lpo1) relation as a function of Rossby number,
+we noticed that the fit parameters provided by [Wright et al]
+in their equations 5 and 6 contain typos and are not
+the values derived from fitting the data in their Table 3. No-
+tably, (2022) independently found that there
+was an offset with the log values from{Wright et al-|(2018)
+
+for very low mass stars. The correct scaling for the empirical
+
+calibration data of [Wright et al.| (2018) is as follows (and is
+
+an update to their Equations 5 and 6):
+
+logt = (0.58 + 0.04) + (0.28 + 0.01)(V — Ks) (2)
+
+logt = (2.30 + 0.06) — (1.38 + 0.245)(M/Mg)
+
+(3)
+
++(0.22 + 0.19)(M/Mo)”
+where log t is the convective turnover time and (V — Ks) is
+the magnitude difference between the V and Ks bands. The
+difference in the Rossby numbers derived using the fit param-
+
+eters directly taken from|Wright et al.|(2018) and Equation[2
+
+is illustrated in Figure[12]for the CARMENES GTO sample.
+
+4.6. Stars not showing CRX-gradient
+
+To understand why some stars show a clear CRX slope, or have
+a Statistically significant correlation between CRX and RV, and
+other stars not, we inspected the CRX-index versus RV relations
+of seven stars that are not part of the CRX-all sample. These stars
+
+were selected from regions that did not contain any stars from
+the CRX-all sample in (i) the v sini versus spectral type and (ii)
+the Ha versus spectral type plots. The stars are listed in Table [4]
+and their CRX-index versus RV relations are shown in Appendix
+The two stars, Teegarden’s star and K2-18 are exoplanet
+
+sts Gane Seis etal POT Pavchan etal]
+Martioli et al.]2021}|Wittrock et al.2022} |Dreizler et al.
+(2024). For both Teegarden’s star and K2-18, the planet-induced
+RV amplitude is a large fraction of the CRX-length value. In
+particular, K2-18 has been reported by (2022) to
+exhibit a wavelength dependence in RV based on the line-by-
+
+line method, but this below the Pearson’s r threshold of 0.5 that
+we consider in this work.
+
+5. Results: Removing stellar activity from RVs
+using CRX
+
+The RV signatures resulting from presence of stellar activity
+such as spots and plage regions is wavelength dependent, due to
+the decrease of the photospheric / spot contrast, whereas a plan-
+etary companion would induce a RV signal that is wavelength
+independent. In this section we use the wavelength dependent in-
+formation parameterised by the CRX to remove the signatures of
+stellar activity from the CRX-all sample of 39 stars. The subtrac-
+tion of the CRX, via a linear fit to the CRX-RV anti-correlation,
+from the RV results in a decrease in the RV rms by a factor of
+up to 3.89 in the case of IRXS JO50156.7+4233 (labeled: IRX).
+The results for the CRX-all sample are listed in Table We
+find a total of 9 stars or 25% of the CRX-all sample have a factor
+of improvement greater than 2.0.
+
+There is a strong dependence of the factor of improvement
+(Fol) with Pearson’s r value as shown in the top left-hand panel
+of Figure[14] A linear fit shows that this relation can be equated
+as follows:
+
+Fol = —18.51r— 14.48
+Fol = —1.98r + 0.04
+
+(r < —0.80)
+
+(r > —0.80) a
+
+where Fol is the factor of improvement and r is the Pearson’s
+r value. Only 3 stars show an RV rms reduction that is greater
+than a factor of 3. These are 1RXS JO50156.7+010845, YZ CMi
+and EV Lac, which will be referred to as the RVorr3 stars in the
+rest of this work. All three stars have mid-M spectral types and
+are located on the saturated part of the rotation-activity correla-
+tion (Figure[10). For mid-M spectral types, this occurs at higher
+normalised Ha values than for the latest M dwarf spectral types.
+
+The correlation of the Factor of Improvement with stellar ro-
+tation period is shown in Figure[14](upper right panel). The high-
+est Factor of Improvement values are shown for fast to moder-
+ately rotating stars with rotation periods of approximately a few
+days to just less than 10 days. This is likely because such mod-
+erately rotating stars have more stable spot patterns.
+
+The TiO indicator can be considered as an indicator of dark
+starspot coverage, even on slowly rotating and less active stars
+[Vogt] 1979);|Amado & Zboril te | O’Neal et al. 2004). To
+remove the spectral type dependence that we previously showed
+in Figure[I 1] we plot the maximum minus the minimum value for
+each star (Figure [[4] middle left panel). The RV corr3stars show
+moderate values, while the cluster of low usini stars with very
+small Factor of Improvement values show very small TiO 7050
+variations.
+
+Article number, page 9 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+-25 4 -2.5 1
+CRX-gradient sample @ CRX-slope sample -®
+GRX-Pearson sample (strong) * CRX-Pearson sample (strong)
+CRX-Pearson sample (moderate) x CRX-Pearson sample (moderate) *
+-3 4 CARMENES GTO + 3 CARMENES GT
+-2
+ae —_ io *
+-3: = 35 =
+z° z 04.8 3
+= 382 ee one tN £
+s 8B _ of
+g- ge ~ ¢ of." @ §
+s os is a é
+J e es «3 oH 0 4
+= a .
+= 454 TR. 482 45 ; . a
+gs x s _ . a x oo ©
+es =” Ss ale x
+3s a re x 5 i ts
+Inactive 4 oy =
+3 — 0.001
+
+-16 MO0.0 M1.0 M2.0 M3.0 M4.0 M5.0 M6.0 M7.0 M8.0 M3.0
+
+Spectral Type
+
+M0.0 M1.0 M2.0 M3.0 M4.0 M5.0 M6.0 M7.0 M8.0 M9.0
+Spectral Type
+
+Fig. 9. Normalised Ha luminosities as a function of spectral type for CARMENES GTO sample with Nop; > 25. The solid orange line indi
+
+Ha inactive stars are shown at the base of each plot as indicated by the y-axis. The stars in the CRX-slope sample are indicated by the
+md shapes which are coloured based on the CRX gradient of the data points in the left panel and CRX-length in the right panel. The stars are
+labelled as indicated in Table[A-1]
+
+-25 4 -25 4
+CRX-slope sample (Ha active) CRX-slope sample (Ha. active)
+CRX-slope sample (Hoi inactive) CRX-slope sample (Hu. inactive) >
+CRX-Pearson sample (strong) CRX-Pearson sample (strong) =
+-34 CRX-Pearson sample (moderate) -3 CRX-Pearson sample oda) *
+CARMENES GTO -2 CARMENES GTO
+= 354 2 mee = 35 wig ge :
+3 nye” # + 3 gig” @ + 0.4 é
+2 e 352 2
+BS 4 & OS -41 woe we £
+s ° gee 52 bar od i
+- 48S >
+a 45] 6 Z -45 &
+3 2 oat 0.01
+= rt .
+«
+5 4 5
+Inactive 4 $ Inactive e
+46 0.001
+~ é : ; ,
+1 10 100 1000 ® oS 008
+
+vsini (km/s) veini (kmis)
+
+Fig. 10. Normalised Ha luminosities as a function of projected rotational velocities (v sini) for CARMENES GTO sample with Nous > 25. Stars
+in the CRX-slope sample are shown by diamond shaped point which are open for Ha inactive stars and filled for Ha active stars. The CRX-slope
+
+1 4 1 1
+CARMENES GTO CARMENES GTO.
+CRX-slope sample (Ha active) @ Ce lap sample [He alte) 2
+CRX-slope sample (Ha. inactive) © CRX-slope sample (Hec inactive)
+CRX-Pearson sample (strong) * CRX-Pearson sample (strong) *
+08 - CRX-Pearson sample (moderate) = 3 08 CRX-Pearson sample (moderate)
+oy 0
+oo“ ba Wag
+2, % =
+< 08- ie age 0 os :
+3 ®, 38 ty €
+FS oS har >
+R aS a 5
+Q 1 4 EF 04 : way s #
+° = ime * # Lon 8
+>
+™ 02
+0.2 -
+0 0.001
+° ~16 MO.0 M1.0 M20 M3.0 M4.0 M5.0 M60 M7.0 M8.0 19.0
+M0.0 M1.0 M2.0 M3.0 M4.0 M5.0 M6.0 M7.0 M8.0 M3.0 Spectral Type
+Spectral Type
+Fig. 11. Variation of TiO 7050 index as a function of stellar spectral type for the CARMENES GTO sample with Nos > 25. The CRX-slope
+sample of stars is indicated by diamonds which are filled for Ha active stars and open for Ha inactive stars. The CRX-slope sample stars are
+
+coloured depending on CRX-gradient (left panel) and CRX-length (right panel). The stars are labelled as indicated in Table
+
+Article number, page 10 of 26
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+Table 4. Sample of stars not showing a CRX slope.
+
+Karmn Name Sp. vsini Pro log Lexa / Lot
+type (kms7!) (d)
+J02530+168 Teegarden’s Star M7.0V <2.0 96.00 —5.40
+J05084-210 2MASS J05082729-2101444 M5.0V 25:2 0.28 -3.28
+J06024+498 G192-015 M5.0V <2.0 105.00 Inact.
+J07361-031 BD-02 2198 M1.0V 3.1 122. 4.28
+J11302+076 K2-18 M2.5V <2.0 38.83 Inact.
+J14257+236 BD+24 2733 MO0.5 V <2.0 17.60 Inact.
+J19346+045 BD+04 4157 M0.0 V 3.9 12.90 Inact.
+
+References. The full list of stellar parameters for each of these stars is listed in the Appendix Table B.1. The rotation period of Teegarden’s star is
+
+-0.04 - -
+. c00 °
+0.06 * ose eg i
+0. e
+os
+° ".
+8
+B 008 ee
+Fi e
+= ot 7
+s
+8
+2 -0.12
+5
+5
+2
+a 014
+0:18 « Mass <0.2 ©
+by Mass 0.2-0.35 ©
+Mass>035 ©
+0.18
+
+0 04 0.2 0.3 0.4 05 06
+Stellar Mass (Mun)
+
+0.7
+
+Fig. 12. Difference in Rossby number as a function of stellar ma:
+rived using the fit in Seaweed the parameters published in
+et al. (their equations 5 and 6). Points are coloured by stellar
+
+mass following {Shan et al. (2024).
+
+Furthermore, we show the factor of improvement as a func-
+tion of normalised Ha in Figure[14](middle row right panel). No-
+tably, the RV corr3 stars have very high levels of Ha activity. The
+remaining stars show Ha values spanning the full range from
+low to high levels of Ha activity.
+
+Finally in the lower panels of Figure [14] we investigate the
+dependence of the Factor of Improvement value on the CRX-
+length / vsini and spot contrast ratio (left and right panels re-
+spectively). The factor of improvement increases with increas-
+ing CRX-length / vsini values, though importantly the RV orr3
+stars don’t follow this trend with the highest factor of improve-
+ment values and moderate CRX-length / v sini values. The low-
+est v sini stars have the lowest factor of improvement values and
+the lowest CRX-length / vsini measurements. The variation of
+the factor of improvement with spot contrast ratio shows a gen-
+eral trend of increasing factor of improvement values with de-
+creasing spot contrast ratios. The highest factor of improvement
+values occurring for moderate spot coverage ratios that are typi-
+cal for mid-M spectral types.
+
+6. Discussion
+
+The advantage of the CARMENES spectrograph is its large
+wavelength coverage and high RV precision. In this work we
+have investigated the wavelength dependence of RVs for the
+
+. CRX-RV relations for each of these stars are plotted in Figure[A.4]
+
+CARMENES Ne1025 sample of 215 stars. In this section we
+discuss our results.
+
+6.1. CRX-gradient and CRX-length as a function of stellar
+parameters
+
+Our results show that from the CARMENES No71025 sample of
+215 stars that 39 stars show a strong or a moderate correlation
+between the CRX and the RV (CRX-all stars). Furthermore, a
+subset of 13 of these stars show a tight linear relationship (CRX-
+slope stars).
+
+We demonstrate that the larger the variation is in CRX-length
+/vsini the larger the variation is in CRX (i.e.ACRX). The high-
+est variations in CRX-length and CRX tend to occur for the least
+massive stars with the steepest CRX-gradients where their activ-
+ity levels are saturated. The caveat with this is that these stars
+have very little flux at bluer wavelenghts and may be biased.
+However, the very active star K2-22 also shows a very steep
+slope but has a spectral type of M 3.0 V. This shows that our
+methods can detect a CRX-RV correlation even for more rapidly
+rotating stars with high levels of stellar activity.
+
+There is also a strong dependence of the CRX-length / v sini
+on the Pearson’s r value with the slowest rotating stars having
+the lowest CRX-length / v sini values and at most moderate Pear-
+son’s r values for the CRX-RV relation. This is in agreement with
+the previous work of [Tal-Or et al. (2018). There is also a corre-
+lation of the CRX-length / v sini with spot to photosphere tem-
+perature contrasts where stars with lower contrasts (e.g. at late
+M spectral types) show higher CRX-length /v sini values. While
+these results are valid for our sample of stars, a true determina-
+tion of the inter-dependency between CRX-length /v sini and the
+stellar spot to photosphere temperature contrast is only possible
+knowing the distribution and evolution of spots and other fea-
+tures of stellar activity on the stellar surface. As noted by[Barnes|
+fet al] (20TI), the latitude of a starspot (or other activity signa-
+ture) will impact the activity induced RV, with higher latitude
+spots having a lower RV than equatorial spots. Similarly, the lat-
+itude of spots will impact the lemniscate shape
+
+. We already know from our extensive investigation of stel-
+lar activity the CARMENES consortium, that every M dwarf is
+an individual when it comes to its activity patterns and evolution
+timescales.
+
+Article number, page 11 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+7000 -1
+CRX-slope samiple (Ha active)
+CRXC slope sample (Hatinactve) ©
+CRX-Pearson sample (strong)
+6000 CRX-Pearson sample (moderate)
+No CRX gradient (colour) -2
+500 cos
+5000 vs
+roy eV
+g e 73 “9
+= 4000 £
+FS aD
+o oT ° RX
+= os
+500
+3 3000 é 4
+a
+2000 o
+1000
+yes
+°
+oO -16
+MO.0 M1.0 M2.0 M30 M4.0 M5.0 M6.0 M7.0 M8.0 M9.0
+Spectral Type
+7000 -1
+CRX-slope sample (Ha active)
+CRX-slope sample (Ha. inactive) ©
+CRX-Pearson sample (strong
+6000 CRX-Pearson sample (moderate: 7
+CARMENES GTO 2
+5000 = 2}
+sess vz, ° *
+g nie® 3 £
+= 4000 * -B~s
+AD, Bo3
+s ‘© ot [s
+= oe S
+g 3000 550 7 aa: &
+a
+2000 ™% 4
+1000 27s 4
+ze
+% -16
+1 10
+vsini (km/s)
+
+RX
+Bfield strengt!
+
+C
+
+.gth (G)
+
+Bfield sti
+
+7000 1
+
+CRX-slope sample (Ho active)  &
+CRX-slope sample (Ho: inactive) ©
+6000 CRX-Pearson sample (strong) *
+r CRX-Pearson sample (moderate) *
+No CRX gradient (colour) «
+5000 oa
+*
+roy wv Osi
+Ps 731 g
+4000 is * za
+col - 1% z
+3000 560 s
+s Fa
+oo1
+2000 may
+1000
+709
+°
+0.001
+MOC M1.0 M2.0 M3.0 M40 M5.0 M6.0 M7.0 M8.0 M9.0
+Spectral Type
+7000 - 1
+CRX-slope sample (Ha active) ©
+CRX-slope sample (He inactive)
+CRX-Pearson sample (strong) *
+6000 CRX-Pearson sample (moderate) *
+CARMENES GTO
+5000 cas,
+ve, bs o1 5
+rv z
+nye $
+4000 bd 2
+an, rs
+° oT iy .
+3000 : 60, Si
+* &
+. oor S
+2000 MN
+4000
+0 0.001
+
+1 10
+vsini (km/s)
+
+Fig. 13. Average magnetic field strength as a function of spectral type (upper panels) and v sini (lower panels) for the CARMENES GTO sample
+with Nops > 25. Stars in the CRX-slope sample are indicated by diamonds and are coloured according to CRX-gradient (left panel) and CRX-length
+
+(right panel). The minimum v sini value plotted is 2 kms~!. The stars are labelled as indicated in Table!
+
+6.1.1. Dependence of CRX-gradient on stellar activity
+
+Since there is only one star with a classification of having a shal-
+low CRX-gradient, we restrict the discussion of our results to the
+stars with moderate and steep slopes. The stars in the CRX-slope
+sample with moderate CRX-gradients cover a range in spectral
+type from early-M to mid M as indicated by the navy points in
+Figures [8] to 3| These stars are active stars as evidenced by:
+(i) higher vsin7 values of up to 5 kms~! for stars with early-M
+spectral types and a range of vsini values from 2 to 11 kms~! at
+mid-M spectral types (Figure|8), (ii) a range in rotation periods
+from 1 to 11 days, (iii) the highest log(Ly/Lpo1) values (Fig-
+
+in the CRX-all sample of 39 stars (iv) located in the upper
+part of the log(LyHa/Lpo1) as a function of v sini (Figure[10p, (v)
+lowest TiO7050 values per spectral type bin (Figure [IT), (vi)
+saturation in X-rays (not shown), (vi) highest average magnetic
+field strengths as a function of spectral type and vsini (Fig-
+ure [13] upper and lower panels respectively). They also have,
+for our M-dwarf sample, comparatively high to moderate AT
+spot/photosphere temperature contrasts.
+
+There are only a few stars with high CRX-gradient values
+and the latest spectral types of the CRX-slope sample. Despite
+their high-CRX-gradients, these stars exhibit moderate levels of
+activity (i) they have moderate to high v sini levels (Figure[8p, (ii)
+are the most Ha active stars in the CARMENES Ngro25-sample
+for the latest spectral types (Figure[9), (iii) are located in the ac-
+tive part of the log(Lyo/Lpo1) as a function of v sini (Figure[10),
+(iv) are located in the ‘hook’ part of the TiO7050 per spectral
+
+Article number, page 12 of 26
+
+type bin (Figure (Up. (v) show moderate average magnetic field
+strengths as a function of spectral type and vsini (Figure
+upper and lower panels respectively). Their moderate activity is
+because late-M dwarfs saturate at lower activity levels compared
+
+to early- and mid-M dwarfs (for more details see |Mohanty &'
+
+[Basrif2003). These stars have the smallest AT spot/photosphere
+
+temperature contrasts and previously explained, we advise cau-
+tion in the literal interpretation of these steep slopes as they may
+be biased due to the lack of flux at blue orders compared to the
+rest of the sample.
+
+6.1.2. Dependence of CRX-length on stellar activity
+
+The stars with the shortest CRX-length values have mid-M spec-
+tral types and show low to moderate levels of stellar activity as
+evidenced by (i) their low v sini values (Figure[8} and a range of
+moderate rotation periods (Figure|7| (ii) are the least Ha active
+stars (Figure >). (iii) are located in the unsaturated part of the
+rotation-activity relation (Figure [FOp. (iv) have low to moderate
+average magnetic field strengths and are located on the unsat-
+urated part of the magnetic field - rotation relation (Figure [13]
+lower and upper panels respectively).
+
+Stars with moderate CRX-length values typically are early-
+to mid- M dwarfs with moderate to high levels of stellar activity.
+This is shown by (i) their increased v sini levels and short rota-
+tion periods (Figure 8p. (ii) generally the Ha activity levels for
+their spectral types (Figure 9}, (iii) that they are mostly located
+on the saturated part of the rotation-activity relation (Figure[I0)
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+t 1 © a
+
+Halpha active +
+Halpha inactive ©
+CRX-Pearson sample (strong)
+CRX-Pearson sample (moderate) *
+2
+2
+2
+é 36
+a &
+£ >
+S x
+6
+E af
+8
+&
+“16
+“1 -0.9 0.8 “07 “0.6 “05
+Pearson's r
+' ' 1 i A
+* we Halpha active +
+Halpha inactive ©
+CRX-Pearson sample (strong) *
+35 CRX-Pearson sample (moderate) x |
+y (ss) NBIss) 2
+2 3 Oa
+£ ge (SS)
+E i 3
+s : 4a 5
+a 25 Open) &
+£ &
+3 78 a
+2 560 J
+g 2 4 °
+8
+&
+15 oss
+{
+x
+-16
+0 0.01 0.02 0.03 0.04 0.05 0.06
+TiO 7050 (max-min) value
+* - Halpha active +
+Halpha inactive ©
+CRX-Pearson sample (strona)
+35 CRX-Pearson sample (moderate)
+EY sss) YZ iss) =
+2 Ke
+E38
+2 oyess .
+8 3
+3 Lk 5
+§ 25 oyew 8
+5 opiowi
+£ * Ea
+3 = Fa
+5 oid 46
+gS 2 |
+8 Rs
+15 “
+Px
+7
+x
+-16
+0.01 of 1
+
+CRX-length / vsini
+
+€ ee " Halpha active "+ 4
+Halpha inactive
+CRX-Pearson sample (strong) *
+35 CRX-Pearson sample (moderate) »
+2
+5 3
+e 2
+2 Usk 35
+5 25 * &
+£ or iew, &
+i x
+iS EY a
+Ss ay 40
+es 2 AD (SS)
+é °
+15 ”
+x z x
+4
+x
+16
+on 1 10 100
+Rotation period [d]
+4p 7 4
+Haloha active + :
+Halpha inactive
+CAX-Pearson sample (strong)
+35 CRX-Pearson sample (moderate)
+2
+« ev 85
+5 ar é
+3 sn 35
+B25 - ‘ g
+= or (cw >
+3 ya 0 E
+2 oe ° a
+S
+3 ans)
+1.5 > “
+* 3 wz
+Te
+x
+“16
+Inactive 5 “45 4 35
+log(Halpha)/Lbo!)
+4 —+— — 4
+int Halpha active +
+Halpha inactive
+35 CRX-Pearson sample (strong) *
+CRX-Pearson sample (moderate)
+we % ev & 2
+3 oe
+= cas 5)
+EB 25
+s ™ orien 3 =
+Fa s
+5 ee 3
+& 2 so &
+6 ao & x
+& 15 ae
+8 x m vw
+1 .
+05
+x wx ~ =e
+16
+
+0 E
+400 450 500 550 600 650 700
+Spot contrast
+
+750 800 850 900
+
+Fig. 14. Factor of improvement in the RV rms from the subtraction of the RV estimated from the RV-CRX correlation for each star in the CRX-all
+sample. Filled points indicate Ha active stars while open points show Ha inactive stars. Symbols are coloured based on CRX-gradient value or
+
+none (grey points). The factor of improvement is shown as a function
+
+of Pearson’s r, stellar rotation period (upper row, left and right), stellar
+
+TiO7050 max-min value (using 95% percentiles) and normalised Ha luminosity (middle row row left and right) and CRX-length / vsini and
+(zoomed) spot contrast ratio (lower row left and right). The stars are labelled as indicated in Table[A-T]
+
+and X-ray distributions (not shown), (iv) highest average mag-
+netic field strengths for their spectral types (Figure|13]upper and
+lower panels).
+
+As we know that the late-M dwarfs saturate in activity we
+already know what to expect. The CRX-length is longest for
+the stars with mid- to late-M spectral types. Compared to the
+CARMENES Ne1025 sample, they are not the most active stars,
+in both Ha and average magnetic field strengths, for their spec-
+tral type, but they do have moderate to fast v sini values and short
+rotation periods (Figure[8). Their normalised Ha levels are close
+
+to or above the blue line (indicating very high levels of Ha ac-
+tivity) in Figure Pp] [9Jand are on i: Sean part of the rotation-
+activity relation Figure [10]and [13] They also cover the ‘hook’
+in the TiO distribution wit spectra type.
+
+6.2. Average magnetic field strength
+
+The average magnetic field strengths were computed from the
+telluric corrected co-added templates with exceptional high sig-
+
+nal to noise values . The CRX-gradient
+
+Article number, page 13 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+shows moderate values for the stars with the highest average
+magnetic field strengths at mid-M spectral types. The average
+
+magnetic field strength have been shown by
+
+to be a proxy of RV variations in the Sun and
+other stars in agreement zi ETAT | ut Recently,
+the work of [Ruh et al.| (2024) investigated the RV jitter and its
+relation to the average magnetic field strength. They showed that
+M dwarfs with excess activity-rotation induced RV jitter have
+
+magnetic field filling factors that are dominated by a component
+with a strength of 2 to 4 kG.
+
+6.3. Correlations with Bisector Inverse Span (BIS)
+
+All of the CRX-all stars have a strong or moderate (anti-) cor-
+relations between CRX and Moment | indicators such as RV.
+Recent models of stellar activity, and its impact on the line mo-
+ments [Barnes et al.] (2024), show that there is a high likelihood
+of having correlations between odd numbered moments such as
+Moment | (e.g. RV) and Moment 3 (e.g. the BIS). While the
+CRX-index and BIS measure different aspects of the stellar spec-
+tra, it is important to also note that the BIS also includes a chro-
+matic effect. This is because the skewness of the line profile is
+caused by the different velocity patterns as a function of forma-
+tion depth, with redder lines being weaker.
+
+Given the similarity of the lemniscate shape of the CRX and
+the BIS (see for e.g. [Boise et al.[2011), we additionally in-
+vestigate the statistical correlation between the CRX and BIS
+(Moment 3 line moment). We use Pearson’s r for the 39 stars
+in the CRX-all sample. Our results are shown in Table [A-T] and
+confirm that Moment | and Moment 3 are linked with 13 stars
+having either a strong or a moderate Pearson’s r value between
+the CRX and BIS. The 3 stars that show the highest factor of im-
+provement also show a strong correlation between CRX and BIS
+(see Appendix Table A.1). This is in agreement with our previ-
+ous observational results for the mid M dwarf EV Lac (Jeff
+
+2022), the results of|Schéfer et al.|(2022) for four stars in
+the CARMENES sample.
+
+Recently, [Lafarga et al.] (2021) investigated the optimal ac-
+
+tivity indicators to identify activity induced RV signals in M
+dwarf stars with a range of activity levels. They report that the
+CRX and BIS are the most effective indicators for tracing activity
+in high-mass and high-activity (measured by Ha) M dwarfs. A
+total of 9 CRX-slope and 4 CRX-Pearson stars are also included
+in their sample, where for each of these star the stellar rotation
+period is detected in the RV (9 CRX-slope, 4 CRX-Pearson) and
+the CRX (9 CRX-slope, 1 CRX-Pearson). A total of 6 CRX-
+slope stars and 3 CRX-Pearson stars have both the a periodic
+signal detected at the stellar rotation period in BIS.
+Previously, the results of
+that the BIS span varies as (v sini)’. In Figure
+distribution of v sini of the CRX-all sample where the distribu-
+tion of the stars with a strong or a moderate correlation between
+the CRX-index and the BIS are highlighted. Our results show
+that BIS is a significant parameter, at moderate v sini rates and
+even at low v sini levels. While models of fixed starspots are im-
+portant, a comprehensive analysis also needs to take into account
+the variations in the latitude, longitude and lifetimes of the spot
+distributions over the time span of data collection.
+
+6.4. Subtraction of the CRX
+
+The subtraction of a linear fit of the CRX-RV anti-correlation
+from the RV results in a reduction of the RV rms by a factor of
+
+Article number, page 14 of 26
+
+14
+
+CRX-all
+CRX-Bisector =
+
+12
+
+Count
+
+<=2.0 2.0-4.0 4.0-6.0 6.0-8.0
+
+vsini (km/s)
+Fig. 15. The vsini distribution of all 39 stars in the CRX-all sample
+(CRX-slope and CRX-Pearson) shown as grey shaded bars. The stars
+with a strong or a moderate correlation of the CRX with BIS are shown
+in blue.
+
+8.0-10.0 >10.0
+
+up to 4. There is a tight correlation of factor of improvement with
+Pearson’s r for both the CRX-slope and Pearson-all samples,
+where the best stars typically have rotation periods of several
+days (Figure [14] top panels), low levels of A TiO and very high
+Hy values (Figure [I4]middle panels) and moderate CRX-length
+/ vsini values and low to moderate M dwarf spot contrasts. The
+moderate rotation periods and low A TiO values point to stable
+spot feature, though the high H, values could result from plage
+regions appearing dark at the limb centre as suggested by
+[som et al (202).
+
+Whether the star has a moderate or a steep CRX-gradient
+does not influece the factor of improvement values. However,
+in both the A TiO and the Ha activity relations, the CRX-slope
+stars with the steepest gradients occupy a separate branch or re-
+gion compared to the CRX-slope stars with moderate gradients.
+Furthermore, we show that all of the CRX-slope stars with mod-
+erate gradients have CRX-length / v sini values that are low to
+moderate (with the best factor of improvement values) and that
+the steepest gradients have the longest lengths. The stars with
+the longest CRX-length values are in the saturated regime of the
+rotation-activity plot and have moderate CRX slopes. These re-
+lations are summarised in Figure[I4]and Table[5]
+
+6.4.1. Planet detection thresholds
+
+We have demonstrated that the improvement in the RV rms by
+removing the contribution of the CRX can be up to a factor of
+nearly four. The implications that this has for improving the de-
+tectability of small exoplanets was simulated using the dataset
+of EV Lac. An exoplanetary signal is first injected in the uncor-
+rected data and then the activity contribution is removed
+{dona Guillén et al-/2023). With the linear correction factor it is
+possible to detect exoplanets that are approximately 2.5 times
+less massive compared to the same dataset but without the cor-
+rection. The exoplanetary signal can be identified even if it is not
+a significant signal in the original dataset. We will explore this
+further in forthcoming papers.
+
+Other techniques that exploit the wavelength dependence of
+activity induced RVs include the work by|Collier Cameron et al.
+(2021). They present test simulations by adding injected signals
+of low-mass planets to 5 years of HARPS Sun-as-a-Star observa-
+tions of the solar spectrum where planets can be recovered with
+
+a precision of ~ 6.6 cms7!.
+
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+Table 5. Summary of relations derived in this work
+
+Relation Figure Equ No (text)
+
+AT = 0.47 Tynot — 926.97 3 1
+log(CRXmax — CRXmin) = 1.08 log(RVimax — RVmin) + 0.336 5
+log(CRXtengn/v sini) = —1.71r — 2.846 6
+log(CRXjengn/v sini) = 9.7 x 10-4AT — 0.967 6
+log(CRXtength/v sin i) = —0.283 log Prot — 1.585 6
+
+log t = (0.58 + 0.04) + (0.28 + 0.01)(V — Ks) 12 2
+
+log t = (2.30 + 0.06) — (1.38 + 0.245)(M/Mo) + (0.22 + 0.19)(M/Mo)? 12 3
+
+Factor of Improvement = —18.51r — 14.48 (r < —0.80) 14 4
+
+= —1.98r + 0.04 (r > —0.80) 14 4
+
+Notes. where AT is the Spot / Photospheric temperature contrast ratio and r is Pearson’s r
+
+In addition to using the wavelength dependence of RVs, there
+are currently a large number of methods in the literature to re-
+move the impact of stellar activity. An excellent summary of
+
+these methods is reo) by [Meunier 202] [Meunier] (2021) (see their Table
+1). Also[Zhao et al] (2022) presented the results of a comparison
+of different methods (expanding from the work of
+) and concluded that no method is yet per! orming
+
+better than classical linear decorrelation, further supporting the
+results we obtained in this work.
+
+6.4.2. Surface mapping
+
+The large-scale magnetic field geometry has been reconstructed
+for a total of 6 stars in the CRX-all sample. From these 6 stars,
+YZ CMi and EV Lac are also part of the RV.o;3 stars with the
+highest reduction in RV rms after the subtraction of the CRX.
+V388 Cas, AD Leo and OT Ser are CRX-slope stars and AU
+Mic is a CRX-Pearson (moderate) star. The mid-M dwarfs YZ
+CMi and EV Lac consistently show an axisymmetric, predomi-
+nantly poloidal and simple large-scale magnetic field geometry
+that does not change significantly over time periods of approxi-
+mately | year The
+long-term stability of YZ CMi enabled (2021
+
+fit CARMENES data with one stable starspot. Recently,
+also reconstructed several low resolution surface
+brightness maps of EV Lac using CARMENES data, and also
+found a long-term stable component with small-scale variability
+which is consistent with EV Lac’s TESS light curve.
+
+The remaining 3 stars in the CRX-all sample with large-scale
+magnetic field maps show a variety of geometries. The mid- M
+dwarf V388 Cas exhibits a comparably simple large-scale mag-
+netic field geometry as reconstructed for YZ CMi and EV Lac
+which is also axisymmetric and predominantly poloidal. The
+large-scale magnetic field geometry of the mid-M dwarf AD Leo
+shows strong and simple magnetic features, which are mostly
+poloidal and axisymmetric and with low level variations over
+the time span of | year. On the other hand, the early-M dwarf
+OT Ser shows latitudinal rings of mixed polarities that are ax-
+isymmetric and dominated by the poloidal component but with
+
+DOT toroidal component (Donati et al.[2008} [Morin]
+fat 2008) 2010),
+
+os active planet-hosting star AU Mic, which is a CRX-
+Pearson moderate star in this work, has been the focus of an
+intensive observational campaign to reconstruct its surface ac-
+
+tivity patterns (Klein et al.|/2021| |2022). AU Mic has surface
+
+brightness features that evolve rapidly, which is consistent with
+its young age of 22 Myr and frequent flaring events
+let al./2001). It cannot be excluded that the reason why AU Mic
+is not a CRX-slope star is because its stellar activity features
+evolved on a much more rapid timescale compared to the obser-
+vational cadence of the CARMENES data of AU Mic and which
+may explain the curved nature of AU Mic’s CRX-RV relation
+(see Figure[A-3) and (Cale et al.[2021).
+
+These Zeeman Doppler Imaging (ZDI) observations point to
+that (1) early-M dwarfs have weak but complex fields and con-
+sequently activity patterns, (2) mid-M dwarfs have less complex
+but strong magnetic fields and (3) late-M dwarfs can have either
+of these configurations. The results from brightness (Doppler)
+imaging typically exhibit more complex spot patterns for all M
+spectral pes (Bares & Colfer Cameron/2001
+4} [20155] [2015b} for TTI But these results are biased towards
+$ with vsin i values that are in excess of 15—20kms~!.
+
+6.5. Sampling of data
+
+One point to consider is that the observations of the
+CARMENES GTO stars have been secured with the main aim
+of detecting close-in orbiting exoplanets and not characterising
+the stellar activity of the target stars. This means that there can be
+gaps in the observational timeseries of longer than several stel-
+lar rotation periods which is the timescale that we expect stellar
+activity features such as spots and plage region to evolve.
+
+If the stellar activity features, and consequently the CRX,
+have evolved over this time frame then determining correlations
+and removing the contribution of the CRX will be biased by the
+time sampling of the dataset. For example, the very detailed anal-
+ysis of EV Lac by|Jeffers et al.] (2022) showed that it is possible
+to see additional (anti-)correlations between the line moments or
+parameters with smaller data sets that cover only a few stellar ro-
+tation periods and where the features of stellar activity have not
+significantly evolved. In this work we have shown that the sub-
+traction of the CRX from the RVs works optimally for moderate
+rotation periods, which is likely to result from a combination of
+stable global starspot patterns which are more likely to be well
+sampled by our CARMENES data.
+
+For very active stars, with higher rotation periods, this could
+mean that the stellar activity features have evolved significantly
+over the timespan of the observations whereas the more stable
+
+Article number, page 15 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+activity patterns are less impacted by the cadence of the observa-
+tions. In the future we will investigate if the more rapidly evolv-
+ing stellar activity can be mitigated using densely sampled ob-
+servations covering a large wavelength range, such is as used by
+
+the RedDots exoplanet search program (Jeffers et al./2020).
+
+7. Conclusions
+
+In this work we have investigated the wavelength dependence of
+high-precision RV measurements via the CRX. We conclude the
+following:
+
+Approximately 17% of stars in the Carmenes GTO sample
+are CRX-all stars (i.e. stars with strong-moderate RV Pear-
+son’s r correlations of CRX-index vs RV).
+
+— Dependence on stellar activity diagnostics shows that CRX-
+all stars have low to moderate activity levels and cover the
+full range of M dwarf spectral types from M1.5 to M8.5.
+
+— The variation of RVs with wavelength can be used to remove
+the impact of stellar activity with an improvement in RV rms
+of up to a factor of 4. The optimal targets are moderately
+active stars.
+
+— The correction effectiveness is related to how stable and
+structured the activity patterns are, though more active stars
+would be feasible with regular cadence or high density sam-
+pled high-precision RVs.
+
+The power of using the wavelength dependent information con-
+tained in the spectra themselves is that it is an instantaneous
+decorrelation.
+
+8. Data availability
+
+The Figures contained in Appendix A are only available online
+at https://zenodo.org/records/14013877.
+
+Acknowledgements. We would like to thank the referee for their very insightful
+and constructive comments which helped to improve the clarity of the paper. This
+publication is based on observations collected under the CARMENES Legacy+
+project. CARMENES is an instrument at the Centro Astronédmico Hispano en
+Andalucia (CAHA) at Calar Alto (Almeria, Spain), operated jointly by the Junta
+de Andalucia and the Instituto de Astroffsica de Andalucia (CSIC). CARMENES
+was funded by the Max-Planck-Gesellschaft (MPG), the Consejo Superior de
+Investigaciones Cientificas (CSIC), the Ministerio de Economia y Competitivi-
+dad (MINECO) and the European Regional Development Fund (ERDF) through
+projects FICTS-201 1-02, ICTS-2017-07-CAHA-4, and CAHA16-CE-3978, and
+the members of the CARMENES Consortium (Max-Planck-Institut fiir As-
+tronomie, Instituto de Astrofisica de Andalucia, Landessternwarte K6nigstuhl,
+Institut de Ciéncies de l’Espai, Institut fiir Astrophysik Gottingen, Universi-
+dad Complutense de Madrid, Thiiringer Landessternwarte Tautenburg, Instituto
+de Astrofisica de Canarias, Hamburger Sternwarte, Centro de Astrobiologia
+and Centro Astronédmico Hispano-Aleman), with additional contributions by
+the MINECO, the Deutsche Forschungsgemeinschaft (DFG) through the Ma-
+jor Research Instrumentation Programme and Research Unit FOR2544 “Blue
+Planets around Red Stars”, the Klaus Tschira Stiftung, the states of Baden-
+Wiirttemberg and Niedersachsen, and by the Junta de Andalucia. This work
+was based on data from the CARMENES data archive at CAB (CSIC-INTA).
+We acknowledge financial support from the Agencia Estatal de Investigacién
+(AEI/10.13039/501100011033) of the Ministerio de Ciencia e Innovacién and
+the ERDF “A way of making Europe” through projects PID2021-1256270B-
+C31, PID2019-109522GB-C5[1:4] and the Centre of Excellence “Severo Ochoa”
+and “Maria de Maeztu” awards to the Instituto de Astrofisica de Canarias
+(CEX2019-000920-S), Instituto de Astrofisica de Andalucia (CEX2021-001131-
+S), and Centro de Astrobiologia (MDM-2017-0737). This work was also funded
+by the Generalitat de Catalunya/CERCA programme, and the DFG through the
+priority program SPP 1992 ‘Exploring the Diversity of Extrasolar Planets’ (Jef-
+fers, JE 701/5-1).
+
+Article number, page 16 of 26
+
+References
+
+Amado, P. J. & Zboril, M. 2002, A&A, 381, 517)
+Barnes, J. R. & Collier Cameron, A. 2001, MNRAS, 326, 950)
+Barnes, J. R., James, D. J., & Collier Cameron, A. 2004,
+Barnes, J. R., Jeffers, S. V., Haswell, C. A., et al. sO MINES aT BL
+Barnes, J. R., Jeffers, S. V., Haswell, C. A., et al. 2017,
+Barnes, J. R., Jeffers, S. V., & Jones, H. R. A. 2011,
+Barnes, J. R., Jeffers, S. V., Jones, H. R. A., et al. 2015a,
+Barnes, J. R., Jeffers, S. V., Jones, H. R. A., et al. 2015b,
+
+bridge ‘Workshop on “Cool Stars, Stellar Systems, and ihe Ss
+Caballero, J. A., Gonzalez- Alvaren E., Brady, M., et al. i
+Cale, B. L., Reefe, M., Plavchan, P., et al. 2021,
+Cardona Guillén, C., Béjar, V. J. S., & Lodieu, N. 2023, A&A submitted
+
+A&A, 665, A120
+
+4 a7, 98
+Diez Alonso, E., Caballero, J. A., Montes, D., et al. 2019,
+
+Dravins, D., Lindegren, L., & Nordlund, A. 1981, A&A, 96 =
+Dreizler, S., Luque, R., Ribas, L., et al. 2024, A
+Dumusque, X., Boisse, I., & Santos, N.C. 21
+ahaa X., Borsa, F, Damasso, M., et al. 20
+
+Haywood, R. D., Milbourne, T. W., Saar, S. H., et al. 2022, ApJ, 935, 6
+
+Jeffers, S. V. 2005, MNRAS, 359, 729
+Jeffers, S. V., Barnes, J. R., Jones, H. R. A., et al. 2014,
+
+Klein, B., Zicher, N. Kavanagh, R.D., et al. 20: Py
+‘Kassakowski, D., Kirsten, M., Henning, T., et al. 21
+Lafarga, M., Ribas, L, Lovis, Cc. et al. 2020,
+Lafarga, M., Ribas, I., Reiners, A., et al. 2021,
+Lagrange, A. M., Desort, M., & Meunier, N. 2
+
+Lisogorskyi, M., Jones, ‘i. R. A, "& Feng, E. 2019,
+Luque, R., Fulton, B. J., Kunimoto, M., et al. 2022, A
+Martioli, E., Hébrard, G., Correia, A. C. M., Laskar,
+
+A. 2021,
+Meunier, N. 2021,
+Meunier, N., Desort, M.. 1
+Mohanty, S. & Basri, a 5003,
+Morales, Tex, Mustill, Ady
+
+Morin, i. Donati, lL F. Petit, P., et al. 2008b,
+Morin, J., Donati, J. F., Peti
+Nagel, E., Czesla, S., Kaminski, A., et al. 2023,
+Newton, E. R., Mondrik, N., Irwin, J., Winters,
+
+‘al, 156,217)
+
+Queloz, D., Henry, G. W., Sivan, J. P., et al. 200
+Quirrenbach, A., Amado, P. J., Ribas, I., et al.
+
+Quirrenbach, A., CARMENES Consortium, Amado, P. J., et al. 2020, S:
+
+Reiners, A., Bean, J. L., Huber, K. F, et al. 2010,
+
+Reiners, A., Shulyak, D., Kapyla, P. J., et al. 2022, AKA. 662, ATT
+Reiners, A., Zechmeister, M., Caballero, J. A., et al. 8,
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+Ribas, I., Reiners, A., Zechmeister, M., et al. 2023,|A&A, 670, A139
+Robinson, R. D., Linsky, J. L., Woodgate, B. E., & Timothy, J. G. 2001,
+
+554, 368
+Ruh, H., Zechmeister, M., & Reiners, A. 2024, A&A submitted
+
+Schéfer, P., Jeffers, S. V., Reiners, A., et al. 2019, A&A, 623, A44,
+
+Schéfer, P., Jeffers, S. V., Reiners, A., et al. 2022, A&A, 663, A68,
+
+Shan, Y., Revilla, D., Skrzypinski, S. L., et al. 2024, A&A, 684, AD,
+
+Suarez Mascareifio, A., Faria, J. P., Figueira, P., et al. , A&A, 639, A777)
+
+Suarez Mascarejio, A., Gonzélez-Alvarez, E., Zapatero O M. R.,
+2023, AWA, 670. A5)
+
+Suarez Mascarefio, A., Rebolo, R., Gonzalez Hernandez, J. I., & Esposito, M.
+2015,MNRAS, 452, 2745
+
+Suarez Mascarejio, A., Rebolo, R., Gonzalez Hernandez, J. I., & Esposito, M.
+
+2017, MNRAS, 468, 4772
+Suarez Mascareiio, A., Rebolo, R., Gonzalez Hernandez, J. L., et al. 2018,|A&A)
+
+612, A89
+Tal-Or, L., Zechmeister, M., Reiners, A., et al. 2018, A&A, 614, A122
+
+Vogt, S. S. ee as |
+
+Waite, I. A., Marsden, S. C., Carter, B. D., et al. 2015, MNRAS, 449, 8)
+
+Waite, I. A., Marsden, S. C., Carter, B. D., et al. 2017, MNRAS, 465, 2076
+
+Wittrock, J. M., Dreizler, S., Reefe, M. A., et al. 2022, AJ, 164, 27
+
+Wright, N. J., Newton, E. R., Williams, P. K. G., Drake, J. J., & Yadav, R. K.
+2018, MNRAS, 479, 2351)
+
+Zechmeister, M., Anglada-Escudé, G., & Reiners, A. 2014,
+
+Zechmeister, M., Dreizler, S., Ribas, I., et al. 2019,
+
+Zechmeister, M., Reiners, A., Amado, P. J., et al. 2018, A&A, 609, A12,
+
+Zhao, L. L., Fischer, D. A., Ford, E. B., et al. 2022,
+
+Article number, page 17 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+Appendix A: Supplementary information
+
+Article number, page 18 of 26
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+Table A.1. Derived CRX parameters of the CRX-all stars sample.
+
+Karmn Name Label Sp. CRX Pearson Factor Spot/phot. BIS
+(plots) type gradient length rt RV red. cont. (mod /
+(Np-!) Gms~!) (K) strong)
+
+CRX-slope sample
+
+J01033+623 388 Cas Cas M5.0V = -2.67 + 0.20 686 = =-0.94 2.81 S11 M
+J02002+130 TZ Ari TZ M3.5V  -1.16+0.18 44 -0.57 1.19 596
+
+J04198+425 LSR J0419+4233 LSR® M8.5V_— -4.64 + 0.33 658  -0.93 2.59 202 we
+JO5019+011 1RXS JOS0156.7+010845 1IRX M4.0V — -3.03 + 0.15 261 -0.97 3.89 530 Ss
+J07403-174 LP 783-002 783° M6.0V_ -16.98 + 1.21 37 -0.89 2.17 499 -
+J07446+035 YZ CMi YZ M4.5V = -2.92 + 0.13 265 = =-0.95 3.25 441 NY
+J10196+198 AD Leo AD M3.0V = -3.64 + 0.25 43 -0.84 1.83 698 Ny
+J10584-107_ LP 731-076 731 M5.0V  -3.51 + 0.69 32 ~=-0.90 1.24 587
+
+J14321+081 LP 560-035 560° M6.0V = -8.68 + 0.58 277 ~—- -0.90 2.07 560 ee
+J15218+209 OT Ser OT MI.SV = -3.65 + 0.23 118 = -0.91 2.46 816 NY
+J16102-193  K2-33 K2 M3.0V = -8.49 + 0.45 2897  -0.97 2.99 656 es
+J18174+483 TYC 3529-1437-1 TY M2.0V = -2.97 + 0.33 30. = -0.73 1.46 810 M
+J22468+443 EV Lac EV M3.5V  -3.16+ 0.10 144 -0.95 3.25 628 NY
+
+CRX-Pearson strong
+
+J04173+088 LTT 11392 * M4.5 V wes on 1447 -0.92 2.43 531 ws
+J06396-210 LP 780-032 * M4.0 V ae we 206 =-0.71 1.47 685 M
+J08536-034 LP 666-009 * M9.0 V wes on 588  -0.86 ze 202 ws
+J09033+056 NLTT 20861 * M7.0V ae we 874 0.84 1.83 496 NY
+J11044+304 LSPM J1104+3027 * M3.0V wes on 105 -0.73 ze 735 ws
+J11201-104 LP 733-099 * M2.0V ae we 63 = -0.83 1.79 795 NY
+J13536+776 RX J1353.6+7737 * M4.0V wes on 496 = -0.76 1.42 S77
+J16555-083  VB8 * M7.0V ae we 104 -0.79 1.41 486
+J23556-061 GJ 912 * M2.5V wes on 1918 = -0.74 1.45 785
+
+CRX-Pearson moderate
+
+J02358+202 BD+19 381 x M2.0V ae we 8  -0.51 ve 815 M
+J04153-076 omi02 Eri C x M4.5 V i 8 26 -0.62 i 568
+J06318+414 LP 205-044 x MS5.0V os we 635 = -0.65 1.31 604
+J06594+193 GJ 1093 x MS5.0V ae we 13, -0.55 1.2 553
+JO7582+413 GJ 1105 x M3.5V i 8 8  -0.52 i 687
+J10482-113 LP 731-058 x M6.5 V wes on 21 = -0.69 ze 498
+J13450+176 BD+18 2776 x MO0.0 V ae we 28 0.55 we 874
+J15412+759 UU UMi x M3.0V Sa es 3165 -0.67 1.28 625
+J16581+257 BD+25 3173 x ML.OV wes on 15 -0.68 ze 852
+J18022+642 LP 071-082 x MS5.0V ae we 168 -0.64 1.29 584
+J18027+375 GJ 1223 x M5.0V ae we 11 -0.53 1.16 583
+J19216+208 GJ 1235 x M4.5 V 8 = 11 -0.51 ae 615
+J19255+096 LSPM J1925+0938 x M8.0V os we 903 -0.68 1.36 249
+J19422-207 2MASS J19421282
+
+—2045477 x MS5.1V wes on 306 =-0.55 ze 597 ess
+J20451-313. AU Mic x MO.5 V ae we 262 -0.61 we 712 M
+J23064-050 2MUCD 12171 x M8.0V Sa es 722 0.62 9 296 &
+J23216+172 LP 662-027 x M4.0V 8 = 10 -0.62 ae 671 Ny
+
+Notes. “ Caution should be exercised in the interpretation of these CRX-gradient values as for the later spectral types there is less flux in the bluer
+
+wavelengths and may bias the result. Article number, page 19 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+1000 7 100 7 4000 7 1
+-2.67 Np“! (+ 7.6%) —— 1.46 Np! (+ 15%) -4.64 Np! (7.1%)
+800 B0+ °
+= 3000
+= 600 60
+£400 40 2000 5 8
+gee 20 1000 | &
+z 0 0 05 §
+2-200 -20 9 | s
+S
+= -400 40 * .* |-1000 | =
+= -600 | V388 Cas _ . 60 | TZ Ari LSR J0419+4233 .
+3° J01033+623 Jo2002--130 . 7 -2000 } J04198+-425 é 4
+~800 | Pearson's r = ~0.94 ~80 FPearson'sr=-0.57 =, Pearson's r = -0.93
+-1000 -100 3000 0
+400 -300 -200-100 0 100 200 300 400. -40 -30 -20 -10 0 10 20 30  -800 -600 -400 -200 0 200 400 600
+500 + v= ere 1500 ot 600 1 a ka 1
+400 =3.03 Np (+5.1%) —— 16.98 Np (+ 7.1%) 500 =2'92 Np? (+ 4.5%)
+2 300 4000 400
+@ 300
+2 200 2
+£ 200 g
+x 100 + 500 Fe £
+g 100 La
+Zz 0 4 ; 08 §
+ra £
+g 100 0 100 8
+= -200 -200 .
+= ~300 | 1RXS J050156.7+010845 500 } LP 783-002 -300 | YZ. CMi : .
+© go0 | 2050191011 Jo7403-174 JO7446.-035 a
+~400 | Pearson's r = -0.97 * || Pearson's r = -0.89 . ~400 } Pearson's r = -0.95
+500 ~1000 -500 JB o
+~150 -100 -50 0 50 100 150 -100 -80 -60 -40 -20 0 20 40 60  -200 -150 -100 -50 0 50 100 150
+150 S + + 1 400 Cr : r = : 4000 I 1
+* -3.64 Np! (+ 7%) —— -3.51 Np (+ 20%) -8.68 Np”! (+ 6.6%)
+= 100 . 3000
+Zz
+@ 50 2000 .
+E 3
+— . F 1000 &
+gs 0 ra . =
+z 0 055
+wg ~80 s
+2 -1000 g
+p00 -2000 =
+= AD Leo . LP 731-076 LP 560-035
+© 150 | J10196+198 -200 } J10584-107 -3000 | J143214081
+Pearson's r = -0.84 Pearson's r =-0.9 - Pearson's r = -0.9 i
+200 - -300 4000 0
+-40 -30 -20 -10 0 10 20 30. -20 -10 0 10 20 30 40 50  -400 -300-200-100 0 100 200 300 400
+300 a 15000 r + T 120 —— Cr ——r r
+P 3.65 Np (+ 6.2%) —— -8.49 Np! (+ 5.3%) ae 2.97 Np~ (# 11%)
+B 200 + 10000 80 f
+@
+= 100 5000 80 g
+a 40 : Fe
+Zz oo 7 0 20 05 §
+2 0 g
+g 100 4 -5000 Se . 2
+5 OT Ser . K2- 33 40 | TYC 3529-14374 .
+G -200 } 155184209 710000 F J46102-193 J18474+-483 Siew
+Pearson's r = ~0.91 : Pearson's r = -0.97 -60 F Pearson's r=-0.73_ * By
+-300 15000 -80 = . 0
+-80 -60 -40 -20 0 20 40 60 80 100 -2000-1500-1000 -500 0 500 1000 1500 -30 -20 -10 0 10 20 30
+RV (VIS) [ms 1] _ RV (VIS) [ms ‘]
+~ 500 1 ; i ' 1
+3.16 No~ (+ 3.1%)
+= 400
+S300} « °
+= 200 8
+5 &
+= 100 05 §
+2 s
+& -
+~200 | Pearson's r = -0.95
+-300 0
+-150 -100 -50 0 50 100
+RV (VIS) ms]
+Fig. A.1. CRX function of RV for each star in the CRX-slope sample. Points are coloured by rotational phase derived from the rotation periods
+
+of {Shan et al.
+
+. Stars with only blue coloured points do not have a known rotation period.
+
+Article number, page 20 of 26
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+14000 ———+ — 700 Cr : 1 r 3000 + r r 1 :
+ze 12000) ae , _ 2000 ,
+Z 10000 + 500 © .
+a .
+—£ 8000} 400 ‘ 1000 + . “. . |
+x 300 * .
+g 6000 + *
+2 200 of, Hg 4
+4000 + : 400 oe oe «
+é 2000 + + & 0 ¥ -1000+ =, |
+= 0 FLT 11392 ome 100 } LP 780-032 2000 | LP.666-009 » . :
+S p00 | J04173+088 ¥ J06396-210 « - J08536-034
+Pearson's r= -0.92 $ ~200 | Pearson's r = -0.71 Pearson'sr=-0.85 «
+4000 300 3000
+*"3000-2500-2000-1600-1000-500 0 600 1000-200 150-100-800 30 100-200-1000 400 200 300 400 500
+1000 T Cr : r r 3000 T Cr Cr Cr + r 200
+o* * * ° e ° e
+S soo}. ie og | 2500 150 ‘
+2 of ° < J 2000 . 100 + J
+= eee 1500 .
+3 . 50 + 1
+2 -s00}+ . 4 1000
+0
+2
+Pi 500
+ -1000 +
+i ‘enh =}
+ _1500 | NTT 20861 . LsPm 110882027 LP 733-099
+© -1500 F Jo9033.-056 ° 500 | J110444304 100 } J11201-104 4
+Pearson's r = -0.84 Pearson's r = Pearson's r = -0.83
+~2000 ~1000 150 *
+-200 -100 0 100 200 300 400 500 -200 -100 0 100 200 300 400 500 -100 -50 0 50 100
+0 Le ae 4000 a 100 a a a
+of . * = 80 5 |
+= 100} S000: . bi
+rg : , 2000 “ °° |
+—E of Loe ® 40 |
+A # . 1000 * 20 .
+3%
+B -100 - .
+2 a 0 0 ew 5 4
+% -200 | ‘ 4 2 J
+5 o . -1000 °
+5 _300 | BX ¥1383.6+7737 . VBS ~40 F qs 912 |
+Os J13536+776 a -2000 Yieess 083 ° 60 | ¥23556-061 4
+Pearson's r = -0.76 Pearson's r = -0.79 . Pearson's r = -0.74
+-400 H pe 4 -3000 ! i \ . 7 ee 1
+-200 -150 -100 -50 0 50 100 150 200 -200~150-100 -50 0 50 100 150 200 -200-150-100 -50 0 50 100 150 200
+
+Fig. A.2. CRX as a function of RV for each star in the CRX-Pearson (strong) sample. Points are coloured by rotational phase derived from the
+
+RV (VIS) [m sv]
+
+RV (VIS) [m sv]
+
+RV (VIS) [m sv~1]
+
+rotation periods of [Shan et al] (2024). Stars with only blue coloured points do not have a known rotation period.
+
+0.5
+
+0.5
+
+0.5
+
+Rotation Phase Rotation Phase
+
+Rotation Phase
+
+Article number, page 21 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+40 + z Cr r 200 r + Cr + Cr Cr 4000 a a a 1
+. ° . °
+aw OF hey t | 100 . 3000
+Z of ae | bSae$ é es « ‘o
+3 mm ais, 3 J
+£ 0b "eo" | 0 e 7 . 2000 . g
+S -aol -100 1000 “ . “J x
+= . : i ‘ 055
+%S ~60P | -200 0 em, a | 3
+S -go} 4 ial els ce 3S
+5 -300 1000 z + «
+= -100 F BD+19 381 1 omi02 Eri LP 205-044 . °
+S _409 | Jo2368+202 | 400 | Jo4153-076 -2000 | J06318+414 “ey 4
+Pearson's r = -0.51 , Pearson's r = -0.62 * Pearson’s r = -0.65  %
+-140 - -500 - - - - - - -3000 —__— ; 0
+-20 -10 0 10 2 30 40 -15 -10 -§ 0 5 10 15 20 | -500 -400 -300 -200-100 0 100 200 300
+60 —— ——+ 30 > > 800 SLL nL aL ‘jl
+é : : °
+40 f° . @ & é
+ao . 20 . 600 J
+Ss 2m, ys q . .
+—E ob e% «| = lt be 400 . 4 3
+BS -20} ‘ eee tee 0 ° . x
+2 200 7B 05 §
+> 407 oe? 7-10 . ? S
+2 ‘ni ° og . a ze Pega a
+& ~60 -20 . O}- oe Sperteh;. iv
+= ~80F GJ 1093 1 GJ 1105 200 |LP.731.058 ° J
+© _ 499 | J06594+193 F | -30 | Jo7582+413 4c J10482-113 «
+Pearson’s r = -0.55 Pearson's r = -0.52 Pearson's r = -0.69
+120 H 4 49 Ls f et 400 oe f 0
+6 4 -2 0 2 4 6 8 10 4-3-2 -1 012 3 45 6 7 15 -10 -5 0 5 10 15 20 25
+40 LL ae 50 pa a 40 r : Cr : r 7 1
+30 + . ; le J
+5 . J ' 30h 6 °
+— tof . . | -50 g
+= . oe . . 10 ‘ 2
+& of BBs ow . 2 2 a
+2 — . , 100 . we . 0 ye jE 05 5
+ge . a | “8 *. * | -tof . | ic
+® -20) _° 4 -150 . oe 2
+s . -20 4
+= ~30 | BD+18 2776 200 | UU.UMi BD+25 3173
+SD _4o | J13450+176 | - J154124759 . 30 | J16581 4257 J
+Pearson's t = 0.55 Pearson's r = -0.67 Pearson's r = -0.68
+50 hi i 1 -250 Li f oo 40 ‘. f \ 0
+5 -4 -3 -2 1 0 1 2 3 4 5 0 20 40 60 80 100120140 160180200 -5 0 5 10 15 20 25 30
+15000 Cr 1 + r 2000 SUEEEEELAIELEEL DL 1200 SELL 1
+° 1000 + . 4
+= 10000 a 1500 ‘
+$ . : 488 800 | J
+=  s000f 8 600 + | Fa
+3 . ae 500 . 400 a
+2 oF : . — 05 5
+rs of * oe 200 | 5 5 3
+eo L : a z L J
+5 5000 «| -500 . . ° &
+ _10000 | LSPM.J1925+0938 z . 2MASS J19421282-2045477 -200 F AU Mic 2 |
+o- J19255+096 e+ * )-1000 F J19422-207 . 40 | J20451-313 Be
+Pearson's r = -0.68 Pearson's r = -0.55 Pearson's r = -0.61 .
+—15000 1500 1 1 n 600 n 1 1 1
+-1500 1000-600 0 500 1000-150 -100 -50 0 50, 100150200 250-200-150 -100 -50 0 50 100 160 200
+_ 4000 “ +} 20 hs
+S
+Z 3000 n) .
+2 : 2
+£ 2000 . -20 wit 2
+5 1000 ade . 40 os x
+5
+= oo . sie * -60 s
+< * - s
+© -1000 °° . -80 2
+§ i :
+= ~2000 | amutn 13171 ~100 F Lp 462-027
+S _g000 | v23064-050 _490 |. 3232164172 |
+Péarson's r = 0.62 Pearson's r = -0.62 .
+4000 14 H f 1 0
+
+-140
+-800-600-400-200 0 200 400 600 80010001200 -6 4 -2 0 2 4 6 8 10 12 14 16
+RV (VIS) [ms] RV (VIS) Ims~1]
+
+Fig. A.3. CRX as a function of RV for each star in the CRX-Pearson (moderate) sample. Points are coloured by rotational phase derived from the
+rotation periods of 4). Stars with only blue coloured points do not have a known rotation period.
+
+Article number, page 22 of 26
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+150 7 T + 7 T 25000 7 T T —1—1—t T T 250 a T T T T 1
+° , ° °
+L 200
+3 100 20000 755
+S 507 J | z
+= ab 3 Py 15000 100 L es ¢ g
+x 40000 50 f 5 =
+2B 50} 4 . o 055
+2 soil ‘| 5000 x oF ae 2
+=” ae -50 + « . ‘3
+S -150 } ° a a =
+£ 100 :
+S _g09 | Teegarden’s Star | -5000 150 | 192-015
+J02530+168 J05084-210 J06024+498
+250 1 1 40009 Ha oi _200 _a 1 0
+15 10 5 0 5 10 15 _ —15091000500 0 500 100015002000250030003500 -20 -10 0 10 20 30 40
+150 200 60 1
+_ i ° . so | * °
+F 100} | 150 . 40 b .
+a 30 F
+= 100 20 f a 3
+x 80 F s = | £
+2. ‘i . . 10 + . a
+2 .¢ 50 oF 05 5
+g oF "ee 4 a s
+oS ® eo - =
+£ eis Sg ‘ «| 20 &
+g . °
+= -50- 50 30
+5 BD-02 2198 “SO; K218 BD+24 2733
+J07361—031 % J11302+076 —40 F J14257+236W ® .
+-100 \ 4 100 \ \ 50 f \ .
+-350030002500200015001000500 0 50010001500 -15 -10 -5 0 5 10 15 20 10 -5 0 5 10 15 20 °
+RV (VIS) [ms] RV (VIS) [ms~']
+100 tT v v T r T v 1
+50
+. 3
+£ : 8
+5 ? &
+zg 05s
+& -50 . 3
+4 e @
+s
+= -100
+° BD +044157
+J193464+045 *
+-150
+-35 -30-25-20-15-10 -5 0 5 10 15 20
+RV (VIS) ms")
+Fig. A.4. A selection of stars not showing a clear CRX slope. Their stellar parameters are shown in Table}4] Points are coloured by rotational phase
+
+derived from the rotation periods of [Shan et al-](2024).
+
+Article number, page 23 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+400 - + + + + 40 + 600 + + ; + - -
+300 + 30 400
+200 F 7 20 200
+'o 100+ 10
+E 0
+= oF J 0
+3 -2
+8 -100 + 4 -10 00
+>
+-200 + -20 100
+—300 | V388:Cas ~ “Pearson's r=-0.94} _39 —600 | LSR J0419+4233 Pearson's r = -0.93-}
+J01083+623' Ave RV err = 17.10 : J04198+-425 Ave RV err = 24.20
+-400 : 1 -49 L411 - -800 - -
+0 5 10 15 20 25 30 0 10 20 30 40 50 60 70 8 90100, 0 5 10 15 20 2 30 35
+150 - - - - - 60 - - - - - 150 7 a -
+400 F 4 s|
+7 50 |
+‘on
+é 4
+2 OF 1
+2 |
+2
+= er " 4
+, ry al
+100 F 4RXS J050156.7+010845 Pearson's r = -0.97 LP 783-002 . + YZ CMi Pearson's {'= -0.95+
+J05019+011 1 y Ave RV err = 6.52 J07403-174 . J07446+035 Ave RV ert'= 5.37
+-150 — -100 - - -200 - - -
+30 0 10 20 30 40 50 60 0 10 2 30 40 50 60
+50 - - - - - 400 - - - - -
+a0 | 300 |
+- a0 200
+‘° 100
+£ 4+ 20
+> 0
+S 10
+8 -100
+8 -200
+~30 | AD Leo Pearson's r=-0.84 -10 | LP 731-076 0.9 4 _300 | LP 560-036 Pearson's r=-0.9 |
+J10196+198 Ave RV err = 2.78 J10584-107 4.64 J143214081 Ave RV err = 33.62
+_49 jd pina: i ali 20 : i i i _400 i i i
+0 10 20 30 40 50 60 70 80 90 o 1 2 30 40 50 60 o 10 2 30 40 50 60
+100 - - - - - 1500 - - - - - 30 SEER
+
+nD
+8
+
+Velocity [m sty
+
+~40 iby wv o at
+-60 | OT Ser - Pearson's r = -0.91 | -1500 } K2- 33 ~20 | Tyc 3529-1437-1 \ * Pearson's r = -0.73
+J15218+209 Avé RV err =4.17 J16102-193 J18174+483 ‘ Ave RV err = 2.02
+80 fi H -2000 fi 1 -30 rai fi 1 i
+0 10 20 30 40 50 60 0 5 10 15 20 25 30 0 10 20 30 40 50 60 70 80
+Spectra No Spectra No
+100 T T T T
+50
+D
+— °
+8 -50
+3
+=
+-100
+EVLac Pearson's 0.95
+J2b4684443 Ave RV err = 3.80
+-150 =
+
+0 20 40 GO 80 100 120
+Spectra No
+Fig. A.5. Capability of a linear fit to the RV-CRX correlation to remove activity-induced RV variations. For each of the 13 stars in the CRX-slope
+
+sample, the measured uncorrected RV for all CARMENES visible spectra is shown as a blue dashed line. The subtracted CRX values are shown
+as the solid black line. The rms values are shown in the key.
+
+Article number, page 24 of 26
+Jeffers et al.: Wavelength dependence of radial velocity measurements
+
+100 600 p=— T + r r 1
+500 + » J
+° 400 - |
+= ~100 300 4
+'o : 200 4
+& : ~200 100
+= ' 0 J
+3 ' 300
+a ' -100 |
+> 2000+ “AGS 7200 |
+~2500 | LTT 41392 Pearson's LP 780-032 Pearson's r 800 NLTT 20861 Pearson's r = +0.84 |
+J04173+088 Ave RV eri J06396-210 Ave RV ert ~400 | Jo9033+058 Ave RV err = 17.75 4
+-3000 f 1 ! \ A 500 fi \ \
+0 5 0 15 20 25 35
+20 + : : +
+10 + 0 ]
+"b al -100 |
+£ -10 + |
+> 200
+% -20}+ 1
+3 00 |
+> -30} oa
+-40 | LP 733-099 Pearson's r= 10.834 ~400 | RX J1353.6+7737 : Pearson's r= -0.76 | _199 | vB a i i Pearson’s r = -0.79 |
+J11201-104 Ave RV err = 4.92 J13536+776 Ave RV err = 8.15 J16555-083 Ave RV err = 45.97
+50 \ H 500 f - -150 : :
+0 5 10 15 2 2 30 0 5 10 15 20 25 20 40 60 80 100 120 140
+Spectra No Spectra No
+400
+200 +
+0
+— —200 -
+‘0
+e& ~400 F
+> -600 +
+8 -800 +
+S -1000 } 4
+-1400 F Pearson's r = -0.74 & |
+~1600
+5 10 15 20 25 30 35
+Spectra No
+Fig. A.6. Same as Figure! but for the Pearson sample with strong correlations only and factor of improvement values greater than 1.
+400 12 T T T i T 500
+300 + 4 10 0 7
+200 + 7 8 500 ]
+7, 100 F J 6 -1000 4
+— of 4 -1500 5
+& -100 | 7 2 ~2000 i
+s -2500 |
+S290 5 o -3000 |
+-300 | " ‘ cae -2 : 3500 1
+_490 | LP 20! Pearson's r = -0.65 | “#4 1093 UU UMi Pearson's r = -0.67
+J06318+414 Ave RV err = 87.71 J065944193 ~4000 7 3154124759 Ave RV err=4.25 4]
+-500 6 1 ! 4500 1 i
+0 5 1 15 20 25 30 35 40 0 5 10 15 2085 0 0 5 10 15 20 25 30 35 40
+100 7 : T i 20 r r T r : 1000 T T
+80 + 4 15 :
+60 + : 500
+= 40+ 10 H
+i
+‘0
+& 207 1 5 0
+= OF
+8 -20+ 0 -500
+S -40 7 5
+cof vee 1000
+LP 071-082 r=-0.64| -10 } GJ 1223 LSPM J1925+0938 Pearson’s r = -0.68
+~80 F 180224642 Ave RV efr = 11.47 ] J180274375 J19255+096 Ave RV err = 168.86
+-100 15 ~1500
+5 10 15 20 2 30 0 20 40 60 80 100 120 140 0 10 20 30 40 50 60 70 80 90 100
+Spectra No Spectra No Spectra No
+
+Fig. A.7. Same as Figure
+
+ut for the Pearson sample with moderate correlations only and factor of improvement values greater than 1.
+
+Article number, page 25 of 26
+A&A proofs: manuscript no. CRX_main_ALL
+
+Appendix B: Stellar Parameters
+
+Article number, page 26 of 26

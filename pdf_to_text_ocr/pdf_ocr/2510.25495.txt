@@ -1,0 +1,1687 @@
+arXiv:2510.25495v1 [hep-ph] 29 Oct 2025
+
+Reinforcement Learning techniques for the flavor
+problem in particle physics
+
+A. Giarnetti
+
+“ INFN, Sezione di Roma, Rome, Italy
+@ Dipartimento di Matematica e Fisica, Universita di Roma Tre, Rome, Italy
+
+Abstract
+
+This short review discusses recent applications of Reinforcement Learning (RL) tech-
+niques to the flavor problem in particle physics. Traditional approaches to fermion masses
+and mixing often rely on extensions of the Standard Model based on horizontal symme-
+tries, but the vast landscape of possible models makes systematic exploration infeasible.
+Recent works have shown that RL can efficiently navigate this landscape by constructing
+models that reproduce observed quark and lepton observables. These approaches demon-
+strate that RL not only rediscovers models already proposed in the literature but also
+uncovers new, phenomenologically acceptable solutions.
+
+1 Introduction
+
+The flavor problem in particle physics has been a central focus of study since the inception
+of the Standard Model (SM). Many attempts to explain fermion masses and mixing involve
+SM extensions based on horizontal symmetries, who are responsible of making the entries of
+he mass matrices related in a non trivial way instead of being free parameters. A common
+feature of all these models is the assignment of particles to irreducible representation of
+he flavor group (the case of non-abelian simmetries), the assignment of a U(1) charge
+0 particles (models 4 la Froggatt-Nielsen (i]) or a combination of both. The space of all
+possibilities is usually immense, spanning ~ 10” different models, with n a large integer
+of O(10). It is clear that the success of an SM extension strongly relies on the ability
+o select a realization that fits the low energy data; while human searches have lead to
+a good success, it is not sure whether the discovered solutions are the minimal ones in
+erms of new degrees of freedom or the best ones according to other selection criteria
+like, for instance, the absence of huge hierarchies on the model parameters or a strong
+
+fine-tuning. The vastness of the parameters space in many fields of particle physics is
+one of the reason why, in very recent years, Machine Learning (ML) techniques started
+o be applied to several problems in Physics. Entering into the details of all attempts
+performed using ML techniques in Physics is a formidable task, as in many areas a long
+ist of papers exist and revising them is well beyond the scope of this short review. In
+he restricted domain of theoretical physics, the subject is currently very active, covering
+a wide range of topics ranging (among others) from string theory to QCD (36}{62],
+not to mention statistical mechanics (63}{90], thermodynamics 95), the foundation of
+quantum mechanics and cosmology '105}{121]. In this short review, we focus
+more strictly on ML in particle physics 126], with the intent of exploring Beyond
+the Standard Model theories (127} 129] and, in particular, the (a few, so far) efforts that
+have been done to implement AI agents in the study of the flavor problem. The subject
+is relatively young so, at least in principle, there exists a large probability that more can
+
+‘E-mail: jalessio -giarnetti@roma1.infn.it
+
+?E-mail: davide.meloni@uniroma3. it
+
+be said and done in the near future. This review would help in setting the state of the art
+on the attempts accomplished using the Reinforcement Learning (RL) technique {130
+find promising quark and lepton 3) textures] addressing, at the same time,
+the quest for an axion candidate.
+
+The main features of RL are described in Sect.(2), and its interesting results for model
+building are analysed in sect. (3). Sect. (4) is devoted to our conclusions.
+
+Ww
+
+2 Reinforcement Learning
+
+Reinforcement Learning
+
+is a subfield of Machine Learning that focuses on how an
+agent learns to make optimal decisions by interacting with an environment to maximize
+a cumulative reward over time. Unlike supervised learning, where a model is trained on
+a dataset of labeled input-output pairs, or unsupervised learning, which seeks patterns in
+unlabeled data, RL operates in a trial-and-error framework. The agent learns by taking
+actions, observing their consequences, and receiving feedback in the form of rewards or
+penalties. This feedback loop allows the agent to gradually refine its decision-making
+strategy without being explicitly told what the “correct”
+
+RL draws inspiration from behavioral psychology, particularly the concept of operant
+conditioning, where behaviors are shaped by rewards and punishments. This paradigm is
+well-suited for problems where the optimal course of action is not immediately clear, and
+the agent must explore its environment to discover effective strategies. RL is often formal-
+ized using Markov Decision Processes (MDPs), which provide a mathematical framework
+to model sequential decision-making under uncertainty. In RL, the agent observes the cur-
+rent state of the environment, selects an action, and receives a reward along with the next
+state, iteratively learning a policy—a strategy that maps states to actions—to maximize
+the expected sum of future rewards.
+
+action is.
+
+2.1 Common features
+
+Although many variants of RL exixt, we can identify some common features; these com-
+ponents are essential for understanding how RL systems operate:
+
+e Agent: the entity responsible for making decisions and learning from experience.
+The agent could be a robot, a software program, or any system capable of taking
+actions in an environment;
+
+e Environment: the external system with which the agent interacts. The environ-
+ment includes everything outside the agent, such as a physical space, a game board,
+or a simulated market. It responds to the agent’s actions by providing new states
+and rewards;
+
+e State (s € S): a representation of the current situation or configuration of the
+environment at a given time. The state contains all relevant information the agent
+needs to make a decision. For example, in a chess game, the state could represent:
+the positions of all pieces on the board. With S we indicate the ensemble of the
+whole states, whose single realization is indicated with s;
+
+e Action (a € A): a decision or move the agent can make to influence the environment.
+Actions can be discrete (e.g., moving left or right) or continuous (e.g., adjusting the
+speed of a vehicle). The set of all possible actions A depends on the environment
+and the current state;
+
+3A study based on the Diffusion Model (DF) has been carried out for leptons [134].
+
+e Reward (r € R): a scalar value provided by the environment after each action, indi-
+cating the immediate benefit or cost of that action. The reward serves as feedback,
+guiding the agent toward desirable behaviors. For instance, a positive reward might
+be given for winning a game, while a negative reward (penalty) could be assigned
+for making an invalid move in a chess game;
+
+e Policy (7): the strategy or rule that the agent follows to select actions based on
+the current state. Formally, a policy is a mapping from states to actions, denoted
+as t: S — A (for deterministic policies) or +(a|s) (for probabilistic policies, which
+assign probabilities to actions given a state). The goal of RL is to learn an optimal
+policy that maximizes long-term rewards;
+
+e Value Function (V7(s)): a function that estimates the expected cumulative re-
+ward (also called the return) an agent can achieve starting from a given state s
+and following the policy 7. The value function quantifies the long-term desirability
+of a state under a specific policy. A related concept is the action-value function
+(Q"(s,a)), which estimates the expected return for taking action a in state s and
+following policy 7 afterward;
+
+e Discount Factor (7 € [0, 1]): a parameter that determines the importance of future
+rewards relative to immediate ones. A value of y close to 0 prioritizes short-term
+rewards, while a value close to 1 emphasizes long-term rewards, promoting long-term
+planning by the agent.
+
+e Learning Rate (a € [0,1]): a parameter which controls how much newly acquired
+information overrides old information when updating estimates. When a is close to
+1, the agent quickly adapts to new experiences but tends to forget past knowledge;
+conversely, for a close to 0 the agent learns slowly, giving more weight to prior
+knowledge and less to new data. It can decay over time so to make updates smaller
+as learning converges.
+
+As mentioned above, RL problems are typically formalized using MDPs, which provide
+a structured way to model sequential decision-making in environments with stochastic
+dynamics. An MDP is defined by a tuple (S,A,P,R,y), where (S,A,R) and 7 have been
+defined above, and P(s‘|s,a) is the transition probability function, which specifies the
+probability of transitioning from the current state s to a new state s’ after taking action
+a.
+
+The objective of RL is to find an optimal policy m* that maximizes the expected dis-
+counted return, defined as the expected sum of discounted rewards over an infinite hori-
+
+zon {130}:
+co
+Gy= » rene : (1)
+k=0
+
+Here, G; represents the return starting from time step t, which is the total discounted
+reward accumulated by following policy 7. To achieve this goal, RL algorithms often rely
+on two key approaches:
+
+1. Value-based methods: these methods estimate the value function (V"(s) or
+Q7(s,a)) and derive a policy by selecting actions that maximize the estimated value.
+A classic example is Q-learning, which iteratively updates the action-value function
+to learn an optimal policy without explicitly modeling the environment’s transition
+dynamics 135]. At the heart of Q-learning is the Bellman equation used to update
+Q-values:
+
+Q(st, a1) — Q(s1, a1) +o [rest t ymax Q(s¢41, @) — Q(s1,a1)] ,
+
+where s; is the current state at time t, a; is the action taken at time t, r¢41 is the
+reward received after taking action ay, 5:41 is the new state after taking action az, a
+is the learning rate, y is the discount factor, maxg Q(s141,@) is the estimate of the
+maximum future reward from the next state. In this procedure, one first initializes
+the Q-table arbitrarily for all state-action pairs Q(s,a); then, choose an action a
+from state s using a policy (e.g., e-greedy), takes action a, observes reward r and
+the next state s’. Then, the Q-value is updated
+
+Q(s,a) — Q(s,a) +a fi + ymax Q(s',a’) — As, a
+
+and one sets s + s’. The goal is to find the optimal Q-function Q*(s, a) such that:
+
+Q"(s,a) =E rst + ymax Q*(se1,4')
+
+St = §,at = ( a
+
+In other words: the optimal value of taking action a in state s equals the expected
+value of the immediate reward 41 plus the discounted (7) value of the best possible
+future action in the next state s;,,. The term ”max,” indicates that, in the future,
+the agent will always select the best action.
+
+Once Q*(s,a) is learned, the optimal policy 7* can be derived as:
+m*(s) = argmax Q*(s, a).
+a
+
+Notice that, while maxg Q*(s,a) gives the maximum value of the function Q*(s, a)
+over all possible actions a, with the notation arg max, Q*(s, a) we denote the function
+which returns the action a that achieves this maximum value.
+
+2. Policy-based methods: These methods directly parameterize and optimize the
+policy 9(a|s), where @ are tunable parameters of the policy (e.g., weights of a neural
+network) |136]. Instead of estimating a value function first, policy-based methods
+adjust 6 to maximize the expected return:
+
+J(@) = Ex, b> vn :
+t=0
+
+The gradient of J(@) with respect to the parameters can be estimated using sampled
+trajectories from the environment. A prototypical algorithm is REINFORCE, which
+updates the parameters in the direction of the return:
+
+foe)
+0-64 a) Vo ln m9 (art|51)Gt,
+t=0
+
+where G; is the cumulative discounted reward from time t¢ defined in eq. (i). Policy-
+based methods naturally handle high-dimensional or continuous action spaces and
+can learn stochastic policies, which are useful in partially observable or highly un-
+certain environments.
+
+4 Q-learning balances exploration and exploitation typically using an e-greedy policy:
+e With probability ¢, choose a random action (exploration).
+
+e With probability 1 — ¢, choose the action that maximizes the current (Q-value (exploitation).
+There also exist hybrid approaches called actor-critic methods which combine value-based
+and policy-based ideas by learning both a value function (critic) and a policy (actor) to
+improve sample efficiency (137).
+
+In the following section, we will review the attempts to discuss the flavor problem by
+means of RL techniques.
+
+3 Quark and lepton masses and mixing from RL
+
+3.1. U(1) Froggatt-Nielsen for quark observables
+
+The first paper we want to discuss is Ref. (131), which explores the application of RL
+to model building, specifically focusing on Froggatt-Nielsen (FN) type models for quark
+masses and mixing. The primary goal is to investigate whether RL techniques can be
+used to train a neural network to construct particle physics models with certain
+prescribed properties. More specifically, the authors aimed to develop a system where
+an RL agent could efficiently lead from random, typically physically unacceptable FN
+models, to phenomenologically viable ones that are consistent with observed quark masses
+and mixing. In addition, they also wanted to test if the trained networks could not only
+discover new models but also identify models already proposed in the literature.
+
+From the model building point of view, FN models are well known and, for the present
+paper, work as follows. In the Standard Model (SM), quark masses and mixings originate
+from Yukawa couplings:
+
+Leyak = YQ How + YEQ' Hd! + hee., (2)
+
+where Q’ are left-handed quark doublets, u’ and d' are right-handed up- and down-type
+quarks, and H is the Higgs doublet. After electroweak symmetry breaking, the Higgs
+acquires a VEV (H®) = v, yielding the mass matrices:
+
+My =vY", Mg=vY!. (3
+These are diagonalized via unitary matrices:
+M, =UyMyVi, Ma =UaMaV}, (4
+
+with MM, = diag(™mxy,Me,mz) and Ma = diag(mg,ms,mp). The observable mixing is
+encoded in the CKM matrix:
+
+Vexm = UlUa, (5
+
+parameterized by three angles 612, 613, 623 and a CP-violating phase 6:
+
+C12C13, $1213 813€ *
+. acid mon ee ee
+Voxm = | —$12023 — €12823813e"" C1223 — $12823813e" 823¢13 | - (6)
+812523 — €12€93813e"" — — C1293 — $12C23813e"° —€93C13
+
+The experimentally measured parameters used in the paper are shown in Table [1] for
+reference. FN models introduce a flavor structure into the SM via two main ingredients:
+
+e adding global symmetries U,(1), p= 1,...,r to the SM gauge group;
+
+e adding scalar singlets ¢p, with g,)(¢) 4 0 responsible for the spontaneous breaking
+of U,(1)’s.
+Mau Ma Me Ms me Mb
+
+0.002167} p9926 | 0.004677 9917 | 1.27 £0.02 | 0.093955 | 172.4 0.07 | 4.187903
+
+v $12 $13 $23 )
+~ 174 | 0.22650 £ 0.00048 | 0.003617) foyq9 | 0.040537 5 tone: | 1.1967G p73
+
+Table 1: Reference values of the quark masses (in GeV) and CKM parameters used
+
+in [esq
+
+The SM Yukawa terms are generally replaced by higher-dimensional operators:
+
+Lyuk = > (« Il op? Q How + bij Il dp Pt On) +hc., (7)
+ig Pp Pp
+where p,ij,Mp,ij € Z>o; if the sum of all charges in a given operator is vanishing, then
+
+the related entries in the Yukawa matrix are different from zero. After the singlets acquire
+VEVs vp = (bp), the Yukawa matrices become:
+
+a np aj ad Mp,ij
+Yt = aij II »’ ci Vig = by Il» ae (8
+P P
+
+where a;;, bj; are O(1) coefficients not determined by the flavor symmetries and fixed to
+some random number at the beginning of the simulation. In this framework, a FN mode
+is defined by vectors
+Qp = (ap(Q"), p(w"), Go(4'), ap(9)) » (9
+organized into an r x 10 charge matrix Q, where r is the number of U(1) symmetries, with
+bounded entries:
+Gmin S Ip < Gmax (10
+
+for each particle in the model. The Higgs charges have been fixed to ensure the top Yukawa
+coupling is unsuppressed:
+
+d(H) = qp(u?) _ q(Q?). (1
+The FN landscape consists of many possible charge assignments. For example, with one
+U(1) and qmax = —dmin = 9, there are 19!° ~ 10!3 models; for two U(1) symmetries,
+
+~ 1076, Identifying viable models matching experimental data motivates the use of RL
+techniques. The setup involves a single neural network 79, parameterized by weights 0,
+which defines the policy 7. The network takes states as input and outputs a probability
+distribution over possible actions. Exploration of the environment is driven by this policy,
+meaning actions are sampled according to 7g at each step in an episode, defined as the
+sequence of states s; and actions a, for t = 0,1, 2,...:
+
+Te mT Te
+
+Data is collected by repeatedly running such episodes, implying that the system ef-
+fectively consists of a single agent. According to the policy gradient theorem, the policy
+network zg is trained to minimize the following loss function:
+
+L(8) = Qr(s,a) In(m9(s,a)) « (13)
+
+In practice, the action-value function Q,(s,a) is often approximated using the return
+
+G observed from state s. The overall algorithm proceeds as follows:
+
+(1) Initialize the policy network 79.
+(2) Collect a batch of data tuples (s¢,a:,Gz) by running multiple episodes as described
+in (2). with each episode starting from a randomly selected initial state so.
+
+(3) Update the policy network parameters 0 using the collected data and the loss function
+in (13).
+
+(4) Repeat steps (2) and (3) until convergence, i.e., when the loss becomes sufficiently
+small and the policy stabilizes.
+
+The authors model the FN theory space as a MDP. The state space S consists of all FN
+charge matrices Q of eq. (9). The action space A is composed of elementary updates that
+increment or decrement a single charge by one, that is Q, “4 Q,+1. Since these updates
+are deterministic, the transition probabilities are not needed. There are 20r such actions
+in total. The discount factor is fixed to y = 0.98.
+
+In order to define a reward function, the authors first introduce the intrinsic value of
+a state Q, defined as:
+
+¥(Q) =~ mie, ~
+
+[Howe |
+los (Fee!) (14)
+10 \Titexp
+
+where the minimization is over scalar VEVs vp € I = [Umin, Umax] (with typical values
+Umin = 0.01 and vmax = 0.3) and pz runs over the six quark masses and CKM elements.
+This quantity measures the total deviation of the model predictions from the experi-
+mental values. In this context, a terminal state (that is a state after which the episode
+ends and a new one starts) satisfies V(Q) > Vo and all individual deviations (defined as
+— logy |#0,vp|/|Mexp| computed for the vp value for which V(Q) is minimum) are greater
+than VY), with V9 = —10 and V, = —1. Thus, a reward function is defined by:
+
+y(Q’) — V(Q) if improvement,
+Rofiset otherwise
+
+R(Q,a) = { (15)
+
+with Rofset = —10. The training is performed using the REINFORCE algorithm (de-
+scribed in the previous section) with ADAM optimizatior>| A single agent explores the
+FN environment using the policy 7g, running episodes of maximum length Nep = 32 start-
+ing from random initial states. Terminal states discovered during training are stored for
+further analysis. For models with one U(1) symmetry, the trained network leads from ran-
+dom initial configurations to phenomenologically acceptable models in 93% of episodes,
+with an average episode length 16.4. On the other hand, for models with two U(1) sym-
+metries, the network achieved a success rate of 95% of episodes ending in terminal states.
+The average episode length in this more complex scenario was ~ 20. In particular, 4,630
+unique terminal states were found for the one U(1) symmetry case. Among these, 89 mod-
+els had a high “intrinsic value” (meaning they fit experimental data well), with the bes
+achieving a value of approximately —0.598. 57,807 unique terminal states were discoverec
+for the two U(1) symmetries case. Of these, 2,019 models showed high intrinsic value, with
+the best model having a value of approximately —0.390. Models with the highest intrinsic
+value for one and two U(1) symmetries have been reported in Tal The training pro-
+cess, even for the larger two U(1) symmetry environment, was achieved on a single CPU
+within reasonable timeframes of 1 hour for one U(1) symmetry, and 25 hours for two U(1
+symmetries, demonstrating the practical applicability of RL for navigating large mode.
+spaces where systematic scanning is impossible. It is worth to mention that the trainec
+
+5 ADAM is an optimization method that automatically adjusts how big each training step should be
+by keeping track of both the average direction of past steps (momentum) and how much those steps vary
+(adaptive learning rate), making it faster and more stable for training models.
+networks were shown to be capable of guiding the search towards FN models previously
+
+proposed in the literature, provided the search started from a nearby configuration in the
+model space.
+foo. | = ( Qi Q2 Q3]}u ua ug] di d dg |H|¢ )
+q| 6 4 3 /-2 2 4)/+3 -bL -1/1 2
+—1.975 1.284 -1.219 —1.349 1.042 1.200
+O(1) coeff. | (aij) ~ { 1.875 1.802 —0.639} (bj) ~ { 1.632 0.830 a)
+0.592 1.772 0.982 —1.259 —1.085 1.949
+VEV, value uy ~ 0.224, V(Q) ~ —0.598
+Qi Q2 Q3/ um uo us| di do ds|H| bi ¢2
+charges QO= 2 2 %i1)/-2 0 1)]-1 0 1}; 0; 1 O
+1 O O 0 O O;-1 -1 -2/ 0] O 1
+—1.898 0.834 —0.587 —1.759 1.358 1.013
+O(1) coeff. | (aj) ~ | 0.575 —0.592 1.324 bij) ~ | -1.267 1.897 —1.196
+—1.123 —1.265 0.982 1.771 1.386 \s)
+VEVs, value (v1, v2) & (0.079,0.112) , V(Q) ~ —0.390
+
+Table 2: Examples of models with highest intrinsic value for one (top) and two (bottom)
+U(1) symmetries. Charges and O(1) coefficients of eq. {7 are given. Adapted from [237).
+
+Even though not strictly related to FN models, we want to mention here the efforts
+provided in |8] where machine learning techniques have been applied to construct particle
+physics models again in the Yukawa quark sector, aiming to satisfy two complementary
+criteria: truth and beauty. Truth is defined as the ability of a model to reproduce all ex-
+perimental observables sensitive to its parameters. In the quark sector, this entails fitting
+quark masses and mixing parameters, including the CKM matrix elements and the Jarlskog
+invariant. Beauty) in the authors’ definition, refers to desirable theoretical attributes be-
+yond mere data fitting. To quantify beauty in Yukawa matrices, three measures are tested,
+which are uniformity (that is all matrix elements have approximately equal magnitude),
+sparsity (where a significant number of elements vanish exactly or are negligibly small)
+and symmetry (in which off-diagonal elements are mirrored in magnitude across the main
+diagonal). Using pseudo-experiments, the optimization procedure efficiently navigates the
+huge parameter space, uncovering models that achieve both experimental accuracy and
+aesthetic elegance. This effort demonstrates how machine learning can be applied in parti-
+cle physics, not only as an efficient method for exploring vast parameter spaces but also as
+a flexible tool for model selection (taking into account theoretical and phenomenological
+constraints), thus bridging numerical optimization and model-building intuition.
+
+3.2 Extention of the U(1) Froggatt-Nielsen to lepton observables
+
+We now discuss the paper which extends somehow the previous work to investigate
+the flavor structure not only for quarks but also for leptons using RL. Specifically, the
+authors apply a value-based RL algorithm to models with a U(1) flavor symmetry based
+on the Froggatt-Nielsen (FN) mechanism. While, as said, for U(1) charges gq; in the
+range —9 < q < 9 to quarks alone yields approximately 10!° possible configurations,
+the inclusion of the lepton sector expands the parameter space to over 1074 possibilities.
+This combinatorial explosion renders brute-force searches infeasible and motivates the
+
+°The implementation of the beauty definitions in the context of machine learning approaches to BSM
+models in flavor physics might be useful to narrow down the viable models in order to search for the most
+theoretically appealing solutions.
+application of machine learning techniques for efficient model exploration. The system is
+provided with the following components:
+
+e Deep Q-Network (DQN): a DQN implementation has been supplied to approxi-
+mate the Q-value function, guiding the agent’s actions via a neural network. In fact,
+instead of storing a Q-table, the DQN uses a neural network to approximate the
+Q-function. It leverages experience replay (learning from past transitions randomly
+sampled from memory) to break correlations between consecutive experiences, and
+incorporates a target network to stabilize training by maintaining a delayed copy of
+
+he Q-network for computing target values.
+
+e Network Architecture: The architecture of each network is composed of several
+fully connected (dense) layers, where each neuron in a layer is connected to every
+neuron in the subsequent layer. The activation function used in these layers is the
+Scaled Exponential Linear Unit (SELU), which helps maintain normalized activa-
+ions and supports stable training. The final layer of the network uses a softmax
+activation (that is, a function that converts raw outputs into probabilities summing
+0 one) to produce a probability distribution over the possible actions.
+
+As before, the training procedure is implemented, first, by inputting the current state
+s (a charge vector Q,) into the target network; then, actions a are chosen via an ¢-greedy
+policy (see footnote [4). After that, the transition e = (s,a,s’,R) (where R is the reward
+received by the agent, more on this later) is stored in a replay buffer. A mini-batch of
+experiences is sampled to update the Q-network using a Huber loss function, optimized
+via stochastic gradient descent. The Huber loss function is an error measure that combines
+he advantages of the mean squared error (MSE) and the mean absolute error (MAE). For
+small differences between the predicted value Ypreq and the target value y, it behaves like
+MSE, while for large differences it behaves like MAE, increasing its numerical stability
+while still being sensitive to small errors. Denoting the outputs of the Q-network and
+he target network by y; and yj, respectively, the weights and the biases are updated by
+minimizing:
+
+5 (Yereys = yi)? if Weryi = yil <6
+
+r 16
+5 Ifa wl 30 if lof til > 8 9)
+
+Lruber(y; y') = {
+with YR) =R+y7y', y = 0.99 and 6 = 1, which combines a mean squared error and a
+mean absolute error.
+
+At the end, the Q-network parameters © are softly copied to the target network
+parameters 0’ using a learning rate a. The models investigated by the authors are built
+with a single complex scalar flavon field ¢ with a U(1) charge. As usual, Yukawa couplings
+are suppressed by powers of (¢)/A, generating fermion mass hierarchies. In addition, the
+Higgs U(1) charge is fixed to allow the top Yukawa term without flavon suppression.
+The resulting fermion masses and mixings arise after @ and the Higgs acquire VEVs: vg
+and vgw. The total charge vector Q, contains 19 components (for all fermions); each
+component lies within [—9,9], leading to 1919 ~ 104 possible charge configurations, as
+previously anticipated. The flavon charge q(@) is set to +1 or —1 with equal probability.
+Agent actions consist of incrementing or decrementing a component of Q, by one unit.
+
+The relevant Yukawa terms for leptons (those for quarks are analogous to the previous
+section) are given by:
+
+M
+bo \"G - uN  o my
++y%, (4) L, HN; + = (43) MNEN; +he., (17)
+where {Lj, li, Ni, H} denote the left-handed leptons, the right-handed charged leptons, the
+right-handed neutrinos, and the SM Higgs doublet with H° = io2H™, respectively. In the
+paper, the authors assume three right-handed neutrinos and that the physical neutrino
+masses are generated by Type-I seesaw mechanism where the large mass MW is chosen as
+M = 10" GeV and the Yukawa couplings (including those for u and d quarks) {y! pe Vip Yin }
+are O(1) real coefficients.
+
+The reward FR is based on an intrinsic value function V(Q), which quantifies how well
+a charge configuration reproduces the observed fermion masses and mixing angles:
+
+—M quark ap C;
+V(Q) = (18)
+[Miepton t Mreutrino t Cl .
+
+In eq. (18), Meauark and Miepton measure the deviation of the predicted quark and lepton
+masses from their corresponding experimental values,
+
+M quark = > Ea, Mepton = > Ea, (19)
+a€{u,d} a€{l}
+
+where
+
+E,=
+
+logi9 _|al . (20)
+|ma,exp|
+
+In addition, since the ordering of neutrino masses is not yet experimentally established,
+they considered two approaches: RL with a fixed ordering (either Normal Ordering (NO)
+or Inverted Ordering ([O)) and RL without specifying the ordering. The intrinsic value
+relevant to the neutrino masses Mnpeutrino is given by:
+
+oF
+Mhpeutrino = Se PL St vy
+YF
+
+aE {21,32}
+
+(21
+
+2
+with EY = flog (zh )). Finally, the intrinsic value also incorporates quark anc
+
+lepton mixing information through the quantities C = 57, f EY »P=y% r EX, where
+
+| Volk M ij | Veh
+log a ; EZ = |log,) | ——~=— } |. 22
+10 (ah P 10 iva (
+
+CKM, exp PMNS, exp
+
+WF us
+Eg =
+
+The experimental values of the lepton observables used by the authors are listed in Table[3}
+A configuration is considered a terminal state if:
+
+V(Q)<Vo, Ba<Vi, Ey, EY <Ve
+
+with typical thresholds Vo = 10.0, Vi = 1.0, and V2 = 0.2.
+
+In the quark sector, approximately 10!? configurations were explored. After ~15 hours
+on a single CPU, the agent reached terminal states after 20,000 episodes. More than 6%
+of 100,000 episodes reached valid terminal states; 21 independent charge configurations
+consistent with experimental data were identified. Monte Carlo optimization of O(1)
+Yukawa, coefficients refined the results to fit within < 0.1% of observed values. However,
+as the authors claimed, no CP violation is present in this sector due to phase rotation
+freedom.
+
+10
+Observables Normal Ordering Inverted Ordering
+" lo range 30 range lo range 30 range
+sin? 042 0.30375 ort 0.270 + 0.341 0.30375 Ort 0.270 = 0.341
+sin” 013 0.022257) Goose | 0.02052 — 0.02398 |] 0.022237 boss | 0.02048 > 0.02416
+sin” 003 O4517 0 tie 0.408 — 0.603 0.56975 po 0.412 = 0.613
+dcp /t L298 0 0.80 > 1.94 L53te 1.08 > 1.91
+Am
+Ta2 pate 2h 6.82 — 8.03 Tat oet 6.82 — 8.04
+z
+— 2.50740-038 2.427 — 2.590 —2.48619-032 | —2.570 > —2.406
+—~e.
+me/MeV 0.510999
+my, /MeV 105.658
+mz /MeV 1776.86
+
+Table 3: Experimental values for the lepton sector obtained from global analysis of the
+
+—= 2. ine
+data, where Ams, = Am3, = m3 —
+
+IO. Taken from [732).
+
+mi > 0 for NO and Am3, = Am3z = m3 — m3 <0 for
+
+In the lepton sector, the authors analyzed models in two different situations of mass
+ordering, one in which the ordering is fixed a priori and another when it is left free to
+be chosen by the agent action. For both cases, the Higgs charges and flavon VEVs were
+
+fixed from the quark sector. In
+
+the case of fixed mass ordering, the training started
+
+to find terminal states after roughly 5,000 episodes (around 8 hours on a single CPU)
+
+while the loss function tended to b
+Fig. (i). Here, the horizontal axis s.
+
+0.35
+
+Se
+8
+
+Loss function
+Ss
+&
+
+0.20
+
+e minimized around 50000 episodes, see upper panel of
+10ws the number of training episodes, while the vertical
+
+ij
+i
+I
+t
+I
+10}
+i
+ole
+0.22 0.23 0.24 0.25 0.26 0.27
+Ozslrt
+
+f
+if
+|
+iz
+_————
+
+Episode
+
+150)
+
+m,,[meV]
+
+96.20 0.23 0.24 0.25 0.26 0.27 0.28
+Opsirt
+
+0.28
+
+Figure 1: Learning results for the lepton sector by RL having specified the neutrino mass
+ordering. Upper panel: loss function vs episode number. Lower panels: effective neutrino
+
+mass mga (left plot) and sum of
+
+the neutrino masses (right plot) versus the atmospheric
+
+mixing angle 023, for the 6 viable models found by the authors. See text for further details.
+
+Adapted from [232].
+
+11
+axis reports the value of the loss function. A decreasing trend with fluctuations can be
+observed, indicating that the agent is gradually improving its predictions, with variations
+arising from the stochastic nature of the learning process. After ~ 5 x 104 episodes, the
+loss no longer decreases; instead, it slightly rises, suggesting potential overfitting to the
+specific experiences in the replay buffer. In particular, terminal states appeared in 0.06%
+of the cases: 63 (NO) and 121 (IO) total. Monte Carlo scans revealed 6 viable models for
+NO within 30 while no valid models for IO were found. These results suggest that NO is
+statistically preferred. A typical successful output with a large intrinsic value is reported
+in Tab/4 ogether with the lepton and scalar charges, the Yukawa matrices, the flavon
+vev, the obtained PMNS matrix and the predictions for the Majorana phases and mgg.
+
+(4 fs I3|Ni No Ng} h kh I | A o¢
+2 8 1 7 3 3 1 1
+
+Charges (a)
+
+7 ai 2.056 —0.299
+y' ~ | -1.584 -2.697 1.542
+-0.797 0.918 1.501
+
+9
+1.135 —1.331 1)
+
+2
+
+O(1) coeff. y” 1.207 —1.203 —0.051
+—0.671 —2.639 0.074
+
+1.125 —0.388 0.950
+
+l2
+
+y® ~ | —0.388 1.066 —0.349
+0.950 —0.349 —0.656
+VEV U4 & 0.268 e~ 01661
+
+Intrinsic value Vopt © —0.853
+
+0.819 0.553 vr)
+
+0.346 0.689 0.637
+0.458 0.468 0.756
+Majorana phases | a2; ~ 0.0, a3, ~ —0.1067
+Effective mass mgg & 3.793 meV
+
+PMNS matrix
+
+Table 4: Highest intrinsic value scenario for the lepton sector with NO, where the neutrino
+mass ordering is specified in the network training. Adapted from [734).
+
+For the sake of completeness, in the lower panels of Fig{]] we report the effective
+neutrino mass mgg (left plot) and the sum of the neutrino masses versus the atmospheric
+mixing angle 093 (right plot) for the 6 viable models found by the authors. In the last
+two plots, the dotted line represents the global best fit value from NuFIT v5.2 results
+with Super-Kamiokande atmospheric data (139, while the region inside the dashed (dot-
+dashed) line corresponds to 1a (30) confidence level interval. The square corresponds to
+the model listed in Tab. (4). The left panel shows that the predicted effective Majorana
+neutrino masses are all around a factor of 4 below its upper bound of 36 meV (90% CL)
+indicated by the black solid line (140); from the right panel, instead, we see that the sum
+of neutrino masses are all roughly 3 times smaller than the upper bound of 15 meV (95%
+CL), corresponding to the black solid line in the case of ACDM model (14]].
+
+In the case of unfixed mass ordering, the training took ~12 hours and terminal states
+where found in over 60% of 60,000 episodes. In two dedicated runs, the authors found
+more that 13k terminal states for NO and 22k for IO. After optimization of the O(1)
+coefficients, 15 NO models matched observations within 30 while, again, no IO models
+were viable. This work demonstrates that reinforcement learning can effectively explore the
+flavor structure of fermions in models with U(1) symmetry. The results strongly suggest
+that Normal Ordering is statistically favored over Inverted Ordering in the neutrino sector.
+
+im
+
+12
+3.3. An AI agent for autonomous model building
+
+As a step forward in response to the challenges posed by the flavor problem in the v sector,
+the authors of introduce the Autonomous Model Builder (AMBer), an Al-assisted
+framework based on RL. AMBer is designed to efficiently navigate the vast combinatorial
+landscape of model-building possibilities. In its implementation, the system autonomously
+selects symmetry groups, defines particle content, assigns group representations, and eval-
+uates the resulting models. The goal is to construct viable models that both minimise the
+number of free parameters and reproduce experimental observations. While the frame-
+work has been demonstrated in the context of neutrino flavor mixing, the underlying
+methodology is general and can be adapted to other domains of theoretical physics.
+
+In the paper, the problem of constructing neutrino flavor models is reformulated as
+an RL task. The environment in which the RL agent operates is defined by the space of
+possible models, with the current state corresponding to a specific model under consider-
+ation. Actions correspond to modifications of the model, such as altering particle content,
+changing group representations, or modifying symmetry properties, subject to mathe-
+matical consistency conditions. Each particle is encoded via a one-hot vector reflecting
+its non-Abelian representation and Abelian charge, while additional state information in-
+cludes lepton triplet associations, vacuum expectation value configurations for flavons, and
+the order of the Abelian symmetry.
+
+The agent evaluates its performance using a reward function carefully designed to en-
+courage models that achieve a good fit to data, minimize the number of free parameters,
+and explore higher-order Abelian symmetries when advantageous. Invalid actions or mod-
+els are penalized, while valid and predictive configurations are rewarded. The reward is
+normalized between —1 and 1, with high-quality states boosted to maximize their influence
+on learning.
+
+To enable rapid model evaluation, the framework incorporates an optimized software
+pipeline. A Python reimplementation of the Mathematica Discrete package—PyDiscrete
+computes Clebsch—Gordan coefficients with substantial speed gains. The Model2Mass
+package symbolically constructs the superpotential and extracts the charged-lepton, Dirac
+neutrino, and Majorana mass matrices for arbitrary finite non-Abelian groups. For pa-
+rameter fitting, the FlavorPy package is employed, performing multiple short optimisation
+runs from varied initial conditions to avoid local minima while containing computational
+costs.
+
+The RL algorithm chosen for AMBer is Proximal Policy Optimisation (PPO), which
+trains two neural networks: a policy network for selecting actions and a value network
+for estimating expected returns. The loss function includes value, policy, and entropy
+terms, balancing exploitation and exploration. Training is performed in parallel over 250
+environments, each with a maximum episode length of 1000 steps. Evaluation of models
+occurs every few steps, with the evaluation frequency depending on the chosen symmetry
+group. The search is conducted in several theory spaces, such as A, x Z4 with up to five
+flavons, A, x Zy with variable N, and Tig x Z4 with up to six flavons.
+
+Throughout training, the agent’s performance is monitored by tracking the x? fit to
+data, the number of free parameters, and other internal metrics, see F. ig.(2). Compar-
+isons with random scans reveal that AMBer significantly outperforms naive exploration
+strategies, particularly in the A4-based theory spaces.
+
+The application of AMBer to neutrino flavor model building yields thousands of models
+that are both predictive (having at most seven free parameters) and in good agreement
+with experimental data, with y? < 10. In the Ay x Z search space, many of the models
+rediscovered align closely with known constructions from the literature, featuring typical
+triplet assignments for lepton doublets and right-handed neutrinos, along with favoured
+vacuum alignments such as (1,1,1). The Ay x Zy runs (see Tab. (5) for a typical output)
+
+13
+2.5 1 ! ! 17 L ! ! ! 250
+a 0.1844 |— Good Models o
+& —— Valid Models F200 &
+iT wn
+s 5 5
+S vu ov
+Qa ke
+« 3 ~ 20124 150 &
+Ne 2.074 bFise @ 4
+x 6 ~~ 9 3
+23 g [208
+= 2 = 0.064 eS
+— logr0x 8 50 %
+— n oO $
+154 1 T 15 0.00 + 0
+0 10 20 30 0
+a5 1 1 ! 15 L ! 1 ! 250
+— o0g10x? a — Good Models o
+—- n £ 0.45 4 —— Valid Models - 200 2
+Ry Pp n vn
+Ss o o
+Qa e
+2 8 a £0307 Hao
+Nc 2.05 rig ow 3
+x o i L ne}
+< 5 2 Top.2
+= Bou z
+S Pe s
+1s 1 1 13 0.00 + 1 1 7-0
+0 10 20 30 0 10 20 30
+4.0 1 ! ! ! 8 L ! ! ! 50
+i, 1og10x? ee — Good Models o
+~ — n é 0.034 —— Valid Models 40 2
+5 r7_ :
+aD f302
+S Sas a 3 0.02 4 2
+5 8 8 +208
+Ko 6 = =
+= Boo 102
+fc) $s
+EO T T I> o:00'—7 T T T°
+0 10 20 30 0 10 20 30
+Step Number / 1000 Step Number / 1000
+
+Figure 2: Training variables of interest over time for searches in three spaces: Ay x Z4
+(top), As x Zn (middle), and Tig x Za (bottom). Left column: evolution of x? in blue
+(where the curve indicates the median logy, x? over all environments) and the mean number
+of parameters (np) as training progresses in orange. Right column: number of valid models
+in orange and good (x? < 10 and np < 7) models in blue. From EEE
+
+LE E& EF; N Hy Ha 1 2 $3
+
+Ay 3 1% Voi 38 1 ” V 3 38
+Zr 1 2 2 2 2 2 2 2 5 2
+
+Table 5: Moddel found by AMBer in the A, x Zy search (with N = 7), with 5 parameters
+and x? = 0.79. Here (b2)/(0.1A) = (@3)/(0.1A) = (1,1, 1).
+
+demonstrate the agent’s flexibility in selecting symmetry orders. In the larger and less
+charted Tj 9 x Z4 theory space, AMBer uncovers models with more uniform representation
+assignments and an expanded variety of viable structures. While the relative gain over
+random scans is smaller here, AMBer still identifies a greater number of good models,
+including particularly simple configurations with very few free parameters.
+
+14
+4 Conclusions
+
+In this short review, we have summarized the first applications of Reinforcement Learn-
+ing (RL) to the flavor problem in particle physics. Traditional approaches to quark and
+lepton mass hierarchies face the difficulty of exploring a vast model space, which quickly be-
+comes intractable with increasing symmetries and parameters. RL-based frameworks have
+demonstrated the ability to efficiently navigate these spaces, identifying viable Froggatt
+Nielsen charge assignments for quarks and leptons, often rediscovering known models and,
+in some cases, uncovering new ones consistent with experimental data. In the lepton
+sector, RL results point toward a statistical preference for Normal Ordering of neutrino
+masses. More advanced frameworks, such as AMBer, further illustrate the potential of
+AI agents to autonomously construct Beyond Standard Model theories with minimal pa-
+rameter dependence and predictive power. Although this field is still in its infancy, the
+promising results obtained so far indicate that RL may become a valuable tool in theoret-
+ical model building, complementing traditional approaches and opening new directions in
+the search for solutions to the flavor problem.
+
+15
+References
+
+1
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+C. D. Froggatt and H. B. Nielsen, Hierarchy of Quark Masses, Cabibbo Angles and
+CP Violation, Nucl. Phys. B 147 (1979) 277,
+
+J. Halverson, B. Nelson and F. Ruehle, Branes with Brains: Exploring String
+Vacua with Deep Reinforcement Learning, JHEP 06 (2019) 003 (1903. 11616).
+
+A. Miitter, E. Parr and P. K. S. Vaudrevange, Deep learning in the heterotic
+
+orbifold landscape, Nucl. Phys. B 940 (2019) 113 {181105993}.
+Y.-H. He, Deep-Learning the Landscape, \1706 .02714,
+D. Krefl and R.-K. Seong, Machine Learning of Calabi- Yau Volumes, Phys. Rev. D
+
+96 (2017) 066014 {1706 03346).
+F. Ruehle, Evolving neural networks with genetic algorithms to study the String
+
+Landscape, JHEP 08 (2017) 038| [1706.07024).
+
+S. Abel and J. Rizos, Genetic Algorithms and the Search for Viable String Vacua,
+
+JHEP 08 (2014) 010) |1404.7359).
+
+K. T. Matchev, K. Matcheva, P. Ramond and S. Verner, Exploring the truth and
+
+beauty of theory landscapes with machine learning, Phys. Lett. B 856 (2024)
+138941 |2401.11513).
+
+M. Larfors and R. Schneider, Explore and Exploit with Heterotic Line Bundle
+
+Models, Fortsch. Phys. 68 (2020) 2000034 (2003 .04817).
+
+S. Krippendorf, R. Kroepsch and M. Syvaeri, Revealing systematics in
+phenomenologically viable flux vacua with reinforcement learning, 2107 .04039
+
+A. Constantin, T. R. Harvey and A. Lukas, Heterotic String Model Building with
+
+Monad Bundles and Reinforcement Learning, |Fortsch. Phys. 70 (2022) 2100186
+
+2108.07316}.
+
+A. Cole, S. Krippendorf, A. Schachner and G. Shiu, Probing the Structure of String
+Theory Vacua with Genetic Algorithms and Reinforcement Learning, in 35th
+
+Conference on Neural Information Processing Systems, 11, 2021, 2111.11466
+
+R.-K. Seong, Generative AI for brane configurations and coamoeba,|Phys. Rev. D
+111 (2025) 086013) (2411. 16033).
+
+T. Harvey, Navigating the string landscape with machine learning techniques, Ph.D.
+thesis, Oxford University, Oxford U., 2024. 10.5287/ora-y5oeq5qv7.
+
+S. Lanza, Neural network learning and Quantum Gravity, JHEP O7 (2024) 105
+2403 . 03245).
+
+E. Choi and R.-K. Seong, Machine learning regularization for the minimum volume
+formula of toric Calabi- Yau 3-folds, Phys. Rev. D 109 (2024) 046015 [2310. 19276).
+
+E. Hirst, Machine-Learning and Data Science Techniques in String and Gauge
+Theories, Ph.D. thesis, London, City U., London, City U., 3, 2023.
+
+W. Cui, X. Gao and J. Wang, Machine learning on generalized complete
+
+intersection Calabi- Yau manifolds, Phys. Rev. D 107 (2023) 086004 (2209. 10157).
+
+16
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35
+
+J. Bao, Y.-H. He, E. Heyes and E. Hirst, Machine Learning Algebraic Geometry for
+Physics, 2204. 10334
+
+D. S. Berman, Y.-H. He and E. Hirst, Machine learning Calabi- Yau hypersurfaces,
+
+Phys. Rev. D 105 (2022) 066002| (2112. 06350).
+
+X. Gao and H. Zou, Applying machine learning to the Calabi- Yau orientifolds with
+
+string vacua, Phys. Rev. D 105 (2022) 046017 [2112.04950).
+
+J. Carifio, W. J. Cunningham, J. Halverson, D. Krioukov, C. Long and B. D.
+Nelson, Vacuum Selection from Cosmology on Networks of String Geometries,
+
+Phys. Rev. Lett. 121 (2018) 101602| (1711. 06685).
+
+J. Liu, Artificial Neural Network in Cosmic Landscape, JHEP 12 (2017) 149
+{:707.02600)
+
+Y.-N. Wang and Z. Zhang, Learning non-Higgsable gauge groups in 4D F-theory,
+JHEP 08 (2018) 009 [1804.07296).
+
+R. Altman, J. Carifio, J. Halverson and B. D. Nelson, Estimating Calabi- Yau
+
+Hypersurface and Triangulation Counts with Equation Learners, JHEP 03 (2019
+186) |1811.06490..
+
+R. Jinno, Machine learning for bounce calculation, 1805 .12153
+
+K. Bull, Y.-H. He, V. Jejjala and C. Mishra, Machine Learning CICY Threefolds,
+
+Phys. Lett. B'785 (2018) 65 [1806 .03121).
+V. Jejjala, A. Kar and O. Parrikar, Deep Learning the Hyperbolic Volume of a
+
+Knot, |Phys. Lett. B 799 (2019) 135033) [190205547].
+
+C. R. Brodie, A. Constantin, R. Deen and A. Lukas, Machine Learning Line
+
+Bundle Cohomology, Fortsch. Phys. 68 (2020) 1900087 [1906 . 08730].
+
+R. Suresh, H. Bishnoi, A. V. Kuklin, A. Parikh, M. Molokeev, R. Harinarayanan
+et al., Revolutionizing physics: a comprehensive survey of machine learning
+
+applications, Front. in Phys. 12 (2024) 1322162
+
+M. Bies, M. Cvetié, R. Donagi, L. Lin, M. Liu and F. Ruehle, Machine Learning
+and Algebraic Approaches towards Complete Matter Spectra in 4d F-theory, JHEP
+
+01 (2021) 196 |2007 .00009).
+F. Ruehle, Data science applications to string theory, |Phys. Rept. 839 (2020) 1)
+
+S. Abel, A. Constantin, T. R. Harvey and A. Lukas, Evolving Heterotic Gauge
+Backgrounds: Genetic Algorithms versus Reinforcement Learning, Fortsch. Phys.
+70 (2022) 2200034] [2110. 14029).
+
+L. B. Anderson, M. Gerdes, J. Gray, S. Krippendorf, N. Raghuram and F. Ruehle,
+Moduli-dependent Calabi- Yau and SU(8)-structure metrics from Machine Learning,
+
+JHEP 05 (2021) 013) |2012.04656).
+
+A. Cipriani, A. De Santis, G. Di Russo, A. Grillo and L. Tabarroni, Hamiltonian
+
+neural network approach to fuzzball geodesics, Phys. Rev. D 112 (2025) 026018
+(502.2068
+
+17
+36
+
+37
+
+38
+
+39
+
+50
+
+52
+
+P. E. Shanahan, A. Trewartha and W. Detmold, Machine learning action
+
+parameters in lattice quantum chromodynamics, Phys. Rev. D 97 (2018) 094506
+
+1801.05784|.
+
+S. Barrera Cabodevila, A. Kurkela and F. Lindenbauer, Machine learning approach
+
+to QCD kinetic theory, 9, 2025,|2509 .26374
+
+S. Barrera Cabodevila, A. Kurkela and F. Lindenbauer, Solving the QCD effective
+kinetic theory with neural networks, 2506 .19632
+
+M. Favoni, A. Ipp, D. I. Miiller and D. Schuh, Lattice Gauge Equivariant
+
+Convolutional Neural Networks, | Phys. Rev. Lett. 128 (2022) 032003 (2012. 12901).
+
+M. Favoni, Symmetry-preserving neural networks in lattice field theories, Ph.D.
+
+thesis, Vienna, Tech. U., 2025. 10.34726 /hss.2025.89161.
+
+K. Holland, A. Ipp, D. I. Miiller and U. Wenger, Machine-learned RG-improved
+gauge actions and classically perfect gradient flows, |2504. 15870)
+
+Q. Zhu, G. Aarts, W. Wang, K. Zhou and L. Wang, Physics-Conditioned Diffusion
+Models for Lattice Gauge Theory, 2502. 05504,
+
+G. Aarts, K. Fukushima, T. Hatsuda, A. Ipp, S. Shi, L. Wang et al., Physics-driven
+learning for inverse problems in quantum chromodynamics, Nature Rev. Phys. 7
+
+(2025) 154] (2501. 05580).
+
+A. Tomiya, Machine Learning for Lattice QCD,|J. Phys. Soc. Jap. 94 (2025)
+(031006)
+
+N. H. Christ, L.-C. Jin, C. Lehner, E. Lundstrum and N. Matsumoto, Extended
+framework for the hybrid Monte Carlo in lattice gauge theory, Phys. Rev. D 112
+
+(2025) 034507 [2412.19904 .
+
+L. Gao, Study of the mass of pseudoscalar glueball with a deep neural network,
+
+A. Apte, C. Cordova, T.-C. Huang and A. Ashmore, Deep learning lattice gauge
+theories, |Phys. Rev. B 110 (2024) 165133} {2405 . 14830).
+
+S. S. Cruz, M. Kolosova, C. Ramon Alvarez, G. Petrucciani and P. Vischia,
+
+Equivariant neural networks for robust CP observables, Phys. Rev. D 110 (2024
+(1060252405. 13524)
+
+R. Abbott, A. Botev, D. Boyda, D. C. Hackett, G. Kanwar, S. Racaniére et al.,
+Applications of flow models to the generation of correlated lattice QCD ensembles,
+
+Phys. Rev. D 109 (2024) 094514 (2401. 10874).
+
+S. Chatterjee, S. S. Cruz, R. Schéfbeck and D. Schwarz, Rotation-equivariant graph
+
+neural network for learning hadronic SMEFT effects, Phys. Rev. D 109 (2024
+(76012) 40%.10323
+
+K. Holland, A. Ipp, D. I. Miiller and U. Wenger, Machine learning a fixed point
+action for SU(3) gauge theory with a gauge equivariant convolutional neural
+
+network, Phys. Rev. D 110 (2024) 074502] (2401. 06481).
+
+L. Gao, H. Ying and J. Zhang, Study of the topological quantities of lattice QCD
+
+using a modified DCGAN frame, |Chin. Phys. C 48 (2024) 053111 (2312.03023}.
+
+18
+53
+
+54
+
+55
+
+56
+
+57
+
+58
+
+59
+
+60
+
+61
+
+62
+
+63
+
+64
+
+65
+
+66
+
+67
+
+68
+
+69
+
+L. Gao, H. Ying and J. Zhang, Study of topological quantities of lattice QCD with a
+
+modified Wasserstein generative adversarial network, Phys. Rev. D 109 (2024
+07509| 2311. 10103
+
+C. Ermann, S. Baker and M. M. Anber, Breaking Free with AI: The Deconfinement
+Transition, 2309 .07225
+
+K. Zhou, L. Wang, L.-G. Pang and S. Shi, Exploring QCD matter in extreme
+
+conditions with Machine Learning, Prog. Part. Nucl. Phys. 135 (2024) 104084
+
+2303.15136].
+
+W.-B. He, Y.-G. Ma, L.-G. Pang, H.-C. Song and K. Zhou, High-energy nuclear
+
+physics meets machine learning, Nucl. Sci. Tech. 34 (2023) 88 [2303 .06752
+C. Lehner and T. Wettig, Gauge-equivariant neural networks as preconditioners in
+
+lattice QCD, |Phys. Rev. D 108 (2023) 034503} [2302.05419).
+
+P. Shanahan et al., Snowmass 2021 Computational Frontier CompF03 Topical
+Group Report: Machine Learning, 2209 .07559
+
+R. Gupta, T. Bhattacharya and B. Yoon, AI and Theoretical Particle Physics,
+2205 . 05803)
+
+J. M.-Y. Urban, Breaking Through Computational Barriers In Lattice QCD With
+Artificial Intelligence, Ph.D. thesis, Heidelberg U., 2022.
+10.11588 /heidok.00031926.
+
+D. Boyda et al., Applications of Machine Learning to Lattice Quantum Field
+
+Theory, in Snowmass 2021, 2, 2022, 2202.05838
+
+N. Gerasimeniuk, M. N. Chernodub, V. A. Goy, D. L. Boyda, S. D. Liubimov and
+A. V. Molochkov, Applying machine learning methods to prediction problems of
+
+lattice observables, SciPost Phys. Proc. 6 (2022) 020 [2112.078665].
+
+G. Carleo and M. Troyer, Solving the quantum many-body problem with artificial
+
+neural networks, Science 355 (2017) 602) |1606.02318).
+S. J. Wetzel and M. Scherzer, Machine Learning of Explicit Order Parameters:
+
+From the Ising Model to SU(2) Lattice Gauge Theory, Phys. Rev. B 96 (2017)
+184di0)[1708.05503)
+
+H. Schlomer and A. Bohrdt, Machine learning applications in cold atom quantum
+
+simulators, 2509.08011
+
+Y.-L. Du, N. Su and K. Tywoniuk, Discovering novel order parameters in the Potts
+model: A bridge between machine learning and critical phenomena, 2505.06159
+
+S. J. Wetzel, S. Ha, R. Iten, M. Klopotek and Z. Liu, Interpretable Machine
+Learning in Physics: A Review,
+
+D. Zhang, F. Schafer and J. Arnold, Machine learning the Ising transition: A
+comparison between discriminative and generative approaches, |J. Phys. Comm. 9
+(2025) 055007] [2411 .19370).
+
+A. Suresh, H. Schlomer, B. Hashemi and A. Bohrdt, Interpretable correlator
+Transformer for image-like quantum matter data, Mach. Learn. Sci. Tech. 6 (2025
+
+(2500 2407 21502),
+
+19
+[70]
+
+71
+
+72
+
+73.
+
+74
+
+75
+
+76
+
+77
+
+78
+
+79
+
+80
+
+81
+
+82
+
+83
+
+[84]
+
+K. Cybiriski, M. Plodziei, M. Tomza, M. Lewenstein, A. Dauphin and A. Dawid,
+Characterizing out-of-distribution generalization of neural networks: application to
+the disordered Su-Schrieffer-Heeger model, |Mach. Learn. Sci. Tech. 6 (2025) |
+
+015014) 2406. 10012)
+
+N. Sadoune, K. Liu, H. Yan, L. D. C. Jaubert, N. Shannon and L. Pollet,
+Human-machine collaboration: Ordering mechanism of rank-2 spin liquid on
+
+breathing pyrochlore lattice, Phys. Rev. Res. 7 (2025) 033061 |2402.10658 .
+P. Kairon, J. Sous, M. Berciu and R. V. Krems, Extrapolation of polaron properties
+
+to low phonon frequencies by Bayesian machine learning, |Phys. Rev. B 109 (2024)
+
+{HH528 [2312.0999))
+
+S. Jianmin, L. Wei, X. Dian, Y. Yuxiang, W. Yanyang, G. Feng et al., Machine
+learning of (1+1)-dimensional directed percolation based on raw and shuffled
+
+configurations, Eur. Phys. J. Plus 139 (2024) 944 [2311.11741).
+
+A. Baul, H. F. Fotso, H. Terletska, J. Moreno and K.-M. Tam, Quantum Classical
+Algorithm for the Study of Phase Transitions in the Hubbard Model via Dynamical
+
+Mean-Field Theory, 2308 .01392
+
+A. Naravane and N. Mathur, Semi-supervised learning of order parameter in 2D
+Ising and XY models using Conditional Variational Autoencoders, 2306 . 16822
+
+J. Arnold, F. Schafer, A. Edelman and C. Bruder, Mapping Out Phase Diagrams
+
+with Generative Classifiers, Phys. Rev. Lett. 132 (2024) 207301 (2306 . 14894).
+
+A. Ghosh and M. Sarkar, Supervised learning of an interacting two-dimensional
+hardcore boson model of a weak topological insulator using correlation functions,
+
+Phys. Rev. B 110 (2024) 165134 (2305 04035}.
+
+H. Schlomer and A. Bohrdt, Fluctuation based interpretable analysis scheme for
+
+quantum many-body snapshots, |SciPost Phys. 15 (2023) 099) |2304.06029 .
+
+M.-C. Chung, G.-Y. Huang, I. P. McCulloch and Y.-H. Tsai, Deep learning of
+phase transitions for quantum spin chains from correlation aspects, Phys. Rev. B
+107 (2023) 214451 2301 . 06669).
+
+S. Johnston, E. Khatami and R. Scalettar, A perspective on machine learning and
+
+data science for strongly correlated electron problems, Carbon Trends 9 (2022
+100231 |2210.12132).
+
+Z. Patel, E. Merali and S. J. Wetzel, Unsupervised learning of Rydberg atom array
+
+phase diagram with Siamese neural networks, New J. Phys. 24 (2022) 113021
+2205 .04051).
+
+T. Sancho-Lorente, J. Roman-Roche and D. Zueco, Quantum kernels to learn the
+
+phases of quantum matter, |Phys. Rev. A 105 (2022) 042432 [2109 .02686 ;
+
+M.-C. Chung, T.-P. Cheng, G.-Y. Huang and Y.-H. Tsai, Deep learning of
+topological phase transitions from the point of view of entanglement for
+
+two-dimensional chiral p-wave superconductors, Phys. Rev. B 104 (2021) 024506
+2104.03574).
+
+D. Kim and D.-H. Kim, Emergence of a finite-size-scaling function in the supervised
+
+learning of the Ising phase transition, J. Stat. Mech. 2102 (2021) 023202
+
+20
+86
+
+87
+
+88
+
+89
+
+90
+
+o1
+
+92
+
+93
+
+94
+
+95
+
+96
+
+97
+
+98
+
+99
+
+[100
+
+[101
+
+A. Cole, G. J. Loges and G. Shiu, Quantitative and interpretable order parameters
+
+for phase transitions from persistent homology, Phys. Rev. B 104 (2021) 104426
+
+2009.14231].
+
+A. Dawid, P. Huembeli, M. Tomza, M. Lewenstein and A. Dauphin, Phase
+detection with neural networks: interpreting the black box,,New J. Phys. 22 (2020
+
+115001] f2004..04713),
+
+C. Alexandrou, A. Athenodorou, C. Chrysostomou and S. Paul, The critical
+temperature of the 2D-Ising model through Deep Learning Autoencoders, Eur. Phys.
+
+J. B 93 (2020) 226| 1903 03506).
+
+X.-Y. Dong, F. Pollmann and X.-F. Zhang, Machine learning of quantum phase
+transitions, |Phys. Rev. B 99 (2019) 121104
+
+C. Giannetti, B. Lucini and D. Vadacchino, Machine Learning as a universal tool
+for quantitative investigations of phase transitions, Nucl. Phys. B 944 (2019) |
+
+114639 1812.06726),
+
+Y. Nomura, A. S. Darmawan, Y. Yamaji and M. Imada, Restricted Boltzmann
+machine learning for solving strongly correlated quantum systems, Phys. Rev. B 96
+(2017) 205152 |1709.06475).
+
+G. Torlai and R. G. Melko, Learning thermodynamics with Boltzmann machines,
+Phys. Rev. B 94 (2016) 165134
+
+S. Shiba Funai and D. Giataganas, Thermodynamics and Feature Extraction by
+
+Machine Learning, Phys. Rev. Res. 2 (2020) 033415 (1810 .08179).
+
+A. Seif, M. Hafezi and C. Jarzynski, Machine learning the thermodynamic arrow of
+
+time, 1909. 12380
+
+K. Zhang, Learning thermodynamics and topological order of the two-dimensional
+
+XY model with generative real-valued restricted Boltzmann machines, Phys. Rev. B
+
+111 (2025) 024112| |2409. 20377].
+
+J. Gu and K. Zhang, Thermodynamics of the Ising Model Encoded in Restricted
+Boltzmann Machines, [Entropy 24 (2022) 1701)
+
+D.-L. Deng, X. Li and S. D. Sarma, Quantum Entanglement in Neural Network
+States, Phys. Rev. X 7 (2017 021021)
+S. Chen, O. Savchuk, S. Zheng, B. Chen, H. Stoecker, L. Wang et al., Fourier-flow
+
+model generating Feynman paths, Phys. Rev. D 107 (2023) 056001 |2211.03470].
+
+K. Bharti, T. Haug, V. Vedral and L.-C. Kwek, Machine Learning meets Quantum
+
+Foundations: A Brief Survey, AVS Quantum Sci. 2 (2020) 034101 (2003. 11224).
+
+F. A. Gonzalez, V. Vargas-Calderén and H. Vinck-Posada, Supervised Learning
+
+with Quantum Measurements, J. Phys. Soc. Jap. 90 (2021) 044002) |2004.01227 .
+
+G. P. Alves, N. Gigena and J. Kaniewski, Machine learning meeting the
+
+Clauser-Horne-Shimony-Holt scenario, |Phys. Rev. A 111 (2025) 032419
+aor. 1906) ———Eee
+
+D.-L. Deng, Machine Learning Bell Nonlocality in Quantum Many-body Systems,
+
+Phys. Rev. Lett. 120 (2018) 240402| {1710.04226).
+
+21
+102
+
+103
+
+104
+
+108
+
+109
+
+110
+
+111
+
+112
+
+113
+
+116
+
+117
+
+K. Bharti, T. Haug, V. Vedral and L.-C. Kwek, How to Teach AI to Play Bell
+Non-Local Games: Reinforcement Learning, 1912.10783
+
+A. Canabarro, S. Brito and R. Chaves, Machine Learning Nonlocal Correlations,
+
+Phys. Rev. Lett. 122 (2019) 200401] {1808.07069).
+
+T. Krivachy, Y. Cai, D. Cavalcanti, A. Tavakoli, N. Gisin and N. Brunner, A
+neural network oracle for quantum nonlocality problems in networks, npj Quantum
+Inf. 6 (2020) 70 |1907.10552).
+
+T. Rudelius, Learning to Inflate, JCAP 02 (2019) 044 (1810.05159).
+V. Jejjala, D. K. Mayorga Pena and C. Mishra, Neural network approximations for
+
+Calabi- Yau metrics, JHEP 08 (2022) 105 (2012. 15821).
+
+A. Saxena, P. D. Meerburg, C. Weniger, E. d. L. Acedo and W. Handley,
+Simulation-based inference of the sky-averaged 21-cm signal from CD-EoR with
+
+REACH, RAS Tech. Instrum. 3 (2024) 724 2403. 14618].
+
+I. Ocampo, G. Alestas, S. Nesseris and D. Sapone, Enhancing Cosmological Model
+
+Selection with Interpretable Machine Learning, Phys. Rev. Lett. 134 (2025) 041002
+(06. 08353)
+
+O. Savchenko, F. List, G. Franco Abellén, N. Anau Montel and C. Weniger,
+Mean-Field Simulation-Based Inference for Cosmological Initial Conditions, in 38th
+conference on Neural Information Processing Systems, 10, 2024, 2410. 15808
+
+Q. Decant, A. Dimitriou, L. L. Honorez and B. Zaldivar, Simulation-based inference
+
+on warm dark matter from HERA forecasts, JCAP O7 (2025) 004 (2412. 10310).
+
+O. Savchenko, G. Franco Abellan, F. List, N. Anau Montel and C. Weniger, Fast
+Sampling of Cosmological Initial Conditions with Gaussian Neural Posterior
+
+Estimation, 2502 .03139
+
+H.-L. Huang, J.-Q. Jiang, J. He, Y.-T. Wang and Y.-S. Piao, Search for primordial
+black holes from gravitational wave populations using deep learning, 2503 .05570
+
+C. Eckner, N. Anau Montel, F. List, F. Calore and C. Weniger, A robust neural
+determination of the source-count distribution of the Fermi-LAT sky at high
+
+latitudes, 2505 .02906
+
+F. Villaescusa-Navarro et al., Multifield Cosmology with Artificial Intelligence,
+
+S. Hassan et al., HIFlow: Generating Diverse Hi Maps and Inferring Cosmology
+while Marginalizing over Astrophysics Using Normalizing Flows, |Astrophys. J. 937
+(2022) 83 |2110.02983].
+
+C. Modi, F. Lanusse, U. Seljak, D. N. Spergel and L. Perreault-Levasseur,
+CosmicRIM : Reconstructing Early Universe by Combining Differentiable
+
+Simulations with Recurrent Inference Machines, 2104.12864
+
+C. Modi, F. Lanusse and U. Seljak, FlowPM: Distributed TensorFlow
+implementation of the FastPM cosmological N-body solver,|Astron. Comput. 37 |
+2021) 100505 (2010. 11847 .
+
+22
+118
+
+J19
+
+120
+
+121
+
+122
+
+123
+
+124
+
+125
+
+126
+
+127
+
+128
+
+129
+
+130
+131
+
+132
+
+133
+
+134
+
+135
+
+136
+
+B. Dai and U. Seljak, Learning effective physical laws for generating cosmological
+
+hydrodynamics with Lagrangian deep learning, Proc. Nat. Acad. Sci. 118 (2021
+
+2020324118) [2010 .02926].
+
+P. L. Taylor, T. D. Kitching, J. Alsing, B. D. Wandelt, S. M. Feeney and J. D.
+icEwen, Cosmic Shear: Inference from Forward Models, Phys. Rev. D 100 (2019
+(028519 [1904..05364),
+
+M. Schmittfull, T. Baldauf and M. Zaldarriaga, Iterative initial condition
+
+reconstruction, Phys. Rev. D 96 (2017) 023505 [1704 .06634).
+
+R. Flauger, V. Gorbenko, A. Joyce, L. McAllister, G. Shiu and E. Silverstein,
+Snowmass White Paper: Cosmology at the Theory Frontier, in Snowmass 2021, 3,
+
+2022, 2203.07629
+
+S. Kawai and N. Okada, Truth, beauty, and goodness in grand unification: A
+
+machine learning approach, Phys. Lett. B 860 (2025) 139221 |2411.06718 .
+
+M. D. Schwartz, Modern Machine Learning and Particle Physics, 2103 .12226
+
+A. Abdelhaq, P. Piantadosi and F. Quevedo, Rediscovering the Standard Model
+with AL
+
+S. D. Bakshi et al., ArgoLOOM: agentic AI for fundamental physics from quarks to
+
+R. Boto, J. A. C. Matos, J. C. Romao and J. P. Silva, Surveying the complex three
+Higgs doublet model with Machine Learning, 2510.02445
+
+G.N. Wojcik, S. T. Eu and L. L. Everett, Graph reinforcement learning for
+
+exploring model spaces beyond the standard model, Phys. Rev. D 111 (2025
+0007 (2407 07203)
+
+G. N. Wojcik, S. T. Eu and L. L. Everett, Towards Beyond Standard Model
+Model-Building with Reinforcement Learning on Graphs,
+
+S. V. Chekanov and H. Kjellerstrand, Evidence of Relationships Among
+
+Fundamental Constants of the Standard Model, 2509 .07713
+A.B. R.S. Sutton, Reinforcement learning: An introduction, MIT press (2018)
+
+T. R. Harvey and A. Lukas, Quark Mass Models and Reinforcement Learning,
+JHEP 08 (2021) 161| |2103.04759).
+S. Nishimura, C. Miyao and H. Otsuka, Exploring the flavor structure of quarks
+
+and leptons with reinforcement learning, |JHEP 23 (2020) 021 (2304. 14176].
+
+J. B. Baretz, M. Fieg, V. Ganesh, A. Ghosh, V. Knapp-Perez, J. Rudolph et al.,
+Towards Al-assisted Neutrino Flavor Theory Design,
+
+S. Nishimura, H. Otsuka and H. Uchiyama, Diffusion-model approach to flavor
+
+models: A case study for s', modular flavor model, |2504.00944
+
+D. Wang, A. Sundaram, R. Kothari, A. Kapoor and M. Roetteler, Quantum
+Algorithms for Reinforcement Learning with a Generative Model, 2112.08451
+
+A. Sequeira, L. P. Santos and L. S. Barbosa, On Quantum Natural Policy
+
+Gradients, IEEE Trans. Quantum Eng. 5 (2024) 1 2401. 08307].
+
+23
+
+137
+
+138
+
+139
+
+140
+
+141
+
+M. Kolle, M. Hagog, F. Ritz, P. Altmann, M. Zorn, J. Stein et al., Quantum
+Advantage Actor-Critic for Reinforcement Learning, \2401.07043
+
+M. A. Nielsen, Neural Networks and Deep Learning. 2015,
+10.1007/JHEP12(2024)216| {2410. 05380).
+
+I. Esteban, M. C. Gonzalez-Garcia, M. Maltoni, T. Schwetz and A. Zhou, The fate
+
+of hints: updated global analysis of three-flavor neutrino oscillations,
+2020) 178) |2007.14792|.
+
+KAMLAND-ZEN collaboration, S. Abe et al., Search for the Majorana Nature of
+Neutrinos in the Inverted Mass Ordering Region with KamLAND-Zen,
+
+Lett. 130 (2023) 051801 [2203 02139).
+
+S. Roy Choudhury and S. Hannestad, Updated results on neutrino mass and mass
+hierarchy from cosmology with Planck 2018 likelihoods, JCAP O7 (2020) 037
+1907 .12598}.
+
+24

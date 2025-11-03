@@ -1,0 +1,1892 @@
+arXiv:2510.25644v1 [hep-lat] 29 Oct 2025
+
+HUPD-2507, IFT-UAM/CSIC-25-114
+
+Universal Features of Chiral Symmetry Breaking in
+Large-V QCD
+
+Claudio Bonanno,’ Margarita Garcia Pérez,* Antonio Gonzalez-Arroyo,””
+Ken-Ichi Ishikawa,““ Masanori Okawa,? Dario Panfalone®
+
+“Instituto de Ftsica Tedrica UAM-CSIC, Calle Nicolds Cabrera 13-15,
+Universidad Auténoma de Madrid, Cantoblanco, E-28049 Madrid, Spain
+’ Departamento de Fisica Teérica, Universidad Auténoma de Madrid,
+Médulo 15, Cantoblanco, E-28049 Madrid, Spain
+“Core of Research for the Energetic Universe,
+Graduate School of Advanced Science and Engineering,
+Hiroshima University, Higashi-Hiroshima, Hiroshima 739-8526, Japan
+“Graduate School of Advanced Science and Engineering, Hiroshima University,
+Higashi-Hiroshima, Hiroshima 739-8526, Japan
+© Department of Physics, University of Turin & INFN, Turin,
+Via Pietro Giuria 1, I-10125 Turin, Italy
+E-mail: claudio.bonanno@csic.es, margarita.garcia@csic.es,
+antonio.gonzalez-arroyo@uam.es,
+ishikawa@theo.phys.sci.hiroshima-u.ac.jp, okawa@hiroshima-u.ac. jp,
+dario.panfalone@unito.it
+
+ABSTRACT: We investigate the universal features of chiral symmetry breaking in large-N’
+QCD by comparing non-perturbative determinations of the low-lying Dirac spectrum with
+chiral Random Matrix Theory (RMT) predictions. Our numerical Monte Carlo calcula-
+tions are based on a chiral lattice discretization of the Dirac operator, and exploit twisted
+volume reduction to reach N as large as 841. Matching lattice data with RMT analytic
+results, we are able to extract the large-N chiral condensate, which is compared with a
+recent determination obtained with non-chiral Wilson quarks from twisted volume-reduced
+
+models.
+
+KEYWORDS: Lattice QCD, 1/N Expansion, Chiral Symmetry, Vacuum Structure and
+
+Confinement
+Contents
+
+1 Introduction 1
+2 Random Matrix Theory predictions 3
+3 Numerical setup 4
+3.1 Lattice action 4
+3.2 Lattice chiral Dirac operator 6
+4 Numerical results 8
+4.1 Checking the chiral properties of the lattice Dirac operator 8
+4.2 Scale-invariant RMT predictions 10
+4.3 Parameter-dependent RMT predictions 13
+
+4.4 Renormalization of the overlap condensate and comparison with Wilson quarks 16
+5 Conclusions 20
+
+A The spectrum of the free overlap operator 21
+
+1 Introduction
+
+Spontaneous chiral symmetry breaking is a distinctive feature of QCD which has funda-
+mental phenomenological implications for strong interactions, and tight connections with
+other prominent non-perturbative properties of the theory, such as 6-dependence and con-
+finement. Due to this crucial role, it has been the subject of a large number of studies in
+the last decades, aiming at improving our understanding of its microscopic origin and of
+its universal traits.
+
+In this respect, a staple result is provided by the Banks-Casher relation [1]: the realiza-
+tion of chiral symmetry in QCD puts strong constraints on the properties of the low-lying
+Dirac spectrum. Building on this fundamental finding, it has been argued [2-6] that the
+eigenvalues of the Dirac operator follow the same universal probability distributions as
+those of an ensemble of random matrices, where the whole dependence on the microscopic
+details of the full theory is encoded in a single parameter, identified with the chiral con-
+densate © = —(¢%w). In the fundamental representation and when N, the number of
+colors, is larger than 2, the universality class is described by the so-called chiral unitary
+Random Matrix Theory (RMT). By now, non-perturbative lattice calculations have clearly
+
+established this correspondence in QCD from first-principles, both in the chirally-broken
+phase [7-16] and in the chirally-restored phase sufficiently above the Anderson mobility
+edge [17-21], by comparing numerical results for the Dirac spectrum with analytic RMT
+predictions (see also Refs. [22-25] for reviews and further references).
+Apart from standard QCD, chiral symmetry breaking plays a fundamental theoretical
+and phenomenological role also in other QCD-like gauge theories, such as large-N QCD
+in the ’t Hooft limit, obtained when the number of colors N is taken to infinity N — oo
+at a fixed ’t Hooft coupling \ = g?N and for a fixed number of quark flavors N; (i.c.,
+N,/N -> 0). For this reason, in the last two decades chiral symmetry breaking has been
+extensively studied in this regime on the lattice. However, most of these studies addressed
+the determination of the chiral condensate either through the Banks—Casher relation, or
+
+through the quark mass dependence of the pion mass [26-33], while the investigation of
+the realization of the universal chiral RMT behavior of the large-N Dirac spectrum has
+only been addressed in a few seminal papers [34, 35] (see also [36]). The goal of the present
+paper is to fill this gap and address the universal features of chiral symmetry breaking
+in large-N QCD via state-of-the-art lattice calculations. To do so, we will consider the
+Twisted Eguchi-Kawai (TEK) model [37-39].
+
+The TEK model is an effective framework to study lattice gauge theories in the large-N
+limit by exploiting a fundamental property of large-N gauge theories: the so-called large-
+N volume reduction [37-48]. In their pioneering paper, Eguchi and Kawai [40] showed
+that, in the large-N limit, the Yang—Mills lattice theory enjoys a dynamical equivalence
+between space-time and color degrees of freedom, leading the model to become insensitive
+to finite-volume effects when N — oo. Taking this idea to the extreme, it allows to
+study large-N gauge theories in the thermodynamic limit even on a volume-reduced 1-site
+lattice [32, 49-71]. This has the advantage of dramatically reducing the computational
+burden related to the space-time degrees of freedom, and allows to reach very large values
+of N ~ O(10? — 103) in feasible simulations. Thus, unlike standard approaches to study
+large-N gauge theories—where the N = oo limit is typically approached from N < 10
+values via extrapolation (28-31, 72-98]—the TEK model practically allows to work directly
+at N = oo. Large-N volume reduction works provided that center symmetry is unbroken.
+Spontaneous center symmetry breaking that would occur when reducing the lattice size due
+
+to the well-known deconfinement transition [73, 99-109] is avoided in the TEK approach
+by imposing twisted boundary conditions on the gauge fields in all directions, hence the
+name of the model.! The TEK approach has been extensively used in the last decade, and
+has allowed to achieve significant progress in the study of several large-N gauge theories,
+such as large-N QCD [32, 33, 57, 61, 64, 67, 68], large-N SUSY Yang-Mills [69-71], and
+large-N adjoint QCD [58, 62, 110].
+
+In order to compare RMT predictions with our large-N non-perturbative determina-
+tions of the low-lying Dirac eigenvalues, it is of the utmost importance to preserve chiral
+symmetry even at finite lattice spacing. It is thus imperative to use a lattice formulation
+of the Dirac operator that satisfies the Ginsparg—Wilson relation [111]. For this reason, we
+implemented an overlap discretization [112-114] of chiral quarks within our TEK model
+via the so-called “truncated overlap” approach [115-120]. This approach is presented here
+
+for the first time, as previous TEK studies have all employed non-chiral Wilson fermions.
+
+1This is not the only strategy that has been applied to enforce center symmetry on a small box and
+achieve large-N volume independence see, e.g., Refs. [41, 45-47].
+Our study of the universal traits of the Dirac spectrum will be articulated in two main
+parts. First, we will compare our results with scale-invariant RMT predictions in order
+to establish the universal behavior of Dirac eigenvalues in a parameter-agnostic fashion.
+Then, we will match our results to parameter-dependent RMT analytic results in order
+to extract the large-N quark condensate ©/N ~ O(N®). This will be important for two
+reasons: first, to verify that different lattice-RMT matching prescriptions lead to the same
+value of the condensate, and second, to see how this chiral determination of U/N compares
+with the latest TEK one obtained in [33] with non-chiral Wilson quarks.
+
+This paper is organized as follows: in Sec. 2 we provide a compact summary of a few
+RMT predictions that we aim at checking; in Sec. 3 we discuss our lattice setup, focusing
+in particular on our TEK implementation of the chiral lattice Dirac operator; in Sec. 4
+we discuss our numerical results, focusing on the comparison of lattice data with RMT
+predictions and on the extraction of the chiral condensate; finally, in Sec. 5 we draw our
+conclusions and discuss future outlooks of this study.
+
+2 Random Matrix Theory predictions
+
+The relevant universality class to describe large-N QCD is the chiral unitary RMT. Within
+this effective model, it is possible to derive analytic predictions for the probability distribu-
+tions pz (zp) of the k™ eigenvalue zz of the random matrix ensemble for any fixed topological
+sector Q [121] (in this discussion the spectrum is assumed to be ordered increasingly, and
+any degeneracy in the spectrum is assumed to be factored out). As an example, in the
+Q = 0 sector, the distributions of the two lowest eigenvalues z; and zo and of their ratio
+r = 2/29 are given by [34, 121]:
+
+pila) = sae, (2.1)
+p2(z2) = henttan I duu [I2(u)? — y(u)J3(u)] , (2.2)
+pr) = icp [ due i y3 [Zo(u)? — T(u)I3(u)] , (2.3)
+
+with I,,(x) the n** modified Bessel function of the first kind,
+
+=“ 2m+n an dé
+
+love)
+1 4
+I(x) = — sin yt cos() — 24
+n() Ey Taran (3 0 an 4)
+m=0
+
+In the thermodynamic limit V — oo, one expects the following identification to hold,
+topological sector by topological sector, for the eigenvalues of the massless Dirac operator:
+
+Thus, for asymptotically large volumes, Eq. (2.5) is expected to bridge the RMT eigenvalues
+zz and the corresponding Dirac eigenvalues A, for all k via a single parameter, the quark
+condensate “1. Since on the lattice one typically computes the spectrum of the massless
+chiral lattice Dirac operator in a finite volume [10-12, 34, 35], one expects to see deviations
+from chiral RMT predictions, which should become smaller and smaller and occur for higher
+and higher k as V — oo. Such deviations typically manifest in the fact that, assuming
+Eq. (2.5), different choices of k lead to different results for D.
+
+For this reason, our check of the universal features of the large-N Dirac spectrum will
+be subdivided into two steps. First, we will monitor deviations of lattice Dirac eigenvalues
+with respect to RMT predictions in a parameter-free, scale-invariant way by computing
+the deviation from 1 of the following ratios as a function of the volume:
+
+Rey ko = (Ae) (edo) (2.6)
+
+7ko) RMT
+
+Here (O) and (©),.,,,., denote respectively the expectation values taken in the full theory
+and in the RMT effective model. Given that in these eigenvalue ratios the factor of UV
+drops and no free parameter can be adjusted, this comparison constitutes a very strong
+test of the universal traits of the spectrum.
+
+Then, once the correct volume regime has been established, we will move to parameter-
+dependent RMT predictions, and we will test them by matching lattice data and analytic
+results to extract the quark condensate assuming the relation (2.5). This can be done
+either by computing the full probability distribution of the first few eigenvalues and fitting
+it to RMT predictions, such as those in Eqs. (2.1)-(2.3), or by computing the following
+ratios:
+
+ry = (2k) pwr (2.7)
+(Ak)
+
+These two routes should of course lead to compatible estimates. Since all RMT predic-
+tions are described by the same single parameter ©, we will check that different matching
+prescriptions—i.e., different choices of k—to extract the chiral condensate give compatible
+result for the condensate when the corresponding A, eigenvalues are in the RMT regime.
+Moreover, we will compare these determinations of © with the one found in [33] for non-
+chiral Wilson quarks.
+
+3 Numerical setup
+
+This section provides an overview of our lattice discretization for the gluon and the quark
+sectors, with particular emphasis on the adopted chiral formulation of the Dirac operator,
+which is implemented for the TEK model in this study for the first time.
+
+3.1 Lattice action
+
+In the ’t Hooft large-N limit quarks are quenched, i.e., non-dynamical. From the point
+of view of lattice simulations, this means that we will draw gluonic configurations from
+the Monte Carlo according to the pure-gauge action, ignoring the fermion determinant.
+Then, these gluon fields will constitute the background of the chiral lattice Dirac operator
+(defined in the next section) which will be employed for spectrum computations.
+The TEK partition function of the d = 4 single-site TEK model describing the gluonic
+sector reads:
+
+d
+i / [duje~Swl"l, [du] = TJ (av, ]. (3.1)
+pal
+with [dU] the SU(N) invariant Haar measure and
+d
+Sw[U] = —Nb > YO ayTe {u,u.ujus} . (3.2)
+
+walvAp
+
+the TEK Wilson plaquette action. The Monte Carlo algorithm employed for the sampling
+of this functional integral is described in detail in Ref. [63]. In Eq. (3.2) b = 1/(Ng?) is
+the inverse bare ’t Hooft coupling, U, are the d = 4 SU(N) gauge link matrices describ-
+ing lattice gluon fields, and z,, is the twist factor used to implement twisted boundary
+conditions. It is chosen to be a N*b-root of unity:
+
+Qri
+Zon = 2 = EXP {ren . (3.3)
+
+There are several possible choices of the twist factor; here, we will adopt the so-called
+symmetric twist. This means that N is taken to be a perfect square N = L?, and that the
+integer-valued anti-symmetric twist tensor n,,, is taken to be:
+
+Np =—Nw =k(L)L, (v>p), (3.4)
+
+with k(L) a co-prime integer with L. In the end, thus:
+
+k(L
+Zp = exp {2m ( Deum} 5 Eup = Eps Ey,=1 (v'> yp). (3.5)
+
+L
+
+As explained in Refs. [39, 122, 123], the flux parameter k(L) and its inverse (mod L) k(L)
+have to be scaled with L to keep |k|/L and |k|/L bounded from below (by ~ 0.1) in order
+to avoid center-symmetry breaking [124-127] that would invalidate one of the assumptions
+behind large-N volume reduction. In addition, it has been shown in perturbation theory
+that suitable choices of k,k help in reducing non-planar finite-N corrections (65, 128}.
+
+As explained in the introduction, even if the TEK model is formulated on a reduced
+1-point box, this does not mean at all that our fields propagate in a torus of vanishing
+volume. Indeed, by virtue of large-N volume independence and of the adopted twisted
+boundary conditions, physical excitations actually propagate on an extended torus with an
+effective physical size given by:
+
+0=aL=aVN, (3.6)
+
+with a(b) the lattice spacing. This means that in our setup, at fixed coupling b, the
+thermodynamic limit is achieved when N — ov. It is in this limit that we expect RMT
+predictions to hold.
+3.2 Lattice chiral Dirac operator
+
+The non-chiral TEK Wilson discretization of the Dirac operator, first discussed in Ref. [64],
+is given by the following N? x N? matrix (where N? is the size of the effective volume in
+lattice units in the TEK approach):
+
+Dw(mw) = 4+ mw — = x (1+ yy) ® Wa + (1— yy) ® wih] : (3.7)
+Wy = — "Ty Ty + TT a, (3.8)
+
+with I, the twist eaters [129], SU(N) matrices satisfying TP, = 2},TLI,, with z,,, the
+same twist factor appearing in (3.3). To derive this expression, one lets quarks live on an
+
+extended periodic lattice with periodicity VN (recall that ae = 1), and let them interact
+
+VE
+
+with a periodic potential obtained by replicating the 1-site gauge fields VN times. To some
+extent, this is reminiscent of the Bloch description of electrons in a crystal.
+
+Building on this non-chiral definition, we can now proceed to define a chiral lattice
+Dirac operator. For this purpose, we have implemented a chiral Dirac operator using the
+so-called “truncated overlap” formulation [118-120, 130], whose definition will be sum-
+marized in the following. The starting point is the 5d Mébius Domain Wall (DW) Dirac
+operator [131] (here N, is the size of the 5‘ dimension):
+
+Dow (m, M, Ns) = Dw(—M)X (mh, Ns) + Y (mm, Ns), (3.9)
+
+with m the bare quark mass in lattice units. The operator Dw(—M) is the TEK Wilson
+Dirac operator [64] earlier discussed with a negative kernel mass M = 1+s (0 < s < 1), and
+where we have replaced the standard links U,, with stout smeared [132] links U,,. Instead,
+the X(7m, N;) and Y(7n,N;) operators appearing in Eq. (3.9) are matrices acting on the
+5'* dimension, whose expressions are:
+
+X(m,N;) = B+ CMs(rn) (3.10
+Y (mh, Ns) = 1+ Ms(7) (3.11
+ME? (in) = (Prdsit + Peds—1t) — 1 (P.6s,ne51p + Pads,15t,N5) (3.12
+
+with P, = (1+ 5)/2, Px = (1—75)/2 the chiral projectors, and with
+
+BO = by dans (3.13
+
+OF) = cbs, (3.14
+
+diagonal matrices in the 5 52 dimension. The choice of the vectors bs and c, will be discussed
+later in this section. From Dpw, the four-dimensional truncated overlap operator D is built
+via the following projection:
+
+D(th, M, Ns) = [PD5y(M, i = 1,.Ns)Dow(M,m, Ns)P], , ; (3.15)
+with P = P,6s,1+Pr(ds+1,t+5s,161,N;)- This yields the following expression for the truncated
+overlap [118, 119, 130, 131] that we will use in our study:
+l-pom l-—mh
+
+1
+2 + 2
+
+D(tn, M, Ns) = 75 S(M, Ns). (3.16)
+
+In this expression, the function S(M, N;) is given by:
+
+Tr, [1+ daa — TI, [2-24 0]
+S(M, Ns) = a) (3.17)
+TIM, [1+ 28M] +18, [1-H ay]
+with
+HY (M) = (bs + ¢s)95Dw(—M) [(bs — es) Dw(—-M) + 2]71. (3.18)
+
+The choice of the vectors bs and cs is arbitrary as long as S(M,N;) reproduces the sign
+function of overlap fermions in the limit N; — oo. Different choices correspond to different
+lattice formulations, including Shamir-, Borici-, and Chiu-type realizations of domain wall
+fermions [116-118, 133], all agreeing in the continuum limit. In this study we chose bs = 1
+and c, = 0, corresponding to the Shamir operator. With this choice, we obtain:
+
+ag Ns _ 1) _ ay ¢ Myo
+S(M, Ns) Hw(M) x [L Hw (M)] (3.19)
+[L+ Hw(M)}° + [lL — Hw}
+with Hy(M) the (y5-Hermitian) kerne
+Hw(M) = y5Dw(—M) [2+ Dw(—M)]?. (3.20)
+
+In the limit N; > oo, when the size of the 5" dimension goes to infinity, we recognize that
+S(M,N;) tends to the sign of the kernel Hw (M):
+
+. 1l+2)*-—(1—2)% .
+im, (+2)*+0 =n) = sign(z). (3.21
+
+Therefore, in the limit N; > ov, the truncated overlap tends to the actual overlap operator:
+lim D(rn,M, Ns) = D(vh, M) , (3.22
+
+which takes the form
+
+lth. 1—m
+D(it, M) = a1 > VM) = (1 i) Do(M) +m, (3.23
+
+with V(M) = 95 sign [Hw(M)], and Do(J) the massless overlap operator,
+
+1+V(M)
+
+Do(M) = 5
+
+(3.24
+In order to restore physical units in the lattice operator D and in the lattice mass
+m and connect them to their physical counterparts, one needs to perform the following
+rescaling:
+M(2-—M
+p= MIA MA) 55 cy (3.25)
+
+a
+
+M2-M
+m= MQM), (3.26)
+a
+
+where m is the bare quark mass in physical units. The pre-factor M(2— M), which
+stems from the choice of the kernel in Eq. (3.20), was worked out analytically by requiring
+that the spectrum of the massless operator in Eq. (3.25) in the free case was equal to p
+in momentum space. More details can be found in the Appendix (see also Ref. [134]).
+Clearly, the same normalization applies when restoring physical units in the eigenvalues of
+the massless overlap Dirac operator:
+
+Do(M)ux = \(M)us, (3.27)
+AM) = 5 E +2840) . (3.28)
+— Mea sa. (3.29)
+
+Apart from this necessary overall rescaling, M is expected to play no other role, and
+any possible weak M-dependence observed in a physical quantity is just a lattice artifact
+vanishing in the continuum limit, see, e.g., Ref. [135].
+
+4 Numerical results
+
+This section is devoted to present our non-perturbative lattice results for the low-lying
+chiral Dirac spectrum, and to discuss the comparison with RMT predictions. As already
+anticipated, we will conduct such comparison both in a parameter-free and in a parameter-
+dependent fashion. The latter approach will also allow the extraction of the large-N chiral
+condensate U/N ~ O(N°), whose value will be compared with the latest large-N TEK
+determination with non-chiral Wilson quarks [33]. Simulation parameters are summarized
+in Tab. 1, along with the value of the string tension o from the TEK model [57], used for
+scale setting.
+
+4.1 Checking the chiral properties of the lattice Dirac operator
+
+We start our discussion by examining the chiral properties of the truncated overlap oper-
+ator. Indeed, one should check that the adopted N; is large enough to have sufficiently
+small chirality violations (i.e., a negligible residual mass). These are monitored through
+the figure of merit:
+
+A= a (4.1)
+
+({0.5} - 2DrsD) iz
+
+which quantifies the violation of the Ginsparg-Wilson relation.
+b | N|L=VNJ]k| kL || &/L ajo | Neont
+0.355] 529] 23 | 7 | 0.304 | 10 | 0.435 | 0.2410(30) | 400
+289] 17 | 5) 0.294] 7 | 0.412 326
+361) 19 | 7 | 0.368 | 11 | 0.579 189
+
+0.360 0.2058(25
+529 23 7 | 0.304 | 10 | 0.435 (25) | 99
+841} 29 | 9 | 0.310 | 13 | 0.448 210
+
+Table 1: Values of the number of colors N, of the effective size L = VN, and of the parameters k, k
+[where kk = 1 (mod L)/ used in this study. The string tension o was computed in the TEK model
+
+in [57]. Finally, neon is the number of statistically-independent gauge configurations employed.
+
+The violation parameter A was computed stochastically using 3 random Z4-sources
+z with color and Dirac indices. After a few tests, we concluded that, in order to achieve
+satisfactory small values of A, smaller values of N; were sufficient when the gauge links
+entering the truncated overlap Dirac operator were smeared. As an example, A ~ 1078
+was achieved with N; = 60 and no smearing, while the same result was obtained choosing
+N; = 24 and n, = 5 stout-smearing steps (with isotropic stout parameter p = 0.1 [132]).
+The latter choice of smearing parameters corresponds to a smearing radius [136]:
+
+Fe 8pns = 2. (4.2)
+
+a
+This is equal in magnitude to the choice adopted in other stout-smeared definitions of
+the lattice Dirac operator employed in recent state-of-the-art lattice QCD simulations.
+For example, the BMW collaboration recently employed a stout-smeared definition of the
+staggered Dirac operator with n, = 4 and p = 0.125—corresponding to R,/a = 2—in their
+recent lattice investigations of the hadronic vacuum polarization contribution to the muon
+anomalous magnetic moment [137, 138].
+The choice of using stout-smeared links was also useful to reduce the computational burden
+and make N = 841 calculations feasible. Indeed, at fixed N, N;, and number of computed
+eigenvalues, we found that spectra calculations involving the stout-smeared operator were
+~ 3 times less expensive with respect to the non-smeared case, on top of the ~ 2.5 reduction
+of N; at fixed A achieved using stout smearing, which decreases the computational effort
+by the same factor. Thus, all our results have been obtained for N; = 24 and stout-smeared
+gauge links with n, = 5 and p = 0.1, yielding A < 10~® for all explored values of N and b.
+
+Another interesting test of the good chiral properties of our truncated overlap Dirac
+operator is to check that lattice eigenvalues lie on the overlap circle:
+
+1 lig
+
+\==4+<e
+
+545 (4.3)
+
+with \ the eigenvalue of the massless overlap operator. In Fig. 1 we plot as en example the
+first two complex eigenvalues Ar and Ag. Due to Y5-hermiticity, eigenvalues come in pairs
+that have the same real part and opposite imaginary parts. Thanks to this symmetry, we
+can just limit to plot the upper half of the circle in the complex plane. The plots in Fig. 1
+29, b = 0.355 BBE N= 841, b = 0.360
+
+0.04
+0.020
+
+0.015
+
+oom
+x
+— Overlap circle 0.010
+
+AL
+x &
+— Overlap circle
+
+[SA]
+
+0.01 0.005
+
+0.008 0.0004
+
+0.0000 0.0005, 0.0010, 0.0015 0.0020 0.0000 0.0001 0.0002 0.0003 0.0004 0.0005 0.0006
+RA RA
+
+Figure 1: First two complex eigenvalues of the truncated overlap Dirac operator obtained with M =
+1.2, Ns = 24 and stout-smeared gauge links with stout parameters p = 0.1, ns = 5, corresponding
+to a smoothing radius of two lattice spacings. The solid black line stands for the expected overlap
+circle (4.3) in the complex plane. Left panel: N = 529, b = 0.355. Right panel: N = 841, b = 0.360.
+
+refer to the cases N = 529 at b = 0.355 and N = 841 at b = 0.360, corresponding to similar
+effective sizes in physical units:
+
+b= 0.355, N = 529 bo = (aVa)VN ~ 5.54, (4.4)
+
+b= 0.360, N = 841 bJo = (aVa)VN ~ 5.97. (4.5)
+
+As it can be observed, all eigenvalues of all configurations considered indeed lie on the
+overlap circle for N; = 24 and our choice of smearing parameters. It is worth commenting
+that the eigenvalues displayed in the plot were obtained by choosing the free parameter MW
+appearing in the overlap operator as M = 1.2. After checking for the N = 289 ensemble
+that M = 1.5 gave perfectly compatible results for the eigenvalue distributions, we kept
+this choice throughout all calculations.
+
+4.2 Scale-invariant RMT predictions
+
+To test the agreement between our overlap eigenvalues and Random Matrix Theory (RMT),
+we analyzed the ratios defined in Eq. (2.6), and quantified their deviation from unity.
+In order to compute the expectation values (A,), we computed the first few low-lying
+eigenvalues of the massless overlap operator for a few hundred gauge configurations, and
+we identified the physical Dirac eigenvalue \ with the absolute value of the overlap one Xo:
+
+A— |Aol, aX) = M(2—M))A. (4.6)
+Clearly, we could have also opted for the imaginary part of A, as well, being the real part
+just a lattice artifact that vanishes in the continuum limit. However, we practically ob-
+served no numerical difference between (Im{.,}) and ({Ao|), as Re{A,} turned out to be
+always at least one order of magnitude smaller than Im{Ao} for all computed eigenvalues,
+
+10 -
+---- RMT
+
+29, b = 0.360
+841, b = 0.360
+
+(2,1) (3,1) (4,1) (3,2) (4,2) (4,3)
+(ki, kj)
+
+---- RMT prediction
+529, b = 0.355
+
+1.10
+
+/((ze,)rur/(2k;)RMT)
+
+0.95
+
+1.00 i. paneenan-- fi pone en nce nn nnnn nnn 6 ae woncen nnn =
+
+(2,1) (3,1) (4,1) (3,2) (4,2) (4,3)
+(i, kj)
+
+Figure 2: Ratios of expectation values (Ax) / (Ak), obtained considering all combinations with
+ki,kj <4, divided by the same quantity computed in the RMT model, (2k,) pyr / (Zka) pyr The red
+dashed line at y = 1 represents the agreement between lattice data and RMT predictions. Top and
+bottom panels refer, respectively, to b = 0.360 and b = 0.355.
+
+see Fig. 1. Concerning the RMT predictions (z,,)rwr/(Zko) amr, the numerical evaluations
+of the analytic results for these ratios are taken from Tab. VII of Ref. [12]. Finally, con-
+cerning the topological sector, we did not find any exact zero-mode in our spectra, thus,
+we compared our data with RMT predictions in the Q = 0 topological sector.
+
+In Fig. 2 we plot the results obtained for b = 0.355 and b = 0.360, for several choices
+of ky; and kg. Let us first comment the b = 0.360 case, where two values of N are reported.
+As it can be seen, for N = 529, corresponding to ¢/o ~ 4.73, one can clearly observe
+deviations from RMT predictions, which can become as large as ~ 15%. Smaller values of
+N = 289,361, not shown in the plot, exhibit even larger deviations. On the other hand,
+when N is increased to 841, corresponding to the larger size £\/o ~ 5.97, we observe perfect
+agreement with RMT predictions within errors in all examined cases, up to ky, kg = 4.
+For the coarser point 6 = 0.355, where N = 529 corresponds to (\/o = 5.54 (ie., an
+intermediate volume between the two earlier discussed), we observe small deviations of the
+
+TT
+2.0 ge $y
+/ x Ar
+‘ ——
+Ne
+a
+K
+N,
+N
+N.
+N.
+N
+ccna RMT prediction bh
+B N=529, b= 0.355 1
+0.4 0.6 0.8
+r= Mi /A2
+ria hee
+7 S Ar
+15 y \q _
+/ IN,
+— / \.
+< is %
+Rio}  / ‘é
+! x
+Fd
+Ny
+0.5 Fj -- RMT prediction Sy .
+/ 6 N=841,b=0.360 gs ¢
+0.04 a
+0.0 0.2 0.4 0.6 0.8
+r= Mi /A2
+
+Figure 3: Distribution of the ratio of the first two Dirac eigenvalues, r = X1/A2. Top panel:
+N = 529, b = 0.355. Bottom panel: N = 841, b = 0.360. The dashed curve represents the
+parameter-free functional form predicted by RMT for p(r), reported in Eq. (2.3). In all plots we
+also show the constant bin size Ar used to obtain the displayed distributions.
+
+order of a few percent (~ 5% at most). Overall, thus, the collected evidence shows that
+finite-volume effects play a crucial role in the present analysis, and that the agreement
+between lattice data and RMT predictions is controlled by the effective size in physical
+units. As £ > oo, ie., as N — o6 at fixed b, RMT predictions become more and more
+accurate.
+
+Analogous conclusions can be drawn by comparing the lattice distribution of the ratio
+of eigenvalues r = A, /A2 with the parameter-free RMT prediction for p(r) in Eq. (2.3). As
+
+it can be seen in Fig. 3, the numerical results for the normalized distribution of r,
+
+(number of od € [r — $Ar,r + $Ar])
+
+p(r Meout Ar (4.7)
+
+obtained for the two largest effective sizes explored — namely, N = 529 at b = 0.355 and
+N = 841 at b = 0.360 — agree very well with expectations. We stress again that the curves
+shown in Fig. 3 are scale-invariant RMT predictions with no free parameter, and thus there
+is no fitting procedure involved in the comparison with numerical data.
+
+~j2—
+4.3 Parameter-dependent RMT predictions
+
+Our previous analysis showed that an effective size (\/o 2 5.5 is sufficient for the first
+few Dirac eigenvalues to fall into the RMT regime. The goal of this section is to check
+that their parameter-dependent probability distribution is indeed described by the analytic
+RMT functional form with the same parameter ©.
+
+In the large-N TEK case, the relation between RMT and Dirac eigenvalues in (2.5) is
+modified as:
+
+D>)
+Zh = dey V=a'‘N?, (4.8)
+
+where we performed the substitution © — N/N, which is the quantity that possesses a
+finite large-N limit, and where we have used the fact that in the TEK model the lattice
+size £ = aL is replaced by the effective torus size = aL = aVN. There are two possible
+ways to extract =/N from RMT predictions:
+
+(1) Performing a best fit of the normalized lattice probability distribution of aA, to the
+expected RMT shapes assuming the following relation:
+
+Zp = (aAz)A, A= a= N?, (4.9)
+
+with A the only fit parameter. For example, the normalized RMT probability distri-
+bution for the first eigenvalue x; = a, assuming (4.9) reads:
+
+2
+1
+
+1
+py (a1) = 5(Aeije tA (4.10)
+
+This strategy, adopted in [34, 35], does not only allow to extract the condensate,
+but also constitutes a strong test of the agreement between lattice data and RMT
+
+predictions.
+
+(2) From Eq. (4.8), computing this ratio of expectation values:
+
+35 = (2k) ener
+8S = 5p Taha)’ (4.11)
+
+where
+CO
+(26) peer = [ Zk Dk(Zk) dz. (4.12)
+JO
+
+This strategy (2) has been applied in previous standard QCD studies to extract
+the condensate from RMT predictions [10-16]. Clearly, it should provide compatible
+estimates for ©/N with respect to (1).
+
+For the two largest effective volumes (N = 529 for b = 0.355 and N = 841 for
+b = 0.360), best fits of lattice data for the probability distribution of the first few eigenvalues
+yield satisfactory reduced chi-squared ¥? = x?/ngor, confirming the quality of the RMT
+description. As an example, we show in Fig. 4 the best fits of the numerical probability
+
+13 -
+200
+---- RMT prediction
+
+oe ---- RMT prediction
+100 i _ @ N=529,b=0.355 - Bilin’ 6 N=841, b=0.360
+\. 150 Fi \
+\
+
+7
+‘i
+30 / f \
+/ ‘s Any / \ Ari
+60 i tH i $ —
+40 } } ‘
+! bs sof | ‘e
+! i
+20) % 6 / s
+/ es i %
+of ~0-o-0..0-0_ ol t “O---9--.¢-- 2.
+0.000 0.005 0.010 0.015 0.020 0.025 0.0000 0.0025 0.0050 0.0075 0.0100 0.0125 0.0150
+@=ar, @m=aX\y,
+<) --- RMT prediction 150 ay --- RMT prediction
+3 ’ = 529, b = 0.355 fo N =81l, b= 0.3
+80 A \ ON 0b = 0.3: 195 y \ G@ N=S4l, b= 0.360
+i i ,
+60 b ‘ 100 F \
+e f \ Are a / \ Are
+eb / ‘ HH & 75 i
+£40 nN & ;
+& b & i \
+} % 50 $ \
+ul + 4
+20. / ve 95 / R
+25
+& \ % ¥ NO
+ed a es ee if ~2-2_ 0.
+0.00 0.01 0.02 0.03 0.04 0.000 0.005 0.010 0.015 0.020 0.025
+@ = adg
+
+© = ar
+
+Figure 4: Best fits of the probability distribution of the first (top panels) and the second (bottom
+panels) eigenvalues according to, respectively Eqs. (2.1) and (2.2). Left panels refer to N = 529,b =
+0.355, right panels to N = 841,b = 0.360. In all plots we also show the constant bin sized Ax, and
+
+Ax2 used to obtain the displayed distributions.
+
+N b 2 | p-value 10° x ae/N 10° x a3D/N
+[RMT fit] | [Eq. (4.11)]
+di 529 | 0.355 | 0.99 | 46% : a 0.870(24)
+841 | 0.360 | 0.89 | 52% 56(20) | 0.561(22)
+Ne 529 | 0.355 | 1.90 2% 0. a 0.899(14)
+841 | 0.360 | 0.55 86% 0.587(10) 0.575(11)
+
+Table 2: Extraction of the large-N condensate from the first two low-lying eigenvalues, both from
+the best fit to RMT predictions for their probability distribution and via Eq. (4.11).
+
+distributions of the first two eigenvalues, A; and A2. We report the results for the chiral
+
+condensate (i.e., the fit parameter A) extracted from the best fit in Tab. 2, along with
+the compatible determinations obtained from the ratio of expectation values in Eq. (4.11).
+As it can be seen, the estimates obtained from A, and Ag perfectly agree within errors, in
+agreement with RMT predictions. On the other hand, when lowering the effective volume,
+probability distributions start to show deviations from RMT, and the condensates extracted
+from different choices of A, are clearly different from each other, cf. Tab. 3.
+
+14-
+i ¥ 10? x a8Z/N | 103 x a®D/N | 10° x a3d/N | 10° x aFS/N
+[From A4] [From Ag] [From 3] [From A4]
+289 | 0.516(15) 0.672(10) 0.7823(69) | 0.8940(64)
+0.360 | 361 | 9-510(22) 0.605(13) 0.6681(96) | 0.7550(88)
+529 0.537(21) 0.580(13) 0.598(11) 0.6268(83)
+841] 0.561(22) 0.575(11) 0.565(11) | 0.5764(81)
+
+Table 3: Bare chiral condensate in lattice units obtained from Eq. (4.11) for several choices of k,
+and as a function of N.
+
+The differences observed at smaller values of N in the condensates extracted from
+higher eigenvalues, as discussed in the previous section, can be regarded as finite-volume
+effects due to not being yet in the regime where RMT provides a reliable description. It
+is known that RMT is expected to hold in the so-called ~-regime of QCD [139], see, e.g.,
+Refs. [22, 140]. Customarily, QCD is studied in the so-called p-regime, obtained taking
+first the thermodynamic limit ZL — oo at fixed and finite quark mass and then the chiral
+limit, so that m,L — oo. In the e-regime, instead, m > 0 and L > oo with mXV < O(1).
+Since mUV = 2( F,zm,L?)?, this means that m,L — 0 while FL — oo. It was shown in
+Ref. [139] that finite-volume corrections to the thermodynamic limit in the e-regime are
+) = 1/(F2VV). This
+
+behavior is very different from the customary exponential suppression of finite-size effects
+
+power-like, and can be expanded in series of the variable 1/(F?L?
+
+in the p-regime, and is related to the peculiar way of taking the chiral and thermodynamic
+limits.
+
+We empirically tried to check whether the volume-dependence of our data can be
+described by polynomials in the variable « = 1/ VV or not, with V = a?N? the effective
+volume. Interestingly, our results for the condensate for b = 0.360 as a function of N’
+obtained from the first four low-lying eigenvalues can be all well described by polynomial
+curves in this variable, extrapolating to compatible values at x = 0, and with similar slopes
+close to zero, see Fig. 5 (left panel). From these fits we can quote the following final result:
+
+aD
+
+“= = 0.605(35) x 107°.
+
+= (4.13)
+
+where the central value is the average of the four extrapolations, and the quoted error is
+the maximum semi-dispersion observed among them. The observed behavior of the best
+fits performed on a k-by-k basis also lead us to try a global best fit of the data, assuming
+
+the following functional form:
+
+2
+By + BO” fir 3
+Bo (1 | Bie + By an x WW 7 @N’
+
+where Yi, is the condensate extracted from A,, and where we impose a common large-
+
+@Ddg
+N
+
+(4.14)
+
+volume limit Bo and a common slope B,. This functional form describes our data very
+
+well, giving {7 ~ 0.83, see also Fig. 5 (right panel). Moreover, it gives a compatible
+
+15 -
+3 12 4/301 4 [529 4/33 5 4 [es 4 [529 4 [364 4 (2
+x10 x10
+1.0 - 1.0
+. @ Overlap [Ai] © Overlap [As] @ Overlap [Ay E Overlap [As
+0.9: “Ay G Overlap [dg] @ Overlap [Ai] 0.91 G Overlap [Ag] Y Overlap [Ay Yi
+> . A A
+* Z
+a ° A a
+* ¥
+: a 8 i y fa 2
+05 e g : 0.5 2 é ®
+04 04
+10 08 06 on 02 00 00 02 04 06 08 10
+1/(VVo) = 1/(@No) x10" 1/(VVo) = 1/(@2No) x10
+
+Figure 5: The bare large-N chiral condensate S/N in lattice wnits as a function of 1/VV. Left
+panel: shown curves are polynomial fits in 1/VV to each individual data set. Right panel: shown
+curves are the result of a global best fit according to the empirical ansatz in Eg. (4.14) (bottom
+panel).
+
+thermodynamic limit with respect to the one obtained from the unconstrained fit:
+
+3
+FF = 0.610(24) x 10-3. (4.15)
+
+Although both extrapolated results are larger, they are nevertheless compatible within
+errors with the average of the N = 841 results:
+ay
+
+Sy = 0.575(25) x 10-3. (4.16)
+
+where again the error is the sum of a statistical and a systematic one, taking into account
+the dispersion among the data. In order to be conservative, we will consider the result in
+Eq. (4.13) as our final overlap determination for b = 0.360, as this has the largest error
+among the results in Eqs. (4.13), (4.15) and (4.16).
+
+Clearly, apart from polynomials in 1/ VV, also other functional forms could equally well
+describe our data. Thus, to really pinpoint the exact form of finite-size corrections, more
+theoretical studies would be needed to work out the expected ¢-regime volume-dependence
+of QCD low-energy constants in the TEK model. This is left for future studies.
+
+4.4 Renormalization of the overlap condensate and comparison with Wilson
+quarks
+
+In order to compare our overlap determination of =/N with the previous TEK one obtained
+in Ref. [33] with Wilson fermions, it is necessary to renormalize 4. The overlap valence
+quark mass and the overlap chiral condensate renormalize as follows:
+
+De = Zed) (4.17)
+
+1
+My = Zam = ZI (4.18)
+s
+
+where am = M(2—M)rn, and where we used the relation Z,,Zs = 1, holding by virtue of the
+lattice chiral symmetry. These renormalization constants depend on the renormalization
+
+scheme s and on the renormalization scale ». From now on, any presented renormalized
+
+16 -
+0.8 1
+b = 0.360 b = 0.370 «at
+ave =0 © afe=0  & malmy) Za
+b= 0.365 b = 0.375 fee
+2 ajs-0 A aye=o +t
+0.6 ,
+i me) ~ 1.24/o ge :
+é = mi ~ 0.95/o LP
+i pa
+ot
+3 4 5 6 7 8
+m2/o
+
+Figure 6: Continuum determination of the renormalized quark mass as a function of the pion
+mass. Fitted data come from [33] and have been obtained with Wilson fermions.
+
+quantity will be expressed according to the standard choices of renormalization scheme and
+scale: s = MS and p = 2 GeV. In this work we assume pp = 2 GeV —> pp/\/o = 3.75 as in
+the previous large-N studies [31, 33].
+
+In order to compute Z., we follow the strategy put forward in Ref. [11]. In this study,
+the authors obtained Zg for overlap quarks from the ratio of the bare overlap mass and
+the continuum renormalized mass matched at equal values of the pion mass, for a certain
+
+(ref),
+
+reference value mz = Mx
+
+m| _ (ref)
+Ma = My
+
+Zs = (4.19)
+
+m of
+B lng = mie")
+
+Following again the lines of Ref. [11], we compute the continuum renormalized quark mass
+mg as a function of m; using Wilson fermion results. Within the TEK model, we computed
+the Wilson pion mass as a function of the bare Wilson quark mass [33]. Concerning non-
+perturbative determinations of Z, needed to renormalize the bare Wilson quark mass, in
+absence of direct TEK determinations, we relied on the finite-N determinations of [141],
+suitably extrapolated towards N = oo and interpolated at our values of the lattice spacing.
+We refer the reader to Ref. [33] for more details on this point.
+
+First, we computed the renormalized mass in physical units for several values of the
+
+hopping parameter « and of the coupling b (here «, is the critical hopping parameter):
+
+1 (6, ) 1 1 1 1 (4.20)
+alee us Zs(b) a(b) Jo \ 2K 2kc(b) ] © ,
+Then, we performed the following global best fit as a function of b and k:
+mr(b, K) = Ay 21(b) + Ag xo(b, K) + Az 21(b)x2(b, «), (4.21)
+
+Vo
+
+17 -
+M,/Ja = 0.95(5) —— M,/Va = 0.98(4) ==
+
+® 1.40 + J
+le+00 &
+on — 1.20 + 4
+ee ea
+S
+
+0.80 + 5
+
+le-O1
+
+2
+tJo tTVo
+
+Figure 7: Extraction of the pion mass from the exponential decays of the x optimal correlator
+obtained from the resolution of the GEVP (left panel). We also show the plateau in the effective
+masses (right panel). Plots refer to N = 361, b = 0.360, m = 0.02, corresponding to m,é =
+(amz)VN 3.71 and bo = (aV/o)VN ~ 3.91.
+
+where
+
+r= avo, £25 (4.22)
+
+and Ai, Ao, Ag are fit parameters. Once Aj, Ag and A3 are determined, the continuum
+renormalized quark mass as a function of the pion mass is given by the curve:
+
+a)
+
+sa (mz) = Ay (4.23)
+
+In Fig. 6 we plot the curve in Eq. (4.23), and on top of it we also show the fitted
+points (b = 0.360, 0.365, 0.370, 0.375) to which we have subtracted lattice artifacts (i.e. the
+terms proportional to A; and A3). This figure shows the very good quality of the best fit,
+which has ¥? ~ 0.84. On a side note, we observe that 1/(2A2) = Bro, with Bao =
+Dr/(F2Vc). We find Br/V/o = 5.58(22), in perfect agreement with the determination
+Br/Vo = 5.58(26) of [33] from individual b-by-b chiral fits to the quark-mass dependence
+of the pion mass.
+
+Finally, we measured the overlap pion mass for 7 = 0.02, which was found to be:
+
+f
+mee )
+
+Va
+
+This will be our reference matching point to compute Z, from Eq. (4.19), and is reported
+
+= 0.95(5), (m= 0.02 => am =0.0192). (4.24)
+
+in Fig. 6 as a solid line. This value is obtained from the customary exponential best fit
+
+18 -
+to the pion correlator, cf. Fig. 7 (left panel). This correlation function is obtained from a
+standard GEVP analysis using an extended basis of smeared pseudo-scalar operators. As
+a standard cross-check, we verified that the effective mass, obtained by solving the GEVP
+at all times, exhibits a plateau in the same range where we performed the exponential best
+fit. A constant fit to this plateau gives the perfectly compatible result mee? 0.98(4),
+
+Va
+cf. Fig. 7 (right panel). For more details on the GEVP analysis we performed, we refer the
+
+reader to Ref. [33], a dedicated paper on the extraction of the low-lying meson spectrum
+of large-N QCD from the TEK model.
+
+The renormalization constant from Eq. (4.19), matched at the overlap pion and quark
+mass reported in (4.24), reads:
+
+Mr
+
+am/(a/c)
+— = 0.0809(32 Z3 =
+VO | mg = mit") (a2) Sma Vo
+
+In order to check the magnitude of possible finite-size effects affecting our pion mass
+
+= 1.153(45). (4.25)
+
+calculation, we also repeated the matching procedure to obtain Zs for a heavier pion.
+In particular, we chose 7 = 0.034 (am = 0.03264), and found that it corresponded to
+Mr / fo = 1.244(24), ie., mel ~ 4.86 (which is larger than the smallest value of mr used
+with Wilson fermions in Ref. [33]). Adopting this determination as the reference pion mass
+leads to mg/V/o = 0.1388(54), cf. Fig. 6 (dashed line), and eventually to Z; = 1.143(45),
+which is perfectly compatible with the estimate in Eq. (4.25).
+
+Considering our final result for the bare overlap condensate in lattice units obtained
+in the previous section,
+
+3
++ = 0.605(35) x 1073, (4.26
+
+and using Zs in Eq. (4.25), we finally find, for the renormalized condensate in physica
+
+units:
+
+XR
+= 0.0800(63 b = 0.360, overlap). 4.27
+Wai (63) P) (
+
+It is now interesting to compare our overlap result with the large-N TEK Wilson determi-
+nation of [33]. On general grounds, overlap fermions are expected to be affected by O(a?
+
+leading lattice artifacts, as opposed to Wilson fermions, which instead suffer for O(a) cor-
+
+rections to the continuum limit. This means that overlap fermions are expected to exhibi
+a faster convergence towards the continuum limit. This different behavior is due to the
+fact that they enjoy the lattice chiral symmetry, unlike Wilson fermions. Because of this,
+overlap and Wilson results obtained at the same value of b do not need to agree. For the
+same lattice spacing, b = 0.360, we found with Wilson fermions in the chiral limit [33]:
+
+Xp
+= 0.0711(46 b = 0.360, Wilson). 4.28
+Nia (46) ) (4.28)
+
+In the continuum limit, instead:
+
+=p
+= 0.0889(23 continuum limit, Wilson). 4.29
+ae (23) ( ) (4.29)
+
+19
+Our overlap result is indeed much closer to the continuum value with respect to the Wilson
+one obtained at the same lattice spacing. Our overlap result is thus perfectly consistent
+with the general theoretical expectation that overlap quarks exhibit a faster convergence
+towards the continuum limit by virtue of the lattice chiral symmetry.
+
+5 Conclusions
+
+We have presented the first investigation of the universal features of chiral symmetry break-
+ing in large-N QCD from the TEK model, whose employment allowed us to reach N as
+large as N = 841.
+
+Adopting a chiral formulation of the Dirac operator, first presented in this study for
+the TEK model, we showed clear evidence that the low-lying massless Dirac spectrum of
+
+large-N QCD follows RMT predictions when the effective size in physical units = av/N is
+sufficiently large, both by comparing scale-invariant analytic results with numerical data,
+and by best fitting lattice eigenvalue probability distributions to RMT functional forms.
+Chiral condensate determinations extracted from the first few low-lying eigenvalues differ
+at finite N, but come together as N is increased, confirming that eventually only one
+single free-parameter describes them all in the thermodynamic limit, as expected from
+RMT. After renormalization, our overlap determination of the chiral condensate, despite
+being obtained for a single value of the lattice spacing, turns out to be very close to the
+continuum TEK determination obtained in [33] from Wilson fermions. This fact is in
+perfect agreement with the general theoretical expectation that overlap quarks are affected
+by smaller O(a?) lattice artifacts — compared to the O(a) affecting Wilson quarks — by
+virtue of the lattice chiral symmetry. Clearly, overlap and Wilson determinations will only
+fully coincide in the continuum limit.
+
+There are many future research directions that could be explored with overlap fermions.
+It would be very interesting to extend the present study by investigating the quark-mass
+behavior of the pion mass, as well as of other mesons, or to study the continuum limit of
+the chiral condensate. The latter would require an ambitious numerical effort, but also
+a better theoretical characterization of finite-volume effects in the e-regime of the TEK
+formulation of large-N QCD. Finally, it would be very interesting to extend the use of
+the chiral lattice Dirac operator to other large-N gauge theories where chiral symmetry
+breaking plays a crucial role, such as VW = 1 SUSY Yang-Mills, where the calculation of
+the gluino condensate is of great theoretical interest.
+
+Acknowledgements
+
+It is a pleasure to thank Carlos Pena for many fruitful discussions and for reading this
+manuscript. We also acknowledge useful discussions with Pilar Hernandez and Rajamani
+Narayanan. This work is partially supported by the Spanish Research Agency (Agen-
+cia Estatal de Investigacién) through the grant IFT Centro de Excelencia Severo Ochoa
+CEX2020-001007-S and, partially, by the grant PID2021-127526NB-I00, both funded by
+
+20 -
+MCIN/AEI/10.13039/ 501100011033. It is also partially funded by the European Com-
+mission — NextGenerationEU, through Momentum CSIC Programme: Develop Your Dig-
+ital Talent. K.-I. I. is supported in part by MEXT as “Feasibility studies for the next-
+generation computing infrastructure”. This research was supported in part by grant NSF
+PHY-2309135 to the Kavli Institute for Theoretical Physics (KITP). We acknowledge sup-
+port from the SFT Scientific Initiative of INFN. This work was partially supported by
+the Simons Foundation grant 994300 (Simons Collaboration on Confinement and QCD
+Strings). Numerical calculations have been performed on the Finisterrae III cluster at
+CESGA (Centro de Supercomputacién de Galicia), on the Drago cluster at CSIC (Consejo
+Superior de Investigaciones Cientfficas) and on the Hydra and Ciclope clusters at IFT. We
+acknowledge HPC support by Emilio Ambite, staff hired under the Generation D initiative,
+promoted by Red.es, an organization attached to the Ministry for Digital Transformation
+and the Civil Service, for the attraction and retention of talent through grants and train-
+
+ing contracts, financed by the Recovery, Transformation and Resilience Plan through the
+European Union’s Next Generation funds. We have also used computational resource of
+Oakbridge-CX, at the University of Tokyo through the HPCI System Research Project
+(Project ID: hp230021 and hp220011), of Cygnus at Center for Computational Sciences,
+University of Tsukuba, of SQUID at D3 Center of Osaka university through the RCNP
+joint use program.
+
+Appendix
+A The spectrum of the free overlap operator
+
+In this Appendix we discus how to restore physical units in the lattice overlap operator D,
+leading to the rescaling formulas presented in Eqs. (3.25)-(3.29).
+
+Let us start by generically parameterizing the free massless overlap operator in Fourier
+space by:
+
+_ 1 + vires) (p)
+
+1 B(p) +i WAn(P)
+2 2
+
+2(B%p) +, A200)
+
+Do(p) (A.1)
+
+From this formula one can easily check that the eigenvalues of the operator H? = Di Do,
+with H = y5Dp, are given by:
+
+| Be) (A2)
+
+il
+9 1/2°
+2|[B?+ >, AR]
+
+Moreover, making use of the Ginsparg- Wilson relation:
+Doys + ¥5D0 = 2D075D0; (A.3)
+and the fact that y5sDoy5 = Di, one can relate the eigenvalues of Do with 2 using that,
+
+Do + Di = 2H?, (A.4)
+
+21 =
+therefore Re{A} = \?. Making use of the fact that the eigenvalues of Dp lie on a circle and
+writing
+
+e I ,
+A= 5 (i+ e*), (A.5)
+it is trivial to derive the form of the imaginary part of the eigenvalues, leading to:
+
+\= Midi — 2. (A.6)
+
+One can now specialize to the case of the overlap operator with kernel given by (3.20). For
+this, one should first note that the spectrum of the free Wilson—Dirac operator 75Dw(—M)
+in momentum space in the TEK formulation is identical to the standard one, defined on a
+
+lattice of (VN ) sites. Using this, one can easily derive the expressions corresponding to
+A, (p) and B(p) for the overlap kernel used in our work:
+
+28
+Au) = 25422 — Me’
+
+s? + (28 — M)(2 + 28? — M)
+s?4+(24+2382—-M)2 ”
+
+(A.7)
+
+>
+
+Bp) (A.8)
+
+where s, = sin(ap,), 8? = on sin?(ap,) and 6? = op sin?(ap,,/2), with p, = 2rn,/VN,
+Ny = O,+°° ,VN —1. These results agree with those quoted for the standard overlap
+operator with identical kernel in Ref. [134].
+
+Once we know the expressions for the eigenvalues, the scaling factor in Eq. (3.29) is
+obtained by taking into account, for instance, that the eigenvalue corresponding to H? in
+the continuum should be |p|?. The overall scaling factor is easily determined by taking the
+
+limit of small ap, of A, which leads to:
+
+ei, oP (A.9)
+a>0 M2(2— M)2’
+
+ie., the factor of M/(2 — M)/a appearing in Eqs. (3.25)—(3.29).
+
+References
+1] T. Banks and A. Casher, Chiral Symmetry Breaking in Confining Theories, Nucl. Phys. B
+169 (1980) 103.
+
+2] H. Leutwyler and A. V. Smilga, Spectrum of Dirac operator and role of winding number in
+
+QCD, Phys. Rev. D 46 (1992) 5607.
+
+3] E. V. Shuryak and J. J. M. Verbaarschot, Random matrix theory and spectral sum rules for
+the Dirac operator in QCD, Nucl. Phys. A 560 (1993) 306 [hep-th/9212088].
+
+4] J. J. M. Verbaarschot and I. Zahed, Spectral density of the QCD Dirac operator near zero
+virtuality, Phys. Rev. Lett. 70 (1993) 3852 [hep-th/9303012].
+
+5] J. J. M. Verbaarschot, The Spectrum of the QCD Dirac operator and chiral random matrix
+theory: The Threefold way, Phys. Rev. Lett. 72 (1994) 2531 [hep-th/9401059].
+
+~ 2) —
+10
+
+del.
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+S. M. Nishigaki, P. H. Damgaard and T. Wettig, Smallest Dirac eigenvalue distribution
+from random matrix theory, Phys. Rev. D 58 (1998) 087704 [hep-th/9803007].
+
+R. G. Edwards, U. M. Heller, J. E. Kiskis and R. Narayanan, Quark spectra, topology and
+random matrix theory, Phys. Rev. Lett. 82 (1999) 4188 [hep-th/9902117].
+
+P. H. Damgaard, R. G. Edwards, U. M. Heller and R. Narayanan, Universal scaling of the
+chiral condensate in finite volume gauge theories, Phys. Rev. D 61 (2000) 094503
+[hep-lat /9907016].
+
+W. Bietenholz, K. Jansen and §. Shcheredin, Spectral properties of the overlap Dirac
+operator in QOD, JHEP 07 (2003) 033 [hep-lat /0306022].
+
+L. Giusti, M. Luscher, P. Weisz and H. Wittig, Lattice QCD in the epsilon regime and
+random matrix theory, JHEP 11 (2003) 023 [hep-lat /0309189].
+
+J. Wennekers and H. Wittig, On the renormalized scalar density in quenched QCD, JHEP
+09 (2005) 059 [hep-lat /0507026].
+
+F. Bernardoni, P. H. Damgaard, H. Fukaya and P. Hernandez, Finite Volume Scaling of
+Pseudo Nambu-Goldstone Bosons in QCD, JHEP 10 (2008) 008 [0808 . 1986].
+
+A. Hasenfratz, R. Hoffmann and S. Schaefer, Low energy chiral constants from
+epsilon-regime simulations with improved Wilson fermions, Phys. Rev. D 78 (2008) 054511
+[0806 . 4586].
+
+F. Bernardoni, P. Hernandez, N. Garron, §. Necco and C. Pena, Probing the chiral regime
+of N= 2 QCD with mized actions, Phys. Rev. D 83 (2011) 054503 [1008. 1870].
+
+A. Deuzeman, U. Wenger and J. Wuilloud, Spectral properties of the Wilson Dirac operator
+in the e-regime, JHEP 12 (2011) 109 [1110.4002].
+
+M. Catillo and L. Y. Glozman, Distribution law of the Dirac eigenmodes in QCD, Int. J.
+Mod. Phys. A 33 (2018) 1850054 [1709.01886].
+
+T. G. Kovacs and F. Pittler, Poisson to Random Matrix Transition in the QCD Dirac
+Spectrum, Phys. Rev. D 86 (2012) 114515 [1208 .3475].
+
+M. Giordano, T. G. Kovacs and F. Pittler, Universality and the QCD Anderson Transition,
+Phys. Rev. Lett. 112 (2014) 102002 [1312.1179].
+
+T. G. Kovacs and R. A. Vig, Localization transition in SU(8) gauge theory, Phys. Rev. D
+97 (2018) 014502 [1706 .03562].
+
+R. A. Vig and T. G. Kovacs, Localization with overlap fermions, Phys. Rev. D 101 (2020)
+094511 [2001 .06872].
+
+M. Giordano and T. G. Kovacs, Localization of Dirac Fermions in Finite- Temperature
+Gauge Theory, Universe 7 (2021) 194 [2104. 14388].
+
+J. J. M. Verbaarschot and T. Wettig, Random matrix theory and chiral symmetry in QCD,
+Ann. Rev. Nucl. Part. Sci. 50 (2000) 343 [hep-ph/0003017].
+
+P. H. Damgaard, The Microscopic Dirac operator spectrum, Nucl. Phys. B Proc. Suppl. 106
+(2002) 29 [nep-lat/0110192].
+
+J. J. M. Verbaarschot, Handbook Article on Applications of Random Matrix Theory to
+QCD, 0910.4134.
+
+sis 23 -
+25
+
+26
+
+27
+
+28
+
+29
+
+30
+
+32
+
+33
+
+34
+
+35
+
+36
+
+37
+
+38
+
+40
+
+41
+
+42
+
+43
+
+P. H. Damgaard, Chiral Random Matrix Theory and Chiral Perturbation Theory, J. Phys.
+Conf. Ser. 287 (2011) 012004 [1102. 1295].
+
+R. Narayanan and H. Neuberger, The Quark mass dependence of the pion mass at infinite
+N, Phys. Lett. B 616 (2005) 76 [hep-1at/0503033].
+
+L. Del Debbio, B. Lucini, A. Patella and C. Pica, Quenched mesonic spectrum at large N,
+JHEP 03 (2008) 062 [0712.3036].
+
+G. S. Bali, F. Bursa, L. Castagnini, $. Collins, L. Del Debbio, B. Lucini et al., Mesons in
+large-N QCD, JHEP 06 (2013) 071 [1304.4437].
+
+T. DeGrand and Y. Liu, Lattice study of large N. QCD, Phys. Rev. D 94 (2016) 034506
+[1606. 01277].
+
+P. Herndndez, C. Pena and F. Romero-Lépez, Large N. scaling of meson masses and decay
+constants, Eur. Phys. J. C 79 (2019) 865 [1907.11511].
+
+T. A. DeGrand and E. Wickenden, Lattice study of the chiral properties of large N. QCD,
+2309.12270.
+
+C. Bonanno, P. Butti, M. Garcia Pérez, A. Gonzdlez-Arroyo, K.-I. Ishikawa and M. Okawa,
+The large-N limit of the chiral condensate from twisted reduced models, JHEP 12 (2023)
+034 [2309. 15540].
+
+C. Bonanno, M. Garcia Pérez, A. Gonzdlez-Arroyo, K.-I. Ishikawa and M. Okawa,
+Non-perturbative determination of meson masses and low-energy constants in large-N
+QCD, 2508 .05446.
+
+R. Narayanan and H. Neuberger, Chiral symmetry breaking at large N., Nucl. Phys. B 696
+(2004) 107 [nep-lat/0405025].
+
+A. Gonzalez-Arroyo, R. Narayanan and H. Neuberger, Large N reduction on a twisted torus,
+Phys. Lett. B 631 (2005) 133 [hep-1at/0509074].
+
+M. Hanada, J.-W. Lee and N. Yamada, Large-N, gauge theory and chiral random matrix
+theory, Phys. Rev. D 88 (2013) 025046 [1302.3532].
+
+A. Gonzdlez-Arroyo and M. Okawa, A twisted model for large-N lattice gauge theory,
+Physics Letters B 120 (1983) 174.
+
+A. Gonzalez-Arroyo and M. Okawa, Twisted-eguchi-kawai model: A reduced model for
+large-N lattice gauge theory, Phys. Rev. D 27 (1983) 2397.
+
+A. Gonzélez-Arroyo and M. Okawa, Large N reduction with the Twisted Eguchi-Kawai
+model, JHEP O7 (2010) 043 [1005. 1981].
+
+T. Eguchi and H. Kawai, Reduction of dynamical degrees of freedom in the large-N gauge
+theory, Phys. Rev. Lett. 48 (1982) 1063.
+
+G. Bhanot, U. M. Heller and H. Neuberger, The quenched Eguchi-Kawai model, Physics
+Letters B 113 (1982) 47.
+
+D. J. Gross and Y. Kitazawa, A Quenched Momentum Prescription for Large N Theories,
+Nucl. Phys. B 206 (1982) 440.
+
+G. Aldazabal, N. Parga, M. Okawa and A. Gonzdlez-Arroyo, Large N Reduced Models and
+Stochastic Quantization, Phys. Lett. B 129 (1983) 90.
+44
+
+45
+
+46
+
+47
+
+48
+
+49
+
+54
+
+55
+
+56.
+
+58
+
+59
+
+60
+
+61
+
+62
+
+J. Kiskis, R. Narayanan and H. Neuberger, Proposal for the numerical solution of planar
+QCD, Phys. Rev. D 66 (2002) 025019 [hep-lat /0203005].
+
+R. Narayanan and H. Neuberger, Large N reduction in continuum, Phys. Rev. Lett. 91
+(2003) 081601 [hep-lat/0303023}.
+
+P. Kovtun, M. Unsal and L. G. Yaffe, Volume independence in large N(c) QCD-like gauge
+theories, JHEP 06 (2007) 019 [hep-th/0702021].
+
+M. Unsal and L. G. Yaffe, Center-stabilized Yang-Mills theory: Confinement and large N
+volume independence, Phys. Rev. D 78 (2008) 065035 [0803 .0344].
+
+H. Neuberger, Quenched Eguchi-Kawai model revisited, Phys. Rev. D 102 (2020) 094503
+[2009 . 09539].
+
+A. Gonzalez-Arroyo and M. Okawa, String Tension for Large N Gauge Theory, Phys. Lett.
+B 133 (1983) 415.
+
+S. R. Das and J. B. Kogut, On the Deconfining Transition of SU(Infinity) Gauge Theory,
+Nucl. Phys. B 257 (1985) 141.
+
+S. R. Das and J. B. Kogut, Evidence for a First Order Deconfinement Transition in Large
+N Gauge Theory, Phys. Rev. D 31 (1985) 2704.
+
+J. Kiskis and R. Narayanan, Computation of the string tension in four-dimensional
+Yang-Mills theory using large N reduction, Phys. Lett. B 681 (2009) 372 [0908.1451].
+
+A. Hietanen and R. Narayanan, The large N limit of four dimensional Yang-Mills field
+coupled to adjoint fermions on a single site lattice, JHEP 01 (2010) 079 [0911.2449]}.
+
+A. Hietanen and R. Narayanan, Large-N reduction of SU(N) Yang-Mills theory with
+massive adjoint overlap fermions, Phys. Lett. B 698 (2011) 171 [1011.2150].
+
+B. Bringoltz, M. Koren and S. R. Sharpe, Large-N reduction in QCD with two adjoint Dirac
+fermions, Phys. Rev. D 85 (2012) 094504 [1106 .5538].
+
+A. Hietanen and R. Narayanan, Numerical evidence for non-analytic behavior in the beta
+function of large N SU(N) gauge theory coupled to an adjoint Dirac fermion, Phys. Rev. D
+86 (2012) 085002 [1204.0331].
+
+A. Gonzalez-Arroyo and M. Okawa, The string tension from smeared Wilson loops at large
+N, Phys. Lett. B '718 (2013) 1524 [1206. 0049].
+
+A. Gonzalez-Arroyo and M. Okawa, Twisted space-time reduced model of large N QCD with
+two adjoint Wilson fermions, Phys. Rev. D 88 (2013) 014514 [1305 .6253].
+
+R. Lohmayer and R. Narayanan, Weak-coupling analysis of the single-site large-N gauge
+theory coupled to adjoint fermions, Phys. Rev. D 87 (2013) 125024 [1305.1279].
+
+A. Gonzdlez-Arroyo and M. Okawa, Testing volume independence of SU(N) pure gauge
+theories at large N, JHEP 12 (2014) 106 [1410.6405].
+
+M. Garcia Pérez, A. Gonzdlez-Arroyo, L. Keegan and M. Okawa, The SU (oo) twisted
+gradient flow running coupling, JHEP 01 (2015) 038 [1412.0941].
+
+M. Garcia Pérez, A. Gonzdlez-Arroyo, L. Keegan and M. Okawa, Mass anomalous
+dimension of Adjoint QCD at large N from twisted volume reduction, JHEP 08 (2015) 034
+[1506. 06536].
+63
+
+64
+
+65
+
+66
+
+67
+
+68
+
+69
+
+70
+
+71
+
+72
+
+73.
+
+74
+
+75.
+
+76.
+
+77
+
+78
+
+79
+
+80
+
+81
+
+M. Garcia Pérez, A. Gonzdlez-Arroyo, L. Keegan, M. Okawa and A. Ramos, A comparison
+of updating algorithms for large N reduced models, JHEP 06 (2015) 193 [1505.05784].
+
+A. Gonzalez-Arroyo and M. Okawa, Large N meson masses from a matrix model, Phys.
+Lett. B 755 (2016) 132 [1510.05428].
+
+M. Garcia Pérez, A. Gonzdlez-Arroyo and M. Okawa, Perturbative contributions to Wilson
+loops in twisted lattice bores and reduced models, JHEP 10 (2017) 150 [1708.00841].
+
+M. Garcia Pérez, Prospects for large N gauge theories on the lattice, PoS LATTICE2019
+(2020) 276 [2001. 10859].
+
+M. Garcia Pérez, A. Gonzdlez-Arroyo and M. Okawa, Meson spectrum in the large N limit,
+JHEP 04 (2021) 230 (2011. 13061].
+
+P. Butti and A. Gonzdlez-Arroyo, Testing (asymptotic) scaling in Yang-Mills theories in the
+large-N. limit, PoS LATTICE2023 (2024) 381 [2311.18696].
+
+P. Butti, M. Garefa Pérez, A. Gonzdlez-Arroyo, K.-I. Ishikawa and M. Okawa, Scale setting
+for large-N SUSY Yang-Mills on the lattice, JHEP O7 (2022) 074 [2205 .03166].
+
+C. Bonanno, P. Butti, M. Garcia Pérez, A. Gonzdlez-Arroyo, K.-I. Ishikawa and M. Okawa,
+Nonperturbative determination of the N = 1 supersymmetric Yang-Mills gluino condensate
+at large N, Phys. Rev. D 110 (2024) 074507 [2406 . 08995].
+
+C. Bonanno, M. Garcia Pérez, A. Gonzdlez-Arroyo, K.-I. Ishikawa and M. Okawa, The
+mass of the gluino-glue bound state in large-N N =1 Supersymmetric Yang-Mills theory,
+JHEP 03 (2025) 174 [2412.02348].
+
+L. Del Debbio, H. Panagopoulos, P. Rossi and E. Vicari, Spectrum of confining strings in
+SU(N) gauge theories, JHEP 01 (2002) 009 [hep-th/0111090].
+
+B. Lucini and M. Teper, SU(N) gauge theories in four-dimensions: Exploring the approach
+to N = co, JHEP 06 (2001) 050 [hep-lat /0103027].
+
+L. Del Debbio, H. Panagopoulos and E. Vicari, 6 dependence of SU(N) gauge theories,
+JHEP 08 (2002) 044 [hep-th/0204125].
+
+B. Lucini, M. Teper and U. Wenger, Glueballs and k-strings in SU(N) gauge theories:
+Calculations with improved operators, JHEP 06 (2004) 012 [hep-lat /0404008].
+
+L. Del Debbio, G. M. Manca, H. Panagopoulos, A. Skouroupathis and E. Vicari,
+6-dependence of the spectrum of SU(N) gauge theories, JHEP 06 (2006) 005
+[hep-th/0603041].
+
+E. Vicari and H. Panagopoulos, 6 dependence of SU(N) gauge theories in the presence of a
+topological term, Phys. Rept. 470 (2009) 93 [0803. 1593].
+
+C. Allton, M. Teper and A. Trivini, On the running of the bare coupling in SU(N) lattice
+gauge theories, JHEP O07 (2008) 021 (0803. 1092}.
+
+B. Lucini, A. Rago and E. Rinaldi, Glueball masses in the large-N limit, JHEP 08 (2010)
+119 [1007 .3879].
+
+B. Lucini and M. Panero, SU(N) gauge theories at large N, Phys. Rept. 526 (2013) 93
+[1210. 4997].
+
+C. Bonati, M. D’Elia, P. Rossi and E. Vicari, 6 dependence of 4D SU(N) gauge theories in
+the large-N limit, Phys. Rev. D 94 (2016) 085017 [1607 .06360].
+82
+
+83
+
+84
+
+85
+
+86
+
+87
+
+88
+
+89
+
+90
+
+91
+
+92
+
+93
+
+94
+
+95
+
+96
+
+97
+
+98
+
+99
+
+M. Ce, M. Garcia Vera, L. Giusti and S. Schaefer, The topological susceptibility in the
+large-N limit of SU(N) Yang-Mills theory, Phys. Lett. B 762 (2016) 232 [1607 .05939].
+
+E. Bennett, J. Holligan, D. K. Hong, J.-W. Lee, C. J. D. Lin, B. Lucini et al., Color
+dependence of tensor and scalar glueball masses in Yang-Mills theories, Phys. Rev. D 102
+(2020) 011501 [2004. 11063].
+
+C. Bonanno, C. Bonati and M. D’Elia, Large-N SU(N) Yang-Mills theories with milder
+topological freezing, JHEP 03 (2021) 111 [2012. 14000].
+
+A. Athenodorou and M. Teper, SU(N) gauge theories in 8+1 dimensions: glueball spectrum,
+string tensions and topology, JHEP 12 (2021) 082 [2106.00364].
+
+E. Bennett, D. K. Hong, J.-W. Lee, C. J. D. Lin, B. Lucini, M. Piai et al., Color
+dependence of the topological susceptibility in Yang-Mills theories, Phys. Lett. B 835 (2022)
+137504 [2205 .09254].
+
+C. Bonanno, M. D’Elia, B. Lucini and D. Vadacchino, Towards glueball masses of large-N
+SU(N) pure-gauge theories without topological freezing, Phys. Lett. B 833 (2022) 137281
+[2205 06190].
+
+C. Bonanno, C. Bonati, M. Papace and D. Vadacchino, The 0-dependence of the Yang-Mills
+spectrum from analytic continuation, JHEP 05 (2024) 163 [2402.03096].
+
+A. Athenodorou, S. Dubovsky, C. Luo and M. Teper, Confining Strings and the Worldsheet
+Axion from the Lattice, 2411.03435.
+
+A. Sharifian, A. Athenodorou and P. Bicudo, The spectrum of open confining strings in the
+large-Ne limit, 2506 . 16342.
+
+T. DeGrand, Topological susceptibility in QCD with two flavors and 8-5 colors: a pilot
+study, Phys. Rev. D 101 (2020) 114509 [2004.09649].
+
+P. Hernandez and F. Romero-Lépez, The large N,. limit of QCD on the lattice, Eur. Phys.
+J. A 57 (2021) 52 [2012.03331].
+
+T. DeGrand, Finite temperature properties of QCD with two flavors and three, four and five
+colors, Phys. Rev. D 103 (2021) 094513 [2102.01150].
+
+J. Baeza-Ballesteros, P. Hernandez and F. Romero-Lépez, A lattice study of mm scattering
+at large N., JHEP 06 (2022) 049 [2202.02291].
+
+T. DeGrand, Curve collapse for the isospin-2 pion scattering length from QCD with 8, 4,
+and 5 colors, 2409 .02242.
+
+T. DeGrand, Comparison of a pseudoscalar meson form factor in QCD with 3, 4, and 5
+colors, 2412.14143.
+
+J. Baeza-Ballesteros, P. Hernandez and F. Romero-L6épez, The mm scattering amplitude at
+large N,, 2503.13978.
+
+P. Butti, M. Della Morte, B. Jager, S. Martins and J. T. Tsang, Comparison of
+smoothening flows for the topological charge in QCD-like theories, Phys. Rev. D 112 (2025)
+014504 [2504. 10197].
+
+J. Fingberg, U. M. Heller and F. Karsch, Scaling and asymptotic scaling in the SU(2) gauge
+theory, Nucl. Phys. B 392 (1993) 493 [hep-lat /9208012].
+100
+
+101
+
+102
+
+103
+
+104
+
+105
+
+106
+
+107|
+
+108
+
+109
+
+110
+
+dil
+
+112
+
+113
+
+114
+
+115
+
+116
+
+117
+
+118
+
+B. Beinlich, F. Karsch, E. Laermann and A. Peikert, String tension and thermodynamics
+with tree level and tadpole improved actions, Eur. Phys. J. C 6 (1999) 133
+[hep-lat/9707023].
+
+M. Campostrini, The large N phase transition of lattice SU(N) gauge theories, Nucl. Phys.
+B Proc. Suppl. 73 (1999) 724 [hep-lat /9809072].
+
+B. Lucini, M. Teper and U. Wenger, The Deconfinement transition in SU(N) gauge
+theories, Phys. Lett. B 545 (2002) 197 [hep-lat /0206029].
+
+B. Lucini, M. Teper and U. Wenger, The High temperature phase transition in SU(N)
+gauge theories, JHEP 01 (2004) 061 [hep-lat /0307017].
+
+B. Lucini, M. Teper and U. Wenger, Topology of SU(N) gauge theories at T ~ 0 and
+T ~T., Nucl. Phys. B'715 (2005) 461 [hep-lat /0401028].
+
+B. Lucini, M. Teper and U. Wenger, Properties of the deconfining phase transition in
+SU(N) gauge theories, JHEP 02 (2005) 033 [hep-lat /0502003].
+
+B. Lucini, A. Rago and E. Rinaldi, SU(N.) gauge theories at deconfinement, Phys. Lett. B
+712 (2012) 279 [1202.6684].
+
+S. Borsanyi, K. R., Z. Fodor, D. A. Godzieba, P. Parotto and D. Sexty, Precision study of
+the continuum SU(3) Yang-Mills theory: How to use parallel tempering to improve on
+supercritical slowing down for first order phase transitions, Phys. Rev. D 105 (2022) 074513
+[2202.05234].
+
+B. Lucini, D. Mason, M. Piai, E. Rinaldi and D. Vadacchino, First-order phase transitions
+in Yang-Mills theories and the density of state method, 2305 .07463.
+
+T. D. Cohen and L. Y. Glozman, Large N. QCD phase diagram at 1g = 0, Eur. Phys. J. A
+60 (2024) 171 [2311 .07333].
+
+Y. Hamada and T. Misumi, Zy stability and continuity in twisted Eguchi-Kawai model with
+two-flavor adjoint fermions, 2507 .20123.
+
+P. H. Ginsparg and K. G. Wilson, A Remnant of Chiral Symmetry on the Lattice, Phys.
+Rev. D 25 (1982) 2649.
+
+H. Neuberger, Exactly massless quarks on the lattice, Phys. Lett. B 417 (1998) 141
+[hep-lat /9707022].
+
+H. Neuberger, More about exactly massless quarks on the lattice, Phys. Lett. B 427 (1998)
+353 [hep-lat /9801031].
+
+M. Liischer, Exact chiral symmetry on the lattice and the Ginsparg- Wilson relation, Phys.
+Lett. B 428 (1998) 342 [hep-lat/9802011].
+
+D. B. Kaplan, A Method for simulating chiral fermions on the lattice, Phys. Lett. B 288
+(1992) 342 [hep-lat/9206013].
+
+Y. Shamir, Chiral fermions from lattice boundaries, Nucl. Phys. B 406 (1993) 90
+[hep-lat /9303005].
+
+V. Furman and Y. Shamir, Azial symmetries in lattice QCD with Kaplan fermions, Nucl.
+Phys. B 439 (1995) 54 [hep-lat/9405004].
+
+A. Borici, Truncated overlap fermions, Nucl. Phys. B Proc. Suppl. 83 (2000) 771
+[hep-lat /9909057].
+
+— 28 —
+119
+
+120
+121
+
+122
+
+123
+
+124
+
+125
+
+126
+
+127
+
+128
+
+129
+
+130
+
+131
+
+132
+
+133
+
+134
+
+135
+
+136.
+
+R. G. Edwards and U. M. Heller, Domain wall fermions with exact chiral symmetry, Phys.
+Rev. D 63 (2001) 094505 [hep-lat /0005002].
+
+K.-L. Ishikawa, Testing reweighting method for truncated Overlap fermions, 1310.8022.
+
+P. H. Damgaard and S. M. Nishigaki, Distribution of the k-th smallest Dirac operator
+eigenvalue, Phys. Rev. D 63 (2001) 045012 [hep-th/0006111].
+
+F. Chamizo and A. Gonzdlez-Arroyo, Tachyonic instabilities in 2 + 1 dimensional
+Yang-Mills theory and its connection to number theory, J. Phys. A 50 (2017) 265401
+[1610.07972].
+
+M. Garcia Pérez, A. Gonzdlez-Arroyo, M. Koren and M. Okawa, The spectrum of 2+1
+dimensional Yang-Mills theory on a twisted spatial torus, JHEP O7 (2018) 169
+[1807 .03481].
+
+T. Ishikawa and M. Okawa, Z? symmetry breaking on the numerical simulation of twisted
+Egquchi-Kawai model, talk given at the Annual Meeting of the Physical Society of Japan,
+March 28-31, Sendai, Japan (2003) .
+
+W. Bietenholz, J. Nishimura, Y. Susaki and J. Volkholz, A Non-perturbative study of 4-D
+U(1) non-commutative gauge theory: The Fate of one-loop instability, JHEP 10 (2006) 042
+[hep-th/0608072].
+
+M. Teper and H. Vairinhos, Symmetry breaking in twisted Eguchi-Kawai models, Phys. Lett.
+B 652 (2007) 359 [hep-th/0612097].
+
+T. Azeyanagi, M. Hanada, T. Hirata and T. Ishikawa, Phase structure of twisted
+Eguchi-Kawai model, JHEP 01 (2008) 025 [0711.1925].
+
+E. I. Bribidn and M. Garcia Pérez, The twisted gradient flow coupling at one loop, JHEP 03
+(2019) 200 [1903.08029].
+
+A. Gonzalez-Arroyo, Yang-Mills fields on the four-dimensional torus. Part 1.: Classical
+theory, in Advanced Summer School on Nonperturbative Quantum Field Physics, pp. 57-91,
+6, 1997, hep-th/9807108.
+
+Y. Kikukawa and T. Noguchi, Low-energy effective action of domain wall fermion and the
+Ginsparg-Wilson relation, Nucl. Phys. B Proc. Suppl. 83 (2000) 630 [hep-lat /9902022].
+
+R. C. Brower, H. Neff and K. Orginos, Mobius fermions, Nucl. Phys. B Proc. Suppl. 153
+(2006) 191 [hep-lat/0511031].
+
+C. Morningstar and M. J. Peardon, Analytic smearing of SU(3) link variables in lattice
+QCD, Phys. Rev. D 69 (2004) 054501 [hep-lat /0311018].
+
+T.-W. Chiu, Optimal domain wall fermions, Phys. Rev. Lett. 90 (2003) 071601
+[hep-lat /0209153].
+
+S. Aoki and Y. Taniguchi, Chiral properties of domain wall fermions from eigenvalues of
+four-dimensional Wilson-Dirac operator, Phys. Rev. D 65 (2002) 074502
+[hep-lat/0109022].
+
+L. Del Debbio, L. Giusti and C. Pica, Topological susceptibility in the SU(3) gauge theory,
+Phys. Rev. Lett. 94 (2005) 032003 [hep-th/0407052].
+
+C. Alexandrou, A. Athenodorou, K. Cichy, A. Dromard, E. Garcfa-Ramos, K. Jansen et al.,
+Comparison of topological charge definitions in Lattice QCD, Eur. Phys. J. C 80 (2020)
+424 [1708 00696].
+137
+
+138
+
+139
+
+140
+
+141
+
+S. Borsanyi et al., Leading hadronic contribution to the muon magnetic moment from lattice
+QCD, Nature 593 (2021) 51 [2002. 12347].
+
+A. Boccaletti et al., High precision calculation of the hadronic vacuum polarisation
+contribution to the muon anomaly, 2407 . 10913.
+
+J. Gasser and H. Leutwyler, Thermodynamics of Chiral Symmetry, Phys. Lett. B 188
+(1987) 477.
+
+F. Basile and G. Akemann, Equivalence of QCD in the epsilon-regime and chiral random
+matrix theory with or without chemical potential, JHEP 12 (2007) 043 [0710.0376].
+
+L. Castagnini, Meson spectroscopy in Large-N QCD, [inspirehep/1411974] (2015) .

@@ -1,0 +1,1148 @@
+arXiv:2510.25750v1 [quant-ph] 29 Oct 2025
+
+Inverse-free quantum state estimation with Heisenberg scaling
+
+Kean Chen*
+
+Abstract
+
+In this paper, we present an inverse-free pure quantum state estimation protocol that achieves Heisen-
+berg scaling. Specifically, let H = C* be a d-dimensional Hilbert space with an orthonormal basis
+{|1),...,|d)} and U be an unknown unitary on H. Our protocol estimates U|d) to within trace dis-
+tance error ¢ using O(min{d°/?/e,d/e?}) forward queries to U. This complements the previous result
+O(dlog(d)/e) by van Apeldoorn, Cornelissen, Gilyén, and Nannicini (SODA 2023), which requires both
+forward and inverse queries. Moreover, our result implies a query upper bound O(min{d?/?/e, 1/e?}) for
+inverse-free amplitude estimation, improving the previous best upper bound O(min{d? /e, 1/e?}) based
+on optimal unitary estimation by Haah, Kothari, O’Donnell, and Tang (FOCS 2023), and disproving a
+conjecture posed in Tang and Wright (2025).
+
+1 Introduction
+
+Given access to an unknown d-dimensional quantum s
+trace distance error ¢? This state estimation problem
+and quantum learning theory, and can be categorizec
+
+ate |y), how efficiently can we estimate |) to within
+has been extensively studied in quantum information
+into two settings. In the sample-access setting, one
+
+assumes access to multiple copies of the unknown state |7) and the sample complexity has been shown to be
+Q(d/e) [BM99, KW99, Wer98] (see also [Key06, HHJ+16, OW16, OW17, GKKT20, Yue23, SSW25, PSW25]
+for the mixed state case). In contrast, the query-access setting assumes access to a state-preparation unitary
+U of |y), as well as to its inverse U-!. In this model, the query complexity is O(d/e)! [vACGN23]. The key
+distinction between these two models lies in their error scaling: the query model achieves the Heisenberg
+scaling @(1/e), whereas the sample model is limited to the classical scaling @(1/e?).
+
+Recently, Tang and Wright [TW25] established that, in the absence of inverse query access, quantum
+amplitude estimation requires a query complexity of Q(min{d, 1/e?}). This stands in sharp contrast to the
+well-known upper bound of O(1/e) [BHMT02], which assumes access to both forward and inverse queries.
+It therefore reveals that disallowing inverse access incurs an additional (2(d) overhead in order to go beyond
+the classical scaling O(1/e?).
+
+Conversely, for the unitary estimation task, Haah, Kothari, O’Donnell, and Tang [HKOT23] showed that
+inverse access is not necessary to achieve the optimal query complexity @(d?/e) (see also the work by Yang,
+Renner, and Chiribella [YRC20] for unitary estimation under an average-case distance). Based on this,
+[LW25] conjectured that the query complexity of inverse-free amplitude estimation is O(min{d?/e, 1/e?}),
+suggesting that achieving inverse-free Heisenberg scaling requires estimating the entire unitary. The intuition
+behind their conjecture is a two-regime characterization of the inverse-free setting: 1) estimating all features
+of a unitary can be done coherently with a O(1/e) scaling; 2) estimating one desired feature of the unitary
+cannot be done better than the naive incoherent O(1/e?) algorithm.
+
+1.1 Our results
+
+In this paper, we study the quantum state estimation problem in the query access model. We present an
+inverse-free state estimation protocol with query complexity O(min{d?/?/e,d/e?}). This further implies
+a query upper bound O(min{d?/?/e,1/e?}) for inverse-free amplitude estimation by combining it with the
+naive O(1/e7) amplitude estimation. Our results demonstrate that, for both state and amplitude estimation,
+
+*University of Pennsylvania, Philadelphia, USA. Email: keanchen.gan@gmail.com
+16 hides logarithmic factors.
+Heisenberg scaling can be achieved without incurring a @(d?) overhead in the inverse-free setting, and thereby
+disproving the conjecture proposed in [TW25] (see Section 1.4 for further discussions). We formalize the
+problem and our main results as follows.
+
+Problem 1.1 (State estimation). Let H © C4 be a d-dimensional Hilbert space with an orthonormal basis
+{|1),|2),...,|d)}. Suppose U is an unknown unitary on H. The goal is to estimate the state U|d) to within
+trace distance error € using only forward queries to U.
+
+Theorem 1.2. There is a quantum protocol that uses n forward queries to U and outputs a classical de-
+scription of a unit vector |). The output |w) is random and satisfies
+
+Corollary 1.3. The inverse-free state estimation problem can be solved using O(min{d?/? /e,d/e?}) queries.
+
+d3
+
+1-—E 3 oy
+n(n + d?)
+
+0)
+
+[kwivla)P] < o( (1)
+
+By Theorem 1.2, we can easily obtain the following corollaries.
+
+Proof. Using Theorem 1.2 and letting n
+
+O(min{d3/?/e,d/e?}), we can obtain a random unit vector
+
+|) such that 1 — Ej, [|(u|U|d)|?] < e?/100, which means Pr[l — |(y)|U|d)|? < e?/10] > 2/3. Note that
+l|lb)(eb] —U|dXd|U" ||, = 2\/1 — |(W|U]d) 2 where || - ||1 denotes the trace norm. Thus the trace distance error
+is at most ¢ with probability at least 2/3.
+
+Then, we introduce our result for amplitude estimation.
+
+Problem 1.4 (Amplitude estimation). Let H & C4 be a d-dimensional Hilbert space with an orthonormal
+basis {|1),|2),...,|d)}. Suppose U is an unknown unitary on H and II is an orthogonal projector onto a
+subspace of H. The goal is to estimate the amplitude of U\d) on I, i.e. \/(d|UtMU|d), to within error €
+using only forward queries to U.
+
+Corollary 1.5. The inverse-free amplitude estimation problem can be solved using O(min{d?/? /e,1/e?})
+queries.
+
+Proof. By Fact 5.1, any state estimation protocol with trace distance error ¢ is also an amplitude estimation
+protocol with error O(¢). Therefore, Corollary 1.3 combined with the naive O(1/e”) amplitude estimation
+can imply an O(min{d*/?/e,1/e?}) query upper bound for the inverse-free amplitude estimation.
+
+1.2 Related work
+
+State estimation with Heisenberg scaling. Van Apeldoorn, Cornelissen, Gilyén and Nannicini [vACGN23|
+developed a family of quantum state estimation protocols based on block encoding techniques [LC19, CGJ19,
+vAG19] and quantum singular value transformation [GSLW19]. They showed that O(dlog(d)/e) queries to
+he state-preparation unitary and its inverse suffice, and established a nearly tight lower bound O(d/e). This
+result achieves a quadratic improvement in the dependence on the error parameter, reducing the classical
+scaling of O(1/e?) (in the sample access model) to O(1/e), thereby achieving what is known as Heisen-
+erg scaling. Moreover, they also provided protocols applicable to estimating a mixed state p of rank r,
+assuming that the state-preparation unitary produces a purification of p. In this case, they showed that
+O(dr polylog(d)/e) queries are sufficient. However, since their methods are based on quantum singular value
+
+ransformation, the use of inverse queries a:
+
+Power of inverse queries. The power o!
+range of quantum information tasks. A par
+ime-reversal, asks how to simulate a single
+
+pear to be an inherent limitation of their approach.
+
+f inverse queries has been extensively investigated across a wide
+
+icularly relevant and directly related question, known as unitary
+call to the inverse unitary U~! using only forward queries to U.
+
+t was recently established that this task has query complexity O(d?) [CML+24, OYM24, CYZ25], implying
+hat an exponential overhead is unavoidable when attempting to directly simulate a protocol involving
+inverses in an inverse-free setting. Exponential separations between the inverse-ful and inverse-free models
+have also been demonstrated in several other contexts, including quantum learning [CSM23, SHH25] and
+
+reimage finding with an in-place permutation oracle [FK18]. Notably, amplitude estimation—a fundamental
+roblem that serves as a key subroutine in many quantum algorithms—has been shown to require inverse
+access. Tang and Wright [TW25] established a query lower bound 2(min{d, 1/e?}) in the inverse-free model,
+hereby separating it from the O(1/e) scaling achievable when inverse queries are available [BHMT02].
+
+In contrast, for the unitary estimation task [Kah07, YRC20, HKOT23, GL25], one can achieves optimal
+query complexity without using inverse queries. Kahn [Kah07] showed an inverse-free unitary estimation
+protocol with query complexity O(f(d)/e), where the estimate achieves an entanglement infidelity error <7
+and f(d) was left unspecified. Notably, in 2020, Yang, Renner, and Chiribella [YRC20] were able to fully
+determine the scaling to be O(d?/e). More recently, Haah, Kothari, O’Donnell, and Tang [HKOT23] proved
+hat the scaling O(d?/e) even holds for diamond-norm error ¢, along with a matching lower bound (2(d?/e),
+even when inverses are allowed. These findings highlight that the power of inverse queries varies substantially
+across tasks. A general understanding of when and how an advantage exists remains an open question.
+
+1.3. Overview of techniques
+
+The estimation protocol is conceptually simple. We apply U®" in parallel to a suitably chosen probe state
+ip) € H®” and then perform an appropriate measurement on the resulting state to extract the desired infor-
+mation. The design of the probe state and the measurement is based on representation-theoretic techniques,
+inspired by the works [Kah07, YRC20]. However, different from them, we are only interested in the last
+column of U (i.e., U|d)), thus the probe state should be tailored to extract information exclusively from
+hat column. Guided by this intuition, we construct a family of semistandard Young tableaux I; defined in
+Figure la, whose corresponding Gelfand—Tsetlin basis vectors |[';) possess the desired properties. The probe
+state |p) is then taken as a superposition of these vectors with carefully chosen coefficients.
+
+We provide here some intuition about the state |[;). Consider the subgroup Ug_1 C Ug consisting of
+unitaries that fix the vector |d). By the definition of Gelfand-Tsetlin basis, the action of any V € Ug-1 on
+T;) corresponds to the action of V in the 1-dimensional Ug_1-representation labeled by the Young diagram
+
+of d—1 rows and L columns, which simply multiplies |I';) by a global phase det
+U,V € Ua such that U|d) = V|d), we have UtV € Ug_1 and so the actions of U a
+the phase det(UtV)". Therefore, |[;) probes information solely from the last co
+
+(V)+. This means, for any
+nd V on |I;) differ only by
+
+umn.
+
+One can also interpret it using dual representations. For convenience, let us assume the unitary U has
+determinant 1 (i.e., U € SUz). When restricting to SUg-representations, we can discard the first i full-length
+columns of T;. Then, let A be the Young diagram with d—1 rows and 1 column and let S; be the semistandard
+Young tableau obtained from A by filling it with the integers {1,...,d}\ i. There is a natural isomorphism
+between SUg-representations Q4 + Q4,, : |S;) +» (-1)4‘|i), where Q4,, is the dual representation of
+ot , |) € Q¢, is the covector corresponding to |i) € Q4. Thus, under
+
+interpret [; as
+
+hese isomorphisms, we can
+
+L-i
+
+z
+
+N-i
+
+A
+
+Ye
+
+d
+
+Ile
+Ile
+
+where the gray region contains multiple Sq arranged horizontally, the white region labeled by d (d) contains
+boxes filling with d (d), the final tableau represents a mixed semistandard Young tableau [GBO24, Ngu24].
+This means |I';) can be viewed as an irreducible components in
+
+JD ee* @ |d/ON~* (4a)? @ (QB)ON.
+
+Note that U acts as U* on Q4,4. Thus, we can see that the action of U on |I';) depends only on U|d).
+Then, we use the pretty good measurement (PGM) [HW94, Bel75a, Bel75b, BK02| to extract information
+from the state U®"|p). Specifically, we consider it as a state discrimination problem where our goal is to
+identify the label U from the ensemble {(dV,V®"|p))}veu, with dV denoting the Haar measure. Let U
+
+denote the measurement outcome. We set U|d) as the estimate of U|d), and show that the expected infidelity
+of this estimator can be upper bounded by O(d?/(n? + nd?)), thereby establishing Theorem 1.2.
+
+1.4 Discussion
+
+Inverse-free Inverse-ful
+Unitary estimation Q(d?/e) [HKOT23]
+O(min{d?/?/2,d/e?}) (This work)
+Q(d/e) [vACGN23]
+O(min{d?/?/e,1/e?}) (This work)
+Q(min{d, 1/e?}) [TW25]
+
+O(d/e) [vACGN23]
+
+State estimation
+
+@(1/e) [BHMTO02]
+
+Amplitude estimation
+
+Table 1: Query upper and lower bounds for unitary, state and amplitude estimation in inverse-free and
+inverse-ful settings.
+
+Table 1 summarizes the existing results of unitary, state and amplitude estimation in both inverse-free and
+inverse-ful settings. In this table, we conjecture that our upper bound for inverse-free state estimation is tight.
+We also conjecture that the query complexity of inverse-free amplitude estimation is O(min{d/e,1/e?}). Let
+us consider the additional overhead if one aims to achieve Heisenberg scaling but removes inverse access. If
+our conjectures hold, then the corresponding overheads are: ©(1) for unitary estimation; O(V/d) for state
+estimation; and O(d) for amplitude estimation. These might suggest that, rather than exhibiting a sharp
+transition between estimating all features and estimating a single desired feature, the benefit of inverse access
+may increase smoothly as the number of features to be estimated decreases.
+
+2 Preliminaries
+
+2.1 Young diagrams and Young tableaux
+
+and \; >--: > Ag > 0. The 7-th rows consists of A; boxes. By convention, the Young diagram is drawn with
+left-justified rows, arranged from top to bottom. For example, the Young diagram \ = (4, 3, 1) is drawn as:
+
+A Young diagram X consisting of n boxes and ¢ rows is a partition (A1,..., Ae) of n such that wey A=
+
+We use ¢(\) to denote the number of rows of A. We use \+ n to denote that A is a Young diagram with n
+boxes and use AF g n to denote that AF n and @(A) < d.
+
+Let ps, be Young diagrams. We write 7 A or A \, ys if A can be obtained from ys by adding one box.
+We also write \ = ps or p X D if L(js) < C(A) =: € and
+
+Ai > pr 2 AQ > pe 2 SACS Me,
+
+where we define pu; = 0 if i > (2). Equivalently, this means the row-lengths of \ and jy interlace and we say
+ps interlaces A. An example is (4,3, 1) = (3,3, 1) = (3,1) & (2):
+
+& &
+
+ey
+
+(2)
+
+A semistandard Young tableau of shape A+ n and alphabet [d] is a filling of using the integers from [d],
+such that the entries weakly increase from left to right in each row and strictly increase from top to bottom
+in each column. An example of semistandard Young tableau of shape (4, 3,1) and alphebet [4] is
+
+1fij2]4
+3/3]. (3)
+
+3
+
+We use SSYT(A, d) to denote the set of semistandard Young tableaux of shape A with alphabet [d]. We also
+use Sh(5S') to denote the shape of the semistandard Young tableau S.
+
+2.2 Gelfand-Tsetlin basis
+
+Let H & C? be a d-dimensional Hilbert space with an orthonormal basis {|1),|2),...,|d)}. Let Ug denote
+the group of d x d unitary matrices on H. and G,, denote the group of permutations of set [n] = {1,2,...,n}.
+The space #®” is a representation of the symmetric group G,, and the unitary group Uy. The unitary
+group Ug acts by simultaneous “rotation” as U®" for any U € Ug and the symmetric group 6, acts by
+permuting tensor factors:
+P(n) 1) ++ fn) = [Wea(a) <= Lteer¢my)
+
+for any 7 € G,. By the Schur-Weyl duality (see, e.g., [FH13]), we have the following decomposition
+
+UaxGn
+Her "=" BD at ary. (4)
+
+AFan
+
+Here, we use a and P, to denote the irreducible representations of Ug and 6, corresponding to the
+Young diagram A. We remark that in this paper, without loss of generality, all representations are unitary
+representations and the homomorphisms between representations preserve inner product. We use q,(U) to
+denote the action of U on Qf. The dimension of a¢ can be computed using the Weyl dimension formula
+(see, e.g., [EGH*11]})
+
+dim(Q’)= J] “oto 4 ts, 5)
+
+ji
+1<i<j<d J
+
+Branching rule of Ug. We now look deeper into the structure of Q%. Consider the following chain of
+embeddings of groups:
+Ui > U2>---> Ua,
+
+where the embedding U; > Uj+1 is given by
+U 0
+us Fe Hl
+
+for any U € U;. Let \ +i n be a Young diagram of n boxes with at most i rows and Q\ be an irreducible
+representation of U;. Then, a can be viewed as a representation of U;-1, which is called the restriction
+of a to U;_; and is denoted by Resy'_, (Qi). Note that Resy'_,(Q) also decomposes as a direct sum of
+irreducible representations of U;_1. Specifically, we have the following branching rule (see, e.g., [GW09])
+
+QD a". (6)
+HewSX
+(u)<i-1
+
+Ui-1
+
+Resy_,(Q\) =
+
+Thus, we can see that a decomposes into a direct sum of pairwise non-equivalent irreducible representations
+and they are pairwise orthogonal. By iterating this process (i.e., taking further restrictions on 24), we finally
+obtain a direct sum of the one-dimensional irreducible representations of U; (since U; is Abelian thus has
+only 1-dimensional irreducible representations). Therefore, this process determines an orthonormal basis (up
+to phases) of of and each basis vector can be parameterized by its branching path:
+
+AY 5 AA) 4... 5 AO, (7)
+
+where A = A, AV“Y) X NO and &(A) <i. This basis is called the Gelfand-Tsetlin basis of Q¢.
+Furthermore, we can see that the path in Equation (7) uniquely corresponds to a semistandard Young
+tableau S of shape \ = \, where the integer i is assigned to the boxes in A® \ AC), in which AM \ \C-D
+denotes the shape by removing from the shape of \“ all the boxes belonging to \C¢~), For example, the
+chain in Equation (2) corresponds to the semistandard Young tableau in Equation (3). By this mean, we
+can identify a semistandard Young tableau $ with alphabet [d] uniquely by a length-d interlacing sequence
+of Young diagrams as in Equation (7). Thus each vector in the Gelfand-Tsetlin basis of Q¢ is labeled by a
+semistandard Young tableau S of shape \ with alphabet [d], and we will use |S) to denote such vector.
+
+2.3. Clebsch-Gordan coefficients
+
+Let us consider the tensor product of the irreducible representations a¢ and ot, where OH denotes the Young
+diagram with only one box and thus ot =H is just the defining representation of Uy. This tensor product
+representation is generally reducible and decomposes as
+
+U
+Aon= @ a,
+werAZ
+L(u)<d
+due to the Pieri’s rule (see, e.g., [GW09]). Under this isomorphism, we can write the tensor product of
+vectors |S) € Q% and |i) € H, where $ € SSYT(A, d) and i € [d], as
+
+Isyal)= D> SO cpr),
+
+wAZ U TESSYT (11,d)
+&(u)<d
+
+where ost is called the Clebsch-Gordan coefficients which can be further expressed as a product of reduced
+Wigner coefficients [Har05, BCH07, BCH06] or scalar factors [VK92]. When i = d, the decomposition has a
+simpler form:
+
+d
+|S) @|d) = S> CR |Sx), (8)
+e=1.
+
+where S;, denotes the semistandard Young tableau obtained from S by adding a box filling with d to the k-th
+row.? Let AY) — -.. + A = X be the interlacing sequence of Young diagrams corresponding to S, then
+Cf can be expressed as (see, e.g., Equation 3 in [VK92, Sec. 18.2.10], and also [PSW25, Sec. 10], [GBO24,
+Apdx. AJ):
+
+d-1/y(d-1 s 1/2
+Tat QS j= dp tk -1)
+
+cs
+T]jatj¢0s —j-An +k)
+
+(9)
+
+3 Estimation protocol
+
+In this section, we introduce the estimation protocol. Let H & C¢ be a d-dimensional Hilbert space and U
+be an unknown unitary on H. We apply U®" on a state |p) € H®", called the e probe state. Then we perform
+
+a POVM on U®"|p), obtaining a “partial” estimate U of U. Finally, we set O|d) as our estimate of U|d).
+
+2Note that S; may not be a valid semistandard Young tableau, but in such case of =0.
+3.1 A coherent system on [-shaped tableaux
+Let n be the number of queries. Without loss of generality, we can assume n is a multiple of 2d. Let
+
+nN _ — (d+1)n
+Lb=5 and N= (d+)L=— J.
+
+Then, we define a family of semistandard Young tableaux that have “I”’-like shape.
+
+Definition 3.1 (I-shaped tableaux). For any integer i such that 0 <i< L, let T; and Tr be the semistan-
+dard Young tableaux defined in Figure 1.
+
+L N-i L N+1-i
+din Des :? Bi
+Cc aie a) ia aia >
+1 FS 1 d d d 1 1 1 d d d
+2 2 2 2 2 2
+d—1}|d-1 d-1 d—1}/d-1 d-1
+d d d d
+a a
+(a) T; (b) PY
+
+Figure 1: Definition of the semistandard Young tableaux ['; and ys
+
+It is easy to see that T; contains (d —1)L + N =n boxes and I} contains (d-1)L+N+1=n+1
+boxes. Let 7; = Sh([;) and 7; = Sh(I’}) be the shapes of IP; and 7. Then, |I;) and |[) are two vectors
+in the Gelfand-Tsetlin bases of Qs. and Q., respectively.
+
+We note that: these tableaux are correlated if we consider the tensor product of |[;) and |d). By the
+Clebsch-Gordan decomposition (see Section 2.3), |[;) ® |d) decomposes into a sum of vectors corresponding
+to the semistandard Young tableaux obtained from I; by adding one box filling with d. It is easy to see
+that such box can only be added at the first and the d-th rows. More specifically, from Equation (8) and
+Equation (9), we have
+
+oy i 1/2
+IT;) @ |d) Thej<a-1¥ - +3) ns
+, (LEN $d—2-1)Tpcjeg(V —i+9—-D i
+3 1/2
+; Th<jcai(b +d-i-j-V) rt.)
+"|(L+N +d—2i-1)[Ioejeq-1(b + 4—i-J) i41
+N+d-i-1 L—i
+Ty rV Ths), 1
+T+ Ned-n-1) + VTpNed-no iH) (10)
+We define Nad-i-t L
+je -
+_— 2 B= ul
+%=TeNadeu—t = TENyd-uNl (11)
+
+Then, Equation (10) can be written as
+
+IPs) @|d) = Veal) + VBI AA), (12)
+
+which is also shown in Figure 2.
+8 = Vai + /B;
+
+Ty Ty Thy
+
+Figure 2: The decomposition of |[';) ® |d)
+
+3.2 Probe state
+
+Then, we define the probe state |p). For each 0 < i < L, fix an arbitrary unit vector |1,,) € Py,, where
+P, the irreducible representation of G,, labeled by 7;. The state |L,,) will be used in our definition of the
+probe state and measurement, while the final results are independent of the choice of |1,,).
+
+Definition 3.2 (The probe state).
+L
+= SC AML a) € He, (13)
+i=0
+where f; are real numbers such that ean f? =1, and will be determined in Section 4.1.
+
+3.3 Pretty good measurement
+
+By applying U®" to the probe state |p), we obtain a state U®"|p) that encodes some information of U. To
+extract the information from this state, we view it as a state discrimination problem. That is, suppose we
+are given an unknown state drawn from the ensemble {(dV,V®"|p))}y-cuy, where dV is the Haar measure,
+and we want to determine which state we have received (i.e., to identify the corresponding label V). Our
+idea is to perform the so-called “pretty good measurement” (PGM) [HW94, Bel75a, Bel75b, BKO2}.
+
+The PGM with respect to this ensemble is defined as a continuous POVM
+
+{Ev }veuu,
+
+where
+
+Ey = dV E-2V1"|p\iplV2" E~
+
+in which dV is the Haar measure, F -2 is the pseudo-inverse of E 2 and E is the average of the ensemble:
+
+E= [wv V8" |pXp|vte"
+
+L
+= / AV >> fifa, (V)IPMP lay, (V1) @ [LyX Loy
+i,j=0
+f?
+
+L
+= Re) Io4, ® [Ly Lash (14)
+
+where Equation (14) is by the Schur’s lemma. Thus, we can see that
+
+By = dV |nv\\nv|,
+
+L
+Inv) = S> y/dim(Q4, Jay, (V)|Ps)|L4,)- (15)
+
+i=0
+
+where
+3.4 The protocol
+
+Then, the estimation protocol is shown in Protocol 1.
+
+Protocol 1 Estimating U|d)
+
+Input: n forward queries to U.
+Output: An estimate of U|d).
+
+1: Prepare the probe state |p). > see Equation (13)
+2: Apply U®" on |p).
+
+3: Apply the POVM {dV |nv)(nv|}veu, on U®"|p) and obtain an outcome O. > see Equation (15)
+4; Return U|d).
+
+4 Bounding the error
+
+In this section, we bound the error of Protocol 1.
+For 0 <i < L, we define
+
+. (N+d—-i-1)(N-i+1)
+IEE N+ d—27—-1)(L+ N +d — 2)’
+
+(16)
+
+7 (L-i+1)(L+d-i-1)
+WV EEN +d—-2+D(L+N 4+d—2i)
+
+Then, we have the following lemma.
+
+Lemma 4.1. Let U|d) be the output of Protocol 1. The expectation of fidelity between U|d) and U|d) is
+
+E | |(ae via | |= fpa2 + ys fivi + fi-ayi)?. (17)
+
+Co
+
+Proof. Consider the probability Pr(U; U) of getting the measurement outcome U when performing the PGM
+on the state U®"|p):
+
+Pr(G;U) = a |(ng|U2" |p) |?
+
+ys /aim(o4) ae lay, (av) IT.)
+
+8
+=d0
+
+Upon getting measurement outcome T, we set Od) as the estimate of U|d). Thus the expectation of
+(squared) fidelity is
+
+2
+-|(@qotoa)|
+
+B||(a\o'UIe)| ‘ = fo Yi /aim(o4) (Tila, (dv) Ir;)
+
+2
+
+= [at S fy aim(O4) Cilldla,, (G'0) @ Goywiplay
+
+2
+
+= / aU > fiy/dim(Q4,) : (ai la, (atv) It) + BT Ha lays (av) rta))
+
+i=0
+
+(18)
+= f a foc /aim( 24, (03 1a, (610) ies)
+
+(19)
+L 2
++> (a /dima(Q2,) + adil (Flay Oy rt)
+1
+2
+2,2 dim(Q4,) + a
+= foag 0 Gm O4.) im( 4) +2 fia yt fib (20)
+
+where in Equation (18) we use Equation (12), in Equation (19) we use the fact that 8, = 0, Equation (20)
+is by using the fact
+
+[0 4; (0'v)' whvefia, ('v) = [ab «,- (8) ehiepia; (0)
+1
+
+= L-;—— 1
+“a dim(Q*,.) on
+
+due to the invariance of Haar measure and Schur’s lemma. Then, from Fact 5.2 and Equation (20), we can
+see that
+
+~ 2 L
+
+4.1 Instantiating f;
+
+In this section, we will give an explicit form of f; such that the expectation of fidelity (see Equation (17)) is
+as large as possible. For convenience, we discard the constraint pe f? =1 and consider the homogeneous
+form of the RHS of Equation (17):
+
+Wicol fies + fi—ryi)?
+L e
+Lino ht
+where we set f_; = 0. Therefore, we need to find a sequence of real numbers {f;}/_, such that f_; = 0
+
+and Equation (21) is as large as possible, or equivalently, 1 — Equation (21) is as small as possible.
+For -—1 <i< L, we set
+
+; (21)
+
+d-1 d-1
+fi=9i-\(L+N4+d-2%-1)[[(N+5-i-1) ][@+4-5-9), (22)
+j=2 j=2
+where g-1 = 0 and for0 <i< JL,
+9 = (+1)\(L+N+d-i). (23)
+
+Then, we have the following results, where the proofs are based on repeatedly using Fact 5.3 and are
+deferred.
+
+Lemma 4.2. Using the instantiation of f;, in Equation (22), we can show that 1 — Equation (21) equals
+
+ify gory)? d-1
+Esco Benen [Tye (N+5-) Gah +5-)
+
+Lg — (24)
+Vico at j= SUN +5 - ) ML +3 —i)
+Lemma 4.3. Using the instantiation of g; in Equation (23), we can show that Equation (24) equals
+@-1
+(25)
+
+L+N+d+73,NL
+
+10
+Then we can prove our Theorem 1.2.
+
+Proof of Theorem 1.2. By Lemma 4.3 and noting that N = (d+1)L, L = 34, we can see that the expectation
+of infidelity is
+
+Bquaiven = © (iat a) ° (ae m)
+
+5 Deferred lemmas and proofs
+
+5.1 Some facts
+
+Fact 5.1. Suppose |w), |y) are two pure states on a d-dimensional Hilbert space H, and II is an orthogonal
+projector onto a subspace of H. Then we have
+
+| Voor) — VITA) < Zllwkwl -
+
+ell,
+
+where || - ||; is the trace norm.
+
+Proof. Let re! = (pe
+
+w). Then, we have
+
+| v Gorm) — THATS] = | tn) Ih — fe" rH1g)| |
+< |[1(I¥) - ele)
+< |Ilv) - ele)
+= V2-2I(¢ly)|
+
+(gle)?
+
+<V/2-2
+
+= Salone = |p\ellh,
+
+where |||¢))|| = \/ (w/w) is the vector 2-norm.
+
+Fact 5.2. For0 <i< L, we have
+
+dim(Q¢ ) (N+d-i-1)(N-i+1)
+" dim(Q",) (L+N+d—%-1)(L+N+d—2i)’
+
+on
+
+and for 1 <i< L, we have
+
+dim(OF_)
+dim(Q*..)
+
+Bia
+
+(L-i+1)(L+d-i-1)
+(L+N+d—2i+1)(L+N+d-—2i)
+
+Proof. By Equation (5), we have
+
+dim(Q4.)_— (L+N+d-2% -1)-Th<jcai(N +9 -i- 1)
+
+dim(Q°.) (L4+N+d—2i)-Thcjcaa(N +9 - 8)
+(L+N+d-—2i-1)(N-i+1)
+(L+N+d-2i)(N+d-i-1)
+
+11
+dim(Q!,_ .) (L4+N+4+d—-2+1)[ocjeai(E+d-i-j+))
+dim(Q".,) (L+N+d—2i)Tocjcg (b+ d-i-J)
+(L+N+d—2i1+1)(L+d—-i-1)
+
+(L+N+d—2)(L—-i+1)
+
+Then, combined with Equation (11), we can see
+
+dim(Q¢,)
+
+i (N+d—i-1)(N-i+1)
+(
+
+wt, dim(Q4,.) L+N+d—2-1)(L+N+d—2i)’
+and
+a dim(Q¢4,_,) (L-i+1)(L+d-i-1)
+Ta) “dim(Q¢ L+N+d—-2+1(L+N+d—2)
+it
+
+Fact 5.3. For any integer k > 0 and number a,b, we have
+
+k k+1 k+1
+(a 1) [[@+Ab+35) a Il j)-][[(@-14+ 90-145)
+as Pa ps
+Proof.
+k+l k+l k41 k
+(a+ a)+5) - TT @-14+ 90-149 =T[@+d0+9-T[@+ ne
+j=l j=l j=l j=0
+
+5.2 Proof of Lemma 4.2
+
+Proof of Lemma 4.2. From Equation (16) and Equation (22), and by direct calculation,
+
+d-1 -
+fie (NN Tia =(N +5 - i) [Tj-2(E +d —- j —?)
+es L+N+d—2 ’
+
+I= a(N +g —- i) TIj3(L+4- g-)
+fiayi = Gi-1° sna ft Lin +ad-21
+
+Therefore, Equation (21) can be written as
+L ((N-i+1)9i+(L+d-i-1)9i— dhe \Tqd-1y7 ig
+Vito A ied Joeay’ ITj= t i) T]j22(£ +d—j—i)
+Vico (EL +N +d—2i — MT ECES ete TpnENEra y=
+
+Note that the denominator of Equation (26) equals
+
+(26)
+
+L d—-2 =
+Sog(L+N+d-2-1) [[W+5-4 nt L+j-i)
+i=0 j=l j=l
+
+12
+L 2 d-1 d-1
+res (ii +j-i(L4 j-9 Tor es-1-ntas--n) (27)
+
+i=0 jel j=l
+Lo9 9 d-l g en
+
+Fi ~ Gi-1 a a IL f '
+
+gap UW + - DE +5-)- FS TT - 245-96 -9)
+
+=0 jal jel
+L gig a
+
+Fi Gi-1 % F ” x
+
+N+j-i(L+j-9), 2
+
+Yr Hots -oe ria, (28)
+
+where Equation (27) is by using Fact 5.3. Also note that the numerator of Equation (26) equals
+
+(N-it+tlg+(L+d i= Dou? TH
+
+iM
+
+N+j-it1 nTess-9
+
+ra L+N+d-2i J
+L F r 2d-2 d-2
+((L+N+d-— 2i)g;, —(L+d—i-1)(9: — 9i-1)) i. -
+N+j-i4+1 (L+j-%
+a L+N+d—2 Tw +i-% IT j-9)
+i=0 j=l =
+t (L+d-i-1)(9:-g
+L+N+d-—2i)g? —2(L+d—i-—1)gi(9i — 91-1) 4 i ei)
+> (( Hig? —2(L +4 ~4—1gi(gs ~ 9.1) + EE —
+d—2 d-2
+-[T[vts-i4+) [[e+5-4
+j=l j=l
+L d-2 d-—2
+=S\(L4+N 44-2) T[(N+5-i4+)T[E+5-49 (29a)
+i=0 j=l j=1
+L mn d—2
+; (L+d—i-1)?(g; — gi-1)? i.
+—2(L+d—i-—1)gi(gi — gi-1) 4 N4 L+j-i).
+I a 1 ee oe Tl ‘en Ta+s-9
+(29b)
+The part in Equation (29a) equals
+L d-2
+SO(L+ N +d = 2i)g3 Te +s-+y [ess
+i=0 j=l
+L 2 d-1 d-1
+wei I] +3 i+(E+5-i -T[W+si-)b+5-i-1) (30)
+i=0 j=l j=l
+— 9 d-1 ah d-1
+Gi ~ Gir fod wooded Log i _
+aot [+5 i+1)(L+j-a- =i Hw L+j)(j-1)
+i=0 j=l
+dy @-9 d-1
+a i-1 . . . . .
+N+ + 1)\(L+ 7-4), ab
+2-1 Ik j-i+I(L+j-%), (31)
+
+where Equation (30) is by using Fact 5.3. Then, the denominator of Equation (26) minus the numerator of
+Equation (26) is therefore (28) — (31) — (29b), which equals
+
+v8 gg d-1 d-1
+S sy wt i) -(N+d-] []W+ 5-8 [[(£+5-4) | - 290)
+i=0 j=2 j=l
+
+L d-1 =
+Ya - 9) TN +5-4 nt L+j—i)) — (29b)
+i=0 j=2 jaa
+
+13
+L 5
+=> (Wt —g) )(E+d—i-1) + 2(L+d—i-1)gi(9i — gi-1) - (E+d-i- I" =i)
+
+—) L+N+d-2%
+d-1 d-2
+TT] t+s-) [[@+s-4
+j=2 j=l
+L F 5 — d—2
+(L+d—-i-1)(N-i4+1 — 9i-1) og _ 2
+“2s EE 7 — Te +50 Tesi
+i=0 j=2 j=l
+“(gi gi)? 77 7
+i — Ji-1 Te 36
+3 + j — 4) Tu+s-0, (32)
+op E+ N +d 20 Ges
+
+Then, 1 — Equation (26) is therefore (32) + (28), which equals
+
+L 9.1)” d— :
+waco oe N= LN + j - )TG= (L+j- a)
+L g?-93_ sis
+Dito a j= sai (N +5 - ) Mah +5-4)
+
+5.3 Proof of Lemma 4.3
+
+Proof of Lemma 4.3. It is easy to see that for 0 <i < L
+G-H-1=L+N+d—-2.
+Thus, Equation (24) equals
+
+d-1) Vi (L +N +428) (N45 - dT (L+5 -2)
+
+E weal = — and a (33)
+VicolgGi + H-a(L+N+d—21) TT, N +5 -) TG (+9 -4
+The numerator of Equation (33) is
+d-1 d-1
+(a (L+N+d-— a) [Tw +5-9 Te+s-0
+i=0 j=1 j=l
+Li {4 d
+=(@-1) 75 []V+5-d)44+5-)-T[W+s-i-(L+5-i-1) (34)
+i=o ® \ja1 j=l
+d d
+I + i)(L+9)-T](N -£4+5-)G-)
+j=l j=l
+d
+i), (35)
+where Equation (34) is by using Fact 5.3. The denominator of Equation (33) is
+L d-1 d-1
+Si + Gah +N +421) TN +3-9 [[ (245-4)
+i=0 j=l j=l
+Lg tg d d
+i+ Gi-1 ‘ eg sg oT
+» 7 Iw + j E+j-)-T[rs-i- YE ts-i—-Y) (36)
+
+14
+&
+I
+
+w
+S
+
+Ee
+
+als
+Ja
+2
+=
+cs,
+ey
+&
+ale
+S
+om [
+* @
+5
+a.
+|
+=
+ie
+“Is
+b
+hale
+Sz
++
+5
+&.
+a
+
+als
+=
+2
+ta
+a
+“ls
+ton
+2
+NS
+=
+|
+
+=1L t=1 1
+g "a 2 L - d
+7 LY (L FLL +N+a-24 HLT tj + j-i)
+j=l i=l j=l
+Jo 2 2, f ott ess —— a — e8
+TL (L Tap [] +5 -d@4+4-9-][W+5-t-)@4+5-i-1)
+j=l i=1 \j=1 j=l
+(37)
+90 d D) d+1 d+1
+a UN +E +9 + gay (IIe t-te t5-9- Tw -245-9G-9)
+j=l j=l j=l
+90 d ; ; 2 d+1 ;
+ZL +E +5) 4 Harn UW +s-De+5-0, (38)
+j=l j=l
+
+where Equation (36) and Equation (37) are by using Fact 5.3. Therefore, Equation (33) equals (35) + (38),
+which is
+d-1 d-1
+
+Qot+qegqNL L+N+d+7NL
+
+Acknowledgments
+
+We thank Ewin Tang and John Wright for valuable discussions.
+
+References
+
+BCHO6] Dave Bacon, Isaac L Chuang, and Aram W Harrow. Efficient quantum circuits for schur and
+clebsch-gordan transforms. Physical review letters, 97(17):170502, 2006.
+
+BCHO7| Dave Bacon, Isaac L Chuang, and Aram W Harrow. The quantum schur and clebsch-gordan
+transforms: I. efficient qudit circuits. In Proceedings of the eighteenth annual ACM-SIAM
+symposium on Discrete algorithms, pages 1235-1244, 2007.
+
+Bel75a] Viacheslav P Belavkin. Optimal multiple quantum statistical hypothesis testing. Stochastics:
+an international journal of probability and stochastic processes, 1(1-4):315-345, 1975.
+
+Bel75b] VP Belavkin. Optimum distinction of non-orthogonal quantum signals. Radiotekhnika i Elek-
+tronika, 20:1177-1185, 1975.
+
+BHMT02] Gilles Brassard, Peter Hoyer, Michele Mosca, and Alain Tapp. Quantum amplitude amplification
+and estimation. Contemporary Mathematics, 2002.
+
+BK02] Howard Barnum and Emanuel Knill. Reversing quantum dynamics with near-optimal quantum
+and classical fidelity. Journal of Mathematical Physics, 43(5):2097-2106, 2002.
+
+BM99] Dagmar Bruf and Chiara Macchiavello. Optimal state estimation for d-dimensional quantum
+systems. Physics Letters A, 253(5-6):249-251, 1999.
+CGJ19]
+
+CML*24]
+
+CSM23]
+
+CYZ25]
+
+EGH*11]
+
+FH13]
+
+FK18]
+
+GBO24]
+
+GKKT20]
+
+GL25]
+
+GSLW19]
+
+GWo09]
+Har05]
+
+HHJ+16]
+
+HKOT23]
+
+HW94]
+
+Kah07]
+
+Shantanav Chakraborty, Andras Gilyén, and Stacey Jeffery. The Power of Block-Encoded
+Matrix Powers: Improved Regression Techniques via Faster Hamiltonian Simulation. In 46th
+International Colloquium on Automata, Languages, and Programming (ICALP 2019), volume
+132, pages 33:1-33:14, 2019.
+
+Yu-Ao Chen, Yin Mo, Yingjian Liu, Lei Zhang, and Xin Wang. Quantum algorithm for reversing
+unknown unitary evolutions. arXiv preprint arXiv:2403.04 704, 2024.
+
+Jordan Cotler, Thomas Schuster, and Masoud Mohseni. Information-theoretic hardness of out-
+of-time-order correlators. Physical Review A, 108(6):062608, 2023.
+
+Kean Chen, Nengkun Yu, and Zhicheng Zhang. Tight bound for quantum unitary time-reversal.
+arXiv preprint arXtv:2507.05736, 2025.
+
+Pavel I Etingof, Oleg Golberg, Sebastian Hensel, Tiankai Liu, Alex Schwendner, Dmitry Vain-
+trob, and Elena Yudovina. Introduction to representation theory, volume 59. American Mathe-
+matical Soc., 2011.
+
+William Fulton and Joe Harris. Representation Theory: A First Course, volume 129 of Graduate
+Texts in Mathematics. Springer, 2013.
+
+Bill Fefferman and Shelby Kimmel. Quantum vs. Classical Proofs and Subset Verification.
+In 48rd International Symposium on Mathematical Foundations of Computer Science (MFCS
+2018), volume 117, pages 22:1-22:23, 2018.
+
+Dmitry Grinko, Adam Burchardt, and Maris Ozols. Gelfand-tsetlin basis for partially transposed
+permutations, with applications to quantum information. In 27th Conference on Quantum
+Information Processing, 2024.
+
+Madalin Guta, Jonas Kahn, Richard Kueng, and Joel A Tropp. Fast state tomography with
+optimal error bounds. Journal of Physics A: Mathematical and Theoretical, 53(20):204001, 2020.
+
+Sabee Grewal and Daniel Liang. Query-optimal estimation of unitary channels via pauli dimen-
+sionality. arXiv preprint arXiv:2510.00168, 2025.
+
+Andrés Gilyén, Yuan Su, Guang Hao Low, and Nathan Wiebe. Quantum singular value transfor-
+mation and beyond: exponential improvements for quantum matrix arithmetics. In Proceedings
+of the 51st annual ACM SIGACT symposium on theory of computing, pages 193-204, 2019.
+
+Roe Goodman and Nolan R Wallach. Symmetry, representations, and invariants, volume 255.
+Springer, 2009.
+
+Aram W Harrow. Applications of coherent classical communication and the schur transform to
+quantum information theory. arXiv preprint quant-ph/0512255, 2005.
+
+Jeongwan Haah, Aram W Harrow, Zhengfeng Ji, Xiaodi Wu, and Nengkun Yu. Sample-optimal
+tomography of quantum states. In Proceedings of the forty-eighth annual ACM symposium on
+Theory of Computing, pages 913-925, 2016.
+
+Jeongwan Haah, Robin Kothari, Ryan O’Donnell, and Ewin Tang. Query-optimal estimation of
+unitary channels in diamond distance. In 2023 IEEE 64th Annual Symposium on Foundations
+of Computer Science (FOCS), pages 363-390. IEEE, 2023.
+
+Paul Hausladen and William K Wootters. A ‘pretty good’ measurement for distinguishing
+quantum states. Journal of Modern Optics, 41(12):2385-2390, 1994.
+
+Jonas Kahn. Fast rate estimation of a unitary operation in su (d). Physical Review A—Atomic,
+Molecular, and Optical Physics, 75(2):022326, 2007.
+
+16
+Key06]
+
+KW99]
+
+LC19]
+
+Ngu24]
+
+Ow16]
+
+ow17|
+
+OYM24]
+
+PSW25]
+
+SHH25]
+
+SSW25]
+
+TW25]
+
+vACGN323]
+
+vAG19]
+
+VK92]
+
+Wer98]
+YRC20]
+
+Yue23]
+
+Michael Keyl. Quantum state estimation and large deviations. Reviews in Mathematical Physics,
+
+18(01):19-60, 2006.
+
+Michael Keyl and Reinhard F Werner. Optimal cloning of pure states, testing single clones.
+Journal of Mathematical Physics, 40(7):3283-3299, 1999.
+
+Guang Hao Low and Isaac L Chuang. Hamiltonian simulation by qubitization. Quantum, 3:163,
+2019.
+
+Quynh T Nguyen. The mixed schur transform: efficient quantum circuit and applications. In
+27th Conference on Quantum Information Processing, 2024.
+
+Ryan O’Donnell and John Wright. Efficient quantum tomography. In Proceedings of the forty-
+eighth annual ACM symposium on Theory of Computing, pages 899-912, 2016.
+
+Ryan O’Donnell and John Wright. Efficient quantum tomography ii. In Proceedings of the 49th
+Annual ACM SIGACT Symposium on Theory of Computing, pages 962-974, 2017.
+
+Tatsuki Odake, Satoshi Yoshida, and Mio Murao. Analytical lower bound on query complexity
+for transformations of unknown unitary operations. arXiv preprint arXiv:2405.07625, 2024.
+
+Angelos Pelecanos, Jack Spilecki, and John Wright. The debiased keyl’s algorithm: a new
+unbiased estimator for full state tomography. arXiv preprint arXiv:2510.07788, 2025.
+
+Thomas Schuster, Jonas Haferkamp, and Hsin-Yuan Huang. Random unitaries in extremely
+low depth. Science, 389(6755):92-96, 2025.
+
+Thilo Scharnhorst, Jack Spilecki, and John Wright. Optimal lower bounds for quantum state
+tomography. arXiv preprint arXiv:2510.07699, 2025.
+
+Ewin Tang and John Wright. Amplitude amplification and estimation require inverses. arXiv
+preprint arXiv:2507.28787, 2025.
+
+Joran van Apeldoorn, Arjan Cornelissen, Andras Gilyén, and Giacomo Nannicini. Quantum
+tomography using state-preparation unitaries. In Proceedings of the 2023 annual ACM-SIAM
+symposium on discrete algorithms (SODA), pages 1265-1318. SIAM, 2023.
+
+Joran van Apeldoorn and Andrés Gilyén. Improvements in Quantum SDP-Solving with Appli-
+cations. In 46th International Colloquium on Automata, Languages, and Programming (ICALP
+2019), volume 132, pages 99:1-99:15, 2019.
+
+N. Ja. Vilenkin and A. U. Klimyk. Representations in the gel’fand-tsetlin basis and special
+functions. In Representation of Lie Groups and Special Functions: Volume 3: Classical and
+Quantum Groups and Special Functions. Springer Netherlands, 1992.
+
+Reinhard F Werner. Optimal cloning of pure states. Physical Review A, 58(3):1827, 1998.
+
+Yuxiang Yang, Renato Renner, and Giulio Chiribella. Optimal universal programming of unitary
+gates. Physical review letters, 125(21):210501, 2020.
+
+Henry Yuen. An improved sample complexity lower bound for (fidelity) quantum state tomog-
+raphy. Quantum, 7:890, 2023.
+
+17

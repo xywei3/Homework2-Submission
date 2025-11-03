@@ -1,0 +1,1088 @@
+2510.25565v1 [cond-mat.stat-mech] 29 Oct 2025
+
+1V
+
+wx
+
+d
+
+€
+
+Free-energy REconstruction from Stable Clusters (FRESC): A new
+
+method to evaluate nucleation barriers from simulation
+
+Adrian Llamas-Jaramillo,! Ivan Latella,;? and David Reguera?3
+”) Departament de Fisica de la Matéria Condensada, Universitat de Barcelona, 08028 Barcelona,
+
+Spain.
+
+2) Universitat de Barcelona, Institute of Nanoscience and Nanotechnology (IN2UB), 08028 Barcelona,
+
+Spain.
+
+» Universitat de Barcelona, Institute of Complex Systems (UBICS), 08028 Barcelona, Spain.
+
+(*Electronic mail: dreguera@ub.edu.)
+
+(Dated: 30 October 2025)
+
+We present a simulation technique to evaluate the most important quantity for nucleation processes: the nucleation
+barrier, ie. the free energy of formation of the critical cluster. The method is based on stabilizing a small cluster
+by simulating it in the NVT ensemble and using the thermodynamics of small systems to convert the properties of
+this stable cluster into the Gibbs free energy of formation of the critical cluster. We demonstrate this approach using
+condensation in a Lennard-Jones truncated and shifted fluid as an example, showing an excellent agreement with
+previous Umbrella Sampling simulations. The method is straightforward to implement, computationally inexpensive,
+requires only a small number of particles comparable to the critical cluster size, does not rely on the use of Classical
+Nucleation Theory, and does not require any cluster definition or reaction coordinate. All of these advantages hold
+the promise of opening the door to simulate nucleation processes in complex molecules of atmospheric, chemical or
+pharmaceutical interest that cannot be easily simulated with current techniques.
+
+1. INTRODUCTION
+
+Nucleation is the process controlling first order phase tran-
+sitions and it is crucial for a wide variety of phenomena of the
+utmost current interest. Examples range from cloud formation
+and crystallization in materials science to protein aggregation
+in biological systems. The common feature of all nucleation
+phenomena is the existence of an energy barrier that must be
+overcome in order to trigger the formation of the new phase.
+This barrier arises from the competition between the energetic
+cost of creating an interface and the thermodynamic driving
+force favoring the new phase. Understanding the microscopic
+mechanisms that govern nucleation is essential for predict-
+ing and controlling phase transitions in both natural and en-
+gineered systems.
+
+For the sake of simplicity, we will focus on the simplest
+example of a nucleation phenomenon: the homogeneous con-
+densation of a single component vapor. In this case, the qual-
+itative physical picture is well known!>, When a vapor has
+a pressure above the equilibrium saturation pressure, it be-
+comes supersaturated and the thermodynamic stable state is
+the liquid phase. The transformation of the supersaturated va-
+por into the liquid starts with the formation, by thermal fluc-
+tuations, of small aggregates of molecules having liquid-like
+properties. These clusters enjoy the energetic advantage of
+having a smaller chemical potential (i.e. energy per molecule
+of the more stable liquid phase), but must pay the price of the
+surface energy associated to the presence of an interface be-
+tween the incipient liquid and the vapor. The combination of
+these two opposite contributions gives rise to an energy bar-
+rier, whose maximum is located at a particular cluster size,
+known as the critical cluster size. In the context of Classi-
+cal Nucleation Theory (CNT), the work of formation of
+this critical cluster, AG* or AQ*, is simply given by! AG* =
+AQ* = 1627 /3(Ap)?, where Ap = p;(u,T) — py(H,T) is just
+
+the pressure difference between the liquid and the vapor phase
+at the same chemical potential 2 and temperature 7, and y is
+the surface tension of the liquid drop defined at the surface of
+tension. The radius of the critical cluster is R* = 2y/Ap, and
+the nucleation rate at which the phase transformation is initi-
+ated is given by J = K exp(—AQ*/kgT), where K is a kinetic
+prefactor and kg is Boltzmann’s constant. This exponential
+dependence of the nucleation rate on the free energy barrier is
+the distinctive trait of activated processes and makes the pre-
+diction of nucleation phenomena specially challenging. Any
+small inaccuracy in the evaluation of AQ* leads to orders of
+magnitude discrepancies between the predictions and experi-
+ments or simulations!!!?.
+
+Accurately evaluating the nucleation barrier or nucleation
+rate remains a challenging task due to the intrinsic features
+of nucleation phenomena. The formation of a critically sized
+cluster is stochastic and becomes increasingly rare as the bar-
+rier height grows. Even when such a cluster does appear, it is
+inherently unstable because its size corresponds to the top of
+the free-energy barrier. Consequently, it does not persist long
+enough to reliably measure its properties.
+
+Despite these difficulties, numerous simulation approaches
+have been developed to study nucleation processes. The
+most straightforward are direct or brute force simulations!2:!3 ,
+where a supersaturated system is prepared and the sponta-
+neous emergence of large clusters is monitored. Nucleation
+rates or cluster free energies can then be estimated using dif-
+ferent analysis schemes like the Mean First Passage Time!*!5,
+However, since the appearance of a critical cluster is a rare
+event, this method requires simulating at very high supersat-
+urations, far from those experimentally accessible (except for
+Laval nozzle experiments'*!7), To overcome this difficulty,
+a variety of rare-event simulation approaches have been pro-
+posed, including Transition Path Sampling!*!9, Forward Flux
+Sampling”° and related variants. Nevertheless, these method-
+ologies require the generation of a large ensemble of trajecto-
+ries and a proper choice of a reaction coordinate that makes
+them computationally demanding. Other types of techniques
+aim at obtaining the free energy landscape by adding a po-
+tential iteratively, like in Metadynamics”! or a constraining
+parabolic potential, like in Umbrella Sampling??”°, in order
+to sample efficiently the whole free energy landscape or sta-
+bilize locally clusters of different sizes and reconstruct the
+free energy landscape. A recent alternative is the seeding
+technique**>, based on CNT, where one inserts a pre-formed
+cluster or seed in the simulation, monitors its time evolution,
+and tries to identify the critical cluster size as the seed hav-
+ing a 50% chance of growing or disappearing. Although all
+these methods have been successfully applied to analyze dif-
+ferent nucleation phenomena, their implementation remains
+nontrivial and often computationally intensive due to the rare
+and unstable nature of the critical clusters, whose properties
+are the cornerstone of nucleation.
+
+A. Stable clusters in the canonical ensemble
+
+A practical strategy to address these difficulties is to stabi-
+lize the clusters of interest for nucleation. There is indeed a
+way to generate a small liquid cluster that is perfectly stable
+coexisting with its vapor, by working in the canonical NVT
+ensemble. When nucleation is studied experimentally or in
+simulations in the 4VT or NPT ensemble, the critical cluster
+is unstable and the free energy landscape for cluster forma-
+tion only has a maximum, as shown schematically in Fig. 1.
+However, the same system in the canonical ensemble has a
+maximum, corresponding to the critical size for the formation
+of this cluster in the canonical ensemble, but also can have a
+local minimum corresponding to a stable (or metastable) clus-
+ter.
+
+Nucleation AF
+barrier
+
+sv
+
+FIG. 1: Comparison between the free energy landscape of formation of a
+cluster of size n in the uVT or NPT ensembles, and the canonical NVT
+ensemble. In the uVT or NPT ensembles there is only one extremum, a
+maximum in the associated free energy AQ or AG, corresponding to the
+
+critical nucleus. Contrarily, in the NVT ensemble at similar conditions, there
+may be two extrema, a maximum and a minimum in AF, corresponding to
+the critical cluster and a stable cluster, respectively.
+
+The fact that a small liquid-like cluster can be stabilized in
+the canonical ensemble is not new. Since the seminal simu-
+lations by Lee, Barker, and Abraham?°, Binder’, and Rao,
+Berne and Kalos?8, or the theoretical works by Yang??30, it
+is known that clusters can be stabilized in the canonical en-
+semble. Density Functional Theory studies by Lee, Telo da
+Gamma, and Gubbins*!, and Talanquer and Oxtoby? also
+showed the stability of clusters in the canonical ensemble.
+
+A simple way to quantify and analyze the stability of small
+liquid clusters in the canonical ensemble is to use the Mod-
+ified Liquid Drop model**34, In CNT, the critical cluster is
+defined by the size at which the cluster is in chemical and
+mechanical equilibrium with the vapor for a given set of ther-
+modynamic conditions. Therefore, it fulfills the requirements
+of equal chemical potentials
+
+Mi(T, pi) = MT, Pv) (1)
+
+and the Laplace relation
+
+27
+
+PI Py = R (2)
+In systems where either the pressure or the chemical poten-
+tial are the control variables, there is only one non-uniform
+solution to these two equations, corresponding to the critical
+cluster, which is the maximum of the corresponding Gibbs
+free energy AG(n) or grand potential AQ(n) work of forma-
+tion as a function of the cluster size n. However, in the canon-
+ical NVT ensemble, under appropriate conditions, there turn
+out to be two solutions fulfilling these conditions: one corre-
+sponding to the critical cluster and a second one correspond-
+ing to a stable or metastable cluster. Both are extrema of the
+Helmholtz free energy landscape AF (n), but the critical clus-
+ter is a maximum, whereas the stable cluster corresponds to a
+(local) minimum (see Fig. 1).
+
+The reason why a cluster can be stabilized in the NVT
+ensemble is straightforward. Since the total number of
+molecules N and the volume V are fixed, in a supersaturated
+vapor the liquid cluster grows at the expense of the vapor
+molecules, reducing the supersaturation and eventually reach-
+ing a situation where the cluster cannot grow further. What
+is important is that the resulting stable cluster also fulfills
+Eqs. (1) and (2). However, it is surrounded by a vapor at a va-
+por pressure p, and chemical potential jz that are not dictated
+by the homogeneous density N/V, but are rather determined
+by the remaining vapor molecules. If this cluster in equilib-
+rium with the vapor is placed in a system either at a fixed
+chemical potential 1, corresponding to that of the vapor in-
+stead of a constant N, or at fixed vapor pressure p instead of a
+fixed V, then it would correspond to the critical cluster since it
+is the only solution to the equilibrium conditions Eqs. (1) and
+(2) in the uVT or NPT ensemble. The fact that the stable clus-
+ter in the canonical ensemble is equivalent to the critical clus-
+ter in the UVT or NPT ensembles has been recognized several
+times in the literature**** and verified in simulations*>~*®.
+
+Therefore a promising strategy for evaluating the proper-
+ties of the critical cluster is to generate a stable cluster in
+the NVT ensemble and measure its properties, particularly
+its free energy of formation. Numerous studies in the lit-
+erature have pursued this strategy by simulating stable clus-
+ters in the canonical ensemble. A seminal contribution was
+provided by Lee, Barker and Abraham?® who performed
+Monte Carlo simulations with less than 100 Lennard-Jones
+molecules at different volumes. They evaluated the Helmoltz
+free energy using thermodynamic integration, but treating the
+whole NVT system as a physical cluster. MCGuinty*?, Rao,
+
+Berne and Kalos?8, and Rusanov and Brodskaya*® also sim-
+ulated and analyzed the properties of stable liquid-like clus-
+ters, but not directly its free-energy of formation. Binder and
+coworkers?’4!->° developed a comprehensive series of studies
+addressing the stability of spherical and cylindrical drops and
+bubbles in the canonical ensemble. They introduced several
+strategies to evaluate the properties of stable clusters, includ-
+ing their free energy of formation and surface tension, using
+combinations of finite-size scaling, successive umbrella sam-
+pling, and histogram reweighting techniques. In particular,
+many of these approaches rely on identifying the size of the
+stable cluster using a suitable reaction coordinate and are com-
+putationally demanding or not easy to implement. Recently,
+the seeding technique developed by C. Vega and coworkers
+has also been extended to the NVT ensemble*>*°. Another
+remarkable simulation techniques are the gauge cell and ghost
+field methods introduced by Neimark and collaborators?!~4.
+To evaluate the nucleation barrier, they consider the addi-
+tion of a second reservoir whose size controls the strength of
+fluctuations and the stability of the system, and an external
+("ghost") field to control the formation of a droplet with the
+desired size and density. Finally, very recently, the Modified
+Liquid Drop Model has been combined with the correspon-
+dence between a stabilized cluster in the canonical ensemble
+and the critical cluster relevant for nucleation, enabling the
+evaluation of nucleation barriers and rates under the assump-
+tion of CNT validity>>°.
+
+Building on the previous insightful works, in this article, we
+present a different simulation technique that we call FRESC:
+Free-energy REconstruction from Stable Clusters. This tech-
+nique is straightforward to implement, since it only requires a
+set of standard NVT Monte Carlo (MC) or Molecular Dynam-
+ics (MD) simulations; it is very efficient, as it only involves a
+small number of molecules of the same order as the size of
+the critical cluster; and it allows for an accurate evaluation of
+the nucleation barrier, i.e. the free energy of formation of the
+critical cluster, at any value of the supersaturation. In partic-
+ular, evaluating the nucleation barrier near the spinodal is no-
+toriously difficult using standard techniques such as umbrella
+sampling; with FRESC it can be obtained using simulations
+with few molecules.
+
+We illustrate this method for the particular case of conden-
+sation using a simple Lennard-Jones Truncated and Shifted
+potential. But it can be applied to any intermolecular poten-
+tial, and extended to other nucleation phenomena such as cav-
+itation, bubble formation, or crystallization in single or multi-
+component systems.
+
+Il. FRESC METHOD
+
+The idea of the method is extremely simple. First, a stan-
+dard MC or MD simulation of a supersaturated system is per-
+formed in the canonical NVT ensemble. From this simulation,
+the Helmholtz free energy of formation of the stable cluster
+can be obtained via straightforward thermodynamic integra-
+tion in the way described below.
+
+In the canonical ensemble, the Helmholtz free energy of the
+
+whole system F(N,V,T) satisfies
+dF = —SdT — pdV + dN, (3)
+
+where S, p, and pt are the corresponding entropy, pressure, and
+chemical potential, respectively. Hence, at constant tempera-
+ture T, there are two possible ways to obtain the Helmholtz
+free energy: either we fix the total number of molecules N,
+perform a set of simulations at different volumes V’, measure
+the pressure at each simulation p(N,V’,7), and get
+
+Vv
+F(NV.T) ==) p(NV'.T)AV'+FUNNnawsT) (4)
+/Vinax
+or we fix the volume V, perform a set of simulations using
+different numbers of molecules N’ measuring the chemical po-
+tential u(N’,V,T), and get
+N
+F(N,V,T) = H(N',V,T)dN'+F(Nnin,V,T). (5)
+Nmin
+
+Here, F(N,Vinax,T) and F(Nmin,V,T) are the Helmholtz free
+energies of the system at a reference volume Vj,qx and a ref-
+erence number of particles Ninin, respectively. The Helmholtz
+free energy of the stable cluster is simply the difference be-
+tween the free energy of the system containing the cluster,
+ie. F(N,V,T), and that of the uniform vapor Fo(N,V,7) with
+density Pp = N/V, namely,
+
+AF (N,V,T) = F(N,V,T) —Fo(N,V,T). 6)
+
+The grand potential AQ* or Gibbs free energy AG* of the
+critical cluster can be obtained from AF by exploiting the ther-
+modynamic transformation?!47-%?
+
+AQ*(N,V,T) = AF(N,V,T)+VAp—Nau, (7)
+
+where Ap = p— po and Au = [l — Mo, with po being the pres-
+sure of the uniform vapor with density 9 = N/V and chem-
+ical potential Up. Equation (7) was rigorously derived in the
+appendix of Ref.*8 and can also be obtained using the thermo-
+dynamics of small systems. The values of p and pu in this
+equation are obtained from the MC or MD simulation in the
+NVT ensemble with N particles, whereas po and Uo are the
+properties of the reference system in the uniform vapor phase.
+
+In principle, it seems that an accurate equation of state
+(EoS) would be required to account for po and Up in the uni-
+form supersaturated vapor phase. But there is a way to avoid
+the use of the EoS. We first note that in a system with a small
+number of particles, there might be nonextensive corrections
+even for the ideal gas®. A way to minimize these corrections
+is working with excess quantities, i.e. by subtracting from free
+energies, pressures, and chemical potentials the corresponding
+ideal contributions. Denoting by F, p**, and yu the excess
+free energy, pressure, and chemical potential of the system
+with the cluster, respectively, and by Fy”, pp’, and U* those
+for the uniform vapor with density po = N/V, from Eq. (7) we
+get
+
+AQ*(N,V,T) = F*(N,V,T)+Vp* —Nu*
+— [FS*(N,V,T) +V ps —Nug']. (8)
+Assuming now that the standard thermodynamic relation
+Fy* = —po'V + ug‘N applies for the homogeneous vapor,
+Eq. (8) simply becomes
+
+AQ*(N,V,T) = F°(N,V,T) + p°V—weN, (9)
+
+with the advantage that no EoS or previous evaluation of the
+properties of the homogeneous metastable phase is needed.
+Notice that the relation Fy* = —po‘V + Mg*N is an approx-
+imation strictly valid only in the thermodynamic limit. For
+very small systems, even if a cluster is not formed, an inho-
+mogeneity can also arise in the vapor phase, for instance, due
+to boundary effects.
+
+Out of the two strategies to get the Helmholtz free energy
+F(N,V,T) by thermodynamic integration, it is more conve-
+nient to integrate the chemical potential, Eq. (5). One ad-
+vantage of this procedure is that, unlike the local pressure,
+the chemical potential is uniform throughout the system
+even in the presence of the stable drop. Moreover, in the
+vapor phase surrounding the liquid drop, it can be measured
+particularly easily using, for example, the Widom insertion
+method?3°!-3_ A second advantage is computational: since
+a set of simulations is required, using very small number of
+particles in the simulations to compute the integral at fixed
+volume is more efficient than doing all simulations with the
+same WN at different volumes.
+
+Taking into account these considerations, by combining
+Eq. (5) expressed in terms of excess quantities and Eq. (9),
+the final expression to evaluate the free energy of formation
+of critical clusters in the FRESC method is just
+
+‘N
+[ u(w')an' + p(y — u(y
+
++F°(NninsV.T), (10)
+
+AQ*(N,V,T) =
+
+where Nin corresponds to the smallest system size to simu-
+late, that must correspond to a homogeneous vapor state for
+which F*(Nnin,VsT) = —P®(Nnnin)V + LE (Ninin)Noxine 10
+practice, choosing a very small value of Nin would yield a
+value of F® (Nin, V,T) essentially zero.
+
+It is worth stressing that the FRESC method does not rely
+on the use or validity of CNT, and no cluster criteria, reaction
+coordinate or explicit cluster identification is required. The
+critical cluster size can be evaluated directly from the excess,
+as explained in the Appendix. If, at the chosen conditions, no
+cluster is formed, then the free energy of formation Eq. (8) is
+simply zero, as it would correspond to a homogeneous system.
+Notice also that, when applied to systems with different N,
+this equation will provide the nucleation barrier for a range of
+different critical cluster sizes and conditions.
+
+Ill. MONTE CARLO SIMULATIONS
+
+In order to demonstrate this novel technique, we imple-
+mented a standard} MC simulation in the canonical ensemble
+for a system of particles interacting with a Lennard-Jones (LJ)
+potential truncated and shifted at a reduced cut-off radius of
+
+re = 2.50, LITS(2.50), expressed as
+
+Upyrs (rij) = ou —Uzs(re),
+
+if rij <1 aan)
+
+if rij > Te
+
+Here,
+
+Uis(rij) =4e|(2) * (2)] (12)
+
+is the standard LJ potential with r;; being the distance between
+two particles, o the distance at which the potential is zero, and
+€ the energy minimum of the potential well.
+
+Simulations were performed in reduced units in terms of the
+LJ particle’s mass m, distance o, and energy €, at a reduced
+temperature T = 0.625. The simulation box is spherical, with-
+out periodic boundary conditions and with a fixed center of
+mass. For each simulation, the initial configuration is chosen
+as an fcc lattice and we correct its center of mass such that it
+coincides with the desired origin of coordinates (center of the
+spherical simulation box).
+
+Once the system is initialized, for each MC step, a ran-
+domly selected particle is displaced a random distance and
+another randomly chosen particle is displaced by the same
+amount but in opposite direction, which maintain the center of
+mass fixed. This trial displacement of the two particles is ac-
+cepted or rejected according to the standard Metropolis algo-
+rithm. The maximum displacement is adjusted during equili-
+bration to get an average acceptance of 50% of the trial moves.
+In each simulation, 10’ equilibration and 10’ production steps
+were performed to get reliable statistics.
+
+The pressure p is calculated by averaging the virial. In or-
+der to measure the chemical potential 4, we implement the
+Widom insertion method for a spatially inhomogeneous sys-
+tem®- in which the excess chemical potential is calculated
+as
+
+Me = F°(N+1,V,T)—F°(N,V,T)
+
+_ Pueilr) V
+ky in (Parc aot): (13)
+
+where py+1(r) is the density at the attempted insertion point
+of the simulation with N + 1 particles and 5U(r) is the inter-
+action energy of the test particle. For all practical purposes,
+except for very small N, py+i(r)/(N +1) ~ py(r)/(N), and
+Ly’ can be calculated with the density profile from the same
+simulation with N particles. We verified that, after equili-
+bration, the excess chemical potential is indeed uniform?3,
+even in the presence of a drop. The chemical potential ju is
+obtained from py using the leading order finite size correc-
+tion ws ~ py —1/2(0 py /An)|n—n. This correction is neg-
+ligibly small in most cases. In order to compute p(r), the
+spherical simulation box is divided into 20 spherical shells
+with the same radial thickness. Then, every 100 MC step, the
+histogram of particles’ position normalized by the shell vol-
+ume enclosed in each bin is computed to get the radial density
+profile. The reported values of the chemical potential are av-
+erages over the 10 most external bins.
+Although the method does not require computing the clus-
+ter size, for the sake of comparison, we implemented an algo-
+rithm to measure the size of the largest liquid cluster using the
+ten Wolde-Frenkel cluster criterion®, with the requirement of
+having at least 5 neighbors within a distance smaller than the
+Stillinger radius of 1.50 to be classified as a liquid-like parti-
+cle. The results are compared to the critical cluster size esti-
+mated from the excess in the Appendix.
+
+IV. RESULTS
+
+Figure 2 shows the values of the pressure and the excess
+chemical potential of a set of MC simulations for V = 20000°
+and N ranging from | to 600. The values of these two proper-
+ties corresponding to the EoS of Heier et al.® are also plotted
+for comparison. A good agreement between the simulations
+and the EoS is observed for small values of N, corresponding
+to the situation where the system is dilute and the stable phase
+is a uniform vapor. However, the simulation values start to
+deviate noticeably from the EoS for N = 60 when the liquid
+cluster is formed.
+
+By numerically integrating the chemical potential using
+Eq. (6) with Nin = 1 and a given number of molecules N,
+we obtain the Helmholtz free energy difference AF(N,V,T)
+between the simulated system and a uniform vapor. This al-
+lows us to detect the formation of a droplet in the system and
+to infer its stability. Specifically, at constant temperature and
+volume, we have
+
+N
+AF(N,V,T) = [
+INmin
+
+[uN —wy(N] dN’, (14)
+where p“(N’) is the excess chemical potential measured in
+the simulation with N’ particles, and p1§*(N’) is the excess
+chemical potential of the uniform vapor with density po =
+N’/V at a temperature T obtained from the EoS®’. The re-
+sulting AF is shown in Fig. 3 as a function of the total number
+of molecules N in the simulation box. We see that AF is zero
+for N small, since the system is dilute and the vapor is the sta-
+ble phase, indicating that no cluster is formed. As N increases,
+we start to get negative values of AF, characteristic of a sta-
+ble cluster coexisting with its vapor at a chemical potential
+LL(N). This stable cluster in the canonical ensemble satisfies
+the equilibrium conditions given by Eqs. (1) and (2). If in-
+stead of fixing the number of particles, we fix the value of the
+chemical potential in the simulation to 1(N), this cluster will
+correspond to the critical cluster in the “VT ensemble, which
+is the only solution of Eqs. (1) and (2) under those constraints.
+
+According to our method, the free energy of formation of
+such critical cluster is obtained by means of Eq. (10). Notice
+that the computation of AF and the EoS itself are not required
+to obtain the height of the nucleation barrier AQ*. The empty
+blue symbols in Fig. (4) represent the result of this calcula-
+tion, plotting parametrically AQ* versus the supersaturation
+defined as Au,(N) = U(N) — Ueoer, Where Lcoex is the chemi-
+cal potential at coexistence given by the EoS®’. For small N,
+the density is low and the system remains in the vapor phase.
+In this case AQ* is essentially zero, signaling the absence of
+
+-0.01
+
+-0.02
+
+0 100 200 300 400 500 600
+
+(a)
+
+0 100 200 300 400 500 600
+N
+
+(b)
+
+FIG. 2: Average values of the (a) pressure p and (b) excess chemical
+potential 1, as a function of the number of particles N in the simulation box,
+for V = 20000° and T = 0.625. The dots are the results of the simulations,
+and the lines represent the values of the EoS for the homogeneous fluid by
+Heier et al®’. The shaded area depicts the standard deviation and the dashed
+blue line in (a) represents the value of the pressure at coexistence.
+
+any liquid cluster. As we keep increasing N, a significant nu-
+cleation barrier appears at Au; ~ 1.7 kgT, and gets larger as
+N increases and Au,(N) decreases. The values of AQ* in this
+branch correspond to the free energy of formation of increas-
+ing large critical clusters surrounded by a vapor with a su-
+persaturation Aus. The first few points of this barrier at the
+largest values of supersaturation are noisy and should not be
+considered, since they correspond to the evaporation transi-
+tion of the cluster in the canonical ensemble**. Moreover, the
+points with the higher values of AQ* are also not very accu-
+rate since they correspond to a large cluster confined in a vol-
+ume so small that the density profile cannot reach the value of
+the bulk metastable vapor density at its periphery. Therefore,
+as a guiding principle, accurate values of the work of cluster
+-100
+
+-300
+
+-400
+
+0 100 200 300 400 500 600
+N
+
+FIG. 3: Helmholtz free energy of formation of the stable cluster as a
+function of the total number of particles in the simulation box N, for
+V = 20000 and T = 0.625. The estimated error bars are smaller than the
+
+symbol size.
+200
+3 * V=20000°
+175 (o @ US
+150
+
+AQ Ika
+3
+2
+
+FIG. 4: Grand free energy of formation of the critical cluster, AQ*, as a
+function of the supersaturation Aus, for V = 200063 and T = 0.625. The
+empty blue symbols correspond to all simulated values of N in the range
+from N = | to N = 600. The filled dark blue symbols indicate the range of
+values that are expected to be more accurate. The black empty circles
+represent the value of the Gibbs free energy of formation as a function of the
+supersaturation obtained using Umbrella Sampling simulation data from Ref.
+68. The shaded area represents the estimated standard deviation in AQ*.
+
+formation are expected in the region of N’s between the for-
+mation of truly stable clusters (AF < 0) and densities N/V
+smaller than Pgos(Peoex), i.e. the value of the density from the
+unstable branch of the EoS having the same pressure as the co-
+existence value. (For densities larger than this one could think
+of having a stretched fluid rather than a supersaturated vapor
+as a putative reference metastable state). For V = 2000 o,
+this range corresponds to 75 < N < 250 and it is indicated in
+Fig. (4) with solid dark blue symbols.
+
+Notice that the plot in Fig. (4) is not a free energy landscape
+for a fixed supersaturation. Each point corresponds to the nu-
+
+cleation barrier at one supersaturation. In this way, with this
+set of simulations we obtain a whole set of barrier heights in a
+large range of supersaturations, that will require several differ-
+ent simulations by a standard US technique. It is remarkable
+that, in this example, only up to 250 molecules are needed
+for getting reliable values of nucleation barriers between 20
+and 80 kgT for a wide range of supersaturations. This feature
+makes the FRESC method particularly attractive for studying
+complex systems or intermolecular potentials that are not easy
+to simulate with other techniques.
+
+As a side benefit, since in each simulation the cluster that
+is formed is stable, its properties can be sampled with a lot of
+accuracy limited only by the statistic sampling. For instance,
+some examples of radial density profiles and the size of the
+stable cluster according to the ten Wolde-Frenkel cluster cri-
+teria are shown in the Appendix.
+
+A. Comparison with Umbrella Sampling
+
+In order to test the FRESC method, we contrasted our
+results with previous data from Umbrella Sampling (US)
+Monte Carlo simulations in the NPT ensemble for the same
+LJTS(2.5 ©) fluid, evaluating the Gibbs free energy of forma-
+tion of the critical cluster for different values of the pressure®®,
+at reduced temperature of T = 0.625. Those simulations re-
+quired the use of a cluster criteria and were performed with
+10000 particles using 40 umbrella windows to generate each
+point. In order to make a comparison, the values of the va-
+por pressure reported in those simulations were converted to
+the corresponding chemical potential and supersaturation us-
+ing the EoS for the homogeneous vapor®”’. Figure 4 shows the
+comparison between the two datasets. The figure reveals that
+the free energies of formation are in excellent agreement in
+the whole range of supersaturations, and are even close in the
+regions where the simulation results are expected to be not so
+accurate (corresponding to the empty blue circles).
+
+It is important to emphasize that the FRESC method does
+not rely on the validity of Classical Nucleation Theory, nor
+require the use of any cluster criteria or reaction coordinate.
+But of course, we can use one a specific criteria to determine
+the size and properties of the stable cluster, as it is shown in
+the Appendix.
+
+V. SCALING WITH THE VOLUME
+
+It is also important to analyze how the results depend on the
+value of the volume V used in the simulations. Accordingly,
+we have performed simulations for different values of V at the
+same temperature T = 0.625.
+
+Figure 5 shows the results for the free energy of formation
+of the critical cluster AQ* for different volumes in the range
+from V = 250 0° to V = 8000 o®. In all cases, only values of
+the nucleation barrier in a range of sizes N are shown, since
+for small N no cluster forms and for large N the results might
+not be accurate since there are very few vapor molecules.
+More specifically, Fig. 5 shows the results obtained using
+3m © V=2500°
+250) % © V=5000°
+| 3
+V=1000 0
+
+050 075 1.00 1.25 150 175 200 225
+Au,/kgT
+
+FIG. 5: Free energies of formation of the critical cluster, AQ* as a function
+of the supersaturation Au,, at 7 = 0.625 for different simulations with
+V =250 03, V = 500 67, V = 1000 03, V = 2000 67, V = 4000 0%, and
+V = 8000 o°. The filled circles are the results of the simulations, and the
+open circles represent the values of previous US simulations of Ref. 68. The
+shaded area represents the estimated standard deviation in AQ*.
+
+V = 2500%, with N from 14 to 30; V = 50003, with N from
+35 to 60; V = 10000%, with N from 50 to 120; V = 20000,
+with N from 75 to 250; V = 400003, with N from 120 to
+500; and V = 800003, with N from 200 to 900. Remarkably,
+despite the wide range of volumes and particle numbers, all
+simulations nicely collapse onto a single curve, that coincides
+with the results obtained from US simulations at a much larger
+computational cost (40 windows with 10* molecules for each
+point in the US simulations vs. a set of typically 200 simula-
+tions with less than 500 molecules in the FRESC method with-
+out any biasing, cluster criteria or complex reweighting recon-
+struction involved). Notably, these simulations also yield an
+estimate of the nucleation barriers at extremely high supersat-
+urations very close to the spinodal limit (which, according to
+the EoS is predicted to be at Aus = 2.0 kgT), in a region where
+it was not possible to get reliable results using US simulations.
+
+It is specially important to highlight that for the barrier
+heights of interest for condensation at experimental condi-
+tions, the typical critical cluster sizes are on the order of 100
+molecules. These clusters could be characterized very effi-
+ciently with the new method using simulations with up to 200
+or 300 molecules.
+
+VI. CONCLUSIONS
+
+We have presented a new simulation method to evaluate the
+free energy of formation of critical clusters, which is the cru-
+cial ingredient in nucleation theory. The FRESC method is
+simple, efficient, uses a small number of molecules N, is not
+based on the validity of CNT, and does not require any re-
+action coordinate or order parameter. The method relies on
+the use of the NVT ensemble to generate a stable cluster that
+would correspond to the critical cluster in the NPT or uVT
+
+ensemble of interest for nucleation.
+
+The method has been illustrated by performing Monte
+Carlo simulations for a system of particles interacting with a
+Lennard-Jones potential truncated and shifted at 2.5 o, inside
+a spherical volume at reduced temperature of T = 0.625. We
+have shown that the results of the new method compare well
+with MC Umbrella Sampling simulations, at a much reduced
+complexity and computational cost. We can even explore ex-
+tremely high supersaturations close to the spinodal where US
+or other methods cannot be easily used.
+
+The accuracy of the method can be further improved by go-
+ing beyond the approximation 69 = Fy* + po‘V — ug‘N = 0,
+used in Eq. (9), which is strictly valid only in the thermo-
+dynamic limit. Indeed, in the simulations we find that & is
+different from zero even in the uniform vapor phase. This
+correction is small in the present case, but can be higher at
+temperatures close to the critical point. A simple and approx-
+imate way to introduce this correction would be to follow the
+same strategy performed in Ref.°? and remove from Eq. (9)
+the value of 6 from the metastable vapor branch (the lower
+branch with empty symbols in Fig. 4) having the same super-
+saturation. Another computational alternative would be the
+use of the restricted ensemble to stabilize the metastable
+vapor phase for large densities and estimate 4). However,
+those are just approximations and a careful estimation of the
+finite size correction for very small sizes following the ideas
+of Hill’s small systems thermodynamics”! will be per-
+formed in the future. The FRESC method in its present form is
+also not suited to simulate very large systems or cluster sizes.
+In that case, the transition between the vapor and the droplet in
+the canonical ensemble will show a hysteresis loop that should
+be corrected in order to evaluate the work of formation from
+thermodynamic integration. Moreover, small clusters cannot
+be stabilized in very large volumes**7?.
+
+Although we have applied the method to study conden-
+sation in a simple Lennard-Jones fluid, it can be applied to
+much more complicated substances and complex intermolecu-
+lar potentials inaccessible for other simulation techniques that
+would require a much larger number of particles.
+
+The method can also be straightforwardly extended to other
+nucleation phenomena like cavitation, bubble formation, crys-
+tallization or binary or heterogeneous nucleation. The FRESC
+technique will open the door to accurate simulations and pre-
+dictions of nucleation barriers and rates for substances of in-
+dustrial or atmospheric interest.
+
+ACKNOWLEDGMENTS
+
+This paper is dedicated to Carlos Vega on the occasion
+of his 60th birthday. His passion for science and his hu-
+man values are an inspiration for all of us. We wish
+to acknowledge fruitful discussions with V. Molinero and
+P. Montero de Hijes, and funding from grants PID2021-
+126570NB-I00 and PID2024-156516NB-I00 financed by MI-
+CIU/AEI/10.13039/501100011033 and FEDER/UE.
+Conflicts of Interest: The authors declare no conflict of in-
+terest.
+1000 © V=2500°
+° V=5000°
+Bo * V=10000°
+* V=20000°
+600 4
+te * V=40000
+400 * V=80000°
+¢ US
+200
+0 OO © 9-9-0 SeeesD--
+
+0.50 075 100 1.25 150 1.75 2.00 225
+AyglkgT
+
+FIG. 6: Comparison between the critical cluster size for US data in Ref.*
+and our simulations, versus the supersaturation, for a LJTS(2.5 ©) fluid at
+
+T =0.625.
+1000 V=2500°
+V=500 0°
+B00 V=1000 o°
+g V=2000 0°
+= 600 3
+7" V=4000 o
+= 400 V=8000 0°
+Us
+200
+0 © 20Ge -_|
+0.50 0.75 1.00 1.25 1.50 1.75 2.00 2.25
+
+AuglkgT
+
+FIG. 7: Comparison between the excess number of molecules Ngyo) —Nvap
+obtained as indicated in Fig. 8 and the critical cluster size for US data in
+Ref.®8, versus the supersaturation, for a LITS(2.5 o) fluid at T = 0.625.
+
+DATA AVAILABILITY STATEMENT
+
+The data that support the findings of this study are available
+from the corresponding author upon reasonable request.
+
+Appendix: Critical cluster size and density profiles
+
+Figure 6 shows the size of the critical cluster versus the
+supersaturation, determined in our simulations using the ten
+Wolde-Frenkel cluster criteria with a Stillinger radius 1.5 o
+and requiring at least 5 neighbors for a particle to be identified
+as liquid-like. We compare the results with those of the US
+simulations of Ref. 68, obtaining a good agreement.
+
+The size of the critical cluster can also be estimated without
+
+0.25
+
+0.00
+
+0 100 200 300 400 500 600
+N
+
+FIG. 8: Value of the supersaturation Au, obtained from the simulations
+performed with V = 20000° and different number of molecules N. For any
+specific value of the supersaturation Au,, indicated by the blued dashed line,
+
+there are two simulations sizes Ng;op and N,ap), corresponding to a drop
+surrounded by vapor, and uniform vapor, respectively, both having the same
+supersaturation. The difference Naroy —Nyap is a measure of the molecular
+excess of the drop plotted in Fig. 7.
+
+FIG. 9: Radial density profiles for a volume V = 2000 0°, and sizes
+N= 100, N = 250 and N = 500 at T = 0.625. The bulk liquid density of the
+LJTS(2.5 o) at T = 0.625 is shown as a reference.
+
+resorting to any cluster criterion by evaluating the excess num-
+ber of molecules between a simulation with a drop Ngrop(AUs)
+and the simulation with a uniform vapor Nyap (Aus) having the
+same chemical potential Au, (see Fig. 8). The resulting val-
+ues are represented in Fig. 7, compared against those of the
+US simulations. We can see that for the smaller clusters, the
+molecular excess is consistently larger than the sizes identified
+by the ten Wolde-Frenkel cluster criteria.
+
+Finally, Fig. 9 illustrates the radial density profile of three
+stable clusters for V = 2000 o? and N = 100, N = 250 and
+N = 500. We can see that for N = 500, the volume of the
+container is similar to the droplet size and the density profile
+cannot reach that of the bulk metastable vapor at the periphery.
+Therefore, if one is also interested in the microscopic proper-
+ties of the critical cluster, the fact that the canonical ensemble
+stabilizes the cluster enables accurate sampling of those prop-
+erties.
+
+'R Abraham, Homogeneous Nucleation Theory: The Pretransition Theory
+of Vapor Condensation (Academic Press, 1974).
+
+2A. Laaksonen, V. Talanquer, and D. W. Oxtoby, Annual Review of Physical
+Chemistry 46, 489 (1995).
+
+3P. G. Debenedetti, Metastable Liquids: Concepts and Principles (Princeton
+University Press, 1996).
+
+4D. Kashchiev, Nucleation: Basic Theory with Applications (Butterworth-
+Heinemann, 2000).
+
+5H. Vehkamiiki, Classical Nucleation Theory in Multicomponent Systems
+(Springer-Verlag, 2006).
+
+®R. Becker and W. Doring, Ann. Phys. 24, 719 (1935).
+
+7y. B. Zeldovich, Zh. Teor. Eksp. Fiz 12, 525 (1942).
+
+81. Farkas, Zeitschrift fiir physikalische Chemie 125, 236 (1927).
+
+°M. Volmer and A. Weber, Z. Phys. Chem. 119, 277 (1926).
+
+10) W. Gibbs, The Scientific Papers of J. Willard Gibbs (Ox Bow Press, Lon-
+don, 1993).
+
+1K. Tland, J. Wélk, R. Strey, and D. Kashchiev, The Journal of chemical
+physics 127, 154506 (2007).
+
+12). Wedekind, J. Wolk, D. Reguera, and R. Strey, The Journal of Chemical
+Physics 127, 154515 (2007).
+
+'3J. Diemand, R. Angélil, K. K. Tanaka, and H. Tanaka, Physical Review E
+90, 052407 (2014).
+
+4] Wedekind, R. Strey, and D. Reguera, The Journal of chemical physics
+126, 134103 (2007).
+
+'5J. Wedekind and D. Reguera, The journal of physical chemistry. B 112,
+11060 (2008).
+
+6B EB. Wyslouzil and J. Wélk, The Journal of Chemical Physics 145, 211702
+(2016).
+
+7c. Liand R. Signorell, Journal of Aerosol Science 153, 105676 (2021).
+
+'8C. Dellago, P. G. Bolhuis, and P. L. Geissler, “Transition path sampling,” in
+Advances in Chemical Physics, edited by S. A. R. I. Prigogine John Wiley
+& Sons, 2003) pp. 1-78.
+
+19> G. Bolhuis, D. Chandler, C. Dellago, and P. L. Geissler, Annual Review
+of Physical Chemistry 53, 291 (2002).
+
+20R. J. Allen, C. Valeriani, and P. R. T. Wolde, Journal of Physics Condensed
+Matter 21, 463102 (2009).
+
+21.4. Barducci, M. Bonomi, and M. Parrinello, WIREs Computational Molec-
+ular Science 1, 826 (2011).
+
+2G. Torrie and J. Valleau, Journal of Computational Physics 23, 187 (1977).
+
+23D—. Frenkel and B. Smit, Understanding molecular simulation: from algo-
+rithms to applications (Academic Press, San Diego, 2002).
+
+ATR, Espinosa, C. Vega, C. Valeriani, and E. Sanz, Journal of Chemical
+Physics 144 (2016), 10.1063/1.4939641.
+
+25P. Rosales-Pelaez, M. I. Garcia-Cid, C. Valeriani, C. Vega, and E. Sanz,
+Physical Review E 100 (2019), 10.1103/PhysRevE.100.052609.
+
+26J. Lee, J. Barker, and F. Abraham, The Journal of Chemical Physics 58,
+3166 (1973).
+
+27K. Binder, The Journal of Chemical Physics 63, 2265 (1975).
+
+28M. Rao, B. J. Berne, and M. H. Kalos, The Journal of Chemical Physics
+68, 1325 (1978).
+
+294 J.-M. Yang, The Journal of Chemical Physics 79, 6289 (1983).
+
+304. Yang, The Journal of Chemical Physics 82, 2082 (1985).
+
+31D. Lee, M. da Gama, and K. Gubbins, The Journal of chemical physics 85,
+490 (1986).
+
+*2V. Talanquer and D. W. Oxtoby, The Journal of Chemical Physics 100, 5190
+(1994).
+
+33C_ L. Weakliem and H. Reiss, Journal of Chemical Physics 99, 5374 (1993).
+
+Mp, Reguera, R. K. Bowles, Y. Djikaev, and H. Reiss, The Journal of Chem-
+ical Physics 118, 340 (2003).
+
+2p. Rosales-Pelaez, I. Sanchez-Burgos, C. Valeriani, C. Vega, and E. Sanz,
+Physical Review E 101, 022611 (2020).
+
+36P M.D. Hijes, J. R. Espinosa, V. Bianco, E. Sanz, and C. Vega, Journal of
+Physical Chemistry C 124, 8795 (2020).
+
+37. Sanchez-Burgos, P. M. De Hijes, P. Rosales-Pelaez, C. Vega, and E. Sanz,
+Physical Review E 102, 1 (2020).
+
+38P M.D. Hijes, J. R. Espinosa, V. Bianco, E. Sanz, and C. Vega, Journal of
+Physical Chemistry C 124, 8795 (2020).
+
+9D. J. McGinty, The Journal of Chemical Physics 58, 4733 (1973).
+
+404. Rusanov and E. Brodskaya, Journal of Colloid and Interface Science 62,
+542 (1977).
+
+41K. Binder, Physica A 319, 99 (2003).
+
+*L. G. MacDowell, P. Virnau, M. Miiller, and K. Binder, Journal of Chemi-
+cal Physics 120, 5293 (2004).
+
+‘SL. G. MacDowell, V. K. Shen, and J. R. Errington, The Journal of chemical
+physics 125, 34705 (2006).
+
+44M. Schrader, P. Virnau, and K. Binder, Physical Review E 79, 061104
+(2009).
+
+‘5B. J. Block, S. K. Das, M. Oettel, P. Virnau, and K. Binder, The Journal of
+chemical physics 133, 154702 (2010).
+
+46K. Binder, B. J. Block, P. Virnau, and A. Tréster, American Journal of
+Physics 80, 1099 (2012).
+
+474. Tréster, M. Oettel, B. Block, P. Virnau, and K. Binder, The Journal of
+Chemical Physics 136, 064709 (2012).
+
+48. Statt, P. Virnau, and K. Binder, Physical Review Letters 114, 026101
+(2015).
+
+49 A. Troster, F. Schmitz, P. Virnau, and K. Binder, Journal of Physical Chem-
+istry B 122, 3407 (2018).
+
+>°P. KoB, A. Stat, P. Virnau, and K. Binder, Molecular Physics 116, 2977
+(2018).
+
+514. V. Neimark and a Vishnyakov, Physical Review E 62, 4611 (2000).
+
+24. V. Neimark and A. Vishnyakov, Journal of Chemical Physics 122,
+174508 (2005).
+
+53. V. Neimark and A. Vishnyakov, Journal of Physical Chemistry B 109,
+5962 (2005).
+
+“44. V. Neimark and A. Vishnyakov, Journal of Physical Chemistry B 110,
+9403 (2006).
+
+55. Li, M. Paloni, A. R. Finney, A. Barducci, and M. Salvalaglio, Journal of
+Physical Chemistry Letters 14, 1748 (2023).
+
+L. Li, Bachtiger, A. Finney, and M. Salvalaglio,
+10.26434/chemrxiv-2025-w9xfh.
+
+57P, Reguera and H. Reiss, J. Phys. Chem. B 108, 19831 (2004).
+
+®8D. Reguera and H. Reiss, Physical Review Letters 93, 165701 (2004).
+
+*°@ivind Wilhelmsen and D. Reguera, The Journal of Chemical Physics 142,
+064703 (2015).
+
+607. L. Hill, Thermodynamics of Small Systems, Parts I & H (Dover Publica-
+tions, 2013).
+
+6B. Widom, The Journal of Chemical Physics 39, 2808 (1963).
+
+©B. Widom, Journal of Statistical Physics 19, 563 (1978).
+
+3. Perego, O. Valsson, and M. Parrinello, The Journal of Chemical Physics
+149 (2018), 10.1063/1.5024631.
+
+QJ. Hong and A. V. D. Walle, Journal of Chemical Physics 137 (2012),
+10.1063/1.4749287.
+
+SIT, Siepmann, I. R. McDonald, and D. Frenkel, Journal of Physics: Con-
+densed Matter 4, 679 (1992).
+
+66P R. ten Wolde and D. Frenkel, The Journal of Chemical Physics 109, 9901
+(1998).
+
+67M. Heier, S. Stephan, J. Liu, W. G. Chapman, H. Hasse, and K. Langen-
+bach, Molecular Physics 116, 2083 (2018).
+
+68. Aasen, Givind Wilhelmsen, M. Hammer, and D. Reguera, The Journal
+of Chemical Physics 158, 114108 (2023).
+
+6D. S. Corti and P. G. Debenedetti, Chemical Engineering Science 49, 2717
+(1994).
+
+7y, Braten, Qivind Wilhelmsen, and S. K. Schnell, Journal of Chemical
+Information and Modeling 61, 840 (2021).
+
+7!y, Braten, D. Bedeaux, @ivind Wilhelmsen, and S. K. Schnell, The Journal
+of Chemical Physics 155 (2021), 10.1063/5.0076684.
+
+”@ivind Wilhelmsen, D. Bedeaux, S. Kjelstrup, and D. Reguera, The Journal
+of chemical physics 141, 071103 (2014).
+
+(2025),

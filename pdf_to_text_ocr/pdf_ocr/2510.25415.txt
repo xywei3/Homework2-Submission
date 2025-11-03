@@ -1,0 +1,1391 @@
+2510.25415v1 [cond-mat.mes-hall] 29 Oct 2025
+
+arXiv
+
+Effects of interlayer Dzyaloshinskii—Moriya interaction on the shape and dynamics of
+magnetic twin-skyrmions
+
+Tim Matthies,! Levente Rézsa,?*
+
+3 Roland Wiesendanger,! and Elena Y. Vedmedenko!
+
+‘Department of Physics, University of Hamburg, 20355 Hamburg, Germany
+? Department of Theoretical Solid State Physics, Institute for Solid State Physics and Optics,
+HUN-REN Wigner Research Centre for Physics, H-1525 Budapest, Hungary
+° Department of Theoretical Physics, Institute of Physics,
+
+Budapest University of Technology and Economics, Mtiegyetem rkp. 3, H-1111 Budapest, Hungary
+
+(Dated: October 30, 2025)
+
+Magnetic skyrmions have been proposed as promising candidates for storing information due to
+
+their high stability and easy manipul
+properties are influenced by the interla
+
+lation by spin-polarized currents. Here, we study how these
+yer Dzyaloshinskii—Moriya interaction (IL-DMI), which stabi-
+
+lizes twin-skyrmions in magnetic bilayers. We find that the spin configuration of the twin-skyrmion
+
+adapts to the direction of the IL-DMI
+
+y elongating or changing the helicities in the two layers. Driv-
+
+ing the skyrmions by spin-polarized currents in the current-perpendicular-to-plane configuration, we
+
+observe significant changes either in t:
+
+he skyrmion velocity or in the skyrmion Hall angle depending
+
+on the current polarization. These findings unravel further prospects for skyrmion manipulation
+
+enabled by the IL-DMI.
+
+Chirality is an intriguing physical property of key im-
+ortance for modern spintronic devices. The manipula-
+ion of chiral magnetic textures has become the focus of
+many applications, such as magnetic memories, logic de-
+vices, neuromorphic and unconventional computing [I}
+[5]. While most studies have focused on planar geome-
+ries, recent investigations of spin structures modulated
+in all three dimensions have opened new prospects for
+3D spintronics. Three-dimensional spin structures have
+een studied in bulk chiral magnets [6][7], curvilinear sys-
+ems specially shaped nanomagnets [9], and magnetic
+multilayers [10].
+
+Skyrmions in synthetic antiferromagnets, constructed
+from ferromagnetic layers coupled by the interlayer ex-
+change interaction (IEC), provide an example of such
+3D structures 116]. A two-dimensional skyrmion
+is formed inside each layer, with the spin directions in
+he skyrmions being reversed between the layers due to
+he antiferromagnetic coupling. Skyrmions may often be
+characterized by two independent parameters : the
+vorticity and the helicity. The vorticity is the integer
+winding number determining how many times and in
+which direction the in-plane spins wind around the out-
+of-plane spin in the center, which determines the topo-
+logical charge Q when also considering the direction o
+the center spin. The helicity angle characterizes the ro-
+tational sense of the spins when moving along the ra-
+dial direction out from the center, including Bloch-type
+and Néel-type rotations. The total topological charge o
+synthetic antiferromagnetic skyrmions is zero due to the
+symmetric but opposite magnetization between the lay-
+ers, which forces the skyrmions to move along the driving
+spin-polarized current in the current-in-plane (CIP) ge-
+ometry, leading to a suppression of the skyrmion Hal
+effect [18]. The cancellation of the topological charge
+also strongly enhances the diffusion in these systems [19].
+The helicity influences the direction of skyrmion motion
+in the current-perpendicular-to-plane (CPP) geometry as
+
+well [20H22], which includes the effect of the so-called
+spin-orbit torque [23]. Quantum helicity eigenstates have
+been proposed as a basis for skyrmion qubits [24]. The
+helicity has been demonstrated to vary in thick magnetic
+multilayers due to demagnetization effects [10], and it
+may also be influenced by strain and an external mag-
+
+netic field [25].
+
+The antisymmetric counterpart of the IEC is the in-
+terlayer Dzyaloshinskii—Moriya interaction (IL-DMI) [26]
+[27]. This chiral coupling leads to a non-zero chirality
+between the layers [28}{32], which could facilitate field-
+free spin-orbit torque switching of the magnetization [33].
+However, the influence of the IL-DMI on the equilibrium
+structure and the dynamics of skyrmions in multilayers
+remains unexplored.
+
+Here, we demonstrate that when two magnetic lay-
+ers hosting skyrmions are coupled via IL-DMI, a three-
+dimensional topological structure becomes stable, which
+we call a twin-skyrmion. We study the structure and
+the current-driven motion of such twin-skyrmions using
+atomistic spin-dynamics simulations, which are found to
+be in favorable agreement with semi-analytical calcula-
+tions of the skyrmion profile and the analytical descrip-
+tion of the dynamics based on a collective-coordinate ap-
+proach. Our theoretical calculations show that the size
+and shape of magnetic twin-skyrmions can be effectively
+controlled by the IL-DMI, while the helicity may differ
+in the top and bottom magnetic layers. These changes
+in the skyrmion profiles are demonstrated to influence
+the velocity and the skyrmion Hall angle. Since the IL-
+DMI can be manipulated by electric fields in synthetic
+magnetic bilayers [34], twin-skyrmions may be promis-
+ing candidates for spintronic applications based on three-
+dimensional spin structures.
+
+Top magnetic layer
+
+Bottom magnetic layer
+
+FIG. 1. Effect of IL-DMI on Néel-type twin-skyrmions. A schematic of the physical system studied here is shown on the left,
+consisting of two magnetic layers and a non-magnetic layer between them. The contributions to the Hamiltonian in Eq.
+from the different layers are written inside them. Without IL-DMI the material can host typical Néel-type skyrmions, as seen
+in (a). If the IL-DMI lies in the wy plane, the twin-skyrmion becomes elongated along the direction of the IL-DMI vector, as
+seen in (b) and (c). Finally, if the IL-DMI points into the out-of-plane z direction, the skyrmions in the two layers twist relative
+to each other by changing their helicities. The parameters are J = 12 meV, |D'"| = 3meV, |J'"| = 0.6meV, B* = —3.5T.
+The IL-DMI is D' = 0 for (a), D'’ = 8meV - X for (b), D'’ = 8meV - y for (c), and D'’ = 1meV -@ for (d).
+
+RESULTS
+Twin-skyrmions formed by IL-DMI
+
+Isolated skyrmions may be stabilized in the magnetic
+layers by applying an out-of-plane external magnetic
+field, which polarizes the spins along its direction. In
+the considered system, these structures are cylindrically
+symmetric, and may be described in the continuum limit
+in polar coordinates (p, ¢) as follows,
+
+Oi(p,9) = Orl(p), Bile, y) = Biv) = met, (1)
+where 1 is the layer index, © and © specify the spin direc-
+tions in spherical coordinates, m is the winding number
+or vorticity of the skyrmion, and 7) is its helicity. The
+topological charge is given as Q = p-m, where p is the
+polarity, ie., the sign of the out-of-plane spin component
+in the center of the skyrmion. In Fig. [I] skyrmions with
+are favored by the IF-DMI, and the external field
+is applied along the —z direction, resulting in p = 1 and
+Q = 1. We will primarily consider IF-DMI preferring a
+Néel-type rotation, resulting in ~ = 0 or a depending
+on its sign; but we will also discuss the generalization to
+Bloch-type rotation with ~ = 1/2 or —1/2, preferred by
+DMI vectors along the lines connecting neighboring sites.
+
+The possible effects of the IL-DMI on the shapes of
+the skyrmions are summarized in Fig. Considering
+only the ferromagnetic IEC, the horizontal positions of
+the skyrmions in the two layers become locked to each
+other, but their shape remains unaffected, as shown
+in Fig. fifa). Including the IL-DMI, a finite angle is
+opened between the spins above each other in the two
+
+m=
+
+layers. For two ferromagnetic layers, this angle is given
+by a = arctan (jp™ 7") [35], and the magnetic mo-
+ments will align in the plane perpendicular to the IL-
+DMI. Here, the skyrmions in the two layers deform dif-
+ferently to maximize their energy gain from the IL-DMI,
+and form an object which we call twin-skyrmion. For
+example, in Fig. [ifb) the IL-DMI points in the x direc-
+ion, preferring a tilting between the two layers in the
+yz plane. The out-of-plane polarized background in the
+op layer tilts towards the positive y direction, while in
+che bottom layer it tilts towards the negative y direc-
+sion, as shown by the white arrows in Fig. fifb). For a
+Néel-type skyrmion shown in the figure, the spins above
+and below the skyrmion center point along the positive
+or negative y direction, and the system gains energy by
+enlarging these areas, resulting in an elongation along
+che a direction and a small shift of the skyrmion cen-
+ers in the two layers oppositely along the y direction.
+When the IL-DMI points along the y direction instead,
+he polarized background tilts towards the negative and
+positive x directions in the first and second layers, and
+he twin-skyrmion becomes elongated along the y direc-
+ion, as shown in Fig. fife). For Bloch-type skyrmions,
+he in-plane spin components are rotated by 90 degrees;
+consequently, the elongation can also be observed per-
+pendicular to the direction of the IL-DMI. The direction
+of elongation may be generally expressed as
+
+R=+
+
+iL cosy —sinw D* (2)
+7 [D2 + D2 siny cosy DY}?
+
+where D, and Dy are components of the IL-DMI vector,
+w is the helicity, and the + denotes that the structure
+
+N
+fo)
+fo)
+
+Dit [meV]
+br
+NI
+ul
+
+a
+N
+u
+
+1.00
+0.50
+0.00
+-0.50
+-1.00
+
+1.00 1.25 1.50 1.75 2.00
+J! [mev]
+
+u
+oO
+Skyrmion size ratio R,/Ry
+
+r
+°o
+S
+
+FIG. 2. Elongation of Néel-type twin-skyrmions depending
+on the IEC J™ and IL-DMI Dl”. The parameters are J'* =
+6meV, |D™| = 1.5meV, Di’ = Di’ = 0, and B* = 1.4T.
+For relaxing the structures, the damping parameter a = 1
+was used, and the simulation was run for 5 x 10° time steps,
+ie., 10ns. In the points shown in white, the elongation of the
+twin-skyrmion was unbounded.
+
+remains symmetric between the positive and negative di-
+rections. If the IL-DMI points along the z direction,
+it prefers a rotation in the ry plane, and, for a strong
+enough magnetic field B, it does not influence the po-
+arized background. However, the twin-skyrmion may
+gain energy by changing the helicities in the two layers
+y rotating the in-plane spin components, resulting in
+a negative helicity in the first and a positive helicity in
+he second layer in Fig. fifa). The area of the skyrmion
+where the spins are pointing in the plane is also extended
+compared to Fig. fifa) while retaining its circular shape.
+
+The elongation of the twin-skyrmion for in-plane IL-
+DMI is quantitatively analyzed in Fig We define
+he twin-skyrmion radius as the distance between the
+kyrmion center (O(r) = 7) to a point where the spins
+ie in-plane (O(r) = 7/2), and take the ratio of the radii
+along the x i y directions to obtain the elongation.
+We only consider Néel-type skyrmions elongating along
+he x direction for an IL-DMI along the x direction; the
+results may be generalized to other directions of the IL-
+DMI based on Eq. Q). Generally, R,/Ry increases with
+stronger IL-DMI and decreases with stronger IEC. The
+interactions inside the layer also hinder the elongation of
+he skyrmion, since this represents an energy loss com-
+pared to the circular shape preferred by these couplings.
+For a sufficiently strong IL-DMI, around J‘ = 1meV
+and D! = +1meV in Fig. |2| the elongation becomes
+unbounded. This is similar to the elliptic instability of
+circular isolated skyrmions [86], which may be triggered
+by increasing the IF-DMI. In the conventional elliptic
+instability, the IF-DMI prefers non-collinear structures,
+competing with the polarizing external field; if the IF-
+DMI is sufficiently strong, isolated skyrmions transform
+
+n
+
+(b)
+1 40
+co 0.5 =
+> ees
+v N
+£0 Fa
+on a
+3
+9.0.5 x LLG Sim.
+— Theory
+ty rs 2 25 3 “1 05 0 05 1
+J'* [meV] D! [meV]
+(c)
+T — — JL=1mev
+&, — jit=2 mev
+5 0.5 q — jlL=3 mev
+a ,
+€ 0 2 x LLG Sim.
+= ° —— Theory
+-0.5 5
+un ¥
+tp 1s 2 25 3 721 05 0 05 1
+J'* [meV] D! [meV]
+
+FIG. 3. Change of twin-skyrmion siz
+of-plane IL-DMI. (a) Difference in he’
+ers w1 — we as a function of Div and
+
+e and helicity for out-
+icity between the lay-
+J’. Panel (b) shows
+
+line cuts along the lines colored correspondingly in panel (a);
+crosses represent simulation results while the line shows the
+numerical solution of the equations in the continuum limit, see
+Supplementary Note 1. (c) Twin-skyrmion size for the same
+parameters, with line cuts shown in panel (d). The system pa-
+rameters are J‘ = 6meV, |D™| = 1.5meV, Div = Dy = 0,
+and B* = 3.0T. For relaxing the structures, the damping
+parameter a = 1 was used, and the simulation was run for
+5 x 10° time steps, ie., 10 ns.
+
+into a stripe which eventually fills up the whole area with
+a non-collinear structure. In contrast, the IL-DMI does
+not lead to structures which are modulated in the plane.
+However, spin spirals formed by the IF-DMI may gain
+energy from the IL-DMI by introducing a phase shift be-
+tween the spirals in the two layers, while the IL-DMI
+competes with the out-of-plane field under all circum-
+stances since the latter prefers to align all spins along
+the same direction.
+
+The influence of the out-of-plane IL-DMI on the twin-
+skyrmion is shown in Fig. The change in the helic-
+ity from the value preferred by the IF-DMI, which is
+w = 0 in the figure, has the same magnitude but op-
+posite sign in the two layers. The difference between
+the helicities in the two layers w1 — we, ie., twice the
+leviation from the 7% = 0 value mentioned above, is il-
+lustrated in Fig. Bla). The IL-DMI is responsible for this
+ifference in helicity between the layers, meaning that
+the difference increases with D!“. Changing the sign of
+D' is equivalent to switching the two layers, which re-
+sults in a sign change in the helicity difference. The de-
+pendence of 7, — Wz on D! is approximately linear, as
+shown in the line cuts Fig. |3{b). Increasing the IEC de-
+
+creases the slope of the curve, and stronger interactions
+inside the layers also counteract this difference in helicity;
+e.g., the IL-DMI is competing with the IF-DMI preferring
+a Néel-type rotation in both layers. Since the circular
+shape of the skyrmion is preserved, determining the twin-
+skyrmion profile reduces to a radial differential equation
+in the continuum limit, which can be solved efficiently
+numerically, as presented in Supplementary Note 1. The
+results of this solution compare favorably to the solution
+of the LLG equation on the square lattice, as shown in
+Fig. [3{b). ncreasing the IL-DMI also increases the size
+of the twin-skyrmion, as shown in Fig. Ic). The size is
+ne same for both signs of D!”, and appears to depend
+quadratically on its magnitude, as shown in Fig. [3{d).
+n contrast to the in-plane IL-DMI, the ferromagnetic
+ackground does not always have a finite angle between
+he layers for a finite D!“, since the background spins are
+arallel to the IL-DMI in this case. For J!’ = 1 meV and
+B=3T the IL-DMI D™ has to be larger than 1.15 meV
+o overcome the magnetic field_and open a finite angle.
+We restrict the val tl meV such
+hat the background remains parallel ‘to the z direction.
+We derive the formula for the threshold value of D™ in
+Supplementary Note 4.
+
+Current-driven motion
+
+We study the current-driven dynamics of the twin-
+skyrmions in the CPP geometry. For low driving cur-
+rents which do not deform the skyrmion considerably,
+the position of the center of mass of the skyrmions may
+be treated as a collective coordinate, and internal degrees
+of freedom may be neglected. In this approximation, the
+velocity v and thus the motion of the skyrmion under
+CPP can be described by the Thiele equation [37],
+
+Gxvt+ad-v=F=B-P, (3)
+
+which has been demonstrated to describe skyrmion dy-
+namics with high accuracy [21]. Here, the gyrocoupling
+vector G is given by G = —4rp.a~*y~!Qé., with Q
+being the topological charge and a the in-plane lattice
+constant. We take the continuum limit and consider a
+micromagnetic framework, §; > s(r). The dissipation
+tensor D is then given by,
+
+Dw = i | i 8,s(r) - 8s(x)dr, (4)
+
+where ju,v € {x,y}. The tensor B is given by,
+
+Bu = Babe [f @psle)xs(0)),ae (6)
+
+The index y runs over the two spatial dimensions ps €
+{x,y} and k over the three dimensions of spin direction
+k € {a,y,z}. B transforms the three-dimensional current
+polarization P into the two-dimensional force F acting in
+the plane of the layers.
+
+We investigate how the velocity of the twin-skyrmion
+is influenced by the direction and the strength of the
+IL-DMI. The velocity is characterized by its magnitude
+and direction, the latter usually expressed in terms o
+che skyrmion Hall angle, which is typically defined as
+che angle between the current driving the skyrmion and
+che velocity. In our simulations, we fix the polarization
+vector P along the x direction, which in the spin—orbi
+sorque picture corresponds to an electric current j,, flow-
+ing along the positive y direction. We have observed
+above that the IL-DMI changes the shape and size of
+che skyrmions, and its out-of-plane component induces
+a difference in the helicity between the layers. The de-
+ormation and helicity of the twin-skyrmion has no effect
+on the topological charge Q and therefore on the gyro-
+coupling vector G. The dissipation tensor 9 depends on
+he size and shape of the skyrmions, but is independent
+of the helicity. The tensor B depends on all of the men-
+ioned parameters. For circularly symmetric skyrmions,
+he latter may be expressed as a function of helicity ~
+and vorticity m as PI],
+
+B= psor ( sinw —a08 v 0) ; (6)
+
+mcosy msinw 0
+
+In Fig. |4| we study the effect of in-plane IL-DMI on
+Néel-type skyrmions for different directions of the IL-
+DMI. The current polarization along the +2 direction
+means that the results for the IL-DMI pointing along the
+x or y direction are no longer connected by rotation. Note
+that rotating the direction of the IL-DMI and keeping the
+polarization fixed is equivalent to rotating the polariza-
+tion or driving current in the opposite direction for a fixed
+IL-DMI, which may also be performed in a material with
+fixed parameter values. The only symmetry observable
+in the figure is reversing the direction of the IL-DMI: the
+transformation +D'" + —D!" is the same as exchanging
+the top and bottom layers, si) => 8”) a nd s > si),
+which does not influence the motion since the interactions
+inside a single layer are identical. Without IL-DMI, the
+skyrmion Hall angle measured from the nominal current
+direction along +y is around 83°, while the velocity is
+13a-ns~!. If the IL-DMI is approximately parallel to
+che x or y axis, the skyrmion Hall angle only minimally
+varies, but the velocities may differ by up to 70% for
+he same driving current and magnitude of IL-DMI. In
+particular, the skyrmions move faster along the direc-
+ion they are elongated due to the IL-DMI, and slower
+if the direction of movement determined by the current
+polarization is approximately perpendicular to the elon-
+gation. Along the lines DI) = +p, a different effect
+can be observed: the velocity is approximately constant,
+but the skyrmion Hall angle differs considerably, taking
+he value of 60° for Div = —DyP = +1meV and 107°
+or. DE = DpP= = +1 meV. The angle between the move-
+ment and the elongation directions is similarly low along
+both of these lines, resulting in a relatively high velocity.
+Overall, it can be observed that for low angles between
+che direction of elongation and the current polarization,
+
+(a)
+
+Dy [meV]
+
+0 -0.5 0.0 0.5
+DI“ [meV]
+
+D!“ [meV]
+
+an
+=
+roy
+
+a
+in
+
+fa
+E
+a
+
+2
+An
+
+0.5
+0.0
+-0.5
+-1.0
+
+-1.0 -05 0.00 05 1.0
+Dt [mev]
+
+Skyrmion Hall Angle 68%, [°]
+Skyrmion speed |v| [a/ns]
+
+va
+ron)
+
+1.0
+
+FIG. 4. Velocity of twin-skyrmions for in-plane IL-DMI. The current polarization P is along the +2 direction, corresponding to
+an electric current along the +y direction. (a) Simulations of the current-driven motion for selected values of the IL-DMI. The
+arrow illustrates the displacement over the same simulation time, with the skyrmion Hall angle measured with respect to the
+current direction. (b) Skyrmion Hall angle and (c) magnitude of skyrmion velocity as a function of IL-DMI. The parameters
+are J'® = 6 meV, |D'?| = 1.5meV, J' = 1.75meV, DI’ = 0, B* = 1.4T, a = 0.1, and By = 1ns~!. The simulation ran for
+
+2 x 10° time steps, i.e., 2ns.
+
+he Hall angle of the twin-skyrmion is adjusted to roughly
+follow the elongation direction while keeping a high ve-
+locity, whereas for higher angles between these two direc-
+ions the movement slows down and the skyrmion Hall
+angle returns to its value for uncoupled layers. This en-
+ables tuning the skyrmion Hall angle and the velocity
+separately from each other.
+The influence of the out-of-plane component of the IL-
+DMI is investigated in Fig.[5| As it was shown in Fig.
+his type of IL-DMI causes a difference in the helicity be-
+‘ween the skyrmions in the two layers. This would induce
+different velocity directions for the two parts of the twin-
+skyrmion, which is expected to cause an instability. This
+can also be observed in the simulations, because only
+or small IL-DMI values (D!" < 0.6 meV for the chosen
+rameters) is the motion of twin-skyrmions stable. It
+could be expected that the velocity of the twin-skyrmion
+is determined by the average of the velocity vectors in the
+wo layers, thus the different velocity directions between
+he layers leads to a reduction of the net velocity. On
+he contrary, an increase in the velocity with D!’ may
+be observed in Fig. This is caused by an increase in
+he twin-skyrmion size with IL-DMI, as shown in Fig:
+and[5] The force calculated from the B tensor increases
+approximately linearly with skyrmion size; see Supple-
+mentary Note 3 for the derivation. Since the changes in
+the dissipation tensor D are small compared to B, the ve-
+ocity of the twin-skyrmion correlates very closely with
+the skyrmion size and the force acting on the skyrmion.
+Since the dissipation tensor depends weakly on the IL-
+DMI in this case, the Hall angle only increases by 0.3%
+when increasing D! from 0.0 meV to 0.6 meV.
+
+DISCUSSION
+
+In this paper, we studied magnetic skyrmions in
+bilayer systems coupled by interlayer Heisenberg and
+
+18.07 6 Skyrmion size o}14.5 2
+17.5] + Skyrmion speed ‘i, s
+3 17.0} o =
+
+[ oO
+& 16.5 ° 13.5 2
+&
+5.16.0} Od ies
+2g oe €
+
+15.5) 00 12.5 5
+
+wn
+
+0.0 0.1 0.2 0.3 0.4 0.5 0.6
+D! [mev]
+
+FIG. 5. Effect of the D!” on the twin-skyrmion velocity and
+size. Values of D! greater than 0.6meV do not result in
+stable motion. The system parameters are: J‘ = 1.75 meV,
+DIP = Di¥ =0,B=14T, a=0.1, and 6; = Ins".
+
+Dzyaloshinskii—Moriya interactions. We found that the
+IL-DMI locks the skyrmions in the two layers to each
+other but also deforms their shape, thereby stabilizing a
+structure which we termed twin-skyrmion. The in-plane
+IL-DMI tilts the magnetization in the collinear regions
+in the two layers in opposite directions. It also causes
+she skyrmions to elongate and their centers to shift op-
+positely in the two layers, thereby maximizing the energy
+gain from this energy term. For a sufficiently high value
+of the IL-DMI, this results in an elliptic instability of
+he twin-skyrmion. The out-of-plane IL-DMI preserves
+he circular shape of the skyrmions in the two layers,
+but increases their radius and changes their helicities in
+opposite directions.
+
+Furthermore, we studied how the IL-DMI influences
+he current-driven motion of twin-skyrmions in the CPP
+
+geometry. For in-plane IL-DMI, we found that the dy-
+namics strongly depends on the relative directions of
+the equilibrium elongation and the current polarization.
+The twin-skyrmion prefers to move along the direction
+of its elongation by increasing its velocity compared to
+uncoupled skyrmions in the two layers and adjusting
+its skyrmion Hall angle if the polarization direction is
+changed. However, if the direction of motion preferred by
+he current polarization is approximately perpendicular
+o the elongation, the velocity reduces and the skyrmion
+Hall angle stays close to its value for uncoupled lay-
+ers. For out-of-plane IL-DMI, we observed an increase in
+skyrmion velocity together with the skyrmion size, while
+he skyrmion Hall angle was found to be hardly affected.
+
+These findings could motivate experimental studies on
+skyrmions in magnetic multilayers coupled by IL-DMI,
+expanding upon previous works in systems coupled by
+ferromagnetic or antiferromagnetic IEC. The possibility
+o change the skyrmion velocity or the Hall angle sep-
+arately depending on the current polarization direction
+should provide improved control over the current-driven
+motion of skyrmions. It has been demonstrated that
+skyrmions with circular equilibrium profiles become dis-
+orted by even stronger driving currents [38}|40]. The dy-
+namics in this strongly nonlinear regime is expected to
+come even more complex in the presence of IL-DMI,
+which may prefer a different direction of elongation com-
+ared to the driving current and also affects the stability
+of twin-skyrmions.
+
+METHODS
+Atomistic spin model
+
+We describe the magnetic system by a classical atom-
+istic spin model on two layers of a square lattice contain-
+ing 128 x 128 sites on top of each other. We split the spin
+Hamiltonian of our system into three parts,
+
+H = Hy, + Ho + Hinter, (7)
+
+where H; includes all interactions inside the first layer,
+Hy the interactions in the second layer, and Hinte;, in-
+cludes all interlayer interactions. Denoting a spin in a
+layer with the unit vector S!, where 1 = (1), (2) is the
+layer index, and assuming the same interaction parame-
+
+ters for both layers, we can write,
+
+lor Lgl
+Hy=—5F LSS)
+(i)
+
+L IF (gly. gt
+te Pl - (si xi)
+
+(
+—p.>B-Si, (8)
+Finter = — rs si) .s® +o Di. (s? % 8”).
+a i
+(9)
+
+Inside each layer we consider the nearest-neighbor in-
+erfacial (IF) exchange interaction (J'™), the nearest-
+neighbor DMI (Di; ) vector perpendicular to the bonds
+between nearest neighbors preferring a Néel-type rota-
+ion, and the Zeeman interaction with an external mag-
+netic field B. jus is the magnetic moment at a site and
+(i,j) is the sum over all sites i and their nearest neigh-
+bors j. We include two interlayer couplings mediated by
+a non-magnetic spacer layer separating the two magnetic
+ayers: the IEC J' and the IL-DMI D"™. If not speci-
+fied otherwise, we consider the parameters J’ = 6 meV,
+D| = 1.5 meV, and ps = 3p, where jp is the Bohr
+magneton. These values lead to the stabilization of Néel-
+ype isolated metastable skyrmions in a collinear back-
+ground inside a single layer for a sufficiently high external
+magnetic field applied along the out-of-plane z direction,
+as illustrated in Fig. fa).
+
+We simulate the time evolution of the spins by numer-
+ically solving the Landau-Lifshitz-Gilbert (LLG) equa-
+tion [41] 42],
+
+s, 7 Jo si x (Bm +asi x Bi") j (10)
+
+where a is the Gilbert damping and y is the absolute
+value of the gyromagnetic ratio. The effective field Bo!
+
+i
+is given by the derivative of the Hamiltonian with respect
+to Si,
+
+wit __ LOH
+‘ Hs OS)
+Jr i, li IF. al
+= es} + 7 De x8, +B
+* Gi) © Ge
+jit a 1 -
++2-sl+—pD"™ x si, (11)
+Ms Ls
+
+where (j); denotes the sum over all nearest neighbors j
+of the site i, and I denotes the layer other than J. The
+positive sign is taken in the last term for | = (1) and the
+negative sign for | = (2) because of the definition of the
+cross product.
+
+Current-driven motion
+
+To study the dynamics of the structures, we consider
+the current-perpendicular-to-the-plane (CPP) geometry.
+This describes the case when the multilayer is placed on a
+non-magnetic substrate with strong spin-orbit coupling.
+Besides the substrate being responsible for the interfa-
+cial DMI, an electric current flowing inside the substrate
+gives rise to a spin current flowing perpendicular to the
+layers, which exerts a spin-orbit torque on the magneti-
+zation [23]. This torque is included in the LLG equation
+
+as follows [18] [43],
+
+au al l ff, L ff,
+
+§; =~ > 8! x (BS +aS! x Be )
++ BpS! x (P +08 x P) (12)
+— BS} x (aP - | x P) (13)
+
+where P is the direction of the current polarization. It
+will be assumed that the polarization is perpendicular
+‘o both the electric current or electric field direction in-
+
+Oa
+
+1] C. Back et al., The 2020 skyrmionics roadmap,
+2| J. Grollier et al., Neuromorphic spintronics, {Nat. Elec-]
+3] H. Yang, R. Naaman, Y. Paltiel, and S. P. Parkin, Chiral
+spintronics, Nat. Rev. Phys. 3, 328 (2021 ]
+
+4] B. Gobel, I. Mertig, and O. A. Tretiakov, Beyond
+skyrmions: Review and perspectives of alternative mag-
+
+netic quasiparticles, Phys. Rep. 895, 1-28 (2021)
+
+5] C. H. Marrows, J. Barker, T. A. Moore, and T. Moorsom,
+
+Neuromorphic computing with spintronics, jnpj Spintron-|
+ics 2, 12 (2024)
+M. Azhar, V. P. Kravchuk, and M. Garst, Screw Dislo-
+
+cations in Chiral Magnets, Phys. Rev. Lett. 128, 157204
+
+(2022)
+7| F. Zheng et al., Hopfion rings in a cubic chiral magnet,
+Nature 623, 718-723 (2023
+
+D. Makarov et al., New Dimension in Magnetism and Su-
+perconductivity: 3D and Curvilinear Nanoarchitectures,
+9] A. Fernandez-Pacheco et al., ree-dimensional nano-
+magnetism, Nat. Commun 8, 15756 (2017).
+
+10) W. Legrand et al., Hybrid chiral domain walls and
+
+eS
+
+oo
+
+side the nonmagnetic substrate and the flowing direc-
+tion of the spin current perpendicular to the surface [23],
+P || j.. X Z. The effect of the current is split into a field-
+like torque proportional to $8, and a damping-like torque
+proportional to 84. Since the field-like torque acts exactly
+like an external magnetic field, it distorts the skyrmions
+but does not set them into motion [21]. Therefore, we
+simplify the analysis by setting 6, = 0 and only inves-
+tigating the effect of the damping-like term driving the
+skyrmions.
+
+DATA AVAILABILITY
+
+All the data presented in this work are available from
+the corresponding author upon reasonable request.
+
+CODE AVAILABILITY
+
+All the codes for calculating the data and visualizing
+it are available from the corresponding author upon rea-
+sonable request.
+
+Nat. Mater. 19, 34 (2020
+4] L. Qiu et al., Interlayer coupling effect on skyrmion dy-
+
+namics in synthetic antiferromagnets, |Appl. Phys. Lett.
+118, 082403 (2021
+5] R. Juge et al., Skyrmions in synthetic antiferromagnets
+
+and their nucleation via electrical current and ultra-fast
+laser illumination, Nat. Commun 13, 4807 (2022
+
+6] M. V. Correia, J. C. P. Velasquez, and C. C.
+le Souza Silva, Stability and dynamics of synthetic
+antiferromagnetic skyrmions in asymmetric multilayers,
+Phys. Rev. B 110, 094430 (2024)
+7| N. Nagaosa and Y. Tokura, Topological properties and
+lynamics of magnetic skyrmions, Nat. Nanotechnol. 8,
+
+899-911 (2013)
+8] X. Zhang, Y. Zhou, and M. Ezawa, Magnetic bilayer-
+s
+
+yrmions without skyrmion Hall effect,
+7, 10293 (2016
+
+9| T. Dohi et al., Enhanced thermally-activated skyrmion
+iffusion with tunable effective gyrotropic force,
+
+20) A. Hrabec et al., Current-induced skyrmion generation
+and dynamics in symmetric bilayers,
+15765 (2017
+
+skyrmions in magnetic multilayers, Sci. Adv. 4, aat0415
+
+(2018)
+
+11) T. Dohi, S. DuttaGupta, S. Fukami, and H. Ohno, For-
+mation and current-induced motion of synthetic antifer-
+romagnetic skyrmion bubbles, Nat. Commun. 10, 5153
+(2019
+
+12] J. Xia et al., Current-induced dynamics of skyrmion
+tubes in synthetic antiferromagnetic multilayers,
+Rev. B 103, 174408 (2021)
+
+13] W. Legrand et al., Room-temperature stabilization of an-
+tiferromagnetic skyrmions in synthetic antiferromagnets,
+
+21] M. Weif®enhofer, Stochastic and Deterministic Dynamics
+of Topological Spin Textures : Theory and Simulation,
+Ph.D. thesis, Universitat Konstanz, Konstanz (2022).
+22| R. Msiska, D. R. Rodrigues, J. Leliaert, and
+K. Everschor-Sitte, Nonzero Skyrmion Hall Effect in
+Topologically Trivial Structures,
+23) A. Manchon et al., Current-induced spin-orbit torques in
+ferromagnetic and antiferromagnetic systems, Rev. Mod.|
+Phys. 91, 035004 (2019)
+
+24] C. Psaroudaki and C. Panagopoulos, Skyrmion helicity:
+Quantization and quantum tunneling effects, Phys. Rev.|
+B 106, 104422 (2022)
+
+25] Y. Liu, B. Yang, G. X., S. Picozzi, and Y. Yan, Mod-
+ulation of skyrmion helicity by competition between
+Dzyaloshinskii-Moriya interaction and magnetic frustra-
+
+tion, Phys. Rev. B 109, 094431 (2024
+
+26] I. Dzyaloshinsky, A thermodynamic theory of “weak”
+ferromagnetism of antiferromagnetics,
+Solids 4, 241-255 (1958
+
+27| T. Moriya, Anisotropic Superexchange Interaction and
+Weak Ferromagnetism,
+
+28] E. Y. Vedmedenko, P. Riego, J. A. Arregi, and A. Berger,
+Interlayer Dzyaloshinskii-Moriya Interactions,|Phys. Rev.|
+29| D.-S. Han et al., Long-range chiral exchange interaction
+in synthetic antiferromagnets,
+
+30] Y. Guo et al., Effect of interlayer Dzyaloshinskii-Moriya
+interaction on spin structure in synthetic antiferromag-
+netic multilayers, Phys. Rev. B 105, 184405 (2022)
+
+31] J. A. Arregi, P. Riego, A. Berger, and E. Y. Vedme-
+denko, Large interlayer Dzyaloshinskii-Moriya interac-
+
+tions across Ag-layers,
+32] M. A. Cascales Sandoval et al., Preservation of scalar spin
+chirality across a metallic spacer in synthetic antiferro-
+
+magnets with chiral interlayer interactions, Phys. Rev. B]
+112, 024413 (2025
+33] C.-Y. Lin et al., Field-free spin—orbit torque switching via
+
+oscillatory interlayer Dzyaloshinskii—Moriya interaction
+for advanced memory applications,
+400 (2024)
+34] F. Kammerbauer et al., Controlling the interlayer
+Dzyaloshinskii-Moriya by electrical currents,
+23, 7070 (2023)
+35] T. Matthies, L. Rozsa, L. Szunyogh, R. Wiesendan-
+ger, and E. Y. Vedmedenko, Interlayer and interfacial
+dzyaloshinskii-moriya interaction in magnetic trilayers:
+
+First-principles calculations, Phys. Rev. Res. 6, 043158
+2024
+36] A. Bogdanov and A. Hubert, The stability of vortex-
+
+like structures in uniaxial ferromagnets, Journal of Mag-
+
+netism and Magnetic Materials 195, 182-192 (1999
+
+. A. Thiele, Steady-state motion of magnetic domains,
+38] J. Masell, D. R. Rodrigues, B. F. McKeever, and
+K. Everschor-Sitte, Spin-transfer torque driven motion,
+deformation, and instabilities of magnetic skyrmions at
+high currents, Phys. Rev. B 101, 214428 (2020)
+
+39] L. Liu, W. Chen, and Y. Zheng, Current-driven
+skyrmion motion beyond linear regime: Interplay be-
+
+tween skyrmion transport and deformation, |Phys. Rev.
+
+Appl. 14, 024077 (2020)
+40| M.-K. Lee, J. A. Vélez, R. M. Otxoa, and M. Mochizuki,
+
+driven bilayer skyrmions in synthetic antiferromagnets
+
+2025), arXiv:2507.15531 {cond-mat.mes-hall]
+
+41) L. D. Land E. M. Lifshitz, On the theory of the dis-
+persion of magnetic permeability in ferromagnetic bodies,
+
+42) T. L enomenological theory of damping
+
+xilbert, A
+
+. L. p
+in ferromagnetic materials, IEEE Trans. Magn. 40, 3443
+2004
+
+43] A. Aldarawsheh, M. Sallermann, M. Abusaa, and
+S. Lounis, Current-driven dynamics of antiferromagnetic
+skyrmions: from skyrmion Hall effects to hybrid inter-
+
+skyrmion scattering, npj Spintronics 2, 41 (2024))
+44| P. Virtanen et al., SciPy 1.0: Fundamental gorithms
+for Scientific Computing in Python, |Nature Methods 17,|
+
+45| J. Kierzenka and L. F. Shampine, A bvp solver based on
+
+residual control and the maltab pse, ACM Trans. Math.
+Softw. 27, 299-316 (2001
+
+Atxitia, and U. Nowak, Temperature scaling
+
+46] L. Rozsa, U.
+of the Dzyaloshinsky-Moriya interaction in the spin wave
+
+spectrum, Phys. Rev. B 96, 094436 (2017)
+
+A47| W. Jiang et al., Direct observation of the skyrmion Hall
+
+48] J. Xia et al., Dynamics of an elliptical ferromagnetic
+skyrmion driven by the spin-orbit torque, |Applied.
+Physics Letters 116, 022407 (2020)
+
+ACKNOWLEDGMENTS
+T.M. acknowledges fruitful discussions with A.
+Tripathi and A. Hierro Rodriguez. E.Y.V. and
+
+T.M. acknowledge financial support provided by the
+Deutsche Forschungsgemeinschaft (DFG) via Project No.
+514141286. L.R. gratefully acknowledges funding by the
+National Research, Development, and Innovation Office
+(NRDI) of Hungary under Project Nos. FK142601 and
+ADVANCED 149745, by the Ministry of Culture and In-
+novation and the National Research, Development and
+Innovation Office within the Quantum Information Na-
+tional Laboratory of Hungary (Grant No. 2022-2.1.1-
+NL-2022-00004), and by the Hungarian Academy of Sci-
+ences via a Jdnos Bolyai Research Grant (Grant No.
+
+BO/00178/23/11).
+
+AUTHOR CONTRIBUTIONS
+
+T.M., L.R., R.W., and E.Y.V. conceived the study.
+T.M. carried out the calculations, and prepared the fig-
+ures. L.R. and E.Y.V. supervised the project. T.M.,
+L.R., and E.Y.V. were major contributors in writing of
+the manuscript. All authors discussed results and re-
+viewed the manuscript.
+
+COMPETING INTERESTS
+
+The authors declare no competing interests.
+
+CORRESPONDENCE
+
+Correspondence and requests for materials should be
+addressed to Elena Y. Vedmedenko.
+SUPPLEMENTARY NOTE 1: HELICITY
+DEPENDENCE OF THE TWIN-SKYRMION ON
+THE IL-DMI
+
+To study the effect of the IL-DMI on the skyrmion he-
+licity analytically, we take the continuum limit $! — s;(r)
+for I € {(1), (2)}. Similarly to the atomistic Hamiltonian
+Eq. (7), the continuum free-energy density can be split
+into three parts,
+
+E = €,[81(x)] + €2[82(x)] + Emnter[Si(x),82(x)]. (14)
+
+The intralayer interactions are contained in €;[s;(x)],
+
+Ey[si(x)] =EEX™ + EPMI 4 gZeoman
+=A((Wsi)? + (Wst)’ + (Vsi)’)
++D'" (s70,.sf — s?0,87 + sfOys! — s/0,87)
+—MB* sj, (15)
+
+where we assumed that the exchange stiffness A, the
+Néel-type DMI constant D, the saturation magnetization
+M, and the magnetic field B* are the same for the two
+layers, as in Eq. (8). The two layers are coupled in the
+following way:
+
+‘(16)
+
+Einter
+
+where 7 is the IEC constant and D* is the z component
+of the IL-DMI vector. We assume that the other compo-
+nents are zero, D® = DY = (). Under this assumption, the
+Euler-Lagrange equations derived from Eq. (14) admit
+circularly symmetric solutions, as has been extensively
+studied in the case of a single layer [B6]. To describe
+these spin textures, we use polar coordinates in space,
+
+0x _ (cos yd, — p~' sin pd,
+(3) - (oe Op + pt , (18)
+
+cos pO,
+In spin space, we transform to spherical coordinates,
+
+st sin Q; cos ®;
+s/ | =| sin@;sin® |. (19)
+Sp cos 0;
+
+Equilibrium spin structures are found as the solution of
+the Euler-Lagrange equations,
+
+dp (Bea) =567
+ao(ae.ey) * a(a@,55) = oor
+an Bea) =a
+
+We use the following ansatz for circular skyrmions:
+
+Oi(p, 2) = Or(p), (24)
+®i(p, y) = muy + dip). (25)
+
+The type of IF-DMI assumed in Eq. [15] prefers the vor-
+ticity m, = 1 and the Néel-type helicity ~ = 0 ina
+single layer. The IL-DMI does not change the vortic-
+ity, but induces opposite fields in the two layers, and
+the equilibrium conditions may be simultaneously sat-
+isfied for y(p) = +(p). The same material param-
+eters in the two lagers also allow for te wy
+©1(p) = O2(p) = O(p). Combining Eqs. (18) and (i9),
+one can rewrite Eqs. and (16) in we S ondinatee
+
+Exch __
+Er =
+
+A(( (0')? + (W)? sin? © + = ), (26)
+
+EPMI _ pIF ( (o , on © cos ) cos {
+
+p
+— w’ sin 0 cos O sin v) § (27)
+Efeeman — _ M B* cos O(p), (28)
+and
+Einter = — TY (sin? O cos (2) + cos” 0°)
+
++ D* sin? O sin (2v), (29)
+
+respectively. ©’ and y are the radial derivatives 0,0(p)
+and 0,v)(p). Only the difference in azimuthal angles © —
+®» enters Eq. Q29). which simplifies to 6; — @2 = 2y(p).
+These assumpt: simplify Eqs. (20)- (23) to two coupled
+
+radial differential equations,
+
+Qe” =- toy + (wr + =) sin O cos O
+p p
+
+il
+
+1
+“3A (0" sin? © G cosy — wy’ sin v)
+
++ sin © cos 0(.71"(cos(2u) — 1) — D* sin(2))
+
+— MB* sin °), (30)
+jit 1, sin(20) 4, IF a
+l -= OQ! yy’ — 4D ©
+i pe sin? © os 7 sin pO
+
+— 2(7" sin(2y) + D* cos(2v))). (31)
+
+Note that for wy = w’ = 0, Eq. simplifies to the ra-
+dial Euler-Lagrange equation of a single skyrmion [36].
+However, this assumption does not satisfy Eq. in the
+presence of an IL-DMI D*. For a fixed value of w, the in-
+terlayer terms introduce an effective anisotropy term pro-
+portional to sin@cos@. This prefers an in-plane align-
+ment of the spins since in this case they can gain energy
+from the IL-DMI, thereby it competes with the external
+field and results in an increase of the skyrmion size.
+
+nyt
+i — Op)
+3n/4 ! y(p)
+S I e LLG Sim.
+> m/2 et —Dskgr 5
+@ | * W(Pskyr) =-0.31
+© n/4;-4
+I
+0 I
+
+FIG. 6. Skyrmion profile from the continuum model for out-
+of-plane IL-DMI. The solid lines show the numerical solu-
+tions of Eqs. { under the boundary conditions in
+Eq. (32). The black dots are obtained from the atomistic LLG
+simulations. The highlighted value )(pskyr) = $(w1 — ¥2) =
+0.311 shows the helicity at the skyrmion radius O(pskyr) =
+m/2. The system parameters are: J” = 6mev, DY =
+1.5meV, B* = 3T, J™ = 1meV, and DI’ = 1meV. The
+continuum parameters are A = 3meV/a", Dp 15 meV /a’,
+B* = 3T, J'® = 1meV/a’, and D* = 1meV/a*. The con-
+version between the atomistic and the continuum parameters
+follows the expressions given in Ref. [46] for the intralayer
+terms; the interlayer parameters are simply divided by the
+atomic volume when passing to the continuum limit.
+
+We solve Eqs.
+boundary conditions
+
+) numerically with the
+
+(0) = 7, O(co) = 0, w'(0) =0, and y/(co) = 0. (32)
+We solve the boundary value problem using the imple-
+mentation of SciPy [44], which is an adaption of the al-
+gorithm presented in [45]. We compare the numerical
+solution of Eqs 31) with the profile obtained
+from the atomi: s via a solution of the LLG
+equation in Fig. [6] The lattice and the continuum mod-
+els agree well. Since the helicity ~ only depends weakly
+on the radial coordinate, it may be well described by its
+value at the skyrmion radius O(pskyr) = 7/2, which was
+used for the comparison between different IL-DMI values
+in Fig. 3 in the main text.
+
+D
+
+SUPPLEMENTARY NOTE 2: SKYRMION HALL
+ANGLE AS A FUNCTION OF HELICITY
+
+For circularly symmetric skyrmions, the Hall angle
+may be calculated analytically from the Thiele equation
+in Eq. (3). Using that the dissipation tensor D is a unit
+tensor with magnitude D, and the dependence of the B
+tensor on the helicity ~ and the vorticity m = 1 is given
+
+10
+by Eq. (6), the skyrmion velocity may be expressed as
+
+Ve \ peor aD G siny —cos~ Px
+vy) a2D2 +G2\-G aD} \cosy sinw Py}*
+
+(33)
+
+ecause it does not contribute to the force
+
+We omitted P,
+F.
+
+The skyrmion Hall angle Oya is defined as the angle
+between the velocity and the current direction. We con-
+nect the current direction to the velocity via P || je, x Z,
+as is usual for the spin-orbit torque, resulting in j. ||
+(-P, Pe). For a Néel-type skyrmion with w = 0, this
+coincides with the direction of the force F = BP. For cir-
+cularly symmetric skyrmions, we can assume P = (1 0)
+without loss of generality, resulting in j, || (0 1). We
+obtain the following for the direction of the skyrmion ve-
+
+locity:
+‘Das ksinw + cosy
+(‘) | cv cos w — sin ‘) , (34)
+aD
+
+where k = G. The skyrmion Hall angle is given by
+
+kcosw — siny 7
+2%, = arcte _t 35
+Hall = arcvan GS pt =) 2 4)
+
+k—tanw T
+— arcte _t ay
+are (= yt :) 2 (38)
+= arctan k — arctan(tan ~) — e (37)
+v=0
+
+= Onan — vs (38)
+where Of) = arctan(k) — 3 = arctan(1/k) =
+
+arctan (G/aD) is the typical expression given in the lit-
+erature for the skyrmion Hall angle [21 [47| [48]. This im-
+plies that the two parts of the twin-skyrmion are driven
+along different directions by the spin-polarized current
+due to their different helicities, which results in an insta-
+bility of the motion for high driving currents.
+
+SUPPLEMENTARY NOTE 3: SKYRMION
+VELOCITY AS A FUNCTION OF SKYRMION
+RADIUS
+
+Under the assumption of circularly symmetric
+skyrmions for out-of-plane IL-DMI, the dependence of
+the velocity on the skyrmion size may also be calculated.
+To derive an analytical estimate for the parameters, we
+assume a linear dependence of 0 on the radial coordinate
+g for the skyrmion profile,
+
+T-U-p, p<
+ee
+(p) A a
+
+The radius of the skyrmion is defined as
+
+(39)
+
+SIA SIA
+
+T T
+po R= & P=, 4
+n-v-R gk oo (40)
+3 90 @ Force amplitude
+
+er gg) —— Fitted curve (|/°7] =5.37™YR — 5.81"
+5
+
+& 86
+
+S84
+
+2
+
+oS 82
+
+E
+
+© 80
+
+oO
+
+578
+
+iL:
+
+76
+15.5 16.0 165 17.0 17.5
+Skyrmion size R [a]
+
+FIG. 7. Scaling of the force amplitude fS°T with the
+
+skyrmion radius R. The different skyrmion sizes are gener-
+ated by changing the IL-DMI D!" from 0.0 meV to 0.6 meV,
+using the same values as in Fig. 5 in the main text. The blue
+points are obtained by numerically integrating Eq. with
+©(p) coming from the atomistic simulations.
+
+The factor fS°T in the B tensor in Eq. (6) is given by
+the integral
+
+' Balls °° 00
+
+foot = galiss, [ [sine cos © + | dp. (41)
+ay Jo Op
+
+which for the given skyrmion profile may be evaluated as
+2 2
+SOT Bablst T Babs
+
+= - =- RR. 42
+F ay ( rr) ay (2)
+
+Therefore, the magnitude of the force scales linearly with
+the size of the skyrmion.
+
+We confirm this linear scaling by plotting the values of
+fS°T obtained from simulations in Fig.
+
+The dissipation tensor D for circular skyrmions is a
+unit tensor, with its magnitude given by
+
+a
+
+De ef (aus). (43)
+
+Performing the coordinate transformation to polar coor-
+dinates in real space and spherical coordinates in spin
+space, one obtains,
+
+1 Ms
+ary
+
+D= [ [ow cos” O(p) + : sin? a) dp.
+
+(44)
+Using the expression for O(p) in Eq. (39), we obtain
+
+panes I F sin?(a-p)—p-a? cos*(a-0) dp.
+0
+
+ay p
+(45)
+“Ms [" [1
+Pl a | E sin?(x) — x - cos?(0)] da. (46)
+ay Jo |x
+
+11
+
+This demonstrates that D is scale independent, i.e., it
+does not depend on the skyrmion radius if the shape of
+Q(p) does not change. This can also be observed in the
+simulations: as Dl” increases from 0.0 meV to 0.6 meV,
+the value of D numerically calculated from the atomistic
+model only decreases by 3.3% from 15.3meV -s/a? to
+14.8meV -s/a?, while fS°T increases by 18.4% for the
+same parameters as in Fig. 5 in the main text.
+
+SUPPLEMENTARY NOTE 4: INSTABILITY OF
+THE PARALLEL MAGNETIC ALIGNMENT OF
+THE TWO LAYERS IN THE PRESENCE OF D!™
+
+For a sufficiently strong external magnetic field B,
+the ground-state magnetic configuration obtained from
+the Hamiltonian in Eq. (8) and (9) in the main text
+is collinear in each layer, s = S!. This simplifies the
+Hamiltonian to the following macrospin model:
+
+H=—-J*8.s2) 4p™.(8 x§@)—1,.B-(SYP+8),
+
+(47)
+We assume that the IL-DMI vector and the magnetic field
+point along the z direction, D'’ = D!“% and B = Ba.
+Using the spherical coordinates analogously to Eq. (i9),
+we can rewrite Eq. |
+
+H =— J'"(sin? © cos(®, — 2) + cos? @)
++ D1 sin? © sin(@, — B)
+— 2usB cos ©. (48)
+
+Here, we assume that the polar angle is the same for both
+spins, 9; = 02 = O, which follows from the symmetry
+of the two layers. We introduce the variable 6 = 6; — ®2.
+To find the spin configuration with minimal energy, we
+require
+
+— Wen 90 — oo DY
+0oH = J sin 20( 1—cosd Fit sind
+
++2u.B sin = 0, (49)
+
+05H = (J'™ sind — D4” cos6) sin? © = 0. (50)
+
+Both equations are satisfied for sin = 0, i.e., when the
+spins are aligned along the z direction. Solutions with
+sin © ¥ 0 can be found by transforming Eq. to
+
+IL
+
+6 = arctan Fit (51)
+
+Inserting Eq. into Eq. gives
+2cos 9 sin O( J? 4 pile — J) =2n,Bsin®, (52)
+
+which may be solved for © as
+
+.B
+© = arccos i _ : (53)
+
+me + DIL? _J
+
+12
+
+This expression can only be evaluated if the argument of It is straightforward to show that if this solution exists,
+the arccos function is in [—1,1]. This condition may be it has a lower energy than the sin © = 0 solution. In this
+reformulated as case, the spins deviate from the direction of the exter-
+nal field since they gain more energy from the IL-DMI
+
+by forming a finite angle in the zy plane. For the pa-
+
+rameters J'’ = 1meV,j1s = 3m and B = 3T used as
+
+SS an example in the main text, this transition occurs for
+
+|DI¥(J™, B)| > VB 4b)? —(gey2, (54) | DIE] = 1.15 meV.
+

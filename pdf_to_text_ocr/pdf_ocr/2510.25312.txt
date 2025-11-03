@@ -1,0 +1,2166 @@
+2510.25312v1 [math-ph] 29 Oct 2025
+
+arXiv
+
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL
+LOG GASES
+
+ROLF ANDREASSON & LUDVIG SVENSSON
+
+ABSTRACT. We consider the canonical ensemble of a system of point particles
+on the sphere interacting via a logarithmic pair potential. In this setting, we
+study the associated Gibbs measure and partition function, and we derive explicit
+formulas relating the critical temperature, at which the partition function diverges,
+to a certain discrete optimization problem. We further show that the asymptotic
+behavior of both the partition function and the Gibbs measure near the critical
+temperature is governed by the same optimization problem. Our approach relies
+on the Fulton—MacPherson compactification of configuration spaces and analytic
+continuation of complex powers. To illustrate the results, we apply them to well-
+studied systems, including the two-component plasma and the Onsager model of
+turbulence. In particular, for the two-component plasma with general charges,
+we describe the formation of dipoles close to the critical temperature, which we
+determine explicitly.
+
+1. INTRODUCTION
+
+Consider the following interaction energy for N(> 2) point particles at positions
+P1,---,PN on the unit sphere S?:
+
+(1.1) B(~,---.pw) =— > _ eli, 7) log d(pi, py)”,
+a)
+where d(-,-) denotes the chordal distance on S? and c(i,7j), for 1 < i < j < N, are
+real numbers specifying the coupling between particles i and 7. The prototypical
+example is c(i, j) = kikj, where k; represents the charge of particle 1.
+We consider the corresponding canonical ensemble at inverse temperature 3. The
+associated Gibbs measure on (S?)", when it exists, is given by
+
+= am exp(—B(E(p1,.--.pw)) av"
+
+(1.2) 4 Tlates.n)%69 aver
+= Z(B) I Dis Pj :
+uy
+This measure exists for all values of 8 such that the partition function
+(1.3) 2(8)= fT] ao.rs raven
+(S?)N
+
+i<j
+is finite. Here dV is the symmetric, normalized volume form on the sphere. In gen-
+
+eral, there are critical values of 8 at which Z(() becomes infinite, causing the Gibbs
+measure to cease to exist. This phenomenon is highly dependent on the logarithmic
+
+Date: October 30, 2025.
+Key words and phrases. Coulomb gas, Log gas, One-component plasma, Two-component plasma.
+2 ROLF ANDREASSON & LUDVIG SVENSSON
+
+singularity of the pair-interaction. In contrast, for Coulomb gases in other dimen-
+sions, with singular pair-interaction governed by the corresponding Green’s function
+to the Laplace equation, no similar behavior occurs; the Gibbs measure either exists
+for all temperatures or for none.
+
+This model encompasses several important and well-studied particle systems in
+physics, including one- and two-component (and, more generally, n-component) plas-
+mas on the sphere. Such two-dimensional plasmas, in various geometries, have been
+proposed as simplified models for dimensionally reduced, translation-invariant three-
+dimensional plasmas, see [19, 32]. Furthermore, the same framework also describes
+systems of quasi-particles such as vortices. Vortices described by a Log gas arise in
+several different contexts, including the Ginzburg-Landau model of superconductiv-
+ity, see [29], the analysis of the Berezinskii-Kosterlitz-Thouless transition for the XY
+model, see [21], and the Onsager model of turbulence for two-dimensional Eulerian
+fluids, see, e.g., [25]. In the latter case, as well as in related quasi-particles systems
+such as the guiding center plasma, see [11], both positive and negative values of
+the inverse temperature are of interest. Hence, we will treat 6 as an arbitrary real
+parameter.
+
+Before presenting our results, we introduce two discrete optimization problems
+that are central to all of them.
+
+Problem 1.1. Given an integer N and real numbers c(i, j),1 < i < j < N, consider
+
+the minimization problem
+
+Vijesicj CI
+|S|-1
+
+Pr 2 min
+&
+
+where S ranges over all subsets of {1,...,.N} of size at least two.
+
+Problem 1.2. Given an integer N and real numbers c(i, j/),1 < i < j < N, consider
+
+the maximization problem
+
+Vigjesicg Ab I
+|S|—1
+
+Tt: max
+s
+
+where S ranges over all subsets of {1,...,.N} of size at least two.
+
+Variants of these problems have appeared in the literature in other contexts, as
+discussed in Section 7. Our first result is an explicit formula for the critical inverse
+temperatures, given in terms of the optimization problems above.
+
+Theorem 1.3. The partition function Z() is finite precisely on the interval (87, 8*)
+where
+
+(1.4) .
+—oo otherwise
+
+—_ a ifT- <0
+and
+
+co otherwise.
+
+ate oe ifT+ >0
+
+When the couplings c(i, 7) are all positive, (1.4) is an explicit formula for the log
+canonical threshold, an important singularity invariant in algebraic geometry, of a
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 3
+
+certain effective divisor defined by c(i,7j), see (2.18) below. In this case, Proposi-
+ion 1.3 resembles results in [33] and [22], and our proof roughly follows the proof in
+33].
+
+Solving Propositions 1.1 and 1.2 can be quite challenging in practice. Nevertheless,
+Proposition 1.3 provides a direct way to find explicit upper bounds for 6* and lower
+bounds for 6~ by simply evaluating the expression for any chosen subset S. By
+relating these optimization problems to Rayleigh—Ritz quotients and the min-max
+heorem for eigenvalues of symmetric matrices, we show in Proposition 4.1 how to
+obtain bounds in the opposite, more difficult direction. The bounds are in terms
+of eigenvalues of the symmetric matrix with entries c(i,j). This leads to stochastic
+younds in a quenched, random version of the Log gas, considered, for example, in
+20], where the couplings are assumed to be random variables. We consider both the
+case of independent couplings, see Proposition 5.1, and that of independent charges,
+see Proposition 5.2, which exhibit markedly different behavior.
+
+The eigenvalue bounds also leads to the following explicit bounds in the key case
+when c(i,j) = kikj, 1< i<j <N, for real numbers k;.
+
+Corollary 1.4. Let c(i,j) = kikj, 1 < i<j <N for real numbers kj,1 <i< N. If
+BY is finite, then
+
+1.5) Bre
+
+Max1<i<N Ker
+If B~ is finite, then
+
+1.6) p< !
+
+(Soir A?) — mimigicn A}
+
+Our second result concerns the limiting behavior of the Gibbs measure jug as 8
+approaches the finite endpoints of the interval (G~,@*). To state the result, we
+first introduce some additional notation. Let G+ and G~ denote the sets of subsets
+
+of {1,...,N} that realize the minimum in Proposition 1.1 and the maximum in
+Proposition 1.2, respectively. That is,
+
+sae C(t, 7
+17) Gt = {SC {1,...,N}: |S] 22 and _ Zags AA oh
+
+|S|-1
+and similarly for G~. Following [14], we say that a collection K = {S,...,S,} of
+distinct subsets of {1,...,N} is a nest if any two elements S;,5; € K are nested,
+
+meaning that S$; C $;, S$; C S;, or S$; S; =. Let N+ and N~ denote the sets of
+nests of Gt and G~, respectively, having maximal size «* and «~ among all nests
+of Gt and G~.
+
+Theorem 1.5. As 3 approaches one of the endpoints of the interval (8~, 8), if the
+endpoint is finite, we have the following weak limits:
+
+1.8 7—<—> pe
+(1.8) HB ae H
+
+and
+
+1.9 ——— fi «
+(1.9) rr
+
+Here, * is a probability measure whose support is
+
+(1.10) LU) {@1,--- pw) € (S)%: py = ++ = Pi S = {its ded},
+
+KeEN+ SEK
+4 ROLF ANDREASSON & LUDVIG SVENSSON
+
+and jt— is a probability measure whose support is
+
+1.11) LU 0) {@u---:pw) € (SY: py = = Dye S = Las eb}
+
+KeEN~ Sek
+
+—
+
+The weak convergence in Proposition 1.5 and the characterization of the support
+of the limit implies that if U is an open set compactly contained in the complement
+of (1.10) in (S?), then the probability that the system occupies U converges to zero
+as 8 + 8*, and similarly as 8 approaches 8~. Thus, Proposition 1.5 describes the
+collapse (or condensation) of the system as a critical temperature is approached, and
+(1.10) and (1.11) specify the possible clusters formed in the limit. We find examples
+where pairs are formed (see (1.16) below) and other examples displaying total collapse
+of all particles into a single cluster (see Proposition 6.5 below).
+
+A fundamental quantity in equilibrium statistical mechanics is the Gibbs free en-
+ergy as a function of the inverse temperature (3, given in our setting by —1/N log Z({).
+Our third result concerns the asymptotic behavior of the free energy as 3 approaches
+the critical values 8+ and 8~. Recall that «* and «~ denote the sizes of the maximal
+nests in G* and G™, respectively.
+
+Theorem 1.6. The free energy admits the asymptotic behavior
+1 Ke
+
+w 08 2(8) = a
+
+provided that B* is finite.
+
+(1.12) log(8— 8+) +O(1) as B+ B*,
+
+In fact, the proof provides a full asymptotic expansion of the free energy as 6
+approaches (*:
+
+a0
+(1.13) x08 2(8) T log(6 — 6+) + CF + CEB — B*) + OF (6 - Bt)? +---.
+
+This expansion follows from the fact that Z() admits a Laurent series expansion
+about 6*, established via analytic continuation. Moreover, the order of the pole of
+this Laurent series expansion is precisely k*. The coefficients Ce ; CF, ... can be
+expressed in terms of the Laurent series coefficients; for instance, Cr = (log At) /N,
+where Az is the coefficient of (6 — pt)-* in the expansion of Z({).
+
+In particular, if Proposition 1.1 and/or Proposition 1.2 in Proposition 1.3 has a
+unique solution, then «* and/or «~ is equal to 1, respectively. We also find examples
+where the solution of Proposition 1.1 is highly degenerate, and «+ grows linearly with
+N, see Section 1.2.1 below.
+
+1.1. Comment on the proofs. The proofs of Propositions 1.3, 1.5 and 1.6 rely on the
+identification of (S?)% with the complex algebraic variety (CP')’. The singularity
+of the Gibbs measure corresponds to a well-studied singular subvariety of (CP!)¥.
+To prove Proposition 1.3, we use the explicit embedded resolution of singularities of
+this subvariety, provided by the Fulton—MacPherson compactification of the ordered
+configuration space of CP! [14]. The proofs of Propositions 1.5 and 1.6 exploit the
+distribution-valued meromorphic continuation of complex powers [2, 6].
+
+1.2. Applications. We now highlight Propositions 1.3, 1.5 and 1.6 with some appli-
+cations to well-studied systems of physical origin.
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 5
+
+1.2.1. Positive temperature. First, consider the general two-component plasma, in-
+troduced in [17], for which
+
+Zi<ij<sM
+
+Z8,Ni <i,j<N
+
+-MZ,1<5i1<M,M<jSNn
+
+—Z)Zy,N, <i NA<j< Mi.
+
+In this system there are two types of particles: Nj, particles of the first and No =
+N — N, of the second. The first type of particle has charge Z, and the second
+type has charge —Z2, where Z; and Zg are positive real numbers. Without loss of
+generality, we assume Z, > Z. For simplicity (though this is not crucial), we also
+assume overall charge neutrality, that is, Z)N, = ZN». In this case we are able to
+solve Proposition 1.1 explicitly, and as a consequence of Theorems 1.3, 1.5 and 1.6,
+we find the following.
+
+Theorem 1.7. With c(i,7j) as in (1.14), we have
+(1.15) 6 =1/(Z,2Z2),
+
+and 1* is supported on
+
+Ni
+(1.16) LJ {ej = py}
+
+Ic{Ni+1,....N}j=1
+[Z|=M1
+
+(1.14) ei, j) =
+
+where the union is over all ordered tuples I C {N,+1,...,N} of size N,. In addition,
+Kt = Nj, so that,
+
+A)
+
+(1.17) —1/N log(2(8))
+
+1
+Zaks log (0 Zh) + O(1).
+
+The support (1.16) can be understood as the union over all possible ways to pair up
+positive and negative particles into a maximal number of pairs, of the corresponding
+subsets describing these configurations. In light of Proposition 1.5, Proposition 1.7
+shows rigorously the formation of dipoles as the critical inverse temperature Bt =
+/(Z1Z2) is approached.
+
+In the physics literature, see, e.g., [17], the critical inverse temperature [ =
+2/(Z,Z2) can be found, which is consistent with (1.15) due to a difference in normal-
+ization. To the authors’ knowledge, however, this formula has not yet been rigorously
+proven, except when Z; = Zp [16].
+
+In the recent work [8], dipole formation was established in the case Z; = Z. = 1
+for 8 > BY =1/(Z,Z_) = 1, in the limit A > 0, where \ denotes a regularization
+parameter. Moreover, a detailed asymptotic expansion of the free energy was ob-
+ained. It would be of interest to derive an even more detailed asymptotic expansion
+for both the free energy and Gibbs measure for a suitably regularized version of the
+system when 6 > 1. The physics literature suggests that such an expansion should
+include additional terms corresponding to the formation of neutral multipoles, be-
+yond the leading order dipole contribution. As § is increased, terms corresponding
+to increasingly larger neutral multipoles are expected to appear. In fact, in the very
+recent work [9], such higher-order terms have been shown to appear. It is natural
+to ask whether Proposition 1.1 is also related to these further transitions. We will
+address this question in a sequel to the present work.
+
+6 ROLF ANDREASSON & LUDVIG SVENSSON
+
+1.2.2. Negative temperature. Now, consider the coupling defined by
+c(i, J) = kik,
+
+where the kj are arbitrary nonzero real numbers. This model generalizes the two-
+component plasma and arises, for example, as the statistical mechanical description
+of the Onsager model of turbulence, with the k; representing the vorticities of the
+point-vortex particles. Determining the positive critical inverse temperature explic-
+itly seems difficult in general, although Proposition 1.3 and Proposition 1.4 provide
+explicit upper and lower bounds.
+
+Here, we instead focus on the negative-temperature regime, where imposing a
+strong condition on the variation among the vorticities allows us to solve Proposi-
+tion 1.2 explicitly, see Proposition 6.3. More precisely, the condition is that
+
+3,
+max k; < = min kj,
+u:kjy>0 i:ki>0
+
+and
+3,
+
+max |kj| << = min |kj|.
+
+Uki<O 2 i:ki<O
+In this case, we observe a fundamentally different qualitative behavior of the con-
+densation as the critical temperature is approached. Unlike the positive-temperature
+case (for the two-component plasma), where many small clusters are formed, here
+one observes a total collapse of either all positively or all negatively charged particles,
+depending on a simple criterion. See Proposition 6.3 below for details.
+
+1.3. Other geometries. We have stated our result in the setting of the sphere for
+simplicity, but we expect them to hold almost verbatim in a more general setting,
+with similar proofs. For any Riemann surface M, compact or otherwise, with a
+metric g and a volume form dV, one can consider an analogous energy E: MN > R
+constructed from pair-interactions governed by the corresponding Greens function
+G, defined with respect to g, where suitable boundary conditions are imposed if M
+has a boundary. Specifically, the energy is given by
+
+E(p1,..-,Pw) = >> eli, J) log G(pi,p5)-
+i<j
+Furthermore, one can allow the inclusion of a smooth external potential U: M — R,
+and define the Gibbs measure as
+
+Hp = a exp ( — B(E(pi,..-,pn) + » U(p)) daven
+
+with
+
+2(8) = I. exp ( — B(E(pi,...,pw) + » U(P:))) ave’
+
+assuming the latter integral converges. We expect our results to hold in this setting,
+more or less verbatim, as long as the possible failure of convergence of Z() arises
+from the logarithmic short-range nature of the interaction term. That is, as long as
+the integrability of exp (— @(E+ 52, U(p;))) dV® is equivalent to local integrability
+in the interior of M%. One common setting is to take M to be a rectangle, g to be
+the standard Euclidean metric, dV to be the standard Lebesgue measure and U = 0.
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 7
+
+1.4. Outline of the Paper. In Section 2.1 we recall some notions from complex geom-
+etry. In Section 2.2 we introduce a complex-geometric formalism and outline some
+ideas that go into the proofs of Propositions 1.3 and 1.5. In Section 2.3 we recall the
+Fulton—MacPherson compactification of configuration spaces. Section 3 contains the
+proofs of the three main theorems. In Section 4 we relate Propositions 1.1 and 1.2 to
+eigenvalue problems and prove Proposition 1.4. In Section 5 we use the eigenvalue
+sounds to obtain bounds in the case of random couplings. In Section 6 we present
+and prove the results related to the examples discussed in Section 1.2 above. Fi-
+nally, in Section 7 we relate Propositions 1.1 and 1.2 to other discrete optimization
+problems and point out connections to spin glass models.
+
+2. PRELIMINARIES
+
+2.1. Complex geometry. We begin this section by recalling some concepts from com-
+plex algebraic geometry that are essential to the proofs of Propositions 1.3 and 1.5.
+For more details, a good reference is [15].
+
+2.1.1. Divisors. Let X be a complex manifold of dimension n. An (R-)divisor D on
+X is a locally finite formal R-linear combination
+
+D= > Vj,
+j
+
+where each V; C X is an irreducible analytic hypersurface. An analytic hypersurface
+V is locally defined in an open set U C X as the zero set of a holomorphic function
+g: U ->C. If f is a holomorphic function on X, its associated divisor is
+
+Div(f) = So ordy(f)V,
+Vv
+
+where the sum runs over the irreducible components V of the hypersurface defined
+by f, and ordy(f) is the order of vanishing of f along V. This construction allows
+divisors to be pulled back via holomorphic maps. Specifically, if 7: Y - X isa
+holomorphic map between complex manifolds and D = >> j ajVj is a divisor on X,
+then
+
+(2.1) m™(D) =) 7 ajn*(Vj),
+a
+
+where, locally, 7*(V;) = Div(a*(f;)) for any local defining function f; of V;. Finally,
+for a divisor D = > n aj;V; on X, we define its support as the hypersurface
+
+supp(D) := vj.
+j
+
+2.1.2. Blowups. Again, let X be a complex manifold of dimension n, and let Z Cc X
+be a complex submanifold of codimension k > 1. The blowup of X along Z is a
+complex n-dimensional manifold, denoted by Blz-X, together with a holomorphic
+map 7: BlzX — X with the following local description: For any point p€ Y C X,
+we can find a neighborhood B Cc X of p and holomorphic coordinates z = (21,..-, Zn)
+centered around p such that, locally in B, Z = {z1 =+-++ = z_ = 0}. Then,
+
+BlzB = {(z,[f]) € Bx CP*?: zit; = zjti, 1< i,j < kh,
+
+where CP*-! denotes complex projective (k — 1)-space. Geometrically, the blowup
+replaces Z with a space parameterizing the directions into Z relative to the space
+8 ROLF ANDREASSON & LUDVIG SVENSSON
+
+X, called the exceptional divisor E = x~'(Z). Locally, over B, the blowup map
+a is the restriction of the natural projection B x CP*—! + B to the submanifold
+BlzB c Bx CP*-!. By covering X with such coordinate charts, the local construc-
+tions glue together to a complex manifold BlzX and a globally defined holomorphic
+map 7: BlzX — X. The map 7 is a biholomorphism over X \ Z, that is, on the
+complement of the exceptional divisor.
+
+The space BlzX can be covered by k coordinate charts {Uj}h, corresponding to
+
+the standard affine charts {t; # 0} C CPi for jf = Ay wn yke Th = (Bigs og By)
+
+and y = (y1,--.,Yn) denote holomorphic coordinates in U; and Uj, respectively, then
+the transition map is given by
+
+yyy i l=i,
+Vy; if C= j,
+
+ Vuelyy POAGG, OS,
+ye ifk+1<<n.
+For each j = 1,...,k, the restriction of the blowup map to the coordinate chart U;
+is given locally by
+From (2.2), we see that for the pullback of the tuple (z1,..., 2;), there is locally always
+
+one variable that divides the rest. These local functions define the exceptional divisor
+of the blowup.
+
+Let V C X be an analytic subvariety (reduced and irreducible). The strict trans-
+form of V under the blowup 7: BlzX — X is defined by
+
+Strict,(V) = a-1(V \ Z).
+The preimage 7~!(V) is called the total transform of V. There is also a third notion,
+interpolating between these two constructions, called the dominant transform. The
+
+dominant transform of V with respect to 7 is defined as the strict transform whenever
+V ¢ Z and the inverse image m—!(V) when V C Z.
+
+Lastly, recall that for a complex manifold X and a Zariski-closed subset Z C X, an
+embedded resolution of singularities of Z in X is a smooth manifold Xx together with
+a holomorphic map 7: X3X , which is a composition of blowups along complex
+submanifolds, such that the restriction X \~1(Z) 4 X\ Z is a biholomorphism and
+such that 1-1(Z ) is a normal crossings hypersurface in X. Recall that a hypersurface
+is said to have normal crossings if, locally, it is a union of coordinate hyperplanes.
+
+2.1.3. The relative canonical divisor. Consider a holomorphic map F': Y — X which
+is a biholomorphism between the complements of closed analytic subsets of Y and
+X (for instance, a composition of blowups). The relative canonical divisor of F is
+defined by
+
+(2.3) Ky x ‘= Div(det Jac(F)),
+where Jac(F) denotes the Jacobian matrix of F’, defined in local coordinates. In this
+
+notation, the map F' is suppressed and should thus be clear from the context. As a
+useful alternative, one can also define
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 9
+
+Here, Ky = div(s) for a holomorphic section s of the line bundle A” T* Y, and Kx is
+defined similarly. Here, T* Y denotes the holomorphic cotangent bundle of Y. While
+Ky and Kx are not uniquely defined as divisors (only as linear equivalence classes),
+Ky,x is a well-defined divisor once Ky and Ky are chosen so that they coincide
+where F is a biholomorphism. This choice will be made implicitly throughout.
+
+As an example, if 7: BlzX — X is the blowup of X along Z, then
+
+(2.5) Kpi,x/x = (codim(Z) — 1)B,
+
+where £ is the exceptional divisor, as is seen from (2.2).
+A useful property, which follows from (2.4), is that for two maps Fp: Yo > Y; and
+F,: ¥; + X as above, one has
+
+(2.6 Kyy/x = Kyyjy, + F2(Kyx);
+
+for the relative canonical bundle of the composition F, o Fh: Yy > X. Note that
+(2.6) also follows directly from the chain rule for Jacobians applied to (2.3).
+
+2.1.4. Pulling back measures with analytic singularities. Now, let X be a complex
+manifold of dimension n, and let D = > F, ajV; be a divisor on X. Suppose we have
+a measure 4. on X that locally takes the form
+
+(2.7 w= [If vdaa---A din,
+j
+
+where f; is a locally defining function of V;, and WV is a smooth, nowhere-vanishing
+function. If F: Y + X is a holomorphic map that is a biholomorphism between the
+complements of closed analytic subsets Z C Y and W Cc X, then, locally on Y \ Z,
+
+(2.8) p= Il |9;\° F*(Y) Il |hjP?% dzr A+++ A din,
+J
+
+J
+
+where F*(D) = Da bjS; and S; = {g; = 0} locally, and Ky;x = I]; cj Kj and
+Kj = {hj = 0} locally. The formula (2.8) follows from the change of variables
+formula for integrals, together with the definitions (2.1) and (2.3). Since ys does
+not put any mass on W, p(U) = F*py(F*(U \ W)) for any measurable U C Y. By
+extending F* by zero over Z, we even have p(U) = F*p(F*(U)) for any measurable
+
+U.
+
+2.2. Complex geometric formalism. In this section we introduce a complex geometric
+formalism for the N-particle system on the sphere. We begin by identifying S? with
+the Riemann sphere C U {00} or, equivalently, the complex projective line ce!. On
+the standard affine chart (C) c (CP!)% with coordinates (z1,..., 2), the energy
+in (1.1) can be written as
+
+Blay...,2v) =) / eli, 3) log li — zl’,
+i<j
+where
+
+[zi — 2)?
+(1+ |zl?)( + [zl?)’
+
+I|zi — 2y||? = |zi — 24|? exp(—(zi) — 4(z;))
+10 ROLF ANDREASSON & LUDVIG SVENSSON
+
+and where | - | denotes the standard absolute value on C. The function ¢(z) =
+log(1 + |z|?) is the Kahler potential for the Fubini-Study metric on CP!. Note that
+L 4
+
+dV(z%) =
+
+dz; A dz; = exp(—2¢(z)) 5 dz; A dz;.
+7
+
+Letting
+
+(2.9) ®(a,...,2v) = — D> eli, 9)(O(zi) + 0(2;)),
+i<j
+
+the Gibbs measure then takes the form
+
+[[l2 = 211?” exp(—8®) ave,
+
+iL
+Me = 2(B) os
+
+where the partition function Z() is given by
+(2.10) 2(B) = [ ; Il la— 2; [798 exp(—8®) aves,
+JON 55
+It suffices to integrate over C¥, since this affine chart is dense in (CP')’. On the
+remaining standard affine charts covering the reorderings of {0}* x {oo}‘—* for any
+
+k =0,...,N, the Gibbs measure takes the form
+(2.11)
+Lg = ZB) Il |zx—z, |? Il |ziwj—1]?e9)8 Il jwj,—w,|?°0-98 dve%,
+1Si<j<k 1<i<k k<i<j<N
+k<j<n
+
+after possibly reordering the variables. Note that the Gibbs measure is of the type
+(2.7) in Section 2.1.4.
+
+The partition function is convergent only on a (possibly empty) interval or ray
+(8-, 8+) CR, depending on the couplings c(i, j) and on N, and divergent otherwise.
+For any @ € R, the local integrands in (2.10) and (2.11) are locally integrable outside
+
+D:=| J{pi = pi}.
+
+i<j
+
+Consequently, for any 8 € R and any smooth function € with compact support in
+(CP!)* \ D,
+
+(2.12) 2(8)= fT] alana,
+J (S2)N .
+
+wy
+
+is defined, and the map +4 Z§() defines a distribution on (CP)% \ D.
+
+When c(i,7) € Q4 for each i 4 j, (2.12) is an example of an Archimedean local
+zeta function, see, e.g., [18]. Note that, for B € (87, 87), (2.12) defines a distribution
+on all of (CP!)%. This perspective of viewing the partition function as a distribution
+in the above sense is useful in relation to Proposition 1.5, which concerns the weak
+limit of the Gibbs measure j1g as we approach the critical inverse temperatures. Note
+that, for 8 € (8~, 87),
+
+g
+(2.13) (ua, §) = i Eg = ay
+
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 11
+
+If we allow for complex values of the inverse temperature 8, then 2(8) defines a
+distribution on (CP!) for any in the vertical strip Q = {8 © C: B— < ReB < Br}.
+Moreover, Z§(3) is holomorphic as a function of 6 in 9. By a classical result,
+originally due to Bernstein and Gelfand in [6] and independently Atiyah in [2], 2§(3)
+has a meromorphic continuation to all of Cg with poles in a discrete subset of Q, for
+any test function €. This classical result applies when c(i,7) € Q:, but as we show
+below, a version of it extends to our more general setting of mixed signs.
+
+In particular, 8~ and 6+ will be among the possible poles of Z£(8). Thus, we can
+consider the Laurent series expansion of Z§(8) about 8~ (and, similarly, about 8+),
+
+248) = S> ae(8-B-Y,
+l>-k
+where 0 < « < N. The leading order coefficient c_,, viewed as a function of €,
+defines a positive distribution, that is, a measure, on (CP!)%. This measure, up to
+normalization, is equal to the weak limit of the Gibbs measure jig as 8 + B~, see
+the proof of Proposition 1.5.
+
+Let us consider the simplest possible example, when there are only two particles.
+
+Example 2.1. Let N = 2, c:= c(1,2) > 0 and let € be a test function on C? c (CP!)?.
+Then 2‘(3) becomes
+
+i? dz Adz, Adz A dzq
+2(8) = flan — 2aPge |
+ce (20)? (1+ |za?)?(1 + |ea|?)?
+
+It is clear that B* = 00, since c > 0, and that 8~ = —1/c. Moreover, as 8 approaches
+—1/c, a standard computation in residue theory, see the proof of Proposition 1.5
+below, shows that
+
+€(g) - —! U ay
+#8) = Brag [ny ® iV + O(1),
+
+where
+4 di (x + 22) A ds (Z + 22))
+
+q
+am (1+ [5 (41 + 22)I?)
+Thus, the coefficient c_; of the Laurent series expansion of Z§(8) about —1/c is given
+by the action of 6o(z1 — 22) A eV dV on €, where do is the Dirac measure on C.
+
+dV
+
+When N > 3, that is, for three or more interacting particles, the situation is more
+involved than in Proposition 2.1. The main difficulty arises from the fact that the
+singular locus of the integrand is not a normal crossings hypersurface. Consider an
+integral of the form
+
+(2.14) I(8) = wf | 21 |2@Gar+61) tee | 24_| 2G ae tOe) € dey Adz, A\---dzn A dn,
+CN
+
+whose singular set is the normal crossings hypersurface {21 ---z,; = 0}. In this case,
+one can repeat the arguments of Proposition 2.1 in each variable separately (cf. the
+proof of Proposition 1.5) to find the weak limit of the Gibbs measure. For N > 3,
+however, Z§() is not locally of the form (2.14). Nevertheless, it turns out that we
+can reduce to this situation by pulling back the integral defining Z‘() via a suitable
+holomorphic map. We showcase this for N = 3 with the following example.
+12 ROLF ANDREASSON & LUDVIG SVENSSON
+
+Example 2.2. Let us fix N = 3 and assume for simplicity that c(i,j7) > 0 for
+each i # j. Just as in Proposition 2.1, we then have that Bt = oo. In the
+standard affine subspace C? c (CP!)?, we can write dV®? = if dz A dz, where
+f =(t)8 exp(-2 iy (2), (2) = log(1+|z;|?) and where dzA dz = dz Adz, A
+dzq A dz A dzg \ dz3. Consider the change of variables
+
+1
+WI =%-— 22, Wa=2%2- 23, W3 g (41 + 22 + 23),
+
+which satisfies dw \ dw = dz A dz. For Re GB > 0, and for any test function €, we
+have that
+
+28 (8) =? I wy |20)F fev |2°F VF fav, + wo[2e FeV Cf dw A daa.
+
+To determine 8~, we first address the fact that
+
+{w) = 0} U {wy = 0} U {w, + we = 0}
+is not a normal crossings hypersurface. To remedy this, we consider the blowup
+a: BlwC? + C3 along the locus W = {w, = w2 = 0}. The space BlyC? can be
+covered by two coordinate charts, and the blowup map 7 can be described explicitly
+
+on each. More precisely, there exists an open covering {U1, U2} of BlwC® such that,
+in local holomorphic coordinates
+
+(#1,%2,03) on Uy ~C’, (y1,Y2,¥3) on Ur ~C%,
+the transition relations on U; M U2 are given by
+T=yr, t2=1/y, 13 = ys.
+The blowup map can be written locally as
+m(x1,€2,03) = (21,01%2,%3) inj, — m(yi,¥2,Y3) = (y2¥1, 2,43) in Ud,
+cf. (2.2). In the chart U1, we have
+a (fa 2604 rap 22029)8 far + we|2e(b3)Fe—BU ¢€ F dw A dw) =
+SH |ary|P0A FFD [ar [20429-40211 4. gro [2(488 +03) qe“ BU art em f da A dz,
+where
+a, = c(1,2) + ¢(2,3) + ¢(1,3), ag =c(2,3), ag = e(1,3),
+
+and
+
+by = Ly be an bs ='0:
+The integrand is locally integrable in U; provided that
+1+h 1+ be e+e}
+
+ay ag a3
+
+2 1 1
+max { e(, 2) + (2,3) +e(1,3)’ ¢(2,3)’ qa
+
+By symmetry, an analogous integrability condition holds in U2. Since z is proper,
+we conclude that
+
+p> max {
+
+B- = max 2 1 1 1 \.
+
+{ e(1, 2) + c(2,3) +. e(1,3)’ (1, 2)’ e(2,3)’e(1, 3)
+With more work, following Proposition 2.1, one can also deduce the leading asymp-
+totics of the Gibbs measure and the partition function using this blowup construction.
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 13
+
+Reducing to the case (2.14) can be done locally, for general N, by means of an
+embedded resolution of singularities of the pair ((CP!)", D). In our setting, there
+is an explicit construction of such a resolution for arbitrary N, due to Fulton anc
+MacPherson [14]; see the following section for details.
+
+Remark 2.3. The techniques of this paper extend naturally to other Gibbs measures,
+for instance to variants of Log gases on higher-dimensional varieties X. Centra.
+o the proofs of Propositions 1.3 and 1.5 is the meromorphic continuation of the
+partition function as a distribution-valued function of 6, a general version of which
+can be found in [31]. The applicability of the Fulton—MacPherson compactification,
+which provides an explicit embedded resolution of singularities, relies on the fact tha
+1e singularities of the integrand of the partition function are supported on the big
+liagonal U,- jl%i = 2;} C XN, which is typically the case for pairwise interactions.
+A related result for Koba—Nielsen string amplitudes over an arbitrary local field o:
+characteristic zero, which closely resemble partition functions of Log gases, can be
+‘ound in [7].
+
+2.3. The Fulton—MacPherson compactification of configuration space. In [14], Fulton
+and MacPherson introduce a remarkable compactification of the configuration space
+of a nonsingular algebraic variety. Given a nonsingular algebraic variety X and a
+natural number N, they construct a nonsingular algebraic variety X (N] along with a
+proper map 7: X IN] _» X"_ The map 7 restricts to an isomorphism over the open
+subset X% \ Vic; Wij} where Wy; is the diagonal {(a1,..,7) € XN 2 a; = x5},
+that is, 7 is an isomorphism outside of the degenerate configurations where at least
+two particles coincide. Moreover, m—1(Uj;< 5 W,.,;3) is a normal crossings divisor in
+
+XII. For simplicity, we will assume that X has complex dimension 1, since our
+application concerns X = CP!.
+
+The construction of Xl] is somewhat involved, but it can be constructed as a
+sequence of blowups my ,where W ranges over the set of subvarieties
+
+(2.15) G:={{we XN: a, =--- =a}: 1 <i <--+< ip < Nk =2,...,N}
+
+of X, see below. It is convenient to identify G with the set G of subsets of {1,..., N}
+of size at least two, via {i1,...,in} < {aj, =--- = a, }. We write Wg € G for the
+
+subvariety corresponding to the subset S € G under this bijection. We also denote
+by G; the subset of G consisting of elements
+
+with i1,...,¢r <j.
+
+For the reader’s convenience, we briefly recall the construction of X WI, in the
+anguage of [36]. The variety X IN] is obtained inductively through a sequence of
+slowups. Starting from a variety Y, isomorphic to X In] x XN—", one constructs
+a new variety Y,41 isomorphic to X!"+!] x XN-(@+1) is constructed. This process
+begins with Y; = X [1] x XN-1 = XN and terminates with Yn = X [N], Moreover,
+his construction yields a factorization
+2.16) T= TN 0+++07g: Yy +++» > ¥, = (CPI).
+
+For each n > 1, the space Y,,41 is obtained from Y,, by a sequence of blowups. More
+precisely, we define
+
+2.17) Tn+1 = TMnt+1,n +++ O° TWn+1,1: Ynti = Yn+1n ute Yn+1,0 Yn,
+14 ROLF ANDREASSON & LUDVIG SVENSSON
+
+where, for each 1 < k < n, the map mp+1,, is the iterated blowup along the iter-
+ated dominant transforms (with respect to all preceding blowups 72,1, 73,1, 73,2,--+
+Tn+1jls+++sTn+1,k—1) Of all of W € Gry with codim(W) = n+1—k. These subvari-
+eties are all pairwise disjoint, so the order of the blowups at this stage is irrelevant.
+For a given W € G, we denote by W"t!* the iterated dominant transform of W
+under the maps 7,,¢ with 1<m<nand1<¢<>k, so that Wrttk co Yn+1k-
+
+Each iterated blowup 7;,; gives rise to collection of exceptional divisors, which we
+denote by EY For any m > j and ¢> k, we denote by Eee the strict transform of
+these divisors with respect to all subsequent blowups up to level m, @. We include in
+this notation also the blowups along subvarieties of codimension 1; although these are
+isomorphisms, they nevertheless give rise to exceptional divisors, namely themselves,
+which simplifies the notation.
+
+On X!"l x XN—" we write Et noe. and finally on X/] we denote Ew =
+BN which is defined for every W € G. In fact, the preimage of U;
+m is precisely the union of these divisors:
+
+™ (UW) = U Bw.
+
+i<j WEG
+
+W433 under
+
+t<j
+
+By [14], m7 "(Uj j W,,j}) has normal crossings. Hence, 7 is an embedded resolution
+of singularities of the pair ((CP!)¥, Vie; Wei.s})-
+
+Now let X = CP!. To keep track of the singularities of the integrand in (1.2), we
+introduce an R-divisor on (CP!)%,
+
+(2.18) De= cli, J) Wejy-
+
+i<j
+The following two lemmas will be useful for understanding how the integrand behaves
+under the pullback to the Fulton—MacPherson compactification.
+
+Lemma 2.4. Let 7: (CP')!N] — (CP!)% be the Fulton-MacPherson compactification.
+Then
+
+(2.19) m(D)= >> YO
+WEG i<j:
+Wan2w
+where Ew is the exceptional divisor corresponding to the diagonal W.
+
+Proof. By [14, Theorem 3(3)], the scheme-theoretic inverse image of a diagonal W is
+the union of the exceptional divisors Ey with V C W. Hence,
+
+(2.20)
+m(D.)=Dieide"Wuy) =D) Dd) le sBw= D7 DT of
+i<j i<j WOWgi,3} WeG i<j:
+Wo,732W
+
+as claimed.
+
+In view of the bijection between G and G, the result above can be rewritten as
+(2.21) => YS ci dEs,
+SeGi<jes
+
+where Es denotes the exceptional divisor Ey, corresponding to S.
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 15
+
+Lemma 2.5. Let 7: (CP')!N] — (CP!)% be the Fulton-MacPherson compactification.
+The relative canonical divisor
+
+(2.22) Keyser = >> (codim(W) — 1) Ew,
+WeG
+
+where Ey is the exceptional divisor corresponding to W € G.
+
+Proof. The proof proceeds by induction on n, using repeatedly the formula for the
+relative canonical bundle of a blowup (2.5) together with the chain rule (2.6). As a
+base case, take N = 2. Since (CP!)?! = (CP*)?, K(cptyeij(cpt)2 = 9. Moving on to
+the induction step, first, we introduce some notation. Recall that
+
+Gn = {Ws: SN{n+1,...,N} =9, |S| > 2}.
+Thus,
+
+Gn+i\ Gn ={Ws: SN{n+1,...,N}={n+ 1}, |S] > 2}.
+Recall the iterated blowup construction of (CP!)!%] described above, and define
+Tp] = Mn 0++0 772: Yn 9+ 2 YQ OV = (cP),
+
+where
+
+Tj = Mj 5-107 O51 YG = Vij + 9 Via > Yj0 = Yj-1,
+and where 7.4: Yj,4 — Yj,,-1 is the iterated blowup along the iterated dominant
+transforms (with respect to the previous blowups 72,1, 73,1, 73,2, ---;Tj,ls--+> j,k-1)
+of all W € G; with codimW = j—k. Thus, the Fulton-MacPherson compactification
+is obtained as 7 := my]: (CP!)IM] + (CP).
+For the induction hypothesis, suppose that
+
+Ky, — ty(Kcetyy) = > (codim(W) — 1) Ey.
+WEGn
+We then compute
+(2.23)
+By — Tinga Kcr) = Kyiys — m41 ot)" (Kepryy)
+
+= Ky, — hy (Hv, — © (codim(W) — 1) EW)
+WEGn
+afl T41(Ky, )
+
++ > (codim(W) = 17h (Biv).
+WeGn
+
+= Ky,
+
+To proceed, we recall the following fact from [14, Proposition 3.4]:
+(2.24) ma x(Eye) = Bye
+
+unless W = Wg with n ¢ S and |$| = n-—k in which case
+
+(2.25) ma e(Ey |) = By + yy
+
+where W! = Wy with S’ = SU {n}.
+16 ROLF ANDREASSON & LUDVIG SVENSSON
+Using this, we compute
+
+Ky, 41 — Trg (Ky,) = Kyi. — (ntin410 +++ ° Mm+1,1)" (Ky,)
+= > (codim(W"*) — 1) Et71
+
+WEGn+1\Gn
+
+| n+l
+WEGn41\Gn:
+codim(W)>1
+
+where, in the last step, we use that W"* has codimension 2 whenever codim(W) > 1
+and codimension 1 otherwise, see [14, Proposition 3.1]. Next we compute
+
+S> (codim(W) = 1)r% (Ei) = S2 (codim(W) — 1) (Rt! + yh")
+
+WEGn WEGn
+= > (codim(W) — 1)En;1
+WEGr
+
++ So (odim(W) — 2)EyF",
+WeGn+1\Gn
+
+where W’ is given by Ws where S’ = SU {n} and W = Wg.
+Going back to (2.23) and putting it all together we get,
+
+Kya — Tint] (K (cpyy) = Bias (Hy ~ » By")
+WEGn41\Gn:
+codim(W)>1
+
++ > (codim(W) — 1)Ep+?
+WeGn
++ > (codim(W) — 2) Ertl
+WEGn41\Gn
+= > (codim(W) — ent.
+WeGn4i
+
+In view of the bijection between G and G, the above result can be written as
+(2.26) K(eptyin) — m*(K opty) = Yeds| — 2)Es.
+SeG
+For Propositions 1.5 and 1.6 we will also need to know which exceptional divisors
+
+Ew on (CP')!%] intersect each other. To this end we have the following description
+from [14].
+
+Lemma 2.6 ({14, Theorem 3(2)]). The intersection
+Eg, 1---NEs,,
+
+for subsets S1,...,S5, € G, is non-empty if and only if for each pair 1 < i,j <k
+either one of S; and S; is contained in the other, or S;1.S; = 0.
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 17
+
+3. PROOFS OF THE MAIN THEOREMS
+
+Proof of Proposition 1.3. Let +: (CP!)!N] — (CP!)% be as in Section 2.3, that is,
+it arises from the Fulton-MacPherson compactification of the configuration space
+of CP!. Since m restricts to a biholomorphism over (CP!) \ D, and since D =
+Uje j Wei5} has codimension 1, the finiteness of the partition function (1.3) is reduced
+to the integrability of the measure
+
+extended by zero on (CP!)IN l, The map 7 being an embedded resolution of sin-
+
+gularities of U;.; Wrijy C (CP!) implies that we can cover (CP!)I] with coor-
+dinate charts on which the hypersurface supp(7*(D)) U supp(K (cpt yix /(CP*) x) =
+supp(7*(D)) has normal crossings. Thus, for any such chart U, we can find holo-
+
+morphic coordinates w = (wy,...,Wn) such that
+
+k
+6 ee ea,
+_ II |wyg|2208+20c Br 2 ayer,
+
+U t=1
+
+(3.1) (lceryoe-1¢0)) ( exp(-88) aV®")
+
+locally in U, where 0 < k < N, ag and by are real numbers, dV® is a volume
+form on U and © is (locally) defined by (2.9). For any @ = 1,..,k, the hypersurface
+{we = 0} on U corresponds to the restriction to U of Ew for some W € G, or,
+equivalently, to some Es for S € G. By definition, ag is the coefficient in front of
+Ew in (2.19) in Proposition 2.4. Similarly, by is the coefficient in front of Ew in
+2.22) in Proposition 2.5, cf. Section 2.1.4. Thus, ag = lief: We} 2W c(i, 7) and
+be = codim(W) — 1 by Propositions 2.4 and 2.5. The finiteness of the partition
+function reduces to the inequalities
+
+3.2) 28 Sci, f) + 2(codim(W) — 1) > -2,
+i<j:
+Weij32W
+
+1at should hold for all W € G. In terms of the bijection to subsets of {1,..., N},
+1e finiteness is equivalent to the inequalities
+
+26 S> c(i, j) +2(|$| — 2) > -2,
+
+i<jEeS
+
+1at should hold for all S C {1,...,.N} of size at least 2. These inequalities corre-
+spond to lower or upper bounds for 6 depending on whether }7,- jes c(i, j) is positive
+or negative. The sharp bounds that characterize finiteness are then given in terms
+of optimization problems over subsets of size at least 2 of {1,...,.N}, corresponding
+precisely to Problem 1.1 and Problem 1.2, yielding the statement.
+
+The idea behind the proof of Proposition 1.5 is to show that, for any test function
+€, Z§(8) defined in (2.12) admits a meromorphic continuation to neighborhoods of
+he critical values 6* and 8~. We then analyze the Laurent series expansions of
+2§(8) about these points. When all coupling coefficients c(i, 7) are positive integers,
+he existence of such an expansion, particularly in a local setting, is a classical result
+of Atiyah [2] and Bernstein—Gelfand [6], with several known generalizations. In our
+setting, we provide a direct proof that follows closely the classical arguments.
+
+18 ROLF ANDREASSON & LUDVIG SVENSSON
+
+Proof of Proposition 1.5. We divide proof into three steps. In Step 1, we show that
+Z5(B) admits a meromorphic continuation to all of C, with a discrete set of poles
+along the real line. This is a slight variation of a classical result, and the techniques
+involved in this part of the proof are standard. In Step 2, we show that the lowest-
+order nonvanishing coefficient in the Laurent expansion of 2*(3) about $* defines the
+action of a positive measure on the test function €. Furthermore, we show that the
+weak convergence of the Gibbs measure as 3 > (+ follows from this fact. Lastly, in
+Step 3, we determine the support of the limiting measure. We prove Proposition 1.5
+for 8 + 67; the case 8 — 8* is completely analogous and, in fact, follows from the
+proof for 8 > 8 by replacing 6 with —(.
+
+Step 1: Z‘(3) has a meromorphic continuation to all of C.
+
+Let 7: (CP*)!N) — (CP!)% be the Fulton-MacPherson compactification. In partic-
+ular, the divisor supp(7*(D_)) Usupp(K cpt) (cptyw) has normal crossings. Recall,
+from the proof of Proposition 1.3, that we can find an open cover of (CP), where,
+in each chart, the pullback of the Gibbs measure takes the form (3.1). Let {Uj} be
+such a cover of supp 7*é € (CP?)!9], and let {pj} be a partition of unity subordinate
+to this cover. For B- < Re 8 < B+, it then follows that Z§({) is a finite (since 7 is
+proper) sum of integrals of the form
+
+(3.3) 1j(B) = J |roy|PHB HD «fangs [hs Pas Wd (8) AVON,
+U5
+
+where a, vy ER, 0<k! < N, where
+(3.4) W(B) = pyr*€ exp (—Bx*)
+
+is smooth and compactly supported in Uj, uniformly in 6, and where dV2% is a
+volume form on (CP!)II, Suppressing the dependence on the chart U; in the notation
+in the sequel, if k = 0, then J(8) is defined and holomorphic for all 8 € C, so we
+can assume that k > 1. Moreover, without loss of generality, we may assume that
+
+ay,...,a¢ > 0 and agyi,...,a% < 0, for some 1 < 0 < k, and then, in view of (3.3),
+conclude that [(3) is defined and holomorphic for
+14+); 146;
+(3.5) max — i <ReB< min — as J,
+1<jxé aj b+1<jsk ay
+
+Note that if a; > 0 for each j, then the upper bound in (3.5) is oo, and similarly, if
+aj <0 for each j, then the lower bound is —oo.
+
+We want to show that J(8) has a meromorphic continuation to all of Cg. The
+classical idea is to consider the following Bernstein-Sato type relations
+(3.6)
+(a) 6 w « w|2(a8+b+1)
+
+8 1 ylas+o41) — (ap 4p41) |wl2@H+) — (gg4541)
+
+Ow w OW wo
+which, for Re(a8 +b) > —1, are equalities of Li,.-functions on C,,. By an induction
+argument, it follows from (3.6) that
+
+Peery
+
+2(aB+b) 7 2 an 2(aB+b+m)
+“ af ,|2(af m
+(3.7) |w| It aB+b+ ) apg ,
+
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 19
+
+for any m € N. Thus, for any (mj,...,mx) € N*, we have, by repeated application
+of (3.7), that
+O2tmit--+me) (|e, ler +b1 +01) seg [eg |2CanP Hoa +m4))
+I(6) =h(6
+(8) = h() I. Owl Ow" +» - Ow," Ow, *
+
+where
+
+w(B)aV2%,
+
+mi
+
+k
+(3.8) h(8) = [fais +545)?
+
+i=1j=1
+
+Using integration by parts we have that
+(3.9)
+I(8) = ns) [ fey [PrP Hoa H IL) ayy, |2(@HB + PKK) Pim Fm Y(B)
+CN
+
+Mg Qn
+Owl Ow" --- Ow, ‘
+Note that the integral on the right-hand side of (3.9) converges and is holomorphic
+
+in the strip
+
+L+bj) +m;
+
+. 1+b;+m™;
+<ReB< min ——~ —.
+1<j<e a; t
+
++1<j<k a;
+
+Moreover, for any (mj,..., mx) € N*, the function h() given by (3.8) is a meromor-
+
+phic function on Cg, with poles given by
+
+B=- ard. for j=1,...,mj;, i=1
+
+a
+
+k.
+
+aye Hoey
+
+Thus, since (m1,...,m,) can be chosen arbitrarily, it follows by letting each mj; > oo
+that (3) has a meromorphic continuation to all of Cg, with poles lying in a discrete
+
+subset of
+14+); 14+);
+(- 00, max — i) u min — +“, 00).
+1<j<e aj b4+1<j<k aj
+
+This implies that 2(8) has a meromorphic continuation to all of Cg, with poles
+ying in a discrete subset of (—o0, 87] U [87, cx).
+
+Step 2: The weak convergence of jug.
+
+From the previous step we know that, for any test function €, 2§(@) extends
+o a meromorphic function on all of Cg, hence we can consider its Laurent series
+expansion. For 3 in a neighborhood of 6~ we have that
+
+co
+3.10) 25(8) = Yo (B- BY (B-), 9),
+
+j=-K
+
+where (v;(8—),€) denotes the j** order Laurent series coefficient. Here we take K to
+ye the maximum over all test functions € of the order of the pole of Z§(8) at B-.
+This is possible since, in view of Step 1 and (3.8) in particular, the order of the pole
+of Z§ at 87, for any €, is at most 2N. As aforementioned, and as we will see below,
+
+v_3(B-): > (v5(B7), €)
+
+is a distribution on (CP!)% for each j7. Thus, « can equivalently be defined as the
+unique positive integer such that v_,(8~) # 0 and v_;(@~) = 0 for each j < —k.
+
+20 ROLF ANDREASSON & LUDVIG SVENSSON
+
+If B~ < Re < B*, such that Z() is finite, we can consider the action (jg, €) of
+the Gibbs measure jug on €. Recall that,
+
+love)
+
+2(8) = Z1(8) = So (B= B-)7(v;(8-), 1).
+j=rk
+Thus, in view of (2.13), we have
+Ze
+Win) = Fe
+fo.) -1 w ;
+(3.11) = Bat 8-8 YW() Yo B- HHI 8
+=, =
+(v-n(B7), €) Dg (B — BY (87), 6)
+
+B-),
+
+(Un(B-),1) +O(B — B~) © (Un(B-),1) + O(B = B-)”
+which clearly converges to (v_,;(87),€)/(v_«(87), 1), as 8 > B7, as long as the de-
+nominator (v_,(87), 1) #0. Given that v_,,(87) is a measure, then the denominator
+is nonzero in view of the definition of k. Moreover, we get the weak convergence of
+jug towards the measure v_,,(8~)/(v_,(37), 1).
+
+Claim: v_,;(87) is a measure.
+To this end, (v_,;(87),€) can be evaluated as
+
+(v-n(B7), €) = Rei — B-)*28(8)}
+
+(3.12)
+= jim (8 — B-)"24(8),
+
+for any test function €. Recall from the previous step that, by pulling back to the
+
+Fulton-MacPherson compactification (CP!)!%] and introducing a partition of unity,
+
+we can equate Z§(8) to a finite sum of integrals 1(8) of the form (3.3). For each
+
+such integral (3) we may assume, without loss of generality, that a1,...,a¢ > 0 and
+
+that ae41,...,@% <0, and recall that (3) is defined and holomorphic for
+
+14+); . 14+;
+max — L<oReB< min — a,
+1<j<e aj l4+1<jsk aj
+
+Let 1 < ¢; < @ be the number of pairs (aj, b;) that attain the maximum above and
+
+1 < l) < k—¢ the number of pairs that attain the minimum. After a possible
+relabeling, we have that
+1+ b; 1+b 14+} 1+);
+(3.18) max *3 BN 6 ae a max — “ae
+1<j<e a; ay ag, by 4+1<j<t aj
+
+and
+
+1+); 14+06 14+5, 1 = by
+(3.14) min a ork Mee min = —-— 2.
+
+b+1<j<k a; ap41 Bl+ly b+botl<j<k aj
+Let 65, = —(1+b1)/a; and 6, = —(1 + be41)/ae41. Furthermore, let
+£ k
+
+(3.15) Ge(w) = Il Jw, 2 +o) Il Jur P0asb+b)
+
+i=0,41 jH=t+bo4l
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 21
+
+which is locally integrable for 8 € [,,., 5;5.] by (3.13) and (3.14). We have that
+
+hy e+le
+1(8) = | II [ru] 2(2#P-Bioe) -D II jw, [2078 -Fied-Y Go (w)U(w) dye,
+CN jaa joey
+
+ef. (3.3).
+
+ts are now two cases: Hither 6,5, < 6~, in which case I is convergent at B~,
+or 35, = 8. In the first case the term J gives no contribution to (3.12). Suppose
+that the latter is true. Write dV@% = f(w)i% dur A dt; A-+- \dwy A dwy, where
+f(w) is a smooth and strictly positive function. By repeated use of (3.6) we have
+that
+
+(3.16)
+Li & 8—B- e+e
+_1)4 1 qy,|221(8-8-) 2
+f= yy" — ) (B- oye f (A i a im A au;) A Il |r, [2049 FFD)
+G1 Ge, CM Nga Mi j=l
+
+x Ga(w)U(w) f(w)iN dw 41 A dte41 A+: A dwy A diy.
+
+It is a standard result in residue theory that the distribution valued map
+
+Alw|>
+Aw el A dw,
+w
+is holomorphic in a neighborhood of Re A > 0, and, moreover, that
+Olw|?
+dlw|" A dw = 27ido(w),
+w xy
+where 69(w) is the Dirac distribution. Similarly, the map
+Bw, |2™ Alwy, Pa
+(At, «+. Ae) alsin Adwy A+++ A Olwe, Adwe,,
+wi we,
+
+which is just a ¢;-fold tensor product of distributions on C, is holomorphic in a
+neighborhood of the half-space {(A1,..., 2) € C1: Red; > 0 for j = 1,..., 41},
+and
+
+(3.17)
+B}wy |2%1 Alwy, |24 F
+chal Adwy A+++ A Olwe| A dwe, = (2ri)"6y(w1) A+++ A 50 (we, )-
+wi We, d=, 0
+
+Thus, since
+
++b \
+
+Il |w,; [2098 -Fid YGe(w) U(w) f(w)
+
+rel
+
+depends smoothly on (w1,...,we,) (locally uniformly in ), see (3.4) and (3.15), the
+integral on the right-hand side of (3.16) is defined and holomorphic in a neighborhood
+of 6 = 8~. Moreover, I has a pole of order at most £; at 8~ and, by (3.17), we have
+that
+
+(3.18)
+b+be
+Qn) 0.(9-
+lim (8 — 6-)1(8) = CD [ [Deus l20@ #80) x
+B>B- Gy Mey J {wy =--=we, =0} eee
+
+x Gg-(w)¥(w) f(w) NS dw 44 A dtie,41 A+-> Adwy A dwn.
+22 ROLF ANDREASSON & LUDVIG SVENSSON
+
+From (3.18), in view of (3.4) and (3.15), we see that if the test function € is (strictly)
+positive, then limg_,4~ (6 — B-)"1(B) is (strictly) positive. Indeed, the integrand on
+the right-hand side of (3.18) is generically positive and vanishing only on a set of
+positive codimension in {w, = --- = we, = 0}.
+
+Now, recall that « was defined as (the maximum over all test functions € of) the
+order of the pole of Z§(8) at 8~. Thus, there exists a test function € such that
+
+(v-n(B-),€) = lim (8 — B-)*Z8(B) £0.
+
+b> B-
+
+Moreover, & > ¢, with ¢; as above. Clearly, limg_,,-(8 — 8~)*I(8) = 0 unless
+¢; = «. Consequently, since (3.18) (with ¢; = «) provides a local description of the
+non-vanishing contributions to (v_,,(87),€), it follows that v_,(87) is a non-trivial
+measure, proving the claim. Hence, (v_,(37), 1) > 0 and that the weak limit in (1.9)
+from the statement of Proposition 1.5 exists. Its action on a test function € defined
+on (CP!)" is that of a positive measure ji~, defined on the Fulton-MacPherson
+compactification (CP!)!"], acting on the pulled-back test function 7*€, that is,
+
+(u"s6) = im (1496) = (m8) = (mall 8),
+
+where the last equality is by definition of the pushforward of distributions with respect
+to proper maps.
+
+Step 3: The support of ~.
+
+What is left is to determine the support of ~. To this end, let us first understand
+the support of ji on (CP')!]. From (3.18) it is evident that 7i~ is supported on a
+union of certain intersections of irreducible hypersurfaces on (CP1)II, More precisely,
+these hypersurfaces appear in either the support of 7*(D-) and, from Section 2.3,
+any such hypersurface corresponds to a divisor Eg for some S € G.
+
+We write
+
+T"(De) = D> asEs,
+Seq
+
+Kepymeryy = >, bs Es.
+SeG
+
+(3.19)
+
+Recall that G~ is the subset of G consisting of sets S for which ag > 0 and B~ =
+(1+ bs)/as. From (3.18) we see that ~ is supported on the union of the maximal
+intersections of the divisors Eg with S € G~. These intersection are maximal in the
+sense of having the maximal possible codimension. By Proposition 2.6, Es,,..., Es,
+
+intersect if and only if Si,..., Sj are pairwise nested; recall that S$; and S; are nested
+
+if either S; C Sj, $; CS; or S;.S; =. Thus, the support of ji~ is given by
+supp = [J () Bs.
+KeEN- ScK
+We claim that
+
+suppyu = U () Ws.
+
+KeEN- Sek
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES — 23
+
+To see this, first note that since 7 is continuous, supp 7.(f~) = (supp). Thus
+the claim follows if we can show that
+
+(3.20) n( Un Es) = U () 74s),
+
+KEN Sek KeEN~ Sek
+
+since 7(Es) = Ws. We immediately have
+
+( U M45) U =( 14s)
+
+KeEN- Sek KEN Sek
+
+as well as the inclusion
+
+n( () Es) C () (Bs), VK EN.
+Sek
+
+Sek
+
+To see that the converse inclusion holds, that is,
+
+() *(Bs) c *( N Bs), VK EN7,
+
+pick (p1,...,pN) € sex Ws. We must then find g € Use Es such that m(q) =
+Pi,---,Pn). That such a q exists is easiest to see via the description in [14] of
+CP')I] using screens, which is a convenient way to understand (CP!)!%] as a set.
+If pi,...,pn are all distinct, the fiber of 7 over (pi1,...,pn) consists of a single
+point. Otherwise, an arbitrary point in the fiber is described by the following data.
+For each maximal collection of two or more indices 71,..., 7% such pj, = --+ = pi,, one
+associates a screen to the set {7),...,7,}, that is, a tuple q,...,q, of k points in the
+angent space T;, Pi CP!, not all coinciding; this data is only prescribed up to transla-
+ion and homothety. Furthermore, whenever there are ¢ > 2 indices ig,,..., 7%, such
+hat de, = +++ = %,, one specifies an additional screen associated to {i,,,...,tn,},
+consisting of £ points in the tangent space T; ey (Tp,, CP"), not all coinciding, up to
+ranslation and homothety. This iterative procedure continues until all new points
+introduced are distinct. The limiting nested collection of screens describes a unique
+point in the fiber over (p1,...,py)-
+In this picture, for S = {i1,...,ix}, the divisor Eg corresponds to the locus of
+points in (CP!)I%] whose description includes a screen associated to the indices
+i1,...,%%- From this description, it is evident that the required choice of g¢ € Use kes
+can be made by appropriately selecting the additional data defining the relevant
+screens. Such a choice is possible precisely because Kx is a nest.
+
+Proposition 1.6, about the asymptotics of the partition function close to the critica.
+inverse temperatures, is a consequence of the meromorphic continuation of Z(8) anc
+its structure at B+.
+
+Proof of Proposition 1.6. Consider the Laurent series expansion of 2§(8) about 6 =
+87 in (3.10) with € = 1:
+
+2°() = (8-87) *(v-n(B-),1) +O(B- 8) **),
+24 ROLF ANDREASSON & LUDVIG SVENSSON
+
+where « is defined in Step 2 of the proof of Proposition 1.5. Thus,
+
+— 5; low(2(8)) = © tow(8 — B-) ~ Flos (v-«(8-), 1) + OB - B-))
+K _ 1 _ it =
+=F log(8 — 8) — Slog((v-n(3~), 1)) — = log (1+ 0(8 - 8-))
+
+= 7 log(8 - 8-) +000),
+
+as 6 > B-. The asymptotics as 6 > 8* follows analogously.
+
+It remains to show that k = «. Recall from the proof of Proposition 1.5 that
+« equals the maximal number of simultaneously intersecting divisors E in (CP),
+where FE is an irreducible component of supp(m*(D)) U supp((cp1yixi (cpt) ) Such
+that the coefficients a and b in front of E in (2.22) and (2.19), respectively, satisfy
+—(1+ 6)/a = B-. As noted above, these divisors are in bijection with subsets
+SC {1,...,N} that solve Proposition 1.2. Moreover, by Proposition 2.6, two or
+more of these divisors intersect if and only if the corresponding sets are nested, cf. the
+definition preceding Proposition 1.5. Consequently, « is the maximal cardinality of a
+collection of nested subsets solving Proposition 1.2, which is precisely the definition
+of «~. An analogous argument shows that the order of the pole of Z(8) at B+ equals
+
+Kt .
+
+4. BOUNDS ON THE CRITICAL INVERSE TEMPERATURES IN TERMS OF
+EIGENVALUES
+
+Recall that Propositions 1.1 and 1.2 are optimization problems over subsets S
+of {1,...,.N} of size at least two. We can represent such a subset by a vector
+x € {0,1}, where yi = 1 if i € S and x; = 0 otherwise. Let C denote the
+symmetric N x N matrix with entries c(i,j) for i < j, c(j,i) for i > 7 and zeros on
+the diagonal. With these identifications
+
+Dicyes I) 1 xT
+|S|—1 2xTx-1
+
+(4.1)
+
+The right-hand side is closely related to a Rayleigh-Ritz quotient, which allows us
+to obtain bounds on the critical temperatures in terms of the eigenvalues of C.
+Proposition 4.1. Suppose that B* is finite. Then
+
+(4.2) B* > -1/Amin(C),
+
+where Amin(C) is the smallest eigenvalue of C. Similarly, if B~ is finite, then
+
+(4.3) BO < —-1/Amax(C),
+
+where Amax(C) is the largest eigenvalue of C.
+
+Proof. Recall that
+
+ijesi<s et, J)
+|S|—1
+
+rs min
+Ss
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES = 25
+
+Assume that T* > 0, that is, there exist S Cc {1,...,N} such that |S| > 2 and
+Vijesiucj c(i J) < 0. Using (4.1) we have
+
+DVicjes et, 9)
+
+aT = min
+SC{1,...,N}:|S|22 |S|—1
+: 1 _xTCx
+
+= nun 5.T. 7
+XEON exTxD2 2X7 KX — 1
+
+> min x TE x
+XE{O TN xT HE2 KX
+
+> min 4 = yain(C).
+xERN XX
+
+where in the last step we use the min-max theorem for eigenvalues of a symmetric
+matrix and Amin(C) is the smallest eigenvalue of C. By Proposition 1.3 we obtain
+the bound Bt > —1/Amin(C).
+
+A completely analogous argument shows that if T~ < 0, then B~ < 1/Amax(C
+where Amax(C) is the largest eigenvalue of C.
+
+In the case c(i, j) = kik; for each i ¥ j, letting k; be the components of a vector k
+we have C = kk™ —diag(k)? where diag(k) is the N x N matrix with entries k; along
+the diagonal and zeros otherwise. This is quite useful in relation to Proposition 4.1
+since the only two eigenvalues of kk? are ||k||? and 0. Using the Weil inequalities
+
+Amax(A + B) < Amax(A) + Amax(B),
+
+for symmetric matrices A and B we prove Proposition 1.4 from the introduction,
+Section 1.4.
+
+Proof of Proposition 1.4. The first bound, (1.5), follows directly from Proposition 4.1
+and
+
+Amin(C) = Amin(kkT — diag(k)?) > Amin(KkT) + Amin(—diag(k)?) max k?.
+
+a
+
+The second bound, (1.6), follows directly from Proposition 4.1 and
+
+Amax(C) = Amax(kkT — diag(k)?) < Amax(Kk7) + Amax(—diag(k)”) = ||k||? — min k?.
+a
+
+5. RANDOM COUPLING
+
+In general, Problems 1.1 and 1.2 are not tractable to solve. However, an interesting
+special case to consider is when c(i,j) are random variables. We will look at the
+following two cases: When the particles have independent random couplings, and
+when they have independent random charges.
+
+5.1. Random coupling. Let us first assume the couplings c(i, 7) are ii.d. standard
+normal random variables. In this setting, the bounds in Proposition 4.1 lead to
+stochastic bounds using the well known distributions of the maximal eigenvalue of
+the Gaussian Orthogonal Ensemble (GOE).
+26 ROLF ANDREASSON & LUDVIG SVENSSON
+
+Proposition 5.1. Let c(i,j) be independent, normally distributed random variables
+with mean 0 and variance 1/N, for each l1<i<j<N. Then
+
+(5.1) T* <2
+almost surely, and
+
+(5.2) T >-2
+almost surely.
+
+Proof. Let C' be, as above, the random N x N symmetric matrix with zeros on the
+diagonal and off-diagonal entries given by the random variables c(i, j) for i < 7 and
+i> Jj. Define C :=C+2D where D isa diagonal matrix with iid. standard normal
+entries d;. Note that
+
+P(Tt > 0) =1-05NA-Y? 1 as N00,
+
+since T+ > 0 as soon as c(i, j) < 0 for some pair (i,7). Assuming T* > 0, so that
+Proposition 4.1 applies, the Weil inequality yields
+
+The first term on the right-hand side, —\min(C), corresponds to the largest eigenvalue
+of a GOE random matrix. To leading order, its expectation equals 2 and its variance
+scales as AN~1/3, where A > 0 [37].
+
+The second term, —2Amin(D), can be written as io max(d;). This quantity is well
+studied in extreme value theory, and by, e.g., [38, Example 1.1.7], to leading order,
+both its expectation and variance grow as A’,/log(V) for some positive constant A’.
+Consequently,
+
+Tt <2 almost surely.
+
+The analysis for T~ is carried out analogously.
+
+Note that, by definition, T* < 2 does not exclude that T* < 0 which implies
+B* =o. However, as stated in the above proof, the probability of this event tends
+to zero as N — oo.
+
+5.2. Random charges. Another natural random model is to consider random, inde-
+pendent charges instead of random, independent coupling parameters. This setup
+has been studied, for instance, in [20]. It appears particularly natural in the context
+of the Onsager model of turbulence, where, to the best of the authors’ knowledge,
+there is no canonical ansatz for the vorticities of the vortex particles. In this case,
+Proposition 1.4 yields corresponding stochastic bounds.
+
+Proposition 5.2. Let ki, fori =1,...,N, be i.i.d. standard normal random variables
+and let c(i,j) = kikj. Then we have the stochastic bounds Tt < Cy andT~ > C_,
+where
+
+2(C, — log(N) + log log(N)/2 + log(['(1/2)) + A,
+with A standard Gumbel distributed, and where
+1
+
+Jen(& ~VN/2) > 0,
+
+where © is standard normally distributed, as N — co.
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 27
+
+Proof. Since P(k; = 0) = 0 for each i
+Proposition 1.4, conditional on this event,
+
+1,...,N, T* > 0 almost surely. By
+
+T+ < maxk?.
+a
+
+Each random variable k? follows a I'(1/2,2) distribution. Standard results from
+
+extreme value theory then imp
+
+y that
+
+2( max k? — log(N) + log log(N)/2 + log('(1/2)) + A as N + 00,
+a
+
+where A is a standard Gumbel
+For the negative critical tem
+
+random variable.
+perature, note that T~ < 0 as long as there is at least
+
+one positive k; and at least one negative k;, respectively. Thus,
+
+P(T~ <0)
+
+1-2-05% >1 asN
+
+Cw.
+
+By Proposition 1.4, conditiona
+
+on T~ <0,
+
+= 2 «1.2 2
+af < ki ~ min k; < hi
+a t
+and, by the central limit theorem,
+
+se VN/2) © aNo,
+
+L
+Tax
+
+where O is standard normally distributed.
+
+6. APPLICATIONS
+
+6.1. Positive temperature. In this section we prove Proposition 1.7. We begin by
+considering the two-component plasma defined by the coupling matrix
+BPAr<ijg<M
+
+—Z,1<i<M,M<j<N
+-Z,N,<i<N1<j<M,
+
+(6.1) eli. i)
+
+for some fixed real number Z € [1, 00).
+
+Lemma 6.1. Let c(i,j) be as in (6.1). Then
+Dicjes tI)
+
+0 a yo Me.
+
+Moreover, the maximum is achieved precisely for any S C {1,...,N} of size |S| =2
+such that |Si| = |S9| = 1, where S$; = SN{1,..., Ni} and S, =SN{N,+1,...,N}.
+
+max
+|s|>2
+
+To prove Proposition 6.1, we will make use of the following technical lemma.
+
+Lemma 6.2. For Z € [1,00) and integers a,b of the form a = 2k—1, b = 2¢—1 where
+(k,l) € Zao \ {(0,0)}, we have either that
+
+(6.2) |Za —b| > Z—-(a+b-1)
+or that
+
+(6.3) a+b>Z+1.
+28 ROLF ANDREASSON & LUDVIG SVENSSON
+
+Proof. Assume first Za—b > 0. If b > 1, then a > 1. If b = —1, then by assumption
+a> 1. In either case we have that
+
+Za—b>Z—(a+b-1).
+
+Consider now the case when Za — b < 0. If a = —1, then, by assumption, b > 1,
+whence
+
+Za—b Z—b+(a+1) <-Z—b+(a+1) +2(b- 1) Z+(a+b-1),
+
+and (6.2) follows.
+Ifa>1, then Z < Za<b<a+b—-1.SoZ+1<a+b.
+
+Proof of Proposition 6.1. Starting from (6.1) we have
+d2 eli, 9) = Z?|S1|((S1| — 1)/2 + | $2] (S2| — 1)/2 — Z| Si] Sal
+
+i<jes
+
+(Z| S1| — |$2|)?/2 — Z7|S1|/2 — |S2|/2
+
+(Z| $1| — |S2| — (2 — 1)/2)?/2 — 2|8|/2— (Z —1)°/8
+
+(Z(2|S1| — 1) — (2|$2| — 1))?/8 — Z|S|/2 — (Z — 1)7/8.
+
+We note that for S such that |,S)| = |S2| = 1,
+~Dicjes tI)
+\S|—1
+It remains to show that, for arbitrary S of size at least 2,
+—NMicjes 49)
+|S|-1
+with equality if and only if |.$i| = |S2| = 1. To this end, let a = 2|5;| — 1 and
+
+b = 2|S9| — 1. Note that |S] = |.$;| +|S2| = (a+ b)/2+1. Note also that Z, a and b
+satisfy the conditions of Proposition 6.2. We divide the argument into two cases.
+
+Case 1: Suppose a+b > Z+1. We have that
+
+= Le
+
+2G.
+
+~ Ricjes C5) _ Z8|/2+ (Z—1)?/8 — (Z2181| — 1) — (2|$2| — 1))?/8
+|S|—1 [sj—1
+2\8|/2+ (Z—1)?/8
+~ |S|—1
+Z((a+b)/2+1)/2+ (Z—1)?/8
+(a+ b)/2
+Z Z+(Z-1)?/4
+2 a+b
+_Z (Z+1)?
+~ 2° d(a+b)
+
+By the assumption that a+b > Z-+ 1 we thus find that
+
+— Viejes ct 3) 2 Z Z+1 <Z,
+js]-1 -~2° 4 7
+
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 29
+since Z > 1. We see that for equality to hold in the last inequality, we need Z = 1.
+But then the assumption a+b > Z+1 becomes 2|$| > 3, which can never be sharp.
+
+Case 2: Suppose that a+b < Z+1. By Proposition 6.2 we then have that |Za—b| >
+Z—(a+b) +1. It follows that
+
+~Nicjes 5) — Z|8|/2+(Z—1)?/8 - (Za b)?/8
+
+|S|-1 |S|-1
+< AISI/2+(Z 1)?/8 — (Z — (a+b) +1)?/8
+~ |S|—1
+Z|S|/2+ (Z —1)?/8 — (Z — 2|S| +. 3)?/8
+|S|—1 ,
+
+where in the last step we used that (a + b) = 2|S| — 2. Rewriting the numerator on
+the right-hand side,
+
+2|S|/2 + (Z— 1)?/8 — (Z — 2S] + 3)?/8 = (|S| — 1)(4 — (S| — 2)/2),
+we find that
+
+~ Micjes lt 3) az A Se:
+
+|S|-1 7
+
+For equality to hold in the last inequality, we must have that |S| = 2. For equality
+to hold overall, we must have that
+
+\Za—bl=Z—(a+b)4+1
+|Z(2|S1| — 1) — (2|S2|—1)| = 2-1.
+If |S,| = 2 and Sy = 0, the above becomes
+3Z41=Z-1,
+
+which has no solution in [1, 00). If S; = @ and || = 2, we obtain
+Z2+3=Z-1,
+which has no solution for any Z. This leaves only one remaining possibility, namely
+
+S| = |S2| = 1, which we already saw attains the maximum. This concludes the
+proof.
+
+We are now ready to prove Proposition 1.7.
+
+Proof of Proposition 1.7. For a general two-component plasma model, defined by
+1.14) with Z,, Z2 € (0,00), we may assume, without loss of generality, that Z. < Z;.
+Then, by making the change of variable 8 = 238, and letting Z := Z/Zs € [1, 00),
+we reduce to the setting of Proposition 6.1, whence B+ = 1/Z = Z2/Z,. Changing
+oack to 8, we immediately find that B+ = 1/Z Zo.
+
+From the proof of Proposition 6.1 we also see that G~ consists of sets S with
+exactly two elements, i and j, where i < N; and j > Ni + 1, corresponding to one
+particle of each charge. Thus, \V~ consists of collections K of subsets of {1,...,.N}
+of size N; where each subset in K has two elements, one at most Nj and one at least
+Ni +1. It follows that ht = N| = N/(1+2Z/Z) where the last equality is due to
+overall charge balance.
+
+30 ROLF ANDREASSON & LUDVIG SVENSSON
+
+6.2. Negative temperature. Recall the general coupling defined by
+(6.4) ct, J) = kiky,
+
+for nonzero real numbers k;. Without loss of generality, we assume that k; > 0 for
+i=1,...,N, and k; < 0 fori = Ni +1,...,No where Nj + No = N. To be able to
+solve Proposition 1.2, we put a strong assumption on the charges k;, namely that
+
+3,
+(6.5 max kj <= min kj,
+i: kj>O 2: kj>0
+
+and that
+3
+(6.6 max |k;|< = min |kjj.
+i: ki<O 2 i: ki<O
+We will also assume that N > 2 to avoid the degenerate case c(1,2) < 0.
+
+Corollary 6.3. Let c(i,7j) be given by (6.4), and assume that the conditions (6.5) and
+(6.6) hold. Then
+
+_ —-Ni,4+1 —No+1
+(6.7 Bb” = max 5
+Dicj<m kik; DiM<i<s kikij
+and
+Ny 1 No 1
+{p1 =--- =p} if > ,
+_ ' ici EN kik Um<i<j kik;
+suppH = Ni +1 No+1
+P 1 4
+{pm41 =" =pn} if
+
+< ;
+Dicj<m kik Um<i<j kiky
+
+Furthermore, if
+
+—-N,+1 —No+1
+Dicj<m kik; “™ <i<j kik’
+then
+(6.8 ~ Jog Z(8) = ~ log(3 — B-) + O(1)
+. N gs W s t "
+
+Proof. Recall from Proposition 1.3, in view of (6.4), that 67 is finite and given by
+
+_ DVicjes kikj \~"
+max 3
+p= —( myx =)
+claim that the maximum is achieved for a subset S for which @ € S' implies
+ke we S\ {0} ki; > 0. To seek a contradiction, assume that S realizes the maximum in
+(6.9) and that @ € S is such that ke S29 kj < 0. We can assume that >> kikj >
+0. Estimate
+
+(s|-2) Obey <(SI-D( bj +he Ow) sisi) Dy,
+
+i<jes i<jeS\{Q} i€S\ {0} i<jes\{O}
+
+.
+a
+
+ie i<jes
+
+and after rearranging
+Vicjes\(g Riky — Vicjes hiky
+IS\ {4}|—1 |S|-1
+which contradicts that S realizes the maximum in (6.9), proving the claim. This
+implies that the maximum is in fact achieved for a S for which all k;’s with i € S$
+
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 31
+
+have the same sign. To see this, assume, without loss of generality, that )7;-¢ ki = 0,
+and that ky < 0. Then, clearly, k, Dies\{y ki, < 0.
+
+Assuming further that max;:4,50 |ki| < 3 minj-4,>0 |ki| and similarly for the case of
+negative k;’s, we claim that the maximum is achieved precisely for a subset S with
+the maximum number of elements possible for which all ks with i € S' have the same
+sign. To see this, assume that S realizes the maximum but is not maximal in the
+above sense and let ¢ ¢ S be such that ky has the same sign as the k,’s with i € S.
+
+Write
+IS] So kiky =(1S1—1) SO bikg + SO bakes,
+
+i<jes i<jes 1<jEes
+
+and estimate
+
+1
+i<jes — ieS
+
+1
+
+< s(is | apes fs Dh a we, fh ) 2
+1
+
+< (|| max, kj - ape k; 2) oi
+1/3
+
+2S £3 FI) O| a=
+
+< 5(5I5I 1) m min hh
+
+=
+
+where, in the second-to-last step, we used our assumption, and in the last step the
+fact that |S| > 2. Thus, since ky > minj.,,50 kj, we have
+
+S| So bikj < (S1—1)( So biky + he Sow) = (11-1) SD bik.
+i<jeS i<jes ieS i<jeSUf{e}
+
+Rearranging yields
+Vicjesutey kiky Dicjes hy ky
+|SU{E}|—1 |sj-1
+
+and therefore
+
+B- —-N, +1 —No+4+1
+max i
+icj<My kik; “<™, <i<j kiky
+
+Example 6.4. If the bounds (6.5) and (6.6) on the relative sizes of the kj are not
+assumed, then the conclusion of Proposition 6.3 need not hold. For instance, consider
+the case N = 3 with ky = a, ko =a, k3 = 1. Then
+
+wt2a if § = {1,2,3}
+cies hiky zl es
+icjes wd 2 if S = {1,2}
+
+IS|—1 if S = {1,3} or S = {2,3}.
+
+Hence, the maximum is attained uniquely for S = {1,2} when a is sufficiently large.
+32 ROLF ANDREASSON & LUDVIG SVENSSON
+
+Remark 6.5. If k; = k € R for each i = 1,...,N, then the bounds (6.5) and (6.6)
+hold. By Proposition 6.3, the support of jz~ is then given by {p; = --- = py}.
+In other words, total collapse occurs as the negative critical inverse temperature is
+
+approached.
+
+Remark 6.6. For kj = \/2/(N — 1), Proposition 6.3 yields 8~ = —1+1/N, in
+agreement with [3] and [13]. In this case, limy_,.,—87 is precisely the 7-invariant
+of the Fano manifold CP!. Moreover, limy_oo —6- =1 reflects the fact that CP! is
+
+Gibbs semistable, but not Gibbs stable, see [3] and [13].
+
+7. RELATIONS TO OTHER OPTIMIZATION PROBLEMS
+
+7.1. Arboricity of a graph. As in previous sections, let C be the symmetric N x N
+matrix with zeros on the diagonal and entries c(i, 7) for i < j and c(j,i) for i > j.
+When C is the adjacency matrix of an undirected graph G, the quantity [—T~],
+where T~ is defined in Proposition 1.2, coincides with the arboricity of G. The
+arboricity of an undirected graph G is defined as the minimal number of forests that
+partition the edge set of G. By the main result in [23], the arboricity of a graph is
+given by
+
+[EI
+\V|-1
+
+where the maximum is taken over all subgraphs H of the graph G, and where E(H)
+and V(H) denote the sets of edges and vertices of H, respectively. The quantity
+
+apse
+HCG |V(H)|-1
+
+is often referred to as the fractional arboricity in the literature.
+
+In the more general setting of matroids, determining the arboricity (7.1) of a
+graph generalizes to finding the minimal number of independent subsets into which
+a matroid can be partitioned. This is known as the matroid partitioning problem,
+and a formula analogous to (7.1) was established in [35], and there is also a version
+related to Section 7.1 in [30].
+
+Finally, note that when C is an adjacency matrix, the quantity —@* coincides with
+the log canonical threshold of a certain ideal associated to a reduced hyperplane ar-
+rangement, as explained in Section 2. For a general reduced hyperplane arrangement,
+the log canonical threshold was computed in [22]. The formula for the log canon-
+ical threshold established in [22] appears to be related to the matroid partitioning
+problem [30] in a similar way as described above in the case of graphs.
+
+7.2. Random couplings and the Sherrington—Kirkpatrick model. Let us now go back
+to the case of random couplings in Section 5. Curiously, this problem resembles
+a problem coming from the statistical study of spin glasses, namely the so called
+Sherrington—Kirkpatrick model. In this model, the space of states is given by a spin
+vector oj € {-1,1}% and the Hamiltonian is given by
+
+(7.2) H(a) =—So Iiyoiog +h 03.
+aj a
+
+where h is some fixed external field and Jj;, for 1 < 1,7 < N, are random interaction
+terms, typically assumed to be i.i.d. Gaussian. The main problem in this setting is
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 33
+
+to understand the ground state energy,
+(7.3) Amin = min — H(o),
+o€{-1,1}%
+for example in terms of its expectation over the random couplings. As is standard in
+statistical mechanics, this can be reduced to computing the limit of the free energy
+
+1
+F(8) = 5Bllog Ziv(6)),
+where Zy (3) is the partition function
+
+Zy(8)= >> exp(-8H(o)),
+oe{-1,1}4
+as 3 — oo. A solution was found with heuristic methods by Parisi in [27], the famous
+“Parisi solution”, which was later rigorously proven by Talagrand in [32].
+
+To see a connection with the main problem of this paper, we will assume that the
+spins take values in {0,1} instead. That is, put o = y in (7.2) and (7.3) where y is
+a vector in {0,1} as in Section 4. Note that the main result of [32] includes this
+case as well. Let C denote the symmetric N x N matrix with entries c(i, 7) for i < j,
+c(j,7) for i > 7 and zeros on the diagonal. Given a solution to Proposition 1.2, that
+is, a vector y’ € {0,1}% solving the optimization problem
+
+(7.4) max ee a
+xe{o,1N: XTX — 1
+xT x22
+
+then x’ is also a solution to the optimization problem
+
+N
+
+5 min —x? —T” ;)=—T,
+
+(7.5) itty, ( x" Cx x)
+x7 x22
+
+where we note that ye xi = xT x. Conversely, a solution to (7.5) for which h =
+—T-, or any solution for which Hyin = h, is a solution to (7.4) as well. A similar
+statement is true also regarding Proposition 1.1 and T+. Thus, it seems that the
+Parisi solution of the Sherrington—Kirkpatrick model with spins taking values in {0, 1}
+might be useful to understand the critical temperature of the Log gas with random
+couplings. Indeed, for fixed deterministic couplings and for a carefully chosen external
+field h, the ground state energy of the Sherrington—Kirkpatrick model is precisely the
+negative of the critical temperature of the corresponding Log gas. Although, knowing
+the expectation of Hin does not directly yield any knowledge about the expectation
+of T~. Moreover, whereas in the Sherrington—Kirkpatrick model, the coupling c(i, 7)
+are assumed i.i.d. Gaussian, the assumption in [20] seems more natural, where the
+charges k; are assumed i.i.d. Gaussian. This version of the Sherrington—Kirkpatrick
+model does not seem to have been considered previously.
+
+REFERENCES
+
+1] A. ALASTUEY AND B. JANCOVICI.: On the classical two-dimensional one-component Coulomb
+plasma, J. Phys. 42 (1981), no. 1, p. 1-12.
+
+2] M. Arryau: Resolution of singularities and division of distributions, Comm. Pure Appl. Math.
+23 (1970), p. 145-150.
+
+3] R. J. BERMAN: Kahler-Einstein metrics and Archimedean zeta functions. European Congress
+of Mathematics Portoroz, 20-26 June, 2021, p. 199-251. EMS press (2023)
+
+34
+
+a
+
+20)
+
+21
+
+22
+
+23)
+
+24)
+
+25)
+26
+
+27
+
+28)
+
+29
+
+30)
+
+31
+
+ROLF ANDREASSON & LUDVIG SVENSSON
+
+B. A. BERNEVIG AND F. D. M. HALDANE: Model fractional quantum Hall states and Jack
+polynomials, Phys. Rev. Lett. 100 (2008), 246802.
+
+B. A. BERNEVIG AND N. REGNAULT: The anatomy of Abelian and non-Abelian fractional
+quantum Hall states, Phys. Rev. Lett. 103 (2009), 206801.
+
+I. N. BERNSTEIN AND S. I. Ger’FAND: Meromorphy of the function P*, Funkcional. Anal. i
+Prilozen. 3 (1969), no. 1, p. 84-85.
+
+M. Bocarbo-Gaspar, W. VEYZ AND W.A. ZUNIGA-GALINDO: Meromorphic continuation of
+Koba-Nielsen string amplitudes, J. High Energy Phys. 2020 (2020), 138.
+
+J. BOuRSIER AND §S. SERFATY: Dipole formation in the two-component plasma.
+arXiv: 2410.01025
+
+J. BOURSIER AND S. SERFATY: Multipole and Berezinskii-Kosterlitz-Thouless Transitions in
+the Two-component Plasma, arXiv:2509.09449
+
+D. DE CoNCINI AND C. PROCESI: Wonderful models of subspace arrangements, Selecta Math.
+(N.S.) 1 (1995), p. 459-494.
+
+S. F. Epwarps AND J. B. TayLor: Negative Temperature States of Two-Dimensional Plasmas
+and Vortex Fluids, Proceedings of the Royal Society of London.Series A, Mathematical and
+Physical Sciences 336 (1974), no. 1606, p. 257-271.
+
+V. ErBa, F. KRZAKALA, R. PEREZ ORTIZ AND L. ZDEBOROVA: Statistical mechanics of the
+maximum-average submatrix problem, J. Stat. Mech. 2024 (2024), 013403.
+
+K. Fusira: On Berman-Gibbs stability and K-stability of Q-Fano varieties. Compos. Math. 152
+(2016), no. 2, p. 288-298.
+
+W. FULTON AND R. MACPHERSON: A Compactification of Configuration Spaces, Ann. of Math.
+139 (1994), no. 1, p. 183-225.
+
+P. GRIFFITHS AND J. HARRIS: Principles of Algebraic Geometry, Pure and Applied Mathemat-
+ics, John Wiley and Sons, New York, 1978.
+
+J. GUNSON AND L. S. PANTA: Two-dimensional neutral Coulomb gas, Comm. Math. Phys. 52
+(1977), no. 3, p. 295-304.
+
+J. P. HANSEN AND P. VioT: Two-body correlations and pair formation in the two-dimensional
+Coulomb gas. J. Stat. Phys. 38 (1985), p. 823-850.
+
+J. Icusa: An introduction to the theory of local zeta functions, AMS/IP Studies in Advanced
+Mathematics, vol. 14, American Mathematical Society. International Press, Cambridge, 2000.
+M. KiessLinG: Existence and uniqueness of the pressure profile p(A) of a current-carrying
+quasineutral equilibrium plasma. J. Math. Phys. 29 (1988), no. 5, p. 1258-1263.
+
+M. K. H. KIESSLING AND Y. WANG: Onsager’s Ensemble for Point Vortices with Random
+Circulations on the Sphere, J. Stat. Phys. 148 (2012), p. 896-932.
+
+J. M. KosTERLITz AND D. J. THOULESS: Ordering, metastability and phase transitions in
+two-dimensional systems J. Phys. C 6 (1973), 1181.
+
+M. MustaTA: Multiplier Ideals of Hyperplane Arrangements. Trans. Am. Math. Soc. 358 (2006),
+no. 11, p. 5015-5023.
+
+C. St. J. A. NASH-WILLIAMSs: Decomposition of finite graphs into forests. J. Lond. Math. Soc.
+39 (1964), no. 12, p. 12-12.
+
+D. NICOLAIDES: Exact results for the two-dimensional two-component plasma, Phys. Lett. A.
+103 (1984), p. 64-66.
+
+L. ONSAGER: Statistical hydrodynamics Nuovo Cim. Suppl. 6 (1949), p. 279-287.
+
+D. PANCHENKO: The Sherrington—Kirkpatrick Model: An Overview. J. Stat. Phys. 149 (2012)
+p. 362-383.
+
+G. Parisi: Infinite number of order parameters for spin-glasses. Phys. Rev. Lett. 43 (1979), p.
+754-1756.
+
+A. M. SALZBERG: Exact Statistical Thermodynamics of Gravitational Interactions in One and
+Two Dimensions. J. Math. Phys. 6 (1065), no. 1, p. 158-160.
+
+E. SANDIER AND S. SERFATY: Vortices in the magnetic Ginzburg-Landau model. Progress in
+Nonlinear Differential Equations and Their Application. Springer US (2007), p. 1-319
+
+E. R. SCHEINERMAN AND D. H. ULLMAN: Fractional arboricity and matroid methods, in
+Fractional graph theory, Wiley-Interscience in Discrete Mathematics and Optimization, John
+Wiley and Sons, (1997), New York, p. 99-126.
+
+L. SVENSSON: On Finite Parts of Divergent Complex Geometric Integrals and Their Dependence
+on a Choice of Hermitian Metric, J. Geom. Anal. 34 (2024), 325.
+
+CRITICAL TEMPERATURES AND COLLAPSING OF TWO-DIMENSIONAL LOG GASES 35
+
+32] M. TALAGRAND: The Parisi formula. Ann. of Math. 163 (2006), no. 1, p. 221-263.
+
+33] Z. TEITLER: A note on Mustata’s computation of multiplier ideals of hyperplane arrangements.
+Proc. Amer. Math. Soc. 136 (2008), 1575-1579
+
+34] G. TELLEZ AND P. J. FORRESTER.: Expanded Vandermonde powers and sum rules for the
+two-dimensional one-component plasma, Jour. Stat. Phys. 147 (2012), no. 4, p. 825-855.
+
+35] J. EpMonDs: Minimum partition of a matroid into independent subsets, J. Res. Natl. Bur.
+Stand., Sect. B 69 (1965), p. 67-72.
+
+36] L. Li: Wonderful compactification of an arrangement of subvarieties, Mich. Math. J. 58 (2009),
+no. 2, 535-563.
+
+37| C. A. TRacy AND H. Wipom: On orthogonal and symplectic matrix ensembles, Commun.
+Math. Phys. 177 (1996), p. 727-754.
+
+38] L. HAAN AND A. FERREIRA: Extreme Value Theory, Springer, New York (2006).
+
+ROLF ANDREASSON, DEPARTMENT OF MATHEMATICAL SCIENCES, UNIVERSITY OF GOTHENBURG
+AND CHALMERS UNIVERSITY OF TECHNOLOGY, SE-412 96 GOTEBORG, SWEDEN
+Email address: rolfan@chalmers.se
+
+LUDVIG SVENSSON, DEPARTMENT OF MATHEMATICAL SCIENCES, UNIVERSITY OF GOTHENBURG
+AND CHALMERS UNIVERSITY OF TECHNOLOGY, SE-412 96 GOTEBORG, SWEDEN
+Email address: ludsven@chalmers.se

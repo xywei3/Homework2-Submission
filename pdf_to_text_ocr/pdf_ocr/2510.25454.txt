@@ -1,0 +1,1054 @@
+2510.25454v1 [cond-mat.stat-mech] 29 Oct 2025
+
+arXiv
+
+The impact of fluctuations on particle systems described by Dean-Kawasaki-type
+equations
+
+Nathan O. Silvano,* Emilio Hernandez-Garcia,! and Cristébal Lopez?
+
+IFISC, Instituto de Fisica Interdisciplinar y Sistemas Complejos (CSIC-UIB),
+
+Campus Universitat de les Illes Balears, E-07122 Palma de Mallorca, Spain
+(Dated: October 29, 2025)
+
+We study the role of fluctuations in particle systems modeled by Dean-Kawasaki-type equa-
+tions, which describe the evolution of particle densities in systems with Brownian motion. By
+comparing microscopic simulations, stochastic partial differential equations, and their deterministic
+counterparts, we analyze four models of increasing complexity. Our results identify macroscopic
+quantities that can be altered by the conserved multiplicative noise that typically appears in the
+Dean-Kawasaki-type description. We find that this noise enhances front propagation in systems
+with density-dependent diffusivity, accelerates the onset of pattern formation in particle systems
+with nonlocal interactions, and reduces hysteresis in systems interacting via repulsive forces. In
+some cases, it accelerates transitions or induces structures absent in deterministic models. These
+findings illustrate that (conservative) fluctuations can have constructive and nontrivial effects, em-
+phasizing the importance of stochastic modeling in understanding collective particle dynamics.
+
+I. INTRODUCTION
+
+Interacting Brownian particles are commonly used for
+modelling systems accross a wide range of fields, from
+opulation ecology to condensed matter. The stochastic
+evolution of the particle density field in these systems,
+in the overdamped limit, is given by the so-called Dean-
+Kawasaki (DK) equation [1, 2], which is becoming an
+important tool in fields related to dynamic density func-
+ional theory and fluctuating hydrodynamics [3-6]. The
+DK equation is a stochastic partial differential equation
+which models the dynamics of the density fluctuations,
+and which presents great challenges both analytically and
+numerically. In recent years numerous studies have at-
+empted to establish rigorous mathematical results and
+reliable numerical algorithms [7-9], or rather to extend
+he equation to account for several species o different
+pes of particle mobilities, interactions or physical pro-
+cesses [10-12].
+
+One of the characteristic features of the DK equation,
+and key source of its many difficulties, is the way it rep-
+resents fluctuations. As it is a continuity equation ex-
+pressing the conservation in the total number of particles,
+the fluctuation term appears in the form of conservative
+multiplicative noise. This involves the gradient of the
+square root of the density multiplied by Gaussian noise.
+In this paper we refer to DK-type equations (DKTE) to
+the ones that include this type of noise term. Unlike
+in non-conservative systems, where the noise term does
+not involve a gradient operator and for which there are
+well-established numerical methods [13], the conservative
+fluctuating term in the DK presents many difficulties,
+and the simplest approach is to neglect it (e.g. [14]), so
+
+nathan Qifisc.uib-csic.es
++ emilio@ifisc.uib-csic.es
+t clopez@ifisc.uib-csic.es
+
+that the role of fluctuations is unknown. However, recent
+studies [7, 15] have proposed appropriate algorithms for
+the DK equation, showing [16] that they successfully re-
+produce the particle dynamics and analysing its range of
+validity.
+
+In this paper, we aim to study the role of fluctuations
+in a series of particle models that can be described by
+DKTE. The models are presented in order of increas-
+ing complexity, and we analyse relevant properties like
+front propagation velocity, or the onset of pattern forma-
+ion. Our analysis is performed from three perspectives:
+he particle model, its corresponding DKTE description
+(these two are in principle equivalent), and the determin-
+istic density equation, t.e, the DKTE where the noise
+erm has been neglected, hereafter referred to (some-
+how improperly) as deterministic DKTE. In this way
+we aim at understanding the influence of the conserved
+fluctuations. We adopt for the DKTE the numerical
+method from [15, 16], which, as mentioned, provide rig-
+orous statements of its validity. We also aim to test these
+ypes of algorithms as a function of the number of par-
+icles in the system, which is why we compare with the
+particle-based model.
+
+A crucial aspect of our study lies in the choice of mod-
+els, which we consider in increasing order of complexity.
+This complexity arises from the manner in which parti-
+cles interact. With larger model complexity, in general
+we observe that the role of fluctuations becomes more
+significant. We begin by analyzing a system of non-
+interacting Brownian particles with a spatially dependent
+diffusivity. The steady solution is studied in the presence
+of a diffusivity gradient and the influence of fluctuations
+analysed. Then we study again a system of Brownian
+particles but now with a density-dependent diffusion co-
+efficient. This can be interpreted as some kind of lo-
+cal interaction among the individuals. For certain initial
+conditions, the system develops sharp fronts, whose ve-
+locity is examined. In contrast to other standard models
+where noise tends to slow down (pulled) front propaga-
+
+ion [17], we observe that in our case fluctuations enhance
+he front velocity. The third model considers a spatially
+non-local, density-dependent diffusion coefficient, so that
+he non-local interaction between the particles is reflected
+in the diffusivity. This system is known to exhibit spatial
+attern formation [18], with particles organizing, in two
+dimensions, into hexagonally ordered clusters. Again,
+we analyze the model across the three frameworks (par-
+icle, DKTE, and deterministic DKTE) and investigate
+he role of fluctuations in the onset and stability of these
+atterns. The last model we examine consists of soft-core
+repulsively interacting Brownian particles, a system that
+is also known to exhibit spatial patterns [14]. We study
+how conservative fluctuations affect the emergence and
+stability of these patterns.
+
+The outline of the paper is the following. In Section II
+we study the system of Brownian particles with a spatial
+gradient in the diffusivity. In Section III we study the
+density-dependent diffusivity system. Then in Section
+IV we study the non-local version of this, and in Section
+V the model of repulsively interacting particles. Section
+VI presents a summary and conclusions of our study.
+
+II. BROWNIAN PARTICLES WITH SPATIALLY
+DEPENDENT DIFFUSIVITY: MODEL I
+
+Let us consider a onedimensional system, with size L,
+of N non-interacting particles with positions {2x;}i=1,....N
+which evolve as
+
+dx; (t)
+dt
+
+These equations are to be interpreted in the It6 sense,
+with 7; Gaussian white noises with zero mean, and corre-
+ions (n;(t)n;(t’)) = 6(t—t’)di;. Eq. (1) can be derived
+9, 20] for the positions of a set of noninteracting Brow-
+nian particles in the overdamped limit with a constant
+friction coefficient y but in an inhomogeneous tempera-
+are field T(x) which reflects in the position-dependent
+diffusion coefficient D(x) = kgT(x)/y. Alternatively,
+here we consider Eq. (1) as the simplest example within
+a hierarchy of stochastic models describing the motion
+of physical or biological point entities that will be used
+in this paper to illustrate the impact of fluctuations on
+article densities and its proper modelling.
+
+We first derive the DKTE following closely the ap-
+roach in [1]. As usual we define the single particle den-
+sity pi(z,t) = 6(a;(t) — x), and consider an arbitrary
+function f so that
+
+- D
+
+¢
+
+(ei) = f ades(er— afte) = f aepila,t4@). @)
+
+Following the calculation by Dean using It6 lemma:
+
+ari) _ Afar) de Ly ye PF
+dt Ox; dt + Dima
+of 2
+
+| dxp;(z,t) [2s
+
+On the other hand a (es) = f dxdyp;(x,t) f(x). Inte-
+grating by parts and equating integrands:
+
+2D(x)mi(t) + D(a) 4h)
+
+oP 0, po
+Arpi(a,t) = Fa (D(a) pila, t)) — ag V 2D (pin). (4)
+
+Summing up over all the particles and defining the
+total density of particles p(x,t) = pila, t) =
+Vir (a(t) — 2):
+
+2
+
+ao(v.t) = 25(D(a)olv,)) ~ 2 V2) pin -
+a)
+
+It is standard to show, by analyzing the statistical prop-
+erties of the last noise term [1], that this is equivalent to
+the following DKTE for the total density:
+
+2 :
+aole.t) = 25 (Dladple,t) +2 (V2D@ ewe.)
+
+(6)
+where (¢(x,t)¢(2’,t’)) = 6(a — x')d(t —t’). This expres-
+sion is better analysed in its non-dimensional form. For
+this we define the non-dimensional variables = x/L,
+t =tDo/L? and fp = p/po, where pp = N/L is the initial
+density (which is conserved) and Do is a constant with
+the dimensions of a diffusion coefficient. Omitting the
+tilde notation in most of the variables we obtain:
+
+arplest) = Fr (Deedonrt)) + Fee (2D ee)o(aele.)
+(7)
+
+where D(x) = D(x)/Do. Here it is explicitly seen that
+in the limit N — oo we get a deterministic description
+for the system of particles. Note that the normaliza-
+tion of the scaled density appearing in (7) is such that
+f dxp(x,t) = 1. Note also that Eq.(6) (or Eq.(7)) is com-
+pletely equivalent to the particle dynamics described by
+Eq.(1). However, our objective is to compare the particle
+dynamics with the DKTE as numerically approximated,
+and both to the deterministic version of the DKTE, in
+order to uncover the role of fluctuations on some of the
+properties of this model.
+
+A. Numerical results
+
+The numerical simulation of the DKTE is based on the
+algorithm proposed in [7, 15, 16]. These studies demon-
+strate that a standard discretization of the DK equation,
+using either finite difference or finite element schemes,
+rovides a suitable approximation for capturing density
+fluctuations in a system of N diffusing particles, provided
+hat at each time step and at every point the density ap-
+earing in the noise term is replaced by the maximum
+etween zero and the density computed there from the
+revious step, thus preventing unphysical negative den-
+sities. This numerical approximation works better in a
+high density regime since one of it sources of error is pro-
+ortional to exp(—Nh“), where h is the numerical spatial
+grid size and d the spatial dimension. Note that, since
+h here is measured in units of system size, Nh? is equal
+o po times the unscaled grid volume. Thus, the small
+error condition means that as long as there is substan-
+ially more than one particle per grid cell (Nh* >> 1) the
+numerically discretized density accurately describes the
+article system. The details of the numerical integration
+of this model and of the following ones can be found in
+he Appendix.
+
+For the numerical example we consider a domain (0, L}.
+We impose zero-flux conditions at « = 0 and # = L. For
+he spatially-dependent diffusivity we take:
+
+D(a) =O01+2, (8)
+
+and L = 1. The exact solution of the deterministic model
+with zero-flux boundary conditions is p(x) = C/D(a),
+with C a normalization constant. In Fig. 1 we present
+he steady density profiles for the particle dynamics, the
+DKTE for two values of N, and the deterministic DK
+(i.e. N — oo). The only effect of fluctuations is the emer-
+gence of a rough density profile (equivalent for DKTE and
+articles) relative to the smooth deterministic solution.
+This is further illustrated when we consider the average
+density over realizations (p) which evolves according to
+On(p(a,t)) = 2 (D(2) (p(x, t))). Thus, this equation for
+he mean field is identical to the deterministic DKTE
+given by N > oo. The lower panels of Fig. 1 display the
+long-time average of the density (p) for the DKTE and
+articles, that compare perfectly with the deterministic
+DKTE description. The impact of fluctuations on the
+steady density is also independent of the function D(z).
+
+The lower panels of Fig. 1 also display the standard de-
+viations obtained from the particle simulations and the
+DKTE. The good agreement confirms that the numer-
+ical method used for the DKTE description accurately
+captures the particle dynamics.
+
+Ill. BROWNIAN PARTICLES WITH
+DENSITY-DEPENDENT DIFFUSIVITY: MODEL
+II
+
+In the next model, also in one spatial dimension, we
+consider diffusivity to be density-dependent, that is, it
+varies with the number of particles at each point in space
+(we refer to this as model II). Density-dependent diffusion
+
+—t DKTE
+
+—e— Particles — deterministic DKTE
+
+Figure 1. Density distributions measured at long times, when
+statistically steady states are reached, for model I in the [0, 1]
+interval (only a slightly smaller region is shown). In all panels
+red circles are from the particle simulations and blue trian-
+gles are from the DKTE. For the particles, densities are ob-
+tained by binning the particle positions in histograms of 300
+ins. Instantaneous configurations are displayed in panels (a)
+and (b), whereas their averages over long times are in pan-
+els (c) and (d). There, the error bars indicate the standard
+deviation of the density fluctuations at each point. (a) and
+(c) are for N = 1000 and (b) and (d) for N = 2000. The
+lack line superimposed on all panels is the exact solution
+of the deterministic DKTE, corresponding to N + oo. We
+note the very good agreement between the variances of the
+particle and DKTE simulations and of the average densities
+etween them and with the deterministic solution. Simula-
+tions of deterministic DIKE and DKTE were performed with
+dt = 10°; dx .33 x 1073, up to 5 x 10° simulation steps,
+while for the particles dt = 10~° with 10° steps and we binned
+the particles into a density histogram with the same dz of the
+DKTE.
+
+can be seen as an effective way of considering interparticle
+interactions (e.g. [21]). A possible formal description at
+the particle level is given by:
+
+N
+
+= [2D | >> d(ai(t) — 2;()) |m(t), i=1,...,.N.
+
+(9)
+
+dt
+
+Since we have
+
+N
+Yala —ay(t)) = > f avste,— wou - 25)
+ja
+N
+a y) >. 4( G-&)
+j=l
+= [eee — y)Ply.t)
+= plait), (10)
+we can rewrite Eq. (9) in a more illustrative form as
+
+dei) _ VeD[oe Dnt), (1)
+
+The DKTE for this system of particles is obtained fol-
+
+lowing similar steps as before:
+
+df(xi) _ Of (xi) dai
+dt Ox; dt
+
+2
+Dlola) 4
+
+Xi i
+= FO) aD paNntt) + Diolad) 54
+(4 2
+= f dav [PY vavoen + DOWNS
+= [ dvd.o.u.000) (12)
+
+Integrating by parts, equating integrands and summing
+over all particles, the final expression for the density is
+similar to the model before but now with D(p):
+
+\+9 a atv 2D(p p)p(@)(x,t)) .
+(13)
+The deterministic versions of this type of equations are
+generically known as nonlinear diffusion equations [22].
+In the next subsection we compare, mainly numerically
+and with the same algorithm specified in the previous
+section, the different approximations for this model, i.e.,
+the particle dinamics Eq.(11), the corresponding DKTE,
+Eq.(13), including an analysis of the average (over real-
+izations) density (p), and the deterministic DKTE.
+
+2,
+
+Ap(a,t) = a) (e)ply.t
+
+A. Numerical results.
+
+To proceed we first assume a specific form for the
+diffusivity D(p) = Do(%)", where Do and n are posi-
+tive constants. This type of density dependence appears
+naturally in collections of individuals (like insects) that
+enhance their motility due to population pressure [23].
+By introducing the nondimensional variables = x/L,
+t =tDo/L?, p = p/po and omitting the hat notation for
+simplicity, we obtain:
+
+2
+da?!
+
+Aipla.t) = —5(pla@,t)™1) +
+
+= (/2p"+1¢(a, t))
+
+(14
+
+d.
+
+where now the dimensionless diffusivity is D = p" and
+the noise correlations (¢(x, t)¢(2’,t’)) = d(a—2')6(t-t’).
+
+The nonlinear diffusion equation, represented by
+the deterministic version of Eq.(14), Opa(z,t)
+2 (pala, t)?*), has been extensively studied [22].
+particular for n = 1 and any compact-support initial
+condition, the solution approaches the parabolic form
+pa(x,t) (A?e?/3 — x?)/(12t) for |x| < At!/%, and
+pa(x,t) = 0 elsewhere. This represents a hump of parti-
+cles limited by two sharp fronts moving in opposite di-
+rections at positions a(t) = +At*/? (A is a positive con-
+stant determined by normalization). We will focus our
+analysis of this model in this type of sharp front solu-
+tions. We perform simulations starting from an initial
+condition that is already of the above analytical form
+(ie. we take as initial condition py(xz,t = 107°). See the
+Appendix for the details of the numerical method. The
+upper panels of Fig. 2 display the solutions p(a,t) of the
+DKTE, Eq. (14), at a later time (t = 0.01). The ana-
+lytic solution py(x,t) from the deterministic DKTE, and
+particle densities constructed from histograms of their
+positions are also shown. A slight difference between the
+stochastic and deterministic solutions is observed in their
+temporal evolution since the front of the stochastic solu-
+tion always seems to advance the deterministic one. This
+is more clearly seen in the bottom plots of Fig. 2 where
+we plot the same deterministic DKTE solution and the
+ensemble average (p) over 300 realizations of the DKTE,
+all from the same initial condition.
+
+To better quantify these results, we compute the po-
+sition of one of the sharp fronts (the right one), w(t),
+as a function of time, for all the frameworks previously
+
+discussed: the particle simulations (computing a den-
+sity field via an histogram, see caption of Fig.2), the
+numerical DKTE solution p(x,t), and the analytic so-
+
+lution py(x,t) of the deterministic DKTE. We compute
+the front for the ensemble average of the density over 300
+realizations for DKTE and particles (the average is not
+performed for the deterministic DKTE). The front posi-
+tion is located as the rightmost point for which density
+exceeds a threshold equal to 0.01 The results are shown
+in Fig.3. The behavior of the front positions as a func-
+tion of time are all well fitted with the same power law
+xp(t) x t'/3, implying that the fronts in the average den-
+sity of the DKTE or the particles effectively behaves as
+in the deterministic case, but with a larger diffusivity (if
+a diffusivity different form unity is used in Eq.(14) the
+prefactor A in the front position becomes an increasing
+function of this diffusivity).
+
+An heuristic way to understand this result can be ob-
+tained by taking the ensemble average of Eq.(14) (with
+n = 1), which leads to (the noise disappears under aver-
+aging since we use It6 Calculus):
+
+2
+
+a4 (o(0,1)) = 25 ((pl2.0)). (15)
+a) b)
+
+1.5} 4
+& 4
+x If +f
+rs 4
+
+0.57 45
+
+0 L L L
+-0.3 0 0.3
+x
+
+Figure 2. a) N = 1000. Red line: numerical solution of the
+DKTE at large times (t = 0.01); black line: exact solution of
+the deterministic DKTE at the same time; green line: density
+obtained from particle simulations of Eq.(11) (using 401 bins
+for a simulation with system size L = 5). b) the same for N =
+2000 particles. c) N = 1000. Red line is the average over 300
+realizations, all for the same initial condition, of the solution
+of the DKTE at t = 0.1; black line is again the analytic
+solution of the deterministic DKTE at the same time. d)
+The same as c) for N = 2000. The numerical simulations for
+DKTE and deterministic (see Appendix) here are performed
+with dt = 10-* and dx = 5/3000; particle simulations with
+de= 197"
+
+a) b)
+0.5 : T } 0.5 1 —“Berermidistic DRTE | 7
+— DKTE
+— Particles
+0.4 0.4 4
+0.3 0.3 4
+a J
+0.2 0.2 4
+0.1 rtitit) 0.1 =
+% 1 2 3
+<p> 1 <p> 1
+0 f L L 0 L . L
+0 0.004 0.008 0 0.004 0.008
+t t
+Figure 3. Front positions vs time for the deterministic
+
+equation (black line), the average over 300 realizations of the
+DKTE (red line), and the average over 300 realizations of the
+density obtained from position histograms of particle simula-
+tions (green). The front is located as the rightmost spatial
+point for which the density is equal or smaller than 0.01. a)
+is for N = 1000, b) is for N = 2000. The insets show the re-
+lation between (p”) and (p)? at time t = 0.1 at the different
+spatial points.
+
+on
+
+Numerically, we observe (insets of Fig. (3)) a rather
+accurate, which seems to not vary with time, linear re-
+lationship between (p?) and (p): (p?) & D(p)?, with
+D = 1.037 (for N = 1000) and D = 1.018 (for N = 2000).
+Substituting into Eq. (15) we see that the dynamics of
+the average density is ruled by an equation of the same
+form as the deterministic DKTE but with a larger effec-
+tive diffusion coefficient D > 1:
+
+ar (p(w,t)) * D— (ol, t))”), (16)
+
+which implies that the fronts in the average density of
+she DKTE move with the same exponent t!/? as the de-
+erministic ones, but with a larger prefactor arising from
+he larger diffusion coefficient D, which is a consequence
+of the fluctuations.
+It is worth emphasizing that, in this model described
+by DKTE, the velocity of the sharp front is actually en-
+hanced. This contrasts with standard pulled fronts in
+noisy (non-conserved) FKPP equations, where fluctua-
+ions typically act to slow down the front propagation
+17]. Those studies have also analysed the dependence
+of the front velocity with N, showing that corrections to
+he deterministic front velocity scale as 1/log?N. The
+dependence on N of the sharp front dynamics for our
+model is left to future work.
+
+IV. BROWNIAN PARTICLES WITH
+NONLOCAL DENSITY-DEPENDENT
+DIFFUSIVITY: MODEL III
+
+Continuing with our hierarchy of models, we now con-
+sider an extension of the previous one in which the diffu-
+sion coefficient depends non-locally on the density, i.e.,
+D = D(pa(x,t)), where pa(x,t) = [ dyG(x — y)ply,t)
+and the kernel G(x—y) quantifies the influence of density
+at y on density at x. Since we focus this study on the
+spatial structures that form, the system will be consid-
+ered in two dimensions. The simplest case corresponds
+to a top-hat kernel: G(x) = 1 if |x| < R and zero other-
+wise. Under this choice pq(x,t) = Nr(x,t) becomes the
+number of particles in a radius R around x at time t.
+
+At a particle level, this non-local dependence of the
+diffusion coefficient on the density is described by the
+following equations for the i = 1,..., N particles:
+
+dx;(t) _
+
+N
+
+= J20{  S> alxe(t) -xy(4)) } ml.
+kslxj—xg [SR G=1
+
+(17)
+
+7 (t) is a Gaussian white-noise vector acting on particle 4,
+with zero mean and correlations (7;(t)n;(t’)) = 1d;;6(t —
+t’). Again we have
+
+~ LoeH-5 = Y
+
+(Xx, t)
+
+ki|x;—x.|<R j=1 k:|x;—xx|<R
+= palxi,t) (18)
+so that in the continuum notation, po(xi,t) =
+
+Jixcrl<r drp(r,t), and we have D = D(pg(xi,t)). Thus,
+we can write the particle equations as
+
+dci(t) 2D(pa(xi,t)) ni(t)- (19)
+
+dt
+
+Proceeding similarly to the previous section we obtain
+the corresponding DKTE:
+
+Aip(x,t) = V2(D(oa)olx, +9 (/BDRCIA CH 0»
+
+20
+where now ¢(x,t) is a spatiotemporal Gaussian
+white-noise vector with zero mean and correlations
+
+(C(x, t)¢(x',t")) = T(x —x')a(t— #).
+
+A. Numerical results
+
+As in previous cases, we analyze the influence of fluc-
+tuations in the model with spatially non-local, density-
+dependent diffusivity. To proceed, we assume a spe-
+cific form for the diffusivity functional and, similarly to
+the previous model, we take D(pa) = Do(pa/(Lp0))?;
+where Dp is a positive constant with dimensions of diffu-
+sivity. The nondimensional version of the DKTE is now
+
+dtp. t) = V*((pe)"») + TeV (V/2pah% Cle.)
+
+(21)
+[18] studied this type of dynamics both neglecting fluc-
+uations, and in an equivalent particle system. In both
+cases, the most relevant feature was that, in two spatial
+dimensions, density shows spatially periodic patterns of
+hexagonal symmetry if p is large enough. Our focus here
+is to analyze, in two dimensions, this behavior in the
+framework of the DKTE, and compare it with the par-
+icle and the deterministic descriptions. To this end we
+erform numerical simulations of the three frameworks.
+Numerical details are in the Appendix.
+The characterization of the emerging spatially peri-
+odic patterns is carried out using the structure func-
+ion, whose peaks indicate the presence of periodic struc-
+ures. The structure function for the continuum system
+is computed as the modulus of the Fourier transform of
+he steady-state normalized density and then averaged
+spherically and over time. For particles it is computed as
+(1d, lek P/N), where x;(t) is the position of par-
+icle i, k is a twodimensional wave vector, and the aver-
+age indicates a spherical average over the wave vectors
+with modulus k, a temporal average in the steady state,
+
+and an average over many different realizations. Well-
+developed spatially periodic patterns are associated with
+pronounced peaks in the structure function.
+
+In Fig. 4 we plot the height of the peak of the structure
+function in terms of the parameter p for a systems of
+N = 10000 and N = 20000 particles (remember this is
+a 2d em at difference of the previous sections). The
+transitions are observed at a critical value of p. which is
+7.6 for the deterministic case, 7.3 for the particles and
+6.8 for the DKTE. The value of p, for the deterministic
+case can be calculated via linear stability analysis of the
+homogeneous solution [18].
+
+A salient feature of this figure is the presence of a small
+region of noise-induced patterns [24], i.e., a region of p
+values smaller than the one needed to produce patterns
+in the deterministic case, but where fluctuations give rise
+to noisy but well-developed spatial periodicity. In both
+the particle simulations and the DKTE, the transition to
+pattern formation occurs for values of the control param:
+eter p smaller than in the deterministic case. The smal
+discrepancies between DKTE and particles simulation:
+are due to the numerical details in the first. Additiona
+features, such as the presence of a hysteresis loop (whic
+is not shown here), will be discussed in detail in the next
+section in the context of a different model.
+
+|
+
+7)
+
+Pe
+
+V. REPULSIVELY INTERACTING BROWNIAN
+PARTICLES: MODEL IV
+
+The last system we consider is a collection of Brownian
+particles interacting through a pair potential in a two-
+dimensional domain. In contrast to the previous mod-
+els, where particle interactions were mediated indirectly
+through the diffusivity, the current model considers a di-
+rect inter-particle force. Thus, in this case the DKTE is
+in fact the original DK equation [1, 2]. This system has
+been extensively studied in [14] in the twodimensional
+case with repulsive soft-core potentials, with the some-
+how surprising result that, despite the repulsive nature
+of the interactions, particles can spontaneously aggregate
+forming a periodic crystal of particle clusters. The result-
+ing spatial pattern is very similar to the one obtained
+with the model of the previous section.
+
+In [14] the aggregation dynamics of this system was
+described with particle simulations and with the deter-
+ministic DKTE, which explains them roughly. In the
+present section we aim, as for the previous models, to
+analyze what is the role of fluctuations in the density
+description (i.e. in the DKTE).
+
+The N particles evolve following
+
+dx;
+dt
+
+N
+=— SO VV (x; —x;) + V2Dni(t), (22)
+j=l
+
+so that there is a force between particle i and j Fij =
+—VV (x; — x;) deriving from the potential V, and the
+=
+:
+h
+)
+
+—* DKTE
+
+—— Particles
+
+even Critical p,
+— deterministic DKTE
+
+Figure 4. Height of the peak of the structure function, nor-
+malized with N as a function of the parameter p for the three
+frameworks: particle (red), DKTE (green) and deterministic
+DKTE (black). a) is for N = 10000 and b) for N = 20000.
+The vertical dotted line indicates the value of p- identified by
+linear stability analysis of the homogeneous solution in the
+deterministic case. Simulations of deterministic DTKE and
+DKTE were performed with dt = 10~*;dx = 7.8 x 107°, up
+to {1.5 x 10°; 2.5 x 10°} simulation steps, respectively, while
+for the particles dt = 10~* with 10® steps.
+
+density dynamics is ruled by the DK equation [1, 2]:
+
+ane =V - (\/2Dp(x,t) ¢(x, t)) + DV" p(x, t)
+
++V- (o0s t) [avo - v)oyst)),
+(23)
+
+In the above formulae, 7;(t) and ¢(x,t) have the same
+meaning and correlations than in the previous section.
+We use the following soft-core repulsive interacting po-
+tential between particles [14] :
+
+viy=eon(-(H)"). en
+
+where r = x; — x; is the relative position, R is the in-
+teraction radius, € is the strength of the potential and
+a@ gives the steepness of the kernel decay. In terms of
+
+dimensionless variables (x/R, tpoe and p/po)
+
+aritest) =» (ata) [ ay VF —y)aty.0))
+
++ DV? A(x, i) + a (y/2b 00%, #) C(x, »)
+(25)
+
+where np = poR¢, and D= D/epoR?.
+
+Once the parameter a is fixed so than patterns may
+form (e.g. a > 2), D will be taken as the main control
+parameter that, when decreasing, will bring the system
+from a homogeneous to a spatially periodic configura-
+tion. As in the previous model, we focus on the role of
+fluctuations on this spatial-pattern transition.
+
+A. Numerical results
+
+From now on we fix the parameters to € = 0.0333, R =
+0.1,a@ = 3, and perform numerical simulations with the
+algorithm described in the Appendix. In Fig. 5 we report
+the height of the maximum of the structure function un-
+der the various scenarios for two different number of par-
+ticles (upper plot is for N = 10000 and bottom one for
+20000). The impact of fluctuations is very relevant, go-
+ing farther than shifting the critical point of the pattern-
+forming transition. When initializing the simulation on a
+homogeneous density with small perturbations added to
+it, we observe that the deterministic version of the model
+(black line) exhibits an abrupt transition at D, = 0.082,
+a value of the diffusivity below which large amplitude pe-
+riodic hexagonal patterns are formed. This critical value
+can be obtained from linear analysis of the homogeneous
+solution in the deterministic framework[14]. A similar
+ransition occurs for the particle simulations (red line)
+
+and for the DKTE, but they occur at larger values of D.
+Again, fluctuations anticipate the transition to patterns.
+If instead of starting at a perturbed homogeneous con-
+figuration, the initial condition is a developed hexagonal
+pattern obtained at small D, and a numerical continu-
+ation of the solution is done by increasing D and using
+as initial condition the final state obtained at a slightly
+ower value, the scenario changes. All the frameworks
+(particles, DKTE and deterministic DKTE) show a range
+of bistability, i.e., exhibits a typical hysteresis loop. The
+argest hysteresis loop occurs for the deterministic case.
+The hysteresis loops from particles and DKTE simula-
+tions approach each other for sufficiently large N (and
+also widens to approach the deterministic case for still
+much larger N) whereas they shrink and become more
+dissimilar for smaller N. In general, when comparing
+the N = 10000 and N = 20000 plots we observe, as ex-
+pected, that the influence of fluctuations decreases as the
+number of particles increases, leading to a more accurate
+approximation of the deterministic version.
+
+Thus, we observe that fluctuations impact in two im-
+portant ways: first, there is a shift in the bifurcation
+
+os if
+0.07 0.08 0.09 0.10
+Normalized Diffusion, D
+—e Parties 99s Dé =0.082
+
+w= deterministic DKTE —* DKTE
+
+Figure 5. Maximum height of the structure function nor-
+malized by the number of particles. a) Upper plot is for
+N = 10000 and b) bottom one for N = 20000. Dashed ver-
+tical gray line indicates the transition from homogeneous to
+periodic pattern as predicted by linear stability analysis of
+the homogeneous solution. Red line with circles is obtained
+from particle simulations, Green line with triangles is from the
+DKTE, and the deterministic DKTE gives the black lines.
+Simulations of deterministic DTKE and DKTE were per-
+formed with dt = 10~*; dz = 10~?, up to {3x 10°; 5x 10°} sim-
+ulations steps, respectively, while for the particles dt = 10~°
+with 10° steps.
+
+point, so that spatial patterns emerge at larger val-
+ues of the control parameter than predicted by mean-
+field/deterministic theory. Second, fluctuations shrink
+the bistable regime, thus reducing the strength of the
+hysteresis.
+
+VI. SUMMARY AND CONCLUSIONS
+
+In this article we have investigated how fluctuations
+affect particle systems described by Dean-Kawasaki-type
+equations, which model the density dynamics of Brown-
+ian particle systems. We have explored a series of mod-
+els, of increasing complexity, and compare their behay-
+ior for three modeling frameworks: microscopic particle
+simulations, DKTE, and deterministic DKTE. The mod-
+els we have explored and the main impact of fluctuations
+were: a) Spatially-dependent diffusivity, where diffusivity
+varies with position. Here fluctuations introduce rough-
+
+ness in the density profile but, because of the linearity
+of the average equations, they do not alter the expected
+average behavior. b) Locally density-dependent diffusiv-
+ity: In situations in which sharp fronts form, their speed
+increases due to fluctuations in contrast to other models
+in the literature where (non-conserved) noise typically
+slows fronts down. We have argued that this effect can
+be understood in terms of an enhanced effective diffu-
+sivity. c) Nonlocal density-dependent diffusivity: Fluc-
+uations advance the onset of pattern formation. And
+d) particles with direct repulsive soft-core interactions:
+The deterministic model shows hysteresis. The stochas-
+‘ic ones (particles and DKTE) also, but with a smaller
+width that is further reduced as the number of particles
+N decreases.
+
+These findings demonstrate that fluctuations can have
+nontrivial effects, emphasizing the importance of stochas-
+cic modeling in understanding collective particle dynam-
+ics. While this is a well-established message, our work
+specifically confirms it in the context of conservative mul-
+‘iplicative fluctuations, whose impact is often overlooked
+due to the mathematical and computational challenges
+chey present. Future work will consider the dependence
+of the sharp front velocity on N, explore further types
+of interactions between particles, and investigate alter-
+native forms of mobility such as active motion and su-
+perdiffusion.
+
+ACKNOWLEDGMENTS
+
+N.S. and E.H-G. acknowledge funding by the Spanish
+Ministerio de Ciencia, Innovacién y Universidades (MI-
+CIU/AETI/10.13039/501100011033) through the Maria
+de Maeztu project CEX2021-001164-M. C.L. and E.H-G.
+acknowledge grant LAMARCA PID2021-1233520BC32
+funded by MCIN/AEI/10.13039/501100011033 and
+FEDER, UE.
+
+Appendix A: Numerical methods
+
+1. Models I and II
+
+The numerical integration of the onedimensional
+Eq.(7) and Eq.(14) is performed using a single step
+stochastic Euler method with a finite-differences scheme.
+The treatment of the multiplicative conserved noise fol-
+lows [7, 15, 16], where mathematical results on the valid-
+ity and accuracy of the method can be found.
+
+We approximate the continuum function p(x, t) © Pra
+where spatial positions are discretized with a spatial res-
+olution h > 0, so that x = h j, and the simulation time t
+is split into equal intervals of duration dt, so that t = ndt.
+The discrete scheme is given by,
+
+pitt = ph + dt f(p?) + dB(p?), (Al)
+with
+
+f(e}) = V7[Dj p7], (A2)
+
+where V? is the discrete Laplacian, and the noise incre-
+
+ment is,
+vdt
+dB(p5) = TNE [y20, P+ ai].
+
+V is the discrete derivative. The density inside the
+square root in the noise term is forced to be positive
+ph, = max{0,p?}. g? is a Gaussian random number of
+zero mean and unit variance, independent of the other
+ones occurring at different positions 7 and times n. N is
+the number of particles and D; is the discretization of the
+continuum diffusion coefficient D(x) for model I (Sect.II)
+and D(p'}) for model II (Sect. III). The discrete deriva-
+tive and Laplacian operators are computed with second
+order centered differences.
+
+(A3)
+
+2. Models III and IV
+
+For the non-local interaction models, models III and
+IV, in two dimensions with periodic boundary conditions,
+we choose to perform the discretization in the Fourier
+version of the DKTE. This pseudospectral method of in-
+tegration is useful for handling the non-local interactions
+improving the simulation time required for each run. It
+consists in performing a spatial Fourier transform of the
+density field and integrate it at each time step in the
+Fourier space. Products occurring in nonlinear terms are
+computed in real space and then transformed back to
+Fourier space. The noise term is treated as before, 7.e.,
+making the density equal to 0 when it gets numerically
+negative values.
+
+1] D.S. Dean, Journal of Physics A: Mathematical and Gen-
+eral 29, L613 (1996).
+
+2] K. Kawasaki, Physica A: Statistical Mechanics and its
+Applications 208, 35 (1994).
+
+3] U. M. B. Marconi and P. Tarazona, The Journal of Chem-
+ical Physics 110, 8032 (1999).
+
+4] A. J. Archer and M. Rauscher, Journal of Physics A:
+Mathematical and General 37, 9325 (2004).
+
+5] M. te Vrugt, H. Lowen, and R. Wittkowski, Advances in
+Physics 69, 121 (2020).
+
+6] P. Illien, Report on Progress in Physics 88, 086601
+
+(2025).
+7| F. Cornalba, J. Fischer, J. Ingmanns, and
+C. Raithel, Annals of Probability to appear,
+
+10.48550/arXiv.2303.00429 (2025).
+
+8] A. Djurdjevac, H. Kremp, and N. Perkowski, Stochastics
+and Partial Differential Equations: Analysis and Com-
+putations 12, 2330 (2024).
+
+9] V. Konarosvki and F. Muller, Journal of Evolution Equa-
+
+We use a simple Euler algorithm to integrate a time
+step (we show explicitly the computations for model IV,
+i.e. for the original DK equation):
+
+met =
+
+Ddt k?) pp + AN [ph] + dB[Az).
+
+(A4)
+
+py = F[p''] is the Fourier transform of the discrete den-
+sity at time step n. dAN[A%] is the non-local interaction
+term, and dB[f;] is the multiplicative noise term of the
+DK equation. The integration step of the non-local term
+
+is represented in Fourier space as
+dN [pr] = -ik - Fle Fak dt, (A5)
+
+Vj is the Fourier transform of the potential, and the noise
+term was integrated as
+
+maz | 2Ddt on
+dBlA;] = —ik way? [Ver a" (A6)
+
+where g,” is a random vector with components sampled
+
+from a Gaussian distribution of zero mean, variance one,
+and independence for different sites j, times n and vector
+components. We use an isotropic discretization, dx =
+dy = h. The factors in the noise-term discretization arise
+from the fact that for the continuous models the noise
+¢(x,t) is a distribution that satisfies:
+
+(C(x, #)¢(x', #')) = de — x’)o(t — ¢’). (A7)
+
+Concerning the particle simulation, they are also per-
+formed using an Euler algorithm, and the only require-
+ment is to choose a time step dt small enough such that
+dt <tc, where tc is the characteristic time for a particle
+to travel a distance R (the interaction range) [25].
+
+tions 24, 92 (2024).
+0] T. Nakamura and A. Yoshimori, Journal of Physics A:
+Mathematical and Theoretical 42, 065001 (2009).
+1] A. Poncet, O. Bénichou, V. Démery, and G. Oshanin,
+Phys. Rev. Lett. 118, 118002 (2017).
+2] P. C. Bressloff, Proceedings of the Royal Society A:
+Mathematical, Physical and Engineering Sciences 480,
+20230915 (2024).
+3] I. Dornic, H. Chaté, and M. A. Munoz, Physical Review
+Letters 94, 18 (2005).
+4] J.-B. Delfau, H. Ollivier, C. Lopez, B. Blasius, and
+E. Herndndez-Garcia, Physical Review E 94, 042120
+(2016).
+5] F. Cornalba and J. Fischer, Archive for Rational Mechan-
+ics and Analysis 247, 76 (2023).
+6] N. Wehlitz, M. Sadeghi, A. Montefusco, C. Schiitte, G. A.
+Pavliotis, and 8. Winkelmann, SIAM Journal on Applied
+Dynamical Systems 24, 1231 (2025).
+7| E. Brunet and B. Derrida, Phys. Rev. E 56, 2597 (1997).
+
+[18] C. Lopez, Phys. Rev. E 74, 012102 (2006).
+
+[19] C. Lépez and U. Marini Bettolo Marconi, Phys. Rev. E
+75, 021101 (2007).
+
+[20] A. Celani, S. Bo, R. Eichhorn, and E. Aurell, Phys. Rev.
+Lett. 109, 260603 (2012).
+
+[21] J. Tailleur and M. E. Cates, Phys. Rev. Lett. 100, 218103
+(2008).
+
+[22] J. D. Logan, An introduction to nonlinear partial differ-
+
+10
+
+ential equations, 2nd ed. (Wiley, 2008).
+
+(23] J. D. Murray, Mathematical Biology: I. An Introduc-
+tion (Interdisciplinary Applied Mathematics) (Pt. 1)
+(Springer, New York, 2007).
+
+(24] J. Garcia-Ojalvo and J. M. Sancho, Noise in spatially
+extended systems (Springer, New York, 1999).
+
+[25] P. Espafiol and P. Warren, Europhysics Letters 30, 191
+(1995).

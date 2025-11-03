@@ -1,0 +1,4981 @@
+2510.25589v1 [astro-ph.HE] 29 Oct 2025
+
+1V
+
+wX1
+
+d
+
+€
+
+Astronomy & Astrophysics manuscript no. main ©ESO 2025
+October 30, 2025
+
+BlazEr1: The eROSITA Blazar Catalog
+Blazars and Blazar Candidates in the First EROSITA Survey
+
+S. Himmerich!, A. Gokus?, F McBride*, P. Weber!, L. Marcotulli*>, A. Zainab!, W. Collmar®, M. Salvato°,
+J. Wolf®’, T. Sbarrato®, S. Belladitta”?, J. Buchner®, S. Saeedi!, L. Dauner!, M. Lorenz!, O. Konig", C. Kirsch!,
+K. Berger!, S. Bahic!!, D. Tubin-Arenas!!, M. Krumpe!!, D. Homan!”"!!, A. Markowitz!>, P. Benke!* !>:!9,
+F. Résch!*!5, Pp. Rajasekar Kavitha!, H. Tambe!, M. Kadler!*, E. Ros!°, R. Ojha!’, and J. Wilms!
+
+Dr. Karl Remeis-Sternwarte and Erlangen Centre for Astroparticle Physics, Friedrich-Alexander Universitat Erlangen-Niimberg,
+
+Sternwartstr. 7, 96049 Bamberg, Germany
+
+e-mail: steven. haemmerich@fau.de
+
+? Department of Physics & McDonnell Center for the Space Sciences, Washington University in St. Louis, One Brookings Drive,
+St. Louis, MO 63130, USA
+
+8 Department of Physics and Astronomy, Bowdoin College, Brunswick, ME 04011, USA
+
++ Deutsches Elektronen-Synchrotron DESY, Platanenallee 6, 15738 Zeuthen, Germany
+
+5 Department of Physics and Astronomy, Clemson University, Clemson, SC 29631, USA
+
+© Max-Planck-Institut fiir extraterrestrische Physik, GieBenbachstraBe 1, 85748 Garching, Germany
+
+7 Max-Planck-Institut fiir Astronomie, Konigstuhl 17, 69117 Heidelberg, Germany
+
+8 INAF - Osservatorio Astronomico di Brera, via E. Bianchi 46, 23807 Merate (LC), Italy
+
+° INAF - Osservatorio di Astrofisica e Scienza dello Spazio, via Gobetti 93/3, 40129, Bologna, Italy
+
+10 Center for Astrophysics | Harvard & Smithsonian, 60 Garden Street, Cambridge, MA 02138, USA
+
+'! Leibniz-Institut fiir Astrophysik Potsdam, An der Sternwarte 16, 14482 Potsdam, Germany
+
+!2 Institute of Astronomy, University of Cambridge, Madingley Road, Cambridge, CB3 OHA, UK
+
+13, Nicolaus Copernicus Astronomical Center, Polish Academy of Sciences, ul. Bartycka 18, 00-716 Warsaw, Poland
+
+4 Julius-Maximilians-Universitat Wiirzburg, Fakultat fiir Physik und Astronomie, Institut fiir Theoretische Physik und Astrophysik,
+Lehrstuhl fiir Astronomie, Emil-Fischer-Str. 31, 97074 Wiirzburg, Germany
+
+'S Max-Planck-Institute for Radio Astronomy, Auf dem Hiigel 69, 53121 Bonn, Germany
+
+'6 GFZ Helmholtz Centre for Geosciences, Telegrafenberg, 14476, Potsdam, Germany
+
+'7 NASA HQ, 300 E St. SW, DC 20546-0002, Washington DC, USA
+
+Received —- / Accepted —-
+
+ABSTRACT
+
+Aims. eROSITA on board of the Spectrum Roentgen Gamma (SRG) spacecraft performed its first X-ray all-sky survey (ERASS1)
+between December 2019 and June 2020. It detected about 930000 sources, providing us with an unprecedented opportunity for a
+detailed blazar census. We present the properties of blazars and blazar candidates in eRASS1 and the compilation of the eROSITA
+blazar catalog.
+
+Methods. We compile a list of blazar and blazar candidates from the literature and match it with the eRASS1 catalog, creating the
+Blazars in eRASS1 (BlazEr1) catalog. For sources with more than 50 counts we obtain their X-ray spectral properties. We compile
+multiwavelength data from the radio to the y-ray regimes for all sources, including multiwavelength spectral indices and redshifts.
+The full catalog is available online.
+
+Results. We present the BlazEr1 catalog, containing 5865 sources, of which 2106 are associated with confirmed blazars. For 3668
+sources, eROSITA provides the first X-ray data. The contamination from non-blazar sources of the entire sample is less than 11%.
+Most candidates exhibit properties typical for blazars. We present properties of the entire X-ray detected blazar population, including
+the distributions of X-ray luminosities and photon indices, multiwavelength properties, and the blazar log N-log S distribution. Our
+catalog provides follow up targets, such as potential MeV and TeV blazars.
+
+Conclusions. The BlazEr1 catalog provides a compilation of X-ray detected blazars and blazar candidates. The catalog serves as a
+starting point for exploiting further eROSITA surveys using the same methodology, enabling us to study the X-ray variability and a
+large number of spectral energy distributions of blazars in the future.
+
+Key words. Catalogs — Surveys — Galaxies: active — Galaxies: jets — Quasars: general — BL Lacertae objects: general
+
+1. Introduction beaming makes blazars the most luminous persistent sources
+
+in the Universe and the dominant source type in X-ray and y-
+Active galactic nuclei (AGN) with relativistic jets with a line- ray wavelengths at high Galactic latitudes (Mattox et al. 1993),
+of-sight orientation towards Earth are referred to as “blazars” with high degrees of variability across the entire electromagnetic
+(Blandford & Rees 1978; Blandford & Konig] 1979; Antonucci spectrum on time scales from minutes to years (e.g., Urry 1996;
+1993; Urry & Padovani 1995; Schlickeiser 1996). Relativistic
+
+Article number, page 1 of 39
+A&A proofs: manuscript no. main
+
+Tanihata et al. 2001; Ciaramella et al. 2004; Agarwal et al. 2015;
+Rajput et al. 2020).
+
+Blazars emit a double-peaked multiwavelength spectral en-
+ergy distribution (SED, see, e.g., Middei et al. 2022; their Fig. 1),
+which is often modeled by two log-parabola components (Mas-
+saro et al. 2006; Hinton & Hofmann 2009; Madejski & Sikora
+2016; KrauB et al. 2016; and references therein). The low-energy
+peak originates from synchrotron emission of electrons (and pos-
+sibly positrons) in the relativistic jets (e.g., Marscher & Gear
+1985). The peak of this emission component is typically lo-
+cated between the radio and the optical bands (Fossati et al.
+1998). In contrast, the high-energy component, with the high-
+est level of emission in the y rays, can be explained with lep-
+tonic, hadronic, or lepto-hadronic models (Béttcher et al. 2013).
+In the leptonic scenario, the jet is assumed to consist of elec-
+trons and positrons. Photons inverse Compton scatter off of
+the relativistic electrons/positrons in the jet to higher energies.
+The up-scattered photons could originate from the same pop-
+ulation of synchrotron photons (Synchrotron Self Compton ra-
+diation; SSC; Ginzburg & Syrovatskii 1965; Rees 1967; Jones
+et al. 1974; Maraschi et al. 1992; Dermer & Schlickeiser 1993;
+Bloom & Marscher 1996) or other photon fields such as ther-
+mal emission from the accretion disk, the broad line region
+or the torus (External Compton; EC; Sikora et al. 1994; Ghis-
+ellini & Madau 1996; Finke 2016; and references therein). In
+hadronic models, the high-energy peak would be produced ex-
+clusively by relativistic protons (e.g., Mannheim & Biermann
+1992; Mannheim 1993; Miicke & Protheroe 2001; Miicke et al.
+2003). Here, proton-photon interactions produce pions. Neutral
+pions and their subsequent decay cascades then produce the
+observable X-ray and y-ray photons (Liodakis & Petropoulou
+2020). Letponic and hadronic SED models are able to describe
+multiwavelength data adequately well due to degeneracies, in-
+complete multiwavelength coverage, non-simultaneous data, and
+additional systematic uncertainties (e.g., B6ttcher et al. 2013).
+
+The spectral position of the peaks is a useful tool to classify
+blazars based on the energy of their synchrotron peak (Fossati
+et al. 1998; Abdo et al. 2010). Sources with low-energy peaks
+at Vpeak S 10'4 Hz, above Vpeak = 10> Hz, and in the interme-
+diate range are called low (LSPs), high (HSPs), and interme-
+diate peaked blazars (ISPs), respectively (Padovani & Giommi
+1996). The X-ray band tends to fall in the energy range near
+the transition between the synchrotron and the high-energy peak.
+In a vF, representation, this results in a falling X-ray spectrum
+([ > 2.0) for a higher-peaked source where the X-rays probe
+the synchrotron emission. A low-peaked source exhibits a rising
+([ < 2.0) X-ray spectrum, that is, X-rays are part of the high-
+energy peak (Blandford et al. 2019; and references therein). This
+basic classification with regard to the photon index from a single
+snap shot observation can be systematically affected by source
+variability, as during outburst and flares, sources can exhibit a
+peak-shift behavior, including possible extreme HSP behavior
+(e.g., Pian et al. 1998; Giommi et al. 2000; Ahnen et al. 2018;
+Sahu et al. 2021; Gokus et al. 2024b).
+
+Blazars have historically been classified based on optical
+spectra: sources showing emissions lines with widths of > 5A
+are called flat spectrum radio quasars (FSRQs, Stickel et al.
+1991), while sources with weaker or even no emission lines are
+classified as BL Lacs (BLLs). In the context of the peak en-
+ergy classification, FSRQs are predominately LSPs, while BLLs
+are distributed among all these different categories (Ghisellini
+et al. 1998). FSRQs are more bolometrically luminous (Ghis-
+ellini 2013). In fact, the position of the synchrotron peak is
+thought to be connected to the overall luminosity via the so-
+
+Article number, page 2 of 39
+
+called “blazar sequence” — that is, due to more efficient cooling
+the more luminous sources peak at shorter frequencies (Fossati
+et al. 1998; Ghisellini 2013). It is not clear, however, if this se-
+quence is due to selection effects (see e.g. Giommi et al. 2012;
+Keenan et al. 2021).
+
+In order to understand the population and the X-ray proper-
+ties of blazars as a whole, it is necessary to systematically study
+a large sample. Blazars have been targets of many X-ray obser-
+vations, mainly focused on bright or variable sources, due to the
+extensive multiwavelength campaigns required for SED model-
+ing. Different X-ray observatories have been used to build X-ray
+catalogs. For these catalogs of known blazars, identified through
+optical, radio, and y-ray surveys (catalogs such as compiled by,
+e.g., Massaro et al. 2015; Ackermann et al. 2015), were matched
+against the observational data. Samples obtained using only one
+observatory were built using Einstein (Worrall & Wilkes 1990;
+55 sources), EXOSAT (Sambruna et al. 1994a,b; 26 sources),
+Beppo-SAX (Donato et al. 2005; 86 sources), ROSAT (Urry et al.
+1996, 36 BLLs, Perlman et al. 1996b, 23 BLLs, Turriziani et al.
+2007, 510 confirmed and 173 new blazars), Swift-XRT (Giommi
+et al. 2019; OUSXB!: 2308 sources), XMM-Newton (de la Calle
+Pérez et al. 2021; 103 sources), and NuSTAR (Middei et al. 2022;
+126 sources). Other studies have used data from multiple X-ray
+missions (e.g., Comastri et al. 1997; Donato et al. 2001; Kadler
+2005; Fan et al. 2012; Kapanadze 2013; Yuan & Fan 2014;
+>500 sources), often aiming at the multiwavelength properties of
+blazars. All these catalogs only cover previously observed areas
+of the sky, therefore, these observations are often biased towards
+the pre-selected sources proposed as observation targets, which
+may introduce further biases in sky coverage. The few X-ray cat-
+alogs providing nearly all sky coverage suffer from limited flux
+sensitivity and the number of sources in these samples is there-
+fore small compared to the number of blazars known in other
+bands.
+
+A first X-ray sample with all-sky coverage and a deeper
+X-ray flux limit was obtained with the ROSAT all-sky survey
+(RASS; Truemper 1982, 1993; Voges et al. 1999, 2000). The
+newest RASS catalog (2RXS; Boller et al. 2016) offers infor-
+mation for roughly 135000 sources with a limiting sensitiv-
+ity of Fx,01-24kev~ 107 erg cm~ s“! in the 0.1-2.4 keV band.
+Shortly after its publication, RASS was used to study the pho-
+ton index distributions of blazars (Urry et al. 1996; Perlman
+et al. 1996b) and to derive blazar catalogs (e.g., Turriziani et al.
+2007). For a long time, the RASS was the most comprehen-
+sive X-ray all-sky survey. This changed with the advent of the
+extended ROentgen Survey with an Imaging Telescope Array
+(eROSITA) on the Russian Spectrum-Roentgen-Gamma (SRG)
+satellite (Merloni et al. 2012; Sunyaev et al. 2021). Launched in
+July 2019 from Baikonur, the mission began all-sky-survey op-
+erations in December 2019 (Predehl et al. 2021; Merloni et al.
+2024). Consisting of seven nearly identical Wolter type 1 X-
+ray telescopes, called telescope modules (TMs), with a total
+field of view of 1° and frame store CCDs in the focal plane,
+eROSITA is sensitive in the 0.2-10.0keV band. eROSITA per-
+formed an all-sky slew survey as SRG, which orbits Lz, con-
+stantly rotated around the spacecraft-Earth axis with a period
+of 4h. Distinct positions on the sky were therefore, on aver-
+age, observed about six times in consecutive spacecraft rotations
+while the source remained in the field of view for about 40s
+during every visit. Close to the ecliptic poles, which coincide
+with the survey poles, the number of consecutive observations
+
+' DR3, which is based on 15 years of Swift-XRT data contains 2831
+distinct blazars, we will use DR3 throughout the paper
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+is a lot higher. Due to its L2-orbit and its rotation around the
+Sun the whole sky could be covered within half a year. There-
+fore, eROSITA allows us to observe the entire sky in a system-
+atic, unbiased (unaffected by triggering on sources of interest)
+way and to investigate source variability on time scales of hours
+and months. In total, eROSITA observed the full sky four times
+as operations had to be halted for political reasons during the
+fifth all-sky scan in late February 2022. During the first all-sky
+scan by eROSITA (eRASS1), between December 2019 and June
+2020, nearly 930000 individual sources were detected on the
+Western Galactic hemisphere, which is accessible to the Ger-
+man eROSITA consortium (Merloni et al. 2024). This makes the
+eRASS1 catalog the largest X-ray source catalog to date. In the
+0.5-2.0keV band, 50% completeness across the entire sky is
+achieved at a flux of < 5 x 10-'> ergcm™? s~!. The vast majority
+of eRASS1 sources are AGN (~80%), which enables a census of
+accreting supermassive black holes of unprecedented complete-
+ness. eROSITA data therefore provide a great opportunity to in-
+vestigate the X-ray properties of the blazar population. The first
+eROSITA all-sky survey has already been used to identify poten-
+tial TeV blazars for follow-up (Marchesi et al. 2025; Metzger
+et al. 2025), to investigate neutrino events (Adriani et al. 2025),
+to identify high-redshift blazars (Wolf et al. 2024), and to study
+the intergalactic medium with blazars (Gatuzz et al. 2024).
+
+We present the first eROSITA eRASS1 blazar catalog, in-
+cluding the X-ray identification and the X-ray and multiwave-
+length properties of blazars and blazar candidates found during
+eRASS1. In Sect. 2, we discuss the preparation of a sample of
+previously known blazars and blazar candidate sources, which is
+matched against the eRASS1 all-sky data. In Sect. 3, we describe
+our identification of blazars and the analyses of the eROSITA
+data. Additional multiwavelength data are discussed in Sect. 4.
+The properties of the blazars and blazar candidates observed by
+eROSITA are discussed in Sect. 5. We summarize results and pro-
+vide future prospects in Sect. 6. Throughout the paper, we will
+assume a flat ACDM cosmology with Qa = 0.7, Qn = 0.3, and
+Hoy = 70kms~! Mpc"! (Beringer et al. 2012).
+
+2. The BLAZE catalog: a catalog of blazars from the
+literature
+
+As no recent standard catalog of blazars exists that includes all
+claimed or confirmed candidates in the literature, in this section,
+we describe how we create a “master” catalog of blazars and
+blazar candidates by cross-matching existing catalogs from the
+literature. This catalog is released with the paper.
+
+2.1. Construction of the catalog
+
+Older blazar compilations such as the Roma-BZCAT catalog
+(Massaro et al. 2015) miss a large number of newer sources.
+These catalogs are also significantly biased in terms of flux or re-
+gion on the sky observed (e.g., Bellenghi et al. 2023). In order to
+search for X-ray counterparts of known blazars, we constructed
+a catalog of blazar and blazar candidates from catalogs found in
+the literature. As many sources will be part of multiple catalogs,
+we filter for duplicates by positional matching, taking into ac-
+count the accuracy of the individual catalogs. The catalogs used
+to build the “master” list, the number of sources provided by the
+catalogs and the number of sources added, and the radii used to
+identify duplicates with respect to other catalogs and the spectral
+classes provided, are listed in Table 1.
+
+Following, for instance, Giommi et al. (2019) and Bellenghi
+et al. (2023), we combine all blazars and blazar candidates from
+the latest data release of the fourth Fermi-LAT source catalog
+(4FGL-DR4; Abdollahi et al. 2020, 2022), the Roma-BZCAT
+multi-frequency catalog (Massaro et al. 2015), and the 3HSP
+catalog (Chang et al. 2019). For source positions of the Fermi-
+LAT blazars we use the coordinates of the associated counter-
+parts provided in the 4FGL catalog, since the y-ray positions are
+not well constrained enough. Duplicates were identified by po-
+sition matching or using associations provided by the input cata-
+logs. Since the catalogs have different spatial accuracy, each cat-
+alog is assigned an individually selected maximum radius within
+which sources were considered duplicates (see Table 1). In ad-
+dition, we add 48 high-redshift blazars reported in the literature
+(Yuan et al. 2000, 2003; Sowards-Emmerd et al. 2003; Romani
+et al. 2004; Worsley et al. 2004; Shemmer et al. 2006; Healey
+et al. 2008; Sbarrato et al. 2012, 2013, 2015, 2022; Ghisellini
+et al. 2014, 2015b,a; Massaro et al. 2015; Coppejans et al. 2016;
+Belladitta et al. 2019, 2020; Caccianiga et al. 2019; Ighina et al.
+2019; Khorunzhev et al. 2021; An et al. 2023; Marcotulli et al.
+2025). This sample of high-redshift sources has been compiled
+by Sbarrato et al. (2025, in prep.), and extended by us with the
+source discussed by Marcotulli et al. (2025). This sample will be
+referred to as the HighZ sample.
+
+In addition to sources with a confirmed blazar designation,
+we added objects with properties that are similar to those of
+blazars, with varying criteria depending on the input catalog. We
+start with the Milliquas catalog (Version 8, Flesch 2023). This
+catalog contains mainly AGN but also lists BL Lac-like objects
+identified via various detection methods. Based on WISE data,
+the KDEBLLACS and WIBRaLS2 catalogs provide candidate
+blazars of various spectral types (D’Abrusco et al. 2019), while
+the ABC catalog (Paggi et al. 2020) uses ALMA calibration
+data as well as other multiwavelength information to character-
+ize blazar candidates. The largest catalog used to build our candi-
+date sample is the BROS catalog (Itoh et al. 2020). This catalog
+lists objects which exhibit a flat radio spectrum and a counterpart
+in Pan-STARRS1. Compared to other catalogs, BROS sources
+are not homogeneously spread across the entire sky, but cover
+areas with Galactic latitude |b] > 10° and declination 6 > —40°.
+A small window centered around Galactic coordinates b ~ 40°
+and 1 ~ 220° is excluded due to a lack of radio coverage. In
+order to create the “master” list, we start with the first catalog
+shown in Table 1, then cross-match with the next catalog, and
+add any previously not included source, we continue with this
+process down the list of catalogs in Table 1.
+
+Our initial list after positional cross-matching contains
+103498 individual blazars and blazar candidates spread over the
+entire sky, 43148 (~41%) of which are located on the western
+Galactic hemisphere due to the inhomogeneity of the BROS cat-
+alog. Based on the input catalogs, we classify the blazars and
+blazar candidates into the following classes: (1) a BL Lac ob-
+ject is listed as BLL; (2) a galaxy dominated BL Lac Object is
+denoted as BZG; (3) Flat Spectrum Radio Quasars are abbrevi-
+ated as FSRQ; (4) confirmed blazars of unknown type are called
+BCU. We append the letter ‘C’ to the abbreviation to indicate
+that a source is a blazar candidate (BLLC, BCUC, FSRQC). If
+no spectral classification is listed sources are denoted as BCUC,
+this includes all entries originating from the BROS catalog.
+
+2.2. Assessment of quality
+
+No source in the initial “master” list is guaranteed to be a blazar,
+especially since there are many candidates; thus it is important
+
+Article number, page 3 of 39
+A&A proofs: manuscript no. main
+
+Table 1. Blazar and blazar candidate catalogs used to build the BLAZE catalog. The order in which the catalogs are listed reflects the order in
+which we merged the catalogs. As the 4FGL-DR4 catalog is used as the first added catalog there is no catalog against which it has to be checked for
+duplicates, therefore, no match radius is listed. The radius given for the other catalogs is then used to filter for duplicates against all the previously
+added catalogs (therefore, e.g., only 1724 sources from the 5th Roma BZCAT are added, since the other sources are already part of the 4FGL-DR4
+catalog within 4”). The horizontal line divides the catalogs of confirmed blazars from those containing only blazar candidates.
+
+Catalog Noources  Neourcesinitial  Neourcesoriginal Match radius Included classes Reference
+4FGL-DR4 3934 3934 3810 = BLL, BCU, FSRO 1
+
+5th Roma BZCAT 3561 1830 1724 4 BLL, BCU, FSRQ, BZG, BLLC 2
+
+3HSP 2013 777 133 3 BCU 3
+
+HighZ 48 33 33 4 BCU 4,5
+Milliquas 2814 305 303 4 BLLC 6
+KDEBLLACS $525 5035 4992 5 BLLC 7
+WIBRaLS2 9541 7340 6165 2 BLLC, BCUC, FSROC 7
+
+ABC 1580 975 961 2 BLLC, BCUC 8
+
+BROS 88211 83269 81607 5 BCUC 9
+
+Notes. Noources: Total number of sources contained in each catalog. Noources,inital? HUMber of initially new sources added to BLAZE catalog, taking
+into account duplicates from the previous catalogs within the match radius listed in column “Match radius”. Noources.original: nUMber of sources from
+
+each catalog after applying quality cuts.
+
+References. (1) Abdollahi et al. (4FGL-DR4; 2022); (2) Massaro et al. (2015); (3) Chang et al. (2019); (4) Sbarrato et al., in prep.; (5) Marcotulli
+et al. (2025); (6) Flesch (2023); (7) D’ Abrusco et al. (2019); (8) Paggi et al. (2020); (9) Itoh et al. (2020)
+
+to assess the contamination and remove as many non-blazars as
+possible.
+
+Due to the extremely complex selection function, assessing
+the contamination is not straightforward. We therefore investi-
+gate a few indicators and assign upper limits to the level of con-
+tamination and check the purity of the input catalogs. In 4FGL
+about 98% of AGN are confidently classified as blazars, and
+we hence expect a very low level of contamination. A similar
+level of purity is expected from BZCAT, however, this catalog
+also contains radio galaxies such as Cen A. According to Xie
+et al. (2024) about 5% of BZCAT sources are non-blazars. The
+3HSP contamination is expected to be < 2% (Chang et al. 2019)
+and similar levels are expected from the HighZ sample. Unfor-
+tunately, no level of contamination is listed for the sample of
+the Milliquas and the ABC. de Menezes et al. (2019) assessed
+the contamination of the WIBRaLS2 and KDEBLLACS cata-
+logs using SDSS. They find that 31% and 30%, respectively for
+these catalogs, are blazars. The main contamination is caused
+by QSOs (~69%), which could also be blazars, representing a
+loosely constrained upper limit. These catalogs are also tested
+by Xie et al. (2024). They find 14% and 12% to be non-blazars,
+respectively. The difference between the estimated levels of con-
+tamination for the WISE catalogs might be related to the entire
+sample not having available data in both approaches and due to
+other thresholds set to distinguish a blazar from a non-blazar. For
+the BROS catalog, Itoh et al. (2020) estimate a contamination
+of about 10%. Due to flux and spatial limits in the BROS data,
+only 60% of the BZCAT sources are also present in this catalog.
+Therefore, we expect roughly 5% of the blazars and about 14%
+of the candidates listed in the “master” list to be non-blazars,
+when utilizing the most conservative estimates presented above.
+
+In order to identify non-blazar contamination by nearby
+galaxies in our list and since blazars have higher redshifts, we
+match with the HECATE catalog of nearby galaxies (Kovlakas
+et al. 2021), at the time of writing one of the most complete
+catalogs of galaxies in the local Universe (D < 200Mpc). We
+obtain 1227 matches within 12” of the galaxy center, of which
+1215 are located within the D2s-ellipse. Out of these, 57 posi-
+tional matches are associated with confirmed blazars, including
+well known sources with redshifts consistent with the matched
+HECATE galaxy, hence the position alone is not enough to iden-
+
+Article number, page 4 of 39
+
+tify non-blazars. HECATE also offers a Hubble galaxy classifica-
+tion (de Vaucouleurs et al. 1976). Out of the positional matches
+689 correspond to a spiral galaxy. Since blazars are typically not
+hosted in spiral galaxies (Urry et al. 2000; O’Dowd et al. 2002)
+and a location within the D»;-ellipse with a maximum separa-
+tion of 12” indicates that in X-rays the source is undistinguish-
+able from the center of the Galaxy, we exclude these 689 objects,
+almost 99% of which originate from the BROS catalog.
+
+Xie et al. (2024) used moderate resolution radio images from
+the VLA Sky Survey (VLASS; Lacy et al. 2020) to classify the
+sources from BZCAT, WIBRaLS2, and KDEBLLACS based on
+their morphology. We match the BLAZE catalog with their re-
+sults using the match radii for the individual catalogs (see Ta-
+ble 1). If a visual assessment of the morphology exists we use
+this classification instead of the automated one. A two-sided ra-
+dio morphology which is inconsistent with the source being a
+blazar is found for 1139 objects, which are removed.
+
+A fraction of the narrow-line Seyfert 1 (NLSy1) galaxy pop-
+ulation is detected in the radio band (e.g., Komossa et al. 2006;
+Singh & Chand 2018), among which a small sample has also
+been detected in the y rays (e.g., Abdo et al. 2009; Paliya et al.
+2018). Several works have shown that y-loud NLSy1s exhibit
+blazar-like characteristics including bright flaring episodes (e.g.,
+D’Ammando et al. 2015; Paliya & Stalin 2016; Gokus et al.
+2021), but arrive at the conclusion that these objects resemble
+less powerful, that is, younger sources. We exclude y-ray emit-
+ting NLSy1 galaxies from the BLAZE catalog to consider only
+‘full-scale’ blazars. Two NLSy 1s listed in the 4FGL are located
+on the western Galactic hemisphere and detected by eROSITA
+(leRASS J094857.1+002226 and leRASS J200754.9—443446).
+To exclude NLSyls which do not show y-ray emission, we
+match with the catalog of NLSy1 galaxies by Rakshit et al.
+(2017). We find 55 matches within 5’ of BLAZE sources, the
+maximum match radius used during the construction of the
+“master” list, of which 37 are associated with candidates that
+are also removed.
+
+In order to identify other types of radio galaxies we match
+with the high fidelity sample by Gordon et al. (2023) of dou-
+ble radio sources, a morphology not expected to be observed for
+blazars. We again use a maximum separation of 5”, identifying
+1243 matches. More than 76% of these are associated with a
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+BROS source and overall 96.4% of the matches are blazar can-
+didates. We also remove these as well.
+
+Finally, we remove individual objects which are known to
+be non-blazars. BROS JO729.1+2054 is the counterpart of the
+Galactic planetary nebula NGC 2392. The nature of the source
+A4FGL J0647.7—4418 is debated in the literature either as be-
+ing a blazar (Marti et al. 2020) or a B-type subdwarf and
+white dwarf binary (HD 49798 Mereghetti et al. 2009; Rigoselli
+et al. 2023). The young radio galaxy PMN J1603—4904 (Miiller
+et al. 2015; KrauB et al. 2018) is falsely classified in 4FGL
+as the blazar 4FGL J1603.8—4903. Finally, the BZCAT cata-
+log erroneously includes the radio galaxy Cen A as a blazar
+(SBZU J1325—4301).
+
+2.3. Release and comparison with other catalogs
+
+After removing obvious non-blazars, 100368 out of the initial
+103498 objects remain. We call our “master” list of blazars
+and blazar candidates, the BLAZars from litErature catalog, or
+BLAZE catalog. The BLAZE catalog can be split into a “gold
+sample”, which includes 6301 confirmed blazars with or without
+known type (3031 are located on the footprint of the eRASS1
+survey), and a “silver sample” of 94067 candidates (38905 in
+the footprint of the eRASS1 survey), containing the blazar can-
+didates. Figure | shows the spatial distribution of the gold sam-
+ple. Due to the general utility of a compilation of blazars for the
+field, the BLAZE catalog catalog is published with this paper and
+made available online on Vizier. The description of the BLAZE
+catalog is given in Appendix C, as the catalog is enriched with
+redshifts for the confirmed blazars and eROSITA exposure times
+and upper limits for flux and luminosity. The list of the likely
+non-blazar objects, referred to as the unverified BLAZE catalog,
+is released as a separate file.
+
+In comparison to previous studies we find 6307 individual
+blazars from the 4FGL, Roma-BZCAT, and 3HSP catalogs, a
+slightly different number than in earlier catalogs (5340 sources,
+Giommi et al. 2019 and 6425 sources, Bellenghi et al. 2023).
+To avoid source confusion, we apply a stricter angular limit for
+cross-matching, leading to a difference between BLAZE and
+Giommi et al. (2019) and Bellenghi et al. (2023). The devia-
+tion of 15% between BLAZE and Giommi et al. (2019) is also
+related to this estimate being based on the 3LAC catalog which
+only contains 1591 sources in total compared to the 3934 in-
+cluded in the 4FGL catalog. However, the deviation between the
+BLAZE and Bellenghi et al. (2023) is only 2% mainly driven
+by the exclusion of contaminants. Marchesi et al. (2025) found
+1772 matches between the BZCAT and the 4FGL, of which 1725
+are within 2”, while our analysis returns 1625 within 4” (1731
+without quality cuts). This difference is ascribed to our match
+radius, as Marchesi et al. (2025) also accept wider separations
+for counterparts between the catalogs and our filtering. A total
+of 615 out of 651 objects in the isotropic catalog of Kudenko &
+Troitsky (2024) are contained in the BLAZE catalog, which in-
+cludes 409 of the 433 blazars and blazar-like sources from the
+isotropic catalog. The objects not contained simply do not have
+a counterpart in Kudenko & Troitsky (2024; to within 6’). Out
+of the matches, 204 are classified as quasars, AGN or based on
+an emission band by Kudenko & Troitsky (2024) and 19 of these
+are associated with blazar candidates in the BLAZE catalog.
+
+3. Matching eROSITA to the BLAZE catalog
+
+In this section we describe the construction of our eROSITA
+blazar and blazar candidates catalog based on the BLAZE cat-
+
+alog. Out of the 100368 blazar and blazar candidate sources in
+the BLAZE catalog, 41936 are located on the western Galactic
+hemisphere and are matched with eROSITA. We also assess the
+level of contamination of the catalog and the analysis of the X-
+ray data.
+
+3.1. The eROSITA observed blazars and blazar candidates
+3.1.1. X-Ray counterparts
+
+To identify the X-ray counterparts of the BLAZE catalog, we
+match the BLAZE catalog and the eRASS1 catalog positions
+(Merloni et al. 2024). We use the BLAZE catalog and the
+attitude-corrected positions from eROSITA, and only consider
+point sources (EXT = 0.0, see Merloni et al. 2024), identifying
+an initial number 8117 matches with angular separation <15”.
+This separation limit is based on the accuracy of the astrometric
+correction of eROSITA (Merloni et al. 2024) and the point spread
+function of the eROSITA telescopes. The histogram of the angu-
+lar distance in Fig. 2 shows that most matches are within the
+positional accuracy of the matched eROSITA sources (shown in
+yellow, the normalized version of the histogram is displayed in
+Fig. A.1). About 84% of associations have an angular separa-
+tion of 8” or less, and 38% and 64% of the sample are located
+within 3” and 5’, respectively. The distributions of separations
+for blazars and blazar candidates are different, the candidates ex-
+hibit a broader peak, possibly due to contamination. Based on
+the distribution of angular separation and in order to avoid un-
+necessary source confusion and false identifications we conser-
+vatively cut our final sample at a separation of 8’ between the
+BLAZE and eRASS|1 source position. This cut reduces the sam-
+ple to 6852 blazars and blazar candidates.
+
+Since the eROSITA exposures are still quite low (~240s),
+many sources have a low detection likelihood in eROSITA. To
+avoid including possibly spurious detections, we remove all
+matches with a detection likelihood, DET_LIKE_0 < 102,
+which reduces the fraction of spurious sources to ~1%
+(Seppi et al. 2022; Merloni et al. 2024). We also remove
+all entries with uncertain positions, that is, without val-
+ues for RA_LOWERR, RA_UPERR, DEC_LOWERR,
+and DEC_UPERR in the eRASS1 catalog, and exclude
+all objects where eROSITA quality flags indicate issues in
+the source detection (FLAG_SP_SNR, FLAG_SP_BPS,
+FLAG_SP_SCL, FLAG_SP_LGA, FLAG_SP_GC_CONS,
+FLAG_NO_RADEC_ERR, FLAG_NO_CTS_ERR, and
+FLAG_NO_EXT_ERR). Additionally, we remove all blazars
+and blazar candidates with X-ray luminosities too low to
+actually be a blazar (Lx02-23kev < 104! ergs~!), lowering
+our contamination rate. This reduces the sample size to 5865
+sources of which 2106 are associated with confirmed blazars,
+and the remainder with blazar candidates. The normalized
+separation distributions shown in Fig. A.1 clearly indicate
+that after the applied cuts the agreement with the theoretical
+Rayleigh distribution is significantly improved. Table 2 lists the
+number of sources after each cut and for each blazar type, and
+Fig. 3 displays the sky distribution of the final sample.
+
+The matches outlined above are the basis for the Blazars in
+eRASS1 (BlazEr1) catalog. This catalog combines X-ray and
+multiwavelength information that we compiled for all catalog
+sources. A detailed description of the content of the catalogs is
+given in Appendix D. We will refer to the sample of sources de-
+
+? DET_LIKE_0 equals the negative logarithm of the probability of de-
+tected counts being caused by fluctuations of the background
+
+Article number, page 5 of 39
+A&A proofs: manuscript no. main
+
+BL Lac: «
+FSRQ: @
+BCL
+BZG
+
++
+a
+
+Fig. 1. All-sky distribution of the BLAZE cat-
+alog gold sample (confirmed blazars) in Galac-
+tic coordinates (BLL: 1697, FSRQ: 1937, BCU:
+2503, BZG: 164). The different blazar classes
+are shown color coded and with different sym-
+bols.
+
+Table 2. Break down of the blazar source classes during the construction of our catalog of eROSITA-observed blazars and eROSITA-observed
+
+blazar candidates.
+
+Class Acronym — Nepraze — Nerasst — Nmatch,1s _ Nmatch,s _ Nsampie _ Nnew __Nepec __Nepec,new
+BL Lac object BLL 1697 802 682 641 597 90 353 37
+
+BL Lac candidate BLLC 77150 3188 1269 1099 954 701 185 106
+Galaxy dominated BL Lac object BZG 164 59 33 32, 28 14 8 2
+
+Flat Spectrum Radio Quasar FSRQ 1937 929 844 796 769 332 220 60
+FSRQ candidate FSROC 3444 1799 1135 1011 913 "LT 109 81
+Blazar of unknown type BCU 2503 1241 849 766 712 357 253 104
+Blazar candidate of unknown type BCUC 82873 33918 3305 2507 1892 1457145 91
+
+Total 100368 41936 8117 6852 5865 3668 1273 481
+
+Notes. Njo: and Negassi: number of sources contained in the BLAZE catalog across the entire sky and in the western Galactic hemisphere,
+respectively. Nmatch,is aNd Nmatch,s: Number of eROSITA sources within 15” and 8” of a BLAZE catalog source. Neampie: final number of eROSITA
+counterparts after accounting for the detection likelihood and quality flags. Naew: Number of sources of each class with no previous exposure
+time with XMM-Newton, Chandra, ASCA, NuSTAR, Suzaku, Swift-XRT, and ROSAT pointed observations. Ngpec: Number of sources with N > 50
+
+counts, for which X-ray spectral analysis is possil
+available.
+
+tected by eROSITA and associated with “gold sample” BLAZE
+sources as the eROSITA observed blazars, while we will name
+eROSITA matches with an entry from the BLAZE “silver sam-
+ple” the eROSITA observed blazar candidates. The 2252 objects
+removed from the catalog are included in a separate catalog, as
+this sample is expected to be less pure, but may be of value for
+follow-up studies. Due to the survey mode of eROSITA, we are
+able to obtain a view unbiased by variability, source luminosity
+and only limited by eROSITA sensitivity variations and exposure
+in eRASS1.
+
+3.1.2. Validation of positional matching
+
+Since our association of blazars with eROSITA sources is based
+on positions, it is necessary to check whether our positional
+matching is a valid approach. We use two independent meth-
+ods to derive an upper limit on the possible contamination of
+matching by pure chance.
+
+We first estimate the possibility of randomly associating an
+input position with an eRASS1 source by uniformly distribut-
+ing 5 x 10° (which is five times larger but has the same order
+of magnitude in numbers as the BLAZE catalog) sources at ran-
+dom position on the entire sky and matching these positions to
+the eRASS1 catalog. Within 8”, we find 346 matches whereas,
+within 15” 1205 matches are found, indicating a probability for
+random association of 0.07% and 0.24% for these separations,
+respectively. Alternatively, conserving the density properties of
+
+Article number, page 6 of 39
+
+le. Nspec.new: Number of sources from the spectroscopic sub-sample without prior X-ray data
+
+the eRASS1 survey we rotate the positions in the eRASS1 cat-
+alog around the ecliptic poles by a few degrees in ecliptic lon-
+gitude and then match them with the BLAZE catalog. For rota-
+tions by 1° and 10°, 89 and 104 sources match within 15’, re-
+spectively. When reducing the separation to 8”, only 34 and 23
+matches remain, implying a random match probability of about
+0.08% for a separation of < 8’, regardless of the applied rota-
+tion.
+
+Results from both methods suggest a probability below 0.1%
+of accidental source confusion. Hence, we expect at most 42
+eROSITA detections to be randomly assigned to BLAZE catalog
+sources. Given the size of the BlazEr1 catalog, the rate of source
+confusion is therefore at a negligible level of 0.7%. Our cross-
+matching angular distance is well justified, as the loss of matches
+when reducing the acceptable angular distance from 15” to 8”
+indicates that the probability of including random matches drops
+significantly. We emphasize that this low level of accidental
+source confusion is due to us using pre-existing positions of ob-
+jects with known multiwavelength properties, including a very
+high probability that these sources are X-ray bright. This ap-
+proach is different from approaches that attempt to find multi-
+wavelength counterparts for new X-ray detected sources in mul-
+tiwavelength catalogs, where little is known about the properties.
+These approaches have a much higher probability of misidenti-
+fying the multiwavelength counterparts.
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+F 1.0
+500 F
+E 0.8
+2 400 F oO
+8 E 5
+a . =}
+4 300 F ies
+oa E é
+2 E >
+E és
+2 200 One
+5 g
+100 0.2
+0 1.0
+800
+0.8
+g 2
+2 600 3
+2 0.6
+= =
+é &
+© 400 os
+a 04 2
+Q
+200 02
+0 0.0
+0.0 5.0 10.0 15.0
+
+Angular distance [’’]
+
+Fig. 2. Histograms of angular separation between BLAZE catalog
+and eROSITA positions (green) with the distribution of the matched
+eROSITA source positional uncertainty overlaid (yellow). The vertical
+line at 8” indicates the distance threshold for the final sample. The
+cumulative distribution of the angular separation is shown in blue. a
+Sample of eROSITA observed blazars with 93% of the matches found
+within 8”, and 55% and 79% within 3” and 5”, respectively. b ROSITA
+observed blazar candidates. Only 81% of matches are within 8”, and
+31%/58% within 3’/5”. We show Rayleigh distributions (black) for il-
+lustrative purposes, calculated following Merloni et al. (2024; Eq. 3,
+assuming F = 0.8).
+
+3.2. Contamination
+
+The sample size makes a study of the source nature on an indi-
+vidual basis too time consuming. We therefore, try to asses upper
+limits of the contamination. We derive the level of contamination
+caused by non-blazars in the sample by comparing the BlazEr1
+catalog with the catalog of Legacy Survey data release 10 (LS10;
+Dey et al. 2019) counterparts of eRASS1 point sources (Salvato
+et al. 2025; hereafter S25). This catalog is based on an identifica-
+tion of optical counterparts with the Bayesian algorithm NWAY
+(Salvato et al. 2018), using a combination of astrometric infor-
+mation such as separation, positional error, and source number
+density (similar to Xmatch; Pineau et al. 2017). The complete-
+ness and purity of the LS10 catalog of counterparts to eRASS1
+is ~93% (S25).
+
+We match by using the detection ID of eRASS1. If more
+than one possible counterpart is listed for a given ID, we use the
+one with the closest position. In total, we can match 84% of the
+BlazEr1 sources (4924 objects). We only consider counterparts
+to be a match between both catalogs if the association of S25 and
+the BlazEr1 catalog have an angular separation of at most 2”,
+
+BL Lac candidate:
+FSRQ candidate: 0
+BCU candidate:
+
+Fig. 3. Positions of the BlazErl sources in Galactic coordinates. The
+different colors and symbols indicate the blazar types in the catalog.
+Candidates, especially BCUCs, dominate the sample. The overdensity
+along / ~ 240° coincides with the footprint of BROS. Confirmed blazars
+are displayed by filled symbols, candidates are shown in the same color
+without filling. All following figures will adapt the same color and sym-
+bol scheme.
+
+and if Pany = 0.1>. For 508 matches (10.3% of the sources with
+a match based on detection ID) we associate a different coun-
+terpart as S25 or Pany is very low. About 89% of the disagreed
+upon objects are associated with blazar candidates and almost
+80% originate from the BROS catalog. This leaves us with 4416
+counterparts in common, which corresponds to a 90% agree-
+ment. Therefore, when comparing with the results of S25 and as-
+suming that their assigned counterparts to the eROSITA sources
+are all correct, a disagreement between the counterpart by $25
+and our catalog and hence a contamination of at maximum 3.3%
+for the eROSITA observed blazars and 14.0% for the eROSITA
+observed blazar candidates is expected. Sometimes the X-ray
+source might be the sum of multiple emitters. This is the case
+for 32 sources, of which in 22 cases the counterparts by S25 and
+our source are identical. We also compare the matches obtained
+by matching the unverified BLAZE catalog with eRASS1, using
+the same methodology as for the BlazEr1 sample, with the coun-
+terpart catalog. Given the same criteria as listed in Sect. 3.1, the
+unverified BLAZE catalog has 491 matches with the eRASS1, of
+which 397 have a counterpart in S25. For 33 of these matches, all
+of them candidates, $25 assigns a different counterpart. There-
+fore, a slightly lower but similar level (~ 8%) of contamination
+is reached for this low quality sample as for the BlazEr1 catalog.
+This also indicates that cleaning of the BLAZE catalog is useful.
+
+For all eROSITA sources listed in the BlazEr1 and the coun-
+terpart catalog, we compare the angular separation between the
+eROSITA position and the counterpart by S25 with the separation
+between the BLAZE catalog source and eROSITA, normalized
+
+> Dany is the probability given by NWAY that any of the matches found
+is the correct counterpart.
+
+Article number, page 7 of 39
+A&A proofs: manuscript no. main
+
+by the positional uncertainty of eROSITA. Some BlazEr1 coun-
+terparts tend to be too far away as they lie significantly above
+the theoretical Rayleigh distribution, whereas few counterparts
+assigned by S25 seem to be closer or more distant than expected
+(see Fig. A.2). This indicates that some BLAZE catalog objects
+are erroneously associated to the eROSITA source or that some
+of the associations of S25 might not be the correct counterpart.
+The estimated number of contaminating sources based on the
+assumption that S25 provides the correct counterpart and dis-
+agreement indicates contamination therefore represents an up-
+per limit. We also note that ours and Salvato et al.’s counter-
+part associations methodologies differ significantly. While we
+focus on selecting blazar specific objects using multiwavelength
+information and pre-existing catalogs, Salvato et al.’s approach
+has been fine-tuned towards general X-ray emitters, where non-
+jetted AGN dominate the population of X-ray emitting extra-
+galactic objects. However, an in-depth comparison between the
+approaches is beyond the scope of this paper.
+
+The contamination is mainly driven by the BLAZE catalog
+selection function and not by random matches (see Sect. 3.1.2).
+The most pessimistic estimates from the purities of the input cat-
+alogs (see Sect. 2.2) and the comparisons with the counterpart
+catalog indicate that the contamination for confirmed blazars is
+at most 5%, and ~14% for the candidate blazars. The limit for
+the confirmed blazars is based on the purity estimate of the BZ-
+CAT by Xie et al. (2024), which has the highest impurity of the
+confirmed blazar catalogs. Although sources are excluded from
+the BLAZE catalog based on Xie et al. (2024), they do not pro-
+vide a classification for all catalog entries. We therefore expect
+the subsample not covered by Xie et al. (2024) in the BZCAT to
+have a similar level of contamination as the overall catalog, and
+since we do not have information available for all BZCAT ob-
+jects we adapt the 5% limit as an upper limit for the entire sam-
+ple of confirmed blazars. For the candidates the limit is based on
+the contamination estimate based on the comparison with S25.
+Therefore, at most 106 of the thought to be confirmed blazars
+and 527 of the candidates are non-blazars. In total, less than 11%
+of the BlazEr1 catalog is contaminated, corresponding to a purity
+of almost 90%.
+
+3.3. Survey sensitivity
+
+Since the sensitivity of the eROSITA survey is not uniform across
+the sky, it is crucial to determine the lowest flux sources that
+could have been detected as a function of position and expo-
+sure time. We use the official eROSITA mission simulator, SIXTE
+(Dauser et al. 2019) to determine this sensitivity limit. Using
+the as-flown eROSITA attitude of the first all-sky survey and a
+diffuse foreground from ROSAT, we simulate eROSITA observa-
+tions of 10° sources randomly and uniformly distributed across
+the western Galactic hemisphere. Based on the expected blazar
+spectrum averaged across the entire population, each source is
+assigned an absorbed power law spectrum ([x = 2.0, Ny =
+1 x 10?! cm~?), We vary the 0.2-2.3 keV flux between 1 x 107!6
+and 1 x 107! ergem~? s~!, with 20000 random flux values per
+flux decade. The simulated data are then sorted into event lists
+for each eROSITA sky tile and processed using the official source
+detection pipeline contained in the eROSITA data analysis soft-
+ware eSASS (version 211214, Predehl et al. 2021; Brunner et al.
+2022; Merloni et al. 2024). The processing yields a mock cata-
+log containing information on the detection likelihood, exposure
+times, and fluxes. To ensure the validity of the simulations, we
+checked that all fluxes of the detected source are consistent with
+
+Article number, page 8 of 39
+
+c T 1177 i T1117
+2000F = ——<“C=sSC—‘—s<; 72 OO
+[ Western Galactic hemisphere
+| Extragalactic sky
+“we 15000 F
+3. ts
+< Ee
+= 10000 -
+res L
+A L
+= L.
+5000 |-
+L poi iil 1 oo
+10-4 10-8 10-2
+
+-2 .-1
+Fx.o2-23kev [ergem™ s
+
+Fig. 4. Sky area in which 95% of all sources above a minimum flux
+will be detected with DET_LIKE_0> 10. The dashed line indicates
+the total area of the western Galactic hemisphere. The red line displays
+the sensitivity over the entire western Galactic hemisphere, while the
+blue line shows the extragalactic sky excluding an area of 15° below
+and above the Galactic plane and regions with radii of 5.5° around the
+Large Magellanic cloud (LMC) and 3.0° around the Small Magellanic
+cloud (SMC).
+
+the input values within uncertainties; and since this is the case
+we use the input fluxes.
+
+To estimate the completeness and sensitivity, we define the
+survey as complete if, for a given exposure time and minimum
+detection likelihood of 10, 95% of sources with a given flux are
+detected. For a given minimum detection likelihood, we find that
+we can approximate the minimum detectable flux by
+
+Zz = fy \P sens
+en) + Fos (1)
+
+Fx,0.2-2.3keV,min = Isens X ( 1s
+
+where for the given minimum DET_LIKE 0 = 10, [sens =
+2.14 x 10° ergem™* s“!, t9 = 13.908, Peens = 2.20, and
+Fo = 2.02 x 107 ergem™* s~!. Combining Eq. (1) with the
+eROSITA exposure map, we can determine the area of the sky
+at which the survey is sensitive to a specific flux. We divide the
+sky into equally-sized pixels with an area of 0.002 deg” and de-
+termine the minimum flux within that pixel. Figure 4 shows that
+the survey is complete on the whole western sky down to a flux
+of Fx,02~23kev ~ 2X 10° ergcm™ s~!. For all sources with a
+lower flux, corrections using the derived sensitivity will have to
+be applied, for instance when deriving log N-log S -distributions.
+
+3.4. X-ray spectral analysis
+
+In order to gather information on the X-ray properties of our
+sample, we complement the available eRASS1 catalog data
+(Merloni et al. 2024) with spectral information, using eSASS
+version 211214, HEASOFT version 6.30, and eROSITA event
+processing version 020, which offers improved calibration com-
+pared to the release version 010 used by Merloni et al. (2024).
+While the processing version affects the quality of spectral prod-
+ucts, it does not affect the source detection itself within the
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+conservative selection criteria applied above. Tests with differ-
+ent processing versions reveal that their influence on the overall
+spectral fitting results does not change the overall results. We
+extract source spectra from circular extraction regions centered
+on each catalog source, scaling the extraction region radius, R,
+on the maximum likelihood count rate for the 0.2—-2.3 keV band,
+given by Merloni et al. (2024),
+
+R=Nx(ML_RATE_1 [cts/s])” (2)
+
+where N = 85’’443 and y = 0.284. Higher count rate sources re-
+quire larger regions in order to include all source photons, how-
+ever we require at least 23” and at maximum a region with a
+radius of 200”. Background regions are annuli centered on the
+source position, using Eq. 2 to scale the inner and outer ra-
+dius. Specifically, for the inner radius we set N = 1817/963,
+= 0.242, Rinnermin = 54”, and Rinnermax = 350”. For the
+outer radius, N = 1063211, y = 0.282, Routermin = 280”, and
+Routermax = 2200’. Within the background region we exclude
+all neighboring eRASS1 sources, scaling the exclusion radius of
+each source by their count rate. Spectra are then extracted from
+event lists with the eSASS task srctool. Since eROSITA TM 5
+and 7 are affected by light leaks (Predehl et al. 2021; Merloni
+et al. 2024), these two modules require special treatment in our
+analysis. Unless mentioned otherwise, for these TMs, only data
+taken >1 keV were considered. For spectral analysis, we use the
+Interactive Spectral Interpretation System (ISIS, version 1.6.2;
+Houck & Denicola 2000) and quote all uncertainties at 90% con-
+fidence for one independent parameter, unless stated otherwise.
+
+For all sources, we collect basic source information such as
+the total amount of source counts and on-axis exposure times.
+Count information is given as the number of photons detected
+by all TMs for the 0.2-2.3 keV band, or as the combination of
+counts measured between 1.0-10.0keV for TMs 5 and 7 and
+0.2-10.0keV for all other TMs. We utilize the Bayesian ap-
+proach of Park et al. (2006) to determine hardness ratios,
+
+Nita — Nso
+HR = ————
+
+Nita + Noo" °
+, where Ng, and Ny, are the counts in the softer and harder band,
+respectively, and their uncertainties. We ignore TMs 5 and 7, and
+use the energy bands 0.2-0.7 keV, 0.7—1.2 keV, and 1.2-5.0 keV,
+hereafter bands 1, 2, and 3. For an absorbed power law with
+Nu = 1 x 107! cm~ and photon index I'y = 2, these bands con-
+tain a similar number of photons. The different hardness ratios
+are designated as follows: HR12 is the hardness calculated using
+bands 1 and 2, HR23 uses bands 2 and 3, and HR13 bands 1 and
+3,
+
+The source fluxes reported in the eRASS1 catalogs are de-
+termined as part of the eROSITA source detection pipeline.
+They are based on maximum likelihood methods, applying pre-
+determined energy conversion factors assuming an absorbed
+power law with xy = 2.0 and an absorption column density of
+Ny = 3 X 10?°cm~?. We determine source intrinsic fluxes for
+the 0.2—2.3 keV band based on spectral modeling with fixed pa-
+rameters. We use simple absorbed power laws thabs*powerlaw
+(tbabs(1)*powerlaw(1)"), with the abundances of Wilms
+et al. (2000) and the cross-sections of Verner et al. (1996) and
+fix the equivalent hydrogen column, Ny, to the 21 cm value for
+the source position reported by the HI4PI Collaboration (2016).
+We then determine the 0.2-2.3 keV fluxes from fits of the spec-
+tral continuum to the full eROS/TA energy range from 0.2 keV
+(1keV for TMS and 7) to 10.0keV for four fixed photon in-
+dices, Ix, covering the range expected from blazar-like spectra
+Tx = (1.5, 1.7, 2.0, 2.3}.
+
+107) E—— 77 T 1-11 1+ 1773
+
+& 3 " gt q
+
+as E E
+
+4 Ee q
+
+= E ty + “ho 4
+
+a bes |
+
+— 1l4E fae
+
+9 eg
+ig E
+ot E
+
+a c 4
+
+10-5 | 4FGL 10325.5-5635 4
+
+E 4FGL J0440,3-4332 E
+
+F 5BZQ J0547-6728 4
+
+; E +H
+
+OF i 4
+
+-3 F stat/dof=1.06 { as ie
+
+3F J ni
+
+OS OE +u,H J
+
+yf oF ab Hay oe E
+
+3 Eestat/dofat 35 4
+
+i i
+
+cE Th ttt hk te p= :
+
+OF et —$-
+
+-3 F stat/dof=0.86 + 4
+
+Ee pe
+
+0.2 0.5 al 2 5 10
+
+Energy [keV]
+
+Fig. 5. Spectral fits of an absorbed power law model for three confirmed
+blazars with different fluxes. For SBZQ J0547—6728, no prior X-ray ob-
+servations are available. The three lower panels display the fit residuals
+for each source. Data from TMS and 7 are displayed in a lighter color.
+
+For the 1273 sources with more than 50 counts detected in
+the 0.2-2.3 keV band, we also perform a more detailed spec-
+tral analysis, again using an absorbed power law. For these, we
+dynamically rebin each spectrum following Kaastra & Bleeker
+(2016), while requiring that each bin contains at least one count,
+leave the photon index free, and fix Ny to the 21cm value
+from the HI4PI Collaboration (2016). Spectral minimization is
+based on Cash statistics (Cash 1979; Kaastra 2017). Figure 5
+shows the spectra of three blazars with our best fit model. The
+fluxes derived from the fixed photon index power law fits, those
+determined during the spectral fits, and the ones reported by
+Merloni et al. (2024) are all similar within ~18%. For high
+fluxes (>Fx,0.2-23kev ~ 107!! ergem7? s~!; Merloni et al. 2024)
+eROSITA spectra are influenced by pileup (see, e.g., KGnig et al.
+2022); we proceeded to check for pile-up in these sources. Using
+SIXTE to simulate blazar-like spectra within different flux ranges
+(also above the flux limit reported by Merloni et al. 2024) we
+find that our spectra are not significantly affected by pileup, with
+a maximum pileup fraction of 1.79% for the brightest source.
+
+Article number, page 9 of 39
+A&A proofs: manuscript no. main
+
+4. Additional multiwavelength data
+
+In order to put the properties of the BlazErl catalog into the
+multiwavelength context of these sources, we supplement the
+eROSITA information with data from other X-ray and multi-
+wavelength catalogs.
+
+4.1. Observations of eROSITA blazars with other X-ray
+missions
+
+To collect soft X-ray flux and spectral information, we cross-
+match the BlazErl with the ROSAT (0.1-2.4keV, Boller et al.
+2016) and the Swift-XRT (0.3-10.0keV) source catalogs by
+Giommi et al. (2019; OUSXB DR3) and Evans et al. (2020).
+Although both catalogs use Swift-XRT, they were compiled in-
+dependently and using different approaches. The OUSXB cat-
+alog specifically targets blazars and treats each single observa-
+tion separately, whereas Evans et al. (2020) merge all exposures
+of a given target. BlazErl counterparts are again identified by
+positional cross-matching, using a maximum angular separation
+between the BlazEr1 position and ROSAT of 40” and of 8” be-
+tween BlazErl and Swift-XRT. We find 1496 ROSAT and 1249
+Swift-XRT (for Evans et al. 2020) counterparts. As the OUSXB
+catalog is built on an observation basis with one entry per ob-
+servation, we first match it with the BLAZE catalog. For each of
+the 1039 matches we then derive the mean, median, minimum,
+and maximum fluxes and spectral indices from all source visits.
+
+In order to get information at higher energies, we cross-
+match the BlazErl with the NuSTAR (3.0-10.0keV, 10.0-
+30.0 keV) blazar catalog (Middei et al. 2022), using a maximum
+angular separation of 8” (based on the positional accuracy of
+NuSTAR; Harrison et al. 2013), identifying 46 out of 126 sources.
+Since this catalog contains one entry per observation, we include
+the fluxes and spectral information of the observation closest
+in time to eRASS1 to the BlazErl catalog. We also matched
+our detections with the Swift-BAT catalog (14.0-195.0 keV, Lien
+et al. 2025), assuming a maximum angular separation of 60”,
+and where available using the positions of already known coun-
+terparts, obtaining 96 matches, for which we add the flux and
+spectral information to the BlazEr1.
+
+To identify objects with previous observations, we cross-
+match BlazEr1 with the observation catalogs of XMM-Newton,
+Chandra, ASCA, NuSTAR, Suzaku, Swift-XRT, and ROSAT
+available at HEASARC *. BlazEr1 contains the total exposure
+time for each source and mission.
+
+4.2. The y-ray counterparts of eROSITA blazars
+
+The Large Area Telescope (LAT; Atwood et al. 2009) onboard
+the Fermi Gamma-ray Space Telescope (0.1—-100.0 GeV, 1.0-
+100.0 GeV) has been observing the entire sky in the y-ray band
+since 2008. We use the y-ray counterparts from the fourth data
+release of the Fermi-LAT Fourth Source catalog (4FGL-DR4;
+Abdollahi et al. 2020, 2022) listed in the BLAZE catalog, in
+total obtaining 1293 matches. We additionally collect flux and
+spectral information, source classifications, and SED peak po-
+sitions provided by the third data release of the Fourth Catalog
+of Active Galactic Nuclei Detected by Fermi-LAT (4LAC-DR3;
+Ajello et al. 2020, 2022). For the comparison with the 4LAC cat-
+alog we use a positional match between the BlazEr1 catalog and
+the position of the associated counterparts listed in the catalog
+
++ https://heasarc.gsfc.nasa.gov/cgi-bin/W 3Browse/w3browse.pl
+
+Article number, page 10 of 39
+
+with a maximum separation of 1’, since it is based on an older
+4FGL version as the one used for this paper.
+
+4.3. Radio counterparts to eROSITA blazars
+
+We search for radio counterparts using Very Long Baseline In-
+terferometry (VLBI) programs, since this implies that all flux
+lensities are representative for the beamed compact jet rather
+than extended lobe emission. Counterparts from the Radio Fun-
+jamental Catalog (RFC, version rfc_2023c, Petrov & Kovalev
+2025)° are identified using a maximum angular separation of
+1’, since radio positional uncertainties are low. We find 2620
+matches. Additionally, we cross-match the BlazEr1 catalog with
+the blazars covered by the TANAMI (8.4 GHz, 59 sources; Ojha
+et al. 2010; Miiller et al. 2018) and MOJAVE (15 GHz, 407 sources
+Lister et al. 2021; Homan et al. 2021) surveys. We use the flux
+lensity values that are already public, since an extensive investi-
+gation involving the more current data is beyond the scope of this
+paper. With a separation of at most 1” we find 52 TANAMI and
+97 MOJAVE blazars within the BlazErl catalog. We assume flux
+lensity uncertainties of 5% for RFC (Petrov & Kovalev 2025)
+and MOJAVE (Homan et al. 2002; Lister et al. 2021), and 20% for
+TANAMI (Ojha et al. 2010).
+
+4.4. Infrared and optical counterparts to eROSITA sources
+
+We gather counterpart optical and mid-infrared data (bands: g
+(4686 A), r (6165 A), i (7481 A), z (8931 A), WI (3.4m), W2
+(4.6 um), W3 (12 um), and W4 (22 um)) from $25. Additionally,
+the catalog provides the publicly available spectroscopic red-
+shifts from Kluge et al. (2024), photometric redshifts for AGN
+computed with CIRCLEZ (Saxena et al. 2024), and other mul-
+tiwavelength information. Gaia information is also contained in
+the catalog from S25, however, the astrometric data are not used
+here since the proper motions and parallaxes listed for the bright-
+est and well studied blazars (such as 3C 273) would indicate
+a Galactic origin, which also enters the Galactic/extragalactic
+classification in S25. This error in Gaia is associated with the
+variability of these objects (Khamitov et al. 2022). We only use
+the data for the 4416 sources where the BlazErl and the S25
+catalogs agree with each other on the eRASS1 counterpart (for
+details, see Sect. 3.2).
+
+In order to obtain reliable redshifts for population studies we
+augment the BLAZE and BlazEr1 catalogs with redshifts given
+in the HighZ sample (Sbarrato et al., in prep., Marcotulli et al.
+2025) and the 4LAC (Ajello et al. 2022). If no redshift is given
+in these two catalogs we extend the catalogs to using un—flagged
+redshifts from the BZCAT (redshifts not considered to be spu-
+rious by Massaro et al. 2015), confirmed and reliable redshifts
+from the 3HSP (Chang et al. 2019), and redshifts from CGRaBS
+(Healey et al. 2008), VERONCAT (Véron-Cetty & Véron 2010),
+SIMBAD (Wenger et al. 2000) and spectroscopic redshifts from
+$25, prioritizing redshifts in the order of catalogs listed here.
+For the high-redshift source BROS J1322.1—1323 we use the
+redshift reported by Belladitta et al. (2025), where the eRASS1
+counterpart given in the BlazEr1 catalog has been previously re-
+ported.
+
+> This leads to seven candidates having 4LAC parameter values as
+well, however, given the size of the catalog these data points can be
+ignored and do not influence our results in any way.
+
+© http: //astrogeo.org/rfc/, covering the S (2.2-2.4GHz), C
+(4.1-5.0GHz), X (7.3-8.8 GHz), U (15.2-15.5 GHz), and K (22.0—
+24.2 GHz) bands
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+4.5. Broadband spectral indices
+
+We calculate an estimated spectral index for a power law be-
+tween different SED bands (e.g., Stocke et al. 1991; Perlman
+et al. 1996a; Giommi et al. 1999; Turriziani et al. 2007),
+
+S=NXE°, (4)
+
+such that the slope, a, between two bands characterized by ref-
+erence energies E; and E; is
+
+log S; -— log S;
+ay =e ©)
+
+og E; — log E;
+where S; = S(E£;) and S; = S(Ej) are the flux densities at a
+specific energy (£;, Ej). For the X-rays we use the 1 keV flux
+density found from power law fits with Ty = 2.0 and a fixed
+value of Ny, since this flux estimate is available for all catalog
+sources. We computed ar based on the 0.1-100 GeV y-ray flux
+from Abdollahi et al. (4FGL-DR4; 2022), assuming the geomet-
+ric mean between the energy band boundaries as reference en-
+ergy (0.1 GeVx100.0 GeV)!/. For values of aygx we utilized the
+dereddened W1-band flux, whereas for aox we used the dered-
+dened LS10 r-band flux, both based on the transmission and flux
+values taken from $25. We account for the uncertainty of dust
+models in the dereddening (according to Fitzpatrick 1999) by
+applying a 20% systematic uncertainty to our estimate for the
+transmission. This estimate is based on the different transmis-
+sion factors obtained when assuming Ry = 2.7 or Ry = 3.1 in
+the extinction law. We also provide a set values of @px, deter-
+mined using the RFC X-band (8.6 GHz), TANAMI (8.4 GHz; Ojha
+et al. 2010; Miiller et al. 2018) and MOJAVE (15 GHz; Lister et al.
+2021; Homan et al. 2021) flux densities. Uncertainties for the
+a-values were estimated using Gaussian error propagation and
+68% confidence intervals.
+
+5. The BlazEr1 catalog results and discussion
+
+The steps outlined in Sects. 3 and 4 lead to the construction of the
+BlazEr1 catalog. We also performed the same steps for objects
+which do not match our selection criteria (Sect. 3.1.1). These
+discarded sources are included in a supplementary catalog (see
+Appendix D for the catalog description). This sample — referred
+to as the unverified sample — contains 2252 objects, which we
+provide as a courtesy, but do not discuss further.
+
+In this section, we discuss the main BlazEr1 results, focusing
+first on eROSITA X-ray results, and then presenting the multi-
+wavelength picture. We also address non-detected sources here.
+
+5.1. Global properties of the BlazEr1 catalog
+
+The BlazEr1 catalog contains 5865 individual blazars and blazar
+candidates observed and detected with eROSITA. Of these, 2106
+are associated with a confirmed blazar, while the remaining are
+blazar candidates. We detect roughly the same number of sources
+for each blazar subtype, with 597 BLLs, 769 FSRQs and 712
+BCUs, and also find 28 BZGs. The blazar candidates are domi-
+nated by BCUCs (1892 sources, ~50% of the candidates), while
+the remainder is composed of 25% BLLCs and 24% FSROCs
+(954 and 913, respectively). The origin of the BCUC popula-
+tion is dominated by the BROS catalog. The sky map (Fig. 3)
+shows a roughly evenly distributed extragalactic distribution of
+objects. There are 5296 sources at Galactic latitudes |b] > 15°,
+corresponding to an area density of 0.346 sources/deg”.
+
+$00 Serena mm 1.0
+350 F '
+me 08
+3 250 F 06 E
+E 2
+i) a th
+= 150 6 4 8
+Ss E .
+Zz 5 i}
+100 E .
+E 0.2
+so £
+oF - 0.0
+10! 10° 108 108
+Nx 0.2-2.3kev
+
+Fig. 6. Distribution of source counts with its cumulative distribution
+shown by the solid line curve. The dashed vertical line marks the thresh-
+old of 50 counts, above which we deem a spectral analysis meaningful.
+Only 20% of all sources are above this limit, while about half have fewer
+than 20 counts, as shown by the cumulative distribution (blue).
+
+In total, the catalog is based on 487030 X-ray photons in
+the 0.2-2.3 keV band. Most sources in the catalog have very few
+counts (median value: 18 counts; see Fig. 6). During eRASS1,
+eROSITA detected more than 50 counts per source for about
+20% of the BlazEr1 objects (i.e., 1273 sources), which we se-
+lect for a spectral analysis. 4FGL JO543.9-5531 has the most
+counts with 26819 counts. This source has flux of Fx,9.2-2.3kev =
+4.9 x 107! erg cm™ s~!, which is increased by a factor of about
+two (Fx,03-100Kev = 4.5 x 107! ergcm-? s-!; Giommi et al.
+2019) to six (Fx,0,1-24kev = 9.0 x 107! ergcem~? s~! Massaro
+et al. 2015) compared to past observations. The long exposure
+time of 584s, given the position of the source, explains the high
+number of counts compared to equally bright sources. About half
+of the detections have fewer than 20 counts, with some being reg-
+istered with only three counts in the eROSITA main band (0.2—
+2.3 keV).
+
+A vital characteristic of the sample is the sources’ flux dis-
+tribution. Unless stated otherwise, for consistency and as not to
+mix different flux determination methods and since we do not
+expect robust spectral fitting to be possible for the majority of
+sources (<50 counts), we study the properties of the blazar pop-
+ulation in this section using the unabsorbed source intrinsic flux
+in the 0.2-2.3 keV band measured assuming a fixed photon in-
+dex of Ty = 2.0 and the 21cm Ny at the source position. We
+use fluxes assuming [x = 2.0 since this is the expected pho-
+ton index obtained when averaging across the entire population.
+Fluxes determined with other values for a fixed photon index
+(Ix = {1.5, 1.7, 2.3}) agree to within 9.1%. The fluxes from the
+eRASS1 catalog (Merloni et al. 2024) are consistent within the
+uncertainties, with an average deviation of 18%, which might
+be due to the different treatment of absorption and flux de-
+termination (on average the Ny from the HI4PI Collaboration
+(2016) is higher than the one assumed by Merloni et al. 2024).
+The measured fluxes span a range of almost four decades; the
+brightest source is 3C 273 (4FGL J1229.0+0202, Fx,0.2-2.3kev =
+6.2 x 107! ergcm™? s~!, with an exposure time of 111s and
+7179 counts), the faintest is WIBRaLS2 J045646.58—585411.7
+(Fx,02-23kev = 6.9 x 107 ergem™ s“!, with an exposure of
+867s and 13 counts).
+
+Article number, page 11 of 39
+A&A proofs: manuscript no. main
+
+400. pa ot 10
+350 & 7
+ms 408
+a3 S
+5 250 F “(ei E
+3 g “eS
+S 200 £ A) ee
+o C >
+= 150F 104 8
+= te e.
+Zz E 7 iE}
+100 E aa .
+50 E |
+ob 0.0
+
+10-3 10-22
+
+Fx02-23kev [ergem™? s“']
+
+Lor"
+
+lo!
+
+Fig. 7. Flux distribution in the BlazEr| catalog. The majority of sources
+have fluxes below the survey completeness limit on the western Galactic
+hemisphere, the vertical line marks this limit. The cumulative distribu-
+tion is shown in blue.
+
+About half of the sources in the BlazErl catalog are
+brighter than the flux level where completeness is reached
+across the western Galactic hemisphere, Fx,92-23xev = 2 X
+107!3 ergcm= s~! (see Sect. 3.3 and Fig. 7). Fainter sources are
+located in parts of the sky where eROSITA has deeper exposure.
+
+Reliable redshifts z, are available for 3627 catalog objects
+(Fig. 8). Including the S25 photometric redshifts increases the
+number of available values to 4795. The majority of blazars
+and blazar candidates are found at z < 2. The sample contains
+155 sources with z > 2.5, including objects up to z ~ 6, such as
+the high-redshift blazar candidate BROS J1322.1—1323 (Bella-
+ditta et al. 2025; z = 4.71). Among these z > 2.5 sources, we
+report the first X-ray detection of the blazar 5BZQ J1007+1356,
+which was identified as a y-ray emitter by Kreter et al. (2020)
+during an a posteriori search for transient y-ray signals from
+high-z blazars. Out of the 87 blazars on the western Galactic
+hemisphere studied by Kreter et al. (2020), eROSITA detects
+61 sources. Consistent with previous results (Ajello et al. 2012,
+2014, 2020), the observed distribution of redshifts indicates that
+BLLs tend to be at low z, while FSRQs peak towards z ~ 1.0.
+BCUs can be found at all redshifts.
+
+Several remarkable eROS/TA-detected blazars __lo-
+cated in the early Universe are not part of BlazErl.
+eRASSU J020916-562650 is one of the most distant blazars
+known (z = 5.6; Wolf et al. 2024), but was not detected in
+eRASS1, only in subsequent surveys in eRASS2, eRASS3,
+and eRASS4 (the name of the source deviates from the
+name used by Wolf et al. 2024). The z = 6.19 quasar
+CFHQS J142952+544717, which was detected in the first
+eROSITA survey (Medvedev et al. 2020), is located on the
+eastern Galactic hemisphere. Recent observations with Chandra
+and NuSTAR revealed rapid variability, identifying it as a
+likely blazar (Marcotulli et al. 2025). Similarly, the blazars
+TXS 1508+572 (z = 4.3) and GB6 142844217 (z = 4.7), which
+have shown remarkably luminous y-ray flaring events in recent
+years (Gokus et al. 2024a; Gokus et al. 2025), are also located
+on the eastern Galactic hemisphere.
+
+In order to assess the quality of the photometric redshifts by
+$25 we compare them to the reliable literature (spectroscopic
+and photometric from, for instance, the BZCAT or 4LAC cata-
+logs) redshifts where both parameters are available. For almost
+
+Article number, page 12 of 39
+
+400
+
+300
+
+200
+
+Number of Sources
+
+100
+
+4.0
+
+Fig. 8. Redshift distribution of BlazErl sources. The colors rep-
+resent different sub-types. All BlazErl entries are shown in green
+(3627 sources), BLLs in blue, and FSRQs in orange. The inset shows
+the distribution for sources with z > 3.5.
+
+67% of the sources the difference in redshift is > 10%. We there-
+fore limit our population study involving distance-dependent
+properties (such as e.g., luminosity) to objects with reliable lit-
+erature redshifts and omit the photometric redshifts of S25.
+
+5.2. Luminosity distributions of eROSITA detected blazars
+
+We derive rest-frame luminosities for the 0.2-2.3keV band,
+Lxo2-23xev. Not surprisingly, the luminosity of the detected
+blazars increases with redshift, and the catalog is also biased to-
+wards higher luminosities due to the flux limit while sampling
+a larger volume. This bias becomes evident when comparing
+with other missions (see Fig 9). The NuSTAR sample of Middei
+et al. (2022) tends to contain sources with higher luminosities
+and fluxes, covering similar values as eROSITA. Additionally,
+with the NuSTAR sample it can be seen that blazars are highly
+variable. Due to the lower sensitivity of the Swift-BAT sample
+(Marcotulli et al. 2022), luminosities from that sample are biased
+towards high luminosities, as only high-flux sources are part of
+this sample. The comparison with these hard X-ray samples in-
+dicates that eROSITA samples intermediate luminosities between
+the shallow all-sky hard X-ray samples and deeper surveys, and
+also extends to higher redshifts (see above).
+
+The median luminosity for all objects is Lxo2-23kev ~
+7.3 x 10 erg s~!. Confirmed blazars show slightly higher lumi-
+nosities, due to a tail towards lower luminosities apparent in the
+luminosity distributions (Fig. 10). On average FSRQs are more
+luminous by almost an order of magnitude compared to BLLs
+and BCUs, which have similar values. The median values for all
+source subgroups are given in Table 3. Since redshifts are more
+difficult to determine for BLLs, luminosities are available for
+more FSRQs than BLLs. The luminosities inferred with eROSITA
+are consistent with previous studies (e.g., Donato et al. 2001; Fan
+et al. 2012). Overall, luminosities determined for blazar candi-
+dates agree with those of confirmed blazars and no stark dif-
+ference is found between y-detected and non-detected sources.
+Kolmogoroy-Smirnov tests indicate that most distributions differ
+significantly at the 95% confidence level, all combinations result
+
+7 Since we use Ix = 2, the K-correction to transform to the rest-frame,
+(1 +2)'x? = 1 (Langejahn et al. 2020).
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+08 pq} oe ool
+7, 10%
+os)
+3
+3
+& 104
+S
+x
+i}
+
+0”
+
+08
+te ae
+s
+3
+S
+a 10"
+a
+
+0
+
+aii mie ge eel ek
+0.01 0.1 1
+&
+
+Fig. 9. X-ray luminosity as a function of redshift. The different dashed
+lines display luminosities of sources with Ty = 2.0 for increasing
+z and a fixed X-ray flux: from top (dashed line) to bottom (dash-
+double dot line), we display Fx2-23xev from 107'! ergem™ s~! down
+to 10-4 ergcm™ s“! in steps of 10. We show the main band eROSITA
+luminosity in panel a, following the color scheme introduced in Fig. 3;
+and the 2-10 keV X-ray luminosity in panel b. In gray the BlazEr1 sam-
+ple is shown. Orange points are based on NuSTAR data (Middei et al.
+2022), blue points on Swift-BAT (Marcotulli et al. 2022), using the red-
+shifts from BZCAT and 3HSP for the NuSTAR and the redshifts from
+Marcotulli et al. (2022) and adopting their best fit models.
+
+in a p-value below 0.05, with the exception of the BCU and BLL
+distributions, which likely have the same underlying distribution
+(95%, p-value of 0.09). This result is consistent with previous re-
+
+Table 3. Characterization of the distribution of luminosities in BlazEr1.
+We list the quartiles for luminosities Lxo.2-2.3xev, in units of 10% erg s“!
+for the different classes of blazars.
+
+Population 1. quartile 2. quartile 3. quartile
+All 0.21 0.73 DAG
+Confirmed 0.18 0.74 251
+Candidates 0.23 0.72 1.89
+FSRQ 0.83 2.17 5.00
+BLL 0.09 0.33 1.19
+BCU 0.11 0.28 0.86
+FSRQC 0.67 1.28 2.48
+BLLC 0.10 0.21 0.58
+BCUC 0.27 0.86 2.19
+
+T
+150 F Confirmed: 1844 a 7]
+
+Candidate: 1783
+
+3
+2 100
+g
+S
+bay
+=
+5 50
+Zz
+
+20
+
+0
+E BLL: 534
+80'F FSRQ: 769
+70 — BCU:513
+8 60 E
+gS £
+3 S0E
+Ss E
+z 40 E
+—30F
+a E
+20 E
+10
+80 E
+E BLLC: 484
+E FSRQC: 526 ;|
+60 £. BCUC: 773 4
+Ps
+2 E q
+3 E 5|
+8 Ee 4
+6 406 J
+3 E
+—e &
+=f ES
+4 ook
+E
+
+10% 10% 10%
+
+Lxo2-23kev [erg s~']
+
+1042
+
+Fig. 10. Luminosity distribution for all sources with reliable redshifts.
+The panels show distributions for different subgroups of the eROSITA
+blazars and eROSITA blazar candidates, with vertical lines indicating
+the median luminosity for each subgroup (see Table 3).
+
+sults which hinted that most BCUs are BLLs (Kang et al. 2019;
+Pefia-Herazo et al. 2020; Chiaro et al. 2021).
+
+The low-energy peak frequencies of the LSPs (as identified
+in the 4LAC) increase with decreasing luminosity. For HSPs and
+ISPs no significant trend is observed. This observation is consis-
+tent with the origin of the X-rays within the SED coming from
+different processes, and with the blazar sequence.
+
+5.3. Hardness Ratios
+
+In Fig. 11 we show the distribution of hardness ratios (see
+Sect. 3.4 for the definition) based on the source counts of the
+BlazEr1 objects. The hardness ratio diagrams highlight the dif-
+
+Article number, page 13 of 39
+A&A proofs: manuscript no. main
+
+1.0
+
+0.8
+
+0.6
+
+0.4
+
+0.2
+
+0.0
+
+HR23
+
+-0.2
+
+-0.4
+
+-0.6
+
+-0.8
+
+-1.0
+
+0.8
+
+0.6
+
+0.4
+
+0.2
+
+0.0
+
+HR13
+
+-0.2
+
+-0.4
+
+-0.6
+
+-0.8
+
+-1.0 fe at fa el ee
+-1.0 0.0
+
+HRI12
+
+Fig. 11. Scatter plot of hardness ratios between energy bands 1 (0.2—
+0.7keV), 2 (0.7-1.2 keV), and 3 (1.2-5.0keV). Sources with > 50
+counts are shown in the color scheme of Fig. 3, fainter sources in gray.
+These sources show a higher dispersion and larger uncertainties. Dot-
+ted lines show, from top to bottom, expected hardness ratios for photon
+indices Ty = 1.0, x = 2.0, and xy = 3.0. The absorption increases
+along the tracks towards the upper right corner. The majority of source
+hardnesses are consistent with power law spectra in the expected range
+of spectral shapes due to the large uncertainties. The black data point in
+the upper left corners displays the median uncertainties.
+
+ference in spectral properties among the blazar classes, revealing
+softer spectra for BLLs (blue) in comparison to FSRQs (red). The
+obtained hardness ratios have values expected if sources have ab-
+sorbed power law spectra. Sources in Fig. 11 cluster towards the
+left of the diagrams and the tracks, therefore most objects are
+consistent with lower Ny, as expected for the blazar population.
+
+Article number, page 14 of 39
+
+a Confirmed: 834
+Candidate: 439
+
+0.0
+L b BLL: 353 4
+L FSRQ: 220 J
+1.0 BCU: 253
+
+0.7
+
+0.4
+
+Probability density
+
+0.0
+4FGL: 584
+
+non 4FGL: 250
+
+15k 4
+eB 1ob 4
+& os f 4
+0.0 |
+
+_| a BLLC: 185
+
+0.7 F FSRQC: 109
+
+BCUC: 145
+
+0.3
+
+0.0
+
+Le LSP: 166 4
+ISP: 73
+0.8 - 4
+& L |
+2 0.5 4
+0.25- 4
+0.5 1.0 15 2.0 2.5 3.0 3.5
+Tx
+
+Fig. 12. Probability distribution of photon indices for different types of
+eROSITA observed blazars and blazar candidates. The distribution takes
+into account the uncertainties of individual measurements of the photon
+index.
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+5.4. Photon indices
+
+For the 1273 blazars with > 50 counts, more detailed informa-
+tion about the spectral shape is available from our spectral fits
+(Sect. 3.4). Figure 12 shows probability distributions of the pho-
+ton indices of all of these sources as well as for the various sub-
+classes, taking into account the (sometimes large) uncertainties
+of the spectral fits. The distributions are approximately Gaus-
+sian; Table 4 lists the results from fitting Gaussian functions to
+the distributions. In order to see how similar the distributions are,
+we performed KS-tests on all the possible combinations, requir-
+ing a 95% confidence level. In some cases subsamples from the
+BlazEr1 catalog are likely to have the same underlying distribu-
+tion and we list the p-values for those. All not listed combina-
+tions have different underlying distributions (p < 0.05).
+
+The distribution of X-ray photon indices of the whole sam-
+ple peaks at around Ix = 2.0. This is observed for the candi-
+dates as well, indicating that a sufficient fraction of these can-
+didates have X-ray spectra similar to blazars. A clear separation
+is seen between FSRQs and BLLs. Consistent with the blazar
+sequence (Fossati et al. 1998), FSRQs with a higher luminosity
+peak at lower energies due to more efficient cooling (Ghisellini
+et al. 1998; see Fig. 12b), resulting in harder X-ray spectra with
+a higher chance of the emission not being part of the low energy
+SED peak compared to BLLs. BCUs are overall similar to all
+confirmed blazars (p = 0.707), confirming their blazar nature.
+In Fig. 12c, we compare confirmed blazars detected in y rays
+to those not detected in y rays, noting that the distributions are
+quite similar. We find no difference between sources detected in
+the 4FGL and the overall (including those from the 4FGL cat-
+alog and those not detected in y rays) distribution of confirmed
+blazars (p = 0.429) or BCUs (p = 0.138). Confirmed blazars
+with no y-ray detection have similar photon indices as the overall
+candidate distributions (p = 0.648), those of the BLLC (= 0.280)
+and BCUC (p = 0.589) classes and the BCUs (p = 0.076). The
+distributions of the 4FGL and non-4FGL confirmed blazars do
+not originate from the same underlying distribution (p < 0.001).
+This is also observed for the BLLs (p = 0.093) and BCUs
+(p = 0.972) sub-classes, however, we find no difference between
+the y-ray detected and the non-detected FSRQs (p = 0.008). Al-
+though the X-ray photon indices of y-ray detected and non-y-ray
+detected sources have very similar values, consistent with previ-
+ous studies (e.g., Yuan & Fan 2014), the comparison of the dis-
+tribution indicates different distributions, with the exception of
+FSRQs. A possible reason is Compton dominance and the gen-
+eral decoupling of X-rays and y rays due to the different physical
+mechanisms. Figure 12d compares the power law slopes of dif-
+ferent candidate populations. Although FSROCs exhibit slightly
+harder spectra, the distributions of FSRQCs, BLLCs (which is
+similar to the confirmed distribution p = 0.705 and to BCUs
+p = 0.701), and BCUCs are more similar than for the confirmed
+objects. The BCUC distribution is similar to the other candi-
+date sub-classes (p = 0.066 for BLLCs, and 0.064 for FSRQCs).
+Potentially this is due to an uncertain source classification. All
+candidates are similar to the BLLCs (p = 0.198), and BCUCs
+(p = 0.893).
+
+Figure |2e shows the photon index by SED type. LSP blazars
+tend to have indices below Tx < 2.0, indicating a rising X-
+ray spectrum, HSPs have photon indices x 2 2.0, therefore
+the X-rays are part of the synchrotron peak. ISPs peak around
+Tx ~ 2.0. We emphasize again that all distributions have a large
+overlap with each other, indicating again that I alone is not a
+good measure of source type. As expected, FSRQs and LSPs
+have the same underlying photon index distribution (p = 0.272),
+
+whereas the HSPs and BLLs share similar values (p = 0.569),
+which is also the case for the ISPs (p = 0.680), which also ex-
+hibit a similar distribution as the HSPs (p = 0.841).
+
+It is interesting to compare our average X-ray photon indices
+for the different blazar types with those derived previously. Ta-
+ble 4 lists a few literature values. Our results are consistent with
+the previous studies, despite these samples being significantly
+smaller. Comparing our values to the larger sample by Giommi
+et al. (2019) we notice that their distributions peak at different
+positions (Giommi et al. 2019; their Fig. 10); eROSITA spectra
+are slightly softer. We see an overall trend that FSRQs and BLLs
+show different spectral slopes, which is also observed in the lit-
+erature (e.g. Giommi et al. 2019).
+
+In our study, we also observe the split between FSRQs and
+BLLs in the distribution of I with flux (Fig. 13a). BLLs tend to
+have higher indices as well as higher fluxes, while FSRQs tend to
+show a harder index but extending towards lower fluxes. In the
+entire sample, we detect no correlation between flux and pho-
+ton indices for the entire sample or any sub sample with the
+exception of BLLs showing a very weak but statistically sig-
+nificant anticorrelation® (see Table B.1 for correlations coeffi-
+cients). Figure 13b shows I as a function of luminosity. These
+parameters seem to be anti-correlated, as sources with harder
+spectra have higher luminosities, a trend already described by
+Kadler (2005). The anticorrelation is strongest for the FSRQs;
+all other sub samples have less statistically significant anticorre-
+lations and some are not statistically significant at all. This ob-
+servation is consistent with the blazar sequence, where FSROs
+tend to have higher luminosities and harder indices, as the X-
+rays are more likely to originate from inverse Compton emis-
+sion. BLLs tend to display lower luminosities and softer indices,
+which has already been described in the literature (e.g., Fan et al.
+2012). Despite the higher X-ray luminosity of FSRQs, the high-
+est observed fluxes (>5 x 107! ergcm~? s~!) are almost exclu-
+sively from BLLs due to their prevalence at lower redshifts. Ad-
+ditionally, the hard spectral index of FSRQs makes it easier to
+detect low-flux FSRQs, while BLLs with very soft spectra and
+low fluxes are likely underrepresented due to the detection lim-
+its. This indicates a bias in our sample towards high-flux BLLs.
+For BLLs no correlation exists between the photon index and
+the redshift of the source, while for FSRQs we find increasingly
+hard spectra and high luminosities with increasing redshift. A
+similar observation is made for the FSRQCs. These results re-
+semble those of Giommi et al. (2019), and are due to a selection
+effect.
+
+5.5. The flux-dependent source population of eROSITA
+blazars
+
+We create log N-log S distributions using fluxes and the sensitiv-
+ity, giving us the sky area, A, covered at a given limiting flux, Fx
+(see Sect. 3.3),
+
+1
+NC Fx) =). —_,
+A;/|deg?
+where areas sensitive to a certain flux level were obtained from
+the absorbed sensitivity limits of our simulation by correcting
+
+(6)
+
+i
+
+8 For the correlation p-values we adapt the following: > 0.10: correla-
+tion does not exist, 0.10—-0.05: exists but weak, 0.05—0.003: exists with
+moderate strength, < 0.003: exists with high significance, if numbers
+are orders of magnitude smaller for the high significance we just give
+the threshold value. If based on the p-value a correlation does not exist
+or the coefficient is within the range —0.1 and +0.1, we do not list the
+correlation coefficient and p-value. Values are listed in Table B.1.
+
+Article number, page 15 of 39
+A&A proofs: manuscript no. main
+
+Table 4. Results of fitting the distributions shown in Fig. 12 with Gaussian distributions. We list the mean values and the standard deviations and
+
+values from the literature.
+
+Population (Fx) ory (Ix comastri? (Ix Donato) (Tx Kadler) (T'x,Giommi)
+Reference 1 D 3 4
+
+All 2.05 0.42 - “ - ~
+Confirmed 2.08 0.43 - “ ss =
+Candidates 1.99 0.42 - - =
+BLL 2.26 0.38 2.4340.21 2.28 +0.04",2.39+0.08" ~ 14-2.5 ~ 2.0
+FSRQ 1.80 0.37 1674013 1.76+0.06 1.61 + 0.20" 1.6
+BCU 2.08 0.39 - - “ -
+BLLC 2.07 042 - = = -
+FSRQC 189 042 - = = =
+BCUC 1.96 O41 - = z ss
+4FGL 2.12 044 - - - -
+Non-4FGL 2.00 0.40 - - - -
+HSP 2.28 0.35 - = = -
+
+ISP 2.32 0.39 - - cs 7
+LSP 1.75 0.36 - = = ss
+
+Notes. “ HBLs, “* LBLs, ** their value for quasars
+
+References. (1) Comastri et al. (1997); (2) Donato et al. (2001); (3) Kadler (2005); (4) Giommi et al. (2019)
+3.5 — Dt TT 0 U T] T
+E a | + b
+3.0 F thatue + +
+E 4 THE |
+{ys 8 i
+2 2.0 F : tat i
+aa E ‘i f 4 | f
+C ri +
+LSE Hi ! {
+Lo tol] +
+0.5 E a All: ppeason = 0.1235, p < 0.003; Tkendatt = -0.1917, p = 0.0
+ee FSROs: ppearson = -0.3812, p < 0.003: Tkendant = -0.2998, p < 0.003
+Bo a il boii poiitiul point | L | L | L
+10-'4 10-8 10-2 10"! 107° 10” 10* 10% 10%
+Fxo2-23kev [ergem™ s~'] Lxo2-23kev [erg s']
+
+Fig. 13. Photon index as a function of a flux and b luminosity, following the color scheme introduced in Fig. 3 (BLL(C)s: blue, FSRQ(C)s: red,
+
+BCU(C)s: orange).
+
+for the absorption used (Ny = 1 x 10?! cm™!). In order to avoid
+contamination by Galactic point sources and those in neighbor-
+ing galaxies, we exclude regions at Galactic latitudes |b] < 15°
+and circular regions of radius 5°5 and 3°0 around the Large and
+Small Magellanic Clouds, respectively (Fig. 4, blue line). We
+also, due to the large uncertainties, exclude all sources fainter
+than Fx,02-2.3kev ~ 6 X 107! ergem~ s~!, such that 4785 ob-
+jects are included for the log N-log S calculation, including 1804
+blazars (519 BLLs, 682 FSRQs, and 575 BCUs), and 2981 blazar
+candidates.
+
+The logN-logS distributions are shown in Fig. 14. The
+faded color and dashed lines show the distributions without
+using the correction obtained from the simulation. These un-
+corrected distributions stress how important it is to take the
+eROSITA survey sensitivity into account. There is a slight devia-
+
+Article number, page 16 of 39
+
+tion, or “dip”, in the distribution at fluxes around Fx, 9.2-2.3kev ~
+1x10-'' ergcm~? s~!. Tests with different selection criteria, such
+as restricting the sources to the common footprint of the BLAZE
+catalog input catalogs, do not remove this feature. Based on the
+simulation presented in Sect. 3.3, however, we can exclude it to
+be due to eROSITA’s sensitivity, as the feature is not present in
+the simulated data, which uses the as-flown eROSITA attitude.
+Computing log N-log S distributions for various ecliptic latitude
+bins for the eRASS1 catalog results in noisier distributions in this
+particular flux range, which is characterized by a small number
+of objects. The deviation from a smooth function becomes more
+pronounced, and we therefore conclude that this feature is most
+likely due to small number statistics, possibly in combination
+with source inhomogeneities in the sky, as also documented by
+Merloni et al. (2024; Sect. 5.5).
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+10°
+
+10°!
+
+10°?
+
+10-3
+
+N(> Fx03-35kev) [deg]
+
+FS rey ay rey
+
+10-*
+
+bol
+
+Fig. 14. log N-logS distributions for sources
+within the extragalactic sky. Panel a: com-
+parison of the total sample of eROSITA ob-
+served blazars and blazar candidates (black)
+with the distribution by Giommi & Padovani
+(2015; purple). Green and brown show the
+log N-log S for both classes separately (green:
+eROSITA observed blazars, brown: observed
+candidates). Panel b: comparison of the pre-
+
+Eu
+
+10-8 10°? 107! 10-8
+
+Fx03-35kev [ergem™ s“']
+
+In order to compare our results to the only available predic-
+tions for the X-ray band for the log N-log S of blazars (Giommi
+& Padovani 2015), we convert all fluxes to the 0.3-3.5 keV
+band. Our log N-log S distributions agree quite well with the-
+oretical expectations and agree in terms of the slope. Giommi
+& Padovani (2015) did not assume the blazar sequence but the
+blazar-simplified view, which provides a reasonable explanation
+for the observed log N-log S distribution. However, no defini-
+tive statement about whether the blazar sequence or the blazar-
+simplified view is true can be made, as the overall results are
+consistent with both scenarios. A detailed investigation is be-
+yond the scope of this paper. Assuming that the blazar candi-
+dates are indeed predominantly blazars, the incompleteness of
+the BlazErl catalog at high fluxes is low with respect to the
+prediction by Giommi et al. (2019). At the highest fluxes the
+prediction is lower than the observed log N-log S distribution.
+This discrepancy is caused by the 20 brightest blazars, which are
+predominantly BLLs. After cross-checking the fluxes with the
+unpublished eRASS2 data, we can rule out flaring as the cause
+of this feature. Fluxes this high are not covered by Giommi &
+Padovani (2015). Since the number of sources in this flux regime
+is negligible the discrepancy at high fluxes is due to small num-
+ber statistics and thus not relevant to the overall result.
+
+We find that confirmed blazars dominate the source numbers
+in the high-flux regime, with a similar trend as in the combined
+log N-log S distribution, with incompleteness inducing a devia-
+tion from the prediction at fluxes below 2 x 107!’ ergem=? s~!.
+At low fluxes, the blazar candidates dominate. Likely most or
+all blazars with high fluxes have already been identified, unlike
+those at low fluxes, which are therefore included in the candidate
+catalogs used to build the BLAZE catalog. We can also compare
+the distributions of the subtypes of confirmed blazars and find
+that incompleteness effects are seen at lower fluxes, with respect
+to the predictions by Giommi & Padovani (2015). At high fluxes
+the BLLs agree quite well with their prediction. For FSRQs the
+log N-log S is found below the theoretical curve but the slopes
+are consistent. For the BCUs, the log N-log S distribution for
+most part lies above that of FSRQs. All these sources either be-
+long to the BLL or FSRQ type but have not been identified yet,
+explaining parts of the observed incompleteness (the majority of
+BCUs are thought be BLLs; Kang et al. 2019; Pefia-Herazo et al.
+2020; Chiaro et al. 2021). Giommi & Padovani (2015) also pre-
+dict a population inversion between BLLs and FSRQs at a flux
+
+of Fx,03-35kev = 1X 10-8 erg cm? st, resulting from the dif-
+
+10°
+
+dictions of Giommi & Padovani (2015) for
+BLLs (light blue) and FSRQs (light red) with
+eROSITA measurements for BLLs, FSRQs, and
+BCUs, using the color code of Fig. 3).
+
+10-1!
+
+ferent slopes, which is related to the evolution and distribution
+of the source classes in the Universe. Such an inversion is seen
+in the data as well, although at a slightly higher flux, albeit this
+iscrepancy could be due to the incompleteness of our data and
+other causes can not be ruled out as well.
+
+An earlier comparison by Turriziani et al. (2019) of data
+with the Giommi & Padovani (2015) predictions shows a sim-
+ilar shape in log N-log S, although due to incompleteness their
+log N-log S distribution lies below the prediction. Candidates in-
+cluded by Turriziani et al. (2019) resulted in distributions above
+the log N-log S expectation, therefore indicating that the candi-
+lates included might be contaminated by other sources. This ob-
+servation is not reproduced here, indicating that the candidates
+in the BLAZE catalog are predominantly bazars with low con-
+tamination from other source classes.
+
+The slopes of log N-log S distributions have implications for
+the cosmological evolution of blazars (e.g., Maccacaro et al.
+1987; Langejahn et al. 2020; Marcotulli et al. 2022). A slope of
+a = 1.5 implies no cosmological evolution, that is, the sources
+are uniformly distributed in the Universe. Less steep slopes indi-
+cate a negative cosmological evolution, where sources are more
+common in the local Universe and their density declines with in-
+creasing redshift. On the other hand steeper slopes correspond to
+a positive evolution and more or brighter sources at higher red-
+shifts than in the local Universe. We determine slopes for all the
+observed distributions, taking flux uncertainties into account by
+using a Monte-Carlo approach and assuming that fluxes follow a
+normal distribution. We fit a power law in the form of
+
+-a
+
+Fx,02-2.3kev
+10-5 erg cm~? s“!
+
+N=Cx ( (7)
+to the 0.2-2.3 keV log N-log S distribution’, limiting ourselves
+to fluxes Fx,92-23kev = 3X 10-? ergem™ s! to avoid incom-
+pleteness effects. The resulting parameters are listed in Table 5
+and the best-fit functions are shown in Fig. A.3. The normal-
+ization for the best fit to the BLLs is too low compared to the
+observed distribution, an effect due to the flattening caused by
+incompleteness, beaming effects (Marcotulli et al. 2022), and
+the low number of sources at high fluxes; however, the slope
+matches well. All measured slopes are below or close to 1.5,
+therefore we find almost all subtypes and the overall eROSITA
+observed blazars to be consistent with negative cosmological
+
+° The conversion between flux bands does not impact the slope.
+
+Article number, page 17 of 39
+A&A proofs: manuscript no. main
+
+Table 5. Results of power law fits (Eq. 7) to the log N-log S distributions of different samples, measured for fluxes above 3 x 107 ergem™ s“!,
+
+where incompleteness effects do not distort the distribution.
+
+Parameter All Blazars Blazar candidates BLL FSRQ BCU
+C[deg*] 54.6 + 2.0 22.5+0.9 234.4 + 27.2 3.66 + 0.23 57.5 +68 26.9 + 3.0
+a 1.095 +0.005  1.002+0.005 1.537 + 0.017 0.825+0.008 1.387+0.017 1.232 + 0.015
+
+evolution. For the blazar candidates the slope is close to no evo-
+lution at all or a slightly positive one. As the log N-log S dis-
+tribution possible shows breaks, we also considered a broken
+power law as a fit function for the entire sample using the same
+fit approach. One possible break is found at Fx break, 0.2-2.3keV =
+(2.11 + 0.26) x 107! ergcm~? s~!, although a second less sig-
+nificant solutions exits with the break at a slightly smaller flux
+value. The position of the break could coincide with the flux re-
+gion in which FSRQs start to be detected but is also close to the
+previously described dip and could therefore be a survey effect
+not related to blazars at all. Specific modeling of the log N-log S
+and an analysis of the cosmological evolution of blazars, which
+would require a very detailed study of the luminosity function
+and modeling it with different evolutionary scenarios, is beyond
+the scope of this paper.
+
+Older studies were based on comparably few sources, reduc-
+ing the significance of some conclusions. Previous work has in-
+dicated a positive evolution for FSRQs (Wolter & Celotti 2001;
+Toda et al. 2017; Turriziani et al. 2019; Marcotulli et al. 2022).
+For BLLs, different trends have been observed, depending on the
+underlying source sample. Slightly positive to no evolution has
+been found for BLLs of the LSP type (Stickel et al. 1991). HSPs
+have been found to be consistent with negative evolution (Rector
+et al. 2000). In hard X-ray selected samples, FSRQs are found to
+evolve positively, whereas BLLs show no or negative evolution
+(Ajello et al. 2009; Toda et al. 2017; Marcotulli et al. 2022). For
+y-ray selected samples BLLs also follow a positive evolution,
+with the exception of HSPs, which show a negative evolution
+(Ajello et al. 2014). However, the slope reported by Langejahn
+et al. (2020) for a radio selected Swift-BAT sample is close to the
+one reported in our work, indicating a negative evolution as well.
+The hard X-ray log N-log S by Langejahn et al. (2020) shows
+a significant difference in slope than their radio input sample.
+Langejahn et al. attribute this to different evolution of the X-ray
+and radio emission, with the former having a peak at z ~ 1.5.
+Our results using eROSITA support this conclusion, as the soft
+X-rays seen by eROSITA exhibit similar properties as the hard
+X-ray sources studied by Langejahn et al. (2020), although the
+evolution found by them is different than in other studies (e.g.,
+Toda et al. 2017; Marcotulli et al. 2022).
+
+The number of blazars eROSITA was supposed to detect has
+been predicted in the literature assuming that soft and hard X-ray
+log N-log S -distributions are similar. Toda et al. (2017) predicted
+eROSITA to observe 13900 FSRQs and 1900 BLLs on the entire
+sky within four years. We indeed detect slightly more FSRQs
+than BLLs, at low fluxes more FSRQs are observed by roughly
+an order of magnitude. The prediction would require the vast ma-
+jority of unclassified sources to be FSRQs, which would be in-
+consistent with the expectation that BCUs are more likely BLLs.
+Considering that the actual eROSITA survey is less sensitive than
+assumed, the numbers at least somewhat agree as a rough order-
+of magnitude estimate.
+
+Marcotulli et al. (2022) predicted that in its first
+year eROSITA should observe 230023 FSRQs with fluxes
+Fx,02-20kev = 1 x 107! ergcm=* s“! across the entire sky and
+across a wide range of redshifts. The BlazEr1 catalog contains
+
+Article number, page 18 of 39
+
+not even 1% of this predicted number. Considering the best fit to
+the log N-logS distribution for the FSRQ sample, ~2.17 deg
+are expected to be observed, corresponding to 89654 FSROs
+over the entire sky, which only corresponds to 39% of the pre-
+dicted number. The discrepancy is in part caused by Marcotulli
+et al. (2022) assuming a different, deeper, limiting flux level.
+Additionally, the assumed slopes of the log N-log S distribution
+are different and both estimates assume that the slope at higher
+fluxes is the same at low fluxes, which might not be the case.
+
+5.6. Past X-ray observations and properties of eROSITA
+detected blazars
+
+In this section, we compare our eROSITA results with those from
+other missions, for sources which are detected in both. Since
+earlier work estimated fluxes assuming power law slopes with
+Tx = 1.7 or similar (OUSXB: Tx = 1.8), when comparing re-
+sults in this subsection we will consistently use eROSITA-fluxes
+obtained assuming [x = 1.7, even for those where we or the
+other works were able to constrain the spectral shape.
+
+ROSAT, as the precursor of eROSITA, sets the benchmark for
+all-sky surveys at soft X-ray energies. Due to the different spa-
+tial accuracies we matched the eROSITA detected sources with a
+quite large radius < 40’, hence this comparison is more prone to
+potential mismatches. In total we obtain 1496 matches between
+eROSITA and ROSAT and in total 1865 ROSAT sources coincid-
+ing with BLAZE catalog objects on the western Galactic hemi-
+sphere within 40”. Of the ROSAT BLAZE catalog matches, 108
+are included in the unverified BlazEr1 catalog, while 261 sources
+detected by ROSAT are not detected by eROSITA. Therefore
+eROSITA is able to recover 84% of the blazars and blazar can-
+didates detected by ROSAT. Since eROSITA is sensitive over the
+entire sky down to a similar flux limit as ROSAT (Fx, 0.1-2.4kev =
+10-? ergcm~? s~!, Boller et al. 2016), the sources not included
+in the BlazEr1 catalogs are probably missing due to variability.
+The fluxes measured by ROSAT agree with the eROSITA fluxes
+within the eROSITA uncertainties in only 9.5% of the matches.
+Variability is present and the majority of sources are within the
+same order of magnitude. There are 543 objects with ROSAT
+fluxes higher by more than an order of magnitude, whereas for
+the reverse, only five cases are observed. This subsample of high-
+flux ROSAT matches does not grow or shrink in number with
+different angular separations between the source positions of the
+two missions. A similar trend with respect to XMM-Newton is
+reported by Boller et al. (2016; their Fig. 25), probably caused
+by spurious ROSAT detections combined with systematic dif-
+ferences between the instruments, such as energy coverage and
+sensitivity. The ROSAT photon indices are not well constrained,
+have large uncertainties and do not correlate with the eROSITA
+ones. This is likely due to the different signal-to-noise levels and
+the restricted energy coverage of ROSAT.
+
+For sources both in the eROSITA and the Swift-XRT cat-
+alog (Evans et al. 2020), we confidently detect 1249 of the
+1700 matches within the eRASS1 footprint between Evans et al.
+(2020) and the BLAZE catalog , assuming a maximum separa-
+tion of 8”. 451 sources are not part of the BlazEr1 catalog and
+
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+eROSITA picks up 73% of the Swift-XRT detected blazars and
+blazar candidates. The fluxes are broadly consistent, although
+only 25% of the matches agree with each other within the un-
+certainties. However, many sources tend to have higher fluxes in
+Swift-XRT than in eROSITA: for 57% of the sources the flux in
+eROSITA is at least 30% less than in Swift-XRT. This higher flux
+is caused partly by variability, but also due to the fact that the ap-
+proach of Evans et al. (2020) uses all available data for a given
+source position, such that these flux values represent the com-
+bination of different flux states of a source, with a bias towards
+brighter states. Many Swift-XRT observations are triggered fol-
+lowing flaring states, explaining a bias towards brighter states.
+Sensitivity differences between the instruments might also play
+a role. The photon indices mostly agree with each other, with a
+slight trend towards somewhat softer photon indices measured
+with eROSITA (AT’x ~ 0.05).
+
+A similar picture presents itself when comparing our cata-
+log to the OUSXB (Giommi et al. 2019). Similar to Evans et al.
+(2020), this catalog uses all Swift-XRT observations, however,
+the catalog offers data for each individual observation. In terms
+of total numbers, OUSXB DR3 contains 1223 BLAZE catalog
+sources in the western Galactic hemisphere (Giommi et al. 2019;
+2508 BLAZE catalog sources are listed for the entire sky), of
+which 1039 are confidently detected and an additional 85 ob-
+jects are part of the unverified catalog. This means that only 99
+sources go completely undetected by eROSITA.
+
+The BlazEr1 catalog lists 2106 confirmed blazars, therefore
+it is the largest collection of X-ray detected blazars on the west-
+ern Galactic sky by a factor of 1.7. Taking the blazar candidates
+into account, the BlazEr! catalog encompasses the largest sam-
+ple of X-ray detected blazars and blazar-candidates to this day.
+In Fig. 15 we compare the mean flux value of Giommi et al.
+(2019) with our flux. Generally, the fluxes are consistent with
+each other within the eROSITA uncertainties and the maximum
+and minimum value provided by Giommi et al. (2019). In ~48%
+of sources, we observe flux variations due to source variabil-
+ity. However, due to a slightly different photon index being used
+and due to the observational biases by Swift-XRT in terms of in-
+cluding all data and therefore also including flares, for more than
+50% of the sources the fluxes do not agree. The same has already
+been observed when comparing to the catalog by Evans et al.
+(2020). Generally, the photon indices are consistent with each
+other with ~68% of the values agreeing within the uncertainties
+of eROSITA and the maximum and minimum values given in
+the OUSXB (Fig. 16). Overall, there seems to be a slight trend
+of deriving softer photon indices using eROSITA compared to
+Swift-XRT (mean AI'x ~ 0.08, with 17% of the sources having
+a diverging photon index of at least 1a deviation). This may be
+explained by the harder-when-brighter trend in connection with
+the bias of Swift-XRT observations towards flaring states. Over-
+all, the results derived from eROSITA data are consistent with
+previous studies.
+
+For the hard X-rays we compare our soft X-ray fluxes with
+the hard X-ray fluxes obtained by Swift-BAT (Lien et al. 2025)
+and NuSTAR (Middei et al. 2022). Very few sources are identi-
+fied in the Swift-BAT data. The Swift-BAT fluxes are all in a sim-
+ilar range and we test how these hard X-ray fluxes correlate with
+the eROSITA flux. Swift-BAT picks up more FSRQs and BCUs,
+and they tend to have slightly higher fluxes in Swift-BAT com-
+pared to BLLs, for which all correlations are insignificant. For
+the softer NuSTAR band higher fluxes in eROSITA correspond
+to higher fluxes in NuSTAR. In the harder band, the trends are
+quite similar but appear with weaker significance. The photon
+indices of NuSTAR and Swift-BAT are similar to those observed
+
+10719
+
+10-1!
+
+10712
+
+10-8
+
+OUSXB Fx03-10.0kev [erg em™? s~!]
+
+10-4
+
+10-19
+
+eft) 1 visu) iil
+10-8 10-2 0-8
+eROSITA Fx.03-10.0Kev [erg em” s“']
+
+10714
+
+Fig. 15. Swift-XRT flux reported by Giommi et al. (2019) as a function
+of eROSITA flux, following the color scheme introduced in Fig. 3. The
+mean values of all measurements for a source listed in Giommi et al.
+(2019) are shown. The uncertainties of the Swift-XRT fluxes represent
+
+the minimum and maximum values provided by Giommi et al. (2019).
+The solid line represents the unity line, while the dashed ones indicate
+a factor 10 difference between the measurements.
+3.50 ttt
+3.0 F 4
+2.56 ni , 4
+4 E ml
+cs E
+—Q . | q
+206 t= = 4
+x E — 4
+=) C a =] q
+o) L += = 7
+15 si = q
+E +t q
+10 F Z 4
+C —- q
+05 Tir irtirvirtiiririrtiiriptyriritiriit
+0.5 1.0 1.5 2.0 2.5 3.0 35
+
+eROSITA Tx
+
+Fig. 16. Mean photon indices derived by Swift-XRT using Giommi et al.
+(2019) and eROSITA, following the color scheme introduced in Fig. 3.
+The uncertainties of the Swift-XRT photon indices represent the mini-
+mum and maximum values provided by Giommi et al. (2019). The solid
+line represents unity. Differences are observed, indicating that blazars
+are variable in their spectral properties.
+
+by eROSITA, establishing a linear correlation between indices in
+the soft and hard X-ray band.
+
+Finally, we stress that many of the BlazErl sources were
+never observed with other X-ray missions. It contains 5569 and
+5649 sources that have never been observed by XMM-Newton
+and Chandra, respectively. Other missions show similar high
+numbers of unobserved sources (ASCA: 5808, NuSTAR: 5761,
+Suzaku: 5822, Swift-XRT: 3909 and ROSAT: 5623). We find that
+3668 BlazErl sources (63% of the BlazEr1 catalog) have no
+prior X-ray observations with any of the listed missions. Consid-
+ering only confirmed blazars, 38% of these were never observed
+with any pointed X-ray instrument. The sample of previously un-
+observed blazars is dominated by FSRQs and BCUs. Since BLLs
+
+Article number, page 19 of 39
+A&A proofs: manuscript no. main
+
+are more easily detected due to their higher X-ray fluxes, they
+might be targeted more often, such that previous missions will
+have more exposure time at positions associated with BLLs. Due
+to the large amount of new X-ray data, eROSITA enables us to
+study a more complete picture of the blazar population.
+
+5.7. Multiwavelength properties of the BlazEr1 sources
+
+In this section, we combine eROSITA data with multiwavelength
+data available for BlazEr1 sources (see Sect. 4). We discuss the
+y-ray, radio, infrared, and optical properties and how the proper-
+ties in the different wavelength regimes are connected with the
+X-rays.
+
+5.7.1. The y-ray emission of BlazEr1 sources
+
+In Figure 17 we compare the X-ray and y-ray fluxes of
+the BlazErl sources. We fit a linear function in log-space
+(log;(Fy,0.2-100Gev) = m X 1ogj9(Fx,0.2-2.3kev) + 1) to the dis-
+tributions, and calculate correlation coefficients. For FSRQs, a
+dense cloud indicating a direct correlation of X-ray and y-ray
+fluxes can be seen, although the correlation is weak. The distri-
+butions of BLLs and BCUs are more spread out and most likely
+not correlated. Since almost all FSRQs belong to the class of
+LSPs, a correlation between X-ray and y-ray emission is some-
+what expected as the emission is expected to be produced by
+the same emission mechanism. For BLLs and BCUs, which con-
+sist of a mix of LSPs, ISPs, and HSPs, a correlation is less
+straightforward, but from Fx.0.2-23kev ~ 2 x 107! ergem™? s~!
+on, sources with higher X-ray fluxes also seem to have higher
+y-ray fluxes. Additionally, we observe that in general, sources
+with a y-ray detection have higher X-ray fluxes than the non-y-
+ray detected ones, which has also been previously reported by
+Paliya et al. (2017).
+
+In Fig. 18 we compare the Fermi-LAT photon indices to the
+eROSITA photon indices. There is a clear separation between
+BLLs and FSRQs. On average, the X-ray index of BLLs is softer
+than the y-ray index, while for FSRQs the opposite is observed.
+This is partly due to the different SED types these classes are
+mainly associated with. However, roughly 4% of the BLLs are
+occupying the same region as the FSRQs, which are mostly clas-
+sified as LSPs. The BCUs are distributed among the different
+groups. Previous studies (e.g., Comastri et al. 1997; Fan et al.
+2012; Yuan & Fan 2014) have found that the X-ray and y-ray
+photon indices of the entire blazar population are anti-correlated.
+This trend is seen for the overall sample as well (see Fig. 18),
+however, not as strongly and there also seem to be differences
+for the subgroups. For the entire sample we find a best fit with a
+linear fit function (IT, = m x I'x + 1) with fit values between the
+ones reported by Fan et al. (2012) and Yuan & Fan (2014). We
+emphasize that the correlation is relatively weak but significant.
+The subgroups show no correlation, with the exception of a very
+weak anticorrelation for BCUs.
+
+We note that the data compared here have not been taken si-
+multaneously, and we compare X-ray fluxes taken at a specific
+time (during eRASS1) with y-ray fluxes from the 4FGL-DR4
+averaged over 14 years. Hence, variability can make the inter-
+pretation difficult.
+
+5.7.2. Radio emission of BlazEr1 sources
+
+In Fig. 19 we show the flux densities obtained from TANAMI,
+MOJAVE, and RFC as a function of eROSITA flux. Of the 52
+
+Article number, page 20 of 39
+
+TT
+Ho LE 4
+10 E prcason = 0.2053, p = 0.0002; Tkenaan = 0.2187, p < 0.003 E|
+E m= 0.868 + 0.008, 1 = ~0.43 + 0.09 zi 4
+1079 & 4
+10 q
+10°? & q
+Ly eet
+t ttt
+Ho 4
+10 EF prcason = 0.2288,p < 0.003; rKendan = 0.0344, p = 0.235 E|
+= F m= 0.8401) oop» = ~1.26%9 05 q
+a FE 7
+“ L 4
+E 10-9 & |
+p E |
+ay LE 4
+> L 4
+2 10 q
+8 E F|
+a E =
+é L 4
+
+=
+
+“10? & 4
+= T +. = f= |
+E Leo TAH E|
+in Fagan ae po
++ FH t+ +H tH} t+ HHH
+9 4
+10° E = 0.0735, p = 0.130; TKendatt = -0.0468, p = 0.149 E
+E 80h of» £ = 0:50" ho, q
+10-7 & *~ we J
+lo 4
+E bit 4 4 E
+E +t) + q
+‘an
+10°? & == Er q
+E in E
+Co) ae
+
+107!4 10733 10712 1071! 107!
+
+Fx02-23kev [ergem™ s”']
+
+Fig. 17. Fermi-LAT fluxes (4FGL-DR4; Abdollahi et al. 2022) com-
+pared with eROSITA fluxes. The three panels show the different sub-
+types, following the color scheme introduced in Fig. 3 (a: FSRQs, b:
+BLLs, c: BCUs). The Fermi-LAT uncertainties are scaled to match the
+confidence limit of the eROSITA data.
+
+TANAMI matches, the majority belongs to the FSRQ class, as this
+program targets y-ray detected sources up to a limiting radio flux
+density, as well as highly variable jetted non-blazar AGN. Flux
+densities in TANAMI mostly increase as a function of eROSITA
+flux and we find a strong correlation for FSRQs. Almost twice as
+many objects are matched with MOJAVE (97); the overall trends
+are similar to TANAMI and a correlation with the eROSITA flux
+is found as well. The RFC contains radio flux densities for 2620
+BlazEr1 sources. Again a similar trend of the flux densities be-
+ing correlated as in TANAMI and MOJAVE is observed for FSRQs.
+Based on the RFC data, we find that for BLLs flux densities in the
+radio are similar, regardless of the X-ray flux and no strong cor-
+relation is found. This behavior is also observed for the BLLs in
+TANAMI and MOJAVE, although the number of individual objects
+is very low compared to the RFC and the correlations found are
+Hammerich et al.: BlazEr1:
+
+a
+C My Pearson = —0.3710, p < 0.003; TKenda = —0.2575, p = 0.0
+3.56 5, = 0.702008 1 = 3.561008
+E N |
+3.0 F f
+E poe 2
+a fs
+5 256 .
+g E
+a) E +
+2.0 [=
+E = =a
+L = i re
+1a F zi ase fT |
+19 Gata i Li 14 1
+1.0 2.0
+eROSITA Ix
+
+Fig. 18. Fermi-LAT photon index (4FGL-DR4; Abdollahi et al. 2022)
+compared with the eROSITA photon index, following the color scheme
+introduced in Fig. 3 (BLLs: blue, FSRQs: red, BCUs: orange). In solid,
+the linear best fit is shown, additionally the correlation between the two
+parameters found by Yuan & Fan (2014; dashed) and Fan et al. (2012;
+dotted) are displayed. The uncertainties of I’, are extrapolated to the
+90% confidence interval.
+
+not statistically significant. Again, the different physical origin
+of the emission is likely driving the diverging behavior between
+the FSRQs and BLLs.
+
+5.7.3. Infrared and optical properties of eROSITA detected
+blazars
+
+Infrared colors are commonly used to characterize different
+types of AGN (e.g., Salvato et al. 2018; their Fig. 9). In the in-
+frared color-color diagram (Fig. 20) blazars occupy a distinct
+region due to the non-thermal emission of the jet, which enables
+good distinction from thermal emitters (Massaro et al. 2011;
+D’ Abrusco et al. 2012; Massaro et al. 2012; Salvato et al. 2018;
+de Menezes et al. 2019). Most of the sources in BlazEr1 are con-
+tained within the WISE blazar strip, consistent with non-thermal
+emission and an extragalactic origin. This strip also covers the
+region usually occupied by QSOs and Seyfert galaxies, and ex-
+tends towards spiral and elliptical galaxies. Objects located far
+from this region are mostly blazar candidates of some kind, al-
+though sources associated with confirmed blazars are found in
+other parts of the color-color diagram as well. A high number of
+BCUCs are found in the regions associated with starburst, spiral,
+and elliptical galaxies, as well as stars. The infrared colors also
+separate the BLLs and FSRQs as they are found in different re-
+gions. BLLs tend to have bluer colors than the FSRQs. BCUs are
+found in similar loci as BLLs and FSRQs.
+
+We can also combine the infrared data with optical and X-
+ray information. In Fig. 21 we show four different photometric
+spaces, which can be used to distinguish between Galactic and
+extragalactic sources and see if objects exhibit similar properties
+as other AGN (Salvato et al. 2022). The (g—r)-(z—W1) color-
+color diagram is shown in Fig. 21a. Most BlazEr1 sources are
+above the dotted line and thus consistent with being extragalac-
+tic. There are many candidates, as well as a small number of
+confirmed sources below this line, hinting at a low level of con-
+tamination (see Sect. 3.2).
+
+The eROSITA Blazar Catalog
+
+Z
+re
+Ci, +4
+
++
+
++
+
+TANAMI
+
+sat" 4 t E|
++ + q
+; J
+
++ + tog
+
+10? q
+pot aaeeen | pop al pop ul
+
++H HEHE tt HHH} HHH
+
++ MOJAVE, ]
+
++ t E|
+
+= ace :|
+
+E te + J
+10° tt ++ q
+2 E See Tt yt yy |
+& [ Et ; |
+3 —a— & |
+z E
+n 4
+
+10!
+
+10°
+
+107!
+
+Srs-rcnz Vy]
+
+10°?
+
+i pi iil point L
+10-13 10-12 10-1!
+
+Fx02-23kev [ergem™ s“']
+
+10-19
+
+10-3
+
+Fig. 19. Correlation of radio flux densities and eROSITA fluxes, follow-
+ing the color scheme introduced in Fig. 3, using a data from the TANAMI
+program, b data from MOJAVE, and ¢ X-band flux densities from the RFC
+catalog.
+
+A sequence parallel to the separation line can be identified as
+well, mainly consisting of candidates, BCUs, and BZGs, which is
+typically the location of quiescent galaxies. Salvato et al. (2022)
+show a similar trend with redshift, where sources at low red-
+shifts are more red. This trend is also observed in our sample,
+since FSRQs are typically found at higher redshifts and are also
+located at bluer colors. In Fig. 21b we show the W1 magnitude as
+a function of X-ray flux. This information can be used to check
+the extragalactic content, although the separation line shown be-
+comes a less robust indicator as the X-ray survey increases in
+size (Salvato et al. 2022). While most sources are consistent with
+an extragalactic origin, the objects below this line are BCUCs,
+again indicating that the catalog is subject to some degree of con-
+tamination. The optical-infrared color-color diagram (Fig. 21c),
+which can be used to distinguish stars from AGN, does not ex-
+
+Article number, page 21 of 39
+A&A proofs: manuscript no. main
+
+3.0 5 7
+20F 4
+
+- E a
+Ei i" J
+= E a
+2 156 4
+a E q
+2 [ 1
+10 F 4
+= C q
+0.5 fF 4
+
+0.0 F 4
+05 ¢ | L 1 n 1 1 4
+0.0 2.0 4.0 6.0
+
+W2vesa _ W3 vega [mag]
+
+Fig. 20. WISE color-color diagram, following the color scheme intro-
+duced in Fig. 3. Regions populated by different types of AGN, as well
+as other objects, are shown. Compare our results to Salvato et al. (2018;
+Fig. 9), for a color-color diagrams of the 2RXS and XMMSL2 samples.
+
+hibit a sequence of most likely Galactic sources as seen in Sal-
+vato et al. (2022), maybe due to the incompleteness of Gaia. The
+tail at high values of g-W1 corresponding to inactive galaxies
+is less pronounced and mainly occupied by candidates (BCUCs
+and BLLCs). The WISE color-magnitude diagram (Fig. 21d) can
+be used to identify stars (typically W1—W2 ~ 0.0, marked with
+a dashed line) and quasars. Most objects are quasar-like.
+
+The BlazEr1 sources are located where we expect to observe
+AGNs and only very few are located elsewhere and are inconsis-
+tent with an extragalactic nature. Overall, sources are similar to
+QSOs (solid gray line) and extend towards the loci of Seyferts
+(dotted gray line), where we also find a high number of candi-
+dates. The infrared and optical data show that the catalog might
+have some degree of contamination by other source types, al-
+though a detailed source-by-source analysis would be required
+to see if sources with data typical for non-blazars are in fact con-
+taminants.
+
+5.7.4. Broadband spectral indices of the eROSITA blazars
+
+As detailed in Sect. 4.5, in order to relate the X-rays to other
+bands we computed broadband spectral indices, aj, for different
+bands from the radio to the y rays. For a given SED, the observed
+spectral index will depend on the peak frequencies and the lumi-
+nosities of the SED peaks. A value a > 1.0 indicates a negative
+slope in vF, space, meaning the SED decreases towards higher
+energies. We display the broadband spectral indices as calculated
+from various bands against each other in Fig. 22. For objects
+that are also in the 4LAC, in Fig. A.4, we show the indices as
+a function of Compton dominance, the ratio of the peak fluxes,
+and low- and high-energy SED peak frequencies (Ajello et al.
+2020, 2022). Additionally, we calculate correlation coefficients
+for different parameter combinations in order to assess the cor-
+relations between parameters for the entire sample and the BLL
+
+Article number, page 22 of 39
+
+and FSRQ sub samples. The results are listed in Tables B.2 and
+B.3 and mean values obtained for the broadband spectral indices
+are shown in Table B.4.
+
+FSRQs mostly show values of axr ~ 1.0, that is they show
+no significant increase or decrease from the X-rays towards the y
+rays, which is expected, since X-rays are more likely to cover the
+rise of the high-energy peak and the y rays cover the fall of the
+same peak. The values of axr do not correlate significantly with
+the peak positions but there is a significant weak anticorrelation
+with Compton dominance (see Fig. A.4i and Table B.2). As in-
+dicated by the values of a@ox, a decreasing slope from the optical
+towards the X-rays is observed for a majority of FSRQs, and
+no correlation with the SED parameters is found. Similar results
+are found for ayrx, however, the slopes are slightly steeper and
+the dispersion is smaller (see Table B.4), perhaps due to FSRQs
+displaying a big blue bump which adds flux in the infrared-UV
+range (Krau8 et al. 2016). A very weak correlation between the
+infrared X-ray spectral index ajax and the low-energy peak po-
+sition is present. Only extreme cases of FSRQs with low-energy
+peaks in the radio range are found to decrease from the radio to-
+wards the X-rays, however, the vast majority of sources show an
+increase. We find a very weak anticorrelation between apx and
+the low-energy peak position.
+
+For BLLs both rising and falling indices from the X-rays to
+the y rays are observed, but the mean value indicates a flat in-
+dex. Sources with decreasing slopes have their high-energy peak
+at energies below GeV y rays, where Fermi-LAT is sensitive, and
+show low Compton dominance. Larger values of axr are linked
+to higher peak frequencies, as this parameter is moderately and
+weakly correlated with the low- and high-energy peak frequen-
+cies, respectively, and a lower Compton dominance, with a weak
+anticorrelation being present. The values of a@ox indicate that for
+BLLs, on average a decreasing slope from the optical towards the
+X-rays is observed. However, some sources exhibit an increase
+that corresponds to extreme HSPs. In general, a higher spread of
+values is seen than for FSRQs. In most cases the low-energy peak
+occurs at energies lower than the X-ray band and an increase in
+the value of @ox corresponds to a lower peak frequency for the
+low-energy peak, but this anticorrelation is very weak. An anti-
+correlation with the peak frequency of the high-energy peak is
+observed, however, we find no correlation with Compton domi-
+nance.
+
+We observe a very similar picture for the infrared range.
+BLLs are found at more extreme decreasing and increasing
+slopes towards the X-ray band than the FSRQs as indicated by
+the larger spread. We observe only a weak anticorrelation with
+the position of the low-energy peak and a moderate one with the
+high-energy peak. BLLs show a stronger increase from the radio
+band towards the X-rays than FSRQs and a higher dispersion.
+We see a moderate anticorrelation with the SED peak positions.
+Since in many BLLs the radio and X-ray emission are thought to
+originate from the same process, a trend between peak positions
+and a-values is expected, as lower values in @ correspond to peak
+positions at higher energies. Candidates and confirmed blazars
+show similar behavior without significant offsets. The BCUs are
+consistent with being blazars of either type.
+
+For axr we find a significantly strong or moderate anticor-
+relation with all other indices, however, the correlation is dif-
+ferent for FSRQs and BLLs, as for the BLLs the anticorrelations
+are stronger. There is a weaker anticorrelation between axr for
+FSRQs and the other ranges, consistent with the X-rays cover-
+ing the dip of the low-energy peak or the rise of the high-energy
+peak in the SED. For BLLs the anticorrelation is stronger, and for
+lower axr values, these BLLs have higher Compton dominance
+
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+[ a J
+3.0F J
+— 206 4
+on bE =|
+s
+& [ J
+3 [
+= 10f a
+Ea t .
+| r ® 7
+i. [ q
+2 [ q
+00 J
+-L0 F 4
+99 Ef ra
+-1.0 0.0 1.0 2.0
+gap — Tap [mag]
+E J To i T T T E T r 4
+15k © J
+we 10F a
+s
+£ L J
+FE L J
+g L J
+1 O05 F 4
+= t ,
+0.0F eam 4
+-0.5 Lo ! f ! \ ! \ ! _ |
+0.0 2.0 4.0 6.0 8.0 10.0
+
+Gaia gyega — W1 vega [mag]
+
+24.0 F 4, 4
+
+22.0 F 4
+
+20.0
+
+18.0
+
+Was [mag]
+
+16.0
+
+14.0
+
+12.0
+
+10-10
+
+10-1
+
+10-8 lo“?
+
+Fxo5-20xev [ergem™ s~']
+
+lo-#
+
+10.0
+10-15
+
+10.0 15.0
+W2vega [mag]
+
+Fig. 21. Different photometric spaces combining optical, infrared and X-ray data, similar to Salvato et al. (2022; ; Fig. 18) for point sources
+detected in eFEDS, using the color scheme introduced in Fig. 3. Solid gray lines show positions usually occupied by quasars, whereas the gray
+dotted lines corresponded to Seyfert 2 galaxies. The dashed black lines in the upper panels distinguish between Galactic and extragalactic sources.
+
+and lower peak frequencies (LSP). The @ox and ayrx indices
+have higher values compared to axr, which is the opposite of
+@rx. For the BLLs a strong correlation is found with the arx
+and the infrared and optical. For the FSRQs we find no or only
+very weak correlations. This is expected, as in many BLLs these
+bands share the same emission process origin, showing strong
+correlations, whereas for FSRQs the X-rays originate from the
+high-energy peak but the other bands are related to the low-
+energy peak. The correlation between @ox and ayrx is a strong
+or moderate one, with a@ox having slightly higher values. The
+
+weaker correlation for FSRQs is probably due to the big blue
+bump (Krau8 et al. 2016; and references therein).
+
+The values derived for @ox are similar to those found in
+the literature (see, e.g., Giommi et al. 1999; Turriziani et al.
+2007). Broadband spectral indices for the y rays and X-rays have
+also been provided for example by Comastri et al. (1997) using
+EGRET, however, their values (FSRQs: axr = 0.58+0.12, BLLs:
+axr = 0.83+0.18) are lower than ours, probably due to the lower
+energy band covered in the y rays.
+
+No significant strong or moderate correlations can be found
+between the photon indices and values of a, however, the sub-
+
+Article number, page 23 of 39
+A&A proofs: manuscript no. main
+
+14 7 7 T 7 7 i
+
+ae
+ht
+
+/ = + |
+ky ct
+
+xr
+apo
+az
+
+os ae 4 4
+i i 1 L Es L
+ial Tos 10 F
+e @IRX
+gpl
+vests wet
+14 - t a a oF
+4
+Biot iV f |
+i
+10H 4 ack
+ey
+os hi + 4
+
+Fig. 22. Broadband spectral indices axr, agx, and @gx against each
+other, following the color scheme introduced in Fig. 3. Due to the simi-
+lar values obtained for @ox and Qigx, the former is not shown here.
+
+classes show different trends. We found only weak correlations
+for BLLs with ajax and a@ox and a weak anticorrelation with
+axr. Anticorrelations from some samples with apx are observed.
+Moderate correlations between the @-value and redshift are ob-
+served. The exp, decreases with redshift, while agx increases.
+
+Since values of a correlate with the SED peaks and Compton
+dominance, selection cuts could be applied to identify sources
+with different SED types or certain peak positions. In particu-
+lar, @irx, @ox, and a@px could be useful to classify the sources
+into HSP (apgx < 0.69, ajrx < 1.12) and LSP (a@px > 0.87,
+1.5 > atrx > 1.0) categories. For ISP it is not possible to find
+boundaries that separate them from the other SED types well.
+For the HSP constraints, 69% of classifications agree with the
+SED definition when compared to the 4LAC catalog; for LSPs
+more than 96% are recovered. The BlazEr1 catalog contains 127
+blazars within the HSP constraints outlined, these could poten-
+tially be TeV blazars (see Metzger et al. 2025), and 812 sources
+within the proposed LSP criteria. Sources with values close to
+Qrx ~ 1.2, @ox ~ 1.2, and agx ~ 1.0 could be MeV blazars,
+and are interesting targets for future MeV missions (e.g., COSI;
+Tomsick et al. 2019, 2024).
+
+5.8. Why are some sources not detected?
+
+We now consider objects which have not been detected by
+eROSITA, or only at low significance. In Table 6 we list the
+number of detected sources from each input catalog, also distin-
+guishing among the different classes, with respect to the west-
+ern Galactic hemisphere, and considering the quality cuts to
+the BLAZE catalog. Overall, only ~14% of all BLAZE cata-
+log sources are part of the BlazEr1 catalog, however, ~69% of
+the gold sample (confirmed blazars in the BLAZE catalog) is
+detected. Due to eROSITA’s all-sky survey strategy and higher
+sensitivity we miss less than one third of the confirm blazar pop-
+
+Article number, page 24 of 39
+
+ot ool
+os F ae i
+= 46
+7, 10
+cs)
+ee L
+2
+i of
+a
+% L
+g 42
+Z L
++ 10 5
+040 Kee
+et abeet
+
+0.01 0.1 1
+
+z
+
+Fig. 23. X-ray luminosity as a function of redshift, following the color
+scheme introduced in Fig. 3. BlazErl sources are shown in gray. The
+colored symbols are sources with low DET_LIKE, quality issues or a
+high angular separation. The added lines are the same as in Fig. 9. The
+upper limits have been taken from the BLAZE catalog.
+
+ulation, a significant improvement to Swift-XRT (43%, Giommi
+et al. 2019).
+
+The BZCAT, 4FGL, and 3HSP catalogs exhibit the highest
+detection fraction among all input catalogs, as they contain the
+most extensive list of confirmed blazars. The fact that the 4FGL
+has such a high detection rate implies that y rays are a good
+indicator for a subsequent X-ray detection, which is connected
+to the fact that the y-ray detected sources have brighter X-ray
+fluxes. The HighZ objects are less likely to be detected, probably
+due to their faintness given their high redshifts. The candidates
+also have a lower detection rate, which is due to contamination
+and these sources generally being fainter. The Milliquas cata-
+log, which mainly adds candidates to the BLAZE catalog, has
+a high-detection rate as well, due to also containing many con-
+firmed blazars. Other candidate catalogs exhibit detection rates
+between 8% and 58%. The BROS catalog has the lowest detec-
+tion rate, despite having the highest number of input sources. A
+large contributing factor is the increased level of contamination
+compared to other catalogs.
+
+Among the confirmed blazars, BLLs and FSRQs have
+slightly higher detection rates than BCUs, of which only more
+than half are detected. This could mean that BCUs also contain
+more contaminating objects, and that their X-ray fluxes are too
+low to be detected. The different candidate classes have lower
+detection rates. eROSITA is more likely to detect FSRQCs than
+other candidate classes.
+
+As a next step we use the eROSITA sensitivity (see Sect. 3.3)
+to obtain flux and luminosity upper limits for the undetected
+blazars and blazar candidates. The majority of non-detected
+sources have upper limits below the flux at which the all-sky
+survey is complete (Fig. 4). The upper limits agree with those
+of Tubin-Arenas et al. (2024). Since Tubin-Arenas et al. (2024)
+also considered the counts actually observed by eROSITA, their
+upper limits are sometimes higher than ours. As a next step,
+we calculate luminosity upper limits for sources with known
+redshifts (Fig. 23). The exposure times, fluxes and luminosity
+limits are all listed in the BLAZE catalog. At low redshifts,
+BCUs in particular are abundant. We also observe FSRQs at
+higher redshifts than BLLs as previously seen in Sect. 5.2. The
+dashed-dotted line in Fig. 23, which corresponds to a flux of
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+Table 6. Completeness of the BlazEr| catalog. The detection fractions of different catalogs are listed according to the class. The column All lists
+all sources regardless of class and each class has its own column. Note that the column All lists the fraction with respect to all sources within the
+
+respective input catalog used to compile the BLAZE catalog regardless if they are listed in the BLAZE catalog, whereas the cla
+
+columns only
+
+consider sources which were taken from the respective catalogs and added to the BLAZE catalog. Only objects on the western Galactic hemisphere
+
+are considered.
+
+Catalog All BLL BLLC BZG FSRO FSROC BCU BCUC
+[%] [%} [%] [%] [%] (%] [%] (%]
+BLAZE — (ass) 14.0 (303) 744 (stax) 29.9 (35) 475 (553) 828 (Thu) 513 (ir) 574 (Som) 56
+Gold sample (3788) 69.5 (33) 744 - - (3) 475 (38) 828 - - (BR) 974 - -
+4FGL Be) 69.0 (38) 793 - - - = (38) 888 - - (88) ste = -
+BZCAT ue) 779 (8) 492 (§) soo (2B) 475 (88) 78.7 - = (#) os - -
+3HSP RW) BS - - - - - - - - - - (33) 70.9 = =
+HighZ $) 334 = = = = = = = = - (8) 0.0 - =
+Milliquas Bn) BS - - ) 5330 = - - - - - - - - -
+KDEBLLACS( 85) 23.7, = - Bm) 730 - - - - - - - - - -
+WIBRaLS2 (798) 58.2. - = fm) 4730 “ “ = (45) 513 - - (Hi) 80.7
+ABC a) 445 - = 3) 100.0 — = = - = - - - (4) 43.5
+BROS Bie) 76 - - = Boe Se Fs = os = (356) 44
+FO TIT a a 6. Summary and future work
+= [ —e | We presented the Blazars in eRASS1 (BlazEr1) catalog of
+2 L 4 blazars and blazar candidates detected by eROSITA on the west-
+'g ern Galactic hemisphere. This catalog is available online through
+10" E q Vizier and at the eROSITA DRI webpage!”. The catalog was
+2 E | derived by matching a master list of blazars and blazar candi-
+3 i: 4 date sources from the literature, the BLAZE catalog, which is
+g i 7 released together with this paper, to the eROSITA eRASS|1 cat-
+io r 7 alog (Merloni et al. 2024). After applying quality cuts, a set of
+S .
+w ig-2 5865 eROSITA observed blazars and blazar candidates are de-
+10 Ee q f "
+E ‘ E tected. eROSITA sources removed during processing steps are re-
+Et = et = ' q leased in a separate catalog. The BlazEr1 catalog is augmented
+Tou —t G8 — er — aes tl agate with X-ray spectral and multiwavelength information (see Ap-
+
+Fxo2-23n6v [ergem™ s"']
+
+Fig. 24. Fermi-LAT flux as a function of eROSITA flux, following the
+color scheme introduced in Fig. 3. The gray points are BlazEr1 sources,
+whereas sources without a significant detection are shown in color. Ar-
+rows display upper limits.
+
+Fx,02-23kev = 1 x 107'*ergcm~? s“!, indicates that the lower
+
+luminosity population is missed due to the sensitivity limit of
+eROSITA.
+
+Similar to Fig. 17, we compare the X-ray upper limits to y-
+ray fluxes in Fig. 24. The majority of non-detections correspond
+to BCUs, found at lower y-ray fluxes than detected sources.
+Of the undetected blazars with a counterpart in the 4LAC cat-
+alog, the majority are LSPs (265 objects), ISPs and HSPs are
+less prominent (76 and 29, respectively). LSPs are expected to
+exhibit harder spectra, which hints at a potential bias towards
+softer and more high peaked objects, which are easier to detect.
+It is likely that all these sources were missed in eRASS1 due to
+being faint.
+
+These results tell us that subsequent all-sky survey releases
+by eROSITA will have higher detection rates than the BlazEr1
+catalog, as the faintness of the sources represents one of the main
+limitations for our catalog.
+
+pendix D). To date, this catalog is the most complete compila-
+tion of confirmed X-ray detected blazars on the western Galactic
+hemisphere, and to our knowledge the largest catalog of X-ray
+detected blazars and blazar candidates. Overall, the BlazEr1 cat-
+alog is expected to contain at most 633 contaminating sources
+(Sect. 3.2).
+
+The main scientific results obtained from an analysis of the
+catalog include the distribution of photon indices for the spec-
+troscopic sample (Sect. 5.4), which clearly show that the differ-
+ent blazar sub-types exhibit distinct spectral properties, allowing
+tentative statements on the subtype based on the photon index.
+The relations between the spectral properties and fluxes and lu-
+minosities are consistent with expectations from the blazar se-
+quence (Sect. 5.4). We find that eROSITA is more sensitive to-
+wards low-flux FSRQs than low-flux BLLs, probably due to very
+soft spectra displayed by the latter. Most of the brightest blazars
+detected are BLLs, while the fluxes of y-ray detected sources are
+higher than those of the non y-ray detected ones.
+
+The slopes of the log N-log S distributions constructed from
+the catalog imply a negative cosmological evolution, both for the
+entire sample and for different sub-samples, meaning the objects
+are more common in the local Universe, although for the blazar
+candidates the value could indicate a slight positive evolution
+(Sect. 5.5). The observed distributions agree well with theoret-
+
+0 https://erosita.mpe.mpg.de/dri/AllSkySurveyData_dr1/
+Catalogues_dri/
+
+Article number, page 25 of 39
+A&A proofs: manuscript no. main
+
+ical predictions (Giommi & Padovani 2015). We find evidence
+for a population inversion between BLLs and FSRQs at lower
+fluxes.
+
+The spectral properties, fluxes, and luminosities of the BCUs
+are similar to low flux BLLs, consistent with other publications
+(Sect. 5.2; Kang et al. 2019; Pefia-Herazo et al. 2020; Chiaro
+et al. 2021). The multiwavelength data help to separate blazars
+into their respective classes using color-color diagrams and high-
+lights the importance of the eROSITA data for building a com-
+prehensive blazar catalog, study their properties, as well as for
+future SED modeling (Sect. 5.7).
+
+The BlazEr1 catalog can serve as a benchmark for over-
+all blazar properties and single-object properties since it pro-
+vides the first X-ray observation for many blazars. For instance,
+the eROSITA data will be crucial to constrain the SEDs of a
+large number of objects, including samples such as those from
+TANAMI, MOJAVE, or 4FGL. Earlier applications of the eRASS1
+catalog included the identification of X-ray counterparts for an
+ultra-high-energy neutrino event (Adriani et al. 2025) and the
+identification of TeV blazar candidates for follow-up observa-
+tions (Metzger et al. 2025; see also Marchesi et al. 2025).
+
+Additionally, the eROSITA surveys allow for a detailed vari-
+ability study on time scales of hours-days for the brightest and,
+on a half-year time line for all other sources. The BlazEr1 cata-
+log provides the framework for these studies. Examples include
+work on X-ray blazar flares, as demonstrated, for instance, for
+PKS 0735+178 (Haémmerich et al. 2021b; Sahakyan et al. 2022)
+or a y-ray flare of TXS 0646-176 (Hammerich et al. 202 1a).
+
+A subsequent data release of 2.2 years of data (eRASS:5),
+will allows us to provide an updated, deeper version of the cat-
+alog. The cumulative eROSITA data will also deepen the cata-
+log, making the eRASS:5 version of the catalog, which will con-
+tain 2.2 years of data, the deepest X-ray blazar catalog ever con-
+structed.
+
+Acknowledgements. S.H. is partly supported by the German Science Founda-
+tion (DFG grant numbers WI 1860/14-1 and 434448349). Mi.K. acknowledges
+support from DLR grant FKZ 50 OR 2307. Ma.K. and E.R. acknowledge fund-
+ing by the Deutsche Forschungsgemeinschaft (DFG, German Research Foun-
+dation, grant 434448349). A.G.M. acknowledges support from Narodowe Cen-
+trum Nauki (NCN) grant 2018/31/G/ST9/03224. Ma.K. E.R. and J.W. grate-
+fully acknowledge funding by the Deutsche Forschungsgemeinschaft (DFG,
+German Research Foundation), within the research unit 5195 “Relativistic Jets
+in Active Galaxies” under project number 443220636. This work is part of
+the M2FINDERS (ERC grant No. 101018682) and ASTROGEODESY (ERC
+grant No. 101076060) projects, funded by the European Research Council un-
+der the EU Horizon 2020 Research and Innovation Programme. This work
+is based on data from eROSITA, the soft X-ray instrument aboard SRG, a
+joint Russian-German science mission supported by the Russian Space Agency
+(Roskosmos), in the interests of the Russian Academy of Sciences represented
+by its Space Research Institute (IKI), and the Deutsches Zentrum fiir Luft-
+und Raumfahrt (DLR). The SRG spacecraft was built by Lavochkin Associa-
+tion (NPOL) and its subcontractors, and was operated by NPOL with support
+from the Max Planck Institute for Extraterrestrial Physics (MPE). The devel-
+opment and construction of the eROSITA X-ray instrument was led by MPE,
+with contributions from the Dr. Karl Remeis Observatory Bamberg and ECAP
+(FAU Erlangen-Niirnberg), the University of Hamburg Observatory, the Leib-
+niz Institute for Astrophysics Potsdam (AIP), and the Institute for Astronomy
+and Astrophysics of the University of Tiibingen, with the support of DLR and
+the Max Planck Society. The Argelander Institute for Astronomy of the Uni-
+versity of Bonn and the Ludwig Maximilians Universitat Munich also par-
+ticipated in the science preparation for eROSITA. The eROSITA data shown
+here were processed using the eSASS/NRTA software system developed by
+the German eROSITA consortium. This research has made use of ISIS func-
+tions (ISISscripts) provided by ECAP/Remeis observatory and MIT (https:
+//ww.sternwarte.uni-erlangen.de/isis/). This research has made use
+of data, software and/or web tools obtained from the High Energy Astrophysics
+Science Archive Research Center (HEASARC), a service of the Astrophysics
+Science Division at NASA/GSFC and of the Smithsonian Astrophysical Obser-
+vatory’s High Energy Astrophysics Division, and of the Vizier and HEASARC
+database systems for querying objects and getting information from different cat-
+
+Article number, page 26 of 39
+
+alogs. We thank Tess Jaffe (GSFC) for valuable input concerning our HEASARC
+queries. This work has also made use of data from the European Space Agency
+(ESA) mission Gaia (https: //www.cosmos.esa.int/gaia), processed by
+the Gaia Data Processing and Analysis Consortium (DPAC, https: //www.
+cosmos.esa.int/web/gaia/dpac/consortium). Funding for the DPAC has
+been provided by national institutions, in particular the institutions participating
+in the Gaia Multilateral Agreement. The SIMBAD database, operated at CDS,
+Strasbourg, France, was also used to get additional information.
+
+References
+
+Abdo, A. A., Ackermann, M., Agudo, L, et al. 2010, ApJ, 716,
+30
+
+Abdo, A. A., Ackermann, M., Ajello, M., et al. 2009, ApJ, 707,
+L142
+
+Abdollahi, S., Acero, F., Ackermann, M., et al. 2020, ApJS, 247,
+33
+
+Abdollahi, S., Acero, F., Baldini, L., et al. 2022, ApJS, 260, 53
+
+Ackermann, M., Ajello, M., Atwood, W. B., et al. 2015, ApJ,
+810, 14
+
+Adriani, O., Aiello, S., Albert, A., et al. 2025, ApJ, submitted
+(arXiv:2502.08484)
+
+Agarwal, A., Gupta, A. C., Bachev, R., et al. 2015, MNRAS,
+451, 3882
+
+Ahnen, M. L., Ansoldi, S., Antonelli, L. A., et al. 2018, A&A,
+620, A181
+
+Ajello, M., Angioni, R., Axelsson, M., et al. 2020, ApJ, 892, 105
+
+Ajello, M., Baldini, L., Ballet, J., et al. 2022, ApJS, 263, 24
+
+Ajello, M., Costamante, L., Sambruna, R. M., et al. 2009, ApJ,
+699, 603
+
+Ajello, M., Romani, R. W., Gasparrini, D., et al. 2014, ApJ, 780,
+2B
+
+Ajello, M., Shaw, M. S., Romani, R. W., et al. 2012, ApJ, 751,
+
+08
+
+An, T., Wang, A., Liu, Y., et al. 2023, MNRAS, 519, 4047
+
+Antonucci, R. 1993, ARA&A, 31, 473
+
+Atwood, W. B., Abdo, A. A., Ackermann, M., et al. 2009, ApJ,
+
+697, 1071
+
+Belladitta, S., Bafiados, E., Xie, Z.-L., et al. 2025, A&A, 699,
+
+A335
+
+Belladitta, S., Moretti, A., Caccianiga, A., et al. 2019, A&A,
+
+629, A68
+
+Belladitta, S., Moretti, A., Caccianiga, A., et al. 2020, A&A,
+
+635, L7
+
+Bellenghi, C., Padovani, P., Resconi, E., & Giommi, P. 2023,
+ApJ, 955, L32
+
+Beringer, J., Arguin, J. F, Barnett, R. M., et al. 2012,
+Phys. Rev. D, 86, 010001
+
+Blandford, R., Meier, D., & Readhead, A. 2019, ARA&A, 57,
+467
+
+Blandford, R. D. & Koénigl, A. 1979, ApJ, 232, 34
+
+Blandford, R. D. & Rees, M. J. 1978, in Pittsburgh Conference
+on BL Lac Objects, ed. A. M. Wolfe (University of Pittsburgh
+Department of Physics and Astronomy), 328-341
+
+Bloom, S. D. & Marscher, A. P. 1996, ApJ, 461, 657
+
+Boller, Th., Freyberg, M. J., Triimper, J., et al. 2016, A&A, 588,
+A103
+
+Bottcher, M., Reimer, A., Sweeney, K., & Prakash, A. 2013, ApJ,
+768, 54
+
+Brunner, H., Liu, T., Lamer, G., et al. 2022, A&A, 661, Al
+
+Caccianiga, A., Moretti, A., Belladitta, S., et al. 2019, MNRAS,
+484, 204
+
+Cash, W. 1979, ApJ, 228, 939
+
+Chang, Y. L., Arsioli, B., Giommi, P., Padovani, P., & Brandt,
+C. H. 2019, A&A, 632, A77
+
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+Chiaro, G., Kovacevic, M., & La Mura, G. 2021, J. High En.
+Astrophys., 29, 40
+
+Ciaramella, A., Bongardo, C., Aller, H. D., et al. 2004, A&A,
+419, 485
+
+Comastri, A., Fossati, G., Ghisellini, G., & Molendi, S. 1997,
+ApJ, 480, 534
+
+Coppejans, R., Frey, S., Cseh, D., et al. 2016, MNRAS, 463,
+3260
+
+D’ Abrusco, R., Alvarez Crespo, N., Massaro, F,, et al. 2019,
+ApJS, 242, 4
+
+D’Abrusco, R., Massaro, F., Ajello, M., et al. 2012, ApJ, 748, 68
+
+D’Ammando, F., Orienti, M., Finke, J., et al. 2015, MNRAS,
+446, 2456
+
+Dauser, T., Falkner, S., Lorenz, M., et al. 2019, A&A, 630, A66
+
+de la Calle Pérez, I., Alvarez Crespo, N., Racero, E., & Rouco,
+A. 2021, A&A, 655, A48
+
+de Menezes, R., Pefia-Herazo, H. A., Marchesini, E. J., et al.
+2019, A&A, 630, A55
+
+de Vaucouleurs, G., de Vaucouleurs, A., & Corwin, H. G. 1976,
+Second reference catalogue of bright galaxies (University of
+Texas Press, Austin)
+
+Dermer, C. D. & Schlickeiser, R. 1993, ApJ, 416, 458
+
+Dey, A., Schlegel, D. J., Lang, D., et al. 2019, AJ, 157, 168
+
+Donato, D., Ghisellini, G., Tagliaferri, G., & Fossati, G. 2001,
+A&A, 375, 739
+
+Donato, D., Sambruna, R. M., & Gliozzi, M. 2005, A&A, 433,
+1163
+
+Evans, P. A., Page, K. L., Osborne, J. P., et al. 2020, ApJS, 247,
+54
+
+Fan, J. H., Yang, J. H., Yuan, Y. H., Wang, J., & Gao, Y. 2012,
+ApJ, 761, 125
+
+Finke, J. D. 2016, ApJ, 830, 94
+
+Fitzpatrick, E. L. 1999, PASP, 111, 63
+
+Flesch, E. W. 2023, OJAp, 6, 49
+
+Fossati, G., Maraschi, L., Celotti, A., Comastri, A., & Ghisellini,
+G. 1998, MNRAS, 299, 433
+
+Gatuzz, E., Wilms, J., Hiimmerich, S., & Arcodia, R. 2024,
+A&A, 683, A213
+
+Gehrels, N. 1986, ApJ, 303, 336
+
+Ghisellini, G. 2013, in EPJ Web Conf., Vol. 61 (EDP), 05001
+
+Ghisellini, G., Celotti, A., Fossati, G., Maraschi, L., & Comastri,
+A. 1998, MNRAS, 301, 451
+
+Ghisellini, G., Haardt, F., Ciardi, B., et al. 2015a, MNRAS, 452,
+3457
+
+Ghisellini, G. & Madau, P. 1996, MNRAS, 280, 67
+
+Ghisellini, G., Sbarrato, T., Tagliaferri, G., et al. 2014, MNRAS,
+440, L111
+
+Ghisellini, G., Tagliaferri, G., Sbarrato, T., & Gehrels, N. 2015b,
+MNRAS, 450, L34
+
+Ginzburg, V. L. & Syrovatskii, S. I. 1965, ARA&A, 3, 297
+
+Giommi, P., Brandt, C. H., Barres de Almeida, U., et al. 2019,
+A&A, 631, A116
+
+Giommi, P., Menna, M. T., & Padovani, P. 1999, MNRAS, 310,
+465
+
+Giommi, P. & Padovani, P. 2015, MNRAS, 450, 2404
+
+Giommi, P., Padovani, P., & Perlman, E. 2000, MNRAS, 317,
+743
+
+Giommi, P., Padovani, P., Polenta, G., et al. 2012, MNRAS, 420,
+2899
+
+Gokus, A., Béttcher, M., Errando, M., et al. 2024a, ApJ, 974, 38
+
+Gokus, A., Errando, M., Agudo, I., et al. 2025, ApJ, 990, 206
+
+Gokus, A., Paliya, V. S., Wagner, S. M., et al. 2021, A&A, 649,
+A77
+
+Gokus, A., Wilms, J., Kadler, M., et al. 2024b, MNRAS, 529,
+1450
+
+Gordon, Y. A., Rudnick, L., Andernach, H., et al. 2023, ApJS,
+267, 37
+
+Hammerich, S., Gokus, A., Kreykenbohm, I., Rau, A., & Wilms,
+J. 2021a, ATel 14991
+
+Himmerich, S., Zainab, A., Gokus, A., et al. 2021b, ATel 15108
+
+Harrison, F. A., Craig, W. W., Christensen, F. E., et al. 2013, ApJ,
+770, 103
+
+Healey, S. E., Romani, R. W., Cotter, G., et al. 2008, ApJS, 175,
+97
+
+HI4PI Collaboration. 2016, A&A, 594, A116
+
+Hinton, J. A. & Hofmann, W. 2009, ARA&A, 47, 523
+
+Homan, D. C., Cohen, M. H., Hovatta, T., et al. 2021, ApJ, 923,
+67
+
+Homan, D. C., Ojha, R., Wardle, J. F. C., et al. 2002, ApJ, 568,
+99
+
+Houck, J. C. & Denicola, L. A. 2000, in ASP Conf. Ser., Vol.
+216, Astronomical Data Analysis Software and Systems IX,
+ed. N. Manset, C. Veillet, & D. Crabtree, 591
+
+Ighina, L., Caccianiga, A., Moretti, A., et al. 2019, MNRAS,
+489, 2732
+
+Itoh, R., Utsumi, Y., Inoue, Y., et al. 2020, ApJ, 901, 3
+
+Jones, T. W., O’Dell, S. L., & Stein, W. A. 1974, ApJ, 188, 353
+
+Kaastra, J. S. 2017, A&A, 605, A51
+
+Kaastra, J. S. & Bleeker, J. A. M. 2016, A&A, 587, A151
+
+Kadler, M. 2005, PhD thesis, Rheinische Friedrich Wilhelms-
+Universitat Bonn, Bonn, Germany
+
+Kang, S.-J., Li, E., Ou, W., et al. 2019, ApJ, 887, 134
+
+Kapanadze, B. Z. 2013, AJ, 145, 31
+
+Keenan, M., Meyer, E. T., Georganopoulos, M., Reddy, K., &
+French, O. J. 2021, MNRAS, 505, 4726
+
+Khamitov, I. M., Bikmaev, I. F., Gilfanov, M. R., et al. 2022,
+Astron. Lett., 48, 828
+
+Khorunzhev, G. A., Meshcheryakov, A. V., Medvedev, P. S.,
+et al. 2021, Astron. Lett., 47, 123
+
+Kluge, M., Comparat, J., Liu, A., et al. 2024, A&A, 688, A210
+
+Komossa, S., Voges, W., Xu, D., et al. 2006, AJ, 132, 531
+
+Konig, O., Wilms, J., Arcodia, R., et al. 2022, Nature, 605, 248
+
+Kovlakas, K., Zezas, A., Andrews, J. J., et al. 2021, MNRAS,
+506, 1896
+
+KrauB, F., Kreter, M., Miiller, C., et al. 2018, A&A, 610, L8
+
+Krau8, F., Wilms, J., Kadler, M., et al. 2016, A&A, 591, A130
+
+Kreter, M., Gokus, A., Krauss, F., et al. 2020, ApJ, 903, 128
+
+Kudenko, M. & Troitsky, S. 2024, A&A, 686, A178
+
+Lacy, M., Baum, S. A., Chandler, C. J., et al. 2020, PASP, 132,
+035001
+
+Langejahn, M., Kadler, M., Wilms, J., et al. 2020, A&A, 637,
+AS55
+
+Lien, A. Y., Krimm, H. A., Markwardt, C. B., et al. 2025, ApJ,
+989, 161
+
+Liodakis, I. & Petropoulou, M. 2020, ApJ, 893, L20
+
+Lister, M. L., Homan, D. C., Kellermann, K. L, et al. 2021, ApJ,
+923, 30
+
+Maccacaro, T., Romaine, S., & Schmitt, H. M. M. 1987, in IAU
+Symposium, Vol. 124, Observational Cosmology, ed. A. He-
+witt, G. Burbidge, & L. Z. Fang (IAU), 597
+
+Madejski, G. G. & Sikora, M. 2016, ARA&A, 54, 725
+
+Mannheim, K. 1993, A&A, 269, 67
+
+Mannheim, K. & Biermann, P. L. 1992, A&A, 253, L21
+
+Maraschi, L., Ghisellini, G., & Celotti, A. 1992, ApJ, 397, L5
+
+Marchesi, S., Juliano, A., Prandini, E., et al. 2025, A&A, 693,
+A142
+
+Marcotulli, L., Ajello, M., Urry, C. M., et al. 2022, ApJ, 940, 77
+
+Marcotulli, L., Connor, T., Bafiados, E., et al. 2025, ApJ, 979,
+L6
+
+Marscher, A. P. & Gear, W. K. 1985, ApJ, 298, 114
+
+Article number, page 27 of 39
+A&A proofs: manuscript no. main
+
+Marti, J., Sanchez-Ayaso, E., Luque-Escamilla, P. L., et al. 2020,
+MNRAS, 492, 4291
+
+Massaro, E., Maselli, A., Leto, C., et al. 2015, Ap&SS, 357, 75
+
+Massaro, E., Tramacere, A., Perri, M., Giommi, P., & Tosti, G.
+2006, A&A, 448, 861
+
+Massaro, F., D’ Abrusco, R., Ajello, M., Grindlay, J. E., & Smith,
+H. A. 2011, ApJ, 740, L48
+
+Massaro, F., D’Abrusco, R., Tosti, G., et al. 2012, ApJ, 750, 138
+
+Mattox, J. R., Bertsch, D. L., Chiang, J., et al. 1993, ApJ, 410,
+609
+
+Medvedev, P., Sazonov, S., Gilfanov, M., et al. 2020, MNRAS,
+497, 1842
+
+Mereghetti, S., Tiengo, A., Esposito, P., et al. 2009, Science, 325,
+1222
+
+Merloni, A., Lamer, G., Liu, T., et al. 2024, A&A, 682, A34
+
+Merloni, A., Predehl, P., Becker, W., et al. 2012, ArXiv e-prints
+[arXiv:1209.3114]
+
+Metzger, C., Gokus, A., & Errando, M. 2025, ApJ, 992, 184
+
+Middei, R., Giommi, P., Perri, M., et al. 2022, MNRAS, 514,
+3179
+
+Miicke, A. & Protheroe, R. J. 2001, Astropart. Phys., 15, 121
+
+Miicke, A., Protheroe, R. J., Engel, R., Rachen, J. P., & Stanev,
+T. 2003, Astropart. Phys., 18, 593
+
+Miiller, C., Kadler, M., Ojha, R., et al. 2018, A&A, 610, Al
+
+Miiller, C., Krau8, F., Dauser, T., et al. 2015, A&A, 574, A117
+
+O’Dowd, M., Urry, C. M., & Scarpa, R. 2002, ApJ, 580, 96
+
+Ojha, R., Kadler, M., Bock, M., et al. 2010, A&A, 519, A45
+
+Padovani, P. & Giommi, P. 1996, MNRAS, 279, 526
+
+Paggi, A., Bonato, M., Raiteri, C. M., et al. 2020, A&A, 641,
+A62
+
+Paliya, V. S., Ajello, M., Rakshit, S., et al. 2018, ApJ, 853, L2
+
+Paliya, V. S., Marcotulli, L., Ajello, M., et al. 2017, ApJ, 851, 33
+
+Paliya, V. S. & Stalin, C. S. 2016, ApJ, 820, 52
+
+Park, T., Kashyap, V. L., Siemiginowska, A., et al. 2006, ApJ,
+652, 610
+
+Pefia-Herazo, H. A., Amaya-Almazan, R. A., Massaro, F.,, et al.
+2020, A&A, 643, A103
+
+Perlman, E. S., Stocke, J. T., Schachter, J. F., et al. 1996a, ApJS,
+104, 251
+
+Perlman, E. S., Stocke, J. T., Wang, Q. D., & Morris, S. L. 1996b,
+ApJ, 456, 451
+
+Petrov, L. Y. & Kovalev, Y. Y. 2025, ApJS, 276, 38
+
+Pian, E., Vacanti, G., Tagliaferri, G., et al. 1998, ApJ, 492, L17
+
+Pineau, F. X., Derriere, S., Motch, C., et al. 2017, A&A, 597,
+A89
+
+Predehl, P., Andritschke, R., Arefiev, V., et al. 2021, A&A, 647,
+Al
+
+Rajput, B., Stalin, C. S., & Rakshit, S. 2020, A&A, 634, A80
+
+Rakshit, S., Stalin, C. S., Chand, H., & Zhang, X.-G. 2017,
+ApJS, 229, 39
+
+Rector, T. A., Stocke, J. T., Perlman, E. S., Morris, S. L., &
+Gioia, I. M. 2000, AJ, 120, 1626
+
+Rees, M. J. 1967, MNRAS, 137, 429
+
+Rigoselli, M., De Grandis, D., Mereghetti, S., & Malacaria, C.
+2023, MNRAS, 523, 3043
+
+Romani, R. W., Sowards-Emmerd, D., Greenhill, L., & Michel-
+son, P. 2004, ApJ, 610, L9
+
+Sahakyan, N., Giommi, P., Padovani, P., et al. 2022, MNRAS,
+519, 1396
+
+Sahu, S., Lopez Fortin, C. E., Valadez Polanco, I. A., & Rajpoot,
+S. 2021, ApJ, 914, 120
+
+Salvato, M., Buchner, J., Budavari, T., et al. 2018, MNRAS, 473,
+4937
+
+Salvato, M., Wolf, J., Dwelly, T., et al. 2022, A&A, 661, A3
+
+Article number, page 28 of 39
+
+Salvato, M., Wolf, J., Dwelly, T., et al. 2025, A&A, accepted
+(arXiv:2509.02842)
+
+Sambruna, R. M., Barr, P., Giommi, P., et al. 1994a, ApJS, 95,
+371
+
+Sambruna, R. M., Barr, P., Giommi, P., et al. 1994b, ApJ, 434,
+468
+
+Saxena, A., Salvato, M., Roster, W., et al. 2024, A&A, 690,
+
+A365
+
+barrato, T., Ghisellini, G., Nardini, M., et al. 2012, MNRAS,
+
+426, L91
+
+barrato, T., Ghisellini, G., Nardini, M., et al. 2013, MNRAS,
+
+433, 2182
+
+barrato, T., Ghisellini, G., Tagliaferri, G., et al. 2015, MNRAS,
+
+446, 2483
+
+barrato, T., Ghisellini, G., Tagliaferri, G., et al. 2022, A&A,
+
+663, A147
+
+Schlickeiser, R. 1996, A&AS, 120, 481
+
+Seppi, R., Comparat, J., Bulbul, E., et al. 2022, A&A, 665, A78
+
+Shemmer, O., Brandt, W. N., Schneider, D. P., et al. 2006, ApJ,
+
+644, 86
+
+Sikora, M., Begelman, M. C., & Rees, M. J. 1994, ApJ, 421, 153
+
+Singh, V. & Chand, H. 2018, MNRAS, 480, 1796
+
+Sowards-Emmerd, D., Romani, R. W., & Michelson, P. F. 2003,
+ApJ, 590, 109
+
+Stickel, M., Padovani, P., Urry, C. M., Fried, J. W., & Kuehr, H.
+1991, ApJ, 374, 431
+
+Stocke, J. T., Morris, S. L., Gioia, I. M., et al. 1991, ApJS, 76,
+813
+
+Sunyaev, R., Arefiev, V., Babyshkin, V., et al. 2021, A&A, 656,
+A132
+
+Tanihata, C., Urry, C. M., Takahashi, T., et al. 2001, ApJ, 563,
+569
+
+Toda, K., Inoue, Y., Tanaka, Y., & Fukazawa, Y. 2017, in 7
+years of MAXI: monitoring X-ray Transients, ed. M. Serino,
+M. Shidatsu, W. Iwakiri, & T. Mihara (The Institute of Physi-
+cal and Chemical Research (RIKEN), Wako, Saitama, Japan),
+221
+
+Tomsick, J., Boggs, S., Zoglauer, A., et al. 2024, in 38th Inter-
+national Cosmic Ray Conference, PoS(ICRC2023) (Trieste:
+PoS), 745
+
+Tomsick, J., Zoglauer, A., Sleator, C., et al. 2019, BAAS, 51, 98
+
+Truemper, J. 1982, Adv. Space Res., 2, 241
+
+Truemper, J. 1993, Sci., 260, 1769
+
+Tubin-Arenas, D., Krumpe, M., Lamer, G., et al. 2024, A&A,
+682, A35
+
+Turriziani, S., Cavazzuti, E., & Giommi, P. 2007, A&A, 472, 699
+
+Turriziani, S., Fraga, B., & Giommi, P. 2019, MNRAS, 489,
+3307
+
+Urry, C. M. 1996, in ASP Conf. Ser., Vol. 110, Blazar Contin-
+uum Variability, ed. H. R. Miller, J. R. Webb, & J. C. Noble
+(Astronomical Society Pacific), 391
+
+Urry, C. M. & Padovani, P. 1995, PASP, 107, 803
+
+Urry, C. M., Sambruna, R. M., Worrall, D. M., et al. 1996, ApJ,
+463, 424
+
+Urry, C. M., Scarpa, R., O’ Dowd, M., et al. 2000, ApJ, 532, 816
+
+Verner, D. A., Ferland, G. J., Korista, K. T., & Yakovlev, D. G.
+1996, ApJ, 465, 487
+
+Véron-Cetty, M. P. & Véron, P. 2010, A&A, 518, A10
+
+Voges, W., Aschenbach, B., Boller, T., et al. 2000, IAU Circ.,
+7432, 3
+
+Voges, W., Aschenbach, B., Boller, Th., et al. 1999, A&A, 349,
+389
+
+Wenger, M., Ochsenbein, F., Egret, D., et al. 2000, A&AS, 143,
+9
+
+Wilms, J., Allen, A., & McCray, R. 2000, ApJ, 542, 914
+
+n
+
+n
+
+n
+
+n
+
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+Wolf, J., Salvato, M., Belladitta, S., et al. 2024, A&A, 691, A30
+
+Wolter, A. & Celotti, A. 2001, A&A, 371, 527
+
+Worrall, D. M. & Wilkes, B. J. 1990, ApJ, 360, 396
+
+Worsley, M. A., Fabian, A. C., Turner, A. K., Celotti, A., & Iwa-
+sawa, K. 2004, MNRAS, 350, 207
+
+Xie, Z.-L., Bafiados, E., Belladitta, S., et al. 2024, ApJ, 964, 98
+
+Yuan, W., Fabian, A. C., Celotti, A., & Jonker, P. G. 2003, MN-
+RAS, 346, L7
+
+Yuan, W., Matsuoka, M., & Ueno, S. 2000, BAAS, 32, 1183
+
+Yuan, Y. & Fan, J. 2014, Ap&SS, 352, 207
+
+Article number, page 29 of 39
+A&A proofs: manuscript no. main
+
+Appendix A: Supplemental figures
+
+In this Appendix we extend the discussion of the main part of this paper with further diagnostic information. Figures A.1 and A.2
+
+display the distributions of the normalized angular separation with respect to $25. In Fig. A.3 the fits to the log N-log S distributions
+are shown and Fig. A.4 summarizes the relation between SED parameters and broadband spectral indices.
+All BLAZE matches Entire BlazErl sample
+tg 300 qq tt tty
+300 E a Confirmed blazars 4 c b Confirmed blazars q
+Ec eROSITA-BLAZE 7250 — eROSITA-BLAZE 4
+, 250 F 4 E 4
+8 E 4 200 F 4
+2 2006 | E q
+3 f | 150 F 4
+5 OF q E |
+2 E J E 4
+2 OE a E
+50 E 4 505 4
+OF 7 9 :
+700 Ec Blazar candidates 4 500 F d Blazar candidates |
+E eROSITA-BLAZE : C eROSITA-BLAZE 7
+600 — | E 4
+g E 4 400 - 4
+2 CE 4300 F 4
+‘3 400 F q [ J
+3 FE E E J
+z 300 F 4200 F =|
+E E J E =|
+~ 200 F 4 E :
+E, 4 100 +s
+100 4 +
+0 Jo :
+0.0 1.0 2.0 3.0 4.0 5.0 0.0 1.0 2.0 3.0 4.0 5.0
+
+Normalized angular distance Normalized angular distance
+
+Fig. A.1. Histograms of the angular separation between the positions provided in the BLAZE catalog normalized by the respective eROSITA
+positional error. The upper panels display the eROSITA observed blazars and the lower panels the eROSITA observed blazar candidates. In panels
+a and c we show all the initial matches. In panels b and d, we show the BlazEr| sample with applied quality and separation cuts. The theoretical
+Rayleigh distributions are shown as a black solid line.
+
+Article number, page 30 of 39
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+Entire BlazEr| sample in LS10.
+
+Agreement between BlazEr1 and $25
+
+Disagreement between BlazEr| and S25
+
+a Confirmed blazars rb Confirmed blazars E ¢ Confirmed blazars |
+250 eROSITA-BLAZE E + eROSITA-BLAZE c eROSITA-BLAZE q
+eROSITA-LS10 200 F eROSITA-LS10 4 20 eROSITA-LS10 y
+8 200 4 | |
+3 150 ai 4 ise 4
+3 150 4 c q
+2 100 JooF | 4
+50 4a q oon KI za
+[| ]
+0 OF t t T 9 t + T
+559 Blazar candidates 400 ¢ Blazar candidates 80 ¢ Blazar candidates q
+° eROSITA-BLAZE E eROSITA-BLAZE L eROSITA-BLAZE a
+eROSITA-LS10 B eROSITA-LS10 eROSITA-LS1O
+= 400 300 F 4 oof 4
+8 c
+2 300 J o£ 4
+S 200 F 4o4ob 4
+3 iy |
+— 200 7q Is r \ 4
+2 i
+100 F, 4 204 = 4
+100 jg Ls
+0.0 10 2.0 3.0 40 5.0 0.0 10 2.0 3.0 40 5.0 0.0 1.0 2.0 3.0 4.0 5.0
+
+Normalized angular distance
+
+Normalized angular distance
+
+Normalized angular distance
+
+Fig. A.2. Similar to Fig. A.1, we show the separation between eROSITA and LS10 counterparts by $25 in yellow. All matches with the LS10
+counterpart catalog are shown in panels a and d, whereas panels b-f only show sources where S25 provides the same or a different counterpart,
+
+respectively.
+
+N@ Fx02-23kev) [deg]
+
+10-4
+
+10-?
+
+-2 ol
+Fx 02-23kev [ergem™ s~"]
+
+10-8
+
+Fig. A.3. log N-log S distributions of different BlazErl subsamples, similar to Fig. 14 but for the eROSITA main band and including the fit results
+listed in Table 5. The color scheme is the same as in Fig. 14. The red line in the left panel shows the best fit broken power law for the entire sample
+
+(a; = 1.003 + 0.013, a = 1.39 + 0.07, Fx break.02-23
+
+kev = (2.11 + 0.26) x 107 ergcem
+
+s!,C = 30.6 +2.5 deg”).
+
+Article number, page 31 of 39
+A&A proofs: manuscript no. main
+
+a
+
+10°
+
+10°
+
+Toy
+w
+
+10!
+
+10°
+
+10°!
+
+Compton dominance
+
+yo-d Diaper es es a
+0.5 1.0 15 0.5 1.0 15 0.5 1.0 15 0.5 1.0 1.5
+
+Qxr QIRX ox @RX
+
+Fig. A.4. SED parameters from the 4LAC catalog as a function of various broadband spectral indices, following the color scheme introduced in
+Fig. 3.
+
+Article number, page 32 of 39
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+Appendix B: Supplemental tables
+
+In this Appendix we present the tables summarizing the different correlations and the mean values of the broadband spectral indices.
+Table B.1 lists all kinds of different parameter combinations and the respective correlation values, while Table B.2 compares the
+broadband spectral indices with the SED parameters and Table B.3 lists correlation coefficients between the different broadband
+spectral indices. Mean values for the broadband spectral indices are given in Table B.4.
+
+Table B.1. Correlation coefficients for various parameter combinations discussed throughout the paper.
+
+Parameter | Parameter 2 Sample —ppearson Pp TKendall Pp
+eROSITA flux eROSITA Tx BLL -0.1217 0.022 —0.1834 < 0.003
+eROSITA Tx z FSRQ -0.4438 <0.003 -0.2789 < 0.003
+eROSITA Tx Zz FSRQC = -0.3248 0.009 —0.2360 0.006
+Swift-BAT flux eROSITA flux FSRQ 0.9695 0.0 0.0719 0.499
+Swift-BAT flux eROSITA flux = BCU 0.9418 < 0.003 0.3590 0.100
+NuSTAR soft flux eROSITA flux all 0.6950 < 0.003 0.5382 < 0.003
+NuSTAR hard flux eROSITA flux all 0.6060 < 0.003 0.2707 0.008
+NuSTAR Tx eROSITA Tx all 0.6118 <0.003 - -
+Swift-BAT Tx eROSITA Tx all 0.4794, <0.003  - -
+eROSITA Tx Fermi-LATT, BCU -0.1288 0.141 0.1999 0.001
+TANAMI flux density eROSITA flux FSRQ 0.5503 0.001 0.5907 < 0.003
+MOJAVE flux density eROSITA all 0.5055 <0.003 0.2941 < 0.003
+RFC X-band flux density eROSITA FSRQ 0.2513 < 0.003 0.2958 0.0
+
+RFC X-band flux density  eROSITA BLL 0.0455 0.349 0.1395 < 0.003
+eROSITA Tx Rx BLL 0.2148 < 0.003 0.2098 < 0.003
+eROSITA Tx ox BLL 0.2963 < 0.003 0.2422 < 0.003
+eROSITA Tx axr BLL -0.2305 <0.003 -0.2669 < 0.003
+eROSITA Tx Rx all -0.4171 <0.003 -0.3437 0.0
+
+axr Zz all 0.3973, < 0.003 -0.3002 0.0
+RX z all 0.4405 0.0 0.3362 0.0
+
+Table B.2. Correlation coefficients for parameters a and SED parameters from the 4LAC catalog.
+
+HE peak LE peak Compton dominance
+a Class PPearson P TKendall P Pearson P. TKendall P Pearson P__TKendall___—P
+xr all 0.0876 0.004 0.3860 0.0 0.0759 0.008 0.1893 0.0 - = -0.2117 0.0
+BLL 0.0953 0.041 0.4768 0.0 0.0872 0.045 0.2957 0.0 - = -0.1937  <0.003
+FSRQ 0.0345 0.557 -0.0770 0.050 —0.0298 0.592 -0.0128 0.731 - =  -0.2930 <0.003
+arx all —0.0827 0.019 —-0.2409 0.0 —-0.1029 0.002 0.0829 <0.003 — = 0.0352 0.115
+BLL —0.0939 0.077 -0.4666 0.0 —0.1845  <0.003 -0.2943 0.0 - = 0.0890 0.008
+FSRQ 0.1445 0.030 0.1366 0.002 0.0175 0.780 0.2180 <0.003. - = 0.0263 0.534
+0x all —0.0907 0.012 -0.1285 <0.003 -0.0802 0.017 0.0218 0.336 - =  -0.0085 0.707
+BLL -0.1170 0.030 -0.3393 0.0 —0.1531 0.002 -0.1924 <0.003 - = 0.0386 0.258
+FSRQ 0.1033 0.128 0.0193 0.672 0.0170 0.789 0.1395 0.001 - = 0.0185 0.667
+RX all -0.0755 0.027 -0.4319 0.0 -0.2519 = <0.003  -0.3725 0.0 = = 0.1651 <0.003
+BLL -0.0701 0.201 -0.5639 0.0 —0.2824 <0.003 -0.5004 0.0 - = 0.1582 <0.003
+FSRQ — -0.1242 0.036 (0.0474 0.233 —0.0930 0.097 —0.2241 <0.003  - = 0.0925 0.014
+Table B.3. Correlation coefficients for parameters a.
+Rx @ox ORX
+oe Class Pearson P TKendall Pp PPearson PB TKendall P PPearson Pp TKendall P
+axr all —0.7532  <0.003  -0.5500 0.0 -0.5296 <0.003 -0.3722 0.0 -0.7560 <0.003 -0.4981 0.0
+BLL —0.8633 <0.003 -0.6974 0.0 -0.7000 <0.003 -0.5526 0.0 —-0.8582 <0.003 -0.6680 0.0
+FSRQ — _-0.5380 —-<0.003. — -0.3879 0.0 =-0.2977 -<0.003  -0.1975 <0.003 -0.4911 <0.003 -0.3080 <0.003
+ayrx all - - = = 0.7786 0.0 0.5216 0.0 0.3500. 0.0 0.1338 0.0
+BLL - - - - 0.9292 0.0 0.7791 0.0 0.8374 0.0 0.6498 0.0
+FSRQ- - - - - 0.5807 0.0 0.3663 0.0 0.1459 0.001 0.0943 0.001
+ox all = - ~ = = = = = 0.1603 <0.003 0.0465 0.003
+BLL - - - - - - - - 0.5997 0.0 0.4274 0.0
+FSRQ- - - - - - - - - 0.0397 0.351 0.0518 0.068
+
+Article number, page 33 of 39
+A&A proofs: manuscript no. main
+
+Table B.4. Mean and standard deviation values for parameters of a.
+
+Type (@xr) —Faxr _(@1Rx) — Tngx (OX) — Faox (RX) Tarr
+All 1.04 O11 1.15 0.14 1.25 0.21 0.84 0.10
+Confirmed = 1.04 0.11 1.13 0.16 1.22 0.21 0.84 0.12
+Candidates — - 1.17 0.13 1.27 0.21 0.85 0.07
+BLL 1.07 0.12 1.12 0.21 1.21 0.24 0.75 0.13
+BLLC - - 1.20 0.13 1.29 0.19 0.80 0.07
+BZG - - 1.27 0.19 1.48 0.27 0.78 0.09
+FSRQ 0.98 0.08 1.15 0.10 1.25 0.16 0.89 0.06
+FSRQC - - 1.16 0.09 1.31 0.18 0.84 0.06
+BCU 1.04 0.10 1.12 0.16 1.18 0.21 0.82 0.11
+BCUC - - 1.15 0.15 1.25 0.24 0.86 0.06
+
+Article number, page 34 of 39
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+Appendix C: The BLAZE catalogs
+
+The BLAZE catalog is obtained by merging the catalogs listed in
+Table | with the respective merging radii (Sect. 2). The BLAZE
+catalog contains redshifts from these input catalogs. Based on
+eROSITA’s sensitivity and exposure, we are able to calculate flux
+and luminosity upper limits for all sources in the western Galac-
+tic hemisphere. The sources removed due to quality issues (see
+Sect. 2.2) are released as a separate file as well. The catalogs are
+released as FITS files with the following columns:
+
+SRC_NAME: Common name of the source.
+
+RAJ2000, DEJ2000: Equatorial coordinates from input catalog
+[°, 2000.0].
+
+LIL, BU: Galactic coordinates from input catalog [°].
+
+BLAZAR_CLASS: Classification given by the input catalog.
+
+Z: Redshift given in the input catalog.
+
+Z_REF: Reference for the redshift.
+
+ERO_EXPO: eROSITA exposure time at source position, if
+available [s].
+
+ERO_UL_FLUX: Upper limit 0.2-2.3 keV flux, based on expo-
+sure time and sensitivity [erg cm~? s~'].
+
+ERO_UL_LUM: Upper limit for the 0.2-2.3keV luminosity
+band based on ERO_UL_FLUX [erg em~? s~!].
+
+REMOVE_FLAG: Only for the unverified BLAZE catalog, rea-
+son for removal: 1: HECATE, 2: Xie et al. (2024), 3: Rakshit
+et al. (2017), 4: Gordon et al. (2023), 5: known non-blazar.
+
+Appendix D: The BlazEr1 catalogs
+
+In the following we describe all 661 FITS columns of the
+BlazEr1 catalogs, that is, the unverified and the standard BlazEr1
+catalog. As described in Sect. 3.1.1, these catalogs were obtained
+by merging various input catalogs, which are matched with the
+eRASS1 catalog (Merloni et al. 2024), and amending this list of
+sources with additional information such as, for example, spec-
+tral fit results. In the following the energy bands for X-ray and
+y-ray fluxes and luminosities are denoted with n, where n is de-
+fined in Table D.1. For the fluxes determined by fitting a power
+law with fixed photon index to the spectra we denote the pho-
+ton index G used, as listed in Table D.2. The LS10 bands (G,
+R, L, Z, W1, W2, W3, and W4) are denoted by X in the column
+names listed below. For RFC values the bands (s, c, x, u, and k)
+are denoted by Y. Not all parameters will have all of the bands
+available denoted with X. Where parameters have uncertainties,
+they are consistently listed in a column obtained by appending
+_ERR to the column name. For symmetric error bars the column
+is a standard FITS column, asymmetric confidence intervals of
+the type P*! are given as fixed length arrays with two entries,
+—l and +u, including the sign. Sometimes symmetric and asym-
+metric uncertainties are given, since some methods return asym-
+metric uncertainties which then are approximately summarized
+as symmetric ones (ERR, -ASYM_ERR). In the online Vizier
+version the asymmetric uncertainty columns are prefixed by E_
+and e_ for upper and lower uncertainties, respectively. Unless
+noted otherwise, confidence intervals are given at the 1a confi-
+dence level, except for spectral parameters (e.g., photon indices,
+fluxes), where 90% confidence intervals are given, following the
+conventions of X-ray astronomy. Sometimes the inverse variance
+(_IVAR) is given instead of an uncertainty. Where columns are
+taken from other catalogs, we sometimes copy in part the origi-
+nal column descriptions in verbatim.
+
+SRC_NAME: Common name of the source.
+
+Table D.1. X-ray and y-ray energy band designators used in the BlazEr1
+catalog.
+
+channeln energy band
+0 0.2-2.3 keV
+1 0.2-2.3 keV
+Pi 0.2-0.5 keV
+P2 0.5-1.0 keV
+P3 1.0-2.0 keV
+P4 2.0-5.0 keV
+PS 5.0-8.0 keV
+P6 4.0-10.0 keV
+P7 5.1-6.1 keV
+P8 6.2-7.1 keV
+P9 7.2-8.2 keV
+Ss 0.5-2.0 keV
+T 0.2-10.0 keV
+U 0.1-2.4keV
+Vv 0.3-10.0 keV
+Xx 3.0-10.0 keV
+Y 10.0-30.0 keV
+Z 14.0-195.0 keV
+A 0.1-100.0 GeV
+B 1.0-100.0 GeV
+
+Table D.2. Photon index designators G for flux values
+
+Photonindex 1.5 1.7 2.0 2.3
+G 15. 17 20 23
+
+RAJ2000, DECJ2000: Equatorial coordinates from input cata-
+log [I].
+
+BLAZAR_CLASS: Blazar classification given by the input cat-
+alog.
+
+CONF_BLAZAR: 1 for confirmed blazars and 0 for candidates.
+
+FGL_SRC_NAME: Name of source if listed in 4FGL (4FGL-
+DR4; Abdollahi et al. 2022).
+
+BZCAT_SRC_NAME: Name of source if listed in BZCAT
+(Massaro et al. 2015).
+
+HSP_SRC_NAME: Name of source if listed in 3HSP (Chang
+et al. 2019).
+
+HIGHZ_SRC_NAME: Name of source if listed in the HighZ
+sample (Sbarrato et al. 2025, in prep.)
+
+MILLIQUAS_SRC_NAME: Name of source if listed in Milli-
+quas (Flesch 2023).
+
+KDEBLLACS_SRC_NAME: Name of source if listed in KDE-
+BLLACS (D’ Abrusco et al. 2019).
+
+WIBRALS2_SRC_NAME: Name _ of
+WIBRaLS2 (D’ Abrusco et al. 2019).
+
+ABC_SRC_NAME: Name of source if listed in ABC (Paggi
+
+source if listed in
+
+et al. 2020).
+
+BROS_SRC_NAME: Name of source if listed in BROS (Itoh
+et al. 2020).
+
+ANGSEP: Angular separation between catalog and eROSITA
+position [°].
+
+DETUID: eROSITA unique detection ID.
+
+IAUNAME: Official IAU name of the eROSITA source.
+
+SKYTILE: eROSITA sky tile ID.
+
+ID_SRC: eROSITA source ID in each sky tile.
+
+UID: Integer unique detection ID. See Merloni et al. (2024) for
+details.
+
+UID_HARD: Hard catalog UID of the source with a strong as-
+sociation, or -UID if the association is weak. 0 means no
+counterpart found in the Hard catalog.
+
+Article number, page 35 of 39
+A&A proofs: manuscript no. main
+
+ID_CLUSTER: Group ID of sources simultaneously modeled
+during source detection.
+
+RA(ERR), DEC(_ERR): Equatorial coordinates and associ-
+ated uncertainties of eROSITA source (ICRS) [°].
+
+RA_RAW(_ERR), DEC_RAW(_ERR): Equatorial coordinates
+of eROSITA source (ICRS), without applying the eROSITA
+aspect correction [°].
+
+POS_ERR: lo position uncertainty [’’].
+
+RADEC_ERR: Combined positional error, raw output from
+PSF fitting [”’].
+
+LII, BIL: Galactic coordinates of eROSITA source with applied
+position correction (not identical to the coordinates listed by
+Merloni et al. 2024) [°].
+
+ELON, ELAT: Ecliptic coordinates of eROSITA source [°].
+
+MJD: Modified Julian Date of the observation of the source
+nearest to the optical axis of eROSITA.
+
+MJD_MIN, MJD_MAX: Modified Julian Date of the sources’
+first and last eROSITA observation.
+
+EXT(_ERR , _ASYM_ERR): Source extent parameter and as-
+sociated uncertainty [’’].
+
+EXT_LIKE: Extent likelihood.
+
+DET_LIKE_n: Detection likelihood.
+
+ML_CTS_n(_ERR ,_ASYM_ERR): ML source net counts and
+associated uncertainty [cts].
+
+ML_RATE_n(_ERR ,_ASYM_ERR): ML source count rate
+and associated uncertainty [cts grt],
+
+ML_FLUX_n(_ERR ,__ASYM_ERR): ML source flux and as-
+sociated uncertainty [erg cm~? s~!].
+
+ML_BKG sp ML background counts at the source position
+(OI.
+
+ML_EXP_n: ML vignetted exposure time at the source position
+[s].
+
+ML_EEF_n: ML enclosed energy fraction.
+
+APE_CTS_n: Total counts extracted within the aperture [cts].
+
+APE_BKG_n: Background counts extracted within the aper-
+ture, excluding nearby sources using the source map [cts].
+
+APE_EXP_n: Exposure map value at the given position [s].
+
+APE_RADIUS_n: Extraction radius [pixel, 1 pixel corresponds
+to 4’).
+
+APE_POIS_n: Poisson probability that the extracted counts
+(APE_CTS) are background fluctuation.
+
+FLAG_SP_SNR: If 1, source may lie within an overdense re-
+gion near a supernova remnant.
+
+FLAG_SP_BPS: If 1, source may lie within an overdense region
+near a bright point source.
+
+FLAG_SP_SCL: If 1, source may lie within an overdense re-
+gion near a stellar cluster.
+
+FLAG_SP_LGA: If 1, source may lie within an overdense re-
+gion near a local large galaxy.
+
+FLAG_SP_GC_CONS: If 1, source may lie within an over-
+dense region near a galaxy cluster.
+
+FLAG_NO_RADEC_ERR: If 1, source contained no
+RA_DEC_ERR in the pre-processed version of the
+catalog.
+
+FLAG_NO_EXT_ERR: If 1, source contained no EXT_ERR in
+the pre-processed version of the catalog.
+
+FLAG_NO_CTS_ERR: If 1, source contained no
+ML_CTS_0_ERR in the pre-processed version of the
+catalog.
+
+FLAG_OPT: If 1, source matched within 15’ with a bright op-
+tical star, likely contaminated by optical loading.
+
+CTS_n_(_ERR): Counts from spectrum and associated uncer-
+tainty (Gehrels 1986) [cts].
+
+SPEC_EXPOTIME: Exposure time as given in the spectrum [s].
+
+Article number, page 36 of 39
+
+EXPOTIME: Exposure time from the eROSITA exposure map
+for the 0.2—2.3 keV band [s].
+
+MIN_FLUX_95: Minimum detectable flux at source position to
+guarantee 95% detection rate with a DET_LIKE_0 of 10 or
+greater in the 0.2-2.3 keV band [erg cm~? s~!].
+
+AVERAGE _NH: Average Ny from the HI4PI Collaboration
+(2016) [cem~?].
+
+WE_AVERAGE_NH: Weighted average Ny from the HI4PI
+Collaboration (2016) [cm~?].
+
+HR12(_ERR): Hardness ratio between 0.2-0.7keV and 0.7-
+1.2 keV and associated uncertainty.
+
+HR23(_ERR): Hardness ratio between 0.7-1.2keV and 1.2-
+2.3 keV and associated uncertainty.
+
+HR13(_ERR): Hardness ratio between 0.2-0.7keV and 1.2-
+2.3 keV and associated uncertainty.
+
+PWLG_NORM(_ERR): Power law norm using a fixed Ny
+and an index of G at 1keV and associated uncertainty
+[photons keV~! cm7? s~!].
+
+PWLG_FLUX_(UNABS , ABS)_n(_ERR): Fitted unabsorbed
+and observed flux using a fixed Ny and fixed power law in-
+dex G and associated uncertainty [erg cm™? s~].
+
+PWLG_C_VARIANCE: Variance of Cash statistics of fixed Ny
+and fixed power law index fit according to Kaastra (2017).
+
+PWLG_CASH: Cash statistics of fixed Ny and fixed power law
+index fit.
+
+PWLG_CSTAT_THEORY: Theoretical Cash statistics while
+using a fixed Ny and fixed power law index fit according
+to Kaastra (2017).
+
+PWLG_REDCASH: Reduced Cash statistics from fit with fixed
+Ny and fixed power law index.
+
+PWLG_CASHBINS: Number of bins used during the fixed Ny
+and fixed power law index fit.
+
+PWLG_CASHPAR: Number of parameters used during the
+fixed Ny and fixed power law index fit.
+
+PWLG_NUM_BINS: Number of bins used to calculate Kaastra
+(2017) values of fixed Ny and fixed power law index.
+
+Flux_JY(_ERR): Flux density at 1 keV derived from the norm
+of the fixed [x = 2.0 fit [Jy].
+
+(FREE_ , FIXED_)NH(_ERR): Freely fitted or fixed Ny and as-
+sociated uncertainty [cm™?].
+
+(FREE_ , FIXED_)GAMMA(_ERR): Power law photon index
+using a free or fixed Ny and associated uncertainty.
+
+(FREE_ , FIXED_)NORM(_ERR): Power law norm using a
+free or fixed Ny at 1keV and associated uncertainty
+[photons keV! cm s~!].
+
+(FREE_, FIXED_)FLUX_(UNABS , ABS)_n(_ERR): Fitted
+unabsorbed and observed flux for a free or fixed Ny power
+law fit and associated uncertainty [erg cm~? s~!].
+
+(FREE_ , FIXED_)C_VARIANCE: Variance of Cash statistics
+of free or fixed Ny power law fit according to Kaastra (2017).
+
+(FREE_ , FIXED_)CASH: Cash statistics of free or fixed Ny
+power law fit.
+
+(FREE_ , FIXED_)CSTATS_THEORY: Theoretical Cash
+statistics while using a free or fixed Ny power law fit
+according to Kaastra (2017).
+
+(FREE_ , FIXED_)REDCASH: Reduced Cash statistics from
+fit with free or fixed Ny.
+
+(FREE_ , FIXED_)CASHBINSs: Number of bins used during
+the free or fixed Ny power law fit.
+
+(FREE_ , FIXED_)CASHPAR: Number of parameters used
+during the free or fixed Ny power law fit.
+
+(FREE_ , FIXED_)NUM_BINS: Number of bins used to calcu-
+late Kaastra (2017) values of free or fixed Ny power law fit.
+
+RXS_RA , RXS_DEC: Equatorial position of 2RXS_ source
+(Boller et al. 2016) [°].
+Hammerich et al.: BlazEr1: The eROSITA Blazar Catalog
+
+RXS_NH_GAL: Galactic Ny assumed by Boller et al. (2016)
+[cm=?].
+
+RXS_NH: Wy derived from fit by Boller et al. (2016) [em7?].
+
+RXS_GAMMA(_ERR): Ix from fit and associated uncertainty
+by Boller et al. (2016).
+
+RXS_FLUX_n: Flux from power law fit by Boller et al. (2016)
+[ergcm™? s~!].
+
+XRT_SRC_NAME: Name given in Evans et al. (2020).
+
+XRT_RA, XRT_DEC: Equatorial coordinates from Evans et al.
+(2020) [°].
+
+XRT_XRT_ANGSEP: Angular separation between blazar cata-
+log source and closest source in Evans et al. (2020) [’’].
+
+XRT_FLAG: If | the blazar and the source listed by Evans et al.
+(2020) are located within 8” of each other.
+
+XRT_NH(_ERR): Galactic Ny and associated uncertainty from
+Evans et al. (2020) [cm~?].
+
+XRT_GAMMA(_ERR): Power law photon index and associ-
+ated uncertainty from Evans et al. (2020).
+
+XRT_(ABS , UNABS)_FLUX_n(_ERR): Unabsorbed and ob-
+served flux and associated uncertainty from Evans et al.
+(2020) [erg em=? s~!].
+
+OUSXB_RA, OUSXB_DEC: Equatorial coordinates of Swift-
+XRT sources from Giommi et al. (2019) [°].
+
+OUSXB_(MIN, MAX, MEAN, MEDIAN)_FLUX_n:
+Minimum, maximum, median and mean sources flux
+from (Giommi et al. 2019) [ergcm~? s~!].
+
+OUSXB_N_FLUX_n: Number of observations of source in
+Giommi et al. (2019) with a flux.
+
+OUSXB_(MIN, MAX, MEAN, MEDIAN)_GAMMA:
+Minimum, maximum, median and mean power law
+photon index (Giommi et al. 2019).
+
+OUSXB_N_GAMMA: Number of observations of source in
+Giommi et al. (2019) with a power law photon index.
+
+NUSTAR_RA, NUSTAR_DEC: Equatorial coordinates of
+NuSTAR sources from Middei et al. (2022) [°].
+
+NUSTAR_GAMMA(_ERR): Photon index of NuSTAR sources
+from Middei et al. (2022).
+
+NUSTAR_FLUX_n(_ERR): Flux of NuSTAR sources from
+Middei et al. (2022) [erg em™ s™'}.
+
+BAT_SRC_NAME: Name of source given by Lien et al. (2025).
+
+BAT_RA, BAT_DEC: Equatorial coordinates of Swift-BAT
+sources from Lien et al. (2025) [°].
+
+BAT_TYPE: Source type provided by Lien et al. (2025).
+
+BAT_(, MIN_, MAX_)FLUX_n: Flux, minimum and maxi-
+mum flux of Swiff-BAT sources from Lien et al. (2025)
+[ergcm~? s~!].
+
+BAT_(, MIN_, MAX_)GAMMA: Photon index of Swift-BAT
+sources from Lien et al. (2025).
+
+ASCAMASTER_EXPOTIME: ASCA exposure time according
+to Heasarc’s ascamaster table [s].
+
+CHANMASTER_EXPOTIME Chandra exposure time accord-
+ing to the chanmaster table [s].
+
+NUMASTER_EXPOTIME: NuSTAR exposure time according
+to the numaster table [s].
+
+SUZAMASTER_EXPOTIME: Suzaku exposure time accord-
+ing to the suzamaster table [s].
+
+XMMMASTER_EXPOTIME: XMM-Newton exposure
+according to the xmmmaster table [s].
+
+SWIFTMASTR_EXPOTIME: Swift-XRT exposure time ac-
+cording to the swiftmastr table in [s].
+
+ROSMASTER_EXPOTIME: ROSAT exposure time according
+to the rosmaster table in [s].
+
+FGL_COMMON_SRC_NAME: Name of identified or likely
+associated source from the 4FGL catalog (4FGL-DR4; Ab-
+dollahi et al. 2022).
+
+time
+
+FGL_FLUX_n(_ERR): Integral photon flux and associated un-
+certainty for the B band (4FGL-DR4; Abdollahi et al. 2022)
+[photons cm-? s~!].
+
+FGL_FLUX_n(_ERR): Energy flux and associated uncertainty
+for the A band (4FGL-DR4; Abdollahi et al. 2022)
+[ergem~? s“!].
+
+FGL_SPEC_TYPE: Spectral type in the global model (Power
+Law, LogParabola, PLSuperExpCutoff) (4FGL-DR4; Abdol-
+lahi et al. 2022).
+
+FGL_PL_FLUXDEN(_ERR): Differential flux at pivot energy
+
+of the power law fit and associated uncertainty (4FGL-DR4;
+
+Abdollahi et al. 2022) [em~? MeV! s7!].
+
+FGL_PL_INDEX(_ERR): Photon index of power law fit and as-
+
+sociated uncertainty (4FGL-DR4; Abdollahi et al. 2022).
+
+FGL_LP_FLUXDEN(_ERR): Differential flux at pivot energy
+
+of the LogPar fit and associated uncertainty (4FGL-DR4;
+
+Abdollahi et al. 2022) [em~? MeV! s7!].
+
+FGL_LP_INDEX(_ERR): Photon index at pivot energy for
+
+LogPar fit and associated uncertainty (4FGL-DR4; Abdol-
+lahi et al. 2022).
+
+FGL_LP_BETA(_ERR): Curvature parameter of LogPar fit and
+associated uncertainty (4FGL-DR4; Abdollahi et al. 2022).
+
+FGL_LP_EPEAK(_ERR): Peak energy of LogPar fit and as-
+sociated uncertainty (4FGL-DR4; Abdollahi et al. 2022)
+[MeV].
+
+FGL_LP_SIGCURV: Significance of fit improvement between
+Power Law and LogParabola (4FGL-DR4; Abdollahi et al.
+2022) [o].
+
+FGL_PLEC_FLUXDEN(_ERR): Differential flux at pivot en-
+ergy of the PLSuperExpCutoff fit and associated uncertainty
+(4FGL-DR4; Abdollahi et al. 2022) [em~? MeV~! s~!].
+
+FGL_PLEC_INDEX(_ERR): Photon index at pivot energy for
+PLSuperExpCutoff fit and associated uncertainty (4FGL-
+DR4; Abdollahi et al. 2022).
+
+FGL_PLEC_EXPFACTOR(_ERR): Spectral curvature at pivot
+energy for PLSuperExpCutoff fit and associated uncertainty
+(4FGL-DR4; Abdollahi et al. 2022).
+
+FGL_PLEC_EXPINDEX(_ERR): Exponential index of PLSu-
+perExpCutoff and associated uncertainty (4FGL-DR4; Ab-
+dollahi et al. 2022).
+
+FGL_PLEC_EPEAK(_ERR): Peak energy of PLSuperExpCut-
+off fit and associated uncertainty (4FGL-DR4; Abdollahi
+et al. 2022) [MeV].
+
+FGL_PLEC_SIGCURV: Significance of fit improvement be-
+tween Power Law and PLSuperExpCutoff (4FGL-DR4; Ab-
+dollahi et al. 2022) [a].
+
+LAC_SED_CLASS: SED classes listed in the 4LAC catalog by
+Ajello et al. (2022).
+
+LAC_HE_EPEAK(_ERR): High-energy peak position listed in
+the 4LAC catalog by Ajello et al. (2022) and associated un-
+certainty [MeV].
+
+LAC_HE_NUFNU(_ERR): High-energy peak flux listed in the
+4LAC catalog by Ajello et al. (2022) [MeV cm~?s~!].
+
+LAC_LE_FREQ: Low-energy peak position listed in the 4LAC
+catalog by Ajello et al. (2022) [Hz].
+
+LAC_nuFnu_syn: Low-energy peak flux listed in the 4LAC cat-
+alog by Ajello et al. (2022) [ergem~? s~!].
+
+RFC_SRC_NAME: Name of source in RFC catalog (Petrov &
+Kovalev 2025).
+
+RFC_YBAND_RES: Total Y-band flux density integrated over
+entire map (Petrov & Kovalev 2025) [Jy].
+
+RFC_YUPPER_RES: Blank for valid Y-band resolved total flux
+density, — for invalid and < for upper limits (Petrov & Ko-
+valev 2025).
+
+Article number, page 37 of 39
+A&A proofs: manuscript no. main
+
+RFC_YBAND_UNRES: Unresolved Y-band flux density at
+long VLBA baselines (Petrov & Kovalev 2025) [Jy].
+
+RFC_YUPPER_UNRES: Blank for valid Y-band unresolved
+flux density at VLBA baselines, — for invalid and < for upper
+limits (Petrov & Kovalev 2025).
+
+TANAMI_SRC_NAME: Name within TANAMI program (Ojha
+et al. 2010; Miiller et al. 2018).
+
+TANAMIL_CLASS: Class given by TANAMI (Ojha et al. 2010;
+Miiller et al. 2018).
+
+TANAMI_FLUX: Flux density at 8.4GHz from TANAMI (Ojha
+et al. 2010; Miiller et al. 2018) [Jy].
+
+MOJAVE_SRC_NAME: Name of source in the MOJAVE pro-
+gram (Lister et al. 2021; Homan et al. 2021).
+
+MOJAVE_CLASS: Class as listed by MOJAVE (Lister et al.
+2021; Homan et al. 2021) (Q or B).
+
+MOJAVE_FLUX: Flux density at 15 GHz from MOJAVE (Lister
+et al. 2021; Homan et al. 2021) [mJy].
+
+N_MATCH: Number of potential counterparts (S25).
+
+LS10_sep: Angular separation between BLAZE catalog and
+LS10 source [’’].
+
+LS10_use: 1 for agreement on the counterpart with S25, 0 oth-
+erwise.
+
+LS10_RELEASE: LS10 release of counterpart (S25).
+
+LS10_BRICKID: LS10 brick ID of counterpart (S25).
+
+LS10_BRICKNAME: LS10 brick name of counterpart (S25).
+
+LS10_OBJID: LS10 object ID of counterpart (S25).
+
+LS10_RA(_IVAR) , LS10_DEC(_IVAR): Position of LS10
+counterpart (S25) [° , (°)~?].
+
+LS10_Xray_proba: Probability of LS10 counterpart being an X-
+ray emitter (S25).
+
+LS10_FULLID: LS10 catalog ID (S25).
+
+ERO_LS10_ID: Combined eROSITA and LS10 catalog ID
+(S25).
+
+Separation_LS10_ERO: Separation between LS10 counterpart
+and eROSITA position (S25) [’’].
+
+NCAT: Number of catalogs matched (S25).
+
+DIST_BAYESFACTOR: Logarithm of ratio from prior and pos-
+terior distance matching (S25).
+
+DIST_POST: Distance between posterior probability of a match
+compared to no matches (S25).
+
+BIAS_LS10_XRAY_PROBA: Probability of counterpart being
+an X-ray emitter (S25).
+
+P_SINGLE: Similar to DIST_POST including weighting by
+prior (S25).
+
+P_ANY: Probability of any found match being correct (S25).
+
+P_I: Match probability (S25).
+
+MATCH_FLAG: Set to 1 for most probable match, 2 for other
+matches (S25).
+
+TYPE: LS10 morphology model fiven by S25.
+
+LS10_DCHISQ: Difference in y~ between successively more-
+complex model fits separated by _ (S25).
+
+EBV: E(B — V) at source position (S25) [mag] .
+
+FLUX(_IVAR)_X: LS10 band fluxes and associated inverse
+variance (S25) [nanomaggy , nanomaggy~?].
+
+MW_TRANSMISSION_X: LS10 Galactic transmission at po-
+sition of source (S25).
+
+ANYMASK_X: Bitmask information if in any image of a band
+the central pixel satisfies the LS10 catalog criteria (S25).
+ALLMASK_X: Bitmask information if in all image of a band
+the central pixel satisfies the LS10 catalog criteria (S25).
+
+PSFSIZE_X: Size of FWHM of the LS10 PSF (S25) [’’].
+
+PSFDEPTH_X: LS10 5o detection limit for a certain band
+(S25) [nanomaggy~?].
+
+GALDEPTH_X: Same as PSFSIZE_X assuming a galaxy (S25)
+[nanomaggy~”].
+
+Article number, page 38 of 39
+
+WISEMASK_X: Bitmask information (S25).
+
+W(1,2,3,4).MAG_AB: WISE magnitude in AB system cal-
+culated from FLUX_X using MW_TRANSMISSION_X
+[mag].
+
+W(1,2,3,4)_MAG: WISE magnitude in the Vega system
+calculated from FLUX_X using MW_TRANSMISSION_X
+[mag].
+
+SHAPE _R(IVAR): LS10 half-light radius for given TYPE
+(S25) [2].
+
+SHAPE (El , E2)(_IVAR): LS10 ellipticity component of
+galaxy (S25).
+
+SERSIC(_IVAR): LS10 power law index of Sérsic profile and
+associated inverse variance (S25).
+
+REF_CAT: LS10 reference catalog for stars (S25).
+
+REF_ID: LS10 reference catalog id for star (S25).
+
+REF_EPOCH: LS10 reference epoch of REF_CAT (S25) [a].
+
+GAIA_PHOT_G_MEAN_MAG: LS10 Gaia G band magnitude
+(S25) [mag].
+
+GAIA_PHOT_G_MEAN_FLUX_OVER_ERROR: LS10 Gaia
+G band signal-to-noise ratio (S25).
+
+GAIA_PHOT_BP_MEAN_MAG: LS10 Gaia BP band magni-
+tude (S25) [mag].
+
+GAIA_PHOT_BP_MEAN_FLUX_OVER_ERROR: LS10
+Gaia BP band signal-to-noise ratio (S25).
+
+GAIA_PHOT_RP_MEAN_MAG: LS10 Gaia RP band magni-
+tude (S25) [mag].
+
+GAIA_PHOT_RP_MEAN_FLUX_OVER_ERROR: LS10
+Gaia RP band signal-to-noise ratio (S25).
+
+GAIA_ASTROMETRIC_EXCESS_NOISE: LS10 Gaia astro-
+metric excess noise (S25).
+
+GAIA_PHOT_BP_RP_EXCESS_FACTOR: LS10 Gaia BP/RP
+excess factor (S25).
+
+GAIA_ASTROMETRIC_SIGMASD_MAX: LS10
+longest semi-major axis of the 5-d error ellipsoid (S25).
+
+GAIA_DUPLICATED_SOURCE: LS10 Gaia duplicate source
+flag (S25).
+
+INALLLS10: Nominal LS10 survey depth reached in all bands
+(S25).
+
+INANYLS10: Nominal LS10 survey depth reached in one band
+(S25).
+
+DERED_MAG_X: Dereddend magnitude (S25) [mag].
+
+SOFTFLUX_S: eROSITA flux (S25) [ergem7? s~!].
+
+SALVATO18_W1_X_LINEDISTANCE: Distance from separa-
+tion line between Galactic and extra-galactic sources in the
+W1-X-ray plane (S25).
+
+SALVATO22_ZW1_GR_LINEDISTANCE: Distance from
+separation line between Galactic and extra-galactic sources
+in the ZW1-GR plane (S25).
+
+(G,Z,W1)_MINUS_(R, W1 , W2): Color
+(S25) [mag].
+
+HAS_SALVATO18_AGN_COLORS: Information if source has
+colors consistent with being an AGN based on Salvato et al.
+(2018), from $25.
+
+GAIA_MOVING_SSIGMA: Information — if
+movement at 5a significance in Gaia (S25).
+
+HAS_SALVATO22_AGN_COLORS: Information if source has
+colors consistent with being an AGN based on Salvato et al.
+(2022), from $25.
+
+SALVATO_MAIN_ID_SIMBAD: SIMBAD ID (S25).
+
+SALVATO_(RA , DEC)_SIMBAD: SIMBAD position (S25)
+dk
+
+EXGAL_PROB_STAREX: Probability of source being extra-
+galactic by STAREX with Gaia data (S25).
+
+EXGAL_PROB_STAREX: Probability of source being extra-
+galactic by STAREX without Gaia data (S25).
+
+Gaia
+
+combinations
+
+source shows
+Hammerich et al.: BlazErl: The eROSITA Blazar Catalog
+
+CLASS_GAL_EXGAL: Galactic/extra-galactic class assigned
+
+by S25.
+
+SALVATO_HECATE: 1 for sources within HECATE source
+(S25) [°].-
+
+SALVATO_HEC_OBJNAME: Name of HECATE source
+(S25).
+
+SALVATO_HEC_RA , SALVATO_HEC_DEC: Position of
+HECATE source (S25) [°].
+
+SALVATO_HEC_R1: Semi major axis of HECATE source
+(S25) (J.
+
+SALVATO_HEC_R2: Semi minor axis of HECATE source
+(S25) [’].
+
+SALVATO_HEC_PA: Position angle of HECATE source (S25)
+[°]. HECATE source (S25) [’’].
+
+PURITY(6,7, 8): Purity obtained for DET_LIKE_0 > (6,7, 8)
+at source position (S25).
+COMPLETENESS(6 , 7,8): Completeness _ obtained
+DET_LIKE_0 > (6,7, 8) at source position (S25).
+COMPUR(6 7, 8): Intersection between completeness and
+purity obtained for DET_LIKE_0 > (6,7,8) at source po-
+sition (S25).
+
+THRESHOLD(6 , 7 , 8): P_ANY value at intersection obtained
+for DET_LIKE_0>(6, 7 , 8) at source position (S25).
+
+Z_PHOTO(_S3L ,_S3U ,_SIL,_S1U): 3c and lo upper and
+lower value of photometric redshift (S25).
+
+Z_SPEC: Spectroscopic redshift from Kluge et al. (2024) pro-
+vided by S25.
+
+SPEC_REF: Source with Z_SPEC from Kluge et al. (2024) pro-
+vided by S25 [°].
+
+Z_ABC: Redshift listed in the ABC catalog (Paggi et al. 2020).
+
+Z_HSP: Redshift listed in the 3HSP catalog (Chang et al. 2019).
+
+Z_F_HSP: Redshift flag listed in the 3HSP catalog (Chang et al.
+2019).
+
+Z_MILLIQUAS: Redshift listed in the Milliquas catalog
+(Flesch 2023).
+
+Z_HIGHZ: Redshift listed in the HighZ sample.
+
+Z_HIGHZ_REF: Paper reference for high-redshift sources.
+
+Z_MOJAVE: Redshift listed in MOJAVE.
+
+Z_ALAC: Redshift listed in the 4LAC catalog (Ajello et al.
+2022).
+
+Z_BZCAT: Redshift listed from the BZCAT catalog (Massaro
+et al. 2015).
+
+Z_U_BZCAT: Redshift flag from the BZCAT catalog (Massaro
+et al. 2015).
+
+Z_CGRABS: Redshift listed in the CGRaBS catalog (Healey
+et al. 2008)
+
+Z_F_CGRABS: Redshift flag listed in CGRaBS catalog
+(Healey et al. 2008)
+
+Z_VERONCAT: Redshift listed in the VERONCAT catalog
+(Véron-Cetty & Véron 2010)
+
+Z_VERONCAT_QSO: Redshift listed in the VERONCAT QSO
+catalog (Véron-Cetty & Véron 2010)
+
+Z_SIMBAD: Redshift listed on SIMBAD.
+
+Z_MASTER: Reliable redshift adopted for population studies
+(for selection see Sect. 4.4).
+
+Z_MASTER_REF: Source of Z_MASTER.
+
+Z_MASTER_PHOTO: Reliable redshift including the photo-
+metric ones from $25.
+
+Z_MASTER_PHOTO_REF: Source
+Z_MASTER_PHOTO was taken from.
+
+XRAY_LUM_n(_ERR): X-ray luminosity calculated from the
+fixed Ix = 2.0 fit and Z_MASTER [erg s~'].
+
+XRAY_LUM_PHOTO_n(_ERR): X-ray luminosity calculated
+from the fixed Tx = 2.0 fit and Z MASTER_PHOTO
+[ergs].
+
+for
+
+where
+
+alpha_XG(_ERR): axr using PWL20_FLUX_UNABS_0 and
+FGL_FLUX_A and associated uncertainty.
+
+alpha_IRX(_ERR): ajax using PWL20_FLUX_UNABS_0 and
+FLUX_W1 combined with MW_TRANSMISSION_W1
+and associated uncertainty, including a systematic uncer-
+tainty.
+
+alpha_OX(_ERR): a@ox using PWL20_FLUX_UNABS_0 and
+FLUX_R combined with MW_TRANSMISSION_R and as-
+sociated uncertainty, including a systematic uncertainty.
+
+alpha_RX(_ERR): a@px using PWL20_FLUX_UNABS_0 and
+RFC_XBAND_RES and associated uncertainty.
+
+alpha_TANAMI(_ERR): @tanami
+PWL20_FLUX_UNABS_O and TANAMI_FLUX
+associated uncertainty.
+
+alpha_MOJAVE(_ERR): a@mojave
+PWL20_FLUX_UNABS_O and MOJAVE_FLUX
+associated uncertainty.
+
+SIMBAD_SRC_NAME: Name of closest source match on
+SIMBAD.
+
+SIMBAD_TYPE: Type of source, if a blazar or AGN classifica-
+tion or a more precise type is listed as alternative, this one is
+selected.
+
+SIMBAD_ALT_TYPES: All alternate types as listed in SIM-
+BAD.
+
+SIMBAD_TYPE2: Type of source as listed by SIMBAD.
+
+SIMBAD_ANGSEP: Angular separation between BLAZE cat-
+alog source and SIMBAD source [°]
+
+CAMBRIDGE _SRC_NAME: Name in Third Cambridge cata-
+log of radio sources as listed in SIMBAD.
+
+PARKS_SRC_NAME: Name in Parkes catalog of radio sources
+as listed in SIMBAD.
+
+TEXAS_SRC_NAME: Name in Texas survey of radio sources
+as listed in SIMBAD.
+
+EINSTEIN_SRC_NAME: Name in Einstein 2E catalog of IPC
+X-Ray sources as listed in SIMBAD.
+
+COMMON_SRC_NAME: Most commonly used source name
+from the above as listed in SIMBAD.
+
+BZCAT_RMAG: R-band magnitude from the BZCAT catalog
+(Massaro et al. 2015) [mag].
+
+BZCAT_FR: Radio flux density at 1.4GHz or if unknown at
+0.843 GHz from the BZCAT catalog (Massaro et al. 2015)
+[mJy].
+
+BZCAT_F143: Flux density at 143 GHz from the Planck Com-
+pact Source Catalog Public Release 1 from the BZCAT cat-
+alog (Massaro et al. 2015) [mJy].
+
+BZCAT_FLUX_U: X-ray flux in the 0.1-2.4 keV band from the
+BZCAT catalog (Massaro et al. 2015) [fWm~].
+
+BZCAT_FLUX_B: y-ray flux in the 1-100 GeV band from the
+BZCAT catalog (Massaro et al. 2015) [photons cm~? s~!].
+
+BZCAT_ALPHA_RO: The radio-to-optical spectral index of
+the blazar from the BZCAT catalog (Massaro et al. 2015).
+
+XIE_MORPH_BZCAT: Radio morphology for BZCAT sources
+as listed in Xie et al. (2024).
+
+XIE_MORPH_KDEBLLACS: Radio morphology for KDE-
+BLLACS sources as listed in Xie et al. (2024).
+
+XIE_MORPH_WIBRALS: Radio morphology for WIBRaLS
+sources as listed in Xie et al. (2024).
+
+using
+and
+
+using
+and
+
+Article number, page 39 of 39

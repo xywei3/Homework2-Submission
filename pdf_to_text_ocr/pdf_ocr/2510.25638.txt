@@ -1,0 +1,1168 @@
+arXiv:2510.25638v1 [math.DS] 29 Oct 2025
+
+Symmetric Central Configurations in the Concave
+4-Body Problem with Two Pairs of Equal Masses
+Yangshanshan Liu! and Zhifu Xie?
+
+'Chern Institute of Mathematics, Nankai University, Tianjin, 300071,
+China, lyss6133@nankai.edu.cn
+
+School of Mathematics and Natural Science, The University of Southern
+
+Mississippi, Hattiesburg, MS 39406, USA, Zhifu.XieQusm.edu
+
+Abstract
+
+We establish the existence of a single-parameter family of the concave kite
+central configurations in the 4-body problem with two pairs of equal masses. In
+such configurations, one pair of the masses must lie on the base of an isosceles
+triangle, and the other pair on its symmetric axis with one mass positioned
+inside the triangle formed by the other three. Using a rigorous computer-
+assisted analytical approach, we prove that for any non-negative mass ratio,
+the number of such configurations is either zero, one, or two, which can be
+viewed as a complete classification of this particular family. Furthermore, we
+show that the unique configuration corresponding to a specific mass ratio is a
+fold-type bifurcation point within the reduced subspace. We also give a clear
+and complete bifurcation picture for both symmetric and asymmetric cases of
+this concave type in the whole planar 4-body configuration space.
+
+Keywords: central configurations, concave central configurations, Newtonian 4-body
+
+problem, Krawczyk operator, bifurcations
+
+Contents
+
+1 Introduction 2
+
+2 Preparations 4
+2.1 The interval arithmetic method and the Krawczyk operator... ...... 5
+2.2 Bifurcations .. 2... ee 5
+
+3 The symmetric central configurations in the concave 4-body problem
+
+with two pairs of equal masses 6
+3.1 Avsingle-parameter family .. 2.2... ee 8
+3.2 The mass ratiom=m(a) . 0... 13
+3.3 Bifurcations in different spaces... 2... 0. ee 14
+3.3.1 Bifurcations in the reduced subspace ............0.00.. 14
+3.3.2 Bifurcations in the whole planar 4-body configuration space .... 17
+
+a
+1 Introduction
+
+The classical n-body problem concerns the study of n particles with positive masses mj;
+and positions q; = (qi,:-- ; dia)’ € R47 (i =1,--- ,n; d = 2,3) governed by Newton’s law
+of motions
+
+ij
+where ie S mm > mim;
+1 lai — ail iy TH
+
+is the Newtonian potential and r;; = |g; — qj| is the mutual distance between the bodies
+m, and m,;.
+
+This set of equations possesses a kind of special solutions called homographic solutions,
+namely, each body moves on a similar Keplerian orbit, and the configuration remains the
+same up to symmetries. This particular shape is called a central configuration
+
+°) OU(q) mam (di ~ %)
+
+Og; ;
+
+iAj i=l y
+
+(2)
+
+n
+where c = Sm So mig; is the center of mass and \ the configuration constant. The
+“i=l
+
+equations (2) are invariant under translation, dilation, and rotation, and we say two
+central configurations are equivalent if they can be transformed from one to another by
+combining the above three operations.
+
+The first two central configurations are found by Euler and Lagrange, who respectively
+constructed two classes of homographic solutions for the 3-body problem. These two
+central configurations are now named after them. In fact, according to Wintner [42], they
+are the only two types of central configurations of the 3-body problem. Similar questions
+are raised for the general case, which is known as the finiteness conjecture [8,39, 42]: For
+any given n positive masses, the number of equivalent classes of central configurations of
+the n-body problem is finite. The conjecture holds for n = 4 [16], and for n = 5,6, only
+generic results have been derived [3,7, 15]. Less is known for n > 7. It also holds for
+some very particular shapes, such as the Moulton collinear central configurations [28] for
+n bodies, and some equal mass cases [1, 20, 25].
+
+In the 4-body problem, despite a rich body of research, a complete and precise clas-
+sification of central configurations remains unavailable. The convex case, however, is
+comparatively better understood. MacMillan and Bartky established the existence of a
+convex central configuration for any four ordered masses [23], with an alternative proof
+provided later by Xia [43]. Regarding the uniqueness aspect, while Sim6 and Yoccoz ad-
+dressed the problem, a rigorous mathematical proof is still lacking, with support limited
+to numerical evidence. The existence and the uniqueness conjecture has been confirmed
+for several specific convex shapes [11,34,35,44]. Sun, Xie, and You [40] recently made a
+closed step forward, giving a proof for masses sufficiently bounded away from zero. The
+characterization of the convex case with partial equal masses has been thoroughly estab-
+lished [2, 13,31], and Corbera, Cors, and Roberts have achieved a complete classification
+of the convex 4-body central configurations [9].
+
+For the concave 4-body central configurations, the classification remains unresolved,
+despite the proof of their existence [14]. The solutions for the concave shapes with some
+
+partial equal masses were mentioned or discussed in [5, 21,37]. In addition, a simple
+degenerate concave central configuration in the 4-body problem was discovered by Palmore
+[30], which facilitated studies on the bifurcation problems of central configurations [6, 19,
+24, 38].
+
+A non-collinear central configuration is called a kite shape if it has a symmetry axis
+passing through two of the four masses. It is strictly convex if each body lies in the
+exterior of the convex hull formed by the other three; otherwise, it is strictly concave.
+There is no such central configuration satisfying only three of the four bodies are collinear,
+according to the Perpendicular Bisector Theorem (i.e., Lemma 1 in this paper). If a
+convex central configuration has two opposite equal masses, it must be a kite [2, 22].
+Furthermore, it is actually a rhombus according to the study by Bernat, Llibre, and
+Pérez-Chavela. For the kite shape with three equal masses, Bernat et al. [6] gave a
+full classification. Corbera and Llibre [10] gave a complete description of the families of
+central configurations with two pairs of equal masses and two equal masses sufficiently
+small. Santoprete [36] characterized the kite shape in terms of mutual distances. Roberts
+[32] showed the existence and uniqueness of the convex kite shape, and discussed the
+corresponding bifurcation and linear stability.
+
+In this paper, we focus on the concave central configurations of the 4-body problem.
+We present a nice characterization of the kite shape with two pairs of equal masses. We
+establish analytically in Theorem 1 that such concave kite central configurations constitute
+a single-parameter family. Then we employ interval arithmetic and the Krawczyk operator
+to establish a rigorous, computer-assisted proof for the complete classification of this
+concave kite configuration, as presented in Theorem 2.
+
+Theorem 1. Suppose that the planar 4-body central configuration is a concave kite shape
+with two pairs of equal masses. Then, one pair of the two must lie on the base of an
+isosceles triangle, and the other pair lies along the symmetry axis, with one body inside
+the triangle formed by the other three. Together, these concave kite central configurations
+constitute a single-parameter family.
+
+Remark 1. Geometrically, this family of central configurations is fully parameterized
+by the small blue triangle Ajo3 in Figure 1. Specifically, this small triangle deforms
+continuously from a degenerate triangle position with m,,m2 and m3 collinear, to an
+equilateral triangle. Correspondingly, the angle 7312 = 2321 increases from 0 to 7/3.
+
+Theorem 2. Suppose that the concave kite central configurations possess two pairs of
+equal masses, with my = mz = 1 on the base and mg = m4 = m > 0 on the symmetry
+axis. Then
+
+1. there are precisely two types of concave kite central configurations if m € (0, mo);
+2. there is only one if m= mo;
+3. there is no such kite central configuration if m > mo,
+
+where mo & 1.002713329037083.
+
+Furthermore, if m = 0 is admissible, there are exactly two types of central configura-
+tions. In both, m1,m2 and m4 form an equilateral triangle convex hull, and m3 is located
+either on the midpoint of m, and mg, or it coincides with m4.
+Figure 1: A symmetric planar central configu-
+ration in the concave 4-body problem with two
+pairs of equal masses, where m, = mz are lo-
+cated on the base and m3 = mz, on its symmet-
+ric axis with m3 inside the triangle formed by
+the other three.
+
+Our results improve and extend those of Martha and Llibre [5] for the same concave
+kite shape. While their study assumed the mass ratio 0 < m < 1, we demonstrate that
+the configuration can be continued tom = mo > 1 and m = 0. Similar discussion can
+be found in [41,44] for the convex cases with two pairs of equal masses, i.e., the isosceles
+trapezoid and the rhombus central configurations, and in both cases, the mass ratio ranges
+in [0,1] by normalizing the larger pair of masses to be 1.
+
+Our study further examines the bifurcations of the concave configurations with two
+pairs of equal masses. In contrast to the analysis in [33], Theorem 2 establishes the
+critical threshold mp beyond which the bifurcation branch ceases to continue. We also
+demonstrate that the unique solution at m = mp represents the only fold bifurcation
+point in this symmetric subspace, differing from the bifurcation structure in the entire
+planar configuration space of the 4-body problem. Building on the results from [10,33],
+as well as our study, we can establish a complete bifurcation picture for concave central
+configurations with two pairs of equal masses when the symmetry axis is fixed. The
+complete picture is illustrated in Figure 3.8, with the corresponding numerical examples in
+Table 3.1. As the mass parameter m increases from 0 to oo, symmetric solutions emerge in
+pairs. When m passes through a pitchfork bifurcation point at m, + 0.992299447752385,
+pairs of asymmetric solutions appear. Finally, when m reaches mo, the two symmetric
+solutions coalesce and then vanish for m > mo, leaving the asymmetric solutions as the
+only remaining ones.
+
+The whole paper is constructed as follows. In the next section, we introduce some
+necessary results used in this paper, including the Perpendicular Bisector Theorem, basic
+theories and settings for the interval arithmetic and the Krawczyk operator, as well as
+the related bifurcation theory. In Section 3 we prove Theorem 1 and 2. At the end of
+Section 3, we discuss the bifurcations of this concave central configurations with two pairs
+of equal masses.
+
+2 Preparations
+
+The following result is widely used in determining the possible positions of the bodies in
+a planar central configuration.
+
+Lemma 1 (Perpendicular Bisector Theorem, [26]). Let q be a planar central configu-
+ration and let q, and q; be any two of its points. Then, if one of the two open cones
+determined by the line through q and q; and its perpendicular bisector contains points of
+the configuration, so does the other one.
+
+2.1 The interval arithmetic method and the Krawczyk operator
+
+Suppose that F(x): D Cc RY > R* is a C' function with « € RY. We aim to solve the
+equation
+F(x) =0. (3)
+
+We use interval analysis to find zeros of (3). The basic theory, including the interval arith-
+metic and the Krawezyk operator, can be found in [4,17, 27,29], as well as its applications
+in central configurations [25, 33, 40].
+
+Let [2] C R* be a closed interval. We denote by R(F;[z]) = {F(x) : x € [x]} the
+range of F over [a] and F({x]) the final interval under the interval computation. A simple
+but essential property of the interval arithmetic is
+
+R(F; [2]) € F([2]). (4)
+
+The Krawczyk operator is based on the modified Newton operator and the Brouwer fixed-
+point theorem. The derivative, namely, the Jacobian matrix of F' at x, is denoted by
+DF (x). If DF() is non-singular, we define the Krawczyk operator of F as the following:
+
+K (to, [e]) =e» — C- F(a) + Id — C - DF((a)([2] — 20), (5)
+
+where C € R%* jis a linear isomorphism. The properties of this operator are listed as
+follows
+
+Lemma 2. 1. Jf x* € [x] and F(x*) = 0, then x* € K(2o, [a])-
+
+2. If K (xo, [x]) C int|z], then there exists exactly one solution of equation F(x) = 0 in
+[x]. This solution is non-degenerate with DF(«) an isomorphism.
+
+3. If K(x, [x]) 9 [x] = 2, then for all x € [x] we have F(x) £0.
+
+We can write a program in SageMath [12] to find zeros of (3). The main idea of
+the program is to cut the N—dimensional interval into small enough pieces and find
+zero on these pieces one by one. The property (4) and the definition (5), together with
+Lemma 2, guarantee that this computer-assisted interval approach is rigid in mathematics.
+This approach has been successfully applied in [40] to partially solve the existence and
+uniqueness conjecture for the planar convex 4-body central configurations, in which we can
+find very explicit and detailed information for the arithmetic. In contrast, our program
+is similar, but simpler and efficient, since in this paper, N equals 1 or 2, which makes it
+easy to iterate and calculate. We apply the program in Section 3 in the proofs of Lemma
+4 and Theorem 2 to analyze the zeros of the corresponding equations respectively. Then
+we use it again to discuss the bifurcations.
+
+2.2 Bifurcations
+
+Suppose that
+F:RYxR->RY
+
+x, 1) 4 F(a,p),c ERX, weER
+(x, 1) Hl); |
+
+5
+is a smooth map and p is a parameter. We follow the notation in Subsection 2.1, that
+DF(c) is the Jacobian of F' with respect to x. We use F,, to denote the vector of partial
+derivatives of the components of F' with respect to jz. Consider the system F(x, js) = 0.
+When yp varies, the number of its solutions may change, implying bifurcations in the
+system. The following theorem can be seen as the definition of different bifurcations for
+simple eigenvalues. One can refer to [18] for more information, as well as to [33] for a
+particular application in central configurations.
+
+Theorem 3. Suppose that F(xo, lo) = 0, and the Jacobian matrix Jp = DF (29, Wo) has
+a simple eigenvalue Ao = 0 with eigenvector v. Denote by w the adjoint eigenvector, 1.e.,
+JfPw =0, where JF is the transpose of Jr.
+
+w" F,,(o, fo) # 0
+1. If {urotReoc 40 >
+
+then the system experiences a fold bifurcation at the equilibrium point xo as the
+parameter tt passes through the bifurcation value 1 = Lo.
+
+w’ F,,(xo, fo) = 0
+2. If} — w"(DF,(ao,40)v) #0,
+‘7 (D?F (x9, 0)(v,0)) #0
+then the system experiences a transcritical bifurcation at the equilibrium point
+Xo as the parameter ts passes through the bifurcation value [4 = Lo.
+
+w" F,,(20, Ho
+
+w" (DF, (xo, Ho)v
+
+w? (D?F (ao, Ho)(v, v)
+
+w? (D¥F (ao, Ho)(v, ¥,&)
+
+then the system experiences a vitehton bifurcation at the equilibrium point xo
+as the parameter «1 passes through the bifurcation value ts = [Uo.
+
+If w? (D3 F (xo, Uo) (v, v,v)) < 0, the branches occur for > fo, and the bifurcation
+
+is supercritical. Otherwise, the branches occur for ju < jio, and the bifurcation is
+
+subcritical.
+
+)=0
+)#0
+=o"
+)#
+
+3 The symmetric central configurations in the con-
+cave 4-body problem with two pairs of equal masses
+
+We show in the following that the only position of a concave kite central configuration
+with two pairs of equal masses is the one shown in Figure 1. In other words, one pair
+of the equal masses must lie on the base of an isosceles triangle, and the other pair lies
+on the symmetry axis of the base, with one mass inside the triangle formed by the other
+three. Let
+
+T13 = @,T14 = b
+and rj2 = 2. The central configuration equations can be written under the position
+coordinates as
+y mo(qi — qe) , ma(qi— 93) , mali — G4)
+a © 3 vr 3 3 ,
+rie T'713 "4
+_m(@- aH) , ™3(42— 4%) , mad — W)
+Ag — € 3 v 3 3 ,
+Tio 193 194
+_ _ _ (7)
+d m1 (q3 un) m2(q3 q2) mal qs q4)
+73 = 3 v 3 3 ’
+"13 193 "34
+X mia aH) , m2(qG— 4) , ms3(G — 43)
+ga) = 3 a 3 3 :
+Ta 194 34
+We set
+n 1,0), @ = (1,0), 93 = (0, Va? — 1), qa = (0, Ve? — 1) (8)
+
+withb>a>1.
+
+Proposition 1. Suppose that a concave kite central configuration for the 4-body problem
+with two pairs of equal masses possesses mass values 1 and m. Then one pair of the
+equal masses must lie on the base of an isosceles triangle, and the other pair lies on the
+symmetry axis of the base, with one mass inside the triangle formed by the other three.
+
+Proof. The proposition holds for m = 1 according to the two concave equal mass central
+configurations in [1], ie., one possesses an equilateral triangle convex hull, and the other
+one possesses an isosceles triangle shape.
+
+If m ¥ 1, we suppose that my = m4 = 1 and my = m3 = m. Substituting the masses
+and (8) into (7) and after some simplification we obtain six equations
+
+m 1 X(38m+1) m
+aa (m+ 1) +7
+m 1, Am+3)_ 1
+a b° Am+1) 4
+m—-1  \(1—m)
+“as Qm+ 1)’
+—_m-1_ X(1—m) (9)
+~ B  Bm +1)’
+d (Va? = Im + Ve? —1) nN Vaz —1m Fa Vb? —1
+2(m +1) a3 Bo
+d (va? = — Ve? —1) it Vvaz—1 Je—1
+:
+
+m+1 (V@—1-VP—1) a B
+
+From the sum of the first two equations, we have
+(m— 1)(—4A +m +1)
+4(m + 1)
+
+which implies A = (m+ 1)/4. Substituting it into the third and the fourth equations we
+have
+
+=0,
+
+_ (a = 8) (m=)
+
+v= 8a
+— (b? — 8) (m—1)
+7 8b?
+which implies a = b = 2 since m # 1, contradicting to the assumption. Almost in the
+same way, we derive the same contradiction when m; = m3 = 1 and mg = m4 = m.
+Therefore, the only way to deposite the masses is m, = m2 and m3 = m4, as shown in
+Figure 1.
+
+3.1 A single-parameter family
+
+m(V/a?—1+V/b?—1)
+2(1+m) ).
+Substituting the masses and positions in (8) into (7) and with some simplification we
+
+obtain
+
+Now let m, = mz = 1 and m3 = m4 =m. The center of mass is c = (0,
+
+1 1 1
+
+aN =m(5 + p) +h
+
+9 ve = 1+Ve@—-1) Vae-1 Vea
+
+2(m+ 1) a3 BB?
+
+Am(Va? — 14 Vb? — 1) n m + Vea Id 2
+2(m +1) (Ja? —1 — Ve? — 1)? a
+
+Am(Va? — 14 Vb? — 1) m BHAA 2
+2(m + 1) (Ja? —1-— Vt? — 1)? BB”
+
+Noticing that the fourth equation is equivalent to the sum of the second and third equa-
+
+tions, we can substitute \ derived from the first equation into the second and third ones
+and reduce them, then get the following three equations:
+
+);
+
+4 m5 a)+y 0, (10a)
+
+_ 1 Va?—1-VeP-1, Va? —1(8-a3) |
+a ma = Va + 53 ) 4a? 0, (10b)
+_VE=T-VPAT, , VP=TW-¥) ggg
+
+92 <a Ve— 1)? 7 a 4b3
+
+From (10b) we obtain
+
+a? — 1(a3 — 8)b?(Va? — 1 — Ve? — 1)?
+
+From (10b) and (10c) we obtain a mass-free equation
+ab — 1(b8 — 8) (68 + (Va2 — 1 — VP — 1)3)+
+D8 Va? — 1(a3 — 8)(a3 + (Va? = 1 — VP? =1)) = 0.
+
+First, we characterize a and b from Lemma 1.
+
+(11)
+
+Corollary 1. Suppose that (a,b) is a solution for (10a)-(10c), satisfying a < b. Then we
+have a € I4 = (1,2) and b € Ip = (V2, V2(V3 +1)) form > 0. More precisely, we have
+the following:
+
+L. If V2 <b <2, then1 <a<rgq < 2/V3 and m > 0.
+2. Ifb =2, thena=2/V3 andm =1.
+3. If2<b< V2(V3 +1), then 2/V3 < 134 <a <2 andm>0.
+In addition, if m= 0 is admissible, then b = 2, anda =1 or 2.
+
+Proof. Firstly, by substituting 6 = 2 into (10c), we obtain m = 0 or a = 2/3. Then,
+substituting m = 0 into (10b), we get a = 1 or a = 2; substituting a = 2/3 into (10b),
+we get m= 1.
+
+Secondly, we claim that a < 2 holds. Otherwise, suppose that a > 2. As shown in
+Figure 3.2, the red dashed line characterizes the equilateral triangle, and A; is the apex.
+Then ms is directly above A; and mz, is directly above m3. The blue dashed line is the
+perpendicular bisector of r13. The region in blue denotes one of the cones divided by the
+two blue lines. We can clearly see that m4 and mz will always lie in the blue region, which
+implies that it cannot be a central configuration when a > 2.
+
+Thirdly, as shown in Figure 3.3, we assume that the center of the equilateral triangle
+is A. The intersection of r;4 and its perpendicular bisector is Ag, and the intersection of
+this perpendicular bisector and the symmetry axis is A3. The right triangle Am,A2A3 is
+similar to AA;m,O. Then we have
+
+ma Ag miA3
+
+m4O mam
+
+which implies m4A3 = 0?/(2Vb? — 1).
+
+e When b < 2, As is directly below A. Then mg lies in the grey cone shown in Figure
+3.3. This implies mg is directly below A3, namely, i.e., m3O0 < A30 < AO. From
+the first and the third terms, we have rj3 = a < Am, = 2 J/3. From the former
+inequality, we have Va?—1 < Vb? —1— b?/(2Vb? —1), ie, Va? -1V0?-1 <
+(b? — 2)/2, which implies b > V/2.
+
+e Similarly, when b > 2, mo is not in the grey cone, and m30 > A30 > AO, ie.,
+Va—1 > Ve 1 - 0?/(2Ve—1) > 1/V3. From the first and the third term,
+we have a > 2/./3. The first inequality implies that rj3 > rga, ie., Vb? -—1 <
+a+ Va? —1<2+4+¥3. Then b < /2(V/3 +1) with a < 2.
+
+Now let
+Va? — 1(a? — 8)
+=
+a® ,
+a, =(Va? — 1 — Vb? — 1)? +03, (12)
+_VP—1(83 — 8)
+~ bs ,
+yr =(Va? — 1 — Vb? — 1)? +0.
+Then m in (11) can be written as
+m=", (13)
+a
+
+where w, = a3b4(/a? — 1 — V/b? — 1)?/4 > 0. The mass-free equation can be written as
+rr, + yy, = 0. (14)
+
+We claim that the following inequalities hold.
+
+9
+Figure 3.2: Bisecting r13 when r13 = a > 2. Figure 3.3: Bisecting rj4 when ry4 = b < 2.
+
+Lemma 3. Suppose that x,21,y,y1 are defined in (12). Then
+x«<0, y>O, (15)
+
+and
+Ox, <0, Oy: 1)
+Ob ~ ” Ob
+hold for anya € I, andb € (V2, bi) & Tp, where b, is the only real root in Tp of the
+polynomial equation
+
+>0 (16)
+
+p(z) = —22° + 32° + 402? — 48 = 0. (17)
+
+Proof. For (15), It is easy to see that  < 0 when 1 < a < 2. Ifa < b, then from the
+obtuse triangle Am,m m3 shown in Figure 1, we find that rj4 is the longest side, which
+implies ry4 > ga, ie., yr > 0. If a > b, y: > 0 holds obviously.
+
+For (16), by direct computation, we have
+
+dx, —3b(Va2 1 - VB — 1)?
+
+ab PI
+dy: 3b(bV/ — 1 — (Va? —1 — VP —1)”)
+ob 1 ,
+
+dy _0?(b® — 8) + 3b3(b? — 1) — 6(b? — 1)(b’-8) __p(0)
+ob bre? — 1 bez — 1
+
+It is easy to see that Ox, /0b < 0. For the second inequality, we have
+
+A(y- y1) Oy Oy
+
+a ap TY Spe
+
+We consider three cases.
+
+Firstly, when a < 2 < b < V2(V34 1), we have y > 0. We aim to show that
+Oy/Ob, Oy, /Ob are both positive, and this implies O(yy,)/0b > 0. The parenthesis in the
+numerator of Oy,/Ob satisfies bb? — 1 — (Va? — 1 — Vb? — 1)? > Vb? — i (Ja? —1-
+Vb = 1)? = Va? — 1(2\V/0? — 1 — Va? — 1) > 0. Meanwhile, for the numerator of dy/db,
+
+10
+without much difficulty, we compute the derivatives of p(b) till the third order. p'”(b) =
+18 — 1200? < 0 in (2, V2(V3 + 1)), and this implies p’(b) = 80 + 18b — 400? is decreasing
+in (2,V2(V3 + 1)). We compute p”(2) = —204, which implies p’(b) is decreasing in
+(2, V2(V3 + 1)). In addition, p'(2.14) > 0 and p/(2.15) < 0 implies p(b) has a unique
+maximum in (2.14,2.15). From p(2.75) > 0 and p(2.76) < 0 we find that p(b) has a
+unique zero by € (2.75, 2.76). So, for 2 <b < by, we have Oy/Ob > 0.
+
+Secondly, for the case 2 < b < 2, we claim
+
+oie . (b' VB —1) (2h, ty: Oh VP 1) = ky thy + ks + ha > 0,
+D
+
+where
+
+ky =y1 - (3 — 2b°)(b? — 8),
+
+ky =y, « (30° — 3)b?,
+
+ky =y1 - (3 — 3b°)(b* — 8),
+
+ky =(b(b? — 1) — Vb? — (Vb? —1 — Va? — 1)?) - 3b°(0? — 8).
+
+It is obvious that k, and ky» are positive. Furthermore we have
+
+keg + ky =3(b — 8)[(—(0 — 1))(0? — (Ve = 1 — Va? 19) +
+BVP —1(bVP—1- (VP —1- Ve -1)”)]
+
+=3(0° — 8)Ve2— 1(VeR —1- Ve? — 1)? (VR -1 — BP -— VR Vv? — 1)
+=3(b° — 8) Vb? — 1(Vb? — 1 — Va? — 1)?(-1 — Va? — 1 Vb? — 1) > 0.
+
+For the case b = 2, by direct computation we have y = 0 and Oy/0b > 0, which implies
+O(yy1)/Ob > 0. Together with the above two cases, we complete the proof.
+
+We denote by g(a, b) = xv, + yy.
+Lemma 4. For any a € I, there exists a unique b = b(a) such that
+1. g(a,b) <0 for V2 <b < dla),
+2. g(a, b(a)) =0, and
+3. g(a,b) > 0 for b(a) <b < 5/2.
+Proof. On the one hand, g(a, V2) =
+
+(/2 — 4)((Va2? —1- 1)? +272) (a? — 8)(a + (Va? —1 - 1)8) Va? - 1
+
+4 a®
+
+<0,
+
+since the two parentheses in each term, i-e., ((Va2 — 1-1)? +2V2) > 0 and a3+(Va? — 1-
+1)? > 0 hold with a € J4. On the other hand, g(a, 5/2) =
+
+244/21 (Va? — 1 — 21/2)? + 125/8) | (a — 8) Va? = (a? + (Va? — 1 - V21/2)')
+15625
+
+aé ,
+We apply the computer-assisted interval arithmetic introduced in Section 2.1 to
+
+F = g(a,5/2) =0
+
+11
+to show rigorously that this single variable equation has no zero when a belongs to the
+closure of I,, i.e., [4 = [1,2]. In addition, by direct computation, g(3/2,5/2) =
+
+—15609375V/5 + 5558625./21 + 23836392,/105 — 230181064
+22781250 0
+
+which implies g(a,5/2) > 0 for all a € I4. Hence, by the Intermediate Value Theorem,
+there exists at least one b € (V2,5/2) such that g(a, b) = 0.
+On the other hand, from Lemma 3, for any a € I4 and b € (V2, 5/2) we have
+
+Og 2 Oe _ y+ y1)
+db Ob
+
+> 0,
+
+since 5/2 < b;. Hence, from the Implicit Function Theorem, b = b(a) is a differential
+function for a € I4. The set
+
+T = {(a,b)|9(a,6(a)) = 0,4 € La}
+
+is a smooth curve on the (a, b)-plane; see the black dotted-dashed curve in Figure 3.4.
+Lemma 5. g(a,b) = 0 has no zero in Ta x [5/2, V2(V3 + 1)].
+
+Proof. We split each one-dimensional interval into 100 equal parts and obtain 104 subin-
+tervals. We check whether possible zeros exist in each subinterval. For example, for one
+of the subintervals 6 = [1,1.01] x [2.5,2.5 + (/2(V3 + 1) — 2.5)/100], we compute the
+interval value of g(a, b) on this subinterval and obtain
+
+g((L, 1.01], [2.5, 2.5 + (/2(V3 + 1) — 2.5)/100]) € [0.232, 11.623] 3 0.
+
+Then, from the property (4) we know that 0 ¢ R(g(a,b);), which implies g(a, b) has no
+zero on @. In a similar way, we deal with the other subintervals. Finally, we derive the
+result.
+
+The proof of Theorem 1. From Proposition 1 we know that the only position for a concave
+kite shape with two pairs of equal masses is the one shown in Figure 1. From Lemma 4
+we know that b = b(a) is uniquely determined by a € I4. By substituting b = 6(a) into
+the expression of m in (11) we obtain
+
+a8 in Ve? = 1(a — 8)6%(Va?—1 — VP? - 1)
+4a3((Va? —1— Vb? — 1)3 + b)
+
+which implies that 7m(a) is a positive differentiable function with respect to the only
+variable a € I.
+
+In conclusion, for any a € Ia, b = b(a) and m = m(a) are uniquely determined
+successively. Hence, the concave kite central configurations in the planar 4-body problem
+with two pairs of equal masses, as shown in Figure 3.5, form a single-parameter family
+with the parameter a € I4.
+
+> 0,
+
+12
+ba)
+
+ri(a)
+
+Lo 12 14 16 18 2.0
+
+Figure 3.4: The function b = 6(a) (the dashed-dotted black curve) and m = 1io(a) (the solid green curve)
+with a € I4. The minimum point of b(a) is (a,b(a)) = (1.0068269818055548, 1.6641309857549297). The
+maximum point of 6(a) is (a, 6(a)) = (1.5397067078739939865, 2.4488397355312008965). The maximum
+point of 7n(a) is (a, 7(a)) = (1.1733802447932032924, 1.00271332903708271708).
+
+3.2. The mass ratio m = m(a)
+
+In this section, we prove Theorem 2. Using the computer-assisted interval arithmetic
+introduced in Section 2.1, we show rigorously that the smooth function 7(a) possesses a
+unique maximum m = mo when a € I4. We use Ig = (V2, 5/2) instead of Tg according
+to Lemma 5. We denote by D = I, x Ig. Noticing that
+
+dn(a) Om Om oa
+
+da das Ob Z ,
+
+We consider the equation F = (f1,g) = 0, where
+
+0 om Og Om Og
+Oa Ob Ob Oa
+0 =g(a,b).
+
+We aim to show F(a,b) = 0 has a unique solution in the interior of D. In fact, after
+excluding most of the interval pieces, we lock a small interval Do = [1.1,1.2] x [2, 2.1]
+containing possible zeros. The domain Dp is first partitioned by dividing each dimen-
+sional interval into 100 equal parts. Each resulting subinterval is then evaluated with the
+Krawczyk operator from the interval arithmetic program, and all subintervals found to
+contain no zeros are excluded. Finally, we find the only solution (ao, bo) of (18) in
+
+‘i €1.17338024479320329242 12633685? (19)
+
+bo €2.036986393189520563373721634?
+
+and the corresponding mass is m = mp = 1.00271332903708271708084572?. The question
+mark in the end denotes a standard floating-point number with accuracy in SageMath. In
+addition, from Lemma 4 we know that 0g/0b > 0 for (a,b) € D, which implies that din/da
+
+13
+has the same sign as f;. From Corollary 1 we know that the point (2/3, 2) is a solution
+of g(a,b) = 0. Then by direct computation, we have f,(2/V3,2) = 6(2V3 — 3) > 0,
+and this implies that 7(a) increases in (1, a9) and decreases in (ag, 2), since 2/V/3 < ao.
+Hence, ag is the unique maximum of 7(a) in 14. One can see the green curve in Figure
+3.4 for illustration.
+
+Furthermore, we consider the limitations of 7n(a) when a approaches the two endpoints
+of I4. Since dim b(a) = 2, and from the expression of m in (13), we find Jim, x=
+
+1-—3V3 4 0. Similarly we have him b(a) = 2 and him a, = 8 #0. Then by direct
+a+2- a>2-
+
+computation we have
+
+lim m(a)=0, lim m(a) =0,
+
+alt a2-
+and this implies that r(a) can be continued to 0 at a = 1 and a = 2 respectively,
+coinciding with the result in Corollary 1. In other words, 7(a) continues on T4 = [1, 2].
+Then the following claims hold directly
+
+1. When m € (0, mo), the equation (a) = m has two solutions, and there are exactly
+two concave kite central configurations with two pairs of equal masses.
+
+2. When m = mo, the equation (a) = m has a unique solution, corresponding to a
+unique concave kite central configuration.
+
+3. When m > mo, no such central configurations exists at all.
+4. Furthermore, if 7m = 0 is admissible, the equation m(a) = 0 has two solutions.
+
+Figure 3.5 is provided for the solutions with different m. For example, the black lines
+(both solid and dashed) describe the two central configurations with four equal masses,
+where the solid lines denote the equilateral triangle shape and the dashed lines the isosceles
+triangle shape. The blue lines (both solid and dashed-dotted) represent the two cases with
+a mass ratio of m = 0.7. The solid red lines describe the unique solution when m = mo.
+
+3.3 Bifurcations in different spaces
+3.3.1 Bifurcations in the reduced subspace
+
+In this section, we first discuss the bifurcation with the symmetric condition in our set-
+tings. We wonder about the possible bifurcations of the reduced equations (10b) and
+(10c) with respect to r = (a,b) as the variable and m as the parameter, i.e.,
+
+G(r,m) = (91,92) = 90.
+
+Now we rewrite g, = 0 and go = 0 as g3 = m— hi(a,b) = 0 and gg = m — ho(a,b) = 0,
+
+where
+h (a b) b3/ a2 (a3 8)(va2 —1 Ve —1)?
+_ 40°(68 + (Ve —1—- VPI)
+foley EEE 8)(vP=1— va? 1)?
+
+4b3(a3 + (Ve? — 1 — Va? — 1)3)
+
+We turn to consider the equation
+G(r,m) = (93, ga) = 0.
+
+14
+10 my 10 my “05 os my *°
+
+Figure 3.5: Some examples of the concave kite central configurations with two pairs of equal masses. The
+left and right figures show the positions of masses m3 and ma, respectively. In the left figure, different
+colors represent different mass values for m3, and the dashed line and the solid line with the same color
+denote the two distinct solutions, respectively. The right figure uses the same color and line scheme to
+denote the corresponding positions of m4 for each mass value. For example, the red lines correspond to
+the unique solution where m = mo. The black dashed and solid lines denote the two distinct solutions
+for the equal mass case, respectively.
+
+Noticing that * = (2/V3,2) is a singularity, or a discontinuity point of gq, ie., the two
+iterated limits at 7 are m and m — 1/(2V3) respectively. This implies 7 is not a solution
+for G =0. We say the equations G = 0 and G = 0 are equivalent on D = D\{7}. Hence,
+the bifurcations of the two equations are the same. The Jacobian of G(r, m) with respect
+
+toms a a Ohi Oh
+; ; 93 93 1 1
+Ju. Jv Z
+wa ~ i 7 a A a E it ,
+Oa Ob
+
+J21  j22 dab
+
+fla) = a0 ab ab Ba’
+Then the determinant of Jg is det Jg = fo. To find all the possible bifurcation points, we
+consider the equation
+
+We denote by
+
+A(r) = (f2,9) =0. (20
+Firstly, we claim that the unique solution of the equation (18), i.e., ro = (do, bo) € D
+in (19) is also a solution for (20). In fact, from F'(ro, mo) = 0, we have
+
+&
+
+dhy
+filr 0) =0S —— da laa = 0,
+
+since h,(a,b) is just the expression of m in (11), satisfying hy(a,b(a)) = m(a). This
+
+implies
+
+dhy
+=~ |a=ap = 0,
+qa }t=a0
+
+15
+since from (13) and (14) we have hy = w, - y/x1 = —w- x/y) = ha. Hence
+
+Or Og Oh
+
+Oa_ __ Oa _ Oa
+Oh, ~ Og ~ he
+ob ob ob
+
+holds for r = ro, which leads to det Je(ro) = fe(ro) = 0.
+
+Secondly, we apply the interval arithmetic program to (20) to find zeros on the domain
+D. We point out that to avoid the singularity during the calculation, we need to remove
+the denominator of f2. In other words, we use
+
+A(r) = (f2,9) = 0 (21)
+in the program on the closed interval D to instead, where fy is the numerator of fy. After
+excluding most of the interval pieces on D, we lock on a small piece near each zero. In
+the same way, we split each small interval into smaller enough pieces, with the long side
+of each rectangle no more than 107*. Finally, we get the only two solutions for (21), and
+they are exactly ro and 7. One can see Figure 3.6 for illustration. One of the solutions,
+namely, 7, can be excluded directly, since it is not a solution for G = 0. Therefore, ro is
+the only zero for (20).
+
+2.05 woe
+
+f2(a,) =0
+
+1.150 1.155 1.160 1.165 1.170 1175 1.180
+a
+
+Figure 3.6: The curves of f2(a,b) = 0 and g(a,b) = 0 on the (a,b)-plane with a € [1.15, 1.18]. The only
+two intersections are ro = (ao, bo) and 7 = (2/3, 2).
+
+With Theorem 3 in Section 2.2, we do the computations with interval arithmetic to
+determine the bifurcation type of ro. The eigenvectors of the eigenvalue 0 corresponding
+
+to Jqg and JE can be chosen as
+v = [-he, jul’ and w = [—jo1, ju)”
+
+respectively, since Jcv = 0 and J@w = 0. The partial derivatives of G(r,m) with respect
+to m is Gm = [1,1]”. Substituting the value of (r9, mo) into Jg we have
+
+Falregttie = 4.5172058916474534136160228? —2.3231832749879904304948019?
+GMO NO) | 231.5225618448226740599212? ~—119.07124810379195739208953? | *
+
+Then, by direct computation, we obtain
+
+w’ - Gn (ro, Mo) = — jar(To, Mo) + jur(To, mo)
+= — 227.0053559531752206463052? Z 0,
+w? D?C(r9,mo)(v, v) =u" + [D?93(v, v), D?ga(v, v)] (70, mo)
+= — 18222.741196439596271921? Z 0,
+
+16
+This implies that (ro,™mo) is a bifurcation point of a fold type. When we perturb from
+the two equal mass points €; and € in Figure 3.7 by increasing m from 1, two symmetric
+central configurations may coalesce into one. This solution cannot be continued further
+since there is no such symmetric central configuration when m > mo according to Theorem
+2
+
+1.000.
+. 7)
+0.995
+m
+0.990}
+a
+1.14 1.16 1.18 1.20 1.22
+Figure 3.7: We amplify a section on the curve (a) around mo, which is denoted in red of the green
+curve in Figure 3.4, to illustrate the bifurcations intuitively. By increasing m from 1, €, and €2 coalesce.
+The bifurcation occurs at F when m reaches mo. It is the only bifurcation point of the equation G = 0.
+
+It is a fold type.
+
+m=0 me(0,in.) m=mn, me(m.,1) m=1 m=mg me(mp, +00) m=+00
+
+m4
+
+mg (m3) m4 ne ms
+wae mm my pm omy mm i in
+Fe B P, D & ‘
+m2 Symmetric CCs
+
+my
+Fe
+mg ma ma me ms
+~_ _ ~ — ae
+my m2: my m> my m2 mr m2 my m2
+&
+
+fi a Pi D
+a ying mg m4 ma via
+= ~ - m3
+my 2 my m2 my, m2 my, yz my 2
+Ds & Fy G Hy
+Asymmetric CCs
+mg m4 m4 ma mi
+ne ~ ~ 4 i q
+my m2 mm, mm, mM, m2 my, m)
+Di & Fi Gs Hy
+
+Figure 3.8: We always set m, = mz = 1, m3 = m4 =m and q, = (1,0), qo = (1,0). This figure shows
+the bifurcations of the concave 4-body central configurations with two pairs of equal masses, including
+both symmetric and asymmetric cases with respect to the y-axis. With m increasing from 0 to +00, two
+bifurcation points are identified: at P; when m = m.,, asymmetric configurations emerge, while at F
+when m = mo, symmetric configurations cease to exist.
+
+3.3.2 Bifurcations in the whole planar 4-body configuration space
+
+The bifurcations of the concave central configurations with two pairs of equal masses in the
+whole planar 4-body configuration space have already been studied in [33]. The limiting
+
+17
+cases, namely, when one pair goes to 0 or +00, have already been discussed in [10]. To
+better characterize the bifurcations, we fix the symmetry axis along the y-axis and set
+my, = m2 = 1, m3 = my = mM, and q = (—1,0), gq = (1,0). This framework provides a
+clear and complete picture of the bifurcations for both symmetric and asymmetric cases,
+as shown in Figure 3.8 and Table 3.1. We need to point out in advance that the equal mass
+cases E9,€3 and €, share the same convex hull, i.e., an isosceles triangle, but €3 and €, are
+not symmetric with respect to the fixed symmetry axis under our previous settings. That
+is the reason we put them in the asymmetric part. With m increasing from 0 to +00, two
+bifurcation points are identified: at P, when m = mh, * 0.992299447752385347449845,
+asymmetric configurations emerge, while at F when m = mo, symmetric configurations
+cease to exist. These two bifurcation points have been found in [33]. The limiting cases,
+including A; and Ay when m = 0, as well as H3 and H4 when m = ov, or equivalently
+m3 = m4 = 1 and m; = m2 = 0, have been found in [10].
+
+m CCs q3 q4
+0 AL (0,0) (0, v3)
+A2 (0, V3) (0, V3)
+0.4 Bi (0, 0.08545589736279062) (0, 1.337330078035445)
+; Bo (0, 1.1886118075960026) (0, 2.234523889944714)
+= Pi (0, 0.5423375242243517) (0, 1.69144572423217)
+at P2 (0, 0.6854333316530508) (0, 1.8579255427192582)
+Dy (0, 0.5564341378652076) (0, 1.70775303282403)
+D2 (0, 0.6503784729520715) (0, 1.8415795609684507)
+
+01996 D3 (—0.009906700029766125, 0.5423813608539542) (0.04880076418676227, 1.6905216297662835)
+
+D1 | (0.009906700029766125, 0.5423813608539542) __ (—0.04880076418676227, 1.6905216297662835)
+& (0,1/V3) (v3)
+
+> (0, 0.6503784729520715) (0, 1.817239394723845)
+
+€3 | (—0.014277689766976964, 0.5424284291298985) — (0.07027749578541109, 1.6895283608200573)
+€1 | (0.014277689766976964, 0.5424284291298985) __ (—0.07027749578541109, 1.6895283608200573)
+F (0, 0.6138576372995270328) (0, 1.7746305435327241844)
+
+mo Fa | (—0.016582744680756933, 0.5424600163486574) — (0.08158057491289805, 1.688861170203973)
+Fs | (0.016582744680756933, 0.5424600163486574) _ (—0.08158057491289805, 1.688861170203973)
+Gs | (—0.13477940502391195, 0.5485425650707881)  (0.5904621819032521, 1.5460132316491686)
+Ca (0.13477940502391195, 0.5485425650707881) __ (—0.5904621819032521, 1.5460132316491686)
+Hs | (—0.23430343925991237, 0.5533288328030454)  (0.8620451062243932, 1.3456025507794094)
+Ha (0.25 3925991237, 0.5533288328036454)  (—0.8620451062243932, 1.3456025507794094)
+
+Table 3.1: Numerical values of g3 and q4 with different m corresponding to the central
+configurations in Figure 3.8. We always set m;) = m2 = 1, m3 = m4 = m, and q =
+
+Remark 2. The above analysis reveals that a degenerate critical point (such as P, in Fig-
+ure 3.8) may become non-degenerate within a reduced subspace, causing the bifurcation
+to disappear when symmetry is taken into account. In contrast, the point F continues to
+act as a bifurcation point in this specific subspace.
+
+Acknowledgements
+Zhifu Xie is partially supported by Wright W. and Annie Rea Cross Endowment Funds
+
+at the University of Southern Mississippi and by National Science Foundation (Award
+Number (FAIN): 2447675).
+
+18
+Data availability
+
+All data generated or analyzed during this study are included in this published article.
+
+Conflict of interest statement
+
+The authors declared that they have no conflict of interest in this work.
+
+References
+
+1
+
+10
+
+11
+
+12
+
+13
+
+Alain Albouy, The symmetric central configurations of four equal masses, Hamiltonian dynamics
+and celestial mechanics (Seattle, WA, 1995), 1996, pp. 131-135. MR1409157
+
+Alain Albouy, Yanning Fu, and Shanzhong Sun, Symmetry of planar fowr-body convex central con-
+figurations, Proc. R. Soc. Lond. Ser. A Math. Phys. Eng. Sci. 464 (2008), no. 2093, 1355-1365.
+MR2386651
+
+Alain Albouy and Vadim Kaloshin, Finiteness of central configurations of five bodies in the plane,
+Ann. of Math. (2) 176 (2012), no. 1, 535-588. MR2925390
+
+Gotz Alefeld and Giinter Mayer, Interval analysis: theory and applications, 2000, pp. 421-464. Nu-
+merical analysis in the 20th century, Vol. I, Approximation theory. MR1780057
+
+Martha Alvarez-Ramirez and Jaume Llibre, The symmetric central configurations of the 4-body prob-
+lem with masses m, = mz #4 m3 = m4, Appl. Math. Comput. 219 (2013), no. 11, 5996-6001.
+MR3018443
+
+J. Bernat, J. Llibre, and E. Pérez-Chavela, On the planar central configurations of the 4-body problem
+with three equal masses, Dyn. Contin. Discrete Impuls. Syst. Ser. A Math. Anal. 16 (2009), no. 1,
+1-13. MR2488967
+
+Ke-Ming Chang and Kuo-Chang Chen, Toward finiteness of central configurations for the planar six-
+body problem by symbolic computations. (I) Determine diagrams and orders, J. Symbolic Comput.
+123 (2024), Paper No. 102277, 38. MR4671620
+
+Jean Chazy, Sur certaines trajectoires du probléme des n corps 35 (1918), no. 1, 321-389.
+
+Montserrat Corbera, Josep M. Cors, and Gareth E. Roberts, Classifying four-body convex central
+configurations, Celestial Mech. Dynam. Astronom. 131 (2019), no. 7, Paper No. 34, 27. MR3984093
+
+Montserrat Corbera and Jaume Llibre, Central configurations of the 4-body problem with masses
+my =m, > mz = m4 = m > O and m small, Appl. Math. Comput. 246 (2014), 121-147.
+MR3265855
+
+Josep M. Cors and Gareth E. Roberts, Four-body co-circular central configurations, Nonlinearity 25
+
+(2012), no. 2, 343-370. MR2876872
+
+The Sage Developers, Sagemath, the sage mathematics software system (version 10.5), 2024. https:
+//waw.sagemath.org.
+
+Antonio Carlos Fernandes, Jaume Llibre, and Luis Fernando Mello, Convex central configurations of
+the 4-body problem with two pairs of equal adjacent masses, Arch. Ration. Mech. Anal. 226 (2017),
+no. 1, 303-320. MR3686004
+
+Marshall Hampton, Concave central configurations in the four-body problem, ProQuest LLC, Ann
+Arbor, MI, 2002. Thesis (Ph.D.)—University of Washington. MR2703448
+
+Marshall Hampton and Anders Jensen, Finiteness of spatial central configurations in the five-body
+problem, Celestial Mech. Dynam. Astronom. 109 (2011), no. 4, 321-332. MR2783101
+
+Marshall Hampton and Richard Moeckel, Finiteness of relative equilibria of the four-body problem,
+Invent. Math. 163 (2006), no. 2, 289-312. MR2207019
+
+19
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+26
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33.
+
+34
+
+36
+
+37
+
+38
+
+39
+
+40
+
+R. Krawczyk, Newton-Algorithmen zur Bestimmung von Nullstellen mit Fehlerschranken, Computing
+(Arch. Elektron. Rechnen) 4 (1969), 187-201. MR255046
+
+Yuri A. Kuznetsov, Elements of applied bifurcation theory, Third, Applied Mathematical Sciences,
+vol. 112, Springer-Verlag, New York, 2004. MR2071006
+
+Eduardo S. G. Leandro, Finiteness and bifurcations of some symmetrical classes of central configu-
+rations, Arch. Ration. Mech. Anal. 167 (2003), no. 2, 147-177. MR1971151
+
+Tsung-Lin Lee and Manuele Santoprete, Central configurations of the five-body problem with equal
+masses, Celestial Mech. Dynam. Astronom. 104 (2009), no. 4, 369-381. MR2524814
+
+Yiming Long, Admissible shapes of 4-body non-collinear relative equilibria, Adv. Nonlinear Stud. 3
+
+(2003), no. 4, 495-509. MR2017244
+
+Yiming Long and Shanzhong Sun, Four-body central configurations with some equal masses, Arch.
+Ration. Mech. Anal. 162 (2002), no. 1, 25-44. MR1892230
+
+W. D. MacMillan and Walter Bartky, Permanent configurations in the problem of four bodies, Trans.
+Amer. Math. Soc. 34 (1932), no. 4, 838-875. MR1501666
+
+Kenneth R. Meyer and Dieter S. Schmidt, Bifurcations of relative equilibria in the N-body and
+Kirchhoff problems, SIAM J. Math. Anal. 19 (1988), no. 6, 1295-1313. MR965251
+
+Mal gorzata Moczurad and Piotr Zgliczytiski, Central configurations in planar n-body problem with
+equal masses for n = 5,6,7, Celestial Mech. Dynam. Astronom. 131 (2019), no. 10, Paper No. 46,
+28. MR4017363
+
+Richard Moeckel, On central configurations, Math. Z. 205 (1990), no. 4, 499-517. MR1082871
+
+Ramon E. Moore, R. Baker Kearfott, and Michael J. Cloud, Introduction to interval analysis, Society
+for Industrial and Applied Mathematics (SIAM), Philadelphia, PA, 2009. MR2482682
+
+F. R. Moulton, The straight line solutions of the problem of n bodies, Ann. of Math. (2) 12 (1910),
+no. 1, 1-17. MR1503509
+
+Arnold Neumaier, Interval methods for systems of equations, Encyclopedia of Mathematics and its
+Applications, vol. 37, Cambridge University Press, Cambridge, 1990. MR1100928
+
+Julian I. Palmore, Classifying relative equilibria. ITI, Lett. Math. Phys. 1 (1975/76), no. 1, 71-73.
+MR413647
+
+Ernesto Perez-Chavela and Manuele Santoprete, Convex four-body central configurations with some
+equal masses, Arch. Ration. Mech. Anal. 185 (2007), no. 3, 481-494. MR2322818
+
+Gareth E. Roberts, On kite central configurations, Nonlinearity 38 (2025), no. 7, Paper No. 075001,
+33. MR4914519
+
+David Rusu and Manuele Santoprete, Bifurcations of central configurations in the four-body problem
+with some equal masses, SIAM J. Appl. Dyn. Syst. 15 (2016), no. 1, 440-458. MR3463046
+
+Manuele Santoprete, On the uniqueness of co-circular four body central configurations, Arch. Ration.
+Mech. Anal. 240 (2021), no. 2. MR4244824
+
+, On the uniqueness of trapezoidal four-body central configurations, Nonlinearity 34 (2021),
+no. 1, 424-437. MR4208445
+
+, Some polynomial conditions for cyclic quadrilaterals, tilted kites and other quadrilaterals,
+Math. Comput. Sci. 17 (2023), no. 3-4, Paper No. 24, 15. MR4670657
+
+Junping Shi and Zhifu Xie, Classification of four-body central configurations with three equal masses,
+J. Math. Anal. Appl. 363 (2010), no. 2, 512-524. MR2564872
+
+Carlos Sim6, Relative equilibrium solutions in the four-body problem, Celestial Mech. 18 (1978), no. 2,
+165-184. MR510556
+
+Steve Smale, Mathematical problems for the next century, Math. Intelligencer 20 (1998), no. 2, 7-15.
+MR1631413
+
+Shanzhong Sun, Zhifu Xie, and Peng You, On the uniqueness of convex central configurations in the
+planar 4-body problem, Regul. Chaotic Dyn. 28 (2023), no. 4-5, 512-532. MR4658633
+
+20
+[41] , Degeneracy of planar central configurations in the n-body problem, Preprint (2025).
+
+[42] Aurel Wintner, The Analytical Foundations of Celestial Mechanics, Princeton Mathematical Series,
+vol. 5, Princeton University Press, Princeton, N. J., 1941. MR0005824
+
+[43] Zhihong Xia, Convex central configurations for the n-body problem, J. Differential Equations 200
+(2004), no. 2, 185-190. MR2052612
+
+[44] Zhifu Xie, Isosceles trapezoid central configurations of the Newtonian four-body problem, Proc. Roy.
+Soc. Edinburgh Sect. A 142 (2012), no. 3, 665-672. MR2945977
+
+21

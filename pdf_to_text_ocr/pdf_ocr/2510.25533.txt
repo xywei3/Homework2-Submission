@@ -1,0 +1,1055 @@
+2510.25533v1 [cond-mat.stat-mech] 29 Oct 2025
+
+arXiv
+
+Maximum Quantum Work at Criticality: Stirling Engines and Fibonacci-Lucas
+Degeneracies
+
+Bastian Castorene ©,!?:* Martin HvE Groves ®,? Francisco J. Petia ®,? Eugenio E. Vogel ©,*:4 and Patricio Vargas ©?
+' Instituto de Fisica, Pontificia Universidad Catélica de Valparaiso, Casilla 4950, 2373223 Valparatso, Chile
+? Departamento de Fisica, Universidad Técnica Federico Santa Maria, 2390123 Valparatso, Chile
+3 Departamento de Ciencias Fisicas, Universidad de La Frontera, Casilla 54-D, Temuco 4811230, Chile
+“Facultad de Ingenieria y Arquitectura, Universidad Central de Chile, Av. Sta. Isabel 1186, Santiago 8330601, Chile
+(Dated: October 30, 2025)
+
+Many-body effects and quantum criticality play a central role in determining the performance of
+quantum thermal machines. Although operating near a quantum critical point (QCP) is known to
+enhance engine performance, the precise thermodynamic conditions required to attain the Carnot
+efficiency limit remain unsettled. Here, we derive the exact conditions for a quantum Stirling engine
+to achieve Carnot efficiency when a QCP drives its working medium. In the low-temperature
+regime, where only the ground-state manifold is populated, the net work output is given by
+W = ke In(gerit /go) with 6 = Ty —T1, which directly yields the Carnot efficiency n¢ = 1—T,/Tu,
+independent of microscopic details. Notably, whereas ideal Stirling cycles attain Carnot efficiency
+only with a perfect regenerator, here no regenerator is required because, at low temperatures, the
+thermal population remains confined to the degenerate ground state; this represents a clear quan-
+tum advantage over engines with classical working substances. We validate this universal result
+by recovering known behaviors in various quantum systems, including spin chains with Dzyaloshin-
+skii—Moriya interactions and magnetic anisotropies. Applying the framework to the one-dimensional
+antiferromagnetic Ising model, we predict non-extensive scaling of the work output governed by
+Fibonacci and Lucas numbers for open chains and closed rings, respectively, which converges to
+classical extensivity in the thermodynamic limit. This analysis establishes a general and robust
+foundation for designing quantum thermal machines that reach the Carnot bound while delivering
+finite work.
+
+I. INTRODUCTION
+
+Quantum thermodynamics investigates how quantum principles govern energy exchange and conversion at mi-
+croscopic scales [1-13]. A central objective is to develop and analyze quantum thermal machines such as engines,
+refrigerators, and heat pumps operating in the quantum regime that may exploit coherence, entanglement, many-body
+effects, flat bands, and others to surpass classical performance benchmarks [1, 14-17].
+
+Among quantum cycles, the Stirling cycle has attracted sustained interest due to its conceptual simplicity and
+experimental accessibility to obtain finite work with highly efficiency [18-21]. It consists of two isothermal and two
+isoparametric (or isochoric) processes, providing a versatile setting to probe performance limits. A recurring obser-
+vation is that tuning the working medium near a quantum critical point (QCP) can markedly enhance performance
+22-27|. A QCP triggered at zero temperature by varying an external control parameter, such as field or pressure,
+eatures qualitative ground-state changes, divergent correlation lengths, and universal scaling [28]. The associated
+arge density of states and enhanced fluctuations are widely regarded as a resource for thermodynamic tasks.
+
+Extensive studies across diverse platforms, including Heisenberg spin chains [29-32], anisotropic qubit systems [33,
+34], and models with Dzyaloshinskii—Moriya interactions [35-38], have reported enhanced work output and efficiency
+when thermodynamic cycles operate across a QCP. Nevertheless, a general and exact analytical characterization of
+he necessary and sufficient conditions to attain Carnot efficiency in critical quantum Stirling engines has remained
+open, with many results relying on numerics or model-specific features, leaving questions about universality and the
+role of ground-state degeneracies.
+
+Here we present a general analytical framework for Stirling engines operating at a QCP. We show that, in the
+low-temperature and large-gap regime, a cycle executed between a critical point with degeneracy gerit and a high-field
+point with degeneracy go achieves precisely Carnot efficiency, with net work given by a simple universal expression
+that depends only on the reservoir temperatures and the degeneracy ratio. We validate this result by quantitative
+agreement with previously reported systems ranging from two-qubit setups to extended spin chains with nontrivial
+interactions. We further apply the framework to the one-dimensional antiferromagnetic Ising model [39-41], unveiling
+
+* bastian.castorene.c@mail.pucv.cl
+1 }gn
+
+crit Au
+
+FIG. 1: Schematic diagram of energy EF versus the tuning parameter \. At the QCP located at Acrit, the gerit-fold degenerate
+ground state energy levels separate. The new ground state €9 with degeneracy go and the first excited state €; with degeneracy
+gi are separated by an energy gap A at high tuning parameter values \y. The thermal populations of higher excited states (with
+energies €,51) are negligible near absolute zero; only their degeneracies at the QCP influence the thermodynamic properties of
+the system.
+
+a connection to number theory: the work scales with the logarithm of Fibonacci numbers for open chains and Lucas
+numbers for rings, revealing a non-extensive quantum effect that disappears only in the macroscopic limit. Notably,
+this critical-cycle route to Carnot efficiency does not require a classical regenerator.
+
+In summary, our framework consolidates diverse findings into a unified theory and establishes experimentally testable
+conditions for quantum thermal machines to attain the fundamental efficiency limit with finite work output.
+
+Il. MODEL
+
+The working medium consists of any physical system whose energy spectrum can be tuned by an external parameter
+A, and which exhibits a QCP at A = Acrit when the temperature approaches absolute zero. At the QCP, the system
+undergoes a fundamental transformation characterized by symmetry breaking and qualitative changes in the ground
+state structure.
+
+As illustrated in Fig. 1, the gerit-fold degenerate ground state at the QCP splits due to interactions with the tuning
+parameter. For A > Acrit, the lowest-energy states separates into a ground state €9 with degeneracy go and an excited
+evel €, characterized by degeneracy g;. At sufficiently large values of the tuning parameter (Aj;,), these two levels are
+separated by an energy gap A.
+
+Higher excited states €,5; play a negligible role in this regime. Near absolute zero temperature, the thermal
+opulation of these states becomes vanishingly small due to the Boltzmann suppression factor. Even at the QCP, the
+available thermal energy remains insufficient to significantly populate levels beyond the critic ground state. Only the
+degeneracies of these higher energy levels at Acrit can influence the thermodynamic properties of the system through
+heir contribution to the density of states at the critical point.
+
+The thermodynamic properties of the system can be calculated and fully characterized through the canonical
+artition function. Taking into account that at absolute zero each energy level EL; may be g;-fold degenerate, the
+artition function is given by:
+
+2(T) = 7 exp (2) (1)
+The thermal equilibrium populations follow directly from the partition function through the Boltzmann distribution:
+
+je PEO) 1
+= where $8 = —— (2)
+
+pilA) Bo int
+
+From the partition function and the associated Boltzmann probabilities, the standard relations of canonical ensemble
+thermodynamics yield the Helmholtz free energy, entropy, and internal energy:
+
+F\(T) = —kpTnZ,(T), (3)
+
+S\(T) = —kp Spi Inpj = — (ae) , (4)
+7 x
+
+U(L) = > pi Bi = kT? (= 3%) . (5)
+
+It is crucial to emphasize that in the zero-temperature limit for the two tuning parameters Acrit and Aq shown in
+Fig. 1, the internal energy reduces to the ground state energy, while the entropy, in analogy to the microcanonical
+ensemble formulation, is determined by counting the number of states sharing the same minimum energy, that is, the
+degeneracy of the ground state at each parameter value:
+
+Tron (L > 0) = een Srcuie(T + 0) = ke In (gerit)
+
+Feround
+
+(6)
+
+Uy, (T > 0) = €0 Sx,,(T > 0) = ke In (go)
+
+III. STIRLING CYCLE AND CRITICALLITY
+A. General Theory of the Quantum Stirling Cycle
+
+The Stirling cycle is characterized by four stages: two isothermal processes and two isoparametric processes (where
+the tuning parameter A is held constant). Unlike the well-known Otto cycle, the net heat and work contributions in
+each segment are not directly evident from the trajectory of the cycle alone. Instead, they must be determined by
+analyzing the entropy differences at each stage point throughout the complete cycle.
+
+The isoparametric stages are analogous to the isochoric processes in a classical ideal-gas Stirling cycle, where volume
+is fixed. In quantum and condensed matter systems, the fixed parameter A may represent various external controls
+such as magnetic field, electric field, exchange interactions, or mechanical stress, among others. During the isothermal
+processes, the system remains in thermal equilibrium with the hot and cold reservoirs at temperatures Ty and Ty,
+(TH > Tz), while the tuning parameter varies between A; and Aq (Aq > Az).
+
+During the isoparametric stages, the system undergoes temperature exchange at fixed parameter value. Conse-
+quently, no work is performed since the tuning parameter remains constant. The cycle representation in Fig. 2 will be
+analyzed stage-by-stage. It should be noted that any other intrinsic parameters of the system remain fixed throughout
+the cycle A+ B > C+ D — A; only the temperature T and tuning parameter \ are varied.
+
+A -— B.: Isothermal compression at T = Ty. The tuning parameter varies from Ay to Az while the system
+maintains thermal equilibrium with the hot reservoir. The heat exchange during this process is given by the
+entropy change:
+
+Qa = Ty(Sy, (TH) — Sy, (Tx)] (7)
+
+B — C: Isoparametric cooling at constant 1 = A,. Decoupling from the hot reservoir and cooling to Ty, decreases
+the internal energy without work performance:
+
+Qc = Uy, (Tr) — Uy, (TH) (8)
+
+C-—D.: Isothermal expansion at T = T;. The tuning parameter returns from A; to Ay while the system
+equilibrates with the cold reservoir. The associated heat transfer is:
+
+Qev =T1[Sa, (Tr) — $2, (T1)] (9)
+FIG. 2: Schematic representation of the Stirling cycle in terms of entropy and the control parameter 4. Segments AB and
+CD correspond to the isothermal processes at T = Ty and T = Ty, respectively. The entropy at point A (D) is lower than at
+point B (C), and the cycle proceeds in a counterclockwise direction.
+
+D — A: Isoparametric heating at constant \ = Aq. Heating from Ty, to Ty increases the internal energy, again
+without work being performed:
+
+Qpa = Uy, (TH) — Ur, (Tr) (10)
+
+From the first law of thermodynamics, the internal energy variation over a closed cycle is zero:
+
+dU =dQ+dw SO Eidpi So pid, => pau =o. (11)
+
+For this cycle, the total net work equals the sum of heat exchanges during each stage:
+
+W = Qapt+ QacotQcn+Qna=Qu+ Qt. (12)
+
+We adopt the sign convention where positive (negative) heat @ indicates that the system absorbs (releases) heat.
+For the cycle shown in Fig. 2, the net heat exchanges are Qy = Qag +Qpa > 0 (absorbed from hot reservoir) and
+Qt = Qcv + Qzc < 0 (released to cold reservoir). Similarly, positive (negative) work W indicates work done by (on)
+the system.
+
+In the context of a heat engine performing useful work, the Stirling engine efficiency 17 is defined as the ratio between
+the total net work and the heat absorbed from the hot reservoir:
+
+Qu+Qr _ W _,_|@cn+Qze
+7 Qu Qu Qap+Qpa
+Depending on the system’s fundamental properties, the signs of work and heat may differ from those of a conventional
+heat engine. By reversing the cycle direction, a refrigerator can be obtained where previously there was an engine.
+Similarly, by applying substantial work to the system, it can extract heat from the cold reservoir and function as a
+heat pump. Furthermore, within the formalism of quantum thermodynamics, two additional exotic regimes exist: the
+accelerator and the heater. All these operational modes are summarized in the heat-work sign table in Table I.
+
+. (13)
+
+B. Quantum Stirling Engines at Quantum Criticality
+
+While the general Stirling cycle shown in Fig. 2 works effectively for a system at quantum criticality as in Fig. 1,
+a specific diagram is necessary to illustrate the exact behavior. As illustrated in Fig. 3, the thermodynamic cycle
+is performed by sweeping the control parameter from the QCP Ait (Fig. 1) to a high parameter value Ay, with
+TABLE I: Signs of heat and ti
+
+on
+
+otal work used to classify different operational regimes.
+
+Operational regime W Qin Qout
+Engine >0>0 <0
+Refrigerator <0<0 >0
+Heat pump <0>0 >0
+Heater <0 <0 <0
+Accelerator <0>0 <0
+
+At = Acrit- Alternatively, by choosing to vary
+reflected horizontally, with point A correspon
+
+the high parameter Ay while keeping A; fixed, the diagram becomes
+ding to the ground state at the higher temperature. Similarly, if the
+
+high field is selected as the control parameter, the cycle can be defined by assigning either the initial or the final point
+
+to coincide with the QCP.
+
+crit
+
+FIG. 3: Stirling cycle diagram for a system wit
+
+h a QCP, represented in terms of entropy and the control parameter \. The
+
+critical value Acrit denotes the QCP. Segments AB and CD correspond to the isothermal processes at Ty = Ty, +6 and Tr,
+respectively. The entropy satisfies Sg = Sc = gerit, while Sp = go and S,4 may include contributions from gi. The heat
+
+exchange along BC vanishes (Qgc = 0), whereas
+
+Qpa is proportional to the temperature difference between reservoirs.
+
+The thermal reservoirs are considered to be close in temperature, with (Iq — T,)/Tu = 6/TH < 1, so that Ty
+may be written as Ty = Tz + 6 to leading order. This condition ensures that when the system is at the QCP, the
+entropy is dominated by the ground-state degeneracy, with negligible population of excited states. Consequently, the
+
+internal energy at the critical point becomes
+since they are both small and closely spaced.
+
+emperature-independent and constant for both reservoir temperatures,
+
+Additionally, the low-temperature regime guarantees that at high tuning parameter Ay, predominantly the ground
+state is populated, while the first excited state remains scarcely occupied and higher levels are empty. The energy
+
+gap A between the ground and first excited s
+
+ates determines the characteristic energy scale, and the internal energy
+
+at both low and high temperatures is governed by this parameter. Later in this section, the case of a reduced
+
+energy gap will be considered, where thermal
+temperatures.
+For the present discussion, in the very low-
+
+occupation of the first excited state becomes non-negligible even at low
+
+emperature regime and under the assumption of a large energy gap A,
+
+the relevant thermodynamic quantities at eac!
+
+h stage of the cycle are:
+
+(A) Point A (Aq,Ti): The internal energy approaches the ground state energy €9, and the entropy corresponds
+
+solely to the ground state degeneracy:
+
+US (Ln) ~ e,
+
+SX” (Ti) = kp In (qo). (14)
+(B) Point B (Aait, TZ): Despite the higher temperature, the internal energy remains at the critical ground state
+energy, and the entropy reflects the QCP degeneracy. The thermal energy is insufficient to significantly populate
+excited states:
+
+U®) (Ty) = nd S® (Ty) = ke ln (gerit)- (15)
+
+Acrit €ground? Aerit
+
+(C) Point C (Acit,,): The internal energy remains constant at the critical ground state value, and the entropy
+again reflects the QCP degeneracy:
+
+Use (TH UO (Tr) = oan SO (Tr) = ke ln (gerit)- (16)
+
+crit €ground? Acrit
+
+(D) Point D (Ay,Tz,): The entropy is determined by the ground state degeneracy at Ay, and the internal energy
+approaches €9, as the temperature cannot populate excited states:
+
+US? (Lt) ~ €0, SY (Lt) = ke n (go). (17)
+
+Thus, using the thermodynamic functions presented in Eqs. (14-17), the heat exchanges for each stage of the Stirling
+cycle are explicitly analyzed:
+
+Qav = Tu[ 82) (Tu) ~ $89 (Dn)] = koi l( goss) —In(go)] = kT n (22), (18)
+Qzo = UO (Tr) — UM (Tu) = 0, (19)
+Dome Ee Eseezes 1) - 5 (T)| = = kgT1([In(go) — n(gerit)| = —ke Ti In (“*). (20)
+Qva = US? (Tu) — UP) (T1) =0. (21)
+
+Thus, the work performed in the Stirling cycle can be expressed as the sum of the exchanged heats. Assuming that
+the hot reservoir is set as Ty = Ty, + 6, the net work becomes
+
+W =kp(Ty — Tz) In (*). (22)
+W =kpéln (=) . (23)
+
+where gerit and go denote the ground-state degeneracies at the critical and high-field points, respectively, and 6
+represents the temperature difference between the reservoirs. By construction, the engine efficiency is identical to the
+Carnot efficiency.
+
+kpTy In (@ ) — kpT;, In (= )
+Ne = Jo go} _4y_ tm df (24)
+” kgTy In ( ) Ty 1+
+Io
+
+Notably, while ideal Stirling cycles reach Carnot efficiency only in the presence of a perfect regenerator, in Eq. (24)
+no regenerator is required. At low temperatures, the thermal population remains confined within the degenerate
+ground-state manifold, representing a distinct quantum advantage over engines operating with classical working
+substances.
+
+If the machine operates as a refrigerator, either by reversing the cycle direction or due to intrinsic system properties,
+the coefficient of performance (COP ,) can be defined as an analog to the engine efficiency. However, unlike the
+efficiency, the COP has no upper bound. For this analysis, the cycle in Fig. 3 is reversed, consequently inverting the
+labels identifying the stages. The resulting coefficient satisfies the Carnot refrigerator condition:
+
+Qout Qpc + Qcr
+
+CoP, , 25
+“WI” @an + @pc + Qcn + Qpal ”)
+kp Ty In( St)
+COPr : —~, (26)
+kpTiIn( Set.) — kp Ty In( Sat)
+r r,
+oy _ 7% _T%
+
+COP) = ae = (27)
+
+Similarly, if the machine operates as a heat pump, the coefficient of performance (COP yp) is defined as the ratio
+between the heat delivered to the hot reservoir and the net work performed on the system. In our cycle, the heat
+absorbed by the hot reservoir corresponds to Qs, while the net work is the sum of all heat exchanges. Thus, the
+(COP ip) can be expressed as:
+
+Qin Qpa+Qapd
+
+COP, . 28
+2P WI Qpat+Qvce +Qcn +Qpa (28)
+kpTy In( 22%)
+COPyp ~, (29)
+ke(Te— Tt) In( £28)
+c Cc © T, :
+copt®) = cop?) +1 = = z = . (30)
+
+In the following subsection, the effect of a small energy gap is analyzed, where the first excited state can be thermally
+occupied even for a small temperature increment 6.
+
+C. Thermal Excitations and Small-Gap Effects
+
+To evaluate the effect of higher energy-level occupation on the system’s work and heat exchange, we consider
+that partial population of the first excited state occurs only when the system is in contact with the hot reservoir at
+temperature Ty = Ty +6 and high fixed parameter Ay, corresponding to point A in Fig. 3. This contribution is
+treated as a small perturbation, since the other thermodynamic points remain unaffected. The low temperature T;,
+ensures that only the ground state is populated at point D.
+
+Accordingly, the correction is localized at point A and can be described using an effective two-level model within
+the canonical ensemble, where the energy gap A in Fig. 1 is sufficiently small to allow partial excitation of the first
+excited state:
+
+£0 — sot
+
+Zu (T) = goe FPP + gre *87, A=€,~ 6. (31)
+
+Where g; are the degeneracies of the ground-state €9 an0Qd the first excited state €1, respectively. Using the
+standard relations of the canonical ensemble and defining A as the energy gap between the first excited state and the
+groundstate, the Helmholtz free energy of the system becomes:
+
+— £0 __A
+Puy (D1) = “koT in (Za (T)) = ko Tn (e*#* [ay + ne] (32)
+91 -~Ar 90
+Fy, (L) = €0 —keT Ingo — kpT In (14 Be rar i (33)
+0
+From the free energy, the internal energy can be calculated, and the entropy can be expressed using the corresponding
+
+Legendre transformation for the internal energy as
+
+OnZ),
+
+Uy, (T) = kel? ar
+
+TSr4(T) =Ury (T) — Fy, (7). (34)
+
+AH
+
+Expressing the entropy in Eq. (34) in terms of the internal and Helmholtz free energies is convenient, as only the
+latter contributes across the cycle. Consequently, the perturbation affects solely the heat exchange at point A. The
+heat Qaz of the first isothermal process can thus be written in terms of the Helmholtz and internal energies, while
+the isoparametric process at the high control parameter, associated with the heat Q4p, is given by the difference in
+internal energies at fixed \;;. At point D, the internal energy corresponds exclusively to the ground state due to the
+sufficiently low temperature. Thus, the expressions for the heats involved are given by
+
+Qap = keTy In (Gerit) — TH $y, (Tu), Qap =U), (TH) — €0. (35)
+
+Consequently, in the limit A >> kgTy, this term is negligible. Therefore, the heat exchanges for the complete cycle
+are:
+
+Qap = Tu [SX (Cx) — 8 (Tn)] = ke Tin bm (Geri) — US) (Ln) + FX (Ta) (36)
+Qac = UX (Pr) — UX (Tn) = 0, (37)
+Qcp =Tr [sX? (1) = sO (11)] = kpTy [In(go) — InGerit)] = —keTr In (@*) , (38)
+Qpa = US (Ta) ~ US) (Fi) = US) (Ear) ~ eo. 9)
+
+The work in the Stirling cycle is calculated as the sum of all heat exchanges. As seen, the internal energy terms
+cancel, yielding a contribution corresponding to the free energy component:
+
+W =kpT, ln (“*) + kpTy In (Gert) + BO (Lu) — €0. (40)
+By explicitly substituting the free energy from Eq.(33) into Eq.(40), the terms associated with the ground state cancel
+out, yielding
+
+Jerit No -me
+W =kpéln[ — ) —kp(T1 +6) m[1+—e tert |. (41)
+90 90
+It is observed that, in the limit of a large energy gap, the previous result from Eq. (24) is recovered with an additional
+contribution at the Carnot limit. However, the thermal population of the first excited state reduces the useful work.
+To investigate its impact, the system efficiency is now analyzed from Eq. (13) substituting the heat terms from
+
+Eqs. (36-39). The resulting expression can be written as follows
+
+kpTy In (=)
+90
+
+kpTy In (“*) — kpTy ln (1 4 eet )
+90 90
+
+(42)
+
+n=l—
+
+To account for the correction introduced by the heat term Q4p to Carnot efficiency, Eq. (24) is expanded as a power
+
+series. Since the critical point involves the degeneracies go and g1, the condition in( + ae-A/(knTu)) < In( 4) is
+always satisfied, enabling a geometric expansion. The result can then be expressed in terms of the Carnot efficiency
+
+as
+
+n
+A
+oo | In (1 + 2 ewan |
+Jo
+
+Ty
+
+Jo
+
+(43)
+
+Inclusion of higher thermal populations reduces the maximum attainable efficiency, keeping it strictly below the Carnot
+limit. This reduction arises because part of the thermal energy is expended in populating excited states rather than
+contributing to useful work. In the limit of a large energy gap and/or sufficiently low temperature, these corrections
+vanish, and the Carnot efficiency is asymptotically recovered.
+
+IV. GENERAL FRAMEWORK FOR QUANTUM STIRLING CYCLES: VALIDATION AND
+APPLICATION TO CRITICAL SYSTEMS WITH FIBONACCI-TYPE DEGENERACIES
+
+Having established the theoretical framework for both ideal critical cycles and systems with a small energy gap, we
+now validate these models against quantum systems with QCPs reported in the literature. This includes quantum
+critical systems, quantum heat engines that reach Carnot efficiency, and exactly solvable models. We examine a range
+of systems with diverse interactions to validate the derived formulas through postdictions of previously reported
+results. Furthermore, we provide new predictions for systems exhibiting nontrivial degeneracies, such as the critical
+point degeneracies in open and closed quantum Ising chains, which are characterized by Fibonacci and Lucas numbers.
+
+A. Validation Across Reported Quantum Systems
+
+1. Two spin-1/2 systems
+
+Two-qubit systems have been widely studied in condensed matter and quantum information literature, often with
+different types of interactions. To provide a unified framework for these cases, we introduce a generalized XXZ
+Hamiltonian that collects the most relevant contributions, written in natural units of the exchange constant J:
+
+The Hamiltonian in Eq. (44) incorporates several fundamental interactions within the standard spin-operator formal-
+ism. The antiferromagnetic exchange constant J couples nearest-neighbor spins through a Heisenberg XX interaction,
+where the spin operators S; = (S7,$/,S7) satisfy the usual angular momentum commutation relations. The total
+spin components are defined as Se. => yoy se with a € {x,y,z}. The J, term couples the z-components of both
+spins, and for J, = J the system reduces to the isotropic Heisenberg XXX model. The Zeeman term, proportional
+to B,, corresponds to a homogeneous magnetic field applied along the z axis. The uniaxial magnetic anisotropy
+Ky, couples to the square of the total y-component of spin. Finally, the Dzyaloshinskii—Moriya interaction (DMI),
+parameterized by D, introduces an antisymmetric exchange that breaks inversion symmetry.
+
+By selectively enabling or suppressing interaction terms, previously reported two-qubit models can be recovered as
+limiting cases of the general Hamiltonian. This construction provides a unified framework within which our formula can
+be benchmarked against diverse quantum configurations operating as Stirling engines. The corresponding parameter
+sets and the quantitative agreement are summarized in Table II.
+
+Interaction Mobile AL An Tr Tu | Gerit | Jo Wasim Ween Error
+param.
+
+J=1&D=0
+ky =Jz=0 Bz 1 3 | 0.15 | 0.25 2 1 | 0.0693147 | 0.1In2 | 4.0 x 10-7
+Purkait et al. [29]
+J=1, Ky =05
+Je=D=0 Bz v2 | 3 |0.12]020} 2 | 1 | 0.0693147 | 0.081n2 | 1.6 x 10-5
+Araya et al. [33]
+J=1, K,=0
+2D =Jz=1 Bz 1.06 4 | 0.10 | 0.20 2 1 | 0.0693161 | 0.1In2 | 2.0x 10°
+Pili et al. [35]
+B=D=0
+Ky =Je=0 J -2.75 | -1 | 20 | 25 4 1 | 6.90505 5In4_ | 7.7 x 107%
+Cruz et al. [26]
+
+TABLE II: Comparison of the generalized two-qubit Hamiltonian under different interaction configurations, operating as a
+
+quantum Stirling engine. The table lists the parameter sets considered, together with the corresponding degeneracies, simulated
+work output (Weim), and the predictions of the analytical expression (Wformula). Temperatures and work are given in units of
+kp, while the mobile parameter is expressed in exchange-constant units.
+
+Table IT summarizes several interaction configurations of the Hamiltonian in Eq.(44) along with their corresponding
+references. The mobile parameter varies between models, though the magnetic field is most commonly employed as
+the control variable. Thermal reservoirs are set at low and closely spaced temperatures. The simulated work output
+10
+
+Wasim, given in units of kg, is obtained from full numerical calculations and compared with the analytical prediction of
+Eq.(23), which depends solely on degeneracies and temperature differences for systems operating at Carnot efficiency.
+
+In the case of the pure Heisenberg XX model, Purkait and Biswas [29 identified a QCP at B = 1 with a twofold
+critical degeneracy. For B = 3, where the ground state is non-degenerate, and temperatures Ty, = 0.15 and Ty = 0.25,
+the system reaches Carnot efficiency, and the simulated work matches precisely the prediction of Eq. (23).
+
+Introducing a planar anisotropy of K, = 0.5, Araya et al. [33] showed that the critical field shifts to B ~ V2
+while preserving the twofold degeneracy. With B = 3 as the high-field parameter and temperatures T;, = 0.12 and
+Ty = 0.20, the work remains proportional to In 2, again in perfect agreement with the formula.
+
+The combined effect of a homogeneous field and a Dzyaloshinskii—Moriya interaction was analyzed by Pili et al. [35].
+For D = 1/2, the critical point shifts to B = 1.06, while the ground-state degeneracy remains unchanged. Operating
+the cycle with B = 4, T; = 0.10, and Ty = 0.20, the work continues to follow Eq. (23), demonstrating its robustness
+even away from the strict critical regime.
+
+Cruz et al. [26] investigated an experimental dinuclear metal complex modeled as a two-qubit system with only
+nearest-neighbor interactions. Measurements of work, absorbed and released heat, and efficiency were found to be
+consistent with theoretical predictions. For the purposes of this manuscript, parameters around J; ~ —2.75 with
+reservoir temperatures T, = 20 K and Ty = 25 K are considered. To further approach the critical regime at J = 0,
+the interaction is extended down to Jy = —1, slightly beyond the values reported in the experiment. In this range,
+the work output approaches the Carnot limit, though the deviation from Eq. (23) remains on the order of 107° due
+to the high-field point not coinciding exactly with the fourfold critical degeneracy. Extending the parameter closer to
+J ~ 0 restores agreement with errors as small as 10~!°, although such conditions would not correspond to physically
+realizable parameters in an endoreversible cycle.
+
+2. Nth spin-s system
+
+The two-qubit benchmarks establish quantitative agreement between the analytical expression in Eq. (23) and simu-
+lated work across distinct interaction channels. The next step is to probe robustness beyond the minimal local Hilbert
+space and to assess the role of topology. This requires moving to higher on-site spin and to extended geometries
+(open chains vs. rings), for which a compact many-body description is provided below.
+
+Recent studies demonstrate that topology, system size, and on-site spin magnitude significantly influence quantum
+thermal machine performance. To capture these effects systematically, we introduce a generalized Heisenberg-type
+Hamiltonian for chains of N spin-s sites:
+
+N-1 N
+AD. =I S28: Sigs + BSing + Ky (Sts) +820 (87). (45)
+t=1 t=1
+
+This Hamiltonian (45) integrates the key interactions previously established: Heisenberg XXX exchange coupling
+(J), Zeeman field (B), easy-plane anisotropy (K,), and single-ion anisotropy (Kz) that promotes alignment of in-
+dividual spins along the z-axis. When the summation is extended to N terms and periodic boundary conditions
+are imposed (Sy41 = $1), the Hamiltonian can describe either open chains or closed rings, enabling systematic
+exploration of topological effects on work extraction and efficiency in quantum Stirling cycles.
+
+This framework provides a unified foundation for analyzing how spin magnitude (s), geometry, and interaction
+symmetry shape the performance of quantum thermal devices. Table III compares representative cases of quantum
+Stirling engines with the analytical expression in Eq. (23) at Carnot efficiency. The results show consistent agreement
+between simulations and theory across different geometries, interaction types, and system sizes, with the magnetic
+field acting as the control parameter and thermal reservoirs maintained at low, closely spaced temperatures.
+
+Castorene et al. [34] investigated isotropic Heisenberg XXX chains and rings of three qubits with a uniaxial
+anisotropy along the y-axis, using the magnetic field as the control parameter. As discussed earlier, such anisotropy
+shifts the critical field without altering the degeneracy structure. For a critical field at B ~ 2.41 and a high-field
+point at B = 3.5, with reservoirs at T, = 0.15 and Ty = 0.25, the work output followed Eq. (23) in both geometries.
+Notably, the ring configuration exhibited a larger work output, which can be attributed to the additional translational
+symmetry at zero field, yielding one extra critical degeneracy compared to the open chain.
+
+In a different study, Castorene et al. [24] analyzed isotropic spin-1 dimers with single-ion anisotropy along the
+z-axis and an external magnetic field of opposite sign, which introduces frustration in the energy levels. Specific
+anisotropy values induce either a triple degeneracy point (TDP) at K, = —2/3 or double degeneracy points (DDPs)
+at K, = —1/10, each associated with critical magnetic fields. For instance, at B = 4/3 the system exhibits a TDP,
+
+11
+
+Mobil
+Interaction epee Av | An | Tr | Tx | Gerit | go Wsim Weormula Error
+
+param.
+
+J=1& Chain
+Ky = —0.44
+K.=0 B 2.412 | 3.5} 0.25|0.15) 2 1 | 0.0692511 | 0.1In2 | 9.1 x 10~*
+Castorene et al. [34]
+(N = 3, Spin-1/2)
+J=1& Ring
+
+Ky = —0.44
+K.=0 B 2.412 | 3.5] 0.25/0.15) 3 1 | 0.109734 | 0.1n3 | 11x 10-%
+
+Castorene et al. [34]
+(N = 3, Spin-1/2)
+J=1& Chain
+
+B 4/3 | 3.0} 0.10] 0.05] 3 1 | 0.054973 | 0.051n3 | 7.7 x 10~*
+Castorene et al. [24]
+(N = 2, Spin-1)
+J=1& Chain
+Kz =—1/10
+
+Ky, =0 B 1.90 | 3.0 | 0.10) 0.05] 2 1 | 0.0346646 | 0.05In2 | 2.0 x 10~*
+Castorene et al. [24]
+
+(N = 2, Spin-1)
+
+TABLE III: Comparison of the generalized spin-s chain Hamiltonian (45) for different interaction configurations and system
+sizes N, operating as quantum Stirling engines. The table reports the parameter sets, critical degeneracies, simulated work
+output (Wsim), and the predictions of Eq. (23), showing quantitative agreement with results reported in the literature. Tem-
+peratures and work are given in units of kg, while the mobile parameter is expressed in exchange-constant units.
+
+while at B ~ 1.90 one of the DDPs emerges. Stirling cycles performed with By = 3.0 and reservoirs at Ty, = 0.05
+and Ty = 0.10 yielded work outputs proportional to In3 and In 2, respectively, in full agreement with Eq. (23).
+
+Overall, these results highlight the robustness of the proposed framework across diverse quantum critical scenarios.
+The analytical expression for the work remains valid not only for two-qubit systems with additional interactions
+such as Dzyaloshinskii-Moriya coupling or planar anisotropy, but also for extended configurations involving higher
+spins, distinct topologies (chains and rings), and complex local anisotropies. This universality underscores the broad
+applicability of Eq. (23) to quantum thermal devices operating near criticality.
+
+To further demonstrate the generality of the approach, an additional analysis of a non-Heisenberg spin model, the
+Lipkin—Meshkoy—Glick (LMG) model, was carried out in Appendix A. The results confirm that the proposed formula
+remains accurate even for systems characterized by collective spin interactions and more intricate energy landscapes.
+
+B. Quantum Ising model at criticality with Fibonacci-Lucas Degeneracies
+
+The scalability of the work formula can be addressed by considering systems with an increasing number of interacting
+particles. A natural case study is the quantum antiferromagnetic Ising model in the z direction, one of the simplest
+many-body systems that exhibits a non-trivial QCP. The model is studied under a longitudinal magnetic field applied
+along the z axis, which drives the transition and enables exploration of how critical degeneracies scale with system
+size. The Hamiltonian of this system is given by
+
+N-1
+
+N
+H=JS~ 9757,,4+BS° 83. (46)
++= 1 t=I
+12
+
+This Hamiltonian describes a chain of N qubits with nearest-neighbor antiferromagnetic interactions. The exchange
+constant J denotes the isotropic antiferromagnetic coupling constant between adjacent spins (J > 0), while S$?
+represents the Pauli operator along the z direction. The longitudinal external magnetic field B is applied along the
+positive z axis and, in physical units, is given by B = jxpg.H, where ug is the Bohr magneton and g, the Landé
+g-factor. For convenience, B is expressed in units of the exchange constant. Extending the summation to N terms
+with the identification Shaq = = $2 imposes periodic boundary conditions, thereby mapping the open chain system
+onto a closed spin ring.
+
+In this framework, the system exhibits a QCP at finite field, which occurs when the ratio B/J = 1. Such criticality
+arises for both open chains and closed rings of arbitrary length N > 3.
+
+Correspondingly, the ground-state energy at the critical field and beyond, with respect to the magnetic field, is
+given by [40]
+
+NB
+deg) =F Ze. (47)
+
+For periodic boundary conditions, the factor accompanying the exchange constant J extends as (N — 1) + N, while
+the magnetic field term remains unchanged. This implies that the open-chain geometry possesses a lower ground-state
+energy than the closed ring.
+
+Accordingly, the Stirling cycle shown in Fig. 2 is implemented by driving the system from the quantum critical point
+at A, = B/J = 1 to a higher magnetic field \y = B/J = 3. The process is simulated within the canonical ensemble
+over the complete set of 2% energy levels for both the open-chain and closed-ring geometries. This framework allows
+a direct comparison between the numerically computed work outputs (wena, Wier! and the analytical prediction
+from Eq. (23), valid for arbitrary system size N. To establish this connection, it is necessary to determine how the
+critical ground-state degeneracy associated with the ground-state energy of Eq. (47) scales with N. In this context,
+recent studies [40, 41] showed that, for one-dimensional antiferromagnetic Ising model, the degeneracy at the QCP
+follows the Fibonacci sequence Fy, defined recursively as Fy = Fy—1+F'y—2 with Fy = F, = 1. In contrast, periodic
+boundary conditions give rise to a nontrivial degeneracy governed by the Lucas sequence, which can be expressed in
+terms of the Fibonacci numbers as Ly = Fy+1 + Fy-1. Using Binet’s formula, both sequences can be written in
+closed form through the golden ratio y = (1 + V5)/2:
+
+p® —(-p-t)8
+V5 >
+
+Thus, performing the Stirling cycle from the QCP at B/J = 1, where the Fibonacci—Lucas degeneracies of Eq. (48)
+apply, to a high-field configuration at B/J = 3 with a non-degenerate ground state yields
+
+Fy Ly =X +(-1l)%—™. (48)
+
+N _ (_,»-1\)N
+wo. knsn(£ a. ) ) (49)
+Weontinta = kedIn (eo — (—et)"). (50)
+
+These previous expressions can be treated for the case of small system sizes N, observing that the work of both
+the chain and the ring does not scale linearly with N, reflecting a genuinely quantum effect that contrasts with
+the classical thermodynamic expectation of extensivity. Specifically, Eq. (49) shows that the work for the chain is
+proportional to the N-th Fibonacci number, while for Eq. (50) depict that the ring follows the N-th Lucas number,
+with the chain producing less work.
+
+In the asymptotic limit N > 1, the inverse golden-ratio (p~’) terms can be neglected, yielding the approximate
+expressions
+
+Weormula Z5y? Nknd In (¢) — kpd In V5, (51)
+-
+Wromula yoy N#e5n(y). (52)
+
+Eqs. (51-52) show that both cases scale linearly with N, but the chain includes a constant offset of —In V5,
+highlighting a residual distinction between quantum thermodynamics and its classical counterpart. However, in the
+thermodynamic limit N >> 1, the constant term becomes negligible, and both chain and ring topologies recover
+13
+
+0.08 Wisinal "
+
+Ring
+Wising
+
+Chain
+WFormuta
+
+Ring
+Weormula
+
+Chain
+0.02 Formula, VN > 1
+Ring
+Formula, VN > 1
+
+5 10 15 20 25
+Number of sites N
+
+FIG. 4: Quantum Stirling work W [meV] as a function of the number of sites N for the antiferromagnetic Ising chain and
+ring (J = 1), evaluated at the QCP A, = B/J = 1 and a high-field parameter Ay = B/J = 3, with reservoir temperatures
+Tr, = 0.1 and Ty = 0.2. In all cases the system operates at Carnot efficiency nc = 0.5. Red (black) dots represent simulated
+cycles for the chain (ring) system. Yellow and green markers show the predictions of Eqs. (49-50) based on Fibonacci and
+Lucas degeneracies at the QCP, respectively, while blue (orange) lines correspond to the large-N asymptotic expressions in
+Eqs. (51-52).
+
+classical extensivity, yielding the same work output determined solely by the system size. This behavior is consistent
+with results reported in the literature for the classical Ising model.
+
+Finally, Fig. 4 summarizes the main results, displaying the quantum Stirling work W as a function of the system size
+N for both open-chain and closed-ring configurations of the antiferromagnetic Ising model. The numerical simulations
+(red and black markers) exhibit excellent agreement with the analytical predictions derived from the Fibonacci and
+Lucas degeneracies (yellow and green markers), as well as with the large-N asymptotic limits (blue and orange
+lines). This consistency across sizes and topologies demonstrates the robustness and general validity of the proposed
+theoretical framework.
+
+V. CONCLUSIONS
+
+We have performed a comprehensive thermodynamic analysis of quantum systems exhibiting a QCP induced by a
+control parameter at zero temperature, using the canonical ensemble formalism. From these quantities, a quantum
+Stirling cycle was constructed under sufficiently low temperatures such that only the ground state remains significantly
+populated. The cycle begins at the QCP, characterized by critical degeneracy, and ends at a higher control parameter
+where the ground state becomes energetically isolated from the excited manifold.
+
+This framework yields analytical expressions for the finite net work and Carnot-like efficiency in terms of the tem-
+perature difference between the thermal reservoirs and the ratio between the degeneracies of the critical and isolated
+ground state. The role of finite-temperature effects was also examined, revealing that partial thermal occupation of
+excited states reduces both useful work and maximum efficiency due to energy redistribution within the system.
+
+The proposed work expression was validated through postdictions and predictions across diverse spin-s Heisenberg
+systems, incorporating Dzyaloshinskii—-Moriya interactions, uniform magnetic fields, uniaxial anisotropies, and single-
+ion anisotropies. These results confirm the robustness of the formulation for systems operating near the Carnot
+regime.
+
+Finally, the extensivity of the work output was analyzed for one-dimensional antiferromagnetic Ising systems with
+open-chain and closed-ring topologies of length N. The work was found to scale with the logarithm of the Nth
+Fibonacci number for open chains and with the logarithm of the Nth Lucas number for rings, indicating a higher
+useful work in closed geometries for small N. In the thermodynamic limit, both configurations converge to a linear
+dependence on N, thereby recovering the classical extensivity of the work.
+
+14
+ACKNOWLEDGMENTS
+
+Authors acknowledge partial support from ANID CIA 250002, Fondecyt Grant (Chile) under contracts 1230055,
+1240582 and 1250173. B.C. acknowledges support from Pontificia Universidad Catdélica de Valparaiso (PUCV) and the
+Direccién de Postgrado of Universidad Técnica Federico Santa Maria (UTFSM). B.C. also acknowledges the support
+of ANID Becas/Doctorado Nacional 21250015.
+
+AUTHOR CONTRIBUTIONS
+
+Bastian Castorene ® — Conceptualization (lead), Data curation (lead), Formal analysis (lead), Investigation (lead),
+Methodology (lead), Visualization (lead), Writing — original draft (lead), Writing — review & editing (lead).
+
+Martin HvE Groves © — Formal analysis (equal), Investigation (supporting), Validation (equal), Writing —
+review & editing (lead).
+
+Francisco J. Pefia © — Investigation (supporting), Supervision (equal), Validation (lead), Writing — review &
+editing (lead).
+
+Eugenio E. Vogel © — Conceptualization (supporting), Funding acquisition (lead), Supervision (equal), Valida-
+tion (equal), Writing — review & editing (supporting).
+
+Patricio Vargas ® — Conceptualization (lead), Methodology (lead), Supervision (lead), Writing — original draft
+(supporting), Writing — review & editing (equal).
+
+DATA AVAILABILITY STATEMENT
+
+Data sharing is not applicable to this article as no new data were created or analyzed in this study.
+
+Appendix A: Applications in the Lipkin—Meshkov—Glick model
+
+The Lipkin—Meshkov—Glick (LMG) model constitutes a paradigmatic framework in quantum many-body physics,
+extensively investigated in various experimental platforms such as Bose-Einstein condensates and trapped-ion sys-
+tems [25]. Recent studies have shown that a quantum Stirling cycle employing the LMG model as its working substance
+can, under appropriate conditions, reach Carnot efficiency.
+
+The model describes a system of N collectively interacting spins subjected to a uniform magnetic field, incorporating
+both symmetric and anisotropic spin-spin couplings. Its general Hamiltonian can be written as
+
+Hime = S. +V (S2 — 52) + w (Ss? - 82), (Al)
+
+where Sy = $ a o* denotes the collective spin operators, and of are the Pauli matrices acting on the i-th spin. The
+first term represents the Zeeman interaction with an external magnetic field of strength ¢, while S? = $? + S? +S?
+corresponds to the total spin magnitude. The coefficients V and W quantify the anisotropic components of the
+collective spin-spin coupling.
+
+It is convenient to define the following dimensionless control parameters:
+
+& Xo W+V W-V
+a =, = x . A2
+2 WN 2 TW aa
+In the isotropic case y = 1, the Hamiltonian simplifies to
+. 2r ,
+Hime = -<2 (S? — $2) — 2A5.. (A3)
+
+N
+By setting Ao = 1, the energy eigenvalues take the compact form
+
+2 NA\* Ne, yo
+E(M) rc (a1 5 ) 5 (1+ A”) -1, (A4)
+where M assumes discrete values M € [—N/2, N/2].
+
+This collective-spin model fulfills the general requirements for a quantum working substance discussed in the main
+text. Accordingly, the thermodynamic formalism developed earlier can be directly applied. For N = 3 and N = 4
+the corresponding quantum Stirling cycles are constructed from the energy spectrum given in Eq. (A4), where the
+parameter \ acts as the external thermodynamic variable controlling the energy-level structure throughout the cycle.
+
+Mobile param. AL AH 07 TH Jerit | Go Weim Wrormula Error
+a 0.66 | 2.5 | 0.10 | 0.20 2 1 | 0.0694418 0.1In2 1.83 x 1078
+(N= 3)
+Xr
+(N=4) 0.75 | 4.0 | 0.15 | 0.30 2 1 | 0.0940877 | 0.15In2 | 4.77 x 107?
+
+TABLE IV: Performance of the Lipkin-Meshkov-Glick (LMG) model operating as a quantum Stirling engine for different
+parameter sets and system sizes N = 3 and N = 4, respectively. The table lists the control parameters A; and Ay, the reservoir
+temperatures T; and Ty, the critical degeneracy gcrit, the ground-state degeneracy go, and the corresponding work output
+obtained from simulations (Wsim) compared with the analytical prediction of Eq. (23). Quantities are expressed in units of kg
+for temperature and work, while \ is given in dimensionless form. Results show quantitative agreement with Ref. [25].
+
+The excellent agreement between the simulated and analytical results, evidenced by the negligible relative error,
+confirms the consistency and reliability of our approach. Moreover, for the parameter sets presented in Table IV, the
+quantum Stirling engine based on the Lipkin-Meshkov—Glick model operates at the Carnot efficiency limit, demon-
+strating the thermodynamic optimality of the system under the specified conditions. This result further highlights
+the versatility of the proposed formulation, which remains valid beyond Heisenberg-type spin models and successfully
+extends to collectively interacting systems such as the LMG model.
+
+ACKNOWLEDGMENTS
+
+Authors acknowledge partial support from ANID CIA 250002, Fondecyt Grant (Chile) under contracts 1230055,
+1240582 and 1250173. B.C. acknowledges support from Pontificia Universidad Catdélica de Valparaiso (PUCV) and the
+Direccién de Postgrado of Universidad Técnica Federico Santa Marfa (UTFSM). B.C. also acknowledges the support
+of ANID Becas/Doctorado Nacional 21250015.
+
+an
+
+S. Vinjanampathy and J. Anders, Quantum thermodynamics, Contemporary Physics 57, 10.1080/00107514.2016.1201896
+(2016).
+
+2] R. Kosloff and L. Amikam, Quantum heat engines and refrigerators: Continuous devices, Annual Review of Physical
+Chemistry 64, 365 (2014).
+
+3] M. J. Henrich, F. Rempp, and G. Mahler, Quantum thermodynamic otto machines: A spin-system approach, EUROPEAN
+PHYSICAL JOURNAL-SPECIAL TOPICS 151, 157 (2007).
+
+4] G. Katz and R. Kosloff, Quantum thermodynamics in strong coupling: Heat transport and refrigeration, ENTROPY 18,
+10.3390/e18050186 (2016).
+
+5] P. Skraypcezyk, A. J. Short, and §. Popescu, Work extraction and thermodynamics for individual quantum systems, Nature
+Communications 5, 4185 (2014).
+
+6] X. He and J. He, Thermal entangled four-level quantum otto heat engine, Science China Physics, Mechanics and Astronomy
+55, 1751 (2012).
+7| A. E. Allahverdyan and T. M. Nieuwenhuizen, Extraction of work from a single thermal bath in the quantum regime,
+Phys. Rev. Lett. 85, 1799 (2000).
+
+8] M. F. Frenzel, D. Jennings, and T. Rudolph, Reexamination of pure qubit work extraction., Physical review. E, Statistical,
+nonlinear, and soft matter physics 90 5-1, 052136 (2014).
+
+9] S. Ahadpour and F. Mirmasoudi, Coupled two-qubit engine and refrigerator in heisenberg model, Quantum Information
+Processing 20, 63 (2021).
+
+10
+11
+
+12
+
+13
+
+14)
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20)
+
+21
+
+22
+
+23
+
+24
+
+26)
+
+27
+
+28)
+
+29)
+
+30
+
+31
+
+32
+
+33
+
+34)
+
+35
+
+37
+
+38
+
+40)
+
+16
+
+S. Deffner, Efficiency of harmonic quantum otto engines at maximal power, ENTROPY 20, 10.3390/e20110875 (2018).
+F. J. Pena, O. Negrete, N. Cortés, and P. Vargas, Otto engine: Classical and quantum approach, Entropy 22,
+10.3390/e22070755 (2020).
+
+F. J. Pena, D. Zambrano, O. Negrete, G. De Chiara, P. A. Orellana, and P. Vargas, Quasistatic and quantum-adiabatic otto
+engine for a two-dimensional material: The case of a graphene quantum dot, PHYSICAL REVIEW E 101, 10.1103/Phys-
+RevE.101.012116 (2020).
+
+N. M. Myers, O. Abah, and S. Deffner, Quantum thermodynamic devices: From theoretical proposals to experimental
+reality, AVS quantum science 4 (2022).
+
+C. Myatt, B. King, Q. Turchette, C. Sackett, D. Kielpinski, W. Itano, C. Monroe, and D. Wineland, Decoherence of
+quantum superpositions through coupling to engineered reservoirs, Nature 403, 269 (2000).
+
+T. Kieu, The second law, maxwell’s demon, and work derivable from quantum heat engines, Physical Review Letters 93,
+140403 (2004).
+
+E. Geva and R. Kosloff, On the classical limit of quantum thermodynamics in finite-time, JOURNAL OF CHEMICAL
+PHYSICS 97, 4398 (1992).
+
+H. M. Soufy and C. Benjamin, Flat-band thermodynamics reveals enhanced performance across otto, carnot, and stirling
+cycles, Phys. Rev. A, (2025).
+
+X.-M. X. Xiao-Li Huang, Xin-Ya Niu and X.-X. Yi, Quantum stirling heat engine and refrigerator with single and coupled
+spin systems, The European Physical Journal D 68, 10.1140/epjb/e2013-40536-0 (2014).
+
+A. H. B. Pili, R. Khordad, H. R. R. Sedehi, and A. Avazpour, Study of performance of quantum stirling engine using 2d
+and 3d heisenberg model, International Journal of Theoretical Physics 62, 192 (2023).
+
+J.-Z. He, X. He, and Z. Jie, Entangled quantum heat engine based on two-qubit heisenberg xy model, Chinese Physics B
+- CHIN PHYS B 21 (2012).
+
+S. H. Raja, S. Maniscalco, G. S. Paraoanu, J. P. Pekola, and N. L. Gullo, Finite-time quantum stirling heat engine, New
+Journal of Physics 23 (2020).
+
+T. Feldmann and R. Kosloff, Performance of discrete heat engines and heat pumps in finite time, Physical Review E 61,
+10.1103/PhysRevE.61.4774 (2000).
+
+R. J. de Assis, J. S. Sales, J. A. R. da Cunha, and N. G. de Almeida, Universal two-level quantum otto machine under a
+squeezed reservoir, Physical Review E 102, 052131 (2020).
+
+B. Castorene, V. G. de Paula, F. J. Pefia, C. Cruz, M. Reis, and P. Vargas, Quantum level-crossing induced by anisotropy in
+spin-1 heisenberg dimers: Applications to quantum stirling engines, Advanced Quantum Technologies 8, e2500204 (2025),
+https: / /advanced.onlinelibrary.wiley.com/doi/pdf£/10.1002/qute.202500204.
+
+Y.-H. Ma, S.-H. Su, and C.-P. Sun, Quantum thermodynamic cycle with quantum phase transition, Phys. Rev. E 96,
+022143 (2017).
+
+C. Cruz, H.-R. Rastegar-Sedehi, M. F. Anka, T. R. de Oliveira, and M. Reis, Quantum stirling engine based on dinuclear
+metal complexes, Quantum Science and Technology 8, 035010 (2023).
+
+J. P. S. Peterson, T. B. Batalhao, M. Herrera, A. M. Souza, R. S. Sarthour, I. S. Oliveira, and R. M. Serra, Experimental
+characterization of a spin quantum heat engine, PHYSICAL REVIEW LETTERS 123, 10.1103/PhysRevLett.123.240601
+(2019).
+
+S. Sachdev, Quantum phase transitions (Cambridge university press, 2011).
+
+C. Purkait and A. Biswas, Performance of heisenberg-coupled spins as quantum stirling heat machine near quantum critical
+point, Physics Letters A 442, 128180 (2022).
+
+J.-Z. He, X. He, and J. Zheng, Thermal entangled quantum heat engine working with a three-qubit heisenberg xx model,
+INT. J. THEOR. PHYS. 51, 2066 (2012).
+
+X. Wang, H. Fu, and A. I. Solomon, Thermal entanglement in three-qubit heisenberg models, Journal of Physics A:
+Mathematical and General 34, 11307 (2001).
+
+T. Kiran and M. Ponmurugan, The invariant-based shortcut to adiabaticity for qubit heat engine operates under quantum
+otto cycle, The European Physical Journal Plus 137 (2022).
+
+C. Araya, F. J. Pena, A. Norambuena, B. Castorene, and P. Vargas, Magnetic stirling cycle for qubits with anisotropy
+near the quantum critical point, TECHNOLOGIES 11, 10.3390/technologies11060169 (2023).
+
+B. Castorene, F. J. Pefia, A. Norambuena, S. E. Ulloa, C. Araya, and P. Vargas, Effects of magnetic anisotropy on
+three-qubit antiferromagnetic thermal machines, Phys. Rev. E 110, 044135 (2024).
+
+A. H. B. Pili, R. Khordad, and H. R. R. Sedehi, Quantum stirling heat engine in two-coupled-qubit heisenberg xyz model,
+The European Physical Journal Plus 138, 871 (2023).
+
+E. I. Kuznetsova, M. A. Yurischev, and S$. Haddadi, Quantum otto heat engines on xyz spin working medium with dm and
+ksea interactions: operating modes and efficiency at maximal work output, QUANTUM INFORMATION PROCESSING
+22, 192 (2023).
+
+Y. Yin, L. Chen, and F. Wu, Performance of quantum stirling heat engine with numerous copies of extreme relativistic
+particles confined in 1d potential well, PHYSICA A-STATISTICAL MECHANICS AND ITS APPLICATIONS 503, 58
+(2018).
+
+K. Ono, 8. N. Shevchenko, T. Mori, S. Moriyama, and F. Nori, Analog of a quantum heat engine using a single-spin qubit,
+Phys. Rev. Lett. 125, 166802 (2020).
+
+C. M. S. da Conceicao and R. N. P. Maia, Recurrence relations in one-dimensional ising models, Phys. Rev. E 96, 032121
+(2017).
+
+J. Zhang, F. M. Cucchietti, C. M. Chandrashekar, M. Laforest, C. A. Ryan, M. Ditty, A. Hubbard, J. K. Gamble, and
+
+17
+
+R. Laflamme, Direct observation of quantum criticality in ising spin chains, Phys. Rev. A 79, 012305 (2009).
+[41] D. V. Laptiev, O. O. Kryvchikov, Y. V. Savin, and V. V. Slavin, Magnetic properties of the frustrated ising chain, Low
+Temperature Physics 50, 158 (2024).

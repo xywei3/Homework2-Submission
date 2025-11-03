@@ -1,0 +1,1566 @@
+arXiv:2510.25683v1 [cs.LG] 29 Oct 2025
+
+Graph Network-based Structural Simulator: Graph Neural Networks for
+Structural Dynamics
+
+Alessandro Lucchetti! Francesco Cadini! Marco Giglio! Luca Lomazzi!*
+
+Keywords: Graph Neural Network; Structural dynamics; Wave; Structural health monitoring; Surrogate Model
+
+Abstract
+
+Graph Neural Networks (GNNs) have recently been explored as surrogate models for numerical simulations.
+While their applications in computational fluid dynamics have been investigated, little attention has been given
+to structural problems, especially for dynamic cases. To address this gap, we introduce the Graph Network-based
+Structural Simulator (GNSS), a GNN framework for surrogate modeling of dynamic structural problems.
+
+GNSS follows the encode—process—decode paradigm typical of GNN-based machine learning models, and its
+design makes it particularly suited for dynamic simulations thanks to three key features: (i) expressing node
+kinematics in node-fixed local frames, which avoids catastrophic cancellation in finite-difference velocities; (ii)
+employing a sign-aware regression loss, which reduces phase errors in long rollouts; and (iii) using a wavelength-
+informed connectivity radius, which optimizes graph construction.
+
+We evaluate GNSS on a case study involving a beam excited by a 50 kHz Hanning-modulated pulse. The results
+show that GNSS accurately reproduces the physics of the problem over hundreds of timesteps and generalizes to
+unseen loading conditions, where existing GNNs fail to converge or deliver meaningful predictions.
+
+Compared with explicit finite element baselines, GNSS achieves substantial inference speedups while preserving
+spatial and temporal fidelity. These findings demonstrate that locality-preserving GNNs with physics-consistent
+
+update rules are a competitive alternative for dynamic, wave-dominated structural simulations.
+
+1. Introduction
+
+High-fidelity simulations underpin design and decision-
+making across many areas of computational science and
+engineering. However, resolving transient dynamics with
+fine spatial meshes is still expensive when long horizons,
+high frequencies, or repeated solves over parameter sets are
+required. Surrogate models have therefore become popular
+as a means to accelerate inference while retaining accuracy
+where it matters, from fluids and granular flow to materials
+and mechanics (Forrester et al., 2008; Herrmann & Koll-
+mannsberger, 2024).
+
+Several approaches to surrogate modeling exist: clas-
+sical Reduced-Order Models (ROMs) compress dynam-
+ics via low-rank bases (e.g., POD/Galerkin) or regres-
+sion in latent coordinates (Benner et al., 2015; Quarteroni
+et al., 2016); Gaussian-process and Kriging surrogates
+excel with limited data and quantified uncertainty (Ras-
+
+'Politecnico di Milano, Department of Mechanical Engineer-
+ing, Via La Masa 1, Milano, 20156, Italy.
+Email to: luca.lomazzi@polimi.it.
+
+mussen & Williams, 2006; Sacks et al., 1989; Forrester
+et al., 2008); Deep Learning (DL) surrogates, ranging from
+convolutional encoder-decoder models to sequence mod-
+els and neural operators, aim to learn solution operators or
+time-advancement rules directly from data, offering mesh-
+and geometry-agnostic generalization in favorable settings,
+and they scale to large datasets and complex, nonlinear
+regimes (Ronneberger et al., 2015; Shi et al., 2015; Lietal.,
+2020; Lu et al., 2019; Kovachki et al., 2023).
+
+However, each class of approaches has its own inherent
+limitations. ROMs can struggle with strongly nonlinear
+phenomena and often require intrusive projection or sta-
+bilization (Benner et al., 2015; Quarteroni et al., 2016).
+Neural operators and Physics-Informed Neural Networks
+(PINNs) have shown strong results for wave propagation
+and inverse problems, yet they frequently rely on global
+transforms or explicit PDE supervision (Li et al., 2020;
+Raissi et al., 2018; Cuomo et al., 2022). At high fre-
+quency, global spectral layers must resolve short wave-
+lengths, and PINN training can become stiff due to com-
+peting loss terms and the need for accurate residuals on
+Graph Network-based Structural Simulator
+
+fine collocation sets (Kovachki et al., 2023; Krishnapriyan
+et al., 2021; Wang et al., 2022; Maddu et al., 2021). Convo-
+lutional Neural Networks (CNNs) are particularly suitable
+for grid-like data, but become cumbersome when simulat-
+ing generic domains with complex shapes (Bronstein et al.,
+2017).
+
+Recently, a promising alternative to the models discussed
+above has emerged in the form of Graph Neural Networks
+(GNNs). They provide a powerful framework for surrogate
+modeling on both structured and unstructured meshes and
+possess several properties that make them particularly suit-
+able for representing physical phenomena. For instance,
+they naturally incorporate locality by aggregating infor-
+mation from neighboring nodes and support weight shar-
+ing in a way that is inherently invariant to node order-
+ing (Gilmer et al., 2017; Zaheer et al., 2018; Battaglia et al.,
+2018). These features align closely with the behavior of
+most physical systems, where locality and invariance are
+fundamental principles.
+
+Based on this paradigm, several simulators have been
+developed, among which the Graph Network Simulator
+(GNS) and MeshGraphNet stand out as the most promis-
+ing. While differing mainly in the graph construction
+method, they both excel at simulating complex phenom-
+ena such as fluid dynamics, thanks to message passing and
+graph-to-graph updates to generate subsequent time steps
+of a simulation (Sanchez-Gonzalez et al., 2020; Pfaff et al.,
+2020; Fortunato et al., 2022).
+
+Despite this progress, applications of GNN surrogates to
+structural problems, particularly dynamic ones, remain
+comparatively limited. Existing work often focuses on
+static or time-independent PDEs, quasi-static responses, or
+settings where displacements are large relative to the ge-
+ometric scale (Chou et al., 2024; Gladstone et al., 2024;
+Zhao et al., 2024; Deshpande et al., 2024; Herrmann &
+Kollmannsberger, 2024). However, a general framework
+capable of handling dynamic events and micro-scale dis-
+placements has not yet been proposed. The latter aspect,
+namely micro-scale displacements, introduces several nu-
+merical challenges: finite-difference velocities computed
+from absolute nodal positions can suffer from catastrophic
+cancellation when subtracting nearly equal floating-point
+numbers, which degrades derivative accuracy and destabi-
+lizes long rollouts (Higham, 2002).
+
+To address these gaps, we introduce the Graph Network-
+based Structural Simulator (GNSS), a GNN framework
+for surrogate modeling of structural dynamics. The de-
+sign is general and not restricted to any specific struc-
+tural class; in this paper, we evaluate it on guided wave
+dynamics, an application that is both practically relevant
+- for example, in fields like structural health monitoring
+- and numerically demanding, due to the need for fine
+
+meshes and spatial discretizations to obtain accurate re-
+sults (Rose, 1999; Cawley, 2024). GNSS combines three
+ingredients tailored to structural simulations: (i) a local-
+coordinate formulation that expresses nodal kinematics in
+node-fixed frames to stabilize finite-difference velocities
+at micro-scale displacements; (ii) a sign-aware accelera-
+tion loss that discourages phase flips and improves long-
+horizon stability; and (iii) a wavelength-informed connec-
+tivity radius that aligns the message-passing neighborhood
+with physically meaningful interaction scales (e.g., a frac-
+tion of the bending-wave wavelength), thereby leveraging
+locality without oversmoothing (Langer et al., 2017). To-
+gether, these choices preserve the benefits of graph local-
+ity, while mitigating failure modes observed when applying
+off-the-shelf GNN simulators to structural dynamics prob-
+lems involving small displacements.
+
+We benchmarked GNSS on a numerical case study involv-
+ing wave propagation in a clamped beam, using a dataset
+generated through finite element simulations. Our model
+accurately predicts wave propagation during the rollout
+phase and generalizes across different loading conditions,
+outperforming traditional GNNs based on absolute nodal
+positions.
+
+This paper is organized as follows. Section 2 describes
+the implementation of GNSS. Section 3 introduces the case
+study used to validate the proposed method and discusses
+the results. Section 4 draws out the conclusions of this
+work.
+
+2. Methods
+
+GNSS builds on the foundational concepts of graph the-
+ory and the classical GNNs introduced by Scarselli et al.
+(2009), as well as the GN framework proposed by Battaglia
+et al. (2018). A comprehensive treatment of these theo-
+retical foundations is beyond the scope of this paper; in-
+stead, the focus is on adapting and applying the GN frame-
+work to structural dynamics. Accordingly, this section first
+introduces basic graph definitions, then outlines the GN
+paradigm, and finally presents the specific GN-based ar-
+chitecture developed for structural dynamic analysis.
+
+2.1. Graph Networks
+
+A graph G consists of a set of nodes (or vertices) and a
+set of edges that define connections between nodes. For-
+mally, a graph can be represented using an adjacency ma-
+trix A € RN*%, where N is the number of nodes, and
+Aj; # 0 indicates an edge between nodes i and j. The de-
+gree of a node is defined as the number of edges incident to
+that node. Beyond this topological knowledge, graphs can
+include additional information in the form of node features
+V ¢ R%*¢ and edge features E € R!|**, where d and
+Graph Network-based Structural Simulator
+
+k are the feature dimensions (i.e., the length of the vector)
+of nodes and edges, respectively (Gong & Cheng, 2019;
+Yang & Li, 2020; Chen & Chen, 2021). The node feature
+vector associated with node n, denoted by x, € R4, rep-
+resents some measurable properties of the node. Similarly,
+the edge feature vectors encode the relationship between
+connected nodes. Given the feature vectors, the graph can
+be defined as G = (V, E)
+
+Early neural architectures for graphs, such as the GNN
+model proposed in Scarselli et al. (2009)’s work, extended
+neural computation to structured graph domains using
+an iterative, equilibrium-based message-passing scheme.
+Each node updates its state by aggregating information
+from its neighbors until convergence. These models have
+proven effective for representing physical systems with
+complex, irregular topologies, where traditional architec-
+tures like Convolutional Neural Networks (CNNs), de-
+signed for structured grid-like data, are inadequate. GNNs
+generalize the concept of convolution to graph domains,
+making them well-suited for applications in fluid dynam-
+ics, structural mechanics, and materials science (Battaglia
+et al., 2018; Pfaff et al., 2020; Wong et al., 2022; Sanchez-
+Gonzalez et al., 2020; Choi & Kumar, 2024; Li et al., 2023;
+Zhao et al., 2023; Gulakala et al., 2023; Shivaditya et al.,
+2022; Bronstein et al., 2017; Wu et al., 2020).
+
+A key strength of GNNs in modeling physical systems lies
+in their inductive biases. These include the representation
+of local interactions through message passing, the sharing
+of weights across the graph, and invariance to node per-
+mutations. Such biases naturally reflect physical principles
+such as locality, translational symmetry, and conservation
+laws (Battaglia et al., 2018).
+
+The GN framework (Battaglia et al., 2018) generalizes and
+unifies multiple GNN-based architectures such as message-
+passing neural networks (MPNNs), interaction networks,
+and relation networks. Unlike classical GNNs, GNs explic-
+itly decompose the graph update process into three modu-
+lar functions: edge update, node update, and global update.
+This modular graph-to-graph transformation enables flex-
+ible and expressive modeling capabilities, which are par-
+ticularly beneficial in physical simulation tasks (Sanchez-
+Gonzalez et al., 2020).
+
+Given as input a system’s state described by a graph
+S = (X,R), a GN produces an updated graph S’ =
+(X’, R’) of identical topology representing the updated
+state of the system. X and R describe the physical prop-
+erties and relationships of the system, respectively. The
+architecture typically follows an encode-process-decode
+paradigm (Battaglia et al., 2018), where raw inputs are
+encoded into latent node and edge embeddings, itera-
+tively processed through message passing, and decoded
+into physically meaningful outputs.
+
+Encoding The encoding phase is described in Equa-
+tion 1. During this step, the physical properties and rela-
+tionship describing the state are embedded into a higher-
+dimensional continuous space:
+
+th = RYxd
+
+ReRN* 3 V,EeR** ()
+
+Here, NV is the number of nodes, d is the number of prop-
+erties for each node, k is the number of relationships for
+each edge, and the h-dimensional space is the latent space.
+This initial transformation not only homogenizes the fea-
+ture space, but also allows the network to capture local pat-
+terns that are crucial for the learning task (Scarselli et al.,
+2009; Gilmer et al., 2017).
+
+Message Passing Message passing is the phase during
+which information is processed and exchanged among the
+different nodes of the system. It consists of updating the
+latent features of the graph through three steps:
+
+1. Message Construction (Equation 2): The updated
+edge features (also called message) are obtained by
+combining the old information of the edge and the two
+nodes connected to it:
+
+e}, = Ovi, Vy, e4y) (2)
+
+2. Message Aggregation (Equation 3): For each node,
+an aggregated message is computed; this is obtained
+by combining all the messages related to node 7:
+
+v= v(el;, Vi EN() (3)
+
+Here, \’(i) represents the set of nodes linked to node
+i.
+
+3. Node Update (Equation 4): During this final step, the
+old node feature vector is combined with the aggre-
+gated message to obtain the updated node features:
+
+vi = 7 (vis) (4)
+
+Equation 5 describes the entire message passing pipeline
+concisely:
+
+vi = 7 (vi, Vien (¢ (vi, Vy, ey) (5)
+
+In Equations 2-5, the symbols ¢, 7, represent arbitrary
+operands which are part of the architectural choice when
+designing a GN.
+
+The whole message passing procedure is typically repeated
+M > 1 times. This hyperparameter defines the degree of
+information propagation through the network, and thus the
+Graph Network-based Structural Simulator
+
+depth of the GN, as visually represented in Figure 1. Infor-
+mation spread is usually represented through a computation
+graph, which describes how the embedding of each node is
+iteratively updated through message passing. Each layer of
+the computation graph carries out a message-passing op-
+eration; by applying this process recursively across lay-
+ers, the network is able to represent both local interactions
+and more complex, higher-order relationships within the
+graph (Gilmer et al., 2017; Battaglia et al., 2018).
+
+\e
+
+:/
+
+Figure 1. Visual representation of information propagation over
+two message-passing steps. In the second step, colored nodes re-
+ceive messages from the same neighbors as in the first step, since
+the topology is fixed. However, these neighbors now carry the in-
+formation acquired from their own neighbors in the previous step,
+illustrated using a grayscale colormap.
+
+Go
+
+v
+
+Leo fo°05 Hv 5 0%
+
+Decoding During the decoding phase, the information
+stored in the latent representation is converted to task-
+specific predictions, such as node-level, edge-level, or
+graph-level outputs (Battaglia et al., 2018). For example,
+referring to the case of GNS and MeshGraphNet, the de-
+coder performs a single node-level task by transforming the
+updated node features into a physical quantity at each node,
+the acceleration.
+
+2.2. GNSS
+
+In Figure 2, our GNSS is presented. This framework is
+a modified version of the GNS developed by Sanchez-
+Gonzalez et al. (2020), specifically adapted for structural
+simulations. Figure 2(a) shows the Rollout, namely the
+procedure used to simulate the trajectory of the system:
+an initial configuration Xo is provided, then the GNSS
+is iteratively applied Bix times to predict the trajectory
+from physical time 0 to physical time T. At, is the
+fixed timestep size adopted in the numerical simulations
+used to generate all trajectories in the dataset. Figure 2(b)
+
+expands the operation involved at each time step t, dur-
+ing which the GNSS performs the whole encode-process-
+decode paradigm to retrieve the updated nodal information
+(accelerations). Lastly, Figure 2(c) details the processing
+phase, i.e., message passing, showing the procedure for a
+single passing step; as introduced above, message passing
+is recursively repeated MM times.
+
+In what follows, we detail the GNSS operations shown in
+Figure 2(b)-(c). The pipeline — from graph construction to
+position update — is described for a single simulation time
+step t; accordingly, all intermediate quantities are evaluated
+at t, and the output corresponds to the updated state at t+1.
+Because a single GNSS pass performs multiple rounds of
+message passing, we denote the m-th round by the super-
+script (™). To avoid clutter, we omit the time index; unless
+otherwise stated, all expressions are understood at time t.
+
+Pre-processing: graph definition The pre-processing
+phase is responsible for representing the information stored
+in the initial configuration of the system into a graph struc-
+ture ready to be processed by the GN.
+
+The representation of the system naturally follows from the
+choice of a graph-based model. The continuous structure
+is discretized into a set of points, each capturing the lo-
+cal physical properties of its neighborhood, while the in-
+teractions among these points are expressed as relation-
+ships. Throughout the following description, we will de-
+note a point in the discretized structure as «, and its associ-
+ated relationship as r;;, representing the underlying physi-
+cal properties. In contrast, the terms node v; and edge e;;
+will refer to the corresponding latent features, i.e., the latent
+graph representation used within the model.
+
+Regarding the relationship between those points, the pri-
+mary idea behind the graph construction proposed by
+Sanchez-Gonzalez et al. (2020) is that, typically, entities
+in physical systems are influenced by their neighbors. This
+natural behavior is reflected in the graph structure by es-
+tablishing edges only between nodes that are sufficiently
+close. In practice, this is achieved by defining a connectiv-
+ity radius that sets the maximum allowable distance for two
+nodes to be connected, as shown in Figure 3.
+
+Figure 3. Graph defined through connectivity radius.
+Graph Network-based Structural Simulator
+
+(a) aa,
+aa
+Updater» GK
+| f ap
+
+@- =
+
+| Pre-Processing }>| GNN “i
+(b)
+Graph definition Encoding Processing Decoding | Position update
+e s
+ig, @
+vi * 2s @y;
+@ ®@
+@
+(c)
+Message Message Node
+ey constrechba ent? aggresation update eg
+vr > vr —_»> VP > yintl
+
+Figure 2. Our GNSS framework, adapted from Sanchez-Gonzalez et al. (2020)’s work. a) Rollout: an initial configuration Xo is pro-
+vided, then the GNSS is iteratively applied T times to predict the trajectory from time 0 to time T. GNSS includes a graph building
+procedure, a GNN, and a fixed updater. b) Encode-process-decode procedure. c) Message passing operation at message passing step m
+
+with m= 1,...,M.
+
+Once the graph’s topology is defined, each node i of the
+graph is associated with a feature vector storing physi-
+cal information. Following the implementation proposed
+by Sanchez-Gonzalez et al. (2020), the point feature vec-
+tor stores information about the velocity context and the
+type of particle related to the node. As demonstrated by
+Sanchez-Gonzalez et al. (2020), including not only the cur-
+rent velocity of a point, but also the velocities from pre-
+vious timesteps, greatly improves the performance of the
+model. This information is stored in a tensor as shown in
+Equation 6:
+
+t) p. ,
+‘ P, = [i oxag By
+
+] “Pier? ©
+
+Here, t is the current timestep, and Op; is the velocity of
+point 7 at time t, d is the dimension of the space, and n is
+the number of previous velocities considered (in addition to
+the current one). This is a hyperparameter, and is usually
+set ton = 4 as suggested by Choi & Kumar (2024). The
+velocities are calculated via finite differences as shown in
+Equation 7:
+
+Op; —Ypi
+
+Ae (7)
+
+Op, =
+
+where “!)p; is the position of point i at time t and At is
+the timestep size. The timestep size used in the algorithm
+
+is set to 1, as non-dimensional time quantities are preferred
+during prediction. This unit timestep size corresponds to a
+physical timestep At,,, implicitly defined by the one used
+in the training dataset. Consequently, the timestep size
+adopted in the numerical simulations must remain fixed and
+identical across all trajectories in the dataset.
+
+The framework is designed to account for different types
+of particles. This information is required by the model to
+correctly handle entities playing different roles in the sim-
+ulation, and is stored in a vector f. This vector has 16 com-
+ponents and is created through an embedding layer.
+
+In our model, we exploit this structure to inform the predic-
+tion mechanism about the constraint of the structural sim-
+ulation. Thanks to this choice, we can simply assign arbi-
+trary IDs to different types of constraints, and the model
+will optimize the weights of the embedding layer (i.e., the
+16 components of f) to best represent the different entities
+according to their behavior. For example, we can assign an
+ID to the free portion (nodes) of the structure, another ID to
+nodes where a prescribed motion is applied, and another ID
+to the region of application of BCs. This choice allows us
+to simplify the feature vector proposed by Choi & Kumar
+(2024) by eliminating the information about the distance
+from the boundaries that was given for each node. Addi-
+tionally, this allows us to model different types of bound-
+Graph Network-based Structural Simulator
+
+aries by assigning different IDs to them (clamp, pin, etc.).
+
+All the properties listed above are included in a point state
+vector, as shown in Equation 8:
+
+xt = [ps4] (8)
+
+Here, ps! is the flattened vector of velocities history. For a
+representative 2D case, considering the current velocity and
+4 additional velocities and the previous timesteps, the point
+feature vector is composed of 26 elements: 5 components
+for velocity along direction x, 5 for velocity along direction
+y, and 16 for the type embedding.
+
+Moreover, the interaction between connected points i and
+j is represented by their distance in the physical space and
+their displacement in the current timestep, both normalized
+by the connectivity radius R, as shown in Equation 9:
+
+1
+. t t us t
+rig = [(pi- 3) [lpr — Pill g 9)
+The distance provides information about the level of in-
+teraction between the two points, while the displacement
+gives a direction to the relationship.
+
+Typically, GNs represent displacements in an absolute
+coordinate system shared by the entire physical system
+(Sanchez-Gonzalez et al., 2020; Choi & Kumar, 2024).
+While this approach is well-suited to domains commonly
+simulated with GNs, such as granular flow and fluid dy-
+namics, it can be problematic in structural mechanics. In
+structural simulations, load-induced displacements are of-
+ten several orders of magnitude smaller than the charac-
+teristic dimensions of the system. This scale mismatch
+can cause numerical issues when derivatives (e.g., veloc-
+ities) are computed via finite differences. In particular,
+subtracting two large, nearly equal floating-point numbers
+(absolute positions at successive timesteps) may lead to a
+loss of significant digits, a phenomenon known as catas-
+trophic cancellation (Higham, 2002). The resulting nu-
+merical noise reduces the accuracy of computed deriva-
+tives, and the problem becomes critical when rounding
+errors are comparable to, or larger than, the displace-
+ments being resolved. This limitation is well recognized in
+precision-sensitive fields such as structural dynamics and
+geomechanics, where floating-point inaccuracies can dis-
+tort small-strain calculations (Belytschko et al., 2014).
+
+To overcome this limitation, GNSS introduces a novel rep-
+resentation of nodal positions in local coordinate systems
+that are fixed in both space and time. For each node, the
+origin is set at its initial position (i.e., its location at time
+zero), effectively centering all subsequent displacements
+around zero. By eliminating large absolute position values,
+this representation mitigates catastrophic cancellation and
+ensures stable, accurate derivative computations via finite
+
+differences. This formulation constitutes a key feature of
+GNSS, enabling reliable surrogate modeling of structural
+dynamics where traditional GN formulations fail.
+
+Encoder The encoder is responsible for transforming the
+input graph G into a latent graph Go, in which the old
+physical feature vectors are embedded into a latent space.
+In our implementation, following Sanchez-Gonzalez et al.
+(2020)’s work, this operation is performed by two multi-
+layer perceptrons (MLPs), €g. and €g-, which embed the
+feature vectors associated with nodes and edges, respec-
+tively. The two MLPs share the same architecture: an input
+layer with dimensions NV, for nodes and N,. for edges, two
+hidden layers of 64 units each, and an output layer of size
+64. The sets of trainable parameters are identified by 0”
+and O°, and are optimized during training to learn an effec-
+tive way to embed physical properties into the latent space.
+This operation can be represented as shown in Equation 10:
+
+vi = (xi), ely = & (ri) (10)
+
+Here, vi and ei represent the node and edge feature vec-
+tors in the latent space.
+
+Figure 10 shows the encoding procedure for a node and an
+edge of a sample graph. The result of these operations is a
+latent graph G° = (V,, E); the superscript ° indicates that
+this is the initial state representation, prior to performing
+any message-passing step.
+
+QQ 6
+
+( Cj
+(ory
+we P~
+
+Figure 4. Representation of the encoder block: two MLPs, «gv
+and eg, embed the node and edge feature vectors, respectively,
+into the latent space.
+
+Processor The processor performs the message passing
+operations, a simplified representation of which is shown
+in Figure 2(c).
+
+The processor takes as input the initial graph G'™, where
+the index m denotes the current message-passing step. This
+index starts from m = 0 (the encoder output) and is incre-
+mented at each iteration until a user-defined number M of
+steps is reached. Message passing begins with the message
+construction phase, illustrated in Figure 5 and described by
+Graph Network-based Structural Simulator
+
+Equation 11. In this phase, each edge feature vector is up-
+dated by combining its current value with the feature vec-
+tors of the two nodes it connects, all evaluated at the current
+iteration. In our model, this combination is implemented
+by an MLP with two hidden layers of 64 units each. The
+input layer has size 3n, since the MLP input is the concate-
+nation of the three feature vectors involved in constructing
+the message for each edge. The output layer has size n, cor-
+responding to the latent space dimension, in order to pre-
+serve consistency in the feature vector dimensions across
+the graph entities. This operation can be generalized as:
+
+emtt = bee (Vs Vis Ory e85)
+Here, ¢@” denotes the MLP used at the m-th message-
+passing step, and ©%, is the set of trainable parameters as-
+
+sociated with it. The operation is repeated for all edges in
+the graph.
+
+Figure 5. Message construction: an MLP merges the information
+from each link (2 nodes and 1| edge) into an update edge feature.
+
+The output of the message construction phase is then used
+for message aggregation, as illustrated in Figure 6 and de-
+scribed by Equation 12. For each node i in the graph, an
+aggregated message is constructed by element-wise sum-
+ming the feature vectors of the edges connected to it. This
+is expressed as:
+
+yen) — 1 ent? (12)
+GEN (i)
+
+For each node, the aggregated message is computed and
+stored together with its previous feature representation in
+the graph.
+
+jet!
+
+vn yntl
+Cai eee 3 F- io VG
+> w= Ves TY
+\ JEN (i) ‘Tame
+eo —
+
+_{ J ° id
+
+Figure 6. Message aggregation: all the (updated) information
+coming from neighboring nodes is gathered.
+
+Finally, the node features are updated, as illustrated in Fig-
+ure 7 and by Equation 13. This step involves combining
+the old node feature vector with the aggregated message to
+obtain the updated node feature vector. In our model, fol-
+lowing the structure from Sanchez-Gonzalez et al. (2020),
+this operation is performed by an MLP with two hidden
+layers of 64 units each. The input layer has size 2n (i.e.,
+two times the latent space dimension, since the aggregated
+message has dimension 7), and the output layer has dimen-
+sion n. This operation is defined as:
+
+vit = By (vat) a3)
+Here, 7” is an operator representing the MLP associated
+with the current message-passing step, and ©., represents
+
+the set of trainable parameters associated with the MLP.
+The operation is repeated for all nodes in the graph.
+
+QQ
+
+Figure 7. Node features update: the old node feature vector and
+the aggregated message are processed to obtain the updated node
+feature vector.
+
+In our model, M is set to 10, as in Choi & Kumar (2024)’s
+work. Two main aspects cause this hyperparameter to be
+particularly critical for the model’s performance. The first
+consideration concerns information propagation: a lower
+M may not allow information to reach distant parts of the
+graph, potentially missing important relational data. Con-
+versely, too many message passing rounds can distort rele-
+vant signals, leading to less effective representations. An-
+other important consideration is model complexity. Each
+message passing step uses its own unique MLPs. This
+means that with every additional step, new parameters are
+introduced. As a result, the number of parameters grows
+linearly with the number of message passing steps, and the
+computational cost increases as each MLP must be exe-
+cuted in sequence.
+
+At the end of all the prescribed message passing steps, the
+output of the processor block is an updated graph G’ =
+G™ containing the update node feature vector v/ and the
+updated edge feature vector e’, z
+
+Decoder The decoder extracts the dynamics of all points
+in the physical system, which correspond one-to-one to the
+graph nodes, from the information stored in the updated
+
+Graph Network-based Structural Simulator
+
+graph G’. In other words, the extracted information rep-
+resents the output of the procedure and corresponds to the
+prediction for the next time step, t + 1, as shown in Equa-
+tion 14:
+
+(My; = 68 (v1) (4)
+
+Here, v/ represents the updated node features of node i,
+while ‘‘+1)y, represents the predicted dynamics. For struc-
+tural simulations, the model is trained to predict the accel-
+eration of all points in the physical system. Accordingly,
+(+1) y, is a vector of dimension d,matching the dimension
+of the physical space. The operator 0@ is the decoder: in
+our model, this function is an MLP with two hidden layers
+of 128 units each, with an input layer having the size of the
+latent space (i.e. ), and an output layer having size d. The
+decoding process is illustrated in Figure 8.
+
+a
+/\@ vi
+a,
+
+Gy:
+
+Figure 8. Decoding: each updated node features vector is trans-
+formed into the desired physical quantity at the corresponding
+node in space (acceleration in case of structural simulations).
+
+Updater The updater enforces an inertial frame by in-
+corporating the laws of motion through inertial and static
+priors. The inertial prior assumes that the velocity of each
+point changes predictably based on its acceleration over a
+short time interval (Equation 15), while the static prior as-
+sumes that the position of each point evolves continuously
+with its current velocity (Equation 16). These priors are
+enforced by hardcoding the updater to calculate the new
+velocity and position via Euler integration:
+
+(+)p, = Op, + Dy At, (15)
+CM p, = Op, + 4p, At, (16)
+
+where (‘+ y; is the predicted acceleration of point i.
+
+2.2.1. PROCEDURES
+
+Our framework relies on two core procedures: training and
+rollout. The training phase produces a learned model ca-
+pable of predicting positions, while the rollout phase acts
+as a solver, generating full trajectories from user-provided
+input data.
+
+Training The training procedure is summarized in the
+pseudo-code shown in Algorithm 1. As in traditional
+ML algorithms, training proceeds over successive epochs.
+At each epoch, the sampler extracts a batch of data from
+
+Algorithm 1: Training Procedure
+
+Input: Training dataset
+
+Output: Trained GNSS
+
+Initialize model;
+
+foreach training step do
+
+Sample a batch of B timesteps;
+
+foreach sample in batch do
+
+Calculate velocity from the configuration; Add
+noise;
+
+Compute input graph G = (X, R);
+
+Apply the GN block to obtain the update graph G’;
+
+Extract the predicted acceleration y from G':
+
+Compute true acceleration y from ground truth with
+noise;
+
+Compute loss;
+
+end
+Backpropagate and update weights;
+
+end
+Save model, i.e. the trained GNSS;
+
+the training set. Each batch consists of B samples, ran-
+domly selected from all timesteps across all trajectories.
+Figure 9 illustrates the batching operation for a represen-
+tative dataset with two trajectories of five timesteps each.
+In this example, each batch contains B = 2 random sam-
+ples across all the available data. In the interest of sim-
+plicity, each sample consists of the system configuration
+at timestep ¢ together with that at timestep t + 1. However,
+in practical applications, information from several previous
+timesteps is often included to improve temporal context and
+prediction accuracy. The configuration at t is used as input
+to the model, while the acceleration required to evolve the
+system from configuration t to configuration t + 1 (“+ y)
+serves as the ground truth (label) for the current training
+
+Trajectory 1
+Position at t=1
+FPREREEED) nit! position 2
+Sample 2
+Position at t=3 Label 2
+Position at t=4 |
+
+Position at t=5 f
+
+Trajectory 2
+Position at t=1
+
+Position at t=2
+
+Initial position 1
+Sample 1
+
+Label 1
+
+Position at t=5
+
+Figure 9. Batching operation for a representative dataset of two
+trajectories with five timesteps each, and a batch size of two sam-
+ples. Each sample contains the input (initial) configuration and
+the label, i.e., the (next) configuration to be predicted.
+Graph Network-based Structural Simulator
+
+step.
+
+From the input configuration (positions), velocities are ex-
+tracted via finite differences. To improve robustness against
+error accumulation and instabilities during rollout, Gaus-
+sian noise is added to all computed velocities in the training
+samples, following Sanchez-Gonzalez et al. (2020). This
+regularization strategy encourages the model to general-
+ize beyond the exact training trajectories and mitigates the
+buildup of prediction errors over time.
+
+After noise injection, GNSS encodes the system configu-
+ration at timestep ¢ from each sample into a graph, pre-
+dicts the corresponding acceleration (y), and compares it
+with the ground truth (y). Backpropagation is then used to
+update the weights of all MLPs and the embedding layer
+in order to minimize a user-defined loss function. To fur-
+ther improve generalization in long rollouts, we propose
+a novel loss function, the weighted Mean Squared Error
+(wMSE) shown in Equation 17: a modified version of the
+Mean Squared Error(MSE) that penalizes acceleration pre-
+dictions with incorrect sign through a scalar weight s, de-
+fined as:
+
+a= (17)
+s-(yi—%), otherwise.
+
+Here, the subscript ; indicates the i — th node; the final
+loss is computed as the mean squared value of ¢; over all
+predictions in the batch.
+
+Rollout After training, predictions are generated in an
+autoregressive manner: the initial state is encoded as a
+graph, and GNSS is iteratively applied to predict the full
+trajectory. The number of iterations Ny is defined by the
+user to cover the entire physical timeframe of interest, with
+the understanding that the physical timestep size is fixed
+
+and identical to that used to generate the training dataset.
+The corresponding pseudo-code for the rollout procedure
+is reported in Algorithm 2.
+
+Algorithm 2: Rollout Procedure
+
+Input: Initial configuration, trained GNSS, number of
+timesteps Np
+Output: Predicted trajectory
+for i = 0 to Nr — 1 do
+Extract velocity from the configuration; Compute graph
+G = (X,R);
+Predict accelerations;
+Update positions using Equations 15-16;
+Store updated configuration;
+end
+Return full predicted rollout;
+
+3. Case Study and Results
+
+To evaluate the capabilities of GNSS, we generated a vali-
+dated numerical dataset using Abaqus for a fully clamped
+beam of length 320mm. The beam was excited through
+a transverse prescribed motion applied to an interior node.
+The displacement-time history at the input node consists
+of a single sine-wave cycle at 50 kHz, modulated by a Han-
+ning window. Table 1 summarizes the simulation parame-
+ters used to create the dataset.
+
+Six distinct trajectories were generated by varying the lo-
+cation of the prescribed motion, as illustrated in Figure 10.
+Only the interior nodes highlighted in the figure were in-
+cluded, while regions near the boundaries were excluded
+to avoid wave reflections that could interfere with the sig-
+nal. This choice allows the analysis to focus on pure wave
+propagation and simplifies the initial case study.Four tra-
+jectories were used for training, one for validation, and one
+was reserved exclusively for testing.
+
+Module Property Value
+Type Beam
+
+Section Profile Rectangular
+Dimensions width = 5mm, height = 1mm
+Density 2900 kg m~*
+
+Material Young’s Modulus 72GPa
+Poisson Ratio 0.3
+
+Load BCs Encastre at both end nodes
+Excitation Prescribed motion applied to a interior node
+Time Period 100 us
+
+Step Increment Size 0.1 us
+Step Type Dynamic, Explicit
+
+Mesh Element size 0.8mm
+
+Element Type Timoshenko beam elements (B21)
+
+Table 1. Details of the finite element simulation setup used to generate the dataset.
+Graph Network-based Structural Simulator
+
+Excitation position
+
+Considered portion
+
+320 mm
+Total Beam Length
+
+\N
+
+Figure 10. Schematic of the beam configuration. The highlighted section was used to construct the dataset, while boundary regions were
+
+excluded to avoid wave reflections.
+
+3.1. Hyperparameter Analysis
+
+A sensitivity analysis was conducted to obtain a coarse tun-
+ing of the model hyperparameters.The results are shown in
+Figure 11.
+
+Red bars correspond to the baseline hyperparameters,
+which are kept fixed across all experiments except for the
+one under analysis. Each gray bar therefore represents the
+outcome of a training and rollout in which a single hyper-
+parameter is varied from its baseline value, while all oth-
+ers remain at their baseline configuration. For example, in
+panel (a), the bar associated with r/A = 7 corresponds to
+a model trained with baseline values for all other hyperpa-
+rameters, but with the connectivity radius set to 7.
+
+The bar height indicates the rollout MSE loss, defined
+as the mean Euclidean distance between predicted and
+ground-truth nodal positions, averaged over all timesteps
+
+(a) (b)
+
+Connectivity radius Loss penalty
+
+Rollout MSE
+=, S, 5,
+
+of the rollout and across all trajectories in the dataset. Er-
+ror bars denote the corresponding standard deviations.
+
+Panel (a) reports the performance as a function of the con-
+nectivity radius. Prior studies suggest that an effective
+trade-off for modeling fluid and granular systems is to
+maintain approximately 15-20 edges per node (Sanchez-
+Gonzalez et al., 2020; Choi & Kumar, 2024). In structural
+problems, however, a physically meaningful scale can be
+identified, directly tied to the choice of the connectivity ra-
+dius. In particular, the wavelength \ of bending waves in
+beams can be estimated using the Euler—Bernoulli beam
+dispersion relation:
+
+EI 1/4
+Aamo) ae
+
+where E is the Young’s modulus, J the second moment
+of area, p the material density, A the cross-sectional area,
+
+© | @)
+Message passing Noise std
+5 NODDY PD SAV Od 9?
+vvS Wad Wor’ 9” d
+M Onoise max
+
+Figure 11. Histograms of the average rollout MSE loss across all trajectories for different hyperparameter settings. Error bars indicate
+the standard deviation. Red bars correspond to the baseline hyperparameters shared across the sensitivity analysis experiments.
+Graph Network-based Structural Simulator
+
+and f the wave frequency. For the physical properties of
+the beam considered here, this yields a wavelength of ap-
+proximately 4 ~ 13.4mm. Given our mesh resolution
+of 0.8 mm per node, each wavelength spans approximately
+16-17 nodes, and half of this number is sufficient to cap-
+ture a representative portion of the wave. This is confirmed
+by the sensitivity analysis, which shows the best perfor-
+mance for a connectivity radius including 7-10 neighbor-
+ing nodes. Such a choice ensures that local interactions are
+sufficiently informed by the underlying physics, a key fac-
+tor for accurately modeling wave propagation dynamics.
+
+Panel (b) shows the performance with respect to the penalty
+term s introduced in the proposed loss function. The rollout
+MSE remains stable for small values of s, with the best
+performance obtained for s = 1.5.
+
+Panel (c) reports the rollout MSE as a function of the con-
+nectivity radius. Although the average MSE is lower with
+13 message passing steps than with 10, the computational
+cost and the variability of the error across different trajecto-
+ries are significantly higher in the former case. Moreover,
+while 7 message passing steps yield the best performance,
+the choice of 10 message passing steps — motivated by
+previous studies (Sanchez-Gonzalez et al., 2020; Choi &
+Kumar, 2024) — is confirmed as a reliable default setting,
+which we adopt as the standard in this work.
+
+Finally, panel (d) illustrates the effect of the Gaussian noise
+standard deviation. The most effective setting is found to
+be around 9-10% of the maximum displacement amplitude.
+Larger noise levels prevent the model from converging,
+whereas smaller levels do not provide sufficient robustness
+for long rollouts.
+
+The sensitivity analysis results show that the identified
+baseline values provide sufficiently accurate performance
+in terms of rollout MSE. Consequently, these values were
+adopted as the default configuration and used to train the
+GNSS model in the subsequent experiments.
+
+3.2. Training
+
+Two models, namely, GNSS and a traditional GNS,
+were trained using the baseline hyperparameters identified
+through the sensitivity analysis. The training performance
+is reported in Figure 12. GNSS exhibited a promising
+decreasing trend during the early epochs, followed by a
+plateau in the later stages of training. The validation loss
+confirmed that no overfitting occurred. In contrast, the
+GNS loss decreased during the first few epochs but sub-
+sequently increased, converging to a value higher than the
+initial one. This behavior suggests that GNS is not effec-
+tively learning to capture the underlying physical phenom-
+ena, despite the absence of overfitting.
+
+We attribute the difference in performance primarily to the
+
+ll
+
+nature of the input information: while GNS operates on
+variables expressed in absolute coordinates, GNSS encodes
+the same information in relative coordinates.
+
+Steps x10°
+0 1 2 3
+
+GNS - Training
+
+R — GNS - Validation
+Se 107} _ ‘ hella’
+gy GNSS - Training
+GNSS - Validation
+10°?
+0 50 100 150
+
+Epochs
+
+Figure 12. Comparison of the training loss between GNSS and the
+standard GNS.
+
+3.3. Rollout
+
+The trained models were then evaluated on unseen trajec-
+tories, characterized by the same structure and excitation
+type but applied at different excitation points. The rollout
+results for both models are presented in Figure 13.
+
+Panel (a) presents five rollout snapshots at representative
+timesteps for the ground truth (al), GNSS (a2), and GNS
+(a3). Transverse displacements are on the order of wm, but
+are visually magnified in the figure for clarity. The colorbar
+indicates the displacement magnitude, with its range de-
+fined by the minimum and maximum values of the ground
+truth in Figure 13(al).
+
+Qualitatively, the GNSS predictions closely follow the
+ground truth across all timesteps. In contrast, the GNS
+model fails to reproduce the physical response. For visual-
+ization purposes, the GNS results were scaled by a factor of
+0.03 to enable a qualitative comparison of the deformation
+shapes. The colorbar further indicates that most predicted
+displacements lie far outside the physical range, underscor-
+ing the inability of the GNS model to produce physically
+consistent results.
+
+Panel (b) provides a quantitative comparison of the dis-
+placement-time histories for three representative nodes:
+node 5 near the left end (b1), node 92 near the midpoint
+(b2), and node 180 near the right end (b3). Each plot
+reports the ground truth together with the GNSS and the
+Graph Network-based Structural Simulator
+
+()  QQURTAIT (a2) GNSS Predictions \ (a) GNs Preaeione >
+
+S
+5 SY Me
+>0.6
+= 04 TZ
+3, g
+7 eG) 2
+F 40 C meaaidtaaicmeean’ dee EER 3
+B 0.2 <3
+60 wim A
+® 0.0
+80 OA TD eerie
+(b) (bl) Node 5 (b2) Node 92 (b3) Node 180
+A 0.25 q
+A EB
+A 0.00 A
+E z
+2 0.25 s
+4 pe
+
+0 25 50 75 100 0 25 50 75 100 0 25 50 75 100
+Time [ps] Time [ys] Time [ps]
+
+soc GT (left axis) — GNSS (left axis) — GNS (right axis)
+
+Figure 13. Rollout results comparison between GNSS and standard GNS on the test trajectory. (a) Snapshots of the rollouts at five differ-
+ent timesteps for ground truth (al), GNSS (a2), and GNS (a3), with colorbar indicating the displacement magnitude. (b) Displacement-
+time histories in the transverse direction for three selected nodes: near the left end (b1), near the midpoint (b2), and near the right end
+(a3).
+
+GNS prediction. A separate vertical axis is used for the cluded from the statistics. The error peaks in the input seg-
+GNS curves to enable meaningful visual comparison. The ment and decreases with distance from it, which is con-
+
+GNSS model shows high accuracy in predicting the trajec- sistent with the presence of stronger local gradients and
+tory of all considered nodes. In contrast, GNS not only fails earlier motion near the excitation. Regions farther from
+to capture the correct waveform, but also diverges to dis- the input remain quiescent for longer periods and there-
+placement values several orders of magnitude larger than fore accumulate less error during the rollout. Panel (b)
+the ground truth. characterizes error growth over time by plotting the RMSE
+
+distributions aggregated from t = 0 up tot = ¢, for
+t; € {1,50,99} jus. Both models accumulate error as the
+rollout progresses; however, GNSS exhibits only a modest
+shift toward higher RMSE values and remains concentrated
+at much lower error levels, whereas GNS shifts markedly
+and develops heavy tails at larger RMSE. Across both pan-
+els, GNSS consistently maintains substantially lower errors
+than the standard GNS.
+
+Figure 14 summarizes the spatial and temporal distribu-
+tions of the root-mean-squared error (RMSE) between the
+predicted and reference values. Panel (a) divides the beam
+into five equal segments and, for each segment, shows the
+kernel density of the RMSE averaged over t € [30, 100] pus
+to suppress initial-transient bias. Sub-panel (a4) corre-
+sponds to the segment containing the node where the pre-
+scribed displacement is applied; this actuated node is ex-
+
+12
+Graph Network-based Structural Simulator
+
+(a) (al) 0-31 mm (a2) 32-63 mm = (a3) 64-95 mm_ == (a4) 96 - 128 mm (a5) 129 - 160 mm
+
+KIER
+
+10° 10 10°10: 10° 10°10"
+
+RMSE [pm]
+
+Density Density Density Density Density
+(b) (bl) t=1us (b2) t= 50 us (b3) t= 99 ps
+10"
+2
+2 10°
+oO
+a
+10°
+1 1 1
+10° 10° ~ ©6107 10 0° 10° 10° 10" 10° 10° §©10' 10"
+RMSE [um] RMSE [pm] RMSE [um]
+— GNSS — GNS
+
+Figure 14. RMSE distributions for GNSS (green) and GNS (red). (a) Spatial analysis: the beam is partitioned into five equal segments;
+for each segment, we plot the kernel density of the RMSE averaged over 30 < ¢ < 100 js. Sub-panel (a4) contains the segment
+where the prescribed displacement is applied; the actuated node is excluded from the computation. (b) Temporal accumulation: RMSE
+distributions aggregated from t = 0 to t = ¢; fort; = {1, 50,99} ps.
+
+The results demonstrate that the standard approach based distance (the connectivity radius R), the expected node de-
+
+on absolute positions is inadequate for accurately model- gree can be computed as shown in Equation 19 (Penrose,
+ing displacement, velocity, or acceleration fields when dis- 2003):
+placements are several orders of magnitude smaller than the Eldeg] © \ xa RY (19)
+
+characteristic structural dimensions. By contrast, GNSS,
+
+through its relative coordinate formulation, successfully Here: sa is:the:-velumie of acunit ball in'the d-dinensional
+> Ke s
+
+overcomes this limitation and achieves physically consis- a a -. = 4 :
+vemeprediotions, space (ka 2, K2 TT, K3 37). Given fixed node
+intensity \ (analogous to mesh density) and fixed connec-
+. tivity radius R, the expected value of the degree of the
+3.4. Runtime Performance node is bounded, hence the number of edges grows linearly
+
+with the total number of nodes, E = O(N). A message-
+passing layer with sparse edgewise aggregation therefore
+costs O(E + N) = O(N); stacking a fixed number of lay-
+ers keeps one GNSS rollout step near-linear in N (up to
+feature-width constants).
+
+On our dataset, GNSS attains an average speed-up of about
+5x over FEM. According to the graph construction method
+adopted in this work, where two nodes are connected if
+their distance is less than or equal to a maximum allowable
+
+13
+Graph Network-based Structural Simulator
+
+In contrast, explicit solvers for structural dynamics prob-
+lems perform time integration using an explicit central-
+difference scheme with a lumped mass matrix, and the
+per-increment computational cost scales approximately lin-
+early with the number of elements or nodes (Das, 2006).
+However, the stable time increment in explicit integration
+is limited by a Courant-Friedrichs-Lewy (CFL) condition,
+which ensures that numerical information does not propa-
+gate faster than the physical wave speed within an element.
+This stability bound scales with the smallest element size,
+as shown in Equation 20:
+
+Pmnin
+Atstable X pt
+
+(20)
+where Ayin is the minimum characteristic element length
+and c is the relevant wave propagation speed in the mate-
+rial (Das, 2006). As indicated by Equation 20, refining
+a fixed spatial domain (i.e., decreasing element size h) si-
+multaneously increases the number of nodes N ~ h~¢ and
+decreases the stable time increment Atgtaple ~ h. Over a
+fixed physical duration 7, the number of required time steps
+then scales as 1/Atstable ~ hot. Combining the per-step
+computational cost O(N) with O(1/Atstabie) steps yields
+a total explicit runtime of O(N'*'/4), representing super-
+linear growth imposed by the stability constraint.
+
+In contrast, GNSS advances the solution through feed-
+forward message passing at the prescribed time step Atpn
+of the training dataset, which remains fixed across trajecto-
+ries. There is no CFL-type restriction, so the temporal res-
+olution is arbitrarily selected and imposed during training
+rather than being dictated by numerical stability. The per-
+step computational cost remains approximately linear in V,
+making the observed 5x speed-up in our simple test case a
+conservative estimate for higher-resolution problems.
+
+4. Conclusions
+
+In this work, we have presented GNSS, a graph-
+network-based surrogate model for time-resolved struc-
+tural dynamics simulations. The model builds on the GNS
+framework, originally developed for granular flow and fluid
+dynamics, and introduces the following key innovations:
+
+¢ Relative reference system: the states of the system
+are expressed in a relative, node-fixed local coordinate
+system rather than in the global frame.
+
+¢ Novel loss function: a weighted MSE loss (wMSE)
+was introduced to penalize acceleration predictions
+with incorrect sign, enabling robust long-horizon roll-
+outs and accurate spatial field predictions.
+
+* Physics-based hyperparameter setup: the sensitiv-
+ity analysis demonstrated that hyperparameters can
+
+14
+
+be selected based on physical considerations. In the
+elastodynamic case study, for instance, the connectiv-
+ity radius was determined from the excitation wave-
+length.
+
+The case study showed that GNSS successfully predicts
+wave propagation, a task where the state-of-the-art GNS
+tailored to granular flow and fluid dynamics fails to pro-
+vide physically meaningful results.
+
+While the results are promising, further validation is re-
+quired on additional structural dynamics applications and
+more complex geometries. Ongoing work includes extend-
+ing GNSS to three-dimensional elastodynamic problems
+involving isotropic and anisotropic materials, as well as in-
+corporating information about structural anomalies such as
+damage. Finally, future efforts will focus on training the
+framework directly on experimental data, thereby remov-
+ing the need for numerical simulations and paving the way
+for structural health monitoring applications.
+
+References
+
+Battaglia, P. W., Hamrick, J. B., Bapst, V., Sanchez-
+Gonzalez, A., Zambaldi, V., Malinowski, M., Tacchetti,
+A., Raposo, D., Santoro, A., Faulkner, R., et al. Re-
+lational inductive biases, deep learning, and graph net-
+works. arXiv preprint arXiv: 1806.01261, 2018.
+
+Belytschko, T., Liu, W. K., Moran, B., and Elkhodary, K.
+Nonlinear finite elements for continua and structures.
+John wiley & sons, 2014.
+
+Benner, P., Gugercin, S., and Willcox, K. A survey of
+projection-based model reduction methods for paramet-
+ric dynamical systems. SIAM Review, 57(4):483-531,
+2015. doi: 10.1137/130932715.
+
+Bronstein, M. M., Bruna, J., LeCun, Y., Szlam, A., and
+Vandergheynst, P. Geometric deep learning: going be-
+yond euclidean data. IEEE Signal Processing Magazine,
+34(4):18-42, 2017.
+
+Cawley, P. Guided waves in long range nondestructive
+testing and structural health monitoring: Principles, his-
+tory of applications and prospects. NDT & E Inter-
+national, 142:103026, 2024. ISSN 0963-8695. URL
+https://www.sciencedirect.com/scienc
+e/article/pii/S0963869523002414.
+
+Chen, J. and Chen, H. Edge-featured graph attention net-
+work, 2021. URL https://arxiv.org/abs/21
+01.07671.
+
+Choi, Y. and Kumar, K. Graph neural network-based surro-
+gate model for granular flows. Computers and Geotech-
+nics, 166:106015, 2024.
+Graph Network-based Structural Simulator
+
+Chou, Y.-T., Chang, W.-T., Jean, J.-G., Chang, K.-H.,
+Huang, Y.-N., and Chen, C.-S.  Structgnn: An effi-
+cient graph neural network framework for static struc-
+tural analysis. Computers & Structures, 299:107385,
+2024. doi: 10.1016/j.compstruc.2024.107385. URL
+https://www.sciencedirect.com/scienc
+e/article/pii/S0045794924001147.
+
+Cuomo, S., di Cola, V. S., Giampaolo, F., Rozza, G., Raissi,
+M., and Piccialli, F. Scientific machine learning through
+physics-informed neural networks: Where we are and
+what’s next, 2022. URL https://arxiv.org/ab
+s/2201.05624.
+
+Getting Started with ABAQUS/Explicit: Keywords Version.
+Dassault Systémes Simulia Corp., 2006. URL https:
+//classes.engineering.wustl.edu/2009
+/spring/mase5513/abaqus/docs/v6.6/bo
+oks/gsx/default .htm?startat=ch03.html.
+Accessed 2025-10-07.
+
+Deshpande, S., Bordas, S. P., and Lengiewicz, J. Magnet:
+A graph u-net architecture for mesh-based simulations.
+Engineering Applications of Artificial Intelligence, 133:
+108055, July 2024. ISSN 0952-1976. doi: 10.1016/j.en
+gappai.2024.108055. URL http: //dx.doi.org/1
+0.1016/4j.engappai.2024.108055.
+
+Forrester, A., Sobester, A., and Keane, A. Engineering de-
+
+sign via surrogate modelling: a practical guide. John
+Wiley & Sons, 2008.
+
+Fortunato, M., Pfaff, T., Wirnsberger, P., Pritzel, A., and
+Battaglia, P. Multiscale meshgraphnets, 2022. URL ht
+tps://arxiv.org/abs/2210.00612.
+
+Gilmer, J., Schoenholz, S. S., Riley, P. F, Vinyals, O., and
+Dahl, G. E. Neural message passing for quantum chem-
+istry, 2017. URL https://arxiv.org/abs/17
+04.01212.
+
+Gladstone, R. J., Rahmani, H., Suryakumar, V., Meidani,
+H., D’Elia, M., and Zareei, A. Mesh-based GNN surro-
+gates for time-independent PDEs. Scientific Reports, 14
+(1):3394, February 2024. ISSN 2045-2322. doi: 10.103
+8/s41598-024-53185-y. URL https: //www.natu
+re.com/articles/s41598-024-53185-y.
+
+Gong, L. and Cheng, Q. Exploiting edge features for graph
+neural networks. In Proceedings of the IEEE/CVF con-
+ference on computer vision and pattern recognition, pp.
+
+9211-9219, 2019.
+
+Gulakala, R., Markert, B., and Stoffel, M. Graph neural
+network enhanced finite element modelling. PAMM, 22
+(1):e202200306, 2023.
+
+15
+
+Herrmann, L. and Kollmannsberger, S. Deep learning in
+computational mechanics: a review. Computational Me-
+chanics, 74:28 1-331, 2024. doi: 10.1007/s00466-023-0
+2434-4.
+
+Higham, N. J. Accuracy and stability of numerical algo-
+rithms. SIAM, 2002.
+
+Kovachki, N. B., Li, Z., Liu, B., Azizzadenesheli, K., Bhat-
+tacharya, K., Stuart, A. M., and Anandkumar, A. Neural
+operator: Learning maps between function spaces. Jour-
+nal of Machine Learning Research, 24(89):1-97, 2023.
+URL http://jmlr.org/papers/v24/21-117
+Oshtimls
+
+Krishnapriyan, A. S., Gholami, A., Zhe, S., Kirby, R. M.,
+and Mahoney, M. W. Characterizing possible failure
+modes in physics-informed neural networks, 2021. URL
+https://arxiv.org/abs/2109.01050.
+
+Langer, P., Maeder, M., Guist, C., Krause, M., and Mar-
+burg, S. More than six elements per wavelength: The
+practical use of structural finite element models and their
+accuracy in comparison with experimental results. Jour-
+nal of Computational Acoustics, 25(04):1750025, 2017.
+
+Li, Q., Wang, Z., Li, L., Hao, H., Chen, W., and Shao,
+Y. Machine learning prediction of structural dynamic
+responses using graph neural networks. Computers &
+Structures, 289:107188, 2023.
+
+Li, Z., Kovachki, N., Azizzadenesheli, K., Liu, B., Bhat-
+tacharya, K., Stuart, A., and Anandkumar, A. Fourier
+neural operator for parametric partial differential equa-
+tions. arXiv preprint arXiv:2010.08895, 2020.
+
+Lu, L., Jin, P., and Karniadakis, G. E. Deeponet: Learn-
+ing nonlinear operators for identifying differential equa-
+tions based on the universal approximation theorem of
+operators. CoRR, abs/1910.03193, 2019. URL http:
+//arxiv.org/abs/1910.03193.
+
+Maddu, S., Sturm, D., Miiller, C. L., and Sbalzarini, I. F.
+Inverse-dirichlet weighting enables reliable training of
+physics informed neural networks, 2021. URL https:
+//arxiv.org/abs/2107.00940.
+
+Penrose, M. Random geometric graphs, volume 5. OUP
+Oxford, 2003.
+
+Pfaff, T., Fortunato, M., Sanchez-Gonzalez, A., and
+Battaglia, P. W. Learning mesh-based simulation with
+graph networks. arXiv preprint arXiv:2010.03409, 2020.
+
+Quarteroni, A., Manzoni, A., and Negri, F. Reduced Ba-
+sis Methods for Partial Differential Equations: An In-
+troduction, volume 92 of Unitext. Springer, 2016. doi:
+10.1007/978-3-319- 1543 1-2.
+Graph Network-based Structural Simulator
+
+Raissi, M., Perdikaris, P., and Karniadakis, G. E. Physics-
+informed neural networks: A deep learning framework
+for solving forward and inverse problems involving non-
+linear partial differential equations. Journal of Compu-
+tational Physics, 378, 11 2018. doi: 10.1016/j.jcp.2018
+.10.045.
+
+Rasmussen, C. E. and Williams, C. K. I. Gaussian Pro-
+cesses for Machine Learning. MIT Press, 2006. ISBN
+978-0-262-18253-9. URL http: //www.gaussian
+process.org/gpml/.
+
+Ronneberger, O., Fischer, P., and Brox, T. U-net: Con-
+volutional networks for biomedical image segmentation,
+2015. URL https://arxiv.org/abs/1505.0
+4597.
+
+Rose, J. Ultrasonic Guided Waves in Solid Media. Cam-
+bridge University Press, 1999.
+
+Sacks, J., Welch, W. J., Mitchell, T. J., and Wynn, H. P.
+Design and analysis of computer experiments. Statistical
+Science, 4(4):409-423, 1989. doi: 10.1214/ss/1177012
+413. URL https://projecteuclid.org/jo
+urnals/statistical-—science/volume-4/i
+ssue-4/Design-and-Analysis—of-Compute
+r-Experiments/10.1214/ss/1177012413.f
+uli.
+
+Sanchez-Gonzalez, A., Godwin, J., Pfaff, T., Ying, R.,
+Leskovec, J., and Battaglia, P. Learning to simulate
+complex physics with graph networks. In International
+conference on machine learning, pp. 8459-8468. PMLR,
+2020.
+
+Scarselli, F., Gori, M., Tsoi, A. C., Hagenbuchner, M., and
+Monfardini, G. The graph neural network model. JEEE
+transactions on neural networks, 20(1):61-80, 2009.
+
+Shi, X., Chen, Z., Wang, H., Yeung, D.-Y., kin Wong,
+W., and chun Woo, W. Convolutional Istm network: A
+machine learning approach for precipitation nowcasting,
+2015. URL https://arxiv.org/abs/1506.0
+4214.
+
+Shivaditya, M. V., Alves, J., Bugiotti, F, and Magoules, F.
+Graph neural network-based surrogate models for finite
+element analysis. In 2022 21st International Symposium
+on Distributed Computing and Applications for Business
+Engineering and Science (DCABES), pp. 54-57. IEEE,
+2022.
+
+Wang, S., Sankaran, S., and Perdikaris, P. Respecting
+causality is all you need for training physics-informed
+neural networks, 2022. URL https: //arxiv.org/
+abs/2203.07404.
+
+16
+
+Wong, J. C., Ooi, C. C., Chattoraj, J., Lestandi, L., Dong,
+G., Kizhakkinan, U., Rosen, D. W., Jhon, M. H., and
+Dao, M. H. Graph neural network based surrogate model
+of physics simulations for geometry design. In 2022
+IEEE symposium series on computational intelligence
+(SSCI), pp. 1469-1475. IEEE, 2022.
+
+Wu, Z., Pan, S., Chen, F., Long, G., Zhang, C., and Philip,
+S. Y. A comprehensive survey on graph neural networks.
+IEEE transactions on neural networks and learning sys-
+tems, 32(1):4—24, 2020.
+
+Yang, Y. and Li, D. Nenn: Incorporate node and edge fea-
+tures in graph neural networks. In Asian conference on
+machine learning, pp. 593-608. PMLR, 2020.
+
+Zaheer, M., Kottur, S., Ravanbakhsh, S., Poczos, B.,
+Salakhutdinov, R., and Smola, A. Deep sets, 2018. URL
+https://arxiv.org/abs/1703.06114.
+
+Zhao, P., Liao, W., Huang, Y., and Lu, X. Intelligent beam
+layout design for frame structure based on graph neural
+networks. Journal of Building Engineering, 63:105499,
+2023.
+
+Zhao, Y., Li, H., Zhou, H., Attar, H., Pfaff, T., and Li,
+N. A review of graph neural network applications in
+mechanics-related domains. Artificial Intelligence Re-
+view, 57, 10 2024. doi: 10.1007/s10462-024-10931-y.

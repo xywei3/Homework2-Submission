@@ -1,0 +1,1265 @@
+arXiv:2510.25620v1 [cond-mat.mtrl-sci] 29 Oct 2025
+
+Graphical Abstract
+
+Combined ab initio and experimental study of phosphorus-based
+
+anti-wear additives interacting with iron and iron oxide
+Francesca Benini, Paolo Restuccia, Sophie Loehlé, Quentin Arnoux, M. Clelia
+Righi
+
+DFT simulations —==) Experimental characterization
+Molecular adsorption
+
+ANAP DBHP ol
+
+AP.
+ROARS ovate bo
+
+AIMD simulations
+
+26Pa load
++ shear
+
+T=300K
+
+Combined ab initio and experimental study of
+phosphorus-based
+anti-wear additives interacting with iron and iron oxide
+
+Francesca Benini*, Paolo Restuccia*, Sophie Loehlé’, Quentin Arnoux’, M.
+Clelia Righi**
+
+“Dipartimento di Fisica e Astronomia, Universita di Bologna, Viale Berti Pichat
+6/2, Bologna, 40127, Italy
+> TotalEnergies, OneTech Fuels®Lubricants, Research Center Solaize, Chemin du Canal
+BP 22, Solaize, 69360, France
+
+Abstract
+
+The performance of phosphorus-based lubricant additives is governed by their
+adsorption, stability, and reactivity at the metal interface. In this study, we
+investigate the adsorption behavior and tribochemical stability of three addi-
+tives: Octyl Acid Phosphate (OAP), Dibutyl Hydrogen Phosphite (DBHP),
+and Amine Neutralized Acid Phosphate (ANAP). These additives are studied
+on iron and hematite surfaces using both ab initio calculations and exper-
+imental analyses on steel. Simulations revealed that ANAP exhibited the
+strongest adsorption on iron, followed by DBHP, while OAP showed weaker
+interactions, though its chemisorption was enhanced on hematite via hydro-
+gen loss. Under tribological conditions, the DBHP phosphite dissociated
+more readily than the other two phosphates molecules due to its lower phos-
+
+phorus coordination, as confirmed by bond order analysis. Quartz crystal
+
+“Corresponding author
+Email address: clelia.righi@unibo.it (M. Clelia Righi)
+microbalance (QCM) measurements indicated significant differences in ad-
+sorption behavior across temperatures, with DBHP forming stable deposits,
+while ANAP exhibited poor retention, in agreement with ab initio molec-
+ular dynamics simulations. X-ray photoelectron spectroscopy (XPS) con-
+firmed DBHP’s strong chemisorption and molecular dissociation, leading to
+increased phosphorus deposition. OAP, despite forming a phosphorus-based
+layer, caused a reduction in Fe oxide, consistent with its hydrogen release
+mechanism observed in simulations. These findings highlight the critical role
+of molecular structure and oxidation state in tribofilm formation and stabil-
+ity. Understanding these interactions at the atomic level provides valuable
+insights for designing high-performance lubricant additives for extreme op-
+erating conditions.
+
+Keywords:
+
+P-based additives, antiwear, scuffing, molecular adsorption, density
+
+functional theory, QCM, XPS
+
+1. Introduction
+
+Reducing friction and wear in automotive applications is critical for boost-
+ing engine and transmission efficiency. In this context, liquid lubricants are
+essential and they are carefully engineered to modify friction and protect the
+surfaces of moving components against damage under extreme pressure and
+temperature. Their design can significantly improve the energy efficiency in
+vehicles, while also adhering to strict environmental regulations and taking
+advantage of cutting-edge technological advancements [1].
+
+Modern liquid lubricants are formulated by blending base oils with a range
+of molecular additives, each tailored to meet specific performance standards
+for different vehicle components. Phosphorus-based additives, in particular,
+play a key role due to their unique ability to form protective layers on metal
+surfaces, reducing friction and wear under high-stress conditions [2]. Under
+conditions of heat and pressure, these additives undergo chemical reactions
+that produce thin, durable layers known as tribofilms, which bond tightly
+to metal surfaces. These tribofilms help reduce metal-to-metal contact, thus
+minimizing wear and prolonging the lifetime of materials.
+
+In this context, phosphorus-based molecules stand out as some of the
+most commonly used additives in liquid lubricants. Among these, phos-
+phates and phosphites, characterized by phosphorus oxidation states of +5
+and +3, respectively, serve distinct roles: organic phosphites primarily func-
+tion as friction modifiers, whereas phosphates are more effective as anti-wear
+(AW) additives. [3-6]. Within this class of chemically active compounds,
+extreme-pressure (EP) additives are essential in boundary lubrication, where
+the oil thickness becomes critically thin, risking direct metal-to-metal con-
+tact [2, 7, 8]. These protective qualities and durability make phosphorus-
+based additives essential for maintaining the efficiency and longevity of crit-
+ical engine and transmission components.
+
+In the boundary lubricating regime, scuffing can emerge by forming local
+welds between sliding surfaces, causing surges in asperity friction and re-
+sulting in damage. It frequently occurs in heavily loaded, high-speed sliding
+contacts such as gears, sliding cam-followers, and roller bearings [9]. Many
+factors can trigger this phenomenon. For instance, the breakdown of the elas-
+
+tohydrodynamic (EHL) film and tribofilms that separate rubbing surfaces is
+a common cause. Other changes in contact conditions like increasing load,
+speed, temperature, or the introduction of solid contaminants can lead to
+scuffing. Nowadays, the resistance to scuffing is particularly relevant in the
+development of lubricants for high-speed electric vehicle transmissions [10].
+
+Extensive research has explored the factors contributing to EHL film
+breakdown. However, the processes governing tribofilm formation, removal,
+and their impact on scuffing remain only partially understood [11]. Tribofilms
+generated by EP and AW additives, especially those based on phosphorus,
+have been shown to play a crucial role in mitigating scuffing. Their compo-
+sition and durability are critical in controlling scuffing, as a stable tribofilm
+can resist breakdown even under extreme operating conditions [12]. Under-
+standing the dynamics of tribofilm formation and removal is essential for
+advancing scuffing resistance strategies, paving the way for creating more
+resilient lubricants in automotive applications.
+
+This study aims to offer a comprehensive insight into the molecular-level
+interaction between phosphorus-based lubricant additives and iron, specifi-
+cally emphasizing their role in preventing scuffing. Combining experimental
+data obtained by Quartz Crystal Microbalance (QCM) and X-ray photo-
+electron spectroscopy (XPS) techniques with ab initio calculations can help
+uncover the tribochemical processes leading to scuffing and ways to prevent
+it. In particular, we compared three different molecules typically employed
+as anti-wear additives in commercial formulations: Dibutyl Hydrogen Phos-
+phite (DBHP), Octyl Acid Phosphate (OAP) and an amine-neutralized acid
+phosphate (ANAP) (Fig. 1). Together with their interaction with Fe and
+
+hematite, we investigated the stability of their internal bonds to predict their
+effect in tribological applications.
+
+2. Methods
+
+2.1. Computational methods
+
+The calculations were performed utilizing spin-polarized Density Func-
+tional Theory (DFT) implemented in version 7.2 of the Quantum Espresso
+suite [13-15]. The exchange-correlation functional was specified using the
+generalized gradient approximation (GGA) within the Perdew-Burke-Ernzerhof
+(PBE) parametrization [16]. The use of this functionals class is common in
+computational tribology and has been compared with other setups, result-
+ing to be efficient in producing results confirmed by experiments, especially
+when combined with Van der Waals corrections [17, 18]. In this work, two
+distinct computational setups were employed, one for the (001) hematite
+surface description and another for the remaining calculations.
+
+For the (001) hematite surface description, we employed DFT+U [19]
+with a Hubbard parameter set to 4.2 eV, a choice aligned with previous
+studies on adsorption on hematite [20, 21] and specifically suitable for the
+Vanderbilt ultrasoft pseudopotentials used. The kinetic energy cutoff for the
+wave functions was established at 50 Ry, with a charge density cutoff of 400
+Ry. The spin of d electrons localized on Fe atoms was assigned to depict
+the antiferromagnetic nature of this material [22]. Additionally, a Gaussian
+smearing with a width of 0.02 Ry was applied.
+
+For all other calculations, we employed standard DFT. The kinetic energy
+cutoff for the wave functions was set to 40 Ry, with a charge density cutoff of
+
+320 Ry. A Gaussian smearing with a width of 0.001 Ry was incorporated to
+enhance the description of occupations around the Fermi level. The electronic
+configuration of atoms was represented by ultrasoft pseudopotentials within
+the RRKJ parametrization [23]. We computed the adsorption energies by
+considering calculations with and without the addition of van der Waals
+corrections. In the former case, we exploited a customized modification of
+the Grimme D2 dispersion correction scheme, denoted as Dg |24, 25]. This
+modification deviates from the standard D2 primarily in terms of the Cg
+coefficient and the van der Waals radius Ro of the Fe atoms. Notably, these
+parameters are substituted with those of Ar (argon), the noble gas preceding
+Fe.
+
+To investigate the molecular adsorption on iron surfaces, we utilized
+large 6 x 8 orthorhombic supercells to prevent unintended lateral interac-
+tions among replicas. Each slab represented a (110) Fe surface consisting
+of four layers containing 48 atoms each. Additionally, we incorporated a
+substantial void in each cell to ensure a vertical separation of at least 10 A
+between replicas. The resulting supercell dimensions were 17.10 A x 16.12 A
+x 30.78 A, determined after optimizing a smaller 2 x 2 cell. Given the large
+size of the supercell, we optimized it by sampling solely at the [ point. We
+identified the most favorable binding site and molecular orientation using a
+software to automatize the adsorption studies, Xsorb [26], and computed the
+
+adsorption energies using the formula:
+
+Eads = tot _ (Eeub a Bivisortuve) (1)
+
+where Fiz is the energy of the optimized system comprising the substrate
+
+and the adsorbed molecule/atom, and Fs.5 (Eadsorbate) is the energy of the
+isolated substrate (adsorbate).
+
+We also performed ab initio Molecular Dynamics Simulations (AIMD)
+using a modified version of the Quantum Espresso code to simulate tribolog-
+ical conditions [27| with the same computational parameters as for the static
+calculations. During the AIMD simulations, the bottom atomic layer of the
+lower slab was fixed, while a constant velocity of 200 m/s was imposed to
+the uppermost layer of the counter-surface. We also applied a vertical force
+to the atoms of the uppermost layer to impose an external normal pressure
+of 2 GPa. In the initial configurations, a single molecule of any additive type
+considered in this study was adsorbed on the iron substrate in its most stable
+configuration. The system underwent relaxation under an applied pressure
+of 500 MPa, followed by a equilibration at a constant temperature of 300 K
+with a timestep of 1 fs. This setup is analogous to the one employed to study
+trimethylphosphite (TMP) interacting with iron [6].
+
+In order to compare the strength of different bonds within the molecule,
+we evaluated the energetic costs associated to different cuts. To do so, we per-
+formed static calculations at frozen ionic positions of the isolated fragments
+in vacuum. The fragmentation energy AF, corresponding to the energy re-
+
+quired to break each bond, is calculated as:
+
+N
+AE =)° Ey, — Emot- (2)
+
+n=1
+
+in which N denotes the number of fragments obtained for each of the
+investigated cuts, E;, is the calculated energy of each fragment (identified
+by n), and Ejnor is the energy of the isolated molecule. Finally, we per-
+
+formed bond order analysis and crystal orbital overlap population exploiting
+the software LOBSTER [28-31]. To do so, we evaluated the integrated Crys-
+tal Orbital Bond Index (ICOBI) and the integrated Crystal Orbital Overlap
+Population (ICOOP). To account for the charged nature of the two compo-
+nents of the ANAP, we set an initial —1 (+1) charge on the O (H) atoms in
+
+component a (b).
+
+2.2. Experimental methods
+
+To properly characterize the film formed on the metallic surfaces, Quartz
+Crystal Microbalance (QCM) has been used to deposit the AW additives of
+the lubricant. X-ray Photoelectron Spectroscopy (XPS) is then performed
+
+to determine film composition and chemistry.
+
+2.2.1. Quartz Crystal Microbalance sample preparation
+
+For this study, we used quartz crystal sensors coated with stainless steel
+$$2343 (QSX304, BiolinScientific AB, Sweden). The quartz crystal sensors
+are mounted into the QCM-D flow modules (QSense Explorer, BiolinScien-
+tific, Sweden). Two types of chambers are used, one for ambient tempera-
+tures (30 °C) and the other for high temperatures (90 °C). The oscillation
+frequency (f) of the quartz crystals was measured for the fundamental fre-
+quency (5 MHz) and for six overtones in air until the base line was stabilized
+(Af over 10 min less than 2.0 Hz). Then, base oil was pumped into the flow
+module at a flow rate of 0.2 ml/min. After frequency stabilization, a solution
+of AW (0.1%w DBHP, 0.5%w OAP and 1%w ANAP) in base oil is pumped
+for approximately 30 min for the evaluation of their interaction with the
+stainless-steel surface, followed by pumping pure base oil for rinsing until the
+
+signal stabilized. In this apparatus, the sensor is a thin quartz disc with gold
+electrodes evaporated on each one of its opposing surfaces. It oscillates at its
+resonance frequency when the corresponding alternating current is applied.
+Molecular adsorption at the electrode surface causes a change in the sensor
+mass that results in a linear change of its oscillation frequency when the ad-
+sorbate is solid-like. The relation is shown in Eq.3, where m is the Sauerbrey
+sensed mass (in mg m7?) calculated from the third overtone, n being the
+overtone number (dimensionless), the measured frequency f (in Hz) and the
+constant C (in this case 0.177 mg m~?z~')[32-34]. Thus, the real-time
+frequency changes measured by the QCM setup allow the appreciation of the
+
+ongoing surface phenomena.
+1
+Am = ——CAf (3)
+n
+
+For data visualization, a “Savitzky-Golay” filter has been used to smooth the
+
+data.
+
+2.2.2. X-Ray Photoelectron Spectroscopy
+XPS analysis was performed with a Thermo NEXSA spectrometer (Thermo
+
+Electron, USA) to obtain the surface composition through survey and high-
+resolution spectra of the Cls, Ols, P2p, Nis, Fe2p core levels. The X-ray
+excitation was the Al-Ka line at 1486.7 eV. The detection of the photoelec-
+trons was perpendicular to the sample surface. The spot size was 400 ym.
+Flood gun was turned on for charge compensation in all adsorbate deposit
+samples. Material homogeneity has been checked by studying 2 different
+
+spots on each sample.
+
+10
+3. Results
+
+The three molecules considered in this study, namely dibutyl hydrogen
+phosphite (DBHP), octyl acid phosphate (OAP) and amine neutralized acid
+phosphate (ANAP), are shown in Fig. 1.
+
+DBHP OAP ___ANAP ;
+Dibutyl Hydrogen Phosphite Octyl Acid Phosphate Amine Neutralized Acid
+Phosphate
+01 03
+ia .
+o2 ba
+
+Figure 1: The three molecules studied in this work. From now on, white atoms represent
+
+H, black C, yellow P, red O and blue N, respectively.
+
+DBHP is characterized by a phosphite unit with two terminating primary
+butyl chains with formula CgH;gO03P. OAP is a monoalkyl phosphoric acid
+ester with formula CgH;904P whereas the ANAP is an ionic liquid composed
+of a phosphate anion with formula CgH9904P (a.) and an amine cation
+
+CeHieN (b.).
+
+3.1. Adsorption and dissociation on Fe
+3.1.1. Adsorption configurations and energies on iron
+
+We initially simulated the adsorption of the molecules on bare iron. Once
+we identified the best adsorption configuration using Xsorb, we computed the
+associated adsorption energy F,a,; and found that the strongest interaction
+
+is obtained for the amine neutralized acid phosphate, followed by DBHP.
+
+11
+OAP interacted more weakly with iron. The optimal adsorption configura-
+tions are reported in panels a) to c) of Fig. 2. We also performed all the
+adsorption calculations accounting for vdW interactions, with the results re-
+ported in Tab. 1. The dispersion interactions lead to an energy decrease for
+all configurations, while maintaining the energy trends and the geometrical
+
+configurations.
+
+a b) c)
+
+vbete
+
+)
+.)
+_ tte if
+wn wn
+Eqy= ~ 3.72 eV E,4,= ~ 2.89 eV
+d) e) f)
+o a
+=
+=
+o é
+E
+G
+=
+
+E,q= — 3.27 eV E,4,=- 2.81eV
+
+é E,4.=- 3.31eV ,
+
+Figure 2: Adsorption of ANAP (a), DBHP (b), and OAP (c) on Fe (upper panel) and
+
+of their simplified versions, denoted with *, on hematite (lower panel). The adsorption
+
+energy values are reported in the picture.
+
+3.1.2. Effects of substrate oxidation
+
+We then simulated the adsorption of the additives on hematite in order
+to find out how much the substrate oxidation can affect the binding strength
+of these molecules. Due to the high computational cost associated with
+
+hematite simulation, we reduced the size of the molecules by replacing the
+
+12
+a) Low coverage
+
+oat 654 454
+
+E.ge= - 1.62 eV
+
+Figure 3: Comparison of the adsorption energy per molecule for OAP at low (panel a)
+
+and high (panel b) coverages. The energy values take into account the VdW corrections.
+
+13
+Table 1: | Adsorption energies (in eV) of the considered molecules on iron calculated
+
+without and with van der Waals corrections, respectively.
+
+Eas (no vVdW) Eqas (vdW)
+
+ANAP a. —3.72 —4.37
+DBHP —3.21 —3.67
+ANAP b. —2.89 —3.24
+OAP —0.95 —1.62
+
+long alkyl chains with methyl groups, allowing to reduce the lateral size of
+the substrate supercell. This approach has been already adopted by our
+group to study the adsorption and dissociation of lubricant additives (i.e.,
+MoDTC, ZDDP) over different substrates [35, 36]. Those studies showed that
+the energetics for molecules having methyl groups and longer alkyl chains in
+the ligand units are similar as the chemisorption strength is governed by the
+functional group. The shortened versions of the molecules are here denoted
+
+with a star symbol (*).
+
+Table 2: Adsorption energies (in eV) of the molecules with shorter chains on Fe(110) and
+
+hematite, respectively.
+
+Eads (Fe) Faas (Fe203)
+
+*ANAP a. —3.91 —3.27
+*DBHP —3.16 —2.81
+*ANAP b. = —2.70 —3.31
+*OAP —0.83 —2.12
+
+14
+As can be seen in the first column of Tab. 2, the adsorption energies ob-
+tained for the shortened molecules on Fe(110) surface are in agreement with
+those obtained for the longer-chain molecules (indicated in the upper panel
+of Fig. 2), confirming the minor role played by alkyl chains compared to the
+functional groups of the molecules [18, 35]. The adsorption configurations
+on hematite are reported in the lower panel of Fig. 2, including the adsorp-
+tion energies. These values are compared with those obtained for the same
+shortened molecules on iron in Tab. 2. The overall adsorption trend between
+the two substrates is maintained, with the largest difference arising in the
+case of *OAP. This molecule, which was found to weakly interact with the
+Fe substrate, now appears to lose an H atom which is chemisorbed to the
+hematite substrate, enhancing the interaction and leading to Eygs = —2.12
+eV. Indeed, Fe oxides are known to interact strongly with molecules which
+are capable of losing H atoms, inducing the removal of O atoms from the
+surface to form HO [37]. This will be further explained in this context by
+
+the XPS results combined with the QCM experiments in the last section.
+
+3.1.3. Effects of molecular coverage
+
+For specific molecules characterized by a reactive head (“head group”) and
+a long alkyl chain (“tail group”), the energy gain associated to the formation
+of a self-assembled monolayer can lower the adsorption energy on a substrate.
+Experimental results suggest that this may be the case for the OAP, which
+is able to form a self-assembled monolayer at high concentrations on cerium
+conversion coating on galvanized steel [38]. For this reason, even though a
+
+vertical orientation is energetically less favorable for a single OAP molecule
+
+15
+adsorbed on Fe compared to the horizontal one (—0.86 eV vs —0.95 eV), we
+tested the adsorption energy per molecule when the coverage is increased for
+both orientations.
+
+Including vdW corrections for a better description of the intermolecular
+interaction, we obtained Ea; = —1.31 eV for a single vertical molecule ad-
+sorbed on the surface and Eygs = —1.43 eV per molecule when 6 molecules
+were simultaneously adsorbed on the same supercell (Fig. 3). These findings
+suggest that, at higher coverages approaching a self-assembled monolayer,
+the vertical orientation of OAP becomes energetically comparable to the
+
+horizontal configuration (Haas = —1.62 eV).
+
+3.2. Molecular dynamics simulations
+
+We performed AIMD simulations to evaluate the most likely dissociation
+paths of OAP, DBHP, and ANAP adsorbed on a metallic substrate. To ac-
+celerate and enhance the chemical reaction processes, we decided to simulate
+each molecule confined within an iron interface in tribological environments
+i.e., under applied temperatures, normal loads, and shear stresses), which
+are the typical operating conditions for these compounds. Key snapshots of
+he simulations are shown in Fig. 4. The total simulation time is equal to
+1 ps. To reduce computational costs, we employed the shortened version of
+he molecules.
+
+It is immediate to see in Fig. 4a that *~DBHP had the weakest bonds to
+
+break, thus exhibiting the highest reactivity in tribological conditions. In
+particular, its behaviour was similar to trimethyl phosphite, thanks to their
+similar chemical structures, as observed previously by our group [6]. Specifi-
+
+cally, the alkoxy chains were detached from the head group and chemisorbed
+
+16
+After 1.47 ps
+
+fe¥)
+~—
+
+a.
+= 2 GPa load
+ca + shear
+a —————
+* T=300K
+re oe sxe - pro ore 2f0
+a 2 GPa load ‘
+P< ¢ + shear
+—s
+O L § T=300K
+*
+J * # > & t ed *
+e ° ~~ *“¢ ° 7° ~° “2 °
+After 5.90 ps
+sv 2 sie oe PC 2+ sie °
+2 GPa load
++ shear
+—
+T=300K
+
+3 o nd
+
+> 7 * FF
+C
+DPD ICT Md DEI ICT OG
+
+Figure 4: AIMDs results for the three systems investigated: *DBHP (panel a), *OAP (b),
+and *ANAP (c). On the left (right), the initial (reported simulation time) configurations
+
+are shown.
+
+17
+onto the substrate due to the mechanical stresses applied in the system, leav-
+ing the central P—O fragment interacting with the iron slabs. Conversely,
+bonds within *OAP demonstrated a higher stability under these harsh con-
+ditions and did not dissociate (Fig. 4b). Nevertheless, the hydrogen atoms in
+the OH group dissociated and adsorbed onto the surface, in analogy to what
+we found in the static calculations performed on hematite. Finally, also the
+P in the *ANAP head group did not dissociate (Fig. 4c), likely due to the
+synergistic effect of its two ions. Like *OAP, *ANAP only loses hydrogen
+atoms that chemisorb onto the surface.
+
+The qualitative analysis of the dissociation paths suggested that a higher
+coordination number for the central phosphorus with oxygen atoms (as in
+OAP and the phosphate anion in ANAP) helps in stabilizing the phosphorus-
+based molecules compared to those coordinated with only three oxygen atoms
+
+(as in DBHP and trimethyl phosphite).
+
+3.3. Strength of molecular bonds
+
+To quantitatively confirm the different dissociation path between three-
+and four-fold coordinated phosphorous groups emerged in AIMD simulations,
+we evaluated the energy costs AE, defined in Eq. 2, to cut each atomic bond
+in the different molecules. These energy differences do not represent the
+energy barriers required for molecular dissociation, but rather an evaluation
+of the relative stability of different bonds. The cuts tested (alkyl, alkoxy,
+hydrogen, hydroxyl, and oxygen removal) and the AE values obtained are
+reported in Fig. 5 and Fig. 6.
+
+In agreement with the AIMD simulations, the OAP required the highest
+
+amount of energy to break its bonds for each of the cuts investigated. Fig. 5
+
+18
+Figure 5:
+
+amine neutralized acid phosphate (b) and OAP (c). In the lower panel (d to f), alkyl chain
+
+AE = 3.07 eV
+
+In the upper panel (a to c), alkoxy chain removal energy costs for DBHP (a),
+
+AE = 4.09 eV
+
+removal energy costs for the same molecules.
+
+a)
+
+b)
+
+OAP OAP
+AE = 4.75 eV
+ANAP a. ANAP a.
+AE = 4.08 eV
+AE =5.42 eV
+Figure 6: Energy costs associated to the removal of an H atom (a), an hydroxyl group
+
+(b) and an O atom (c) in the reported molecules.
+
+19
+
+shows two cuts corresponding to the alkyl- and alkoxy-chain removal. In both
+cases, the same cut requires the smallest amount of energy for DBHP (2.31
+eV and 3.07 eV) and the highest for OAP (4.55 eV and 4.12 eV), suggesting
+a higher stability for the latter. Moreover, the alkoxy-chain removal across
+all molecules (Figs. 5a-c) was less energetically costly than the alkyl removal
+(Figs. 5d-e), with the exception for OAP. The removal of the alkoxy chains
+was always energetically less expensive than the P—O breaking shown in
+Fig. 6c, suggesting that the head group subunits (like OH and H Figs. 6a-b)
+were more stable and difficult to break compared to the alkoxy-chains. These
+findings could be relevant to understand which is the driving mechanism of
+tribofilm formation for other lubricant additives containing alkoxy chains [39—
+41] since this functional group seemed the easiest to break.
+
+The higher bond strengths in OAP compared to other molecules was also
+confirmed by the bond order analyses reported in Tab. 3. The ICOBI values
+provided insight into the nature and strength of chemical bonds, identifying
+which ones are single or double-bonded. The different P-O bonds for the
+studied molecules are labelled as shown in Fig. 1. In our case, we can indicate
+a single bond when ICOBI values range from 0.76 to 0.80, whereas values
+between 1.31 and 1.33 correspond to double bonds. As shown in the ICOBI
+columns of Tab. 3, the oxygen terminated bonds (P—O1 for the OAP, P-O2
+for the DBHP) were always identified as double bonds, with the remaining
+ones classified as single bonds. In the phosphorus-based fragment of the
+ANAP, we classified two single and two double covalent bonds. The ICOBI
+values of the latter fall between those computed for double bonds in OAP
+
+and DBHP. (1.02 and 1.01 for P-O1 and P—O2 bonds, respectively). These
+
+20
+intermediate values can be attributed to the charged nature of this fragment,
+which leads to a redistribution of the additional negative charge.
+
+On the other hand, the ICOOP analysis allowed to evaluate the bond
+strengths of the P—O bonds across the different molecules, i.e., which bonds
+are stronger or weaker within the molecule. The ICOOP columns in Ta-
+ble 3 shows that the strength for the P—O bonds in OAP, both single- and
+double-bonded, is consistently larger than in DBHP, indicating a stronger
+P-O interaction for the former. In contrast, the phosphate anion of ANAP
+exhibited a hybrid behaviour, with ICOOP values closer to DBPH for the
+double P-O bonds and a stronger interaction for single P-O bonds, similar
+to OAP. The ICOBI and ICOOP analyses supported the AIMD simulations,
+confirming that four-fold coordinated head groups had the strongest bonds,
+thus increasing their stability compared to three-fold coordinated groups and
+
+requiring the highest energy cost to dissociate.
+
+Table 3: ICOBI and ICOOP values calculated for the different P-O bonds in DBHP,
+OAP and ANAP a. fragment. O atoms indexing refers to Fig. 1.
+
+DBHP DOAP ANAP a.
+ICOBI ICOOP ICOBI ICOOP ICOBI ICOOP
+P-Ol 0.79 0.18 1.33 0.45 1.02 0.33
+P-O2 1.31 0.34 0.77 0.23 1.01 0.33
+P-O3 0.78 0.17 0.76 0.22 0.78 0.23
+P-O4 - - 0.79 0.25 0.80 0.25
+
+21
+3.4. Experimental correlation
+
+QCM measurements have been performed, for each solution, at temper-
+atures of 30 °C and 90 °C respectively. Results are reported in Fig. 7. It
+must be noticed that the adsorption behavior is very different at these two
+
+temperatures and for the different phosphorus-based chemistry.
+
+b)
+
+¢) 250)
+
+(Hz)
+
+Temperature:
+30°C
+90°C
+
+quen'
+
+Frequeney (Hz)
+Frequency (H2)
+
+Fr
+
+-200)
+
+-250
+© S00 1000 1500 2000 2500 © $00 1000 1500 2000 2500 © 500 1000 1800 2000 2500 3000 3500 4000
+
+Time (s) Time (s) Time (5)
+
+Figure 7: QCM frequency variations for ANAP (panel a), DBHP (b) and OAP (c) at 30
+
+°C (blue line) and 90 °C (red line). * symbols indicate the base oil time rinsing.
+
+Concerning ANAP, shown in Fig. 7a, a small frequency drop is observed
+both at 30 °C (-14 Hz) and at 90 °C (-2.5 Hz). Besides, a complete desorption
+is observed when rinsed with base oil. These observations may result from
+a weak interaction between ANAP and the metallic surface due to a low
+physisorption interaction. Different frequency drops between 30 °C and 90 °C
+must come from a solubility difference of the molecule in the base oil. Indeed,
+at higher temperature, solubility will increase and will result in a decrease of
+interaction between the AW and the metallic surface. For DBHP in Fig. 7b,
+a slow adsorption kinetics is observed at 30 °C, whereas at 90 °C a large
+and continuous frequency drop is measured. This behavior could result from
+the DBHP reactivity under temperature stress which leads to a large deposit
+
+formation. Note that for these two experiments, no base oil rinsing has been
+
+22
+performed. Finally, for OAP in Fig. 7c, a frequency increase is observed
+both at 30 °C and 90 °C. At higher temperature, the kinetic is faster than
+at ambient temperature. Usually, an increase in the QCM frequency shift
+is related to a loss of mass. After base oil rinsing step, frequency remains
+stable which means that the system is not going back to the initial state. To
+understand this mass loss, XPS analysis has been performed to characterize
+
+AW /substrate interface obtained at 90 °C (see Tab. 4).
+
+Table 4: Elemental composition (at%) obtained by XPS analysis (after base oil rinsing
+
+for ANAP and OAP deposit) on QCM substrate and adsorption performed at 90 °C.
+
+System C N O- Fe P_ P/Fe
+Pristine stainless-steel 28.6 1.7 536 161 - -
+
+ANAP 31.6 1.2 53.7 10.2 3.3 0.32
+
+DBHP 156 68 564 29 183 6.31
+
+OAP 39.5 4.2 476 26 61 2.34
+
+First, it must be noted that an organic contamination layer is present on
+top of the raw substrate that is used for this study. Nitrogen atoms are also
+detected which may come from the stainless-steel deposit process. Moreover,
+the stainless steel reference showed a high concentration of oxygen, which
+suggests the presence of a iron oxide layer over the metal surface. For ANAP
+deposit, elemental composition is close to the one of pristine stainless-steel
+surface. This result is in great agreement with the adsorption mechanism
+measured in QCM as a complete AW desorption is observed when rinsed
+with base oil. This result is also correlated with simulation data, where we
+
+identified a relevant molecular adsorption with no chemical reactivity under
+
+23
+tribological conditions. For DBHP deposit, a large amount of P is detected
+which confirms the high reactivity at 90 °C. Here again, the result is in
+great agreement with AIMD simulations as they have shown that phosphite
+exhibits the highest chemical reactivity. For OAP deposit, as for DBHP,
+a P-based layer is observed which does not explain the mass loss observed
+on QCM data. Moreover, the Fe amount detected via XPS is quite low
+with a P/Fe ratio above 1. This result shows that OAP additive adsorbs
+on the surface which must induce a mass increase that should be measured
+via QCM. Yet QCM data for OAP is not showing a mass adsorption, that
+is why further analysis on the substrate chemistry will be presented later.
+From XPS elemental analysis, it must be also noted that C/P ratio for OAP
+is equal to 6.4 (in theory 8 as presented in Figure 1) whereas for DBHP,
+the C/P ratio is equal to 0.9. This shows clearly that at high temperature,
+DBHP is degraded to form mainly a P-based layer at the surface, while losing
+the C chain.
+
+As simulation data for the OAP additive suggested the release of hydrogen
+atoms over the metal surface, an XPS analysis of the iron oxide layer variation
+has been performed, with the results shown in Fig. 8.
+
+The Fe2p3/2 peak measured via XPS clearly shows the different iron
+states within the stainless steel reference: 707 eV for metallic Fe and around
+711 eV for oxidized Fe. We want to remark again, as shown in Tab. 4, that
+even if the experimental work has been performed on a stainless-steel surface,
+the iron chemistry shows a higher amount of iron oxide, which is in agreement
+with a hematite-type top surface. The interaction between the different AW
+
+additives and the substrate dramatically changed the shape of the Fe2p3/2
+
+24
+Fe2p3 level: | P2p level:
+
+eo)
+fo}
+x
+
+DBHP
+
+ra Ys, OAP
+
+ANAP
+
+ANAP
+
+saeececcnepescnscegheadecscccscscscccusscessssspecs:
+
+Normalized Photoemission Intensity
+
+' Pristine
+
+720 715 710 70S 135 130
+Binding Energy (eV) Binding Energy (eV)
+
+Figure 8: XPS measurements for the variation of the Fe2p3 and P2p levels on the pristine
+stainless steel reference (black and grey, lowest panel) and the three investigated molecules
+
+red and pink).
+Pp
+
+25
+peaks: for example, in the stainless-steel and ANAP case, no differences
+were observed in the peak shape and position, which confirms that there is
+no significant reactivity for this additive over the substrate. It is worth noting
+that for DBHP, a shift is observed at Fe edge but not at P edge. This could
+be explained by a differential charge effect between the steel and the thick
+P-based layer surfaces. It also confirms the reactivity of DBHP under high
+‘emperature. This suggest a tendency to molecular dissociation promoted
+by temperature, a mechanism which might as well be enhanced by the harsh
+
+ribological conditions of load and shear simulated in the AIMD. Indeed,
+
+he molecule appeared to dissociate almost immediately in this simulation,
+leaving P chemisorbed on Fe as well as its two alkoxy chains which could
+explain both the high P content and the mass increase recorded in the QCM
+experiments. Finally, for OAP, the peak associated with the oxidation state
+decreased while the corresponding metallic contribution increased compared
+to the reference surface. Thus, it indicates that this AW additive reacts with
+Fe oxide. This result is in agreement with the OAP adsorption that leads
+to a surface reduction and lose of oxide layer. The QCM behavior presented
+in figure Fig.7c is then the results of both mass loss from surface oxide and
+mass increase from the OAP adsorption: the mass loss being higher than the
+masse increase, the behavior globally conducts to a mass loss. Comparing
+this with the results obtained by ab initio analysis, in which a release of H
+from the molecule occurred both in the adsorption on hematite and in the
+molecular dynamics simulation on iron, we can hypothesize a removal of the
+Fe oxide surface layer due to the reducing effect of H, explaining the mass
+
+loss associated to an increase in the frequency measured by QCM.
+
+26
+4. Conclusions
+
+This study focuses on the adsorption and stability of three phosphorus-
+based lubricant additives, OAP, DBHP, and ANAP, on iron and hematite
+substrates. Through ab initio calculations, we found that ANAP, followed
+by DBHP, exhibited the strongest interaction with bare iron, while OAP dis-
+played a weaker adsorption on both substrates. The adsorption trends were
+consistent across Fe and hematite substrates, with a notable enhancement
+for OAP on hematite, where the interaction was facilitated by the loss of a
+hydrogen atom.
+
+Ab initio molecular dynamics simulations showed that DBHP dissociated
+more easily than OAP and ANAP when interacting with iron surfaces under
+tribological conditions. This effect was attributed to the lower phosphorus
+coordination of the phosphite molecule with respect to the phosphate ones,
+which promotes molecular dissociation. We confirmed these results with a
+bond order analyses, where we found the P—O bond in OAP has the highest
+strength, confirming that it was less prone to dissociation.
+
+Experimental QCM and XPS analyses further validated our results. No-
+tably, DBHP demonstrated the highest P/Fe ratio, consistent with its strong
+chemisorption and dissociative behavior observed in simulations. Conversely,
+OAP exhibited a loss in mass and reduction in Fe oxide peak, suggesting a
+removal of surface oxides through the release of hydrogen, as observed in the
+simulations.
+
+Overall, this approach shows that ab initio calculations can provide valu-
+able information to understand the mechanisms of adsorption and reaction of
+
+additives on ferrous substrates. Indeed, the results here presented turned out
+
+27
+to be in very good agreement with the experimental observations. In particu-
+lar, we highlight how molecular structure and oxidation states of phosphorus
+additives affect molecular adsorption which is the first step for tribofilm for-
+mation, providing valuable insights for the design of lubricants tailored to
+
+prevent scuffing and enhance performance under diverse conditions.
+
+Acknowledgements
+
+MCR, PR, and FB acknowledge the SLIDE project, which received fund-
+ing from the European Research Council (ERC) under the European Union’s
+Horizon 2020 research and innovation program. (Grant Agreement No. 865633).
+They also acknowledge the CINECA award under the ISCRA initiative, for
+
+the availability of high-performance computing resources and support.
+
+Data availability
+
+Data will be made available on request.
+
+References
+
+[1| H. Spikes, Friction modifier additives, Tribology Letters 60 (1) (2015)
+5. doi:10.1007/s11249-015-0589-z.
+URL https://link.springer.com/article/10.1007/
+s11249-015-0589-z
+
+[2] H. Spikes, Low- and zero-sulphated ash, phosphorus and sulphur anti-
+wear additives for engine oils, Lubrication Science 20 (2) (2008) 103-136.
+doi:10.1002/1s.57.
+
+URL https://onlinelibrary.wiley.com/doi/abs/10.1002/1s.57
+
+28
+[3]
+
+[4]
+
+[5]
+
+[6]
+
+(7
+
+A. Riga, J. Cahoon, W. R. Pistillo, Organophosphorus chemistry
+structure and performance relationships in fzg gear tests, Tribology
+Letters 9 (3) (2001) 219-225. doi:10.1023/A: 1018821224349.
+
+URL https://link.springer .com/article/10.1023/A:
+1018821224349
+
+F. Gao, P. V. Kotvis, D. Stacchiola, W. T. Tysoe, Reaction of
+tributyl phosphate with oxidized iron: surface chemistry and _ tri-
+bological significance, Tribology Letters 18 (3) (2005) 377-384.
+doi:10.1007/s11249-004-2768-1.
+
+URL https://link.springer.com/article/10.1007/
+s11249-004-2768-1
+
+F. Gao, O. Furlong, P. V. Kotvis, W. T. Tysoe, Reaction of tributyl
+phosphite with oxidized iron: Surface and tribological chemistry, Lang-
+muir 20 (18) (2004) 7557-7568. doi:10.1021/1a049438t.
+
+URL https://pubs.acs.org/doi/10.1021/1a049438t
+
+S. Loehlé, M. C. Righi, Ab initio molecular dynamics simulation of tri-
+bochemical reactions involving phosphorus additives at sliding iron in-
+terfaces, Lubricants 6 (2) (2018) 31. doi: 10.3390/lubricants6020031.
+URL https: //www.mdpi.com/2075-4442/6/2/31
+
+Z. Tang, S. Li, A review of recent developments of friction
+modifiers for liquid lubricants (2007—present), Current Opin-
+ion in Solid State and Materials Science 18 (3) (2014) 119-139.
+doi:10.1016/j.cossms.2014.02.002.
+
+29
+[8]
+
+[9]
+
+[10]
+
+[11]
+
+[12]
+
+URL https: //www.sciencedirect.com/science/article/pii/
+
+$1359028614000059
+
+O. Furlong, F. Gao, P. Kotvis, W. Tysoe, Understanding the
+tribological chemistry of chlorine-, sulfur- and phosphorus-
+containing additives, Tribology International 40 (5) (2007) 699-708.
+doi:10.1016/j.triboint.2006.05.011.
+
+URL https: //www.sciencedirect.com/science/article/pii/
+
+$0301679X06002040
+
+A. Dyson, Scuffing - a review, Tribology International 8 (2) (1975)
+77-87. doi:10.1016/0301-679X (75) 90056-0
+URL https: //www.sciencedirect.com/science/article/pii/
+
+0301679X75900560
+
+S. Li, A. Kolivand, J. Wei, Determination of Critical Temperature
+of Scuffing for AISI 8620 Steel Gear Contacts Lubricated by Dexron
+6 Through Computational Simulation of Experiment, Journal of
+Tribology 144 (8) (2022) 081201. doi:10.1115/1.4053702.
+
+URL https: //asmedigitalcollection.asme.
+org/tribology/article/144/8/081201/1133501/
+
+Determination-of-Critical-Temperature-of-Scuffing
+
+W. F. Bowman, G. W. Stachowiak, A review of scuffing models, Tribol-
+ogy Letters 2 (2) (1996) 113-131. doi:10.1007/BF00160970.
+URL https: //link.springer.com/article/10.1007/BF00160970
+
+M. Ueda, H. Spikes, A. Kadiric, In-situ observation of the effect of the
+
+30
+[13]
+
+[14]
+
+[15]
+
+[16]
+
+[17]
+
+tribofilm growth on scuffing in rolling-sliding contact, Tribology Letters
+70 (3) (2022) 76. doi:10.1007/s11249-022-01621-3.
+
+P. Giannozzi, S. Baroni, N. Bonini, M. Calandra, R. Car, C. Cavazzoni,
+D. Ceresoli, G. L. Chiarotti, M. Cococcioni, I. Dabo, et al., Quantum
+espresso: a modular and open-source software project for quantum sim-
+ulations of materials, Journal of Physics: Condensed Matter 21 (2009)
+395502. doi: 10.1088/0953-8984/21/39/395502.
+
+URL https: //dx.doi.org/10.1088/0953-8984/21/39/395502
+
+P. Giannozzi, O. Andreussi, T. Brumme, O. Bunau, M. B. Nardelli,
+M. Calandra, R. Car, C. Cavazzoni, D. Ceresoli, M. Cococcioni, et al.,
+Advanced capabilities for materials modelling with quantum espresso,
+Journal of Physics: Condensed Matter 29 (2017) 465901. doi: 10.1088/
+1361-648X/aa8f79.
+
+URL https: //dx.doi.org/10.1088/1361-648X/aa8£79
+
+P. Giannozzi, O. Baseggio, P. Bonfaé, D. Brunato, R. Car, I. Carnimeo,
+C. Cavazzoni, S. D. Gironcoli, P. Delugas, F. F. Ruffino, et al., Quan-
+tum espresso toward the exascale, The Journal of Chemical Physics 152
+(2020) 154105. doi:10.1063/5. 0005082.
+
+URL https: //doi.org/10. 1063/5 .0005082
+
+J. P. Perdew, K. Burke, M. Ernzerhof, Generalized gradient approx-
+imation made simple, Physical Review Letters 77 (1996) 3865. doi:
+10.1103/PhysRevLett.77.3865.
+
+G. Losi, P. Restuccia, M. C. Righi, Superlubricity in phosphorene
+
+31
+[18]
+
+[19]
+
+[20]
+
+[2
+
+identified by means of ab initio calculations, 2D Materials 7 (2) (2020)
+025033. doi:10.1088/2053-1583/ab72d7
+
+URL  https://iopscience.iop.org/article/10.1088/2053-1583/
+ab72d77
+
+F. Benini, P. Restuccia, M. C. Righi, Zine dialkyldithiophos-
+phates adsorption and dissociation on ferrous substrates: An
+ab initio study, Applied Surface Science 642 (2024) 158419.
+doi:https://doi.org/10.1016/j.apsusc.2023. 158419.
+
+URL https: //www.sciencedirect.com/science/article/pii/
+
+$0169433223020998
+
+V. I. Anisimov, J. Zaanen, O. K. Andersen, Band theory and mott
+insulators: Hubbard u instead of stoner i, Physical Review B 44 (3)
+(1991) 943. doi:10.1103/PhysRevB . 44.943.
+
+URL https://journals.aps.org/prb/abstract/10.1103/
+PhysRevB .44.943
+
+M.-T. Nguyen, N. Seriani, R. Gebauer, Water adsorption and dissocia-
+tion ona-Fe,O3 (0001): PBE+U calculations, The Journal of chemical
+physics 138 (19) (2013). doi:10.1063/1.4804999.
+
+URL https://pubs.aip.org/aip/jcp/
+article-abstract/138/19/194709/192327/
+Water-adsorption-and-dissociation-on-Fe203-00017
+
+redirectedFrom=fulltext
+
+R. B. Wang, A. Hellman, Initial water adsorption on hematite (a-
+
+Fe,O3) (0001): A DFT+U study, The Journal of Chemical Physics
+
+32
+[22|
+
+[23]
+
+[24]
+
+[25]
+
+[26]
+
+148 (9) (2018) 094705. doi: 10.1063/1.5020358.
+URL https://pubs.aip.org/aip/jcp/article/148/9/094705/
+
+196817/Initial-water-adsorption-on-hematite-Fe203-0001-A
+
+N. Y. Dzade, A. Roldan, N. H. De Leeuw, A density functional theory
+study of the adsorption of benzene on hematite (a-Fe203) surfaces, Min-
+erals 4 (1) (2014) 89-115. doi: 10.3390/min4010089.
+
+URL https: //www.mdpi.com/2075-163X/4/1/89
+
+A. M. Rappe, K. M. Rabe, E. Kaxiras, J. D. Joannopoulos, Optimized
+pseudopotentials, Phys. Rev. B 41 (1990) 1227-1230. doi:10.1103/
+PhysRevB.41.1227.
+
+URL https://link.aps.org/doi/10.1103/PhysRevB.41.1227
+
+E. Marquis, M. Cutini, B. Anasori, A. Rosenkranz, M. C. Righi,
+Nanoscale MXene interlayer and substrate adhesion for lubrication: A
+density functional theory study, ACS Applied Nano Materials 5 (8)
+(2022) 10516-10527. doi:10.1021/acsanm.2c01847.
+
+URL https://pubs.acs.org/doi/10.1021/acsanm.2c01847
+
+S. Grimme, Semiempirical GGA-type density functional con-
+structed with a long-range dispersion correction, Journal of Com-
+putational Chemistry 27 (15) (2006) 1787-1799. doi:https:
+//doi..org/10.1002/jcc.20495.
+
+URL  https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.
+20495
+
+E. Pedretti, P. Restuccia, M. C. Righi, Xsorb: a software for identifying
+
+33
+[27|
+
+[28]
+
+[29]
+
+[30]
+
+the most stable adsorption configuration and energy of a molecule on a
+crystal surface, Computer Physics Communications 291 (2023) 108827.
+doi:10.1016/j.cpc.2023.108827
+
+URL https: //www.sciencedirect.com/science/article/pii/
+
+$0010465523001728
+
+G. Ramirez, O. L. Eryilmaz, G. Fatti, M. C. Righi, J. Wen, A. Erdemir,
+Tribochemical conversion of methane to graphene and other carbon
+nanostructures: Implications for friction and wear, ACS Applied Nano
+Materials 3 (8) (2020) 8060-8067. doi:10.1021/acsanm.0c01527.
+URL https://doi.org/10.1021/acsanm.0c01527
+
+S. Maintz, V. L. Deringer, A. L. Tchougréeff, R. Dronskowski, Lob-
+ster: A tool to extract chemical bonding from plane-wave based
+dft, Journal of Computational Chemistry 37 (11) (2016) 1030-1035.
+doi:https://doi.org/10.1002/jcc.24300.
+
+URL  https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.
+24300
+
+R. Nelson, C. Ertural, J. George, V. L. Deringer, G. Hautier,
+R. Dronskowski, Lobster: Local orbital projections, atomic charges,
+and chemical-bonding analysis from projector-augmented-wave-based
+density-functional theory, Journal of Computational Chemistry 41 (21)
+(2020) 1931-1940. doi:https://doi.org/10.1002/jcc.26353.
+
+URL  https://onlinelibrary.wiley.com/doi/abs/10.1002/jcc.
+26353
+
+R. Dronskowski, P. E. Bloechl, Crystal orbital hamilton populations
+
+34
+[31]
+
+[32|
+
+[33]
+
+[34]
+
+(cohp): energy-resolved visualization of chemical bonding in solids based
+on density-functional calculations, The Journal of Physical Chemistry
+97 (33) (1993) 8617-8624. doi:10.1021/j100135a014.
+
+URL https: //doi.org/10.1021/j100135a014
+
+P. C. Miiller, C. Ertural, J. Hempelmann, R. Dronskowski, Crystal or-
+bital bond index: Covalent bond orders in solids, The Journal of Phys-
+ical Chemistry C 125 (14) (2021) 7959-7970. doi:10.1021/acs.jpcc.
+1c00718
+
+URL https://doi.org/10.1021/acs. jpcc.1c00718
+
+X. Huang, S. K. Ramadugu, S. E. Mason, Surface-specific
+
+dft+ u approach applied to a-fe203 (0001), The Journal of
+
+Physical Chemistry C 120 (9) (2016) 4919-4930. doi:https:
+//doi.org/10.1021/acs. jpcc.5b12144.
+
+URL https: //pubs.acs.org/doi/full/10.1021/
+
+acs. jpcc.5b12144?casa_token=PMfz4w743xQAAAAAY
+
+3AFItyMp3TUD-qYt07 JCAet3ewD j GZad6ZEeBxBB11cHKk3rGVAkj33kL0x0a8V3Za0ZFDBSpnIS91
+
+R. B. Wang, A. Hellman, Surface terminations of hematite (a-fe203)
+
+exposed to oxygen, hydrogen, or water: dependence on the density
+
+functional theory methodology, Journal of Physics: Condensed Matter
+
+30 (27) (2018) 275002. doi:10.1088/1361-648X/aac74.
+
+URL https://iopscience.iop.org/article/10.1088/
+1361-648X/aac743/meta?casa_token=svltbsKn6sAAAAAA:
+DDbQ6b6HhEgv107ECVDgSfVKKAHC1t7TO68hevqGTQWTr-r-1QwCxe4wi-SJcorQYZL1W2z j JBOmq
+
+G. Rollmann, A. Rohrbach, P. Entel, J. Hafner, First-principles
+
+35
+[35]
+
+[36]
+
+[37|
+
+[38]
+
+calculation of the structure and magnetic phases of hematite,
+Physical Review B 69 (16) (2004) 165107. doi:https:
+//doi.org/10.1103/PhysRevB .69. 165107
+
+URL https://journals.aps.org/prb/abstract/10.1103/
+PhysRevB.69.165107
+
+S. Peeters, P. Restuccia, S. Loehlé, B. Thiebaut, M. C. Righi, Charac-
+terization of molybdenum dithiocarbamates by first-principles calcula-
+tions, The Journal of Physical Chemistry A 123 (32) (2019) 7007-7015.
+doi:10.1021/acs. jpca.9b03930.
+
+URL https://pubs.acs.org/doi/10.1021/acs. jpca.9b039300
+
+S. Peeters, A. Barlini, J. Jain, N. N. Gosvami, M. Righi, Adsorption
+and decomposition of zddp on lightweight metallic substrates: Ab initio
+and experimental insights, Applied Surface Science 600 (2022) 153947.
+doi:https://doi.org/10.1016/j.apsusc. 2022. 153947.
+
+URL https: //www.sciencedirect.com/science/article/pii/
+
+$0169433222014908
+
+D. Spreitzer, J. Schenk, Reduction of iron oxides with hydro-
+gen—A review, steel research international 90 (10) (2019) 1900108.
+doi:https://doi.org/10.1002/srin. 201900108.
+
+URL https://onlinelibrary.wiley.com/doi/abs/10.1002/srin.
+201900108
+
+Y. Kobayashi, Y. Fujiwara, Corrosion protection of cerium conversion
+coating modified with a self-assembled layer of phosphoric acid mono-
+
+n-alkyl ester, Electrochemical and Solid-State Letters 9 (3) (2006) B15.
+
+36
+[39]
+
+[40]
+
+[41]
+
+doi:10.1149/1.2162328.
+URL https: //dx.doi.org/10.1149/1.2162328
+
+D. Philippon, M.-I. de Barros-Bouchet, T. L. Mogne, E. Gresser, J.-M.
+Martin, Experimental simulation of phosphites additives tribochemical
+reactions by gas phase lubrication, Tribology - Materials, Surfaces &
+Interfaces 1 (3) (2007) 113-123. doi: 10.1179/175158408X273586.
+URL https: //doi.org/10.1179/175158408X273586
+
+M. I. De Barros-Bouchet, M. C. Righi, D. Philippon, 5. Mambingo-
+Doumbe, T. Le-Mogne, J. M. Martin, A. Bouffet, Tribochemistry
+of phosphorus additives: experiments and first-principles calculations,
+RSC Adv. 5 (2015) 49270-49279. doi: 10.1039/C5RA00721F.
+
+URL http: //dx.doi.org/10.1039/C5RA00721F
+
+H. Li, Y. Zhang, C. Li, Z. Zhou, X. Nie, Y. Chen, H. Cao, B. Liu,
+N. Zhang, Z. Said, S. Debnath, M. Jamil, H. M. Ali, S. Sharma, Ex-
+treme pressure and antiwear additives for lubricant: academic insights
+and perspectives, The International Journal of Advanced Manufacturing
+Technology 120 (1) (2022) 1-27. doi: 10.1007/s00170-021-08614-x.
+URL https://doi.org/10.1007/s00170-021-08614-x
+
+37

@@ -1,0 +1,585 @@
+s.comp-ph] 29 Oct 2025
+
+Sic
+
+2510.25654v1 [phy
+
+arXiv
+
+Bayesian MINFLUX localization microscopy
+
+Steffen Schultze and Helmut Grubmiiller*
+Max Planck Institute for Multidisciplinary Sciences
+(Dated: October 30, 2025)
+
+MINFLUX microscopy allows for localization of fluorophores with nanometer precision using
+targeted scanning with an illumination profile with a minimum. However, current scanning patterns
+
+and the overall procedure are based on heuristics, and may therefore be suboptimal.
+
+Here we
+
+present a rigorous Bayesian that offers maximal resolutions from either minimal detected photons
+or minimal exposures. We estimate using simulated localization runs that this approach should
+reduce the number of photons required for 1 nm resolution by a factor of about four.
+
+Recently, MINFLUX experiments [1-6] have pushed
+he resolution limit of optical fluorescence microscopy
+into the nanometer range. They also allow for parti-
+cle tracking using a minimal number of detected photons
+1, 7]. This high photon efficiency is achieved by local-
+izing single fluorophores using a structured illumination
+rofile with a central intensity minimum, such as a donut-
+shaped intensity profile. By placing this minimum at a
+small number of positions near the near the fluorophore
+‘0 be localized and recording photon counts for each, the
+uorophore location can be estimated with nanometer ac-
+curacy. Ideally, if the position were ‘guessed’ accurately
+and assuming negligible background noise, localization
+would be possible without even a single detected photon.
+
+In practice, localization is performed iteratively [1].
+Starting from a diffraction limited pre-localization at
+about 150 nm precision, the donut minimum is positioned
+at the vertices of a triangular or hexagonal scanning pat-
+ern centered on the current position estimate. The pat-
+ern diameter L is chosen according to the initial localiza-
+ion precision. Photon counts at these positions are used
+o update the emitter estimate, after which the scanning
+attern is re-centered and its diameter reduced. This
+rocedure progressively directs the excitation minima to-
+ward the true emitter position. Because the effective lo-
+calization precision scales linearly with the pattern diam-
+eter L, the iterative refinement yields exponential accu-
+racy improvement with respect to the number of detected
+hotons, in contrast to the slower 1/VN scaling obtained
+without such repositioning.
+However, this overall procedure as well as the trian-
+gular or hexagonal scanning patterns are, essentially,
+heuristics. Therefore, and because not all available in-
+formation is used, they are likely suboptimal, both in
+erms of the required number of detected photons as well
+as the tolerance to background noise due to a non-zero
+intensity minimum.
+
+Here we develop a Bayesian scanning strategy that is
+optimal, either regarding the required number of detected
+photons or the number of exposures, such that it achieves
+either maximal resolutions from a given photon budget,
+or maximal time resolution. In each step we ask at which
+position of the donut minimum the expected information
+gain is maximal. As we will demonstrate, this approach
+
+greatly improves the photon efficiency of each localiza-
+tion, achieving, for example, a typical target resolution
+of 2nm using four times fewer photons than required in
+current implementations.
+
+Bayesian framework. We treat the localization as a
+sequential Bayesian inference problem. To that end, let
+P(x) denote the prior distribution for the emitter posi-
+tion x, obtained from an initial diffraction-limited pre-
+localization. As illustrated in Fig. 1, we separately con-
+sider each exposure k = 1,..., N with excitation profiles
+I(x) = I(x; rp, 1.) determined by independently chosen
+minimum positions r;, (red dots in Fig. 1) and intensity
+
+factors 7. Here,
+_ pl?
+bal) 4
+o
+
+(1)
+is the donut-shaped illumination profile, and b is the
+background level, o + 200 nm is radius of the donut max-
+imum and e is Euler’s number.
+
+In each step, both r, and 7, are chosen based on the
+current Bayesian posterior P;,(x) (blue density in Fig. 1),
+as explained below. After observing the corresponding
+photon count nz, the posterior is updated according to
+Bayes’ theorem,
+
+Py(x) x P(x | x, Te.) Pei (x), (2)
+
+x—r|/?
+I(x;r,9) =0 ei a)! 3 l ex (
+
+such that, after each step, P,(x) encodes all informa-
+tion from the steps up to this point. Modeling each
+photon count nz as an independent Poisson distribution
+ng ~ Pois(Iz(Xo)), where xo is the ground-truth dye po-
+sition, the likelihood (orange density in Fig. 1) for a given
+exposure reads
+
+eFC) Ty (xe)
+cee” 8)
+Nk!
+
+Optimal donut placement. Crucially, the choice of the
+next minimum position r;, is not fixed but adapted in
+each step based on the current posterior P(x). In-
+deed, having access to this posterior allows to estimate
+the expected information gain for each possible donut
+placement r. To avoid a bias towards positions with
+higher expected photon counts (which will yield more in-
+formation on average, but less information per photon),
+
+Pag | x tet) =
+
+Py P, P, P; P, Ps P, P; Pro
+8 i] max
+e|@ || 4 e(oicit ba
+A, [200m =200nm =200nm 30m 300m 30m 30mm S10 um =10nm 0
+3 © Y - max
+° “
+a}
+= —=200nm. =200nm 0
+a 7 max
+ome}
+ae |@ ta j
+6 8 8
+3 g E 300m 3 0
+7 Nn, =6 ng=4 n,=0 ng=1 My =2 Ny=1
+bal posterior + | likelihood | expected information gain true fluorophore position « donut minimum
+FIG. 1. Selected Bayesian MINFLUX localization. Shown are the posterior densities P;, (blue), the likelihoods P(nx | x, rx, 7)
+
+(orange), the expected information gain EIG(r, Py_1) (green), and the observed photon counts nx. Localization was performed
+from an isotropic Gaussian prior Po with standard deviation o = 150nm with an expected photon count per step of 4. = 2 and
+minimum positions (red dots) chosen to maximize the expected information gain.
+
+for each possible r; the intensity factor 7, is chosen such
+that the expected photon count given P;,_; equaled a
+chosen parameter 1, by setting ne = (rx) with
+
+n(t) = (Exvpy abo (x:r,1)) |p. (4)
+
+Assuming an observed photon count n, the informa-
+tion gain is defined as the reduction in entropy S(P) =
+J P(x) log P(x) dx from P,-1(x) to P,(x | n) o P(n |
+X, 1K, Mk) Pr_i(x). Taking the expectation over all possi-
+ble photon counts yields the expected information gain
+
+EIG(r, Py-1) (5)
+
+= Env p(njr)[S[Pr—1(x)] — S[Pk(x| )]]
+= S[Px-1(%)] — 0 P(m|r) SIP |n, x, n(r))]],
+n=0
+as shown in the bottom row of Fig. 1. Here,
+
+P(n|r) = [Poisin | I(x; r,n(r)))Pe-1(x)dx. (6)
+
+denotes the expected probability of each photon count n
+given P;,_1. The optimal r;, is now chosen as the one
+hat maximizes the EIG,
+
+rp, = argmax, EIG(r, P.-1). (7)
+Figure 2 shows a selected simulated localization run using
+his optimal choice of rz.
+
+Photon efficiency. To assess the efficiency of this op-
+imized Bayesian approach in comparison to the state-
+of-the-art heuristic approach, we simulated 1000 inde-
+endent localization runs for various values for the av-
+erage photon count per step pz, as shown in Fig. 3
+(solid lines). Each run was started from a Gaussian
+
+10 nm
+
+100 nm po
+
+1000nm
+
+ft )
+x donut minima r, q
+
+-o MAP estimates argmax,P,(x) @ true fluorophore position
+
+FIG. 2. Current maximum a posteriori (MAP) estimates
+argmax, P,(x) and donut minimum positions r, for a selected
+Bayesian MINFLUX localization run performed with pp = 0.5
+for 150 exposures k. Radial scale is linear below 1nm and
+logarithmic above.
+
+prior with standard deviation 150nm, from which the
+ground-truth emitter position was chosen at random. For
+each step, the maximum expected information gain donut
+minimum position was chosen. The posterior was repre-
+sented by a discretization on a two-dimensional grid of
+points and the required integrals where computed numer-
+ically, as explained in the Appendix. A realistic back-
+ground level of b = 0.01 was chosen, corresponding to
+signal to background ratio of 12 at a L = 100nm [I].
+Localization accuracy was measured by the median of
+the one-dimensional errors [4] of the maximum a poste-
+— max. EIG
+«««: semi-heuristic
+-> hex. pattern
+— final stage
+
+0 10° 10" 10° 10°
+
+cumulative photon count
+
+10° 4
+
+=— max. EIG
+semi-heuristic
+
+-e hex. pattern
+10! 4
+
+1p (um)
+
+10°4
+
+— T 7 i T
+0 10° 10! 10° 10° 1o#
+number of exposures
+
+FIG. 3. Median localization accuracy oip for various values
+of yz as function of a the cumulative detected photon count
+and b the number of exposures for the Bayesian approach
+using maximized EIG (solid colored lines) and semi-heuristic
+placement (dotted lines) as well as the conventional approach
+using a hexagonal pattern (black line) with varying photon
+counts for the final stage (diamond markers).
+
+riori (MAP) estimates given by o1p = ||Xmap — Xol|/V2,
+where zap = argmax, P),(x). As can be seen in Fig. 3a
+and b, choosing the expected photon count per step
+presents a tradeoff between using minimal photon counts
+or minimal numbers of steps.
+
+Strikingly, for 4. = 0.1 already about 120 photons suf-
+fice to reach 1nm average accuracy. In contrast, us-
+ing the standard iterative maximum likelihood approach
+(black lines in Fig. 3) about 500 photons are required to
+reach the same accuracy. For this comparison, we sim-
+ulated 1000 localization runs using a hexagonal pattern
+with three stages of L} = 200nm, Ly = 150nm and
+L3 = 40nm at reported photon counts of N; = 40 and
+No = 90 for the first two stages [4] and a range photon
+counts N3 for the final third stage (diamond markers in
+Fig 3).
+
+The conventional approach achieved slightly better res-
+olutions in our simulations than reported from experi-
+ments [4], likely due to higher experimental noise-levels
+or other additional sources of uncertainty. The relative
+
+— EIG(r) for P,_,;=N(o) 18
+
+0.050 4
+
+EIG(r)
+
+0.025 5
+
+0.000 +
+
+— 1
+0 10° 10! 107 10°
+\jr|| (am)
+
+— Do)
+
+1024 10
+
+D(c) (nm)
+
+10'4
+
+10° 4
+
+T r 1 0.1
+10° 10? 10°
+o (nm)
+
+FIG. 4. Optimization of r, for P,-1 = N(o) at w = 0.1
+photons per step. a Expected information gain as a func-
+tion of ||r|| for various values of o. b Distance D(o) =
+|jargmax, EIG(r, V(c))|| at which the expected information
+gain is maximized as a function of o for various values of pu.
+
+performance of both approaches should not be affecte
+by this difference. Notably, the Bayesian approach is
+more photon-efficient than the standard method also for
+some of the larger tested values of jz. Indeed, for abow
+}t = 2, for which the Bayesian approach requires a simi-
+lar amount of exposures than the standard method, 1nm
+accuracy is still reached using nearly the same amount o
+detected photons as for = 0.1.
+
+Somewhat unexpectedly, at the beginning of the local-
+ization process the most efficient donut placement is no’
+
+obtained by aligning the intensity minimum with the re-
+gion of highest posterior probability. Instead, maximal
+information is gained when the outer slope of the exci-
+tation profile overlaps with the support of the posterior
+distribution. Only once the posterior has become suffi-
+ciently narrow does positioning the minimum itself close
+to the emitter become optimal. To understand this be-
+havior, we computed the expected information gain as a
+function of the radial distance ||r|| of the donut minimum,
+assuming P;,_1 = N(c) is an isotropic Gaussian centered
+at the origin with standard deviation o (Fig. 4a). For
+large o, the EIG is maximized at large radial offsets,
+
+consistent with the outer donut slope being most infor-
+mative. This is further illustrated in Fig. 4b, which shows
+the optimal placement distance
+
+D(c) = |largmax, EIG(r, V(c))|| (8)
+
+as a function of o. Notably, due to the background 6b,
+for narrow priors the optimal distance does not become
+zero but instead approaches a finite offset, consistent with
+earlier results on the optimal scanning pattern size L in
+conventional MINFLUX [2].
+
+Regarding the implementation of our approach into ex-
+isting microscopes, maximizing the EIG requires consid-
+erable computational effort due to the required numerical
+evaluation of integrals. As MINFLUX-localizations need
+to be performed within a few milliseconds, this computa-
+tional cost might become a bottleneck. Conjecturing that
+the radial distance of the minimum position to the cur-
+rent maximum likelihood position is the most important
+factor, we therefore suggest a semi-heuristic placement
+strategy as
+
+ry = argmax, Pj,_1(x) +v,D(std(P,-1)), (9)
+
+where vy, is an isotropic random unit vector and
+D(std(P,-1)) is the optimal distance from Fig. 4b. This
+placement strategy is similar to one used in combination
+with stimulated emission depletion microscopy (MIN-
+STED) [7, 8], but differs in that it is here used in combi-
+nation with updating the Bayesian posterior instead of a
+point estimate. As can be seen in Fig. 3 (dotted lines),
+our semi-heuristic placement strategy performs nearly as
+well as the rigorous maximum EIG strategy.
+Background tolerance. The background level 6 is the
+most important limitation on achievable resolutions from
+MINFLUX. Indeed, as can be seen in Fig. 3, at about
+1Inm accuracy the further increase in accuracy changes
+
+from exponential to inverse square root behavior because
+the background becomes dominant at this scale. As
+the background level may vary greatly depending on ex-
+perimental setup and fluorophore type, we also investi-
+gated how our approach performs at elevated background
+levels. To that end, we performed another 1000 opti-
+mization runs for several background levels ranging from
+b = 0.001 to b = 0.2, corresponding to signal to back-
+ground ratios of 120 and 0.5 at L = 100nm (Fig. 5).
+As expected, at higher noise levels more photons are re-
+
+quired for the same accuracy. Notably, at 5 times in-
+creased noise level (b = 0.05) our approach is as efficient
+as the conventional one at typical noise levels (b = 0.01).
+
+Conclusion. Here we have developed and assessed
+a Bayesian approach to MINFLUX localization mi-
+croscopy, which, by construction, yields an optimal scan-
+ning strategy for positioning the donut intensity min-
+Our simulated localization runs suggest that
+this approach should provide similar accuracy using four
+
+imum.
+
+104 0.2
+0.1
+0.05
+10! s
+2 0.02
+& po}
+3 0.01
+8 10° 4
+0.005
+_— tho. a | 0.002
+1 -1 | «ees Semi-heuristic
+ony j " + Boo
+0 10° 10! 102 10°
+
+cumulative photon count
+
+FIG. 5. Median localization accuracy o1p for various back-
+ground levels b as function of the cumulative detected photon
+count for both optimized EIG (solid lines) and radial heuristic
+placement (dashed lines).
+
+times fewer photons than current state-of-the-art ap-
+proaches. Conversely, with unlimited numbers of pho-
+tons, the time resolution, that is, the required number
+of exposures, should improve by about a factor of three.
+We attribute this increase in efficiency not only to the
+optimized donut minimum positions, but also to the fact
+that our approach uses and maintains all available in-
+formation. While our approach provides optimal single-
+step information gain, it may be possible to improve even
+further by considering the expected information gain for
+
+multiple steps at once. Preliminary tests using the two-
+step EIG suggest a further 10% reduction in required
+photon count, albeit at markedly higher numerical effort.
+
+Whereas we have here for simplicity assumed exact:
+knowledge of the fluorophore brightness as well as the
+shape of the illumination profile, these are often not
+exactly known in practice. Importantly, the Bayesian
+framework can similarly be applied to simultaneously de-
+termine both the fluorophore position and these param-
+eters. For instance, for the fluorophore brightness, an
+overall intensity factor 7 would be included and the up-
+dates performed on a joint posterior
+
+Px(x,1) « P(ne | x, 1; Le) Pei (x7).
+
+Our approach is computationally more demanding
+than established methods. However, while its implemen-
+tation on current field-programmable gate arrays used in
+MINFLUX setups may be challenging, it should be fea-
+sible using upgraded computational hardware.
+
+We have here focused on the most commonly used
+donut-shaped excitation intensity, MINFLUX can also
+be applied using alternative illumination profiles [9, 10]
+with, for example, line-shaped minima [9]. Further anal-
+ysis will show if an analogous Bayesian approach would
+offer similar improvement also for these alternatives. No-
+
+Acknowledgments.
+Leutenegger, Jan Otto Wirth, and Johann Engelhardt
+for helpful discussions.
+istening to a presentation by Stefan Hell.
+was supported by the Deutsche Forschungsgemeinschaft
+DFG, German Research Foundation) - CRC 1456/1 -
+
+ably, in the case of a line minimum the localization is
+independent for each dimension, such that the computa-
+ional complexity would be much lower.
+
+We thank Stefan Hell, Marcel
+
+This research was inspired by
+This work
+
+432680300.
+
+Data availability. The data that support the findings
+of this article are available from the authors upon rea-
+sonable request.
+
+hgrubmu@mpinat.mpg.de
+
+F. Balzarotti, Y. Eilers, K. C. Gwosch, A. H. Gynna,
+V. Westphal, F. D. Stefani, J. Elf, and S. W. Hell,
+Nanometer resolution imaging and tracking of fluores-
+cent molecules with minimal photon fluxes, Science 355,
+606 (2017).
+Y. Eilers, H. Ta, K. C. Gwosch, F. Balzarotti, and S. W.
+Hell, MINFLUX monitors rapid molecular jumps with su-
+perior spatiotemporal resolution, Proceedings of the Na-
+tional Academy of Sciences 115, 6117 (2018).
+Kk. C. Gwosch, J. K. Pape, F. Balzarotti, P. Hoess, J. El-
+lenberg, J. Ries, and S. W. Hell, MINFLUX nanoscopy
+delivers 3D multicolor nanometer resolution in cells, Na-
+ture Methods 17, 217 (2020).
+R. Schmidt, T. Weihs, C. A. Wurm, I. Jansen,
+J. Rehman, S. J. Sahl, and S. W. Hell, MINFLUX
+nanometer-scale 3D imaging and microsecond-range
+tracking on a common fluorescence microscope, Nature
+Communications 12, 1478 (2021).
+
+S. J. Sahl, J. Matthias, K. Inamdar, M. Weber, T. A.
+Khan, C. Briiser, S. Jakobs, S$. Becker, C. Griesinger,
+J. Broichhagen, and S. W. Hell, Direct optical measure-
+ment of intramolecular distances with angstrom preci-
+sion, Science 386, 180 (2024).
+
+L. Scheiderer, Z. Marin, and J. Ries, MINFLUX achieves
+molecular resolution with minimal photons, Nature Pho-
+tonics 19, 238 (2025).
+
+on
+
+L. Scheiderer, H. von der Emde, M. Hesselink, M. We-
+ber, and S. W. Hell, MINSTED tracking of single
+biomolecules, Nature Methods 21, 569 (2024).
+
+M. Weber, M. Leutenegger, S. Stoldt, S. Jakobs, T. S.
+Mihaila, A. N. Butkevich, and S. W. Hell, MINSTED
+fluorescence localization and nanoscopy, Nature Photon-
+ics 15, 361 (2021).
+J. O. Wirth, L. Scheiderer, T. Engelhardt, J. Engel-
+hardt, J. Matthias, and S. W. Hell, MINFLUX dissects
+the unimpeded walking of kinesin-1, Science 379, 1004
+(2023).
+T. Deguchi and J. Ries, Simple and robust 3D MINFLUX
+excitation with a variable phase plate, Light: Science &
+Applications 13, 134 (2024).
+J. Bezanson, A. Edelman, S. Karpinski, and V. B. Shah,
+Julia: A Fresh Approach to Numerical Computing, SIAM
+Review 59, 65 (2017).
+
+P. K. Mogensen and A. N. Riseth, Optim: A mathe-
+matical optimization package for Julia, Journal of Open
+Source Software 3, 615 (2018).
+
+Implementation details
+
+A proof-of-principle implementation of the Bayesian
+
+approach
+
+11
+
+cla’
+
+eac.
+
+ain a gric
+
+resented in the Julia programming language
+
+here is available at https://gitlab.gwdg.de/
+
+sschult/minflux.
+The posterior P, was approximated on a uniform
+Cartesian
+
+grid with positions x;; = (x;,yj;) and asso-
+
+ed probabilities pj;. The Bayesian updates were per-
+
+ormed according to eq. (2) and after each step the pos-
+erior was normalized such that )>, j Pij = 1. The initial
+grid consisted of 60 x 60 points with 15 nm spacing. After
+
+h update, the grid was adaptively subdivided to main-
+
+spacing of at most std(P,)/10. Probabilities
+
+at new grid points were obtained by linear interpolation.
+To improve efficiency, grid positions with negligible prob-
+
+abi
+an
+
+ity mass were pruned: all x; with max; p,; < 10-°
+
+all y; with max; pij < 10~° were removed.
+
+For evaluation of the expected information gain
+
+(eq
+
+. (5)) the infinite sum over the photon counts n was
+
+truncated at n = max(5, [w+50\/f]). The optimal donut
+placement (eq. (7)) was determined using the L-BFGS
+optimization algorithm as implemented in the Optim.jl
+package [12].

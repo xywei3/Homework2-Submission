@@ -1,0 +1,555 @@
+A Vector-Based Algorithm for Generating Complete Balanced Reaction
+Sets with Arbitrary Numbers of Reagents
+
+Nataliia Yilmaz', Pavlo Kozub?, Svitlana Kozub*
+
+1. School of Computer and Communication Sciences, Ecole Polytechnique Fédérale de Lausanne
+(EPFL), CH-1015 Lausanne, Switzerland
+
+2. Mediasystem and technologies department, Kharkiv National University of Radio Electronics,
+Kharkiv, Ukraine
+
+3. Medical and bioorganic chemistry department, Kharkiv National Medical University, Kharkiv,
+Ukraine
+
+Corresponding author: nataliia.miroshnichenko@epfl.ch
+
+Abstract
+
+We present a vector-based method to balance chemical reactions. The algorithm builds
+candidates in a deterministic way, removes duplicates, and always prints coefficients in the lowest
+whole-number form. For redox cases, electrons and protons/hydroxide are treated explicitly, so both
+mass and charge are balanced. We also outline the basic principles of the vector formulation of
+stoichiometry, interpreting reactions as integer vectors in composition space; this geometric view
+supports compact visualizations of reagent—product interactions and helps surface distinct reaction
+families. The method enumerates valid balances for arbitrary user-specified species lists without
+special-case balancing rules or symbolic tricks, and it provides a clean foundation for developing new
+algorithmic variants (e.g., alternative objectives or constraints). On representative examples
+(neutralization, double displacement, decomposition, classical redox, small multicomponent sets) and
+a negative control, the method produced correct integer balances. When multiple balances exist, we
+report a canonical one — minimizing the total coefficient sum with a simple tie-breaker — without
+claiming global optimality beyond the solutions the search enumerates. The procedure applies per
+reaction and extends to reaction networks via consistent per-reaction application. We do not report
+runtimes; broader benchmarking and code/data release are planned.
+
+Keywords: stoichiometry, chemical equation balancing, vector-based algorithm, reaction
+systems, chemical reaction networks (CRN)
+
+1. Introduction
+
+Balancing chemical reactions is a fundamental task in chemistry, with implications that extend
+from education and basic laboratory work to industrial processes, computational chemistry, and systems
+biology. A correctly balanced reaction equation ensures conservation of mass and charge, provides the
+foundation for quantitative stoichiometric analysis, and is indispensable for simulating chemical
+processes and metabolic networks [1-3]. Despite its apparent simplicity in small-scale textbook
+examples, the general problem of balancing reactions — especially in multicomponent systems — remains
+both practically challenging and theoretically rich.
+
+Traditional approaches rely on algebraic or matrix-based formulations. In these methods, a
+chemical reaction is translated into a system of linear equations representing atomic balances, and
+solutions are derived via Gaussian elimination or null-space analysis of the stoichiometric matrix [4, 5,
+6]. While mathematically rigorous, these techniques face several limitations: (i) they typically yield
+rational rather than strictly integer coefficients, requiring additional normalization steps; (ii) solutions
+are often non-unique, with potentially infinitely many valid coefficient sets [2]; (iii) large or poorly
+conditioned systems may suffer from numerical instability [4]. These shortcomings reduce the
+interpretability and practicality of such methods, particularly in educational or computational contexts
+where discrete integer solutions are more natural and desirable.
+
+Alternative approaches have been proposed to address these issues. Integer linear programming
+(ILP) and Diophantine equation formulations directly enforce integrality but are computationally
+expensive in the general case, with NP-hard subproblems arising in network-level formulations [7].
+Heuristic and rule-based methods are sometimes applied for specific classes of reactions, such as redox
+processes, but these often lack generality or formal guarantees of correctness [4].
+
+The challenge becomes even more pronounced in multicomponent or network-level systems.
+Genome-scale metabolic models, for example, may involve thousands of reactions, where even minor
+imbalances in mass or charge can compromise downstream flux balance analysis [1, 8]. Automated
+databases frequently contain unbalanced or partially specified reactions, requiring systematic
+“rebalancing” pipelines [9, 10, 11]. Furthermore, the presence of multiple valid solutions in high-
+dimensional stoichiometric spaces introduces ambiguity: which balanced form is “best” for
+computation, education, or modelling [1, 2].
+
+Taken together, these challenges point to the need for methods that (a) guarantee integer
+solutions, (b) reduce ambiguity in multicomponent systems, (c) remain computationally tractable, and
+(d) can be readily implemented and integrated into educational tools or computational platforms. In this
+work, we present a vector-based algorithm for balancing chemical reaction networks under discrete
+stoichiometric constraints. Our method operates directly in the integer space by sequentially combining
+vectors of compounds across the elemental space, eliminating redundant combinations among them.
+This approach ensures a finite set of primitive integer combinations, guarantees integer-valued
+stoichiometric coefficients, and maintains algorithmic simplicity and scalability.
+
+An interactive web implementation of the method is available at https://cpredictor.icfk.org/,
+which we use to cross-check examples throughout the paper (accessed 15 Sep 2025).
+
+As an applied case study, we previously illustrated the method on the classical black powder
+system (charcoal-sulfur-saltpeter) [12].
+
+2. Related Work
+
+2.1 Classical algebraic and matrix-based approaches
+
+The most widely taught and applied method for balancing chemical reactions is based on linear
+algebra. Each compound is represented as a vector of elemental composition, and balancing is achieved
+by solving a system of homogeneous linear equations. This approach, often implemented through
+Gaussian elimination or null-space analysis of the stoichiometric matrix, provides mathematically
+correct solutions [4, 5, 6]. However, it typically yields rational coefficients that require scaling to
+integers, and solutions are often non-unique, as multiple independent solutions may exist when the null-
+space has dimension greater than one [2]. Furthermore, large or poorly conditioned systems can exhibit
+numerical instability, reducing reliability for practical use [4].
+
+2.2 Integer linear programming and Diophantine formulations
+
+To address the problem of non-integer solutions, several authors have formulated balancing as
+an integer linear programming (ILP) or Diophantine system. In these approaches, stoichiometric
+coefficients are constrained to be positive integers, ensuring discrete and physically meaningful results.
+While this guarantees integrality, such formulations are computationally demanding, as ILP is NP-hard
+in the general case. Even moderately sized reaction networks may lead to exponential search spaces [7,
+13]. Despite these limitations, ILP remains attractive when additional constraints - such as minimizing
+the sum of coefficients or enforcing charge balance — are required.
+
+2.3 Redox balancing and charge/proton handling
+
+Special difficulties arise in balancing redox reactions, where explicit electrons and protons must
+be accounted for [14]. Classical matrix-based approaches must be extended with additional variables to
+track charge, electron transfer, or pH-dependent protonation states [4]. While rule-based methods for
+redox balancing exist, they are usually limited to specific classes of reactions and may not generalize
+to arbitrary chemical systems. This challenge highlights the need for approaches that can systematically
+incorporate charge and proton balance without ad hoc adjustments.
+
+2.4 Large-scale and multicomponent systems
+
+Balancing becomes significantly more complex in large-scale multicomponent systems such as
+metabolic networks. Genome-scale metabolic models (GEMs) often contain thousands of reactions, and
+even minor imbalances in mass or charge can compromise downstream analyses such as flux balance
+analysis [1, 8, 3]. From a theoretical standpoint, the high dimensionality of stoichiometric spaces
+implies that multiple valid balanced forms can exist, leading to ambiguity in selecting a canonical
+solution [2]. Moreover, certain subproblems in reaction network analysis -such as identifying feasible
+steady states or autocatalytic cycles -are known to be NP-complete, underlining the combinatorial
+difficulty of the domain [13].
+
+2.5 Automated rebalancing in chemical and biological databases
+
+The importance of balanced reactions is increasingly recognized in the context of large curated
+databases. In biochemical databases, systematic audits have revealed widespread imbalances in mass
+and charge, often arising from incomplete or inconsistent compound representations. To address this,
+automated rebalancing pipelines have been developed, leveraging both algorithmic and heuristic
+strategies [10, 11, 15, 16]. These frameworks aim to ensure consistency across thousands of reactions,
+but they also expose the limitations of existing balancing methods when applied at scale. The need for
+robust, reproducible, and computationally efficient algorithms is therefore evident.
+
+3. Methodology
+
+3.1 Formal problem definition
+
+Let E be the set of elements and S$ = {1,...,m} index the species. Let A € Z!#I*™ be the
+stoichiometric (composition) matrix whose j — th column is the integer composition vector ¢,. We seek
+a non-trivial integer vector k € Z™ \ {0} such that Ak = 0 ; when ionic or e™ species are present we
+additionally require q™* =0 (see [5, 6]). Reactants and products are distinguished by the sign
+convention on k.
+
+The balancing problem can be formulated as the search for integer coefficients such that the
+weighted sum of composition vectors satisfies the conservation of each element:
+
+m Bros
+kG = 0,
+
+where the sign convention distinguishes reactants and products [5, 6]. Specifically, coefficients
+associated with reactants are taken as positive values, while those of products are treated as negative
+values, or vice versa. The objective is to find a non-trivial integer solution (K1, ..., Km) (Kz, ..-, Km) with
+the smallest possible set of coefficients that ensures exact conservation of all elements.
+
+This formulation is equivalent to solving a homogeneous system of linear Diophantine
+equations. However, instead of relying on classical null-space methods or integer linear programming,
+the proposed approach directly explores integer combinations of compound vectors within the elemental
+space.
+
+3.2 Vector representation of compounds
+Each compound is mapped to a vector cj € Znc, € Z", defined by its elemental composition.
+For example, in the system {H2, O2, H2O} with elements E={H, O}, the compounds are represented as:
+
+Ee= 20), %= 02), to= (20.
+
+A balanced reaction corresponds to an integer linear combination of these vectors that sums to
+zero. For the above example, the equation
+
+2: ty, + 1-0; — 2+ tao = (0,0)
+yields the balanced reaction:
+2H, + O2 > 2H 0.
+
+In the proposed method, compound vectors are combined sequentially within the elemental
+space, and redundant combinations are systematically eliminated. This ensures that only minimal and
+unique integer solutions are preserved.
+
+3.3 Algorithm description
+
+The proposed algorithm balances chemical reaction systems by sequentially combining compound
+vectors in the elemental space and eliminating redundant or duplicate combinations. The process
+proceeds through the following steps:
+1. Initialization.
+
+- Represent each compound cjc; as an integer composition vector jG.
+
+- Partition compounds into reactants and products according to the unbalanced reaction scheme.
+2. Pairwise combination.
+
+- Select two compounds (or intermediate combinations) whose vectors exhibit opposite signs for
+at least one element.
+
+- Form a new combination by scaling and adding these vectors such that the chosen element is
+reduced or cancelled.
+
+3. Normalization.
+
+- Divide all coefficients of the new combination by their greatest common divisor (GCD) to
+maintain minimal integer form.
+
+4. Elimination of redundancy.
+
+- Check whether the resulting combination is equivalent to an already existing one (up to scalar
+multiplication).
+
+- If so, discard the duplicate. Otherwise, add it to the set of candidate combinations.
+
+5. Iteration.
+- Repeat steps (2)-(4) until either (a) a balanced vector (all zeros) is obtained, or (b) no new non-
+redundant combinations can be generated.
+
+6. Output.
+
+- The algorithm terminates with a finite set of unique, minimal integer-balanced reactions.
+Pseudocode (draft)
+
+Input: Set of compounds {c), c2, ..., cm}, each represented as vector in Z*n
+
+Initialize:
+S< {ci,c2,...,cm} # starting set of vectors
+Balanced — @
+
+Repeat:
+NewSet — @
+For each pair (u, v) in S:
+if u and v have at least one element with opposite sign:
+w < linear_combination(u, v) # cancel selected element
+w < normalize(w) # divide by GCD
+if not equivalent_to_existing(w, S U Balanced):
+if is_balanced(w):
+Balanced <— Balanced U {w}
+else:
+NewSet < NewSet U {w}
+If NewSet = @:
+break
+S <—SU NewSet
+
+Output: Balanced
+
+3.4 Theoretical properties
+
+(a) Correctness. At each step, compound vectors are combined through integer linear
+operations. Since each compound vector G € Z”, and the algorithm only applies addition, subtraction,
+and integer scaling, all intermediate and final results remain integer vectors. The normalization step
+ensures that each combination is reduced to its minimal integer form. A solution is accepted as balanced
+only if the resulting vector is the zero vector, which directly encodes conservation of all elements.
+
+(b) Termination. The algorithm generates new vectors only when at least one elemental
+imbalance can be reduced or cancelled. Each new combination is checked for redundancy (scalar
+equivalence to an existing vector). Since the number of distinct integer vectors with bounded elemental
+counts is finite, and redundant vectors are eliminated, the algorithm cannot run indefinitely. It will either
+converge to a balanced equation or exhaust all non-redundant combinations, proving the absence of a
+solution within the given compound set.
+
+(c) Minimality of solutions. By applying normalization at every step (division by the greatest
+common divisor), all coefficients are maintained in their smallest integer form. Moreover, duplicates
+and scalar multiples are eliminated, ensuring that only unique primitive integer combinations are
+preserved. While multiple independent balanced solutions may exist (when the stoichiometric null-
+space has dimension greater than one), the algorithm ensuring that only unique primitive combinations
+are retained.
+(c’) Primitive normalization and scope-limited canonical reporting. Any balanced integer
+vector k € Z™ is normalized to primitive form by dividing by g = gcd(|k,|,...,|km|), so that
+gcd(|kj|,...,|km|) = 1. Among the balanced solutions enumerated by our search for a given species
+set, we report a canonical representative by minimizing )}2,|kjl; ties are broken lexicographically on
+k and then on species names. We do not claim global (L,) -optimality.
+
+(d) Completeness within the search space. Because the method systematically explores a
+finite space of pairwise integer combinations within the closed set and iterates until no further non-
+redundant combinations remain, it empirically covered all balanced identities on the tested cases. We
+therefore claim systematic exploration of a bounded search space, while a formal proof of global
+coverage is outside the scope of this version.
+
+3.5 Deterministic enumeration
+Exact combination rule. Given candidates u, v and a pivot element e with residuals
+
+ry = Au,ry = Avand ry, #0, tye #0,
+
+define L = lem(|ruel,|rv.el), «= L/|ruel, 8 = L/|rvel, s = sign(Tuerv.e)-
+Then w = au— sv. After gcd-normalization and orientation fix, test wfor balance and deduplication.
+Pivot selection and order. The pivot e* is the first non-zero component of r (lexicographic
+order on elements). Search proceeds as deterministic BFS over a FIFO frontier ordered by
+(|rl1, signature).
+
+4. Implementation
+
+The proposed algorithm was implemented as a lightweight computational tool designed for
+both research and educational purposes. The implementation focuses on simplicity, reproducibility, and
+scalability to larger systems of reactions.
+
+4.1 Data structures
+
+Each compound is internally represented as an integer vector of elemental composition, stored
+in a dictionary-like structure where keys correspond to elements and values correspond to atom counts.
+This representation ensures efficient access to elemental information and supports direct integer
+arithmetic. Balanced and intermediate combinations are stored in hash-based sets, allowing rapid
+comparison and elimination of duplicates.
+
+4.2 Normalization and redundancy checks
+
+Normalization is performed at every step by dividing all coefficients of a newly generated
+combination by their greatest common divisor (GCD). Redundancy is checked by testing whether a
+candidate vector is proportional to an existing one already present in the search space. This guarantees
+that the algorithm maintains only unique primitive integer combinations (gcd=1).
+
+4.3 Termination conditions
+
+The algorithm iterates until no new non-redundant combinations can be generated or until a
+balanced vector (the zero vector in the elemental space) is obtained. This approach ensures finite
+execution; with the deterministic pivot and BFS policy of §3.5, results are order-independent and
+reproducible.
+4.4 Software implementation
+
+The method has been implemented in JavaScript, using basic integer arithmetic libraries. No
+specialized symbolic algebra packages are required, which makes the tool lightweight and easy to port
+across platforms. The code is modular, with functions for vector representation, pairwise combination,
+normalization, redundancy checks, and output formatting.
+
+Web demo & availability. An interactive implementation of the same deterministic
+enumeration and duplicate-removal pipeline is deployed at https://cpredictor.icfk.org/ (accessed 15 Sep
+2025). The demo includes several preloaded examples mirroring our test sets and allows users to verify
+balances online.
+
+The reference JavaScript implementation is not publicly hosted in this version; a public
+repository will be provided in a future update. In the interim, the code is available from the
+corresponding author upon reasonable request.
+
+4.5 Example workflow
+As a proof of concept, the algorithm was tested on classical reactions such as water formation:
+
+2 H2t+ O2 > 2 H20.
+
+where the program automatically identifies the balanced integer coefficients (2, 1, -2).
+For more complex multicomponent systems, the implementation successfully enumerated the
+balanced equations observed in our test sets, while discarding scalar duplicates.
+
+5. Experimental Validation
+
+5.1 Objectives
+
+The validation aims to demonstrate that the proposed algorithm (i) correctly balances
+representative reaction systems and (ii) consistently reports primitive integer coefficients gcd = 1) and
+a canonical representative chosen by (Yj7@,|kj|) among the enumerated balanced solutions.
+
+5.2 Test cases
+We considered three categories of closed species sets (no external species introduced):
+
+1. Canonical textbook cases (combustion, neutralization, simple synthesis) that are
+human-verifiable.
+2. Redox cases formulated within closed sets that include electrons and protons/hydroxide
+
+as explicit species when required by context (acidic/basic media), consistent with the handling discussed
+in Related Work (§2.3).
+
+3. Demonstrative multicomponent sets (~6—10 compounds; 3—5 elements) that move
+beyond triviality yet remain interpretable.
+
+5.3 Baseline (null-space check)
+
+For reference, we additionally constructed integer solutions using the classical null-space
+approach [4, 5, 6]. The comparison is qualitative and limited to: (i) existence of an integer-balanced
+solution and (ii) agreement with our canonical solution up to integer scaling after gcd normalization.
+No runtime or memory figures are reported.
+5.4 Metrics
+
+- Correctness. Accepted iff (Ak =0) (mass); when ionic or e~ species are present,
+additionally q™* = 0 (charge) [5].
+
+- Canonical minimality (scope-limited). For multiplicity cases, we report the equation that
+minimizes )@ ,|kj| among the enumerated balanced solutions; ties are broken lexicographically on k
+and then on species names. We do not claim global L;-optimality.
+
+- Multiplicity (where applicable). Whether the species set admits more than one valid
+balanced equation.
+
+5.5 Results (narrative summary)
+Neutralization (unique). Set {HCl, NaOH, NaCl, H2O}
+
+HCl + NaOH — NaCl + H20
+
+Correctness: satisfied; Primitive (gcd = 1): satisfied;
+Canonical (scope-limited): satisfied; #solutions = 1.
+
+Double displacement (unique). Set {NaxCO3, CaCl, CaCO2, NaCl}
+NazCO3 + CaCl, + CaCO2 + 2 NaCl
+
+Correctness: satisfied; Primitive (gcd = 1): satisfied;
+Canonical (scope-limited): satisfied; #solutions = 1.
+
+Decomposition (unique). Set {H2O2, H20, O2}
+2 H202 —2 H20 + Oz
+
+Correctness: satisfied; Primitive (gcd = 1): satisfied;
+Canonical (scope-limited): satisfied; #solutions = 1.
+
+Redox (unique within the provided set). Set {KmnOg, H2C204, H2SO4, K2SO4, MnSOu,
+CO2, H20}
+
+2 KmnOx4 + 5 H2C204 + 3 H2SO4 — K2SO4 + 2 MnSOq+ 10 CO2 + 8 H2O
+
+Mass and charge balance: satisfied; Primitive (ged = 1): satisfied;
+Canonical (scope-limited): satisfied; #solutions = 1.
+
+Closed-set multiplicity. Set {H2, O2, HxO, H202}
+Expected variants:
+2 H2 + O2 > 2 H20;
+Hz + O2 — H202;
+2 H202 — 2 H20 + Oo.
+
+(Canonical selection: see §3.4(c’).)
+Alternative oxidation states (multiplicity). Set {Fe, O2, FeO, Fe203}
+
+Expected variants:
+2 Fe+ OQ; 4 2 FeQ;
+4 Fe+3 O) > 2 Fe203.
+
+(Canonical selection: see §3.4(c’).)
+
+Negative control. Set {H2, O2, NH3}
+
+Yields no non-trivial balanced equation within the closed set (no external N- or O-carriers
+allowed). #solutions = 0.
+
+Across all unique cases, the null-space baseline coincided with our canonical outputs after ged
+normalization; in multiplicity cases it coincided with one of the enumerated alternatives (qualitative
+
+parity).
+
+5.6 Limitations and future work
+
+This validation targets representative, human-verifiable closed-set cases and focuses on
+correctness and canonical minimality. We do not report timing or memory benchmarks here. A broader
+quantitative study (synthetic suites, larger networks, statistical summaries) is left for future work;
+qualitative efficiency considerations are discussed in §6.1—6.2.
+
+6. Discussion
+
+6.1 Strengths of the method
+
+The proposed algorithm offers several key advantages. First, it operates entirely in the integer
+space, ensuring physically meaningful coefficients at every step. Second, the built-in normalization
+mechanism maintains primitive integer coefficients (gcd=1) and eliminates scalar duplicates. Third, the
+systematic combination of compound vectors within the elemental space allowing the algorithm to
+avoid redundant combinations compared to naive enumeration. Finally, the method is simple to
+implement: it does not require symbolic algebra packages or optimization solvers and can be realized
+in any programming language that supports integer arithmetic.
+
+6.2 Limitations
+
+Certain limitations must also be acknowledged. In large multicomponent systems, the number
+of intermediate combinations may grow exponentially, potentially increasing computational costs. The
+current version of the algorithm does not employ specialized heuristics or parallel optimizations,
+limiting its scalability to medium-sized problems. Moreover, balancing complex redox reactions
+requires explicitly including electrons and protons as additional “compounds,” which may demand
+further alignment with the underlying chemical context.
+
+6.3 Potential applications
+
+Despite these limitations, the algorithm has a broad range of potential applications. In
+education, it can serve as an intuitive tool to demonstrate reaction balancing principles, since it
+consistently produces integer and minimal solutions. In databases, it can be applied to automatically
+rebalance reactions with mass or charge inconsistencies [15, 16]. In computational modelling, the
+method can be integrated into larger frameworks to generate valid input for simulations of chemical
+processes or biochemical networks.
+Finally, in scientific computing and reaction prediction systems, the algorithm may be used as
+a validation module to ensure stoichiometric correctness.
+
+As a demonstration, the black-powder case study provides a compact multicomponent example
+consistent with the present methodology [12].
+
+7. Conclusions and Future Work
+
+We presented a vector-based algorithm for balancing chemical reactions within closed sets of
+species that returns integer-balanced solutions and reports a canonical representative (minimizing
+(Xilkj|\) among the enumerated balanced solutions, §3.4(c’)). The procedure handles classical textbook
+cases and redox systems by representing electrons and protons/hydroxide explicitly when required by
+context, while avoiding redundant identities through normalization and equivalence checks.
+
+Across representative cases (§5) — neutralization, double displacement, decomposition,
+classical redox, compact multicomponent sets, multiplicity examples, and a negative control — the
+algorithm produced correct integer-balanced solutions (mass balance Ak = 0; when ionic or e~ species
+are present, charge balance q'k = 0 and reported the canonical representative (minimizing )™,|k;|
+among the enumerated solutions). For reference, a null-space baseline yielded integer solutions that —
+after gcd normalization — coincided with our canonical outputs in unique cases and with one of the
+enumerated alternatives in multiplicity cases (qualitative parity).
+
+This version intentionally does not report runtime or memory figures; therefore, we do not
+make quantitative performance claims. Likewise, we refrain from asserting formal completeness of the
+search beyond the tested cases. Thermodynamic/kinetic plausibility is outside our scope: the identities
+reported here are purely stoichiometric within the declared closed sets.
+
+Taken together, these results indicate that the method offers a deterministic and reproducible
+way to obtain canonical integer balances, which is valuable for education, automated curation, and
+dataset sanity-checking, and complementary to linear-algebraic null-space approaches with post-
+processing [5, 6].
+
+Future work will address (i) quantitative benchmarking on synthetic suites and larger reaction
+networks, (ii) a formal analysis of coverage and pruning rules, (iii) optional thermodynamic filters and
+environment (acid/basic) inference, and (iv) broader dissemination of code and machine-readable test
+sets to strengthen reproducibility.
+
+References
+[1] Orth, J. D.; Thiele, I.; Palsson, B. O. What is flux balance analysis? Nat. Biotechnol. 2010, 28 (3), 245—
+248. https://doi.org/10.1038/nbt.1614
+[2] Feinberg, M. Chemical reaction network structure and the stability of complex isothermal reactors—I.
+The deficiency zero and deficiency one theorems. Chem. Eng. Sci. 1987, 42 (10), 2229-2268.
+https://doi.org/10.1016/0009-2509(87)s0099-4
+[3] Palsson, B. @. Systems Biology: Constraint-Based Reconstruction and Analysis; Cambridge University
+Press: Cambridge, 2015; Chapter “The Stoichiometric Matrix”.
+https://doi.org/10.1017/CBO9781139854610.012
+[4] Thorne, J. L. The Null-Space Approach to Balancing Chemical Equations. arXiv 2011,
+arXiv:1105.4018.
+[5] Alberty, R. A. Chemical Equations Are Actually Matrix Equations. J. Chem. Educ. 1991, 68 (12), 984.
+https://doi.org/10.1021/ed068p984
+[6] Blakley, G. R. Chemical Equation Balancing: A General Method Which Is Quick, Simple, and Has
+Unexpected Applications. J. Chem. Educ. 1982, 59 (9), 728-734. https://doi.org/10.1021/ed059p728
+
+7] Sen, P. An Integer Linear Programming Approach to Balancing Chemical Equations. J. Chem. Educ.
+2006, 83 (10), 1524. https://doi.org/10.1021/ed083p1524
+
+8] Bernstein, D. B.; Sulheim, S.; Almaas, E.; Segré, D. Addressing uncertainty in genome-scale metabolic
+model reconstruction and analysis. Genome Biol. 2021, 22 (1), 64. https://doi.org/10.1186/s13059-021-
+02289-z
+
+9] Chan, S. H. J.; Simons, M. N.; Maranas, C. D. SteadyCom: Predicting microbial abundances while
+ensuring community stability. PLoS Comput. Biol. 2017, 13 (5), — e1005539.
+https://doi.org/10.1371/journal.pcbi.1005539
+
+10] Zhang, L.; et al. Automated Balancing of Biochemical Reaction Databases. ACS Omega 2024, 9 (4),
+3561-3572. https://doi.org/10.102 1/acsomega.3co7890
+
+11] Phan, T.; et al. Framework for Automated Rebalancing of Large-Scale Reaction Datasets. BMC
+Bioinformatics 2024, 25, 112. https://doi.org/10.1186/si2359-024-05489-6
+
+12] Kozub, P.; Yilmaz, N.; Kozub, S. Vector-Based Approach to the Stoichiometric Analysis of
+Multicomponent Chemical Reactions: The Case of Black Powder. ChemRxiv 2025.
+https://doi.org/10.26434/chemrxiv-2025-p9fbn
+
+13] Andersen, J. L.; Flamm, C.; Merkle, D.; Stadler, P. F. Maximizing Output and Recognizing
+Autocatalysis in Chemical Reaction Networks is NP-Complete. J. Syst. Chem. 2012, 3 (1), 1.
+https://doi.org/10.1186/1759-2208-3-1
+
+14] Jensen, W. B. Balancing Redox Equations. J. Chem. Educ. 2009, 86 (6), 681.
+https://doi.org/10.1021/ed086p681
+
+15] Alcantara, R.; et al. Rhea-A Manually Curated Resource of Biochemical Reactions. Nucleic Acids Res.
+2012, 40 (D1), D754—D760. https://doi.org/10.1093/nar/gkr1126
+
+16] Morgat, A.; et al. Updates in Rhea-A Manually Curated Resource of Biochemical Reactions. Nucleic
+Acids Res. 2015, 43 (D1), D459-D464. https://doi.org/10.1093/nar/gku961
+

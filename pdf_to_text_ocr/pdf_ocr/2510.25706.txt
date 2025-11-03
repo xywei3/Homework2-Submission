@@ -1,0 +1,2378 @@
+2510.25706v1 [astro-ph.CO] 29 Oct 2025
+
+arXiv
+
+APS/123-QED
+
+Cosmological Constraints from Dark Energy Survey Year 1 Cluster Lensing and
+Abundances with Simulation-based Forward-modeling
+
+Andrés N. Salcedo,!?:* Eduardo Rozo,? Hao-Yi Wu,? David H. Weinberg,*:> Pranav Chiploonkar,!
+Chun-Hao To,® 78 Shulei Cao,? Eli S. Rykoff,?:!° Nicole Marcelina Gountanis,*:> and Conghao Zhou!!
+
+‘Department of Astronomy/Steward Observatory, University of Arizona,
+933 North Cherry Avenue, Tucson, AZ 85721-0065, USA
+
+? Department of Physics, University of Arizona, 1118 East Fourth Street, Tucson, AZ 85721, USA.
+
+3 Department of Physics, Southern Methodist University, Dallas, TX 75205, USA
+“Center for Cosmology and AstroParticle Physics (CCAPP),
+the Ohio State University, Columbus, OH 43210, USA
+° Department of Astronomy, the Ohio State University, Columbus, OH 43210, USA
+° Department of Astronomy and Astrophysics, University of Chicago, Chicago IL 60637, USA
+"Kavli Institute of Cosmological Physics, University of Chicago, Chicago IL 60637, USA
+5 NSF-Simons AI Institute for the Sky (SkAI), 172 E. Chestnut St., Chicago IL 60611, USA
+° Kavli Institute for Particle Astrophysics & Cosmology,
+P. O. Box 2450, Stanford University, Stanford, CA 94305, USA
+SLAC National Accelerator Laboratory, Menlo Park, CA 94025, USA
+" Physics Department, University of California, Santa Cruz, CA 95064, USA
+(Dated: October 30, 2025)
+
+We present a simulation-based forward-modeling framework for cosmological inference from op-
+tical galaxy-cluster samples, and apply it to the abundance and weak-lensing signals of DES-Y1
+redMaPPer clusters. The model embeds cosmology-dependent optical selection using a counts-in-
+cylinders approach, while also accounting for cluster miscentering and baryonic feedback in lensing.
+Applied to DES-Y1, and assuming a flat ACDM cosmology, we obtain Q,, = 0.25479-026 and
+og = 082673523, consistent with a broad suite of low-redshift structure measurements, including
+recent full-shape analyses, the DES/KiDS/HSC 3x2 results, and most cluster-abundance studies.
+Our results are also consistent with Planck, with the difference being significant at 2.580. These
+results establish simulation-based forward-modeling of cluster abundances as a promising new tool
+for precision cosmology with Stage IV survey data.
+
+I. INTRODUCTION
+
+Galaxy clusters have long been recognized as a pow-
+erful probe of dark energy, provided that cluster selec-
+tion can be adequately characterized [1, 2]. In optical
+data this has been especially difficult: in DES-Y1, the
+redMaPPer abundance analysis was biased by unmodeled
+selection effects imprinted on the clusters’ weak-lensing
+signals Abbott et al. [3]. Further work demonstrated that
+projection effects in galaxy clusters significantly perturb
+the clusters’ weak lensing profiles [4], explaining the ori-
+gin of this bias. These realizations led to improved mod-
+eling in which the impact of projection effects was param-
+eterized based on numerical simulations [5, 6]. While this
+approach succeeded in achieving unbiased cosmological
+analyses, the increased number of parameters degraded
+the constraining power of the cluster samples.
+
+In parallel, a new generation of simulation-based in-
+ference frameworks has emerged for large-scale struc-
+ture analyses [e.g. 7-10]. We extend this philosophy
+to optical cluster cosmology by embedding cosmology-
+dependent selection and projection directly in a fully
+simulated inference pipeline. In [11] we introduced a
+forward-modeling framework that populates halos with
+
+* ansalcedo@arizona.edu
+
+galaxies and builds synthetic cluster catalogs to model
+the clusters’ lensing signal. We found that unlike in the
+original DES analysis, the abundance and weak-lensing
+signal of DES-Y1 redMaPPer clusters are consistent with
+the Planck ACDM best fit. Here we extend that frame-
+work to enable full cosmological inference and apply it
+to the DES-Y1 redMaPPer sample. Because we can reli-
+ably model cluster selection at lower richness, we include
+all clusters with A > 10, a threshold half that of Abbott
+et al. [3], enabling us to increase the statistical precision
+of our results.
+
+The layout of the paper is as follows. In Section II, we
+summarize the observational and simulation data that
+underpins our analysis. In Section III we describe how
+we populate numerical simulations with galaxies, and
+provide a brief overview of how we use the resulting
+galaxy catalogs to characterize the weak lensing signal
+of redMaPPer galaxy clusters. Section IV and V de-
+scribe how we model the abundance and weak lensing
+data from the simulations, while section VIC describes
+our likelihood functions and the emulator design used to
+interpolate simulation results. Section VII presents our
+results, while section VIII summarizes our results and
+presents our conclusions.
+II. DATA
+A. DES Data
+
+We analyze measurements of the lensing and
+abundance of 24,616 clusters identified by the red-
+sequence Matched-filter Probabilistic Percolation algo-
+rithm [redMaPPer; 12] in the 1321 +116 deg? of DES-Y1
+imaging data [13]. The redMaPPer algorithm identifies
+galaxy clusters as overdensities of red-sequence galaxies,
+using a matched filter approach to estimate the member-
+ship probability of each red-sequence galaxy within an
+empirically defined cluster radius.
+
+Our cluster sample is separated into three redshift bins
+with bin edges at z = [0.2, 0.35, 0.50, 0.65]. Each redshift
+in is further separated into six bins of richness with
+in edges at A [10, 14, 20, 30, 45,60, oo]. Here, » is
+he number of optical galaxies ciated with a given
+cluster. We note this choice contrasts with the existing
+cluster literature utilizing redMaP Per, which is limited to
+A > 20 in order to maintain purity of the resulting sam-
+le. Our framework obviates the need for a sample with
+high purity because non-cluster contaminants are self-
+consistently included in our forward-modeling, enabling
+us to exploit the statistics at low richness.
+
+For each of our richness and redshift bins, cluster shear
+rofiles were measured using the DES-Y1 METACALI-
+BRATION shape catalog [14] and the BPZ photometric
+redshift catalog [15]. The profiles were boost factor cor-
+rected using the results of [16]. The full details of this
+measurement are found in [17].
+
+io]
+
+B. Simulation Data
+
+Our analysis forward-models cluster selection by pop-
+ulating dark matter halos in simulations using a Halo
+Occupation Distribution (HOD) framework. Because
+he redMaPPer cluster finding algorithm counts galaxies
+down to a luminosity threshold of 0.2L, [12], the simu-
+ations used in our analysis must resolve halos down to
+Mo00om 2 5 X 101! h-+ Mo [11]. Assuming these ha-
+los are resolved with ~ 100 particles, the particle mass
+must be lower than 5 x 10° h>! Ma. At the same time,
+accurate modeling of high-mass clusters requires a large
+simulation volume, and therefore very large numbers of
+articles. We are able to satisfy these twin constraints us-
+ing the AbacusSummit simulations suite! [18] thanks to
+heir unique combination of volume (Lpox = 2.0 hot Gpc)
+and mass resolution (Npart = 61923 particles of mass
+Mpart ~ 2 x 109h71! Mo).
+
+The simulations are run with the ABACUS [19-22] cos-
+mological N-body code, which uses GPUs and novel com-
+putational techniques to achieve high speed and accuracy.
+
+1 https://abacussummit.readthedocs.io/en/latest /index.html
+
+The spline force softening length is ¢g = 7.2h~!kpe.
+Our analysis relies on the 52 emulator grid simulations
+sampling from a parameter space based on a broadened
+Planck posterior [23]. The samples further impose the
+requirement that the CMB acoustic scale is fixed at
+100 x 6, = 1.041533.2. We augment these 52 simula-
+tions with an additional simulation at the Planck cos-
+mology [23]. We note that all simulations used the same
+seed, which improves interpolation accuracy across sim-
+ulations but means our model predictions suffer from the
+cosmic variance associated with the volume of the Aba-
+cusSummit simulations. However, this volume is several
+‘imes larger than the volume of any of the DES-Y1 red-
+shift bins. Moreover, the dominant source of statistical
+uncertainty in the measurements is not cosmic variance
+but rather shape noise.
+Our analysis uses simulation redshift snapshots at
+z = 0.3, z = 0.4, and z = 0.5. Halos are identified
+from particle snapshots using the COMPASO halo finder
+24]. We use the “cleaned” CoMPASO halo catalogs and
+adopt as the halo center for each of our distinct halos the
+center-of-mass of their most massive embedded subhalo,
+as recommended in Hadzhiyska et al. [24].
+While the AbacusSummit suite is well-suited to our
+purposes, it inevitably imposes some external priors on
+our cluster analysis. First, all of the simulation cos-
+mologies have a fixed 6,. Second, and more importantly,
+he range of cosmologies sampled in the AbacusSummit
+suite is relatively limited in Qy and og, as illustrated
+in Figure 1. These cosmologies were selected to lie on
+a multi-dimensional ellipsoid, whose location and extent
+was meant to comfortably encompass the allowed param-
+eter space from the combination of CMB and large-scale
+structure data [18]. The ellipsoid spans between 60 and
+80 fluctuations in cosmological parameters, except for
+the parameter og, whose range was further extended by
++0.06.
+We estimate the ellipsoid enclosing the simulated Aba-
+cusSummit cosmologies, and consider two different anal-
+yses. The first anal adopts a flat prior within the
+interior of the Ab ummit ellipsoid and sets the prior
+to zero outside of this ellipsoid, which is meant to repre-
+sent a conservative characterization of cosmological con-
+straints at the time the AbacusSummit suite was gener-
+ated (~ 2021). For simplicity, we will refer to this con-
+servative CMB+LSS prior simply as the “AbacusSum-
+mit prior.” By adopting this prior we can ensure that
+our simulation-based model predictions are never extrap-
+olated. However, this choice of prior is unfortunately in-
+formative: our cluster-based posteriors are clearly trun-
+cated by this ellipsoid. Consequently, we also consider
+an analysis in which we do not include the AbacusSum-
+mit prior, enabling us to recover cosmological constraints
+
+? Defined by 0. = r«/Du (2+), where r. is the comoving sound
+horizon at recombination and Dj4(z«) is the comoving angular
+diameter distance to the last scattering surface at redshift z..
+0.95 .
+0.90 hae
+0.85 -"
+@ 0.80 “550, ate ol
+0.75 .
+0.70 i :
+0.65
+0.25 0.30 0.35 0.40
+
+Qin
+
+FIG. 1. The AbacusSummit cosmology sampling in Qm and
+og used to train our emulators along with the projection of
+the AbacusSummit prior ellipsoid in the Qm-os plane. This
+ellipsoid is meant to represent a conservative (roughly 6-80)
+constraint on cosmological parameters from CMB+LSS data
+circa 2021 [18]. Our work considers two analyses, one that
+adopts a flat prior within this ellipsoid, which for brevity we
+refer to as the “AbacusSummit” prior, and one that does not
+adopt this prior.
+
+from cluster abundances alone at the expense of a small
+amount of model extrapolation. We have no reason to
+expect a sharp change in model behavior at the bound-
+ary of this ellipsoid, so we consider this second case to be
+a better representation of the constraints from DES-Y1
+clusters despite the need for a small amount of model
+extrapolation.
+
+Ill. SYNTHETIC CATALOG GENERATION
+
+Our analysis relies on generating synthetic cluster cat-
+alogs that mirror redMaPPer in our simulations, and us-
+ing these to characterize the weak lensing signal of the
+clusters. This section gives a general overview of this
+methodology, with further details provided in Sections IV
+and V.
+
+A. Halo occupation distribution modeling
+
+We populate simulated halos with galaxies according
+to a Halo Occupation Distribution framework [e.g. 25-
+29]. Following standard practice [28], we separate the
+galaxies into satellites and centrals and parameterize
+
+their respective mean occupations as
+
+(Nol) = 5 [1+ ert (SEM PeMnn)) ay
+Plog M
+M\*
+(Nsat|M) = (Neen|M) (a5); (2)
+M,
+
+where the parameter My,in represents the characteristic
+halo mass required to host a central ((Neen|Mmin) = 0-5),
+the parameter jog determines the sharpness of the
+transition from (Ncen) = 0.0 to (Neen) = 1.0, Mj is
+the characteristic halo mass required to host a satellite
+((Nsat|M1) = 1.0), and a is the slope of the satellite-
+occupation power law. In what follows we will also con-
+sider Mog as a parameter. Moo is the mass at which
+(Neat |M20) = 20, and is therefore a better representation
+of the characteristic mass of a galaxy cluster.
+
+Equations 1 and 2 give only the mean of the HOD.
+The actual number of centrals placed into a given halo is
+either zero or one, and is determined randomly from the
+mean central occupation. The number of satellites placed
+into a halo is drawn randomly from a Poisson distribution
+with mean (Ngat|). We explicitly verify in Appendix A
+that allowing for super-Poisson variance in the number of
+satellites has no impact on our results. We use the same
+random number seed when populating every simulation
+to improve interpolation accuracy across simulations.
+
+Centrals are placed at the center of their host halo,
+while satellites are distributed according to a Navarro-
+Frenk-White profile [NFW; 30], parameterized by halo
+concentrations assigned using the relations provided by
+Correa et al. [31]. These parameters are summarized in
+Table I. Appendix A demonstrates our results are insen-
+sitive to changing the concentration—mass relations of the
+galaxies by +25%.
+
+B. Cluster selection with counts in cylinders
+
+We utilize the counts-in-cylinders approach of [11] [also
+see 4, 34-36] by weighting each galaxy according to its
+line-of-sight distance from the central halo as per the
+projection model of [32]:
+
+1- (42
+ui(diss, dea) = dey1
+
+0 otherwise.
+
+2
+) if |dios| < deyt, (3)
+
+Abbott et al. [3] measures the width of this projec-
+tion kernel in redshift 7, for DES-Y1 clusters using the
+method of Costanzi et al. [32]. This measurement of o,
+is therefore independent of cosmology. In practice we
+adopt these measurements of 7, (see Table I) and con-
+vert them to the appropriate d.y; given the cosmology of
+our simulation when applying our mock cluster finder.
+We define N.y; as the sum of the galaxy weights of
+all galaxies within the cylinder, and within a projected
+TABLE I. Summary of parameters used in our likelihood analysis. Details of the AbacusSummit cosmology emulation parameter
+space can be found in Maksimova et al. [18]. We Latin-hypercube sample our HOD and BCM parameters uniformly in the
+ranges indicated. Fixed values of the width of our assumed redshift kernel are taken from measurements of Abbott et al. [3]
+using the method of Costanzi et al. [32]. Priors on miscentering parameters are taken from Zhang et al. [33].
+
+Parameter Emulation Range Fixed Value or Prior Description
+OQ See § IB See § IB Cosmological matter density.
+og See § IB See § IB Amplitude of matter clustering.
+OQ See § IB See § VIC Cosmological baryon density.
+Ns See § IB 0.9649 Scalar spectral index.
+wo See § IB -1.0 Dark energy equation of state normalization.
+Wa See § IB 0.0 Dark energy equation of state slope.
+Qs See § IB 0.0 Running of the spectral tilt.
+Nur See § IB 2.0328 Effective number of ultra-relativistic species today.
+Am - N(1.021,0.025) | Shear+Photo-z calibration, first redshift bin, z € {0.20, 0.35)
+Am,2 - N(1.014,0.024) | Shear+Photo-z calibration, second redshift bin, z € [0.35, 0.50)
+Am.3 - N(1.016,0.025) | Shear+Photo-z calibration, third redshift bin, z € [0.50, 0.65)
+Pog M (0.3) 0.01, 0.60] U(0.01, 0.60) Width of the central occupation at z = 0.3.
+log Mmin (0.3) 12.0, 13.0] U(12.0, 13.0) Minimum halo mass to host a central at z = 0.3.
+log Mz0(0.3) 13.8, 15.0] U(13.8, 15.0) Characteristic mass to host 20 satellites at z = 0.3.
+a(0.3) (0.7, 2.0] U(0.7, 2.0) Slope of halo satellite occupation at z = 0.3.
+tog M (0.5) 0.01, 0.60] U(0.01, 0.60) Width of the central occupation at z = 0.5.
+log Mmin (0.5) 12.0, 13.0] U(12.0, 13.0) Minimum halo mass to host a central at z = 0.5.
+log M20 (0.5) 13.8, 15.0] U(13.8, 15.0) Characteristic mass to host 20 satellites at z = 0.5.
+(0.5) (0.7, 2.0] u(0.7, 2.0) Slope of halo satellite occupation at z = 0.5.
+oz(0.3) - 0.065 Cylinder projection depth at z = 0.3.
+oz(0.4) - 0.098 Cylinder projection depth at z= 0.4.
+oz(0.5) - 0.106 Cylinder projection depth at z= 0.5.
+T 0.01, 0.45] N (0.166, 0.07) Characteristic scale of miscentering in units of Ry.
+fis - N(0.165, 0.09) Fraction of miscentered clusters.
+xo - 1.66 Scale associated with the impact of miscentering on richness.
+a - 0.26 Normalization of scatter in miscentered richness correction.
+b - 1.43 Dependence of scatter on miscentering offset.
+B —2.0, 0.0] U(—2.0,0.0) Baryonification variable (see sec. V B).
+aperture details at the statistical precision of DES Y1 data.
+Newt os 7
+Ra= ( 100 ) [h physical Mpc] (4) C. Model Predictions from Cylindrical Counts
+
+that mimics that of the redMaPPer algorithm.
+
+To generate a cluster catalog, we rank-order halos ac-
+cording to mass. We then calculate Ny, for the mos
+massive halo, and remove all galaxies within the cylin-
+der from consideration for all subsequent halos. We then
+move on to the next most massive halo, and iterate unti
+we run out of halos of mass above 10!+-°h7! Mo. The
+result is a cylindrical cluster catalog in which every clus-
+ter is perfectly centered on the most massive halo in the
+cylinder.
+
+In addition to the HOD parameters, our cylindrical
+cluster catalogs depend on a variety of parameters and as-
+sumptions that we do not vary, specifically: 1) the cylin-
+der depth d.y1; 2) the concentration—mass relation used
+to populate the galaxies in the simulation; 3) the details
+of the percolation algorithm; and 4) the fact that the
+HOD scatter is assumed to be Poisson. In Appendix A,
+we demonstrate that our results are insensitive to these
+
+We have described how to generate synthetic cluster
+catalogs with a richness measure Ny, that is similar but
+not identical to the redMaPPer richness \. To be able to
+relate our simulations to data we need to determine what
+the A—~Ncy; relation is. Specifically, our analysis proceeds
+as a three-step process:
+
+e Step 1: For each simulation, we use abundance match-
+ing to determine the A—Ncy relation that enables us to
+exactly reproduce the observed abundances in the data.
+The resulting A—Ncy; relation depends on cosmological,
+HOD, projection, and miscentering parameters.
+
+e Step 2: For each halo in a simulation, we use the \—
+Ny, relation derived in Step 1 to assign a redMaPPer
+richness A to simulated halos, and use the simulation to
+predict the corresponding weak lensing signal AD(R) for
+clusters in a given richness and redshift bin.
+e Step 3: With our predictions for AX(R|,) in hand, we
+compare our predictions to the DES weak lensing data
+at the likelihood level to arrive at the model posteriors.
+
+The next three sections go through each of these three
+steps in detail. For readers not interested in the precise
+technical details of our work, we recommend skipping
+sections IV and V, and reading instead the user-friendly
+summary of these sections presented in section VIA.
+
+IV. STEP 1: ABUNDANCE MATCHING
+A. The Abundance Matching Framework
+
+In our algorithm so far, the cylindrical clusters are all
+perfectly centered. If all redMaPPer clusters were per-
+fectly centered, we could readily recover the A—Ney, rela-
+tion via abundance matching. That is, we set
+
+MNingios (Neyi) = "Neen (Acen)s (
+
+where Matos (Ney1) is the cumulative halo density in the
+simulation, and neen(Acen) is the cumulative cluster den-
+sity of perfectly centered clusters in the data. We can
+then use Equation 5 to solve for Acen(Neyi). This rela-
+tion will enable us to assign a redMaPPer richness to
+every halo in a simulation in a way that reproduces the
+DES abundance data.
+
+In practice, not every cluster is perfectly centered. To
+address this systematic, the necessary first step is to de-
+scribe our miscentering model.
+
+on
+
+B. Cluster Miscentering Model
+
+To account for cluster miscentering we rely on the mis-
+centering model of Zhang et al. [33]. They found the frac-
+tion of miscentered clusters fmis is consistent with being
+both redshift and richness independent. Consequently,
+fmis is our first miscentering parameter. The miscenter-
+ing offset rj; of miscentered clusters is drawn from a
+gamma distribution,
+
+P(alr) = exp (-=), (6)
+
+where = rmis/R,, and the parameter 7 represents a
+characteristic offset that is richness and redshift inde-
+pendent. This is the second miscentering parameter in
+the model. Finally, the richness Amis of a miscentered
+cluster with an offset rmis is given by
+
+Amis
+Acen
+
+~ N (G2), 0y(2))- (7)
+
+The mean and scatter of the richness miscentering cor-
+rection are given by
+
+U(x) = exp(—a?/x3), (8)
+
+oy(x) =a x arctan(ba), (9)
+
+on
+
+where again t = rmis/R,. This probability distribution
+depends on three parameters, x9, a, and b, for which we
+adopt the best-fitting values from the DES-Y1 analysis
+in Zhang et al. [33], xo = 1.66 + 0.06, a = 0.26 + 0.04,
+and b = 1.43+0.22. Because the miscentering corrections
+are small, we anticipate these parameters are measured
+accurately enough to have a negligible impact on our re-
+sults. Consequently, we hold these parameters fixed, and
+verify this expectation a posteriori.
+
+With this miscentering model in hand, we can test the
+impact of cluster miscentering on the cluster abundance
+function. Specifically, we use our abundance model to
+randomly miscenter every redMaPPer cluster, and com-
+pare the abundance function n(\) after miscentering to
+that before miscentering. The impact on the resulting
+abundance functions is < 0.2%, and is therefore entirely
+negligible for our purposes. Consequently, we will simply
+ignore cluster miscentering for the purposes of construct-
+ing the A—N,y, relation via abundance matching. We still
+account for the impact of cluster miscentering in the weak
+lensing profiles (see below).
+
+C. The —N.y; Relation and Richness Assignments
+
+We use abundance matching (Equation 5) to determine
+A(Ney1) for each of our simulations using the empirical
+abundance function n(\). The resulting A—~Ny; relation
+depends only on cosmology and HOD parameters, but
+not on the miscentering parameters. With the \—Neyi
+relation in hand, we are finally in a position to assign a
+richness \ to every cylinder. If a cluster is well centered,
+we simply set \ = A(Ney1). If a cluster is miscentered,
+then we randomly draw the miscentering offset ris from
+the distribution P(x|r), where x = rmjs/R,, and then
+draw the miscentered richness Anis using the distribution
+P(mis/Acen|«). We then set \ = Amis. A key feature of
+this method is that every halo is igned both a well-
+centered richness and a miscentered richness. In the next
+section, we describe how we use both of these richness
+values to characterize the lensing signal of the galaxy
+clusters in our simulations.
+
+V. STEP 2: LENS MODELING
+
+At this point, we have generated training simulations
+that sample the space of cosmological and nuisance pa-
+rameters. Each simulation has a catalog of “cylindrical
+clusters” of richness Ny, which we have mapped to a
+centered and miscentered redMaP Per equivalent richness
+X using abundance matching. Before evaluating the lens-
+ing signal of these clusters we must first account for a
+variety of additional complications, specifically: 1) bary-
+onic feedback; 2) the impact of cluster miscentering on
+their lensing profiles; and 3) the fact that in observa-
+tions we do not measure matter densities and projected
+distances, but rather shear and angular separations. In
+
+this section, we describe how we calculate the predicted
+lensing signal after accounting for each of these effects.
+
+A. Computing Cluster Lensing
+
+We begin by describing how we compute the projected
+surface density U(R) of the galaxy clusters in our simula-
+tions. We use CORRFUNC [37] to compute the real-space
+cluster-matter cross-correlation £¢m(R,7) in 60 equal
+logarithmically spaced bins of R covering scales 0.01 <
+R <125.0h7! Mpc and 200 equal linearly spaced line-of-
+sight distance 7 bins out to Imax = 200.0 h-!Mpe. This
+real-space correlation function is converted to the surface
+density ¥,
+
+Tax
+X(R) = 2pm f dt Eem(R, 7), (10)
+
+which we will convert into the lensing observable AU
+after modeling the impact of baryonic feedback and mis-
+centering.
+
+B. Baryonic Feedback Model
+
+Baryonic feedback modifies the mass distribution in
+the interior of halos. We account for this effect using the
+baryonic feedback model of Schneider et al. [38]. Specifi-
+cally, we use analytic models to characterize the response
+of the halo density profile to baryons, and then apply this
+analytic response function to our simulations in order to
+“baryonify” our model predictions.
+
+We start with the baryonification framework developed
+y Giri and Schneider [39] (also see Schneider et al. [38]).
+This framework modifies the matter distribution of halos
+y adding a gas component and a central galaxy compo-
+nent; satellite galaxies are assumed to trace the dark mat-
+er. The model further includes the impact of baryons
+on the dark matter profile through adiabatic contraction.
+The end result is a 7-parameter model that allows one to
+aryonify dark matter only profiles (for a detailed expla-
+nation see Appendix B). We will refer to a baryonified
+rofile as BCM, for Baryonic Correction Model.
+
+Given an analytic dark matter only halo profile and
+a set of baryonification parameters 0, we can use the
+methodology of Giri and Schneider [39] to construct
+a new baryonified profile pgcom(r|@,m). Our analytic
+model for ppmo is the standard halo model expression
+of the halo—mass correlation function,
+
+pomo(r|M) = Mu(r|M) + 0(M)&iin(r), (11)
+where wu is a unit-normalized NFW profile [40], and b(/)
+is the halo bias, which we evaluate using the Tinker et al.
+[41] model. After baryonifying this model, we integrate
+both the DMO and BCM profiles along the line of sight
+to arrive at the projected matter density ©. We then
+
+define the baryon suppression function S(R\0;M) via
+
+Spo (RO; M)
+Zpmo(R|M) :
+
+The baryonic suppression function S depends on both
+the baryonification parameters @ and the mass M of the
+halo. In principle, S can also depend on cosmology, but
+since we do not know this dependence a priori, we treat
+the baryonification parameters as nuisance parameters
+independent of cosmology.
+
+At this point, we seek to perform some amount of di-
+mensionality reduction. First, we combine the baryonic
+suppression functions across all masses and baryonifica-
+tion parameters @, and perform a principal component
+analysis. We find that just two principal components
+can account for 85% of the total variance. That is, we
+can approximate the baryonic suppression function by an
+expression of the form
+
+S(r|0;M) = S(r|0)+.A(O, M)ei(r)+C(0, M)eo(r), (13)
+
+S(R|@;M) = (12)
+
+where e; and eg are the first two principal component
+vectors. The coefficients A and C' depend on the halo
+mass M and the baryonification parameters 0. We find
+that we can accurately model the mass dependence of A
+and C as polynomials in log mass, i.e.
+
+3
+A(@,M) = S> A, (@)(InM)”, (14)
+n=0
+2
+C(@,M) = 9° C,,(0)(uM)”. (15)
+n=0
+
+The reason we use “C” as a variable rather than “B” will
+be made clear momentarily.
+
+When we plot the various A, and C,, coefficients
+against each other, we find that they are linearly related.
+That is, we are able to write all coefficients as a determin-
+istic function of any one single coefficient. In our case, we
+have chosen A3. The specific relations between the vari-
+ous coefficients and Ag are collected in Appendix B. For
+our purposes, the key fact is that the function A(6|M)
+depends only on a single parameter B = A3(0), which we
+will refer to as our baryonification variable.
+
+The performance of this simplified baryonification
+
+model is illustrated in Figure 2, where we compare the
+baryonic response function as a function of halo mass
+
+for random baryonification parame
+best fit prediction using our single
+
+ers 0, along with the
+baryonification vari-
+
+able B. Despite some differences, the rms difference be-
+
+tween the original Giri and Schneid
+
+er [39] model and our
+
+single free-parameter version is ~ 2% when averaged over
+
+halos of mass log(M/h~! Mo) € [1
+
+, 15] and over the ra-
+
+dial range r € [0.01,30]h~+ Mpc. In light of these results,
+we replace the full Giri and Schneider [39] model by our
+
+dimensionally-compressed model t
+
+B.
+
+hat depends only on
+
+With this model, we can calculate the baryonic sup-
+pression for a given richness and redshift bin. Specifically,
+
+° N — High Suppression \
+21.2) 0 Low Suppressi ,
+a \ ow Suppression
+a !
+§ 1.0
+WwW
+Il
+” 0.8
+log M; = 13.0 log M;, = 13.5
+Bands: Full BCM
+fe) 12 N Curves: Simplified Model
+a . , ;
+=;
+£1.0
+W
+Ill
+” 0.8
+log M;, = 14.0 log M;, = 14.5
+10-2 107! 10° 10! 10-2 107! 10° 10!
+ry [Mpc] rT, [Mpc]
+
+FIG. 2. A comparison of Giri and Schneider [39] baryonification models to our one-parameter approximation.
+
+Red and
+
+blue correspond to strong and weak baryonic feedback scenarios. The bands are calculated using the full Giri and Schneider
+
+[39] models, with the width of the band corresponding to the
+
+~ 4% uncertainty of our emulator. The solid lines are the
+
+best-fit models calculated using our dimensionally compressed 1-parameter model, and are fit to all mass bins we consider
+simultaneously. Here we only plot the fits for four representative masses. The rms difference between the full model and our
+
+one-parameter fits is ~ 2%.
+
+let M; be the simulated halos within a given richness and
+redshift bin. The binned-average baryonic suppression
+function Sin takes the form
+
+Viebin 2DMo(R|Mi)S(R|B; Mi)
+
+is |B) =
+Sn es con DDwoCRIM,)
+
+(16)
+
+In this formula, both Epmo(R|M;) and S(R|B;M;)
+are calculated using our analytic models. Our baryon-
+corrected model for the density profile of the galaxy clus-
+ters in simulations is given by
+
+Ypom(R|B) = Spin(R|B)E(R), (17)
+
+where © is the projected matter density profile of the
+simulated galaxy clusters in the bin (see equation 10).
+
+There is one aspect of baryonification that is not prop-
+erly accounted for in our approach. Namely, our bary-
+onification procedure is applied only to the most massive
+main halo for each cluster system, and not to halos along
+the line of sight. Unfortunately, properly accounting for
+this effect becomes numerically intractable, though we
+also anticipate this effect will have a negligible impact on
+our model: small changes to the profiles of the projected
+halos have little impact on the projected density profile
+of the main halo.
+
+C. Incorporating Cluster Miscentering
+
+Section V B allows us to baryonify the projected matter
+density of clusters. We now turn to incorporating cluster
+miscentering into our model predictions. If a fraction
+fmis of the clusters are miscentered, then the observed
+lensing profile is
+
+Ax =(L- fa Abew+ fawAY wes (18)
+where fmis is the fraction of miscentered clusters in a
+given richness bin, and AY .., and AY pis refer to the
+lensing of centered and miscentered clusters, respectively.
+
+Let us focus on evaluating A™ cen first. The lensing sig-
+nal of well-centered clusters is related to the baryonified
+matter density Upom via
+
+AXcen(R) = (2(< R)) — U(R),
+9 pk
+=5 dr’ r’Spom — Zpem(R). — (19)
+TD 0
+
+The baryonified simulation density profile Ugcm is con-
+structed using all galaxy clusters whose well-centered
+richness Acen falls within the richness bin of interest.
+Our model for AX nis is more complex. First, we select
+all simulated clusters whose miscentered richness falls
+within the richness bin of interest. We then use the sim-
+ulation particles to evaluate the lensing profile Upmo(R)
+about the true halo centers. This is necessary in order to
+properly account for the impact of baryonification (bary-
+onification and miscentering do not commute). We eval-
+uate the baryonified profile Ugcm(R) of the galaxy clus-
+ters, and then further correct them to account for the
+impact of cluster miscentering via
+
+Smis(RIA,2) = | Ar nix P( nisl A) Sani (Blunts, As 2), (20)
+
+where we ignore the mild richness dependence of P(rmis)
+with a bin, evaluating the offset distribution at the bin’s
+mean richness. We have demonstrated that this as-
+sumption has a negligible impact on the resulting lensing
+model predictions in Appendix A. In the above expres-
+sion, U(R|rmis) is given by
+
+Qn _—
+
+dé F
+
+Sais = [ = Uspeom (Vr +12... — 2Rrmis cos 0) (21)
+Jo 20
+
+From here, the miscentered weak lensing profile AU mis
+is obtained by using Equation 19, only now we replace
+“pom by the miscentered and baryonified profile Umis
+calculated using equation 20. With both AX cen and
+Amis in hand, we can plug these profiles into Equa-
+ion 18 to obtain the weak lensing profile of well-centered
+and miscentered galaxy clusters for each richness and red-
+shift bin in each of our training simulations.
+Note that the lensing profiles are baryonified prior to
+miscentering, as they should be. Moreover, cluster selec-
+ion for centered and miscentered clusters is done con-
+sistently: clusters that contributed to the well-centered
+ensing profile of a given bin must have a well-centered
+richness in that bin. Likewise, clusters that contributed
+o the miscentered lensing profile of a given bin must have
+a miscentered richness in that bin. This explains why we
+assigned both a well-centered richness and a miscentered
+richness to every cluster in our simulations.
+
+D. Cosmology Rescaling
+
+The previous two sections describe how we calculate
+A(R) for clusters in a given richness bin. In practice,
+however, we do not measure surface density, but shear.
+By the same token, we do not measure projected dis-
+tance, but rather angular separations. In the DES anal-
+ysis, angular separations and shear were transformed into
+an excess surface density as a function of radius by adopt-
+ing a fiducial flat ACDM cosmology with Q,, = 0.3 and
+h = 0.7. Thus, we must first convert AX(R) from each
+simulation into a shear profile y(@) using the simulated
+cosmology, and then convert this shear profile back into
+an excess surface density profile AUgq(Rga) assuming the
+DES fiducial cosmology.
+
+The transverse radial separation conversion is straight-
+forward: in a flat universe, a comoving separation R
+in a cosmology 2 corresponds to a transverse angle
+6 = R/x(z|Q), where x(z|Q) is the comoving distance as
+
+a function of redshift in cosmology 2. This angle in turn
+corresponds to a transverse separation Rea = x(z|QKa)4
+in the fiducial cosmology. Thus, the two scales are related
+via
+
+x(2|Q)
+
+R(Raa) =
+(Ria) = SC 10;a)
+
+Raa. (22)
+
+We now turn to the lensing amplitude ANga measured
+at a given scale. The conversion between shear and excess
+surface density profile involves the inverse critical surface
+density
+
+pct a 4nG Di
+
+ic 2 Ds (D — Ds), (23)
+
+where D, and Dg are the angular diameter distance to
+lens and source. The estimator used by the DES is
+
+me ) . —11Q,
+AXY= an (24)
+
+where i indexes all source—lens pairs, and the weights are
+given by
+
+w; = (Ue |na)7/o5 1, (25)
+and o is the shape noise per galaxy. Taking the expec-
+tation value in a cosmological model 2 and assuming a
+constant shape noise, we find
+
+AX ga( Rea) = RAX(R(Rea)|Q), (26)
+
+where R is a cosmology-dependent rescale factor given
+by
+
+f dzib(a) f dz.(2s)Eo* (2s, 211Qna) Ee * (2s, 2110),
+
+R oT
+J dad(a) f dzsb(zs)Xe' (zs, 2|Qna)? 7)
+
+In this expression, ¢(z;) and $(z,) are lens and source
+redshift distributions, and (2 refers to the cosmology for
+which we are predicting a ANemu. We calculate this
+rescaling factor using the DES-Y1 source distributions
+estimated using the BPZ algorithm [42] implemented in
+Hoyle et al. [15] to evaluate our model predictions for
+the observed weak lensing shear signal of the DES galaxy
+clusters.
+
+VI. STEP 3: LIKELIHOOD EVALUATION
+
+The previous two sections detailed our simulation-
+based framework for evaluating the abundance and weak
+lensing signal of redMaPPer galaxy clusters using the
+AbacusSummit simulations. Because those sections were
+thick in technical detail, we begin this section by offering
+a brief high-level summary of our model before detailing
+
+how we use it to constrain cosmological parameters with
+the DES redMaPPer data.
+A. Modeling Summary
+
+We compute the cluster lensing and abundance for a
+single set of cosmology, HOD, miscentering, and baryoni-
+fication parameters at a given redshift as follows:
+
+1. Populate halos in the AbacusSummit N-body simula-
+tion snapshot of that cosmology according to equations
+1 and 2.
+
+2. For each halo, we calculate its HOD galaxy count-in-
+cylinder Ney; using the weighting function in equation 3.
+We then convert N.-y; into the cluster richness Acen us-
+ing abundance matching, i.e., equation 5. The subscript
+“cen” indicates this richness has not yet been perturbed
+to account for the impact of cluster miscentering.
+
+3. For each halo, we calculate a miscentered value of the
+richness Amis based on the assumed characteristic mis-
+centering offset parameter 7 and equation 7. In this way,
+every cluster is assigned both a well-centered and a mis-
+centered richness.
+
+4. To calculate the lensing profile of well-centered clus-
+ers, we select all clusters with Acen in the richness bin
+of interest. We then use the dark matter particles in the
+simulation to arrive at the DMO profile AYpmo(R) in
+he simulation. We then perturb this profile using our
+compressed version of the Schneider et al. [38] baryoni-
+fication model to arrive at the Baryon Corrected Model
+rofile AXpcm(R) as per equation 17. This defines the
+lensing signal A} .c, of well-centered clusters.
+
+5. To calculate the lensing profile of miscentered clus-
+ers, we select all clusters with Ais in the richness bin
+of interest. We then use the dark matter particles in the
+simulation to arrive at the DMO profile AYpmo(R) in
+he simulation. Note that to adequately treat baryonifi-
+cation, this lensing profile must be computed about the
+tue halo centers. After baryonifying the well-centered
+rofile of miscentered clusters, we account for the impact
+of miscentering in the weak lensing profile as per equa-
+ion 20. The result is AU mis, the weak lensing signal of
+miscentered galaxy clusters in the richness bin of interest.
+
+6. Given AX cen and AM pis, the final weak lensing profile
+or galaxy clusters in a given richness bin is an appro-
+riately weighted linear combination of the two as per
+equation 18.
+
+7. The true lensing observable DES redMaPPer clusters
+is not AX(R), but rather shear and angular separation.
+DES converts these into a fiducial projected distance
+Rga and an excess surface density ANga by adopting
+a flat ACDM fiducial cosmology with Qn = 0.3 and
+h = 0.7. We can evaluate the predicted weak lensing
+signal ANga(Rga) based on the excess surface density
+profile AX(R) via equation 26.
+
+This process allows us to predict cluster lensing pro-
+files for any set of HOD, projection, miscentering, and
+
+baryonification parameters at the cosmology of each of
+our simulation boxes.
+
+B. Emulator Design
+
+In practice, the algorithm detailed in section VIA is
+much too cumbersome to use for parameter inference.
+Consequently, we use this process to generate a set of
+model data vectors to train an emulator that enables cos-
+mological parameter inference.
+
+We construct our emulator with a training set gener-
+ated by a Latin hypercube sampling of the flat priors
+on our HOD, baryonification parameter B, and miscen-
+tering parameter 7 (see Table I). We generate 106 such
+samples, and assign 2 of these parameterizations without
+replacement to each of our 53 cosmologies. We then use
+the algorithm summarized in Section VIA to compute
+the predicted lensing signal AUga(Rga) for each of these
+simulations. The data vector AXga(Rga) is defined us-
+ing the same richness, redshift, and radial bins employed
+in the real data. We treat each element in this data
+vector as independent of the rest, and use Gaussian pro-
+cesses to interpolate across our full parameter space on
+an element-by-element basis.
+
+To account for redshift evolution across the survey,
+the emulator for each redshift bin is constructed us-
+ing a different snapshot from the AbacusSummit sim-
+ulations. We use the z = 0.3 snapshot to build the
+z € [0.2,0.35] emulator, the z = 0.4 snapshot to build
+the z € [0.35,0.5] emulator, and the z = 0.5 snapshot
+so build the z € [0.5,0.65] emulator. In Salcedo et al.
+[11] we demonstrated that the fact that these snapshots
+do not exactly coincide with the mean/median redshift
+of each bin results in negligible systematic uncertainties,
+even for the case of our highest redshift bin.
+
+To improve the accuracy of our emulator, after run-
+ning a first analysis using the emulator described above,
+we sample an additional set of 106 HOD and nuisance pa-
+rameters from the posteriors, and use these to augment
+the initial 106 training simulations.
+
+Figure 3 illustrates the accuracy of our final emula-
+tor. The top panel shows our data vector (points with
+error bars in the lowest redshift bin (z € [0.20,0.35))
+compared to our training set (light lines). Bottom pan-
+els show the fractional leave-one-out error (dashed lines)
+relative to the observable covariance (bands). Note that
+our “leave one out” test removes one N-body simulation,
+corresponding to four distinct training samples. The final
+systematic uncertainty in the emulator profiles is < 4%,
+compared to the 10—20% errors in the data. This addi-
+tional uncertainty is included in the final covariance used
+for inference by adding it in quadrature with the analyt-
+ically estimated covariance described in Section VIC.
+
+120
+
+7 2\
+
+ry x AX(rp) [Ma/ physical — pe]
+2
+o
+
+OLOE
+
+CLOB
+
+CLOE
+
+OLOE
+
+-0.1
+
+CLOE
+
+OLOE
+
+1.0 10.0
+ry [physical — Mpc]
+
+FIG. 3. Lensing profiles in redshift bin z € [0.20,0.35) (points
+with errorbars) compared to simulation predictions for our
+training data (lines); we emphasize that data is included only
+for reference and that we are not presenting a fit. Colors cor-
+respond to richness bins \ € [60, 00) (red), (45,60) (yellow),
+[30, 45) (green), [20, 30) (blue), [14, 20) (purple), and [10, 14)
+(brown). The bottom panels show the leave-one-out error
+for each richness bin compared to the observable covariance
+(band). The solid and dashed lines correspond to the mean
+and lo errors, respectively.
+
+C. Gaussian likelihood model
+
+Because the abundance data is used to determine the
+A-Neyi relation, the data vector in our likelihood is re-
+stricted to the observed weak lensing profile AXops (Raa)
+in richness and redshift bins.
+
+To constrain our model parameters, we assume a Gaus-
+
+10
+
+sian likelihood model, L x eX 12, where
+
+x= S Aro msiAR) [oz | sam D(Tp.ns 24 At )(28)
+
+i,kym,n
+
+and A = AXemu — AX obs is the difference between emu-
+lated and measured observable cluster lensing, and C’ is
+the lensing covariance matrix. We compute these covari-
+ance matrices using the Gaussian formalism presented in
+
+Wu et al. [43],
+
+C[AX(Tp,m), AZ (p.n)] =
+
+1 kdk + *
+—— | ——Ja(k a (k:
+am/ = Jo(krpm)Ja(krp,
+
+x ff hh 1 OPP + (Denit)? a i (ch)?
+e+ oop c+ Cerit)” oop | 4 ¢
+
+h 8
+
+(29)
+
+where fsxy is the DES-Y1 fraction of the sky, Jy are radi-
+ally bin averaged Bessel functions of the second kind, Cf°,
+CP™ and C® are the cluster-cluster, projected matter-
+matter and cluster-projected matter angular power spec-
+tra, no~ and n2P are the surface number density of clus-
+ters and source galaxies respectively, and 7 is the DES-
+Y1 shape noise per source galaxy. For each redshift and
+richness bin we compute relevant cluster power spectra
+using the Tinker et al. [41] bias of the relevant mean
+mass calibrated by McClintock et al. [17]. The covariance
+matrix is non-diagonal across radial bins, but different
+richness bins are assumed to be uncorrelated. This is a
+reasonable approximation because the errors are shape-
+noise-dominated. We refer the reader to Wu et al. [43] for
+further details. We then rescale each of our covariances
+so that their diagonal elements agree with the variance
+estimated from jackknife on the data. This rescaling is
+typically 10 — 20%, but is unusually large for our highest
+richness and redshift bin, reaching a factor of two. Our
+results are negligibly impacted by dropping this bin. For
+instance, the change in our best fit Sg parameter is 0.10,
+while the error bar changes by only 3%.
+The model predictions for AD are taken directly from
+the emulator described in the previous section. We em-
+ulate the centered and miscentered lensing profiles inde-
+pendently and calculate the final lensing profile via
+
+AXemu = AmR [fmisADBS, + (1 — fmis) AZS2,] ,(30)
+
+emu emu
+
+where fmis is the fraction of miscentered clusters, AUSS,
+
+and Ave", are the miscentered and centered lensing em-
+ulator predictions, and A,, accounts for a possible modu-
+lation of the weak lensing signal due to shear calibration
+and source photometric redshift uncertainties [17]. We
+implement linear redshift evolution of our HOD parame-
+ters in our likelihood analysis by parameterizing each of
+our HOD parameters (i.e., log M; log Min, log Mzo and
+a) separately in our lowest and highest cluster redshift
+bins, and assume a linear evolution in redshift between
+the two to predict the value of these parameters in the
+middle redshift bin.
+B
+is
+SS
+
+11
+
+— _  E [60, 00)
+—— NE [45, 60)
+
+a
+Nn
+3
+
+a
+S
+6
+
+fox}
+5
+
+a
+So
+
+»
+S
+
+Nn
+S
+
+rp x AX(rp) [Mo /physical — pc]
+
+0 2c € (0.20, 0.35), Zgummit =0.3
+
+> 28ummit = 9.4
+
+— €[80, 45)
+— A€ 20, 30)
+
+—  e[14, 20)
+— ie [10, 14)
+
+10° io? 10°
+ry [physical — Mpc]
+
+FIG. 4. Comparison of DES-Y1 cluster weak lensing profiles (point with errorbars) in redshift bins z € [0.20, 0.35) (left panel)
+
+rp [physical — Mpc]
+
+io? 10° Foi
+ry [physical — Mpc]
+
+z € [0.30, 0.50) (middle panel), and z € [0.50, 0.65) (right panel) with those predicted by our fiducial posterior mean model and
+200 random samples from our fiducial MCMC chain. The x? of the best fit model is y?/dof = 190.51/188.
+
+Finally we include a prior on the CMB acoustic scale
+that fixes 100 x 6, = 1.041533 as is done for the
+AbacusSummit emulator grid, as well as a conservative
+Gaussian prior on the baryon density w, = 0h? of
+N (0.02208, 0.00052) defined in Abbott et al. [44] based on
+Big Bang Nucleosynthesis constraints [45]. As noted ear-
+lier, in some cases we also impose a top-hat prior within
+the multi-dimensional ellipsoid from which the Abacus-
+Summit simulation cosmologies are drawn. We sample
+our parameter posteriors using the affine invariant ensem-
+ble Markoy-Chain-Monte-Carlo (MCMC) sampler imple-
+mented in EMCEE Python package [46].
+
+VII. RESULTS
+A. Fiducial results and systematics tests
+
+We use the abundance and lensing signal of DES-Y1
+redMaPPer clusters in six richness bins and three red-
+shift bins to derive cosmological constraints. The sample
+includes all clusters with richness A > 10 and spanning
+he redshift range z = 0.20—0.65. To model this data we
+employ the simulation-based framework described in Sec-
+ions III-V and summarized in Section VIA. Our Gaus-
+sian likelihood model relies on analytically estimated co-
+variance matrices that are rescaled to match Jackknife
+estimates of the data, as described in detail in VIC. Our
+analysis holds the spectral index of the primordial matter
+fluctuations fixed to 0.9649, and the effective number of
+relativistic species today to Ny, = 2.0328, as appropriate
+‘or one massive neutrino species of minimal mass.? We
+do not allow for running of the spectral index, and we fix
+
+3 This value corresponds to the same early relativistic energy den-
+sity as the Nog = 3.046 value for massless neutrinos.
+
+the dark energy equation of state to w = —1. Our pri-
+mary goal is to set constraints on gg and Qm, which are
+the two cosmological parameters with the largest impact
+on cluster weak lensing profiles. For further details, see
+Table I.
+Figure 4 compares the DES weak lensing data to the
+weak lensing profiles obtained by sampling our model
+posterior when imposing the AbacusSummit prior — i.e.,
+a conservative CMB+LSS prior circa 2021, as described
+in Sec. IIB. Our best-fit model adequately describes the
+data with a y?/dof = 190.51/188 and a corresponding
+probability-to-exceed value of 0.435. This best-fitting
+point lies comfortably within the AbacusSummit prior.
+Figure 5 shows our marginalized constraints with (red)
+and without (orange) the AbacusSummit prior (gray) in
+the Qm—cg plane. We can see that while the run without
+the AbacusSummit prior extends past it, thereby requir-
+ing some amount of model extrapolation, the posterior
+volume that requires extrapolation is small: ~10% of the
+points in our chain fall outside the AbacusSummit prior.
+In Appendix C, we present tests that further suggest that
+this limited extrapolation does not significantly impact
+our results.
+Figure 5 also compares our posteriors to those from
+Planck CMB measurements [purple; 23], the DES-Y1
+3x2 [green; 47], and the original DES-Y1 cluster lens-
+ing and abundance analysis [blue; 3]. Compared to the
+original DES-Y1 cluster analysis in Abbott et al. [3], our
+constraints are significantly shifted to higher Qy,. This is
+not simply due to the AbacusSummit prior: as demon-
+strated in Salcedo et al. [11], our simulation framework
+results in acceptable fits to the lensing data for a Planck
+cosmology, whereas the original model from [3] exhibits
+a much larger x? (Ay? = 39.91). Additionally, Figure 4
+shows that our best fit is well within the AbacusSum-
+mit sampling region, and that it provides an excellent
+description of the data.
+Following Lemos et al. [48] we calculate the relative x?
+
+12
+
+1.0
+
+0.9
+
+Og
+
+0.8
+
+DESY1 Clusters
+
+0.7
+
+DESY1 3 x 2; 0.342
+
+(Abbott et al. 2021); 2.270
+This work + DESY1 3 x 2
+This work, Unrestricted
+
+This work, AbacusSummit Prior
+
+0.6 O1
+
+0.2
+
+0.3 0.4
+
+Qm
+
+FIG. 5. 68% and 95% confidence contours in the og—Qm plane for our analysis with (red dashed) and without (orange filled)
+the AbacusSummit sampling prior (gray). Tensions with other data sets are quoted with respect to the posterior without the
+AbacusSummit prior. We compare our results with those from the original DES-Y1 analysis of cluster lensing and abundance
+[blue; 3], DES-Y1 3x2 [green; 47], and constraints from Planck CMB measurements [purple; 23]. The result of combining our
+cluster constraints with those from DES-Y1 3 x 2 is shown in black.
+
+between two posteriors A and B as
+
+x? = (Ba — De)’ (Cova + Covg)'(p4—-Pp), (31)
+
+where p'4 and pg are the (Qm, og) values from posterior
+A and B respectively, and Cov, and Cov g are the corre-
+sponding 2 x 2 posterior parameter covariance matrices.
+We then convert this ? into a probability to exceed value
+and report the corresponding tension in units of o.
+
+Using our runs without an AbacusSummit prior, we
+find our constraints are in 2.580 tension with Planck,
+and in 2.860 tension with the combined CMB-primaries
+from Planck, ACT, and SPT [49]. Note the tension with
+Planck is much reduced from the 5.60 tension reported
+in [3] despite the fact that our results are significantly
+more precise. Our posteriors are now also comfortably
+consistent with the DES-Y1 3x 2-point analysis. We com-
+pare to DES-Y3 results below, but the juxtaposition here
+shows that cluster constraints are similar in precision to
+he 3 x 2 constraints using the same weak lensing data
+set.
+
+Our constraints on key cosmological parameters when
+we do not impose the AbacusSummit prior are
+= +0.026
+Om, = 0.2547 9.920;
+:+0.030
+08 = 0.82679 0345
+
+_ +0.020
+Sg = 0.75949.020,
+
+(32)
+
+These constraints are marginalized over all HOD, mis-
+centering, and baryonification parameters. If we do im-
+pose the AbacusSummit prior we find Sg = 0.760*0:0%8,
+which is indeed nearly identical to the posterior obtained
+without the prior. For Qm, the AbacusSummit prior is
+informative because values below ~ 0.23 are not allowed.
+From here onward we concentrate on results without the
+AbacusSummit prior, as we consider these a more accu-
+rate representation of the cluster constraints.
+
+Because our cluster lensing data vector is shape-noise
+dominated while the DES-Y1 3 x 2 data vector is sample
+variance dominated, the two probes are approximately
+
+independent. We therefore combine* the two analyses,
+finding
+
+Qin 026679 017,
+og = 0.81549-026, (33)
+
+Sg = 0.767+0-015,
+
+These constraints are shown in Figure 5 as black con-
+tours. They are in 2.990 tension with Planck and 3.470
+with the combination of Planck, SPT, and ACT CMB
+primaries [49]. We note that after combining with DES
+Y1 3x2-point data, only 0.7% of the posterior falls out-
+side of the AbacusSummit prior.
+
+B. Robustness Tests
+
+We assess the robustness of our constraints by splitting
+our data vector into different disjoint subsamples as de-
+scribed below. Because the posteriors from these subsets
+are less constraining, and would therefore require larger
+extrapolations, our robustness tests are performed with
+respect to the parameter combination
+
+Dg = 08(Qm/0.3)? (34)
+
+that is best constrained by the data.
+The data splits we consider are:
+
+e Richness splits: We split the six richness bins into three
+subsets, each with two richness bins, and derive cosmo-
+logical constraints using those bins only.
+
+e Redshift splits: We derive cosmological constraints us-
+ing only one redshift bin at a time.
+
+e Scales splits: We derive cosmological constraints by
+restricting our analysis to scales either below or above a
+radial threshold of R = 2 h~! Mpc.
+
+Finally, we also test whether the evolution model impacts
+our posteriors by treating the HOD parameters in each
+of the three redshift bins as being independent of one an-
+other. The resulting Ug posteriors are shown in Figure 6
+‘or cases with (orange) and without (red) the Abacus-
+Summit prior imposed. We see that the Ug posteriors
+are consistent across all samples, demonstrating the ro-
+bustness of our results. One possible source of concern
+is that Ng increases monotonically as we go from the low
+richness bins to the high richness bins. However, it is not
+obvious that this trend is significant: the three richness
+bins are independent random draws, in which case one
+naively expects a probability of 1/3 for the middle bin to
+‘all between bins | and 3.
+
+4 This combination was done using the COMBINEHARVESTERFLOW
+software package [50].
+
+13
+
+Fiducial ——+!
+Ae [10,20)) ——-—
+de [20, 45) ae
+€ [45, 00) —_-—
+z€(0.20,0.35) oO
+z€ (0.35, 0.50) ——_
+z€ [0.50, 0.65)] ———»——
+Taree Scales) sR —, |
+Small Scales et
+HOD Free} ee
+0.70 0.75 0.80
+
+Dg =o (2,,/0.3)"
+
+0.36
+
+FIG. 6. Marginalized constraints on Ug = og (Qm/0.3)
+the best constrained combination of og and Q,, for our fidu-
+cial unrestricted results shown in Figure 5, for a variety of
+analysis scenarios. In each case, the filled orange point with
+errorbar shows constraints for the unrestricted case, and the
+unfilled red point shows constraints when the AbacusSummit
+sampling space is adopted as an informative prior.
+
+C. Comparison With Other Works
+
+We now compare our constraints on Q, and og to those
+from a variety of cosmological probes of late-time matter
+clustering. These comparisons are summarized in Fig-
+ure 7. The orange contours represent the 68% and 95%
+confidence levels as obtained without the AbacusSummit
+prior.
+
+In the top-left panel of Figure 7 we compare our re-
+sults to those from other recent optical cluster studies,
+namely the DES-Y3 4x2pt+N analysis of [potherurple;
+51], the KiDS-1000 analysis of AMICO-selected cluster
+abundances and lensing [brown; 52], and the analysis
+of SDSS redMaPPer cluster abundances and clustering
+with HSC lensing from [light blue; 53]. We note that
+4x2pt+N refers to the combination of large-scale cluster-
+shear, cluster-galaxy, cluster-cluster, and galaxy-galaxy
+correlations with cluster abundances (the “N”).
+
+There is broad agreement between the various optical
+cluster analyses, though we note the KiDS-1000 contour
+14
+
+1.0
+0.9
+00
+ic)
+0.8
+This work
+OF) — KiDS-DR3 clusters; 0.70 : 0.7; SPT clusters; 0.50
+— DES-Y34x2+N; 2.10 —— eRASSI clusters; 4.10
+—— SDSS x HSC clusters; 1.20 — cFEDS clusters; 0.10
+0.6
+0.002 03 0.4 02 0:3 0.4
+Qn Qin
+— DES-Y3 3x2; 1.70 —— DESI-DRI1 Full-Shape; 1.2
+1.0 — KiDS-1000 3x2; 1.60 1.0) — poss P+B; 240
+—— HSC-Y3 3x2; 0.70 — BOSS BACCO; 1.80
+—— BOSS DarkEmulator; 1.20
+0.9 0.9
+20 2
+6 6
+0.8 0.8
+0.7 0.7
+0.6 0.6
+0.2 0.3 0.4 0.2 0.3 0.4
+
+FIG. 7. 68% and 95% confidence contours in ogs—Qm for a variety of different experiments. The legends in each panel quote
+the tension of our “unrestricted” results with each data set, as labeled. Top-left: Comparison with other Stage-III optical
+cluster constraints. Top right: Comparison with X-ray (eROSITA) and SZ (SPT) cluster cosmology constraints. Bottom-
+left: Comparison with Stage-III 3x2 constraints. Bottom right: Comparison with full-shape spectroscopic galaxy clustering
+
+constraints.
+
+results in surprisingly low matter densities that are in
+strong tension with the CMB. We anticipate that this
+behavior has a similar origin to that of the original DES-
+Y1 analysis of Abbott et al. [3]. In particular, while the
+KiDS-1000 analysis is restricted to relatively small scales
+(rp < 3h! Mpc), we find that the impact of cluster se-
+lection in redMaPPer is non-negligible even within the
+1-halo term (e.g., right-panel of Fig. 2 in Salcedo et al.
+
+[54]).>
+
+Compared to these other optical cluster cosmology
+constraints, our results are more precise due to a va-
+riety of differences in methodology. Specifically, our
+
+5 While the AMICO cluster finder will result in selection effects
+that are different in detail from those of redMaPPer, we do an-
+ticipate the two will share qualitative similarities.
+simulation-based framework enables us to reach lower
+richness thresholds, which increases constraining power.
+Moreover, our pipeline accounts for the cosmology de-
+endence of cluster selection effects while reducing the
+number of model parameters that significantly impact
+cluster lensing, leading to improved statistical precision.
+Together, these effects enable us to achieve tight cosmo-
+logical constraints.
+
+In the top right panel of Figure 7 we compare our re-
+sults to constraints from X-ray and SZ cluster abundance
+studies: the analysis of SZ-selected clusters in SPT cali-
+rated with DES and HSC lensing [olive; 55], the analy-
+sis of X-ray clusters in the first eEROSITA all sky survey
+(eRASS1) calibrated with DES, HSC, and KiDS lens-
+ing [pink; 56], and the analysis of X-ray clusters in the
+eROSITA Final Equatorial Depth Survey (eFEDS) cali-
+rated with HSC lensing [dark cyan; 57]. Our constraints
+from DES-Y1 optical clusters are competitive in precision
+with those from the X-ray and SZ samples. We find good
+agreement between our constraints and those from SPT
+and eFEDS clusters, and a significant 4.10 tension with
+results from X-ray clusters in the eRASS1. The tension
+etween the two eROSITA datasets is 2.00. These ten-
+sions are driven primarily by the eRASS1 data’s prefer-
+ence for a high og. The exact source of this discrepancy
+is unclear, though Ghirardini et al. [56] show that their
+constraints can be impacted by the precise mass function
+hey assume. Their fiducial analysis assumes the mass
+function parameterization of [58], but they show that as-
+suming the parameterizations of either [59] or [60] shifts
+heir constraints to lower og, substantially reducing the
+ension with our work.
+
+We next turn to comparisons with constraints from
+he combination of cosmic shear, galaxy-galaxy lensing,
+and galaxy clustering, typically referred to as 3 x 2. The
+ottom left panel in Figure 7 compares our constraints
+with 3 x 2. from DES-Y3 [green; 65], KiDS-1000 [blue;
+66] and HSC-Y3 [gold; 67]. We can see our constraints
+are both in agreement with and of comparable precision
+‘o those from Stage-III 3x 2-pt analyses.
+
+The bottom right panel of Figure 7 compares our
+constraints with several full-shape spectroscopic galaxy
+clustering analyses, namely DESI-DR1 [dark pink; 68],
+he effective field theory based analysis of the BOSS
+galaxy power-spectrum and bispectrum of [light green
+69], the redshift-space galaxy clustering analysis from
+he BACCO team [gray; 9], and the DarkEmulator based
+analysis of the BOSS redshift-space galaxy clustering [or-
+ange; 10]. We find we are in good agreement with these
+ull-shape clustering analyses, with the exception of a
+2.40 tension with [69] due to our preference for a lower
+matter density, and their preference for a lower og.
+
+We further compare our results against cosmological
+constraints derived using CMB secondaries, as illustrated
+in Figure 8. The analyses we consider are the extension
+of the DES-Y1 3x2-pt analysis to cross-correlations with
+CMB secondaries [light green; 61], this same extension
+for DES-Y3 [red; 62], the combination of DES-Y3 cos-
+
+1.0
+0.9
+00
+6
+0.8
+—— This work
+—  CMB-9¢; 1.lo
+0.7; — DES-Y1 6 x 2; 1.80
+— DES-Y3 6x 2; 1.30
+— DES-Y3 yy+7x tSZ; 1lo
+0.6
+0.2 0.3 0.4
+Qn
+FIG. 8. 68% and 95% confidence contours in the os-Qm
+
+plane for a variety of different experiments. Our constraints
+with and without the AbacusSummit prior are shown in red
+and orange respectively, and tensions are reported relative
+to the run without the AbacusSummit prior. We compare
+our results to the analysis by [light green; 61] which extends
+the DES-Y1 3x2-point results by including cross-correlations
+with Planck lensing (light green), the analogous analysis in
+DES-Y3 [red; 62], the DES-Y3 cosmic shear and the shear-
+tSZ cross-correlation [purple; 63], and CMB-lensing from the
+combination of SPT, Planck and ACT data [light blue; 64].
+
+mic shear and the cross-correlation between shear and
+thermal SZ observations from ACT found in [purple; 63},
+and CMB-lensing posterior obtained by combining SPT,
+Planck and ACT data [light blue; 64]. We see our results
+are in good agreement with all four measurements while
+also achieving comparable precision.
+
+VIII. CONCLUSIONS
+
+We have presented a novel simulation-based forward-
+modeling framework for analyzing cluster abundance and
+weak-lensing data. Our approach explicitly incorporates
+the cosmology-dependent impact of projection effects in
+galaxy clustering while still enabling us to marginalize
+over cluster miscentering and baryonic effects. We have
+applied this framework to redMaPPer clusters selected in
+DES-Y1 data and show that our methodology success-
+fully describes the lensing profiles of these clusters down
+to small scales (0.2h~! Mpc) and low richness (A = 10),
+with a goodness-of-fit metric of y?/dof = 190.51/188.
+
+From this analysis, we obtain constraints on the cos-
+mological matter content and clustering: Qm = 0.254 +
+0.023, og = 0.826 + 0.032, and Sg = 0.758 + 0.20. About
+
+10% of the points in our MCMC chain lie in a region of
+parameter space not covered by the AbacusSummit sim-
+ulations used to train our emulator, extending to lower
+values of Qm. However, imposing a prior that eliminates
+models outside the AbacusSummit range has only a small
+impact on our parameter estimates. When combining
+our cluster constraints with DES-Y1 3 x 2 constraints
+we obtain Q,, = 0.266 + 0.016, og = 0.815 + 0.025, and
+Sg = 0.768 + 0.15. These combined results require negli-
+gible model extrapolation, with ~ 99.3% of the points in
+the chain contained within the AbacusSummit prior.
+Our constraints from DES-Y1 clusters are competitive
+in precision and in mostly good agreement with litera-
+ture constraints from other low-redshift growth probes,
+including Stage III 3x2-pt analyses, full-shape spectro-
+scopic clustering constraints, and CMB-secondaries as
+summarized in Figures 7 and 8. Compared to other opti-
+cal cluster cosmology analyses, our results are more pre-
+cise. This is partly due to the inclusion of information
+from small scales and low richness, and partly because
+our forward modeling framework characterizes the cos-
+mology dependence of cluster projection effects while re-
+ducing the number of free parameters that significantly
+impact the predicted weak lensing signal.
+Our constraints agree with those from SZ clusters,
+weak lensing, and full-shape galaxy clustering. They dis-
+agree (at 4.10) with those from [56] based on X-ray clus-
+ters from eRASS1, which imply significantly higher og at
+a given 2,,. In contrast, we find our constraints to be in
+agreement with eFEDS X-ray clusters, which are them-
+selves in 2.00 tension with X-ray clusters in eRASS1.
+The source of these discrepancies is currently unclear.
+Despite the complications of projection effects, we con-
+sider our analysis of optically selected clusters to be as
+robust as those from SZ and X-ray clusters because our
+simulation tests show that we can model optical selec-
+tion directly. Critically, this modeling of selection re-
+moves mass-observable scatter as an adjustable param-
+eter degenerate with cosmological parameters (see Wu
+et al. [70]).
+Compared to the original DES-Y1 cluster analysis of
+Abbott et al. [3], our results are much closer to those of a
+Planck-normalized ACDM cosmology, with the difference
+being significant at 2.580 rather than 5.60. The signifi-
+cance of the difference between our results and the com-
+bined Planck, SPT, and ACT primaries is 2.860. In the
+panoply of low redshift matter clustering constraints from
+
+[1] A. Albrecht, L. Amendola, G. Bernstein, D. Clowe,
+D. Eisenstein, L. Guzzo, C. Hirata, D. Huterer, R. Kir-
+shner, E. Kolb, et al., arXiv e-prints arXiv:0901.0721
+(2009), 0901.0721.
+
+[2] D. H. Weinberg, M. J. Mortonson, D. J. Eisenstein, C. Hi-
+rata, A. G. Riess, and E. Rozo, Phys. Rep. 530, 87
+(2013), 1201.2434.
+
+16
+
+weak lensing and redshift-space distortions, our measure-
+ment leans towards lower values of Qm and Sj.
+
+Our results demonstrate that the forward-modeling
+framework presented in this paper is capable of robustly
+characterizing optical cluster selection to enable precise
+and accurate cosmological analyses from optical cluster
+samples. The derived constraints are competitive and
+consistent with a wide field of low-redshift probes of
+arge-scale structure. Moving forward, we aim to im-
+prove the fidelity of our forward-modeling framework,
+both through improved modeling of the galaxy popu-
+ation, and by modifying the cluster finding process to
+make it easier to emulate. Application of this type of im-
+proved analyses to more recent DES data and upcoming
+LSST, Roman, and Euclid will enable us to deliver on
+he promise of the use of optical galaxy clusters as a tool
+for precision cosmology in the Stage IV era.
+
+ACKNOWLEDGEMENTS
+
+We thank Tomomi Sunayama, Enrique Paillas, and I-
+Non Chiu for valuable discussions about this work. This
+work was supported by the “Maximizing Cosmological
+Science with the Roman High Latitude Imaging Survey”
+Roman Project Infrastructure Team (NASA grant 22-
+ROMAN11-0011). ANS and ER received funding for this
+work from the Department of Energy (DOE) grant DE-
+$C0009913. ANS received funding for this work from
+DOE grants DE-SC0020247 and DE-SC0025993 as well
+as the David and Lucile Packard Foundation. HW and
+SC are supported by the DOE Award DE-SC0010129
+and the NSF Award AST-2509910. Simulations were an-
+alyzed in part on computational resources of the Ohio
+Supercomputer Center [71], with resources supported
+in part by the Center for Cosmology and AstroParticle
+Physics at the Ohio State University. We gratefully ac-
+knowledge the use of the MATPLOTLIB software package
+[72], the GeTDisT software package [73], and the GNU
+Scientific library [74]. This research has made use of the
+
+SAO/NASA Astrophysics Data System.
+
+DATA AVAILABILITY
+
+The data underlying this article will be shared on rea-
+sonable request to the corresponding author.
+
+[3] T. M. C. Abbott, M. Aguena, A. Alarcon, S. Allam,
+S. Allen, J. Annis, S. Avila, D. Bacon, K. Bechtol,
+A. Bermeo, et al., Phys. Rev. D 102, 023509 (2020),
+2002.11124.
+
+[4] H.-Y. Wu, M. Costanzi, C.-H. To, A. N. Salcedo, D. H.
+Weinberg, J. Annis, S. Bocquet, M. E. da Silva Pereira,
+J. DeRose, J. Esteves, et al., MNRAS 515, 4471 (2022),
+2203.05416.
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20)
+
+21
+
+22
+
+23
+
+24
+
+C. To, E. Krause, E. Rozo, H. Wu, D. Gruen, R. H. Wech-
+sler, T. F. Eifler, E. S. Rykoff, M. Costanzi, M. R. Becker,
+et al., Phys. Rev. Lett. 126, 141301 (2021), 2010.01138.
+Y. Park, T. Sunayama, M. Takada, Y. Kobayashi,
+H. Miyatake, S. More, T. Nishimichi, and S$. Sugiyama,
+MNRAS 518, 5171 (2023), 2112.09059.
+B. D. Wibking, A. N. Salcedo, D. H. Weinberg, L. H.
+Garrison, D. Ferrer, J. Tinker, D. Eisenstein, M. Metch-
+nik, and P. Pinto, MNRAS 484, 989 (2019), 1709.07099.
+Z. Zhai, J. L. Tinker, A. Banerjee, J. DeRose, H. Guo,
+Y.-Y. Mao, S. McLaughlin, K. Storey-Fisher, and R. H.
+Wechsler, ApJ 948, 99 (2023), 2203.08999.
+M. Pellejero Ibdfiez, R. E. Angulo, and J. A. Peacock,
+MNRAS 534, 3595 (2024), 2407.07949.
+H. Miyatake, S. Sugiyama, M. Takada, T. Nishimichi,
+M. Shirasaki, Y. Kobayashi, R. Mandelbaum, S. More,
+M. Oguri, K. Osato, et al., Phys. Rev. D 106, 083520
+(2022), 2111.02419.
+
+A. N. Salcedo, H.-Y. Wu, E. Rozo, D. H. Weinberg, C.-
+H. To, T. Sunayama, and A. Lee, Phys. Rev. Lett. 133,
+221002 (2024).
+
+E. S. Rykoff, E. Rozo, M. T. Busha, C. E. Cunha,
+A. Finoguenov, A. Evrard, J. Hao, B. P. Koester,
+A. Leauthaud, B. Nord, et al., ApJ 785, 104 (2014),
+1303.3562.
+A. Drlica-Wagner, I. Sevilla-Noarbe, E. S. Rykoff, R. A.
+Gruendl, B. Yanny, D. L. Tucker, B. Hoyle, A. Carnero
+Rosell, G. M. Bernstein, K. Bechtol, et al., ApJS 235, 33
+(2018), 1708.01531.
+J. Zuntz, E. Sheldon, S. Samuroff, M. A. Troxel,
+M. Jarvis, N. MacCrann, D. Gruen, J. Prat, C. Sanchez,
+A. Choi, et al., MNRAS 481, 1149 (2018), 1708.01533.
+
+B. Hoyle, D. Gruen, G. M. Bernstein, M. M. Rau,
+J. De Vicente, W. G. Hartley, E. Gaztanaga, J. DeRose,
+M. A. Troxel, C. Davis, et al., MNRAS 478, 592 (2018),
+1708.01532.
+
+T. N. Varga, J. DeRose, D. Gruen, T. McClintock,
+S. Seitz, E. Rozo, M. Costanzi, B. Hoyle, N. Mac-
+Crann, A. A. Plazas, et al., MNRAS 489, 2511 (2019),
+1812.05116.
+
+T. McClintock, T. N. Varga, D. Gruen, E. Rozo, E. S.
+Rykoff, T. Shin, P. Melchior, J. DeRose, S. Seitz, J. P.
+Dietrich, et al., MNRAS 482, 1352 (2019), 1805.00039.
+
+N. A. Maksimova, L. H. Garrison, D. J. Eisenstein,
+B. Hadzhiyska, S. Bose, and T. P. Satterthwaite, MN-
+RAS 508, 4017 (2021), 2110.11398.
+
+M. V. L. Metchnik, Ph.D. thesis, The University of Ari-
+zona (2009).
+
+L. H. Garrison, D. J. Eisenstein, D. Ferrer, J. L. Tinker,
+P. A. Pinto, and D. H. Weinberg, ApJS 236, 43 (2018),
+1712.05768.
+
+L. H. Garrison, D. J. Eisenstein, and P. A. Pinto, MN-
+RAS 485, 3370 (2019), 1810.02916.
+
+L. H. Garrison, D. J. Eisenstein, D. Ferrer, N. A. Mak-
+simova, and P. A. Pinto, MNRAS 508, 575 (2021),
+2110.11392.
+
+Planck Collaboration, N. Aghanim, Y. Akrami, M. Ash-
+down, J. Aumont, C. Baccigalupi, M. Ballardini, A. J.
+Banday, R. B. Barreiro, N. Bartolo, et al., A&A 641, A6
+(2020), 1807.06209.
+
+B. Hadzhiyska, D. Eisenstein, S. Bose, L. H. Garri-
+son, and N. Maksimova, MNRAS 509, 501 (2022),
+2110.11408.
+
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+34
+
+35
+
+36
+
+37
+
+38
+
+39
+
+40
+
+Al
+
+A2
+
+A3
+
+44
+
+46
+
+AT
+
+48
+
+17
+
+A. J. Benson, S. Cole, C. S. Frenk, C. M. Baugh,
+and C. G. Lacey, MNRAS 311, 793 (2000), astro-
+ph/9903343.
+
+A. A. Berlind and D. H. Weinberg, ApJ 575, 587 (2002),
+astro-ph/0109001.
+
+F. C. van den Bosch, X. Yang, and H. J. Mo, MNRAS
+340, 771 (2003), astro-ph/0210495.
+
+Z. Zheng, A. A. Berlind, D. H. Weinberg, A. J. Benson,
+C. M. Baugh, S. Cole, R. Davé, C. S. Frenk, N. Katz, and
+C. G. Lacey, ApJ 633, 791 (2005), astro-ph/0408564.
+
+I. Zehavi, Z. Zheng, D. H. Weinberg, M. R. Blanton,
+N. A. Bahcall, A. A. Berlind, J. Brinkmann, J. A. Frie-
+man, J. E. Gunn, R. H. Lupton, et al., ApJ 736, 59
+(2011), 105.2413.
+
+J. F. Navarro, C. S. Frenk, and S. D. M. White, ApJ
+490, 493 (1997), astro-ph/9611107.
+
+C. A. Correa, J. S. B. Wyithe, J. Schaye, and A. R. Duffy,
+MNRAS 452, 1217 (2015), 1502.00391.
+
+M. Costanzi, E. Rozo, E. S. Rykoff, A. Farahi, T. Jel-
+tema, A. E. Evrard, A. Mantz, D. Gruen, R. Man-
+delbaum, J. DeRose, et al., MNRAS 482, 490 (2019),
+1807.07072.
+
+Y. Zhang, T. Jeltema, D. L. Hollowood, S. Everett,
+E. Rozo, A. Farahi, A. Bermeo, S. Bhargava, P. Giles,
+A. K. Romer, et al., Monthly Notices of the Royal As-
+tronomical Society 487, 2578 (2019), 1901.07119.
+
+T. Sunayama, Y. Park, M. Takada, Y. Kobayashi,
+T. Nishimichi, T. Kurita, S. More, M. Oguri, and K. Os-
+ato, MNRAS 496, 4468 (2020), 2002.03867.
+
+T. Sunayama, MNRAS 521, 5064 (2023), 2205.03233.
+C. Zeng, A. N. Salcedo, H.-Y. Wu, and C. M. Hirata,
+INRAS 523, 4270 (2023), 2210.16306.
+
+M. Sinha and L. Garrison, Corrfunc: Blazing fast corre-
+lation functions on the CPU, Astrophysics Source Code
+Library (2017), 1703.003.
+
+A. Schneider, R. Teyssier, J. Stadel, N. E. Chisari,
+A. M. C. Le Brun, A. Amara, and A. Refregier, J. Cos-
+mology Astropart. Phys. 2019, 020 (2019), 1810.08629.
+S. K. Giri and A. Schneider, J. Cosmology Astropart.
+Phys. 2021, 046 (2021), 2108.08863.
+
+J. F. Navarro, C. S. Frenk, and S. D. M. White, ApJ
+462, 563 (1996), astro-ph/9508025.
+
+J. L. Tinker, E. S. Sheldon, R. H. Wechsler, M. R. Becker,
+E. Rozo, Y. Zu, D. H. Weinberg, I. Zehavi, M. R. Blan-
+ton, M. T. Busha, et al., ApJ 745, 16 (2012), 1104.1635.
+N. Benitez, ApJ 536, 571 (2000), astro-ph/9811189.
+H.-Y. Wu, D. H. Weinberg, A. N. Salcedo, B. D. Wibking,
+and Y. Zu, MNRAS 490, 2606 (2019), 1907.06611.
+
+T. M. C. Abbott, F. B. Abdalla, J. Annis, K. Bechtol,
+J. Blazek, B. A. Benson, R. A. Bernstein, G. M. Bern-
+stein, E. Bertin, D. Brooks, et al., MNRAS 480, 3879
+(2018), 1711.00403.
+
+R. J. Cooke, M. Pettini, K. M. Nollett, and R. Jorgenson,
+ApJ 830, 148 (2016), 1607.03900.
+
+D. Foreman-Mackey, D. W. Hogg, D. Lang, and J. Good-
+man, PASP 125, 306 (2013), 1202.3665.
+
+T. M. C. Abbott, F. B. Abdalla, A. Alarcon, S. Allam,
+J. Annis, S. Avila, K. Aylor, M. Banerji, N. Banik, E. J.
+Baxter, et al., ArXiv e-prints (2018), 1810.02322.
+
+P. Lemos, M. Raveri, A. Campos, Y. Park, C. Chang,
+N. Weaverdyck, D. Huterer, A. R. Liddle, J. Blazek,
+R. Cawthon, et al. MNRAS 505, 6179 (2021)
+2012.09554.
+
+49)
+
+51
+
+52
+
+60
+
+61
+
+62
+
+63
+
+64)
+
+65
+
+66
+
+67
+
+E. Camphuis, W. Quan, L. Balkenhol, A. R. Khalife,
+F. Ge, F. Guidi, N. Huang, G. P. Lynch, Y. Omori,
+C. Trendafilova, et al., arXiv e-prints arXiv:2506.20707
+(2025), 2506.20707.
+
+P. L. Taylor, A. Cuceu, C.-H. To, and E. A. Zaborowski,
+The Open Journal of Astrophysics 7, 86 (2024),
+2406.06687.
+
+DES Collaboration, T. M. C. Abbott, M. Aguena,
+A. Alarcon, D. Anbajagane, F. Andrade-Oliveira,
+S. Avila, D. Bacon, M. R. Becker, S. Bhargava, et al.,
+arXiv e-prints arXiv:2503.13632 (2025), 2503.13632.
+
+G. F. Lesci, F. Marulli, L. Moscardini, M. Maturi,
+M. Sereno, M. Radovich, M. Romanello, C. Gio-
+coli, A. H. Wright, S. Bardelli, et al., arXiv e-prints
+arXiv:2507.14285 (2025), 2507.14285.
+
+T. Sunayama, H. Miyatake, S. Sugiyama, S. More, X. Li,
+R. Dalal, M. M. Rau, J. Shi, I. n. Chiu, M. Shirasaki,
+et al., Phys. Rev. D 110, 083511 (2024), 2309.13025.
+
+A. N. Salcedo, H.-Y. Wu, E. Rozo, D. H. Weinberg,
+C.-H. To, T. Sunayama, and A. Lee, arXiv e-prints
+arXiv:2310.03944 (2023), 2310.03944.
+
+S. Bocquet, S. Grandis, L. E. Bleem, M. Klein, J. J.
+Mohr, T. Schrabback, T. M. C. Abbott, P. A. R. Ade,
+M. Aguena, A. Alarcon, et al., Phys. Rev. D 110, 083510
+(2024), 2401.02075.
+
+V. Ghirardini, E. Bulbul, E. Artis, N. Clerc, C. Garrel,
+S. Grandis, M. Kluge, A. Liu, Y. E. Bahar, F. Balzer,
+et al., A&A 689, A298 (2024), 2402.08458.
+
+I.-N. Chiu, M. Klein, J. Mohr, and §. Bocquet, MNRAS
+522, 1601 (2023), 2207.12429.
+
+J. Tinker, A. V. Kravtsov, A. Klypin, K. Abazajian,
+M. Warren, G. Yepes, S. Gottléber, and D. E. Holz, ApJ
+688, 709 (2008), 0803.2706.
+
+J. L. Tinker, B. E. Robertson, A. V. Kravtsov, A. Klypin,
+M. S. Warren, G. Yepes, and S. Gottléber, ApJ 724, 878
+(2010), 101.3162.
+
+G. Despali, C. Giocoli, R. E. Angulo, G. Tormen, R. K.
+Sheth, G. Baso, and L. Moscardini, MNRAS 456, 2486
+(2016), 1507.05627.
+
+J. Xu, T. Eifler, V. Miranda, X. Fang, E. Saraivanov,
+E. Krause, H.-J. Huang, K. Benabed, and K. Zhong,
+Phys. Rev. D 110, 063532 (2024), 2311.08047.
+
+T. M. C. Abbott, M. Aguena, A. Alarcon, O. Alves,
+A. Amon, F. Andrade-Oliveira, J. Annis, B. Ansarine-
+jad, S. Avila, D. Bacon, et al., Phys. Rev. D 107, 023531
+(2023), 2206.10824.
+
+S. Pandey, J. C. Hill, A. Alarcon, O. Alves, A. Amon,
+D. Anbajagane, F. Andrade-Oliveira, N. Battaglia,
+E. Baxter, K. Bechtol, et al., arXiv e-prints
+arXiv:2506.07432 (2025), 2506.07432.
+
+F. J. Qu, F. Ge, W. L. Kimmy Wu, I. Abril-Cabezas,
+M.S. Madhavacheril, M. Millea, E. Anderes, A. J. Ander-
+son, B. Ansarinejad, M. Archipley, et al., arXiv e-prints
+arXiv:2504.20038 (2025), 2504.20038.
+
+DES Collaboration, T. M. C. Abbott, M. Aguena,
+A. Alarcon, S. Allam, O. Alves, A. Amon, F. Andrade-
+Oliveira, J. Annis, S. Avila, et al., arXiv e-prints
+arXiv:2105.13549 (2021), 2105.13549.
+
+C. Heymans, T. Troster, M. Asgari, C. Blake, H. Hilde-
+brandt, B. Joachimi, K. Kuijken, C.-A. Lin, A. G.
+Sanchez, J. L. van den Busch, et al., A&A 646, A140
+(2021), 2007.15632.
+
+T. Zhang, X. Li, S$. Sugiyama, R. Mandelbaum, S. More,
+R. Dalal, H. Miyatake, A. J. Nishizawa, T. Nishimichi,
+
+FIG. 9.
+
+Tp x AX(rp) [Mo /physical — pc]
+
+18
+
+100
+Avon = 1.25
+— Aeon = 0.75
+ee XE [60, co) — o.=0.081
+y —— 0, =0.049
+— Ge—02
+—— fae—025
+
+60
+PCmis|Amin)
+
+404 |
+
+10° 10!
+ry [physical — Mpc]
+
+We show how our model predictions for low and
+
+high richness lensing responds to variations in our fiducial
+HOD and cylinder selection assumptions. Red and blue lines
+show variations in the assumed concentration-mass relation,
+purple and yellow show variations in the assumed depth of the
+cylinder selection, the green line shows the impact of allowing
+for super-poissonian scatter in the satellite occupation, the
+orange line shows the impact of raising our cylinder selection
+percolation threshold to 25%, and the brown line shows the
+impact of evaluating our miscentering model at each bin’s
+minimum rather than mean richness.
+
+68
+
+69
+
+70
+
+71
+
+72
+
+73
+TA
+
+M. Oguri, et al., arXiv e-prints arXiv:2507.01386 (2025),
+2507.01386.
+
+DESI Collaboration, A. G. Adame, J. Aguilar, S. Ahlen,
+S. Alam, D. M. Alexander, C. Allende Prieto, M. Al-
+varez, O. Alves, A. Anand, et al., arXiv e-prints
+arXiv:2411.12022 (2024), 2411.12022.
+
+O. H. E. Philcox and M. M. Ivanov, Phys. Rev. D 105,
+043517 (2022), 2112.04515.
+
+H.-Y. Wu, D. H. Weinberg, A. N. Salcedo, and B. D.
+Wibking, ApJ 910, 28 (2021), 2012.01956.
+
+Ohio Supercomputer Center, Ohio supercomputer center,
+http://osc.edu/ark: /19495/f£5siph73 (1987).
+
+J. D. Hunter, Computing In Science & Engineering 9, 90
+(2007).
+
+A. Lewis, JCAP 08, 025 (2025), 1910.13970.
+
+M. Galassi, J. Davies, J. Theiler, B. Gough, G. Jungman,
+P. Alken, M. Booth, and F. Rossi, GNU Scientific Library
+Reference Manual, 3rd ed. (2009).
+
+M. Costanzi, E. Rozo, M. Simet, Y. Zhang, A. E. Evrard,
+A. Mantz, E. S. Rykoff, T. Jeltema, D. Gruen, S. Allen,
+et al., MNRAS 488, 4779 (2019), 1810.09456.
+
+Appendix A: Robustness to Selection Choices
+
+In Sections HI we identify a variety of simplifying as-
+sumptions made in our HOD modeling and mock cluster
+selection algorithm, specifically: 1) we fix the cylinder
+depth o, in each redshift bin to the width of redshift ker-
+nel measured using the method of Costanzi et al. [75]; 2)
+we assume a fixed concentration-mass relation; 3) we as-
+sume that the scatter in the satellite occupation is purely
+Poisson; 4) we adopt a fixed threshold for percolation in
+our cluster selection algorithm; and 5) we evaluate the
+miscentering offset distribution in equation 20 at each
+richness bin’s mean richness.
+
+Most of these assumptions are well motivated: 1) in
+Salcedo et al. [11] we find dy; to be poorly constrained
+oy cluster lensing, 2) we the impact of variations in the
+concentration-mass relation to be most important well
+within the aperture for optical cluster selection, 3) we
+find in Salcedo et al. [11] a lack of evidence for super-
+poissonian scatter from cluster lensing.
+
+In Figure 9 we further validate our insensitivity to
+hese choices. We plot our fiducial model with associ-
+ated lo errors in gray bands for the highest and lowest
+richness bins at z € [0.2,0.35). We compare these model
+redictions with: 1) variations in the concentration-mass
+relation where the galaxy concentration
+
+CF = Aon x 0", (Al)
+
+is allowed to vary by +25% (red/blue) relative to that
+of the matter; 2) +25% variations in the cylinder pro-
+jection depth o, (purple/yellow); 3) a case where we in-
+clude additional lognormal scatter of cin, = 0.2 in the
+satellite occupation (green); 4) a case in which we raise
+the percolation threshold to 25% (orange); and 5) a case
+where we evaluate our miscentering model in each bin
+assuming the richness bin’s minimum rather than mean
+richness (brown). In all cases we find our lensing signal
+prediction to change by much less than the associated
+statistical uncertainties.
+
+Appendix B: Baryonification
+
+Following [39] we model a “baryonified” halo profile as,
+
+Pamb(T) = Peim(7) + Pgas(T) + Pega(T); (B1)
+asum of collisionless matter (clm), gas (gas), and central
+galaxy (cga) profiles. These density profiles are normal-
+ized such that,
+
+[ (Poim(7) + Pgas(7) + Pega(™)) Anr?dr
+
+oo
+= [ Putw(r)4ar?dr = Myor (B2)
+0
+where Pnfw is the truncated NF'W [30] profile,
+1
+Poiw(T|Mn,c) He (B3)
+
+all ty)? + Ge)?
+
+for a halo of mass M;, and concentration c = rp/rs. The
+truncation radius is given by ry = 4 x rp.
+
+19
+
+The central galaxy profile is described by an exponen-
+tially truncated power law,
+
+Mnfega(M) r
+4n3/2Ryr2 P| IRA?
+
+Pegal) (B4)
+where fcga(M) is the fraction of stars in the central
+galaxy, and R, = 0.015Ryir is the stellar half-light ra-
+dius. The gas profile is written,
+
+Q/Om = fetar ME
+Peas % u el) 5—B(M) (B5)
+
+pi+10(2)]° p+ (nee)
+
+where ftar(J/) is the total fraction of stars in halos. The
+parameter 3 introduces an additional halo-mass depen-
+dence,
+
+3(M/M,)#
+1+ (M/M.)" (
+
+The initial collisionless matter profile is initially written
+
+B(Me, n) = B6)
+
+Qam
+Qm
+
+where Pntw(r|M,c) is the truncated NFW profile with
+concentrations given by the scaling relation of Correa
+et al. [31] and fzga is the stellar fraction from satellite
+galaxies and intracluster light. This profile is then modi-
+fied according to the “adiabatic relaxation” prescription
+of [38] which relates the total mass of the initial NFW
+profile MM; enclosed within radius r; to that of the final
+baryonified profile,
+
+rp M;\" .]
+ot = -1 B
+noel)
+
+where a = 0.3 and n = 2 as in [38], and the enclosed
+mass M; and My are given by,
+
+Mi = Matw(ri),
+
+My = fermMatw(ri) + Mega(ry) + Mgas(ry), — (B9)
+
+where fem = Qdam/Qm + fega- These equations are iter-
+atively solved for,
+
+Pem(T) = + fua(0)| Pniw(r|M,c), (BT)
+
+Gri) = rg [ra (B10)
+
+in order to obtain final collisionless matter profile,
+pan(r) = 22% 2 Maww (r/6lr))- BN)
+Finally we relate the various stellar-to-halo fractions via,
+Fga(M) = fotar(M) — fega(M), (B12)
+
+where
+M\"
+
+flat) = 0.05 (57) : (B13)
+
+where M, = 2.5 x 10%n-1 Mos and "star = 7 and Mega =
+n+ 16-
+20
+
+TABLE II. Summary of parameters of the baryonification model of Giri and Schneider [39] that we use to construct our PCA
+model for the baryonic suppression of the cluster lensing profile as well as hyperparameters of our baryonic feedback model as
+
+described in Section VB. In each case Xi = mz,i X B+ bei.
+
+Parameter Training Range/Fixed Value Description
+
+log M. [13.0, 15.0] Characteristic mass scale where gas profile slope shallows.
+be (0.0, 2.0] Mass dependence of gas profile slope.
+Be; (2.0, 8.0] Gas ejection radius in units of r2oo5
+y [1.0, 4.0] Normalization of gas profile slope.
+5 [3.0, 11.0] Normalization of gas profile slope.
+n (0.325, 0.475] Mass dependence of the stellar fraction in satellite galaxies in ICL.
+6 [0.05, 4.0] Mass dependence of stellar fraction in central galaxy.
+Ma2 -40.4 Slope of linear relation between B and Ao.
+ba,2 -0.41 Offset of linear relation between B and Ag.
+Mal 543.2 Slope of linear relation between B and Aj.
+bat 10.4 Offset of linear relation between B and Aj.
+Ma,o -2433.3 Slope of linear relation between B and Ao.
+ba,o -65.1 Offset of linear relation between B and Ap.
+Me,2 0.97 Slope of linear relation between B and C2.
+be,2 0.057 Offset of linear relation between B and Co.
+Me,1 -25.8 Slope of linear relation between B and C1.
+bet -2.4 Offset of linear relation between B and C1.
+Mc,0 171.3 Slope of linear relation between B and Co.
+be,0 21.8 Offset of linear relation between B and Co.
+
+Appendix C: Emulator Extrapolation Tests
+
+In Section VII we present fiducial results with and
+without the inclusion of the AbacusSummit prior, which
+is meant to be a conservative (~ 6—8c) estimate of the
+posteriors from CMB+LSS circa 2021. In either case our
+best-fit parameters lie comfortably within this sampling
+range. However when we do not impose this prior our
+sampling extends beyond the AbacusSummit sampling
+range, and therefore requires some amount of model ex-
+trapolation. We find ~ 11% of the points in our chain
+with no AbacusSummit prior require extrapolation. This
+extrapolation is not strictly confined to a simple parame-
+ter but is most significant in terms of Q. Points outside
+of the sampling range lay within the range of values of og
+supported by AbacusSummit but extend to lower 2,,.
+
+To test the impact of this extrapolation on our results
+we define two subsets of our simulation suite, the 15 sim-
+ulations with Qn < 0.3 and a separate set of 15 randomly
+selected simulations. We retrain our emulator with each
+individual subset of the simulation suite removed. For
+each of these sets we also compute our lensing datavec-
+tor at a fiducial HOD model lying at the center of our
+emulation ranges. We make this choice because we are
+
+interested in specifically testing the impact of extrapola-
+tion in our cosmology parameters, and because the HOD
+parameters dominate the inaccuracy in our full emulator.
+
+Figure 10 shows the accuracy with which each re-
+trained emulator predicts the lensing signal of the omit-
+ted simulations in our lowest redshift bin z € [0.20, 0.35).
+In each column, different panels show the fractional ac-
+curacy of a different richness bin. The solid lines shows
+the mean bias, dashed lines show the mean dispersion,
+and colored bands show the fractional uncertainty from
+our observable covariance. The left-hand column shows
+the accuracy with which the emulator trained on all sim-
+ulations with Qm > 0.3 can predict the lensing of those
+simulations with Qn < 0.30, and the right-hand column
+shows the accuracy that the emulator trained without
+a random subset of cosmologies can predict the lensing
+signal of those cosmologies. We see that in both cases
+our emulator prediction is accurate relative to the un-
+certainty in DES-Y1, and that performance of the two
+emulators is reasonably consistent. This suggests that
+limited extrapolation below Qm * 0.25 does not signifi-
+cantly impact our results. We have also carried out this
+test with the lensing profiles for the other two redshift
+bins, finding comparable results (not shown).
+
+21
+
+Random Subset
+
+é é
+é &
+& &
+} 8
+$ &
+5 0.1 5 0.1
+, A €[10, 14) , A €[10, 14)
+10° 10! 10° 10!
+Tp [physical — Mpc] Tp [physical — Mpc]
+
+FIG. 10. Emulator accuracy for an emulator trained on cosmologies with Qm > 0.3 used to predict lensing profiles of cosmologies
+Qm < 0.3 (left) and an emulator removing a equivalent random number of cosmologies used to predict the lensing profiles of
+those omitted cosmologies (right). In each panel we plot the mean and 1o error as solid and dashed lines respectively, and
+compare to the observable covariance (band).

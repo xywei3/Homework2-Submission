@@ -1,0 +1,1603 @@
+2510.25752v1 [math.NA] 29 Oct 2025
+
+arXiv
+
+Meshless solutions of PDE inverse problems on irregular geometries
+
+James V. Roggeveerf*]
+School of Engineering and Applied Sciences, Harvard University, Cambridge MA 02138
+
+Michael P. Brenney
+
+=]
+
+School of Engineering and Applied Sciences, Harvard University, Cambridge MA 02138 and
+Department of Physics, Harvard University, Cambridge MA 02138
+
+Solving inverse and optimization problems over solutions of nonlinear partial differential equations
+(PDEs) on complex spatial domains is a long-standing challenge. Here we introduce a method that
+parameterizes the solution using spectral bases on arbitrary spatiotemporal domains, whereby the
+basis is defined on a hyperrectangle containing the true domain. We find the coefficients of the
+basis expansion by solving an optimization problem whereby both the equations, the boundary
+conditions and any optimization targets are enforced by a loss function, building on a key idea from
+Physics-Informed Neural Networks (PINNs). Since the representation of the function natively has
+exponential convergence, so does the solution of the optimization problem, as long as it can be solved
+efficiently. We find empirically that the optimization protocols developed for machine learning find
+solutions with exponential convergence on a wide range of equations. The method naturally allows
+for the incorporation of data assimilation by including additional terms in the loss function, and for
+
+the efficient solution of optimization problems over the PDE solutions.
+
+Solving inverse problems on the solutions of partial dif-
+ferential equations (PDEs) has emerged as a core chal-
+lenge in many fields of science, mathematics, and engi-
+neering. Applications range from data assimilation[I],
+whereby a numerical solution to a PDE is fit to experi-
+mental data, to control problems, where some portion of
+he solution, such as the boundary shape, is optimized to
+achieve a specified target objective [2] [3].
+
+Such inverse problems are often ill-posed, with insuffi-
+cient boundary information for a traditional solver, noisy
+data, and hard geometric constraints. Typically, op-
+imization targets are met by finding gradients of the
+PDE solution with respect to the parameters. While such
+roblems have been traditionally addressed using adjoint
+methods [4], the recent proliferation of automatic differ-
+entiation tools has enabled the construction of differen-
+iable PDE solvers [3], whose gradients can be used to
+replace adjoint solves in an optimization loop. However,
+0th adjoint and differentiable methods require many it-
+erations of a PDE solver to converge on the optimal so-
+ution. Further, deriving adjoint equations in arbitrar-
+ily complex domains can be immensely challenging and
+applying differentiable solvers requires reimplementing
+raditional finite-element or spectral [6] [7] methods
+within a differentiable code.
+
+Several alternative approaches have recently emerged
+relying on neural networks to represent a solution to
+a family of PDEs, including Fourier neural opera-
+tors (FNOs) [8] and Physics-Informed Neural Networks
+(PINNs) {9} [10]. PINNs find solutions to PDEs by rep-
+resenting the solution with a deep neural network, with
+weights chosen to minimize the PDE residuals across a
+
+set of collocation points spanning the domain. The so-
+lution to this optimization problem leverages automatic
+differentiation for computing the derivatives in the PDE
+residuals and for minimizing the residual loss.
+
+PINNs have been demonstrated to be a remarkably
+flexible method for solving PDEs [9} [10], particularly for
+inverse problems and data assimilation [I]. By repre-
+senting the solution as a neural network, PINNs are natu-
+rally grid-free and do not require meshing, lending them-
+selves to solving problems on complex geometries. Addi-
+‘ionally, it is simple to augment the global loss function
+over residuals with additional terms that enforce data-
+assimilation matching constraints, such as enforcing that
+he solution obeys a set of measurements. In these cases,
+he total loss function £ is written as the sum
+
+L= Lyae + Lpoundary + Laata; (1)
+
+where Lyde represents the loss due to the PDE residu-
+als at a set of collocation points, Lpoundary the residuals
+of the boundary conditions at a set of boundary colloca-
+ion points, and Laata the squared error between observed
+data and the solution.
+
+Yet, the flexibility of PINNs is not without costs.
+While neural networks are theoretically universal func-
+ion approximators {13], in practice PINNs are con-
+strained by spectral biases [14] [15] that result from trun-
+cation error of a finite neural network architecture. Fur-
+chermore, PINNs lack the convergence guarantees of clas-
+sical numerical analysis. To compensate, they are typi-
+cally extremely overparameterized, with networks rang-
+ing from 60,000 to over 100,000 individual parameters,
+leading to computationally expensive gradient calcula-
+ions and unstable training dynamics [16]. PINNs also
+can struggle with higher-order PDEs, where the com-
+putational cost of computing derivatives scales exponen-
+ially with order [17]. Finally, PINNs offer little in the
+way of immediate physical interpretability, as the weights
+
+Tnitial 6,
+
+Function Ansatz
+
+Loss Funetion
+Physical Equation
+Vu =0 in PDE Residuals
+
+lan = 9
+
+FIG. 1. Schematic view of basis fitting scheme. We assume
+that any function can be written as a tensor product of ba-
+sis terms with some set of coefficients, which are not initially
+nown. We define a loss function over some geometry by com-
+puting the residuals of some physical equation and boundary
+conditions at a series of collocation points. The loss function
+can also include terms that require the solution to match data.
+Find a set of optimized coefficients c;; that minimize this loss
+unction using a differentiable code and gradient-based non-
+inear optimizer.
+
+of a given network do no onto standard
+
+functions.
+
+directly ma:
+
+Another recent approach has sought to combine the
+flexibility of the PINNs global loss formulation (Eqn. (i)
+with standard PDE techniques by representing functions
+as fixed nodes on a grid and using finite-difference stencils
+© compute gradients for the purpose of PDE residuals
+[[7]. This results in dramatic computational speedups,
+while maintaining many of the PINNs’ advantages in
+erms of data assimilation and flexible loss functions.
+However, this approach still requires grid or mesh gener-
+ation, complicating the application to very complex do-
+mains.
+
+Here we build on these ideas and demonstrate a new
+method for solving PDEs and associated inverse prob-
+lems in complex domains (Fig. [1). We use the global
+residual loss (Eqn. (i) but represent the solution us-
+ing a spectral basis over a hyperrectangular domain that
+contains the complex boundary shape, with the bound-
+ary condition itself enforced via the loss function. We
+demonstrate through a series of examples that using the
+nonlinear optimizers developed by the machine learning
+community, we can solve a series of linear and nonlinear
+forward and inverse problems in multiple dimensions in
+complex domains, with empirically observed exponential
+convergence and an order of magnitude fewer parameters
+than neural network-based methods.
+
+I. PROBLEM FORMULATION
+
+We represent the solution wu over a hyper-rectangular
+domain with coordinates x = (21, veuy Ba) with the ex-
+
+pansion
+u=C: &(x), (2)
+
+where ®(x) = $1(x1)...@a(aa) is the tensor product of
+spectral basis vectors @;, C is the coefficient tensor of
+rank d and the double dot indicates a Frobenius inner
+product. Note that both the number and type of basis
+functions in each @; need not be the same. Thus, we can
+mix and match functions, such as Fourier series, Cheby-
+shev polynomials, or Legendre polynomials, and degrees
+of accuracy as needed for a given problem. It is impor-
+tant to note in our definition of a solution that we includ
+time ¢ as a coordinate whose solution we encode with
+spectral basis. Thus, a transient problem defined ove
+a three-dimensional volume would be represented by th
+coordinate vector x = (t,2,y,z)T. As such, we hand!
+time in the same way as any spatial coordinates rathe
+than with an explicit time-stepping algorithm.
+
+2 oO
+
+oor
+
+g
+
+We find the optimal set of coefficients C that minimizes
+While this is in general nonconvex, recent a
+vances in gradient-based optimization methods (e.g. [I8])
+make this a tractable optimization problem to solve, al-
+beit with the loss of uniqueness guarantees on the solu-
+ion.
+
+This approach has a number of benefits. A given field u
+and its derivatives are defined everywhere in the domain
+without relying on fixed grids or interpolations. Since
+hese derivatives are known analytically, the derivative
+of any function u can be written with respect to deriva-
+ives of the tensor ®, computed in linear time for any
+order without relying on automatic differentiation. For
+a fixed set of collocation points, the necessary derivative
+ensors 0) /Ox}® may be precomputed before beginning
+he optimization, rendering any residual calculation to be
+a fast matrix multiplication. When the domain is non-
+rectangular, we use the Fourier extension theory to em-
+bed the computational domain inside of a hyper-rectangle
+upon which our basis functions are defined. Such an em-
+bedding has been shown to still maintain favorable
+convergence properties at the cost of strict orthogonality.
+While the basis functions in these cases are not strictly
+orthogonal, they are an order of magnitude more param-
+eter efficient than a neural network, leading to faster con-
+vergence in optimization.
+
+II. RESULTS
+
+To test our basis fitting scheme at solving PDEs, we
+solve a series of problems with d = 2 dimensions where
+a high-accuracy numerical solutions, u;es, is known. We
+quantify error by evaluating our approximate solution u
+at the fixed regular grid points x;; = (#14, 72,;) on which
+the numerical solution is defined. We use both a discrete
+Lz and L. errors.
+Relative Error
+a
+
+Optimized Solution
+
+io 05 00 a5 10 05 00 05D
+
+Lake Taal Boundary Conditions
+
+io -05 00 05 10 -10 05 00 05 10 -\0 08 oo O54
+
+)
+#
+
+(a o
+
+FIG. 2. (a) Solution to the Laplace equation in an irregular
+domain with a hole as found by fitting polynomial coefficients
+to the equation residuals with N = 60 coefficients in both
+x and y. (b) The same system solved using COMSOL with
+an extremely high mesh density. (c) Convergence of the ba-
+sis fitting approach to the COMSOL solution as the number
+of basis modes is increased. (d) Solution of Laplace’s equa-
+tion when the boundary condition is not provided but 379
+data samples from the interior of the domain (shown as the
+black dots) included in the loss with N = 45 coefficients. (e)
+Boundary condition for the Laplace equation on a very irreg-
+ular domain described by the perimeter of Lake Taal in the
+Philippines. (f) Solution of the Laplace equation on the sur-
+face of Lake Taal with N = 100 basis modes in both x and y.
+
+A. Laplace Equation
+
+We first solve the Laplace equation V?u = 0 in two
+dimensions. To illustrate the ability to compute on com-
+plex domains, we choose a domain 2 as a peanut shape
+embedded in the rectangle [—1, 1] x [—1, 1], with a hole
+in it (Fig. Bla). The outer boundary 09, is defined
+by a polar function r(@) with a circular cut out, with
+boundary conditions u(Q), whose precise form is given
+in Methods.
+
+We solve this equation by fitting C to tensor product
+of Chebyshev polynomials defined in both a and y us-
+ing a second-order Gauss-Newton optimizer running the
+Dogleg algorithm. Fig. Bla) shows the result for N = 60
+in each dimension, totaling 3721 coefficients (the coef-
+ficients are zero-indexed with respect to N). Fig. 2b)
+shows the same problem solved using a finite element
+method implemented in COMSOL 6.3 with the highest
+automatic mesh density, which we take as our reference
+solution. Both the Lz and L.. error (Fig. 2[c)) converges
+exponentially with increasing basis modes N.
+
+While our method can arrive at this forward solution
+to Laplace’s equation in this simple peanut geometry, it
+does so with several orders of magnitude less accuracy
+and speed than more specialized methods, such as ra-
+tional approximation [20]. For reference, the COMSOL
+numerical solution was obtained in less than a second
+compared to over six minutes for the solution shown in
+
+Allen Cabin Eto
+
+ra
+
+oO
+i a0 9
+v
+
+Nonlineae Seidinger Error
+
+FIG. 3. Solutions to stiff PDEs shown versus reference solu-
+tions. (a) shows a polynomial fit to the Allen-Cahn equations,
+with 200 basis modes in x and 10 modes in t. (b) shows a
+reference solution from [10], while (c) shows the convergence
+of the solution to the reference as the number of basis modes
+in both « and ¢ are increased. (d) similarly shows a polyno-
+mial fit to the nonlinear Schrédinger equations with N = 45
+in both « and t compared to a reference solution (e) from [9].
+(£) shows the convergence of the polynomial fit to the refer-
+ence as a function of the number of basis modes.
+
+ie]
+
+ig. ey) when run on a laptop’s CPU. However, what
+his method lacks in speed is made up for in flexibil-
+ity. As an example, we again solve Laplace’s problem
+on the same geometry in Fig. Id), but instead of using
+any information about the boundary condition we only
+enforce the equation residual and a matching condition
+o 379 randomly sampled points from the reference solu-
+ion. This replacement requires no code changes to the
+solver. We find that in this case with N = 45 modes in
+both directions a representation of the solution with an
+Ly error of 0.02 and an Lx error of 0.08, which is compa-
+rable to the solution with enforced boundary conditions.
+We demonstrate how the number of sample points affects
+che accuracy of the solver in Fig.
+
+To highlight the flexibility of our framework to solving
+problems on extremely complex geometries, we also solve
+he Laplace equation on a boundary defined by the shape
+of Lake Taal, embedded in a unit square. We use the
+same conditions for the outer boundary as the previous
+problem (Fig. Phe)) applied now to both the outer and
+inner boundary on the lake. Switching to this new do-
+main involved changing only a few lines of code to define
+the boundary from a PNG mask rather than an analytic
+equation. Fig. pif) shows the solution for N = 100 ba-
+sis modes. The basis fitting method is extremely adapt-
+able for solving problems in complex geometries for which
+finding a suitable mesh would be challenging.
+
+B. Time-dependent stiff equations
+
+We now turn to time dependent problems where we
+demonstrate that not only does our method reliably find
+the correct solution, but empirical exponential conver-
+gence extends to the temporal domain. As illustrations,
+we explore two problems in one spatial dimension x and
+time t - the resulting domains are rectangles in «—t space
+and do not include any non-regular boundaries.
+
+1. Allen-Cahn equations
+
+We first examine solutions to the Allen-Cahn equa-
+tions, given by
+on Ou
+
+a Ln 3, =
+aE 0.0001 5 + 5u” — 5u=0,t € [0,1], x € [-1, id
+3
+
+with boundary condition u(t,—1) = u(t, 1), $4(t,-1) =
+24 (¢,1) and initial conditions u(x,0) = 2? cos(mx).This
+equation is very stiff due to the small diffusion constant
+multiplying the spatial derivatives. We take the refer-
+ence solution as that provided by [10]. We choose to use
+a Fourier basis defined on [—1, 1] in the spatial domain,
+naturally satisfies the periodic boundary conditions on
+u and its derivative. Since both Eqn. (3) and the ini-
+ial condition are even in x, we restrict the Fourier basis
+© cosine modes. In time, we map the domain [0, 1] to
+—1,1] using an affine transformation and represent the
+function using Legendre polynomials. Fig.|3[a) shows the
+result of our method for N, = 200 and N; = 10, with ex-
+cellent agreement with the reference solution (Fig. B[b)).
+Fig. Bic) shows evidence of exponential convergence even
+when the problem involves time. The inherent stiffness
+of the solution requires using a much higher number of
+asis modes in « than in t to achieve a qualitatively good
+agreement with the reference.
+
+2. Nonlinear Schrédinger Equations
+
+We next solve the nonlinear Schrédinger equations,
+given in terms of a complex-valued function g as
+
+.Og Og 2
+
+i5e +0555 + |g\’9 = 0,
+with initial condition g(0,2) = 2sech(«), and boundary
+conditions g(t,—5) = g(t,5) and 92(t,-5) = 94(t,5).
+We define the real and imaginary components as g =
+u + iv and solve the resulting coupled nonlinear PDE.
+We again choose Fourier basis restricted to cosine modes
+since the solution is even and use a Chebyshev polyno-
+mial basis in t. The physical domain [—5, 5] x [0,7/2] is
+mapped to [—1,1] x [—1,1] by an affine transformation
+in both variables.
+
+Fig. [s{a) shows the complex modulus h = Vu? + v?
+of our optimized solution for N = 45, compared to a
+reference numerical solution provided by [9] (Fig. Ble).
+We again analyze the convergence of our solution to the
+reference as a function of N (Fig. BIE), with apparent
+
+xeé[-5,5], te [0.7/2],
+
+FIG. 4. Solution to the wave equation on an irregular domain
+at several time steps evaluated using a polynomial fit (top
+row) with N = 12 polynomials in each dimension of x, y, and
+t, and COMSOL (bottom row) solved using a finite element
+method with extremely fine mesh density.
+
+exponential convergence. Here there is some evidence of
+saturation at the highest mode. This saturation may bea
+result of difficulties in optimizing a large parameter space
+over a fixed number of collocation points, as discussed
+
+more in Fig. [52]
+
+C. Wave equation in a peanut
+
+We return to the peanut domain 2 defined in the
+Laplace problem (ignoring the circular intrusion), and
+seek solutions to the time dependent wave equation:
+
+Ou Ou Pu
+me) woot ae | = 95 5 Q, t pe
+72 (a x) 0, V(z,y) € Q, t € [0,2],
+with Neumann boundary conditions Vu-n = 0 on
+OQ and a Gaussian pulse initial condition u(x,y,0) =
+
+; 2 da OF
+— 40.3) 40-01)" . We so
+
+N = 12 modes of Legendre polynomials in each of x, y,
+and t.
+
+The top row of Fig. [d]shows snapshots of our solutions,
+while the bottom row shows the output of a COMSOL
+using the same domain and initial conditions at the maxi-
+mum automatic mesh resolution. Our method, even with
+a small number of modes, finds topologically similar solu-
+tions in space and time, with an Lz error of 0.034. Using
+only N = 12 Legendre modes cannot completely capture
+the exact Gaussian initial condition, leading to less over-
+all energy in the system and smaller amplitudes in the
+final solution. This discrepancy could be ameliorated by
+increasing the size of the spatial basis modes.
+
+0.5 exp ( ve the problem with
+
+D. Diffusion on the surface of a sphere
+
+We next demonstrate solutions of problems on more
+complex manifolds by embedding them within a higher
+dimensional space. In particular, we seek a solution to
+the diffusion equation confined to the surface of a unit
++= 0.00 + =050 ofe =o
+
+t= 0.50
+
+FIG. 5. Diffusion equation solved on the surface of a sphere.
+The surface was embedded in 3D space and the surface dif-
+fusion equation was solved with N = 10 Chebyshev modes
+in each of x, y, z, and t. Simulations were run to t = 2.0
+with D = 0.5. (a) and (b) show the concentration field on the
+sphere from the non-axisymmetric initial condition at t = 0
+to the increasingly axisymmetric profile at t = 0.5. (c) com-
+pares the our simulation results in the open circles with the
+exact analytic result (solid line) expressed in spherical har-
+monic functions with 20 modes. Results are shown at several
+time points in the simulation.
+
+sphere, with governing equations
+
+dc : Oe dc
+a= DV2c= D|V?e- at ~ "Fn (4)
+
+and initial conditions c(x,0) = co(x) = 72, S(x, xe),
+where S(x,x-) = 0.5(tanh[10(x - x, — 0.95)] + 1) and x
+are points on the surface of the unit sphere. We take
+the initial condition to be centered at the points x.) =
+(—0.40, 0.40, 0.82)7, x-.2 = (0.40, 0.40, 0.82)? and x.3 =
+(0.00, —0.40, 0.92)7.
+
+We solve the diffusion problem using with D = 0.5 for
+t € [0,2], choosing N = 10 Chebyshev modes in each of
+the four dimensions. Fig. |5| (a) and (b) show snapshots
+of the concentration field at t = 0 and t = 0.5.
+We can examine the accuracy of this solution com-
+pared against an analytic solution in terms of spherical
+harmonics. Fig. 3) compares our solution with a sum
+of 20 spherical harmonic modes at different time points
+along a meridian, with excellent agreement over all times.
+We note that while we chose this particular example to
+have a known analytic solution to investigate solution ac-
+curacy, the method can solve more complex equations on
+more complex surfaces. This has proven difficult for finite
+element methods [21] and impossible for typical spectral
+methods.
+
+E. Inversion of ice sheet viscosity
+
+We now turn to a real-world problem of finding the vis-
+cosity profiles of Antarctic ice sheets given observational
+data, recently investigated [11] with PINNs. These au-
+thors solve the steady shallow shelf approximation equa-
+
+(a) ‘. ) = |
+
+FIG. 6. Viscosity inversion through the shallow shelf approx-
+imation on the Amery ice sheet using data published in (ly.
+(a) uses N = 25 Chebyshev modes in each coordinate to ex-
+press the field while (b) uses N = 50 modes. To fit the viscos-
+ity, the coefficients were used to find the log of the viscosity to
+help account for the differences in scale across the ice sheet.
+
+tions in two dimensions,
+
+(2) Ou Ov (a)
+an Ci + 2uns) + dy (uns + Hhe-
+
+Oy Oy O: Ox Oy Ox
+Pi Oh
+=pg(1-2\na. 6
+va ( o) Oy (6)
+
+Here, h is the thickness of the ice sheet, (u, v) is the veloc-
+ity of the sheet in (#, y), 4 is a spatially varying viscosity,
+and p;(pw) are the density of ice (water), taken to be 917
+and 1030 kg/m. In addition to these equations, there is
+a force balance condition applied at the calving front,
+
+Ou Ov Ou Ov
+aun (2 )n bun (SH + se) ny
+
+Ox * Oy
+= 5Pi9 (1 &) h’nz, (7)
+
+Ou Ov Ou Ov
+un (3 + a) te + aun (5 + 2 ny
+
+The calving front has a normal vector n = (nz, ny)?
+
+In this particular problem, observational satellite data
+is available for the sheet thickness h along with the sheet
+velocity u and v. One difficulty is that the grids on
+which these data are defined are not the same and the ice
+sheet itself has a very irregular shape, making grid-based
+solvers impractical.
+
+Our goal is to find representations of the fields h, wu,
+v, and y that satisfy the equations while agreeing with
+the data. We thus include a data loss component Laata
+equal to the sum of the squared residuals between the
+fitted functional forms and a sample of the experimental
+
+OPiOr
+
+FIG. 7. Heat equation solved on a circular embedded domain
+using N = 10 basis functions in x, y, t, and 0, where @ pa-
+rameterizes position on the boundary. The heat equation was
+solved for a = 0.1 where the value of the function on the
+boundary was prescribed by u = f(6,t). The optimizer found
+a forcing function f that started from an array of three dots
+(a) and inverted those dots by the end of the solve (c), with
+the optimized forcing function shown in (d).
+
+data. We non-dimensionalize the equations to equalize
+he scales in the problem and use an affine transformation
+o embed the ice sheet in [—1, 1] x [—1, 1]. Finally, given
+hat the viscosity is expected to vary over several orders
+of magnitude, we solve for logy: = C: ®.
+
+We solve the problem using a Chebyshev basis in both
+directions and show the resultant dimensional viscosity
+fields for N = 25 modes in Fig. (fa), and with N = 50
+modes in Fig. [6{). The topology is similar in structure
+and magnitude to that predicted with PINNs [11], with
+an increase in structures and detail with increasing num-
+ers of basis modes. Verification of this method on a
+known COMSOL solution from [II] is demonstrated in
+
+Fig.
+
+F. Control of the heat equation
+
+Besides inverting unknown fields from reference data,
+another important class of inverse problems is finding a
+control scheme to produce a target outcome. Our global
+solution representation lets us treat a control input as
+an unknown field parameterized with its own set of basis
+functions and coefficients. We can then solve for this
+control function while simultaneously solving the PDE.
+To do so, we augment our loss function in Eqn. with
+targets for the underlying field at different time points. In
+practice, these targets are indistinguishable from a data
+residual, which both require the function to have some
+specified value at a particular coordinate.
+
+To demonstrate the learning of a proper control se-
+quence, we first consider the heat equation on the unit
+
+disk, embedded in [—1, 1] x [-1, 1]. The governing equa-
+tions are
+
+Ou Pu Pu
+
+& ot (C24 28
+
+ot ° é + =) ; (9)
+
+with initial conditions u(z,y,t) = f(0,t) with 6 =
+tan~!(y/x) on a? + y? = 1. Here, f(6,t) is an unknown
+function of time defined on the boundary (parameterized
+by the angle @) that serves as the control input for this
+problem.
+
+ony
+
+FIG. 8. Top row: values of concentration field at different
+time points. Middle row: velocity field at different time points
+that transports concentration field into target shapes. Bot-
+tom row: target concentration field shapes specified at each
+discrete time point. Simulations were performed with a diffu-
+sion rate D = 0.1 with N = 15 modes in each coordinate x, y,
+and t. Chebyshev polynomials were used to express the field
+in each direction. Solver conserved mass within 4% across en-
+tire time range despite no explicit mass conservation residual
+term.
+
+We initialize the heat field in a
+dots arranged in a triangular pa
+tempt to find f that causes the
+to invert at t = 2. We represen
+
+attern of three smooth
+tern (Fig. (7p), and at-
+riangular arrangement
+the heat field wu with
+
+a N = 10 Chebyshev modes in each of x, y, and t, and
+
+express the boundary function wi
+
+h with a N = 10 mode
+
+Fourier basis in 6, and N = 10 Chebyshev modes in time.
+
+Fig. |7| shows the solution to
+(b), and (c) show snapshots of t
+t = 1, and t = 2 respectively.
+(Fig. ide) achieving the desired
+function shows the emergence of t
+symmetry, and note that the so
+later in time
+target triangle to the boundary al
+the edge. What is striking about
+
+his problem with (a),
+he heat field at t = 0,
+The optimizer finds f
+objective. The forcing
+he three-fold rotational
+ution defines one lobe
+
+ue to the relatively closer position of the
+
+ong that component of
+his particular example
+
+is that we are able to solve for both the control variable
+and the accompanying solution in a single optimization
+loop. This contrasts with other differentiable PDE meth-
+ods [3], where for each step in optimizing the control vari-
+able requires a complete run of the PDE solver to find a
+valid solution.
+
+G. Optimal transport
+
+As another example of solving an inverse control prob-
+lem, we consider the advection-diffusion equations on the
+unit disk bounded by the unit circle 0Q,
+
+Oc
+Ot
+
++u-Ve= DV’e, (10)
+
+where u = (u,v)" is an incompressible velocity field (V -
+u = 0) obeying no-slip and no-penetration conditions
+on the boundary, and the concentration c has a no flux
+condition (22 = 0) at the boundary. Our goal is to find
+a velocity field u that can transport the concentration
+field into a series of target shapes despite the influence of
+diffusion.
+
+We solve this problem using N = 15 Chebyshev modes
+in each of the three coordinates for D = 0.1 and t € [0, 2].
+Our target profiles consist of seven individual targets at
+equally spaced time intervals, which together spell out
+Harvard, as shown in the bottom row of Fig. The
+individual letters were weighted to ensure they had the
+same total mass and were blurred to avoid sharp edges.
+
+The solution concentration field and the optimized ve-
+locity field are shown in the top and middle row of Fig
+respectively. The optimizer finds a velocity function that
+leads to concentration profiles in good agreement with
+heir targets.
+Given the no-flux boundary conditions on c, the total
+mass f cdA should be conserved. When we evaluate the
+otal mass across 200 evenly spaced time intervals we
+find that the solver conserved mass to within 4% despite
+no explicit mass conservation residual. We expect this
+erformance would be improved further with a higher
+number of basis modes and additional collocation points
+on the boundary.
+
+Ill. DISCUSSION AND CONCLUSION
+
+We have introduced a novel computational paradigm
+hat marries the geometric flexibility of PINN-style
+global loss functions with the convergence properties of
+well-known spectral basis functions. By representing the
+solution as a coefficient tensor for a global basis, our ap-
+
+roach solves forward, inverse, and control problems for
+PDEs on complex, irregular domains without the need
+for meshing. As demonstrated across a range of systems,
+from stiff, time-dependent systems to data assimilation
+on geophysical scales, this method can accurately find
+solutions to forward and inverse PDE problems.
+
+This methodology offers significant gains in computa-
+ional efficiency relative to other approaches for solving
+PDE-governed inverse problems. Our method requires
+orders of magnitude fewer parameters than compara-
+le neural network approaches, enabling solutions to be
+found in minutes on consumer-grade hardware. This effi-
+ciency and accessibility significantly lower the barrier to
+data assimilation and inverse design. While not intended
+o replace highly optimized solvers for standard forward
+roblems, which remain superior in both speed and ac-
+curacy, our approach excels in its flexibility for tackling
+a wide range of inverse, data assimilation, and control
+roblems, particularly on complex geometries. Our ap-
+roach also offers a route towards inverse design on com-
+lex problems without having to translate solvers into
+differentiable programming languages (e.g. [3]). There
+are a few technical issues that need to be better under-
+stood with this approach.
+
+First, while our method demonstrates empirical expo-
+nential convergence as the number of basis modes in-
+creases, solving for the coefficients of these bases using a
+
+global loss function defined over collocation points trades
+cheoretical guarantees on finding the best coefficient rep-
+resentations for flexibility. Given that the minimization
+problem is in general a nonconvex function of the C, there
+are no guarantees for finding optimally convergent solu-
+ion. The situation here is analogous to training deep
+neural networks, where there has been much work (e.g.
+[22] [23]) understanding the role of local minima in loss
+andscapes. There, it has been noted that multiple local
+minima can be good solutions for the problem, even when
+evaluated on a held out test distribution. Further, while
+che convergence is exponential, it is too slow to be truly
+spectral, leaving the error relatively high compared to
+standard computational methods. We believe that this
+may be improved with a better choice of optimizer and
+preconditioner.
+
+Analogously, while carrying out the work in this pa-
+per, we have found cases where there are multiple so-
+utions minimizing the loss Eqn. that exhibit expo-
+nential convergence. As an example, we consider our
+first problem, the Laplace problem on peanut geometry
+(Fig. 2). When we change the optimizer from a Dogleg
+algorithm to a regularized adaptive loss scheme with the
+ADAM optimizer [24], we again observe exponential con-
+vergence (Fig.|S2) but with a different convergence rate.
+Indeed, the coefficient matrix found by each method is
+different with the ADAM solution representing a better
+(lower error) solution for a given representation. This is
+striking, given that in the N —> oo limit, both methods
+converge to the same solution.
+
+A careful examination of the optimized coefficient ten-
+sors reveals that many of the parameters often are unim-
+portant for representing the solution. Fig. [84] com ares
+the singular values of the coefficient tensors of best Dog-
+leg and best ADAM solutions from Fig. First, it is
+clear that the ADAM solution represents the function
+in terms of much smaller coefficients, which is a con-
+sequence of the L; regularization term used in the loss
+function. However, the Dogleg solution shows a much
+‘eeper drop-off in magnitude of the singular values after
+the thirteenth, while the ADAM solution has a slower de-
+cay of the parameter values. The Dogleg singular values
+eventually plateau around the limit of single point ma-
+chine precision. Analysis of both of these sets of singular
+values indicates that in the case of Laplace’s equation in
+the peanut a more efficient factorized version of the co-
+efficient tensor could capture most of the variability of
+the solution. For reference, we have provided complete
+plots of the optimized coefficient tensors for every exam-
+ple shown in this paper in Figs. [S55] through [ST6}
+
+In conclusion, by creating a single mesh-free and differ-
+entiable framework for solving PDE-constrained inverse
+problems, this work paves the way for tackling com-
+plex, multi-physics optimization and control problems
+that have long been out of reach for traditional solvers.
+While there is much work to be done, it seems reason-
+able to wonder whether these methods could open the
+door for an entirely different class of solvers for finding
+
+w
+
+optimal solutions of PDEs to emerge.
+
+IV. METHODS
+
+We implement our method in Python using JAX
+and Equinox [26], which enables both automatic differ-
+entiation and just-in-time compilation. To perform our
+minimization we use Optax [27] for first-order gradient-
+based methods and Optimistix [28] for second order
+Gauss-Newton type methods. Both packages make use
+of the automatic differentiation capabilities of JAX to
+perform efficient gradient computation.
+
+A. Loss function
+
+Our method finds an optimal set of coefficients C by
+minimizing a composite loss function, Eqn. . Each
+individual term in the loss function is a mean over the
+residuals in each term. For example, consider a PDE
+system with a differential operator D; with i = 1,...,k
+components. These components may be coupled systems
+of equations or different components of the operator act-
+ing on a vector of functions u = (u4,...,Un)7. Given a
+set of Ng collocation points, {x; Hen the PDE loss term
+is given by
+
+k Na
+
+Lode = azz De Pall)? (11)
+
+i=1 j=1
+
+This averaging ensures that the loss is normalized with
+respect to the number of both operator components and
+collocation points. The boundary and data loss terms
+are computed similarly over their respective collocation
+points.
+
+B. Loss weighting
+
+In general, each component of the total loss may be
+weighted independently,
+
+£L—diLeaet AL ecinasy + Alas, (12)
+
+Manually tuning the weights may be difficult, as the mag-
+nitude of each term can fluctuate significantly the opti-
+mization. We have found it beneficial in many cases to
+adaptively re-weight the terms, with the weights given
+by
+
+N
+Vi=1 |VL5l|
+
+N=
+. ||VLi|| + €
+
+(13)
+Here, N is the total number of terms in the loss function,
+the gradients are with respect to the coefficient tensor
+C, the Lz norm is used, and ¢€ is a small positive quan-
+tity to prevent numerical instability. This reweighting
+
+strategy ensures that loss terms with small residuals have
+equal weight in the overall gradient to terms with large
+residuals, keeping the different terms relatively balanced
+throughout the optimization. It also reduces the number
+of hyperparameters that need to be tuned to achieve a
+satisfactory solution.
+
+C. Optimization
+
+For many problems second order Gauss-Newton meth-
+ods were generally more reliable at converging to a solu-
+tion without extensive hyperparameter tuning. In par-
+ticular, we found success using both Dogleg and Leven-
+berg—Marquardt algorithms on stiff problems and in the
+case of viscosity inversion. Dogleg tended to converge
+faster but was slightly less stable. We used the JAX com-
+patible implementations of these two algorithms in Opti-
+mistix [28], which would continue to step until a specified
+tolerance was reached. We set the relative and absolute
+tolerance in these problems to 10~°. When using second
+order methods we found that we could generally set all
+of the loss weights A; = 1.0.
+
+In problems involving higher numbers of dimensions,
+such as solving for the time evolution of some function
+over a two-dimensional surface, using second order meth-
+ods can become impractical due to the computational
+overhead in finding estimates for the Hessian matrix. In
+these cases, we used first order JAX-compatible ADAM
+and NADAM algorithms as implemented in Optax [27].
+In general, we found that these methods were much less
+stable at converging to a plausible solution than second
+order methods. To help address this, when using first or-
+der solvers we almost always used the adaptive weighting
+scheme described in the previous section. An Ly penalty
+on the values of the coefficients themselves also improved
+optimizer stability and lead to sparser solutions.
+
+We found that the optimizers were much more stable
+when we preconditioned the coefficient tensors. While
+there are likely problem-specific preconditioning that
+would lead to better results, we found that decent opti-
+mization performance could be achieved with a relatively
+simple preconditioner, with weights given by
+
+1
+TERRE + RR?
+
+w(ky,...,ka) (14)
+where k; is the mode index for the basis functions in each
+direction.
+
+In addition to the optimizer parameters, an important
+consideration is the number of collocation points chosen
+for a particular problem. In general, higher numbers of
+modes require more collocation points to find a satisfac-
+tory fit, which in turns leads to higher memory overheads
+in the optimization. We sampled collocation points once
+before beginning the optimization and did not do any
+resampling, though this may improve performance. We
+sampled collocation points for equation, boundary, and
+data randomly. In cases of complex boundaries defined
+by a mask from data, we sampled a subset of the grid where @ = tan~!(y/z) is the standard polar angle.
+oints defined by the data. In cases where the domain
+was defined analytically we uniformly sampled over the
+entire domain.
+
+For a complete summary of the optimizer types and
+hyperparameters used in producing each example seen
+in the text, including the number of collocation points,
+refer to Table [ST] For a comparison of how well different
+combinations of solvers and hyperparameters are able to
+converge as the number of modes N increases, refer to
+
+Our domain also includes a circular cut out of ra-
+dius 0.15 at the location (.3,.1) which defines the in-
+ner boundary 0Q2. We set u on the outer boundary as
+u(0Q1) = 2sin(@) +cos(30), while on the inner boundary
+u(OQ2) = —2.
+
+Fig.
+
+D. Laplace Equation
+
+The precise form of the boundary in Fig. jis given by
+
+3
+
+0.45 cos(20) + 0.55
+(0.375 cos(20) + 0.625) 2
+
+r(0) ‘ (15)
+
+K. Law, A. Stuart, and K. Zygalakis, Data assimilation,
+Cham, Switzerland: Springer 214, 52 (2015).
+
+T. Zhou, X. Wan, D. Z. Huang, Z. Li, Z. Peng, A. Anand-
+kumar, J. F. Brady, P. W. Sternberg, and C. Daraio, Ai-
+aided geometric design of anti-infection catheters, Science
+Advances 10, 10.1126 /eciadv.adjt74l] (2024).
+
+M. G. Alhashim, K. Hausknecht, and M. P. Bren-
+ner, Control of flow behavior in complex fluids using
+automatic differentiation, Proceedings of the National
+Academy of Sciences 122,
+M. B. Giles and E. Siili, Adjoint methods for pdes: a
+posteriori error analysis and postprocessing by duality,
+Acta numerica 11, 145 (2002
+
+R. J. LeVeque, Finite Difference Methods for Ordinary
+
+and Partial Differential Equations: Steady-State and
+
+Algorithms, Analysis and Applications (Springer Berlin
+
+Time-Dependent Problems| (Society for Industrial and
+Applied Mathematics, 2007).
+
+L. N. Trefethen, Spectral Methods in MATLAB (Society
+
+for Industrial and Applied Mathematics, 2000).
+
+J. Shen, T. Tang, and L.-L. Wang, Spectral Methods:
+
+Heidelberg, 2011).
+Z. Li, N. Kovachki, K. Azizzadenesheli, B. Liu, K. Bhat-
+arya, A. Stuart, and A. Anandkumar,
+
+M. Raissi, P. Perdikaris, and G. Karniadakis, Physics-
+informed neural networks: A deep learning framework for
+solving forward and inverse problems involving nonlinear
+
+partial differential equations, Journal of Computational
+
+Y. Wang, C.-Y. Lai, D. J. Prior, and C. Cowen-B:
+Deep learning the flow law of antarctic ice shelve:
+
+ence 387, 1219-1224 (2025
+
+V. ACKNOWLEDGEMENTS
+
+We thank Francesco Mottes for important discussions
+and Nick Trefethen for critical feedback. This work was
+supported by the Office of Naval Research through grant
+number ONR, N00014-23-1-2654 and the NSF AI Insti-
+ute of Dynamic Systems (2112085).
+
+Ny
+
+G. Cybenko, Approximation by superpositions of a sig-
+
+moidal function,
+Systems 2, 303-314 (1989
+
+3] K. Hornik, M. Stinchcombe, and H. White, Multilayer
+feedforward networks are universal approximators,
+ral Networks 2, 359-366 (1989
+
+4] Y. Cao, Z. Fang, Y. Wu, D.-X. Zhou, and Q. Gu,
+understanding the spectral bias of deep learning (2019).
+5] N. Rahaman, A. Baratin, D. Arpit, F. Draxler, M. Lin,
+F. A. Hamprecht, Y. Bengio, and A. Courville,
+spectral bias of neural networks] (2018).
+
+6] S. Wang, Y. Teng, and P. Perdikaris, Understanding and
+mitigating gradient flow pathologies in physics-informed
+neural networks,
+7| P. Karnakov, S. Litvinov, and P. Koumoutsakos, Solv-
+ing inverse problems in physics by optimizing a discrete
+loss: Fast and accurate learning without neural networks,
+PNAS Nexus 3, (2023).
+
+Z. Zhang, Improved adam optimizer for deep neural net-
+works, in 2018 IEEE/ACM 26th international sympo-
+sium on quality of service (IWQoS) (Ieee, 2018) pp. 1-2.
+D. Huybrechs, On the fourier extension of nonperiodic
+
+functions, SIAM Journal on Numerical Analysis 47,
+4326-4355 (2010
+
+eo}
+
+©
+
+puting and Visualization in Science 13, 177-185 (2010)
+22| K. Kawaguchi, Deep learning without poor local minima,
+Advances in neural information processing systems 29
+(2016).
+
+23) H. Li, Z. Xu, G. Taylor, C. Studer, and T. Goldstein,
+Visualizing the loss landscape of neural nets, Advances
+in neural information processing systems 31 (2018).
+
+24] D. P. Kingma and J. Ba, Adam: A method for stochastic
+(2014),
+
+[25] J. Bradbury, R. Frostig, P. Hawkins, M. J. Johnson,
+
+C. Leary, D. Maclaurin, G. Necula,
+
+A. Paszke, J. Van-
+
+[26] P. Kidger and C. Garcia, Equinox:
+
+neural networks in
+
+JAX via callable PyTrees and filtered transformations
+
+(2021).
+[27] DeepMind, I. Babuschkin, K. Baum
+
+i, A. Bell, S. Bhu-
+
+patiraju, J. Bruce, P. Buchlovsky, D. Budden, T. Cai,
+A. Clark, I. Danihelka, A. Dedieu, C. Fantacci, J. God-
+
+win, C. Jones, R. Hemsley, T. H
+sel, S. Hou, S. Kapturowski, T.
+
+ennigan, M. Hes-
+Keck, I. Kemaev,
+
+M. King, M. Kunesch, L. Martens, H. Merzic, V. Miku-
+
+lik, T. Norman, G. Papamakarios,
+F. Ruiz, A. Sanchez, L. Sartran, R. Sc
+
+J. Quan, R. Ring,
+hneider, E. Sezener,
+
+S. Spencer, S. Srinivasan, M. Stanojevié, W. Stokowiec,
+
+L. Wang, G. Zhou, and F. Viola, ‘The DeepMind JAX
+(2020).
+28] J. Rader, T. Lyons, and P. Kidger, Optimistix: modular
+
+optimisation in jax and equinox (2024).
+
+10
+11
+Appendix S1: Supplemental Information
+1. Validation of data-assimilation for ice sheets viscosity inversion
+
+We present a solution for the inversion of a viscosity field on an ice sheet through the shallow shelf approximation
+(SSA) equations based on experimental measurements of the thickness h and velocity components u and v. The SSA
+equations are given in terms of these variables and a spatially varying viscosity j in Eqns. and (9. which we
+reproduce here as
+
+a) Ou , Ov\ | a Ou |, Ov Pi Oh
+= (suns aun) Oy (uz } wns) pig (: o) ho (S1)
+Oo Ov | Ou Oo Ou Ov ; _ pi Oh .
+ay (un + ans) Pg G Dy a) Pig (1 2) hay (S2)
+
+pi and py are the density of ice and water, taken to be 917 and 1030 kg/m. In addition to these equations, there is
+a force balance condition (Eqns. and (8) applied at the calving front,
+
+Ou Ov Ou. Ov 1 Be \ 98 .
+
+Quh 03 + x) Ny + ph (5 + x) Ny = 5 Pig (1 &) h’ne, (S3)
+Ou. Ov ; Ou. dv 1 Pi 2 5
+
+ph (F t x) Ny + 2h ($ t 2) Ny = 5Pi9 (: e) tig (S4)
+
+The calving front has a normal vector n = (nz, ny)”.
+
+In the main text, we show our solution applied to the Amery ice sheet using data from [II]. In addition to the real
+ice sheet data, the authors also provide synthetic data generated in COMSOL for a solution to these equations to
+validate their methodology for viscosity inversion, given that the viscosity field of the COMSOL data is prescribed.
+
+We apply our methodology to invert the viscosity from the synthetic data, using data for h, u, and v as a reference
+as in the full ice sheet problem. As before, we fit coefficient matrices for js as well as h, wu, and v that ensure
+he equations are satisfied while interpolating the provided data. We solve the system both with and without the
+oundary condition, with results shown in Fig. We use Chebyshev polynomials to represent the solution, with
+N = 20 basis modes in each direction. We solve using a Levenberg-Marquardt algorithm, which is a second-order
+Gauss Newton-type solver like was used in generating Fig. (6 We used 2,000 PDE and data points and 600 points on
+he boundary. Each term in the loss was assigned a weight of one.
+
+We are able to accurately invert the viscosity field, with an Lz error calculated on the non-dimensionalized viscosity
+of 0.005 when the boundary condition is included and 0.0008 when it is not. This is in contrast to the PINN
+validation shown in [IJ], which was unable to solve for the viscosity field without the boundary condition. The
+increased representational efficiency of our method means that the data itself is sufficient to ensure inversion of the
+Tue viscosity field.
+
+12
+
+Appendix S2: Supplemental Figures
+
+(a) Reference (b) No Boundary s Boundary x10!8 8
+~ 40 e
+= 30 3
+S59 —
+“10 25
+0 0
+(d) 0.50
+40 0.38
+& _ 0.25 &
+= 19 0.13%
+0 0.00
+(9) 2.0
+= 40 15 ‘E
+Pe.
+2 30 1.0 4
+> 20 a
+10 0.5 3
+0 0.0
+@) - 0.10
+B30 0.05 &
+E55] 0.00
+20 a
+> 0 -0.05 =
+of t | =0.10 =
+0 20 40 60 80 0 20 40 60 80 20 40 60 80
+
+x (km) x (km) x (km)
+
+FIG. S1. Validation of viscosity inversion for ice sheets governed by the shallow shelf approximation. The first column shows
+the reference COMSOL solution from [II]. The other columns show the results of solving the SSA equations with access to
+reference data in h, u, and v but with no data on the viscosity 4, which must be inverted. The second column shows the results
+of solving this inversion problem without the calving front boundary condition while the third column shows the results with
+this boundary condition.
+13
+
+10°
+10° ae
+| Optimizer Epochs LR Coll. Pts.
+§ 10"! £ @ Doglg N/A N/A — 20,000
+a isa}
+a 8 @ ADAM 1,000 0.1 20,000
+4 I @ ADAM 20,000 0.01 20,000,
+10-2 10-! @ ADAM 50,000 0.01 20,000,
+@ ADAM 50,000 0.01 40,000
+(a) (o)
+20 40 60 20 40 60
+Basis Size Basis Size
+
+FIG. $2. Le (a) and Lx errors for solutions to Laplace’s equations solved on the peanut shape. The result shown in Fig. 1) is
+in red. The other results present optimizations run with ADAM and a regularized adaptive loss function with various epochs,
+learning rates, and numbers of collocation points. Both methods show evidence of exponential convergence in the representation
+but each optimizer converges on different solutions. As the number of basis modes increases, more epochs and collocation points
+become necessary to continue the exponential convergence in the representation.
+
+| Ly Error
+| Lx Error
+
+10! 10? 10° 10"
+Number of Samples
+
+FIG. $3. Mean and standard deviation of Lz and Lx (b) errors for solving Laplace’s equation with N = 30 Chebyshev
+polynomials in both of x and y on the peanut shape with a hole using a data fitting residual in place of a boundary condition
+residual. We repeatedly solved the equation using 15 repetitions of resampling the data for a given number of samples. In
+these examples, we use 20,000 collocation points, 1,000 epochs, and a learning rate of 0.1 with an ADAM optimizer, as in the
+yellow example from Fig. The Lz and L. error from Fig. [82] for the equivalent solution is shown as the black and gray
+dashed lines respectively. We observe that the solution saturates at a particular error level as the number of samples increases
+but that this error is lower than when using the boundary residual.
+14
+
+1094 The °  Dogleg
+° . Adam
+
+10° 4 . ° Taal
+
+é -
+
+‘1034 +
+
+3 :
+
+Ep 10° 5 x
+
+Rs] ~
+
+Bs N ’
+10-° 4 -
+
+0 25 50 7 100
+
+Singular Value Index
+
+FIG. S4. Singular values for the optimized coefficient matrices for solutions to Laplace’s equation. The data labeled Dogleg
+and ADAM represent the two best solutions for their respective methods shown in Fig. which both go up to 61 total values.
+Dogleg tends to push the solution to much higher singular values while having a much steeper drop off than ADAM, giving
+a more efficient representation (at the cost of accuracy). The dataset labeled Taal corresponds to the singular values of the
+solution to Laplace’s equation on Lake Taal, shown in Fig. pif). The increased complexity from the boundary shape requires
+a much larger number of singular values represent the solution.
+
+TABLE S1. Model Hyperparameters and Configuration.
+
+Collocation Points
+
+Figure Solver Loss Steps Learning Rate Basis Basis Size PDE Boundary Initial Data
+2a Dogleg Unweighted — — Chebyshev (61,61) 20,000 3,000 — =
+2d LM Unweighted = — — Chebyshev (101,101) 35,000 35,000 — =
+3a Dogleg Unweighted — = CosineLegendre (201,11) 30,000 = 1,000  —
+3d Dogleg Unweighted — — CosineChebyshev (46,46) 20,000 — 150 =
+4 NAdam Reg. Adap. 5000 0.1 Legendre (13,13,13) 30,000 10,000 30,000 —
+5 Adam Reg. Adap. 1000 0.01 Chebyshev (11,11,11) 15,000 — 4,000 —
+6a Dogleg Unweighted — — Chebyshev (26,26) 20,000 1,000 — 20,000
+6b Dogleg Unweighted — — Chebyshev (51,51) 20,000 1,000 — 20,000
+7 Adam Reg. Adap. 500 0.1 Chebyshev/Fourier (11,11,11)/(11,11) 30,000 15,000 2,000 2,000
+8 Adam Reg. Adap. 1000 0.1 Chebyshev (16,16,16) 30,000 30,000 ~—- 10,000 10,000
+Sl LM Unweighted — — Chebyshev (21,21) 2,000 600 — 2,000
+
+15
+
+10° }"e
+
+10
+
+10°
+
+10-*
+
+20
+
+gp )
+
+40 10°
+
+3
+10° ~\
+e
+®
+
+10
+
+20
+10-3
+
+25 50 i £ 5 50 0 25 50.
+
+FIG. S5. Coefficient matrices for the solution to Laplace’s equation in the peanut shaped geometry shown in Fig. These
+solutions were generated with the Dogleg solver. The first row shows the solution for 21 total basis modes, the second row for
+41 total basis modes, and the final row for 61 total modes. The first column shows the raw coefficient values, the second column
+the absolute value of the coefficients plotted on a log scale, and the third column the sign of the coefficients. Red indicates
+positive values while blue represents negative ones. The fourth columns shows the singular values of the coefficient matrices.
+16
+
+(a) (6) (d)
+20 20 10° %
+%
+1
+15 15 e.
+_} eo
+10 0 10 10 ae
+%
+5 _ 5 é
+1 10" &
+re 0 °
+0 10 20 0 10 20 0 10 20
+(e) (f) (h)
+40 40 10%
+30 A 30 :
+10-7
+20 0 20
+10-4
+10 - 10
+' 10-6 ‘
+ow 0 *
+0 20 40 0 20 40 0 20 40
+(i) Q) (1)
+60 60 10%
+1 2
+40 40 107
+0 10-4
+20 20
+41 10-8
+Oo 0 *
+0 25 50 0 25 50 0 25 50
+
+FIG. S6. Coefficient matrices for the solution to Laplace’s equation in the peanut shaped geometry shown in Fig. These
+solutions were generated with the best ADAM solver shown in Fig. The first row shows the solution for 21 total basis
+modes, the second row for 41 total basis modes, and the final row for 61 total modes. The first column shows the raw coefficient
+values, the second column the absolute value of the coefficients plotted on a log scale, and the third column the sign of the
+coefficients. Red indicates positive values while blue represents negative ones. The fourth columns shows the singular values of
+the coefficient matrices. The regularization term clearly drives the coefficients to much smaller values than in the Dogleg case.
+
+(oo
+
+Loo
+0.5 10”
+50 0.0 50 w+ 50
+0.5 ios
+0 0 0
+0 0 50 100
+
+0 50 10
+
+d)
+
+(
+L0r*
+10-3
+e
+2
+0 50 100
+
+FIG. $7. Coefficient matrices for the solution to Laplace’s equation in Lake Taal as shown in Fig. |2[f). These solutions were
+generated with the Dogleg solver for 101 total basis modes. The first column shows the raw coefficient values, the second
+column the absolute value of the coefficients plotted on a log scale, and the third column the sign of the coefficients. Red
+indicates positive values while blue represents negative ones. The fourth columns shows the singular values of the coefficient
+matrices. When compared with the solutions for Laplace’s equation in a peanut (Figs. , it is clear that far more of
+the modes are important in capturing the complete solution.
+
+17
+
+(a) (¢)
+10.0
+0.5 i:
+75 : 10?
+5.0 0.0 : 10-4
+2.5 . 10-6
+—0.5
+0.0 i
+0 100 200 0 100 200 100 200
+FIG. $8. Coefficient matrices for the solution to the Allen-Cahn equation, as shown in Fig. Ble). These solutions were generated
+with the Dogleg solver for 10 modes in time and 200 modes in the spatial variable x. The first column shows the raw coefficient
+
+values, the second column the absolute value of the coefficients plotted on a log scale, and the third column the sign of the
+coefficients. Red indicates positive values while blue represents negative ones.
+
+(a) oso (©) (qd) |
+40 . toe
+0.25 1024 %
+30
+10-4
+20 0.00
+10-%
+0.2
+10 025 10-8
+of Hs °
+0 20 40 0 20 40
+(e) : (A)
+10>
+40 10717
+30 ‘io-* 10-3 *%
+20 10" 10%
+10 1077 10-7
+oi E
+0 20 40 40 20 40 0 20 40
+
+FIG. $9. Coefficient matrices for the solution to nonlinear Schrédinger equation as shown in Fig. [3{). These solutions were
+generated with the Dogleg solver with 46 total basis modes. The first row shows the solution for u while the second gives
+the solution for v. The first column shows the raw coefficient values, the second column the absolute value of the coefficients
+plotted on a log scale, and the third column the sign of the coefficients. Red indicates positive values while blue represents
+negative ones. The fourth columns shows the singular values of the coefficient matrices.
+18
+
+FIG. $10. Coefficient matrix for solutions to the wave equation on the peanut geometry, as shown in Fig The coefficients
+were found using an ADAM solver with a regularized adaptive loss. Here, each image is one slice of the total (13,13,13) tensor.
+The values are shown on a symmetric log scale.
+
+(a) W)  ,
+wo? Is
+100 0.95 200
+10° 3
+0.00 10
+50 50
+10-8
+0.05 10-5
+0
+0 50 100 0 50 100 0 50 100
+FIG. $11. Coefficient matrix for the solution to the diffusion equation on the surface of a sphere, as shown in Fig. The
+
+coefficients were found using an ADAM solver with a regularized adaptive loss. The original tensor had dimensions (11,11,11,11)
+and has been flattened into (121,121) for display, leading to a checkerboard pattern in the figure. The first column shows the
+raw coefficient values, the second column the absolute value of the coefficients plotted on a log scale, and the third column
+the sign of the coefficients. Red indicates positive values while blue represents negative ones. The fourth columns shows the
+singular values of the coefficient matrices.
+19
+
+(a) (d)
+1000 103 ~
+20
+10! %
+10 0 10+ 7‘
+F 10-3 ",
+oie F-21000 ‘cate
+0 10 20 0 10 20
+(e) (h)
+1024%
+40 100
+10°
+0
+20 10-2 x
+®
+p —100 10-4 “4
+oe ®|
+0 20 40 0 20 40
+
+FIG. $12. Coefficient matrices for the inverted viscosity js from the shallow shelf approximation equations on the Amery ice
+sheet as shown in Fig. a These solutions were generated with the Dogleg solver. The first row shows the solution for 26 total
+basis modes and the second row for 51 total basis modes. The first column shows the raw coefficient values, the second column
+the absolute value of the coefficients plotted on a log scale, and the third column the sign of the coefficients. Red indicates
+positive values while blue represents negative ones. The fourth columns shows the singular values of the coefficient matrices.
+
+10-1
+10-?
+10-%
+
+-10%
+~ 10-2
+-1071
+
+FIG. $13. Coefficient matrix for solutions to the heat forcing problem, as shown in Fig.|7] The coefficients were found using an
+ADAM solver with a regularized adaptive loss. Here, figures (a)-(k) is one slice of the total (11,11,11) tensor. Figure (1) shows
+the values of the coefficients for the boundary forcing function. The values are shown on a symmetric log scale.
+20
+
+ed d)
+10"? (
+60 0.1 107!
+40 10-3 10-2
+0.0 3
+20 10-5 a=
+0 : 0.1 10-* 3
+0 50 0 50
+e h
+( bo 10-1 (h)
+0.1
+40 10-3 10
+0.0
+20 -4
+: = lp-oa wo »
+0+ =
+0 50 0 50
+% ij
+(9 bi oo 0
+10"
+40 10-3
+0.0 a
+20 - 10°
+= 10-> :
+' -0.2 ®
+0 50 50 0 50
+FIG. $14. Coefficient matrix for the solution to the advection diffusion equation, as shown in Fig. The coefficients were
+
+found using an ADAM solver with a regularized adaptive loss. The original tensors had dimensions (16,16,16) and have been
+flattened into (64,64) for display, leading to a checkerboard pattern in the figure. The top row shows the coefficients for c, the
+middle for u, and the bottom for v. The first column shows the raw coefficient values, the second column the absolute value
+of the coefficients plotted on a log scale, and the third column the sign of the coefficients. Red indicates positive values while
+blue represents negative ones. The fourth columns shows the singular values of the coefficient matrices.
+21
+
+(4) 99 01 QYoag
+e
+10-44
+10 0.0
+10-74 S
+Oma —____] 91 |
+0 20 0 20
+(€) 29 ax ho
+10-74 "he
+10 0.0 10 f
+e
+10-84 “eee,
+o4 ~0.5 “|
+0 20 0 20
+a if
+() 99 0% ( ) 100 ye:
+e
+1084
+10 0.0 i
+10-64 “~~,
+ee —0.5 2
+0 20 0 20
+(m)oo 0.02 (@) og
+e
+10-34 %
+@
+10 0.00 10-57 ey,
+s 10-74 —“,,
+otba __] 9.02 @|
+0 20 20 0 20
+
+FIG. S15. Coefficient matrix for the viscosity inversion solution with no boundary condition shown in the second column of
+Fig. The coefficients were found using a Levenberg Marquardt solver. The top row shows the coefficients for 4, the second
+for h, the third for u, and the bottom for v. The first column shows the raw coefficient values, the second column the absolute
+value of the coefficients plotted on a log scale, and the third column the sign of the coefficients. Red indicates positive values
+while blue represents negative ones. The fourth columns shows the singular values of the coefficient matrices.
+22
+
+(4) 99 0.1 outs
+e
+10-3“
+10 0.0
+10->4 ~
+0 a —_______]P 91 =
+0 20 0 20
+(€) 29 ax (ho
+10-74 a
+10 0.0 10-44
+10-5 .,
+o& —0.5 |
+0 20 0 20
+(i) 20 05 () 10°48
+e
+e
+10-4
+10 0.0 i
+10-84
+e
+ee —0.5 2
+0 20 0 20
+(™)og 0.02 (») oe
+10-24
+“ay
+4
+10 0.00 1g “ony
+10-64 ey,
+.
+Offa! sd 0.02 s|
+0 20 20 0 20
+
+FIG. S16. Coefficient matrix for the viscosity inversion solution with the boundary condition shown in the third column of
+Fig. The coefficients were found using a Levenberg Marquardt solver. The top row shows the coefficients for 4, the second
+for h, the third for u, and the bottom for v. The first column shows the raw coefficient values, the second column the absolute
+value of the coefficients plotted on a log scale, and the third column the sign of the coefficients. Red indicates positive values
+while blue represents negative ones. The fourth columns shows the singular values of the coefficient matrices.

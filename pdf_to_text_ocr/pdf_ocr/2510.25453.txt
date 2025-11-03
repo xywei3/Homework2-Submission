@@ -1,0 +1,579 @@
+Vector-Based Approach to the Stoichiometric Analysis of Multicomponent
+Chemical Reactions: The Case of Black Powder
+
+Pavlo Kozub!, Nataliia Yilmaz’, Svitlana Kozub?
+
+1. Kharkiv National University of Radio Electronics, Kharkiv, Ukraine
+
+2. School of Computer and Communication Sciences, Ecole Polytechnique Fédérale de Lausanne
+(EPFL), CH-1015 Lausanne, Switzerland
+
+3. Medical and bioorganic chemistry department, Kharkiv National Medical University, Kharkiv,
+Ukraine
+
+Corresponding author: pkozub@pkozub.com
+
+Abstract
+
+The study demonstrates the capabilities of a vector-based approach for calculating stoichiometric
+coefficients in chemical equations, using black powder as an illustrative example. A method is proposed
+for selecting and constraining intermediate interactions between reactants, as well as for identifying final
+products. It is shown that even a small number of components can lead to a large number of final and
+intermediate products. Through concrete calculations, a correlation is established between the number of
+possible chemical equations and the number of reactants. A methodology is proposed for computing all
+possible chemical equations within a reaction system for arbitrary component ratios, enabling the
+derivation of all feasible chemical reactions. Additionally, a method is developed for calculating the
+chemical composition for a fixed set of reactants, allowing for the evaluation of the set of products
+resulting from all possible chemical interactions given a specified initial composition.
+
+Keywords: chemical equation, reaction system, vector approach, balancing, stoichiometric
+calculations
+
+Introduction
+
+Balancing chemical reactions is one of the fundamental components of modern chemistry, without
+which it is impossible to perform any technological calculations related to chemical processes. Although
+this problem has been studied for over 150 years, the currently available methods for determining
+stoichiometric coefficients still do not meet the requirements of scientific and technical practice.
+Contemporary methods are either too simplistic to solve complex equations or too complex to be
+implemented in practice [1, 2].
+
+A key distinction of the vector-based approach to calculating the material balance of complex
+chemical processes is its ability to compute the complete set of linearly independent reactions between
+reactants and products, regardless of the number of components and without imposing constraints on the
+presence of reactants or products with identical compositions [3, 4, 5].
+
+The capabilities of this approach can be demonstrated for various reaction systems, but a
+particularly illustrative example is the reaction system formed during the combustion of black powder,
+which consists of only three components: approximately 75% potassium nitrate, 15% charcoal, and 10%
+sulfur [6].
+
+This composition is considered traditional; however, there are numerous variants of black powder
+that differ in the proportions of the components (sometimes by as much as 5%) as well as in the presence
+of additional substances and additives [7, 8].
+
+Depending on the type of carbonaceous material used, different forms of powder are obtained:
+black powder (pure carbon), brown powder (from brown coal), or chocolate powder (from coal tar). The
+addition of a hydrogen-containing component increases the energetic output of the powder, making it
+suitable for artillery applications.
+
+In theory, sulfur can be entirely replaced with organic substances — for example, potassium nitrate
+and sugar (75% potassium nitrate, 25% sugar). Carbon can also be fully substituted with another carbon-
+containing compound, such as potassium carbonate (55% nitrate, 18% sulfur, and 27% potassium
+carbonate). To further increase combustion energy, aluminum is sometimes added to black powder.
+
+In any case, the initial mixture must contain an oxidizing agent (potassium nitrate) and a reducing
+agent (sulfur, carbon, or organic substances).
+
+Thus, the actual reactive mixture for black powder may contain not merely three components, but
+significantly more:
+
+KNOs — an oxidizing agent, serves as a source of oxygen. It is sometimes used in combination
+with other nitrates - NHsNOs, NaNOs, Ca(NOs)2, Ba(NOs)2 — which influence the burning rate.
+
+C — a reducing agent, responsible for the formation of explosive gases. In the presence of
+sufficient oxygen, it is oxidized to CO2; in oxygen-deficient conditions, to CO.
+
+S — a reducing agent, necessary for binding potassium in the form of K2S, or in excess oxygen
+conditions, in the form of K2SO..
+
+H20 — may appear during storage (due to hydration) or be intentionally added to reduce the
+burning rate; it may also be present as part of other nitrates.
+
+C,HmO — organic substances such as resins, paraffins, waxes, sugar, and wood powder may be
+added both to modify the combustion process and to alter physical properties (e.g., reduce caking,
+hygroscopicity, facilitate granulation, etc.).
+
+Al-— used primarily to increase combustion temperature.
+
+In the traditional composition of black powder, it is assumed that the main combustion products
+are only three substances: CO: (carbon dioxide), N2 (nitrogen), and K2S (potassium sulfide).
+
+However, it is logically reasonable to assume that, in reality, the addition of hydrogen-containing
+compounds — such as organic substances, ammonium nitrate, or nitrate hydrates — results in the formation
+of water as a product of chemical reactions. Incomplete combustion of carbon compounds leads to the
+formation of CO, and in the case of insufficient potassium ions, carbonates, sulfates, and sulfites may also
+form.
+
+This is supported by experimental investigations of the combustion products of black powder, yet
+such outcomes are still scarcely represented in the form of a comprehensive list of possible chemical
+interactions, as their calculation using traditional methods is nearly infeasible.
+Identification of Reactants and Interactions in the Reaction System
+
+The principal advantage of the vector-based approach lies in its ability to generate all possible
+linearly independent chemical equations (i.e., combinations of reactants with a constant number of
+atoms in both the initial and final states) for a system with an arbitrary number of reactants.
+
+The number of such equations increases approximately in geometric progression relative to the
+number of participating reactants. Although this number can be theoretically estimated using mathematical
+methods, in practice, it is significantly lower due to constraints of a chemical nature.
+
+For example, actual chemical reactions are usually limited in the number of participating
+reactants; it is extremely rare for both oxidizing and reducing agents to appear simultaneously among the
+products; and reactants and products should not possess identical compositions (though they may be
+isomers or substances in different physical states).
+
+Therefore, the most effective method for investigating a complex reaction system is the gradual
+increase of its complexity.
+
+In the case of black powder, a reasonable starting point is the traditional composition of the initial
+reactants, which ensures the formation of only the principal combustion products.
+
+KNO3,C,S=> K2S,CO2,N2.
+Such a composition can be achieved only at a single ratio of the initial reactants.
+2KNO3+3C+S=3CO2+N2t+K2S
+
+A critically important parameter for the practical application of black powder is the volume of
+gases produced during the chemical interaction, which, for this particular composition of the starting
+material, amounts to AV = 89.6L- mol of reaction mixture or AV = 332 cm?-g™? of the initial
+components.
+
+In cases of poor mixing of the components (e.g., coarse granularity, inadequate homogenization of
+the reactants), reactions involving only two components may occur. Such interactions are also possible
+when the ratio of the initial reactants deviates from stoichiometric values, meaning that the actual volume
+of combustion gases may differ from the calculated values. This variation is determined by incomplete
+combustion reactions, as well as by interactions between intermediate species and the initial reactants
+(reactants) or final products.
+
+In the case of potassium nitrate (KNOs) deficiency, incomplete oxidation of carbon may occur,
+leading to the formation of CO.
+
+If sulfur (S) is deficient, potassium carbonate (K2COs) may form.
+
+In the case of carbon (C) deficiency, potassium sulfate (K2SO.) and potassium sulfite (K2SOs)
+may form.
+
+If both carbon and sulfur are deficient, sodium nitrite (NaNOz) and molecular oxygen (O2) may be
+produced.
+
+KNO3,C,S=> K2S,CO2,N2+CO,K2CO3,K2SO3,K2SO4,K2NO2,02
+Thus, as a result of black powder combustion, at least 15 stoichiometrically feasible chemical
+reactions are possible. However, some of these can be excluded due to the actual incompatibility of certain
+reaction products (e.g., O2 and K2SOs, S and O2, CO and Oz, etc.), which ultimately leaves only 12
+reactions.
+
+2KNO3+S=N2+K2SO4+O2
+2KNO3+C=N2+K2CO3+1.502
+2KNO3+2.5C=1.5CO2+N2+K2CO3
+2KNO3+C+S=CO2+N2+K2SO4
+2KNO3+1.5C+S=1.5CO2+N2+K2S03
+AKNO3=N2+2K2NO2+402
+2KNO3+4C=N2+3CO+K2CO3
+2KNO3+3C+S=3CO2+N2+K2S
+4KNO3+4C=4CO2+N2+2K2NO2
+2KNO3+3C+S=N2+3CO+K2SO3
+4AKNO3+8C=N2+8CO+2K2,NO>
+2KNO3+6C+S=N2+K2S+6CO
+
+At elevated temperatures, intermediate products interact both with each other and with the initial
+reactants. At temperatures above 400 °C, potassium nitrite (KNOz) is formed. Above 440 °C, potassium
+oxide (K2O) is produced. Above 500°C, potassium sulfide reacts with oxygen to form sulfate (K2SO.).
+Above 900 °C, the sulfate reacts with carbon to yield sulfide and carbon monoxide (CO). Above 600 °C,
+sulfite undergoes disproportionation into sulfide and sulfate. Above 300 °C, sulfur reacts with oxygen to
+form sulfur dioxide (SOz). Above 400 °C, sulfur dioxide reacts with oxygen to form sulfur trioxide (SOs).
+Also above 400°C, sulfur dioxide reacts with carbon to produce elemental sulfur and carbon dioxide
+(COz).
+
+For such a complex reaction system, a total of 198 chemical reactions are possible, but this set can
+be reduced by retaining only 5 substances as final products.
+
+KNO3,C,S+CO2,K2S,CO,K2CO3,K2S03,K2SO4, KNO2,K20,SO2,SO3=>K28,CO2,N2 +K2CO3,K2SO4
+
+The addition of organic substances leads to their decomposition with the formation of hydrogen,
+water, and carbon. At 250 °C, organic compounds decompose with the release of Hz. At 300 °C, aromatic
+compounds begin to form, having a general empirical formula of (CH),. At 400 °C, elemental carbon (C)
+starts to form. At the same temperature (400 °C), hydrogen and organic compounds react with oxygen to
+form H20.
+
+When water is present in the mixture — either as a result of organic compound decomposition or
+due to ambient moisture — nitrogen oxides, sodium hydroxide, and sulfuric acid are produced.
+
+Above 100°C, sodium nitrite decomposes in the presence of water to yield NO2, NO, and K20.
+The resulting K20 immediately reacts with SO2, SOs, and CO2 to form K2SOs, K2SO., and K2COs,
+respectively. K2COs, in the presence of sulfur oxides, further reacts to form K2SO3 and K2SOs. In turn,
+K2SOs, in the presence of oxygen or SOs, converts into K2SO.. The addition of aluminum or iron leads to
+the formation of their respective oxides.
+Thus, the actual combustion process of black powder is significantly more complex than a single
+chemical reaction, and requires a specialized computational approach and methodology.
+
+Calculation of Reactions for Arbitrary Component Compositions
+
+The traditional formulation of black powder consists of three reactants and is designed to yield
+three primary products.
+
+KNO3,C,S=>K2S8,CO2,N2
+For such a composition of the reaction mixture, only one reaction can exist.
+2KNO3+3C+S=K2S+3CO2+N2
+
+However, if additional possible products are included — those that arise from deviations from this
+composition and are terminal (final) under maximum temperature conditions — the system expands by at
+least four more substances.
+
+KNO3+C+S=>K28,CO2,N2+K20, O2, K2SO4, K2CO3
+
+As a result, five additional reactions are obtained, which correspond to mixtures with an excess of
+certain components relative to the traditional composition.
+
+2KNO3=N2+K20+2.502
+2KNO3+S=N2+O2t+K2SO4
+2KNO3+C=N2+1.502+K2CO3
+2KNO3+2.5C=1.5CO2+N2+K2CO3
+2KNO3+C+S=CO2+N2+K2SO4
+
+It should be noted that this is an exclusive list of chemical equations involving these components.
+Since potassium oxide cannot exist freely in an environment containing other acid-forming components, it
+can be excluded from the set of final products—along with oxygen, which can exist only as a result of the
+decomposition of pure potassium nitrate. As a result, only three reactions remain that lead to complete
+consumption of the initial reactants. All other compositional ratios will involve intermediate products.
+
+This does not mean that such reactions are impossible or do not occur in practice, but the amount
+of intermediate products should decrease over time, in contrast to terminal products.
+
+When paraffins, fats, or waxes (represented in the reaction as CHz) are added to the reaction
+mixture, an additional terminal product, H2O, appears.
+
+KNO3+C+S+CH2=>K28,CO2,N2+K2SO4, K2CO3+H20
+As a result, additional reactions are obtained:
+
+3KNO3+1.5S+CH2=CO2+1.5N2+1.5K2SO4+H20
+2KNO3+S+2CH2=K28+2CO2+N2+2H20
+3KNO3+2.5CH2=CO2+1.5N2+1.5K2CO3+2.5H20
+4KNO3+C+S+3 CH2=K2S+3CO2+2N2+K2CO3+3H20
+4.4KNO3+C+3CH2=1.8CO2+2.2N2+2.2K2CO3+3H20
+S5KNO3+2.5S+3CH2=K2S+3CO2+2.5N2+1.5K2SO4+3H20
+S5KNO3+S+4.5CH2=K28+3CO2+2.5N2+1.5K2CO3+4.5H20
+6KNO3+2S+3CH2=2CO2+3N2+2K2SO4+K2C0O3+3H20
+6.8KNO3+S+6CH2=K2S+3.6CO2+3.4N2+2.4K2CO3+6H20
+8KNO3+C+38+3CH2=3CO2+4N2+3K2SO04+K2CO3+3H20
+14KNO3+7S+6CH2=K2S+6CO2+7N2+6K2S04+6H2O
+
+When carbohydrates (with the general formula CH2O) are added to the reaction mixture, a similar
+set of possible reactions is obtained, but with a different composition of reaction products.
+
+KNO3+C+S+CH20=>K28,CO2,N2+K2SO4, K2CO3+H20
+
+2KNO3+S+CH20=CO2+N2+K2SO4+H20
+2KNO3+S+3CH20=K28+3CO2+N2+3H20
+3.2KNO3+C+3CH20=2.4CO2+1.6N2+1.6K2CO3+3H2O
+4.4KNO3+S+6CH20=K2S8+4.8CO2+2.2N2+1.2K2CO3+6H20
+SKNO3+C+1.5S+3CH20=3CO2+2.5N2+1.5K2SO4+K2CO3+3H20
+6KNO3+2C+S+6CH20=K2S+6CO2+3N2+2K2CO3+6H20
+6KNO3+S+6CH20=4CO2+3N2+K2S04+2K2CO3+6H20
+6KNO3+S+8CH20=K28+6CO2+3N2+2K2CO3+8H20
+TKNO3+2.5S+5CH20=4CO2+3.5N2+2.5K2SO4+K2C03+5H20
+8KNO3+4S+6CH20=K2S+6CO2+4N2+3K2S04+6H20
+14KNO3+S+18CH20=K2S+12CO2+7N2+6K2CO3+18H2O
+
+To increase the energetic output of black powder, aluminum is sometimes added, resulting in the
+formation of only one new product in the reaction mixture: Al,Os.
+
+KNO3+C+S+AIl=>K2S,CO2,N2+K2SO4, K2CO3+H20+A1203
+
+Since it, like sulfur and carbon, acts as a reducing agent, the number of new reactions increases by
+only three.
+
+2KNO3+C+2Al=N2+K2CO3+ALO3
+3KNO3+1.58+2AI=1.5N2+1.5K2SO04+A1.03
+2KNO3+S+4Al1=K2S+N2+2Ab03
+Thus, although deviations from the traditional composition of black powder may lead to the
+formation of a large number of intermediate products in the final reaction mixture, the introduction of
+constraints that allow only stable products can significantly reduce the number of possible chemical
+interactions between reactants.
+
+To compute equations involving intermediate products, it is sufficient to include them in the list of
+reactants and products; however, this results in the number of possible reactions increasing to several
+hundred.
+
+Calculation of Reactions for a Fixed Component Composition
+
+The presented calculations may be of interest for theoretical studies; however, for practical
+applications, it is more useful to compute the composition of the reaction mixture for a given ratio of
+components in the initial mixture, or to determine the required ratios of initial components to achieve a
+desired composition of the reaction mixture.
+
+A fundamental principle of the vector-based approach is that, for a fixed ratio between reactants,
+only a finite number of reactions exist that satisfy the material balance between the initial reactants and the
+products of chemical interaction. This number is exhaustive and may, in some cases, be zero. However, if
+the initial reactants are included among the products of the interaction, then there will always exist at least
+one set of product ratios that satisfies the material balance of the chemical transformation.
+
+For this purpose, it is advisable to include the initial reactants as part of the final products, and to
+represent black powder as a composite substance with a fixed composition.
+
+[(KNO3)2C3$](KNO3)nCmSk=K2$,CO2,N2+K2$04, K2xCO3+H20+KNO3,C,S
+
+where [(KNO3)2C3S] — the classical composition of black powder;
+n, m, k — deviations in the quantities of individual components.
+
+This approach makes it possible to investigate the effect of excess amounts of each reactant on the
+composition of the combustion products of the reactant mixture. In turn, this enables the calculation of the
+volumes of gases produced by each reaction, normalized to the mass of the initial reaction mixture
+(cm?/g).
+
+For example, with an excess of 0.5 mol of KNOs — ({(KNO3)2C3S](KNO3)os) — the following
+reactant ratios can be obtained:
+
+A[(KNO3)2C3S1](KNO3)0.s=2.75K2S+11C02+5N2+1.25K2S04+K2CO3 (AV = 280 cm? +g)
+12[(KNO3)2C3$1](KNO3)o.s=22CO2+15N2+K2SO4+14K2CO3+11S (AV = 215 cm? g~4)
+4[(KNO3)2C3S1](KNO3)o.s=5.5CO2+5N2+4K2S04+K2CO3+5.5C (AV = 183 cm?: g~1)
+
+For an excess of 1 mol of KNOs, the following reactant ratios can be obtained.
+
+2.67[(KNO3)2C381 ](KNO3)=K2S+6.67CO2+4N2+1.67K2SO4+1.33K2CO3 (AV = 241 cm? - g~4)
+2[(KNO3)2C3S1 ](KNO3)1=4CO2+3N2+K2SO4+2K2CO3+S (4 AV = 211 cm? + g~1)
+2[(KNO3)2C3S1](KNO3)1=3.5CO2+3N2+2K2SO4+K2CO341.5C (AV = 196 cm?- gt)
+2.5[(KNO3)2C381](KNO3)2=5.5CO2+4.5N2+2.5K2804+2K2CO3+KNO3 (AV = 190 cm? - g~+)
+1.25[(KNOs)2C3$1](KNO3)4=2.75CO2+2.25No+1.25K2SO4+K2CO3+3KNO3 (AV = 133 cm3 - g~1)
+
+Similar calculations can be performed for excess amounts of sulfur.
+With a sulfur excess of 0.5 mol relative to the traditional composition, it is possible to achieve its
+
+complete utilization.
+
+1.33[(KNO3)2C3$1]S0.s=K2S+4CO2+2N2+K2SOx (AV = 353 cm - g~2)
+2[(KNO3)2C3$1]80.s=4CO02+3N2+K2$O04+2K2CO3+28 (AV = 282 cm3 - g~4)
+[(KNO3)2C381]So.s=1.5CO2+1.SNo+1.5K2SO4+1.5C (AV = 188 cm3« g~4)
+
+However, when the excess is increased to 1 mol, there are no stoichiometrically feasible reactions
+
+that allow for complete utilization of sulfur.
+
+2[(KNO3)2C381]S1=1.5K2S+6CO2+3No+1.5K2SO4+S (AV = 334 cm? - g~1)
+1.33[(KNO3)2C3S1]S2=K2S+4CO2+2N2+K2SOs+2S8 (AV = 317 cm3 - g~1)
+2[(KNO3)2C381]S1=4C02+3N2+K2SO4+2K2CO3+3S8 (AV = 260 cm? - g~+)
+2[(KNO3)2C3S81]S1=3CO2+3N2+3K2SO4+3C+S (AV = 223 cm? - g™1)
+2[(KNO3)2C3S$1]S2=4CO2+3N2+K2$O4+2K2CO3+58 (AV = 235 cm? +g)
+[(KNO3)2C381]S2=1.5COo+1.5N2+1.5K2SOg+1.5C+1.58 (AV = 201 cm3 - g~?)
+
+When excess carbon is added, it also remains unreacted or leads to the presence of unconsumed
+
+sulfur.
+
+2.67[(KNO3)2C3S81]Co.s=1.67K2S+8CO2+4N2+K2S804+1.33K2CO3 (AV = 365 cm? - gt)
+6[(KNO3)2C381]Co.s=13CO2+9N2+K2S04+8K2CO3+5S (AV = 298 cm? - g~4)
+2[(KNO3)2C3S81]Co.s=3.5CO2+3N2+2K2S04+K2CO3+2.5C (AV = 264 cm? - g~1)
+
+An increase in excess leads to an increase in the number of possible chemical reactions.
+
+8[(KNO3)2C381]C1=7K2S+28CO2+12N>+K»SO4+4K2CO3 (AV = 397 cm? - g~4)
+12[(KNO3)2C38 1]Ci=10K2S+4 1 CO2+18N2+2K2SO4+6K2CO3+C (AV = 391 cm3 - g~1)
+2[(KNO3)2C381]C1=K28+6CO2+3N2+2K2CO3+S8 (AV = 357 cm3 - g~1)
+4[(KNO3)2C381]C1=K2S+9CO2+6N2+3K28O04+2K2CO3+5C (AV = 298 cm3- g~+)
+4[(KNO3)2C381]C1=9CO2+6N2+6K2CO3+C+4S (AV = 298 cm? g~1)
+2[(KNO3)2C3S1]C1=3.5CO2+3N2+2K2$04+K2CO3+3.5C (AV = 258 cm? « g~1)
+
+However, further increase in the excess once again reduces their number.
+
+[(KNO3)2C381]C2=2.25CO2+1.5N2+1.5K2CO3+1.25C+S (AV = 286 cm3- g~+)
+2[(KNO3)2C381](KNO3)0C2=3.5CO2+3N2+2K2SO4t+K2C03+5.5C (AV = 248 cm? + g~1)
+When carbohydrates (e.g., sugar) are added to the traditional composition, it is observed that their
+excess leads to incomplete consumption of the initial reactants. However, the unreacted component may
+be carbon, sulfur, or both reactants simultaneously.
+
+[(KNO3)2C3S 1](CH20)=K2S+3CO2+N2+H20+C (AV = 394 cm3 -g~1)
+4[(KNO3)2C381](CH20)=3K2S+10.5CO2+4N2+K2CO3+4H20+4.5C+S (AV = 365 cm3 - g~4)
+3[(KNO3)2C381](CH20)=2K28+7CO02+3N2+K2S04+3H20+5C (AV = 342 cm? - gt)
+T[(KNO3)2C381](CH20)=K 28+12CO2+7N2+6K2CO3+7H20+10C+6S (AV = 293 cm? - g~4)
+[C(KNO3)2C3S81](CH20)=1.5CO2+N2+K2CO3+H204+1.5C+S (AV = 276 cm? - g~1)
+3[(KNO3)2C381](CH20)=4CO2+3N2+K2S04+2K2CO3+3H20+6C+2S (AV = 263 cm? - g~4)
+T[(KNO3)2C3S1](CH20)=K28+9CO2+7N2+6K2S04+7H20+19C (AV = 259 cm3 « g~?)
+4[(KNO3)2C381](CH20)=4.5CO2+4N2+3K2S04+K2CO3+4H20+10.5C+S (AV = 246 cm3 - g~1)
+[(KNO3)2C3S81](CH20)=CO2+N2+K2S04+H20+3C (AV = 237 cm3 - g~4)
+
+The analysis of the presented reactions reveals several important points. First, each possible
+composition of the initial reactants results in multiple chemical reactions. Second, these reactions produce
+different specific volumes of gaseous products (AV). Third, for most reactions, this volume is lower than
+that of the traditional composition, although there are also reactions that lead to a higher amount of
+gaseous products.
+
+The analysis further shows that the presence of potassium sulfide among the reaction products
+increases the gas volume, while the presence of sulfur results in a higher specific gas yield than carbon.
+
+This, in turn, implies that the final composition of the reaction products cannot be predicted solely
+based on the initial composition of the reaction mixture, as the products are formed simultaneously
+through different reactions, and their relative proportions are determined by factors such as temperature,
+pressure, and time.
+
+Calculation of Reactions for Fractional Component Compositions
+
+For practical calculations, it is more convenient to use an initial composition with fractional
+coefficients. This allows for the computation of all possible reactions and all possible combinations of
+products for a given initial composition, under the assumption that only stable reaction products are
+formed.
+
+The number of reactions can be quickly determined based on the weight composition of the
+powder and the molar masses of the reactants.
+
+2.7: WKNO3 y= 2.7°Wo
+
+ee
+101”
+
+12 ° 4 = ss
+
+where
+
+w(X) is the mass fraction of substance X in the mixture (KNOs, C, S), expressed as a percentage
+(%).
+
+The coefficients 101, 12, and 32 correspond to the molar masses of the substances (KNOs, C, S)
+(in g/mol).
+
+For the classical formulation — 75% KNOs, 15% C, 10% S — we obtain [(KNO3)2C3S)].
+
+And according to the transformation scheme
+[CKNO3)2C3S1]J=>K28,CO2,N2+K2SO4, K2CO3+H20+KNO3,C,S
+
+only a single possible chemical equation is obtained.
+[CKNO3)2C381] = K2S+3CO2+N2
+
+For the traditional composition of 75% KNOs, 15% C, and 10% S, we obtain [((KNO3)2C3.4So.],
+which does not precisely correspond to the theoretical stoichiometric ratio of the components.
+
+[(KNO3)2C3.4S0.8]=>K2S,CO2,N2+K2S04, K2CO3+H20+KNO3,C,S
+As a result, we now obtain three possible chemical equations with additional products.
+
+5[(KNO3)2C3.480.8]=4K2S+13.5CO2+5N2+K2C03+2.5C
+1.25[(KNO3)2C3.480.8]=1.88CO2+1.25N2+1.25K2CO3+1.13C+S8
+5[(KNO3)2C3.480.8]=5.5CO2+5N2+4K2S04+K2C03+10.5C
+
+With an excess of sulfur in the powder composition — 75% KNOs, 10% C, 15% S — the
+resulting mixture has the composition [(KNO3)2C22S13], which deviates even further from the classical
+
+formulation.
+
+[(KNO3)2C2.281.3] =>K28,CO2,N2+K2S04, K2CO3+H20+KNO3,C,S
+
+and also results in the presence of three chemical equations.
+
+3.33[(KNO3) 2C2.281.3]=2K28+7.33CO2+3.33N2+1.33K2S04+8
+3.33[(KNO3) 2C2.281.3]=3.33CO2+3.33N2+3.33K2S04+4C+S
+5[(KNO3) 2C2.281.3]=7CO2+5N2+K2S04+4K2CO3+5.5S
+
+The addition of hydrocarbons (paraffin, oil, fat) introduces hydrogen atoms into the system. For
+the composition 75% KNOs, 10% C, 15% S, and 4% paraffin, the resulting chemical composition is
+
+([CXNO3)2C2.381(CH2)o.8]
+
+[(KNO3)2C2.3S 1(CH2)0.8] =>K2S,CO2,N2+K2804, K2CO3+H20+KNO3,C,S
+
+which indicates the possibility of a significantly larger number of reactions.
+
+1.25[(KNO3)2C2.3S 1(CH2)0.8]=1.38CO2+1.25N2+1.25K2CO3+H20+1.25C+1.258
+1.67[(KNO3)2C2.3S 1(CH2)0.8]=CO2+1.67N2+1.67K2804+1.33H20+4.17C
+2[(KNO3)2C2.3S1(CH2)0.8]=2K28+5.2CO2+2N2+1.6H20+C
+
+2.5[(KNO3)2C2.3S 1(CH2)0.8]=1.5K28+4.5CO2+2.5N2+K2804+2H20+3.25C
+2.5[(KNO3)2C2.3S 1(CH2)0.8]=2.25CO2+2.5N2+K2S04+1.5K2CO3+2H20+4C+1.58
+2.5(KNO3)2C2.3S 1(CH2)0.8]=N2+K2S04+2H20+3KNO3+7.75C+1.5S
+7.5[(KNO3)2C2.3S1(CH2)0.8]=K28+6.5CO2+7.5N2+6.5K2S04+6H20+16.75C
+3.75[(KNO3)2C2.38 1(CH2)0.8]=2.75CO2+3.75N2+2.75K2S04+K2CO3+3H20+7.87C+S
+3.75[(KNO3)2C2.38 1(CH2)0.8]=2.75K28+8.25CO2+3.75N2+K2CO3+3H20+2.37C+S
+7.5[(KNO3)2C2.38 1(CH2)0.8]=K2S+9.75CO2+7.5N2+6.5K2CO3+6H20+7C+6.5S
+
+The addition of sugar or cellulose instead of paraffin (75% KNOs, 10% C, 15% S, 4% sugar)
+yields the chemical composition [(KNO3)2C2.3S1(C6H1206)o.1].
+[(KNO3)2C2.3S 1(C6H1206)0.1] =>K2S,CO2,N2+K2S04, K2CO3+H20+KNO3,C,S
+
+which yields a similar set of chemical equations, but with slightly different coefficients.
+
+1.54[(KNO3)2C2.3S1(C6H1206)0.1]=1.5CO2+N2+K2C03+9.23H20+11.35C+1.54S
+2.86[(KNO3)2C2.3S1(C6H1206)0.1]=1.86CO2+1.86N2+1.86K2S04+17.14H20+23.86C+S
+2.86[(KNO3)2C2.3S1(C6H1206)0.1]=1.86K2S+5.57CO2+1.86N2+17.14H20+20.14C+S
+3.91[(KNO3)2C2.3S1(C6H1206)0.1]=1.54K2S+6.12C02+2.54N2+K2CO03+23.43H20+28.03C+2.37S
+3.91[(KNO3)2C2.38 1(C6H1206)0.1]=1.54K2S+5.62CO2+2.54N2+K2S04+23.43H20+29.53C+1.37S
+6.27[(KNO3)2C2.3S1(C6H1206)0.1]=K28+7.62CO2+4.08N2+3.08K2CO3+37.63H20+45.76C+5.27S
+6.27[(KNO3)2C2.3S1(C6H1206)0.1]=5.62CO02+4.08N2+K2S04+3.08K2CO3+37.63H20+47.76C+5.27S
+8.64[(KNO3)2C2.38 1(C6H1206)0.1]=6.12CO2+5.62N2+4.62K2S04+K2C03+51.83H20+70.64C+4.02S
+8.64[(KNO3)2C2.38 1(C6H1206)0.1]=K2S+7.62CO2+5.62N2+4.62K2S804+51.83H20+70.14C+3.02S
+
+In a similar manner, the composition of the final products can be calculated when part of the
+potassium nitrate is replaced with ammonium nitrate (50% KNOs, 10% C, 15% S, 25% NH4NOs). For this
+component ratio, the composition can be written as [(KNO3);.3C3S:(NH4NO3)o.3], which corresponds to the
+transformation scheme.
+
+[(KNO3)1.3C3S1(NH4NO3)0.8] =>K2S,CO2,N2+K2S04, K2CO3+H20+KNO3,C,S
+
+The formal number of possible reactions in this system is significantly higher (42), but
+considering the constraints on product composition and the number of reactants, a smaller subset may be
+used for analyzing the reaction mechanism and for practical calculations.
+
+1.54[(KNO3)1.3C3S1(NH4NO3)o s]=2.27CO2+2.54N2+K2CO3+3.08H20+1.35C+1.54S
+2.86[(KNO3)1.3C3S1(NH4NO3)o.8]=1.86K2S+7CO2+4.71N2+5.71H20+1.57C+S
+
+2.86 (KNO3)1.3C3Si1(NH4NO3)o.8 =3.29CO7+4.71N2+1.86K2S04+5.71H20+5.29C+S
+3.3[(KNO3)1.3C3S1(NH4NO3)o.3]=4.29CO2+5.44No+1. 14K oSO4+K2CO3+6.6H20+4.6C+2. 15S
+
+3.3 1[(KNO3)1.3C3S1*0.8(NH4NO3)]=1.15K2S+6.1CO2+5.46N2+K2SO4+6.62H20+3.82C+1.16S
+3.31[(KNO3)1.3C3S1(NH4NO3)o.8]=4.38CO2+5.46N2+K2SO4+1.15K2CO3+6.62H20+4.39C+2.31S
+3.56[(KNO3)1.3C3S1(NH4NO3)o.8]=4.75CO2+5.87N2+K2SO4+1.3 1K2CO3+7.12H20+4.62C+2.56S
+3.81[(KNO3)1.3C3S1(NH4NO3)o.8]=4.88CO2+6.28N2+1.48K2SO4+K2CO03+7.62H20+5.54C+2.338
+3.81[(KNO3)1.3C3S1(NH4NO3)o.8]=1.47K2S+7.83CO2+6.28N2+K2CO3+7.62H20+2.59C+2.33S
+4.4[(KNO3)1.3C3S1(NH4NO3)o.8]=K2S+7.06CO2+7.26N2+1.86K2S04+8.8H20+6.14C+1.54S
+4.76[(KNO3)1.3C3S1*0.8(NH4NO3)]=2.09K2S+9.65CO2+7.85N2+K2S04+9.5 1H20+4.62C+1.66S
+5.3 1[(KNO3)1.3C3S1(NH4NO3)o.8]=K2S+9.33CO2+8.76N2+2.45K2CO3+10.62H20+4. 14C+4.31S
+5.3 1[(KNO3)1.3C3Si(NH4NO3)o.8]=K2S+8. 1CO2+8.76N2+2.45K2SO04+10.62H20+7.82C+1.86S
+5.66[(KNO3)1.3C3S1(NH4NO3)o.8]=2.68K2S+12.38CO2+9.35N2+K2CO3+11.33H20+3.62C+2.98S
+
+5.85[(KNO3)1.3C3S1(NH4NO3)o.8]=K2S+10.12CO2+9.65N2+2.8K2CO3+11.69H20+4.62C+4.85S
+6.26[(KNO3)1.3C3S1(NH4NO3)o.8]=3.07K2S+13.33CO2+10.33N2+K2SO4+12.52H20+5.44C+2. 19S
+7.46[(KNO3)1.3C3S1(NH4NO3)o.8]=1.89K2S+13.33CO2+12.3 1 N2+K2SO4+1.96K2CO3+14.92H20+7.08C+4.57S
+11.93[(KNO3);.3C3S1(NH4NO3)o.3]=6.75K2S+27.72CO2+19.68N2+K2CO3+23.85H20+7.06C+5.17S
+
+Moreover, analysis of this system of equations indicates that all of them contain residual amounts
+of unreacted carbon and sulfur, meaning that even theoretically, complete combustion of the reactants
+cannot be achieved with this composition. Therefore, such a formulation is not optimal.
+
+Conclusions
+
+Thus, using a relatively simple reaction system, the capabilities of the vector-based approach for
+analyzing chemical interactions have been demonstrated.
+
+It has been shown that even a small number of components can lead to a large number of final and
+intermediate products.
+
+Through real computational examples, a relationship has been established between the number of
+possible chemical equations and the number of reactants.
+
+A simple yet effective methodology has been provided for calculating all possible chemical
+equations within a reaction system for arbitrary component ratios, allowing the enumeration of all feasible
+chemical reactions.
+
+A method has also been proposed for calculating the chemical composition for a fixed set of
+reactants, enabling the evaluation of the set of products resulting from possible chemical interactions for a
+given initial composition.
+
+References
+
+[1] Shaikh, M. M.; Yousaf, M. On mathematical methods to balance equations of chemical reactions — A
+Comparison and Way Forward. J. Mech. Cont. Math. Sci. 2023, J8 (1), 1-20.
+https://doi.org/10.26782/jmcms.2023.01.00001
+
+[2] Aleksejeva, J.; Guseynov, S. To the issue of finding the stoichiometric coefficients in the chemical
+reactions. In Proceedings of the International Scientific Conference “Society. Integration. Education”,
+Volume II, May 28-29, 2021; pp 19-48. https://doi.org/10.17770/sie2021vol2.6457
+
+[3] Kozub, P.; Yilmaz, N.; Deineko, Z.; Kozub, S. Using the vector approach for problems of chemical
+stochiometry. In Science and Society: Modern Trends in a Changing World. Proceedings of the 5th
+International Scientific and Practical Conference; MDPC Publishing: Vienna, Austria, 2024; pp 89-97.
+URL: https://sci-conf.com.ua/v-mizhnarodna-naukovo-praktichna-konferentsiya-science-and-society-
+modern-trends-in-a-changing-world-15-17-04-2024-viden-avstriya-arhiv/
+
+[4] Kozub, P.; Yilmaz, N.; Kozub, S.; Lukianova, V.; Martyniuk, M. Mathematical aspects of using the
+vector approach for balancing chemical reactions. In Topical Aspects of Modern Scientific Research.
+Proceedings of the 8th International Scientific and Practical Conference; CPN Publishing Group: Tokyo,
+Japan, 2024; pp 121-129. URL: _ https://sci-conf.com.ua/vili-mizhnarodna-naukovo-praktichna-
+konferentsiya-topical-aspects-of-modern-scientific-research-18-20-04-2024-tokio-yaponiya-arhiv/
+
+5] Kozub, P.; Lukianova, V.; Kozub, S. Vector approach for modeling, research and optimization of
+complex chemical systems. Jn Abstracts of the International Conference of Natural Sciences and
+Technologies (ICONAT-2021); Turkish Republic of Northern Cyprus, August 18—20, 2021; p 28.
+
+6] von Maltitz, I. Our present knowledge of the chemistry of black powder. J. Pyrotech. 2001, 14, 27-39.
+
+7] Wise, R. A.; Sassé, H. E.; Holmes, H. E. Organic substitutes for charcoal in “Black Powder” Type
+Pyrotechnic Formulations; US Army Research and Development Center, Ballistic Research Laboratory:
+Aberdeen Proving Ground, MD, USA, 1984.
+
+8] Dahl, D. B.; Lott, P. F. Determination of black and smokeless powder residues in firearms and
+improvised explosive devices. Microchem. J. 1987, 35, 40-50.

@@ -1,0 +1,1272 @@
+s.chem-ph] 29 Oct 2025
+
+SIC
+
+2510.25629v1 [phy
+
+arXiv
+
+Accurate and Transferable Pauli Exchange-Repulsion for Molecules with the
+Anisotropic Valence Density Overlap Model
+
+Dahvyd Wing and Alexandre Tkatchenko
+Department of Physics and Materials Science, University of Luxembourg, L-1511 Luxembourg City, Luxembourg
+(Dated: October 30, 2025)
+
+Pauli exchange-repulsion is the dominant short-range intermolecular interaction and it is an es-
+sential component of molecular force fields. Current approaches to modeling Pauli repulsion in
+molecular force fields often rely on over 20 atom types to achieve chemical accuracy. The number
+of parameters in these approaches hampers the development of force fields with quantum-chemical
+accuracy that are transferable across many chemical systems. We present the anisotropic valence
+density overlap (AVDO) model for exchange-repulsion. The model produces sub-kcal/mol accuracy
+for dimers of organic molecules from the $101x7 dataset, a representative set of the most common
+biologically relevant intermolecular interactions, and for acene dimers of increasing size. It uses
+a single universal parameter, related to an atomic cross-sectional area, that is transferable across
+chemical systems. Given recent progress in machine learning the electronic density, this model offers
+a promising path toward high-accuracy, next-generation machine-learned force fields.
+
+Classical force fields (FFs) of organic molecules have
+een indispensable in molecular biology, drug design,
+crystal structure prediction, and many other fields [1, 2].
+n order to make FFs more accurate, better models for
+intermolecular interactions such as Pauli repulsion, elec-
+rostatics, induction, and dispersion are being explored
+2-4]. This has led to an increase in the number of model
+arameters [5, 6] such that overfitting becomes a chal-
+lenge that can limit the transferability of these models
+eyond the conformations and systems represented in the
+raining data set. FFs fit solely on total energies or bulk
+roperties are particularly ceptible, as the fitted pa-
+rameters often adopt unphysical values that rely on error
+cancellations with limited transferability.
+
+One strategy for improving the transferability of FFs
+is to fit individual FF terms to the corresponding compo-
+nents of symmetry-adapted perturbation theory (SAPT)
+[6-9], a method that calculates dimer interaction ener-
+gies as the sum of exchange-repulsion, electrostatic, in-
+duction, and dispersion interactions [4, 10]. Although
+most SAPT variants are not applicable to predict macro-
+scopic properties, studies have demonstrated that model
+parameters fitted on SAPT can be used as Bayesian pri-
+ors in a subsequent global fit to higher-level reference
+data [9, 11, 12]. Thus, we adopt the perspective of eval-
+uating a component of an FF by how well it reproduces
+its corresponding SAPT component.
+
+SAPT analysis indicates that Pauli repulsion is no
+only a critical component of an FF [4], but also the larges
+source of error in modern FFs [6, 8, 9, 11]. Hence, there
+has been a renewed interest in approximating it accu-
+rately (13, 14]. In benchmark dimer datasets exchange-
+repulsion is often the single largest energy component and
+has the largest variance [6, 15-17]. Macroscopic proper-
+ies of condensed molecular systems, such as the density,
+are determined by the balance between Pauli repulsion
+and attractive intermolecular interactions. It is also a
+key factor in determining the stacking conformation o:
+m — interactions in proteins [18] and the preference o:
+inear conformations of halogen sigma bonds [19], which
+
+are prevalent in drug design because they increase drug
+specificity [20]. Additionally, developing more accurate
+exchange-repulsion models is also relevant for machine-
+learned force fields [21], which often incorporate short-
+range exchange-repulsion models [9, 22, 23], and may
+benefit from more transferable and accurate models of
+exchange repulsion.
+
+Approximating Pauli repulsion in an accurate and
+transferable way is a longstanding challenge [4, 13]. The
+most common Pauli repulsion models used in FFs are
+simple Lennard-Jones models [24] and Born-Mayer mod-
+els, which use an exponential term for each atom [25, 26].
+The fact that these models are isotropic, whereas an
+atom centered model of exchange repulsion should be
+anisotropic [4, 13, 27-33], and the fact that these models
+have the wrong distance dependence [8] means that they
+must be fit per molecule and often rely on error cancela-
+tion with other terms in the FF to achieve accuracy [8].
+
+The density overlap model [34, 35], an empirical model,
+calculates the exchange-repulsion energy between two
+molecules as
+
+Eexch = K / papa ®r, (1)
+
+where K is a fitted parameter and py and pz are the den-
+sities of molecules A and B. It captures the anisotropy
+of the exchange-repulsion energy [13, 28-31, 36, 37] and
+has a better description of the distance dependence than
+Lennard-Jones and Born-Mayer models [8]. However, like
+the Lennard-Jones and Born-Mayer models, it is chal-
+lenging to find transferable parameters for density over-
+lap models. There is no single universal A’ parameter
+that works for all molecules [38, 39] and instead K must
+be fit per dimer pair to reach sub-kcal/mol accuracy for
+small molecules, [11, 31, 40, 41], with values varying by
+20-30% [31, 35, 40, 42, 43]. The density can be separated
+into atom-centered partial densities [44, 45] so that differ-
+ent atom type parameters (typically 20-30 atom types)
+can be used with simple combination rules [8, 13, 46].
+However, the fact that the parameter for a single element
+Ap (e/A?)
+14 5e-03
+Zo ““s 0e+00
+” le He
+-14 -5e-03
+1 00441
+x (A)
+
+FIG. 1. A 2D cross-section of the redistribution of charge due
+to antisymmetrization for the helium homodimer. Electrons
+move away from the overlap region and onto each atom.
+
+can vary by as much as a factor of 2 suggests that trans-
+ferability is limited to similar molecules, or even that
+every molecule must be fit individually [8, 14]. The large
+number of parameters in these density overlap models
+hinders their transferability and the ability to fit them
+on high-accuracy ab initio methods.
+
+In this Letter, we show that removing the density from
+core/semicore molecular orbitals reduces the variation in
+he K parameter of the density overlap model. This
+enables us to use a model with a single universal pa-
+rameter to achieve sub-kcal/mol accuracy on a bench-
+mark dataset of small organic molecules. We then show
+hat the model extends to elements and atom types not
+resent in the training dataset and to larger acene dimers.
+
+Pon J oaeh nones fOr
+
+2b / (vier
+
+Here v4 and vg are the electrostatic potentials gener-
+ated by molecules A and B. Given that molecular or-
+itals decay as ~ e~2V2" [53, 54], where € is the eigen-
+value of the orbital, the top-most valence orbitals of both
+molecules will contribute the most to S$,» and therefore to
+Pa, Ps, and pp. Similarly, these orbitals also contribute
+he most to the density overlap. This raises the ques-
+ion of whether the low-energy molecular orbitals can be
+neglected in density overlap models. It has been noted
+hat removing core electrons does not significantly change
+he exchange-repulsion potential energy surface (PES)
+for water [37] and recent models implicitly neglect core
+electrons [8, 11, 13].
+
+Therefore, we investigate density overlap models that
+use partial densities that systematically exclude contribu-
+ions from low-energy orbitals. One spin-channel partial
+
+1
+r)volr) — 25a WaT )bar(r) 7 jr—r'| r’| (veer alr
+
+To motivate this approximation, we first introduce the
+change in the electron density of two molecules, A and
+B, in close proximity due to the antisymmetrization of
+their individual wavefunctions, V4 and Vp, without re-
+laxation [47-49]:
+
+Ap(r) = (Ua¥p| p(r)A|Va¥p) — (Vaal A(r) |Vas)
+= pa(r) + pa(r) — 2pep(r), (2)
+
+where
+
+Par) = 2a Swade(r)ba(r)
+PB(T) = 2WarSwa Vp (r)dw(r)
+ev(T) = 2Srarha(r)bo(r)
+
+Sun = f vidna’r. (3)
+
+Here Einstein notation is used and a and b are indices
+for all the molecular orbitals, ~, of the corresponding
+molecule. A is the antisymmetrizer, which is then ap-
+proximated by keeping only the permutations of one elec-
+tron from molecule A and one electron from molecule B,
+resulting in Ap containing terms only up to 2. pp is
+the depletion in the electron density in the overlap region
+induced by antisymmetrization. Electrons move from the
+depletion region onto molecule A or B and cause a sur-
+plus electron density 64 and pp, see Fig. 1.
+
+Using f4, Pp, and pp, we express the first-order SAPT
+exchange-repulsion energy [47, 48, 50-52] as:
+
+(r))va(r) Pr (4)
+
+)— Devito \bu (1) Spa ) d’r d3r’.
+
+densities are computed by:
+
+N/2
+
+e= dS Wil’,
+
+i=M+1
+
+where N is the total number of electrons in the monomer,
+w are molecular orbitals, and M is the number of orbitals
+that are not included in the density. We compute M by:
+
+M=mcNc 4
+
+mnNn +moNo+mrNp,
+
+where Nx is the number atoms of element X in the
+molecule; and mx are the number of molecular orbitals
+to neglect per atom of element X (see Table I for more de-
+tails). This heuristic method removes low-energy molec-
+ular orbitals associated with the 1s and 2s orbitals of
+second row p-block elements.
+TABLE I. Definition of the partial densities
+
+me mn mo MP
+No core 1 1 1 1
+No OF 2s 1 d 2 2
+No NOF 2s* 1 2 2 2
+No CNOF 2s 2 2 2 2
+
+* valence density
+
+For each of these partial densities, we compute den-
+sity overlaps analytically using the two monomer densi-
+ties calculated using DFT with the PBE functional. We
+then fit the K parameter of the density overlap model
+by minimizing the mean absolute error with respect to
+reference exchange-repulsion energies, which we compute
+using SAPT(DFT)|[55, 56] with the PBE functional. See
+Appendix A for more details.
+
+First, we illustrate the general behavior of partial den-
+sity overlap models by examining F2 and uracil homod-
+imers. We fit K separately for each dimer and partial
+density. For each fit, we use two dimer configurations
+sampled at several intermolecular distances. The results
+are presented in Fig. 2.
+
+We observe that the exchange-repulsion PES changes
+only slightly for density overlap models using different
+artial densities. The mean relative difference between
+he all-electron model and the valence model is 6%. How-
+ever, removing the contribution of the low-energy orbitals
+o the density overlap lowers the total overlap by 30%
+for the valence model, as demonstrated by the commen-
+surate increase in the value of K for the valence model.
+Since the distance dependence of the density overlap be-
+ween the low-energy molecular orbitals of one molecule
+and the highest occupied orbitals of the other (the largest
+art of the overlap that is neglected) is similar to the dis-
+ance dependence of the valence density overlap, a con-
+stant prefactor can effectively account for the missing
+contributions within this restricted distance regime. Im-
+ortantly, while the PES remains largely unaltered, we
+observe that the difference between the fitted K param-
+eters of the two dimers decreases by using the valence
+density. This illustrates the possibility that using a par-
+ial density can increase the transferability of the density
+overlap model.
+Second, we test the accuracy of partial density overlap
+models that use a single universal K parameter. Each
+
+artial density model is fi
+dataset [57], a dataset cont:
+
+on a subset of the $101x7
+aining 101 dimers each sam-
+
+Fo
+10.0 @P o-0
+7.5 o=0
+5.0 HL o=0-—-0=-0
+2.5
+= 0.0
+a T 7 T
+E 25 3.0 3.5
+6 — Allelectron, K=27 Bohr?
+x=
+= -- Nocore, K=29 Bohr?
+2 - Valence, K=41 Bohr?
+a
+5 Uracil
+2 me
+3 >
+2-100 4 MBP oq pe >
+& 754 os
+G oer
+g 504 bain eres
+a
+254
+io) T T T T
+1.5 2.0 2.5 3.0
+— Allelectron, K=30 Bohr?
+---- Nocore, K=34 Bohr?
+» Valence, — K=42 Bohr?
+
+Intermolecular Distance (A)
+
+FIG. 2. The density overlap model (lines) fitted individually
+for the F2 dimer and the uracil dimer. Squares and circles are
+the SAPT(DFT) exchange repulsion energies for the parallel
+or 7 —7 stacking dimer configurations (circles) and the linear
+or base-pair dimer configurations (squares). Diamonds mark
+the minima of the total interaction energy along that trajec-
+tory. The models used the all-electron density, the density
+without orbitals from core electrons, or the density without
+orbitals corresponding to core electrons and semicore elec-
+trons of N,O, and F atoms, which we call the valence density.
+
+bon dimers in $101x7, form a test set used to evaluate
+whether the model is transferable to new molecules. We
+neglect the configurations which have a distance of 0.7
+Req, where Req is the equilibrium dimer distance, for all
+dimers as these configurations have interaction energies
+that are 30 kcal/mol above the minima and are thus not
+accessible at room temperature.
+
+The results are presented in Table II and Fig. 3. We
+see that the models which remove the core electrons, the
+2s electrons of oxygen, or the 2s electrons of oxygen and
+
+led at 7 intermolecular distances along a dissociation
+curve. For the fitting procedure, we use the S66 subset
+
+nitrogen all have lower root
+
+mean square errors (RMSE)
+
+than the all-electron density. The model with the oxygen
+
+58] which contains 66 com
+shell molecules composed o
+and oxygen that sample th
+
+inations of 14 small, closed-
+hydrogen, carbon, nitrogen,
+ie most common noncovalent
+
+and nitrogen 2s orbitals rem
+
+oved has the best results, and
+
+we call this model the aniso
+
+ropic valence density overlap
+
+(AVDO) model. The AVDO model is nearly twice as ac-
+
+interactions in biomolecules. The remaining five neutral
+molecule dimers containing hydrogen, carbon, nitrogen,
+and oxygen, together with the five fluorinated hydrocar-
+
+curate as the all-electron model and has a relative RMSE
+of 7% for equilibrium geometries with respect to the stan-
+dard deviation of the SAPT(DFT) reference. When ap-
+
+plied to the test set, we see that the model maintains its
+accuracy, with a relative RMSE of 9%. This central result
+demonstrates that AVDO is not only accurate, but also
+transferable to molecules containing atom types, such as
+fluorine, that are not included in the training data set.
+
+1504 @ Allelectron ad
+e
+
+e
+1254) @ Valence vl
++ Valence (test set)
+
+Model Energy
+fay
+ul ~ fo}
+o ui o
+bo
+
+N
+wu
+1
+
+°
+L
+
+—T T T T T T
+0 25 50 75 100 125
+SAPT Exchange-Repulsion Energy
+
+FIG. 3. Exchange repulsion energies (kcal/mol) on the train-
+ing/test dataset for models using one universal K parameter
+with either the all electron density or the valence density.
+
+Further analyzing the results, we see in Table II that
+he error for all the density overlap models increases as
+he intermolecular distance decreases. Although density
+overlap models have the same exponential dependence as
+he exchange repulsion energy, they have the wrong poly-
+nomial prefactor [13, 53] and thus will not be accurate on
+he entire domain of intermolecular distances (see the SM
+for tests using Boltzmann weighting in the fitting proce-
+dure to compensate for this). As to whether certain types
+of molecules give larger errors, we note that dimers with
+‘wo hydrogen bonds have large relative errors and have
+he largest absolute errors. The dimers with two hydro-
+gen bonds have smaller intermolecular distances than the
+other dimers and thus have large errors due to the afore-
+mentioned distance dependence error of density overlap
+models. In particular, the acetic acid dimer has a relative
+RMSE of 12% when the intermolecular distance is 0.8Req
+(this is the point that is farthest to the upper right corner
+in Fig. 3). The relative RMSE for this dimer decreases
+10 2% at Reg.
+
+To put these results in the context of other exchange-
+repulsion models, the overlap repulsion model in the
+AMOEBA force field [13, 14] yields an RMSE of 0.4
+kcal/mol for equilibrium configurations of the full s101x7
+dataset using 26 atom types, for a total of 78 fitted pa-
+rameters. The isotropic Slater-ISA density overlap model
+8] used a dataset of smaller organic molecules than the
+ones in the $101x7 dataset and has an RMSE of 0.2
+kcal/mol in the attractive region using 36 atom type
+
+arameters. Thus, our model drastically reduces the
+number of fitted parameters and is transferable to new
+molecules at the cost of being slightly less accurate near
+equilibrium and about 1 kcal/mol worse for highly repul-
+sive configurations [59].
+
+Finally, we check the accuracy of AVDO as a func-
+
+tion of system size by computing the exchange repulsion
+for acene homodimers using the experimental nearest-
+neighbor configuration taken from the most stable molec-
+ular crystal polymorph [60, 61] (the herring-bone config-
+uration, see the SM ). As seen in Table IT, the accuracy
+of the AVDO model does not degrade with system size,
+despite the pi-pi conjugation present in these molecules.
+We also note that the performance is significantly better
+chan the all-electron model.
+Having shown that the AVDO model is transferable
+across a broad range of organic molecules, we now discuss
+she reason for this transferability. As shown in the SM,
+che distribution of optimal K parameters for each dimer
+is narrower for the AVDO model than for the all-electron
+model. A simple explanation for the transferability is
+hat removing low-energy orbitals based on the elements
+in the molecule acts as an implicit atom type which mod-
+ifies the overlap density for each pair of atoms. However,
+his simple explanation does not explain why the number
+of orbitals removed for each atom type matches chemi-
+cal intuition. To gain more insight about errors in the
+density overlap model, we first consider noble gas homod-
+imers starting from the orbital overlap model [13, 48],
+
+Leach = — “I Va be),
+
+ab
+
+where rp is the interatomic distance and Ko is a unitless
+parameter that is nearly equal to one [48]. This approxi-
+mation is motivated by the form of the SAPT exchange-
+repulsion energy, Eq. 4. Using the mean-geometric in-
+equality (assuming that the wavefunctions are real),
+
+([ teva’ ry < v [vi upd (5)
+
+where V is the volume of the integral, we find that
+Ko \ 2 > Kev |
+— Walw < — Appar. 6
+rap 2 Kalvo)!" < of pape (6)
+
+The more orbital pairs with zero overlap due to nodes in
+the wavefunction, the more the density overlap overesti-
+mates the orbital overlap approximation [39, 62]. Since
+heavier atoms have more orbitals, the density overlap
+will overestimate the orbital overlap approximation more.
+For this reason, we speculate that removing the overlaps
+of the core orbitals lowers the density overlap in a way
+that systematically cancels with this overestimation.
+
+Eq. 6 also provides an explanation for the magnitude
+of the value of the K parameter, which is 32.4 Bohr?
+for the all-electron density overlap model. We approx-
+imate the volume V as a cylinder between two atoms
+with a radius defined by the atom’s van der Waals ra-
+dius, V = mr2qyrap. Since K © K2V/rap and Ky © 1,
+K is approximately the cross-sectional area of an atom.
+Using a van der Waals radius of 2.8 Bohr yields K = 25
+Bohr?. This explanation can be extended to molecules
+by starting with localized Boys orbitals [63] rather than
+
+on
+
+TABLE II. RMSE of Exchange-Repulsion Models Using Different Partial Densities (kcal/mol)
+
+Repulsive wall Short-range Equilibrium Medium-range
+(0.8 Req) (0.9-0.95 Req) (1.0 - 1.05 Req) (1.1 Req) K (Bohr?)
+All-electron 6.6 2.0 0.8 0.5 32.4
+No core 3.8 1.0 0.6 0.5 38.3
+No OF 2s 3.7 1.0 0.6 0.5 38.6
+No NOF 2s* 3.6 0.9 0.5 0.5 41.0
+No CNOF 2s 7.9 3.7 2.0 1.3 58.6
+STD of Ref. 23.9 12:2 TA 4.9
+All-electron (test set) 3.9 0.7 0.3 0.3
+No NOF 2s* (test set) 1.9 0.4 0.4 0.3
+STD of Ref. (test set) 11.4 10.8 4.3 2.8
+
+* AVDO model
+
+TABLE II. Error of Exchange-Repulsion models in kcal/mol
+for equilibrium acene dimers (relative error is in parenthesis)
+
+Naphthalene Anthracene Tetracene Pentacene
+Allelectron -0.8 (14%) -1.3 (16%) -1.8 (17%) 1.9 (15%)
+AVDO -0.01 (0.1%) -0.2 (2%) -0.4 (3%) -0.1 (1%)
+
+molecular orbitals in Eq. 5. The resulting inequality is
+the same as Eq. 6, where V can still be approximated as
+a cylinder between two atoms rather than the volume of
+the overlap region between the two molecules.
+
+As to the computational expense and possible appli-
+cations of the AVDO model, in principle, the AVDO
+model provides the exchange-repulsion PES at the cost
+of a single DFT calculation for the electron density for
+each monomer, though here a DFT calculation is done
+for every configuration because we use dimer basis sets
+(see the SM for results of similar accuracy using lighter,
+monomer basis sets). Recently, machine learning meth-
+ods have been developed that can predict the electron
+density [64-67], with state-of-the-art models achieving
+an integrated absolute error in the density of 0.002 per
+an electron on molecules from the QM9 dataset [68, 69
+which were not present in the training dataset [69-72]. In
+a future publication, we will show that the AVDO mode
+can take advantage of these recent developments so that
+no DFT calculation is needed. An added benefit of using
+a machine-learned model is that it can represent the den-
+sity using a density-fitting basis [64, 66, 70, 72-74] and
+this enables the efficient calculation of the density over-
+lap. We estimate that with a density-fit basis, the AVDO
+model would be on par with the cost of machine-learned
+potentials (about 3 orders of magnitude slower than a
+Born-Mayer model). Given this cost, we think that this
+model will be useful for molecular docking, geometry op-
+timization, and the generation of datasets for machine-
+learning. As to whether this model can be fit on higher
+accuracy reference methods, we find that the parameter
+XX is relatively insensitive to changes in the density tail
+
+due to different levels of theory (see Fig. 3 in the SM). It
+is also known that MP2 exchange-repulsion energies are
+proportional to Hartree-Fock exchange-repulsion energies
+[75] and, additionally, it has been shown that CCSD den-
+sities can be predicted by machine-learned models [74].
+This indicates that the model has the potential to be
+used/fitted on higher accuracy ab-initio methods.
+
+In conclusion, we show that using the valence den-
+sity instead of the all-electron density enables us to cre-
+ate a model for Pauli exchange-repulsion using a single
+universal fitted parameter: the anisotropic valence den-
+sity overlap (AVDO) model. The AVDO model achieves
+sub-kcal/mol accuracy for near equilibrium dimers, even
+for molecules containing “atom types” that are absent
+from its training dataset and evidence suggests that the
+AVDO model is applicable to larger molecules as well.
+These advantages come at the cost of being more ex-
+pensive than simpler models of exchange-repulsion. The
+AVDO model provides insight into how to improve the
+transferability of these other models and, more impor-
+antly, the model can be integrated in a machine-learned
+(ML) force field framework, where the additional cost is
+relatively moderate and is far outweighed by the bene-
+fit of having a model with excellent transferability. In-
+‘egrating the AVDO model with an ML model for the
+density would make the AVDO model fully predictive.
+This approach has the advantage that it replaces ma-
+chine learning dimer interaction energies with monomer
+densities, resulting in a significant reduction in the size of
+he dataset needed. This work brings us one step closer
+o transferable, high-accuracy force fields for biological
+applications such as drug discovery and for generating
+high-accuracy, synthetic data for ML force fields.
+
+ACKNOWLEDGMENTS
+Appendix A: Computational details
+
+SAPT(DFT) calculations were performed in Q-Chem
+[76] with an aug-ccpVDZ Gaussian dimer basis set, i.e.
+ghost atoms are placed at the positions of the other
+monomer. SAPT(DFT) exchange-repulsion energies are
+converged to better than 0.2 kcal/mol for the uracil dimer
+at 0.8Req, with errors that decrease with distance such
+that they are negligible at the equilibrium distance and
+beyond.
+
+Densities and overlaps were computed using PySCF [77—
+
+1] P. Dauber-Osguthorpe and A. T. Hagler, Biomolecular
+force fields: where have we been, where are we now,
+where do we need to go and how do we get there?, Journal
+of computer-aided molecular design 33, 133 (2019).
+
+2| A. T. Hagler, Force field development phase ii: Relax-
+ation of physics-based criteria... or inclusion of more rig-
+orous physics into the representation of molecular ener-
+getics, Journal of computer-aided molecular design 33,
+205 (2019).
+3] Z. Jing, C. Liu, S. Y. Cheng, R. Qi, B. D. Walker,
+J.-P. Piquemal, and P. Ren, Polarizable force fields for
+biomolecular simulations: Recent advances and applica-
+tions, Annual Review of biophysics 48, 371 (2019).
+
+4] A. Stone, The theory of intermolecular forces (0UP ox-
+ford, 2013).
+5] V. Babin, C. Leforestier, and F. Paesani, Develop-
+ment of a “first principles” water potential with flexi-
+ble monomers: Dimer potential energy surface, vrt spec-
+trum, and second virial coefficient, Journal of chemical!
+theory and computation 9, 5395 (2013).
+
+6] C. Liu, J.-P. Piquemal, and P. Ren, Amoeba+ classica
+potential for modeling molecular interactions, Journal of
+chemical theory and computation 15, 4122 (2019).
+
+7| J. G. McDaniel and J. Schmidt, Physically-motivate
+force fields from symmetry-adapted perturbation theory,
+The Journal of Physical Chemistry A 117, 2053 (2013).
+8] M. J. Van Vleet, A. J. Misquitta, A. J. Stone, an
+J. R. Schmidt, Beyond born—mayer: Improved models
+for short-range repulsion in ab initio force fields, Journal
+of chemical theory and computation 12, 3851 (2016).
+
+9] J. B. Schriber, D. R. Nascimento, A. Koutsoukas, S. A.
+Spronk, D. L. Cheney, and C. D. Sherrill, Cliff: A
+component-based, machine-learned, intermolecular force
+field, The Journal of Chemical Physics 154 (2021).
+
+10] B. Jeziorski, R. Moszynski, and K. Szalewicz, Perturba-
+tion theory approach to intermolecular potential energy
+surfaces of van der waals complexes, Chemical Reviews
+94, 1887 (1994).
+
+11] S. Vandenbrande, M. Waroquier, V. V. Speybroeck, and
+T. Verstraelen, The monomer electron density force field
+(medff): A physically inspired model for noncovalent in-
+teractions, Journal of Chemical Theory and Computation
+13, 161 (2017).
+
+12] J. A. Rackers, R. R. Silva, Z. Wang, and J. W. Ponder,
+Polarizable water potential derived from a model electron
+density, Journal of chemical theory and computation 17,
+7056 (2021).
+
+13] J. A. Rackers and J. W. Ponder, Classical pauli repulsion:
+An anisotropic, atomic multipole model, The Journal of
+chemical physics 150 (2019).
+
+14] M. K. Chung and J. W. Ponder, Beyond isotropic re-
+
+79] with an aug-ccpVTZ dimer Gaussian basis set. Den-
+sity overlaps are converged to approximately less than 1%
+for uracil and 0.01 % for water using this basis. This re-
+sults in model errors around 0.3 kcal/mol at equilibrium
+for the uracil dimer.
+
+The Nelder-Mead algorithm as implemented in SciPy
+[80] is used to minimize the mean absolute error for the
+fitting procedure for the parameter K.
+
+pulsion: Classical anisotropic repulsion by inclusion of p
+orbitals, The Journal of Chemical Physics 160 (2024).
+5] K. Szalewicz and B. Jeziorski, Physical mechanisms of
+intermolecular interactions from symmetry-adapted per-
+turbation theory, Journal of Molecular Modeling 28, 273
+(2022).
+6] T. M. Parker, L. A. Burns, R. M. Parrish, A. G. Ryno,
+and C. D. Sherrill, Levels of symmetry adapted pertur-
+bation theory (sapt). i. efficiency and performance for in-
+teraction energies, The Journal of chemical physics 140
+(2014).
+7| Z. M. Sparrow, B. G. Ernst, P. T. Joo, K. U. Lao,
+and R. A. DiStasio, Nenci-2021. i. a large benchmark
+database of non-equilibrium non-covalent interactions
+emphasizing close intermolecular contacts, The Journal
+of Chemical Physics 155 (2021).
+8] K. Carter-Fenk, M. Liu, L. Pujal, M. Loipersberger,
+M. Tsanai, R. M. Vernon, J. D. Forman-Kay, M. Head-
+Gordon, F. Heidar-Zadeh, and T. Head-Gordon, The en-
+ergetic origins of pi-pi contacts in proteins, Journal of
+the American Chemical Society 145, 24836 (2023).
+9] A. J. Stone, Are halogen bonded structures electrostati-
+cally driven?, Journal of the American Chemical Society
+135, 7005 (2013).
+20) Z. Xu, Z. Yang, Y. Liu, Y. Lu, K. Chen, and W. Zhu,
+Halogen bond: its role beyond drug-target binding affin-
+ity for drug discovery and development, Journal of chem-
+ical information and modeling 54, 69 (2014).
+21] O. T. Unke, S. Chmiela, H. E. Sauceda, M. Gastegger,
+I. Poltavsky, K. T. Schutt, A. Tkatchenko, and K.-R.
+Muller, Machine learning force fields, Chemical Reviews
+121, 10142 (2021).
+22) A. Kabylda, J.T. Frank, 8S.  SudrezDou,
+A. Khabibrakhmanov, L. Medrano Sandonas, O. T.
+Unke, S. Chmiela, K.-R. Miiller, and A. Tkatchenko,
+Molecular simulations with a pretrained neural network
+and universal pairwise force fields, Journal of the
+American Chemical Society 147, 33723 (2025).
+(23] T. Bereau, R. A. DiStasio, A. Tkatchenko, and O. A.
+Von Lilienfeld, Non-covalent interactions across organic
+and biological subsets of chemical space: Physics-based
+potentials parametrized from machine learning, The
+Journal of chemical physics 148 (2018).
+(24] J. E. Lennard-Jones, Cohesion, Proceedings of the Phys-
+ical Society 43, 461 (1931).
+(25) M. Born and J. E. Mayer, Zur gittertheorie der io-
+nenkristalle, Zeitschrift fiir Physik 75, 1 (1932).
+(26) R. A. Buckingham, The classical equation of state of
+gaseous helium, neon and argon, Proceedings of the Royal
+Society of London. Series A. Mathematical and Physical
+Sciences 168, 264 (1938).
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34)
+
+36
+
+37
+
+38
+
+39
+
+40)
+
+Al
+
+42
+
+43}
+
+44
+
+A. Stone and S. Price, Some new ideas in the theory of
+intermolecular forces: anisotropic atom-atom potentials,
+The Journal of Physical Chemistry 92, 3325 (1988).
+
+R. J. Wheatley and S. L. Price, An overlap model for
+estimating the anisotropy of repulsion, Molecular Physics
+69, 507 (1990).
+
+G. M. Day and S$. L. Price, A nonempirical anisotropic
+atom- atom model potential for chlorobenzene crystals,
+Journal of the American Chemical Society 125, 16434
+(2003).
+
+T.S. Totton, A. J. Misquitta, and M. Kraft, A first prin-
+ciples development of a general anisotropic potential for
+polycyclic aromatic hydrocarbons, Journal of Chemical
+Theory and Computation 6, 683 (2010).
+
+D. M. Elking, G. A. Cisneros, J.-P. Piquemal, T. A.
+Darden, and L. G. Pedersen, Gaussian multipole model
+(gmm), Journal of chemical theory and computation 6,
+190 (2010).
+M. J. Van Vleet, A. J. Misquitta, and J. Schmidt, New
+angles on standard force fields: Toward a general ap-
+proach for treating atomic-level anisotropy, Journal of
+Chemical Theory and Computation 14, 739 (2018).
+
+M. K. Chung and J. W. Ponder, Beyond isotropic re-
+pulsion: Classical anisotropic repulsion by inclusion of p
+orbitals, The Journal of Chemical Physics 160 (2024).
+S. Kita, K. Noda, and H. Inouye, Repulsive potentials for
+cl—r and br—r (r= he, ne, and ar) derived from beam
+experiments, The Journal of Chemical Physics 64, 3446
+(1976).
+
+Y. S. Kim, S. K. Kim, and W. D. Lee, Dependence of
+the closed-shell repulsive interaction on the overlap of
+the electron densities, Chemical Physics Letters 80, 574
+(1981).
+
+A. J. Misquitta, G. W. Welch, A. J. Stone, and S. L.
+Price, A first principles prediction of the crystal structure
+of c6br2clfh2, Chemical Physics Letters 456, 105 (2008).
+M. Tafipolsky and K. Ansorg, Toward a physically mo-
+tivated force field: Hydrogen bond directionality from
+a symmetry-adapted perturbation theory perspective,
+Journal of Chemical Theory and Computation 12, 1267
+(2016).
+
+A. Gavezzotti, Calculation of intermolecular interaction
+energies by direct numerical integration over electron
+densities. 2. an improved polarization model and the eval-
+uation of dispersion and repulsion energies, The Journal
+of Physical Chemistry B 107, 2344 (2003).
+
+P. Sdderhjelm, G. Karlstrém, and U. Ryde, Comparison
+of overlap-based models for approximating the exchange-
+repulsion energy, The Journal of chemical physics 124
+(2006).
+J.-P. Piquemal, G. A. Cisneros, P. Reinhardt, N. Gresh,
+and T. A. Darden, Towards a force field based on density
+fitting, The Journal of chemical physics 124 (2006).
+
+P. Bygrave, N. Allan, and F. Manby, The embedded
+many-body expansion for energetics of molecular crys-
+tals, The Journal of chemical physics 137 (2012).
+
+G. Thm, M. Cole, F. Toigo, and J. Klein, Charge-overlap
+model of physical interactions and a combining rule for
+unlike systems, Physical Review A 42, 5244 (1990).
+
+I. Nobeli, S. Price, and R. Wheatley, Use of molecular
+overlap to predict intermolecular repulsion in n--- h—o
+hydrogen bonds, Molecular Physics 95, 525 (1998).
+
+T. C. Lillestolen and R. J. Wheatley, Atomic charge den-
+sities generated using an iterative stockholder procedure,
+
+46
+
+AT,
+
+48
+
+60
+
+The Journal of chemical physics 131 (2009).
+
+T. Verstraelen, S. Vandenbrande, F. Heidar-Zadeh,
+L. Vanduyfhuys, V. Van Speybroeck, M. Waroquier,
+and P. W. Ayers, Minimal basis iterative stockholder:
+atoms in molecules for force-field development, Journal
+of Chemical Theory and Computation 12, 3894 (2016).
+J. B. Mitchell and S. L. Price, A systematic nonempirical
+method of deriving model intermolecular potentials for
+organic molecules: application to amides, The Journal of
+Physical Chemistry A 104, 10958 (2000).
+
+B. Jeziorski, M. Bulski, and L. Piela, First-order pertur-
+bation treatment of the short-range repulsion in a system
+of many closed-shell atoms or molecules, International
+Journal of Quantum Chemistry 10, 281 (1976).
+
+J. N. Murrell, M. Randié, and D. Williams, The theory of
+intermolecular forces in the region of small orbital over-
+lap, Proceedings of the Royal Society of London. Series
+A. Mathematical and Physical Sciences 284, 566 (1965).
+This can be derived by taking the trace of the interaction
+density matrix in ref. [47].
+
+B. Jeziorski, R. Moszynski, A. Ratkiewicz, S. Rybak,
+K. Szalewicz, and H. L. Williams, Sapt: A program for
+many-body symmetry-adapted perturbation theory cal-
+culations of intermolecular interaction energies, Methods
+and techniques in computational chemistry: METECC
+94, 79 (1993).
+
+R. Moszynski, B. Jeziorski, S. Rybak, K. Szalewicz, and
+H. L. Williams, Many-body theory of exchange effects in
+intermolecular interactions. density matrix approach and
+applications to he-f-, he-hf, h2-hf, and ar-h2 dimers,
+The Journal of chemical physics 100, 5080 (1994).
+
+J. H. Jensen and M. S. Gordon, An approximate formula
+or the intermolecular pauli repulsion between closed
+shell molecules, molecular physics 89, 1313 (1996).
+
+A. J. Misquitta and A. J. Stone, Ab initio atom-atom po-
+tentials using camcasp: Theory and application to many-
+ody models for the pyridine dimer, Journal of chemical
+theory and computation 12, 4184 (2016).
+
+M. Levy, J. P. Perdew, and V. Sahni, Exact differential
+equation for the density and ionization energy of a many-
+particle system, Physical Review A 30, 2745 (1984).
+
+H. L. Williams and C. F. Chabalowski, Using kohn-
+shaw orbitals in symmetry-adapted perturbation theory
+to investigate intermolecular interactions, The Journal of
+Physical Chemistry A 105, 646 (2001).
+
+A. J. Misquitta and K. Szalewicz, Intermolecular forces
+rom asymptotically corrected density functional descrip-
+tion of monomers, Chemical physics letters 357, 301
+(2002).
+
+Q. Wang, J. A. Rackers, C. He, R. Qi, C. Narth, L. La-
+gardere, N. Gresh, J. W. Ponder, J.-P. Piquemal, and
+P. Ren, General model for treating short-range electro-
+static penetration in a molecular mechanics force field,
+Journal of chemical theory and computation 11, 2609
+(2015).
+J. Rezac, K. E. Riley, and P. Hobza, S66: A well-balanced
+database of benchmark interaction energies relevant to
+biomolecular structures, Journal of chemical theory and
+computation 7, 2427 (2011).
+
+The AVDO model has an RMSE of 2.2 kcal/mol
+intermediate range of (0.8-.95) Reg on S66.
+Dimer configurations were taken from CCDC 1216810,
+1103062, 1269538, and 114447. These data can be ob-
+tained free of charge from The Cambridge Crystallo-
+
+‘or the
+
+61
+
+62
+
+63}
+
+64)
+
+65
+
+66
+
+67
+
+68
+
+69
+
+70
+
+val
+
+72
+
+graphic Data Centre via www.ccde.cam.ac.uk/structures.
+C. R. Groom, I. J. Bruno, M. P. Lightfoot, and S. C.
+Ward, The cambridge structural database, Structural
+Science 72, 171 (2016).
+J. Henrichsmeyer, M. Thelen, M. Bréckel, M. Fadel,
+S. Behnle, M. Sekkal-Rahal, and R. F. Fink, Ratio-
+nalizing aggregate structures with orbital contributions
+to the exchange-repulsion energy, ChemPhysChem 24,
+€202300097 (2023).
+S. F. Boys, Construction of some molecular orbitals to be
+approximately invariant for changes from one molecule to
+another, Reviews of Modern Physics 32, 296 (1960).
+
+F. Brockherde, L. Vogt, L. Li, M. E. Tuckerman,
+K. Burke, and K.-R. Miiller, Bypassing the kohn-sham
+equations with machine learning, Nature communica-
+tions 8, 872 (2017).
+M. Bogojeski, F. Brockherde, L. Vogt-Maranto, L. Li,
+M. E. Tuckerman, K. Burke, and K.-R. Miiller, Efficient
+prediction of 3d electron densities using machine learn-
+ing, arXiv preprint arXiv:1811.06255 (2018).
+
+A. Grisafi, A. Fabrizio, B. Meyer, D. M. Wilkins,
+C. Corminboeuf, and M. Ceriotti, Transferable machine-
+learning model of the electron density, ACS central sci-
+ence 5, 57 (2018).
+
+A. Fabrizio, A. Grisafi, B. Meyer, M. Ceriotti, and
+C. Corminboeuf, Electron density learning of non-
+covalent systems, Chemical science 10, 9424 (2019).
+
+R. Ramakrishnan, P. O. Dral, M. Rupp, and O. A.
+Von Lilienfeld, Quantum chemistry structures and prop-
+erties of 134 kilo molecules, Scientific data 1, 1 (2014).
+P. B. Jorgensen and A. Bhowmik, Equivariant graph
+neural networks for fast electron density estimation of
+molecules, liquids, and solids, npj Computational Mate-
+rials 8, 183 (2022).
+Z. Qiao, A. S. Cbnisiensed M. Welborn, F. R. Manby,
+A. Anandkumar, and T. F. Miller III, Informing geo-
+metric deep learning with pee interactions to ac-
+celerate quantum chemistry, Proceedings of the National
+Academy of Sciences 119, ¢2205221119 (2022).
+T. Koker, K. Quigley, E. Taw, K. Tibbetts, and L. Li,
+Higher-order equivariant neural networks for charge den-
+sity prediction in materials, npj Computational Materials
+10, 161 (2024).
+X. Fu, A. Rosen, K. Bystrom, R. Wang, A. Musaelian,
+B. Kozinsky, T. Smidt, and T. Jaakkola, A recipe for
+
+(73]
+
+[74]
+
+Ce
+
+78
+
+79.
+
+80
+
+charge density prediction, Advances in Neural Informa-
+tion Processing Systems 37, 9727 (2024).
+
+O. Unke, M. Bogojeski, M. Gastegger, M. Geiger,
+T. Smidt, and K.-R. Miller, Se(3)-equivariant predic-
+tion of molecular wavefunctions and electronic densi-
+ties, in Advances in Neural Information Processing Sys-
+tems, Vol. 34, edited by M. Ranzato, A. Beygelzimer,
+Y. Dauphin, P. Liang, and J. W. Vaughan (Curran As-
+sociates, Inc., 2021) pp. 14434-14447.
+
+J. A. Rackers, L. Tecot, M. Geiger, and T. E. Smidt, A
+recipe for cracking the quantum scaling limit with ma-
+chine learned electron densities, Machine Learning: Sci-
+ence and Technology 4, 015027 (2023).
+
+M. P. Hodges and R. J. Wheatley, Application of the
+overlap model to calculating correlated exchange ener-
+gies, Chemical Physics Letters 326, 263 (2000).
+
+3] E. Epifanovsky, A. T. Gilbert, X. Feng, J. Lee, Y. Mao,
+
+N. Mardirossian, P. Pokhilko, A. F. White, M. P. Coons,
+A. L. Dempwolff, et al., Software for the frontiers of quan-
+tum chemistry: An overview of developments in the q-
+chem 5 package, The Journal of chemical physics 155
+(2021).
+
+Q. Sun, T. C. Berkelbach, N. S. Blunt, G. H. Booth,
+S. Guo, Z. Li, J. Liu, J. D. McClain, E. R. Sayfutyarova,
+S. Sharma, et al., Pyscf: the python-based simulations of
+chemistry framework, Wiley Interdisciplinary Reviews:
+Computational Molecular Science 8, e1340 (2018).
+
+Q. Sun, X. Zhang, S. Banerjee, P. Bao, M. Barbry, N. S.
+Blunt, N. A. Bogdanov, G. H. Booth, J. Chen, Z.-H. Cui,
+et al., Recent developments in the pyscf program package,
+The Journal of chemical physics 153 (2020).
+
+Q. Sun, Libcint: An efficient general integral library for
+gaussian basis functions, Journal of computational chem-
+istry 36, 1664 (2015).
+P. Virtanen, R. Gommers, T. E. Oliphant, M. Haber-
+land, T. Reddy, D. Cournapeau, E. Buroyski, P. Pe-
+terson, W. Weckesser, J. Bright, S. J. van der Walt,
+M. Brett, J. Wilson, K. J. Millman, N. Mayorov, A. R. J.
+Nelson, E. Jones, R. Kern, E. Larson, C. J. Carey, I. Po-
+lat, Y. Feng, E. W. Moore, J. VanderPlas, D. Laxalde,
+J. Perktold, R. Cimrman, I. Henriksen, E. A. Quintero,
+C. R. Harris, A. M. Archibald, A. H. Ribeiro, F. Pe-
+dregosa, P. van Mulbregt, and SciPy 1.0 Contributors,
+SciPy 1.0: Fundamental Algorithms for Scientific Com-
+puting in Python, Nature Methods 17, 261 (2020).
+
+Supplementary Material for Accurate and Transferable Pauli Exchange-Repulsion for
+Molecules with the Anisotropic Valence Density Overlap Model
+
+Dahvyd Wing and Alexandre Tkatchenko
+
+Department of Physics and Materials Science, University of Luxembourg, L-1511 Luxembourg City, Luxembourg
+
+ANTISYMMETRIZATION INDUCED REDISTRIBUTION OF THE DENSITY
+
+In Fig. 1 we show the redistribution of the density due to antisymmetrization. fp, and fg have an S-orbital
+character for the He and Hz dimer, but have a predominantly P-orbital character for the Ne and F2 dimers, as seen
+by the nodes in the density. This is what prompted our investigation into neglecting semicore states. As an aside, we
+also tried using fractional occupations of orbitals in defining the partial densities, but doing so can break molecular
+orbital symmetries and produced significantly worse results.
+
+He Dimer Ne Dimer
+
+10-7
+
+1o-3
+
+10-5
+
+10-7
+
+H2 Dimer F2 Dimer
+
+10-1 4
+
+Electron Density (A-3)
+
+10-3 4
+
+10
+
+1077
+
+0.53 1.27 -2.51 -1.10 1.10 2.51
+Interatomic Distance (A)
+
+T T
+-1.27 -0.53
+
+FIG. 1. Semilog plots of the total density redistribution due to antisymmetrization Ap (see Eq. 2 in the main text) along the
+intermolecular axis, the density surplus on monomer A, fa, and the density deficiency pp for noble gas and diatomic dimers
+(see Eq. 3 in the main text). Both the Hz and F2 dimer are in the linear configuration. The tick marks on the x axis indicate
+the positions of the atoms. Solid lines indicate positive values and dotted lines indicate negative values.
+
+DISTRIBUTION OF OPTIMAL kK PARAMETERS FOR EACH DIMER
+
+We fit AK for each dimer pair individually from the training dataset and plot the spread of optimal K values, see
+Fig. 2a. The standard deviation for K for the all-electron model is 3.5 Bohr?, which is 11% of the value of K, while
+the standard deviation for the valence model is 2.4 Bohr?, which is 6% of the value of K. This demonstrates how
+removing low-energy orbitals from the density improves the transferability of the K parameter.
+
+In Fig. 2be we investigate if molecules with different elements have different K values. We show that there is a
+slight difference in K values for molecules that contain oxygen and nitrogen for the all-electron model that is removed
+in the valence model and that hydrocarbons such as pentane, cyclopentane, etc. have K values that are distinct in
+both groups, but closer to the other dimer A’ values for the valence model. The ethyne-ethyne dimer is the outlier
+with the largest K value for both the all electron and valence model, and dimers containing ethyne have the largest
+K values in general. Ref. [1] removed all the dimers with ethyne when constructing the new Pauli repulsion model
+for AMOEBA. We keep the dimers with ethyne in the dataset because the valence model performs reasonably well
+on the other dimers with ethyne.
+
+B (a) {am All electron 6 4(b) mmm CH 5 7(c) mmm CH
+Mam Valence 5 lm N me)
+u 104 a me) a4] ma ON
+G oO = 34
+£ £34 £
+3 3 3
+S ‘S 24 524
+* a a
+7 LI ||
+It, — ol,
+40 50 40 50 30 40 50
+K (Bohr2) K (Bohr2) K (Bohr?)
+FIG. 2. The K parameter fitted for each dimer pair separately. a) The spread of K for the all-electron and valence models. The
+
+distribution of K for the all-electron model (b) and the valence model (c) for hydrocarbons, molecules that contain nitrogen,
+and molecules that contain oxygen. (The molecules with nitrogen and oxygen include double countings)
+
+BOLTZMAN WEIGHTING
+
+It is expected that density overlap models will not be able to cover the entire range of distances accurately because
+even though the overlap density has the same exponential dependence as the exchange repulsion energy it has the
+wrong polynomial prefactor [1, 2]. Here, we investigate how much equilibrium configurations can be improved by
+using Boltzmann weighting, i.e. we minimize the sum of the absolute errors of each calculation weighted by
+
+w; = e(- Bi Emin)/RE
+
+where E; is the CCSD(T) energy of configuration i, Ey, is the CCSD(T) energy of the equilibrium distance for
+that configuration, k is the Boltzmann constant, and T = 300K. Note that this is not exactly Boltzmann weighting
+because each configuration uses it’s own minimum as the reference, but doing this ensures that all dimer configurations
+are treated equally. The results are shown in Table I. Boltzmann weighting reduces the mean error for both the all-
+electron and valence models, however the error due to using a single universal K keeps the RMSE at equilibrium
+distances from decreasing significantly. Thus, one can tradeoff between having slightly better accuracy at equilibrium
+at the expense of worse errors for the repulsive wall. The K for the valence model using Boltzmann weighting is 42.7
+Bohr?.
+
+FITTING DIFFERENT REFERENCE METHODS
+
+Here we investigate whether the results of the valence overlap method hold for other reference methods. The density
+overlap strongly depends on the tails of the density. Since the density decays as e72V2T [3] and approximate DFT
+functionals give a large spread in I [4], the density overlap will change when using different reference methods. There
+are ways to correct DFT to get correct ionization potentials and thus have a better decay of the density such as using
+optimally tuned range-separated hybrids [4] or the GRAC correction [5]. However, in order to test if our results are
+accurate for a broad range of functionals we calculate the density overlap model for PBEO and Hartree-Fock and fit
+it to the corresponding SAPTO exchange repulsion energies based on these methods. We present these results in Fig.
+TABLE I. RMSE (Mean signed error) of Exchange-Repulsion Models
+Using Different Weighted Schemes For Fitting (kcal/mol)
+
+Repulsive wall Short-range Equilibrium Medium-range
+
+(0.8 Reg) (0.9-0.95 Req) (1.0 - 1.05 Req) (14-Reg)
+All-electron 6.6 (1.7) 2.0 (-0.4) 0.8 (-0.5) 0.5 (-0.4)
+Valence 3.6 (1.5) 0.9 (-0.3) 0.5 (-0.4) 0.5 (-0.3)
+All-electron
+(Boltzmann) 8.2 (3.7) 2.5 (0.3) 0.9 (-0.2) 0.4 (-0.2)
+
+Valence
+
+(Boltzmann) 5.3 (3.5) 1.3 (0.4) 0.4 (-0.1) 0.3 (-0.2)
+STD of Ref. (Mean): 23.9 (46.0) 12.2 (17.3) 7.4 (8.1) 4.9 (4.6)
+
+3 for the Fy and uracil dimers. Clearly the PES changes significantly between methods, however the density overlap
+also changes commensurately, such that the valence model remains accurate and the fitted AK parameter changes by
+a modest 5% between methods. These results suggest that the transferability results presented above for the valence
+method are applicable when using other reference methods and densities.
+
+Fo Uracil
+_ 104
+re) 100
+— a
+g 80 4
+x
+~— 6 4
+a 60 4
+o 4
+pry 40 4
+c
+o 24
+mn 20 4
+2
+a 2.5 3.0 3.5 1.5 2.0 2.5 3.0
+4 mm SAPT(PBE) —  K=41 Bohr? m  SAPT(PBE) —  K=42 Bohr2
+£ | SAPT(PBEO) —— K=40 Bohr? ™ SAPT(PBEO) — K=41 Bohr?
+Fis m SAPT(HF) — K=38 Bohr? m  SAPT(HF) — K=40 Bohr?
+
+Intermolecular Distance (A)
+
+FIG. 3. The density overlap model fitted individually for the Fz dimer and the uracil dimer (lines) using several different
+methods to calculate the density and the SAPT exchange-repulsion energy (squares and circles, which correspond to the dimer
+configurations shown in Fig. 2 of the main text). The valence density is used for each case. The exchange-repulsion potential
+energy surface can vary significantly between methods, while the fitted parameter K experiences a modest change
+
+USING A SMALL MONOMER BASIS SET FOR THE DENSITY
+
+The density overlap for dimers farther apart than their equilibrium distances is highly dependent on the tails of
+the density. In Table II we quantify the effect of the basis set convergence on density overlap models by comparing
+models using the converged aug-ccpVTZ dimer basis set to calculate the density overlap and models that use a
+small aug-ccpVDZ monomer basis set. Each model is fit to reproduce the same S66 training dataset computed with
+SAPT(DFT) on an aug-ccpVDZ dimer basis set. We see a small, but notable, increase in error for the equilibrium
+and the medium-range dimers by using these under converged densities. The K parameter only slightly changes, due
+
+TABLE II. RMSE of Exchange-Repulsion Models Using Different Basis Sets (kcal/mol)
+
+Repulsive wall Short-range Equilibrium Medium-range
+(0.8 Req) (0.9-0.95 Req) (1.0 - 1.05 Req) (1.1 Reg) K (Bohr?)
+All-electron dimer basis set 6.6 2.0 0.8 0.5 32.4
+All-electron monomer basis set 6.3 2.0 1.0 0.7 32.2
+AVDO dimer basis set 3.6 0.9 0.5 0.5 41.0
+AVDO monomer basis set 3.7 1.0 0.8 0.6 40.5
+
+to needing to fit dimers at all the distances present in the dataset. This shows that the model is not very sensitive to
+the basis set, though performance does improve with larger basis sets.
+
+ACENE DIMERS
+
+In Fig. 4 we show the configuration of the acene dimers used in Table III of the main text.
+
+poceircocdle
+
+wide saetels gave aeekeeeene
+
+FIG. 4. A)Naphthalene dimer, B) Anthracene dimer, C) Tetracene dimer, D) Pentacene dimer used in the main text Table III
+
+[1] J. A. Rackers and J. W. Ponder, Classical pauli repulsion: An anisotropic, atomic multipole model, The Journal of chemical
+physics 150 (2019).
+
+(2) A. J. Misquitta and A. J. Stone, Ab initio atom-atom potentials using camcasp: Theory and application to many-body
+models for the pyridine dimer, Journal of chemical theory and computation 12, 4184 (2016).
+
+[3] M. Levy, J. P. Perdew, and V. Sahni, Exact differential equation for the density and ionization energy of a many-particle
+system, Physical Review A 30, 2745 (1984).
+
+[4] L. Kronik, T. Stein, S. Refaely-Abramson, and R. Baer, Excitation gaps of finite-sized systems from optimally tuned
+range-separated hybrid functionals, Journal of Chemical Theory and Computation 8, 1515 (2012).
+
+[5] M. Griining, O. Gritsenko, S$. Van Gisbergen, and n. E. Baerends, Shape corrections to exchange-correlation potentials by
+gradient-regulated seamless connection of model potentials for inner and outer region, The Journal of Chemical Physics
+114, 652 (2001).

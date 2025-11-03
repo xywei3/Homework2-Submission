@@ -1,0 +1,889 @@
+arXiv:2510.25527v1 [physics.flu-dyn] 29 Oct 2025
+
+Enhanced quality factors at resonance in acoustofluidic cavities
+embedded in matched elastic metamaterials
+
+Valdemar Frederiksen* and Henrik Bruus'
+Department of Physics, Technical University of Denmark,
+DTU Physics Building 309, DK-2800 Kongens Lyngby, Denmark
+(Dated: 29 October 2025)
+
+We show that by embedding liquid-filled acoustofluidic cavities in a metamaterial, the quality
+factor of the cavity at selected acoustic resonance modes can be enhanced by 2 to 3 orders of mag-
+nitude relative to a comparable conventional cavity by matching the coarse-grained elastic moduli
+of the metamaterial to the acoustic properties of the liquid.
+
+I. INTRODUCTION
+
+The quality factor Q of an acoustic resonance mode ina
+liquid-filled acoustofluidic cavity embedded in an elastic
+solid is limited by the dissipation in the liquid, mainly
+due to the large stresses in the thin viscous boundary
+layers near the elastic walls of the cavity. For MHz ultra-
+sound resonance modes in typical water-filled acoustoflu-
+idic cavities with kinematic viscosity v at angular fre-
+quency w, @-factors are often in the range 10 - 500 [1],
+a value set by the relevant length scale of the cavity rel-
+ative to the thickness 6 = "Ea of the viscous boundary
+layer [2]. For a long straight box-shaped cavity of length
+L, width W, and height H, with H <W < L, it is found
+that Q = 4. Given a typical height H = 160 pm and
+a standing half-wave along the width W = 375 pm with
+a resonance frequency of 2 MHz, we have the boundary-
+layer width 6 = 0.4 pm, and thus Q = 400.
+
+In the above example, the boundary layer is formed by
+the viscous friction in the liquid, as the acoustic velocity
+of the liquid is changing from its bulk value v1 to zero
+at the nearly rigid wall over a distance of 6. The small-
+ness of 6 is the reason that the dissipation Wer ~ n(2t)?
+in the boundary layer dominates the total dissipation in
+the system. The Q-factor may be increased considerably
+simply by removing the boundary layer. In this paper we
+show that the boundary layer may be removed or at least
+strongly suppressed by embedding the acoustic cavity not
+in a conventional elastic solid, denoted by superscript
+*sI”, but instead in an elastic metamaterial denoted by
+superscript ”"mm”. By tuning the coarse-grained elastic
+moduli of the metamaterial, it is possible at a given reso-
+nance to match at the solid-liquid interface of the cavity
+the vibrational velocity O,u of the metamaterial to the
+acoustic velocity v; of the liquid. This matching will
+suppress the boundary layer, and the dissipation of the
+system will then be limited by the small bulk dissipation
+of the liquid, and the Q-factor increases by a factor 200
+to ~ 10°.
+
+The paper is organized as follows: In Sec. II we present
+
+* valde.freder@gmail.com
+
++ bruus@fysik.dtu.dk
+
+the theory of acoustic cavities embedded in an elastic
+metamaterial. In Sec. III we introduce a specific two-
+dimensional (2D) model, which is simulated numerically
+in Sec. IV, using the finite-element software COMSOL
+Multiphysics, as well as analytically for a simplified case.
+Finally, in Secs. V and VI we discuss the results and
+present our conclusions and outlook. Animations of se-
+lected results are provided in the Supplemental Mate-
+rial [3].
+
+II. THEORY
+A. The 2D model system
+
+Our proposed system is assumed to be translational in-
+variant in the length direction L and with the rectangular
+cross section sketched in Fig. 1. In this cross section a
+fluid-filled cavity 0 circumscribing a rectangle of width
+W® and height H® is surrounded by a solid material re-
+gion 9°! which is subdivided into four domains. The base
+Of... is a large rectangular block of regular solid mate-
+rial of width W*! and height H*! and with a free surface
+to the left. The lid Of, is a thin rectangular region of
+regular solid material of width fn with a prescribed
+time-harmonic displacement w?Y* = do cos(wt) ey on its
+
+FIG. 1. A sketch of the model system with its five domains:
+the solid base %1,,., the fluid channel 2", the solid lid QF,
+and the metamaterial walls Qi5" and OGyin- The green dou-
+ble arrow represents the oscillation amplitude do of the lid
+
+(green line).
+rightmost boundary. The remaining two rectangular re-
+gions OU" and OF,» above and below the cavity con-
+sist of a mechanical metamaterial, where the small-scale
+geometry has been optimized such as to make the meta-
+material move in sync with the fluid in the cavity. We
+treat all acoustic fields gi to be complex-valued with a
+harmonic time dependence e~‘”*, such that the real part
+corresponds to the true physical field g?¥s,
+
+gP9(r,t) = Re[gi(r) e-"). (1)
+
+B. The fluid domain
+
+To model the acoustic behavior of the coupled fluid-
+solid system, we first consider the governing equations in
+the fluid domain 0" in terms of the pressure p, velocity v,
+and density p", namely the continuity and Navier-Stokes
+equation,
+
+ap" = -V -(p*v), (2a)
+paw =V-o"— (p!u-V)v, (2b)
+fl
+
+where the fluid stress tensor o" is given in terms of p, v,
+and the respective shear and bulk viscosity 7 and n>,
+
+of = [—pt(n? — 2n)V-v]L4+n[Vv + (Vv)"]. (3)
+
+At the fluid-solid interface, which is the boundary 00" of
+the fluid domain 04 with normal vector n, the boundary
+conditions are continuity in velocity and normal stress,
+
+v=d0u, at ani, (4a)
+oa! .n=o-n, at an, (4b)
+
+where o*! and 0;u is the stress and velocity of the ma-
+erial surrounding the fluid domain. We solve the above
+equations by applying perturbation theory in terms of
+he acoustic Mach number assuming fields to become
+rogressively weaker with increasing orders. For the
+zeroth-order solution, we assume the fluid to be at rest
+vo = 0 with constant pressure po and density pf. We
+hen assume the first-order fields to be time-harmonic,
+gi = g(r) e~!, and relate the first-order pressure and
+density, pi(r) = cZ pt, by assuming a constant com-
+ressibility x = [pf(cf)?]~”, where cf is the speed of
+sound. Finally, we truncate the perturbation expansion
+and keep only zeroth-, first-, and time-averaged second-
+order fields,
+
+p" (r,t) = pa + poxpi(r) e+ p3(r), (5a)
+
+p(r,t) = po + pi(r) e+ po(r), (5b)
+
+v(r,t) = u(r) e#! + vo(r). (5c)
+
+Inserting this expansion into Eq. (2), we obtain the first-
+order governing equations,
+
+iwnip, =V-01, (6a)
+
+iwpte, = Vpr — V0. — (n> - an) V(V -v1), (6b)
+
+which we solve numerically, and which we work with an-
+alytically moving forward.
+
+Numerically, we also solve for the second-order fields
+in 2", which are governed by the equations [2],
+
+PIV vw +V- (piv) =0, no, (7a)
+V of — iV -(viv1) =0, in OF, (7b)
+v2 + ((u1-V)v1) =0, at a", (7c)
+
+where the bracket (A, By) represents the time average
+over one oscillation period of the product of any two
+complex-valued first-order fields A; and Bj,
+
+(AvB1) = 5 Re [A.Bi], (8)
+
+with the asterisk being the complex conjugate.
+
+To characterize the utility of acoustic modes with re-
+gard to focusing microparticles by acoustophoresis, we
+calculate for each mode three useful quantities: The time-
+averaged acoustic energy density E{. in the fluid,
+
+fl
+
+ER “t (Pipi) t
+
+fl fl Al
+Ky
+A (ova) = PlpiP+ Zor, (9a)
+
+the Rayleigh streaming speed vs ‘al defined by,
+
+3ER
+
+up! = Ae, (9b)
+
+2000
+
+and the spatial average ((v2)) of the magnitude of the
+streaming velocity v2,
+
+(a) = 5a f, lol av. (90)
+
+If we imagine placing a spherical particle with radius
+a inside an acoustic cavity, the particle is subject to an
+acoustic radiation force Fyaq ~ ab ki pa pushing it to-
+wards the nearest pressure node (or anti-node) [4-6]. Si-
+multaneously, a drag force Farag ~ 62aNv2 associated
+with the acoustic streaming field v2 will tend to instead
+pull this particle around in a vortex motion. Conse-
+
+quently, there exists a critical radius ag ~ 64/ v2 /ur*y!,
+for which Farag ~ Fraa, and below which particle focus-
+ing ceases. For polystyrene particles in a the box-shaped
+2-MHz cavity described in the introduction, this radius
+is roughly a. ~ 1 pm [7, 8]. For strong focusing of small
+particles one therefore needs E"., to be as high as possible
+while keeping the streaming field v2 as low as possible.
+
+C. The solid domains
+
+In the solid domains, we apply linear elastodynamics
+to solve for the displacement field u(r,t), such that the
+strain is s = $(Vu+(Vu)") and the Hookean stress o*!
+in terms of the stiffness tensor C is linear in s,
+
+o = C38 = Ci Sq (10)
+FIG. 2. The geometry of the simulated device with two (Ny, x
+N.) = (4 x 8) metamaterial arrays of elongated hexagonal
+unit cells on either side of the fluid channel. The device is
+actuated on the outer right-most surface (green line) with a
+time-harmonic uniform displacement amplitude of do (green
+arrows), while all other walls are free to move having zero-
+stress conditions.
+
+The second equality employs index-notation, where sum-
+mation over repeated indices is implied. For isotropic
+materials, C can be written in terms of the Voigt coeffi-
+cients C,, and Cy, as
+
+C ijn (Cyy = 2044) ij bet + Cyy (Sind ju + Fudjx). (11)
+
+Consequently, the governing equation for the time-
+harmonic displacement field uw of the elastic solid is the
+Cauchy momentum equation,
+
+u(r, t) = u(r) e-™,
+
+(12a)
+
+—w' pw =V-o%, in ar. (12b)
+
+On the boundary of the solid domain, three types
+of boundary conditions apply: (1) continuity of veloc-
+ity on the fluid-solid boundaries 0", which supplement
+the continuity of stress Eq. (4b), (2) a prescribed time-
+harmonic displacement with amplitude dp on the actu-
+ated part O84, of the outer boundary, and (3) zero stress
+
+ose
+on the remaining free part 05! of the outer boundaries,
+
+free
+
+i
+
+w= ML al an, (13a)
+ur=dyn, at ane, (13b)
+ao! .n=0, at 00%... (13c)
+
+We end this section by defining the time-averaged
+acoustic energy density Es! within the solid as
+
+1 1
+B= 5 (Cijnt1,a3) 81.41) + sew? (unit). (14)
+
+TABLE I. Parameter values used in the model systems.
+For fused silica, the following parameters are computed from
+the values listed in Ref. [9]: a = 6.25 x 10-° dB/em x
+0.115 Np/dB x 100 cm/m, y = acio/w, Re[Cii] = pci,
+Re[Cu4] = pez, and Im[C;;] = —2y Re[Cii].
+
+Parameter Symbol Value Unit
+Fused silica [9]
+
+Mass density po 2200 kgm *
+Sound speed, longitudinal Clo 5700 m/s
+Sound speed, transverse Ctr 3750 m/s
+Attenuation constant at 2 MHz a 714 pNp/m
+Damping coefficient at 2 MHz ¥y 0.324 ppm
+Elastic modulus 11, real part Re[C,,] 71.5 GPa
+Elastic modulus 44, real part Re[C 4] 30.9 GPa
+Elastic modulus 11, imag. part Im[C,,] —46.3 kPa
+Elastic modulus 44, imag part Im[C,,] —20.0 kPa
+Water [10]
+
+Mass density ph 997.05 kgm?
+Speed of sound cf 1496.7 ms!
+Dynamic viscosity 0.890 mPas
+Bulk viscosity n? 2.485 mPas
+Compressibility él 447.7 TPa™!
+Geometry, Fig. 2
+
+Channel height H* 160 pm
+Channel width ws 375 pm
+Solid base width Weise 714 pm
+Displacement amplitude do 0.1 nm
+
+The total time-averaged acoustic energy Uac of the de-
+vice, the time-averaged acoustic power P;, supplied to
+the device, and the quality factor Q, of the nth reso-
+nance modes at frequency w,, of the device are thus,
+
+Tac = [ ES. dav + [ El av, (15a)
+Qi as!
+
+Fie f ((—iwntr) «(of -n)) dA, (15b)
+ans!
+
+Qn = ae ae (15c)
+
+D. The metamaterial domains
+
+The metamaterial domains consist of N,x.N,-arrays of
+the elongated hexagonal unit cell specified in Fig. 2 and
+Table I. Like the regular solid domains, the metamaterial
+domains are governed by the Cauchy equation. In a full
+numerical model this is implemented straightforwardly.
+However, when making analytical coarse-grained approx-
+imations, we describe a given metamaterial as a homo-
+geneous anisotropic elastic solid governed by the Cauchy
+equation with effective values (superscript ’mm/’) of the
+mechanical fields, such as C > C™™ and u > u™™,
+Most of the effective quantities are assumed to be local
+spatial average values of their exact counterparts with
+the single exception of C™™, which instead is defined
+100 pm
+
+FIG. 3. Simulation results in and near the fluid cavity: Color plots of the pressure field p: from min (blue) to max (red) in the
+fluid and of the magnitude w: from min (blue) to max (yellow) of the displacement field uw: in the solid for (a) a conventional
+rectangular cavity and (b) the optimized cavity using the 5 x 10 metamaterial with the hexagonal unit cell defined in Fig. 2.
+The first-order displacements uw, and iw~'v, of the solid and fluid are represented by evenly spaced, deformed lines and arrows.
+Animated versions of the panels are given in the Supplemental Material [3].
+
+to satisfy the course-grained version of Eq. (10) as fol-
+lows. On a single unit cell (see the inset of Fig. 2) we
+a apply a constant strain syy = do/Weeu by prescrib-
+ing a displacement of u = doe, on the rightmost edge
+Ep, a zero displacement u = 0 on the leftmost edge Ez,
+and the symmetry condition wu, = 0 on the top and bot-
+tom edges Er and Eg. Then the metamaterial values of
+the elastic coefficients are given by the respective aver-
+mm
+
+age curve integrals as Cyt, = Tan Se, OyyAl/syy and
+
+mm — _1
+Chyes = Wea Jen 7220/Syy.
+
+Ill. MODELLING THE SYSTEM
+A. Materials and geometry of the model
+
+The model to be simulated numerically is defined as
+follows: The solid material is chosen to be fused silica
+glass due to its small attenuation constant, the fluid is
+water, and all parameter values are listed in Table I.
+The detailed cross-sectional geometry in the y-z plane
+is shown in Fig. 2, and the model is assumed to be trans-
+ational invariant in the out-of-plane x-direction. Note
+in particular the elongated hexagonal unit cells inspired
+y Ref. [11], which initial configuration has been cho-
+sen to satisfy all the requirements for the course-grained
+elasticity and density derived later in this section. The
+design goal of the geometry is to support the first acous-
+ic mode n = 1, i.e. a standing half-wave resonance inside
+he rectangular fluid channel with a pressure node along
+he line y = 0, and subsequently to fine-tune this mode
+© maximize its Q-factor Q;. The obtained systems are
+hen compared against a conventional reference system,
+where the metamaterial domains are replaced by solid
+glass.
+
+B. Implementation in COMSOL
+
+The governing equations and boundary conditions of
+Sec. II are, as in our previous work [2, 5-7], implemented
+in the “Weak Form PDE Interface” of the commercial
+finite-element software COMSOL Multiphysics [12]. Ex-
+amples of numerical solutions are shown in Fig. 3 for
+both a conventional rectangular fluid-filled channel em-
+bedded in an ordinary elastic solid and for a model with
+metamaterial.
+
+C. An approximate analytical solution
+
+As stated earlier, the goal of this paper is to create
+an acoustofluidic mode without viscous boundary layers
+so that vj is irrotational [2]. In this case, the first-order
+governing equations reduce to a Helmholtz equation for
+pi, while the velocity field v; is proportional to Vpi,
+
+we
+
+Vp = —(L+ in ae Pi; (16a)
+0
+
+-i
+v= —_aVpi
+WP
+
+(16b)
+
+where 74 = wafl(n>+ $7) is the dimensionless bulk damp-
+ing coefficient of the fluid, which for MHz-frequencies in
+water is of order 10-5. A mode is thus synchronized with
+the wall motion, if this curl-free bulk velocity along the
+entire boundary of the fluid domain satisfies the no-slip
+condition (4a), which in terms of p, is
+Vn =u, at an". (17)
+w"Po
+This condition gives us a strong hint about how to con-
+struct a cavity with a wall-synchronized resonance mode.
+on
+
+TABLE II. Simulation results for the reference system and nine different optimized metamaterial systems illustrated in Fig. 3.
+
+Parameter Reference system Metamaterial systems
+
+Ny - 2 3 4 5 6 7 8 9 10
+Nz - 4 6 8 10 12 14 16 18 20
+Ly, (nm) - 199.8 138.6 106.7 86.3 72.1 62.0 54.4 48.4 43.6
+Lz (nm) - 112.8 73.1 56.1 45.0 37.5 32.3 28.17 24.95 22.59
+L3 (ym) - 34.0 22.63 16.98 13.58 11.33 9.70 8.49 7.54 6.79
+H*! (mm) 2.04 1.76 1.82 1.87 1.89 1.89 1.90 1.90 1.90 1.91
+fees (MHz) 1.920 2.051 1.980 1.977 1.972 1.967 1.970 1.965 1.959 1.965
+Q/104 0.043 4.3 6.6 8.7 10.4 122 13.8 15.2 16.2 17:2
+Q/Qt 1 99 153 200 240 283 321 351 375 397
+Ex. (MJm~*) 8.1x 10° 0.33 0.95 1.74 247 3.4 4.3 6.3 7A 7.8
+((v2)) /vg* yl 0.282 0.053, 0.047 0.041 0.032 0.030 0.0264 0.0234 0.0213 0.0198
+
+We start by assuming that the cavity contains an ideal
+standing pressure half-wave along the y-direction,
+with kf =
+
+pi = po sin(k"y), (18)
+
+T
+wi:
+Neglecting 7", this mode obeys Eq. (16a) for w = clk".
+Next, to satisfy the wall-synchronization condition (17),
+the displacement uy™ in the two metamaterial regions
+
+am and Qi , may be chosen to be,
+
+‘up down
+pvke A
+mm “08 mm mm
+upe = whl cos(k'y) ey, in Quy" and OQgown- (19)
+0
+
+Finally, one way to ensure that the displacement field uw
+in the isotropic base solid 0°! has a vanishing amplitude
+along the base-metamaterial interface at y = —5w',
+while maintaining a non-vanishing normal stress, is to
+assume that wu; takes the form of a standing longitudinal
+displacement wave with a node at y = —3w',
+
+uz = ul sin [k (y+ 3W")] ey, in Occ: (20)
+
+From the Cauchy equation (12b) and the stress continuity
+boundary conditions Eqs. (4b) and (13c), this assumption
+results in the amplitude and wavenumber relations,
+
+0 py
+uy=a (21a)
+KIC
+
+1 fl
+
+1 pan | a_©O
+kek a2 =k ar (21b)
+
+il Co
+
+the quarter-wave width condition
+x _ a L
+
+ysl “0. ae
+
+Wiles = et = Sar W (22)
+
+and the following set of conditions on the coarse-grained
+metamaterial parameters C™™ and pj",
+
+ee
+Kil vy? KE
+0 Ko
+
+mm zum
+Ci = = pb
+
+iyyy = Giz, (23)
+
+izyy —
+
+In the limit where the lid thickness we, tends to zero,
+
+and the device height H*! tends to infinity, this system
+
+has a near-perfectly synchronized resonance mode at fre-
+quency f = cf / W*. In the following section we show
+that even in the case of a geometry with finite values of
+we and H*!, the above conditions serve as en excellent
+starting point for numerical determination of metamate-
+rials that support well-synchronized modes.
+
+IV. NUMERICAL SIMULATION
+
+We now present the main result of our work: the op-
+timization of the metamaterial unit cell to maximize the
+Q value of the acoustic cavity.
+
+A. Optimizing the system for maximum Q value
+
+he metama-
+is divided into two steps. First, we find a metama-
+terial which satisfies the three criteria listed in Eq. (23).
+For this, we opted for a hexagonal metamaterial, which
+has shown high tuneability in previous work [11], and
+which due to its twofold mirror-symmetry already satis-
+fies the criteria CHM, = Cyyyyoiy and CR, = Ciyydiz-
+
+By simulation in COMSOL Multiphysics of one unit cell
+in the metamaterial, we calculate the course-grained stiff-
+ness tensor C™™"(L,, Lz, L3) and manually adjust the pa-
+rameters L,, L2, and L3 defined in Fig. 2 until Eq. (23)
+is satisfied exactly. In our case with fused silica, this step
+
+Our numerical optimization procedure for
+teria
+
+results in the parameters
+412 pm 206.6 pm 67.9 pm
+L E L, . (24
+1 N, 2 N, 3 N, (24)
+
+The second step in the optimization procedure involves
+simulating the full system repeatedly using the built-in
+COMSOL “Optimization Interface”. Starting with
+the parameters found in the first step, and then for each
+simulation changing the height ZL, and the hole-width Lo,
+the Q-factor of the resonance mode is maximized. The
+resulting set of optimized values of Li and Lz are listed
+in Table II.
+
+B. Energy density and Q-factor
+
+In Fig. 3, the conventional reference cavity is compared
+to the optimized metamaterial cavity with (Ny x Nz) =
+(5 x 10) unit cells. For the conventional cavity, the ve-
+locity amplitude of the acoustic mode in the bulk of the
+cavity away from the boundary layers is far greater than
+the wall velocity, leading to large velocity gradients inside
+the boundary layers near the fluid-solid interface. These
+gradients are far smaller inside the optimized metamate-
+rial cavity, because there the first-order displacements uw;
+and iw~!v; are synchronized across the interface. This
+difference has a considerable effect on the Q-factor of the
+mode, which in the following is always the n = 1 mode,
+so henceforth we drop the mode index: The conventional
+cavity has Q = 432, whereas the optimized (5 x 10)-
+metamaterial cavity has Q = 1.04 x 10°, which is nearly
+250 times greater.
+
+In Fig. 4(a) the acoustic energy density E", and the Q-
+factor of the optimized systems are plotted against the
+
+® 10.0 x 10°
+400 os
+me Q/Q"'
+
+me 5 (pie
+
+8.0 x10°
+
+300
+= 6.0 x10° 2,
+S200 =
+4.0 «10°
+100 5
+2.0 x 10°
+2 345 6 7 8 9 19 0X10
+N
+(b) :
+300; _— L— i
+~ 200
+ie
+ad
+Se
+100
+oi —0.02 0.00 0.02 0.04
+Ly 1
+=
+FIG. 4. (a) Simulated Q-factors and acoustic energy den-
+
+sity BE". relative to the all-solid reference system (superscript
+”ref’) for increasing numbers of unit cells Ny, across the meta-
+material regions. (b) The normalized Q factor Q/Q**' of the
+Ny, = 5 cavity plotted against the relative deviation of either
+Ly, L2, or Lz from the optimum.
+
+number of unit cells Ny across the channel. For N, = 2
+the optimized systems already outperform the reference
+system for both metrics, and these performance metrics
+increase monotonically with N,. For Q, this relationship
+is initially linear, whereas E, grows quadratically. At
+higher values of N,, these increases taper off.
+
+To illustrate the sensitivity of the optimized resonance
+modes to the geometry parameters, we show in Fig. 4(b)
+how the Q-factor of the (5 x 10)-metamaterial cavity
+mode drops when L,, L2, and L3 deviate from their op-
+timized values. The greatest relative sensitivity is asso-
+ciated with L,, where a 1.7% deviation from optimum
+(1.5 pm away from 86.3 pm) halves the Q-factor of the
+cavity. The greatest absolute sensitivity is however due
+to L3, where a change of only 0.5 pm away from the
+13.58 pm optimum halves the Q-factor of the cavity.
+
+C. Streaming
+
+To better understand the usefulness of the synchro-
+nized metamaterial cavities for doing acoustophoresis, we
+study the acoustic streaming field v2, as this will put a
+lower bound on the size of the particles that can be fo-
+cused inside the cavity. For this reason, the streaming
+field of the optimized (N, x Nz) = (5 x 10) metamaterial
+cavity is compared to that of the reference cavity. On
+one hand, one would expect the synchronized cavity to
+produce less streaming than the reference cavity, since its
+boundary layers are considerably weaker. On the other
+hand, the many corners along the fluid-solid interface of
+the synchronized cavity tend to amplify the streaming
+[13]. That the former effect dominates is revealed by
+Table I, where it is seen that the normalized streaming
+((v2)) op?! is monotonically suppressed (nearly « N+)
+by more than an order of magnitude when going from
+the reference cavity up to the (N, x Nz) = (10 x 20) syn-
+chronized metamaterial cavity. Such a 10-fold reduction
+in the streaming speed implies a //10-fold decrease in
+the critical radius a, from ~ 1 pm to ~ 0.3 pm, allowing
+significantly smaller particles to be focused.
+
+We note in Fig. 5 that the streaming field of the syn-
+chronized metamaterial cavity is not only quantitatively,
+but also qualitatively different from that in the refer-
+ence cavity. Whereas the streaming field in the reference
+cavity is dominated by the conventional four large rolls
+filling up the entire cross section, the streaming field in
+the synchronized cavity instead contains many smaller
+streaming vortices of various shapes and sizes, resulting
+in a less uniform streaming pattern, but clearly with more
+suppression of the streaming ((v2)) ~ Awe ‘ayl in the mid-
+dle third of the channel, —},H" <z< zH4, such that a,
+drops down to ~ 0.15 pm in this region.
+
+(a)
+
+V2/V,
+
+(b)
+
+ray
+
+0.001
+
+0.01
+
+FIG. 5.
+(N,, Nz) = (5,10) synchronized metamaterial cavity.
+
+D. Particle focusing
+
+A remarkable addition to the discussion of the critical
+particle size a, is that Table II reveals how the fluid pres-
+sure field p?” in the synchronized metamaterial device
+scales with pi! of the reference device and the Q-factors,
+pem ~ (gmm/Qgref) pte! This relation implies that the
+acoustic radiation force F'*¢ on a suspended particle is a
+factor (Q™™/Qre!)? ~ 4 x 104 larger in the synchronized
+device than in the reference device for the same actuation
+
+amplitude. Consequently, the focusing time T « ee
+
+5
+[14], or 7™™ x (&=) er is 4x 10+ times faster in
+the former device than in the latter for a given particle
+size. Alternatively, a particle two orders of magnitude
+smaller, a™™ ~ 0.01a' will focus at the same time in
+the metamaterial device as a'*' will do in the reference
+
+device at the same actuation amplitude.
+
+Streaming fields v2 normalized by the Rayleigh streaming speed vz
+
+The dramatically improved
+sis in the metamaterial devic
+device is illustrated in Fig. 6
+
+nanoparticle acoustophore-
+e compared to the reference
+. Here, the acoustophoretic
+
+velocity of 250-nm-radius nanoparticles changes by a fac-
+tor of nearly 2x 104 from 7 pm/s to 130,000 pm/s. More-
+over, where no focusing is observed in the reference de-
+vice even on the long time scale of 25,000 ms, the 250-
+mm-radius nanoparticles are focused in the metamaterial
+device near the vertical pressure node in the channel cen-
+ter in just 3 ms.
+
+Vv. DISCUSSION
+
+_ The fraction of acoustic energy stored inside the fluid
+U!,/Uac © 0.2 for the synchronized cavities. With the
+bulk damping factors 7" = 2 x 107° and 7*! = 6 x 1077,
+
+0.1 ‘lL. 10
+
+5*¥! inside (a) the reference cavity and (b) the
+
+the theoretical upper bound for Q should therefore be{15]
+
+oak — __ Vac _
+
+US +9UZ,
+
+In Table IT we see that the highly resolved cavities tend
+to approach this theoretical upper bound quite nicely,
+and we may thus conclude that this synchronization man-
+ages to remove the dissipation associated with the viscous
+boundary layers rather reliably.
+
+Looking ahead, if we were to speculate how one may
+reduce this dissipation even further and thus obtain still
+higher Q-factors, theoretically it should be possible to
+construct acoustic modes in such a way that the fluid
+contains less than a half-wave across the channel at res-
+onance, but still contains a pressure node. This would
+greatly lower the bulk dissipation within the fluid.
+
+We note that the proposed cavities have a harder time
+suppressing the streaming velocities compared to how
+easily Q-factors are raised. As mentioned earlier, we at-
+tribute this to be caused by the many corners around the
+fluid channel [13], even though these corners have been
+rounded a bit to avoid generating too much streaming.
+One may also attempt to construct a cavity with fewer
+convex corners, or apply one of the methods proposed
+for suppression of acoustic streaming in previous work
+[5, 16, 17]. Clearly, there are many ways to suppress the
+remaining streaming further.
+
+With regard to how such synchronized cavities might
+be fabricated, one possibility is to rely on drawing tow-
+ers such as the ones used for the fabrication of photonic
+crystal optical fibers. We note that such drawing towers
+already are designed to shape fused silica glass with a fea-
+ture length scale lower than the length scales considered
+in this work [18]. Another possibility is to employ two-
+photon 3D-printing and fabricate the metamaterial struc-
+ture directly, a possibility that has been demonstrated
+
+= 2.2 x 10°. (25)
+
+FIG. 6. COMSOL simulation of the acoustophoretic trajectories of 250-nm-radius polystyrene nanoparticles (dots) with initial
+positions in a regular grid. (al) The reference device at t = 0 ms with the initial velocities set equal to the local streaming
+velocity represented by colors from 0 (dark blue) to 7 m/s (dark red). (a2) The same as panel (al) but at t = 25,000 ms and
+showing the individual trajectories (lines) colored according to speed along the trajectories using the same color scheme as in
+
+panel (al).
+
+(b1) same as panel (al) at t = 0 ms, but for the metamaterial devices and with the velocity color from 0 (dark
+
+blue) to 130,000 pm/s (dark red). (b2) The same as panel (b1) but for t = 3 ms and showing the individual trajectories (lines)
+colored according to speed along the trajectories using the same color scheme as in panel (bl). Animated versions of the panels
+
+are given in the Supplemental Material [3].
+
+recently on comparable intricate micro- and nanoscale
+structures in glass [19].
+
+VI. CONCLUSION
+
+By using metamaterials in acoustofluidic systems, it is
+possible to reduce the acoustic boundary layers dramat-
+ically by synchronizing the motion of the fluid to that
+
+[1] R. Barnkob, P. Augustsson, T. Laurell, and H. Bruus,
+Measuring the local pressure amplitude in microchannel
+acoustophoresis, Lab Chip 10, 563 (2010).
+
+[2] J. S. Bach and H. Bruus, Theory of pressure acoustics
+with viscous boundary layers and streaming in curved
+elastic cavities, J. Acoust. Soc. Am. 144, 766 (2018).
+
+[3] See Supplemental Material at https://bruus-lab.dk/
+files/Frederiksen_metamaterial_acoustofluidics_suppl.zip
+for animated gifs of Figs. 3 and 6.
+
+of the adjacent material. This will in turn remove the
+viscous friction near the fluid-solid interface, and it may
+also, but to a lesser extent, reduce the acoustic stream-
+ing. This technique of using acoustic metamaterials to
+remove viscous friction could help increase Q-factors in a
+wider range of microelectromechanical systems. Specif-
+ically for acoustophoretic focusing of particles, synchro-
+nized metamaterial cavities may lead to faster focusing
+of smaller submicron particles compared to the current
+state-of-the-art of using cavities in conventional materi-
+
+4| L. P. Gorkov, On the forces acting on a small particle
+in an acoustical field in an ideal fluid, Sov. Phys.—Dokl.
+6, 773 (1962), [Doklady Akademii Nauk SSSR 140, 88
+(1961)].
+
+5] J. S. Bach and H. Bruus, Suppression of acoustic stream-
+ing in shape-optimized channels, Phys. Rev. Lett. 124,
+214501 (2020).
+
+6] B. G. Winckelmann and H. Bruus, Acoustic radiation
+force on a spherical thermoviscous particle in a ther-
+
+{10
+
+[i
+
+moviscous fluid including scattering and microstreaming,
+Phys. Rev. E 107, 065103 (2023).
+
+P. B. Muller, R. Barnkob, M. J. H. Jensen, and H. Bruus,
+A numerical study of microparticle acoustophoresis
+driven by acoustic radiation forces and streaming-
+induced drag forces, Lab Chip 12, 4617 (2012).
+
+R. Barnkob, P. Augustsson, T. Laurell, and H. Bruus,
+Acoustic radiation- and streaming-induced microparticle
+velocities determined by microparticle image velocime-
+try in an ultrasound symmetry plane, Phys. Rev. E 86,
+056307 (2012).
+
+Tables of Acoustic Properties of Materials: Solids, Onda
+Corporation, https://www.ondacorp.com/wp-content /
+uploads/2020/09/Solids.pdf, accessed 28 October 2025.
+
+P. B. Muller and H. Bruus, Numerical study of thermo-
+viscous effects in ultrasound-induced acoustic streaming
+in microchannels, Phys. Rev. E 90, 043016 (2014).
+
+B. Ling, K. Wei, Z. Wang, X. Yang, Z. Qu, and D. Fang,
+Experimentally program large magnitude of Poisson’s ra-
+tio in additively manufactured mechanical metamateri-
+als, Int. J. Mech. Sci. 173, 105466 (2020).
+
+COMSOL Multiphysics 6.2 (2024), http://www.comsol.
+com.
+
+M. Ovchinnikov, J. Zhou, and $. Yalamanchili, Acoustic
+streaming of a sharp edge, J. Acoust. Soc. Am. 136, 22
+(2014).
+R. Barnkob, I. Iranmanesh, M. Wiklund, and H. Bruus,
+Measuring acoustic energy density in microchannel
+acoustophoresis using a simple and rapid light-intensity
+method, Lab Chip 12, 2337 (2012).
+P. Hahn and J. Dual, A numerically efficient damping
+model for acoustic resonances in microfluidic cavities,
+Physics of Fluids 27, 062005 (2015).
+J. T. Karlsen, W. Qiu, P. Augustsson, and H. Bruus,
+Acoustic streaming and its suppression in inhomogeneous
+fluids, Phys. Rev. Lett. 120, 054501 (2018).
+B. G. Winckelmann and H. Bruus, Theory and simulation
+of electroosmotic suppression of acoustic streaming, J.
+Acoust. Soc. Am. 149, 3917 (2021).
+
+K. Tajima, J. Zhou, K. Nakajima, and K. Sato, Ultralow
+loss and long length photonic crystal fiber, Journal of
+Lightwave Technology 22, 7 (2004).
+
+J. Bauer, C. Crook, and T. Baldacchini, A sinterless, low-
+temperature route to 3D print nanoscale optical-grade
+glass, Science 380, 960 (2023).
+

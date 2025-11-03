@@ -1,0 +1,1176 @@
+Astronomy & Astrophysics manuscript no. main
+October 30, 2025
+
+@©ESO 2025
+
+15v1 [astro-ph.SR] 29 Oct 2025
+
+al
+N
+fo)
+
+—
+
+va)
+N
+
+—
+x
+om
+fa]
+
+Solar photospheric velocities measured in space: a comparison
+between SO/PHI-HRT and SDO/HMI
+
+D. Calchetti!*, K. Albert! ®, F. J. Bailén?-30, J. Blanco Rodriguez* 3, J. S. Castellanos Durdn!®, A. Feller!®,
+
+A. Gandorfer!®, J. Hirzberger', J. Sinjan!, X. Li! ©, T. Oba! ©, D. Orozco Sudrez”-3, T. L. Riethmiiller!®,
+J. Schou! ®, S. K. Solanki! ®, H. Strecker”-3, A. Ulyanov!, and G. Valori!®
+
+' Max-Planck-Institut fiir Sonnensystemforschung, Justus-von-Liebig-Weg 3, 37077 Gottingen, Germany
+? Instituto de Astrofisica de Andalucia IAA-CSIC), Apartado de Correos 3004, E-18080 Granada, Spain
+3 Spanish Space Solar Physics Consortium (S*PC)
+
+Universitat de Valéncia, Catedratico José Beltran 2, E-46980 Paterna- Valencia, Spain
+
+a
+
+Received ***; accepted ***
+
+ABSTRACT
+
+The Polarimetric and Helioseismic Imager (SO/PHI) onboard Solar Orbiter is a spectropolarimeter scanning the Fe 1 line at 617.3
+nm, providing data of the solar photosphere. The same line is sampled by the Helioseismic and Magnetic Imager (HMI) on board the
+Solar Dynamics Observatory (SDO) and many other on-ground instruments. In this paper, we aim at assessing the consistency between
+line-of-sight (LoS) velocity measurements from the two instruments. Reliable measurements of up and down flows from SO/PHI are
+crucial and unique when Solar Orbiter is facing the far side of the Sun. Also, a combination of measurements from two vantage points
+to study horizontal flows must rely on consistent observations. For this purpose, we compare the LoS velocity measured by SO/PHI’s
+High Resolution Telescope (SO/PHI-HRT) and SDO/HMI on 29 March 2023, when Solar Orbiter was crossing the Sun-Earth line
+at a distance of 0.39 au from the Sun. Because such co-alignments are rare, this configuration offered an almost unique opportunity
+to directly compare data products from both telescopes. The data are aligned and remapped to allow a pixel-by-pixel comparison of
+the whole time series of 4 hours length. Temporal and spatial variations are considered for a direct combination of the measurements.
+The LoS velocity distributions are evaluated and a clear linear relation is found between the two instruments with a slope of 0.94 and
+a correlation of 90%. We find that the signals form at similar heights, with a separation of 10+12 km, which is larger than previous
+estimates. A close-up look at the penumbra of a sunspot and its Evershed flow is presented. We conclude that the signals inferred by
+SO/PHI-HRT and SDO/HMI show very good agreement and high correlation when instrumental effects and large-scale velocities on
+the Sun are properly accounted for.
+
+Key words. Sun: photosphere — Sun: Dopplergram — Sun: flows
+
+w-— 1. Introduction
+
+The Polarimetric and Helioseismic Imager (SO/PHI, Solanki
+et al. 2020) onboard Solar Orbiter (Miiller et al. 2020) is the first
+spectropolarimetric imager to observe the Sun from a vantage
+point lying outside the Sun-Earth line. Two telescopes are part of
+the instrument, a Full Disk Telescope (SO/PHI-FDT) and a High
+Resolution Telescope (SO/PHI-HRT, Gandorfer et al. 2018),
+which both provide measurements of the photospheric magnetic
+field vector, continuum intensity and line-of-sight (LoS) velocity
+in the solar photosphere. Only a few other satellites have instru-
+ments capable of retrieving these photospheric quantities, such
+as the Spectropolarimeter instrument (SP, Lites et al. 2013) of
+the Solar Optical Telescope (SOT, Tsuneta et al. 2008) onboard
+Hinode (Kosugi et al. 2007), the Helioseismic and Magnetic
+Imager onboard the Solar Dynamics Observatory (SDO/HMI,
+Schou et al. 2012; Pesnell et al. 2012), and the Full-Disk Vector
+MagnetoGraph onboard the Advanced Space-Based Solar Ob-
+servatory (ASO-S/FMG, Bai et al. 2024; Gan et al. 2023).
+Despite the clear advantages of satellite observations, such
+as the absence of the disturbance from the Earth’s atmosphere
+and the possibility of uninterrupted data acquisition, many chal-
+
+* Corresponding author: Daniele Calchetti
+e-mail: calchetti@mps.mpg.de
+
+lenges have to be faced to achieve a consistent data reduction. In
+the case of SO/PHI the highly eccentric orbit and low teleme-
+try periods when the spacecraft is at more than | au from Earth,
+make the SO/PHI data reduction considerably more challeng-
+ing. On the other hand, SO/PHI can for the very first time mea-
+sure the photospheric properties of the Sun from different view-
+points than Earth-bound observatories (Miiller et al. 2020). This
+unique orbit opens the possibility for novel scientific applica-
+tions, such as building fast synoptic maps of the LoS magnetic
+field (Loeschl et al. 2024b,a) or direct combination of intensity
+and magnetic field data in stereoscopic configuration (e.g. Val-
+ori et al. 2023; Albert et al. 2023; Romero Avila et al. 2024).
+Comparisons of the magnetic field vector between SO/PHI and
+SDO/HMI have been carried out by Sinjan et al. (2023) and
+Moreno Vacas et al. (2024) to assess the similarity between the
+data products of these two instruments. Such inter-instrument
+comparisons are fundamental for combining data from differ-
+ent vantage points, particularly when tracking features on the far
+side of the Sun (e.g. Finley et al. 2025).
+
+The same approach can be applied to the photospheric flows
+measured by multiple instruments. Dopplergrams are a crucial
+data product to study the emergence of active regions (e.g. Lites
+et al. 1998), waves (Jess et al. 2023), or the dynamics of the mag-
+netic field in active regions (e.g. Kazachenko et al. 2015). Pro-
+
+Article number, page 1 of 10
+A&A proofs: manuscript no. main
+
+viding high quality data comparable to other spectropolarime-
+ters will be a key element for studying the evolution of active
+regions for more than half of the solar rotation and for disen-
+tangling horizontal from vertical flows by combining data from
+different vantage points.
+
+This work focuses on the comparison of the LoS velocity
+field measured by SO/PHI-HRT and SDO/HML. In Section 2 we
+describe the data used for this work. In Section 3 the method
+used for the remapping of the data is explained in detail. The
+results are shown in Section 4 and the discussion and summary
+are presented in Section 5.
+
+2. Data
+
+The observations analyzed in this work were acquired while
+Solar Orbiter was in inferior conjunction (along the Sun-Earth
+line) with Earth on 29 March 2023 during the Solar Orbiter Ob-
+serving Plan RLSMALL_HRES_HCAD_RS-burst (Zouganelis
+et al. 2020). This orbital configuration gives us the opportunity
+to have Earth-bound and Solar Orbiter instruments observing the
+Sun from an almost identical viewing angle. Here we focus on
+the comparison of SO/PHI-HRT and SDO/HMI. Both telescopes
+scan the Fe 1 absorption line at 617.3 nm with the same angu-
+lar resolution, although this translates to different spatial reso-
+lutions on the photosphere due to the different distances of the
+telescopes from the Sun, which varies greatly along Solar Or-
+biter’s orbit. Information about the observation employed in this
+paper can be found in Table 1, such as the time of the acquisi-
+tion, the NOAA number of the observed sunspot, cadence, pixel
+scale, and the position of the spacecraft. More information about
+the technical comparison between the two telescopes is provided
+in Sinjan et al. (2023).
+
+An overview of the data is shown in Fig. 1. The top panels
+display the continuum intensity and LoS velocity as measured by
+SO/PHI-HRT, the bottom panel depicts the LoS magnetic field
+as seen from both instruments, with the SO/PHI-HRT FoV in-
+dicated by the yellow box in the SDO/HMI magnetogram. All
+the panels are shown in the respective detector frame, which
+means that the SO/PHI-HRT y axis is roughly aligned with the
+north-south direction and SDO/HMI is rotated by approximately
+180°(as shown by the arrows in the bottom panels). The data
+products chosen for this comparison are the 45 s cadence data
+products of SDO/HMI (based on the so-called MDI-like algo-
+rithm, Couvidat et al. 2016) and the newly improved standard
+results of the SO/PHI-HRT pipeline (Sinjan et al. 2022; Kahil
+et al. 2022; Bailén et al. 2024), which is now also correcting for
+residual stray light, based on the inversion of the radiative trans-
+
+Table 1. Details of the observations. The 4 value is defined as the cosine
+of the heliocentric angle of the center of the field of view (FoV). The
+pixel scale is defined as at disk center.
+
+SO/PHI-HRT SDO/HMI
+Time 2023-03-29, 11:40-15:40 UT
+NOAA number 13262
+jangle 0.96
+Cadence 60s 45s
+Angular separation 23°
+Sun distance 0.39 au lau
+Pixel scale 143 km/px 362 km/px
+
+Article number, page 2 of 10
+
+Fig. 1. Top left panel: intensity continuum as measured by SO/PHI-
+HRT. A 10 Mm scale is given as reference. Top right panel: LoS velocity
+as measured by SO/PHI-HRT. Bottom left panel: LoS magnetic field
+as measured by SO/PHI-HRT. Bottom right panel: LoS magnetic field
+as measured by SDO/HMI. The yellow box shows the SO/PHI-HRT
+FoV. The black arrows in the top left panel indicate the solar north (N)
+and east (E). Note that all the panels of this figure are shown in the
+SDO/HMI detector frame.
+
+fer equations (RTE) in Milne-Eddington approximation with the
+MILOS code (Orozco Suarez & Del Toro Iniesta 2007). This
+data product became the standard data product in most recent
+data releases! (see Sinjan et al. in preparation, for more details).
+
+We post-process the SO/PHI-HRT data with the method de-
+scribed in Calchetti et al. (2023), which mainly consists of align-
+ing the whole time series and temporally interpolating each
+frame of the Stokes vector to the same observing time. For con-
+sistency, instead of a linear interpolation we use an apodized nor-
+malized sinc function. The choice is motivated by using a simi-
+lar function to that in the SDO/HMI pipeline (Martinez Oliveros
+et al. 2011), even though no significant dependence is found of
+the results presented in this work on the employed interpolation
+scheme.
+
+3. Remapping and alignment
+
+An accurate alignment of the whole time series is needed for
+a pixel-by-pixel comparison. The procedure described below is
+applied to every SO/PHI-HRT observation (240 in total), which
+is then associated to the closest SDO/HMI dataset in time. Dif-
+ferences in light travel times are also considered when selecting
+the SDO/HMI dataset.
+
+Firstly, the World Coordinate System (WCS) of SO/PHI-
+HRT is updated to compensate for three so far unaccounted con-
+tributions to the nominal spacecraft pointing: the tracking of the
+image stabilization system, the translation of the field of view
+(FoV) due to the change in the focus position, and the pointing
+inaccuracy of the spacecraft itself. Other residuals coming from
+
+! Fourth SO/PHI-HRT data release notes.
+Calchetti D. et al.: Velocity comparison between SO/PHI-HRT and SDO/HMI
+
+SO/PHI-HRT SDO/HMI
+8 16
+15
+6
+ae 14
+8
+24 13
+BN
+12
+2
+1A,
+= 10
+Phase difference Coherence
+8 7 180 1.0
+Ji
+@ 90 0.8
+s 0.6
+4 0
+= 0.4
+4 —90
+2 0.2
+0 —180 0.0
+0 4 8 0 4 8
+
+ky, (Mm7") ky, (Mm7")
+
+Fig. 2. k-w diagrams. Top left panel: Power spectrum of the remapped
+SO/PHI-HRT time series (units: m”/s?). Top right panel: Power spec-
+trum of the SDO/HMI time series interpolated to 60 s cadence (units:
+m/s”). Bottom left panel: phase difference between SO/PHI-HRT and
+SDO/HMI where positive values means that SO/PHI-HRT is lagging
+behind SDO/HMI (units: degrees). The red dashed box shows the area
+used to compute the height difference between the two signals. Bottom
+right panel: coherence spectrum between the two signals. The blue and
+red contours show the 50% and 80% coherence respectively.
+
+small variations in the instrument bore-sight are also compen-
+sated. The alignment is achieved via cross-correlation between
+the continuum intensity maps of SO/PHI-HRT and SDO/HMI,
+with the latter remapped on the SO/PHI-HRT detector frame.
+This procedure is repeated iteratively while updating the WCS
+information to account for the misalignment found with the
+cross-correlation until the obtained shift is smaller then a hun-
+dredth of a pixel.
+
+Secondly, we compensate for geometrical distortions in the
+SO/PHI-HRT FoV. This step starts by cropping the SDO/HMI
+time series to the desired FoV (see the yellow box in Fig. 1)
+and by tracking the sunspot in the center of the FoV at the
+Carrington rotation rate, similar to the mtrack module in the
+SDO/HMI pipeline. We then destretch the SO/PHI-HRT LoS
+magnetic field map, remapped onto the cropped SDO/HMI de-
+tector frame, with respect to the corresponding SDO/HMI mag-
+netogram. The pixel-by-pixel shifts obtained by this destretching
+algorithm are then applied in the algorithm that remaps SO/PHI-
+HRT onto the SDO/HMI detector frame with a cubic interpo-
+lation. Such a procedure can be applied only when the angular
+separation of the two instruments is close to 0°, where differ-
+ences in viewing geometry are minimized, and is necessary to
+remove any residual geometrical distortion in the FoV.
+
+Lastly, before remapping the SO/PHI-HRT LoS velocity
+on the SDO/HMI image plane, we convolve the SO/PHI-HRT
+Dopplergram with the SDO/HMI theoretical point spread func-
+tion (PSF) and removed the LoS photospheric large scale veloc-
+
+ity components (LSC) in the data, including solar differential ro-
+tation, spacecraft velocity, meridional flow, convective blueshift,
+and gravitational redshift (see Schuck et al. 2016; Castellanos
+Duran et al. 2021, for details). The LSC are also removed from
+the SDO/HMI Dopplergrams. More information on the equa-
+tions used for the LSC are given in Appendix A. The final result
+consists of 240 SO/PHI-HRT Dopplergrams of 440x440 pixels
+remapped onto the SDO/HMI detector frame. We will refer to
+this time series from now on as remapped SO/PHI-HRT. The
+cadence of this time series is still 60 s, but the SDO/HMI time
+series has an irregular cadence in order to always consider the
+closest dataset in time taking into consideration the difference in
+light travel time. Basically, since we consider the 45 s nominal
+SDO/HMI cadence, we excluded one of every four datasets. As a
+consequence, the time difference between the SO/PHI-HRT and
+SDO/HMI Dopplergrams alternates between approximately 20,
+5, and 10 s repetitively.
+
+4. Results
+
+Different types of comparisons are reported in this section. Tak-
+ing advantage of the sub-pixel accuracy in the alignment of the
+time series, we study the differences between velocities mea-
+sured by the two instruments in space, time, and in the Fourier
+space on a pixel by pixel basis. Such studies are possible only
+with an accurate alignment of the data, as described in Sect. 3,
+which is crucial to reveal both global and localized discrepancies
+in the data.
+
+A mask excluding 50 pixels at the edges of the FoV is ap-
+plied to avoid missing SO/PHI-HRT data caused by the align-
+ment and remapping of the time series. In addition, we examine
+the sunspot penumbra region in more detail.
+
+4.1. Fourier space
+
+The comparison between two time series in the Fourier space
+can be addressed by means of the k-w diagrams (see Jafarzadeh
+et al. 2025 for a description of this method). Best accuracy is
+attained by using two time series with the same spatial resolu-
+tion, cadence, and size. The SDO/HMI time series constructed
+for our study has an irregular cadence which has to be corrected
+for this analysis (see Section 3). To do that, we reduce the full
+45 s cadence SDO/HMI observation to the 60 s SO/PHI-HRT
+cadence by removing the highest frequencies in Fourier space,
+keeping the same starting and ending time of the original series,
+which means that there is still a (constant) time difference of
+20.5 s with respect to the SO/PHI-HRT time series. This resam-
+pled time series is not used for the pixel-by-pixel comparison to
+avoid any spurious result that might have been generated by this
+procedure.
+
+The power spectra of the remapped SO/PHI-HRT and
+SDO/HMI time series and their phase difference and coherence
+spectrum are shown in Fig. 2. The phase difference has been
+corrected for the time difference between the two time series.
+The coherence spectrum shows the linear relation between two
+signals and it is not affected by their amplitude (Vigeesh et al.
+2017). The first thing to notice is the similarity between the
+power spectra of the two instruments, which is made more evi-
+dent by the diagrams showing the phase difference and the coher-
+ence between the two time series. The phase difference remains
+consistently close to 0° across most of the domain, while the
+coherence spectrum shows very high values (above 80%) along
+the p-modes and f-mode ridges and in the internal gravity waves
+and granulation regime. The phase difference diagrams can be
+
+Article number, page 3 of 10
+A&A proofs: manuscript no. main
+
+T re, 104
+2000 |. slope = 0.9407 + 0.0001 7
+offset = -203.484 + 0.060 m/s
+correlation = 0.90
+10*
+1000 -. le = 131.996 +0.070
+
+SDO/HMI (m/s)
+
+—1000
+
+—2000
+
+L L
+—1000 0 1000 2000
+
+SO/PHI-HRT (m/s)
+
+—2000
+
+Fig. 3. Scatter plot distribution of the velocity field values as measured
+by the remapped SO/PHI-HRT (x axis) and SDO/HMI (y axis). The
+color scale shows the number of points in each bin on a logarithmic
+scale. The black line shows an orthogonal least square linear fit to the
+data points, while the contours depict the results of a 2-D Gaussian dis-
+tribution fit. The slope and offset obtained by the linear fit, the Pearson
+correlation coefficient, and the 1o spread of the Gaussian fit are indi-
+cated in the top left corner of the figure.
+
+used to estimate the average height difference between the two
+signals (see equations (2) and (3) in Vesa et al. 2023). We se-
+lect the area of the diagram where the waves have real vertical
+wavenumber, which means that they propagate and they are not
+evanescent (as when the vertical wave number is imaginary). We
+can then restrict our choice only to vertically propagating waves
+by considering only small horizontal wavenumbers (see the red
+dashed box in the bottom right panel in Fig. 2). We assume the
+cut-off frequency, buoyancy frequency, and sound speed to be
+equal to 5.4 mHz, 4.9 mHz, and 7 km/s respectively. We find
+that the SO/PHI-HRT signal forms approximately 10 km above
+SDO/HMI, with a broad distribution between -10 and 30 km.
+Previous result by Schou et al. (2023) suggested a formation
+height of ~156 km for SDO/HMI and ~158 km above the solar
+surface for SO/PHI obtained with the help of a MURaM simula-
+tion. This result was obtained by retrieving the velocity through
+the MDI-like algorithm also for SO/PHI, so we would expect
+those signals to be closer than those addressed in that work.
+
+4.2. Distributions
+
+As a second assessment of the similarity of the SDO/HMI and
+SO/PHI-HRT Dopplergrams, a scatter plot of the remapped
+SO/PHI-HRT and the non-interpolated SDO/HMI time series is
+shown in Fig. 3. Only the datasets with time difference of 5 s are
+selected for plotting in this figure because the width of the distri-
+bution is affected by the time discrepancy. The colors correspond
+to the number of points inside a specific bin in logarithmic scale.
+Two functions have been fit to this distribution: a linear func-
+tion and a 2-D Gaussian distribution. The linear fit shows a clear
+correspondence between the data, with a slope of 0.94, a correla-
+tion coefficient of 90%, and an offset of -203 m/s. The Gaussian
+distribution indicates the spread between the two signals, which
+is 132 m/s at lo. We also determine the mean of the distribu-
+
+Article number, page 4 of 10
+
+0.97
+
+0.96
+
+0.95
+
+0.94
+
+slope
+
+offset (m/s)
+
+0.93
+0.92
+
+0.91 -® 1 1 H i _240
+
+20
+
+—20
+
+—40 + + —160
+
+yo (m/s)
+
+* —60b ° © 09-0 6 omCe + —180
+
+.
+—80 L buat oF al te re | —200
+
+—220
+
+0 50. 100 150 200
+frame
+
+Fig. 4. Temporal variation of the fitting results. The dots represent the
+results of the fits obtained frame by frame, whereas the dashed lines
+show the linear trends of these results. The error bars are not shown
+because they are comparable with the marker size. Top panel: slope
+(left axis, blue) and offset (right axis, orange) obtained by the linear
+fit. Middle panel: x (left axis, green) and y (right axis, red) coordinates
+of the mean of the 2-D Gaussian distribution. Bottom panel: root mean
+square (rms) of the remapped SO/PHI-HRT (left axis, purple) and of the
+SDO/HMI (right axis, brown) time series.
+
+tion, which provides information on the offset of the zero point
+between both time series. The average of the distribution for
+SDO/HML is at -195 m/s, whereas the SO/PHI-HRT mean value
+is at -7 m/s. Discussing the absolute calibration of these instru-
+ments is a challenge that goes beyond the scope of this work, but
+it is indeed a point that needs to be mentioned. In the SDO/HMI
+case, the reference velocity can be set in many ways available
+in the literature (e.g. Mathew et al. 2003; Grigor’ev et al. 2011;
+Okamoto et al. 2009; de la Cruz Rodriguez et al. 2011; Welsch
+et al. 2013), including simply setting the mean signal at the cen-
+ter of the Sun to zero (after the removal of all the LSC). The
+same approach is not always possible for SO/PHI-HRT, due to
+its smaller FoV and the fact that it often points such that solar
+disk center does not lie in its FoV.
+
+To investigate the presence of any temporal dependence, we
+repeated the analysis described above for each of the 240 frames
+separately. Fig. 4 shows a selection of fit parameters as a func-
+tion of time. The top panel displays the results of the linear fit
+on each of the 240 observation pairs of frames. The blue points
+show the slope and the orange points the offset obtained by the
+linear fit. We can clearly distinguish a linear trend through the
+Calchetti D. et al.: Velocity comparison between SO/PHI-HRT and SDO/HMI
+
+Correlation
+
+1.10
+
+1.05,
+1.00
+z
+a 0.95,
+%
+a
+>
+0.90
+0.85,
+0.80
+—50
+—100
+—150
+—200
+&
+a —250
+3
+>
+—300
+—350
+—400
+—450
+
+x axis [px]
+
+Fig. 5. Spatial dependence of the temporal correlation between the
+remapped SO/PHI-HRT and SDO/HMI signals (top panel), and of the
+slope (middle panel) and offset (bottom panel) obtained by the linear
+fit. The blue and red contours show the -200 and +200 G values of the
+SO/PHI-HRT LoS magnetic field respectively. The FoV is shown as a
+yellow box in Fig. 1. The arrows in each panel indicate the north (N)
+and east (E) solar limb as in Fig. 1.
+
+4 hours of observation in which both values evolve towards a
+better concordance. The middle panel depicts the coordinates of
+the average of the Gaussian distribution. The left axis (in green,
+x coordinates of the center of the distribution) corresponds to the
+mean values of each dataset of the remapped SO/PHI-HRT, the
+
+right coordinates (in red, y coordinates of the center of the distri-
+bution) to SDO/HMI. The range of the two y-axes is the same for
+both coordinates, meaning that the relative variation with time of
+both values is directly comparable. In this case, the SDO/HMI
+values do not show any significant variation with time, while
+the remapped SO/PHI-HRT values go from 0 to -15 m/s. The
+bottom panel shows the root mean square (rms) of the remapped
+SO/PHI-HRT (purple) and SDO/HMI (brown) time series, which
+is used to quantify the amplitudes measured by the instruments.
+The two axes in this case are exactly the same for both distri-
+butions. The remapped SO/PHI-HRT rms is overall higher than
+SDO/HMI as expected by the slope of the linear fit shown in
+Fig. 3 being smaller than one. On the other hand, we see a de-
+crease of the rms in SO/PHI-HRT of ~5 m/s and an increase in
+SDO/HMI of ~10 m/s, which is also consistent with the increase
+of the slope in time.
+
+In a further step we look at the spatial variation of the re-
+sults of the linear fit. For that, the FoV is divided into square
+regions of 8x8 pixels and we perform a linear fit in each of these
+regions through the whole time series. We also compute the aver-
+aged correlation between the two time series in each sub-region.
+The results are shown in Fig. 5. The top panel shows the spatial-
+distribution of the correlation, which is overall very high with a
+mean value of 91%. Low values are found especially within the
+sunspot umbra, where the correlation drops to 60-70%. Many
+factors lead to this low correlation including the low intensity
+signal, the large line splitting due to the strong magnetic field
+that can become as large as the total wavelength range in the line
+that is scanned, the small velocity in the umbra, the few mea-
+sured wavelength points within the line (which are different for
+SDO/HMI and SO/PHI), different algorithms to retrieve the ve-
+locity signal, all contribute to the low correlations between the
+two instruments within umbrae (see Sect. 5).
+
+The middle and bottom panels show the spatial distribution
+of the slope and offset of the linear fit. Here a spatial distribution
+is quite evident, particularly in the case of the offset. The FoV
+dependence is likely due to calibration residuals, such as an im-
+perfect treatment of the prefilter, etalon cavity correction, or flat
+correction in SO/PHI-HRT. The spatial variation does not show
+any correlation with any of the LSC of either instruments and
+the amplitude of the signal also does not match with any of the
+known effects that we compensate for. Note that in the middle
+panel of Fig. 5 low values of the slope are seen in large parts of
+the sunspot including parts of the penumbra. This is an artifact
+of the averaging onto larger pixels, which mixes the low (and
+uncertain) slope values found in the umbra with the high values
+in the penumbra (see Sect. 4.3)
+
+4.3. Sunspot penumbra
+
+In this section the penumbra of the sunspot is analyzed in more
+detail. The penumbra is defined as those pixels with intensity
+higher than 55% and lower than 89% of the averaged intensity
+continuum in a nearby quiet Sun area. A reproduction of the scat-
+ter plot between the remapped SO/PHI-HRT and the SDO/HMI
+time series, focusing exclusively on the penumbra and on its Ev-
+ershed flow (Evershed 1909) is visible in Fig. 6. The contours
+defining the penumbra boundaries are also visible in the lower
+right part of the same figure. It is evident that the scatter of
+the points is smaller than in Fig. 3, which can be explained by
+the smaller FoV considered here (and thus smaller spatial varia-
+tion) and is well represented by the higher correlation coefficient
+(95%) with respect to that of the full FoV. Another remarkable
+result is the slope of the linear fit, which does not differ from the
+
+Article number, page 5 of 10
+A&A proofs: manuscript no. main
+
+one obtained by fitting the data of the whole FoV. This is un-
+likely to be by chance given the small error bars associated with
+each data point. Additionally, the offset between the two signals
+is smaller than that found in Fig. 3. This is expected from the
+position of the sunspot in the bottom panel of Fig. 5, where it
+lies in an area where the offset is smaller than the average (as
+obtained by the linear fit shown in Fig. 3).
+
+After assessing that the velocities measured in the penumbra
+are comparable to those in the rest of the FoV, the comparison
+of the spatial dependence of the Evershed flow recorded by the
+two instruments can be addressed. Therefore, an elliptical polar
+grid is defined to encompass the whole penumbra and its Ever-
+shed flow, which extends slightly beyond the outer edge of the
+penumbra. The grid is shown as gray lines in the left panel of
+Fig. 7. The solid gray ellipses show the starting and ending point
+of the radial distance. The azimuth angle axis is defined starting
+from the straight solid line in counter-clockwise direction with a
+5° step size.
+
+The middle panel of Fig. 7 displays the velocity on the el-
+liptical polar grid. Note that the velocities plotted in this panel
+are temporal averages over the full 240 frames recorded by the
+SO/PHI-HRT. The two branches of the Evershed flow are clearly
+visible in the left and right part of the plot, which consists of the
+limb (outlined by the red box) and disk center (blue box) oriented
+sides of the penumbra, respectively. In order to compare the val-
+ues obtained by the two instruments, we perform an azimuthal
+average (along the x axis) in the red and blue boxes for each time
+series. The results are shown in the right panel of Fig. 7, where
+the x axis represents the radial distance on the elliptical polar
+grid. The colors are the same as of the boxes shown in the mid-
+dle panel, the crosses show the result obtained with the remapped
+SO/PHI-HRT and the circles those from SDO/HMI. The curves
+resulting from the data of the two instruments lie very close to
+each other until the penumbra-quiet Sun boundary (which lies
+roughly at a distance of 15 px along the x axis). The asymmetry
+between the two sides of the penumbra (limb- and disk center-
+side, e.g. Schlichenmaier et al. 2004) is to be expected. Also, a
+difference in the flows can be caused by the asymmetric shape of
+the sunspot.
+
+5. Discussion
+
+We have reported a comparison of the LoS velocity measured by
+SO/PHI-HRT and SDO/HMI while Solar Orbiter was in inferior
+conjunction. The data acquired by SO/PHI-HRT have been post-
+processed and remapped onto the SDO/HMI detector frame to
+allow a pixel-by-pixel comparison. Despite differences in instru-
+mentation, calibration, cadence, and velocity retrieval methods,
+the comparison shows an excellent agreement of the LoS ve-
+locity signals obtained with these two telescopes. We measure a
+height difference of 10+12 km between the two time series and
+obtain a slope of 0.94 for the linear fit of the scatter plot between
+the two instruments and a correlation coefficient of above 90%.
+The measured height difference is larger than the result obtained
+from a MURaM simulation by Schou et al. (2023) and it is pos-
+sible to estimate the velocity variation due to such a separation.
+If we consider the conservation of mass from one layer to the
+other, it holds
+
+PHMIVHMI = PPHIVPHI ()
+
+where p is the density at each layer and v is the vertical velocity.
+A ratio vami/VpH of 0.95 for 10 km height separation is ob-
+tained by considering the atmospheric densities from the VAL-
+C model (Vernazza et al. 1981), whereas 11 km of separation
+
+Article number, page 6 of 10
+
+2000 | Slope = 0.9412 + 9.008
+offset = -19.944 + 0.396 m/s 102
+correlation = 0.95 |
+1000 - lo = 107.198 +0.167 }
+“aS H
+Z
+&
+a
+= 0 pewesee eens nnsc noes pS foie nnnnen nnn anne ence ans
+q
+oy 101
+a)
+® _1000
+—2000
+10°
+
+—2000 —1000 0 1000
+
+SO/PHI-HRT (m/s)
+
+Fig. 6. Scatter plot distribution of the velocity field values as measured
+by the remapped SO/PHI-HRT (x axis) and SDO/HMI (y axis) in the
+sunspot penumbra. The colors and lines are defined as in Fig. 3. The
+image in the lower right quadrant shows a snapshot of the sunspot ob-
+served by SDO/HMI oriented as in Fig. 1 and the blue contours define
+the penumbra boundaries.
+
+would be necessary to obtain a ratio equals to 0.94. Considering
+the broad distribution of the height separation between the two
+instruments, it is not possible to address it as the unique cause
+for having a ratio smaller than 1. One more reason is to be found
+in the bottom panel of Fig. 4, which shows that the rms of the
+remapped SO/PHI-HRT is always higher than that of SDO/HMI.
+This is due to the spatial deconvolution of the SO/PHI-HRT PSF
+including the stray light component during the data reduction, a
+correction that is not included in the SDO/HMI pipeline, but it
+can be made available on request. We compare these data with
+the velocities from SDO/HMI without stray light removed, as
+we want to compare the standard data products, which are the
+most likely to be used for studies comparing or combing veloci-
+ties from the two instruments. One more element that could also
+contribute is the different sampling of the spectral line. SO/PHI-
+HRT samples the line in five points with a spectral resolution
+of 58000, SDO/HMI in six points with a spectral resolution of
+81000. Stief et al. (2019) showed that the velocity retrieved with
+different sampling and at different points along the line can sub-
+stantially affect the measurement. However, a lower spectral res-
+olution reduces the variation in the retrieved velocity near the
+core of the line (see the yellow curve in Fig. 5 in Stief et al. 2019
+for the SDO/HMI case), meaning that we do no expect this to
+be the main component of the difference between the two instru-
+ments.
+
+The temporal variation of the linear and Gaussian fitting re-
+sults (presented in Fig. 4) is mostly due to two factors: a variation
+of ~10 m/s in the average distribution of the SO/PHI-HRT veloc-
+ity field (middle panel) and the opposite variation of the rms of
+the two instruments (bottom panel). The variation of the average
+value in SO/PHI-HRT can be caused by the intrinsic sensitiv-
+ity of the instrument, due to the voltage applied to the etalon,
+which translates into ~17 m/s, and due to the thermal stabiliza-
+tion, which converts into ~19 m/s. While the rms increase in
+SDO/HMI is consistent with the findings of Oba et al. (2020),
+the slow decrease in SO/PHI-HRT is likely due to the optical
+Calchetti D. et al.: Velocity comparison between SO/PHI-HRT and SDO/HMI
+
+300
+= 20
+x
+aa aa
+a g 15
+250 E
+a 8
+> 3 10
+=
+ino)
+8 5
+200 Q
+
+250 300 9 100
+
+x axis [px]
+
+600
+
+400
+
+200
+
+average velocity (m/s)
+
+200
+
+azimuth (deg)
+
+300
+
+radial distance (px)
+
+Fig. 7. Left panel: remapped SO/PHI-HRT LoS velocity signal around the sunspot averaged in time (oriented as in Fig. 1). The black contours are
+at 55% and 89% of the average continuum intensity. The gray lines show the grid used for the elliptical polar projection of the penumbra. The solid
+gray ellipses are the starting and ending point of the radial distance axis, the solid straight gray line shows the starting point of the azimuth angle
+axis (measured counter-clockwise). Middle panel: same signal as shown in the left panel, but represented on the elliptical polar grid displayed in
+the left panel. The x axis shows the azimuth, the y axis shows the radial distance (in pixel) from the innermost ellipse. Right panel: azimuthal
+average of the signal within the blue and red boxes of the middle panel. The crosses show the remapped SO/PHI-HRT signal, whereas the points
+are the SDO/HMI signal. The colors correspond to the boxes shown in the middle panel. The values displayed in blue are multiplied by -1 for an
+
+easier comparison.
+
+quality of the data through the 4-hour observation. In particular,
+a major component can be attributed to the focus of the instru-
+ment, which changes with time because of the fast approach of
+the spacecraft to the Sun and the associated thermal drifts. A
+possible indication is the presence of the same decrease in the
+unreconstructed SO/PHI-HRT LoS velocity data and in the in-
+tensity contrast in the raw data. It is also important to point out
+that the values of the slope are comparable to those of the ratio
+between the SDO/HMI and SO/PHI-HRT rms. This can indicate
+a possible strategy for directly combining the velocities mea-
+sured by these two instruments when observing from different
+vantage points.
+
+The spatial correlation and dependence of the linear fitting
+results are shown in Fig. 5. The correlation map shows very high
+values through the whole FoV with an average of 91%, with the
+exception of the sunspot umbra, where the measured LoS ve-
+locities are generally lower than in the penumbra or quiet sun..
+This can be expected by the different algorithms used to retrieve
+the LoS velocity. SDO/HMI uses the so-called MDI-like method
+for its LoS observable, whereas in SO/PHI-HRT the LoS veloc-
+ity field is a result of the RTE inversion. Different algorithms
+can also infer the physical quantities at slightly different heights
+depending on their response functions. Such a possibility was
+not considered in Schou et al. (2023), because the MDI-like al-
+gorithm was used for both instruments. The use of different al-
+gorithms in the SO/PHI-HRT and SDO/HMI pipelines for the
+retrieval of the velocities is possibly a further reason for the dis-
+agreement between the signals measured by these two instru-
+ments.
+
+The slope and offset obtained through the linear fit clearly
+show a dependence over the FoV. The offset variation is partic-
+ularly strong in the left to right direction in the SDO/HMI de-
+tector frame system. The only physical reason for such a gradi-
+ent would come from the LSC, that already had been removed,
+but perhaps not entirely successfully. More advanced algorithms,
+such as that presented in Schuck et al. (2016), can be used to im-
+prove the LSC correction, but in this work we applied the stan-
+dard procedure based on well-established models. Another pos-
+sibility is an instrumental origin of such a variation, which we
+investigated, but could not identify any clear cause due to instru-
+mental properties of SO/PHI-HRT. Several tests using different
+
+calibration data have been tried and no significant difference is
+observed, such as improved flat fields or different prefilter mod-
+els. In both instruments, several optical components along the
+respective optical paths show a FoV variation that needs to be
+fully and carefully characterized to remove any possible gradi-
+ents in the two datasets. Also, there is no clear correlation with
+any of the LSC removed from the SO/PHI-HRT data that could
+cause such a signal, even if the models used for the LSC can
+yet leave residuals in the data (Schuck et al. 2016). Additionally,
+the amplitude of the variation is much higher than those of the
+LSC. It is also worth noting that the convective blueshift signal is
+highly sensitive to the spatial resolution of the instrument itself,
+which means that we expect a difference between SO/PHI-HRT
+and SDO/HMI, but this is not included in this work (see Ap-
+pendix A). The spatial variation can be treated more easily if the
+considered FoV is small and the removal of the offset and trends
+can be addressed with various methods (e.g. Martinez Pillet et al.
+1997; Grigor’ ev et al. 2011; Welsch et al. 2013), depending on
+the goal of the study. Such a scenario is clear also in the compar-
+ison of the penumbra in Fig. 6. The spread of the distribution is
+substantially narrower also because of the smaller spread across
+the FoV and the value of the offset is also considerably closer
+to 0. On the contrary, the slope is the same as for the full FoV,
+indicating the robustness of the comparison and the weaker de-
+pendence over the FoV with respect to other quantities.
+
+As a last result, the Evershed flow within the sunspot penum-
+bra is compared in Fig. 7. The velocity signal displayed on an
+elliptical polar grid is used to isolate the red- and blue-shifted
+parts of the penumbra. The comparison between SDO/HMI and
+SO/PHI-HRT, displayed in the right panel of Fig. 7, shows very
+good agreement between the two instruments within the penum-
+bra boundary and a small divergence in the quiet Sun. The dif-
+ference measured right outside the penumbra does not change
+significantly along the rotation angle axis, showing a small de-
+pendence over such a small FoV. Please note that the velocities
+plotted in blue have to be flipped in sign before this invariance
+becomes clear. This is in agreement with the result displayed in
+the bottom panel of Fig. 5, meaning that this difference is due
+to the general offset between the two instruments. Stated differ-
+ently, the penumbra itself shows higher velocity and smaller dif-
+ference with respect to the quiet Sun, which could be due to how
+
+Article number, page 7 of 10
+A&A proofs: manuscript no. main
+
+MILOS and the MDI-like algorithm infer the velocity in differ-
+ent physical conditions. The smaller difference in the penumbra
+than in the quiet Sun can also explain the smaller spread in Fig. 6
+compared to Fig. 3.
+
+6. Conclusion
+
+In summary, the agreement between the LoS velocity data prod-
+ucts of SO/PHI-HRT and SDO/HMI has been shown using a
+variety of analysis methods, providing quantitative supports for
+applications that combine the data from both instrument, from
+tracking of active regions to stereoscopic studies. That being
+said, both instruments have calibration residuals that have to be
+treated with caution. There is not one univocal method to remove
+the offsets between the instruments without an actual absolute
+calibration. On the other hand, the difference in the rms can be
+accounted considering the dependence on the jz angle (as shown
+in Obaet al. 2020). Such a procedure can be anyway only applied
+once the spatial resolution of the two instruments is comparable,
+as in this work, otherwise a higher spatial resolution will end ina
+higher velocity contrast (Jess et al. 2023). With such precautions,
+the data can also be combined pixel-by-pixel to measure 2-D
+flows on the solar surface from different vantage points. The ex-
+cellent agreement between the instruments, as shown by the high
+correlation and by the slope consistently close to 1 as obtained
+by the linear fit on the scatter plot, will then allow the exploita-
+tion of the velocity datasets from SO/PHI-HRT and SDO/HMI
+in multi-view configuration.
+
+Acknowledgements. We thank the anonymous referee for their comments and
+suggestions that improved the quality of this manuscript. Solar Orbiter is a
+space mission of international collaboration between ESA and NASA, op-
+erated by ESA. We are grateful to the ESA SOC and MOC teams for
+their support. The German contribution to SO/PHI is funded by the BMWi
+through DLR and by MPG central funds. The Spanish contribution is funded
+by AEI/MCIN/10.13039/501100011033/ and European Union “NextGen-
+erationEU/PRTR” (RTI2018-096886-C5, PID2021-1253250B-CS5, PCI2022-
+135009-2, PCI2022-135029-2) and ERDF “A way of making Europe”; “Center
+of Excellence Severo Ochoa” awards to IAA-CSIC (SEV-2017-0709, CEX2021-
+001131-S); and a Ramon y Cajal fellowship awarded to DOS. The French con-
+tribution is funded by CNES. SDO is the first mission to be launched for NASA’s
+Living With a Star (LWS) Program. The HMI data are courtesy of NASA/SDO
+and the HMI science team. This project has received funding from the European
+Research Council (ERC) under the European Union’s Horizon 2020 research and
+innovation programme (grant agreement No. 101097844 — project WINSUN).
+This research used version 6.0.6 (10.528 1/zenodo. 15690707) of the SunPy open
+source software package (The SunPy Community et al. 2020).
+
+References
+
+Albert, K., Krivova, N. A., Hirzberger, J., et al. 2023, A&A, 678, A163
+
+Bai, X., Deng, Y., Zhang, H., et al. 2024, Sol. Phys., 299, 157
+
+Bailén, F. J., Orozco Suarez, D., Blanco Rodriguez, J., et al. 2024, A&A, 681,
+AS8
+
+Calchetti, D., Stangalini, M., Jafarzadeh, S., et al. 2023, A&A, 674, A109
+
+Castellanos Duran, J. S., Lagg, A., & Solanki, S. K. 2021, A&A, 651, LI
+
+Couvidat, S., Schou, J., Hoeksema, J. T., et al. 2016, Sol. Phys., 291, 1887
+
+de la Cruz Rodriguez, J., Kiselman, D., & Carlsson, M. 2011, A&A, 528, A113
+
+Evershed, J. 1909, MNRAS, 69, 454
+
+Finley, A. J., Brun, A. S., Strugarek, A., & Perri, B. 2025, A&A, 697, A217
+
+Gan, W., Zhu, C., Deng, Y., et al. 2023, Sol. Phys., 298, 68
+
+Gandorfer, A., Grauf, B., Staub, J., et al. 2018, in Space telescopes and instru-
+mentation 2018: Optical, infrared, and millimeter wave, Vol. 10698, SPIE,
+1403-1415
+
+Grigor’ev, V. M., Ermakova, L. V., & Khlystova, A. I. 2011, Astronomy Reports,
+55, 163
+
+Hathaway, D. H. & Rightmire, L. 2011, ApJ, 729, 80
+
+Jafarzadeh, S., Jess, D. B., Stangalini, M., et al. 2025, Nature Reviews Methods
+Primers, 5, 21
+
+Jess, D. B., Jafarzadeh, S., Keys, P. H., et al. 2023, Living Reviews in Solar
+Physics, 20, 1
+
+Article number, page 8 of 10
+
+Kahil, F., Gandorfer, A., Hirzberger, J., et al. 2022, in Society of Photo-Optical
+Instrumentation Engineers (SPIE) Conference Series, Vol. 12180, Space Tele-
+scopes and Instrumentation 2022: Optical, Infrared, and Millimeter Wave, ed.
+L. E. Coyle, S. Matsuura, & M. D. Perrin, 121803F
+
+Kazachenko, M. D., Fisher, G. H., Welsch, B. T., Liu, Y., & Sun, X. 2015, ApJ,
+811, 16
+
+Kosugi, T., Matsuzaki, K., Sakao, T., et al. 2007, Sol. Phys., 243, 3
+
+Lites, B. W., Akin, D. L., Card, G., et al. 2013, Sol. Phys., 283, 579
+
+Lites, B. W., Skumanich, A., & Martinez Pillet, V. 1998, A&A, 333, 1053
+
+Loeschl, P., Hirzberger, J., Solanki, S. K., Schou, J., & Valori, G. 2024a, A&A,
+682, A108
+
+Loeschl, P., Valori, G., Hirzberger, J., et al. 2024b, A&A, 681, A59
+
+Lohner-Bottcher, J. & Schlichenmaier, R. 2013, A&A, 551, A105
+
+Loéhner-Béttcher, J., Schmidt, W., Schlichenmaier, R., Steinmetz, T., &
+Holzwarth, R. 2019, A&A, 624, AS7
+
+Martinez Oliveros, J. C., Couvidat, S., Schou, J., et al. 2011, Sol. Phys., 269, 269
+
+Martinez Pillet, V., Lites, B. W., & Skumanich, A. 1997, ApJ, 474, 810
+
+Mathew, S. K., Lagg, A., Solanki, S. K., et al. 2003, A&A, 410, 695
+
+Moreno Vacas, A., Orozco Suarez, D., Strecker, H., et al. 2024, A&A, 685, A28
+
+Miiller, D., St. Cyr, O. C., Zouganelis, I, et al. 2020, A&A, 642, Al
+
+Oba, T., Iida, Y., & Shimizu, T. 2020, ApJ, 890, 141
+
+Okamoto, T. J., Tsuneta, S., Lites, B. W., et al. 2009, ApJ, 697, 913
+
+Orozco Suarez, D. & Del Toro Iniesta, J. C. 2007, A&A, 462, 1137
+
+Pesnell, W. D., Thompson, B. J., & Chamberlin, P. C. 2012, Sol. Phys., 275, 3
+
+Romero Avila, A., Inhester, B., Hirzberger, J., & Solanki, S. K. 2024, Sol. Phys.,
+299, 41
+
+Schlichenmaier, R., Bellot Rubio, L. R., & Tritschler, A. 2004, A&A, 415, 731
+
+Schou, J., Hirzberger, J., Orozco Suarez, D., et al. 2023, A&A, 673, A84
+
+Schou, J., Scherrer, P. H., Bush, R. I, et al. 2012, Sol. Phys., 275, 229
+
+Schuck, P. W., Antiochos, S. K., Leka, K. D., & Barnes, G. 2016, ApJ, 823, 101
+
+Sinjan, J., Calchetti, D., Hirzberger, J., et al. 2023, A&A, 673, A31
+
+Sinjan, J., Calchetti, D., Hirzberger, J., et al. 2022, in Society of Photo-Optical
+Instrumentation Engineers (SPIE) Conference Series, Vol. 12189, Software
+and Cyberinfrastructure for Astronomy VII, 121891J
+
+Solanki, S. K., del Toro Iniesta, J. C., Woch, J., et al. 2020, A&A, 642, All
+
+Stief, F., Lohner-Bottcher, J., Schmidt, W., Steinmetz, T., & Holzwarth, R. 2019,
+A&A, 622, A34
+
+The SunPy Community, Barnes, W. T., Bobra, M. G., et al. 2020, The Astrophys-
+ical Journal, 890, 68
+
+Thompson, W. T. 2006, A&A, 449, 791
+
+Tsuneta, S., Ichimoto, K., Katsukawa, Y., et al. 2008, Sol. Phys., 249, 167
+
+Valori, G., Calchetti, D., Moreno Vacas, A., et al. 2023, A&A, 677, A25
+
+Vernazza, J. E., Avrett, E. H., & Loeser, R. 1981, ApJS, 45, 635
+
+Vesa, O., Jackiewicz, J., & Reardon, K. 2023, ApJ, 952, 58
+
+Vigeesh, G., Jackiewicz, J., & Steiner, O. 2017, ApJ, 835, 148
+
+Welsch, B. T., Fisher, G. H., & Sun, X. 2013, ApJ, 765, 98
+
+Zouganelis, I., De Groof, A., Walsh, A. P., et al. 2020, A&A, 642, A3
+Calchetti D. et al.: Velocity comparison between SO/PHI-HRT and SDO/HMI
+
+Appendix A: Large scale velocity components
+
+The treatment of the large scale velocity components (LSC) in
+the solar photosphere and their contribution to the LoS velocity
+field has been extensively treated in many papers (e.g. Schuck
+et al. 2016; Castellanos Duran et al. 2021). Information about
+the solar coordinate system can be found in Thompson (2006).
+Here, for completeness, we summarize the equations used in our
+analysis. The solar differential rotation is treated according to
+Hathaway & Rightmire (2011):
+
+Vror(A) = (a+ bsin? A+ csin* A)cos a, (A.1)
+
+where J is the solar latitude in heliographic coordinates and
+
+a =14.437° /day,
+b =- 1.48°/day,
+c=-2.99°/day. (A.2)
+The projection along the LoS is given by Schuck et al. (2016):
+Vro(A) Atos =Vror(A)| = Cos Bo Sin d cos 6, +
+
+(cos ¢ sin — sin Bo sind cos w) sin 4 ; (A.3)
+where fos is the LoS vector in helioprojective coordinates, Bo
+is the latitude of the center of the solar disk as seen by the ob-
+server (solar-B angle), ¢ is the solar longitude in heliographic co-
+ordinates (with 0° corresponding to the observer central merid-
+ian), 6, is the helioprojective angle and y is the position angle in
+heliocentric-radial coordinates.
+
+The LoS contribution of the residual spacecraft velocity
+component is:
+
+vs/c(O, ¥) = Vw sin @ sin — Vy sin 6, cos w+ Vr cos 6p, (A.4)
+
+where (Vp, Vw, Vy) are the radial, westward, and northward
+components of the spacecraft velocity respectively. In the
+SO/PHI-HRT case, most of the contribution comes from the
+westward and northward velocities because the etalon can be
+tuned to compensate for the radial component of the spacecraft
+velocity. Hence, we also subtract a constant value equal to
+
+Ae = Ao
+
+ve(Ae) = Fi
+0
+
+c, (A.5)
+
+where A, is the SO/PHI-HRT sampled wavelength corresponding
+to the core of the Fe 1 line, Ap is the rest wavelength, and c is the
+speed of light.
+
+The meridional flow is also treated according to Hathaway &
+Rightmire (2011):
+
+vu(A) = (dsind + esin? A) cos A (A.6)
+with
+d=29.7m/s; e =-17.7m/s. (A.7)
+
+The projection along the line of sight is equivalent to Equa-
+tion A.4.
+
+The variation from center to limb of the convective blueshift
+signal is adopted from Castellanos Duran et al. (2021). Despite
+the dependence of this effect on the spectral resolution (see Stief
+et al. 2019; Lohner-Béttcher et al. 2019), we are not able to fit the
+center to limb profile of this effect because SO/PHI-HRT is not
+a full-disk imager and we do not have continuous observations
+of the Sun (e.g. as in Léhner-Béttcher & Schlichenmaier 2013).
+
+This term is then modeled by Castellanos Duran et al. (2021) as:
+
+vps (W) =134 — 1179p — 2029p7+
+
++ 911243 — 10409u* + 4096p" m/s, (A.8)
+
+where pu = cos 6, is the cosine of the helioprojective angle.
+The last term is the gravitational redshift. This is a relativistic
+effect depending on the mass (Mo) and radius (Ro) of the Sun
+and on the distance (D) between the observer and the Sun:
+GMo [1 1
+c \Ro D/P
+
+vers(D) = (A.9)
+where G is the gravitational constant. The values obtained for the
+two instruments are 628.8 m/s and 633.3 m/s for SO/PHI-HRT
+and SDO/HMI respectively.
+
+Fig. A.1 shows all the components for SO/PHI-HRT except
+for the gravitational redshift which is constant.
+
+Article number, page 9 of 10
+A&A proofs: manuscript no. main
+
+Vpos Without LSC Solar Rotation Spacecraft Velocity
+5 2000 =a 2000 300
+200
+1000 1000
+100
+0 0 0
+—100
+—1000 —1000
+—200
+—2000 —2000 —300
+Meridional Flow Convective Blueshift Original vzos
+1400 ee ooo 2000
+E er —100
+1200 F a
+__ 1000 E 4 20 —200 1000
+5 E F|
+= s00F 4 > —300
+QB E 4} jo 0
+4 600 E 4 —400
+ca
+—2
+400 E E a —500 —1000
+200
+E 4g -40 —600
+gberirtiiitiiiti4 4 5000
+0 400 800 1200 0 400 800 1200 0 400 800 1200
+x axis [px] x axis [px] x axis [px]
+Fig. A.1. Top left panel: SO/PHI-HRT Dopplergram after the removal of the LSC. The black arrows indicate the north (N) and east (E) solar limb
+
+as in the SO/PHI-HRT detector frame. Top middle panel: differential solar rotation contribution. Top right panel: spacecraft velocity residuals.
+Bottom left panel: meridional flow contribution. Bottom middle panel: convective blueshift signal. Bottom right panel: original SO/PHI-HRT
+Dopplergram. The units are in m/s in every plot.
+
+Article number, page 10 of 10

@@ -1,0 +1,1734 @@
+Astronomy & Astrophysics manuscript no. aa54950-25
+October 30, 2025
+
+@©ESO 2025
+
+483vl1 [astro-ph.GA] 29 Oct 2025
+
+Va)
+N
+en)
+4
+4.
+
+>
+
+oo
+
+ar
+
+A constant pressure model for the warm absorber in Mrk 509
+
+Krzysztof Hryniewicz!, Agata Rozariska”, Tek Prasad Adhikari**, Matteo Guainazzi>, Biswaraj Palit”, and Rafat
+
+Wojaczyriski2
+
+! National Centre for Nuclear Research, Astrophysics Division, Pasteura 7, 02-093 Warsaw, Poland
+
+e-mail: krzysztof.hryniewicz@ncbj.gov.pl
+
+Nicolaus Copernicus Astronomical Centre (NCAC), Polish Academy of Sciences, Bartycka 18, Warsaw, Poland
+
+3 CAS Key Laboratory for Research in Galaxies and Cosmology, Department of Astronomy, University of Science and Technology
+of China, Hefei, Anhui 230026, China
+
++ School of Astronomy and Space Science, University of Science and Technology of China, Hefei, Anhui 230026, China
+
+5 ESTEC/ESA, Keplerlaan 1, 2201 AZ Noordwijk, The Netherlands
+
+Received ...; accepted ...
+
+ABSTRACT
+
+Context. We present the analysis of 900 ks high-resolution RGS XMM-Newton observations of the nearby Seyfert galaxy Mrk 509
+with the use of a self-consistent warm absorber (WA) model. We perform a physically motivated approach to the modeling of WA as
+a stratified medium in constant total pressure (CTP) regime.
+
+Aims. Powerful outflows are fundamental ingredients of any active galactic nuclei (AGN) structure. They may significantly affect
+the cosmological environment of their host galaxy. High-resolution X-ray data are best suited for outflow’s studies, and the observed
+absorption lines on heavy elements are evidence of the physical properties of an absorbing gas. Our models allow us to fit continuum
+shapes bounded together with the line profiles, which gives additional constraints on the gas structure of WA in this source. In this
+work, we benchmark and test the CTP model on the soft X-ray spectrum of Mrk 509.
+
+Methods. A grid of synthetic absorbed spectra was computed with the photoionization code TrTaN assuming that the system was under
+CTP. As an illuminating spectral energy distribution (SED), we used the most actual multiwavelength observations available for Mrk
+509. We apply these models to the high-resolution spectrum of the WA in the Mrk 509, taking into account cold/warm/hot Galactic
+absorption on the way to the observer.
+
+Results. CTP gas with log & ~ 1.9, defined on the cloud surface, fits the data well. A higher ionization component is needed for Nex
+absorption. The best-fit model is optically thin with log Ny = 20.456 + 0.016. The lines are non-saturated, and the CTP spectral fit
+aligns with previous analyses of Mrk 509 with a constant density WA. The model constrains the gas density, placing the WA cloud at
+
+0.02 pe, consistent with the inner broad line region and the thickening region of the accretion disk.
+
+Key words. galaxi
+509 — X-rays: individuals: Mrk 509
+
+1. Introduction
+
+Warm absorbers (WA) are clearly seen in about 50% of active
+galactic nuclei (AGN) (Reynolds 1997; Blustin et al. 2005; Laha
+et al. 2014), and are direct candidates for explaining the feed-
+back of the AGN to the galaxy and the intergalactic medium
+(IGM) (Tombesi et al. 2013; Gofford et al. 2013). At the very
+beginning of the gratings detector area on the board of Chandra
+and XMM-Newton, X-ray spectra of ionized outflows in AGN
+have been studied using the superposition of discrete gas compo-
+nents. However, it was recognized that this line richness from a
+variety of heavy elements requires the model resulting from pho-
+toionization calculations with some assumption about the matter
+structure. At that time, the reasonable assumption was that the
+absorbed gas is of constant density (hereafter CD) (Kaspi et al.
+2001; Collinge et al. 2001; Kaastra et al. 2002; Behar et al. 2003;
+Netzer et al. 2003; Krongold et al. 2003; Yaqoob et al. 2003;
+Steenbrugge et al. 2003; Blustin et al. 2003, and many other pa-
+pers).
+
+So far, WAs have been fitted by superposing the effect of CD
+slabs on different AGN. However, since high-resolution spectra
+display lines from different levels of ionization, several CD slabs
+are needed to successfully explain the X-ray spectra (Turner
+
+s: active — photoionization simulation — absorption spectra — quasars: absorption lines, — quasars: individual: Mrk
+
+et al. 2004; Steenbrugge et al. 2005; Costantini et al. 2007; Win-
+ter & Mushotzky 2010; Winter et al. 2012; Tombesi et al. 2013;
+Laha et al. 2014). To make clouds of different levels of ionization
+physically bounded, the more sophisticated model was provided
+by Rézariska et al. (2004) assuming that the gas is under constant
+total pressure (hereafter CTP). In such a model, gas stratification
+is provided by radiation pressure compression mechanism (see
+also R6zariska et al. 2006, 2008; Stern et al. 2014).
+
+The direct fitting of the line profile provides us with an esti-
+mate of the total energy absorbed by the line, the so-called line
+equivalent width (hereafter EW). After EWs of observed lines
+are found, and assuming that the observed lines are not saturated,
+we can derive the ionic column density of each ion responsible
+for the given line transition. This ionic column density for non-
+saturated lines is proportional to its EW, i.e., the linear part of the
+curve of growth (for illustration see: Adhikari 2019). This kind
+of work is made directly with the data and is the first step in the
+study of WAs. The second step is when, after deriving ionic col-
+umn densities from the data, we can merge them with the total
+column density of the WA gas by fitting them with modeled ionic
+column densities computed by photoionization codes. These to-
+tal column density, often expressed in terms of the hydrogen col-
+
+Article number, page 1 of 19
+A&A proofs: manuscript no. aa54950-25
+
+umn density, may be different for each CD slab used in the data
+fitting process. The third step of the analysis is when we collect
+them into the so-called absorption measure distribution (here-
+after AMD; Holczer et al. 2007; Behar 2009), allowing us to
+directly measure the strength of the absorption across the AGN
+outflow. After the AMD of several sources has been determined,
+it appeared that WAs have the broadest distributions of ioniza-
+tion among all absorbers observed in the Universe. Note that in
+the second stage of the above procedure, we can use more ad-
+vanced photoionization models on the stratified density gas and
+try to reconstruct a continuous WA model, as done by several au-
+thors (Steenbrugge et al. 2005; Rézariska et al. 2006; Costantini
+et al. 2007).
+
+The more sophisticated WA model under CTP was directly
+fitted to the data only in case of NGC 3783 high-resolution
+Chandra (Gongalves et al. 2006). For the purpose of that pa-
+per, photoionization calculations under CTP were made using
+the TrraN code (Dumont et al. 2003). And because in those days
+CTP models required large computational power and time, they
+have been used to fit ionic column densities computed by TITAN
+to those derived by observations made by the Chandra X-ray ob-
+servatory, i.e. the second stage of the whole procedure described
+above. It appeared that for NGC 3783 we cannot distinguish be-
+tween CD and CTP models based on the relation of ionic col-
+umn densities to the total column density of WA (Netzer et al.
+2003; Gonealves et al. 2006). Similar conclusions were drawn
+by Goosmann et al. (2016), where ionic column densities ob-
+tained by radiation pressure compressed cloud modeled with T1-
+TAN were nicely fitted to the column densities observed of the
+particular ion, but the authors did not aim to reconstruct strong
+deeps in AMD observed for NGC 3783.
+
+On the other hand, CTP models of WA were successfully
+used to explain the AMD shapes observed in the case of several
+AGN (Adhikari et al. 2015, 2019). This work was performed
+by estimating the AMD shape directly from the computed CTP
+models, without comparing the ionic column densities. The re-
+sult was that AMD dips clearly observed in WAs are caused by
+thermal instabilities in the photoionized gas. Furthermore, the
+authors presented strong evidence that this gas has to be quite
+dense with a density on the order of 10!? cm~3. The exception
+was Mrk 509, where densities of the order of 10° cm~? were suf-
+ficient to reconstruct AMD in this source (Adhikari et al. 2015).
+Since absorption models of gas under CTP predict dips in AMD
+that have been seen in the data (e.g. Behar 2009; Laha et al.
+2016), CTP models should be more suitable to fit the observed
+lines directly to the X-ray spectra. A single CTP model of the
+gas with density stratification may account for several CD slabs.
+However, due to the complexity of model computations (as mat-
+ter compressed by radiation can be thermally unstable) and spec-
+tral fitting (since multiple lines may not fit ideally), this work has
+never been done.
+
+The ionized outflow in Mrk 509 is the one among several
+WAs that passed all the steps of the analysis described above.
+The source was observed by high-resolution gratings of XMM-
+Newton since 2000. The 600 ks observations taken between Oc-
+tober and November 2009 were presented by Detmers et al.
+(2011, hereafter D11). They could successfully fit the high-
+resolution spectra taken by the Reflection Grating Spectrometer
+(RGS; den Herder et al. 2001) with a superposition of the com-
+ponents of the CD slab. After deriving ionic column densities
+for each of the ion behind the absorption line, they fitted ioniza-
+tion parameter and hydrogen column density of models which
+contribute to a given line or ion population. D1 1 concluded that
+the WA in Mrk 509 cannot be described by a smooth continuous
+
+Article number, page 2 of 19
+
+AMD, but instead shows two strong discrete peaks. In addition,
+the authors concluded that there is no single model component
+that describes all the observed outflows. Furthermore, Adhikari
+et al. (2015) confirmed it on the basis of fitting AMD in case of
+Mrk 509 with CTP model.
+
+Therefore, for the best observed source Mrk 509, there is a
+iscrepancy in our understanding of the WA. Does a contradic-
+tory physical description of the nature of the ionized outflow in
+Mrk 509 emerge from the direct estimate of the AMD, or from
+the fit of spectroscopic data with discrete CD components. On
+the basis of the AMD, the outflow can be continuous, but de-
+tailed spectral fitting of high-resolution X-ray data does not sup-
+port this. To address this discrepancy, in this paper, we propose to
+revise the first step of the WA analysis for the source of Mrk 509
+Le. to fit the RGS spectra, presented in D1 1, in the CTP scenario,
+to understand what is the origin of this discrepancy. Does it come
+from the model limitation or from the lack of our understanding
+of physical processes in the absorbing gas?
+
+In this paper, we fit the CTP model directly to the high-
+resolution X-ray data, taking the information about the gas struc-
+ture which we have learned from AMD analysis of the same
+source. Therefore, for the first time, the complete WA approach,
+i.e. estimating the column densities with CD components to-
+gether with AMD derivation, is completed with the direct fitting
+of CTP photoionization model, in case of the one source. For
+this purpose, we prepared a grid of CTP titan models specif-
+ically computed for the Mrk 509 spectral energy distribution
+(SED) from the multi-wavelength campaign of (Kaastra et al.
+201 1a). The ionic column densities and the EWs of lines are self
+consistently derived from the fitted model, and we can check if
+observed lines are saturated, i.e. on which branch of curve of
+growth the lines are placed (Adhikari 2019). For this work, we
+did not use exactly the same data set as 600 ks data used by D11.
+Alternatively, we stacked together spectra extracted from obser-
+vations covering the time range between 2000 and 2009 for a
+total exposure time of 900 ks.
+
+The structure of the paper is as follows: in Sect. 2, we present
+the source and its WA prior observations. In Sect. 3, we describe
+the data and the reduction procedure used in this paper. The spec-
+tral model used for data fitting is described in Sec. 4, while the
+spectral analysis is presented in 5. Section 6 presents our results
+for fitting the total model. These results are discussed in Sect. 7
+and concluded in Sec. 8.
+
+2. Warm absorber in Mrk 509
+
+Mrk 509 is a Sy1.5 galaxy, also considered the closest QSO /
+Syl hybrid, and it harbors a supermassive black hole of mass
+1.4 x 108 Mo (Peterson et al. 2004). It is one of the best stud-
+ied AGN in the local universe with redshift of 0.034397 (Huchra
+et al. 1993) and high luminosity L(1 — 1000 Ryd) = 3.2x 10* erg
+s-!, derived from the averaged broad-band SED observed in the
+multi-wavelength campaign (Ebrero et al. 2011). Kaastra et al.
+(201 1a) published a very detailed broadband spectral energy dis-
+tribution of Mrk 509, which was obtained by combining data
+from their multiwavelength observational campaign using XMM
+Newton. Moreover, their campaign also consisted of simultane-
+ous data from INTEGRAL on hard X-rays, as well as Swift. The
+final SED was constructed including the infrared measurements
+from the JRAS and Spitzer data and is presented in Fig. | (red
+circles).
+
+Earlier work on outflow in the X-ray regime has revealed that
+it consists of a wide range of ionization components but lacks a
+very high and also a very low ionized gas (weak Fe UTA and no
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+log [y (Hz)]
+16017, «18 = 19-20
+
+log [VF, (erg s-t cm-*)]
+
+— Incident SED of Mrk 509
+e  Kaastra et al. 2011
+
+7S Gai ee ee)
+
+-5 -4 -3 -2 -1 0 1 2 3
+log [energy (keV)]
+
+Fig. 1. Spectral energy distribution of Mrk 509 used as an input to the
+photoionization code tran marked as black solid line. The red circles
+are the observational points reported by Kaastra et al. (201 1a) and nor-
+malised to the incident flux.
+
+Sixiv Lya@ as reported by: Yaqoob et al. 2003). Usually, three
+outflow velocity components are needed to fully explain the
+observed absorption spectra (Smith et al. 2007, detmers2011).
+Later, the X-ray outflow in this source has been extensively stud-
+ied using the 600 ks RGS on board of the XMM-Newton X-ray
+telescope (Kaastra et al. 201 1a, 2012). The high spectral reso-
+lution of RGS allowed one to identify a few tens of absorption
+lines from highly ionized metals and hence to determine their
+ionic column densities (D1 1). Furthermore, multiple absorption
+lines from the interstellar medium were detected. Finally, to fully
+explain the RGS spectrum, several emission components were
+needed.
+
+The above data allowed us to put new constraints on WA in
+Mrk 509. D11 found that the ionized absorber consists of two ve-
+locity components v = —13+11 kms~! and v = -319+14kms7!
+which are consistent with previous results including UV data.
+Another tentative component v = —-770+ 109 km s~! is only seen
+in a few highly ionized absorption lines. However, several ion-
+ization components were assigned to each of the three velocity
+components. Thus, from the derived ionic column densities and
+with the use of photoionization calculations, D1 1 determined the
+equivalent hydrogen column densities and constructed the AMD.
+The authors demonstrated that the outflow in Mrk 509, in the
+log(é) range between | and 3 can be described by a broad func-
+tion with two pronounced dips, where the column density drops
+by 2-3 orders of magnitude. Later, Adhikari et al. (2015) con-
+firmed that such deeps are caused by thermal instability in the
+structure of the CTP cloud.
+
+In addition, D1 1 showed that the highest ionization compo-
+nent is located at 0.5 pe, assuming that the observed changes in
+the absorption spectrum are due to the response to changes in
+the ionizing continuum with a delay related to the electron den-
+sity. Kaastra et al. (2012) estimated the upper limits on the lo-
+cation of different ionization components of the warm absorber
+in the range of 5 to 400 pc. All photoionization calculations per-
+formed by these authors were performed with the assumption of
+CD and the input SED determined for Mrk 509 from observa-
+tions (Fig. 1).
+
+3. Data reduction
+
+We extracted Observation Data Files (ODF) for all the ob-
+servations of Mrk 509 available in the public XMM-Newton
+archive!. They correspond to three separate campaigns per-
+formed in October 2001-April 2001, October 2005-April 2006,
+and October-November 2009. Data for each ODF were reduced
+using SASv16.0 (Gabriel et al. 2004), using the most updated
+calibration files available at the time of data reduction (Octo-
+ber 2019). Calibrated event lists, source and background spectra
+and response files (combination of the redistribution matrix and
+of the energy-dependent effective area) were generated with the
+SAS reduction meta-task rgsproc. The reference position for
+the energy scale reconstruction was assumed at the optical co-
+ordinates of the AGN. rgsproc was run twice. The event lists
+generated in the first run were used to extract light curves of
+the CCD number 9 from a spatial region outside the dispersed
+source spectrum. In each light curve, intervals with a high parti-
+cle background were identified as those corresponding to a count
+rate >2 s-!. In a second rgsproc run, the time intervals corre-
+sponding to the low particle background were used as input to
+select good events, from which the final scientific products were
+extracted.
+
+Following D11, we combined the RGS 1 and RGS 2 spec-
+tra and responses generated in each observation with the SAS
+task rgscombine. The total exposure times are 903 and 900 ks
+for RGS | and RGS 2, respectively. In their analysis of the deep
+RGS observational campaign of Mrk 509, Kaastra et al. (201 1a)
+and D11 used the combined fluxed spectrum instead of the com-
+bined count spectrum, to avoid spurious narrow-band features
+that could arise at the wavelength of individual unexposed pix-
+els because rgscombine combines the instrumental response
+without weighting (Kaastra et al. 201 1a). This issue could be
+exacerbated by the fact that the RGS was operated in “multi-
+pointing mode” during the 2009 observational campaign. How-
+ever, fitting the fluxed spectrum introduces systematic uncertain-
+ties that are difficult to quantify because of the approximation
+required to correct the observed count spectrum for the instru-
+mental response. The range of Mrk 509 count rates measured by
+the RGS is moderate (0.86-1.50 s~! in the RGS 1 0.2-2.0 keV
+energy band, for example) except in the comparatively short
+32 ks, Obs.#0130720101 which registered a RGS | count rate of
+0.55 s! in the same energy band. We estimate that the system-
+atic uncertainties potentially induced by the combination of the
+effective areas without weighting is <1.5%, that is, comparable
+to the systematic uncertainties in the calibration of the effective
+area (de Vries et al. 2015). In light of this result, we prefer em-
+ploying a rigorous forward-folding approach on the combined
+count spectra.
+
+The above procedure allowed us to obtain a signal-to-noise
+ratio of the order of 10 on average, which is three times less than
+the signal-to-noise ratio reported by D11, after combining both
+RGS detectors. In order to prevent any additional lowness of the
+signal-to-noise ratio, we regret to make any data binning, even
+if the £tgrouppha tool from Heasoft ver. 6.25, with the option
+of optimal, indicates the saturation limit in the binning of high-
+resolution data (Kaastra & Bleeker 2016). For visualization of
+the overall shape of the spectrum, we draw the data binned by 5
+channels in Fig. 2.
+
+' Obs.#0130720101, #0130720401, #0306090101, #0306090201,
+#0306090301, #0306090401,  #0601390201, #0601390301,
+#0601390401, #0601390501,  #0601390701, #0601390801,
+#0601390901, #0601391001, #0601391101
+
+Article number, page 3 of 19
+A&A proofs: manuscript no. aa54950-25
+
+4. Model description
+
+We consider models of absorbing gas where radiation interacts
+with matter through photoionization processes. In this setup, we
+assume an ionizing continuum that illuminates a slab of gas in
+plane-parallel geometry. The gas is parameterized by the density
+of local numbers on the face of the cloud, myo, and the total den-
+sity of the columns, Ny. The total pressure, which is the sum of
+the gas and radiation pressures, is assumed to be constant (CTP;
+Rozariska et al. 2006). Our model differs from the radiation pres-
+sure compression model (Stern et al. 2014; Bianchi et al. 2019),
+since in the latter model, only the first order of radiation pres-
+sure decreasing proportionally to e~* is taken into account, while
+the TrTaN code computes the local value of the radiation pressure
+from the intensity field taking into account the current value of a
+source function (Adhikari 2019).
+
+The ionization parameter &p, in erg cm s~
+ionizing flux by the following expression
+
+! is related to the
+
+L
+
+nyor”
+
+£0 = qd)
+
+where L is the incident luminosity integrated over the energy
+range available from observations (Kaastra et al. 201 1a), and r
+is the distance from the ionizing source. In the constant pressure
+regime, the values ny and € are strongly stratified across the inner
+layers of the slab, and we define them only at the cloud surface
+(R6zarska et al. 2004, 2006). This is a static solution and does
+not account for the time evolution or the flow of matter.
+
+A complete grid of models of the absorption spectra for WA
+was calculated with Trran code (Dumont et al. 2003; Chevallier
+et al. 2006). The code solves the transfer of radiation assuming
+the Accelerated Lambda Iteration (ALI) method, which takes
+into account the full treatment of the source function at each
+depth of the cloud and computes the line and continuum intensity
+self-consistently. The detailed description and advantages of the
+ALI method are described in Dumont et al. (2003) in the context
+of the X-ray absorber. The code computes self-consistently full
+profiles for absorption and emission lines and takes these pro-
+files into account when doing radiative transfer computations.
+TITAN can also account for the effects of turbulence by setting the
+turbulent velocity value. The CTP medium for the purpose of
+Mrk 509 was illuminated with SED determined for this source
+from observations. The input SED to the Titan code is taken from
+Kaastra et al. (201 1b) (solid black line in Fig. 1).
+
+The computed grid of ionizing parameters spans a range of
+0 to 5 in log & with a 0.1 step and 20 to 23 in log Ny with a 0.1
+step. The upper limit of the column density was chosen on the
+basis of the shape of the absorbed continuum. For log Ny > 23
+the overall absorption of the continuum is high enough that it is
+inconsistent with the observed RGS continuum. We computed
+the table models for three initial volume densities on the illu-
+minated face of the cloud: nyo = 10°, 10!° and 10!? cm-3. The
+choice of nyo > 10° cm~? for the Mrk 509 absorber is motivated
+by the work of Adhikari et al. (2015), where they demonstrated
+that the observed AMD for this source can be well reconstructed
+with the Tran models for this gas density. In addition, the gen-
+eral shape of AMD for several sources is well reconstructed by
+high-density outflow (Adhikari et al. 2019).
+
+The titan code fully takes into account the influence of tur-
+bulent velocity on the modeled line profile. The effect is illus-
+trated in Fig. 3. It is clearly visible that turbulent velocity mod-
+ifies the absorption line profile, as expected from the theory of
+radiative transfer and the curve of growth analysis. Therefore,
+
+Article number, page 4 of 19
+
+we have calculated all sets of models including turbulent veloc-
+ities relevant to the values generally observed in other data sets,
+i.e. Viub = 100,300,500 and 700 km s~!. Note that turbulent
+velocities do not influence the shift of the location of the line
+centroids, which is caused by the outflow velocity. We did not
+fit the line shift individually; instead, the bulk shift was fitted
+by using redshift for the absorption spectra as the independent
+parameter.
+
+The number of ionic transitions taken into account is 4141
+in the energy range between 0.01 eV and 25 keV. The ten most
+abundant elements are taken into account: H, He, C, N, O, Ne,
+Mg, Si, S and Fe with solar abundances following Grevesse &
+Anders (1989).
+
+5. Spectral analysis
+
+To analyze X-ray spectra, we use the software package Bayesian
+X-ray Analysis (BXA) (Buchner et al. 2014), which connects the
+nested sampling algorithm MutriNest (Feroz & Hobson 2008;
+Feroz et al. 2009, 2019) with the fitting environment XSPEC
+ver. 12.10.1 (Arnaud 1996). The procedure was performed in
+the energy range 0.326-1.550 keV (8-38 A). In the process of
+evaluating the accuracy of the model, we used the goodness of
+fit statistic C-stat (Cash 1979), as it is implemented in XSPEC
+(Kaastra 2017). RGS 1 and RGS 2 were simultaneously fitted,
+allowing only a cross-normalization factor to remain free in the
+fit (de Vries et al. 2015). We use uniform priors, so no prefer-
+ences were given over the assumed parameter space.
+
+In the first step, we fitted the model of ionizing the SED
+without warm absorber lines to have an initial point of reference
+for further improvements. The continuum model multiplied by
+Galactic absorption we used can be described as a product of
+components:
+
+F(E) = TjeS#? x A S(E), (2)
+where j is a number of Galactic absorption components, Ny Gai,
+is the column density of neutral hydrogen in the Milky Way, o is
+the cross section for absorption and A is the normalization of the
+continuum. S(£) is the function that describes continuum radia-
+tion, which in our analysis is the SED of Mrk 509 that we used
+as the ionizing continuum in our photoionization computations.
+
+As typical for AGN, the complex absorption can be divided
+on external absorption connected to our Galaxy, for which the
+line redshift is almost zero, and intrinsic absorption is usually
+represented as a WA component, where the lines have the source
+redshift. As the first-order approximation of Galactic absorption
+we use a single rBaBs model with a fixed hydrogen column den-
+sity value of 4.44 x 10? cm? (Murphy et al. 1996). The overall
+model of the continuum absorbed by the Milky Way, fitted to the
+data, is presented in Fig. 2. The model already displays several
+absorption lines due to the Milky Way gas.
+
+To account for more complex, most likely multiphase Galac-
+tic absorption (Pinto et al. 2012), we also fit more advanced mod-
+els: ismaBs (Gatuzz et al. 2015) and tone (Gatuzz & Churazov
+2018). The results of this fitting procedure are presented in the
+Appendix A. The above analysis allowed us to identify several
+Galactic absorption lines in the data, given in Tab.A.3, which are
+later taken into account while identifying WA lines in Sect. 6.1.
+However, for further investigation of the WA components, we
+postpone the components 1smaBs and 1oNnEQ and rely exclusively
+on the model rBass for Galactic absorption. This decision was
+motivated by prohibitive computing time in XSPEC with the
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+Bayesian approach and, in some cases, failures in achieving the
+fit.
+
+In addition, care was taken to identify instrumental features
+that may not be included in the response matrix of the RGS. The
+instrumental lines, together with the references, are listed in the
+Appendix A, Tab. A.4.
+
+Subsequently, on the top of the continuum modified by
+Galactic absorption, we added ionized CTP components to the
+product of models:
+
+F(E) = Wye #7 x A S(E) x TL, WA(Nu,&), (3)
+
+where i is a number of components of the warm absorber and
+each WA;(Ny;, €;) is parameterized with the column density and
+the ionization parameter. To be in agreement with AMD fitting,
+only one CTP component should be needed to fit the data, that
+is,i=1.
+
+The overall, major fitted components are listed in Tab. |,
+where in the third row, we describe the best-fitted parameters of
+a single CTP model with solar abundances. The model requires
+a turbulent velocity equal to 500 km s~!.
+
+6. The results of fitting the total model
+
+In the following, we discuss our final fit model with its physical
+implications. The overall spectral fit for both RGS data, which
+includes continuum emission multiplied by Galactic absorption,
+and multiplied by the single CTP warm absorber model, is pre-
+sented in Fig. 4. The best-fit parameters are described in Tab. 1.
+
+We point out here that our continuum emission has the shape
+of an observed SED and was not corrected for unknown intrinsic
+absorption. In the work of Detmers et al. (2011), the same con-
+tinuum was used, but the lines were fitted separately as absorp-
+tion of the ion population. The approach of the authors described
+above is similar to using absorption lines on top of the incident
+continuum. Our model computations allow using the so-called
+outward spectrum, which is the result of the incident spectrum
+corrected by absorption.
+
+Thus, in our approach, the best-fitted model for the contin-
+uum is a multiplication of the CTP warm absorber model by the
+incident continuum SED with 100% coverage, and it is presented
+in Fig. 4. More consistent additive models, where the sum of the
+incident and outward models (and optionally reflection) is fitted,
+give an overall good fit but do not fit so well the O vin A ~ 19.6A
+and O vu A ~ 22.33A lines in the global solution. Weaker lines
+in the global fit of the additive solution are probably caused by
+the fact that the incident component is stronger than the outward
+component to preserve a good overall fit of the continuum. This
+is interpreted as a lower covering factor of the absorber. But this
+destroys fit in the deeper lines profiles. Thus, we conclude that
+the true incident continuum should be softer with a higher level
+of flux density above 25A (below 0.5 keV). Having this in mind,
+we decided to stay with the original input SED, even if our fit is
+not perfect. However, since we do not have any better constraints
+on the shape of the continuum, we have chosen to use the orig-
+inal SED, which allows the comparison of our results with the
+previous work.
+
+The Galactic column density of our overall fitted model with
+component TBass is Ny = 4.44 x 107° cm, and it is kept frozen
+during spectral analysis (Murphy et al. 1996; Willingale et al.
+2013). It should be noted that the above value is 0.5 higher than
+that found by HI4PI HI4PI Collaboration et al. (2016).
+
+We made the initial choice of the best nyo by comparing
+independent fits of the models and assessing their fit quality. For
+
+each of nyo = 10°, 10!° and 10! cm-3 we fitted the overall
+absorption spectrum in the parameter space log &)—log Ny. The
+best statistic was obtained for nyo = 10!° cm™ although the
+advantage over 10° cm? was rather minor on the order of a
+few hundred in the c-stat value. This consideration is also in line
+with the conclusion that AMD analysis does not exclude models
+with gas density 10!° cm-3 (see Fig. 14, Adhikari et al. 2019).
+Thus, we further proceed our analysis with the model assuming
+nyo = 10!° cm.
+
+In a similar fashion, we made a choice of the turbulent
+velocity in the model. From the calculated grids with vu» =
+100, 300, 500 and 700 km s~! we chose the velocity for which
+the best value of c-stat was obtained. Effectively viyp increases
+the depth of absorption for the given €, Ny and nyo as illustrated
+in Fig. 3. The best result was achieved for Vi» = 500 km s~!.
+
+The parameters of the best-fit WA model are: logé =
+1,9828*5-0003, log Ny = 20.456 + 0.016. The fitted values with
+their errors are interpolated values as given by the BXA package,
+while the grid step was 0.1 in both parameters, and this value de-
+fines a potentially more realistic precision of the solution. The
+overall fit statistic in our analysis is worse than the one obtained
+by D11, but a direct comparison of the statistic is not possible.
+On the one hand, we did not add both RGS spectra, allowing for
+the lower statistic, but on the other hand, we did not bin the data
+in order to keep all lines visible even on the detection limit. In
+addition, our model is also more tight, since the entire photoion-
+ization component in the CTP regime fits all lines for a given
+ionization parameter on the cloud surface (Adhikari et al. 2019).
+Alternatively, D11 needed 5-6 constant density components to
+model lines from different ionization states of heavy elements,
+and such approach is much more flexible in terms of goodness
+of fit.
+
+The ionization parameter on the cloud surface, o, resulting
+from our fitting is relatively low logé = 1.98, and decreases
+as the depth of the WA cloud increases, as presented in the up-
+per panel of Fig. 6. The temperature and density structure given
+in the lower panels directly follow this change. The illuminated
+cloud surface is on the right side of Fig. 6. Even if ionization
+is stratified in our model, it does not reflect the high-ionization
+constant density components fitted by D11. Our WA of best fit
+is optically thin with total column density log Ny = 20.456. The
+first reason for this fact is that, in a CTP regime, ionization fronts
+are very narrow, and with only a minor change in temperature
+and density, we jump to a different ionization state when lines
+appear. It is worth pointing out that the resulting values of the
+temperature of the stratified WA are outside the regime where
+typical thermal instability occurs.
+
+The second reason is that the collected RGS data cover a
+very narrow energy range, i.e. 0.34-1.5 keV, and the data cannot
+fully reflect the highly ionized CTP phase. For the same reason,
+the broad distribution of ionization, which manifests itself in ab-
+sorption measure distribution constructed with the use of con-
+stant density slabs, can be modeled only by a relatively narrow
+optically thin CTP model. A new high-resolution detector with
+energy coverage up to 10 keV, as the X-IFU instrument (Barret
+et al. 2023) on the board of the future New-Athena mission, is
+needed to account for the optically thick WA consisting of low-
+and high-ionization zones in the single CTP model (Rozariska
+et al. 2008).
+
+Fig. 5 shows the confidence contours generated by BXA be-
+tween different parameters of the WA CTP model that best fits.
+The cross normalization factor between the RGS 1 and RGS 2
+spectra is very well constrained to a value of 0.98. A small de-
+generacy between normalization and total column density is ob-
+
+Article number, page 5 of 19
+A&A proofs: manuscript no. aa54950-25
+
+1.50 1.00 0.80
+— 10 aff sald |
+5
+! a ek >
+ot Art ey | "yr
+i g + I+
+n 8 a} ¢ ry
+° 4 filet +
+3 my ‘
+kas 6 uy + 4 Py t
+9 t yy
+5 Wa '
+re) ‘
+UV
+7 4 s
+o
+N
+we
+iS
+o 2
+5
+
+E [keV]
+0.50 0.34
+—— TBabs
+— TBabs
++ RGS1
++ RGS2
+is
+Heat
+OF “ wy }
+4 ‘ia
+ie td > =
+a ote %&
+: 4 Er, -
+eS
+¢
+¢
+
+AIA]
+
+Fig. 2. Continuum model and Galactic absorption fitted to Mrk 509 RGS spectrum. RGS | and RGS 2 spectra are plotted in orange and cyan.
+RG2 is arbitrarily shifted by 0.02 counts s~! A”. The continuum model of Mrk 509 SED absorbed by the Milky Way is marked with red and
+blue continuous lines. The lower panel shows residuals against the best-fit model. The wavelengths are in the observed frame of reference. For the
+purpose of this plot the data are binned by 5 channels.
+
+Table 1. The best fit parameters of the final model.
+
+component log Nu log & log nyo Viurb logA v c-stat/dof
+[cem~?] [ergems"!] [em™3] [kms7!] normalization {km s7!]
+
+SED Mrk509_ — - - - —5.02272 + 0.00079 - -
+
+TBABS 20.65 - - - - - 14360/5895
+
+TITAN (CTP) 20.456 + 0.016 1,982870008 10 500 - -195+16  10972/5893
+
+Notes. The model is composed of three multiplicative components: continuum multiplied by Galactic absorption TaaBs and by single warm
+absorber CTP model, according to the Eq.3. The intrinsic continuum is in the shape of SED given in Fig. |. The parameter given without errors
+were frozen, and final analysis was made on 5893 degrees of freedom. The additional free parameter was the multiplicative factor which account
+for the normalisation difference between RGS | and RGS 2: 0.9765*°%!8. The velocity given in column 7 is the kinematic shift in the source
+
+—0.0019°
+rest-frame.
+
+served, but otherwise parameter values are robustly constrained.
+This suggests that our fit is acceptable for further analysis.
+
+For many years, the dependence of photoionization models
+on the gas volume density was thought to be degenerate, i.e. the
+absorbed spectra were the same for wide ranges of the gas den-
+sity. But this conclusion was valid for early studies of optical
+absorption lines from nebulae, where the physical conditions of
+matter required low-density gas, of the order of ~ 10* cm~?. Due
+to this reason, constant density models were generally accepted
+in publicly available photoionization codes. But with increasing
+
+Article number, page 6 of 19
+
+sensitivity of spectrometers it appeared that this is indeed true
+for optically thin clouds, with total thickness less than 1, and for
+nonsaturated clouds. In case of AGNs, either observed in opti-
+cal/UV or X-ray range, very often lines are saturated, and the gas
+with optical depth larger than unity is needed to explain all ab-
+sorption features. The first brake to the degeneracy of photoion-
+ization models due to gas density was presented by Rozariska
+et al. (2008) in the case of warm absorbers in AGN. In addition,
+it was broadly discussed by Adhikari (2019), where the direct
+physical reason for such behavior was provided.
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+—  100km/s — 500km/s —— 700km/s
+— 300 km/s
+
+0.9
+Ww
+» |
+5 08
+fo)
+U
+3 07
+cD)
+N
+® 0.6
+£
+=
+205
+
+1 1 L
+19.1 19.2 19.3 19.4 19.5
+AIA]
+
+Fig. 3. The dependence of Ovu profile on the turbulent velocities used
+in photoionization computations by trran code for a given model.
+
+Today, we accept that for volume densities higher than ~
+10°-8 cm™3, depending on the shape of the illuminating broad-
+band continuum, outgoing radiation depends not only on the ion-
+ization parameter and column density, but also on the volume
+density of the gas. Since our model depends on many param-
+eters, it was not possible to fit directly the volume density of
+the gas at the cloud surface. We clearly demonstrated that AMD
+for Mrk 509 can be well reproduced for a gas density of about
+108 cem-3 (Adhikari et al. 2015).
+
+For the goal of this paper we computed models for various
+values of the gas density at the cloud surface and microturbu-
+lence. Since those models were huge it imposed serious prob-
+lems while using it in XSPEC with Monte Carlo fitting method.
+Thus, we decided to omit direct fitting of my and turbulence.
+We only compared best-fit solutions for log nyo: 8, 10 and 12.
+The best C-stat was achieved for a value of 10, although the dif-
+ference was small. After fixing the gas density, we proceed in a
+similar way with turbulence choosing 500 km s~! as preferred.
+Therefore, the gas density and turbulence are not fully fitted but
+weakly constrained. It is just accepted to be the best density for
+which other parameters, such as the ionization parameter and
+column density, give an acceptable fit.
+
+We obtained this best fit for ny9 = 10!° cm™, which places
+our WA cloud at a distance of 0.02 pc, using the fitted value of
+the ionization parameter and the source luminosity of Sect. 2.
+This distance is a factor of 4 higher than our earlier finding (Ad-
+hikari et al. 2015; Adhikari 2019), but it is in agreement with
+the location of the broad line region found in the reverberation
+mapping. We suggest here that such WA can be connected with
+a BLR gas of lower temperature and can be responsible for ad-
+ditional continuum emission observed by RGS detectors.
+
+6.1. WA lines
+
+To take a closer look at our analysis, we focus on different
+spectral bands, presenting the overall best-fitted model together
+with the data in the observed frame in Figs. from .1 to .5. Both
+RGS spectra were fitted simultaneously with parameters listed
+in Tab. 1. The prominent absorption lines resulting from several
+ions of Mg, Ne, Fe, O, N, and C are presented in the figures.
+All lines associated with WA are identified with black labels,
+whereas those associated with Galactic absorption are identified
+with green labels. Lines that appear in RGS | and are not de-
+
+tected by RGS 2 are probably associated with instrumental lines.
+The instrumental lines that are included in the response matrix
+of both gratings are listed in Table A.4 in Appendix A.
+
+The identification of absorption lines due to the WA medium
+in AGN is associated on the basis of known atomic data of X-
+ray transitions. There has been a long-standing discussion about
+a common database of atomic transitions, but to date it does not
+exist, and the data may differ slightly in various theoretical mod-
+els. In general, our identification of lines is almost the same as
+in D11, with small exceptions of several transitions, which are
+located very close to each other in energy scale. Such blended
+lines are difficult to disentangle with the current resolution of X-
+ray data. All lines associated with WA and identified by us are
+listed in Table 2.
+
+To find the optimal parameters of the model and reproduce
+prominent lines, a test was prepared. The spectra were divided
+into windows that contained prominent absorption lines. The
+model of log nyo = 10, Vin» = 500 km s~!, solar abundance was
+used (warm500). Spectral windows were named lwxx, where xx
+denotes the integer wavelength value contained in the window.
+Most of the fits in these spectral windows achieve a c-stat / dof
+in the range 1.2 — 1.8. The fitting parameters are also illustrated
+in Fig. 7. We see that the best fit of the entire spectrum with a
+single absorber marked with a red star is located in the middle of
+log &. However, the total column density is low to avoid stronger
+absorption that is not visible in the spectrum and preserve a good
+fit of the continuum. As a consequence of the low total column
+density, the lines are non-saturated, therefore both CTP and CD
+models may successfully reproduce the data.
+
+We calculated the velocity shift of the WA lines (average
+value of the prominent absorption lines) to be v=-197 [km s]
+(blue shift/outflow) in the rest-frame. These values are presented
+in Tab. 1. We adopt the hydrogen number density ny=10!°
+cm~. Moreover, given our low column density in the TITAN cal-
+culations and with a high gas density, we never go through a
+general stratification of the ionization parameter. This is one of
+the reasons why we do not have a full s-curve as seen from the
+middle panel of Fig. 6.
+
+7. Discussion
+
+We performed analysis of high-resolution RGS XMM-Newton
+data from Mrk 509 with a model of a stratified medium in the
+constant total pressure (CTP) regime. Our data reduction pro-
+cedure allowed us to collect 900 ks observations - the longest
+possible for this source. Both RGSs have been fitted simultane-
+ously, and we have taken care of proper data binning without
+loss of spectral resolution.
+
+Our results are comparable to those obtained during the most
+detailed fit of the absorption spectra of Mrk 509 published by
+D11. The authors fine-tuned the input ionizing continuum and
+describe it with splines to achieve a better match in the spectra.
+Here we use the same SED as D11 following the work of Kaas-
+tra et al. (201 1a). However, we incorporate a slightly different
+data set, RGS observations collected over the longer period. It is
+potentially the source of the short-wavelength part difference.
+
+D11 conducted a very detailed fitting of the absorption lines
+in the Mrk 509 spectrum. This allowed reconstructing smooth
+AMD made up of many layers responsible for the effective cre-
+ation of different absorption lines. However, they concluded that
+the absorption spectrum can be reasonably and accurately ap-
+proximated with the five constant density slabs model. These
+components are spread over the scale of ionization parameters;
+logé: -0.14, 0.81, 2.03, 2.2, 2.62, 3.26 for their model 3 (their
+
+Article number, page 7 of 19
+A&A proofs: manuscript no. aa54950-25
+
+1.50
+
+E [keV]
+
+0.50
+1
+
+0.34
+
+normalized counts [x10~2 s~? 4-2]
+
+ATA]
+
+Fig. 4. Warm absorber on top of continuum modified by Galactic absorption with Mrk 509 RGS data points. RGS | and RGS 2 spectra are plotted
+in orange and cyan. RGS 2 is arbitrarily shifted by 0.02 counts s~! A7!. The total model: continuum together with a single CTP WA is plotted in
+red and blue. The wavelengths are in the observed frame of reference. The lower panel shows residua. For the purpose of this plot the data are
+
+binned by 5 channels.
+
+table 6). The corresponding values of the column density of the
+slabs are: 19.6, 19.9, 20.41, 20.64, 20.25, 20.8 in logarithmic
+cm”. While Ebrero et al. (2011) found log €: 1.06, 2.26, 3.15
+with log column densities: 20.3, 20.7, 20.8 by fitting soft X-ray
+spectrum taken with Chandra.
+
+Our best-fit static CTP model with the fitted parameters:
+
+log € = 1.9829*0-03 and log Ny = 20.456 + 0.016 for WA out-
+
+flow with v = 195 + 16 kms"! is slightly worse than that of
+D11, but is satisfactory for most of the lines, and the overall fit
+looks good with C-stat/dof = 1.9. Nevertheless, we have checked
+that for our model and these particular data sets, increasing CTP
+model components (i.e. increasing 7) does not improve our fit
+considerably, only by C-stat of a few. Therefore, we refrain from
+adding additional WA model components, because it only com-
+plicates our analysis, and therefore only a single CTP model is
+discussed here. However, the single model was dominant in most
+of the absorption lines except the Ne x line. One thing is the ve-
+locity gradient between different absorption lines, which limits
+fit quality of a single static photoionization model. The velocity
+shift issue could be resolved by adding more shifted components
+between each other, but the expected improvement was small.
+The ultimate difficulty was that with the assumed ionizing con-
+tinuum as D1 1, improving all prominent lines at once causes the
+
+Article number, page 8 of 19
+
+emergence of additional absorption, which destroyed the contin-
+uum fit in the absorption line-free area. This was caused by the
+need to increase the column density in a larger € space (address-
+ing Nex, as in the solution ’lw12’). It should be noted that we
+do not address a cooler medium below 10* K in our model.
+
+Our solution, however, not as good as Detmer’s, is close in
+ionization parameters and column densities. Our S-curve is also
+similar. The main difference is that the solutions computed in T1-
+TAN reside in = lower than the solutions proposed by D11 for the
+corresponding values of &. © is the dynamical ionization param-
+eter and is defined as 2 = Prag /Peas, Where P,aq is the radiation
+pressure and Pyas is the gas pressure. The difference is around
+-0.2 in log © for models with log nyo = 8 on the face of the
+cloud. The difference is greater, around -0.4, for log nyo = 12.
+However, there are a few differences in our approach, such as the
+use of a different ionization code, slightly different abundances
+and atomic data, a data set covering a broader time span without
+binning, and fitting as two detector spectra at once.
+
+To address the issue of a few unfitted lines and recheck those
+that were fitted, we repeated the fitting using narrower windows
+containing individual strong absorption lines. The results of this
+procedure are presented in Fig. 7. It shows that, in fact, the opti-
+mal ionization parameters might be spread over a range of values
+
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+factor = 0.9872:89
+
+van
+
+@
+
+log(norm) = —5.02+9-08
+
+log(norm)
+
+log_xi = 1.984902
+
+log_xi
+
+log_NH = 20.46+9.01
+
+‘9 ’
+b s| °
+2 c J
+aS
+8 | lp
+xs °
+e @ f
+me J
+oo”
+
+log_NH
+
+Z = 0.039.909
+
+2 SJ sy &
+rT VL ST OP
+? i “ i ? i re i a
+
+factor log(norm)
+
+Ao
+
+* S Sv Y
+LD SS oe
+9 9 is} 9
+io io o o
+
+o>
+$
+rs
+
+log_xi log_NH z
+
+Fig. 5. BXA contour plots for fitted parameters of the total model to the Mrk 509 RGS | and RGS 2 spectra. Cross normalization factor shows
+difference between two RGS specra where normalization gives the position of the total model. Best fit log € = 1.9829 *}0033 and log Ny = 20.456 +
+0.016 with z = 0.03374 + 0.00005 corresponds to the WA outflowing with vy = 195 + 16 kms7!. The diagonal panels show marginalized posterior
+probability distributions while off-diagonal panels indicate conditional probability distribution functions among each parameter.
+
+from 0.5 to 3.5 in log €. Although huge error bars are present for
+some lines indicating that a broad range of € is possible (such as
+for N vu in lw28). The problem here is that the windows are nar-
+row and do not address the impact of the absorbing cloud on the
+whole continuum. For several lines, the "optimal" column den-
+sity is large, and affected continuum matches outside of a given
+window. This is the reason why the overall fitting does not reach
+higher column densities. However, the results in Fig. 7 seem to
+be consistent with the solution of D11 and Ebrero et al. (2011).
+We can place our WA cloud at a distance of 0.02 pe or 6x10!®
+cm, using the fit value of the ionization parameter, nyo = 10!°
+
+m~> and the source luminosity. This value indicates the over-
+density in the atmosphere of the accretion disk and the thicken-
+ing of the disk (Adhikari et al. 2018). That would be close to
+the inner broad line region position. However, it is much smaller
+than the limits proposed by Ebrero et al. (2011); Kaastra et al.
+(2012), who estimated from the X-ray spectra modeling that the
+absorber should be farther than 5 pc, because of its size-radius
+constraint. However, based on & variability Kaastra et al. (2012)
+suggested an upper limit of 0.5 pc, which would be consistent
+with our estimate.
+
+Article number, page 9 of 19
+A&A proofs: manuscript no. aa54950-25
+
+Table 2. Absorption lines due to the WA in Mrk 509 identified with CTP model.
+
+Ton a E EW EW Nion from WA model Ion 2 [A]
+TITAN [A] [eV] x10-? [A] [eV] [cm] Dil
+
+Mg xi 9.49 1307.12 0.1740#0.015 0.256002 3.37031 105 Mex 9.46
+Neix 11.95 1037.77 0.3463 + 0.096 0.3218 + 0.0089 2.18+2.07 1916 Nerx 11.92
+Nex 12.57 986.36 0.266 + 0.022 0.224 + 0.019 5.1 8% 10!5 Nex 12.54
+Fexvn 12.64 980.87 0.00269 + 0.00057 0.00223 + 0.00047 2.74308 10!5 Fexx 12.66
+Neix 13.91 891.17 1.699 + 0.033 1.164*9-033 2.18%) 56 LOle Nerx 13.90
+Ne ix 13.91 891.17 1.699 + 0.033 1.164708 2.18870) 101° Fexix 13.98
+Nevutu 14.12 878.37 0.202*9-018 0.135 3.30% F52 105 Nevm 14.12
+Neviu 14.29 867.69 0.207*}-935 0.135 + 0.019 2.04*) 39 10!5 Nevi 14.28
+Fexvu 14.68 — 844.82 0.00262*0-00012 0.001607*0-000068 7.887034 103 Fexvim 14.68
+Ovm 15.34 808.46 0.260 + 0.011 0.1468 + 0.0062 9.834245 1016 Ovm 15.33
+Ovm 15.70 789.50 0.529 + 0.021 0:23470-012 9.834744 1016 Ovm 15.69
+Ovm 16.56 748.58 1.390 + 0.047 0.672208 9.832593 10!6 Ovm 16.55
+Ovus 18.03 687.68 0.5670 + 0.039 0.232 + 0.016 8.5277 1016 Ovum 18.02
+Ovu 18.38 674.52 1.0840 + 0.069 0.426 + 0.027 8.52400 101¢ Ovn 18.38
+Ovn 19.27 643.38 2.44#0-12 0.871 + 0.041 8.50108 101° Ovn 19.27
+Ovm 19.63 631.62 4.3680 + 0.055 1.504*0-020 9.834348 1016 Ovm 19.61
+S xis 22.83 543.10 0.000588 + 0.000059 0.000150 + 0.000015 5.987061 19!4 Ovi 22.77
+Sxms 23.08 537.26 +~—0.00264 + 0.00035 0.000657 + 0.000087 9.187% 10!5 Ov 23.12
+Nvu 25.64 483.51 2.312 + 0.059 0.46770-012 1.3643-6 1016 Nvu 25.62
+Cv 27.93 443.94 0.591 + 0.039 0.1006 + 0.0066 9.320% 10% Cvr 27.93
+Cv 29.45 420.94 1.568 + 0.094 0.240¢0-015 3.321074 101¢ Cv 29.44
+Nv 29.78 416.33 1.74*}12 0.260 + 0.025 4.15*)4) 10° Nvr 29.77
+Sxs 30.50 406.45 0.0559*0-0014 0.0079749.00020 1.307882 10) Nv 30.40
+Cv 34.91 355.15 6.39498 0.695*0-05* 330104 10% Cvr 34.89
+Cv 36.17 342.76 0.446%)-06! 0.04524 9.0084 3.01047 1915 Cv 36.17
+
+Notes. The first, second, and third columns give the line name, its observed wavelength, and energy in the Trran models. The fourth, fifth, and sixth
+columns provide the equivalent widths of the given lines in the model components and their corresponding ionic column densities. The last column
+refers to the line name and observed wavelength, following Kaastra et al. (2011b). The EW and N;,, values together with their uncertainties are
+interpolated from the nearest grid points to correspond to the solution of log &) = 1.9828*°-03. log Ny = 20.456 + 0.016.
+
+7.1. Nex problem
+
+This global solution is not able to reproduce Ne lines — espe-
+cially Nex, which is optimally fitted with a higher ionization
+parameter and column density. Fitting in the window spanning
+from 12.3 up to 12.7 A (model "lw12") gives good results. Nex
+a ~ 12.5 A is possible to fit for a model with logé > 1.8 and
+log Ny > 21.1. The exact values depend on the configuration of
+the additional components (such as reflection). The region of the
+Nex line is plotted in Fig. 8, where we see two solutions that
+reproduce the line: orange and green, while the best global so-
+lution is plotted in blue. Orange is for the multiplicative model
+with the incident continuum fitted in lw12 window, which gives:
+log € = 2.79, log Ny = 21.17; green shows the additive model
+with reflection fitted in lw12 window, where the absorption and
+reflection parameters are: log € = 1.82*0°8, log Ny = 21.45*938.
+However, what these two models have in common, in contrast to
+the global solution, is primarily a higher column density and a
+blueshift of the order of 1000 km s~!. Meanwhile, fitting other
+lines and/or reflection requires lower shifts.
+
+Ebrero et al. (2011) concluded that their low logé ~ 1 com-
+ponent is not in pressure equilibrium with the other two, which
+are more ionized. In principle, they did not directly reject the
+possibility of the coexistence of the log € = 2.3 and logé = 3.2
+solutions being in pressure equilibrium. Our single cloud solu-
+
+Article number, page 10 of 19
+
+0.0089?
+
+tion gives a good overall fit and is consistent with the logé ~ 2
+medium. However, the problem with reproducing Ne x absorp-
+tion and the fact that it is more shifted than the oxygen lines
+indicate that a more complex model is needed. A second com-
+ponent or a dynamic model that accounts for medium expansion
+is likely required.
+
+It was tempting to test whether a continuous AMD (Adhikari
+et al. 2015) could be reproduced by directly fitting the spectrum
+with a single CTP model. However, this was not possible with
+direct fitting of a single static CTP model. One of the key issues
+was the gradient in the line shifts, which suggests that dynamics
+must be addressed in physically motivated models.
+
+7.2. Emission
+
+D11 identified emission features as radiative recombination con-
+tinua, the most prominent around 22-24 A from the O vu lines.
+Our trials with using the reflection spectrum over the same TI-
+TAN grid as absorption one did not improve the fit. The sharp
+emission lines present in the model appeared in a broad range
+of wavelengths. It was necessary to broaden the emission spec-
+trum. The flux excess could potentially be addressed only by a
+smeared reflection. However, our attempt to apply a smeared re-
+flection component also does not improve the fit globally. Since
+our reflection spectra show emission lines in a broader range of
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+%& whole 4 lw, O VIII 4 lw28, CVI
+He olwl2,NeX A lw19, OVI sw29, CVI
+ct psorb He lwl4,Ne IX 4s tw22, OVI sw35, CVI
+Wallmiabsorber: HH olwi5,Ovill =e olw25, N VII HE lw36, CV
+1.95 #E lwi6, O VIII
+1.90
+wwe 1.85 22.5
+2 1.80 N VII
+175
+1.70 22.0
+0.725 0.730 0.735 0.740 0.745 0.750 Ne IX O VIII
+sas ~ ons O Vil
+5.10 zr OVI 0 vil
+| 5.05 3 Ov yey
+8 5.00 21.0
+4.95
+4.90 20.5
+0.725 0.730 0.735 0.740 0.745 0.750
+10.25
+10.20 20.0 ; ; ; 1
+¢ 10.15 1 2 3 4
+Bioro log &
+10.05
+Fig. 7. Best fitted parameters using spectral windows with warm500
+10:09 multiplicative model.
+0.725 0.730 0.735 0.740 0.745 0.750
+log=
+
+Fig. 6. The ionization structure of the best fit CTP model computed
+by trran and fitted to the Mrk 509 RGS data. The upper panel shows
+the structure of ionization parameter €, medium panel - temperature T
+(S-curve), and bottom panel - volume density ny, all versus dynamical
+ionization parameter &. The illuminated cloud surface is located on the
+right side of panels.
+
+wavelengths, optimizing the fit solution resulted in negligible
+emission model amplitude. However, locally emission indeed
+improved the fit, as in the Ne x window presented in Fig. 8. It is
+possible that the illuminating continuum that is used in our case
+may not represent the total spectrum seen by the absorber. Since
+implemented, the continuum is a spline that incorporates bumps
+into the continuum. It is possible that as a result the possible
+flux excess coming from a smeared emission is incorporated into
+the assumed continuum. Fitting reflection from TITAN would
+require revisiting the ionizing continuum and recomputing the
+grid. This is beyond the scope of this work.
+
+8. Conclusions
+The CTP model with logé = 1.9829*}003 and logNy =
+
+20.456 + 0.016 for the WA outflow with velocity v = 195 +
+16 km s~!, as presented in our work, provides a good general
+fit to the XMM RGS data. We found that a static CTP model
+does not address all WA absorption lines with a single com-
+ponent. This is due to the fact that it does not include velocity
+gradient across the slab and thus does not fit gradual line shift
+with the ionization parameter. Although preserving the appar-
+
+— whole —— |lw12) —— refllw12
+
+0.085
+
+0.080
+
+0.075
+
+0.070
+
+0.065
+
+0.060
+
+normalized counts s~? A?
+
+Ds
+AIA
+
+Fig. 8. Spectrum in the wavelength range of 12.3-12.7 A containing
+Nex line.
+
+12.4 12.6 12.7
+
+ent continuum shape in the fit does not allow us to increase the
+column density above log Ny ~ 20.5, an additional component
+with log € ~ 3 is required to account for Ne x absorption, which
+is consistent with the conclusions in the literature (Ebrero et al.
+2011, D11).
+
+We conclude that the CTP model is applicable, while more
+self-consistent than CD models, and is more straightforward to
+interpret. We were unable to reproduce a continuous AMD by
+direct fit of the single static CTP model, most probably because
+of the dynamics of the observed medium.
+
+Acknowledgements. We are grateful to the anonymous referee for his/her com-
+ments that improved our paper. The authors thank Alex Markowitz for helpful
+
+Article number, page 11 of 19
+A&A proofs: manuscript no. aa54950-25
+
+discussion. This research was partially supported by the Polish National Science
+Center grant No. 2021/41/B/ST9/04110. TPA acknowledges the support from the
+National Natural Science Foundation of China (nos. 12222304, 12192220, and
+12192221).
+
+References
+
+Adhikari, T. P. 2019, Photoionization Modelling as a Density Diagnostic of Line
+Emitting/Absorbing Regions in Active Galactic Nuclei
+
+Adhikari, T. P., Hryniewicz, K., Rdzariska, A., Czerny, B., & Ferland, G. J. 2018,
+ApJ, 856, 78
+
+Adhikari, T. P., R6zariska, A., Hryniewicz, K., Czerny, B., & Behar, E. 2019,
+ApJ, 881, 78
+
+Adhikari, T. P., R6zatiska, A., Sobolewska, M., & Czerny, B. 2015, ApJ, 815, 83
+
+Arnaud, K. A. 1996, in Astronomical Society of the Pacific Conference Series,
+Vol. 101, Astronomical Data Analysis Software and Systems V, ed. G. H.
+Jacoby & J. Barnes, 17
+
+Barret, D., Albouys, V., Herder, J.-W. d., et al. 2023, Experimental Astronomy,
+55, 373
+
+Behar, E. 2009, ApJ, 703, 1346
+
+Behar, E., Rasmussen, A. P., Blustin, A. J., et al. 2003, ApJ, 598, 232
+
+Bianchi, S., Guainazzi, M., Laor, A., Stern, J., & Behar, E. 2019, MNRAS, 485,
+416
+
+Blustin, A. J., Branduardi-Raymont, G., Behar, E., et al. 2003, A&A, 403, 481
+
+Blustin, A. J., Page, M. J., Fuerst, S. V., Branduardi-Raymont, G., & Ashton,
+C.E. 2005, A&A, 431, 111
+
+Buchner, J., Georgakakis, A., Nandra, K., et al. 2014, A&A, 564, A125
+
+Cash, W. 1979, ApJ, 228, 939
+
+Chevallier, L., Collin, S., Dumont, A. M., et al. 2006, A&A, 449, 493
+
+Collinge, M. J., Brandt, W. N., Kaspi, S., et al. 2001, ApJ, 557, 2
+
+Costantini, E., Kaastra, J. S., Arav, N., et al. 2007, A&A, 461, 121
+
+de Vries, C. P., den Herder, J. W., Gabriel, C., et al. 2015, A&A, 573, A128
+
+den Herder, J. W., Brinkman, A. C., Kahn, S. M., et al. 2001, A&A, 365, L7
+
+Detmers, R. G., Kaastra, J. S., Steenbrugge, K. C., et al. 2011, A&A, 534, A38
+
+Dumont, A.-M., Collin, S., Paletou, F., et al. 2003, A&A, 407, 13
+
+Ebrero, J., Kriss, G. A., Kaastra, J. S., et al. 2011, A&A, 534, A40
+
+Feroz, F. & Hobson, M. P. 2008, MNRAS, 384, 449
+
+Feroz, F., Hobson, M. P., & Bridges, M. 2009, MNRAS, 398, 1601
+
+Feroz, F., Hobson, M. P., Cameron, E., & Pettitt, A. N. 2019, The Open Journal
+of Astrophysics, 2, 10
+
+Gabriel, C., Denby, M., Fyfe, D. J., et al. 2004, Astronomical Society of the
+Pacific Conference Series, Vol. 314, The XMM-Newton SAS - Distributed
+Development and Maintenance of a Large Science Analysis System: A Criti-
+cal Analysis, ed. F. Ochsenbein, M. G. Allen, & D. Egret, 759
+
+Gatuzz, E. & Churazov, E. 2018, MNRAS, 474, 696
+
+Gatuzz, E., Garcia, J., Kallman, T. R., Mendoza, C., & Gorezyca, T. W. 2015,
+ApJ, 800, 29
+
+Gatuzz, E., Garcfa, J. A., Kallman, T. R., & Mendoza, C. 2016, A&A, 588, A111
+
+Gofford, J., Reeves, J. N., Tombesi, F., et al. 2013, MNRAS, 430, 60
+
+Gongalves, A. C., Collin, S., Dumont, A. M., et al. 2006, A&A, 451, L23
+
+Gonzalez-Riestra, R. 2018, XMM
+
+Goosmann, R. W., Holczer, T., Mouchet, M., et al. 2016, A&A, 589, A76
+
+Grevesse, N. & Anders, E. 1989, in American Institute of Physics Conference
+Series, Vol. 183, Cosmic Abundances of Matter, ed. C. J. Waddington, 1-8
+
+HI4PI Collaboration, Ben Bekhti, N., Fléer, L., et al. 2016, A&A, 594, A116
+
+Huchra, J., Latham, D. W., da Costa, L. N., Pellegrini, P. S., & Willmer, C. N. A.
+1993, AJ, 105, 1637
+
+Kaastra, J. S. 2017, A&A, 605, ASI
+
+Kaastra, J. S. & Bleeker, J. A. M. 2016, A&A, 587, A151
+
+Kaastra, J. S., de Vries, C. P., Costantini, E., & den Herder, J. W. A. 2009, A&A,
+497, 291
+
+Kaastra, J. S., de Vries, C. P., & den Herder, J.-W. 2018, SRON
+
+Kaastra, J. S., Detmers, R. G., Mehdipour, M., et al. 2012, A&A, 539, A117
+
+Kaastra, J. S., Petrucci, P.-O., Cappi, M., et al. 201 la, A&A, 534, A36
+
+Kaastra, J. S., Petrucci, P.-O., Cappi, M., et al. 2011b, aap, 534, A36
+
+Kaastra, J. S., Steenbrugge, K. C., Raassen, A. J. J., et al. 2002, A&A, 386, 427
+
+Kaspi, S., Brandt, W. N., Netzer, H., et al. 2001, ApJ, 554, 216
+
+Krongold, Y., Nicastro, F., Brickhouse, N. S., et al. 2003, ApJ, 597, 832
+
+Laha, S., Guainazzi, M., Chakravorty, S., Dewangan, G. C., & Kembhavi, A. K.
+2016, MNRAS, 457, 3896
+
+Laha, S., Guainazzi, M., Dewangan, G. C., Chakravorty, S., & Kembhavi, A. K.
+2014, MNRAS, 441, 2613
+
+Murphy, E. M., Lockman, F. J., Laor, A., & Elvis, M. 1996, ApJS, 105, 369
+
+Netzer, H., Kaspi, S., Behar, E., et al. 2003, ApJ, 599, 933
+
+Nicastro, F., Senatore, F., Gupta, A., et al. 2016, MNRAS, 457, 676
+
+Peterson, B. M., Ferrarese, L., Gilbert, K. M., et al. 2004, ApJ, 613, 682
+
+Pinto, C., Kriss, G. A., Kaastra, J. S., et al. 2012, A&A, 541, A147
+
+Reynolds, C. S. 1997, MNRAS, 286, 513
+
+Article number, page 12 of 19
+
+Rozariska, A., Czerny, B., Siemiginowska, A., Dumont, A. M., & Kawaguchi, T.
+2004, ApJ, 600, 96
+
+Rozariska, A., Goosmann, R., Dumont, A.-M., & Czerny, B. 2006, A&A, 452, 1
+
+Rézariska, A., Kowalska, I., & Gongalves, A. C. 2008, A&A, 487, 895
+
+Smith, R. A. N., Page, M. J., & Branduardi-Raymont, G. 2007, A&A, 461, 135
+
+Steenbrugge, K. C., Kaastra, J. S., Crenshaw, D. M., et al. 2005, A&A, 434, 569
+
+Steenbrugge, K. C., Kaastra, J. S., de Vries, C. P., & Edelson, R. 2003, A&A,
+402, 477
+
+Stern, J., Behar, E., Laor, A., Baskin, A., & Holczer, T. 2014, MNRAS, 445,
+3011
+
+Tombesi, F., Cappi, M., Reeves, J. N., et al. 2013, MNRAS, 430, 1102
+
+Turner, A. K., Fabian, A. C., Lee, J. C., & Vaughan, S. 2004, MNRAS, 353, 319
+
+Willingale, R., Starling, R. L. C., Beardmore, A. P., Tanvir, N. R., & O’Brien,
+P. T. 2013, MNRAS, 431, 394
+
+Winter, L. M. & Mushotzky, R. 2010, ApJ, 719, 737
+
+Winter, L. M., Veilleux, S., McKernan, B., & Kallman, T. R. 2012, ApJ, 745,
+107
+
+Yaqoob, T., McKernan, B., Kraemer, S. B., et al. 2003, ApJ, 582, 105
+
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+Appendix A: Absorption lines of an external origin
+
+External absorption originating in the Milky Way may display
+the same lines as those of WA, which may provide additional
+complication in the analysis of the intrinsic absorption by the
+ionized gas at the source rest frame. In order to determine which
+lines originate externally to the source, we perform an exercise
+by fitting multiphase Galactic absorption with a more advanced
+model. The term responsible for the Galactic absorption in the
+cold phase was fitted by the ismaBs model (Gatuzz et al. 2015),
+while the warm and hot Galactic phases (Nicastro et al. 2016;
+Gatuzz et al. 2016) were modeled through the models 1sMasBs
+and 10NEQ (Gatuzz & Churazov 2018), respectively. The fitted
+values of the parameters for the continuum model responsible
+for Galactic absorption are given in Tabs. A.1 and A.2. The col-
+umn density of neutral hydrogen for the cold/warm phase in the
+IsMABs model was fixed at 4.44 107° cm=? (Murphy et al. 1996).
+Tab. A.1 displays all three ion populations of this model, i.e. neu-
+tral, single, and double ionized species, but only detectable ions
+are listed. In the hot phase fitted by the 1oneg model, we left
+the column density of the neutral hydrogen as a free parame-
+ter. Only detectable ions are listed in Tab. A.2. We also tested
+a three-component 1oNEQ model instead of the aforementioned
+combination of ismass and a single 10NEQ, but this approach did
+not result in better fit quality.
+
+By fitting 1onEg and 1smaBs models, we were able to identify
+several Galactic absorption lines in our data, which are taken into
+account while identifying warm absorber lines in Sect. 6.1. All
+Galactic absorption lines that may influence our analysis were
+cross-checked with the papers by Kaastra et al. (2009, 201 1b);
+Detmers et al. (2011); Kaastra et al. (2018), and are listed in the
+Tab. A.3. These lines are marked with green labels in Figs. .1
+to .5 that present the final fit of the CTP WA model.
+
+In addition, care is taken to identify instrumental features
+that are potentially not included in the response matrix of the
+RGS instrument. The instrumental lines together with the refer-
+ences are listed in Table A.4. For clarity of the figures presented
+in the final fit of high-resolution RGS data, we did not mark in-
+strumental lines in the main body of the paper.
+
+Article number, page 13 of 19
+A&A proofs: manuscript no. aa54950-25
+
+normalized counts s~? A-?
+
+8.0 8.5 9.0 9.5 10.0 10.5 11.0
+
+12
+
+BH
+a
+
+BH
+oO
+
+normalized counts s~) A-1
+
+11.0 11.5 12.0 12.5 13.0 13.5 14.0
+A TAI
+Fig. .1. Overall model fit to Mrk 509 RGS spectrum given in observed frame. RGS 1 and RGS 2 spectra are plotted in orange and cyan dots with
+
+arbitrary shift 0.02 counts s~! A7!, and errors marked by gray bars. The total model: continuum together with single CTP WA is plotted in red and
+blue. WA lines are identified with black text, while possible absorption lines on Milky Way - by green text. For instrumental lines see Appendix A.
+
+Article number, page 14 of 19
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+IIAX 24
+
+NIIA ON
+
+NINA ®N
+
+N
+a
+
+a
+a
+
+o oO ie} ~
+a
+
+t-¥ 1-5 S]unod pazijeuuou
+
+15.5 16.0 16.5 17.0
+
+ATA]
+
+15.0
+
+14.5
+
+14.0
+
+de-sT IIA O
+
+IIA O
+
+IA O
+dp-sT IIA O
+IA O
+IIA O
+
+NILA, 24
+EQ¢O4
+d¢-ST AO
+
+nx a4
+
+NX] 94
+nix 94
+
+1-V 1-8 S]UN09 paz!|/ew0U
+
+18.0 18.5 19.0 19.5 20.0
+ATA]
+
+175
+
+17.0
+
+Fig. .2. continued.
+
+, page 15 of 19
+
+Article number.
+A&A proofs: manuscript no. aa54950-25
+
+a
+N
+a
+8
+>
+[o)
+
+OVI 1s-2p
+
+normalized counts s7} A-1
+
+20.0 20.5 21.0 21.5 22.0 22.5 23.0
+AAI
+
+normalized counts s~) A-1
+
+23.0 23.5 24.0 24.5 25.0 25.5 26.0
+A TAI
+
+Fig. .3. continued.
+
+Article number, page 16 of 19
+Hryniewicz et al.: A CTP model for the WA in Mrk 509
+
+normalized counts s7} A-1
+
+26.0 26.5 27.0 27.5 28.0 28.5 29.0
+AAI
+
+normalized counts s7~} A-1
+
+29.0 29.5 30.0 30.5 31.0 31.5 32.0
+A TAI
+
+Fig. .4. continued.
+
+Article number, page 17 of 19
+A&A proofs: manuscript no. aa54950-25
+
+a.
+ey
+
+n
+
+ai
+
+>
+oO
+
+normalized counts s7} A-1
+WwW
+
+32.0 32.5 33.0 33.5 34.0 34.5 35.0
+ATA]
+
+normalized counts s7~} A-1
+
+35.0 35.5 36.0 36.5 37.0 37.5 38.0
+AIA]
+
+Fig. .5. continued.
+
+Article number, page 18 of 19
+Hryniewicz et
+
+al.: A CTP model for the WA in Mrk 509
+
+Table A.1. ismazs model parameters fitting cold Galactic absorption.
+
+type of ion’s population H [107°] C[x10!%] N[x10'®] O[x10'®] Ne [x10'®] Mg [x10!%]
+4.44*
+
+I 2 +210 4.24 +0.90 20.9 +1.2 2442.5 1432
+
+I 0.0 +1.5 0.30 40.13 0.01 +0.27 9441.5 0 +58
+
+Il 0+150 0.045 +0.076 1.65+0.32  2.3e-6 +1 8 +30
+
+Notes. Column densities for a certain ion are given in the units of cm™. Missing ions were not detectable and are not listed in the table. Neutral
+hydrogen column density for ismass marked by star was taken from the literature and used as a fixed value.
+
+Table A.2. 1onEQ model parameters fitting warm/hot Galactic absorption.
+
+log T [K]
+
+log € [erg cm s“!]
+
+H [x10] Of[x10!®] Fe [x10!*]
+
+Viurd [km s~']
+
+5.579 40.012
+
+6.84 40.15
+
+3.42 40.61 1.39+0.26 2.17 £0.85
+
+14.3 42.1
+
+Notes. Mostly hot phase containing iron was fitted. Column densities for a certain element are given in the units of cm”.
+
+Table A.3. List of Galactic absorption lines identified during ismaBs and Table A.4. List of the instrumental lines not included in the response
+
+a [A] reference
+
+23.0
+30.6
+31,1
+30.49
+30.97
+30.8
+31.2
+23.4
+9.5
+17.9
+8.3
+23
+23.66
+23.96
+31.47
+21.49
+21.64
+17.84
+18.23
+14.59
+13.2
+
+WWWWWWWWWNNNNEF ERR RE Ree
+
+IONEQ model fitting to the Mrk509 RGS 1 and RGS 2 data. matrix of RGS.
+Label a [A] reference Label
+Nex 12.10-12.15 1 feature
+Ne ix 13.454 2 No Ay
+Fe xvii 15.00-15.05 1 hot pixel
+Fe ix 16.50-16.60 1 transition
+Ovu (1s-5p) —17.35-17.40 1 transition
+Ovu(1s-4p) —17.75-17.80 1 residua
+O vu (1s-3p) 18.624 2 residua
+Ovu(1s-3p) —18.60-18.70 1 residua
+Ovm 18.90-19.00 1 Mg F> (Mg edge)
+O vin (1s-2p) 18.966 2 Mg F) (F edge)
+Ovu(1s-2p)  21.55-21.65 1 Al edge
+O vu (1s-2p) 21.604 2 O absorption
+Ovi (1s-2p) 22.025 2 residua
+Ovi(1s-2p)  22.00-22.05 1 residua
+Ou (1s-2p) 23.30-23.40 1 dip
+O1(1s-2p) 23.45-23.55 1 dip
+O1 (1s-2p) 23.521 2 dip
+Nvu(1s-2p) 24.75-24.80 1 residua
+Nvi 28.8 3 residua
+N1 (1s-2p) 31.302 2 edge
+Cv (1s-3p) 33.43 1 dip
+Cvi (1s-2p) 33.743 2
+Cvi(1s-2p) — 33.70-33.80 1
+Cv (1s-3p) 34.95-35.00 1
+
+Notes. These lines are not marked in the plots for the clarity of the
+
+ond column descri
+
+Detmers et al. (20
+
+1).
+
+figures and are presented in this table instead.
+
+References. (1) Kaastra et al. (2018); (2) Gonzalez-Riestra (2018); (3)
+Notes. The first column shows the ion and its transition level, the sec- _ Kaastra et al. (2009).
+es the line wavelength in the rest frame and the ref-
+
+erences for the line identification are shown in the last column.
+
+References. (1) Kaastra et al. (2018); (2) Kaastra et al. (2011b); (3)
+
+Article number, page 19 of 19

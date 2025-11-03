@@ -1,0 +1,1740 @@
+arXiv:2510.25444v1 [physics.ao-ph] 29 Oct 2025
+
+Generated using the official AMS I4TgX template v6.1. This work has been submitted to the
+
+Journal of Atmospheric Sciences and has not yet been peer-reviewed. Copyright in this work may
+
+be transferred without further notice.
+
+The representation of Convectively Coupled Equatorial Waves and upscale
+energy transfer in models with explicit and parametrized convection
+
+Elliot McKinnon-Gray,* Daniel Shipley,*? John Methven,* Thomas H. A. Frame,’? Claudio
+Sanchez,” Anne McCabe,” and Nigel M. Roberts,°
+
+* Department of Meteorology, University of Reading, Reading, UK
+> Met Office, Exeter, UK
+° European Centre for Medium-Range Weather Forecasts (ECMWF), Reading, UK
+
+Corresponding author: Elliot McKinnon-Gray, e.b.mckinnon-gray @ pgr.reading.ac.uk
+ABSTRACT: Convectively Coupled Equatorial Waves (CCEWs) dominate atmospheric variability
+on timescales of 2-30 days in the Tropics, bringing episodes of widespread heavy precipitation.
+This study compares the representation of CCEWs and their connection to upscale energy transfer
+in two Met Office Unified Model simulations of the full tropical channel with identical km-scale
+resolution. The principal difference between the simulations is that one parametrizes convection
+(GAL), while the other (RAL) is convection permitting. This means GAL acts to remove vertical
+instability without explicitly representing the resolved-scale circulation associated with convective
+plumes. We present the first quantitative diagnosis of interscale energy transfer and its relation
+to CCEWs. This diagnosis is important because upscale energy transfer between convection and
+large-scale waves may influence accurate simulation and predictability of tropical weather systems.
+The average upper-tropospheric upscale transfer simulated by RAL is approximately 50% higher
+than GAL. CCEWs are more coherent in RAL, with an average phase-speed variability 80% higher
+than observations, compared with 166% higher in GAL. RAL also simulates greater upscale energy
+transfer within waves than GAL with a stronger correlation between the interscale energy transfer
+rate and equatorial wave winds. Simulated Kelvin and Rossby waves are associated with upscale
+energy transfer from scales 2-8 times smaller than the dominant wavelength, related to active
+deep convection within a particular sector of the wave phase. Our findings show that the explicit
+representation of convective motions have a significant impact on the simulation of upscale energy
+transfer, and are therefore very likely to be a significant factor in the faithful simulation of the
+
+convective coupling within CCEWs.
+SIGNIFICANCE STATEMENT: Weather forecasting in the tropics is beset by significant biases
+that are thought to be connected to a lack of scale coupling within current state-of-the-art numerical
+weather prediction models. This lack of scale coupling is in turn hypothesized to be due to an
+inability to explicitly represent the upscale transfer of energy from small to large scales. We
+hypothesize that the reason for this is due to the parametrization of convection in these models,
+and that kilometre-scale convection-permitting models will be able to simulate this upscale energy
+transfer and scale coupling, yielding improvements in simulation of the tropical atmosphere. We
+find that convection-permitting models simulate more upscale energy transfer and stronger scale
+
+coupling than conventional models with parametrized convection.
+
+1. Introduction
+
+The leading modes of variability on timescales from 2-30 days and spatial scales O(10°) km in
+the tropical atmosphere are convectively coupled equatorial waves (CCEWs, Wheeler and Kiladis
+1999; Kiladis et al. 2009; Knippertz et al. 2022). CCEWs are equatorially-trapped propagating
+wave-like features that are coupled to propagating deep convection. There is a two-way interaction
+between the dynamical wave in terms of winds and geopotential height and deep convection that
+maintain the propagation of these systems. The behaviour of CCEWs is well known thanks to
+numerous observational studies (Wheeler et al. 2000; Straub and Kiladis 2003; Yang et al. 2003,
+2007a). Recent studies of CCEWs in global Numerical Weather Prediction (NWP) models with
+mass-flux parametrization schemes have found that current operational systems exhibit systematic
+flaws in the simulation of some CCEWs. For example, Yang et al. (2021) found that Kelvin
+waves propagated too fast, and that there was a 25% underestimate in Kelvin and westward mixed
+Rossby-gravity (WMRG) waves over the central Pacific. Ferrett et al. (2023) found that skill in
+ensemble forecasts of Kelvin waves was substantially lower than for Rossby and WMRG waves
+over Southeast Asia. It has also been reported that CCEWs may be a very predictable component
+of the tropical atmosphere (Judt 2020). This would imply that better representation of CCEWs in
+models has significant potential to improve forecasting in the tropics.
+
+CPMs are one tool we can use that may yield improvements in the simulation of CCEWs. CPMs
+are NWP models that do not employ traditional convection parametrization schemes, instead opting
+
+for a finer grid spacing and allowing the model to explicitly simulate vertical convective motions
+and the exchanges of energy and momentum associated with moist convective instability. CPMs
+have provided benefits in many areas of tropical NWP, including improving the timing of the diurnal
+cycle of precipitation over the Maritime Continent (Howard et al. 2024), improving short-range
+rainfall predictions over East Africa and Southeast Asia (Cafaro et al. 2021; Ferrett et al. 2021),
+improved propagation speed and amplitude of an active Madden-Julian Oscillation (MJO) event
+(Holloway et al. 2013), improved vertical cloud structure of the West African Monsoon (Stein et al.
+2015), and more realistic propagation of African Easterly Waves (AEWs) (Birch et al. 2014), to
+name some findings of the past decade. It is therefore reasonable to expect CPMs to improve the
+representation of CCEWs.
+
+While operational NWP models are routinely run at convection permitting resolutions, this is
+done on limited area domains which do not wrap in longitude so limit the representation of zonally
+propagating CCEWs. In this study, we make use of the Met Office Unified Model (UM)’s Cyclic
+Tropical Channel (CTC) km-scale model. The CTC is a zonal global model with north and south
+boundaries at 26N and 40S to avoid the problem of grid-cell distortion approaching the poles.
+The main way we benefit from a CPM on this domain is that it makes the transform of the zonal
+coordinate to zonal wavenumber much easier as we are able to use Fourier transforms on this
+domain, which is not possible in a longitudinally bounded domain. The meridional extent is still
+limited, saving computing resources, but remains suitable for the purpose of studying equatorial
+waves.
+
+A major difference between convection permitting and parametrized models is that CPMs rep-
+resent near-gridscale circulations associated with convection, whereas these flows are absent in
+parametrized models. This means the upscale influence of convection on the larger scale motion
+is likely to be very different in the two models. We hypothesise that large-scale dynamical fea-
+tures (L > 103 km) receive energy from small scale processes (deep convection on km-scales, and
+aggregated convection on mesoscales L ~ 107 km) through a process known as upscale energy
+transfer. It is thought one of the key failings of NWP models regarding the simulation of large-scale
+dynamics has been an inability to properly simulate upscale energy transfer (Shutts and Palmer
+2004; Shutts 2005). We hypothesise that the primary reason for this is because the majority of
+current NWP models employ mass flux convection parametrization schemes, where vertical con-
+
+vective motions and the energy exchanges associated with them are parametrized at the grid scale
+by the model. Mass flux convection parametrization schemes are column-based and describe the
+effect of an ensemble of convective plumes on the large-scale environment which is assumed to be
+represented by the resolved fields in the model. Traditional convection parametrizations assume
+horizontal homogeneity, meaning that they cannot depend on horizontal gradients between grid
+cells. By design, the sub-grid components of ascent and descent within a column sum to zero at
+every level. Conversely, when convective systems are represented explicitly, there are horizontal
+motions coupling neighbouring cells linked with vertical motion, particularly in regions with large-
+scale vertical wind shear. This is seen, for example, in the structures identified with mesoscale
+convective systems (Dong et al. 2025).
+
+The most common methods of diagnosing energy transfer across scales (e.g. Kolmogorov 1941;
+Nastrom and Gage 1985; Stephan et al. 2022) are spectral, and therefore inherently global in their
+formulation. One of the novelties of this study is that we will use a local formulation to diagnose
+energy transfer across scales, allowing us analyse individual atmospheric processes associated with
+upscale energy transfer. In this study, we hypothesise that a CPM will capture the upscale transfer
+of energy from the scale of convective systems up to the scale of the waves in which they are
+embedded because of the explicit representation of vertical convective motions in the model. We
+also hypothesise that parametrized models will not be able to capture this transfer. It has also been
+noted (Selz and Craig 2015; Judt 2018) that small-scale differences between simulations propagate
+upscale in CPMs, so a deeper understanding of upscale energy transfer is important for informing
+future development and use of CPMs.
+
+There also remains the outstanding question of whether forecast errors propagate upscale or
+up-amplitude. A comprehensive review of this question is beyond the scope of this paper, but the
+authors point to the recent work of Rotunno et al. (2023), where it is reported that one must be careful
+with the methods of reducing to spectra as to whether you are examining upscale or up-amplitude
+error growth. In the case of operational ensembles, small-amplitude initial condition perturbations
+are applied at all scales so error growth in these systems may be termed “up-amplitude”. We are
+examining a deterministic system with no prescribed initial perturbations and explicitly examining
+local spectra, so the energy transfers we describe are upscale.
+
+The outline of this paper is as follows. Section 2 introduces the theory and formulation of the
+
+inter-scale energy transfer diagnostic. Readers who are not interested in the detailed fluid dynamics
+can proceed to the results comparing the simulations with and without convection parametrization
+
+(Section 3) and interscale energy transfer Section 4. Conclusions are outlined in section 5.
+
+2. Local interscale energy transfers
+
+Local interscale energy transfers describe the transfer of kinetic energy between length scale
+either side of a cutoff scale L. For example, if L = 1000 km, then the local interscale energy
+transfer determines whether there is a net transfer of energy from scales below 1000 km to larger
+than this or vice versa. By comparing the interscale energy transfer calculated for models that
+differ only in their treatment of convection we can isolate the upscale influence that this different
+treatment has on EWs. As a diagnostic of interscale energy transfer we use a method first developed
+for the atmosphere by Faranda et al. (2018). The computation behind applying this method to high-
+resolution atmospheric data is described at the end of this section.
+
+Much of the phenomenology used in this study is carried over from turbulence literature. In 3D
+homogeneous, isotropic turbulence, energy cascades downscale through interactions that are local
+in wavenumber and physical space. The power spectrum of such a “forward” cascade is robustly
+predicted by the Kolmogorov (1941) spectrum. Turbulent flows that deviate from this behaviour
+are typically strongly anisotropic (Augier et al. 2012). They may be strongly stratified, dominated
+by layerwise horizontal motions, or the anisotropy might be associated with strong flow in one
+direction, such as a jet. To match this classical phenomenology of a forward cascade, an upscale
+transfer of energy is indicated by negative values, and a downscale transfer positive values (see
+figures).
+
+Diagnosing energy transfers across scales relies on the process of filtering (or coarse-graining)
+the velocity field to separate resolved motions from motions on scales smaller than the filter. The
+filtering approach was introduced by Leonard (1975), and has been used widely in the turbulence
+and fluid mechanics communities (Germano 1992; Eyink and Aluie 2009; Green et al. 2020).
+Recent examples of this technique applied to geophysical flows include Faranda et al. (2018); Aluie
+et al. (2018); Storer et al. (2023); Faranda et al. (2024). In the traditional filtering approach used
+by Aluie et al. (2018) and Eyink and Aluie (2009), a filter is applied to the Navier-Stokes equations
+to highlight the contribution of the subfilter-scale stress tensor to the filtered (coarse-grained)
+
+velocities. From the coarse-grained equations, one can derive an energy balance for the kinetic
+energy of the filtered flow and study the contributions of the subfilter-scale energy transfers arising
+from nonlinear interactions (Meneveau 1994).
+
+An alternative formulation of the energy transfers in a fluid across a chosen scale L was derived
+by Duchon and Robert (2000), and is the theoretical basis for the framework used to study local
+interscale energy transfers in the atmosphere by Faranda et al. (2018). Using the weak formalism
+(Leray 1934) of the unforced incompressible Navier-Stokes equations, Duchon and Robert (2000)
+
+showed that the kinetic energy obeys:
+
+Oo, (30°) +V- (u (ju°+p)) - vV?3u? + v(Vu)?+D(u) = 0, (1)
+
+where D(u) is an “inertial dissipation” that is nonzero only if the velocity field u is not smooth.
+To derive this expression, Duchon and Robert introduce an infinitely differentiable, compactly-
+supported, non-negative function y normalised such that f y =1 (called a “test function” in
+functional analysis and the theory of distributions). The test function y is used to smooth the weak
+solutions by integrating against them. In the filtering approach (Germano 1992), this represents the
+role of the filter, G. Filtering the incompressible Navier-Stokes equations, taking the inner product
+with the weak solution u, adding the result to the inner product of the smooth solution with the
+
+un-smoothed Navier-Stokes equations, and simplifying, yields the following local kinetic energy
+
+equation:
+0,EL aA u;BE Lak Tee on 2yL,. 9. BE
+} +0; uj +5 (uP tuyp)+a [uvu;]~ — [u"]"u; v0;
+Mas SE nK{_~
+Energy tendency Advection Pressure work Viscous diffusion
+
+Subfilter-scale transport
+ar C2)
+Divergence of fluxes (transport term)
+
+=- vdjujdjur — Dr ,
+foe
+
+Viscous dissipation Local interscale energy transfer
+
+where index notation (with the Einstein summation convention) is used, u; denotes the velocity
+Luz
+
+field, p is pressure, superscript L denote coarse-grained quantities at scale L, EY = an is kinetic
+energy per unit mass at scale L with the property limy_,9 E“ = u?/2. v is viscosity. The terms
+in (2) are as follows. The first term on the LHS is the energy tendency. The second term on the
+
+LHS is the transport term, which is comprised of a divergence of the spatial flux of energy E’ (in
+brackets). The local interscale energy transfer term Dz is expressed in terms of velocity increments
+
+ou(r,x) = u(x+r) —u(x) = du(r) as
+
+Dr(w) =F f decVGr)(r)-du(ryfoucryP. @)
+
+Fundamental turbulence research typically considers unstratified 3D flows far away from bound-
+aries; hence spherically-symmetric filter kernels are usually employed. However, in the geo-
+sciences, the importance of gravity singles out the vertical direction as special. Therefore we
+consider only 2D filter kernels acting on surfaces perpendicular to gravity. We assume that these
+surfaces are concentric to the Earth’s surface, which will itself be assumed to be spherical. For a
+
+sphere of radius R (denoted $?(R)), the surface element dS may be written:
+
+dS = RsinadyRda = Rsin (=) dydr,
+where r is the great circle distance from x, @ is the angle subtended by the surface of the sphere
+between x and r, and y the angle between the arc of constant latitude and r. For % < | this reduces
+to dS ~ rdydr, matching the surface element of Euclidean space expressed in polar coordinates.
+For any 2D kernel that depends only on the magnitude of r, integrating over a spherical surface,
+
+(3) becomes:
+
+mR 2n
+[ VG, (r)- 6u|su/2dr = [ ICL) &. Sulsul2R sin (=) dg dr
+S?(R) 0 Jo or R
+
+_ "R 9GL(r) . (Tr ain 2
+Rp sin (7) i #- duldul aor. (4)
+
+Since the sphere is compact, it only really makes sense to consider compactly-supported filter
+kernels. One such compactly supported filter kernel is the “standard mollifier’ used by Kuzzay
+
+et al. (2015, 2017); Faranda et al. (2018), defined by:
+
+a
+Nie ele or SL
+Gi" (r) = (5)
+0 r>L
+where N_ is a normalisation coefficient. Function (5) is everywhere smooth, and may be thought
+of as a Gaussian compactified by bringing the point at infinity to L. This kernel is used for all
+analysis in this paper. Previous results suggest that the local energy budget depends little on the
+precise choice of filter, for example in experimental (Kuzzay et al. 2017) and numerical (Johnson
+2020) experiments for homogeneous isotropic turbulence.
+
+To compute the D,(u) field used in this study, we first calculate velocity increments from the
+(u,v,w) field. We note here the inclusion of vertical velocity w — reported to be of negligible
+importance in the oceanic analysis done by Storer et al. (2023), it is an important variable in the
+tropical atmosphere where there is abundant deep convection. Then, an angular average (around
+a circle of radius |r|) is applied at each point. This is the quantity in square brackets in (4) Our
+method is also less sensitive to noise because gradients are computed analytically on smooth filter
+kernels rather than on discrete model fields as is done in other methods (e.g. Aluie et al. (2018)).
+The result of the angular integral is then integrated over r, weighted by the gradient of the filter
+kernel. The method outlined here is fully described in Shipley et al. (in prep.).
+
+To give an idea of what the interscale energy transfer field looks like in the tropical atmosphere,
+an instantaneous snapshot of Dz, (u) from RAL for L = 440 km at 200 hPa is shown in Fig. 1.
+The large mesoscale of 440 km is used for the majority of figures in this paper, and the energy
+transfer across this length scale is calculated from N2560 model data interpolated onto a N1280
+or 0.5 degree grid(depending on length scale) to reduce computational expense. Figure | shows
+that this choice is justified, since at such a large length scale, the calculation whether made on the
+original N2560 grid, a grid half as fine or the 0.5 degree grid makes little difference. The 440 km
+length scale is chosen to facilitate comparison with Faranda et al. (2018), who elected to study
+energy transfers across 220 km. The reason our chosen L is twice that of Faranda et al. (2018)’s
+is because the kernel we use is the same as theirs, but we find it more informative to talk about
+length scales on the diameter of the kernel rather than the radius. Furthermore, this length scale is
+well separated from small scale convection and the wavelength of CCEWs. The domain in Fig. 1
+(15S to 20N) is chosen to highlight the activity north of the equator during DYAMOND Summer
+(boreal summer - the ITCZ is centred north of the equator during this season).
+
+Distinct regions of upscale energy transfer (blue) may be clearly seen in Fig. 1, and identified
+
+with features such as mesoscale convective systems over Africa, and clusters of convection in the
+D,(u) (m? s~)
+
+Fic. 1. Snapshot of interscale energy transfer across a length scale of 440 km at 200hPa for the tropics 15S-20N
+from the RAL3 N2560 model field on 2016-08-02T000OZ. The three panels represent three different resolutions
+used in this study: N2560 is the native resolution of the model data; N1280 represents an interpolation to halve
+the horizontal resolution and quarter the computational expense; 0.5 deg represents the coarsest data used in the
+
+study.
+
+southeastern Indian Ocean where there is an active negative Indian Ocean Dipole (IOD) event. The
+signal of the convectively coupled Kelvin wave analysed later can be seen as a patch of upscale over
+the ocean stretching from the coast of peninsular Malaysia to the Philippines. Fig. 1 compared
+to Fig. 4 demonstrates the extremely variable-in-time nature of this diagnostic, reflecting the high
+
+variability seen in dynamical and convective fields in the tropical atmosphere.
+
+3. Methods and Data
+
+a. The K-Scale simulations
+
+The CTC km-scale model domain is being run as part of the UK Met Office’s ‘K-Scale’ initiative
+(Jones et al. (2023), Jones et al. (In review)) which also serves as the UK contribution to the
+DYAMOND protocol (Stevens et al. 2019a; Takasuka et al. 2024). The DYAMOND (DYnamics of
+the Atmosphere Modelled On Non-hydrostatic Domains) protocol is an international collaborative
+project involving modelling centres across the world exploring CPMs spanning global or large
+domains at high resolution and their benefits. All centres modelled a common time period. We
+
+will focus on the DYAMOND summer period in this study from 2016-08-01 to 2016-09-09. The
+
+10
+TaBLe |. Climate indices during the DYAMOND Summer study period. Abbreviations are the El Nifio
+Southern Oscillation (ENSO), Indian Ocean Dipole OD), Madden-Julian Oscillation (MJO), and Quasi-Biennial
+Oscillation (QBO). The indices were calculated for ENSO using the Nino3.4 index from HadISST data (Rayner
+et al. 2003); the IOD using the Dipole Mode Index from HadISST data; the MJO using the Realtime Multivariate
+MJO index from NOAA OLR and NCEP/NCAR reanalysis winds data (Wheeler and Hendon 2004; Kalnay et al.
+1996), and the QBO from NCEP/NCAR reanalysis data (Kalnay et al. 1996).
+
+DYAMOND Summer
+Dates 2016-08-01 to 2016-09-09
+ENSO Neutral to weak La Nifia
+10D Strong negative phase
+MJO None
+QBO Westerly
+
+DYAMOND Summer period was chosen to match up with the NARVAL (Stevens et al. 2019b)
+observational campaign during these dates. 40 days was chosen to provide a month of data after
+any spin up and be long enough to separate questions of predictability and internal variability. The
+relevant tropical climate indices during DYAMOND Summer are listed in Table 1. Of particular
+relevance to this study is that there is no MJO during DYAMOND Summer, meaning CCEWs
+can be studied as their own system rather than as part of the MJO envelope (e.g. Roundy (2008);
+Kiladis et al. (2009)). The output data used are 3-hourly. The simulations are free-running for
+40 days, i.e. with no data assimilation scheme in place like for an operational forecast. This is to
+allow features to grow by themselves in the model rather than be forced by the initial conditions
+fed in from the data assimilation scheme.
+
+For the analysis carried out in this study, we compare two UM (Brown et al. 2012) coupled to the
+Joint UK Land Environment Simulator (JULES, Best et al. 2011; Clark et al. 2011) simulations
+from the K-Scale hierarchy (Jones et al. In review) with differing science configurations. One
+simulation (referred to as GAL9 N2560 or GAL for short throughout) makes use of the Global
+Atmosphere and Land version 9 (GAL9, Walters et al. 2019) configuration. The other simulation
+(RAL3 N2560, RAL for short) uses the Regional Atmosphere and Land version 3.2 (RAL3.2, Bush
+
+et al. 2025). Details of the differences between the two simulations are summarised in Table 2.
+
+11
+TABLE 2. Summary of differences between the CTC N2560 GAL9 and RAL3 model simulations.
+
+Model GAL9 RAL3
+Convection Mass flux convection No mass flux convection scheme
+parametrization (convection permitting)
+Large-scale cloud PC2 - Prognostic Bimodal - diagnostic
+Microphysics Single moment Double moment CASIM
+Boundary layer Unblended 1D Blended 1D and 3D
+Smagorinsky
+References Walters et al. (2019); Tomassini Bush et al. (2025); Jones et al.
+et al. (2023); Jones et al. (In (In review)
+review)
+
+Both models have identical grids and cover the CTC domain from 40S to 26N. These bounds
+were chosen to meet the Himalayas in the north and encompass all of southern Africa and the
+Indian Ocean tropical cyclone basin. The two models are both driven by a global N1280 (Ax ~ 10
+km) model with GAL9 physics. The key difference between GAL and RAL being investigated in
+this study is the convection scheme (or lack thereof), with most other features being kept the same.
+
+GAL9 employs a mass flux parametrization of shallow and mid-level convection. The convection
+parametrization is not active in RAL3.2, so any convection occurring is permitted to explicitly
+evolve through the model dynamics on the model grid. There is additional sub-grid vertical
+mixing in RAL3.2 above the boundary layer that is parametrized by a Smagorinsky-Lilly-type
+eddy diffusivity. Other differences between RAL and GAL that must be notes are the different
+cloud fraction schemes: GAL9 uses the PC2 prognostic scheme (Wilson et al. 2008), and RAL3.2
+the bimodal diagnostic scheme (Van Weverberg et al. 2021a,b). The microphysics in GAL9 is
+parametrized using the Wilson and Ballard (1999) single moment scheme; and RAL3.2 uses the
+double moment Cloud AeroSol Interacting Microsphysics scheme (CASIM, Field et al. 2023). In
+the boundary layer, GAL9 employs the 1D turbulent mixing scheme of Lock et al. (2000), and
+RAL3 employs a blended 3D Smagorinsky and 1D scheme, described in Boutle et al. (2014).
+
+The two simulations are across the same domain and for the same time period, and both have
+the same grid. Both simulations are forced with hourly-updating lateral boundary conditions from
+
+the driving model. The lower boundary sea surface temperature is updated daily using 1/20°
+
+12
+Operational Sea Surface Temperature and Sea Ice Analysis (OSTIA) data (Donlon et al. 2012). All
+simulations are initialised from the UM operational analysis (hereafter referred to as UM analysis,
+Clayton et al. 2013), and the analysis is used as a comparative benchmark representing a ‘perfect
+forecast’ to evaluate the models’ performance. The UM analysis is provided at 6-hourly temporal
+frequency based on the UM Global Atmosphere model GA7 at N1280 resolution (Walters et al.
+2019). Precipitation observations are from the GPM-IMERG product version 7 (Huffman et al.
+2014).
+
+b. Equatorial wave filtering
+
+Equatorial wave dynamical fields are extracted from the model or analysis (u,v, Z) (zonal wind,
+meridional wind, geopotential height) fields using the 2D-in-Space Parabolic Cylinder Function
+(2DS-PCF) method developed by Yang et al. (2003). Due to the relatively short time period covered
+by our simulations, the “realtime” extension of the method (Yang et al. 2021) is used, whereby a
+long analysis period is appended to the start of the forecast to enable a time filter with a very broad
+window so that eastward and westward signals can be distinguished before spatial projection. There
+are multiple ways to identify equatorial waves from modelled and observed flows, with Knippertz
+et al. (2022) calling for a combination of wavenumber-frequency filtering and spatial projection
+methods. Since we are concerned here with kinetic energy and the 3D dynamical structure of the
+waves, the 2DS-PCF method is the most suitable for our purposes.
+
+Equatorial waves are solutions to the shallow water equations (SWEs) on the equatorial beta-plane
+(Matsuno 1966). Substituting zonally propagating wavelike solutions in y (meridional distance)
+back into the SWEs and rearranging yields a 2nd order ordinary differential equation in O(y) only.
+Solutions to this 2nd-order ODE are known as the Parabolic Cylinder Functions (PCFs) and are
+
+expressed in terms of nondimensionalised y:
+
+y*=yVBle, 0 =Dy(y’). (6)
+
+Here, the constant of separation c (and therefore equivalent depth) is determined by a best fit to
+
+reanalysis data (Yang et al. 2003, 2007a, 2021). The meridional structure (i.e. structure in y*) of
+
+13
+the waves is then given by these PCFs for varying n:
+
+Dn(y") = exp (-3) Hy =| ; (7)
+
+where H,, is an Hermite polynomial of degree n (Abramowitz and Stegun 1965). Following Gill
+and Clarke (1974), in anticipation of the form the expanded equations will take, it is convenient to
+
+introduce, in place of u and Z, the orthogonal variables g and r:
+
+q=eZ/c+u,
+(8)
+r=gZ/c-u.
+
+Substituting g and r into the SWEs and rearranging allows us to express the waves as a series
+solution in terms of the basis functions
+
+n=0co
+
+q=qDor+qDi+ » qn+1(%,t)Dn+i(y)
+
+n=1
+n=0o
+
+v= vpDo+ > Un(st)Dn(¥) (9)
+n=1
+tS SY rn (%)Dna(y).
+
+n=1
+
+Expressing the functions for g,v,r like this relates the 2D spatial structure of the waves to the
+dispersion relations by allowing us to express the spatial projection for all n and include the n = —-1
+Kelvin, and n = 0 westward mixed Rossby-gravity (WMRG) and eastward inertia-gravity (EIG)
+wave solutions without having to make them a ‘special consideration’ (Wheeler and Nguyen 2015).
+The way of expressing the spatial structures of the waves in equation (9) demonstrates how the
+degree of the polynomial n (the meridional mode) relates to how many wave types can be described
+by a certain n.
+
+The waves are extracted from (u,v, Z) by the following process. First, (u,v,Z) is transformed
+to (q,r,v) as described by equation (8). Then, the (g,r,v) data are subject to a zonal Fast
+Fourier Transform (FFT) from physical to wavenumber space. Then, a frequency filter (which
+
+allows a wide range of timescales from 2-30 days) is applied to partition eastward and westward
+
+14
+propagating waves. This is where the most common wave extraction technique (Hayashi 1971;
+Wheeler and Kiladis 1999) stops and categorises the equatorial waves based purely on wavenumber
+and frequency information. The Hayashi/Wheeler-Kiladis method is applied to data that has been
+averaged in latitude, assuming either symmetric or anti-symmetric structure about the equator. In
+the 2DS-PCF method, the meridional structure as well as the zonal wavenumber is used to identify
+the wave amplitude and phase by spatial projection of the full data onto the orthogonal wave basis,
+given by equation (9). The projected data is then transformed back to (u,v, Z) to obtain the EW
+dataset. Equatorial wave phase speeds from this data set were then calculated using the Radon
+
+transform (See Appendix for details).
+
+4. Results and Discussion
+
+a. Simulated waves and precipitation
+
+Hovmoller (longitude-time) diagrams of quantities averaged across 10S-10N are shown in Fig.
+2 - the first 20 days are chosen for clarity in the figure, and to allow us to analyse the evolution of
+simulated features from the same initial conditions. This diagram gives us a first look at the key
+differences between the RAL and GAL models and the observations. In terms of precipitation:
+the GAL model has many more stationary features than the RAL or observations (e.g. see the
+features around 90W at the start of the simulation), and its eastward propagating features are quite
+weak. This key difference between explicit and parametrized convection in simulating propagating
+precipitation is also found in the study of Dias et al. (2018). The abundance of propagating
+precipitation in the RAL model is more consistent with the observations than the GAL, but appears
+to simulate too much rain (see for example in the Indian Ocean region around 90E). These features
+of the models compared to the observations are also reflected in Table 3, where GAL simulates
+a higher mean precipitation compared to GPM, albeit with a smaller variance. RAL simulates
+similar variance to the observations, but with a mean that is higher still. All differences between
+the datasets are significantly different at the 99% confidence level due to their large size. These
+differences in precipitation mean and variances between the km-scale models and observations are
+consistent with the findings of Judt and Rios-Berrios (2021), where they analysed the DYAMOND
+
+Summer runs from the MPAS-A model.
+TABLE 3. Mean and variance in precipitation for the observations (GPM) and models shown in Fig. 2.
+
+Mean (mmh7!)  o? (mm? h7?)
+
+GPM 0.17 0.08
+GAL 0.19 0.04
+RAL 0.20 0.08
+
+All wave-dynamical quantities are computed on a common 0.5° grid, with precipitation on a
+0.1° grid. It is worth noting here that although the GPM-IMERG blended observational product
+made from rain gauge measurements and satellite observations is the best estimate for large-scale
+precipitation in the tropics, it is still beset by significant biases (Da Silva et al. 2021). This is due
+to a number of factors, including inaccessible rain gauge data on much of the land in the Maritime
+Continent and equatorial Africa, and lack of observations over the tropical ocean.
+
+Where the wave contours travel with the precipitation, this is a clear signal of a Convectively
+Coupled Equatorial Wave (CCEW). The Convectively Coupled Kelvin Wave (CCKW) initialised
+on 2nd August at 90E and propagating across the Maritime Continent is present in both models
+in Figs. 2 (b) and (c) as well as in the analysis/observations in Fig. 2 (a). In the observations,
+this wave propagates eastward until it encounters a convectively coupled Rossby (R1) wave and
+WMRG over the Maritime Continent at about 120E, resulting in a large amount of precipitation
+being deposited over the region, and the slowing of the CCKW. This interaction does not occur in
+the same way in the models in (b) and (c), with there being much weaker R1 and WMRG waves
+in the models; in RAL the KW slows much like in the observations, but the deposition of large
+amounts of rain is difficult to pick out amongst the very abundant rain in that model, and in the
+GAL the CCKW is terminated altogether. This interaction between the Kelvin, Rl and WMRG
+waves does not occur in the same way in the two models because the simulated propagation speeds
+of the waves in RAL and GAL are different (see Table 4). In GAL, the CCKW propagates a similar
+distance making it as far as the dateline in the central Pacific by Aug 11th, where it also encounters
+a Rossby wave, albeit in the opposite phase compared to the observations. In the GAL model at
+this point there is also not a strong WMRG like there is in the analysis. In the RAL, the CCKW
+propagates farther, continuing after interaction with the easterly-phase R1 wave and terminating
+
+180 degrees and 2 weeks later at 90W, presumably encountering the Andes. This difference may
+
+16
+GPM precip UM analysis waves
+2016-08-21 == AAR
+2016-08-19 ih CS OM AY N
+2016-08-17 + wan, AY ,
+
+€.
+2016-08-15 +
+2016-08-13 +N
+2016-08-11 “A
+
+2016-08-07 +,
+A
+2016-08-05 74
+
+PM ‘a hie
+
+2016-08-03 Kpgy', ws We Se Sad
+RAR a i aX Ni AM
+
+2016-08-01 uM
+
+Longitude (° E)
+
+2016-08-21 7
+
+1.5
+2016-08-19 =
+1
+2016-08-17 4 124
+2016-08-15 4 =
+2016-08-13 +. 0.9 g
+2016-08-11 +, ©
+=
+2016-08-09 0.6 S
+2016-08-07 4% =
+2016-08-05 +» 0.35
+2016-08-03 o
+0.0
+
+2016-08-01
+
+Longitude (° E)
+
+Fic. 2. HovmGller (longitude-time) diagrams of precipitation (shading) and equatorial wave winds at 850hPa
+- Kelvin (blue contours), n = 1 equatorial Rossby (R1) (black contours), WMRG (red contours). Quantities
+averaged between 10S-10N: precipitation in mm ho! ,uxw att 1ms!, up; and uwyrc at+ 2ms~!. Dashed
+contour lines indicate negative values. GPM precipitation and UM analysis waves in (a) (the observational data
+set); GAL9 N2560 in (b), and RAL3 N2560 in (c). Quantities shown for the first 20 days of the DYAMOND
+
+Summer simulation.
+
+however be a factor of the free-running simulations having diverged from the analysis by 10 days
+
+out.
+
+17
+TaBLe 4. Dominant propagation speeds for the three EW types in the UM analysis, and the two models for the
+data shown in Fig. 2 calculated using the Radon transform method over the full DYAMOND Summer simulation
+period. All figures are in m s~!. Negative phase speed indicates westward propagation. Variability ranges (lo)
+
+in brackets.
+
+Kelvin R1 WMRG
+
+UM analysis 12(2.8) -9(3.7) -10 (3.6)
+GAL 15 (10) -9(4.3) -16 (12)
+RAL 16(4) -15(9)  -16(6)
+
+The dominant phase speeds of the three main EW types for the UM analysis and the two models
+are shown in Table 4. The observed phase speeds from the analysis were cross-referenced with
+the extremely comprehensive analyses of Yang et al. (2007b, 2009) where they used 15 years of
+reanalysis data and satellite-observed convective fields, and are comparable. The models simulate
+a faster Kelvin wave, but the variability ranges overlap. This is the case for all the models and
+waves. It is also interesting to note that the models always simulate a higher standard deviation,
+particularly the GAL. This could be because of a reduced degree of convective coupling in GAL,
+allowing for a wider range of ‘dry’ (uncoupled with convection) propagating waves. Convective
+coupling reduces phase speed in CCEWS (Kiladis et al. 2009). For the R1 wave, the GAL simulates
+the same dominant phase speed with a higher variability, and the RAL a much faster phase speed
+with a much larger variability. The reason for this is because the distribution of phase speeds across
+the record calculated from the Radon transform (not shown) is bimodal. In the analysis these peaks
+are relatively close together at around 9 and 13 ms™!. In the RAL, the faster peak is strongest at
+the 15 ms7! value reported in the table, and the second, weaker peak, is at around 6 m s7!, hence
+the large variability range.
+
+The differences in the simulation of the 3 key wave types can be illustrated by a longitude-height
+plot of standard deviation in time of wave velocity fields as shown in Fig. 3. The six-week average
+structures in the UM analysis presented here are similar to the 15-year average structures presented
+in Yang et al. (2007a, 2009). As previously reported by these earlier studies, we expect to see the
+strongest wave activity in the upper-troposphere for the westward waves and around the tropopause
+
+for the Kelvin waves. This is due to the the highest wave amplitude being at these levels. The
+
+18
+peak in Kelvin wave variability around 90E at upper-tropospheric levels in the analysis is not fully
+simulated by either model. It is slightly weaker and further east in RAL (ec), and not well defined
+in GAL (b). There is another peak west of 90W around 200 hPa - this is likely associated with
+Kelvin waves propagating across the Pacific and terminating at the Andes. This peak is stronger
+than analysis in GAL, and not present in RAL. The reason for this being stronger in GAL and not
+present in RAL could be due to the presence of the gravity wave drag (GWD) parametrization in
+the GAL simulation. This parametrization simulates the subgrid response to the flow blocking by
+unresolved orography. The N2560 resolution is in the ‘grey zone’ of the orographic GWD (some
+orography will be resolved, but only a fraction), meaning it is possible that the GWD is simulating
+too much drag in GAL, and without the parametrization in RAL, not enough is simulated. Further
+analysis of this particular parametrization is beyond the scope of this study; see Vosper et al. (2016)
+for details.
+
+The R1 waves in the analysis in Fig. 3 (d) exhibit activity centred around 200 hPa in the western
+hemisphere (WH) - a pattern also seen in reanalysis in Yang et al. (2009). The GAL model
+simulation (e) has a less pronounced peak with wave activity spread over a wider longitudinal
+range, while the RAL (f) has an activity centre that is also weaker but more concentrated, in this
+case around 0°. The middle and lower troposphere structure of the R1 wave in the analysis consists
+of a peak in activity from 90E and eastwards. For the WMRG waves in Fig. 3 (g), there are peaks
+in activity centred around 200 hPa mostly in the WH (also seen in the analysis product in Yang
+et al. (2009)). GAL (h) represents this quite similarly, whereas RAL (i) simulates a very strong
+peak in activity just east of 0°, and the peaks in the WH are weaker than in the analysis and GAL.
+The differences between GAL and RAL may just be due to noise given the short record analysed,
+but importantly both are able to represent the general behaviour of variability in time throughout
+the tropical atmosphere, shown by their similarity to the UM analysis which in turn is qualitatively
+similar to the patterns displayed in Yang et al. (2009).
+
+From this first analysis of the waves and precipitation in the RAL and GAL models, we have
+observed that both models simulate more rain than the observations, the RAL particularly so.
+Excessive tropical rain is commonly observed in CPMs (e.g. Howard et al. 2024). The GAL
+model doesn’t capture the high variability of precipitation seen in the tropics, whereas the RAL
+
+does. Again, this has been previously observed by other CPM studies (e.g. Judt and Rios-Berrios
+‘i (a) UM Analysis (b) GAL9 N2560 (c) RAL3 N2560
+
+wu
+& : 4 ‘
+FI 1 < 3.0
+f 5
+a : J Ne:
+a 24
+: uw
+= a 7 186c¢
+v v J | 20 3
+=) SS Re &
+f 1 jes fo 8
+(i) e
+wa 0.6”
+&
+= =
+ji a 0.0
+<
+
+-90 ie} 90
+
+—90 90
+Longitude (°E) Longitude (°E) Longitude (°E)
+
+Fic. 3. Longitude-height slice of wave standard deviation in time for Kelvin (a) - (c), R1 (d) - (f), and WMRG
+(g) - (i) waves for UM analysis (left column), GAL9 N2560 (middle column), and RAL3 N2560 (right hand
+column). The standard deviations are calculated on 10S-10N equatorially-averaged Kelvin wave u, R1 u and
+
+WMRG v.
+
+2021). Regarding equatorial wave propagation, the waves appear comparable on a Hovmdller plot
+but a closer investigation reveals there are differences in simulated propagation speed between
+the analysis and models, with both models simulating a too fast Kelvin and WMRG wave, and
+GAL with a higher variability of simulated wave speeds. The Rossby wave speeds in GAL are
+comparable to the analysis, and faster in RAL with higher variability. The distribution of wave
+variability in the study period across the equatorial band and full depth of the troposphere is
+
+comparable between all models and the analysis.
+
+20
+b. Simulated upscale energy transfer and dynamics
+
+To get a first indication of the reasons for the differences in simulated propagating convection
+between the models, time mean maps of interscale energy transfer for L = 440 km at 200 hPa (the
+top of the tropical troposphere) are shown in Fig. 4 for GAL and RAL. This is the level where
+horizontal divergence is at a maximum, and so we expect to see high values of upscale energy
+transfer, because of the mechanism explained at the end of this subsection. For the interscale
+energy transfer analysed in this study, we do not compare the models to the analysis product. This
+is because it is at a much coarser resolution than the models and is driven by a data assimilation
+(DA) scheme with parametrized convection. This means we would expect to see low magnitudes of
+interscale energy transfer in the anlaysis that we would not trust at the lower length scales analysed
+since this would be too close to the grid scale of the analysis. Furthermore, the presence of DA
+in the analysis product would not allow for the investigation of propagating features developing on
+their own for a longer time period without the impact of the DA scheme.
+
+In Fig. 4, the blue colours indicate the energy is being transferred upscale from scales below 440
+km to scales larger than this. The red colours indicate that energy is being transferred downscale
+from scales larger than 440 km to scales smaller than this. One clear and obvious difference
+between the two is that in RAL, there is orders of magnitude more upscale energy transfer, and
+this is reflected by the deep-tropical mean at 200 hPa being net upscale. The mean was taken
+over 15S to 15N to avoid impact of sub-tropical systems, such as the subtropical jet. The domain
+20S-20N is shown to allow for visualisation of the full extent of the ITCZ in Boreal Summer. The
+values shown are broadly consistent with those computed by Faranda et al. (2018), the only other
+paper that has studied local interscale energy transfers in the atmosphere. The magnitudes reported
+here are on the same order as atmospheric turbulent dissipation rates calculated from observations
+(Nowak et al. 2025).
+
+The ITCZ is visible in Fig. 4 as the blue band of upscale centred around 10N. Similarly, the SPCZ
+is visible extending west from New Guinea to the other side of the dateline. Both convergence
+zones are associated with much stronger upscale energy transfer in the RAL model. Another key
+feature in Fig. 4 is the abundant upscale energy transfer in the Indian Ocean. This period coincides
+with a strong negative IOD event (cf. Table 1), which is associated with enhanced convection in
+
+the southeast Indian Ocean (Saji et al. 1999) — a region which is convectively active even without
+
+21
+a) GAL9 N2560 | L = 440 km | DYAMOND Summer | 200 hPa aeons
+
+x10-4
+
+°
+
+-1.41e-05
+(1.94e-08)
+
+Dy(u) (m? s~3)
+
+se
+126
+096
+
+Ss
+06 8
+03-2
+
+3
+0.0&
+
+Fic. 4. Maps of time-mean D;(u) for L = 440 km averaged over the DYAMOND Summer simulation period
+for (a) GAL9 N2560 and (b) RAL3 N2560. Blue represents upscale energy transfer, and red downscale. The
+maps are for the full tropical channel from 20S to 20N. The average from 15S to 15N (indicated by the dotted
+lines) is on the top right of each panel, colour-coded to indicate whether the mean transfer in that region is
+upscale or downscale. Variance in D;(u) over the same region indicated by the value in brackets. (¢) mean
+
+GPM-IMERG precipitation for the same time period.
+
+the negative IOD. Once more, this region of upscale energy transfer is orders of magnitude greater
+in RAL than GAL, saturating the colour scale. Another upscale feature which is much larger and
+more extensive in RAL is the deep convection over the Amazon. Panel (c) in Fig. 4 provides further
+evidence that the upscale energy transfer at 200hPa is located at the tropical convergence zones.
+These zones are characterised by consistently high precipitation, and are reflected in the map of
+mean rainfall over the study period in this panel. The precipitation fields are from GPM-IMERG,
+and we can see from Fig. 4 that the RAL model is simulating a strong ITCZ in terms of 200hPa
+upscale energy transfer.
+
+Fig. 5 shows longitudinally-averaged, time-mean interscale energy transfer (shading, zero con-
+tour thick grey line), zonal mean zonal winds (black contour lines), and the mean meridional
+circulation (vectors). The main features of Fig. 5 which connect back to Fig. 4 are the sections of
+
+upscale energy transfer at the top of the troposphere centred around 200 hPa. This area of upscale
+
+22,
+is associated with time-average flow and divergence in the tropical upper troposphere as a result
+of deep convection and associated vertical velocities in the ITCZ centred around 10N. Near the
+surface, downscale transfer is seen associated with convergence as part of the ITCZ circulation.
+The RAL exhibits both stronger upscale and downscale energy transfer associated with the ascend-
+ing branch of this circulation, suggesting that explicit representation of convection leads to RAL
+simulating interscale energy transfer that is significantly larger than that in the GAL model. The
+large scale Hadley circulation is of similar strength in both RAL and GAL, but RAL shows an
+enhanced secondary circulation at 500 hPa associated with convection. Centred around 5S and
+150 hPa is a region of upscale energy transfer which can be identified with the region of strong
+upscale energy transfer over the Indian Ocean seen in Fig. 4. This region of strong upscale is also
+associated with downscale energy transfer at low levels underneath the deep convection associated
+with net flow convergence. As also seen in Fig. 4, this region is about twice as large in RAL
+compared to GAL. This is further evidence of the CPM’s ability to simulate strong upscale energy
+transfer associated with deep convection. At the southern edge of (a) in the upper troposphere,
+the signal of the subtropical jet is seen associated with strong zonal winds and strong downscale
+energy transfer.
+
+In the middle troposphere, there are two areas of weak upscale energy transfer in the RAL, but
+only one in the GAL. After consulting maps of time-mean interscale energy transfer at 500 and 600
+hPa (not shown), the feature at this level in the RAL around 5-10N is associated with the stronger
+secondary ITCZ circulation in this model, and the presence of cumulus congestus associated with
+the West African Monsoon. This upscale feature is not present in the GAL. At around 700 hPa
+between 5 and 10S is another upscale feature which appears in both models. On consultation of
+the maps at this level this appears to be collocated with upscale energy transfer over the Amazon
+and Congo rainforests, possibly associated with shallow convection in these regions.
+
+Interscale energy transfer will be a new diagnostic to many, and we present an heuristic explana-
+tion here. Fig. 5 shows the archetypal pattern of low-level convergence and associated downscale
+energy transfer beneath ascent and upper-level divergence with upscale energy transfer. This pat-
+tern has been observed in idealised Rayleigh-Bénard convection studies (Togni et al. 2015; Green
+et al. 2020), and also appears to apply in deep tropical convective systems. It should be noted that
+
+although time-mean divergence and upscale energy transfer are correlated, that does not in turn
+
+23
+(a) (b) > 01m/s
+00 GAL9 N2560 J uc.i. 1 m/s DYAMOND Summer  RAL3 N2560| uci. 1 mis | DYAMOND Summer i
+
+B
+
+°
+
+Pressure (hPa)
+
+Longitudinally averaged D,(u) (m?s~3)
+
+l
+A
+
+5 5 10 15 20
+Latitude (*N) Latitude (°N)
+
+Fic. 5. Longitudinally averaged latitude-pressure plots of time-mean D;(u) for L = 440 km (shading, zero
+contour thick grey line) for the domain shown in Fig. 4. Zonal mean zonal wind in black contours in intervals
+of 1 ms7!, and zonal mean meridional and vertical velocities in vectors, with the reference arrow of 0.1 m
+s~! shown in the top right of the figure. (a): for the GAL9 N2560 model; (b): for RAL3 N2560. w has been
+
+re-scaled by the aspect ratio of the domain for better visualisation of the time-mean flow.
+
+mean that the upscale energy transfer results from time-mean divergent flow - the interscale energy
+transfer is not the resolved divergent flux of energy. Instead, the instantaneous divergent outflow
+acts on air parcels, expanding them and transferring their energy from below or near the scale
+of interest (e.g. the flow of the updraft as indicated in the schematic) to a larger scale, therefore
+transferring the parcel’s energy upscale. The exact opposite is true in the convergent part of the
+cell in the lower troposphere, where parcels that are on the scale of a downdraft (similar scale to
+that of the anvil at the top of the convective plume) are then compressed by the convergent flow
+down to the scale of the updraft.
+
+Moving away from the time-mean picture, a Hovmoller of interscale energy transfer is shown
+in Fig. 6. The contour limits are 5 times higher for the 200 hPa panels than the 850 hPa panels
+due to the larger overall amount of kinetic energy due to higher wind speeds at this altitude. For
+the region shown in Fig. 6 spanning the Indian Ocean, Maritime Continent, and West Pacific,
+there are abundant eastward-propagating downscale energy transfer features at 850 hPa which are
+broadly collocated with the propagating rainfall and Kelvin waves in Fig. 2. These downscale
+
+features are occasionally coincident with upscale energy transfer at 200 hPa (e.g. see in the
+
+24
+RAL starting at 90E on 2016-08-01), indicative of propagating deep convection (likely a CCKW).
+The picture at 200 hPa is mostly dominated by westward-propagating features. These Hovmoller
+diagrams were analysed with waves overlain and for symmetric, anti-symmetric, and off-equatorial
+interscale energy transfer (not shown). We found that the westward-propagating features were
+indeed indicative of CCEW activity: R1 waves in the case of the off-equatorial interscale energy
+transfer (0-20N average), and WMRG waves for the anti-symmetric part (calculated by taking the
+
+average of the difference between the fields in the 20 degrees north and south of the equator).
+
+25
+(a) GAL9 N2560 200 hPa (b) RAL3 N2560 200 hPa 1le-4
+
+A es << 5
+
+2016-08-21 4
+2016-08-19 4
+
+2016-08-17 +
+
+2016-08-15 4 x
+2016-08-13 Ss,
+2016-08-11 er
+
+2016-08-09 Raw
+
+2016-08-07
+2016-08-05 y =
+
+10S-10N averaged D,(u) (m? s~?)
+
+2016-08-03 + ~~. * 3
+le-4
+2016-08-21 4 4 i Se Me 4 * */[1.78e-05 1
+2016-08-19 “Se 7
+2016-08-17 4 " P| &
+2016-08-15 + . =o . 3
+2016-08-13 4 . an * Ss
+*
+2016-08-11 + ‘ a ° 3
+ft * c
+2016-08-09 + of g
+, o
+2016-08-07] _ ‘ * Zz
+~ ca
+2016-08-05 + « 7 wv
+3 3a; S
+2016-08-03 + ; ‘ ; 3 ee
+pes: : : ie ol a at a A
+45 135 180
+Longitude (°E) Longitude (° E)
+
+Fic. 6. Time-longitude (Hovmiller) diagrams of Dy (u) for L = 440 km averaged between 10S and 10N for the
+20 day study period, limited to 45 - 180E to remove the strong orographic effects of the East African Highlands
+at 850 hPa. (a) for GAL at 200hPa; (b) RAL at 200 hPa; (c) GAL at 850 hPa, and (d) RAL at 850 hPa. Note the
+contour limits are 5 times higher in (a) and (b) than in (c) and (d). Colour-coded numbers in the top right of each
+panel are mean values of the data shown with the colour indicating net upscale (blue) or net downscale (red).
+The dashed line indicates the time of the snapshot profile shown in Fig. 7. The time mean has been removed to
+clarify the propagating features, and this has been done for Fig. 7, and for calculating the composites shown in
+
+Fig. 8.
+
+26
+86 (a) GAL | KW div | D,(u)symm (b) GAL | R1 vort | Dy(u) or
+
+D,(u) (m? s~3)
+
+sa a, 1 T T T T T
+90 100 110 120 130 -90 -80 -70 -60 -50 -40 -30 ilo 120 130 140 150 160
+Longitude (*E) Longitude (*) Longitude (*E)
+
+Fic. 7. (a): Vertical profile snapshot on 2016-08-02 at 0 UTC of symmetric (10S-10N average) Dz (u) and
+KW divergence averaged over the same latitude band in GAL. Contour interval 1 x 10-4 s~!. Zero contour
+heavy line in all panels. (d) as in (a) but for RAL. (b): off-equatorial (0-20N average) D;(u) and R1 vorticity
+off-equatorial average. Contour interval 5 x 1075 s~!, (e) as in (b) but for RAL. (c): anti-symmetric ([(0—>20N -
+20S—0]/2) Dz (u) and WMRG v averaged over the equatorial band. Contour interval 2 m s7!. (f) as in (c) but
+
+for RAL.
+
+c. Equatorial waves and upscale energy transfer
+
+The picture of the imprint of the general circulation on the interscale energy transfer can be seen
+in Fig. 6 by the fact that the 200 hPa regions are net upscale and the 850 hPa regions net downscale.
+Once again it is evident that RAL is simulating significantly more upscale than GAL at 200 hPa
+— 2 orders of magnitude more in this case. To investigate how propagating features in Fig. 6 are
+associated with different equatorial waves, longitude-pressure snapshots at the time indicated by
+the dashed line in Fig. 6 of dynamical wave fields and interscale energy transfer are shown in Fig.
+7. All wave snapshots are shown across the longitudes where they are strongest in this season. For
+the KW this is over the Indian Ocean, for the R1 wave it is over the Atlantic, and for the WMRG
+
+over the West Pacific.
+
+27
+From figures 7 (a) and (d), we can see upscale energy transfer related to Kelvin wave divergence.
+Upscale energy transfer in the upper troposphere in the divergent phase of the wave is observed
+because the convecting plume coupled to the wave is expanding near the tropopause, transferring
+energy from scales smaller than 440 km (the scale of the updraft) to scales larger than 440 km
+(toward the scale of the wave). This is balanced by downscale energy transfer in the convergent
+phase of the wave, both beneath the divergence in the lower troposphere, and laterally in the wave
+troughs either side of the upper-level wave divergence. Another thing to note from Fig. 7 is that
+the vertical structure of the Kelvin wave in RAL is closer to observations and theory than GAL
+(cf. Straub and Kiladis 2003; Yang et al. 2007a). The wave is higher amplitude, exhibits clear
+westward tilt with height, and upward propagation into the stratosphere in RAL, whereas the GAL
+does not exhibit these qualities as clearly, especially in the lower troposphere.
+
+Turning our attention now to the RI wave in figures 7 (b) and (e), the dynamical structure is
+similar in both models. This is the case for both the westward waves. As previously noted by
+Yang et al. (2021), westward-propagating CCEWs are not as poorly simulated as Kelvin waves in
+conventional NWP models employing convection parametrization schemes. For the dynamical R1
+wave, the structure is as expected for boreal summer (Yang et al. 2007a), with slight westward tilt
+and a hint of baroclinic structure. The R1 wave negative (cyclonic) vorticity is collocated with
+off-equatorial upscale energy transfer. In a convectively coupled R1 wave, the cyclonic phase of
+the wave has been observed to coincide with deep convection (Yang et al. 2007a; Ferrett et al.
+2020).
+
+The WMRG snapshot in Fig. 7 (c) and (f), much like the R1, shows similarities between the
+two model configurations, and a structure expected by theory and observations (Yang et al. 2007a)
+with less westward tilt with height, and a baroclinic structure. The WMRG wave convergence
+appears to be collocated with anti-symmetric upscale energy transfer. This is typically expected,
+since deep convection coupled to dynamical WMRG waves is anti-symmetric (e.g. Wheeler and
+Kiladis (1999); Kiladis et al. (2009)).
+
+The purpose of Fig. 7 was to connect the propagating interscale energy transfer features seen in
+Fig. 6 with equatorial waves. However at a single time, it is not possible to capture the propagation
+
+direction of this quantity. To examine the association of interscale energy transfers with propagating
+
+28
+wave features, wave-following composites are presented in Fig. 8. Wave-following composites at
+
+the speed of each modelled wave as shown in Table 4 were calculated as follows:
+1. Remove the time mean from the interscale energy transfer field
+2. Take the symmetric, off-equatorial or anti-symmetric mean
+
+3. Shift the relevant quantity (interscale energy transfer here) following the wave speed of interest
+at each time step for the length of time desired. In this case we choose 10 days to allow us to
+
+analyse the full lifetime of one wave.
+
+4. Average along the tilted axis to obtain a longitude-pressure slice of wave-composited interscale
+
+energy transfer.
+
+The composites in Fig. 8 provide more information than the instantaneous structures seen in Fig.
+7, demonstrating the systematic features that are present over time in interscale energy transfer and
+dynamical equatorial wave fields. Regarding the Kelvin wave and symmetric eastward-propagating
+interscale energy transfer, it can be seen that the dynamical wave composite is similar in both the
+RAL and the GAL models. As expected, there is more extreme magnitudes of upscale energy
+transfer in the RAL, and this appears to be more highly correlated with the KW divergence in
+the upper troposphere than the GAL. The correlations between the propagating interscale energy
+transfer and corresponding equatorial waves for varying L are outlined in Fig. 9.
+
+We must make the point here that although there is an obvious correlation between the upscale
+energy transfer and the wave divergence in the KW composites, it does not in turn mean that the
+upscale transfer results from the divergent flow - the interscale energy transfer is not the resolved
+divergent flux of energy. A plausible reason for the association seen here is that deep convection
+and associated convective-scale outflow is much more likely where there is wave divergence at
+upper levels (and convergence beneath, in the lower troposphere). The divergent outflow itself
+expands air parcels, transferring their energy upscale, whereas the opposite is true in the presence
+of a convergent flow.
+
+Figures 8 (b) and (e) show again the positive correlation between R1 vorticity and interscale
+energy transfer. This positive correlation between off-equatorial interscale energy transfer and R1
+vorticity is reflected in Fig. 9, with correlations in RAL being on average 10% higher than in GAL,
+
+and more consistent (same sign for all L).
+
+29
+KW-following composite R1-following composite WMRG-following composite
+(a) GAL9 N2560 (b) GAL9 N2560 (c) GAL9 N2560
+
+Dy,
+
+le-5
+
+Pressure (hPa)
+
+RAL3 N2560
+
+D,(u) (m? s~3)
+
+=a
+
+Pressure (hPa)
+
+1 7 1
+20 30 40 50 60 70 80 -50 -45 -40 -35 -30 -25 -20 60 80 100 120 140 160 180
+Reference longitude Reference longitude Reference longitude
+
+Fic. 8. As in Fig. 7 but for wave-following composites over 10 days as described in the text. “Reference”
+longitude is now used to reflect the fact that the values on the figure are the longitudes at time 0, which shift
+in time with the composite before averaging. Shading contour limits are five times lower than in in Fig. 7 to
+account for averaging along the wave-following axis. The Kelvin divergence and WMRG v contour intervals are
+half that in Fig. 7, with R1 vorticity contour intervals being quartered. The vertical dashed lines on (c) and (f)
+indicate the regions over which the pattern correlations and covariances were computed for the results shown in
+
+Fig. 9.
+
+The WMRG composites span a greater longitudinal extent than the other waves in Fig. 8 (c) and
+(f). This is to allow room to show the striking differences in their simulation between the models.
+In the RAL there is the characteristic vertical propagation of the WMRG wave typically seen during
+the westerly phase of the QBO (Yang et al. 2012). The QBO is indeed in a westerly phase during
+DYAMOND Summer, see Table 1. No such vertical propagation is seen in the GAL. The GAL
+does however have a slightly stronger baroclinic wave structure, even if the wave is much weaker.
+The composite is again consistent with the snapshot for RAL, with southward WMRG winds being
+collocated with anti-symmetric upscale energy transfer. This collocation is also present in GAL
+
+albeit with lower values of interscale energy transfer.
+
+30
+te-9 KWdiv te—-19 R1 vort
+PT
+(b)
+
+Covariance
+m? s~4
+
+101 10? 103 104 101 10? 107 104
+
+Correlation
+(Pearsons r)
+°
+°
+
+|
+9°
+un
+
+L
+
+101 10? 103 104 101 104 101 10? 107 104
+
+Fic. 9. Covariances and correlations between the fields shown in Fig. 8 as a function of characteristic length
+scale L. Kelvin wave divergence about the equator is compared with equatorially symmetric KW-following
+interscale energy transfer, R1 off-equatorial vorticity with off-equatorial R 1-following interscale energy transfer,
+and WMRG cross-equatorial v with anti-symmetric WMRG-following interscale energy transfer, as in Fig. 8.
+Correlations and covariances for GAL in cyan, for RAL in orange. The blue vertical lines represent multiples
+of the composite dominant wavelength, with the dotted line 2/8, dot-dash A/4, dashed A/2, and solid line at the
+
+dominant wavelength, A.
+
+Covariance and correlations between symmetric eastward, off-equatorial westward, and anti-
+symmetric westward interscale energy transfer and the dynamical waves are presented for varying
+length scales in Fig. 9. The correlations and covariances displayed here are comparing the
+dynamical wave and interscale energy transfer composites shown in Fig. 8 for multiple length
+scales. For reference, the fifth data points for each line represent the L = 440 km length scale
+plotted in Fig. 8. The composites for length scales 30 km up to 440 km were calculated on the
+N120 grid, with larger L being calculated on the half degree data to save computational expense.
+
+For the Kelvin wave in Fig. 9 (a) and (d), we can see that the covariance between the dynamical
+wave and interscale energy transfer is stronger in the RAL for length scales 880 km and lower
+(down to 30 km in these diagrams), comparable and at a maximum for L = 1760 km, and then the
+
+other side of the zero line for the maximum length scale analysed here of 3410 km. Consultation
+
+31
+of the composites at these two large length scales (not shown) reveals that the reason for this is
+because at L = 1760 km, the regions of strong interscale energy transfer are close to the scale of
+the wave (between 2/4 and 2/2) and almost in-phase with them. This means a relatively high
+correlation of around 0.6 in both models, and with a highly negative covariance - negative (upscale)
+collocated with positive (divergent) wave-dynamical flow. However at the 3410 km length scale,
+the interscale energy transfer features are double the size, and are almost large enough to stretch
+across an entire wavelength with the same sign, leading to correlations close to 0 and a positive
+covariance, since the deepest regions of upscale energy transfer are located in the convergent phase
+of the wave. Correlations are strongest for length scales between 440 and 1760 km. The reasons
+for this will be discussed at the end of this section in conjunction with the information from the
+other waves. Correlations are slightly larger in magnitude in the RAL for 440 and 880km, and
+comparable for both models at 1760 km.
+
+For the R1 wave in Fig. 9 (b) and (e), there are low magnitude positive covariances for all length
+scales, except at 1760 km where the RAL model indicates large positive covariance, and GAL a
+small negative covariance value. This occurs because at 1760 km, this is almost exactly at the
+scale of the composite R1’s wavelength of around 2000 km. In RAL, the interscale energy transfer
+at this length scale is strong and in phase with the wave. The reason this doesn’t coincide with
+high correlation values (around 0.3 at this length scale) is that the composite comprises a vertical
+dipole in one phase of the wave, meaning that although upscale energy transfer dominates the
+composite, the small area of anti-correlated downscale in the wave peak at around 300 hPa reduces
+the correlation. Correlations for just the upper troposphere-lower stratosphere region are on the
+order of 0.9 at this length scale in the R1 wave.
+
+For the GAL however, this region of upscale is not nearly as strong, and is out of phase with the
+wave (hence why the correlation is now negative too). Correlations at length scales 220 km and
+below are very low and positive in the RAL and low and either side of 0 in the GAL. Correlations
+between the R1 composite vorticity structure and the interscale energy transfer are high for length
+scales between 440 and 880 km. Correlations are higher in RAL for the larger length scales. Both
+models exhibit a correlation close to zero at the largest length scale of 3410 km. This is larger than
+
+the wavelength of the wave composite.
+
+32
+In the WMRG wave in Fig. 9 (c) and (f), covariances between WMRG meridional wind and
+interscale energy transfer are consistently positive for all length scales, and higher in RAL compared
+to GAL. The wavelength of the WMRG wave in this study period is large (around 7000 km), so
+the maximum interscale energy transfer length scale considered is at 1/2. The relationship is the
+same for the correlations, with a positive trend as the length scale of interscale energy transfer
+increases towards the scale of the wave. Analysis on a larger domain would be required to extend
+this analysis beyond 3410 km, since the northern boundary of the CTC is approximately 3000 km
+from the equator.
+
+For the Kelvin and R1 waves, where the length scales of interscale energy transfer considered
+begin to approach the scale (wavelength) of the wave composites, the correlations are largest in the
+range [A/8,A/2]. At these particular length scales, upscale transfer (deep convection) is often in
+phase with the dynamical wave. Convection coupled to equatorial waves exhibiting length scales
+in this range has been qualitatively observed (e.g. Yang et al. 2007a), but here we are able to
+show quantitatively that the strongest convective coupling occurs across the 440 - 1760 km range
+of scales. One interpretation of this that requires further investigation is that energy is transferred
+straight from the mesoscale of 440 km to the synoptic scale of 1760 km (at about 2/2).
+
+The other interesting comparison we can make here is that this relationship between convection
+on scales A/8 to 2/2 and the dynamical wave at scale A is redolent of a fundamental property
+of inverse cascades in 2D turbulence. The idealised study of (Chen et al. 2006) that states that
+“.energy flux across a length L in the inverse [upscale] cascade range is due to thinning of subscale
+vortices 4-8 times smaller than L by strain at length scale L...”. Storer et al. (2023) also found
+that energy transferred upscale across a mesoscale in the ocean was principally deposited at a
+scale 3.6 times larger. To our knowledge, this study represents the first instance of a similar result
+in the atmosphere. This relationship occurs more coherently in RAL than in GAL, with higher
+correlations and higher covariances between the interscale energy transfer and the wave at these
+
+length scales.
+
+5. Conclusions
+
+In this paper, equatorial waves and their associated local interscale energy transfers have been
+
+assessed in two km-scale cyclic tropical channel models where the only major difference is that one
+
+33
+has a mass flux convection parametrization scheme and the other model is convection permitting.
+This paper presents the first calculation of local interscale energy transfers in a km-scale model
+of the atmosphere. We also present the first analysis of local interscale energy transfers in the
+equatorial atmosphere, and their connection to large-scale dynamics. We have presented the first
+finding that the tropical atmosphere in a km-scale model exhibits a key property of inverse cascades
+in 2D turbulence: energy transferred upscale across a scale L is most strongly correlated with scales
+approximately two to eight times larger.
+
+The general conclusions are that the RAL (convection permitting) and GAL (convection
+parametrized) models simulate similar dynamical structures of equatorial waves, albeit with dif-
+ferences in vertical structures and vertical propagation. RAL simulates 56% more upscale energy
+transfer than GAL in the troposphere, with similar magnitudes of downscale transfer. We hypothe-
+sis that these large differences in energy transfer are because RAL explicitly represents horizontal
+motions associated with deep convection, whereas the parametrization scheme in GAL acts to
+remove vertical instability in a column without the associated convective circulation.
+
+RAL also exhibits higher correlations between this transfer and the dynamical wave, which we
+hypothesise is as a result of propagating convection travelling with the waves. The correlations
+between interscale energy transfer and the dynamical wave peak between length scales of 440
+and 1760 km in the Kelvin wave and these correlations are up to 12% higher in RAL than GAL.
+This is accompanied by 20% higher covariance in the RAL, reflecting the higher amplitudes of
+upscale energy transfer. In the R1 wave, interscale energy transfer is most correlated with wave
+vorticity at L = 880 km, with 10% higher correlation in RAL, and comparable covariances. In the
+WMRG wave, due to its large wavelength, there is no discernible peak in correlation or covariance
+between interscale energy transfer and wave meridional flow at the largest scales accessible in these
+simulations. The correlations and covariances increase with increasing scale, with correlations
+averaging 30% higher in RAL in the scale range 440 - 1760 km, and covariances averaging 100%
+higher.
+
+These results have shown that CPMs simulate more scale coupling between the small scales and
+large-scale dynamics in the tropical atmosphere. We hypothesise that this increased coupling is
+due to the explicit representation of convection. The conclusions drawn here are however limited
+
+in that only one simulation of 40 days for each model was analysed. It has been shown that RAL
+
+34
+simulates more strongly convectively coupled EWs than GAL through the proxy of propagating
+interscale energy transfer and precipitation. Although the dynamical waves at any given level
+may appear similar in amplitude and abundance between the models (Fig. 2), the propagating
+convection through either of the proxies used is very different between the two models, with RAL
+exhibiting up to 30% more convective coupling. Rigorously demonstrating that interscale energy
+transfer propagating with an equatorial wave is an effective proxy for convective coupling is beyond
+the scope of this study, and left to future investigation. It has also been shown that the equatorial
+waves simulated by the two models are typically propagating too fast, and with a higher degree
+of variability compared to the UM analysis. This variability is larger in GAL than in RAL for
+CCKWs and the WMRG wave, but smaller for R1 waves.
+
+We find that interscale energy transfer propagates along with CCEWs, with the RAL model
+simulating more propagation and deeper, more coherent structures in interscale energy transfer.
+These propagating features were investigated by the superposition of wave-filtered flows over
+interscale energy transfer in an instantaneous (Fig. 7) and wave-following composite (Fig. 8)
+visualisation. It is found that in the wave-comoving frame, upscale energy transfer is associated with
+Kelvin wave divergence, R1 cylonic vorticity, and WMRG southward cross-equatorial meridional
+velocity.
+
+It has also been shown that in a time-mean sense, the RAL model simulates more upscale and
+less downscale than GAL over the tropics, with RAL being net upscale over the DYAMOND
+Summer study period in the upper troposphere, and GAL net downscale. RAL exhibits higher
+spatial variance in interscale energy transfer than GAL. This time mean behaviour in local interscale
+energy transfer is reflected in the large-scale circulation, with upscale being associated with deep
+convection in the ITCZ, shallow convection over rainforests, and monsoon flow. Downscale
+associated with the subtropical jet is seen in both models and they exhibit similar time-mean
+Hadley cell circulation.
+
+The findings presented in this study are significant for informing future use of convection
+permitting models in weather forecasting. We have clarified that a NWP model employing a
+traditional mass flux convection parametrization scheme simulates weaker upscale coupling to
+equatorial waves than a convection permitting model. It is possible that this is one of the reasons
+
+behind the comparatively poor simulation of Kelvin waves in these models. This study has also
+
+35
+demonstrated that cyclic tropical channel convection-permitting models are a useful tool to study
+and understand the multi-scale coupled tropical atmosphere.
+
+A key aim of this paper was to make the connection between simulated interscale energy transfer
+and equatorial waves in km-scale models. Reflecting this is the key finding that the simulated
+equatorial waves in the two models studied are different because there is different wave-associated
+upscale energy transfer and different convection, therefore different degrees of convective coupling.
+Future work should investigate the implications this has for weather forecasting, and whether
+an increase in simulated upscale energy transfer leads to robust improvements in forecasts of
+CCEW-associated precipitation. There is also ample opportunity for future investigation into the
+
+fundamental dynamics behind interscale energy transfers in the atmosphere.
+
+36
+Acknowledgments. EMG acknowledges support from SCENARIO DTP NERC Grant No.
+NE/5007261/1 and Met Office CASE funding. DS is supported by the UPSCALE project, funded
+by the UK Department for Science, Innovation & Technology (DSIT) National Capability AI Pro-
+gramme and managed by the Met Office. The authors wish to thank Dr. G.-Y. Yang for productive
+discussions on equatorial waves, and Drs. D. Faranda and V. Lembo for useful discussions on
+interscale energy transfer. The Met Office Unified Model cyclic tropical channel simulations were
+developed and initialised by the K-Scale team at the Met Office and data shared with us via the JAS-
+MIN HPC cluster. Met Office K-Scale research has been supported by the Met Office Weather and
+Climate Science for Service Partnership (WCSSP) Southeast Asia project under the International
+
+Science Partnerships Fund.
+
+Data availability statement. Post-processed output from the K-Scale models and UM analysis is
+available on license from the Met Office via the JASMIN HPC cluster. GPM-IMERG precipitation
+data version 7 freely available at https://gpm.nasa.gov/. The code used to compute the
+interscale energy transfer fields used in this study is freely available at Shipley and McKinnon-
+
+Gray (2025).
+
+APPENDIX
+
+Estimating average equatorial wave phase speeds using the Radon transform
+
+The Radon transform (RT; Radon (1917) — see Deans (2007) for up-to-date translation) was
+initially used for signal processing after its theoretical beginnings (Deans 2007). The RT was first
+used on oceanographic data by Challenor et al. (2001) to calculate phase speeds of oceanic Rossby
+waves, and not long after by Yang et al. (2007b) to calculate phase speeds of equatorial waves in
+the atmosphere. The steps of the Radon transform are as follows. See the appendix of Yang et al.
+
+(2007b) for more details.
+
+1. The wavelike field in the longitude-time domain (this can be averaged over several latitudes,
+or at just one latitude) f(x,y) is projected onto a line at a range of angles 0 < 6 < 180° with
+
+respect to the x (or longitude) axis.
+
+2. When the line is perpendicular to the alignment of the crests and troughs of the wave, the
+
+projected sum of data from the (x,y) plane to the x’ axis, p(x;,@) has maximum variance;
+
+37
+Dip? (x), @) is amaximum. See Challenor et al. (2001)’s Fig. 1 and Yang et al. (2007b)’s Fig.
+
+A2 for visualisation.
+
+3. The angle @ perpendicular to that projection gives the direction of travel and the phase speed
+
+can be derived trigonometrically:
+
+Cdominant = tan (dominant) 3 Odominant = argmax, f (8) (Al)
+
+References
+
+Abramowitz, M., and I. A. Stegun, 1965: Handbook of mathematical functions. Dover, 1043 pp.
+
+Aluie, H., M. Hecht, and G. K. Vallis, 2018: Mapping the energy cascade in the north atlantic
+ocean: The coarse-graining approach. Journal of Physical Oceanography, 48 (2), 225-244,
+https://doi.org/10.1175/JPO-D-17-0100.1.
+
+Augier, P., S. Galtier, and P. Billant, 2012: Kolmogorov laws for stratified turbulence. Journal of
+Fluid Mechanics, 709, 659-670, https://doi.org/10.1017/jfm.2012.379.
+
+Best, M. J., and Coauthors, 2011: The joint uk land environment simulator (jules), model de-
+scription — part 1: Energy and water fluxes. Geoscientific Model Development, 4 (3), 677-699,
+https://doi.org/10.5194/gmd-4-677-2011.
+
+Birch, C. E., D. Parker, J. Marsham, D. Copsey, and L. Garcia-Carreras, 2014: A seamless assess-
+ment of the role of convection in the water cycle of the west african monsoon. Journal of Geo-
+
+physical Research: Atmospheres, 119 (6), 2890-2912, https://doi.org/10.1002/2013JD020887.
+
+Boutle, I, J. Eyre, and A. Lock, 2014: Seamless stratocumulus simulation across the tur-
+bulent gray zone. Monthly Weather Review, 142 (4), 1655-1668, https://doi.org/10.1175/
+MWR-D- 13-00229.1.
+
+Brown, A., S. Milton, M. Cullen, B. Golding, J. Mitchell, and A. Shelly, 2012: Unified modeling
+and prediction of weather and climate: A 25-year journey. Bulletin of the American Meteorolog-
+
+ical Society, 93 (12), 1865-1877, https://doi.org/10.1175/BAMS-D-12-00018.1.
+
+38
+Bush, M., and Coauthors, 2025: The third met office unified model—jules regional atmosphere and
+land configuration, ral3. Geoscientific Model Development, 18 (12), 3819-3855, https://doi.org/
+10.5194/gmd-18-3819-2025.
+
+Cafaro, C., and Coauthors, 2021: Do convection-permitting ensembles lead to more skillful short-
+range probabilistic rainfall forecasts over tropical east africa? Weather and Forecasting, 36 (2),
+
+697-716, https://doi.org/10.1175/WAF-D-20-0172.1.
+
+Challenor, P. G., P. Cipollini, and D. Cromwell, 2001: Use of the 3d radon transform to examine
+the properties of oceanic rossby waves. Journal of Atmospheric and Oceanic Technology, 18 (9),
+
+1558-1566, https://doi.org/10.1175/1520-0426(2001)018( 1558: UOTRTT)2.0.CO;2.
+
+Chen, S., R. E. Ecke, G. L. Eyink, M. Rivera, M. Wan, and Z. Xiao, 2006: Physical mechanism of the
+two-dimensional inverse energy cascade. Physical review letters, 96 (8), 084 502, https://doi.org/
+10.1103/PhysRevLett.96.084502.
+
+Clark, D. B., and Coauthors, 2011: The joint uk land environment simulator (jules), model
+description — part 2: Carbon fluxes and vegetation dynamics. Geoscientific Model Development,
+
+4 (3), 701-722, https://doi.org/10.5194/gmd-4-701-2011.
+
+Clayton, A. M., A. C. Lorenc, and D. M. Barker, 2013: Operational implementation of a hybrid
+ensemble/4d-var global data assimilation system at the met office. Quarterly Journal of the Royal
+
+Meteorological Society, 139 (675), 1445-1461, https://doi.org/https://doi.org/10.1002/qj.2054.
+
+Da Silva, N. A., B. G. M. Webber, A. J. Matthews, M. M. Feist, T. H. M. Stein, C. E. Holloway,
+and M. F. A. B. Abdullah, 2021: Validation of gpm imerg extreme precipitation in the mar-
+itime continent by station and radar data. Earth and Space Science, 8 (7), e2021EA001 738,
+https://doi.org/10.1029/2021EA001738.
+
+Deans, S. R., 2007: The Radon transform and some of its applications. Courier Corporation.
+
+Dias, J., M. Gehne, G. N. Kiladis, N. Sakaeda, P. Bechtold, and T. Haiden, 2018: Equatorial
+waves and the skill of ncep and ecmwf numerical weather prediction systems. Monthly Weather
+
+Review, 146 (6), 1763-1784, https://doi.org/10.1175/MWR-D-17-0362.1.
+
+Dong, W., M. Zhao, H. Guo, L. Harris, K.-y. Cheng, L. Zhou, and V. Ramaswamy, 2025:
+
+Comparison of global mesoscale convective system simulations in a global storm-resolving
+
+39
+model and a high-resolution general circulation model. Journal of Climate, 38 (10), 2339-2356,
+https://doi.org/10.1175/JCLI-D-24-0303.1.
+
+Donlon, C. J., M. Martin, J. Stark, J. Roberts-Jones, E. Fiedler, and W. Wimmer, 2012: The
+operational sea surface temperature and sea ice analysis (ostia) system. Remote sensing of
+
+Environment, 116, 140-158.
+
+Duchon, J., and R. Robert, 2000: Inertial energy dissipation for weak solutions of the in-
+compressible euler and navier-stokes equations. Nonlinearity, 13, 249-255, https://doi.org/
+
+10.1088/095 1-7715/13/1/312.
+
+Eyink, G. L., and H. Aluie, 2009: Localness of energy cascade in hydrodynamic turbulence. i.
+smooth coarse graining. Physics of Fluids, 21 (11), https://doi.org/10.1063/1.3266883.
+
+Faranda, D., V. Lembo, M. Iyer, D. Kuzzay, S. Chibbaro, F. Daviaud, and B. Dubrulle, 2018: Com-
+putation and characterization of local subfilter-scale energy transfers in atmospheric flows. Jour-
+
+nal of the Atmospheric Sciences, 75 (7), 2175 — 2186, https://doi.org/10.1175/JAS-D-17-0114.1.
+
+Faranda, D., and Coauthors, 2024: Statistical physics and dynamical systems perspectives on geo-
+physical extreme events. Physical Review E, 110 (4), 041 001, https://doi.org/10.1103/PhysRevE.
+110.041001.
+
+Ferrett, S., T. H. A. Frame, J. Methven, C. E. Holloway, S. Webster, T. H. M. Stein, and C. Cafaro,
+2021: Evaluating convection-permitting ensemble forecasts of precipitation over southeast asia.
+
+Weather and Forecasting, 36 (4), 1199-1217, https://doi.org/10.1175/WAF-D-20-0216.1.
+
+Ferrett, S., J. Methven, S. J. Woolnough, G.-Y. Yang, C. E. Holloway, and G. Wolf,
+2023: Hybrid dynamical-statistical forecasts of the risk of rainfall in southeast asia de-
+pendent on equatorial waves. Monthly Weather Review, 151 (8), 2139-2152, https://doi.org/
+10.1175/MWR-D-22-0300. 1.
+
+Ferrett, S., G.-Y. Yang, S. J. Woolnough, J. Methven, K. Hodges, and C. E. Holloway, 2020:
+Linking extreme precipitation in southeast asia to equatorial waves. Quarterly Journal of the
+
+Royal Meteorological Society, 146 (727), 665-684, https://doi.org/10.1002/qj.3699.
+
+40
+Field, P. R., and Coauthors, 2023: Implementation of a double moment cloud microphysics scheme
+in the uk met office regional numerical weather prediction model. Quarterly Journal of the Royal
+
+Meteorological Society, 149 (752), 703-739, https://doi.org/10.1002/qj.4414.
+
+Germano, M., 1992: Turbulence: the filtering approach. Journal of Fluid Mechanics, 238, 325—
+336, https://doi.org/https://doi.org/10.1017/S0022112092001733.
+
+Gill, A. E., and A. J. Clarke, 1974: Wind-induced upwelling, coastal currents and sea-level changes.
+Deep Sea Research, 21, 325-345, https://doi.org/10.1016/0011-7471(74)90038-2.
+
+Green, G., D. G. Vlyakov, J. P. Mellado, and M. Wilczek, 2020: Resolved energy budget of super-
+structure in rayleigh-benard convection. Journal of Fluid Mechanics, 887, A21, https://doi.org/
+10.1017/jfm.2019.1008.
+
+Hayashi, Y., 1971: A generalized method of resolving disturbances into progressive and retro-
+gressive waves by space fourier and time cross-spectral analyses. Journal of the Meteorological
+
+Society of Japan. Ser. IT, 49 (2), 125-128.
+
+Holloway, C. E., S. J. Woolnough, and G. M. Lister, 2013: The effects of explicit versus pa-
+rameterized convection on the mjo in a large-domain high-resolution tropical case study. part
+
+i: Characterization of large-scale organization and propagation. Journal of the Atmospheric
+
+Sciences, 70 (5), 1342-1369, https://doi.org/10.1175/JAS-D- 14-0308. 1.
+
+Howard, E., S. Woolnough, N. Klingaman, D. Shipley, C. Sanchez, S. C. Peatman, C. E. Birch, and
+A. J. Matthews, 2024: Evaluation of multi-season convection-permitting atmosphere — mixed-
+layer ocean simulations of the maritime continent. Geoscientific Model Development, 17 (9),
+
+3815-3837, https://doi.org/10.5194/gmd-17-3815-2024.
+
+Huffman, G., D. Bolvin, D. Braithwaite, K. Hsu, R. Joyce, and P. Xie, 2014: Integrated multi-
+
+satellite retrievals for gpm (imerg), version 4.4. NASA’s precipitation processing center.
+
+Johnson, P. L., 2020: Energy transfer from large to small scales in turbulence by multiscale
+nonlinear strain and vorticity interactions. Phys. Rev. Lett., 124, 104501, https://doi.org/10.
+1103/PhysRevLett.124.104501.
+
+41
+Jones, R. W., H. Lewis, C. Sanchez, and J. Warner, In review: Developing a model hierarchy
+to explore upscale processes in kilometre-scale weather and climate models. Bulletin of the
+
+American Meteorological Society.
+
+Jones, R. W., C. Sanchez, H. Lewis, J. Warner, S. Webster, and J. Macholl, 2023: Impact
+of domain size on tropical precipitation within explicit convection simulations. Geophysical
+
+Research Letters, 50, €2023GL104 672, https://doi.org/10.1029/2023GL104672.
+
+Judt, F., 2018: Insights into atmospheric predictability through global convection-permitting
+model simulations. Journal of the Atmospheric Sciences, 75 (5), 1477-1497, https://doi.org/
+10.1175/JAS-D-17-0343.1.
+
+Judt, F., 2020: Atmospheric predictability of the tropics, middle latitudes, and polar regions
+explored through global storm-resolving simulations. Journal of the Atmospheric Sciences,
+
+77 (1), 257-276, https://doi.org/10.1175/JAS-D-19-0116.1.
+
+Judt, F., and R. Rios-Berrios, 2021: Resolved convection improves the representation of equatorial
+waves and tropical rainfall variability in a global nonhydrostatic model. Geophysical Research
+
+Letters, 48 (14), e2021GL093 265, https://doi.org/10.1029/2021GL093265.
+
+Kalnay, E., and Coauthors, 1996: The NCEP/NCAR 40-Year Reanalysis Project. Bulletin of the
+American Meteorological Society, 77 (3), 437-472, https://doi.org/10.1175/1520-0477(1996)
+077(0437:TNYRP)2.0.CO;2.
+
+Kiladis, G. N., M. C. Wheeler, P. T. Haertel, K. H. Straub, and P. E. Roundy, 2009: Convectively
+coupled equatorial waves. Reviews of Geophysics, 47, https://doi.org/10.1029/2008RG000266.
+
+Knippertz, P., and Coauthors, 2022: The intricacies of identifying equatorial waves. Quarterly
+Journal of the Royal Meteorological Society, 148 (747), 2814-2852, https://doi.org/10.1002/qj.
+4338.
+
+Kolmogorov, A. N., 1941: The local structure of turbulence in incompressible viscous fluid for
+
+very large reynolds. Numbers. In Dokl. Akad. Nauk SSSR, 30, 301.
+
+Kuzzay, D., D. Faranda, and B. Dubrulle, 2015: Global vs local energy dissipation: The energy
+cycle of the turbulent von kérmdn flow. Physics of Fluids, 27 (7), https://doi.org/10.1063/1.
+4923750.
+
+42
+Kuzzay, D., E.-W. Saw, F. J. Martins, D. Faranda, J.-M. Foucaut, F. Daviaud, and B. Dubrulle, 2017:
+New method for detecting singularities in experimental incompressible flows. Nonlinearity,
+
+30 (6), 2381, https://doi.org/10.1088/1361-6544/aa6baaf.
+
+Leonard, A., 1975: Energy cascade in large-eddy simulations of turbulent fluid flows. Advances in
+
+Geophysics, Vol. 18, Elsevier, 237-248, https://doi.org/10.1016/S0065-2687(08)60464- 1.
+
+Leray, J., 1934: Essai sur le mouvement d’un liquide visqueux emplissant l’espace. Acta Mathe-
+
+matica, 63, 193-248.
+
+Lock, A., A. Brown, M. Bush, G. Martin, and R. Smith, 2000: A new boundary layer mixing
+scheme. part i: Scheme description and single-column model tests. Monthly weather review,
+
+128 (9), 3187-3199, https://doi.org/10.1175/1520-0493(2000)128(3187:ANBLMS)2.0.CO;2.
+
+Matsuno, T., 1966: Quasi-geostrophic motions in the equatorial area. J. Met. Soc. Japan. Ser. II,
+
+44, 25-43, https://doi.org/10.215 1/jmsj1965.44.1_25.
+
+Meneveau, C., 1994: Statistics of turbulence subgrid-scale stresses: Necessary conditions and
+
+experimental tests. Physics of Fluids, 6 (2), 815-833, https://doi.org/https://doi.org/10.1063/1.
+868320.
+
+Nastrom, G. D., and K. S. Gage, 1985: A climatology of atmospheric wavenumber spectra of wind
+and temperature observed by commercial aircraft. Journal of Atmospheric Sciences, 42 (9), 950
+
+— 960, https://doi.org/10.1175/1520-0469(1985)042(0950:ACOAWS)2.0.CO;2.
+
+Nowak, J. L., M. Wac lawezyk, J.C. Vassilicos, S. Krol, and S. P. Malinowski, 2025: Scale-by-scale
+budget of turbulence kinetic energy in the convective atmospheric boundary layer: Analysis of
+structure functions. Quarterly Journal of the Royal Meteorological Society, 151 (767), e4879,
+https://doi.org/10.1002/qj.4879.
+
+Radon, J., 1917: Uber die bestimmung von funktionen durch ihre integralwerte langs gewisser
+
+mannigfaltigkeiten. Math.-Phys. Kl., 69, 262-267.
+
+Rayner, N. A., D. E. Parker, E. Horton, C. K. Folland, L. V. Alexander, D. Rowell, E. C. Kent,
+
+and A. Kaplan, 2003: Global analyses of sea surface temperature, sea ice, and night marine air
+
+43
+temperature since the late nineteenth century. Journal of Geophysical Research: Atmospheres,
+
+108 (D14), https://doi.org/10.1029/2002jd002670.
+
+Rotunno, R., C. Snyder, and F. Judt, 2023: Upscale versus “up-amplitude” growth of forecast-
+error spectra. Journal of the Atmospheric Sciences, 80 (1), 63 — 72, https://doi.org/10.1175/
+JAS-D-22-0070.1.
+
+Roundy, P. E., 2008: Analysis of convectively coupled kelvin waves in the indian ocean mjo. Journal
+
+of the Atmospheric Sciences, 65 (4), 1342-1359, https://doi.org/10.1175/2007JAS2345.1.
+
+Saji, N. H., B. N. Goswami, P. N. Vinayachandran, and T. Yamagata, 1999: A dipole mode in the
+tropical indian ocean. Nature, 401 (6751), 360-363, https://doi.org/10.1038/43854.
+
+Selz, T., and G. C. Craig, 2015: Simulation of upscale error growth with a stochas-
+tic convection scheme. Geophysical Research Letters, 42 (8), 3056-3062, https://doi.org/
+10.1002/2015GL063525.
+
+Shipley, D., and E. McKinnon-Gray, 2025: Lossett (local scale-to-scale energy transfer tool). URL
+https://github.com/ElliotMG/LoSSETT.
+
+Shipley, D., E. McKinnon-Gray, S. Bartholomew, and J. Methven, in prep.: The local scale-to-
+scale energy transfer tool: a new tool for local attribution of inter-scale interactions. Geoscientific
+
+Model Development.
+
+Shutts, G., 2005: Kinetic energy backscatter for nwp models and its calibration. Proc. Workshop
+
+on Representation of Subgrid Processes Using Stochastic-dynamic Models, 13-24.
+
+Shutts, G., and T. N. Palmer, 2004: The use of high-resolution numerical simulations of tropical
+circulation to calibrate stochastic physics schemes. Proc. ECMWF Workshop Intra-Seasonal
+
+Variability, ECMWF Reading, UK, 83-102.
+
+Stein, T. H. M., D. J. Parker, R. J. Hogan, C. E. Birch, C. E. Holloway, G. M. Lister, J. H. Marsham,
+and S. J. Woolnough, 2015: The representation of the west african monsoon vertical cloud
+structure in the met office unified model: An evaluation with cloudsat. Quarterly Journal of the
+
+Royal Meteorological Society, 141 (693), 3312-3324, https://doi.org/10.1002/qj.2614.
+
+44
+Stephan, C. C., and Coauthors, 2022: Atmospheric energy spectra in global kilometre-scale models.
+
+Tellus A: Dynamic Meteorology and Oceanography, https://doi.org/10.16993/tellusa.26.
+
+Stevens, B., and Coauthors, 2019a: Dyamond: the dynamics of the atmospheric general circula-
+tion modeled on non-hydrostatic domains. Progress in Earth and Planetary Science, 6, 1-17,
+
+https://doi.org/10.1186/s40645-019-0304-z.
+
+Stevens, B., and Coauthors, 2019b: A high-altitude long-range aircraft configured as a cloud
+observatory: The narval expeditions. Bulletin of the American Meteorological Society, 100 (6),
+
+1061-1077, https://doi.org/10.1175/BAMS-D-18-0198.1.
+
+Storer, B. A., M. Buzzicotti, H. Khatri, S. M. Griffies, and H. Aluie, 2023: Global cascade of
+kinetic energy in the ocean and the atmospheric imprint. Science Advances, 9 (51), eadi7420,
+
+https://doi.org/10.1126/sciadv.adi7420.
+
+Straub, K. H., and G. N. Kiladis, 2003: The observed structure of convectively coupled kelvin
+waves: Comparison with simple models of coupled wave instability. Journal of the Atmospheric
+Sciences, 60 (14), 1655-1668, https://doi.org/10.1175/1520-0469(2003)060(1655:TOSOCC)2.
+0.CO;2.
+
+Takasuka, D., M. Satoh, T. Miyakawa, C. Kodama, D. Klocke, B. Stevens, P. L. Vidale, and
+C. R. Terai, 2024: A protocol and analysis of year-long simulations of global storm-resolving
+models and beyond. Progress in Earth and Planetary Science, 11 (1), 66, https://doi.org/10.
+1186/s40645-024-00668- 1.
+
+Togni, R., A. Cimarelli, and E. De Angelis, 2015: Physical and scale-by-scale analysis
+of rayleigh—bénard convection. Journal of Fluid Mechanics, 782, 380-404, https://doi.org/
+10.1017/jfm.2015.547.
+
+Tomassini, L., and Coauthors, 2023: Confronting the convective gray zone in the global configu-
+ration of the met office unified model. Journal of Advances in Modeling Earth Systems, 15 (5),
+e2022MS003 418, https://doi.org/https://doi.org/10.1029/2022MS0034 18.
+
+Van Weverberg, K., C. J. Morcrette, and I. Boutle, 2021a: A bimodal diagnostic cloud fraction
+parameterization. part ii: Evaluation and resolution sensitivity. Monthly Weather Review, 149 (3),
+
+859-878, https://doi.org/10.1175/MWR-D-20-0230. 1.
+
+45
+Van Weverberg, K., C. J. Morcrette, I. Boutle, K. Furtado, and P. R. Field, 2021b: A bimodal
+diagnostic cloud fraction parameterization. part i: Motivating analysis and scheme description.
+
+Monthly Weather Review, 149 (3), 841-857, https://doi.org/MWR-D-20-0224.1.
+
+Vosper, S. B., A. R. Brown, and S. Webster, 2016: Orographic drag on islands in the nwp mountain
+grey zone. Quarterly Journal of the Royal Meteorological Society, 142 (701), 3128-3137,
+https://doi.org/10.1002/qj.2894.
+
+Walters, D., and Coauthors, 2019: The met office unified model global atmosphere 7.0/7.1 and
+jules global land 7.0 configurations. Geoscientific Model Development, 12 (5), 1909-1963,
+https://doi.org/10.5194/gmd- 12- 1909-2019.
+
+Wheeler, M., and G. N. Kiladis, 1999: Convectively coupled equatorial waves: Analysis of clouds
+and temperature in the wavenumber—frequency domain. Journal of the Atmospheric Sciences,
+
+56 (3), 374-399, https://doi.org/10.1175/1520-0469(1999)056(0374:CCEWAO)2.0.CO;2.
+
+Wheeler, M., G. N. Kiladis, and P. J. Webster, 2000: Large-scale dynamical fields associated with
+convectively coupled equatorial waves. Journal of the Atmospheric Sciences, 57 (5), 613-640,
+
+https://doi.org/10.1175/1520-0469(2000)057(0613:LSDFAW)2.0.CO;2.
+
+Wheeler, M. C., and H. H. Hendon, 2004: An all-season real-time multivariate mjo index: Devel-
+opment of an index for monitoring and prediction. Monthly weather review, 132 (8), 1917-1932,
+
+https://doi.org/10.1175/1520-0493(2004)132(1917:AARMMI)2.0.CO;2.
+
+Wheeler, M. C., and H. Nguyen, 2015: ‘Tropical meteorology: Equatorial waves. Ency-
+clopedia of Atmospheric Sciences, G. North, F. Zhang, and J. Pyle, Eds., 2nd ed., El-
+sevier, https://doi.org/10.1016/B978-0- 12-382225-3.00414-X, URL https://doi.org/10.1016/
+B978-0- 12-382225-3.00414-X.
+
+Wilson, D. R., and S. P. Ballard, 1999: A microphysically based precipitation scheme for the
+uk meteorological office unified model. Quarterly Journal of the Royal Meteorological Society,
+
+125 (557), 1607-1636, https://doi.org/10.1002/qj.497 12555707.
+
+Wilson, D. R., A. C. Bushell, A. M. Kerr-Munslow, J. D. Price, and C. J. Morcrette, 2008: Pc2: A
+prognostic cloud fraction and condensation scheme. i: Scheme description. Quarterly Journal
+
+of the Royal Meteorological Society, 134 (637), 2093-2107, https://doi.org/doi/10.1002/qj.333.
+
+46
+Yang, G.-Y., S. Ferrett, S. Woolnough, J. Methven, and C. Holloway, 2021: Real-time identification
+of equatorial waves and evaluation of waves in global forecasts. Weather and Forecasting, 36 (1),
+
+171-193, https://doi.org/10.1175/WAF-D-20-0144.1.
+
+Yang, G.-Y., B. Hoskins, and L. Gray, 2012: The influence of the qbo on the propagation of
+equatorial waves into the stratosphere. Journal of the Atmospheric Sciences, 69 (10), 2959-
+
+2982, https://doi.org/10.1175/JAS-D-11-0342.1.
+
+Yang, G.-Y., B. Hoskins, and J. Slingo, 2003: Convectively coupled equatorial waves: A new
+methodology for identifying wave structures in observational data. Journal of the Atmospheric
+Sciences, 60, 1637 — 1654, https://doi.org/10.1175/1520-0469(2003)060( 1637: CCEWAN)2.0.
+CO,,
+
+Yang, G.-Y., B. Hoskins, and J. Slingo, 2007a: Convectively coupled equatorial waves. part i:
+Horizontal and vertical structures. Journal of the Atmospheric Sciences, 64 (10), 3406-3423,
+
+https://doi.org/10.1175/JAS4017.1.
+
+Yang, G.-Y., B. Hoskins, and J. Slingo, 2007b: Convectively coupled equatorial waves. part
+ii: Propagation characteristics. Journal of the Atmospheric Sciences, 64 (10), 3424 — 3437,
+https://doi.org/10.1175/JAS4018.1.
+
+Yang, G.-Y., J. Slingo, and B. Hoskins, 2009: Convectively coupled equatorial waves in high-
+resolution hadley centre climate models. Journal of Climate, 22 (8), 1897-1919, https://doi.org/
+10.1175/2008JCLI2630.1.
+
+47

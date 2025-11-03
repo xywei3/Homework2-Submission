@@ -1,0 +1,1291 @@
+Detuning Choice for solving MIS and MWIS
+
+Sem Saada Khelkhal - Louis Barcikowsky
+
+Abstract
+
+In this article, we focus on the realization of a Maximum Weighted Independent Set (MWIS) as well as
+a quantum Maximum Independent Set, while respecting the constraints imposed by Pasqal’s neutral
+atom processor: limited qubit number, bounds on 2 and A, sequence durations, confinement space,
+minimum interatomic distances, and parasitic interactions.
+
+Our goal was to obtain results that are directly usable with current technology, on asymmetric graphs
+whose size is only limited by the QPU’s capabilities, within the bounds of the topological constraints.
+
+To achieve these results, we introduce an innovative method for computing detuning that departs from
+traditionally accepted approaches. Indeed, for arbitrary graphs, parasitic interactions between nearby
+but unconnected atoms strongly bias the results, making the usual detuning bounds insufficient.
+
+We thus propose three approaches that implement our detuning calculation, adapted to different levels
+of hardware maturity:
+
+(I) a speculative approach where each atom is treated individually (local detuning) to demonstrate the
+application of pure theory;
+
+(I) an approach using Detuning Map Modulation (DMM), which approximates our theory as closely
+as possible, with a view toward future implementation on the QPU;
+
+(II) a method based on global pulses and frequency shifts, which deviates significantly from our
+theoretical framework but is directly applicable today, providing good results under stricter conditions.
+
+Our strategies were tested against experimental realities using Pasqal’s emulators on various graphs
+of up to 30 qubits.
+
+Our approach places particular emphasis on respecting all current QPU constraints, in order to propose
+a solution that can be immediately transferred to practical applications.
+1. Introduction
+
+Combinatorial problems represent one of the
+most promising domains for demonstrating a
+practical quantum advantage. Among them,
+the Maximum Independent Set (MIS) and
+its weighted generalization, the Maximum
+Weighted Independent Set (MWIS), occupy a
+central place due to their numerous applications
+in optimization, complex networks, resource al-
+location, and scheduling. These problems, how-
+ever, are notoriously difficult to solve classically,
+
+especially for large graphs. Classical methods
+typically rely on optimization procedures that
+yield results whose validity may be questionable
+as the problem size increases.
+
+Analog quantum processors based on neutral
+atoms, such as those developed by Pasqal, pro-
+vide a particularly suitable platform for tackling
+these problems via the Ising model, in which
+independent graph configurations can be na-
+tively encoded. Nevertheless, implementing this
+approach faces several physical constraints: a
+limited number of qubits, bounds on the control
+parameters 2 and A, maximum sequence dura-
+tions, atomic confinement space, minimum inter-
+atomic distances, and the presence of parasitic
+interactions between unconnected atoms.
+
+These limitations make it necessary to develop
+new strategies that reconcile experimental feasi-
+bility with theoretical fidelity. Current detuning-
+tuning approaches often prove insufficient, par-
+ticularly for arbitrary graphs where residual
+interactions distort the expected outcomes.
+
+In this context, our work proposes an innovative
+method for computing detuning and explores
+three complementary approaches reflecting dif-
+ferent levels of hardware maturity: a speculative
+approach based on local detuning, an intermedi-
+ate approach relying on Detuning Map Modula-
+tion (DMM), and an operational approach applic-
+able today using global pulses. These methods
+are tested against the current constraints of
+Pasqal’s QPU and evaluated experimentally us-
+ing its emulators, on asymmetric graphs of up to
+30 qubits.
+
+The objective of this paper is twofold: first, to
+demonstrate the validity of our approach on
+
+concrete cases, and second, to pave the way for
+practical quantum MIS/MWIS implementations
+on current and future analog processors.
+
+The Figure 1 concretely illustrates the construc-
+tion of the graph associated with a set of
+rubidium atoms confined in optical tweezers.
+Each green point q; represents an atom and
+corresponds to a vertex of the graph. The circle
+surrounding each atom denotes the Rydberg
+blockade radius R,, defined by the relation
+
+ct = at)
+
+Ry
+Two atoms are connected by an edge when
+their interatomic distance is smaller than R,,
+reflecting the mutual exclusion of simultaneous
+Rydberg excitations. Thus, the image provides
+a direct representation of the graph G = (V,é),
+where quantum exclusion links naturally arise
+from the physical properties of the atoms.
+
+rr)
+
+me
+Foes
+
+yum
+
+wa
+
+an # as
+mo
+
+ve a7
+
+Figure (1): Example of register mapping of a
+graph showcasing how the blockad is used to
+determine connections
+
+2. Context
+
+An Independent Set (IS) in a graph G = (V, €)
+is a subset of vertices ? € V, so that no pair of
+element from V is connected by an edge. Then,
+the Maximum Independant Set (MIS) is the largest
+subset of vertices V € V. [1]
+y =x7Qx = So aie,
+
+To find the MIS, we assign to each vertex 7 a value
+x, that is 0 (excluded) or 1 (included) [2]. We
+then minimize the cost function which counts the
+included vertices via Ty a, and penalizes
+undesirable adjacencies with Ones L,L;,
+where U an arbitrary coefficient to penalize un-
+feasible solutions [2]. The MIS problem can be
+
+encoded with the following cost function:
+
+v
+i=1
+
+(i#j)eV
+Finding the MIS in a graph is often a complex
+problem, especially in large graphs, because it
+requires examining many possible combinations
+of vertices [2].
+
+A weighted graph Gy = (Yy,€) is a graph
+where each vertex i is associated with a weight
+w; [2].
+
+It follows that the Maximum Weighted Indepen-
+dent Set (MWIS) is the Independent Set (IS) of
+vertices Vy € IS(Gyw) which the sum of the
+weights is the maximum, Le :
+
+_ max Ww;
+Vwe1S(Gw) Hr,
+
+This makes the problem even more complex, as
+it’s not just about finding the largest number of
+independent vertices, but also considering the
+associated weights to maximize the total sum [2].
+
+In this study, we explore the neutral-atom quan-
+tum computer using rubidium atoms confined in
+optical tweezer arrays. Each atom is described
+by two electronic states. These atoms serve as
+qubits. A laser is used to illuminate them.
+
+The volume of the electron cloud around the
+atom is determined by the Rabi frequency {Q(¢) of
+the laser. The radius of the cloud in the Rydberg
+state is called the Rydberg blockade radius R,.
+Considering a set of atoms 0, ..., V and their po-
+sitions po,..., Py, we define a graph G = (V,€)
+where each atom represents a vertex.
+
+Cg characterizes the strength of the van der
+Waals interaction between atoms. This force
+
+manifests if two atoms have an interatomic
+distance || p; — p, || smaller than R,. This inter-
+action is defined by:
+
+6 6
+Cp = (t)
+
+Since Cg is constant, R, varies according to Q(t).
+If two atoms are closer than R,, they mutually
+block each other from occupying the Rydberg
+state. The associated vertices are then considered
+connected.
+
+We can therefore define a function to quantify the
+Rydberg interaction energy by summing the in-
+teractions between pairs of atoms. We use 7i;;; =
+|r) (r|;/; to project the state of atom 7/7 onto | r),
+preserving this state if the atom is already in the
+Rydberg state, or setting it to zero otherwise:
+
+The sixth power in the denominator highlights
+the similarity to U Deady 2,2;, as both functions
+heavily penalize nearby vertices.
+
+However, the system’s energy also depends on
+the laser-atom interaction, modeled by the sum:
+
+Ah » (er _ a(n.)
+
+Here, fi is the reduced Planck constant. 2(t)
+determines the intensity of the laser-atom inter-
+action, with 67’ being the Pauli-X operator repre-
+senting the qubit state flip. A(¢) represents the
+energy detuning, linked to an intentional offset
+of the laser frequency relative to the atomic tran-
+sition, and ’, projects onto the excited state.
+
+With negative A(t), minimizing the energy im-
+plies placing most atoms in the |g) state, as fi;
+cancels non-excited states. This corresponds to
+the initial state of a quantum computer where all
+atoms are in |g). With positive A(t), minimizing
+energy requires most atoms to be in the |r) state,
+as fi; preserves the excited states.
+
+By following an adiabatic evolution with con-
+stant Q(t) and A(t) varying from negative to
+positive, the system evolves from a low-energy
+initial state with all atoms in | g) to a low-energy
+final state with the majority of atoms in | r). The
+system thus seeks to maximize the number of
+excited atoms, which resembles what — an 25
+does by selecting the maximum number of ver-
+tices in the graph.
+
+The system Hamiltonian can therefore be repre-
+sented as the sum of these interaction energies:
+
+v v
+QE) oe P Co.
+t=1 ify in wh
+In the case of adiabatic evolution, with constant
+Q(t) and A(t) going from negative to positive,
+this closely resembles:
+
+v Vv
+-\o% + us, 252;
+i=1
+
+i#j
+Under this evolution, the neutral-atom quantum
+computer naturally solves an MIS problem on a
+
+graph where each atom is a vertex and a link
+exists between atoms separated by distance Ry.
+
+It then remains only to correctly choose (.(t) and
+A(t), respecting the physical limitations of cur-
+rent QPUs, so that the system yields this result.
+
+3. Current Approach
+
+The standard method for selecting the detuning
+parameter is based on imposing a lower bound
+that ensures unwanted long-range interactions
+do not affect the ground state. As formulated in
+recent work [3], [4], this condition is expressed as
+
+max
+
+Vie < min A
+(G,)eBy I~ ®
+
+where V;, ; denotes the interaction between atoms
+i and j, and A, is the boundary value of the
+detuning function 6,4). Typically, the detuning
+function is chosen to vary linearly in time,
+consistent with the adiabatic theorem [5], with
+boundary conditions 4,9) = —A; and 5i(t,) =
+A,. The purpose of this schedule is to gradually
+increase the energy cost of remaining in the
+ground state, thereby favoring excitation to the
+Rydberg state.
+
+An alternative but equivalent way to express this
+condition on a per-vertex basis is:
+Os? ibe 3
+
+which requires that the detuning applied to each
+atom exceed the strongest unwanted interac-
+tion involving that atom. Both formulations aim
+to prevent unconnected atoms from interfering
+with each other’s activation by ensuring that the
+detuning dominates the corresponding residual
+couplings.
+
+However, this strategy suffers from two key
+limitations. First, it assumes that it is sufficient
+to consider only the largest unconnected interac-
+tion. In practice, a single atom may be subject to
+several strong unconnected interactions. In such
+cases, the cumulative effect may suppress activa-
+tion, even though the bound above is satisfied.
+Second, the method does not impose an upper
+bound on the detuning. If A; is chosen too large,
+it may allow connected atoms to be simultane-
+ously excited, thereby violating the independent
+set constraint.
+
+To illustrate the first limitation, consider the
+embedding shown in Figure 2. None of the four
+atoms are connected by an edge, so all should
+in principle be eligible for activation. However,
+applying the current method to determine the de-
+tuning results in the central atom q0 being deac-
+tivated. This occurs because q0 experiences three
+unconnected interactions of similar strength. Al-
+though each is individually bounded by the con-
+dition above, their combined effect overwhelms
+the detuning and prevents q0 from being excited.
+
+Figure 3 shows the corresponding measurement
+statistics, where the dominant outcome excludes
+q0 despite the absence of graph edges.
+204
+1,
+& of al
+>
+-10 4 ooo
+@ atoms
+-20 |
+
+>
+
+0 10
+x (um)
+
+Figure (2): Atom layout used in the example. All
+atoms are unconnected.
+
+os
+
+0.6
+
+Probability
+
+0.2
+
+8
+Measured States
+
+°
+S
+
+0111
+uli
+0101
+1110
+
+Figure (3):
+showing that q0 is suppressed despite being un-
+
+Measured probability distribution
+connected.
+
+4. New Method for Determin-
+ing the Detuning
+
+In existing approaches, the detuning parameter
+is often chosen by identifying the maximum
+unconnected interaction and selecting a value
+slightly larger. However, as we have shown in
+the previous section, this strategy can lead to
+unwanted activations and deactivations of atoms.
+To address this issue, we propose an alternative
+method for computing the detuning, defined as
+
+where0<7<1ER
+
+This formulation ensures that the detuning as-
+signed to each atom exceeds the contributions
+from unconnected interactions while remaining
+below the weakest connected interaction. As a
+result, the method more reliably produces correct
+maximum independent sets (MIS) across a wide
+range of topologies.
+
+Moreover, this choice naturally adapts to topolo-
+gies in which unconnected interactions are neg-
+ligible: in such cases, the lower bound on A;
+approaches zero (a short proof may be provided
+here). Importantly, the computational complexity
+of this approach remains unchanged compared
+to the state of the art. Both the summation and
+the minimization can be evaluated in O(n”), and
+thus the overall asymptotic cost is unaffected [6].
+
+To illustrate the effect of the new method, we
+apply it to the same four-atom layout considered
+in Figure 2. Unlike the previous approach, the
+central atom q0 is now correctly activated along-
+side the others, the probability distribution in
+Figure 4 confirms that all atoms can be simulta-
+neously excited, consistent with the absence of
+edges in the graph.
+
+10
+
+08
+
+Probability
+°
+a
+
+2
+&
+
+0.2
+
+0.0
+
+1111
+110
+011
+
+1101
+
+Measured States
+
+Figure (4): Measured probability distribution us-
+ing the new method, showing correct activation
+of all atoms.
+
+It should be noted that this formulation, in its
+current form, applies only to the MIS problem.
+We will show in the next section how it can
+be adapted to handle the maximum weight inde-
+pendent set (MWIS). Another caveat is that our
+method assumes the availability of local detun-
+ing within the quantum processing unit (QPU),
+which is not yet supported by current hardware.
+To address this, we propose two adaptation
+strategies: one compatible with current devices,
+and another anticipating forthcoming technolog-
+ical improvements.
+
+5. Extension to the Maxi-
+mum Weight Independent
+Set (MWIS)
+
+To extend our method to the maximum weight
+independent set (MWIS) problem, we modify the
+detuning assignment as follows:
+
+GEE G.jen
+
+where the scaling factor tau, is defined by
+
+7, = L(w,,0.1, 0.9, w
+
+max? Wmin)
+
+min) denotes the
+
+and L(w,min, maz, w
+linear interpolation of x within the interval
+
+(0.1, 0.9]
+
+W.
+
+max?
+
+he purpose of introducing 7; is to bias the detun-
+ing values in proportion to the vertex weights,
+thereby promoting the activation of nodes with
+larger weights. This scaling ensures that heavier
+nodes are preferentially stabilized, which natu-
+rally guides the system toward MWIS solutions.
+
+We deliberately employ interpolation rather than
+normalization, since the boundary values 0 and
+1 carry special meaning in this context. Specifi-
+cally, they may be used to enforce activation or
+deactivation of certain nodes. This flexibility al-
+lows for the encoding of more complex behaviors
+—for example, partitioning the graph into cliques
+that can then be solved independently.
+
+6. Pasqal QPU Constraints
+
+Dans cette étude, nous respectons scrupuleuse-
+ment les limitations physiques des processeurs
+quantiques a atomes neutres développés par
+Pasqal.
+
+Le registre atomique est contraint a une dispo-
+sition bidimensionnelle, avec un maximum de
+80 atomes, chacun confiné dans un rayon de
+38 jum autour de l’origine, et séparés d’au moins
+5 pm de leurs plus proches voisins. Le dispositif
+opére avec des états de Rydberg de nombre quan-
+tique principal 60, caractérisés par un coefficient
+d interaction d’Ising C égal a 865723.02.
+
+L’évolution dynamique est en outre limitée par
+une durée maximale de séquence de 6000 ns et un
+nombre maximal de 500 exécutions expérimen-
+tales.
+
+Les paramétres de contréle laser sont également
+bornés, avec un détunning contraint 4| A(t) | <
+48.6947 et une amplitude de fréquence de Rabi a
+Q(t) < 12.5664.
+
+Ces contraintes expérimentales sont essentielles
+pour garantir que les protocoles proposés restent
+réalisables sur le matériel QPU actuellement
+disponible.
+
+7. DMM Formulation
+
+An alternative approach to local addressing,
+currently under development by Pasqal, is the
+Detuning Map Modulator (DMM). This tech-
+nique modifies the laser—atom interaction part of
+the Hamiltonian as follows:
+
+Vv
+H(t) =>) [Pes
+
+Here, each €; € [0, 1] denotes a local scaling fac-
+tor, and Apy4y_(t) is an additional global detuning
+function (negative-valued) modulated locally by
+e, [7]. The key idea is that all atoms follow
+a shared detuning schedule but are gradually
+
+— (A(t) + Anwar (4);
+
+biased toward their target theoretical values.
+
+To set the parameters, we impose:
+
+_ Ai
++ 7 Anax
+Apwa(0) = 0, Apynr (tp) = —Armax
+A(0)=—Ajnax, A(tp) = Amax-
+
+This ensures that all atoms start with the same
+detuning, and as time progresses, their effective
+detunings converge smoothly to the ideal theo-
+retical values at ¢ ;.
+
+For the Maximum Weight Independent Set
+(MWIS), we further introduce a weight-depen-
+dent bias:
+
+A.
+1. L(w,,0.1,0.9; w
+
+max
+
+max? Umin ) ’
+
+where L denotes the linear interpolation de-
+scribed in Section [New Method]. This bias pro-
+motes the activation of heavily weighted nodes
+while preserving the correctness of the embed-
+ding.
+
+To illustrate, Figure 5 shows the graph we are
+working with, its embedding remains the same
+as that of Figure 1, Figure 6 shows the time
+evolution of Q(t), A(t), and Apyy(t) under
+this formulation. Figure 7 presents the distribu-
+tion of €, values mapped to the register layout,
+highlighting the spatial bias introduced by the
+DMM scheme. Figure 8 reports the effective de-
+tuning values obtained after applying the DMM
+correction, which explicitly shows the per-node
+detuning landscape. The corresponding MWIS
+instance, and the measured probability distribu-
+tion are shown in Figure 5 and. Finally, Figure 10
+depicts the top activation pattern obtained, high-
+lighting the vertices included in the MWIS solu-
+tion, giving us a total weight of 5.7713 which
+is also the solution found using a deterministic
+classical solver
+
+‘
+
+@®,° ®@ @e®
+oe. : “>
+Phd
+
+Figure (5): Graph instance and its embedding on
+the atomic array.
+
+Figure (6): Time evolution of 0(t), A(t), and
+Apum(t).
+
+émmo
+
+Fer
+
+eon,
+
+jouw
+Bx Fon
+of es oom
+
+youn)
+
+0 es
+
+Floor gaeoznt Pore)
+
+geboses 2 sire
+
+Fess
+
+um
+
+Figure (7): Distribution of €; values mapped to the
+register layout.
+
+Figure (8): Effective detuning values per atom
+after combining global detuning and DMM con-
+tributions.
+we
+$
+Ss
+
+Frequency of measure
+x
+8
+8
+
+400
+100 [
+i a eee
+
+Outputs
+
+°
+
+100100010101111010
+100100010011111110
+100001001010111110
+100001100101111010
+001001100101111010
+
+Figure (9): Measured probability distribution for
+the MWIS instance using the DMM scheme.
+
+Figure (10): Top activation pattern represented on
+the graph, corresponding to the MWIS solution.
+
+8. Global Detuning
+
+in the case where having local addressability is
+impossible getting an MIS will be very topology
+dependent or impossible for the MWIS without
+breaking other constraints such as atom numbers
+or minimal distance
+
+now in order to achieve an MIS with global
+detuning the embedding of the graph must be
+constructed in a way such that :
+
+A;-A,;
+A
+
+max
+
+<p
+
+forall atom i, i
+
+here p denotes the error level you are allowing
+on your results in our tests p < 0.2 has give good
+
+results but more that that has shown that the bias
+of interraction was too strong
+
+9. Scalability
+
+To demonstrate the scalability of our approach,
+we present the results obtained on a 32-node
+graph. The simulations were performed with a
+fixed duration of 6000 ns, a Rabi frequency set to
+Q = 12, and a detuning constrained to A < 48.
+
+Due to atomic confinement constraints, it was
+not possible to test graphs beyond 32 nodes.
+Indeed, extending to larger instances would have
+required exceeding the maximum allowed dis-
+tances from the center of the atomic register.
+
+The experiment was carried out using both the
+local detuning method and the Detuning Map
+Modulation (DMM) with very close output. In
+contrast, the global detuning approach could only
+be applied to less complex cases, and give us
+nothing interessting in this exemple.
+250
+200
+
+150
+
+100
+
+Frequency of measure
+
+°
+
+10101100010010110010101010110101
+10101100010010110010101110110001
+10101100010010110011001010110111
+10101100010010110001001110110011
+10101100010010110010101010110111
+
+Outputs
+
+- ll
+BR <0
+
+Figure (11): Top: Histogram of measurement out-
+
+comes, 32 nodes, local detuning. Middle: Graph
+
+representation of the most frequently measured
+
+configuration. Bottom: classical deterministic so-
+lution.
+
+10. Conclusion
+
+In this work, we have proposed a new method
+for computing detuning, enabling more reliable
+solutions to Maximum Independent Set (MIS) and
+Maximum Weighted Independent Set (MWIS)
+problems on neutral atom quantum processors.
+By accounting for parasitic interactions and the
+physical constraints of Pasqal’s hardware, our
+approach strikes a balance between experimen-
+tal feasibility and theoretical fidelity. We have
+shown that this method can be implemented in
+several variants adapted to different levels of
+technological maturity: a speculative local detun-
+ing, a Detuning Map Modulation (DMM) antici-
+pating future capabilities, and a global strategy
+directly applicable on current devices.
+
+Simulations performed on the emulator con-
+firmed the relevance of our approach on asym-
+metric graphs of up to 30 qubits, while strictly re-
+specting the instrumental limitations (number of
+qubits, minimum distances, maximum sequence
+durations, and bounds on 2(t) and A(t)). These
+results pave the way for practical use of analog
+QPUs in solving complex combinatorial prob-
+lems.
+
+The current limitation in sequence duration does
+not allow a thorough exploration of the system’s
+evolution over longer timescales, restricting dy-
+namic analysis. Moreover, the simulations per-
+formed are idealized as they do not account
+for the intrinsic noise of quantum processors
+and therefore do not fully reflect real experi-
+mental conditions. Implementation on physical
+hardware will be essential to confirm the robust-
+ness of our approach and to draw more definitive
+conclusions regarding the quality and reliability
+of the obtained results.
+11. Acknowledgments
+
+The authors would like to thank Reply for hosting this research project and for providing support
+throughout its development. We are also grateful to Pasqal for developing and maintaining the Pulser
+library used in our simulations, as well as for the technical support provided, and to OQI for their
+collaboration and partnership in this work. We additionally wish to thank Maélle Toy-Riont-Le
+Dosseur and QUERELLA Laurent for their invaluable assistance and contributions to the research.
+
+Bibliography
+[1] R. Diestel, Graph Theory. Springer, 2000.
+
+2] M. R. Garey and D. S. Johnson, Computers and Intractability: A Guide to the Theory of NP-
+Completeness. W. H. Freeman, Company, 1979.
+
+3] J. Kombe, G. Pelegri, A. J. Daley, and J. D. Pritchard, “A quantum wire approach to weighted
+combinatorial graph optimisation problems,’ 2025, [Online]. Available: https://arxiv.org/abs/2503.
+17115
+
+4] H. Pichler, S.-T. Wang, L. Zhou, S. Choi, and M. D. Lukin, “Quantum Optimization for Maximum
+Independent Set Using Rydberg Atom Arrays,’ 2018, [Online]. Available: https://arxiv.org/abs/
+1808.10816
+
+5] T. Albash and D. A. Lidar, “Adiabatic Quantum Computing,’ 2018, [Online]. Available: https://
+arxiv.org/pdf/1611.04471
+
+6] T. H. Cormen, C. E. Leiserson, R. L. Rivest, and C. Stein, Introduction to Algorithms, 3rd ed.
+Cambridge, MA: MIT Press, 2009.
+
+7] Pasqal, “Local Addressability with DMM — Pulser 1.5.6 documentation — pulser.readthedocs.io.”
+
+12. Appendix
+
+12.1. Comparatif Example
+
+13. Comparative Example
+
+In this section, we compare the different methods for solving the Maximum Independent Set (MIS) on
+the same graph instance. All simulations are performed using the Pasqal simulator library Pulser with
+Q = 12 anda total evolution time T’ = 6000ns. For reference, we also include the classically computed
+MIS solution in Figure 12 on the same graph.
+Figure (12): Classical MIS solution obtained using a deterministic solver.
+
+13.0.1. Current Approach
+
+The baseline approach, based on setting the detuning above the strongest unconnected interaction,
+yields suboptimal results. As illustrated in Figure 13, most frequently measured outcome does not
+correspond to the correct MIS, demonstrating the limitations of this strategy.
+
+Tw.
+| | ore
+po
+
+Outputs:
+
+200
+
+Frequency of measure
+B
+8
+8
+
+101001101011111110
+111001001011111110
+111001010011111110
+101001101011111111
+111001101011111110
+
+Figure (13): Left: Histogram of measured final states over 1000 repetitions. Right: Graph representation
+of the most frequently measured activation pattern, which fails to reproduce the correct MIS.
+13.0.2. New Method with Local Detuning
+
+Applying the proposed method with locally adapted detunings significantly improves the results. As
+shown in Figure 14, the correct MIS emerges as the dominant outcome, with over 600 occurrences out
+of 1000 measurements.
+
+600 apo
+
+8
+®
+
+:
+é
+
+Frequency of measure
+8
+8
+aNg
+AN
+Ey
+
+nN
+S
+Ss
+a
+2
+S
+
+, Pe ee... ve
+
+100100010011111110
+100001000011111110
+100001100011111110
+001001000011111110
+100001010011111110
+
+Outputs
+
+Figure (14): Left: Histogram of measurement outcomes under local detuning. Right: Graph represen-
+tation of the most frequently measured configuration, corresponding to the correct MIS.
+
+13.0.3. New Method with DMM
+
+Using the Detuning Map Modulator (DMM) approach, we obtain results close to the ideal local
+detuning scheme. The correct MIS remains the most frequently measured outcome, appearing just
+under 600 times out of 1000, as shown in Figure 15. This confirms that the DMM provides a realistic
+approximation of the local detuning strategy under current hardware constraints.
+
+600
+
+8
+8
+_—
+
+:
++
+\2
+
+°
+
+Frequency of measure
+8
+8
+/°
+Ey
+
+N
+3
+S$
+
+=
+
+100 pe
+
+L
+I
+I
+
+=
+
+100100010011111110
+100001000011111110
+100001100011111110
+001001000011111110
+100001001010111110
+
+Outputs
+Figure (15): Left: Histogram of measurement outcomes under the DMM scheme. Right: Graph repre-
+
+sentation of the most frequently measured configuration, which reproduces the correct MIS, albeit
+with slightly reduced confidence compared to ideal local detuning.
+In [1]:
+
+In [2]:
+
+13.0.4. New Method with Global Detuning
+
+Finally, we test the global detuning strategy by setting A = mean(A,). In this case, due to the relatively
+small variance among A, values for the chosen graph topology, the method performs well: the correct
+MIS appears as the most measured outcome over 400 times (Figure 16).
+
+400 a
+°
+ote
+‘o Va oe aalied
+/ \
+<< P de «ao
+aor
+a ake
+
+Outputs
+
+w
+3
+6
+
+N
+3
+3
+
+Frequency of measure
+
+B
+S
+Ss
+
+°
+
+100100010011111110
+100001000011111110
+101001000011111110
+110001000011111110
+100001001011111110
+
+Figure (16): Left: Histogram of measurement outcomes under global detuning. Right: Graph represen-
+tation of the most frequently measured configuration, corresponding to the correct MIS, albeit with
+lower probability than local detuning and DMM.
+
+13.1. Code Example for local detuning
+This is a standalone ready to run code for getting MIS
+
+First make sure you have the necessary libraries which are pulser, numpy, matplotlib, networkx,
+sklearn
+
+import numpy as np
+
+import networkx
+
+import matplotlib.pyplot as plt
+import pulser
+
+import scipy as sp
+
+Now for the graph we use an adjacency matrix of course you can adapt it to any format you want as
+
+pulser only needs the positions and the waveforms
+
+Q = np.array(
+[
+
+[6:0, 158, 1-0,,0-0, 0-0, 0-01),
+[1707,050, 10,0507) 0-6), 0-01),
+[POr 1-0, 0-0; 1-0,)0-0,..0.0)),
+lal); ay shee Ose Oe welll,
+(Kell, Walp Welilp UO, (LO, Cll,
+[020; 0-0, 0:0,, 1-0, 150; 020],
+Out[2]:
+
+In [48]:
+
+array([[0., 1., 1., 0., 0., 0.],
+[les O54 Ing Oxy Oe, O81,
+[ley Lex O8% TInp O25 O81;
+{[0., 0., 1., 0., 1., 1.],
+[0-5 Os5 O1, Ivy 0+, In],
+[0., 0., @., 1., 1., 0.]])
+
+This is a helper function to get nice graphical representations
+
+def draw(bitstring, positions: np.ndarray, ax=None):
+
+G = networkx. from_numpy_array(Q)
+pos = positions
+
+# Define a color map for states
+state_color_map = {
+"1": "#4CAF50", # green
+"Q": "#OEQESE", # gray
+
+# Draw nodes grouped by activation state
+for k, color in state_color_map.items():
+nodes = {i: pos[i] for i in range(len(bitstring)) if bitstring[i] == k}
+
+# Scale node size based on label length (width grows with text length)
+node_sizes = [300 + 20 * len(f"q{i}") for i in nodes.keys()]
+
+networkx.draw_networkx_nodes (
+G,
+pos,
+nodelist=nodes.keys(),
+node _color=color,
+node_size=node sizes,
+edgecolors="white",
+linewidths=1,
+ax=ax,
+
+# Labels
+labels = {i: f"q{i}" for i in range(len(bitstring) )}
+networkx.draw_networkx_labels(
+
+G, pos, labels=labels, font_size=9, font_color="black", ax=ax
+
+)
+
+# Draw edges
+networkx.draw_networkx_edges (
+
+G, pos, edge color="black", width=1.2, alpha=0.7, ax=ax
+)
+
+plt.axis("off")
+plt.tight layout (pad=2.0)
+
+Now the important part which is the positions keep in mind that this depends on the value of omega
+as it defines the rydberg blockade and thus which atoms are connected
+In [4]: positions = np.array(
+[
+[-8.14402479, -9.56823364],
+[-1.74386237, -12.41500245],
+[-1.87085513, -4.08263706],
+[1.52776929, 3.55825435],
+[7.80092456, 9.04386765],
+[1.40075438, 11.89061848],
+
+In [5]: draw("".join(["0" for _ in Q]), positions)
+
+This part is the Pulser initialization you can play arround here with values to suit your use case
+
+In [6]: device = pulser.MockDevice
+
+In [7]: omega_max = 12.0
+duration = 6000
+
+In [8]: register = pulser.Register. from coordinates(positions, prefix="q")
+register.draw(
+draw_half_radius=True,
+)
+
+blockade _radius=device.rydberg blockade radius(omega_max)
+
+y (um)
+
+In [9]: def filter _zeros(x):
+if x ==
+return float("inf")
+else:
+return x
+vect_fill_zeros = np.vectorize(filter_zeros)
+This is the method to get the 6s it corresponds to the equations shown earlier
+In [10]:
+
+connected_mask = np.array(Q, dtype=bool)
+dists =
+
+sp.spatial.distance.squareform(sp.spatial.distance.pdist(positions) )
+np.fill_diagonal(dists, float("inf"))
+C6 = device.interaction_coeff
+V = C6 / (dists**6)
+total_interaction = V.sum(axis=1)
+unconnected_interaction = (V * (~connected_mask) ) .sum(axis=1)
+connected_interaction = vect fill _zeros(V * connected_mask) .min(axis=1)
+epsilon = (V * connected_mask) .mean(axis=1)
+detunings = (
+
+unconnected_interaction + connected interaction * 0.9
+) # for the mwis modify the 0.9 to correspond to the weights instead remember to
+interpolate the weights between 0.1 and 0.9 as @ and 1 should be reserved for
+forcing activations/deactivations
+epsilons = detunings / (detunings.max())
+detuning = detunings.max()
+
+Now we need to create the sequence which is the “source code” of our process here we use the
+theoretical method with real local detunings
+
+In [11]: channel = "rydberg local"
+sequence = pulser.Sequence(register, device)
+for i in range(len(positions) ):
+detuning = detunings[i]
+pulse = pulser.Pulse(
+pulser. InterpolatedWaveform(6000, [0, omega_max, 0]),
+pulser. InterpolatedWaveform(6000, [-detuning, detuning]),
+0,
+)
+sequence.declare channel(f"q{i}", channel, initial_target=f"q{i}")
+sequence.add(pulse, f"q{i}")
+sequence. draw()
+In [12]:
+
+2 (radius)
+
+qo
+
+6 (rads)
+bo 8
+
+ql
+6 (rad/us) Q (radius)
+eB ew 8
+
+10
+
+2 (radius)
+2 a JB
+
+q2
+
+5 (rad/us)
+& o &
+|
+
+Q (rad/us)
+
+q3
+
+5 (rad/us)
+1
+
+a4
+(radius) (rad/s)
+j
+rT
+
+qs
+6 (rad/us) Q (rad/s)
+p
+
+0 11000 2000 3000 ‘4000 ‘5000 ‘6000
+t (ns)
+
+And here is the execution keep in mind that this works for graphs under 12 nodes as anymore nodes
+requires using another backend and will probably be slow on your device for our tests we used the
+pasqal_cloud library to outsource the execution of the sequence
+
+backend = pulser.backends.QutipBackend(sequence)
+results = backend. run(progress_bar=True)
+data = results.sample final _state()
+
+sorted_data = sorted(data.items(), key=lambda x: x[1], reverse=True)
+normalized data = list(map(lambda x: (x[0], x[1] / 1000), sorted data) )
+normalized data_dict = dict(normalized_data[:10])
+plt.bar(normalized data_dict.keys(), normalized _data_dict.values())
+plt.xlabel("Measured States")
+
+plt.xticks(rotation=90)
+
+plt.ylabel("Probability")
+
+10.0%. Run time: .O1s. Est. time left: 00:00:00:00
+20.0%. Run time: .03s. Est. time left: 00:00:00:00
+30.0%. Run time: 05s. Est. time left: 00:00:00:00
+40.0%. Run time: .06s. Est. time left: 00:00:00:00
+50.0%. Run time: .08s. Est. time left: 00:00:00:00
+60.0%. Run time: .09s. Est. time left: 00:00:00:00
+70.0%. Run time: .lls. Est. time left: 00:00:00:00
+80.0%. Run time: .12s. Est. time left: 00:00:00:00
+90.0%. Run time: .14s. Est. time left: 00:00:00:00
+100.0%. Run time: 0.15s. Est. time left: 00:00:00:00
+Total run time: 0.16s
+
+fc)
+
+oooooo oo
+
+Out[12]: Text(0, 0.5, 'Probability')
+
+0.12
+
+0.10
+
+S
+°
+©
+
+Probability
+S
+Oo
+a
+
+0.02
+
+0.00
+
+001001
+100100
+001010
+010100
+100110
+100101
+
+a o a oO
+oO a o Coal
+f=] ° i=] f=]
+So Ss g S
+a 8 8 &8
+
+Measured States
+
+Now we can see the results which are all our possible MIS you can change the range to plot more top
+values the probabilities or very low this is due to the graph having multiple possible solutions and thus
+are endstate is likely a superposition of these solutions
+
+In [50]: fig, ax = plt.subplots(2, 4)
+top_mesurments = List(normalized data _dict.keys())[:8]
+for i in range(2):
+for j in range(4):
+b = top_mesurments[i * 4 + j]
+ax[i][j].set_title(b)
+ax[i][j].axis("off")
+draw(b, positions, ax=ax[i][j])
+
+100001 010010 010001 100010
+e., 8 e_ G6
+| | | |
+8 B B B
+é / / /
+y, y, 7 Z
+© @| eo <
+qh a ql a
+001001 100100 001010 010100
+| / | | |
+, ® hd bd
+oe ° o , @| oe 1
+
+@ “a

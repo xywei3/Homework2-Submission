@@ -1,0 +1,2369 @@
+2510.25669v1 [hep-ph] 29 Oct 2025
+
+arXiv
+
+MIT-CTP /5948
+
+Minijet thermalization and jet transport coefficients in QCD kinetic theory
+
+4
+
+Kirill Boguslavski,!:? ff] Florian Lindenbauer,?: 2H Aleksas Mazeliausk: ff] Adam Takac
+'SUBATECH UMR 6457 (IMT Atlantique, Université de Nantes,
+IN2P3/CNRS), 4 rue Alfred Kastler, 44307 Nantes, France
+? Institute of Theoretical Physics, TU Wien, Wiedner Hauptstrafe 8-10, 1040 Vienna, Austria
+3 MIT Center for Theoretical Physics — a Leinweber Institute,
+Massachusetts Institute of Technology, Cambridge, MA 02139, USA
+‘Institute for Theoretical Physics, University of Heidelberg, Philosophenweg 16, 69120 Heidelberg, Germany
+
+jana Fabian Zhou' [i]
+
+We apply weakly coupled QCD kinetic theory to investigate the thermalization of high-momentum
+on-shell partons (minijets) in a Quark-Gluon Plasma (QGP). Our approach incorporates isotropic
+hard thermal loop screening to model soft quark and gluon exchanges, allowing us to verify consis-
+tency with established analytic results of jet transport coefficients. We perform kinetic simulations
+of minijets propagating through a thermal gluon plasma, incorporating both collinear radiation and
+elastic scatterings. The resulting evolution is compared to predictions from jet transport coefficients,
+including the longitudinal and transverse jet-quenching parameters g, energy loss, and the drag co-
+efficient. We find that standard definitions of jet transport coefficients neglect the contributions
+from recoiling medium particles. Including these contributions restores consistency with the kinetic
+evolution. Finally, we show that the minijet thermalization time scales remarkably well with g and
+we produce a phenomenological estimate of the minijet quenching time in heavy-ion collisions.
+
+I. INTRODUCTION i [10]. These coefficients have been studied exten-
+
+sively within different theoretical frameworks: leading
+
+The experimental and theoretical study of relativis- and next-to-leading order QCD kinetic theory [11] [1],
+tic nuclear collisions has established a detailed picture of | 2on-perturbative Euclidean lattice QCD (73) [14], light-
+how the Quark-Gluon Plasma (QGP) forms under ex- front QCD Hamiltonian approach [15], glasma simula-
+treme conditions of temperature and density [I]. Its tions (IGHTS}, holography (79) 20), in inhomogeneous and
+properties are explored through a wide range of observ- flowing media [21] [22] and other frameworks [23/25]. On
+ables, including low- and high-momentum hadrons, elec- the phenomenological side, jet transport properties have
+tromagnetic radiation, and heavy-flavor probes. Among also been constrained using collider data and end-to-end
+the most prominent phenomenological signatures of event generators (26/30).
+QGP formation is the energy loss experienced by high- While transport coefficients provide valuable insight,
+momentum partons traversing the medium. This pro- hey have intrinsic limitations. By construction, they
+cess leads to a suppression of high-momentum hadrons describe an idealized single energetic parton propagat-
+and reconstructed jets (jet quenching) relative to an ing through a medium, assuming a large-scale separa-
+
+equivalent proton—proton baseline [5}9]. Hard scatter- ion between the jet energy and the medium tempera-
+ings initially produce highly virtual partons that undergo ure. A more realistic description of jet quenching re-
+
+rapid vacuum-like splittings. As they lose virtuality and quires frameworks that can follow the dynamics of en-
+ecome on-shell, further splittings occur only through ergetic probes from their initialization to eventual ther-
+medium interactions. We refer to these on-shell par- malization. Within the framework of QCD kinetic the-
+ons as minijets to distinguish them from high-virtuality ory simulations, the minijet thermalization studies have
+artons in vacuum showers. A detailed theoretical un- been done in Refs. [31437]. Such an approach also al-
+derstanding of how energetic partons interact with the lows one to investigate jet-medium interactions in out-
+evolving medium remains an outstanding problem. Here of-equilibrium conditions, as realized in the early stages
+we study how the energy and momentum transport of of realistic nuclear collisions.
+
+high-momentum partons relate to the evolution and ther-
+malization of minijets in a kinetic framework.
+
+Jets traversing the Quark-Gluon Plasma are com-
+monly characterized by transport coefficients such as
+he transverse/longitudinal momentum broadening co-
+efficient g, longitudinal drag 7, and conversion rate
+
+In this work, we employ the leading-order QCD effec-
+tive kinetic theory (EKT) to directly compare the tradi-
+tional transport-coefficient description of jet quenching
+with the full microscopic evolution of on-shell jets in a
+medium. For simplicity, we restrict the study to the
+Yang-Mills sector, where gluonic perturbations propa-
+gate through a thermal gluon plasma. The EKT frame-
+work, which has been successfully applied to study the
+chemical, kinetic, and hydrodynamic thermalization of
+the QGP as well as electromagnetic probes [2 [3] [38+
+[44], also contains the essential physics of high-momentum
+parton energy loss [10]. For recent applications to mini-
+jet thermalization in static and expanding plasmas see
+
+Refs. [32}{35] [37]. In this work, we employ an isotropic
+HTL screening prescription for elastic scatterings [45]
+and demonstrate consistency with analytic results for je
+ransport coefficients in the infinite jet-energy limi F In
+contrast, for finite minijet momentum, we show that tra-
+ditionally neglected effects, such as medium recoil and
+radiative corrections, play an important role in defining
+ransport coefficients. We formulate a cutofft-dependen
+definition of transport coefficients by including contribu-
+ions from all particles with momenta p > Acutor and an-
+alyze the resulting cutoff dependence. Our analysis clar-
+ifies the connection between transport coefficients anc
+ull kinetic theory evolution of jet quenching. Finally, we
+‘ollow the minijet evolution up to thermalization and ex-
+ract the corresponding thermalization time, which scales
+remarkably well with g. This relation provides a com-
+act parametrization for minijet thermalization in the
+medium.
+
+The paper is organized as follows. In Section
+riefly describe the EKT framework and the initial con-
+ditions of the EKT evolution. In particular, we com-
+ment on the implementation of isotropic HTL screening
+used in this work. Section introduces the definitions
+of transport coefficients in kinetic theory and highlights
+he approximations made in the traditional definitions.
+We then make a numerical comparison of transport co-
+efficients extracted from the EKT evolution and those
+from direct computations for different low-momentum
+cutoffs. In Section study minijet thermalization
+and show the scaling of the thermalization time with
+Transport properties. Our conclusions are given in Sec-
+ion [VY] For completeness, our paper included a number
+of appendices. In Section we present explicit expres-
+sions for the collision kernels. In Section we detail
+he implementation of isotropic HTL screening for soft
+gluon and quark exchanges and validate the computed
+ransport coefficients in the infinite jet-momentum limit
+against known analytic results. In Section [C] we define
+he expectation value of a general observable in the sin-
+gle collision limit and in Section [D] we provide the corre-
+sponding numerical implementation details. Finally, we
+demonstrate the convergence of transport coefficient ex-
+raction from the EKT evolution in Section |[E]
+
+II. QCD KINETIC THEORY SETUP
+
+The high-temperature QGP can be described as a
+weakly interacting gas of quarks and gluons. The par-
+ticles are then characterized by phase-space distribution
+(2m)? _dNg
+
+ve Padi Where a stands for
+
+functions f,(t,2,p) =
+
+1 Although the main text focuses on the Yang-Mills plasma, in
+Section we derive the isotropic HTL screening prescription
+for soft quark exchanges and compute the corresponding quark
+conversion rate.
+
+the particle species and v, is its number of degrees of
+freedom, 16 for gluons and 6 for each flavor of quarks
+and antiquarks. The distribution functions obey the rel-
+ativistic Boltzmann equation
+
+[a +2. v| falt,2.p) = Call fWte.p), (0)
+
+where C, encodes the collision processes. The relevant
+collision processes were systemized by Arnold, Moore and
+Yaffe (AMY) [LJ] using the hard thermal loop framework
+at leading order in the QCD coupling \ = g?N.. They
+consist of elastic 2 ++ 2 scatterings and collinear 1 + 2
+inelastic collisions for massless particles P° = |p| = p at
+sufficiently high momentum (p > gT).
+
+The elastic collision kernel is given by a multi-
+dimensional momentum integral
+
+1
+
+; : ani
+c= gL fae imal’, y
+bed *
+
+where we used the shorthand notation for the phase space
+integral
+
+[ave _ | (27)*0*(P + Po -— P3— Ps). (3)
+P2p3pa
+
+. a3
+with Jp f ony ; and J Jo oe Here, the delta func-
+tion imposes the 4-momentum conservation. The statis-
+tical gain-loss factor reads
+FP? = f.(p3) fa(Pa)(1 + fa(p))(1 + fo(p2))
+— fap) fo(p2)(1 + fe(ps))(1 + fa(pa)) .
+
+with + for bosons and — for fermions, and all f evaluated
+at the same (t, a).
+
+(4)
+
+The |Mee|? is the spin-, and color-summed hard ther-
+mal loop (HTL) matrix element (see Section [B). In the
+vacuum, it has a pole in the small-momentum exchange
+limit, while at finite temperature, due to screening, it is
+regulated by in-medium masses. In previous works [39}
+[44] [4649], these matrix elements were approximated by
+simple Debye-like screened vacuum matrix elements in-
+cluding a soft-momentum regulator (Debye-like prescrip-
+tion), whose parameter € was chosen to reproduce longi-
+tudinal gluon momentum broadening and the gluon-to-
+quark conversion rate in equilibrium.
+
+Recently, the more complete isotropic HTL screen-
+ing prescription was used in the Boltzmann equation in
+Refs. [33] [35] instead of its approximated Debye-like
+prescription, and differences regarding the shear viscosity
+and the pressure anisotropy were identified. Here, we ex-
+tend previous work by demonstrating that the isotropic
+HTL screening prescription simultaneously reproduces
+the analytical results for longitudinal and transverse mo-
+mentum diffusion in the infinite jet-momentum limit.
+We further develop the isotropic HTL screening for soft
+quark exchanges and show that it reproduces the gluon-
+to-quark conversion rate in the same limit. Since the
+
+remainder of this paper focuses on minijets of finite mo-
+
+mentum in a gluonic plasma, we delegate the detailed
+
+description of the HTL screening implementation and its
+
+validation against results in the literature to Section [B}
+The inelastic collision kernel is given by
+
+o 2n)? aad a a
+CLA = gore De ff eel ae (np! - 8)
+
+be
+
+x WF? (p;p'p, k'p)
+2 3 fore)
+_f 7) >/ dp'dk'6(p +k’ — p')
+0
+
+Ipiva
+
+(5)
+
+be
+x YanF?? (p'p: p, k'B) ,
+where the statistical factor reads
+
+F' (pi; po, ps) = fo(P2) fe(ps)(1 + fa(p1))
+fa(pi)(1 + fo(pe))(1 + fe(ps)) .
+
+and is evaluated at the same (t,a). Here, 7, is the rate
+of collinear splittings a > bc, and is obtained by resum-
+ming multiple interactions with the plasma [II], see Sec-
+ion[A] In practice for numerical efficiency, we interpolate
+etween the Bethe-Heitler and Landau-Pomeranchuk-
+Migdal limits, which reproduces well the results of the
+inear integral equation, which sums up multiple interac-
+ions, see Appendix B of Ref. [50].
+
+In this work we will focus on a thermal Yang-Mills
+lasma at constant temperature T’, and where its thermal
+distribution n (Bose-Einstein for gluons) is perturbed by
+a “minijet” at some energy scale E (but homogeneous
+in space). To follow the evolution of the minijet, we
+employ the linearized Boltzmann equation, which is ob-
+ained by substituting f = n+ df in Eq. (I) and keeping
+only terms linear in 6f. The linearized collision kernels
+have been discussed in previous works and we do not
+repeat the lengthy expressions here [37]. We note that
+
+(6)
+
+he collision matrix element [M23 and splitting rate yf.
+
+depend implicitly on the distribution function f. There-
+ore, generally, the linearized collision kernels should also
+contain linear corrections to [art |? and yj, (see [37]).
+However, in thermal equilibrium, these corrections are
+multiplied by the statistical factors Eqs. (4) and that
+vanish identically. Thus, in the considered case of ther-
+mal background, the linearized collision kernels contain
+only those linearized terms that originate from the sta-
+tistical factors.
+
+Ill. JET TRANSPORT COEFFICIENTS FROM
+THE BOLTZMANN EQUATION
+
+In this section, we introduce the EKT linearization
+framework and minijet dynamics, and we derive their re-
+lationship with traditional definitions and computations
+of jet transport coefficients. Finally, we make a numerical
+comparison between transport properties extracted from
+the linearized EKT evolution and from a direct evalua-
+tion.
+
+A. Linearized Boltzmann equation and observables
+
+The linearized Boltzmann equation for the minijet as
+a small perturbation around the homogeneous medium
+(f =n+f) is given by
+
+A5fi(t,p) = 6Cil{n, 5f}] , (7)
+
+where 6C;[{n,5f}] is the linearized collision term. It
+contain elastic and inelastic scatterings dC; = dC??? +
+6C}? that originate from Eq.
+earization as detailed in Section [A]
+
+As we consider a non-expanding and homogeneous glu-
+onic medium in thermal equilibrium, the background
+medium satisfies the Bose-Einstein distribution n(p) =
+1/(e?/? —1). The initial condition for the minijet is,
+however, taken as a perturbation at momentum po. For
+analytical calculations, we employ a Delta function,
+
+dfi(t=to,p) = €T? x (27)*5ii,5° (p— po), (8)
+
+with initial species index ig. As the distribution function
+must be dimensionless, we have included a T? factor mul-
+tiplied by an arbitrary dimensionless parameter €, where
+we assume that « < 1 that justifies the linearization.
+Note that for numerical simulations of Eq. (7). we will
+instead use a narrow Gaussian function that will be in-
+troduced later.
+
+We define jet observables through the expectation
+value
+
+Divi Jp O(P: 4) 5 fill)
+Viv Sp filt=to, P)
+
+(O(p;%)) (9)
+
+where the denominator is evaluated for the initial dis-
+tribution at t = tp. Note that this definition allows for
+multiple scatterings and thus a nontrivial evolution of the
+observables due to the dynamics of the minijet of;(t, p),
+even for a non-evolving medium, such as in our case. This
+allows us to study jet thermalization due to multiple elas-
+tic and inelastic scatterings with the medium, as well as
+transport coefficients by using a single-hit picture, which
+we can then compare to results in the literature.
+Typical time-dependent observables that we consider
+are the average transverse and longitudinal momenta
+squared of the jet, which quantify momentum broadening
+
+(see also Section [IV)
+((Ap.)’),
+
+((Ap))2), (i?) (10)
+Here, we have decomposed the momentum p into its part
+parallel and transverse to the propagation of the minijet
+initiator, p = py +p1, where p- pp = pj, and p, -po = 0.
+The transverse momentum with respect to po is then
+Ap, =p. =(1- pose) -p, while we distinguish relative
+id
+Ap\ = pi — Po = (Fee — 1)po and absolute longitudinal
+0
+
+broadening.
+B. Collisional expansion and transport coefficients
+
+The linearized QCD kinetic theory can be used to re-
+define jet transport coefficients as single-hit observables
+and numerically compute them. To achieve this, we ex-
+pand the jet distribution in the number of collisions, such
+that
+
+fe = fo + 5fO 4... (11)
+The first two orders are given by
+
+asf =0,
+
+12
+
+af? = 6Ci[{n, 6f}, way
+where 5f) is the free propagation of the initial pertur-
+bation, which is constant in the non-expanding thermal
+case 5 f(t, p) = Ofi(t=to, p). Then, 6f describes the
+distribution of particles after one collision (including elas-
+tic and inelastic processes). Similar to the zeroth order,
+0,6f™ is time independent for our spacetime indepen-
+dent distributions n and 6f©) given by Eq. &.
+
+The expansion has been previously referred to as
+“opacity expansion” with the first orders forming the
+“single-hit” approximation (5T) [52]. We note, how-
+ever, that strictly speaking, a single hit of the medium
+refers to sufficiently hard medium particles with momenta
+k ~ T. In our approach, the linearized collision kernels go
+slightly beyond it as they contain HTL-resummed prop-
+agators, which is consistent with the kinetic evolution
+of the medium. Understanding jet observables within
+the EKT framework and in its opacity expansion aligns
+well with recent theoretical developments in jet quench-
+ing [53}56] and with the isolation of the single/multiple
+scattering regimes in phenomenological applications [57+
+and experimentally [61] [62].
+
+Using the single-hit formulation (12) of the expectation
+values (9) indicated as (-)“), we can conveniently define
+different transport coefficients and express them in terms
+of our collision kerneld2]
+
+Gu = O((Api)?)
+yy
+
+= ik (Ap. )6Ci{{n,6f}, (13)
+
+a
+
+q = 24((Apy) yy
+= er [i (Apy)P5CiI(n,5fH, (14)
+a, = Ar (pi)?
+
+= Tacs [piscinsrH, 8)
+
+2 Note that for our initial conditions, the transport coefficients
+defined in the single-hit expansion are time-independent.
+
+1
+_ (1)
+mp =~ Te vrayet At (p\))
+1
+
+= ppp LD gers ful ootn.5£31, (06)
+e= auip))
+= te | rlscittn. 6H, (17)
+
+r 1
+Bi, = 0,(1) (2,
+
+=> a ner [8 [in 5f}]. (18)
+
+iFio
+
+(1)
+
+Thus, we have defined the jet quenching parameter g1
+and the longitudinal jet quenching parameter qj (qx)
+through transverse and relative (absolute) longitudinal
+momentum broadening of the initial perturbation. Fol-
+lowing Ref. [12], we have also defined the longitudinal
+drag coefficient np and the conversion rate T';,. Note
+that the collisional energy loss coefficient é is closely re-
+lated but not identical to the drag coefficient 7p, because
+most (but not all) of the energy loss of the jet will origi-
+nate from the change in the longitudinal momentum. In
+leading-order kinetic theory, where inelastic processes are
+strictly collinear, the contribution to np and é from these
+processes is identical (up to the factor (pj)). This is only
+approximately true for the elastic processes. Thus, the
+only differences between é and —(pj)np must be due to
+elastic collisions.
+
+oe general expressions for the expectation values
+Eq. in the single-hit approximation are detailed in
+SectionfJand have been partially used in linearized QCD
+kinetic theory frameworks before [47] {6368}. Since the
+elastic matrix element and the tie le rate entering the
+collision kernels also depend on the medium, they in-
+clude terms that additionally contribute to the linearized
+expressions. However, ah are multiplied by the loss-
+minus-gain structures (4) and ( (6), which vanish in ther-
+mal equilibrium te Ge as in our case. We emphasize
+that, in contrast, in an evolving medium (cf. [34]), this
+needs to be taken into account, which modifies the usual
+expressions for transport coefficients.
+In the following, we provide simple approximate ex-
+pressions for the transport coefficients to illustrate their
+main contributions and properties. For ¢,, inelastic col-
+lisions 6C1*? do not change the transverse momentum
+within a single scattering event, and one only needs to
+take elastic scatterings JC??? into account. Aligning po
+with the z-axis (po,1 = 0) leads to p>. = (psin@)°, where
+@ is the polar angle, and assuming po > T' yields the
+approximate form
+
+1
+ee Df Ono tk-o -¥)
+bed ¥ kip! >k!
+
+2p0
+sH(L+naey) — 9)
+
+x [Mie po, hsp’) [n
+
+ed
+
+x [p/P +e Rk].
+) should provide a good approximation of
+
+q. for sufficiently short path lengths relative to the mean
+
+free paths of elastic scatterings and radiation. Note that
+
+Eq. (19) slightly differs from the standard definition of
+(35) (65) [69]
+
+1
+2P0 4
+
+astand
+
+| p.2(2n)*54(po +k — pl —F’)
+k,p'>k!
+
+maven (po, ke; pk’) |? [ny(k)(1 + nalk’))]
+
+(20)
+
+where the additional terms Ki? -
+cussed in the next subsection.
+
+In contrast, for longitudinal momentum broadening,
+radiative processes dominate over elastic scatterings, and
+the expression for the longitudinal jet quenching param-
+eter could be approximated by
+
+= Or oan dk [
+
+x sal ft + k)po; poPo; kpo)
+
+ar) 3 Po /2
+(27) >| dk [k? + (k — po)?]
+
++o
+PO “ab
+
+k% are missing, as dis-
+
+— (k = po)”]
+
+(21)
+
+x (1 £ no(k)) 45, (poo: (po — k)Bo. kBo) -
+
+Similar approximate formulae can be derived for other
+transport coefficients, where in general both elastic and
+inelastic contributions have to be taken into account.
+The impact of each of the two contributions will be as-
+sessed in the following subsections. Moreover, the ap-
+proximate analytical expressions of the transport coeffi-
+cients can be compared to the standard formulations of
+the transport coefficients encountered in the literature,
+as mentioned above. We will provide comparisons ana-
+
+lytically in Section rT ¢ and numerically in Section[IIID
+using the full expressions given by Eqs. to (18).
+
+C. Difference between single-hit collision and HTL
+transport coefficients
+
+Our result in Eq. for the jet quenching parame-
+ter is very similar to previous determinations of g, in
+the high-temperature effective kinetic theory framework
+(e.g., see [12] (69]). The only difference is
+the additional term ki? — ki in Eq. (i9), which can
+
+(
+be attributed to the broadening of the recoiling medium
+In particu-
+the wake that the
+m. However, due
+
+proach, this term
+
+and which was omitted in previous works.
+
+lar, this term can
+
+jet leaves when traversing the mediu
+
+to the consistency
+should not be neg!
+
+be associated with
+
+of the LO kinetic aj
+
+lected when considering the linearized
+
+Boltzmann equation. Furthermore, previous studies fo-
+cused mainly on elastic collisions C?? when evaluat-
+ing transport coefficients, while coefficients like yz, 7p,
+or Tr,
+
+are dominated by radiative processes captured in
+
+on
+
+6C0!*?. In particular, traditionally, radiative contribu-
+tions have been treated as higher-order corrections, while
+here we treat them within the single-hit expansion frame-
+work and show that they are non-negligible. Similar ef-
+forts have been recently done in Refs. [70H74] identifying
+logarithmically enhanced corrections to g,. Beyond the
+single-hit limit, the Boltzmann equation re-iterates these
+radiative corrections, which has become of recent inter-
+
+Let us first discuss the jet quenching parameter in
+Eq. (19) in more detail to single out the impact of the
+wake. Since medium recoils are relatively soft (~ T) com-
+pared to the hard initial perturbation (po >> T), we sep-
+arate the momentum broadening of the jet from recoils
+by introducing a lower momentum cutoff?| Amin using?
+
+G1 (t, Amin) = Or((AP1)?O(P = Amin)
+
+Equation then becomes
+
+(22)
+
+1
+G1 (Amin) © po » | ; sy PAVE (0 +k—p'—k’)
+x |M!°? (po, sp’, k’)? ny (k) (1 + na(k’))
+x [p!,7O(p! — Amin) + k/,7@(k! — Amin)
+— k?. O(k — Amin) -
+
+(23)
+
+In the limit po > Amin > T, the term with k > Amin is
+exponentially suppressed as ny(k >> T) — 0. Similarly,
+the term that involves k’ > Amin implies ng(k’ > T) >
+0, and thus Eq. simplifies to
+
+1
+61 (Amin) © om)t64 k—-p—k
+G1 (Amin) Ope > l, su! )*5*(po +k — p )
+
+x [MiP (Do, ke pk’)? na (k)
+x [a x= na(k’)) pp O(p! ~ Amin)
+
+Even though we introduced an explicit cutoff, the addi-
+tional term including k/, remains, which shows the po-
+tential importance of the recoiling particles for the broad-
+ening. However, this term turns out to be subdominant.
+For instance, one can see this for the cutoff Amin = po/2,
+where one always has O(p’ — Amin) = 1, and thus the
+only difference to the usual expression
+ki,” Ok! —Amin), which only contributes when k’ > po/2.
+Due to the requirement p’ > k’, this also implies that
+
++ kip? O(k! — (24)
+
+3 This infrared cutoff should not be confused with an often em-
+ployed ultraviolet cutoff in definitions of g in the limit of pp + ov,
+see, e.g., Ref. [35].
+
+4 Analogously, we can definite other
+
+to with a cutoff Amin.
+
+transport coefficients
+
+p’ > po/2 is large. If p! = p, then by momentum con-
+servation k is also large and this region is exponentially
+suppressed by the Bose-Einstein distribution n,(k). If
+k' & p' & po/2, this corresponds to large momentum
+exchange with a small matrix element. So indeed for
+Amin = po/2 the standard expression Eq. i
+ered. However, we emphasize that for a general cutoff
+Amin, this is not guaranteed and the more general form
+( should be used. Therefore, we will compare in the
+ollowing our analytical and numerical results for differ-
+ent cutoffs Amin.
+
+D. Comparison to kinetic theory simulations
+
+Having discussed the analytical expressions for the
+ransport coefficients, we now present our numerical re-
+sults computed using kinetic theory simulations of a mini-
+jet evolution and a direct Monte-Carlo evaluation of the
+corresponding single-hit formulas Eqs. to (is). As
+discussed in the previous section, the traditional defini-
+ions of transport coefficients neglect the low momentum
+medium recoil, while EKT evolves partons at all momen-
+um scales. Therefore, it is natural to introduce a low
+momentum cutoff Ayin as in Eq. to distinguish the
+minijet contribution from the plasma and to study how
+he transport coefficients depend on it.
+
+In kinetic theory simulations, we therefore initialize a
+gluon minijet with energy E = 50T as a narrow Gaussian
+erturbation with the width 0 = 0.005F centered around
+Po = (0,0, E)
+
+(20)? py _(w=m0)?
+
+For 0 — 0, the perturbation Eq. corresponds to
+the d-distribution in the corresponding initial condition
+Eq. for our semi-analytical calculations. The ini-
+tial number and energy densities are indeed given by
+dno = evgT?Erf(E/(V2c))  evgT?, and deg = 6TP° =
+evgET?.
+
+In Fig. we show the results for the transverse
+momentum broadening coefficient ¢1 (Amin) for differ-
+ent coupling constants A = 2,5,10,20 and IR cutoffs
+0 < Amin < 257 = E/2. We scale out the leading cou-
+pling dependence and plot the ratio ¢, /A?.. The bands
+correspond to the statistical uncertainty of ten EKT sim-
+ulations, where we evaluate the EKT collision kernel for
+a single time step and compute the transverse momen-
+tum broadening with a given cutoffP] The small value
+of ¢ = 0.005 requires a fine discretization of the mo-
+mentum grid, which is discussed in Section [E] We have
+tested the convergence of our results for different values
+of o and various grid discretizations.
+
+bfg(p) =€
+
+5 The subsequent time steps in EKT will lead to time-dependent
+effective transport coefficients, see Section [IV]
+
+0.20 G22 only
+=a Mm \=2 z
+a 0.16 Ge A =5 © single-hit
+x I A=10 == Standard
+
+gm a ||
+© 0.08 : 34
+0.04
+0.00
+
+FIG. 1. Transverse momentum broadening coefficient @, for
+initial minijet energy E = 50T and different couplings A as
+a function of lower momentum cutoff p > Amin. Bands in-
+dicate statistical uncertainty of a single-step evolution of a
+gaussian perturbation in EKT, while points show the direct
+Monte-Carlo evaluation of a single-hit transport integrals, see
+. Dashed lines show the traditional cutoff
+independent definition of G1, Eq. (20).
+
+The points in Fig. [I] correspond to the single-hit eval-
+uation of transport integrals, Eq. (22), for which the sta-
+tistical uncertainty is negligible. For delta-like minijets,
+the collinear splittings do not contribute to transverse
+momentum broadening. For the gaussian approximation
+of the minijet used in kinetic simulations, the collinear
+splitting contribution reduces with decreasing width o
+and vanishes in the limit ¢ + 0 (not shown). For a more
+direct comparison between the two methods, we explic-
+itly turned off the inelastic processes to obtain Fig
+
+First, one observes in Fig. [ijthat G1 (Amin) scales only
+approximately with \, as the coupling enters the screen-
+ing of the matrix elements, such that larger screening ef-
+fects lead to smaller values of g, /\?. We see a clear two-
+stage dependence on the IR cutoff Amin. For small cut-
+offs, the broadening of the medium recoil partons leads
+to an increase of the q, values. For larger IR cutoffs,
+momentum broadening slowly decreases and approaches
+the standard values of g, in Eq. or the cutoffs
+Amin ~ E/2. The kinetic and single-hit values produce
+the same qualitative dependence on the cutoff and agree
+well for the momentum cutoffs Ayin 2 107. For smaller
+cutoffs we observe systematically ~ 20% larger values
+for EKT simulations than from the direct evaluations.
+In principle, for narrow gaussian perturbations ¢ > 0,
+the two approaches should be equivalent. However, the
+EKT simulations require sufficient momentum discretiza-
+tion to resolve the minijet perturbation, and it becomes
+numerically challenging to take this limit. As discussed
+in Section [E] we have performed a systematic variation
+of the simulation parameters, but were not able to make
+the two computations completely overlap. We note that
+other transport coefficients seem to be less sensitive and
+show better agreement with direct computations even at
+low Amin-
+
+80 F Sst
+Ma A=2
+
+a 60F GS A=5
+
+x =
+
+= = \= 5
+
+= L me A=
+
+& 40 e  single-hit
+
+“Disha
+
+Amin/ T
+
+FIG. 2. Longitudinal momentum broadening coefficient qj
+for initial minijet energy H = 50T and different couplings
+as a function of lower momentum cutoff p > Amin. Bands
+indicate statistical uncertainty of a single-step evolution of a
+gaussian perturbation in EKT, while points show the direct
+Monte-Carlo evaluation of a single-hit transport integrals, see
+. The lower panel shows the relative contribution of
+inelastic processes.
+
+—8 7 gm) =10 = , i —
+ea A= 20 ie
+e  single-hit —
+L 1 1 1 i 1
+
+1.0
+™,(@eeee@ @ @ @ 8 @ @ @ @
+g 0.57
+S 9 L 1 L 1 1 i
+“0 5 10 15 20 25
+Amin/T
+
+FIG. 3. Longitudinal momentum broadening coefficient gx
+for initial minijet energy H = 50T and different couplings
+as a function of lower momentum cutoff p > Amin. Bands
+indicate statistical uncertainty of a single-step evolution of a
+gaussian perturbation in EKT, while points show the direct
+Monte-Carlo evaluation of a single-hit transport integrals, see
+The lower panel shows the relative contribution of
+inelastic processes.
+
+Next, we turn to longitudinal broadening. Since the
+initial perturbation carries a large longitudinal momen-
+tum, two types of transport coefficients can be distin-
+guished: broadening relative to the initial jet momen-
+tum and the absolute longitudinal broadening, charac-
+terized by qj) and g,, respectively, as also distinguished
+
+in Eq. (0)
+
+In Fig.|2| we show the relative longitudinal broadening
+coefficient qj (Amin) as a function of the IR-cutoff Ain for
+different couplings. The collinear processes significantly
+modify the longitudinal momentum and are therefore in-
+cluded in this computation. In the lower panel, we show
+the relative contribution of inelastic processes to qj. For
+small cutoffs Amin < 2.57, the soft collinear radiation
+fully dominates and we observe large positive values of
+q, which reduce drastically for larger cutoffs. We em-
+phasize that even at these larger cutoffs, the inelastic
+processes contribute more than half of the total relative
+longitudinal broadening. We note that qj scales well with
+\? and shows good agreement between EKT and single-
+hit computations.
+
+Finally, in Fig. [3| we show the absolute longitudinal
+broadening coefficient Gz (Amin) as a function of the IR-
+cutoff Amin. Note that here we consider the change of the
+absolute width (Pj); which is initially finite and large.
+
+Since energy is transported to lower momenta, (pi) de-
+creases and gy, is negative. Furthermore, for larger Amin,
+we integrate over a smaller phase space around the initial
+perturbation and more energy flows to lower momenta
+p< Amin. Therefore, we observe an increase of |gz| with
+Gi < 0 for larger Amin. We also find a similar ordering
+of the absolute values |@;,|/A? that grow for smaller cou-
+plings as for g, in Fi We note that independently of
+the cutoff, the inelastic processes contribute more than
+half to this transport coefficient, as shown in the lower
+panel. Overall, we see a good agreement between kinetic
+and single-hit computations within statistical uncertain-
+ties.
+
+Finally, in Fig. 4 we show results for the drag coef-
+ficient 7p(Amin) given by Eq. ; which measures the
+longitudinal momentum loss. Due to momentum con-
+servation, the net longitudinal momentum is conserved
+yielding 7p(Amin=0) = 0. For larger cutoffs, more mo-
+mentum can flow to p < Amin, and the drag increases.
+From the lower panel of Fig. [4] we see that the inelas-
+tic processes are the dominant source of the drag. For
+small Ain, the ratio nigel: np is slightly larger than one.
+Therefore, at those small cutoffs, the elastic processes
+contribute negatively to the (very small) drag coefficient.
+For this transport coefficient, we see a good agreement
+between single-hit and EKT computations. We also com-
+puted the energy loss coefficient €. However, for a narrow
+
+6 As the jet thermalizes, relative longitudinal broadening becomes
+ambiguous, and in Section[IV] we will consider absolute longitu-
+dinal broadening instead.
+C14? and O22
+
+0.54 A
+a A= 20
+0.0F @ — single-hit
+Qld
+= 10-88
+a ost  °8 @ @ ee eee s
+nel 0.0 i 1 Ll l i 1
+“0 5 10 15 20 25
+Amin/T
+
+FIG. 4. Longitudinal momentum drag coefficient 7p for ini-
+tial minijet energy E = 50T and different couplings A as a
+function of lower momentum cutoff p > Amin. Bands in-
+dicate statistical uncertainty of a single-step evolution of a
+gaussian perturbation in EKT, while points show the direct
+Monte-Carlo evaluation of a single-hit transport integrals, see
+. The lower panel shows the relative contribution of
+inelastic processes.
+
+jet, the longitudinal momentum and energy loss are re-
+lated by a jet energy factor and a minus sign (results not
+shown).
+
+In summary, we find significant cutoff dependence
+of all transport coefficients, indicating a non-negligible
+medium recoil contributions. For ¢, only elastic scat-
+
+ss contribute, but other transport coefficients (see
+are dominated by radiative processes (ratios
+in the lower panels greater then 0.5). Therefore the com-
+plete description of energy and longitudinal momentum
+transport must necessarily include inelastic processes.
+
+IV. MINIJET THERMALIZATION TIME
+A. Early time behavior and g scaling
+
+In this section, we study the relation between jet trans-
+port coefficients and the thermalization time of the lead-
+ing jet parton. Following [33] [37], we initialize the Yang-
+Mills kinetic theory with a Bose-Einstein distribution neq
+with temperature T for the background medium and add
+a narrow Gaussian perturbation with the energy |po| = E
+given by Eq. that initializes the linearized Boltz-
+mann equation for the jet evolution. In this section,
+we use initial perturbations of width o = 0.01E (see Sec-
+tio for further discretization details). At late times,
+the perturbation equilibrates to a boosted thermal dis-
+tribution
+
+Sf (t,p) = (6TOr + 6u7Dy=)neq(Put!)|yx-9 » (26)
+
+0 100 200 300 400
+
+0 1 2 3
+
+tT (\Gu|/T) x10#
+
+FIG. 5. Momentum broadening (p7.) and (Pj) as a function
+of time for different couplings A, at fixed jet energy E = 50T.
+We scale the time with transverse and longitudinal broaden-
+ing coefficients g; and gz, respectively. The gray lines show
+the linear slope. The inset shows the unscaled evolution as
+a function of t7’. The vertical black line indicates the time
+where the minijet is within 10% deviation from the equilib-
+rium value.
+
+Correspondingly, the equilibrium number and energy
+densities are dreq = v7? 67 and d€eq = 12 T3657.
+Energy and momentum conservation ensures a relation
+between initial and final energy densities, and we find
+
+the net-temperature incree
+
+30
+
+~ 4°
+
+oT EB, (27)
+which for « < 1 can be always made arbitrarily small,
+ie., OT <T. From this, we can also compute the trans-
+verse and longitudinal momentum expectation values for
+equilibrated partons according to Eq.
+
+20
+(Pii)ea = 3(P1)ea a) 6 (5)T*8T/5n0 , (28)
+with the initial jet parton density dno = vel.
+
+7 Note that the velocity term in Eq. does not contribute to
+the energy density integral (or any integral even in pz).
+In order to investigate the equilibration of the initial jet
+erturbation, we will study its broadening in momentum
+ace. In the upper panel of Fig. [5] we show the squared
+ransverse momentum evolution relative to the equilib-
+rium values for different couplings \. The jet perturba-
+ion has an initially small transverse width, (p?)o © 0.
+During the evolution, the perturbation isotropizes. In
+ne inset we display the evolution of (p?.) as a function
+of time in units of (constant) background temperature
+T, i.e., tf. For small A, the system takes longer to reach
+equilibrium. The initial increase of (p?) is well captured
+by the straight line (p? ) ~ qt (dashed lines) following
+ne single-hit expansion. Therefore, in the main panel of
+ne figure, we rescale the time with g, computed from
+Eq. (23) and shown as points in Fig. |1] for Amin = 0.
+At intermediate times, inelastic pro $s will also con-
+ribute and the transverse width increases at a rate faster
+han the initial linear growth. We note that after rescal-
+ing, all of the curves collapse onto each other at early
+imes and also, remarkably, at late times. This indicates
+that in our settings, the coupling dependence of the mini-
+jet equilibration at all times is reasonably well captured
+by the transport coefficient ¢,. We will discuss late-time
+deviations not visible in Fig. [5]in the next section. Com-
+
+ared to a previous study [37], where the late time trans-
+ort coefficient 7/s was used to rescale time, the “early
+ime” quantity g| provides a better description.
+
+w
+
+In the lower panel of Fig. [5] we show the evolution of
+he longitudinal momentum. The jet perturbation has
+an initially large longitudinal momentum (p?)) ~ E?,
+
+hat rapidly decays to a thermal value. After rescaling
+the time axis with the single-hit |qj|, we see a reasonably
+good collapse for different couplings even for late times.
+However, we note that in contrast to transverse broaden-
+ing, the decrease in the squared longitudinal momentum
+is dominated by the inelastic processes. Although on
+the scale of Fig. [5] q describes the initial slope of the
+curve reasonably well (dashed line), the curve actually
+deviates from this linear behavior earlier than for trans-
+verse momentum broadening. We have observed this by
+considering the time dependence of the derivative of the
+curve (data not shown).
+
+Finally, in Fig. {6} we show the time evolution of the
+transverse momentum squared (p?) for different jet en-
+ergies E for \ = 10. The inset shows that higher-energy
+jets take longer to thermalize. The parametric scaling
+of the thermalization time with energy can be obtained
+by considering the time it takes the initial jet to radiate
+its energy away [39]. The soft splitting rate is given by
+
+dN was 2Ca [Cadi
+dzdt ~ Qn z 2E
+
+tum fraction. Then the expected energy
+
+a single radiation over time At is AE = At f dzzE 2.
+
+Requiring AE ~ E results in the thermalization time
+scaling tin ~ aVvE/a. Using that parametrically
+Gd. ~ a?T® [10], we reproduce the parametric behavior of
+the thermalization time ty, ~ arve/t, see Ref. 9].
+On the other hand, we can express the
+
+where z is the radiated momen-
+loss AF from
+
+hermalization
+
+200 400
+tT (G1 (E)/T?)
+100 200 300 400
+tT (G1 (E)/T?)/VE/Eo
+
+FIG. 6.
+
+Transverse momentum broadening (p71) for coupling
+
+X = 10 and different initial minijet energy E. We scale the
+
+time axis by g, (EZ) and VE.
+
+The vertical black line indicates
+
+the time where the minijet is within 10% deviation from the
+
+equilibrium value.
+only scaled by g.(£).
+
+The inset shows evolution where time is
+
+time without explicit dependence on the coupling con-
+
+stant as
+E/Eo
+tn poe (29)
+where Ep is some fixed reference energy scale. In the
+
+main panel of Fig. [6] we rescale the time using Eq.
+
+with Ey =
+agrees as in Fig. |5| but al
+
+507. The initial slope of the curve no longer
+
+curves corresponding to dif-
+
+ferent energies approach equilibrium simultaneously.
+Knowing how the evolution scales with the parameters
+
+gq. and E, we can now g!
+
+of the equilibration time of the minijet. We
+
+thermalization time tj, to
+
+‘ive a quantitative estimation
+choose the
+be the one where (p7) reaches
+
+90% of the equilibrium value (vertical black line in Fig. [6)
+
+(pit = ten
+
+In our kinetic theory simu
+
+1.) = 0.9(p? Jeg. (30)
+
+ations, we find that a minijet
+
+with initial energy E = 507 thermalizes at the time
+
+- Qt 1/2
+
+E
+ten © 150T- =) ,
+fen 150 ‘(&) (=) ;
+
+(31)
+
+To provide a phenomenological estimate of the ther-
+
+malization time in heavy-
+
+constant medium temperature T =
+
+15 GeV,
+
+ion collisions, we choose the
+0.3GeV and BE =
+
+ttn ©
+
+_1l0im/ FT \'/ Bb \v
+G1 /T? \0.3GeV 15 GeV :
+
+(32)
+
+For typical values of the jet quenching coefficient
+G1 /T*? = 2-10 (@, = 0.3 — 1.4GeV?/fm) BO], we get
+
+ttn = 50—10fm. This is a
+
+significantly longer time than
+
+previous estimates based on extrapolations using shear
+viscosity over entropy ratio 7)/s [37]. Note that in leading
+1.20
+— 1%), mal = 2.98
+115
+° — ), mT =2.84
+_ 1.10 —= 67, tr =2.90
+a =) tT = 2.90
+# 1.05
+F 1.00
+20.95 j
+ce &
+0.90 g
+YM EKT 8 10-5
+0.85} py = 507 = 28
+0.80 Xr 10 A 0 20 40
+0.805 10 20 30 40 50
+
+=
+
+FIG. 7. The late-time evolution of longitudinal and transverse
+pressure and momentum squared, their relaxation to equilib-
+rium, and the extracted relaxation times.
+
+order QCD kinetic theory, the coupling constant does not
+run, and the low and high momentum partons interact
+with the same coupling strength. The phenomenologi-
+cally favored values of 1/s ~ 0.16 correspond to a more
+strongly coupled plasma (A > 20) than the phenomeno-
+logically favored values of g, /T? ~ 2-10 (A~ 5-10).
+This reflects the fact that higher-momentum partons in-
+teract more weakly than the bulk QGP. Therefore, the jet
+thermalization time obtained in Eq. is more realistic
+and consistent with jet phenomenology.
+
+B. Late time relaxation and second-order
+hydrodynamics
+
+Strictly speaking, Eq. provides only a time es-
+timate of a minijet to lose most of the initial state in-
+formation. The final approach to equilibrium and ther-
+malization are governed by the universal hydrodynamic
+relaxation applicable to any small perturbation around
+equilibrium. Here, we will study the late-time approach
+of minijet perturbations to equilibrium, Eq. . Inequi-
+librium, the energy-momentum tensor is given by
+
+OT) = vg TOT,
+oT => gy a “T5u', (33)
+6Te = 1672, sri =0.
+
+shows the late-time evolution of longitu-
+dinal and transverse pressure and momentum, all of
+which asymptotically approach their equilibrium values
+In the inset, we show the deviations
+from equilibrium, revealing an exponential relaxation be-
+havior « e~'/7®, This indicates that the late time equi-
+libration of perturbations could be well described by the
+
+10
+
+relaxation time approximation of kinetic theory [82] [83],
+which is characterized by a single relaxation time Tr. In
+che legend, we show the extracted relaxation time Tr for
+each observable in units of the background temperature.
+The fitted values of around TrT ~ 2.9 in Fig.[7Jare similar
+for both pressure and momentum observables. We note
+chat the relaxation time for longitudinal and transverse
+pressure are identical thanks to energy conservation and
+conformality of massless kinetic theory. This does not
+apply to averaged transverse and longitudinal momen-
+um and we observe £
+
+5% variation in the extracted value.
+These differences might reflect the residual momentum
+dependence on relaxation time in QCD kinetic theory.
+
+The late time equilibration of the energy-momentum
+censor is described by viscous hydrodynamics. In second-
+order hydrodynamics, the relaxation time of spatial com-
+ponents of the energy-momentum tensor is governed by
+she Miiller-Israel-Stewart (MIS) equation [84]
+
+Tens = 7 4 nit, (34)
+
+Here 7”! is the non-ideal dissipative part of the energy-
+momentum tensor, TY = 64%P +7, and 77’ is the first-
+order gradient correction to the energy-momentum ten-
+sor. The second-order hydrodynamic transport coeffi-
+cient T; describes the relaxation of tI to the Navier-
+Stokes expectation mj’, which is zero for our homoge-
+neous system. T; was computed in QCD kinetic theory
+at leading [66] and next-to-leading order [67]. We can
+compare our extracted relaxation time Tr to the com-
+puted values of 7; in 0-flavor QCD for 4 = 10, where
+trl /(n/s) &% 5.2 at mp/T = V/d/3 & 1.8 in Fig. 1
+in [66]. For \ = 10 the specific shear viscosity in a gluonic
+plasma is 7/s + 0.513 [45], such that the extracted value
+of the relaxation time corresponds to TrT'/(n/s) ¥ 5.65.
+This value is in reasonable agreement (within 5%) with
+the value found in the literature. Unlike the thermaliza-
+tion time, Eq. the 7, does not depend on the initial
+minijet energy, since such information has been lost by
+the time the hydrodynamic equations become applicable.
+
+Vv. CONCLUSION
+
+As a high-momentum parton (minjet) traverses a high-
+temperature QCD plasma, it interacts with the medium
+through scatterings characterized by jet transport coeffi-
+cients, such as the transverse momentum broadening 1
+and drag coefficient np. In this work, we investigated
+the thermalization of on-shell minijets in a weakly cou-
+pled gluonic plasma using AMY kinetic simulations with
+elastic scatterings and collinear radiation on a thermal
+background. In particular, our implementation employs
+an isotropic hard-thermal-loop (HTL) screening of soft
+exchanges. Because the kinetic evolution incorporates
+both elastic and inelastic processes as well as the recoil
+of medium constituents from high-momentum partons,
+we observe quantitative deviations between the full EKT
+
+evolution and the standard definitions of transport coef-
+ficients.
+
+We performed a single-scattering (opacity) expansion
+of the Boltzmann equation and derived general expres-
+sions for the expectation values of moments of the distri-
+bution function, such as the squared transverse momen-
+tum (p?). By defining transport coefficients through the
+time derivatives of these moments, we recover the con-
+ventional expressions known from analytic treatments.
+However, standard formulations of jet transport coeffi-
+cients typically neglect the contributions from recoiling
+medium particles and inelastic processes. Our analysis
+demonstrates that these effects are quantitatively impor-
+ant and must be included for a consistent description
+of the minijet evolution. The transport coefficients ex-
+racted from the single-hit expansion show good agree-
+ment with the early-time behavior observed in full kinetic
+simulations. Finally, we show that the traditional expres-
+sions can be approximately recovered by introducing a
+arge infrared cutoff that suppresses the recoil contribu-
+ions.
+
+We also studied the thermalization of a minijet in a
+non-expanding thermal medium. The early-time evolu-
+ion is well described by jet-transport coefficients, as ex-
+pected. Remarkably, when the evolution time is rescaled
+by these transport coefficients, most notably by the je
+quenching coefficient g,, the results exhibit a univer-
+sal scaling behavior across different coupling strengths
+and energies, extending smoothly up to the thermaliza-
+tion stage and outperforming previous rescalings based
+on 7/s. From this analysis, we derived a compact phe-
+nomenological formula that provides realistic estimates o
+the minijet thermalization time in heavy-ion conditions.
+Close to equilibrium, we confirm that the relaxation o
+perturbations is consistent with second-order hydrody-
+namic coefficients obtained in earlier studies.
+
+A natural next step is to include dynamical quarks
+and quark-gluon conversion channels within the same ki-
+netic framework. In Section [B] we have already derived
+a practical implementation of isotropic HTL screening
+prescription for fermions and validated it against ana-
+lytical result of gluon-quark conversion rate in Fig.
+However, our preliminary attempts to extract transpor
+coefficients from the linearized EKT evolution including
+fermions suffer from numerical instabilities, which cur-
+rently prevent a quantitative comparison with the direc
+computation of transport coefficients, such as done for
+the gluonic plasma in Section [TID] These instabilities
+originate from the current implementation of the Monte
+Carlo sampler, which does not account for the fact tha‘
+minijets have very small support in the sampled phase
+space. As a result, the sampling becomes highly ineffi-
+cient, which is not the case for the smoother distributions
+encountered near equilibrium. A revised sampling strat-
+egy tailored to such extreme initial conditions could im-
+prove numerical stability, which we leave for future work.
+
+Another extension of this work is to relax the assum)
+tion of a static medium. Since the QGP expands rapidly,
+
+11
+
+the evolving background can significantly modify the dy-
+namics of minijet propagation. As discussed in [37] and
+noted in this work, such dynamical effects introduce ad-
+ditional linear contributions to the collision kernels that
+stem from the perturbation of the (screened) matrix el-
+ements. These terms also affect the transport properties
+of the minijet. However, their size and form can depend
+strongly on the chosen screening prescription for elastic
+tterings and collinear splittings. To our knowledge,
+these additional terms have not been included in previous
+studies involving non-equilibrium backgrounds [45], but
+are needed for a consistent linearized description of trans-
+port in an expanding and dynamically evolving medium.
+
+Finally, for an evolving anisotropic medium there are
+further corrections that should be taken into account.
+In particular, currently the internal soft propagators are
+screened isotropically. Large momentum-anisotropy of
+che non-equilibrium medium affects the collision kernels
+and the underlying collinear splitting rate [86] [87]. While
+previous studies within QCD kinetic theory [39} ne
+glected the effect of plasma instabilities resulting from
+che anisotropy [88] [89], justified by the observation that
+hey do not play a dominant role in the high-occupanc
+regime of the thermalization process [90] [91j, recent stu
+ies have put forward suggestions of how they can be ac-
+counted for in the descriptions of hard probes and kinetic
+heory [92] [93]. Further studies are needed to obtain a
+practical way of their inclusion in kinetic theory simula-
+ions.
+
+In summary, our work demonstrated how the simpli-
+fied picture encoded in jet transport coefficients emerges
+rom the full kinetic evolution of on-shell partons in the
+QGP. Despite the differences in the details, we demon-
+strated that ¢ scaling provides a practical mapping from
+medium properties to jet quenching times. Confronting
+his with system-size and energy dependencies in light-
+and heavy-ion collisions can deliver tighter constraints on
+jet-transport coefficients and on the onset of thermaliza-
+ion in small systems.
+
+a+ 6
+
+T <<
+
+ACKNOWLEDGMENTS
+
+We thank Ismail Soudi for useful discussions. This
+work is supported by the DFG through the Emmy
+Noether Programme (project number 496831614) (AM,
+AT, FZ), through CRC 1225 ISOQUANT (project num-
+ber 27381115) (AM, AT, FZ), and by the Austrian Sci-
+ence Fund (FWF) under Grant DOI 10.55776/P34455
+(KB, FL) and 10.55776/J4902 (FL). FL is a recipient
+of a DOC Fellowship of the Austrian Academy of Sci-
+ences at TU Wien (project 27203). For the purpose of
+open acc the authors have applied a CC BY pub-
+lic copyright license to any Author Accepted Manuscript
+(AAM) version arising from this submission. We thank
+ECT* for support at the Workshop “Attractors and ther-
+malization in nuclear collisions and cold quantum gases”
+during which we profited from useful discussions. We ac-
+
+knowledge support by the state of Baden-Wiirttemberg
+through bwHPC and the German Research Foundation
+
+1] W. Busza, K. Rajagopal, and W. van der Schee,
+Heavy Ion Collisions: The Big Picture, and the Big
+
+Questions
+. Schlic! ting and D. Tenney, The First fm/c of Heavy-
+
+J. Berges, M. P. Heller, A. Mazeliauskas, and R. Venu-
+gopalan, QCD thermalization: Ab initio approaches
+and interdisciplinary connections,
+4] S. Cao, A. Majumder, R. Modarresi-Yazdi, I. Soudi,
+and Y. Tachibana, Jet Quenching: From Theory to
+
+Simulation, Int. J. Mod. Phys. E 33, 2430002 (2024)
+arXiv:2401.10026 [hep-p:
+
+J. Casalderrey-S C. A. Salgado, Introductory
+lectures on jet quenching in heavy ion collisions, Acta
+
+19
+
+the jet quenching parameter from AdS/CFT,
+Lett. 97, 182301 (2006 } arXiv:hep-ph/0605178
+
+12
+
+(DFG) through grant no INST 39/963-1 FUGG (bwFor-
+Cluster NEMO).
+
+glasma using the colored particle-in-cell method,
+
+ie D 107, ae 2023)
+
+arXiv:2303.05599 [hep-ph
+: . Mrowczynski, Jet
+™ aque in sla,
+
+H. HP K. Tajacopa , and U. A. Wiedemann, Calculating
+
+20] J. Casalderrey-Solana, H. Liu, D. Mateos, K. Raja;
+
+‘opal,
+
+Gauge/String Duality, Ho
+
+and U. Achim Wiedemann,
+
+QCD and seayy Ion Collisions eee University
+
+21] J. a. Barata, A. V. Sadofyev, an . A. Salgado, Jet
+
+roadening in ‘ome inhomogeneous wmstter Phys. Rev.
+
+D 105, 114010 (2022)\ arXiv:2202.08847 {hep-ph]}
+22) M. V. Kuzmin, X. Mayo Lopez, J. Reiten, and A. V.
+
+Sadofyev, Jet quenching in anisotropic flowing matter,
+
+Phys. Polon. B 38, 3731 (2007), jarXiv:0712.3443 [hep-
+
+D. d’Enterria, Jet quenching, Landolt-Bornstein 23, 471
+arXiv:0902.2011 [nucl-ex]
+
+7| N. Armesto and E. Scomparin, Heavy-ion collisions at the
+Large Hadron Collider: a review of the results from Run
+
+1, Eur. Phys. J. Plus 131, 52 (2016), arXiv:1511.02151
+M. Connors, C. Nattrass, R. Reed, and S. Salur, Jet mea-
+
+surements in heavy ion physics, Rev. Mod. Phys. 90,
+025005 (2018), arXiv:1705.01974 [nucl-ex
+
+9] L. Cunqueiro and A. M. Sickles, Studying the QGP with
+Jets at the LHC and RIC, Prog. Part. Nucl. Phys. 124,
+10) Tm iglieri and D. Taney, Parton energy loss and mo-
+mentum broadening at NLO in high temperature QCD
+plasms, Int. J. Mod. Phys. E 24, 1530013 (2015)
+1 EX 1302.08780 Then- Dh]
+A TOI 1 De TROLy, and L. G. Yaffe, Effe
+Gass theory for. high temperature gauge theaxies|
+
+oe ___ 01, 030 arXiv: arXiv:hep-ph/0209353)
+a Toy eee eB toe aed . D. Moore, and D. Teaney, Jet-Medium
+
+Febeone ore at NLO ina Weakly- Coupled Quark-Gluon
+
+Plasma, JHEP 03, 095, arXiv:1509. ae) hep- ph
+13] M. Panero, > Rummu ainen, and
+
+Study of the Jet Quenching Parameter,
+112, 162001 (2014), jarXiv:1307.5850 [hep-ph]
+
+14] G. D. Moore and N. Schlusser, Transverse momentum
+
+ive
+
+24)
+
+Phys. Rev. D 109, 014036 (2024) arXiv:2309.00683 [hep-
+
+23) J. Uphoff, F. Senzel, O. Fochler, C. Wesp, Z. Xu, and
+
+C. Greiner, Elliptic flow and nuclear modification factor
+in ultrarelativistic heavy-ion collisions within a partonic
+
+. Grishmanovskii, O. Soloveva, T. Song, C. Greiner,
+and E. Bratkovskaya, Jet transport coefficients by elas-
+tic and radiative scatterings in the strongly interacting
+
+-N. Wang, and Y. Zhu, Linear Boltz-
+mann Transport for Jet Propagation in the Quark- Clon
+Plasma: Blssiuc Processes and Medium Recoil,
+
+28| S. Cao et al. ‘GET APE), Determining the jet trans-
+
+s,/Phys. Rev. C 90, 014909 ( 3014
+
+port coefficient ¢ from inclusive hadron suppression mea-
+surements using Bayesian parameter estimation,
+Rev. C 104, 024905 (2021), arXiv:2102.11337 {nucl-th]]|
+
+broadening froma the lattice, Phys. Rev. D 101, 014505
+ma) Phys.Rev.D 101, 059903 (2020)],
+15] M. Li, Trappe X. Zhao, and C. A. Salgado, Momentum
+caren of an in-medium jet evolution using a light-
+
+front Hamiltonian approach, [Phys. Rev. D 108, 036016}
+(2023) arXiv:2305.12490 [hep-ph]
+
+16] A. Ipp, D. I. Miller, and D. Schuh, Jet momentum broad-
+ening in the pre-equilibrium Glasma,
+17] D. Avramescu, V. Baran, V. Greco, A. Ipp, D. I. Miiller,
+and M. Ruggieri, Simulating jets and heavy quarks in the
+
+30] R. Ehlers et al.
+
+29] B. Karmakar, D. Zigic, I. Salom, J. Auvinen, P. Huovi-
+
+nen, M. Djordjevic, and M. Djordjevic, Constraining n/s
+through high-pl theory and data, P
+044907 (2023) arXiv:2305.11318 [hep- ph)
+
+JETSCAPE), Bayesian inference anal-
+ysis of jet quenching using inclusive jet and hadron
+
+suppression measurements, [Phys. Rev. C 111, 054913
+
+(2025)} jarXiv:2408.08247 [hep-ph]
+31] S. Cao and X.-N. Wang, Jet quenching and medium
+
+response in high-energy heavy-ion collisions: a review,
+
+Rept. Prog. Phys. 84, 024301 (2021), arXiv:2002.04028
+32
+
+S. Schlichting and I. Soudi, Medium-induced fragmenta-
+tion and equilibration of highly energetic partons, JHEP
+
+50
+
+13
+
+A. Kurkela, R. Térnkvist, and K. Zapp, AMY Lorentz
+invariant parton cascade — the thermal equilibrium case,
+
+07, 077, larXiv:2008.04928 [hep-ph]
+3. . Mehtar-Tani, S$. Schlichting, and I. Soudi, Jet ther-
+
+malization in QCD kinetic theory,
+K. Boguslavski, A. Kurkela, T. Lappi, F. Lindenbauer,
+and J. Peuron, Jet momentum broadening during initial
+
+stages in heavy-ion collisions, Phys. Lett. B 850, 138525
+
+Lappi, F. Linden-
+Jet quenching parameter in
+
+51
+
+53
+
+C 79, 759 (2019), arXiv:1805.04081 [hep-ph
+
+52
+
+057) arXiv:1903.00506 [hep-ph]
+
+Eur. Phys. J. C 84, 74 (2024)| arXiv:2211.15454 [hep-ph]
+pacity de-
+
+. Kurkela, U. A. Wiedemann, and B. Wu,
+pendence of elliptic flow in kinetic theory,
+
+V. E. Ambrus, S. Sc
+tablishing the Range o!
+in High-Energy Co
+
+ichting, and C. Werthmann, Es-
+Applicability of Hydrodynamics
+lisions, Phys. Rev. Lett. 130, 152301
+Y. Mehtar-Tani, Gluon bremsstrahlung in finite media
+beyond multiple soft scattering approximation, JHEP 07,|
+
+3] K. Boguslavski, A. Kurkela, T. Lappi, F. Lindenbauer,
+
+and J. Peuron, Limiting attractors in heavy-ion collisions,
+arXiv:2312.11252 [hep-
+
+F. Zhou, J. Brewer, and A. Mazeliauskas, Minijet quench-
+ing in non-equilibrium quark-gluon plasma, JHEP 06,
+
+38
+
+40)
+
+41
+
+42
+
+ar Xiv:2402.09298 [hep-ph]
+R. Baier, A. H. Mueller, D. Schiff, and
+502, 51 (2001), arXiv:hep-ph/0009237
+39] A. Kurkela an
+
+113, 182301 (2014
+
+ot
+a
+
+54
+
+J.a. Barata, Y. Mehtar-Tani, A. Soto-Ontoso, and K. Ty-
+woniuk, Revisiting transverse momentum broadening in
+dense QCD media, Phys. Rev. D 104, 054047 (2021)
+
+arXiv:2009.13667 [hep-p!
+
+J. a. Barata, Y. Mehtar-Tani, A. Soto-Ontoso, and
+K. Tywoniuk, Medium-induced radiative kernel with
+the Improved Opacity Expansion, JHEP 09, 153
+
+214
+D. T. Son, Bottom
+up’ thermalization in heavy ion collisions,
+
+E. Lu, Approach to Equilibrium in
+Weakly Coupled Non-Abelian Plasmas,
+A. Kurkela and Y. Zhu, Isotropization and hydrody-
+namization in weakly coupled heavy-ion collisions,
+Rev. Lett. 115, 182301 (2015), arXiv:1506.06647 [hep-
+ph
+A. Kurkela and A. Mazeliauskas, Chemical equilibration
+in weakly coupled QCD,
+
+A. Kurkela and A. Mazeliauskas, Chemical Equilibra-
+
+tion in Hadronic Collisions, Phys. Rev. Lett. 122, 142301
+
+44
+
+(2019) arXiv:1811.03040 [hep-ph]
+43] X. Du and S. Schlichting, Equilibration of weakly cou-
+
+57
+
+105, 114046 (2022), arXiv:2111.14768 [hep-ph
+58] L. Cunqueiro, D. Pablos, A. Soto-Ontoso, M. Spousta,
+
+splittings in heavy-ion collisions,
+014015 (2024) arXiv:2311.07643 [hep-ph]
+
+arXiv:2106.07402 [hep-ph]
+J. H. Isaksen, A. Takacs, and K. Tywoniuk, A unified
+picture of medium-induced radiation, JHEP 02, 156
+P. Caucal, A. Soto-Ontoso, and A. Takacs, Dynamically
+groomed jet radius in heavy-ion collisions,
+
+A. Takacs, and M. Verweij, Isolating perturbative QCD
+
+Phys. Rev. D 110,
+
+59
+
+60
+
+C. Andres, F. Dominguez, J. Holguin, C. Marquet, and
+I. Moult, A coherent view of the quark-gluon plasma from
+
+energy correlators, JHEP 09, 088) arXiv:2303.03413 [hep-
+
+J. Barata, P. Caucal, A. Soto-Ontoso, and R. Szafron,
+Advancing the understanding of energy-energy cor-
+relators in heavy-ion collisions, JHEP 11, 060
+
+pled QCD plasmas, |Phys. Rev. D 104, 054011 (2021)
+iv:2 hep-ph|
+X. Du and ¢ ichting, Equilibration of the Quark-
+
+Finite Net-Baryon Density in QCD
+
+K. Boguslavski an
+matters: Isotropic screening in QCD kinetic theory, |Phys.,
+
+F. Lindenbauer, Soft-gluon exchange
+
+Rev. D 110, 074017 (2024), arXiv:2407.09605 [hep-ph
+
+47
+
+48)
+
+49|
+
+2019 |
+
+M. C. Abraao York, A. Kurkela, E. Lu, and G. D. Moore,
+UV cascade in classical Yang-Mills theory via kinetic the-
+
+ory, Phys. Rev. D 89, 074036 (2014), arXiv:1401.3751
+
+[hep-p
+. Kurkela, A. Mazeliauskas, and R. Tornkvist, Collec-
+
+tive flow in single-hit QCD kinetic theory,
+
+. Kurkela, A. Mazeliauskas, J.-F. Paquet, S. Schlicht-
+ing, and D. Teaney, Effective kinetic description of
+rium dynamics in high-energy
+. C 99, 034910 (2019
+
+. Mazeliauskas, J.-F. Paquet, S. Schlicht-
+
+ing, and D. Teaney, Matching the Nonequilibrium Ini-
+Collisions to Hydrodynamics
+
+tial Stage of Heavy Ion
+with QCD Kinetic Theory,
+arXiv:1805.01604
+
+61
+
+arXiv:2312.12527 [hep-ph]
+
+S. Acharya et al. (ALICE), Search for quasi-particle scat-
+tering in the quark-gluon plasma with jet splittings in
+pp and Pb—Pb collisions at \/snn = 5.02 TeV, (2024),
+
+arXiv:2409.12837 [nucl-ex].
+
+irst ky scan of the Lund jet plane in heavy-ion colli-
+
+parton shower, Tech. Rep. (CERN, Geneva, 2025).
+P. B. Arnold, G. D. Moore, and L. G. Yaffe, Transport
+coefficients in high temperature gauge theories. 1. Lead-
+
+ing log results, JHEP 11, 001, arXiv:hep-ph/0010177
+P. B. Arnold, G. D. Moore, and L. G. Yaffe, Transport
+coefficients in high temperature gauge theories. 2. Beyond
+leading log, THEP 05,151
+
+P. B. Arnold an . Xiao, High-energy jet quenching in
+
+weakly-coupled quark-gluon plasmas, /Phys. Rev. D 78,
+
+66
+
+68
+
+Rev. Lett. 121, 052302 (2018
+ph}
+
+125008 (2008)| jarXiv:0810.1026 [hep-ph
+M. A. York an . D. Moore, Second order hydrody-
+
+namic coefficients from kinetic theory, Phys. Rev. D 79,
+
+054011 (2009), arXiv:0811.0729 [hep-ph
+67] J. Ghiglieri, G. D. Moore, and D. Teaney, Second-order
+
+Hydrodynamics in Next-to-Leading-Order QCD,
+
+arXiv:1805.02663 [hep-
+
+R. Toérnkvist and K. Zapp, Small systems and the single-
+hit approximation in the AMY parton cascade Alpaca,
+
+14
+
+Phys. Lett. B 856, 138952 (2024) relaxation-time model for the Boltzmann equation, |Phys-|
+69] P. Aurenche, F. Gelis, and H. Zaraket, A Simple sum rule 83] G. S. Rocha, G. S. Denicol, and J. Noronha, Novel Re-
+for the thermal gluon spectral function and applications, axation Time Approximation to the Relativistic Boltz-
+
+JHEP 05, 043) Sess EGE |
+70) T. Liou, A. H. Mueller, an . Wu, Radiative p.-
+
+broadening of high-energy quarks and gluons in QCD 84] I.
+
+matter, Nucl. Phys. A 916, 102 (2013), arXiv:1304.7677 Phys. 198, 329 (1967
+
+85] W. Israel and J. M. Stewart, Transient relativistic ther-
+
+71) J.-P. Blaizot and Y. Mehtar-Tani, Renormalization of the modynamics and kinetic theory, Annals Phys. 118, 341
+
+jet-quenching parameter, Nucl. P. 979
+
+86] A. Altenburger, K. Boguslavski, and F. Lindenbauer, Jet
+72) J.-P. Blaizot and F. Dominguez, Radiative corrections to roadening and radiation in the early anisotropic plasma
+
+the jet quenching parameter in dilute and dense media, in heavy-ion collisions, (2025),
+
+Phys. Rev. D 99, 054005 (2019)) arXiv:1901.01448 [hep-
+
+87 Lindenbauer, Gluon splitting rates in an anisotropic
+p
+
+73) P. Arnold, Universality (beyond leading log) of soft ra- asma in the AMY formalism, (2025), arXiv:2509.09897
+88] S.
+
+diative corrections to g in p, broadening and energy loss,
+JHEP 03, 134) jarXiv:2111.05348 [hep-ph| Mrowczynski, Plasma instability at the initial stage of
+
+74] P. Arnold, T. Gorda, and S. Iqbal, The LPM effect in se- ultrarelativistic heavy ion collisions,
+quential bremsstrahlung: analytic results for sub-leading
+
+(single) logarithms, JHEP 04, 085) arXiv:2112.05161 89] S. Mrowczynski, B. Schenke, and M. Strickland, Color
+instabilities in the quark—gluon p! asma,|Phys. Rept. 682,|
+
+75) P. Caucal and Y. Mehtar-Tani, Anomalous diffusion 2017), arXiv:1603.08946 [hep-ph
+in QCD matter, Phys. Rev. D 106, L051501 (2022 90] J. Berges, K. Boguslavski, S. Schlichting, and R. Venu-
+
+arXiv:2109.12041 [hep-p: gopalan, Turbulent thermalization process in heavy-ion
+76] P. Caucal and Y. Mehtar-Tani, Universality aspects of collisions at ultrarelativistic energies,
+
+quantum corrections to transverse momentum broaden- 074011 (2014), arXiv:1303.5650 [hep-ph
+ing in QCD media, JHEP 09, 023) ar Xiv:2203.09407 [hep- 91] J. Berges, K. Boguslavski, S. Schlichting, and R. Venu-
+
+ph gopalan, Universal attractor in a highly occupied non-
+77| P. Caucal and Y. Mehtar-Tani, Transverse momentum Abelian plasma, Phys. Rev. D 89, 114007 (2014)
+broadening in large media from NLL BFKL to all
+orders in pQCD, . Hauksson, $. Jeon, and C. Gale, Probes of the quark-
+arXiv:2209.08900 [hep-ph]| gluon plasma and plasma instabilities, Phys. Rev. C 103,
+P. Arnold, O. Elgedawy, and S. Iqbal, Are Gluon Show-
+
+ers inside a Quark-Gluon Plasma Strongly Coupled? A 93] S. Hauksson, S. Jeon, and C. le, Momentum broaden-
+Theorist’s Test, Phys. Rev. Lett. 131, 162302 (2023) ing of energetic partons in an anisotropic plasma, Phys.
+Rev. C 105, 014914 (2022)| arXiv:2109.04575 [hep-ph]
+P. Arnold, O. Elgedawy, and S$. Iqbal, Landau- 94| P. B. Arnold, G. D. Moore, and L. G. Yaffe, Photon
+Pom
+
+92
+
+78
+
+79) i‘ .
+eranchuk-Migdal effect in sequential and gluon emission in relativistic plasmas, JHEP 06, 030
+bremsstrahlung: Gluon shower development, arXiv:hep-ph/0204343
+
+Rev. D 108, 074015 (2023), |arXiv:2302.10215 [hep-ph 95] M. L. Bellac, ermal Field Theory, Cambridge Mono-
+80] P. Arnold, O. Elgedawy, and S. Iqbal, Strongly vs. weakly graphs on Mathematical Physics (Cambridge University
+coupled in-medium showers: energy stopping in large-N ¢ Press, 2011).
+
+Be IE ee eee 96] J. Ghiglieri, A. Kurkela, M. Strickland, and A. Vuori-
+81] P. Arnold, O. Elgedawy, and S. Iqbal, Are in-medium nen, Perturbative Thermal QCD: Formalism and Ap-
+quark-gluon showers strongly coupled? results in the plications, Phys. Rept. 880, 1 (2020 | arXiv:2002.10188
+large-N¢ limit, JHEP 01, 193} arXiv:2408.07129 (hep-ph) hep-ph]
+
+82] J. L. Anderson and H. R. Witting, A relativistic 97] A. Kurkela and F. Lindenbauer.
+
+netic theory solver with jet quenching parameter) (2023).
+
+Appendix A: Elastic and inelastic collision kernels in EKT
+
+The Boltzmann equation can be written in the form 0;f;(p) = C;[{f}]. Then the collision kernel includes elastic
+and radiative processes, C; = C?? + C}?, and is always local. The elastic collision kernel is given by [IJ]
+
+2442 _ 1
+enn =a
+
+¢ 2
+SS | ase? |Mei(ps. pair. 2) F(p1,P2; Ps; Ps) ; (Al)
+
+bed
+
+where the phase space integral is
+
+dp, 1 dp3 1 d*py 1
+anee2 / : 2n)454(P, + Po — P3 — P; A2
+/ (On)? 2B On)? Ey Qn aE, 27) OP + Pa Pa— Pa), ne
+
+with the statistical factor
+
+F (pi, p2; Ps, Pa) = fe(ps) fa(pa)(1 + fa(pi))(1 + fo(p2)) — fa(pi) fo(p2)(1 + fe(ps))(1 + fa(pa)) ; (A3)
+
+where the upper (lower) sign is used if the distribution is for bosons (fermions), which reads in equilibrium n,(p) =
+1/(e?/T +1). For the matrix element, we take the scattering matrix elements in vacuum, summed over all incoming and
+outgoing spin and color states, as tabulated in Ref. [IJ]. Medium effects should be included by using the resummed
+hard-thermal loop propagator for the internal soft quark or gluon propagators. As argued in Ref. [I], this can be
+easily incorporated by a simple replacement in the u- and ¢- channel parts of the matrix element, which we will discuss
+in more detail in the next section. The radiative collision kernel is given by
+
+2 3 foe)
+
+CePA = apt » [ dp'dk'5(p — pl — Kihei P'B. kB) F (ps vB, kB)
+(on) (A4)
+~ [pPva s/* dp'dk'5(p + k! — p')yau(p'B: p, k'B)F (v'B; p, kB) ,
+
+with the statistical factor
+
+F (Pi; P2,P3) = fo(P2) felps)(1 + fa(p1)) — fa(pr)L + fo(p2))(1 + fe(ps)) - (A5)
+
+This radiation kernel describes strict collinear splitting (where all momenta are proportional to a unit vector n), and
+is given by the AMY rates [11] [94], where the effective splitting matrix elements 7 are given by
+
+2, (p;p',&) = V4, (p:p',k) = ae Fi(p,p',k), (A6)
+yqq(Pip',k) = Cale Fi(k,—p',p), (A7)
+Vq(Ps p's k) = (p.p',k) , (A8)
+where
+Fi(p,p,k) = Sot / aa =e Re F*(h;p',p,k), (A9)
+
+and F is the solution to the integral equation
+
+= i6E(h;p',p, KF? (hyp',p,k) +? fs Ala.)
+
+(Qn? i
+
+x {ici — @)[F" (bh; p',p,k) — F? (bh — kay’, pk)
+(A10)
+
++ SIF} (h:p!,p,k) — F3(h + p'aisp’.p,’)]
+
++ SA(F? (hb; p',p,k) — F2 (hb — pqi;p',p, oi} .
+
+The vector h is a two-dimensional vector in the transverse plane to the direction of the splitting particles, i. The elastic
+collision kernel A(q ,) encodes the broadening of hard particles during the splitting process. It can be represented as
+a Wightman correlator of the gluon field generated by the hard particles moving in the plasma. With an isotropic
+screening approximation, it can be simplified to the simple sum rule result [69]
+
+A 1
+A = Ty (= - zou) 5 All
+where the effective infrared temperature T\, is given by
+
+Dy Gee ela 1+ f(p))
+
+mp
+
+T (Al2)
+16
+and with the nonequilibrium Debye mass
+
+2 GCs Bp, :
+mb = Dau | ag me)
+
+Note that in practice, we do not solve Eq. (A10) directly. Instead we interpolate between the analytically known
+Bethe-Heitler and Landau-Pomeranchuk-Migdal limits of the collinear splitting rates [3]. This reproduces well the
+results of Eq. as shown in Appendix B of Ref. [50].
+
+Throughout the paper, we use the Boltzmann equation linearized around thermal equilibrium, f = n + df, (see
+Eq. (7})- The linearized collision kernels are simply given by the original ones and (A4), with replaced statistical
+factors F +> 6F,
+
+6F (p1, p2; Ps, Pa) = 5 fe(ps) [na(pa)(1 = na(p1))(1 = no(p2)) Fe Na(P1)no(p2)(1 + na(pa))
++ 6 fa(pa) [me(p3)(1 = na(p1))(1 = no(p2)) Fa Na(p1)Mv(p2)(1 + re(ps)) (Al)
+— 6 fa(p1) [no(p2)(1 + ne(p3))(1 + na(ps)) Fa Ne(p3)na(pa)(1 £ no(p2))
+— 6 fo(p2) [na(pi)(1 + ne(ps))(1 + ra(pa)) Fo Ne(p3)Ma(pa)(1 + Ma(Pr))] .
+
+and
+
+OF (pi; pa, P3) = 5 fo(p2)[re(p3s)(1 + na(p1)) Fo Ma(p1)(1 + ne(ps))]
++ 6 fe(ps)[no(p2)(1 + na(p1)) Fe Na(p1)(1 + no(p2)) (A15)
+— 6 fa(pi)[(1 + no(p2))(1 £ ne(p3)) Fa Mv (p2)re(ps)] -
+
+A
+
+Additionally, the matrix element linearization can be found in [37]. We linearize around thermal equilibrium, and
+thus the term with matrix-element linearization vanishes as statistical factors cancel exactly.
+
+Appendix B: Isotropic HTL screening for soft gluon and quark exchange
+
+Here, we describe the full HTL screening of the 2442 matrix element, and show that our implementation reproduces
+the known analytical results, while the commonly used vacuum LO pQCD matrix elements with Debye-like screening
+prescription are insufficient to simultaneously describe all transport coefficients. The implementation of the HTL
+prescription for soft-gluon exchange has been described before [45], which we reiterate here for completeness and
+extend it for soft-fermion exchange.
+
+According to the prescription outlined in Ref. [II], for gluons, one needs to replace
+
+GoW" 5 |G (PP) (P+ PK + KY
+
+2
+pv *
+
+(BL)
+
+While this prescription is gauge-invariant [45], we use here the form of the retarded gluon propagator in strict Coulomb
+
+gauge [95] [96],
+
+1 -l
+00 _ . T = ——_________, B2z
+OND) = BETO A)’ OO) = Fore] (Bee
+with G4(Q) = (0 x xe) G™(Q), and the self-energies are given by
+i xmi
+Rell (x) = my (1 - Bag ; Im 11 (x) = AMDT (4 — |x|), (B3a)
+2 to 1 2
+eg mp 1 2 00 ei 1 2 00 q
+where x = w/q. Kinematically, |x| = |w|/q < 1, and thus the imaginary part is always nonzero for w 4 0. Here,
+
+we define Q = P’ — P = (w,q). Furthermore, G(—Q) corresponds to the advanced propagator, and ImII(—Q) =
+—ImII(Q). From this, it is straightforward to obtain
+
+cd ; @ 2c1c2(AC + BD)
+A? +B? ° C?4 D2? (A? + B?)(C? + D?)’
+
+is yf I) pb nv |2
+|GiscHTL(P — P')\(P+ P')K(K + K)"| (B4)
+
+17
+
+x  isoHTL *
+
++ Debyelike * Fd
+
+5
+Oo
+ll
+x ebyelike kj xeSeK
+--- A, <T &
+cs
+
+g./T? for \ = 0.001
+
+1 x" =|
+10 yee
+
+10-1 10°
+A/T A,/T
+
+FIG. 8. Momentum broadening coefficients for a purely gluonic plasma and gluon jet. The two different screening prescription
+is compared to known analytic limits. Left: Transverse momentum broadening as quantified by the jet quenching parameter
+q.. Right: Longitudinal momentum broadening, qj.
+
+with
+
+c, = (Qp+w)(2k—w), C2 = Apk sin Ogp sin 04% cos(Ggk — Gap) 5 (B5a)
+A= +Rell (x B=ImTI(-2), C=@-w?+Rell (x), D=ImIl"(- (B5b)
+
+Here, Qj) and 4; are the angles between q and p or k. The angle dk (¢gp) is the azimuthal angle of k (p) in a
+coordinate system where q points in the z direction and the beam axis lies in the xz plane.
+
+To verify the correct implementation of the HTL screening, we calculate the transverse and longitudinal momentum
+broadening coefficients ¢, and qj, for which screening of the soft-gluon exchange in the t-channel matrix element is
+important. For that, we use the implementation [97] described in Ref. [35] for p + oo and a transverse momentum
+cutoff. We compare with their analytic estimates [12] [65] (69),
+
+vsti g 2 AL
+ahem (Ay <7) = LCgTmb In (1 + ar) : (B6)
+. CrgT?
+qihe (AL > 7) = BZ eT (AL), (B7)
+&
+2
+therm _FCRT y 2 1 AL
+qhen(A <7) = Mz. n 3 (B8)
+
+where Z4(A,) = 6) In(AL/mp) + C8) (n(T/mp) +0.5— Ye +In2) —o4/(27), where ¢,(x) is the Riemann
+Zeta function and ¢_(s) = (1—2!~*)¢,(s), Ym is the Euler Mascheroni constant, and 0, =), (ey In[(K — 1)!].
+For gluons, 74 = 0.38604.... In particular, for transverse momentum broadening (left panel in Figure|8), we compare
+with the analytic result for small cutoffs (dashed line), and for large cutoffs (dotted line). For longitudinal
+momentum broadening (right panel), we compare with Eq. (dotted line). Note that this analytic result is only
+valid for small cutoffs, and deviations for larger cutoffs—as seen in the figure—are expected. For both transport
+coefficients, we show both the Debye-like (orange +) and isoHTL screening prescription (blue x), where we use the
+value €, = e°/6/,/8 for the Debye-like prescription [46]. This parameter is tuned to correctly reproduce the isoHTL
+results for longitudinal momentum broadening, as can be seen in the right panel (resulting from an expansion of the
+distribution function in w). However, it fails to reproduce the correct result for the transverse momentum broadening.
+If we had chosen to use the value £4 = e'/3/2 obtained in Ref. [35], we would have found the transverse broadening
+to be accurately described. We emphasize that the isoHTL screening correctly describes both of these processes and
+is thus more general and should be used instead [45].
+
+For screening soft-fermionic exchanges, we use [I]]
+
+t |Q-Q/? ,
+with Q4 = QH — Wet =(P-P\H— Shows For the parameterization of Q as
+OM = (F, +iFo,0,0,F; + iF), (B10)
+
+(B9)
+18
+
+we obtain
+ue dkp [A — C cos Og, + cos Ogx(—C + B cos Og,)] + s(B — A) (B11)
+TE (Gi — Fa)? + (Fa -— Fa)?)((Fi + Fa)? + (Fa + Fi)?)
+where
+A=F?2+F?, B=F3+F}, C= F\F3 + FoFy. (B12)
+
+We used again the same integration variables that are described below[B5a} For s/u, appearing in the gg ++ qg matrix
+element, the replacement is slightly different and does not amount to simply relabeling u <> t, but the differences are
+negligible for small |u| < s and |Q- Q|? < sQ- Q*, where the screening is needed.
+
+In practice, we replace (s — u)/t, which can be related to
+
+u 1 wu -s-t 1 f/u-s 1
+t 2\t° ¢ 2\ ¢ ;
+
+thus,
+s—uU 2u rf .
+: = 71> 2M ~ 1. (B13)
+We work in a frame in which Q“ = (w,0,0,q), and using the explicit form of the fermionic self-energy
+m? wt¢ m? w wtg¢
+°(Q) = — (m|—+| - ir), = - 1-=— I —inl>, B14
+(2) ty (Mona in). @) Tat 3, not in|} (B14)
+we find the explicit forms of the F;,
+m? ma
+Fi =w-——L, Ree, B15
+1=wW dq °” 2 4g’ (B15)
+m? w mu w
+F3 = —|1--—L), Fy = —~1n = Fo-, B16
+3 += ( 24 ). 4 4g 27% (B16)
+
+where L = In | ata, and m= mp is the gluonic asymptotic (or effective) mass. While our definition of Q = P’ — P
+
+differs from the one in [II] by Q# > —Q", this does not change the implementation of the screening prescription. It
+would reverse w —> —w and 5? — —D3. The latter implies a sign change in Fy and of the parenthesis in F3. The w
+change is straightforward and amounts to w + —w. Also note that L + —L. Overall, this results in a sign change in
+F, and F3, which only appear in pairs or squared, thus not affecting the result in Eq. (BI).
+
+For verifying the fermionic HTL implementation, we compare our numerical results of the conversion rate to the
+expression [12] Bl
+
+2 f y2 2
+Te” (p) g Cr (meg) a(u. le ). (B17)
+
+we Sap (mse)?
+
+where ju is an infrared (or UV) cutoff used in the q; integration which separates the hard from the soft sector in the
+reorganization of the scattering processes introduced in Ref. [I2]. Consequently, this formula is only valid for large jet
+energies and small cutoffs j. and our implementation (for finite p) is only valid for large jet energies p >> T. The results
+of this comparison are shown in Figure[9} with the + signs from the Debye-like screening prescription and the crosses
+showing the HTL prescription. It can be seen that the Debye-like screening agrees well with the isoHTL screening.
+This is because this process was used to fix the parameter €, in the Debye-like screening prescription [12] [41]. While
+in Fig. i} we use p = 507’, we have checked that p > 10 leads to the same numerical results, when rescaled with p.
+
+8 a? . a
+Note that there is a square missing in the final result of the reference, but it can be easily obtained using the previous step.
+19
+
+x1078
+
+--- analytic
+*  isoHTL E/T = 50
+0.0 + Debyelike E/T = 50
+
+plg+g/T? for \ = 0.001
+oO
+ot
+\
+
+10-1 10° 10!
+u/T
+
+FIG. 9. Numerical evaluation of the quark to gluon conversion rate with Debye-like (+) and HTL (x) screened matrix elements.
+The analytic result (B17) is shown as a gray dashed line.
+
+Appendix C: Expectation values in the single collision limit
+
+The expectation value of a general observable O(p, i) is
+=r" [ oe. dO f(p.t), (cl)
+
+where f is the solution of the Boltzmann equation. Note that, relative to Eq. (9). one has to divide by the initial
+density, which is v;,¢T° for a delta perturbation. We saw examples for O in the main text and here we are focusing
+on its evaluation in the single collision limit. Following Eq. (12), its rate takes the form
+
+40 = Sov | O(p, i) 6Ci[{n, 6f}]. (C2)
+F P
+The contribution from the elastic collisions is given by
+
+0,6° > [ [292° 0(p. 0) Melly, kip! RP OF (hip!) (C3)
+2 abd
+
+By integrating the initial perturbation 5f (p) = dii (27)°53(—p— po), relabeling sums and integrals, and using matrix
+element symmetries
+
+Mch(p, hsp! k')[? = | M25 (k, p:p', k’)|? = (Mok (p', k's, k))? = | Map, ks kp’)? , (C4)
+
+we arrive to the following simple formula
+
+— 2442 iob
+a0°2 et Efe Mt (po, Bs", R)?
+“ C5
+x {no(k)(1 & ne(p'))(1 £ na(k’)) Fig Ne(p!)na(k’)(1 + nr (k))} oa
+x [O(p',c) + O(k’, d) — O(p9, i9) — Ok, 8)] «
+The contribution from the radiation process is
+aA 2
+00'S [ o@.)Z uh =f dp! dk'6(p — p! — k"n8. (ps p'B, K'B)SF (Pip, kB)
+a /P
+(C6)
+
+YD [00.2 E | a'avon +" —onawme.K OF O'RP.KP),
+be 79
+20
+
+Similar to the elastic collisions, by integrating the perturbation 6 fj (to, p) = (27)*dii, pe O(P — po)6?(p — po), relabeling
+variables, and using symmetries 7/1,(p; p’, k’) = 74,(p: k', p'), we arrive at the formula
+a 1e2 (2
+
+3
+a0 -= = S / dpdk’ [O(ppo, a) — O(po, io) — O(k' Bo, c)] 5(p — po — k')¥%..(pBo; Popo, ko)
+0 ac
+
+x [ne(k’)(1 + na(p)) Fig Ma(p)(1 + ne(k’))]
+
+SE > [as |OCePo.4) + OUP: ») ~ Ola ia) tp + k ~ po)13 (Pao: PPo, ku)
+0 ab
+
+x [(L + ma(p))(1 £ 15(k)) Fig Ma(P)n0(k)] -
+
+Enforcing p > k in the second term and integrating over p, we obtain
+
+(C7)
+
++
+
+8 e C9 XS [at (0100 +#'yG0,4) ~ O(Po Fo) ~ OW Ba. 6)] isl (Po + ® )Pos obo, K'Po)
+0 ac 0
+
+x [me(R")(1 £ na(po +H) Fig Ma(po + W/)(1 ne(k"))]
+
+8 0/2
++ Gay S [ dk (O((po — k)Bo, a) + O(kBo, b) — O(o, t0)| ¥5 (Poo; (Po — k)Bo, kBo)
+
+ae
+x [(L+ na(po — k))(1 + no(k)) Fig Ma(po — k)no(k)] -
+
+The final answer is the sum of the contributions 2 4 2 and 1 © 2. These formula agrees with previous studies [63) [64].
+
+(C8)
+
+Appendix D: Numerical implementation of the single-collision limit
+Here, we discuss how the integral (C5) is performed. The integral measure can be rewritten similarly as in Ref. [35],
+
+fare = | (2n)*54(P + Py — Ps — Py)
+Pp2p3pa
+
+1 Qn Qn oo k min(2p-+w,2k—w)
+=~ _| a [ de | dk | diy i ag.
+4p(27)° [ Pt Jo * Jo ae ee lol
+
+We have used the symmetry p! <> k’ in the integrand (also present in (C5)) to always enforce p’ > k’. Otherwise,
+the lower boundary of the w-integral would be —p, and the prefactor 1/(8p(27)°)). The reason for this choice is that
+then only the t channel diagrams need to be screened (5). For a finite momentum grid pmin < p < Pmax, on which
+the distribution function is stored, we require k to be on the grid, and k’ > pyin, which results in
+
+oe l Qn Qn Binns k—pmin min (2p-+w,2k—w)
+dQ??? = [ dg | dor | at f aw [ dg pe
+/ 4p(27)> Jo Pt Io 4 max(Pmin;2Pmin—P) —P5k wl (0)
+
+z
+
+(D1)
+
+This integration measure is used in Eq. together with the matrix elements tabulated in Ref. [35], with screening
+prescriptions and (B11) to obtain the expectation values in the single collision limit. Similar as in Ref. B35],
+the five-dimensional integral is evaluated using Monte Carlo integration with importance sampling. The kinematic
+variables need to be expressed in terms of the integration variables. The Mandelstam variables are given by
+
+t
+t=w? — 9, u , (( + p'\(k +k’) — q? — /(4pp! + t)(ARk +0) 08 bg) ‘ s=-t—u, (D3)
+
+and the relevant angles are
+
+w ti Ww cE Ww t
+COS egy = — C8 0vy = 4
+
+C08 Ong = — a ,
+sae q Qkq’ qd 2k’q’
+
+tea
+q  2pq
+
+(D4)
+
+where k’ = k —w, and p' = p+w. We also need to express p = (0,0,p), k, k’, and p’ in the frame defined by the
+direction of propagation of the jet,
+
+COS Gpg (COS Geg COS Ipq SiN Deg + COS Ogg SiN Opq) — SIN Gpg SiN Pkg SiN Deg Sin Opq COS Ppg
+sy 208 ) 37 4 2] 3) 4 208 AOS 3} 209 35 say 3] 37 4 5
+k =k | cosGpq Sin bjg SiN Deg + SIN pg (COS big cos Gy sin Pkeq + COS Peg SiN Og) |, G= | SiNApgSiNGp_ |, (D5)
+COS Ogg COS Ong — COS bkq SiN Ogg SiN Opg COS Opq
+21
+
+and k’ = k —q, and p' = p+q. In our implementation of Eq. (C5), we included both the gain and loss term and
+verified that for all observables considered in this paper, the gain term is negligible.
+
+To compare with the analytic expression for the conversion rate (BI7}. we need to additionally implement a
+momentum cutoff on —t = q? — w? < y? [2]. This changes the upper boundary of the q-integral to min(2p + w, 2k —
+w, \/w? + pi).
+
+For the inelastic collision term the kinematics is simpler. Getting rid of the delta function there, only one
+integral needs to be performed numerically, for which we use both the trapezoidal and Simpson’s rule, and use their
+difference as an error estimate. Compared to simulating the time evolution of minijets [37], the evaluation of these
+integrals is fast and the error can be easily reduced by a finer momentum grid.
+
+Appendix E: Numerical convergence of collision kernel evaluation in EKT
+
+In this section of the Appendix, we discuss the numerical setup needed for the evolution of a minijet from which
+we compute the transport coefficients in Section [I We will demonstrate numerical convergence for the transport
+coefficient Gi (Amin) (Eq. Computing the transport coefficients from the minijet evolution, using Eq.
+evaluated after one time step, is numerically challenging due to the fact that the initial condition is representing a
+delta-like perturbation. We use spherical coordinates to discretize our grid in momentum space, so we consider the
+magnitude p, the polar angle v, = cos@ and the azimuthal angle ¢. In all our computations we assume azimuthal
+symmetry. Importantly, we have pz = puvz and p, = py/1 — v3. For the p-discretization we use a linear grid with N,
+grid points with grid spacing Ap = (pmax — Pmin)/Np. For the angle v, = cos @ we use a logarithmic grid with N,
+erid points. Namely, we discretize w(vz) = log(1 + v? — vz) linearly, where v9 is a small offset so that the logarithm
+is well defined. We choose v? = 10-7. The number of grid points for the angle is denoted by N,..
+
+In order to solve for the time evolution of the minijet in Eq. we have to calculate the linearized collision
+kernel on the right-hand side. For one time step, this is equivalent to computing Eq. (12). For the evaluation of the
+multidimensional integral, we use Monte-Carlo integration. The total number of samples Ngampies chosen to execute
+he integration differs between the elastic kernel in Eq. and the inelastic one in Eq. @. For the inelastic kernel
+we choose Nee = K x N, whereas for the elastic one we have BE es = K x N, x Nv,, where K is some large
+factor. This is because in our leading order framework, the splittings are strictly collinear, and we need to sample
+over a smaller phase Eve containing only the momentum p and not the angle vz. For minijet results in Section [ITD]
+
+4)
+
+(bands in Figs. [i]to we choose N, = 1000 and N,, = 300 and the sampling multiplier K = 2- 10+.
+In order to show that ¢1 has reached numerical convergence, we consider various widths o of the initial Gaussian.
+Sharper peaks require finer grids which amounts to increasing N,. For large Np, the grid spacing scales Ap/T ~ 1/Np.
+For each setting we ensure that 1/N, < o/T. For the angle, we choose a logarithmic grid to ensure that the angular
+discretization around the initial peak is very fine, i.e., the angular grid spacing goes Av, ~ v2/N,. < o/T (cf.
+For this reason, we will use the same v,-discretization of N,, = 300 for all of the curves.
+We compute ¢1 (Amin) for four different widths o, successively increasing N, and K. This is shown in Fig.
+The first curve for ¢ = 0.01E (blue) lies below the rest of the curves. By going to smaller o, the value of ¢1 (Amin
+approaches the one we show in Fig. [I] for A= 10. In particular, this holds for all Ain, with the same conclusion that
+he single-step evolution results are systematically larger than the single-hit values at low cutoffs. So in Fig: [1] to [4]
+he default width we are using is ¢ = 0.0052.
+we consider long time EKT evolution for perturbations with o = 0.01E, until the perturbation
+reaches equilibrium. In this case, we used a different grid discretization. To have good resolution for small momenta
+p ST we used logarithmic discretization in p. At late times the distribution approaches isotropy, therefore we used
+inearized discretization in v,. The grid parameters for these simulations are N, = 150, Ny, = 150 and K = 120.
+Although the K factor is much smaller than in a single-step simulations above, the average over many successive
+ime-steps partially compensate for less accurate kernel integrals at each time-step.
+
+22
+
+100000
+120000
+100000 80000
+80000 =
+60000 60000
+40000 as
+20000 A000
+0
+20000
+0.9995
+0.9996 ag
+0.9997 50 0
+0.9998
+% "0.9999 Bl pit
+
+1.0000 >
+
+FIG. 10. Initial condition of the jet perturbation from Eq. weighted by pi, with ¢ = 0.005E. The momentum range
+plotted corresponds to ~ 100.
+
+0.16
+
+0.14
+
+0.12 — o =0.01E, Np, = 1000, K = 1000
+“ 0.10 ==' ¢ =0.005E, Np = 1000, K = 2-104
+a 1.08 ee | o = 0.0025E, Np = 3000, K = 2-104
+
+0.06 —-+ 7 =0.001E, Np = 5000, K = 10°
+
+0.04 t t 1 e — single-hit
+
+0.02
+
+0.00
+
+0 5 10 15 20 25
+Amin/T
+
+FIG. 11. Transverse momentum broadening coefficient g1 for initial minijet energy E = 50T and \ = 10 as a function of lower
+momentum cutoff p > Amin. Different colors correspond to different widths o using different discretizations. Bands indicate
+statistical uncertainty of a single-step evolution of a gaussian perturbation in EKT, while points show the direct Monte-Carlo
+evaluation of a single-hit transport integral Eq. 22).

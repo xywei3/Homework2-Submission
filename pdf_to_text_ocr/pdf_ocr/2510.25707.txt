@@ -1,0 +1,1760 @@
+arXiv:2510.25707v1 [cond-mat.mtrl-sci] 29 Oct 2025
+
+Dual quantum locking: Dynamic
+coupling of hydrogen and water
+sublattices in hydrogen filled ice
+
+Loan Renaud@1L2 Tomasz Poreba>,1 Simone Di Cataldo
+Alasdair Nicholls? Léon Andriambariarijaona4 Maria Rescigno?.©¢
+Richard Gaal» Michele Casula# A. Marco Saitta
+
+Livia Eleonora Bove®;¢,2
+
+October 2025
+
+Institut de Minéralogie, de Physique des Matériaux et de Cosmochimie (IMPMC), Sorbonne Université, CNRS
+UMR 7590, MNHN, 4, place Jussieu, Paris, France
+
+bLaboratory of Quantum Magnetism, Institute of Physics, Ecole Polytechnique Fédéerale de Lausanne, CH-
+1015 Lausanne, Switzerland
+
+“Dipartimento di Fisica, Sapienza Universita di Roma, Piazzale Aldo Moro 5, 00185 Roma, Italy
+
+4} aboratoire pour l'Utilisation des Lasers Intenses (LULI), Ecole Polytechnique, 91120 Palaiseau, France
+“Institut Laue-Langevin, 71 Avenue des Martyrs, Cedex 9, Grenoble, France
+
+1L.R. and T.P. contributed equally to this work.
+Corresponding authors. E-mail: loan.renaud@sorbonne-universite.fr, livia.bove@sorbonne-universite.fr
+Abstract
+
+Hydrogen hydrates (HH) are a unique class of materials composed of hydrogen molecules
+confined within crystalline water frameworks. Among their multiple phases, the filled
+ice structures, particularly the cubic C2 phase, exhibit exceptionally strong host-guest
+interactions due to ultra-short H7-H20 distances and a 1:1 stoichiometry leading to two
+interpenetrated identical diamond-like sublattices, one comprised of water molecules, the
+other of hydrogen molecules. At high pressures, nuclear quantum effects involving both
+hydrogen molecules and the water lattice become dominant, giving rise to a dual-lattice
+quantum system. In this work, we explore the sequence of pressure- and temperature-
+driven phase transitions in HH, focusing on the interplay between molecular rotation,
+orientational ordering, lattice symmetry breaking and hydrogen bond symmetrization.
+Using a combination of computational modeling based on classical and path-integral
+molecular dynamics, quantum embedding, and high pressure experiments, including
+Raman spectroscopy and synchrotron X-ray diffraction at low temperatures and high
+pressures, we identify signatures of quantum-induced ordering and structural transfor-
+mations in the C2 phase. Our findings reveal that orientational ordering in HH occurs at
+much lower pressures than in solid hydrogen, by inducing structural changes in the water
+network and enhancing the coupling of water and hydrogen dynamics. This work provides
+new insights into the quantum behavior of hydrogen under extreme mechanochemical
+confinement and establishes hydrogen-filled ices as a promising platform for the design
+of hydrogen-rich quantum materials.
+The rotational dynamics of guest gas molecules confined in porous materials are
+profoundly influenced by their local environment [1]. In large, nearly spherical cages, guest
+species often behave as nearly free rotors [2-4]. In contrast, low-symmetry or anisotropic
+environments impose steric constraints that hinder rotation, leading to librational motions
+or even complete orientational freezing [5-7].
+
+Such effects have been extensively studied in clathrate hydrates, where the host-guest
+potential not only quantizes the center-of-mass motion but can also induce partial orien-
+tational ordering at low temperatures and high pressures [5, 8-10]. Zeolite frameworks,
+with their inherent anisotropy and stronger host-guest interactions, exhibit similar be-
+havior: small guest molecules often display restricted rotational freedom and develop
+orientational preferences within the channels or cages [11-15]. Endohedral fullerenes
+offer a particularly clean example of quantum confinement: molecules such as Hy and
+CH, confined inside C¢o exhibit discrete quantum rotational states that are exquisitely
+sensitive to cage symmetry and weak van der Waals interactions [6, 16, 17]. These sys-
+tems provide compelling evidence of how confinement and symmetry shape quantum
+rotational behavior across a wide range of host architectures.
+
+In gas-filled ice structures under high pressure [18], the extreme confinement imposed
+by the ice hosting lattice leads to the suppression of molecular rotations even at high
+temperatures, enabling the onset of orientational ordering of guest molecules [19-21]. In
+certain cases, this ordering is accompanied by molecular distortion [20], and can even
+trigger symmetry-lowering transitions in the host lattice itself [22, 23]. These phenomena
+underscore the unique interplay between quantum confinement and structural flexibility
+in filled-ice systems—an interplay rarely observed in classical porous materials.
+
+Among these, hydrogen hydrates (HH)—where hydrogen molecules are encapsulated
+within an extended water lattice—stand out as a particularly rich system for exploring
+host-guest interactions under extreme thermodynamic conditions. HH comprises five
+well-characterized phases. The first, i.e., the clathrate structure sII, contains hydrogen
+molecules trapped in large polyhedral cages within a hydrogen-bonded water network
+[3, 24]. The other four—C0, C1, C2, and C3—are filled-ice structures in which hydrogen
+molecules occupy interstitial voids within compact ice-like frameworks. Specifically, CO
+adopts the open-channel ice XVII topology [25], Cl corresponds to the layered ice II
+structure [26], while C2 and C3 are based on the cubic ice (Ic) framework [27].
+
+While sII is only stable at cryogenic temperatures, both C1 and C2 persist at room
+temperature under high pressure. C1 is stable between 0.9 and 2.7 GPa (and metastable up
+to 5.2 GPa), whereas C2 stabilizes above 2.7 GPa and transforms into C3 at temperatures
+above 670 K and pressures above 30 GPa. C3 remains stable up to at least 90 GPa and can
+be recovered metastably down to 7 GPa [23].
+
+Among these phases, C2 is particularly intriguing. It adopts a topology analogous
+to that of ice VII, consisting of two interpenetrating but non-interconnected diamond-
+like sublattices. However, unlike ice VII—where both sublattices are composed of water
+molecules—in C2, one sublattice is entirely formed by hydrogen molecules. This breaks
+the structural equivalence, lowers the overall symmetry, and results in a unique dual-
+framework architecture. Remarkably, C2 exhibits the shortest known Hj-H)0 distances
+among hydrogen hydrates, and its 1:1 stoichiometry gives rise to exceptionally strong
+host-guest interactions.
+
+Under such extreme densities confinement effects predominate, affecting not only
+the hydrogen molecules within their sublattice but also the protons constituting the ice
+framework. As pressure increases, the distinction between host and guest progressively
+diminishes, and the system is more appropriately described as two equivalent, interpene-
+trating quantum lattices of distinct species: Hz and H20.
+
+The rotational dynamics of hydrogen in hydrogen-filled ices are strongly pressure- and
+temperature-dependent. Increasing pressure and lowering temperature progressively
+restrict guest rotation, inducing stepwise orientational ordering [28], analogous to effects
+seen in solid methane [29, 30] and solid hydrogen [31-33], where intermolecular inter-
+actions produce roton band splittings. Similar but stronger effects occur in hydrogen
+clathrates [10].
+
+In the C2 phase, first-principles calculations predicted a pressure-induced cubic-to-
+tetragonal distortion at low temperature via hydrogen alignment along the c-axis [34],
+confirmed in D20-D» by XRD peak splitting and roton band splitting above 20 GPa at 10 K
+[35]. Additional high-pressure phases (HH-HP1 at 40 GPa and HH-HP2 at 60 GPa) involve
+further orientational ordering and possible hydrogen-bond symmetrization [35-37].
+
+Our recent work refined this phase diagram: we observed tetragonal distortion of C2
+above 30 GPa at room temperature, amorphization above 60 GPa, and transformation to
+C3 upon laser heating [23, 27]. We also determined that hydrogen-bond symmetrization
+occurs at 26 GPa—much lower than in ice VII—due to shorter O-O distances in the cubic
+ice Ic framework [38].
+
+In the present work, we go beyond these macroscopic observations to elucidate their
+microscopic origin: we demonstrate that hydrogen-bond symmetrization in the water
+lattice triggers the nematic alignment of the H» sublattice, and that this collective orienta-
+tional ordering, in turn, drives the tetragonal distortion of the host framework. By disen-
+tangling this sequence of coupled events, we establish the microscopic mechanism linking
+proton symmetrization, guest orientational order, and host lattice deformation in C2. We
+probe these phase transitions via combined ab initio simulations, low-temperature Ra-
+man spectroscopy, and synchrotron XRD [39-43], highlighting how enhanced host-guest
+coupling under pressure suppresses rotational freedom and stabilizes orientational order
+at much lower pressures than in pure hydrogen.
+30.0 40.0
+P (GPa)
+
+FIGURE 1. Pressure-Temperature phase diagram of the C2 hydrogen hydrate as derived by
+our quantum embedded calculations and experimental data. Some experimental pattern
+are indicated in Figure : XRD data are shown as circles, colored red or black depending on
+whether they belong to the temperature- or pressure-ramp series; raman measurements
+are indicated by squares. The summary of experimental thermodynamic path is reported
+in Table 1. Symbols are filled in the cubic phase and open in the tetragonal phase, while
+half-filled symbols indicate the transition between them. The background color represents
+S, the orientation factor (defined in Methods) of Hp computed in the quantum embedded
+framework. The white triangles with their associated error bars are derived from our
+molecular dynamics simulations, utilizing the orientation factor as detailed in the Methods
+section. The dashed lines serve as a guide to the eye to locate the cubic to tetragonal
+transition. The three insets display the optimized geometries obtained via DFT (0 K) for
+the quantum plastic phase (upper left), herringbone phase (lower left), and nematic phase
+(right) of Hz orientational states.
+XRD Raman
+
+Isobar 2.45(3) GPa 3.5 GPa
+300 > 30K 300 > 100 K
+14.7 GPa
+300 —- 5K
+35 GPa
+300 — 20 K
+Isotherm | 300 K 300 K
+2-46 GPa 10 > 40 GPa
+
+TABLE 1. Summary of experimental thermodynamic paths for X-Ray Diffraction (XRD)
+and Raman.
+
+Results and Discussion
+
+Figure 1 presents the pressure-temperature phase diagram constructed from our com-
+bined computational and experimental approaches, with the thermodynamic paths probed
+experimentally summarized in Table 1. Within the C2 phase, Hz exhibits three distinct
+regimes, dictated by temperature and the degree of coupling with the surrounding water
+lattice.
+
+At high temperatures and pressures below 30 GPa (above the dashed line) the Hz
+sublattice in Hy hydrate realizes a quantum plastic crystal. In this state, the Hy molecules
+are ordered on a diamond-type lattice, defining well-localized translational equilibrium
+sites, yet their orientations remain dynamically disordered [44]. Each Hz behaves as a
+nearly free quantum rotor, i.e., the rotational degrees of freedom are not frozen but
+remain active down to relatively low temperatures due to quantum fluctuations. This
+combination of translational order and orientational quantum mobility is the defining
+feature of a quantum plastic phase. In contrast, the water sublattice is proton-disordered
+but not plastic, since the orientations of HzO molecules are constrained by the ice rules
+and do not undergo free rotational dynamics. The overall symmetry of the crystal is cubic,
+consistent with previous DFT predictions and experimental observations [23, 27, 34].
+
+Upon crossing the dashed boundary, either through temperature reduction or com-
+pression, Hz molecules undergo orientational ordering. At high pressure this results in a
+phase where Hy are aligned along the c axis of the crystal. This ordering transition can
+be quantified by the orientation factor S (See Methods) computed based on our quantum
+embedded calculations as described in the following, and visualized as a color gradient in
+Fig. 1. The factor S, which ranges from 0 (complete orientational disorder) to 1 (perfect
+alignment), measures the collective alignment of the hydrogen molecules along the c axis
+of the crystal, capturing both the orientational order imposed by the lattice geometry and
+the intrinsic thermal quantum fluctuations encoded in the density matrix.
+
+Within the orientationally ordered phase—occurring below 30 GPa and 100 K—H2
+molecules adopt a herringbone-like arrangement, as shown in the inset of Fig. 1. This
+configuration favors alignment along the crystalline c axis. The tilt angle of the molecules
+relative to the c axis varies continuously with pressure, reflecting the energetically favor-
+able response to lattice compression at low temperatures. As pressure increases, the tilt
+angle gradually decreases, approaching full alignment along the c axis, i.e the nematic
+phase. This progressive reorientation is also captured by the pressure dependence of the
+orientation factor S in Fig. 1.
+
+The low-temperature, high-pressure phases (< 50 GPa) of Hz and D2 are unique molecu-
+lar systems in which free rotations are governed by both quantum effects and temperature
+[45]. Molecular hydrogen occurs in two nuclear-spin isomers, both partially occupied at
+ambient conditions. When the proton spins couple to the singlet state with total nuclear-
+spin quantum number J = 0, defined by J = J, + do, where J, = do = ¥ are the proton
+resolved nuclear spins, the resulting para-hydrogen possesses an antisymmetric spin
+wavefunction and, to satisfy overall fermionic antisymmetry, its spatial part is restricted
+to even rotational quantum numbers |. Coupling the same proton spins to the triplet state
+(J = 1) produces ortho-hydrogen, whose symmetric spin wavefunction permits only odd |
+values.
+
+At low pressures, Raman spectra of solid hydrogen and clathrates [4, 10, 27, 46, 47]
+display free-rotor peaks with energies E, = rl +1) where I is the moment of inertia of
+the rotor and / the angular momentum, with selection rule Al = +2. In the free molecule,
+rotational levels are (21+ 1)-fold degenerate, and the main gas-phase Raman bands are
+So(0) (l = 0 > 2) (354 cm!) and So(1) (1 = 1 > 3) (587 cm™4) [46, 48]. In the clathrate
+phase and in low-pressure filled ice CO and C1 phases, the rotor bands remain close to
+the free-rotor values and their degeneracy is preserved. In the high-pressure C2 phase,
+however, the anisotropic crystal field lifts this degeneracy and shifts the main ortho-para
+transition band by 4 meV—about 30% of its value [49]. With increasing pressure, these
+bands broaden, making individual rotational levels increasingly difficult to resolve.
+
+Figure 2a,b shows the evolution of the Raman intensity distribution among the S,(0)
+transitions in a gas-loaded hydrogen hydrate sample (see Methods) as a function of temper-
+ature and pressure. XRD confirmed phase-pure C2 after gas loading, whereas cryo-loaded
+samples contained 83 mol% HO due to decomposition of the sII substrate (6:1 H20:H2
+stoichiometry).
+
+At low temperatures, the S9(2) and So(3) bands weaken and vanish below 150 K due
+to thermal depopulation of higher rotational levels; in pure hydrogen, these disappear
+at 120 K (3 GPa) [50]. In the compressed hydrate, the Raman evolution is more complex:
+a sudden broadening and asymmetry around 30 GPa suggest a change in the rotational
+TIK] 14.7(1) GPa P [GPa] 300K
+amo (@) B 100
+=| 197 = Be
+a| 22 \ 269
+&) mos \ wt
+2 = | = Bw 356
+3 | moo oo Me ODD 300 re
+5
+2 m 450
+200 400 600 800 1000 1200 200 300 400 500 600 700 800 900 1000 1100 1200
+Raman Shift [cm] Raman Shift [cm“']
+(c) (400) (an) 270K 1c, (f) (220) 21 GPa
+= = | ice VII
+a 2 \
+& 1 ! a \
+> ee z he
+% | 160 162 1.64 1.66 1.92 1.94 1.96 1.98 2.00 3
+5 5 1.82 1:90 1:98 2.06 2.14
+=z =
+1c (a) ig 33 GPa
+= = | ice VII nye
+& Ss a
+= 2 Perth tolteetia er
+@ a 1.74 782 7.90 1.98 2.06
+Fa 2
+2 2
+A= =
+rn \
+tue ath oy ‘ 7 '
+1 2 3 4 5 10 2.0 25 3.0 35 40
+(008) ny
+(e) a (103) 30K 1c, (h) tos) 42. GPa
+> i ‘| 4 | ice VI eM A\,
+= Willan
+"> |1.60 1.62 1.64 1.66 ,1.92 1.94 1.96 1.98 2.00 =
+2 3
+S 2
+= =
+went 1 1
+Tn ‘ ial ‘
+1 2 3 4 5 1.0 15 2.0 25 3.0 35 4.0
+d-spacing [Al d-spacing [A]
+1,002 1.006 1.05
+3, 001 1.005 B10 t
+5 of og fity Sos = 1.04 vt
+@ 1000F 9° ° ° 1.004 z . #
+4 © gare Ogee 1.03 CJ
+& 0.999 8 9 1-003 ry 8 o 04k . ©
+2 8 a = * a
+= 0.998 . gq, 002 i= 0.92E x 1.02)
+rs = *a, °
+3 0.997 . 1,001 7 1 3 0.90E Eg 4.01
+N . N =
+0.996 ° 1.000 = oese
+ic] . . * z o *e "
+E 0.9095 . (i) eat WD) Hf? E ose (k) ey) 10 meee (1)
+2 0.994 L* 0.998 = 08a! 0.99
+0 50 100 150 200 250 300 0 50 100 150 200 250 300 o 10 200 30 40 (50 20 80; ADO
+Temperature [K] Temperature [K] Pressure [GPa] Pressure [GPa]
+
+FIGURE 2. Raman spectra as a function of temperature at P= 14.7(1) GPa (a) and asa
+function of pressure at T=300 K (b). Represnetative X-ray diffraction data as a function
+of temperature at P=2.45(3) GPa (left panel,c-e) and as a function of pressure at T=300
+K (right panel, f-h). The extracted evolution of the lattice parameters(in the tetragonal
+setting) and the degree of asymmetrization upon cooling (i,j) and compression (k,l), are
+plotted in the bottom panels, respectively.
+
+state of encapsulated Hy [46, 51], likely driven by modifications to the crystalline field
+from the surrounding water framework during its transition to a less compressible phase
+[23]. The instability of C2 above 20 GPa toward decomposition into ice VII and molecular
+hydrogen [37] may also contribute to inhomogeneous Raman signals from free H2. The
+intensity oscillations reported near 20 GPa [37] were not observed here; spectra were
+consistently collected from the same spot after each pressure step, with a 30-minute
+equilibration, ensuring that the observed increases in the So(1)/S9(0) intensity ratio upon
+cooling (14.7 GPa) and compression (300 K) reflect enhanced ortho-para conversion. Both
+high pressure and low temperature are known to facilitate this process in solid hydrogen
+[46, 51].
+
+XRD measurements reveal that either cooling below 150 K at 2.45 GPa or compress-
+ing above 27 GPa at RT induces peak splitting (Fig. 2c—h), signaling a cubic (Fd3m) to
+tetragonal (14,/amd) transition. Although the splitting pattern is similar in both cases, it
+is markedly sharper and an order of magnitude larger under compression. The pressure-
+driven transition begins abruptly at around 30 GPa, coinciding with the onset of Raman
+anomalies—evidence of coupling between H) rotational dynamics and framework distor-
+tion. In both scenarios (cooling and pressurization), the c axis stiffens while the orthogonal
+directions contract (Fig. 2i,k). The distortion, quantified as c/\/2a, increases smoothly,
+reaching 0.5% at 30 K (2.45 GPa) and 4.6% at 48 GPa (300 K) (Fig. 2j,1).
+
+To probe the molecular-scale mechanism linking proton alignment to the lattice
+distortions seen in XRD, we performed simulations of a crystal-embedded H» molecule by
+solving the Schrédinger equation with an effective potential corresponding to the crystal
+field generated by the water framework and surrounding H2 molecules. Figure 3(a-b)
+shows the evolution of Hy density isosurfaces with temperature and pressure, along with
+the angular component P;,, (8, ) of the external potential Vext(r, 0, &) = R(r) + P;(8, b)
+at the equilibrium H» bond length r = req. 0 and ¢ are respectively the polar and azimuthal
+angles of the molecular orientation in a cubic lattice reference. As described in Methods
+and Supporting Information, densities at a given T are obtained from the para and ortho
+thermal density matrices mixed together with a fixed 1:3 para-ortho ratio.
+
+At low pressure (P = 3 GPa, panel 3(a)), the external angular potential exhibits minima
+that force the molecules into a herringbone-like arrangement. As T increases within the C2
+stability range, para- and ortho-wavefunctions mix and the density approaches spherical
+symmetry. With increasing pressure, intermolecular interactions intensify and potential
+barriers rise, while the minima shift toward 0 = 0 [7], ultimately favoring full nematicity.
+At room temperature (panel 3(b)), the density evolves from nearly spherical shells at 10
+GPa—characteristic of the quantum-plastic phase—to well-defined lobes aligned with the
+c-axis at 50 GPa.
+
+The eigenvalue evolution shown in Fig.3(c) demonstrates how the anisotropic crystal
+field in the C2 phase lifts the free-rotor degeneracy and induces a pressure-dependent
+giant splitting, in agreement with earlier findings [49]. This quantum mechanical picture
+meV]
+
+Prag(@. 9) Ul
+
+c) © Para state
+60} & Ortho state
+
+en sane
+1=2 ys
+yn¥2 _
+As
+f=1 22
+
+Ay
+Pte. see ae
+
+0 10 20 30 40 50 60
+P (GPa)
+
+Eigenvalue (meV)
+pop
+8 ss 3
+
+o
+
+°
+
+FIGURE 3. Isosurfaces of the density p(7) and angular potential P,,,(9,) evaluated at
+the equilibrium Hy bond length, shown as a function of temperature at P = 3 GPa (a),
+and as a function of pressure at T = 300 K (b). The density is projected onto the three
+planes (xy, yz, and xz) and normalized with respect to the maximum density at 0 K, 3
+GPa for panel (a), and at 300 K, 50 GPa for panel (b). Pressure dependence of the first nine
+eigenvalues at T = 0 K. Ortho and para levels are shown as circles and squares, respectively
+(c). Boltzmann weights vs. temperature at P = 50 GPa for the first five eigenvalues (d).
+Isosurfaces of the wavefunctions squared modulus for the ground state (para, 1 = 0) and
+the first three excited states (ortho, ! = 1) of the Hy molecule at P = 50 GPa (e).
+
+explains the emergence of nematic ordering at high pressures and its persistence to
+elevated temperatures. At low pressure, within the C2 stability range, the small energy
+gap between the fundamental para state (/ = 0) and the three ortho states (1 = 1, Ay, Az, A3)
+enables thermal mixing above ~100 K, yielding nearly spherical densities. Increasing
+pressure drives a sharp rise in the splitting between A, and A2 3, bringing the A level close
+1200 2s
+‘Sim. $,(0) ‘Sim. $,(1)
+
+2 Ens, © Ewsiry| (2) (b)
+
+iel|dceeo. 4 ceew
+
++ Ex.S), + Exp. Sol),
+
+4
+)
+
+m
+
+600
+
+400:
+
+Transition Energy (c1
+
+200
+
+10 20 30 40 50 o 5 0 1% 2 2 30 35 40
+Pressure (GPa) Pressure (GPa)
+
+FIGURE 4. (a) Comparison of the experimental Raman points and all simulated S9(0) and
+So(1) rotons. The blue and orange lines are theoretical whilst the red and green point
+indicate the So(0) and So(1) rotons respectively. The rotons were modelled with three
+components each, as indicated by the square, crosses and diamonds (b) Pressure depen-
+dence of the So(1) frequency ratio wy,/wp, derived from the experimental Raman data.
+The rigid rotor ratio is indicated by the dotted line at wy,/wp, = 2, whilst the quantum
+harmonic oscillator ratio is indicated by the dashed line at wy,/wp, = /2. HH crosses
+into the harmonic oscillator regime at around 27 GPa, the same pressure a structural
+change is previously reported [23] (c) Experimental Raman frequencies derived from
+the fitting procedure described in Methods (squares) and computed Raman frequencies
+obtained via DFPT (circles) for the hydrogen vibron upon compression of the hydrogen
+hydrate. The change in slope, highlighted by the shadow area, corresponds to the pressure
+where the hydrogen molecules order.
+
+to 1 = 0. This restricts significant mixing to 1 = 0 and / = 1, Aj, both oriented along the c axis,
+producing a nematic density distribution. The fixed 1:3 para-ortho ratio further enhances
+the statistical weight of A;, stabilizing orientational order up to ~500 K (Fig.3d-e).
+
+From these computed eigenvalues, we can determine the Stokes rotational transitions
+So(0) and So(1), plotted in Fig. 4(a) as orange and blue curves, respectively. The comparison
+with the experimental Raman data in the same panel shows good agreement, particularly
+in the pressure evolution of the main features, thus validating the simulation framework.
+The pronounced change in slope of both Sp(0) and So(1) near 30 GPa coincides with the
+cubic-tetragonal distortion observed in XRD and with the calculated onset of dominant
+A; - l= 0 mixing (Fig.3c-d), supporting the interpretation that the structural transition is
+driven by a pressure-induced orientational ordering of the guest molecules.
+
+Panel 4(b) further supports this picture by showing the pressure dependence of the
+ratio between the So(1) Raman frequencies measured for an Hy-hydrate (wy,) and for
+a D»-hydrate (wp,). At low pressure, the ratio remains close to the free-rotor limit of 2,
+reflecting the 1/I scaling of rotational energies with the molecular moment of inertia.
+Upon compression, the increasingly strong crystalline field exerted by the rigid water
+lattice progressively hinders the molecular rotations, effectively locking the H2/D» orienta-
+(a) P<30GPa (b) (c) P230GPa
+
+= hea chen
+= tome : Se ees
+
+—# 0.0- 1st peak
+
+Ei 30
+Pressure (GPa)
+
+FIGURE 5. (a) Crystal structure of C2 hydrogen hydrate at low pressures (P < 30 GPa),
+showing the two interpenetrating cubic sublattices of HO and H2. The water-proton
+network is disordered, while the Hz molecules are orientationally disordered at high
+temperature and adopt a herringbone-like arrangement at low temperature. (b) Pressure
+dependence of the first (solid lines) and second (dotted lines) peak positions in the radial
+distribution functions g(r) for the Hy~O and O”O pairs, from PIMD simulations at T =
+300 K. The background color gradient represents the orientation factor Sppyp extracted
+from those simulations. (c) Crystal structure of C2 hydrogen hydrate in the symmetrized
+(water-proton) state at high pressures (P 2 30 GPa). At the highest pressures, Hz molecules
+become nematic along the c-axis, coinciding with the tetragonal distortion direction.
+
+tion relative to the host cages. As rotational freedom is quenched, the excitations acquire
+librational character and the ratio approaches the harmonic mass-scaling limit \/2, char-
+
+acteristic of an oscillator with frequency « m2
+
+. A qualitatively similar evolution has
+been reported for pure solid hydrogen and deuterium at much higher pressures (above
+~140 GPa) [46, 48], and a direct comparison between the dispersion curves for the hydrate
+and for the elemental solids is provided in the Supplementary Information (Fig. A6). In
+analogy with the dense elemental phases, if the hindering potential in the hydrate is
+sufficiently anharmonic — i.e. weaker than purely harmonic at large angular displace-
+ments — the ratio can transiently overshoot below V2 before converging, reflecting an
+enhanced softening of the librational mode. Notably, the roton-libron crossover in the hy-
+drate occurs at pressures an order of magnitude lower than in pure hydrogen/deuterium,
+highlighting the much stronger orientational constraints imposed by the host lattice. The
+observed trend thus constitutes direct spectroscopic evidence for the progressive locking
+of the guest-rotor orientation due to the strengthening of H2/D2-H2O coupling under
+pressure.
+
+This progressive hindering of the guest rotations revealed in panel 4(b) has a direct
+counterpart in the behavior of the intramolecular H-H stretching mode, since changes in
+rotational freedom modify the coupling between rotational and vibrational degrees of
+freedom and thus the vibron pressure dependence. Consequently, from the analysis of
+the H-H stretching mode in Fig. 4(c) comparing Density Functional Perturbation Theory
+
+10
+(DFPT) calculations with experimental Raman frequencies it turns out that both simulation
+and experiment display a clear change in slope near 30 GPa. This is consistent with the
+signatures seen in the rotational modes and further linking the vibron behavior to the
+onset of pressure-induced orientational ordering predicted by our quantum embedded
+model.
+
+The structure of the C2 hydrogen hydrate at low pressure is shown in Fig.5(a). The
+two interpenetrating hydrogen and water cubic sublattices are fully orientationally disor-
+dered: the protons in the water framework are randomly distributed between equivalent
+hydrogen-bond configurations, and the Hz molecules adopt random orientations within
+their cages. Panel 5(b) reports the evolution with pressure of the positions of the two
+oxygen atoms closest to a given water proton Hy—the intramolecular oxygen covalently
+bound to Hy and the oxygen of the neighboring molecule to which Hy is hydrogen-
+bonded—shown in blue, as extracted from our Path-Integral Molecular Dynamics (PIMD)
+trajectories (see Methods). With increasing pressure, these two nearest oxygen atoms
+approach to each other and their corresponding distances to Hw converge at ~26 GPa
+[38], indicating proton symmetrization and the formation of symmetric O - H---O bonds.
+The first peak position of the oxygen-oxygen (0-0) radial distribution function is shown
+in black, while the background color encodes the orientation factor Spyyp of the Hz
+molecules, computed from path-integral molecular dynamics as an ensemble average
+over beads and time steps, as defined in Methods. This quantity implicitly incorporates
+both the geometrical arrangement of the molecules and their thermal-quantum fluctua-
+tions relative to the c axis. Before symmetrization, compression primarily shortens the
+hydrogen bonds, with little ordering of the Hz sublattice. Proton symmetrization abruptly
+stiffens the O— H---O network, producing a sharp increase in the bulk modulus B [23, 27]
+and making the ice sublattice much less compressible. Beyond this point, further isotropic
+compression is energetically disfavored; instead, it becomes more favorable to reorient
+the Hz molecules with their bond axes parallel to the c direction [panel 5(c)], reducing
+the volume along a and b owing to the increased compressibility along these axes. This
+collective alignment of the Hy sublattice drives the tetragonal elongation of the H,0
+framework and produces a second, more gradual rise in B [23, 27]. In other words, the
+lattice first complies with increased pressure through hydrogen-bond rigidification in
+the water network, and then through anisotropic reorientation of the hydrogen network,
+rather than by further reducing the O - O separation. Figure 5 thus reveals a two-stage
+process in which the quantum-mechanical behavior of the water and hydrogen sublattices
+becomes tightly interlocked, their structural and dynamical degrees of freedom evolving
+in unison and merging into a single quantum lattice.
+
+Our results demonstrate that C2 hydrogen hydrate undergoes a pressure-driven, two-
+stage transformation in which the hindering of the rotational dynamics of the hydro-
+
+11
+gen sublattice becomes intertwined with the distortion of the ice sublattice. The first
+stage—proton symmetrization in the host lattice—abruptly stiffens the hydrogen-bond
+network, while the second—anisotropic alignment of the Hz molecules—relieves further
+compression and induces a tetragonal distortion. This collective alignment is directly man-
+ifested in the structural transition of the lattice, marking the point where the guest reorien-
+tation and host deformation proceed in lockstep. The coupling is evident across structural,
+elastic, rotational, and vibrational observables, linking the roton-libron crossover of the
+guest molecules to the proton ordering of the host. In this regime, the motions of the
+host lattice and the guest molecules become strongly interconnected, forming collective
+quantum modes rather than distinct subsystems. This provides an exquisite example of
+coupled nuclear quantum dynamics in a crystalline solid, with potential implications for
+other hydrogen-rich materials under high pressure.
+
+Methods
+
+Experimental Details
+
+Samples were prepared in two different ways, depending on the specific experiment,
+cryo-loaded or gas-loaded in the diamond anvil cell (DAC). In the first case, polycrystalline
+hydrogen hydrate samples with the sII clathrate structure were prepared by exposing
+H20 ice (Ih) to gas Hz at 0.28 GPa for 20-30 min, following the method described in ref.
+[3]. The ice was made of spheres with typical diameters of a few tens of micrometers.
+After preparation, the samples were recovered at ambient pressure and stored at liquid
+nitrogen temperature. Then, a small amount of sample was loaded at liquid nitrogen
+temperature into a diamond anvil cell partially immersed in a liquid nitrogen bath and in
+an atmosphere saturated with nitrogen vapor to avoid water or oxygen condensation on
+the culet. The loaded samples were then compressed to pressures of a few GPa before
+being warmed to room temperature. This is a similar loading procedure to what we
+had previously done for methane hydrate [20, 22]. This procedure inevitably produces
+a mixture of C2 hydrogen hydrate and excess pure ice, due to the difference in molar
+ratios between the clathrate sII phase and the C2 phase. Clathrate sII samples prepared
+following our method have a molar ratio H2O:H2 between 4 and 5, as we have verified by
+neutron diffraction in the past [3], and the C2 phase is characterized by a molar ratio of 1.
+Two samples were prepared directly in the DAC by loading room-temperature liquid H20
+and high-pressure Hp using a gas loading setup. Briefly, liquid water was loaded together
+with an air bubble, consisting of approximately 70% of the sample chamber volume. The
+air bubble was replaced with 99.99+% Hy» at 1400 bar, and the DAC was subsequently
+pneumatically closed and pressurized. These samples were measured by both Raman
+spectroscopy and by XRD. Some of the cryoloaded samples contained a small amount of
+
+12
+pure N» and/or pure Op, both of which can easily be identified from their respective vibron
+Raman peaks. They were trapped in the sample chamber during cryoloading and would
+have acted as a pressure-transmitting medium. In the gas-loaded samples, Hp itself was
+acting as the pressure transmitting medium. Culet diameters ranging between 200-500
+um for the Ilas quality diamond anvils were used. Re-foil gaskets were used to contain the
+sample whilst ruby and/or gold spheres were used as pressure calibrants in Raman and
+X-ray experiments respectively.
+
+Angle-dispersive X-ray powder diffraction patterns were acquired at ID15b at ESRF
+(Grenoble, France) using a monochromatic X-ray beam (A=0.41 A) and an Eiger 2 9M CdTe
+flat-panel detector, with a typical acquisition time of a ten seconds.[43] The beam spot
+size was 6x6 um, and the DAC was rocked 5° during the acquisition. The 2D diffraction
+patterns were treated to mask the Bragg peaks of the diamond anvils, then integrated
+into one-dimensional patterns, and a smooth polynomial background was subtracted.
+Le Bail refinements were performed using Topas Academic version 6 [52]. In the XRD
+measurements, the pressure was determined using the equation of state of gold from ref.
+[53]. Raman spectra at ambient temperature were acquired using a commercial Horiba
+Jobin-Yvon LabRam HR800 Raman spectrometer in a backscattering geometry, equipped
+with a COBOLT SambaTM green 532 nm laser, with a nominal power of 1000 mW. Low-
+temperature Raman spectra were collected using an Argon laser (120 mW output power)
+tuned to 514.32 nm and a Peltier-cooled HR460 spectrograph with 1500 gr/mm grating. The
+acquisition time was typically about a minute. Reference spectra were recorded at each
+pressure from the gasket close to the sample chamber, and particular care was taken to
+check the effect of the background subtraction on the fit results. In the Raman measure-
+ments, pressure was determined by the shift of the R1 ruby fluorescence line [54], from
+the edge of the stressed diamond signal (above 40 GPa) [55], or from the vibron frequency
+of pure solid Hz [56]. A helium cryostat was used for low-temperature measurements.
+
+Computational Details
+
+Ab initio molecular dynamics (AIMD) simulations were carried out on a 2 x 2 x 2 super-
+cell of the C2 phase (space group Pna2 ) over a grid of pressures from 3 to 50 GPa and
+temperatures from 25 to 300 K. Calculations employed the Perdew-Burke-Ernzerhof
+(PBE) exchange-correlation functional [57] and were performed with both VASP [58] and
+Quantum Espresso [59, 60] packages. The Path-Integral molecular dynamics approach
+(PIMD) [61-65] was used to efficiently sample nuclear-quantum effects under the desired
+thermodynamic conditions. Simulations were conducted for temperatures above 25 K, by
+using the Path-Integral Ornstein-Uhlenbeck Dynamics (PIOUD) algorithm implemented
+in Quantum Espresso [66]. After performing convergence tests on both the virial and prim-
+itive estimators of the quantum kinetic energy, the number of beads (N;) was set to 40 at
+
+13
+300 K and increased to 160 at 25 K for PIMD runs. For both AIMD and PIMD, a plane-wave
+cutoff of 100 Ry and a 2 x 2 x 2 k-point mesh were sufficient to achieve convergence in the
+DFT solution of the electronic problem. Trajectories were obtained with a time-step of 0.5
+fs and a total duration of approximately 10 ps for each (P, T) condition.
+
+Spin isomers such as ortho- and para- hydrogen are not taken into account in molecular
+dynamics (MD) simulations. Indeed, to access the true low-temperature physics of the C2
+phase while retaining quantum effects and accounting for spin isomers, we solved the
+Schrodinger equation at 0 K for an Hy molecule in an effective potential modeling the
+induced interactions between H» and the water lattice. As detailed in the Supplementary
+Information section A, going beyond previous studies [67-70], we evaluated the full, non-
+separable potential Vext(r, 8, @) by performing self-consistent DFT calculations (Quantum
+Espresso, 300 eV cutoff, 5x4x5 k-mesh) for each configuration generated on a dense spher-
+ical grid of bond lengths and orientations [70]. These 0 K DFT energies directly capture the
+interaction of Hy with the water lattice. We used several exchange-correlation functionals
+and their comparison is shown in Fig. Al. For consistency with the MD calculations, the
+main results are obtained using PBE.
+
+The Schrodinger equation has been solved using a basis set of the form 1p"(r, 0, @) =
+xn(7)¥7"(0, &), where x;,(r) is the radial basis of the Morse potential and Y/"(0, p) are
+the spherical harmonics. This approach can be viewed as a mean-field model, in which a
+single Hy molecule is embedded in the field generated by the surrounding water lattice.
+
+The spatial density at finite temperature T was obtained by treating the two nuclear-
+spin manifolds of Hy independently. Assuming that ortho (J=1) and para (J=0) popula-
+tions do not interconvert on the time scale of the simulation, the total density reads
+
+—B (Ej-E})
+foe Phi -£) foe jE
+et) = 2 hh) pl) P
+icortho jepara P
+where
+Z=- > eB (EE) B= >d eB (Ej-BG)
+icortho jepara
+
+Here B = (kgT)~}, |p|? and Ep are the eigenfunctions and eigenvalues obtained from
+the Schrodinger equation evaluated in the relaxed hydrate lattice; E} and ES are the ortho
+and para ground-state energies, and f p: f. =1:3 is the fixed statistical spin ratio. This
+approach neglects cage deformation effects, as the potential is evaluated using the relaxed
+lattice geometry. A key advantage of the embedded quantum model is that it naturally
+incorporates the correct ortho/para mixture of Hy. In contrast, PIMD simulations describe
+only the para state (the ground rotational state), while in reality the ortho species is more
+populated than the para one in a 3:1 ratio. Because the ortho states are more localized than
+the para state, this difference has a major impact on orientational properties, particularly
+
+14
+at the lowest temperatures. Accounting for the ortho/para mixture is therefore essential
+for a quantitatively accurate description of the orientational regimes and phase transitions.
+Another clear advantage of the quantum embedded model is the possibility to explore low-
+temperature regimes at constant computational effort, compared to PIMD whose effort
+increases dramatically as temperature is lowered. We therefore adopted the quantum
+embedded model as viable approach to study the quantum phase diagram of hydrogen
+filled ice as a function of pressure and temperature.
+
+To characterize the three distinct orientational regimes for Hy (quantum plastic,
+herringbone-like configurations, and nematicity [27, 34]) from the quantum embedded
+model, we introduce the orientation factor S as follows [71, 72].
+
+In analogy with diffraction theory, where the scattering amplitude can be factorized
+into a lattice contribution and a local form factor, we define the orientation factor as the
+product of a collective geometric term and an intrinsic quantum factor:
+
+(1) S(P, T) = Sg(P) Sq(P, T).
+
+The geometric contribution S¢ is evaluated on the 0 K equilibrium geometry obtained
+from DFT calculations at a given pressure P. It is defined from the orientation of each
+molecule i, through the angle 0; between the crystallographic c axis (preferential axis
+of alignment) and the molecular axis. Its definition coincides with the nematic order
+parameter [73, 74]:
+
+i1N2  o,. 1
+2 S, =—) a a?
+(2) & wala 1 5)
+
+This factor thus encodes the collective orientational arrangement of the atomic sites. By
+construction, Sg = 1 when all Hz molecular axes are perfectly aligned along the crystallo-
+graphic c axis, while Sp = 0 corresponds to a completely random, isotropic distribution of
+the molecular orientations in the simulation cell.
+
+We then apply a quantum dressing to this geometric factor, obtained from the probability
+density of the quantum embedded model at pressure P and temperature T. For this purpose,
+we define the alignment tensor
+
+(3) Q,= 5 [ o(t) uur de 51,
+
+where ur is the unit vector along r, and p(r) is the diagonal part of the thermal density
+matrix. We define the quantum contribution S, as the largest eigenvalue of Q,. By construc-
+tion, Sg = 1 when the quantum distribution of the Hz molecular axes is perfectly aligned
+along a given direction while Sg = 0 corresponds to an isotropic quantum distribution.
+This quantum dressing ensures that the final orientation factor incorporates both the
+
+15
+orientation linked to the underlying geometry (Sg) and the intrinsic thermal quantum
+fluctuations encoded in the density matrix (Sq), in the same way as diffraction separates
+lattice geometry from the internal structure of the scatterer.
+
+With this definition, the orientation factor S(P, T) can be mapped across the phase
+diagram, as shown in Fig. 1.
+
+S(P, T) can also be computed from PIMD simulations at pressure P and temperature T,
+whenever available, instead of the quantum embedded model. In this case, the orientation
+factor reads Spy = f dX p(X) NN; Sea 3 cos? 0;(X) - 3), where the integral runs over
+the path configurations X, and the sum runs over all N Hp molecules and the beads. Here,
+p(X) denotes the normalized configurational probability density sampled during the
+path-integral molecular dynamics, so that the integral represents an ensemble average
+over beads and time steps. Notice how the latter equation contains implicitly both a
+geometrical contribution, given by the orientational arrangement of the Hy molecules in
+the supercell, and thermal-quantum fluctuations, provided by the path-integral formalism.
+The orientation factor obtained from the PIMD simulations Spyyp at 300K is plotted in
+Fig. 5, by neglecting spin isomers effects and relying on the similar density distribution of
+the J = 0 and J = 1 states at room temperature.
+
+To locate the transition between the quantum plastic and orientationally ordered
+phases, we employ a complementary global order parameter Miot. It is defined as a
+structure-factor measure of orientational coherence, constructed from angular phases
+chosen such that symmetry-related orientations (phase/antiphase configurations, e.g. in
+the herringbone pattern) interfere constructively. Randomly oriented Hy molecules then
+cancel out (Miot ¥ 0), while herringbone or nematic Hp molecules add coherently (Mtot *
+1). The precise mathematical definition, including the angular cumulative distribution
+function transforms and rank-m order parameters, is given in Section B of the SI. In
+molecular dynamics trajectories sampled over the (P, T) grid, orientational transitions
+are identified by the vanishing of Mtot, which signals the loss of orientational order in the
+Hp sublattice. For each pressure, the temperature at which Mtot vanishes is referenced as
+the transition point.
+
+Since Mtot cannot be evaluated within the quantum embedded model, which describes
+individually embedded Hz, we instead compute the global order parameter from clas-
+sical MD simulations. At the classical transition points, we evaluate the corresponding
+orientation factors, where this time thermal quantum fluctuations in Eq. 3 are replaced
+by a thermal average performed over the classical canonical ensemble in the simulation
+cell. Within the approximation of dominant electrostatic effects, the resulting ensemble-
+averaged value of S at the classical transition points provides a threshold, sth, for the
+critical value of S computed with the quantum embedded model. Within the embed-
+ded framework, the transition temperature Tp at pressure P is then obtained from the
+
+16
+condition
+S(P, Tp) = st
+
+Plotting Tp as a function of pressure gives the points of the white dashed transition line
+shown in Fig.1. The error bars on Tp are obtained by propagating the uncertainty in sth: we
+evaluate the inverse relation at the two bounds S = S“ + ae, The temperature uncertainty
+is then defined as AT = 2\Thigh ~ Trowl) Where Thigh (Tyo) Corresponds to the temperature
+extracted from the inverse map at the S‘* + ot! (st — ot?) bound (see Fig. A4 of SI).
+
+Finally, because Sg is computed with respect to the c axis in Eq. 2, the orientation factor
+also provides direct information on the nematic orientation of the system, the largest
+values of S being taken in the nematic aligned phase.
+
+The phonon spectrum and Raman cross section of the system were computed using
+density functional perturbation theory (DFPT) as implemented in the Quantum ESPRESSO
+package [75, 76], employing a unit cell and a 4x4x4 k-point grid. This is the only calculation
+performed entirely within a classical nuclear framework, as no implementation currently
+exists for computing Raman cross sections from PIMD trajectories.
+
+To investigate the relationship between Hp orientational order, HyO-Hy interactions,
+and proton symmetrization within the water sublattice, the radial distribution functions
+g(r) as a function of pressure were computed from our MD trajectories for Hw-O, H,-0,
+and O-0 pairs. Here, Hw denotes protons belonging to the water sublattice, H;, refers to
+protons from Hz molecules, and O represents oxygen atoms.
+
+Acknowledgments
+
+We acknowledge the European Synchrotron Radiation Facility for provision of synchrotron
+radiation facilities at the ID15B and ID27 beam lines and assistance from G. Garbarino
+and S. Gallego Parra. We acknowledge U. Ranieri, A. Falenti, W. Kuhs and L. Ulivi for
+samples preparation. L.E.B. and M.R. acknowledge the financial support by the European
+Union - NextGenerationEU (PRIN N. 2022NRBLPT), the ANR-23-CE30-0034 EXOTIC-ICE.
+L.E.B., T.P. and A.N. acknowledge the financial support by the Swiss National Fund (FNS)
+under Grant No. 212889. S.D.C. acknowledges computational resources from CINECA,
+proj. IsC90-HTS-TECH and IsC99-ACME-C, and the Vienna Scientific Cluster, proj. 71754
+"TEST". L.R. and A.M.S acknowledge GENCI for providing computational resources on the
+IDRIS Jean-Zay supercomputing clusters under project numbers 2024-A0160901387, 2025-
+A0180901387. L.R. and M.C. acknowledge GENCI for providing computational resources
+on the IDRIS Jean-Zay supercomputing clusters under project number A0170906493. M.
+C. thanks the European High Performance Computing Joint Undertaking (JU) for the
+partial support through the "EU-Japan Alliance in HPC" HANAMI project (Hpc AlliaNce
+for Applications and supercoMputing Innovation: the Europe - Japan collaboration).
+
+17
+Author Contributions
+
+L.E.B. designed the research. S.D.C. initiated the theoretical investigation. L.R. and S.D.C.
+performed the MD simulations and data analysis with guidance from M.C., A.M.S., and
+L.E.B.. T.P., L.A., A.N., R.G., and L.E.B. performed the XRD experiments. T.P., A.N., and
+M.R. performed the Raman experiments. T.P. and L.A. performed the XRD data analysis,
+
+A.N., R.G. and M.R. performed the Raman data analysis, with guidance from L.E.B.. L.R.,
+
+TP,
+
+and A.N. prepared the figures, with inputs from L.E.B., M.C., and A.M.S.. L.E.B, L.R.,
+
+and T.P. wrote the manuscript with input from M.C., and A.M.S. All authors discussed the
+
+results and the manuscript.
+
+fi]
+
+[3]
+
+[4]
+
+[5
+
+[7
+
+[8
+
+References
+
+Saman Alavi, Livia E. Bove, Niall J. English, Donglin Jiang, Rocio Semino, and Amadeu K.
+Sum. Porous solids for energy applications. Journal of Chemical Physics, 161(20):200401, 2024.
+Cynthia J. Jameson and David Stueber. Nuclear magnetic resonance line shapes of xe in the
+cages of clathrate hydrates. Journal of Chemical Physics, 120(21):10200-10211, 2004.
+Umbertoluca Ranieri, Michael Marek Koza, Werner F. Kuhs, Richard Gaal, Stefan Klotz, An-
+drzej Falenty, Dirk Wallacher, Jacques Ollivier, Philippe Gillet, and Livia E. Bove. Quantum
+Dynamics of H2 and D2 Confined in Hydrate Structures as a Function of Pressure and Temper-
+ature. The Journal of Physical Chemistry C, 123(3):1888-1903, January 2019. Publisher: American
+Chemical Society.
+
+Umbertoluca Ranieri, Leonardo del Rosso, Livia Eleonora Bove, Milva Celli, Daniele Colognesi,
+Richard Gaal, Thomas C. Hansen, Michael Marek Koza, and Lorenzo Ulivi. Large-cage occu-
+pation and quantum dynamics of hydrogen molecules in sII clathrate hydrates. The Journal
+of Chemical Physics, 160(16):164706, April 2024. _eprint: https://pubs.aip.org/aip/jcp/article-
+pdf/doi/10.1063/5.0200867/19891268/164706_1_5.0200867.pdf.
+
+L. Ulivi, M. Celli, A. Giannasi, A. J. Ramirez-Cuesta, D. Bull, and M. Zoppi. Quantum rattling
+of molecular hydrogen in clathrate hydrate nanocavities. Physical Review B, 76:161401, 2007.
+Min Xu, Shuji Ye, Amanda Powers, Ron Lawler, Nicholas J. Turro, and Zlatko Baci¢. Inelastic
+neutron scattering spectrum of hy@c¢o and its temperature dependence decoded using rigor-
+ous quantum calculations and a new selection rule. Journal of Chemical Physics, 139(6):064309,
+2013.
+
+Stefano Longo, Davide Lonigro, Giovanni Lerario, Alessandro Foti, Emilio Fiordilino, Giovanni
+Mazzola, and Rosario Pucci. Quantum states of hj and hy in an icosahedral potential well.
+European Physical Journal D, 77(29):29, 2023.
+
+J. S. Tse, C. Gutt, W. Press, D. D. Klug, S. Janssen, I. P. Swainson, and V. P. Shpakov. Rotational
+dynamics in methane hydrates. Applied Physics A, 74:S1299-S1301, 2002.
+
+Hideki Hirai and Hidetaka Kadobayashi. Significance of the high-pressure properties and
+structural evolution of gas hydrates for inferring the interior of icy bodies. Progress in Earth
+and Planetary Science, 10(1):3, 2023.
+
+18
+10
+
+11
+
+2]
+
+17
+
+18
+
+19
+
+20]
+
+21)
+
+22]
+
+23]
+
+24]
+
+Timothy A. Strobel, E. Dendy Sloan, and Carolyn A. Koh. Raman spectroscopic studies of
+hydrogen clathrate hydrates. The Journal of Chemical Physics, 130, 1 2009.
+
+Surya Vellamarthodika and Sandeep Gautam. Role of orientational disorder in zsm-22 in the
+adsorption of so. arXiv preprint, 2022.
+
+H. Jobic, A. N. Fitch, and A. Tuel. Molecular motions of propane and propene in zsm-5: A
+quasielastic neutron scattering study. Journal of Physical Chemistry B, 103(4):660-664, 1999.
+F. Leroux, P. Boulet, and P. A. Jaffrés. Interaction of soz with zeolite materials studied by ftir
+spectroscopy and dft calculations. Journal of Physical Chemistry C, 112(43):16833-16839, 2008.
+Ishu Dhiman, Rounak Sarkar, Salman Alikhan, and Michael L. Klein. Anomalous orientational
+ordering and dynamics of so in zsm-22 zeolite channels: A molecular dynamics study. arXiv
+preprint, 2023.
+
+U. Vietze, O. Kiihn, and D. Michel. Molecular orientation and ordering of dyes in alpog-5
+zeolite channels. Physical Review Letters, 81(21):4628-4631, 1998.
+
+Marina Carravetta, Odd G. Johannessen, and Malcolm H. Levitt. Beyond the motional nar-
+rowing limit: Nuclear spin relaxation of encapsulated hy in cg0. Physical Review Letters,
+97(16):167401, 2006.
+
+A. J. Horsewill. Quantum dynamics of molecular rotation in the solid state. Progress in Nuclear
+Magnetic Resonance Spectroscopy, 35(4):359-389, 1999.
+
+L. E. Bove and U. Ranieri. Salt- and gas-filled ices under planetary conditions. Philo-
+sophical Transactions of the Royal Society A: Mathematical, Physical and Engineering Sciences,
+377(2146):20180262, 2019.
+
+Takuo Okuchi, Masashi Takigawa, Jinfu Shu, Ho kwang Mao, Russell J. Hemley, and Takehiko
+Yagi. Fast molecular transport in hydrogen hydrates by high-pressure diamond anvil cell nmr.
+Physical Review B, 75:144104, 4 2007.
+
+Sofiane Schaack, Umbertoluca Ranieri, Philippe Depondt, Richard Gaal, Werner F. Kuhs,
+Andrzej Falenty, Philippe Gillet, Fabio Finocchi, and Livia E. Bove. Orientational Ordering,
+Locking-in, and Distortion of CH4 Molecules in Methane Hydrate III under High Pressure. The
+Journal of Physical Chemistry C, 122(20):11159-11166, May 2018. Publisher: American Chemical
+Society.
+
+Chengyang Yuan, Hongxiang Zong, Hongsheng Dong, Lei Yang, Yufei Gao, Zhen Fan, Lunxiang
+Zhang, Jiafei Zhao, Yongchen Song, and John S. Tse. Pressure-regulated rotational guests in
+nano-confined spaces suppress heat transport in methane hydrates. Nature Communications,
+15(9477), 2024.
+
+Sofiane Schaack, Umbertoluca Ranieri, Philippe Depondt, Richard Gaal, Werner F. Kuhs,
+Philippe Gillet, Fabio Finocchi, and Livia E. Bove. Observation of methane filled hexagonal
+ice stable up to 150 gpa. Proceedings of the National Academy of Sciences, 116(33):16204-16209,
+2019.
+
+L. Andriambariarijaona, T. Poreba, S. Di Cataldo, R. Gaal, U. Ranieri, M. Santoro, T. C. Hansen,
+M. Mezouar, G. Tobie, and L. E. Bove. Hydrogen hydrates under extreme conditions: In-
+sights into high-pressure phases and implications for planetary interiors. Physical Review B,
+111:214109, 6 2025.
+
+Konstantin A. Lokshin, Yusheng Zhao, Duanwei He, Ho-Kwang Mao, Wendy L. Mao, Russell J.
+Hemley, Mikhail V. Lobanov, Martha Greenblatt, and Willem L. Vos. Structure and dynamics
+
+19
+of hydrogen molecules in the novel clathrate hydrate by high pressure neutron diffraction.
+Physical Review Letters, 93(12):125503, 2004.
+
+25] Leonardo del Rosso, Milva Celli, Daniele Colognesi, Francesco Grazzi, and Lorenzo Ulivi.
+Irreversible structural changes of recovered hydrogen hydrate transforming from c0 phase to
+ice xvii. Chemical Physics, 544:111092, 4 2021.
+
+26] Paulo H. B. Brant Carvalho, Amber Mace, Inna Martha Nangoi, Alexandre A. Leitao, Chris A.
+Tulk, Jamie J. Molaison, Ove Andersson, Alexander P. Lyubartsev, and Ulrich Haussermann.
+Exploring high-pressure transformations in low-z (h2, ne) hydrates at low temperatures.
+Crystals, 12(1), 2022.
+
+27] Umbertoluca Ranieri, Simone Di Cataldo, Maria Rescigno, Lorenzo Monacelli, Richard Gaal,
+Mario Santoro, Leon Andriambariarijaona, Paraskevas Parisiades, Cristiano De Michele,
+and Livia Eleonora Bove. Observation of the most H2-dense filled ice under high pressure.
+Proceedings of the National Academy of Sciences, 120(52):e2312665120, December 2023. Publisher:
+Proceedings of the National Academy of Sciences.
+
+28] H. Hirai. Stabilizing of methane hydrate and transition to a new high-pressure structure at 40
+gpa. American Mineralogist, 91:826-830, 5 2006.
+
+29] Roberto Bini and Gabriele Pratesi. High-pressure infrared study of solid methane: Phase
+diagram up to 30 gpa. Physical Review B, 55:14800-14809, 6 1997.
+
+30] Maxim Bykov, Elena Bykova, Chris J. Pickard, Miguel Martinez-Canales, Konstantin Glazyrin,
+Jesse S. Smith, and Alexander F. Goncharov. Structural and vibrational properties of methane
+up to 71 gpa. Physical Review B, 104:184105, 11 2021.
+
+31] Ho-kwang Mao and Russell J Hemley. Ultrahigh-pressure transitions in solid hydrogen.
+Reviews of modern physics, 66(2):671, 1994. Publisher: APS.
+
+32] Russell J. Hemley and Ho kwang Mao. Dense molecular hydrogen: Order, disorder, and
+localization. Journal of Non-Crystalline Solids, 205-207:282-289, 10 1996.
+
+33] Isaac F. Silvera and Ranga Dias. Phases of the hydrogen isotopes under pressure: metallic
+hydrogen. Advances in Physics: X, 6, 12021.
+
+34] Jingyun Zhang, Jer-Lai Kuo, and Toshiaki litaka. First principles molecular dynamics study
+of filled ice hydrogen hydrate. The Journal of Chemical Physics, 137, 8 2012.
+
+35] Hisako Hirai, Shingo Kagawa, Takehiko Tanaka, Takahiro Matsuoka, Takehiko Yagi, Yasuo
+Ohishi, Satoshi Nakano, Yoshitaka Yamamoto, and Tetsuo Irifune. Structural changes of filled
+ice ic hydrogen hydrate under low temperatures and high pressures from 5 to 50 gpa. The
+Journal of Chemical Physics, 137, 8 2012.
+
+36] Shin ichi Machida, Hisako Hirai, Taro Kawamura, Yoshitaka Yamamoto, and Takehiko Yagi.
+Structural changes of filled ice ic structure for hydrogen hydrate under high pressure. The
+Journal of Chemical Physics, 129, 12 2008.
+
+37] Shin ichi Machida, Hisako Hirai, Taro Kawamura, Yoshitaka Yamamoto, and Takehiko Yagi.
+Raman spectra for hydrogen hydrate under high pressure: Intermolecular interactions in
+filled ice ic structure. Journal of Physics and Chemistry of Solids, 71:1324-1328, 9 2010.
+
+38] Lorenzo Monacelli, Maria Rescigno, Alasdair Nicholls, Umbertoluca Ranieri, Simone Di
+Cataldo, and Livia Eleonora Bove. Accepted: Hydrogen bond symmetrization in high-pressure
+ice clathrates. Physical Review B, 2025.
+
+39] K. Aoki, H. Yamawaki, M. Sakashita, and H. Fujihisa. Infrared absorption study of the
+
+20
+40
+
+41
+
+42
+
+43
+
+44
+
+45
+
+46
+
+[47
+
+48
+
+49]
+
+50]
+
+51]
+
+hydrogen-bond symmetrization in ice to 110 gpa. Phys. Rev. B, 54:15673-15677, Dec 1996.
+
+A. F. Goncharov, V. V. Struzhkin, M. S. Somayazulu, R. J. Hemley, and H. K. Mao. Compression
+of ice to 210 gigapascals: Infrared evidence for a symmetric hydrogen-bonded phase. Science,
+273(5272):218-220, 1996.
+
+Ph. Pruzan, E. Wolanin, M. Gauthier, J. C. Chervin, B. Canny, D. Hausermann, and M. Hanfland.
+Raman Scattering and X-ray Diffraction of Ice in the Megabar Range. Occurrence of a Sym-
+metric Disordered Solid above 62 GPa. The Journal of Physical Chemistry B, 101(32):6230-6233,
+August 1997. Publisher: American Chemical Society.
+
+Kazuki Komatsu, Takanori Hattori, Stefan Klotz, Shinichi Machida, Keishiro Yamashita, Hay-
+ate Ito, Hiroki Kobayashi, Tetsuo Irifune, Toru Shinmei, Asami Sano-Furukawa, and Hiroyuki
+Kagi. Hydrogen bond symmetrisation in D2O ice observed by neutron diffraction. Nature
+Communications, 15(1):5100, June 2024.
+
+Tomasz Poreba, Davide Comboni, Mohamed Mezouar, Gaston Garbarino, and Michael Han-
+fland. Tracking structural phase transitions via single crystal x-ray diffraction at extreme
+conditions: advantages of extremely brilliant source. Journal of Physics: Condensed Matter,
+35(5):054001, dec 2022.
+
+Maria Rescigno, Alberto Toffano, Umbertoluca Ranieri, Leon Andriambariarijaona, Richard
+Gaal, Stefan Klotz, Michael Marek Koza, Jacques Ollivier, Fausto Martelli, John Russo,
+Francesco Sciortino, Jose Teixeira, and Livia Eleonora Bove. Observation of plastic ice vii by
+quasi-elastic neutron scattering. Nature, 640:662-667, 4 2025.
+
+J. VAN KRANENDONK and G. KARL. Theory of the rotational and vibrational excitations in
+solid parahydrogen, and frequency analysis of the infrared and raman spectra. Rev. Mod.
+Phys., 40:531-555, Jul 1968.
+
+Peter I. C. Cooke, Ioan B. Magdau, Miriam Pefia-Alvarez, Veronika Afonina, Philip Dalladay-
+Simpson, Xiao-Di Liu, Ross T. Howie, Eugene Gregoryanz, and Graeme J. Ackland. Raman
+signal from a hindered hydrogen rotor. Physical Review B, 102(6):064102, 2020.
+
+Timothy A. Strobel, Maddury Somayazulu, and Russell J. Hemley. Phase behavior of h
+<sub>2</sub> + h <sub>2</sub> o at high pressures and low temperatures. The Journal of
+Physical Chemistry C, 115:4898-4903, 3 2011.
+
+Miriam Pefia Alvarez, Veronika Afonina, Philip Dalladay-Simpson, Xiao-Di Liu, Ross T. Howie,
+Peter I. C. Cooke, Ioan B. Magdau, Graeme J. Ackland, and Eugene Gregoryanz. Quantitative
+rotational to librational transition in dense Hy and Dy. The Journal of Physical Chemistry Letters,
+11(16):6626-6631, 2020.
+
+Simone Di Cataldo, Maria Rescigno, Lorenzo Monacelli, Umbertoluca Ranieri, Richard Gaal,
+Stefan Klotz, Jacques Ollivier, Michael Marek Koza, Cristiano De Michele, and Livia Eleonora
+Bove. Giant splitting of the hydrogen rotational eigenenergies in the c2 filled ice. Phys. Rev.
+Lett., 133:236101, Dec 2024.
+
+Miriam Pefia-Alvarez, Philip Dalladay-Simpson, Xiao-Di Liu, Veronika Afonina, Hui-Chao
+Zhang, Ross T. Howie, and Eugene Gregoryanz. Intensity of raman modes as a temperature
+gauge in fluid hydrogen and deuterium. Journal of Applied Physics, 125(2):025901, 01 2019.
+Jon H. Eggert, Eran Karmon, Russell J. Hemley, Ho kwang Mao, and Alexander F. Goncharov.
+Pressure-enhanced ortho-para conversion in solid hydrogen up to 58 gpa. Proceedings of the
+National Academy of Sciences, 96(22):12269-12272, 1999.
+
+21
+52]
+
+53]
+
+54]
+
+55.
+
+56.
+
+57
+
+58
+
+59]
+
+60]
+
+61]
+
+62]
+
+63]
+
+64]
+
+65]
+
+66]
+
+Alan A. Coelho. TOPAS and TOPAS-Academic: an optimization program integrating com-
+puter algebra and crystallographic objects written in C++. Journal of Applied Crystallography,
+51(1):210-218, Feb 2018.
+
+Yingwei Fei, Angele Ricolleau, Mark Frank, Kenji Mibe, Guoyin Shen, and Vitali Prakapenka.
+Toward an internally consistent pressure scale. Proceedings of the National Academy of Sciences,
+104:9182-9186, 5 2007.
+
+G. Shen and et al. Toward an international practical pressure scale: A proposal for an IPPS
+ruby gauge (IPPS-Ruby2020). High Pres. Res., 40:299-314, 2020.
+
+Yuichi Akahama and Haruki Kawamura. Pressure calibration of diamond anvil Raman gauge
+to 310GPa. Journal of Applied Physics, 100(4):043516, August 2006. Publisher: AIP Publishing.
+Ross T. Howie, Christophe L. Guillaume, Thomas Scheler, Alexander F. Goncharov, and
+Eugene Gregoryanz. Mixed molecular and atomic phase of dense hydrogen. Physical Review
+Letters, 108(12):125501, March 2012. Publisher: American Physical Society (APS).
+
+John P. Perdew, Kieron Burke, and Matthias Ernzerhof. Generalized gradient approximation
+made simple. Phys. Rev. Lett., 77:3865-3868, Oct 1996.
+
+G. Kresse and J. Furthmiiller. Efficient iterative schemes for ab initio total-energy calculations
+using a plane-wave basis set. Phys. Rev. B, 54:11169-11186, Oct 1996.
+
+Paolo Giannozzi, Stefano Baroni, Nicola Bonini, Matteo Calandra, Roberto Car, Carlo Cavaz-
+zoni, Davide Ceresoli, Guido L Chiarotti, Matteo Cococcioni, Ismaila Dabo, Andrea Dal Corso,
+Stefano de Gironcoli, Stefano Fabris, Guido Fratesi, Ralph Gebauer, Uwe Gerstmann, Christos
+Gougoussis, Anton Kokalj, Michele Lazzeri, Layla Martin-Samos, Nicola Marzari, Francesco
+Mauri, Riccardo Mazzarello, Stefano Paolini, Alfredo Pasquarello, Lorenzo Paulatto, Carlo
+Sbraccia, Sandro Scandolo, Gabriele Sclauzero, Ari P Seitsonen, Alexander Smogunov, Paolo
+Umari, and Renata M Wentzcovitch. Quantum espresso: a modular and open-source soft-
+ware project for quantum simulations of materials. Journal of Physics: Condensed Matter,
+21(39):395502, sep 2009.
+
+Paolo Giannozzi, Oscar Baseggio, Pietro Bonfa, Davide Brunato, Roberto Car, Ivan Carnimeo,
+Carlo Cavazzoni, Stefano de Gironcoli, Pietro Delugas, Fabrizio Ferrari Ruffino, Andrea Fer-
+retti, Nicola Marzari, Iurii Timrov, Andrea Urru, and Stefano Baroni. Quantum espresso
+toward the exascale. The Journal of Chemical Physics, 152(15):154105, 04 2020.
+
+RP Feynman and AR Hibbs Quantum Mechanics. Path integrals. Lecture Notes Phys, 106:64,
+1979.
+
+David Chandler and Peter G. Wolynes. Exploiting the isomorphism between quantum theory
+and classical statistical mechanics of polyatomic fluids. The Journal of Chemical Physics,
+74(7):4078-4095, 04 1981.
+
+Kenneth S. Schweizer, Richard M. Stratt, David Chandler, and Peter G. Wolynes. Conve-
+nient and accurate discretized path integral methods for equilibrium quantum mechanical
+calculations. The Journal of Chemical Physics, 75(3):1347-1364, 08 1981.
+
+D. M. Ceperley. Path integrals in the theory of condensed helium. Rev. Mod. Phys., 67:279-355,
+Apr 1995.
+
+Thomas E. Markland and Michele Ceriotti. Nuclear quantum effects enter the mainstream.
+Nature Reviews Chemistry, 2(3):0109, February 2018.
+
+Félix Mouhat, Sandro Sorella, Rodolphe Vuilleumier, Antonino Marco Saitta, and Michele
+
+22
+67
+
+68
+
+69
+
+70.
+
+71
+
+72]
+
+73
+
+74
+
+75
+
+76
+
+77
+
+Casula. Fully quantum description of the zundel ion: Combining variational quantum monte
+carlo with path integral langevin dynamics. Journal of Chemical Theory and Computation,
+13(6):2400-2417, 2017. PMID: 28441484.
+
+Francesco Sebastianelli, Minzhong Xu, Zlatko Ba¢ic, Ronald Lawler, and Nicholas J. Turro.
+Hydrogen molecules inside fullerene c70: Quantum dynamics, energetics, maximum occu-
+pancy, and comparison with c60. Journal of the American Chemical Society, 132(28):9826-9832,
+2010. PMID: 20583809.
+
+Minzhong Xu, Francesco Sebastianelli, and Zlatko Baci¢é. Quantum dynamics of h2, d2, and hd
+in the small dodecahedral cage of clathrate hydrate: Evaluating h2-water nanocage interaction
+potentials by comparison of theory with inelastic neutron scattering experiments. The Journal
+of Chemical Physics, 128(24):244715, 06 2008.
+
+Minzhong Xu, Francesco Sebastianelli, Zlatko Ba¢ci¢, Ronald Lawler, and Nicholas J. Turro. H2,
+hd, and d2 inside c60: Coupled translation-rotation eigenstates of the endohedral molecules
+from quantum five-dimensional calculations. The Journal of Chemical Physics, 129(6):064313,
+08 2008.
+
+Simone Di Cataldo, Maria Rescigno, Lorenzo Monacelli, Umbertoluca Ranieri, Richard Gaal,
+Stefan Klotz, Jacques Ollivier, Michael Marek Koza, Cristiano De Michele, and Livia Eleonora
+Bove. Giant splitting of the hydrogen rotational eigenenergies in the cy filled ice. Phys. Rev.
+Lett., 133:236101, Dec 2024.
+
+L Stryer. Fluorescence energy transfer as a spectroscopic ruler. Annual Review of Biochemistry,
+47(Volume 47, 1978):819-846, 1978.
+
+Doros N. Theodorou and Ulrich W. Suter. Shape of unperturbed linear polymers: polypropy-
+lene. Macromolecules, 18(6):1206-1214, 1985.
+
+Simon C. McGrother, Dave C. Williamson, and George Jackson. A re-examination of the phase
+diagram of hard spherocylinders. The Journal of Chemical Physics, 104(17):6755-6771, 05 1996.
+P.G. de Gennes and J. Prost. The Physics of Liquid Crystals. International Series of Monographs
+on Physics. Clarendon Press, 1993.
+
+Stefano Baroni, Stefano de Gironcoli, Andrea Dal Corso, and Paolo Giannozzi. Phonons
+and related crystal properties from density-functional perturbation theory. Rev. Mod. Phys.,
+73:515-562, Jul 2001.
+
+Michele Lazzeri and Francesco Mauri. First-principles calculation of vibrational raman
+spectra in large systems: Signature of small rings in crystalline sioz. Phys. Rev. Lett., 90:036401,
+Jan 2003.
+
+Raymond C. Clay, Jeremy Mcminis, Jeffrey M. McMahon, Carlo Pierleoni, David M. Ceperley,
+and Miguel A. Morales. Benchmarking exchange-correlation functionals for hydrogen at high
+pressures using quantum Monte Carlo. Physical Review B, 89(18):184106, May 2014. Publisher:
+American Physical Society (APS).
+
+23
+Computational supplementary
+
+Supplementary Information A. Quantum solution of the embedded H>
+molecule in the crystal field
+
+Building upon the method described in the Supplementary Material of Ref.[70], we evalu-
+ated the full, non-separable external potential Vext(r, 8, @) and solved the corresponding
+Schrédinger equation for the quantum embedded H» molecule where r is the Hz molecule
+elongation, 0 is the polar and ¢ the azimuthal angles describing the molecule orientation
+(see Fig. A2).
+
+Quantum embedding leads to a system of quantum rigid rotor in an effective potential
+representing an isolated Hz in the C2 phase. The associated Schrodinger equation reads:
+
+ve - -
+(-E + Vexe) WC) = ey(F),
+2u
+where p = ode! is the reduced mass, with my the mass of a hydrogen atom. Since
+
+: , we
+Vext # 0, the energy levels deviate from those of a free rotor, given by E; = apt 1), where
+
+I = 1 R? is the moment of inertia and lis the angular momentum quantum number.
+
+The external potential takes the form Vext = Vprr(7) = V(r, 9, ) = R(r) + P;(0, o).
+The potential has been computed numerically from the DFT-relaxed structure of the C2
+hydrogen hydrate, using several DFT functionals reported in Fig. Al. A script generated
+all configurations on a spherical coordinate grid with a fixed center of mass, varying the
+bond length r and orientation angles 0 and ¢. The grid used has dimensions n, x ng x Ny =
+64 x 32 x 32.
+
+As in Ref.[70], a self-consistent DFT calculation was performed in the primitive unit
+cell for each configuration. Since the simulations are carried out at OK, the resulting total
+energies represent the potential experienced by the Hz molecule around the classical
+equilibrium geometry. These calculations were performed with Quantum Espresso [59, 60],
+on a k grid of 5x4x5 and a plane-waves expansion cut at 300 eV.
+
+The radial part of the potential R(r) is fitted using a Morse function, while the angular
+component is interpolated linearly between the computed data points. After having deter-
+mined numerically the effective potential Vext, we solved the corresponding Schrodinger
+equation numerically using the Lanczos algorithm in shift-invert mode, following the
+approach of Ref.[70]. At variance with Ref.[70], in the present case we took into account the
+full 3D potential in a non-separable form, by developing the Hamiltonian matrix elements
+on a basis set of the type wn(r, 0, b) = xn(r) ¥7"(8, ). Here, xn(r) are the eigenfunctions
+of the Morse potential obtained by solving the one-dimensional Schrodinger equation for
+the fitted radial part, and yi"(0, #) are spherical harmonics, which form a complete basis
+
+24
+set for the angular part of a free quantum rotor.
+Since the Hamiltonian can be decomposed as H = T + V, with:
+rE (4 = (P72) +57) and V-=R(r)+P,(0,)
+~Quhr2ar\ ar} 2)? 7 Bia me
+
+the Hamiltonian matrix elements in this basis are given by the following terms:
+
+=m dr dr
+b. Potential term: (n'l’m'|V|nlm) = fo° xi,(r)R(r)xn(r)r? dr by 8mm + Jo Xe) xn(1)r? ar:
+
+Ap mtm(1), where the angular coupling coefficient is defined as:
+
+Apmiim(?) = [ AQ. Yf"* (8, ) Pr(8, b) ¥7"(8, 0).
+
+All matrix elements can be computed numerically based on the evaluated potential
+and the chosen basis. The angular integrals Ay ,1,,(r) are evaluated on the r-grid and
+interpolated accordingly.
+
+Our method is compared to that of Ref. [70] in Fig. Al. When the full, non-separable
+potential is taken into account, the energy level splitting is reduced compared to the
+separated approach (PBE separated vs. PBE), where the radial and angular parts are
+integrated independently. This difference is due to a more accurate treatment of the
+interaction potential in the present formalism.
+
+We also investigated the impact of the exchange-correlation functional within our
+method. The use of vdW-DF leads to results that are in better agreement with experiment
+than those obtained with PBE for DFT energy estimation, consistent with previous findings
+[77]. Since vdW-DF tends to slightly overestimate the lattice parameters, we computed
+the eigenvalues using the experimental volume at 3 GPa. As expected, a slight increase in
+the splitting is observed compared to the standard vdW-DF calculation. This is consistent
+with the pressure dependence of the splitting, as shown in Fig. 3 (c).
+
+Next, we evaluated the influence of proton disorder on the eigenvalues. To do this, we
+generated external potentials for a set of proton-disordered configurations that satisfy the
+ice rules. These potentials exhibit significant variations in magnitude. For each configura-
+tion, the corresponding eigenvalues were computed and the average is obtained using an
+arithmetic mean. As shown in Fig. A1, this leads to a substantial reduction in the energy
+level splitting, bringing it closer to the experimental values. This reduction is attributed
+to the decrease in anisotropy of the effective potential when proton disorder is included.
+
+Incorporating all these effects—namely, the use of vdW-DF and averaging over multiple
+proton-disordered structures—significantly increases the computational cost. In this work,
+our aim is to provide insight into the orientational transitions and the coupling between the
+Hy and H20 sublattices, as well as to highlight the role of quantum effects. Furthermore,
+since both the ab initio molecular dynamics (AIMD) and path-integral molecular dynamics
+simulations were carried out using the PBE functional due to computational cost, all
+
+25
+
+Kineticterm: (n/U/m'|T|nlm) = i a Aap (0) dx) 42 dy — Jo? xiv )xn(7) (1+ 1) ar] dy 3mm’
+quantum embedded calculations shown in the main paper have been performed with the
+same functional and in the proton-ordered configuration (i.e., the ice VIII sub-lattice) for
+consistency and direct comparison.
+
+20
+S15
+o
+=
+5 10
+o
+Cc
+wi
+5
+0
+PBE PBE BLYP vdW-DF vdW-DF  vdW-DF
+separated exp. lat. —_ exp. lat.
+
+proton disordered
+
+FIGURE Al. Comparison of the computed eigenvalues at P=3GPa using our method (with
+various exchange-correlation functionals: PBE, BLYP, and vdW-DF) is shown alongside
+results obtained with the approach presented in Ref.[70] (PBE with a separated potential).
+The labels vdW exp. lat. and vdW exp. lat. proton disordered refer to calculations using
+the vdW-DF functional on the C2 structure with experimental lattice parameters, with
+and without averaging over disordered proton configurations, respectively. Experimental
+energy levels from Ref.[70] are shown as black dotted lines.
+
+Supplementary Information B. Order parameter
+
+B.1. Symmetries
+
+The orientational order of the H sub-lattice is monitored through a global order parameter.
+Figure A2 (c) displays a representative two-dimensional histogram of the polar angle 0
+and the azimuthal angle ¢ gathered along a T = 50 K, P = 20 GPa molecular-dynamics
+trajectory. Eight bright spots appear, revealing the eight symmetry orientations available
+to an Hz molecule in the herringbone phase. As discussed in the main text, increasing
+pressure forces the sticks, representing the Hz geometry, to align; in the fully ordered
+regime, i.e. nematic, the eight spots collapse into two. Since @ is not well defined for 0 = 0
+we see in practice two bands as shown in A2 (b).
+
+26
+4g 10000
+
+8 5000)
+
+sat =
+100 150 200 250 300 3500 200000
+ae) Counts (1/sin 6)
+
+20000)
+2
+
+3 10000]
+8
+
+350,200 250 300 3500 20000
+ot) Counts (2/sin 6)
+
+(d)
+
+FIGURE A2. (a) Definition of the spherical coordinates used to describe the orientation of
+the Hy molecule; the x, y, and z axes are aligned with the crystallographic axes. Histogram
+of the orientation angles sampled by Hy molecules during an ab initio molecular dynamics
+simulation at T = 100 K and P = 50 GPa (b), T = 50 K and P = 20 GPa (c) and T = 300 Kand
+P =3GPa(d).
+
+Although eight maxima are visible, only two physically distinct orientations remain
+once crystalline symmetries and the head-to-tail indistinguishability of the sticks are
+taken into account:
+
+(i) Polar symmetry. Because the colatitude of an unoriented stick is defined modulo
+inversion, the two spots at 8; and 82 = 7 - 8; correspond to the same configuration.
+(ii) Azimuthal symmetry. In the longitudinal direction one has $2 = ¢ + 7; the pair
+
+(1, 62) therefore describes a single molecular orientation. The remaining spots at
+
+3 = 1- fb; and #4 = 27 - 1 are likewise equivalent to each other.
+
+Accordingly, at any pressure the eight histogram maxima partition into two families
+of four spots, leaving only two genuinely different orientational states in the herringbone
+phase. The quantum plastic case, with no orientational order, is shown in A2 (d).
+
+27
+B.2. Global order parameter
+
+As explained in the Methods section, we define the order parameter to locate the transi-
+tion between the quantum plastic and orientationally ordered phases. This parameter
+is designed to capture the orientational coherence of the Hy» sublattice. It is constructed
+as a structure factor, which vanishes when the Hz molecules are randomly oriented in
+the quantum plastic phase, and interferes constructively when the molecules are in the
+herringbone or nematic phase.
+
+The global order parameter, Mtot, can be separated into two components: Mg, which
+characterizes the order in 0, and Mg, which characterizes the order in :
+
+Mtot = \/ Mg + Mj.
+
+These components can be written individually as:
+
+Mo =(hbo(t)I):, My = (hbo (t)]), +
+
+Here, tpg(t) and q(t) are the rank-m order parameters with mg = 4 and my = 2 at
+time t. They are defined as:
+
+bo(t)= = x elmer" (t) ‘Bae = x gig 00 (1)
+oe NG , 0) = de ,
+
+The sum runs over the N Hp molecules in the system (= 1,..., N). The angles 0/0"
+and $;°"" are the polar and azimuthal angles of the H molecules, corrected to give the
+same phase in symmetrically equivalent configurations, as discussed in the previous
+section. The goal is to have an order parameter that vanishes when the molecules are
+disordered and equals 1 when the molecules are perfectly aligned, following the structure
+factor concept.
+
+For each molecule, the bond vector r,, is expressed in spherical coordinates (ry, 01, Pu)
+in the crystal frame:
+
+Ou = arccos(#) , oy = arctan 2(z, x.) €[-7, 7.
+
+In order for the symmetric configurations mentioned above to yield the same phase in
+the herringbone-like situation, one possible estimator for the 0 angle is sin 8. We flatten
+the distribution of sin 0 via the cumulative distribution function (CDF) transform:
+
+ore = 5 (1- cos @,,) € [0, x[ |.
+
+28
+This transformation ensures that, for an isotropic rotor, the phase exp(i0{°") is uni-
+formly distributed on the circle, allowing the terms to cancel out statistically.
+
+A similar approach is applied to ¢, since symmetric configurations have the same
+phase when using | sin $|. Then, using the CDF to obtain a continuous uniform distribution,
+we have:
+
+Oyo" = Zaresin (| sin b,|) € [0, 27[ |
+
+Baseline. To account for the finite size of our simulation (both in time and length), we
+subtract a baseline: the same order parameter computed for a system of identical size
+and the same number of time steps, but with completely random H) positions.
+
+We show in Fig. A3 the evolution of the global order parameter as a function of temper-
+ature for different pressure values. For example, at 3 GPa, we observe that Mtot vanishes
+at 100 K.
+
+Since Mtot is a global parameter, it cannot be evaluated within the framework of the
+quantum embedded model, as it describes a single embedded Hp. As shown in the Methods
+section, in the quantum embedded model, the appropriate parameter is the orientation
+factor S. Thus, to predict the transition line between the disordered and ordered phases
+in the quantum embedded model, we need to find a suitable criterion, i.e., the critical
+value of S, that can indicate the transition from quantum plastic to ordered phases.
+
+To do this, we compute the orientation factors S at the transition points predicted by
+Mtot from molecular dynamics simulations at different pressures. This provides a criterion
+to locate the phase transition in terms of S in the quantum embedded framework.
+
+In practice, to evaluate S from molecular dynamics runs at the transition point (for
+example, at 100 K and 3 GPa, as shown in Fig. A3), we need an estimate of Sz as defined
+in Eq. 3 in the main paper. In the quantum embedded model, Sq is defined using the
+alignment tensor involving the thermal density matrix, which is not obtained in the
+classical molecular dynamics (MD) runs. Under the approximation of dominant charge
+distribution effects via electrostatic interactions, we can replace thermal quantum effects
+by classical thermal fluctuations, and estimate the critical value of S, for the quantum
+model as a thermal average performed over the classical canonical ensemble in the
+simulation cell at the classical transition point. Since the effective potential Vex: of the
+quantum embedded model is obtained from the classical geometry at zero temperature,
+the geometric contribution Sg to the orientation factor is the same for both quantum
+embedded and classical MD frameworks. Thus, finding the threshold for S, is sufficient.
+Moreover, we found that within the pressure and temperature resolution of our classical
+MD simulations, Sq at the transition can be safely taken as pressure independent. By
+averaging the obtained estimations of S, at the transition point over pressure (see Tab. Al),
+
+29
+1.0
+
+Pressure
+—& 3GPa
+ow —@ 10GPa
+—@ 15GPa
+—& 20GPa
+—& 35GPa
+0.6 ~~ 50 GPa
+§
+=
+0.4
+0.2
+0.0
+
+50 100 150 200 250 300 350 400
+T (K)
+
+FIGURE A3. Global order parameter, Mtot, plotted as a function of temperature for AIMD
+trajectories.
+
+P (GPa) 3 10 1 20
+T (K) 100 100 125 150
+Sq 0.244+0.08 0.25+0.08 0.27+0.07 0.27 +0.07
+
+TABLE Al. Temperature of transition T estimated within our temperature resolution from
+Fig A3 and the associated Sq at the transition point.
+
+we determined the threshold si = 0.26 + 0.04 for the fluctuating part. Applying this to the
+datapoints plotted in Fig. A4, we can find the temperatures at which the transition occurs
+in the quantum embedded framework. We also displayed the upper and lower bounds
+sip + oe used to determine the errors on temperature in Fig. A4, as explained in Methods.
+
+Supplementary Information C. Free Rotor to Quantum Oscillator
+
+Figure A5 is a visualisation of how the rotons of Hy — HzO and Dz - D20 change as the
+pressure is increased to 40 GPa at 300 K. In panels A5(a) and (b), the So(0), So(1), So(2)
+and S9(3) rotons are shown with incresing Raman shift frequency, from left to right,
+respectively. The S(1) is the most intense. The intensity of all the rotons decrease as the
+pressure is increased, whilst the peaks significantly broaden.
+
+The evolution of the rotons of D2 — D20, shown in panels A5(c) and (d), is different
+since the Raman spectrometer that was used for the experiments could not well resolve
+the So(0) roton, and they were exceedingly weak in comparison to the Hz - HO case as
+well, as indicated in the intensity scale of the different panels. Nonetheless, the So(1)
+
+30
+-e- 3GPa
+-e- 10GPa
+-e- 15GPa
+-e- 20GPa
+-e- 30GPa
+sP+or -e- 35GPa
+
+st - -e- 40GPa
+ih gihsm —e- 45 GPa
+Sa ea -e- 50GPa
+-e- 60GPa
+
+te} 200 400 600 800 1000
+
+FIGURE A4. Quantum contribution S, to the orientation factor evaluated from the quantum
+embedded model as a function of temperature for different pressures, together with the
+computed threshold ae used to determine the transition temperature. In dashed lines are
+
+displayed the upper and lower bounds Si + oft used to determine the error bars on the
+transition temperature.
+
+31
+roton was clearly seen and traced in pressure. This peak broadens significantly more than
+the equivalent HH So(1) roton.
+
+Figure A6 shows the general broadening of the S9(0) and So(1) rotons in Hy - H2O and
+Dz —- DO as pressure is increased to 40 GPa at 300 K. The rotons were modelled with three
+components, referring to the So(x)o, So(x)1 and So(x)2 modes (x = [0,1]). These were
+iteratively fitted, using the previous fitting to ensure that the peaks evolved naturally from
+pressure to pressure, and that there were no sudden changes to the fitting regime. As can
+be seen, our measured experimental data has been compared to the the experimental
+data of pure Hy and D2 as reported by Pena-Alvarez et al. [48]. The rotons of HH shows a
+good agreement with the rotons of pure Hp or Do.
+
+Note that the Sp(1) roton progression in pressure is not shown for D2 - D20. Again, this
+is due to the fact that the Raman spectrometer that was used did not have a good enough
+resolution below 180 cm7! to determine the weak roton from the large background from
+the elastic line.
+
+Figure A7 compares the Centre of Mass’ of the Sg(1) rotons for Hy - H2O and D2 - D20
+in pressure. The ’Centre of Mass’ of the peak was determined by fitting a single peak to
+the data, instead of the three components of Sp(1)9, So(1)1 and So(1)2. The grey band
+indicates the region where we observe the change in regime from a free roton to a quantum
+harmonic oscillator potential, and the enclathrated Hy moves from a herringbone-like
+arrangement and the excitation of the molecules adopt a librational character.
+
+32
+(a)
+
+4000
+
+r
+‘000 on pe 20
+“Se
+
+200 400 «= 600 001000» 1200
+Raman Frequency (cm')
+
+3 3000
+s
+2 2000
+rd
+5
+= 1000
+0 ~
+Gg,
+1500
+Raman Frequency (em™")
+(c)
+300
+Ee
+&
+2
+G
+4
+S
+£
+
+1500 i
+Raman Frequency (cm)
+
+Pressure (GPa)
+
+200
+150
+100
+50
+
+200 «400 «= 600, 800-1000» 1200
+
+Raman Frequency (cm"')
+
+FIGURE A5. Raman shift for Hp - HzO and D2 - D2O as pressure is increased to 40 GPa at
+300 K, visualised in a 3D-surface plot and a 2D-heat plot. Panels (a) and (b) show, with
+increasing frequency, the four So(0), So(1), So(2) and So(3) rotons of Hy - H20 in pressure,
+whilst panels (c) and (d) only show the weak So(1) roton of D2 - D320.
+500
+
+450
+
+a
+&
+38
+
+Raman Frequency (cm)
+2 ©
+gs 8g
+s 8
+
+250
+
+200
+
+800
+
+a
+
+&) 750
+
+ak gts 3 700
+toes
+
+=? a 650
+
+Sngeeeetenspestee ©
+
+600
+0B Be Bbe gis a 550
+
+500
+
+100
+
+450
+
+400 0 ~
+10 20 30 40 50 0 10 20 30 40 50 0 10 20
+
+Pressure (GPa) Pressure (GPa)
+
+30 40 50
+
+Pressure (GPa)
+
+FIGURE A6. High-Pressure Raman measurements of the rotons of Hy — HO and D2 - D0.
+The different roton components So(x)0, So(x)1 and So(x)2, are shown by the blue, orange
+and magenta branches respectively. Open triangles represent measurements of pure Hy
+or D2 as reported by Pena-Alvarez et al. [48], filled circles represent measurements of
+Hp - H20 or Dz - D20 up to 40 GPa, and the thick grey line represents the position of the
+’Centre of Mass’ of the entire So(x) peak. Panel (a) shows the So(0) roton for Hy — H 0,
+panel (b) shows the S9(1) roton for Hy—H 0 and panel (c) show the So(1) roton for D)—D 0.
+
+700 -
+
+ec e @ co ce wee?
+
+600+ eee? of
+
+500 }
+
+a
+=}
+S
+
+e
+
+wo
+
+S
+
+=)
+T
+
+Raman Frequency (cm"')
+nN
+So
+o
+7
+e
+
+°
+=)
+T
+
+1 1 1 4 n 1
+
+10 15 20 25 30 35 40 45
+Pressure (GPa)
+
+°
+a
+
+°
+a
+
+FIGURE A7. Comparison of the Sp(1) roton Centre of Mass’ of Hy — H20 (blue) and D2 -— D20
+(orange) in pressure. The grey shaded block indicates the change from a free rotor to a
+quantum oscillator regime, as detailed in the main text.
+
+34

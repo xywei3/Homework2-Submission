@@ -1,0 +1,1334 @@
+2510.25618v1 [gr-qc] 29 Oct 2025
+
+arXiv
+
+Parameter matching between horizon quasi-local and point-particle definitions at 1PN
+for quasi-circular and non spinning BBH systems in harmonic gauge
+
+Dongze Sun (@!* and Leo C. Stein @?
+
+' Theoretical Astrophysics 350-17, California Institute of Technology, 1200 E California Boulevard, Pasadena, CA 91125, USA
+? Department of Physics and Astronomy, University of Mississippi, University, MS 38677, USA
+(Dated: October 30, 2025)
+
+We investigate how commonly used parameter definitions in Post-Newtonian (PN) theory compare
+with those from Numerical Relativity (NR) for binary black hole (BBH) systems. In NR, masses and
+spins of each companion are measured quasi-locally from apparent horizon geometry, whereas in PN
+they are attributes of point particles defined via asymptotic matching in body zones. Although these
+definitions coincide in the infinite-separation limit, they could differ by finite-separation corrections
+that matter for precision modeling. Working entirely in harmonic gauge, we perform asymptotic
+matching between each companion’s inner zone metric — obtained from black hole perturbation
+theory — and the PN two-body metric, and construct the coordinate transformation that preserves
+the gauge in the strong field region. We solve perturbatively for the apparent horizon (AH) on
+a group of harmonic inertial time slice and compute its quasi-local areal mass from the horizon
+
+geometry. Then we establish the leading order matching between quasi-local (AH
+
+sed) and PN
+
+(point-particle) parameter definitions in harmonic gauge. We find that on a horizon penetrating
+harmonic slicing, the AH quasi-local mass agrees with the PN point-particle mass at 1PN order.
+For generic harmonic slicings that deviate from the horizon penetrating condition by a 1PN order
+
+perturbation, the AH mass differs from the PN mass also by a 1PN correction.
+
+This parameter
+
+matching is crucial for hybridizing PN and NR waveforms and for providing better initial conditions
+in NR and Cauchy-Characteristic Evolution (CCE) simulations. The framework provides a bridge
+between different descriptions of BBH systems, and it can be extended to spinning and eccentric
+
+cases and more general NR gauges.
+
+I. INTRODUCTION
+
+Gravitational-wave astronomy is entering a new preci-
+sion era with the arrival of next-generation observatories.
+Ground-based detectors such as Cosmic Explorer (CE)
+and the Einstein Telescope (ET), together with the space-
+based Laser Interferometer Space Antenna (LISA), will
+probe binary black hole coalescences with sensitivities
+far beyond current capabilities. These instruments will
+record long-duration signals with extremely high signal-
+to-noise ratios (SNRs) [1, 2], providing unprecedented
+access to the dynamics of compact binaries across the in-
+spiral, merger, and ringdown. As statistical uncertainties
+on measured source parameters shrink in this high-SNR,
+regime, the burden shifts to theory: waveform models
+must achieve accuracy levels such that systematic errors
+remain safely below statistical errors. This demand places
+renewed emphasis on the consistency of parameter def-
+initions used across modeling frameworks. Even subtle
+mismatches—such as differences in how masses or spins
+are defined in post-Newtonian (PN) versus numerical rela-
+tivity (NR) descriptions—can accumulate over thousands
+of inspiral cycles and bias astrophysical inference. Ad-
+dressing this challenge requires a parameter-consistent
+bridge between PN and NR, ensuring that systematic dif
+ferences in parameter definitions are carefully considered.
+
+For an isolated system, one can define gauge-invariant
+global quantities such as the Arnowitt—Deser—Misner
+
+* dzsun@caltech.edu
+
+(ADM) mass and ADM angular momentum, which char-
+acterize the energy and angular momentum of the entire
+spacetime, including contributions from binding energy
+and gravitational radiation. However, in a dynamica!
+binary black hole (BBH) spacetime with gravitationa
+waves, it is generally ill-defined to decompose the ADM
+mass into “mass of hole 1” and “mass of hole 2” withow
+additional structure. The difficulty lies in the fact tha
+the self-energy of each black hole is inherently mixed with
+the system’s binding energy and radiative energy, an
+any attempt to separate these pieces depends on a choice
+of gauge. NR typically adopts a gauge adapted to the
+evolution scheme (e.g. moving-puncture or generalize
+harmonic formulations), whereas post-Newtonian (PN)
+theory employs the harmonic gauge. Thus, while globa!
+quantities are unambiguously defined, the assignment of
+masses and spins to individual black holes in a binary is
+necessarily gauge-dependent, and PN and NR frameworks
+make different gauge choices in practice.
+
+Apart from the gauge difference, PN and NR also use
+different definitions. In NR, each black hole’s proper-
+ties are measured quasi-locally from the geometry of its
+apparent horizon [3, 4]. Using techniques from the iso-
+lated/dynamical horizon framework [5, 6], one can define
+the individual mass and angular momentum of a black
+hole from surface integrals on the AH. Since the AH is
+slicing dependent, the individual mass and angular mo-
+mentum are also slicing dependent, and they coincide
+with the ADM quantities only in the infinite-separation
+limit. As the black holes approach each other, each black
+hole’s horizon mass incorporates effects of the compan-
+
+ion’s gravitational field. This indicates that the notion
+of “mass of an individual BH” in a binary is inherently
+scale-dependent, which agrees with the asymptotic mass
+at infinite separation, but differs at finite separations due
+‘o the presence of binding energy, tidal deformations, and
+radiations. The scale-dependent feature of the NR mass
+was observed in Ref. [7].
+In post-Newtonian theory, one treats the black holes as
+oint masses characterized by constant parameters mass
+and spin, and solves Einstein’s equations as an expansion
+in v/e or GM/(c?r) [8]. To rigorously connect this ideal-
+ized point-mass description to an actual black hole, the
+PN point-mass parameters are defined via an asymptotic
+matching procedure [9]: the inner-zone metric near each
+object is asymptotically expanded in series of 1/r, and
+matched in an overlap region (buffer zone) to the global
+PN metric for the binary system. In this way, the constant
+PN mass parameter is essentially the mass parameter of
+an isolated BH solution that would produce the same
+far-field. At infinite separation, this clearly coincides with
+each black hole’s physical mass. However, at finite sepa-
+ration the matching can induce differences from NR, once
+he two metrics are self-consistently matched. Our aim is
+0 quantify this difference at the leading post-Newtonian
+order.
+
+Comparisons of PN and NR waveforms have indirectly
+noticed parameter discrepancies. Past efforts to hybridize
+PN and NR waveforms typically assumed that the masses
+and spins used in PN formulas could be taken directly
+rom the NR horizon masses and spins read from the
+simulation [10-16]. This works well to leading order, but
+as modeling accuracy improved, it became evident that
+small mismatches in these parameters can visibly affect
+he waveform phasing. Recently, Ref. [17] demonstrated
+hat allowing slight adjustments (“optimization”) of the
+PN masses and spins away from the raw NR values yields
+markedly better PN-NR agreement in hybrid waveforms.
+In their study, the PN parameters that minimize the
+waveform mismatch differ systematically from the NR
+values. This finding suggests that PN and NR are using
+slightly different conventions for the masses and spins,
+reinforcing the need for a proper translation in between.
+
+In this paper, we bridge this gap by deriving an analytic,
+leading-order parameter mapping between PN and NR
+definitions of mass for binary black holes. To do so, we
+need a spacetime metric that is valid in both inner zone
+near the horizon (r ~ rs < b) and in the near zone where
+the PN two-body metric is valid (rz < r < A). Here
+b is the separation between the two black holes, r, is
+the Schwarzschild radius of the companion black hole
+that we are interested in, and A is the wavelength of the
+gravitational radiation.
+
+Refs.[18] and [19, 20] pioneered an approach to build
+such global BBH metric, aiming to provide initial data for
+NR. Their metric is constructed by matched asymptotic
+expansions: they asymptotically matched a near zone
+PN metric to a tidally perturbed BH metric around each
+black hole in a buffer region where both approximations
+
+are valid. However, in their construction, the coordinates
+are not enforced to satisfy a single global consistent gauge
+condition, which can complicate our parameter matching
+because it’s hard to define a time slice in a gauge consistent
+way.
+
+We work entirely in the harmonic gauge for both the
+inner zone and near zone to ensure an apple-to-apple com-
+parison without gauge ambiguities. We adopt harmonic
+gauge for simplicity, but this framework can be extended
+to gauges commonly used in NR, e.g., generalized har-
+monic formalism used in SpEC. The inner zone metric in
+he harmonic gauge is given by Ref. [21] in the comoving
+frame with respect to the black hole, which is an isolated
+BH solution plus tidal multipoles whose leading contribu-
+ions scale as O (M23 /b) —at relative 3PN order. Because
+our goal is a leading-order (1PN) parameter matching, we
+neglect these higher-order tidal pieces. The coordinate
+ransformation between the comoving frame and inertial
+rame is constructed by enforcing the harmonic gauge
+hrough the strong field region, the boundary conditions
+or the gauge equations are provided by asymptotic match-
+ing with the PN metric in the buffer region. Applying this
+coordinate transformation places the inner zone metric
+and near zone metric in the same harmonic coordinate
+system.
+
+We solve perturbatively for the AH on a group of har-
+monic inertial time slice and compute its quasi-local areal
+mass from the horizon geometry. We find that the AH
+areal mass generally differs from the PN mass at 1PN
+order under 1PN perturbations, but it reduces to the
+PN mass when the time slice is horizon penetrating. For
+a realistic NR orbital separation (e.g., 10 orbits before
+merger), if the time slice is not chosen properly near the
+black hole, the fractional mass difference dm/m would
+be on the order of 10~?, which is not negligible for the
+precision requirements of the next generation detectors.
+
+Aligning the PN and NR parameter definitions through
+this matching has several important implications. First,
+it enables the construction of PN-NR waveform hybrids
+with consistent physical parameters, and it avoids the risk
+of overfitting that can bias the parameters. This shoul
+reduce systematic mismatches over long inspirals and give
+hybrids a more robust physical interpretation. Second,
+our results can inform the setup of NR initial conditions.
+Current NR simulations of BBHs often start from initial
+data specified by approximate methods (e.g. superposec
+BHs with PN or effective-one-body estimates for orbital
+parameters) and involve some iterations to achieve the
+desired masses and eccentricities after relaxation. With a
+PN-NR parameter mapping, one could choose the initia
+orbital separation and momenta such that the resulting
+horizon masses correspond to a given PN binary with
+parameters (mj ,mz) at a certain post-Newtonian order.
+This would reduce the initial junk radiation and parameter
+drift, effectively providing better initial data that already
+incorporates the PN corrections at a given order. Addi-
+tionally, our framework is formulated in a gauge consistent
+manner: we work in harmonic coordinates throughout.
+
+n future extensions, the approach can be generalized to
+other gauge choices by first solving for the coordinate
+ransformation between harmonic coordinates and the
+desired coordinates, and then locating the AH under the
+desired slicing condition. The framework itself can also
+e straightforwardly extended to include black-hole spins
+and orbital eccentricity.
+
+In this paper, we use lower-case Latin indices from
+the beginning of the alphabet to denote four-dimensional
+spacetime quantities, whereas lower-case Latin indices
+from the middle of the alphabet are spatial. We work in
+geometrized units with G = c = 1 throughout the paper.
+
+The remainder of this paper is organized as follows.
+Sec. II reviews the definitions of mass in PN theory and
+in NR. Sec. III presents our asymptotic matching scheme
+performed in harmonic coordinates. Sec. IV specifies the
+harmonic slicing conditions, and we propose a horizon
+penetrating harmonic slicing for BBH systems. In Sec. V,
+we solve for the AH on the matched slice, extract the
+AH areal mass, and derive the leading- order parameter
+mapping. We quantify the magnitude of the correction
+for typical binary configurations. Finally, Sec. VI con-
+cludes the paper with a summary of our key results and
+an outlook on extensions, including incorporating spins,
+eccentricities and exploring alternative gauges used in
+
+NR.
+
+II. MASS DEFINITIONS IN PN AND NR
+
+In this section, we review how mass is defined in the
+PN and in NR for non-spinning BBH systems, and we
+clarify how they can be different.
+
+A. PN mass
+
+In the PN approach, each compact object is idealized
+as a point particle characterized solely by a constant
+mass parameter m, (and spin parameters for spinning
+case), with A = 1,2 for a binary. The gravitational
+field produced by the point masses is obtained by solving
+Einstein’s equations expanded in PN orders. In harmonic
+coordinates, where the perturbed metric h®’ = /—gg” —
+n° (with nap the Minkowski metric) satisfies the harmonic
+gauge condition 0h = 0. The Einstein field equations in
+harmonic gauge take the form of inhomogeneous flat-space
+wave equations
+
+hn? = 16nr® (1)
+
+where
+ab — |gipa 4 1 yap (2)
+167 ,
+is the effective stress-energy pseudo-tensor of both mat-
+
+ter and gravity. Here A® is the nonlinear gravitational
+source term (quadratic and higher in h) arising from
+
+self-interactions of the field (see Eq. (15) of [22] for full
+expression), and the stress-energy tensor for the points
+masses is given by
+
+6) x — ya(t)]
+v-9
+
+mauyu,
+
+T” (t,x)
+A=1 rr ed(tyas us,
+
+» (3)
+
+where y(t) is the trajectory of body A and u% is its
+4-velocity. Then the field solution is given by
+
+nv = 16n0 17, (4)
+
+wae Mf easel
+
+The PN mass parameters enter the field solutions through
+this integral.
+
+Because point masses generate singular fields, all these
+local integrals in the PN iteration require a careful regu-
+larization procedure. Blanchet’s MPM-PN scheme [8, 23]
+initially employed a Hadamard partie-finie regularization
+to handle the divergent self-field of each point mass. While
+Hadamard’s method can yield the finite part of most inte-
+grals, it was found to break down at the 3PN level, leaving
+an undetermined constant in the equation of motion. The
+resolution of this problem came from using dimensional
+regularization, which is able to preserve the symmetries
+of the theory. In practice, one works in general d spatial
+dimensions (analytically continued away from d = 3) so
+that all integrals are convergent, and defines the physical
+theory by the limit d > 3 by taking the finite part of any
+1/(d —3) poles. It successfully fixed the cutoff ambiguity,
+yielding a fully self-consistent solution for point-mass bi-
+naries at high PN order, and with the mass parameters
+m, unambiguously defined.
+
+To rigorously connect this idealized point-mass descrip-
+tion to an actual black hole, the PN point-mass param-
+eters are defined alternatively via an asymptotic match-
+ing procedure in Poisson’s approach [9]. Since the PN
+two-body metric is only valid in the region r > rs, and
+diverges near the point particle, they replace the singular
+point-particle with a perturbed black hole solution near
+the object (r < d, where d is the separation between two
+objects) in this object’s comoving frame. Then they solve
+for the tidal moments of the perturbed black hole solution
+and the coordinate transformation between the comoy-
+ing frame and the PN inertial frame by asymptotically
+expanding the both solutions in comoving frame in series
+of 1/r, and matching the coefficients in an overlap region
+where both the two solutions are valid (rs; <r <d). In
+this way, the constant PN mass parameter is essentially
+the mass parameter of an perturbed black hole that would
+produce the same far-field. At infinite separation or in
+the limit that the mass of the secondary object tends to
+zero, the PN mass clearly coincides with the black hole’s
+Schwarzschild mass.
+
+where
+
+(ret (tx) = x’). (5)
+
+—|x-x'], x
+
+The horizon absorption of energy should in principle
+change the mass of each black hole. PN handles this
+horizon absorption by absorbing it into the definition of
+binding energy Ey. In this definition, the PN ADM mass
+is given by
+
+Eypm =m +m + Ep, (6)
+and E, evolves according to the balance law
+
+dEy
+pe (Bo t+ Fat Fr), (7)
+where Fj, and Fy; are the energy flux to null infinity
+and the flux into the horizons, respectively. In this way,
+the mass parameters entering the PN expressions are kept
+as constants.
+
+B. NR mass
+
+In NR, a black hole’s mass is often defined quasi-locally
+on each time slice using its apparent horizon (AH) — a
+marginally outer trapped surface. For a non-spinning
+hole, the quasi-local (irreducible) mass is given by the
+
+AH areal mass
+| A
+m= Tén’ (8)
+
+where A is the area of the AH of black hole. This quantity
+is geometrically invariant on the slice, but it is slicing
+dependent because the AH itself depends on the chosen
+time slicing. By contrast, the event horizon (EH) is a
+global and gauge invariant null surface, so as the irre-
+ducible mass defined from the area of EH. However, the
+EH cannot be determined without knowledge of the entire
+spacetime evolution, so in practice, the EH based masses
+is impractical during a simulation. Consequently, NR
+uses AH based, quasi-local measurements which depends
+only on local variables on a given time slice. The slicing
+dependence of AH introduces an intrinsic ambiguity, thus
+the NR quasi-local masses extracted from the AHs need
+not coincide with the point-particle masses used in PN
+theory. Accordingly, any direct comparison between NR,
+and PN requires an explicit, gauge-consistent parameter
+translation.
+
+Ill. CONSTRUCTING GLOBAL METRIC
+
+In this section we construct the global metric using the
+matched-asymptotic framework [21, 24]. We enforce the
+harmonic gauge 0a(\/—gg’) = 0 in the strong field region,
+so that the global metric and the coordinate transforma-
+tions are valid and gauge-preserving through the horizon.
+We work to leading post-Newtonian order (1PN), and we
+neglect tidal multipoles whose leading contributions enter
+at relative 3PN.
+
+A. Region setup and notations
+
+Consider a binary with component labels A = 1,2,
+PN parameters m4, PN trajectories and velocities y 4(t)
+and v,(t), and separation b. We introduce the usual PN
+expansion parameter v = |vy—v2| < 1. For non-spinning
+and quasi-circular case, v? = (m1+mz)/b at leading order.
+We also have 0,v; ~ O(1/b?) ~ O(v4), and Ab ~ O(v*),
+
+so we treat them as constants at 1PN order.
+
+Near zone
+(r > my)
+
+PN
+Jab
+
+Buffer region
+(my, «<r Kb)
+
+Inner zone
+
+(r «b)
+alIsolated , —tidal
+ers + On
+
+FIG. 1. A schematic diagram showing the domain setup an
+symbols.
+
+Following Ref. [19], we divide the global 4-manifol
+as two inner zones of the black holes (r4 < 6), a near
+zone (ma < ra < X), and a far zone (r4 > A), as
+shown in Fig. 1. Here A is the wavelength of gravitationa’
+
+V dig (@" = yy)(@? — yh) =
+((wa — ya)(@a — ya)). Here we use (ab) to denote the do
+product of spatial vectors. We use n', = (x* — y4)/r4 to
+denote the normal vector in r4 direction. We raise an
+lower indices of the spatial vector ny and vy with the
+Euclidean metric 0;;.
+
+radiation, and r4 = |x—ya| =
+
+We are only interested in the inner zone, where the met-
+ric is given as a non-rotating black hole in the harmonic
+coordinates in the black hole’s comoving frame, and the
+near zone, where the metric is given by the PN two-body
+metric in the inertial frame. In order to match the inner
+zone metric with the near zone metric, we use a buffer
+region where both descriptions are valid (ma < ra <b).
+
+We use the following notation: we use a bar” to de-
+note coordinates or indices in the comoving frame, and
+coordinates or indices without the bar are in the inertial
+frame. We use superscript or subscript H for harmonic
+coordinates, KS for Kerr-Schild coordinates, and CS for
+Cook-Scheel coordinates.
+
+B. Inner zone metric
+
+In the inner zone of black hole 1, we start from a Kerr-
+Schild Cartesian coordinate system i. = (ts, tks).
+The metric there is taken as an isolated black hole solution
+plus tidal multipoles [21]. The latter start at O (7?/b?),
+which are at relative 3PN and are consistently neglected
+for a leading 1PN mass matching. Thus in the inner zone
+we retain only the monopolar field of mass parameter
+mi4, which is to be related to the PN parameter m1 by
+the asymptotic matching.
+
+The inner zone metric of black hole 1 in the Kerr-Schild
+Cartesian coordinate at 1PN order is
+
+KS 2m?
+900 = —1 + Rs
+ust
+Z
+Ks _ 2M" _xs (9)
+Jo ~ GKS i?
+1
+
+IZ
+KS _ gs 4 2M" _KsaKs
+IG ij 7 GKS i My
+
+Ss
+
+7K ed ° ai zi /=KS
+Here 7{° = (Zxs&xs), and Ning = Fg/TP.
+
+C. Near zone metric
+
+In the near zone, the metric can be described by the PN
+two-body metric in the barycentric harmonic coordinates
+2 = (tu, vi;) in the inertial frame. Since our inner
+zone comoving frame metric is accurate to 2.5PN, we
+will use the 2.5PN two-body metric to reach the same
+accuracy in the buffer region. The 2.5PN metric is given
+by [25]. We substitute 1/roq = 1/b + O(v*), keep terms
+up to O(v?), and truncate the metric to O(m?/r?,,) order,
+which is sufficient for our asymptotic matching purpose.
+The results reads
+
+_ .
+=p 22 (- (ninv1)? + dv} — a)
+
+1) Tin b
+3
+m 5 8m.
+i P ae) 2
++= (-2 + 3(minvi)” — vy + b )
+TlH
+3
+m
+1 3
+1H
+2
+my m
+H 1 H
+995 = -4—vu + (vn - (minvi)nyi)
+TU Tin
+
+3
+Tin
+
+2m: m >, 2m
+gy = : 4524 @ — (niwi)? + a)
+
+b T1H b
+2 2
+mals 4 4m, _™ wow
++ ig T viiviy 4 nin;
+ne r me 4
+1H 1H 1H
+
+(10)
+
+on
+
+2
+Note that gy is not complete at O (=) order.
+
+1H
+
+D. Coordinate transformation
+
+Before we match the parameters, it’s important to ex-
+press the inner zone and near zone metrics to the same
+frame. Ref. [26] proposed a coordinate transformation be-
+tween the comoving frame and inertial frame by inserting
+the PN trajectory of the black hole, but this approach
+generally does not preserve the desired gauge. Ref. [24]
+presents a general coordinate transformation by asymp-
+totic matching with the PN metric in the buffer region.
+It preserves the harmonic gauge in the weak field region
+where the metric is flat, but the gauge preserving feature
+doesn’t extend to the strong field region near the horizon.
+We construct the coordinate transformation by enforcing
+the harmonic gauge through the strong field region, and
+the boundary conditions for the gauge equations are pro-
+vided by asymptotic matching with the PN metric in the
+buffer region.
+
+We parameterize the coordinate transformation as
+
+ixs = ty + €°(tn, vty),
+Z\ _
+(1 ue ) ths = ty
+TKS
+
+here the (1 - we)
+
+(11)
+
+— yy + E(t, vy),
+
+factor is introduced to bring the
+
+r1KS
+comoving Kerr-Schild coordinates to a comoving harmonic
+coordinates. We further expand €° as
+
+(tu, a}y) = A(tu) — (eu — ya)or) + &(tu, vi). (12)
+
+The first two terms are introduced to keep the trajectory,
+and the third term is introduced to preserve the harmonic
+gauge. We have A ~ €' ~ O(v?), and « ~ O(1).
+
+Substituting Eq. (12) into Eq. 11, we can solve for the
+inverse transformation as
+
+ty =txs — A(txs) + [1 - A(éxs)]
+mlz oe
+‘ [( =e ) (%xsv1) — K (fxs, 7ks)| :
+
+T1KS
+; Z\ ; 13)
+af, =(1- 71) ahs +o
+T1KS
+
+IZ -
+-€ (ts, (1- 7) tig),
+T1iKs °
+
+where K(txs, Eig) =
+
+Eq. (11) and Eq. (13) also gives the transformation of
+Tixs and Aiixg as
+
+Pixs ="in + (mmf) +1,
+
+nike : at) fa
+
+t 7
+Tn TU
+
+(14)
+
+The harmonic condition reads
+
+where V? is the flat Laplacian. We can further decompose
+é as
+
+Offs (Da9sa8 — UA ga50aths) = 0. (15)
+Substituting Eq. (13), we get E'(tu, vy) = Blt, cy)nin + D(tu,rp)vi, — (18)
+=9 2m 5 7
+VK — = Aig gj) K then we substitute it into Eq. (15) to get
+1KS .
+16)
+mlz _ (
+— St (14 fixsdK) = O00), -
+Tks =9 my 3 5 2B g
+VB -— ——iiixgnixs90;B — z— = O(v"), (19)
+TKS Tiks
+IZ mz - =
+1 = 21) ygh— 2 ni xsiitcsd:0j6* = O(0*), (17)
+TiKs TiKS
+2B WB mz ; = = ; 2 (vinixs) Mi ecOB = §
+FF wrfinxs) — OF 4 ME (orfinxs) hes cgOiOjB + fiyegu]0;0;B + ~MPKS) Pixs _ i J.a:p
+Tiks T1KS T1iKS TIKS (20)
+mig? = = rm
++ TM KSM} Kg); D = Olv").
+
+Tiks
+
+The harmonic condition Eq. (15) does not constrain
+A at 1PN order, so we will need to get information of
+A and acquire boundary conditions for A, B and D by
+asymptotically matching the inner zone metric with the
+PN near zone metric in the buffer region.
+
+E. Asymptotic matching
+
+In order to asymptotically match the inner zone metric
+with the PN near zone metric, we first need to transform
+the inner zone metric to the inertial frame in the harmonic
+coordinates
+
+a Dab
+Oxt, Oxky
+
+Guv(tus%y) = 9EP
+
+(21)
+
+I
+The Jacobian is given by Eq. (11) and (13) as
+
+A =14 A+ 0? +. OK — vidjK,
+a =— vi + dix,
+
+IZ IZ
+= m m ‘
+i i i 1
+=- (1 + Je | (vimin) ni y,
+rin rin
+. IZ
+ai ! , Bg my (- cm?) si
+T1H T1H T1H
+1z
+z mi“ (vinin)
+i i ie
++ ni y0;B — ————n,0;D
+rin
+
+IZ
+t (1 pe ) way + - B
+iH "1H
+
+; 2ml4(viniw)D _ miZ (: _ enw?) nigni
+rin
+
+rin rin
+IZ
+Tin
+(22)
+We apply the Jacobian and Eq. (14) to the inner zone
+metric Eq. (9), and expand the results in series of 1/rin,
+and keep the terms up to the second order. The full
+transformed metric is very lengthy, so we will just give
+the useful parts. The 6;; component of the transformed
+metric reads
+
+MOS) a
+
+Im'i4 + 2B
+Gig t—
+
+Tin
+Miz + 2m\2B + B® — 2m\2D(niyv1)
+
+3
+TlH
+
+(23)
+
+2
+"TH
+By comparing with Eq. (10), we immediately get
+
+. me
+B= T1Hs
+
+«i
+b D= gria(vimin), (24)
+
+my" =m,
+where = denotes equality in the buffer region (boundary
+condition). For B, the boundary condition is spherically
+symmetric, so we look for a spherical symmetric solution
+to Eq. (19). The general spherical symmetric solution is
+
+2
+B= Sirin + Bo (1 NH ' PUB, NH ) ;
+
+rig — mil my Tin — M4,
+
+(25)
+where the second term scales like O(m?/r?,;), so it can
+not be constrained by the current 2.5PN metric whose
+spatial components are not complete at O(m?/r?,) order.
+So we will choose 3; = m2/d, and 62 = 0. This gives
+
+B= —riy. (26)
+
+“b
+Eq. (20) can then be simplified by substituting B, which
+gives
+
+IZ =
+V2D — FMixcsMxsdi0)D = Ol). (27)
+
+Based on the boundary condition Eq. (24), we look for a
+1 =1 solution. The general / = 1 solution can be written
+
+D = (6; + darin)(minu), (28)
+
+where u is a constant vector. The boundary condition
+Eq. (24) gives 6) = 0,6) = 3, and u = vj. So we have
+
+1
+D= grim(vimin). (29)
+
+To simplify the matching for « and A, we first study
+the gauge constraint Eq. (16). This equation is indepen-
+dent of txg, so we can decompose K as K (tks, tg) =
+Ki (txs)K2(Zxg). Given that both the inner zone metric
+and near zone metric have no explicit dependence on time,
+and that Ay (fxs) enters directly in the Jacobian Eq. (22),
+then K,(txs) must be constant. So K = K (zg). For
+simplicity, we first look for a spherical symmetric solution
+to Eq. (16). The general solution is
+
+Tiks — 2m,
+
+K = 2m,1n +koln
+ky TiKks
+
+Tiks — 2m
+
+» (30)
+
+where the kj coefficient is just an arbitrary constant time
+shift, so we can choose it to be 2m, to make the unit
+correct. We substitute the coordinate transformation
+Eq. (14) into ansatz Eq. (30) to get the ansatz for «
+
+rin (1+ 22 + 4(minvi)) — mi
+2m,
+rin — 2m, (1 — % — 3(ninv1))
+
+T1H
+
+kK =2m, In
+
+(31)
+
++ ko In
+
+and then substitute the « along with (26) and (29) into
+the transformed metric Eq. (21). The O(1) coefficient of
+the tt component is
+
+H(0(4))
+
+95 =-1-2A—9j. (32)
+
+Comparing it with the tt component of Eq. (10), we have
+: 1
+A= —5u -—. (33)
+
+Then the O(m?/r?,,) coefficient of the tt component re-
+duces to
+
+2
+H(O(mt/riy)) _ M4 .
+ij Te =, (—2 + 2ko(ninvi)
+(34)
+
+8
+4+3(nyyu1)? — vf + m) .
+
+Comparing with the Eq. (10), we have kz = 0. So
+
+rin [1+ 42 + $(minv1)] — ma
+
+K = 2m, 1n
+2m,
+
+(35)
+
+We use B,D,A and « from Eq. (26), (29), (33) and
+(35) to transform the inner zone metric Eq. (9), the results
+agrees exactly with the near zone metric Eq. (10) for the
+available orders in m1/riy up to O(v7). This suggests
+that the | > 0 modes of K vanishes at 1PN order, which
+agrees our spherical symmetric ansatz Eq. (30).
+
+In conclusion, the harmonic gauge-preserving coordi-
+nate transformation from the PN inertial frame to the
+comoving Kerr-Schild coordinate is given by
+
+= 1 ™:
+tks = (1 - zu - =) ty — ((@H — ya)v1)
+
+rin (1+ 42 + $(minvi)] — m1
+2m,
+
+<j rin meg i i
+
+ks “Fm [t+ Gp) (ova)
+
+1 i
++=rin (MH, yi] ;
+
++ 2m, In ,
+
+(36)
+2
+
+_ 1 2, M2
+Tiks =Tin (1+ g (mine) + 5 +m,
+
+-f 1 2) i 1 i
+Niks = (1 - p(mnmn)?) nin + 5 (mas )vi-
+The inverse transformation is
+
+L m _ = ss
+ty (: + zt : :) [ts + (Tiks — m1) (RKsv1)
+
+b
+Fixs —2
+2m In ad
+2m,
+ai m2) 5 1
+ty = (Fixs — ™1) @ ~ m) Mis — 5 (fixsv1) vf
+
+me
+
+1 -
+rin = (: - 5 (faxse1)” ~ =) (Tiks — m1),
+i 1/_ 2) si 1. i
+mig = {1+ 9 (Mast) Nikg — 9 (Mxsv1)04.
+(37)
+
+IV. SLICING CONDITION
+
+The apparent horizon is slicing dependent, but the
+slicing conditions that satisfy the harmonic condition is
+not unique. We can add any function F'(ixs, Zig) to the
+harmonic time ty in Eq. (37) as long as F satisfies the
+harmonic condition Eq. (15). For simplicity, we focus on
+the static case, so F = F(Zi,.). Putting it into Eq. (15),
+we get
+
+= 2m
+2 b1 = =
+WF . Ni jcgitl egOi0; Fo
+1KS Tks
+
+am -
+
+a ni ng0;F =0. (38)
+
+The general spherically symmetric solution is
+
+Tiks — 2m
+
+F=f,ln + fo, (39)
+
+T1KS
+
+where fp is just an arbitrary constant time shift that we
+are setting to zero.
+We note that when
+
+1
+fi= 2m, (1+ suit my, (40)
+
+the harmonic time slice becomes
+
+as ™: es = =
+tos (: + i | a) [fxs + (Fixs — m1) (AKsv1)
+
+2
++2m, In = 4] = const.,
+TiKs
+
+(41)
+which is regular through the horizon. This is the gener-
+alized case of the Cook-Scheel slicing [27], which is the
+unique harmonic and horizon penetrating slicing for an
+isolated single black hole.
+
+To study the dependence of the AH quasi-local mass
+on the slicing condition, we perturb the generalized
+Cook-Scheel slicing condition in Eq. (41) by setting
+
+fi = 2m, (1 + avy — 2m, 6v?.
+
+dition then becomes
+
+1 m< -
+T (: { zu + =) [fxs + (Fixs
+
++ 7) The slicing con-
+
+m1) (AKsv1)
+
+const..
+
+(42)
+
+We will solve perturbatively for the AH on this slicing
+
+condition and compute its quasi-local areal mass from the
+horizon geometry in the next section.
+
+Tixs — 2m,
+
++2my In — 2m,6v7 In
+
+| T1iKs
+
+V. AH QUASI-LOCAL MASS
+
+The apparent horizon of a black hole is defined as an
+outer marginally trapped surface on a given time slice. It
+is a closed 2-surface whose outgoing null normal has zero
+expansion. If one combines the AH on each time slice into
+a 3-dimensional surface, this worldtube will depend on
+the slicing. As we will see, this slicing dependent feature
+of the AH will bring ambiguity into the quasi-local mass
+defined from the AH geometry.
+
+A. Finding the apparent horizon
+
+Here we solve for the AH on the given time slice T =
+const. in Eq. (42). The future-pointing unit timelike
+normal to this time slice is given by
+
+T, = —aD,T, (43)
+
+where D, is the covariant derivative with respect to the
+4-metric gap, and
+a= (-g? Da DoT)”. (44)
+
+The induced 3-metric on this time slice is given by
+
+Gg) = gab + TaT- (45)
+
+Let s* be the unit outward pointing normal to the AH
+2-surface in this time slice, so that
+
+a'r = 0, Swed, rm Sal, (46)
+
+then the 2-metric on the AH 2-surface is
+
+9 = =gap PTT} — 588, (47)
+
+and
+
+1
+v2
+is the future-pointing null geodesic congruence whose
+projection on the 3D time slice is orthogonal to the AH 2-
+
+surface. Note that k“ is only defined on the AH 2-surface,
+its extension away from the 2-surface is not defined. The
+
+k* = —(r* + 8°) (48)
+AH is defined by the vanishing of expansion on the 2-
+surface, which is
+
+0 = 9?) Daky = 0. (49)
+
+Since the covariant derivative of ka is projected onto the
+2-surface by g’2)*", no knowledge of the extension of k*
+away from the 2-surface is required. Only if k® is affinely
+parametrized, i.e., k¢Dk® = 0 in the neighborhood of
+the 2-surface, Eq. (49) reduces to Dak* = 0.
+
+Note that T*DyTq = 0 and s*Dysq = 0 from Eq. (46),
+Eq. (49) can be simplified as
+
+1
+e=— [g"’Da(t + sy) + 77 Dasy — s*s’ Dat] = 0.
+v2
+(50)
+We will use this equation for the remaining calculations.
+In order to get s*, we parametrize the AH 2-surface in
+the comoving Kerr-Schild coordinates by
+R =Tixs — 2m, — RO, é)
+=Fixs — 2m — SR, ¥'(0,8) =0, OY)
+im
+with (9,4) defined by
+
+Here Rj, ~ O(v), given that we are on a time slice that
+is perturbed from the horizon-penetrating one by O(v?).
+Then we have
+(3)ab p)
+st = DR (53)
+
+Vg@4D.RDiR
+
+Eq. (50) is a scalar equation which does not transform
+
+under coordinate trans:
+comoving Kerr-Schild c
+
+calculation significantly
+
+formations, so we solve it in the
+oordinates, which simplifies the
+compared with working in the
+
+inertial harmonic coordinates. We substitute the slicing
+Eq. (42) and the comoving metric Eq. (9) into Eq. (50),
+project it onto 1, modes, and truncate terms to O(v?)
+and O(R), we obtain
+
+Rog = — Vim 5? + O(v?),
+
+_ (54)
+Risom =O v*),
+so the AH is given by
+Tiks = 2m, — Fou. (55)
+
+For the horizon penetrating slicing, ie., 6 = 0, the AH
+reduces to the Kerr-Schild horizon at 7ixKg = 2m1.
+
+B. Quasi-local mass
+
+The AH a local mass is defined from the area of
+the AH by Eq. (8). The AH area A is given by
+
+Pig
+A= [ ao [ ay 492 — of” oe
+
+(56)
+
+where
+
+2 2
+9:5) = ag BxsOge Zixs: (57)
+
+Note that from Eq. (42), we have ixg =
+(Fixs — m1) (NKsv1) + ..., so the Jacobian is
+
+const. —
+
+052° =Tixs (a eens )v1 cos(@) sin(d), cos(8) cos(4),
+TiKs
+cos(0) sin(d), — sin(@)) ,
+05x" =Tiks (a-2 -
+
+sin(9) cos(4), 0).
+
+— 1 )y; sin(A) cos(d), — sin(@) sin(4),
+TiKs
+
+(58)
+Substituting the AH (55) and the 2-metric (47), we get
+the AH quasi-local mass from Eq. (8) as
+
+me! = my (2 a i?) . (59)
+
+For the horizon penetrating slicing, i.e., 6 = 0, the
+AH quasi-local mass agrees with the PN mass at 1PN
+order. But for a general harmonic slicing condition that
+is perturbed from the horizon penetrating one by 1PN
+order at O(v?), the AH quasi-local mass is also perturbed
+from the PN mass by O(v?). For a realistic NR, orbital
+separation (e.g., 10 orbits before merger), O(v?) would
+be on the order of 10~?, which is not negligible for the
+precision requirements of the next generation detectors.
+
+VI. CONCLUSIONS
+
+We have provided a gauge-consistent bridge between
+apparent horizon quasi-local and PN point-particle pa-
+rameter definitions for non-spinning, quasi-circular BBH
+systems at leading PN order, working entirely in harmonic
+gauge. By constructing a harmonic and gauge-preserving
+map between the inner zone black hole metric and the
+near zone PN two-body metric, we constructed a global
+harmonic metric for BBH, and we generalized the Cook-
+Scheel harmonic horizon penetrating slicing to the BBH
+case. We located the apparent horizon on harmonic time
+slices, and derived the leading order relation between the
+AH areal mass and the PN mass parameter at 1PN order.
+We find that on a horizon penetrating harmonic slicing
+he generalized Cook-Scheel slice), the AH quasi-local
+mass agrees with the PN point-particle mass at 1PN or-
+der. For generic harmonic slicings that deviate from the
+horizon penetrating condition by an O(v) perturbation,
+the AH mass differs from the PN mass by a fractional
+amount Am = —4ov?. For typical orbital velocities at re-
+
+alistic NR separations (e.g., 10 orbits before merger), this
+amounts to O(10~?) corrections, which is not negligible
+at the precision demanded by next generation detectors.
+
+Our work neglected tidal multipoles entering at rela-
+tive 3PN, and restricted to non-spinning, quasi-circular
+
+binaries. Some natural extensions would include: (i) in-
+corporating spin and eccentricity to obtain mappings for
+both mass and angular momentum; (ii) adding leading
+tidal effects and extend to higher PN orders; (iii) translat-
+ing the mapping from harmonic to gauges more commonly
+used in NR (e.g., damped harmonic in SpEC) via explicit
+coordinate transforms that preserves the new gauge.
+
+Extending the matching procedure to the actual NR
+gauges would enable PN-NR waveform hybridizations to
+be performed with parameter consistent inputs, reducing
+the need for ad-hoc optimization of PN masses to fit NR
+and thereby decreasing the risk of parameter bias over
+long inspirals. It also suggests a practical prescription for
+NR initial data by starting from a global gauge-consistent
+metric that is accurate to a given PN order, which could
+potentially mitigate junk radiation and parameter drift
+during the early evolution.
+
+ACKNOWLEDGMENTS
+
+We thank Saul Teukolsky, Mark Scheel, and Qing Dai
+for useful discussions. This work was supported in part by
+the Sherman Fairchild Foundation, by NSF Grants PHY-
+2309211, PHY-2309231, and OAC-2209656 at Caltech.
+Computational resources for this work were supported by
+Qing Dai.
+
+REFERENCES
+
+1] N. Afshordi et al. (LISA Consortium Waveform Working
+Group), Waveform Modelling for the Laser Interferometer
+Space Antenna, arXiv:2311.01300 [gr-qc] (2023).
+
+2) E. Barausse, I. Dvorkin, M. Tremmel, M. Volonteri, and
+
+M. Bonetti, Massive black hole merger rates: The effect of
+
+kiloparsec separation wandering and supernova feedback,
+
+Astrophys. J. 904, 16 (2020), arXiv:2006.03065 [astro-
+
+ph.GA].
+
+3] M. Boyle et al., The SXS collaboration catalog of binary
+
+black hole simulations, Classical and Quantum Gravity
+
+36, 195006 (2019).
+
+4] M. A. Scheel, M. Boyle, K. Mitman, N. Deppe, L. C.
+Stein, C. Armaza, M. S. Bonilla, L. T. Buchman, A. Ceja,
+H. Chaudhary, Y. Chen, M. Corman, K. Z. Csukas, C. M.
+Ferrus, S. E. Field, M. Giesler, S. Habib, F. Hébert,
+D. A. Hemberger, D. A. B. Iozzo, T. Islam, K. Z. Jones,
+A. Khairnar, L. E. Kidder, T. Knapp, P. Kumar, G. Lara,
+O. Long, G. Lovelace, S. Ma, D. Melchor, M. Morales,
+J. Moxon, P. J. Nee, K. C. Nelli, E. O’Shea, S$. Ossokine,
+R. Owen, H. P. Pfeiffer, I. G. Pretto, T. Ramirez-Aguilar,
+A. Ramos-Buades, A. Ravichandran, A. Ravishankar,
+S. Rodriguez, H. R. Riiter, J. Sanchez, M. A. Shaikh,
+D. Sun, B. Szilagyi, D. Tellez, S. A. Teukolsky, S. Thomas,
+W. Throwe, V. Varma, N. L. Vu, M. Walker, N. A. Wittek,
+and J. Yoo, The sxs collaboration’s third catalog of binary
+black hole simulations (2025), arXiv:2505.13378 [gr-qc].
+
+[5] A. Ashtekar and B. Krishnan, Dynamical horizons and
+
+their properties, Phys. Rev. D68, 104030 (2003), arXiv:gr-
+
+qce/0308033 [gr-qc].
+
+17
+
+18
+
+19
+
+20
+
+10
+
+A. Ashtekar and B. Krishnan, Isolated and dynamical
+horizons and their applications, Living Reviews in Rela-
+tivity 7, 10.12942/lrr-2004-10 (2004).
+
+D. Pook-Kolb, O. Birnholtz, B. Krishnan, and E. Schnet-
+ter, Existence and stability of marginally trapped sur-
+aces in black-hole spacetimes, Physical Review D 99,
+10.1103/physrevd.99.064005 (2019).
+
+L. Blanchet, Post-newtonian theory for gravitational
+waves, Living Reviews in Relativity 27, 10.1007/s41114-
+024-00050-z (2024).
+
+E. Poisson and C. Will, Gravity: Newtonian, Post-
+Newtonian, Relativistic (Cambridge University Press,
+2014).
+
+L. Santamaria et al., Matching post-Newtonian and nu-
+merical relativity waveforms: systematic errors and a new
+phenomenological model for non-precessing black hole bi-
+naries, Phys. Rev. D 82, 064016 (2010), arXiv:1005.3306
+gr-qc].
+
+. MacDonald, S. Nissanke, H. P. Pfeiffer, and H. P. Pfeif-
+er, Suitability of post-Newtonian/numerical-relativity
+hybrid waveforms for gravitational wave detectors, The-
+ory meets data analysis at comparable and extreme mass
+ratios. Proceedings, Conference, NRDA/CAPRA 2010,
+Waterloo, Canada, June 20-26, 2010, Class. Quant. Grav.
+28, 134002 (2011), arXiv:1102.5128 [gr-qc].
+M. Boyle, Uncertainty in hybrid gravitational wave-
+orms: Optimizing initial orbital frequencies for binary
+lack-hole simulations, Phys. Rev. D84, 064013 (2011),
+arXiv:1103.5088 [gr-qc].
+. MacDonald, A. H. Mroue, H. P. Pfeiffer, M. Boyle, L. E.
+Kidder, M. A. Scheel, B. Szilagyi, and N. W. Taylor, Suit-
+ability of hybrid gravitational waveforms for unequal-mass
+binaries, Phys. Rev. D87, 024009 (2013), arXiv:1210.3007
+gr-qc].
+V. Varma, S. E. Field, M. A. Scheel, J. Blackman, L. E.
+Kidder, and H. P. Pfeiffer, Surrogate model of hybridized
+numerical relativity binary black hole waveforms, Phys.
+Rev. D99, 064045 (2019), arXiv:1812.07865 [gr-qc].
+
+J. Sadiq, Y. Zlochower, R. O’Shaughnessy, and J. Lange,
+Hybrid waveforms for generic precessing binaries for
+gravitational-wave data analysis, Phys. Rev. D 102,
+024012 (2020), arXiv:2001.07109 [gr-qc].
+
+J. Yoo, K. Mitman, V. Varma, M. Boyle, S. E. Field,
+N. Deppe, F. Hébert, L. E. Kidder, J. Moxon, H. P. Pfeif-
+er, M. A. Scheel, L. C. Stein, S. A. Teukolsky, W. Throwe,
+and N. L. Vu, Numerical relativity surrogate model with
+memory effects and post-newtonian hybridization, Physi-
+cal Review D 108, 10.1103/physrevd.108.064027 (2023).
+D. Sun, M. Boyle, K. Mitman, M. A. Scheel, L. C.
+Stein, S. A. Teukolsky, and V. Varma, Optimizing post-
+newtonian parameters and fixing the bms frame for
+numerical-relativity waveform hybridizations, Phys. Rev.
+D 110, 104076 (2024).
+K. Alvi, Note on ingoing coordinates for binary black
+holes, Physical Review D 67, 10.1103/physrevd.67.104006
+(2003).
+N. Yunes, W. Tichy, B. J. Owen, and B. Briigmann,
+Binary black hole initial data from matched asymp-
+totic expansions, Physical Review D 74, 10.1103/phys-
+revd.74.104011 (2006).
+. Yunes and W. Tichy, Improved initial data for black
+hole binaries by asymptotic matching of post-newtonian
+and perturbed black hole solutions, Physical Review D
+74, 10.1103/physrevd.74.064013 (2006).
+
+11
+
+[21] S. Taylor and E. Poisson, Nonrotating black hole in a Physics Reports 400, 209-318 (2004).
+post-newtonian tidal environment, Physical Review D 78, (25) L. Blanchet, G. Faye, and B. Ponsot, Gravitational field
+10.1103/physrevd.78.084016 (2008). and equations of motion of compact binaries to 5/2 post-
+[22] L. Blanchet, Gravitational radiation from post-newtonian ewtonian order, Physical Review D 58, 10.1103/phys-
+sources and inspiralling compact binaries, Living Reviews revd.58.124002 (1998).
+in Relativity 5, 10.12942/Irr-2002-3 (2002). (26] L. Combi, F. G. L. Armengol, M. Campanelli, B. Ireland,
+[23] L. Blanchet, Gravitational radiation from post-newtonian S. C. Noble, H. Nakano, and D. Bowen, Superposed met-
+sources and inspiralling compact binaries, Living Reviews ric for spinning black hole binaries approaching merger,
+in Relativity 17, 10.12942/Irr-2014-2 (2014). Physical Review D 104, 10.1103/physrevd.104.044041
+[24] S. KOPEIKIN and I. VLASOV, Parametrized post- (2021).
+newtonian theory of reference frames, multipolar expan- (27] G. B. Cook and M. A. Scheel, Well-behaved harmonic
+sions and equations of motion in the n-body problem, time slices of a charged, rotating, boosted black hole,
+Phys. Rev. D 56, 4775 (1997).
+

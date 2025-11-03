@@ -1,0 +1,1071 @@
+arXiv:2510.25547v1 [astro-ph.EP] 29 Oct 2025
+
+DRAFT VERSION OCTOBER 30, 2025
+Typeset using LXTgX preprint style in AASTeX631
+
+Engulfment of Eccentric Planets by Giant Stars: Hydrodynamics and Light Curves
+
+MeEncal YANG,!?:3 Done Lat,!4 FUYUAN WU,?? AND Jig ZHANG! ?:3
+
+1Tsung-Dao Lee Institute, Shanghai Jiao Tong University, Shanghai, 201210, China
+? Key Laboratory for Laser Plasmas (MoE) and School of Physics and Astronomy, Shanghai Jiao Tong University,
+Shanghai 200240, China
+3 Collaborative Innovation Center of IFSA, Shanghai Jiao Tong University, Shanghai 200240, China
+4Center for Astrophysics and Planetary Science, Department of Astronomy, Cornell University, Ithaca, NY 14858,
+USA
+
+ABSTRACT
+
+Recent observations suggest that planetary engulfment by a giant star may produce
+radiation that resembles subluminous red novae. We present three-dimensional hydro-
+dynamical simulations of the interaction between an eccentric 5M; giant planet and its
+1 Mz red-giant host star. The planet’s pericenter is initially 60% of the stellar radius
+and is fully engulfed after tens of orbits. Once inside the stellar envelope, the planet
+generates pressure disturbances that steepen into shocks, ejecting material from the
+envelope. We use post-processing to calculate the light curves produced by planetary
+engulfment. We find that the hot stellar ejecta enhances the stellar luminosity by sev-
+eral orders of magnitude. A prolonged hydrogen recombination plateau appears when
+the ejecta cools to about 104K. The late-time rapid dimming of the light curve follows
+dust formation, which obscures the radiation. For planets with lower eccentricity, the
+orbital decay proceeds more slowly, although the observable properties remain similar.
+
+Keywords: hydrodynamics — methods: numerical — planet-star interactions
+
+1. INTRODUCTION
+
+Planets orbiting stars outside our Solar System have been observed over the past few decades, with
+nearly 6,000 confirmed discoveries! to date. As the host star evolves and its envelope expands, the
+planets may be “absorbed” by the stars, a phenomenon known as planetary engulfment (Villaver &
+Livio 2009; Schlaufman & Winn 2013; Lau et al. 2025b).
+
+Planetary engulfment can produce a variety of observable signatures. The transfer of orbital angular
+momentum from the engulfed planet to the stellar envelope may change the star’s rotation (Peterson
+et al. 1983; Qureshi et al. 2018; Stephan et al. 2020). The deposition of lithium (7Li) in the stellar
+envelope can also increase its observed abundance (Sandquist et al. 1998; Soares-Furtado et al. 2021).
+
+Corresponding author: Mengqi Yang
+pachelbel@sjtu.edu.cn
+
+Corresponding author: Dong Lai
+donglai@sjtu.edu.cn
+
+' https: //exoplanetarchive.ipac.caltech.edu/index.html
+2 MENGQI ET AL.
+
+Additionally, the radiation emitted from ejecta gas during engulfment can boost the star’s luminosity,
+leading to either transient or secular brightness enhancements (Metzger et al. 2012, 2017; MacLeod
+et al. 2018a). A recent observation of an infrared transient, ZTF SLRN-2020, provided evidence for
+planetary engulfment (De et al. 2023).
+
+During the evolution of a planetary system, a planet’s orbit can be excited to high eccentricity
+through planet—planet scatterings (e.g., see Rasio & Ford (1996); Weidenschilling & Marzari (1996);
+Lin & Ida (1997); Ford et al. (2001); Chatterjee et al. (2008); Juri¢é & Tremaine (2008); Petrovich
+et al. (2014); Anderson et al. (2020); Li et al. (2021), and references therein) or through perturbations
+from external stellar or planetary companions via the Lidov-Kozai mechanism (Wu & Murray 2003;
+Fabrycky & Tremaine 2007; Anderson et al. 2016). Highly eccentric planets may experience periodic
+tidal dissipation (Vick et al. 2019) and excite stellar mass losses during pericenter passages (Sahai
+et al. 2016; Salas et al. 2019). If the eccentricity continues to grow, a planet can directly enter the
+stellar envelope before tidal forces circularize its orbit, resulting in engulfment.
+
+A few hydrodynamic simulations of planetary engulfment have been conducted, but none have
+considered the case of eccentric orbital planets. Sandquist et al. (1998, 2002) used a nested grid to
+simulate a planet spiraling into the stellar envelope on circular orbit. They found that the dissolution
+of the planet enhances the surface metallicity. Wind-tunnel simulations (MacLeod & Ramirez-Ruiz
+2015; MacLeod et al. 2017; Yarza et al. 2023) focused on the local flow surrounding the planet to
+model the gravitational and hydrodynamic drag forces. Global simulations (Staff et al. 2016; Lau
+et al. 2022a) followed the evolution of the planet’s orbit and determined the mass distribution around
+the planet, as well as the response of the stellar envelope. However, these works did not calculate
+the luminosity associated with the engulfment, and were limited by the artificial heating of the
+photosphere in SPH codes (Staff et al. 2016) or the lack of resolution of the stellar surface in the
+simulations (Lau et al. 2022a).
+
+In this study, we conduct 3D hydrodynamic simulations of the engulfment of eccentricity (e =
+0.45, 0.65) giant planets with a mass of 5M; by a 1 Mo evolved red giant star. Note that while
+close encounters between eccentric giant planets and main-sequence stars can certainly happen, such
+encounters lead to tidal disruption of the planet near the stellar surface. For giant stars, deep planet
+engulfment is possible. We adopt the Athena++ code (Stone et al. 2020) for our hydrodynamical
+simulations and use the outputs to compute the light curve in post-processing.
+
+The rest of the paper is organized as follows. In Section 2, we describe our numerical setup, the
+method for calculating the light curve and mass loss, and an analytical model for the planetary
+trajectory. Section 3 presents our fiducial 3D simulation results (with the planet eccentricity e =
+0.65), including the hydrodynamic response of the stellar envelope (Section 3.1), planetary orbital
+migration (Section 3.2), light curve and photospheric temperature and radius (Section 3.3), and mass
+loss of the ejected gas (Section 3.4). Section 4 examines the case of a planet with a lower eccentricity
+(e = 0.45), holding other parameters fixed. In Section 5, we summarize our main conclusions, and
+discuss the implications and uncertainties.
+
+2. NUMERICAL METHOD, SETUP AND ANALYTICAL MODEL
+
+To investigate the response of the stellar envelope following planetary engulfment, we perform
+hydrodynamic simulations using the Athena++ code (Stone et al. 2020). Section 2.1 details the
+simulation setup for modeling the stellar envelope and the planet. Sections 2.2 and 2.3 describe our
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 3
+
+methods for calculating the light curve and mass loss. In Section 2.4, we present the analytical model
+for the planetary trajectory.
+
+2.1. Numerical setup
+
+Our numerical treatment of binary interactions is similar to that described in MacLeod ct al. (2018b,
+2019); MacLeod & Loeb (2020a,b, 2023). We model the dynamical response of the star under the
+gravitational influence of the planet by solving the Eulerian hydrodynamic equations in spherical
+coordinates, excising the stellar core. The planet is represented as a gravitational source using a
+spline function with a softening length of R, = 0.05 R,, where R, is the stellar radius. We adopt an
+ideal gas equation of state (EoS) with an adiabatic index y = 5/3, so that the pressure is related to
+the internal energy density wu via P = 2u/3.
+
+To obtain a realistic stellar profile, we use the 1D stellar evolution code MESA (Paxton et al. 2011,
+2013, 2015, 2018, 2019) to evolve a star of initial mass M, = 1 Mo to the red-giant phase, reaching a
+radius of R, = 100 Rs. Our model has a luminosity of 1.22 x 10° Lo and an effective temperature of
+3406 K. After obtaining the 1D profile, we map the density and pressure to the 3D Athena+-+ grid,
+and excise the core within a radius of R, = 0.3 R,. We use P = 2u/3 to compute the internal energy
+density from the pressure in each cell. The mapped 3D profile must satisfy hydrostatic equilibrium;
+
+if not, we relax the stellar envelope so that it reaches equilibrium. This step is particularly important
+for early red giant stars. For our MESA giant star model, no envelope adjustment (Zingale et al.
+2002) is required, resulting in a similar initial stellar luminosity in Athena++, as shown in Section 3.3.
+For numerical reason, we embed a low-density, constant sound speed (c, = constant) gas (satisfying
+P = pc2/y) outside the star and allow the system to relax for approximately 6tayn to establish a
+stable stellar profile, where tay is the star’s dynamical time
+
+R3
+tags = Gn = 18.6 days. (1)
+
+The sound speed c, is chosen to be much larger than the actual photosphere value. Tests conducted
+with various ambient gas profiles indicate that they have no significant impact on our results.
+
+For our fiducial simulation, we set the planet mass to M, = 5M, and initially place it at the
+apocenter of an eccentric orbit with eccentricity e = 0.65 and semi-major axis a = 1.35 R,. After the
+star is fully relaxed, the planet is released, and the star-planet system is evolved dynamically. Upon
+engulfment, the planet is expected to eventually dissolve deep within the stellar interior, at a radius
+smaller than our simulation inner boundary. Therefore, once the planet reaches the inner boundary,
+we artificially set its mass to zero. The simulation then continues to capture the response of the
+stellar envelope following the planet’s disruption. The total simulation duration exceeds 300 tayn.
+
+Our computational domain employs a spherical-polar mesh with resolution (N,,Ne, Ne) =
+(192,96, 192). The radial domain extends from R, = 0.3 R, to 100 R, with logarithmically spaced
+zones. The angular domain covers the full 47 steradians, spanning 0 to 7 in polar angle and 0 to 27
+in azimuthal angle.
+4 MENGQI ET AL.
+
+104
+
+102
+
+10°
+
+Opacity [cm2/g]
+
+10-2
+
+10-4
+
+103 104 10° 10°
+T [K]
+
+Figure 1. Opacities of the analytical model (solid lines) and from the MESA tables (dashed lines) as a
+function of temperature for selected densities (as labeled, in g/cm).
+
+2.2. Light curve calculation
+
+Planetary engulfment produces the shocked ejecta gas. To compute the luminosity, we first find
+the position of the photosphere, where the optical depth
+
+/ atone =I, (2)
+
+Tpho
+
+with « the gas opacity and rpno the photosphere radius. Since Athena++ does not allow vacuum, we
+put an artificial ambient gas outside the star, as described in Section 2.1. To account for the nonzero
+optical depth of the ambient gas, we employ a passive scalar r, (specifying the concentration of the
+stellar component in each cell) associated with the stellar material. The optical depth integration
+only includes gas with a stellar mass fraction exceeding a specified threshold (r, > 0.9); tests with
+other thresholds, such as 0.6, demonstrate negligible differences in the results.
+
+We use two opacity models: analytical formula and lookup tables from MESA. Each model assumes
+the hydrogen mass fraction X = 0.7 and solar metallicity Z = 0.02. The analytic opacity expression
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 5
+« is from Pejcha et al. (2017):
+aay=l
+K = Kim + [Ky- + (Ke + KK) ] ; (3)
+
+where Km = 0.1Z is the molecular opacity, Ky- = 1.1 x 1077°Z°°p°5T"” is the H~ opacity, Ke =
+0.2(1+-X) is the electron scattering opacity, and kK = 4x 1079(1+X)ZpT-3> is the Kramers opacity,
+all in cgs units.
+
+The lookup opacity table is obtained by combining the opacity tables with the file names
+9s98_20.02_x0.7.data and lowT_fa05_gs98_20.02_20.7.data (Grevesse & Sauval 1998) from MESA. To
+get the opacity, we use a similar strategy as MESA by linearly interpolating in the log space of
+density and temperature. Table gs98_z0.02_20.7.data is used for high temperature, logT > 3.88,
+lowT_fa05_gs98_z0.02_20.7.data for low temperature, log T < 3.8, and “blending” them in the region
+3.8 — 3.88. To avoid discontinuities, quintic smoothing is used for blending. Examples of the two
+opacities as a function of temperature for several chosen densities of interest are shown in Figure 1.
+
+The two opacity models give similar results with two main differences. First, the MESA opacity
+model shows significant dust formation below 3000K, while the analytical formula gives the same
+low molecular opacity of low temperature (T ~ 3000 K) for all densities. Second, the MESA opacity
+model shows a decline at T ~ (6 — 8) x 10° K for low densities (the light blue and dark blue lines in
+Figure 1), which indicates the onset of the recombination of hydrogen; the analytical formula shows
+recombination starts around 104K.
+
+Once we find the radius of photosphere, we use the local gas temperature to calculate the specific
+radiation intensity I, = B,(T’), where B,(T) is the Planck function. Since the Athena++ simulation
+outputs include only the internal energy density and pressure, we apply the ideal gas EoS in post-
+processing to get temperature
+
+P = pkpT/(ump), (4)
+where ps ~ 0.625 is the mean molecular weight of solar abundance and m, is proton mass (not to be
+confused with planet’s mass M,).
+
+The specific “radial” luminosity Lyaq,, is then obtained by integrating the radiation flux along the
+radial direction over all solid angles around the source,
+
+2a T
+Ered, v = i | By (Tpho)T ono Sin Od0d¢, (5)
+0 Jo
+
+where Tyno is the photospheric temperature. The total “radial” luminosity Lraq = f dvLraa, v is
+
+Qa 7
+Lrad = | | agpTrnoleho Sin Od0d¢, (6)
+0 0
+
+where ggp is the Boltzmann-Stefan constant.
+We calculate the spherically averaged photosphere radius by
+
+1
+Robo = i J rove( ¢) sin 0dédd. (7)
+1
+
+Then, the spherically averaged photosphere temperature is given by,
+
+Tyne = [Lxsa/ (4038 R 2,0) - (8)
+6 MENGQI ET AL.
+
+Since the ejecta produced by planetary engulfment is highly non-spherical, the radial luminosity
+only represents a crude total energy output from the event. To compute the observed flux, for example
+along the «-direction, fy = L,/(4mD*), where D is the distance to the observer, we determine the
+location of the photosphere in the x-direction using
+
+/ ” paee— 1, (9)
+
+@pho
+
+on a grid in the yz plane (perpendicular to the line-of-sight). Then the “x-luminosities” are given by
+
+Le, o = 4a / | dydzBy(Tono, x); (10a)
+L,=4 | | dydzospT ho: (10b)
+
+where Tyho, x (which depends on y, z) is the z-photosphere temperature. The observed luminosities
+from other directions (e.g., y- and z- directions) can be obtained similarly.
+
+2.3. Mass loss calculation
+
+When the planet penetrates the star’s envelope, it drives gas ejection through shock. A fraction of
+the ejected gas is unbound. We compute the cumulative runaway gas at different radius r over time
+using
+
+AMtot (t) = [oe [owe sin 6déd¢, (11)
+
+where p and v, are the gas density and radial velocity. To determine the amount of unbound gas, we
+evaluate the Bernoulli parameter B of the gas and require it to be positive. Thus
+
+AMunp (t) = ful pu,r? sin 6dédd, (12)
+B>0
+The Bernoulli parameter is defined as
+1
+B= ght + po tut P, (13)
+
+where v is gas velocity, @ is the gravitational potential, and u = P/ (y — 1) is the gas internal energy
+density.
+
+2.4. Analytical model for planet trajectory
+
+To compare with our numerical results, we use a semi-analytic model for the planet’s motion that
+includes a simplified gravitational force and dynamical friction:
+
+F=Fo+F,, (14)
+with
+
+Fo = —GMyencMpr/r*, (15a)
+F, = C,7R2pvvy, (15b)
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT ir
+
+where M,enc(r) is the stellar mass enclosed by the planet’s orbit at radius r, p is the local stellar
+density and R, = 2GM,/v? is the Bondi-Hoyle radius. The dimensionless coefficient C, is given by
+
+the Coulomb logarithm,
+C, = In (==) F (16)
+
+where Snax and Sin correspond to the maximum and minimum impact parameters of the interac-
+tion (Ostriker 1999). Following Thun et al. (2016), we use the stand-off distance of the shock R,, for
+Smith?
+
+where R, is the planetary radius (or the softening length of the planet), and 7 is a nonlinearity
+parameter given by
+
+gy) _M? Ra
+2 M?—1R,’
+We set y = 5/3 and the corresponding factor g(y) = 1, and M = v,/c, is the mach number of planet.
+There are some uncertainties in the value of Si,ax for inhomogeneous medium (The Ostriker (1999)
+formula applies to homogeneous medium). In general, we can write
+
+n= (18)
+
+vie
+
+Sinax = Lint [M?/(M? — 1)] (19)
+where Ling is the effective interaction distance. For nearly circular trajectory, Lin, ~ ./ R2 — 1? could
+be adopted. This overestimates the interacting distance in the stratified envelope. O’Connor et al.
+(2023) adopted the density scale hight Lint ~ Hp, = p/|dpe/dr|. However, since the bending bow shock
+is not aligned with the local density gradient, using Lin, ~ H, underestimates Sax. An improved
+estimate for Lint is to use the density gradient in the direction of v, i-e., Lins ~ Hp,o = p/|0- Vol:
+For nearly circlar orbit, we have
+(Ri = 19)?
+R,-r -
+Using Eq. 14, the planetary trajectory can be integrated using fourth order Runge-Kutta method in
+the orbital plane, with same initial conditions and stellar profile (non-evolving) as in the simulation.
+Three different choices of Sinax are used for the drag force coefficients. The comparison of the semi-
+analytical results with the simulation result is shown in Section 3.2.
+
+Lint ~ Hp (20)
+
+3. RESULTS
+3.1. Morphology of the disturbed stellar envelope and ejecta
+
+When the planet directly interacts with the star, the gas exerts a drag force on the planet. Since
+the star’s mean density is quite small compared to that of the planet,
+
+_, M,(R,\°
+Px/Po= ay (#2)
+> \ Ra
+
+of My \ (5Mz\ ( Ry \? (100Rs \?
+Ay 6 : P fo)
+
+the planet comes inside and outside the star several times before the eventual engulfment.
+
+8 MENGQI ET AL.
+
+t= 10.9tayn f= 97tayn Peas tas
+
+Rx
+od
+—k__ >
+-12 -10 -8 -6 —4 30 35 40 45
+logio(p) [g cm73] logio(T) [K]
+
+Figure 2. Slices of the density (top row) and temperature (bottom row) through the orbital plane for
+the fiducial simulation. The left two columns correspond to the first planet-star encounter, followed by
+snapshots during the planet’s spiral-in and after its disruption. The stellar core is marked by a large white
+circle, while the planet is indicated by a white (black) circle in the upper (lower) panels. The grid scale
+corresponds to 1 R,, as shown by the white scale bar in the first panel. The time unit is tayn, given by Eq. 1.
+
+Figure 2 shows slices of the stellar gas density and temperature through the orbital plane. After
+the planet enters the stellar envelope, it drives density disturbances (wakes) via gravity. Due to
+the planet’s supersonic motion, the wakes steepen into shocks as they propagate. When the wake
+breaks out of the stellar surface, it ejects stellar envelope gas. At the shock front, kinetic energy is
+converted into internal energy, producing radiation (Metzger et al. 2012; Stephan et al. 2020). The
+typical temperature of the shocked gas is on the order of a few x 104K, generating an ultraviolet (UV)
+transient (see below). After several planet-star encounters, the stellar envelope becomes puffed up,
+and quasi-periodic spiral-like shocks form once per orbital period (which itself decreases over time).
+
+Figure 3 presents the spherically averaged profiles of density, pressure, temperature, and sound
+speed. As the stellar gas is disturbed, the envelope expands (“puffs up” ), resulting in increased density
+and pressure beyond the original stellar radius, R,. Following the planetary disruption, fallback of
+ejecta occurs, as indicated by the reduced density and pressure outside the star at t = 248.9 tayn (see
+the dark blue profile). The gas velocity profiles, shown alongside the sound speed, reveal that the
+ejecta flow is subsonic at most radii, although the outermost regions exhibit supersonic flow. The
+peaks in the velocity profile correspond to quasi-periodic shocks within the ejecta.
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 9
+
+mee t= 31. Ltiyn
+
+= t= 62.2tyyn
+meee t= 124. Ataya,
+mmm t = 186.7tuyn
+
+ms t =248.9tayn
+
+logio(p) [g/cm?]
+logio(P) [dyne/cm?]
+
+ua
+3 €
+
+2
+Ee =~
+© a
+3 a
+2 Da
+
+©
+
+10° 101 10° 10!
+Radius [Rx] Radius [R~]
+
+Figure 3. Temporal evolution of the spherically averaged stellar density, pressure, temperature, and sound
+speed profiles. In the bottom right panel, the spherically averaged gas velocity is shown alongside the sound
+speed. Different times are indicated by color.
+
+3.2. Orbital decay
+
+The temporal evolution of the planet’s orbital distance from the stellar center is shown in Figure
+4 (blue line, top panels). Before the planet fully descends onto the stellar surface, the apocenter
+distance decreases quasi-linearly, while the pericenter distance remains nearly constant. We therefore
+characterize the orbital decay rate by the rate of decrease of the apocenter distance, |7*ap.|. In the
+fiducial model, this rate is ~ 0.012 R,/tayn- Once the planet is entirely submerged beneath the stellar
+surface, the pericenter distance begins to decline as the drag force increases sharply at greater depths
+within the envelope. After several orbits, the planet reaches the inner edge of the simulation domain
+(at 0.3.R,, dashed line in Figure 4). At this point, we artificially set the planet’s mass to zero to halt
+its motion, resulting in a constant orbital distance thereafter.
+
+Recall that in our fiducial simulation, we treat the planet as a gravity source with softening length
+R, = 0.05 R,. To test the robustness of our result, we have performed additional simulations with
+different values of R,, the results are shown in Figure 5 along with the semi-analytic results. Even
+though the results from Athena++ simulations display a cut-off when R, matches the smallest grid
+size Ar = 0.01 R,, all other orbital decay rates exhibit a linear decrease in relation to the increasing
+Ry
+
+As detailed in Section 2.4, we integrate orbital trajectories under varying drag force coefficients.
+For a constant coefficient, the orbital decay rate exhibits a linear dependence on the coefficient; for
+Tapo| « 0.4C,, as indicated on the right axis. The outcomes for the three Lint values are
+
+example,
+10 MENGQI ET AL.
+
+aoe P=Re 0 ---- r=0.3Rx Ly
+—— Up — Lag — Ly
+— Ron Teff — Ls
+Analytic Opacity MESA Opacity
+
+tp [Re]
+
+=
+oO
+
+i
+
+i
+
+i)
+
+i
+
+i
+
+i
+ve ore re
+
+100 150 200 250 300
+
+ooo 4.5 ooo 4.5
+5E J 7
+
+F 30 1s
+— 45 714.0 14.02
+a f 1 20 J os
+— 3F 4 foe
+é 43.5 F 43.53
+2 1 10 7 3
+43.0 f | 3.0
+
+Or
+
+0
+
+50 100 150 200 250 300 50 100 150 200 250 300
+a iC SS errr
+
+logio(L [L*])
+N
+N
+logio(Lraa [L*])
+
+B
+Coe tty] Oo
+
+|
+
+1 1
+0 25 50 o 25 50 q
+% 50 100 150 200 250 300 0 50 100 150 200 250 30
+Time [tayn] Time [tayn]
+
+Figure 4. Time evolution of planet’s orbital radius rp (light blue line, top panels), radial luminosity Lyaq (red
+line, top panels), spherically averaged photospheric radius (light green line, middle panels) and temperature
+(yellow line, middle panels), observed luminosity (bottom panels) from three different viewing angles (Lz,
+dark blue line; L,, brown line; L,, dark green line). The left panels show the observable properties obtained
+from the analytical formula of opacity, while the right panels are the corresponding results using the MESA
+opacity tables. In the top panels, the initial star radius and inner boundary radius are indicated by the black
+dotted and dashed lines, respectively. The radial and observed luminosities are normalized to the initial star
+luminosity L,. After the planet is disrupted when it reaches the inner boundary at ~ 175 tayn, the orbital
+radius is set to the radius of the inner boundary (0.3 R,).
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT a
+
+0.02.5 re gene eee e es ese a nS OEP ESS 6
+teres en reer erento j
+0.020 * 47
+* |
+TE Brrr rr rrr rr rrr ng cnr nnn nnn cor nnn n nnn nnn nnn concn 4
+§ 0.015 * ;
+a 2 $4
+2 0.010 * ;
+ee Athenat+
+0.005 Ostriker
+O'Conner
+This work |
+0.000 7 0
+10- 10
+Rp [Re]
+
+Figure 5. The orbital decay rate, |/apo|, as a function of the planetary radius R, (which is the softening
+radius). The blue circles show the results from Athena++ simulations differing only in the softening length.
+The stars mark the predictions from the semi-analytical model based on three choices of Ling: orange for
+R2 —r? (Ostriker), green for H, (O’Conner), and red for H,,5 (this work). The corresponding drag-force
+coefficient, Cy, is shown on the right axis. The fiducial case is indicated by an overlaid black cross.
+
+represented by stars of different colors. The results derived from Eq. 20 (red stars) demonstrate
+the closest alignment with hydrodynamic simulations, suggesting that the optimal estimate for Lint
+corresponds to the density scale in the perpendicular direction. The other two selections yield either
+over- or underestimates of orbital behavior within the stratified medium.
+
+3.3. Light curve
+
+We show the spherically averaged radial luminosity, photospheric radius, and effective tempera-
+ture obtained using both the analytic opacity formula and the MESA opacity tables in Fig.4. The
+photospheric properties are calculated at every hydrodynamics output, with a time interval of about
+0.3tayn- As a check for our method, we compare the computed bolometric luminosity and pho-
+tospheric temperature prior to the planet-star interaction, when the host star is the same as the
+1D result from MESA. The luminosity and photospheric temperature are L, = 1.06 x 10° Lo and
+Tee = 3319K, respectively, differing slightly from the MESA values (see Section 2.1) due to the
+resolution difference between the two grids and the relaxation procedure. After the planet interacts
+12 MENGQI ET AL.
+
+t=10.9tayn
+1R.
+———_
+|.)
+300 360
+5 3.6 3.
+
+180
+
+t=185!1tayn
+
+120
+
+3 Ei] 3.8 3.9 4.0 4.1 4.2
+
+logio(T) [K]
+
+Figure 6. Synthetic photospheric temperature maps for different viewing directions at two selected times.
+These are the log-log plots of radiation intensity, since for blackbody emission, logy) « 4logj)T. The
+upper panels correspond to t = 10.9tayn, while the bottom panels correspond to t = 185.1tayn- The
+leftmost column displays the photospheric temperature in spherical polar coordinates (9, 6), while the right
+three columns show temperature distributions projected onto the Cartesian planes corresponding to viewing
+directions along the +, +y, and +z axes. The planet’s orbital plane is the xy plane.
+
+with the host star, the photospheric properties exhibit similar evolutionary stages: onset”, hot peak,
+and plateau. The light curve obtained with the MESA opacity tables additionally shows a late-time
+dimming phase due to dust formation.
+
+During the onset stage, the planet penetrates the stellar envelope, driving shocks through gravity.
+These shocks eject gas and enhance the stellar luminosity. The shocked ejecta exhibit a character-
+istic temperature of approximately 2 x 10‘K (first row of Fig. 6), consistent with the strong-shock
+assumption from the Rankine-Hugoniot jump conditions:
+
+3 ‘
+Estee > qglrrrour/ kp, (22)
+
+where Up out = GM, (2/R, — 1/a) ~ 4x 108 cms™t is the planet’s velocity upon coming outside the
+stellar surface. During this onset phase, as the shock wave propagates through the stellar envelope,
+the spherically averaged photospheric temperature gradually increases while the photospheric radius
+remains close to the initial stellar radius.
+
+The hot peak stage begins after the planet has encountered the star approximately three to four
+times, during which the luminosity rises to a few times 10° L,. As the shocked ejecta expands, the
+photospheric temperature decreases due to adiabatic cooling. A notable feature of this stage is the
+quasi-periodic hot peaks, originating from shock formation during successive planet-star encounters.
+
+? We do not use the term “plunge-in”, which is commonly adopted in the literature. For circular planetary engulfment
+or common envelope evolution with negligible secondary eccentricity, “plunge-in” refers to the initial phase of the
+rapid orbital decay. A reasonable indicator of this phase is when the ratio of the orbital period to the orbital decay
+timescale lies in the range of 0.01 < Porp/(a/|a|) < 0.1 (Ivanova et al. 2020). In the eccentric case, this occurs only
+after the secondary is fully embedded within the stellar envelope.
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 13
+
+The shocked gas is ejected as the planet spirals inward, eventually surpassing the expanding photo-
+sphere. As the spiral-arm-shaped shocked ejecta cools and becomes optically thin, the underlying
+inner quasi-spherical, adiabatically expanding gas becomes visible, as illustrated in the bottom row
+of Figure 6.
+
+The plateau stage begins as a result of hydrogen recombination, a hallmark feature in the light
+curves of common-envelope events (CEEs) (Ivanova et al. 2013). In models using the MESA opacity,
+the photospheric temperature during the plateau is lower, approximately 6000 K, reflecting the fact
+that recombination occurs at lower temperatures in low-density regions (see Section 2.2), whereas
+models with analytical opacity show a photospheric temperature around 104K. During this stage,
+the photosphere begins to recede. The quasi-periodic hot peaks disappear, when the planet is fully
+disrupted at t ¥ 170 tayn.
+
+The dimming stage begins with dust formation in the more distant, cooling gas. Dust forms
+below temperatures of approximately 1000 K, increasing the opacity to about 1 cm? g~! and thereby
+obscuring thermal emission from the hot ejecta (Hatfull & Ivanova 2025). We propose that shocks
+driven by the spiraling-in planet may destroy dust grains in the low-temperature gas, leading to a
+more gradual dimming of the light curve.
+
+Since the mass ejection is highly nonspherical, the observed radiation depends on the viewing angle.
+Figure 6 presents three-view projections of the photospheric temperature alongside an equirectangular
+projection of the radial line-of-sight photosphere temperature. Shortly after the first interaction at
+t = 10.9tayn (upper panels), the wake shock appears as a spiral-shaped high-temperature region
+propagating along the equatorial plane following the planet. Much later, as the ejecta expands
+quasi-spherically at t = 185.1 tayn (lower panels), a faster-propagating shock surpasses the expanded
+photosphere. Once this shock becomes optically thin, the spherically expanding photosphere emerges,
+giving rise to luminosity modulation.
+
+The light curves from three observing directions are shown in the bottom panels of Figure 4. The
+observer lines of sight correspond to the +2, +y, and +z directions, respectively. The luminosities
+are normalized by L, to enable direct comparison with the radially averaged luminosities, which
+are also plotted in the same panels as red lines. The observed luminosities from different directions
+generally agree with the radial luminosity for both opacity models. Three-dimensional effects are most
+pronounced during shock propagation, causing peak delays especially in L; and L,. The luminosity
+along the +z direction, L,, is lower than the other two for the first few orbits, primarily due to the
+smaller projected area of the shocked region.
+
+3.4. Mass loss
+
+The left panels of Figure 7 show the cumulative ejected gas mass, unbound mass, and unbound
+fraction at different reference radii. The planet’s orbital energy deposited into the stellar envelope
+ejects gas from the gravitational potential well. Gas with a positive Bernoulli parameter tends to
+stream freely to infinity if unimpeded by further collisions, while gas with negative Bernoulli gathers
+in the circumstellar environment around the star.
+
+The total ejected mass grows exponentially to approximately (2-3) x 10~ Mj before the planet
+disrupts, then increases roughly linearly to (4-6) x 107? Mj at a nearly constant mass-loss rate
+thereafter. The unbound mass exhibits a similar behavior, with a “step” feature at radii larger than
+4 R, shortly after planet disruption. The unbound mass fraction, 7 = AMunp/AMtot, rapidly declines
+before settling to an approximately constant value after 50 tayn. The higher unbound mass fraction
+14 MENGQI ET AL.
+
+6
+6
+a a5
+fo} fo}
+= =
+"7 4 a4
+a a3
+= 2 =
+4 1
+0
+
+1.50
+
+_ 2.0 a
+fo} ic}
+= =
+a
+& &
+a a
+, r
+a a
+
+0 50 100 150 200 250 300 0 50 100 150 200 250 300
+Time [tayn] Time [tayn]
+
+Figure 7. Temporal evolution of the cumulative ejected mass, AMiot (top panel), the cumulative unbound
+mass, AMynb (middle panel), and the unbound mass fraction, 7 (bottom panel), evaluated at various
+reference radii. The left panels correspond to the fiducial simulation with the initial planet orbital eccentricity
+e = 0.65, while the right panels show the case with e = 0.45.
+
+observed at larger radii suggests that a portion of the unbound gas decelerates or stalls at smaller
+radii.
+
+We note that the mass of the ejected gas continuous to increase at the end of our simulation due
+to the computation time constraint. For example, the amount of total ejected mass AM;ot grows at
+arate of ~ 1 x 107° Mo/ tayn for all the reference radii. The unbound mass AM,» grows at a rate
+of ~ 4x 10-6 Mo/tayn, with decreasing fraction of unbound mass for larger radii. Thus, we can only
+place a lower limit on the full amount of the ejected mass in our simulation.
+
+4. LOWER ECCENTRICITY CASE
+
+To investigate the impact of planetary eccentricity, we perform a simulation with e = 0.45 while
+keeping all other parameters fixed. The corresponding apocenter and ballistic pericenter distances are
+apo © 2.R, and rpej & 0.74. R,, respectively. At this rpei, the lower stellar envelope density results in
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 15
+
+aoe P=Re 0 ---- r=0.3Rx Ly
+
+—— Up — Lag — Ly
+
+— Ron == Tett —— ls
+
+Analytic Opacity MESA Opacity
+2.0 TOT TTT 2.0 TOT TTT
+4 4
+
+1.5 3 1.5 34
+4 } 1. 8
+2 1.0 42 1.0 HM Mi. —.—.—.—. 42 zZ
+a
+&
+
+ray
+
+boitiiir
+
+0.5 0.5
+0 50 100 150 200 250 300 0 50 100 150 200 250 300
+oot 4.5 Por 4,5
+5E [ ]
+E 6b Joon
+= AE 4.0 t 74.0%
+3E ] 4 Tapia
+g3F 43.5 43.53
+a: | 1 8B
+E J 2 J ~
+E 413.0 43.0
+0 50 100 150 200 250 300 0 50 100 150 200 250 300
+4 4
+
+N Ww
+logio(Lraa [L*])
+
+logio(L [L*])
+N
+
+ray
+
+|
+
+0 0
+
+0 25 50 0 25 50
+Doria iiiiririiairiiriiiiiiiy Fo
+
+0 50 100 150 200 250 300 0 50 100 150 200 250 30
+Time [tayn] Time [tayn]
+
+Figure 8. Same as Figure 4, except for the case of e = 0.45 (the initial planet eccentricity).
+
+a weaker dynamical friction. Consequently, the orbital decay deposits energy into the stellar envelope
+more gradually.
+
+We show the orbital decay and observable properties in Figure 8. The orbital decay is slower than
+in the fiducial case (e = 0.65); the planet takes over 200tayn to fully descend beneath the stellar
+surface and more than 280tgy, to be disrupted. The orbital decay rate defined in Section 3.2 is
+approximately 0.003 R./tayn, about four times slower.
+16 MENGQI ET AL.
+
+The light curve exhibits similar features to the fiducial case. The onset phase lasts roughly three
+orbits before reaching the first peak, with an average photospheric temperature near 2 x 104K, com-
+parable to the fiducial model. From Eq.(22), the shock temperature associated with the planet’s
+velocity coming out from the stellar surface, Upour = \/GM, (2/R, — 1/a), is independent of the ec-
+centricity. Another notable difference is that the quasi-periodic peaks in luminosity and photospheric
+radius seen in the fiducial case are weaker here, possibly because the lower-energy shocks dissipate
+more rapidly. With the MESA opacity tables, we do not observe the rapid dimming of the light
+curve, suggesting that dust formation in the hot ejecta is suppressed within our simulation time, as
+he planet disruption occurs shortly before our simulation ends.
+
+The mass loss is shown in the right panel of Figure 7. Before the planet fully plunges beneath
+che stellar surface, the mass-loss rate is slower than in the fiducial case, reflecting the more gradual
+deposition of orbital energy into the stellar envelope. After the planet is completely embedded
+within the envelope, the orbital radius decreases rapidly in a manner similar to the plunge-in phase
+Ohlmann et al. 2016a; Ivanova et al. 2020), during which mass loss is enhanced. By the end of the
+simulation, the cumulative ejected mass is comparable to that of the fiducial case at small reference
+radii; however, the fraction of unbound mass is smaller, with the unbound ejecta mass remaining
+elow 1.5 x 1078 Mo.
+
+5. SUMMARY AND DISCUSSION
+
+We have performed three-dimensional (3D) hydrodynamics simulations of an eccentric planet in-
+teracting with and eventually being engulfed by a red giant host star, using the Athena ++ code.
+The light curve and mass loss are computed in post-processing. The local gas temperature at the
+photosphere (optical depth 7 = 1) is used to estimate the thermal emission. Mass loss is calculated
+by integrating the mass flux through spherical surfaces at various radii outside the star. Our re-
+sults suggest that such planetary engulfment can produce transients resembling luminous red novae
+(LRNe), one of which has been previously identified as the engulfment of a giant planet in a circular
+orbit by its main-sequence host star (De et al. 2023; Lau et al. 2025b).
+
+Our main findings are:
+
+e The direct interaction of planet with its host giant star after a sudden eccentricity excitation
+can lead to the engulfment of planet.
+
+e During the multiple planet-star encounters, the disturbances produced by the planet’s gravity
+steepen into shocks and eject the gas of the stellar envelope. The thermal emission of the gas
+brightens the stellar luminosity by serval orders of magnitudes.
+
+e The light curves exhibit similar characteristics as luminous red novae (LRNe). During the initial
+engulfment, the stellar luminosity rapidly increases within a few orbits. During the “hot-peak”
+stage, the luminosity gradually decreases as the photosphere expands. A long plateau phase
+follows with nearly constant temperature when the hydrogen recombination happens. The
+rapid dimming phase occurs as dusts form at temperatures below ~ 1000 K.
+
+e Due to the quasi-periodic planet-star interactions with the planet’s elliptical orbit, wake shocks
+eject the stellar envelope in quasi-periodic manner, leading to quasi-periodic peaks in the lu-
+minosity and photospheric radius.
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 17
+
+e The ejected mass is roughly a few x107* Mz for a5 M, planet engulfed by 1 Mj red-giant star
+from our simulation. Some of the gas stay in the circum-stellar environment, and less than 50%
+of the ejected mass become unbound.
+
+e By comparing with 3D hydrodynamics simulation, we find a reasonable expression of the coef-
+ficient of the gravitational dynamical friction force for the stratified star.
+
+The primary limitation of our simulations is the omission of radiation transport. For a low-mass
+red giant, the thermal timescale is many orders of magnitude longer than the orbital decay timescale,
+making radiation transport within the stellar interior negligible. Within the ejecta, however, the local
+radiation diffusion timescale can be short, especially where the optical depth is less than unity. In
+this regime, the thermal energy carried by radiation is non-negligible, and radiation transport could
+modify the ejecta temperature, thereby affecting the predicted observational signatures.
+
+During the ejecta expansion, radiative loss can reduce the thermal energy, which in return decreases
+he mass-loss rate. Consequently, the sustained mass loss predicted in our calculation—similar to
+chat found in previous work (Lau et al. 2025a)—may be suppressed. However, radiation transport is
+unlikely to have a significant dynamical impact on the orbital decay (Lau et al. 2025a).
+
+Although hydrogen recombination appears as a long plateau in the light curve, it is not included in
+he equation of state (EoS) used in the hydrodynamics simulations or the post-processing temperature
+calculations. Chen & Ivanova (2024) studied common-envelope evolution by comparing different EoS
+and found that neglecting realistic EoS and radiation forces leads to faster light-curve dimming and
+luminosities reduced by up to a factor of a few. Lau et al. (2022b) also found that including hydrogen
+and helium recombination in EoS leads to tens of percent more mass loss. Therefore, our simulation
+might underestimate the mass loss.
+
+Dust formation plays a key role in shaping the observational signatures of planetary engulfment
+events, as it can produce a prolonged infrared emission phase (De et al. 2023; Hatfull & Ivanova
+2025). As explored in this work using the MESA opacity tables, dust formation in the cooling ejecta
+can obscure the radiation from the hot material, resulting in a rapid late-time decline in the light
+curve. These dusts, however, may be destroyed by the quasi-periodic shocked ejecta. More detailed
+modeling of dust formation and destruction is required when applying theoretical predictions to
+interpret real observations.
+
+In our simulations, we artificially disrupt the planet once it reaches the inner boundary at 0.3 R,.
+However, the planet could potentially survive much longer. When the planet’s internal temperature
+rises such that the sound speed exceeds its surface escape velocity, dissolution begins (Livio & Soker
+1984). However, considering the limited heat transport via conduction and radiation, which leads
+to heating timescales much longer than the predicted in-spiral time (Guillot et al. 1996; O’Connor
+et al. 2023), the planet is expected to survive within the stellar envelope until it fills its Roche lobe,
+at which point it undergoes rapid tidal disruption (Reyes-Ruiz & Lépez 1999).
+
+During engulfment, the planet can drive differential rotation and turbulence in the stellar envelope,
+conditions favorable for magnetic field amplification via a dynamo mechanism. A few MHD simu-
+lations have investigated magnetic field amplification during the common-envelope phase (Ohlmann
+et al. 2016b; Ondratschek et al. 2022; Gagnier & Pejcha 2024), consistently finding strong amplifica-
+tion. However, since no simulations have addressed the case of a low-mass companion, the efficiency
+of magnetic field amplification during planetary engulfment remains uncertain. If the stellar magnetic
+field is indeed amplified, it could drive a magnetically powered stellar wind (Soker 1998). Nonethe-
+
+18 MENGQI ET AL.
+
+less, Ohlmann et al. (2016b) found that in the common-envelope phase the dynamical impact of the
+magnetic field is modest, with mass loss enhanced by only 5-6% during the first orbit.
+
+The initial motivation of this study is to understand observable features of the ZTF SLRN-2020
+event, interpreted as the engulfment of a giant planet by a red giant in circular orbit. Because of
+the large eccentricity, our modeled system exhibits a greater luminosity, driven by quasi-periodic
+shocks and mass ejections. In a circular orbit scenario, envelope ejection is expected during surface
+interactions—provided the thermal timescale is sufficiently short and the interaction is dynamically
+significant. In contrast, an eccentric orbit facilitates enhanced mass loss, and yields brighter emission
+and prolonged UV-optical radiation.
+
+ACKNOWLEDGEMENTS
+
+We thank Mike Y. M. Lau for useful discussions. The simulations were performed on the Siyuan
+high performance computers at Shanghai Jiao Tong Universities. This work was supported by the
+National Natural Science Foundation of China (No. 12205185).
+
+Software: Athena++ (Stone et al. 2020), MESA (Paxton et al. 2011, 2013, 2015, 2018, 2019),
+ipython/jupyter (Perez & Granger 2007), NumPy(Suarez Valencia et al. 2023), matplotlib(Hunter
+2007), SciPy(Virtanen et al. 2020)
+
+REFERENCES
+Anderson, K. R., Lai, D., & Pu, B. 2020, Hunter, J. D. 2007, Computing in Science and
+MNRAS, 491, 1369, doi: 10.1093/mnras/stz3119 Engineering, 9, 90, doi: 10.1109/MCSE.2007.55
+Anderson, K. R., Storch, N. L, & Lai, D. 2016, Ivanova, N., Justham, $., Avendano Nandez, J. L.,
+MNRAS, 456, 3671, doi: 10.1093/mnras/stv2906 & Lombardi, J. C. 2013, Science, 339, 433,
+Chatterjee, S., Ford, E. B., Matsumura, S., & oi: 10.1126/science.1225540
+Rasio, F. A. 2008, ApJ, 686, 580, Ivanova, N., Justham, S., & Ricker, P. 2020,
+doi: 10.1086/590227 Common Envelope Evolution,
+Chen, Z., & Ivanova, N. 2024, ApJL, 963, L35, doi: 10.1088 /2514-3433/abb6f0
+doi: 10.3847/2041-8213/ad2a47 Jurié, M., & Tremaine, S. 2008, ApJ, 686, 603,
+De, K., MacLeod, M., Karambelkar, V., et al. doi: 10.1086/590047
+2023, Nature, 617, 55, Lau, M. Y. M., Cantiello, M., Jermyn, A. S., et al.
+doi: 10.1038/s41586-023-05842-x 2022a, arXiv e-prints, arXiv:2210.15848,
+Fabrycky, D., & Tremaine, S. 2007, ApJ, 669, oi: 10.48550/arXiv.2210.15848
+1298, doi: 10.1086/521702 Lau, M. Y. M., Hirai, R., Price, D. J., & Mandel,
+Ford, E. B., Havlickova, M., & Rasio, F. A. 2001, I. 2022b, MNRAS, 516, 4669,
+Icarus, 150, 303, doi: 10.1006/icar.2001.6588 doi: 10.1093/mnras/stac2490
+Gagnier, D., & Pejcha, O. 2024, A&A, 683, A4, Lau, M. Y. M., Hirai, R., Price, D. J., Mandel, I.,
+doi: 10.1051/0004-6361/202348383 & Bate, M. R. 2025a, arXiv e-prints,
+Grevesse, N., & Sauval, A. J. 1998, SSRv, 85, 161, arXiv:2503.20506,
+doi: 10.1023/A:1005161325181 doi: 10.48550/arXiv.2503.20506
+Guillot, T., Burrows, A., Hubbard, W. B., Lunine, Lau, R. M., Jencson, J. E., Salyk, C., et al. 2025b,
+J. L, & Saumon, D. 1996, ApJL, 459, L35, ApJ, 983, 87, doi: 10.3847/1538-4357 /adb429
+doi: 10.1086 /309935 Li, J., Lai, D., Anderson, K. R., & Pu, B. 2021,
+Hatfull, R. W. M., & Ivanova, N. 2025, ApJ, 982, MNRAS, 501, 1621,
+
+83, doi: 10.3847/1538-4357/ada6b8 doi: 10.1093/mnras/staa3779
+ECCENTRIC ORBITAL PLANETARY ENGULFMENT 19
+
+Lin, D. N. C., & Ida, S. 1997, ApJ, 477, 781,
+doi: 10.1086/303738
+Livio, M., & Soker, N. 1984, MNRAS, 208, 763,
+doi: 10.1093/mnras/208.4.763
+MacLeod, M., Antoni, A., Murguia-Berthier, A.,
+Macias, P., & Ramirez-Ruiz, E. 2017, ApJ, 838,
+56, doi: 10.3847/1538-4357/aa6117
+MacLeod, M., Cantiello, M., & Soares-Furtado,
+M. 2018a, ApJL, 853, L1,
+doi: 10.3847/2041-8213/aaa5fa
+MacLeod, M., & Loeb, A. 2020a, ApJ, 893, 106,
+doi: 10.3847/1538-4357 /ab822e
+—. 2020b, ApJ, 895, 29,
+doi: 10.3847/1538-4357 /ab&89b6
+—. 2023, Nature Astronomy, 7, 1218,
+doi: 10.1038/s41550-023-02036-3
+MacLeod, M., Ostriker, E. C., & Stone, J. M.
+2018b, ApJ, 863, 5,
+doi: 10.3847/1538-4357 /aacf08
+MacLeod, M., & Ramirez-Ruiz, E. 2015, ApJ, 803,
+41, doi: 10.1088/0004-637X/803/1/41
+MacLeod, M., Vick, M., Lai, D., & Stone, J. M.
+2019, ApJ, 877, 28,
+doi: 10.3847/1538-4357/ab184c
+Metzger, B. D., Giannios, D., & Spiegel, D. S.
+2012, MNRAS, 425, 2778,
+doi: 10.1111/j.1365-2966.2012.21444.x
+Metzger, B. D., Shen, K. J., & Stone, N. 2017,
+MNRAS, 468, 4399, doi: 10.1093/mnras/stx823
+O’Connor, C. E., Bildsten, L., Cantiello, M., &
+Lai, D. 2023, ApJ, 950, 128,
+doi: 10.3847/1538-4357 /acd2d4
+Ohlmann, S. T., Ropke, F. K., Pakmor, R., &
+Springel, V. 2016a, ApJL, 816, L9,
+doi: 10.3847 /2041-8205/816/1/L9
+Ohlmann, S$. T., Ropke, F. K., Pakmor, R..,
+Springel, V., & Miller, E. 2016b, MNRAS, 462,
+L121, doi: 10.1093/mnrasl/slw144
+Ondratschek, P. A., Ropke, F. K., Schneider, F.
+R.N., et al. 2022, A&A, 660, L8,
+doi: 10.1051/0004-6361/202142478
+Ostriker, E. C. 1999, ApJ, 513, 252,
+doi: 10.1086/306858
+Paxton, B., Bildsten, L., Dotter, A., et al. 2011,
+ApJS, 192, 3, doi: 10.1088 /0067-0049/192/1/3
+Paxton, B., Cantiello, M., Arras, P., et al. 2013,
+ApJS, 208, 4, doi: 10.1088 /0067-0049/208/1/4
+Paxton, B., Marchant, P., Schwab, J., et al. 2015,
+ApJS, 220, 15,
+doi: 10.1088 /0067-0049/220/1/15
+
+Paxton, B., Schwab, J., Bauer, E. B., et al. 2018,
+ApJS, 234, 34, doi: 10.3847/1538-4365/aaa5a8
+
+Paxton, B., Smolec, R., Schwab, J., et al. 2019,
+ApJS, 243, 10, doi: 10.3847/1538-4365 /ab2241
+
+Pejcha, O., Metzger, B. D., Tyles, J. G., &
+Tomida, K. 2017, ApJ, 850, 59,
+doi: 10.3847/1538-4357 /aa95b9
+
+Perez, F., & Granger, B. E. 2007, Computing in
+Science and Engineering, 9, 21,
+doi: 10.1109/MCSE.2007.53
+
+Peterson, R. C., Tarbell, T. D., & Carney, B. W.
+1983, ApJ, 265, 972, doi: 10.1086/160739
+
+Petrovich, C., Tremaine, S., & Rafikov, R. 2014,
+ApJ, 786, 101,
+doi: 10.1088/0004-637X/786/2/101
+
+Qureshi, A., Naoz, S., & Shkolnik, E. L. 2018,
+ApJ, 864, 65, doi: 10.3847/1538-4357 /aad562
+
+Rasio, F. A., & Ford, E. B. 1996, Science, 274,
+954, doi: 10.1126 /science.274.5289.954
+
+Reyes-Ruiz, M., & Lopez, J. A. 1999, ApJ, 524,
+952, doi: 10.1086/307827
+
+Sahai, R., Scibelli, S., & Morris, M. R. 2016, ApJ,
+827, 92, doi: 10.3847/0004-637X /827/2/92
+
+Salas, J. M., Naoz, S., Morris, M. R., & Stephan,
+A. P. 2019, MNRAS, 487, 3029,
+doi: 10.1093/mnras/stz1515
+
+Sandquist, E., Taam, R. E., Lin, D. N. C., &
+Burkert, A. 1998, ApJL, 506, L65,
+doi: 10.1086 /311633
+
+Sandquist, E. L., Dokter, J. J., Lin, D. N. C., &
+Mardling, R. A. 2002, ApJ, 572, 1012,
+doi: 10.1086 /340452
+
+Schlaufman, K. C., & Winn, J. N. 2013, ApJ, 772,
+143, doi: 10.1088 /0004-637X/772/2/143
+
+Soares-Furtado, M., Cantiello, M., MacLeod, M.,
+& Ness, M. K. 2021, AJ, 162, 273,
+
+doi: 10.3847/1538-3881/ac273c
+
+Soker, N. 1998, MNRAS, 299, 1242,
+
+oi: 10.1046 /j.1365-8711.1998.01884.x
+
+Staff, J. E., De Marco, O., Wood, P., Galaviz, P.,
+
+& Passy, J.-C. 2016, MNRAS, 458, 832,
+
+doi: 10.1093/mnras/stw331
+
+Stephan, A. P., Naoz, S., Gaudi, B. S., & Salas,
+
+J. M. 2020, ApJ, 889, 45,
+
+oi: 10.3847/1538-4357 /ab5b00
+
+Stone, J. M., Tomida, K., White, C. J., & Felker,
+
+K. G. 2020, ApJS, 249, 4,
+
+oi: 10.3847/1538-4365 /ab929b
+
+20 MENGQI ET AL.
+
+Suarez Valencia, J. E., Rosi, A. P., & Nodjourmi,
+G. 2023, in EGU General Assembly Conference
+Abstracts, EGU General Assembly Conference
+Abstracts, EGU-8161,
+doi: 10.5194/egusphere-egu23-8161
+
+Thun, D., Kuiper, R., Schmidt, F., & Kley, W.
+2016, A&A, 589, A10,
+doi: 10.1051/0004-6361/201527629
+
+Vick, M., Lai, D., & Anderson, K. R. 2019,
+MNRAS, 484, 5645, doi: 10.1093/mnras/stz354
+
+Villaver, E., & Livio, M. 2009, ApJL, 705, L81,
+doi: 10.1088/0004-637X/705/1/L81
+
+Virtanen, P., Gommers, R., Oliphant, T. E., et al.
+2020, Nature methods, 17, 261
+
+Weidenschilling, S. J., & Marzari, F. 1996,
+Nature, 384, 619, doi: 10.1038/384619a0
+
+Wu, Y., & Murray, N. 2003, ApJ, 589, 605,
+doi: 10.1086 /374598
+
+Yarza, R., Razo-Lépez, N. B., Murguia-Berthier,
+A., et al. 2023, ApJ, 954, 176,
+doi: 10.3847/1538-4357 /acbdfc
+
+Zingale, M., Dursi, L. J., ZuHone, J., et al. 2002,
+ApJS, 143, 539, doi: 10.1086/342754

@@ -1,0 +1,1777 @@
+arXiv:2510.25702v1 [physics.flu-dyn] 29 Oct 2025
+
+An efficient implementation of the bidirectional buffer:
+towards laminar and turbulent open-boundary flows
+
+Feng Wang, Xiangyu Hu*
+
+Department of Mechanical Engineering, Technical University of Munich
+85748 Garching, Germany
+
+Abstract
+
+To effectively handle flows characterized by strong backflow and multi-
+ple open boundaries within particle-based frameworks, this study introduces
+three enhancements to improve the consistency, independence, and accuracy
+of the buffer-based open boundary condition in SPHinXsys. First, to im-
+prove the buffer consistency, the continuum hypothesis is introduced to pre-
+vent the excessive particle addition induced by strong backflow. Secondly,
+the independence of the bidirectional buffer is enhanced through region-
+constrained and independent labeling schemes, which effectively eliminate
+buffer interference and erroneous particle deletion in complex open-boundary
+flows. Thirdly, the original zeroth-order consistent pressure boundary condi-
+tion is upgraded to first-order consistency by introducing a mirror boundary
+treatment for the correction matrix. The implementation is based on the
+rigorously validated weakly compressible smoothed particle hydrodynamics
+
+coupled with Reynolds-averaged Navier-Stokes (WCSPH-RANS) method,
+
+“Corresponding author.
+Email addresses: feng.wang.aer@tum.de (Feng Wang, xiangyu.hu@tum.de
+(Xiangyu Hu)
+and both laminar and turbulent flow simulations are performed. Four test
+cases, including straight and U-shaped channel flows, a plane jet, and the
+flow in a 3D self-rotational micro-mixer, are conducted to comprehensively
+validate the proposed improvements. Among these cases, the turbulent plane
+jet is successfully simulated at a moderate resolution within a very compact
+computational domain involving strong backflow, a condition that is usu-
+ally challenging for mesh-based methods. The three improvements require
+only minor modifications to the code framework, yet they yield significant
+performance gains.
+
+Keywords: Smoothed particle hydrodynamics, open boundary flow,
+
+consistency, turbulence, plane jet
+
+1. Introduction
+
+The Lagrangian particle-based methods, such as the smoothed particle
+hydrodynamics(SPH) method, have been applied to simulating the internal
+flows, including arterial flows in bioengineering|I| and pipe/channel flows in
+fluid machinery[2]. Due to the mesh-free, Lagrangian characteristics, the
+particle-based methods may disclose new flow mechanism and break through
+existing bottlenecks for the complex internal flow problems, particularly in
+challenging scenarios such as fluid-structure interactions[3} [4] and multiphase
+flows|[5]. However, to fully realize the potential of the particle-based method
+in simulating complex internal flows, it is crucial to develop a robust open
+boundary condition which can adapt to various simulation scenarios, such as
+the flows with strong backflow or multiple inlet/outlet boundaries.
+
+On the one hand, addressing the strong backflow is challenging for both
+the mesh-based and mesh-less method, while the latter approach generally
+encounters greater difficulties. This is because, different from the traditional
+mesh-based methods where the open boundary condition(OBC) can be di-
+rectly designated on the inlet/outlet surfaces, the implementation of the OBC
+for particle-based methods suffers one extra technical difficulty, that is the
+particle addition/deletion. Without an appropriate way to add or delete
+particles, the condition of the continuous flow may be broken|6], and the
+simulation consistency may deteriorate.
+
+A common strategy to achieve this operation is to set up a buffer region|7|
+not only to add or delete particles when inflow or outflow occurs, but also
+to avoid the kernel truncation for the inner fluid particles.
+
+Building upon this buffer-based strategy, to further enhance stability
+and consistency, several other techniques have been proposed, such as the
+segment-based mirror]|9} [10], ghost node[11} [12], incompressible correction|13},
+cell-based[14], average point{15} [16], semi-analytical[I7] schemes. Among
+these schemes, the local-relabeling-based buffer technique[I§} [19] is not only
+easy to implement, but also has relatively high computational efficiency, since
+no additional computational nodes, points, mirror particles or segments are
+involved. The latest version improves the flexibility of this technique to han-
+dle the bidirectional[20] and arbitrary directional|21] flows.
+
+Nevertheless, the local-relabeling-based buffer scheme faces challenges in
+maintaining consistency in the presence of backflow. When there are particles
+moving back and forth across the relabeling boundary, additional particles
+will be unlimited generated, which violates the original design principle and
+
+leads to simulation crash. Please note that the backflow in this context
+denotes transient particle motions occurring near the boundary within very
+short time spans. This situation differs from that in Reference[20], where
+the flow initially proceeds in one direction for a period before reversing, as in
+the pulsatile channel flow case. Additionally, the backflow in our case refers
+not only to physically-induced phenomena but also to numerically-induced
+artifacts. That means under the influence of the initial pressure wave, the
+fluid particles tend to wander near the relabeling boundary during the start-
+up stage, leading to the unphysical particle addition, as well. Although there
+are some remedies to avoid the adverse effect caused by the backflow, such as
+increasing numerical dissipation[22] or adding a damping zone[23] near the
+outlet, to the best of our knowledge, none of the existing studies address this
+problem for the local-relabeling-based buffer scheme essentially.
+
+On the other hand, most existing studies about open boundary flows
+
+focus on systems with a single inlet-outlet configuration or unidirectional
+
+flow, whereas multiple inlet/outlet boundaries and opposing-direction flows
+remain largely unexplored. Although increasing the number of inlets or out-
+lets seems straightforward, simulation failures may occur when the buffer
+regions interfere with each other. Besides, for the multi-in/outlet flows, it
+is also challenging to design a general and concise code, especially for the
+local-relabeling-based buffer scheme.
+
+In this work, to address the two aforementioned issues, we enhance the
+consistency and independence of the local-relabeling-based buffer technique
+for handling strong backflow and systems with multiple inlets and outlets.
+
+Specifically, first, to essentially avoid the unlimited particle addition caused
+
+by the backflow, a small fringe region is introduced to offset the relabel-
+ing boundary and the particle creation threshold. This method efficiently
+resolves the issue while incurring no extra computational overhead. More-
+over, it is highly compatible with the overall code framework, as it requires
+modifying only a small part of the code.
+
+Second, to enhance the independence of the buffer regions, and avoid the
+interference issue, the original aligned box region[2I]] is limited by involv-
+ing a simple contain checking function, and each buffer region is assigned
+a unique identifier (ID). Additionally, the consistency of the dynamic pres-
+sure boundary condition is improved from the zeroth-order to the first-order
+by introducing the correction matrix, and a mirror boundary condition is
+imposed for the correction matrix near the open boundary.
+
+Last but not least, several challenging benchmark cases are simulated to
+evaluate the proposed improvements. These include the laminar/turbulent
+straight channel flow, turbulent U-shaped channel flow, laminar/turbulent
+plane jets, and a 3D self-rotational micro-mixer. For the turbulent simula-
+tions, the rigorously validated weakly compressible SPH method coupled
+with the Reynolds-Averaged Navier-Stokes equations (WCSPH-RANS) is
+employed|24]. Besides, among these numerical tests, the plane jet case is
+studied in detail as a representative example. To eliminate potential bound-
+ary interference, no wall boundaries are used, and six buffer regions are in-
+troduced to ensure numerical stability. Converged results are successfully
+obtained, for the first time to the best of our knowledge, for the WCSPH-
+RANS method.
+
+The remainder of this manuscript is organized as follows. Section 2] intro-
+
+duces the preliminary works, including the governing equations, numerical
+discretization, and the original open boundary condition. The improvements
+are described in Section [3] Numerical examples are tested and discussed in
+Section [A] and the concluding remarks are given in Section 5] The computa-
+tional code of this work is released in the open-source SPHinXsys repository
+
+at https: //github.com/Xiangyu-Hu/SPHinXsys.
+
+2. The WCSPH method for both laminar and turbulent simula-
+
+tions
+
+2.1. Governing equations
+
+The conservation equations of mass and momentum for incompressible
+
+laminar and turbulent flows|24] in the Lagrangian framework are
+
+sae = EV pets + V+ (VesfV¥) +8, (2)
+where v is the velocity, p is the density, 4 = 2 +v-V stands for material
+derivative. pers and Vers are the effective pressure and kinematic viscosity,
+respectively, and the expressions of the two variable differ in the laminar
+and turbulent simulations, as concluded in Table {1} where k refers to the
+turbulent kinetic energy, 4 and 14 are the kinematic molecular and eddy
+
+viscosity.
+
+To ensure incompressibility, a stiff isothermal equation of state is used,
+
+P= pot (4 - i) ; (3)
+Po
+
+where fo is the reference density and co refers to the sound speed.
+
+as
+Table 1: Unified expressions for the effective pressure and kinematic viscosity.
+
+Viscous model Def f VaR F
+
+Laminar Pp Y
+
+Turbulent (RANS) pers = p+ 2 pk Vepfp =Uty
+
+For turbulent simulation only, the two-equation k — « RANS model is
+
+adopted, and the additional transport equations are
+
+dk
+
+a j%Vv —e+V-(D,VE), (4)
+Gian Cy $V (D0) (5
+dt 1ztt v 25 T e VE), )
+
+where D, = 4+™/o, and D. = 4+™/o, are the diffusion coefficients for k
+and ¢, respectively. T = 14(Vv + Vv") —2kI/3 is the Reynolds stress tensor.
+The kinematic eddy viscosity is calculated by % = C,k?/e. The empirical
+constants including C1, C2, C,, 7, and o, are the same from the original k —e
+
+version [25], and are listed in Table[]in the appendix.
+
+2.2. Numerical discretization
+
+To increase stability, the continuity equation is discretized based on a
+
+low-dissipative Riemann solver[22], as expressed by
+
+dpi
+dt
+
+= 2p; S (vi — Vv )VWiyVj, (6)
+j
+
+Here, v* = U*e,; + (Wiz — Uijei), and the gradient of the kernel function
+
+is expressed as VWi; = Wies;, where W,; represents W(r;;,h) and h is the
+wy . .
+
+smoothing length that is fixed at 1.3dp, and dp is particle spacing. Ui; is the
+
+projection of the inter-average velocity V,; along the pairwise direction.
+
+7
+Note that the following three operator notations are used consistently
+
+throughout this work: (¢);; = [(¢); — (@);] refers to the pairwise differ-
+
+ence; ();; = [(%)i + (@);]/2 means the particle-pair inter average; (¢),; =
+2(9)i(O);
+
+The intermediate velocity U* is calculated by
+
+/\(¢); + ();] refers to the pairwise harmonic average.
+
+7,4 2%
+Ut =Uy Space’ (7)
+
+where the subscript 9 means the reference value. The discretization of the
+momentum equation mainly involves two terms: the acceleration induced
+
+by the pressure gradient and viscosity, and the general discretized form of
+
+Equation is
+dv; dv; z : dv; ¥ i (8)
+dt a) '\Va) 7®
+
+For the pressure gradient induced acceleration, the reverse kernel gradient
+
+correction|26] is adopted to ensure consistency, as expressed by
+
+dv; \? niBj +1
+
+j pip,
+
+where B is the correction matrix calculated by
+
+aes
+Bi = (Es @ vin) ; (10)
+d
+
+For the viscosity induced acceleration, the adaptive Riemann-eddy dissi-
+
+pation (ARD) scheme[24] is used, as expressed by
+
+d a 2. W;
+( at) =5 7 ba 5 LV;, (11)
+rij
+
+"iy
+
+where /laq is the adaptive viscosity that is computed by
+
+Had = Max(fts;, LR), (12)
+
+Here, rp = 3 Bi; pocoh is the numerical viscosity, and 3;; = min(7n max(vj;-
+e€;;,0), co) is the dissipation limiter. 1 = 3 is an empirical parameter that
+originates from Ref. [22], and this value is determined according to the
+numerical tests, and used throughout this work. Please note that for laminar
+simulations, the 6; is set as 0, and hence Equation reduces to the origial
+pariwise viscous formulation as reported in Reference [27].
+
+The discretization of the k and € transport equations involves the ap-
+proximation of the velocity gradient and the diffusion terms. The velocity
+gradient is discretized by
+
+Vvi = > vig @ (BiVWig)Vj.- (13)
+
+Jj
+
+The discretization of the diffusion terms in the k and € equations is anal-
+ogous to that of the viscous term in the momentum equation. Consequently,
+
+the discretized formulations of the two transport equations are written as
+
+a Ge-@t Pi » iin M3 Org” (14)
+j
+de; €; e 24,~ €ij , OWi;
+di C1 i Gy - Cy a + as 2 ig fen? Ory’ (15)
+
+where G; is the discretized generation term of the turbulent kinetic energy.
+
+2.3. The wall boundary conditions and schemes for stability and efficiency
+The wall boundary condition of the pressure gradient term is based on
+
+the Riemann solver|22]. As for the boundary condition of the viscous term,
+the non-slip condition is enforced for the laminar simulation, while for the
+turbulent simulation, the step-wise wall function method is adopted. The
+details of the Lagrangian particle-based wall function implementation can be
+found in Ref. [24].
+
+The transport velocity formulation[28] is used to avoid the tensile insta-
+bility, and the duel-criteria time stepping scheme[29] is adopted to increase
+
+computational efficiency.
+
+2.4. The local-relabeling-based open boundary condition
+
+This section not only introduces the principle of the open boundary con-
+dition in SPHinXsys, but also presents its memory management optimization
+
+which contributes to improved computational efficiency.
+
+2.4.1. Configuration of the buffer region
+
+The determination of the buffer regions is based on the local cell link
+list[2T] and the relabeling boundary, as shown in Fig. |1| (a). Before the sim-
+ulation starts, the buffer shape is defined by the user, and the corresponding
+local cell link list (CLL) is extracted from the global CLL. Once the local
+CLL is defined, each operation involving the open boundary condition will
+merely search the particle information stored in the local CLL, which signif-
+icantly reduce the computational amount, since checking all the particles is
+time-consuming.
+
+Consequently, the buffer region is defined based on the local CLL and the
+two relabeling boundaries. Particles located within this region are contin-
+uously relabeled as buffer particles, while those outside remain unaffected.
+
+This locality is the reason why the scheme is referred to as local relabeling.
+
+10
+2.4.2. Inflow/particle-addition
+
+As for inflow, once a buffer particle crosses the relabeling boundary, a new
+fluid particle will be generated based on the moved-out buffer particle, as
+shown in Fig. [1](b). In summary, the pre-conditions for generating particles
+are: (1) a particle crosses the relabeling boundary; (2) its identity is "buffer".
+
+The position and material properties of the newly-added fluid particle
+are inherited from those of the corresponding buffer particle that has crossed
+the boundary. After the generation, the buffer particle will be recycled, re-
+entering the buffer region from the opposite end. The boundary values of the
+recycled buffer particle are given based on the specified boundary conditions,
+
+such as velocity or pressure inlets. [19] [20], and its position is determined by
+Tree = Vin — Lyons, (16)
+
+where yee is the position of the recycled buffer particle and r;,, is the fluid
+particle that was just created, LZ, and ny refer to the length and unit flow
+direction vector of this buffer, respectively.
+
+It is worth noting that the information of the newly-added fluid particle
+is consistently stored at the end of the memory block in the code imple-
+mentation. Consequently, the storage indices of the existing particles remain
+unchanged, ensuring data consistency and minimizing memory reallocation
+
+overhead.
+
+2.4.8. Outflow/particle-deletion
+For outflow treatment, removing the outflow particle and clearing its asso-
+ciated data are straightforward; however, maintaining a continuous memory
+
+layout after deletion without triggering data reallocation can be challenging.
+
+11
+(a)
+
+Local cell link list
+
+OC) Buffer particles O Fluid particles c j
+
+ead é
+
+i . 3 Recycled Buffer particles \ *) Deleted buffer particle
+
+Inflow Outflow
+T
+(b)
+\
+ot
+Jv
+x aS
+| Recycle i I I
+Periodically relabeling Periodically relabeling
+
+Figure 1: (a) The determination of the buffer regions by cell link list. (b) The con-
+cept of the particle treatment of the local-relabeling-based open boundary strategy
+at a specific time instant T’ when both the inflow and outflow occur. This illustra-
+tion is based on a straight channel flow. The red dot lines refer to the relabeling
+
+boundaries, and the blue regions are the buffer regions.
+
+In SPHinXsys, an efficient particle deletion scheme based on data overwriting
+is adopted,
+The particle array configuration used in the flow simulation is illustrated
+
+in Fig. |2)(a). Each array contains two types of particles, fluid and buffer
+
+12
+(a) Total real particle bound
+
+Fluid particle
+~~ 1
+(b) Nrotat Reserved ae for
+: outflow new particles
+Moroxoroxor |
+Step2: overwite :
+
+— — Hi
+[OOOO OLOROROI EE
+(OOOO) OLONOLOMME
+
+Step3: Shift the bound ,
+
+OIOIOIOIS
+
+Figure 2: (a) Configuration of a whole particle array, and (b) the outflow steps
+
+when the particle 6 outflows.
+
+particles, along with a pre-allocated space reserved for newly added particles.
+The fluid and buffer particles are collectively referred to as real particles, with
+their total number denoted by Niotai- The outflow steps are demonstrated in
+Fig. |2](b), when an arbitrary buffer particle, namely particle 6, outflows.
+Step 1 is to determine whether a particle has moved out of the domain,
+typically using a local position check [21]. Step 2 involves copying the in-
+formation of the last fluid particle to the outflow particle, i.e., overwriting
+the data of particle 6 with that of particle 9. The last step is to update the
+total number of the real particles by shifting the particle boundary forward
+accordingly. These three steps can be implemented using a simple while
+loop, and any modification to the memory order is avoided. Please note that
+
+the particle index disorder does not affect simulation because the interaction
+
+13
+between particles is based on the cell link list which is updated after the
+
+deletion at each advection time step [4].
+
+3. Improvements for complex open boundary flows
+
+3.1. Improvement on buffer consistency based on continuum hypothesis
+
+The local-relabeling-based bidirectional buffer, as demonstrated in Sec-
+tion performs well for unidirectional and reversed unidirectional flows
+[20], but may encounter difficulties when backflow occurs. As shown in Fig.
+(a), the continuous 4 time instants are observed and the motion of an ar-
+bitrary buffer particle i near the relabeling boundary is tracked. Please note
+that the empty space is also filled with particles which are not shown to
+better follow the movement of the particle 7.
+
+Initially, at the time instant T,, the buffer particle 7 moves forward, and
+then crosses the relabeling boundary at T). Since the two preconditions for
+adding fluid particles mentioned in Sec. [2.4.2lare satisfied, a new fluid particle
+i’ is generated at the position of i, and after the generation, the particle 7 is
+moved to the left side of the buffer region. Subsequently, at T3, the particle
+i’ moves back due to the backflow and its identity becomes "buffer" again
+due to the relabeling. Then at T,, because of the complicated flow condition,
+before the particle 7 is squeezed out of the buffer region, the buffer particle
+i’ immediately moves forward and crosses the relabeling boundary, which
+triggers the particle generation again. Consequently, the buffer particle 7’ is
+recycled back again, and a new fluid particle i” is generated. Even worse,
+
+the two buffer particles, i and i’, overlaps, leading to the simulation crash.
+
+14
+The root cause of this problem, we believe, is that the continuum assump-
+tion of fluid flow is neglected. In fact, each SPH particle represents a finite
+volume of fluid, with its influence domain defined by the kernel truncation
+radius. Therefore, treating an SPH particle as a material point and imme-
+diately switching its identity when it crosses the relabeling boundary violate
+the continuum assumption, breaking the simulation consistency.
+
+To address this problem and restore the consistency, we propose a simple
+but effective boundary-shifting scheme, as shown in Fig. [3](b). The general
+idea is to maintain the particle identity for a short time, after the particle
+crosses the boundary. Specifically, the relabeling boundary (line) is no longer
+regarded as the criteria for generating particles, instead, the particle gener-
+ation line is introduced. The two lines, which were originally regarded as
+aligned, are now intentionally staggered by a small distance, namely 0.5dp.
+That means the criteria for particle generation are updated as follows: (1)
+the particle crosses the particle generation line; (2) its identity is "buffer".
+
+To clearly present the effect of the improvement, similar to that demon-
+strated in Fig. [3] (a), we also provide the movement of the particle i after
+applying the consistency improvement, as shown in Fig. [3] (b). The trajec-
+tory of the particle i during the time instants T; — Ty is the same as that
+shown in Fig. |3|(a), while no particles are generated because the generation
+precondition (1) is not satisfied. Until T;, when the buffer particle 7 crosses
+the generation line, a new fluid particle i’ is created and the particle i is
+recycled. Subsequently, at Ts, backflow happens again, and the fluid particle
+i’ moves back and crosses the generation line from the opposite direction.
+
+However, this time the identity of the particle 7’ is not changed and is still
+
+15
+G) Buffer particles 6) Fluid particles Relabeling 0.5d;
+ap
+boundary oo eee
+
+Generation
+
+: line t=,
+4 Relabeling 90 ------------
+
+| 7 boundary t=T,
+Unexpected id af _
+
+particle
+
+t=T, (( generated t=T,
+
+t=, i Backflow t=T,
+
+t=f, | t=T,
+— =—slCU Move forward
+
+t= iT
+
+)
+
+Figure 3: The continuous trajectory of a buffer partic
+ing boundary and influenced by the backflow: (a) wit
+
+ment; (b) with the proposed improvement.
+
+No particle
+generated
+
+No particle
+generated
+
+(b)
+
+e i located near the relabel-
+
+120ut the proposed improve-
+
+"fluid" since the relabeling merely occurs in the buf
+
+ffer region bounded by the
+
+relabeling boundary. Therefore, at Tz, no particle will be generated although
+
+the fluid particle 7’ re-crosses the generation boun
+
+dary, because the precon-
+
+dition (2) is not satisfied. As a result, the unexpected particle generation
+
+problem is well addressed.
+Please note that the small offset distance, 0.5dp
+
+ous property and is determined by numerical tests.
+
+, accounts for the continu-
+
+This value is consistently
+
+used throughout this study and is generally effective for all the open bound-
+
+16
+ary flow cases in SPHinXsys library. Besides, as shown in Fig. [3{b) at Tg,
+if the backflow is strong enough that the fluid particle 7’ crosses the rela-
+beling boundary from the opposite direction, the offset distance should be
+sufficiently large to ensure that the leftmost buffer particle i has already been
+
+squeezed out of the buffer region and deleted.
+
+3.2. Improvement on buffer independence for multiple in/outlets
+
+For systems with multiple inlets and outlets, the original local-relabeling-
+based buffer may encounter two issues caused by buffer interference. This
+section discusses the issues and provides simple yet effective solutions to
+improve the independence of each buffer.
+
+The first problem is the erroneous deletion of the buffer particles in other
+buffer regions. As demonstrated in Fig. [4] for this strongly-curved channel,
+the bending angle is more than 180°, making the inflow buffer exposed in
+the deleting area of the outflow buffer, since the deletion area is determined
+by the relabeling boundary after coordinate transfer. Furthermore, as shown
+in Sec. because the local cell link lists are originated the same global
+CLL, the outflow check is performed not only for particles within the outflow
+buffer but also for those in the inflow buffer. Consequently, particles in
+or near the inflow buffer are continuously deleted, eventually leading to a
+simulation crash. Additionally, the newly added particles are erroneously
+deleted first, as they are placed at the end of the memory array.
+
+The second issue is the overlap between the two buffer regions when they
+are placed adjacently, even though the user-defined regions themselves do not
+overlap. As shown in Fig. |5|(a), when the two buffers are vertically stacked,
+
+their effective areas will overlap and interfere with each other along the ver-
+
+17
+i Buffer without independent ID Buffer ID = 2
+
+Local ar -at
+coordinate 7
+Ny \ Outflow buffer
+\ \
+\ \
+2, \
+Deleting \ 5, Deleting \ at
+area ot Local cell area LO\
+link list }
+Local a
+
+coordinate 1
+
+Inflow buffer. et T "
+
+erry tt
+
+Erroneous deletion No erroneous deletion
+
+(a) (b)
+
+Figure 4: (a) Without unique buffer IDs, particle deletion errors may occur due
+
+to interference; (b) with unique buffer IDs, erroneous deletion is avoided.
+
+tical direction. This is because the effective area of each buffer is determined
+by the cell-linked list (CLL), and each cell in the CLL is generally larger than
+the particle spacing [4]. Therefore, the area defined by the cell link list not
+only covers the user-defined buffer region but also slightly extends beyond it.
+Although the buffer size along the main flow direction is constrained by the
+relabeling boundary, it remains unrestricted in the direction perpendicular to
+the main flow direction 21]. An additional example can be seen in Fig. fifa),
+where the buffer region extends beyond the wall, contrary to expectations.
+Consequently, placing the buffer along an unrestricted direction, such as the
+vertical direction illustrated in Fig. |5}(a), may lead to interference.
+
+To address the issue of the erroneous deletion, a unique identifier, namely
+
+the buffer ID, is assigned to each buffer at the configuration stage, and the
+
+18
+Relableing boundary Flow direction
+
+f buffer 1
+User-defined region " a =
+| l ~ |
+(a) Fe 1 ) boo |
+Interference buffer 1 |
+‘ [Ne
+meme interference
+buffer 2 !
+
+1
+Ls (eevee ! tio. 2
+x I K UA I
+
+a
+
+Relableing boundary of buffer 2
+
+Figure 5: When the two buffer regions are vertically stacked, (a) interference oc-
+
+curs along y direction; (b) interference is avoided after adding the contain-checking.
+
+buffer particles are tagged with the corresponding identifier during relabeling,
+as shown in Fig. /4](b). Furthermore, an additional check between the buffer
+ID and particle ID is incorporated into the first step of particle deletion
+that is described in Sec. A particle will be deleted only if its particle
+ID matches the buffer ID. With this scheme, the unexpected deletion is
+effectively avoided, while introducing almost no additional computational
+cost and requiring only minor modifications to the code framework.
+
+To prevent interference between effective domains, a containment check-
+ing function is introduced to restrict each spatial direction of the user-defined
+buffer region, as shown in Fig. [5] (b). Given that the buffer region is prede-
+fined as a rectangle (in 2D) or a cuboid (in 3D), the containment test can
+
+be efficiently implemented by applying a coordinate transformation|21] and
+
+19
+performing a direct box-inclusion query. Specifically, the box-inclusion check
+is performed by testing whether the transformed point lies within a refer-
+ence box using a built-in geometric method for axis-aligned box containment
+testing.
+
+With the two improvements on buffer independence, the local-relabeling-
+based open boundary condition becomes capable of handling complex flow
+problems with more intricate inflow and outflow configurations. Please note
+that although the demonstrations are two-dimensional, the proposed im-
+
+provements are applicable to both 2D and 3D simulations.
+
+3.3. Improvement on the accuracy of the open boundary flow by introducing
+
+the RKGC with a mirror boundary condition
+
+The RKGC scheme was firstly proposed for reducing the unphysical nu-
+merical dissipation in free surface flows without the open boundary [80].
+Later, the importance and necessity of this technique in simulating both
+the gravity-driven free-surface and pressure-driven channel flows have been
+proved [31]. However, when applying this technique to open boundary flows,
+the boundary condition for the correction matrix B requires careful treat-
+ment; otherwise, unexpected results may occur. Given that RKGC primarily
+affects the pressure gradient approximation in fluid dynamics, this section in-
+troduces its near-boundary treatment, with the mirror boundary condition
+serving as the underlying strategy.
+
+As shown in Equation (9). the pressure gradient is approximated by com-
+bining the correction matrix. For a fluid particle b located near the open
+boundary, if not consider the wall, the pressure gradient consists of two com-
+
+ponents: the contribution from the internal neighboring particles and the
+
+20
+compensation term imposed by the pressure boundary condition [20]
+
+Ninter
+
+mM;
+Vp = : a — (p,B; + pj;B pve  (PiBr + prBi)-VWix. (17)
+
+jal 9
+
+where subscript inter and 4 refer the internal neighbor fluid particles and the
+open boundary (ghost) particles, respectively. Please note that the pressure
+boundary condition discussed herein refers not only to the prescribed pressure
+inlet or outlet conditions, but also to the commonly adopted extrapolation
+treatment.
+
+To calculate the modified compensation term, the mirror boundary on
+the correction matrix, B;, = B;, is imposed, and hence the second term on
+
+the right-hand side of Equation is modified as
+
+Nob
+
+Mk
+> — (p; + px)Bi » VWie. (18)
+ka PR
+
+The pressure at the open boundary, ps, is imposed on each particle pair,
+such that D,,, = poo. It should be noted that p,, can be manually designated or
+extrapolate from the fluid domain. To compute Eq. (18), the originally-used
+
+zero-order consistency condition is improved as
+
+Ninter Nob
+S> “2B, Vy + > B,- VWie = 0, (19)
+gai, PD kai Pk
+
+Substituting the open boundary pressure and Eq. into Eq. (7), we
+
+have
+Ninter oy m;
+Ve = >> PB: + pjBi) - VWig - ona Ss 5 Bi VWiy- (20)
+ja ja Pi
+
+21
+4. Numeral examples
+
+4.1, Fully developed flow in a straight channel
+
+The fully developed straight channel flow is a classical benchmark case
+for verifying the stability and accuracy of the open-boundary treatments.
+This section will test both the laminar and turbulent flows in the straight
+channel, and demonstrate the effectivity of the improvement mentioned in
+Sec. The Reynolds number is defined using the channel width and the
+bulk velocity. The number of fluid particles across the cross-section is 20.
+
+As for the laminar simulation, the Reynolds number is 50. The parabolic
+velocity inlet condition is imposed, in which the maximum velocity is 0.0125.
+The outlet pressure is 0.1.
+
+The pressure contours for the four cases are presented in Fig. [6 and the
+condition of each case is concluded in Table 2]
+
+In Case 1, although the pressure distribution is reasonably good, period-
+ically numerical noise appears near the wall boundary, and the wall-nearest
+fluid particles suffer a local high value. In Case 2, with the RKGC, the
+consistency is improved and the numerical noise near wall disappears, how-
+ever, without an appropriate treatment for the correction matrix, the flow
+is wrongly accelerated near the outlet due to the truncated high magnitude
+of the correction matrix on the open boundary. In Case 3, with the mirror
+boundary condition, the inappropriate acceleration is handled, while whole
+pressure field suffers an overall under-prediction due to the inconsistency be-
+tween the approximation schemes of the internal and open boundary pressure
+gradient. In Case 4, with both the mirror boundary condition and the im-
+
+proved open boundary condition (Eq. (20)), the problems in the previous 3
+
+22
+cases are well addressed, and the pressure becomes smooth and continuous.
+
+The quantitative centerline data are shown in Fig. [7] and for this lam-
+inar case only, the theoretical inlet pressure is 0.2, as derived in Ref. [20].
+The under-predictions in Case 2 and Case 3 are clearly presented. Comparing
+Case 1 with Case 4, we find that the original treatment gently under-predicts
+the pressure while the improved one slightly over-predicts this value. How-
+ever, it is the pressure gradient which effects in the momentum equation, and
+for Case 1 and Case 4, the pressure gradients agree well with the theoretical
+value. Therefore, the cross-sectional velocity profiles at the outlet achieve a
+
+satisfactory agreement, except Case 2, as shown in Fig.
+
+Table 2: Summary of the four test cases for the open boundary condition treatments.
+
+Case Description
+
+1 Original VIPO: open boundary condition proposed in [20].
+
+2 VIPO + unmodified RKGC: direct application of the correction
+technique in [30].
+
+3 VIPO + corrected RKGC: RKGC with mirror boundary condition
+
+incorporated into the correction matrix.
+
+4 Improved VIPO: VIPO with both the mirror boundary condition
+
+and Eq. :
+
+As for the turbulent simulation, the Reynolds number is 20000. The
+solutions obtained from the finite difference method (FDM)|24] are imposed
+on the inlet to accelerate the development of flow. The inlet bulk velocity is
+
+1 and the outlet pressure is 0. The same four cases, as concluded in Table I
+
+23
+0.1 0.15 0.2
+P/Pi Ue = |
+
+Local high value “ “
+numerical noise
+
+Under-prediction near outlet
+
+(a) Case 1 Under-prediction overall (b) Case 2
+
+(c) Case 3 (d) Case 4
+
+Figure 6: Laminar straight channel flow: the pressure fields simulated by the
+
+SPH method after achieving the steady state under the four cases.
+
+0.20
+
+0.15
+
+é
+20.10
+Case 2
+= '—= Case:
+«= Case 3
+0.05 — — = - Theoretical
+100 0 0.002 0.004
+x/m
+
+Figure 7: Laminar straight channel flow: the time-averaged centerline pressure
+profiles simulated by the SPH method after achieving the steady state under the
+
+four cases.
+
+24
+0.015
+
+Theoretical
+———-Case4
+
+== = +Case1
+
+0 0.002 0.004
+y/m
+
+Figure 8: Laminar straight channel flow: the time-averaged cross-sectional veloc-
+ity profiles at the outlet simulated by the SPH method after achieving the steady
+
+state under the four cases.
+
+of the open boundary treatments are considered.
+
+The pressure contours are shown in Fig. |9} Since the characteristics of the
+pressure fields of Case 2 and Case 3 are very similar to those of the laminar
+simulations, we only present the contours of Case 1 and Case 4. Without the
+improvement proposed in this work, an obvious high pressure region appears
+near the wall, becoming particularly severe when approaching the outlet. In
+contrary, by using the improved open boundary condition, the pressure field
+becomes smooth and consistent.
+
+The cross-sectional velocity and turbulent kinetic energy profiles on the
+outlet are shown in Fig. Although the results calculated under both the
+two cases agree well with those from the finite volume method[24] and direct
+
+numerical simulation (DNS) [32], an under-estimation is observed for Case 1
+
+25
+P pay 0.13
+
+(a) Case 1
+
+(b) Case 4
+
+Figure 9: Turbulent straight channel flow: the time-averaged pressure contours
+
+simulated by the SPH method after achieving the steady state under the two cases.
+
+near the wall which may be due to the local high pressure observed in Fig.
+
+sy
+
+0.014
+
+k/(m?/s?)
+°
+S
+
+0 - L a 0
+
+0 05 1.0 0 0.5 1.0
+y/m y/m
+(a) (b)
+
+Figure 10: Turbulent straight channel flow: the time-averaged cross-sectional (a)
+velocity and (b) turbulent kinetic energy profiles at the outlet simulated by the
+
+SPH method after achieving the steady state under the two cases.
+
+26
+4.2. Flow through a U-shape channel
+
+To validate the improvement on the buffer independence mentioned in
+Section [3.2] the flow through a U-shape channel case is simulated. Only the
+turbulent condition is considered, since the laminar result is similar to that
+of the laminar straight channel case. The geometry is shown in Fig. (a),
+where one segment near the inlet buffer is within the deleting region of the
+outlet. The Reynolds number is 148400, and the uniform velocity inlet and
+zero pressure outlet boundary conditions are used.
+
+The velocity contours are shown in Fig. Without the proposed im-
+provement, demonstrated in Fig. (a), the fluid particles near the inlet
+are unexpectedly deleted, and the simulation crashes. In contrast, with the
+improvement, the wrong deletion is well avoided. The quantitative data are
+shown in Fig. For the SPH method, the velocity becomes fully-developed
+when the central angle is larger than 1500 and the profiles agree well with that
+obtained from the FVM[83]. Although compared with the experiment|34],the
+two numerical methods both under-predict the velocity values near the outer
+
+side of the curved channel due to the secondary flow.
+
+4.3. Plane jet
+
+As a typical benchmark case for examining the free-shear behavior in
+both laminar and turbulent [35] flow models, the plane jet represents an im-
+portant flow configuration encountered in various engineering applications,
+such as paper manufacturing and rocket exhaust systems. However, achiev-
+ing accurate simulations of this case with particle-based methods remains
+
+challenging, particularly at high Reynolds numbers.
+
+27
+2.1le-4 0.05 9.7e-2 64e-1 0.9 1.1
+\u\/(/s) ‘ules! = \u\/(77/s) ‘i!
+
+Buffer
+
+\
+ID :
+2,
+0
+
+(a) Without (b) With
+
+Figure 11: Turbulent U-shape channel flow: the buffer distribution and velocity
+contours simulated by the SPH method (a) without or (b) with the proposed im-
+
+provement.
+
+This may due to the three difficulties, first, without the bidirectional
+buffer technique|20] that can be regarded as the non-reflective far-field bound-
+ary condition, establishing a stable and symmetric potential flow region may
+be challenging. Adopting the wall or fixed particles as the tank boundary may
+break the flow symmetry at high Reynolds number [8], and results in difficulty
+on obtaining the accurate centerline velocity. Extending the transverse com-
+putational domain|36] is also a remedy but causes undesirable computational
+efforts, and most of the existing works focus on the submerged jet flow|36} [37].
+Second, the gentle and continuous backflow near the outlet further imposes
+challenges on the boundary condition of the particle-based method. Since
+the vertical velocity does not vanish near the edge of the jet but instead is
+
+directed inwards or towards the jet, fluid is entrained across the boundary,
+
+28
+1.2
+
+0.8
+5
+=
+=
+= SPH 6 = 90°
+=. —- — — - SPH @= 120°
+0.4 -—-- - SPH 0 = 150°
+ese - SPH 8= 172
+FVM
+° Experiment
+0.0
+0 0.5 1.0
+n
+
+Figure 12: Turbulent U-shape channel flow: the comparison of the cross-sectional
+velocity profiles simulated by the SPH method at the four central angles, 0, the
+
+finite volume method and from the experiment.
+
+causing the backflow. The backflow continuously triggers the particle injec-
+
+tion and causes the above-mentioned particle wandering problem. Third,
+
+without the improvement on the buffer independence, the above-mentioned
+buffer interference problem could occur.
+
+In this section, we first test the laminar plane jet case and compare the
+results with the analytical solutions|35], then simulate the turbulent plane jet
+case without or with the RANS model. It should be noted that even without
+
+incorporating a RANS model, the SPH method is capable of reproducing
+
+29
+turbulence to some extent when the spatial resolution is sufficiently high[38],
+
+similar to the implicit large eddy simulation(LES) [39] method.
+
+4.3.1. Buffer setting
+
+The geometry and the arrangement of the buffers are shown in Fig.
+To exclude the influence of the wall, the six independent bidirectional buffers,
+indicated from 1 to 6, are used. The boundary conditions imposed on the
+
+buffers are summarized in table
+
+ButferID 123.456
+
+Figure 13: Plane jet: the size of the computational domain, buffer distribution
+
+and ID.
+
+4.3.2. Laminar plane jet
+The Reynolds number, which is based on the inlet width and inflow ve-
+
+locity, is 40. The resolution is defined as the number of fluid particles across
+
+30
+Table 3: The boundary conditions on the buffers for the plan jet.
+
+Buffer No. Type Velocity Pressure Turbulent quantities
+1 Inflow Uniform inlet velocity | Extrapolate from fluid Freestream
+
+2 Bidirection Extrapolate from fluid Zero pressure Zero gradient
+3,4 Inflow Zero velocity Extrapolate from fluid Freestream
+
+5,6 Bidirection | Extrapolate from fluid Far-field pressure Zero gradient
+
+the inlet width, denoted as Ny. The inlet width Dj, = 2, and the length
+and half width of the computational domain,Lj., and Wjer, are 40Dje, and
+20D;er, respectively. Figure[{14]shows the velocity contours simulated by the
+SPH method with the improved six bidirectional buffers or with the wall
+boundary condition at the moderate Reynolds number, Re = 40.
+
+Using the wall boundary condition introduces disturbance on the velocity
+field, making the potential core region offset towards the upper wall. The
+reason for the offset may be because that for the particle-based method with
+the wall dummy boundary, the particle near wall is keeping moving due the
+Lagrangian characteristic. Therefore, the effective wall position is not strictly
+fixed, as the wall-adjacent fluid particles may slightly penetrate into or move
+away from the wall dummy interface, which can induce disturbances and
+break the flow symmetry.
+
+Please note that this property will become more severe at a lower resolu-
+tion, and hence using a higher resolution may mitigate this issue. That may
+explain why the symmetric laminar plane jet in Aristodemo et al. was
+obtained under the wall boundary condition, as the lowest resolution used
+in their work(Ny = 250) is more than two hundred times higher than that
+
+in the present study. However, such a high resolution is clearly not practical
+
+31
+for engineering applications, and this issue may persist when the Reynolds
+numbers is high.
+
+In contrary, using the improved bidirectional buffers avoids this problem
+at the moderate resolution, and a symmetric potential core region is obtained.
+To further test the non-reflective property of the proposed open boundary
+condition, we increase the Reynolds number to 100, as shown in Fig.
+The instability appears near the outlet, but the stable potential core region
+still holds when the improved bidirectional buffers are used. In contrary, the
+flow field becomes quite unstable due to the reflection from the wall, if the
+
+wall boundary condition is used.
+
+0 0.5 1d
+2/1) Tel Wall
+
+(a) With 6 improved bidirectional buffers (b) With wall boundary condition
+
+Figure 14: Laminar plane jet: the velocity contours at Re = 40 and Ny = 10,
+simulated by the SPH method (a) with six improved bidirectional buffers and (b)
+
+with wall boundary condition.
+
+To conduct the quantitative comparison of the current SPH method, fi-
+
+nite volume method (FVM) and the analytical solution, we test the centerline
+
+32
+0 0.5 1.1
+OS) Ta Wall
+
+(a) With 6 improved bidirectional buffers (b) With wall boundary condition
+
+Figure 15: Laminar plane jet: the velocity contours at Re = 100 and Ny = 10,
+simulated by the SPH method (a) with six improved bidirectional buffers and (b)
+
+with wall boundary condition.
+
+velocity{16] and spreading widtHT7] All the SPH results are obtained by using
+the six improved bidirectional buffers, since it is difficult to compute mean-
+ingful data if the symmetry of the jet is not guaranteed when using the wall
+boundary condition. The analytical solution is calculated according to the
+boundary layer theory[40J. As for the centerline velocity, as shown in Fig.
+the convergence of the SPH method is satisfactory, and the results cal-
+culated by the SPH method agree well with that computed by the FVM at
+Ny = 20. Although both the two methods yield smaller centerline velocity
+near the inlet compared with the analytical solution. This may be due to
+the drawback of the boundary theory, while the closing trend between the
+numerical and analytical results is obvious when approaching the outlet.
+
+As for the spreading rate, at each cross-section across the mainstream
+
+33
+2.5 —~+— Analytical
+see SPH Nf=5
+mann -FVM Nf= 20
+
+2.0 § — SPH Nf=20
+— — — -SPH Nf=10
+
+“0 25 50
+x/Dyer
+Figure 16: Laminar plane jet: the comparison of the centerline velocity profiles
+
+at Re = 40 simulated by the FVM, SPH method, and from the analytical result.
+
+direction, the distance from the centerline to the point whose velocity is half
+of the corresponding centerline velocity is defined as the yo,5. Figure[I7|clearly
+presents the converging trend of the results calculated by the SPH method,
+and the two numerical methods agree well with each other. Although both
+the FVM and SPH methods obtain higher spreading width compared with
+that of the analytical result, the slopes between the numerical and analytical
+
+solutions agree well with each other.
+
+4.3.3. Turbulent plane jet
+The Reynolds number, which is based on the inlet width and inflow ve-
+
+locity, is 20000. To further validate the proposed improvement, the three
+
+34
+10 Analytical
+
+— — . SPH Nf=20
+—.—.. SPHNf=10 af
+mime SPH NF=5 Rea
+
+—e— FVM Nf=20 m
+
+0 50 100
+x/m
+
+Figure 17: Laminar plane jet: the comparison of the spread rate at Re = 40
+
+simulated by the FVM, SPH method, and from the analytical result.
+
+different computational domains, namely small, compact and large domains,
+are tested. The sizes of the domains are concluded in Table |4| where the
+inlet width Dj is 2.
+
+Firstly, to test the ability of the proposed improvement on handling the
+strong backflow, we simulate the small computational domain with and with-
+out the RANS model, respectively, as shown in Fig. Please note that
+since the Riemann-based SPH method used in this work is intrinsically similar
+to the implicit large eddy simulation (ILES) [9], directly using the Riemann
+
+based SPH method will lead to very unsteady velocity field due to the lack
+
+35
+Table 4: The sizes of the computational domains
+
+Name of the domain = Lje/Djee Wyer/Djet
+
+Small 10 5
+Compact 20 5
+Large 40 20
+
+of sufficient resolution to resolve all the vortices, as shown in Fig. (a).
+However, although some strong backflow appears near the open boundary,
+the improved open boundary condition can still handle it, preventing the
+simulation from crashing. While with the original bidirectional buffer, the
+simulation crashes immediately.
+
+After adding the RANS model, as shown in Fig. [18](b), the flow field be-
+comes steady due to the eddy viscosity, and the continuous backflow appears
+near the upper and bottom buffers. The simulation is still quite stable after
+introducing the improvements.
+
+The velocity contours calculated by the SPH-RANS method are shown in
+Fig. The large (Fig. [[9{a) and (c)) and compact (Fig. [[9(b)) domains
+are separately simulated. Although for the simulation using the compact
+domain, the upper, bottom and outlet open boundaries are quite close to the
+potential core region, no disturbance from the open boundaries is observed.
+The velocity contours of the potential core region simulated under the two
+domains agree well with each other. The same characteristic can be found
+on the contours of the turbulent kinetic energy, as shown in Fig.
+
+To conduct the quantitative comparison, we compute the centerline and
+
+the cross-sectional velocity profiles, as illustrated in Fig. The cross-
+
+36
+Strong backflow but still stable Continuous backflow and stable
+
+Layali
+
+as
+
+Ee
+
+GEE TOMO
+
+CZ
+
+WEEE
+(a) SPH (b) SPH-RANS
+
+Figure 18: Turbulent plane jet: the velocity vector fields calculated by the SPH
+
+and SPH-RANS methods with the small computational domain, please note that
+
+the vector only represents the direction.
+
+section is taken at 7 = 0.5Lj:, while because of the self-similarity of this case
+(shown in Fig. 22), any cross-sections which satisfy « > 0.14L;.; can yield
+almost the same cross-sectional velocity profiles. The quantitative results
+indicate that the use of a compact domain introduces no significant difference,
+and the simulations performed in the two domains are in good agreement.
+Finally, we compare the results under the different resolutions with those
+calculated by the FVM[4]] and from the experiment [42], as shown in Fig.
+The results from the FVM are obtained with the same k-e RANS model that
+
+is used in this work. The SPH results show satisfactory convergence, and
+
+37
+0 0.5 1.0
+|4|/(0/S) |
+
+(b) Compact domain
+
+(a) Large domain (c) Large domain, zoomed in
+
+Figure 19: Turbulent plane jet: the velocity contours simulated by the SPH-
+RANS method at Ny = 10 under the two different computational domains.
+
+the cross-sectional velocity profile converges at N; = 20. Compared with the
+FVM result, although the converged SPH result is smaller than that of the
+experiment, it shows a good agreement near the inlet. Besides, it should be
+noted that, for the FVM result, the resolution and convergence test are not
+
+given in the reference[4]].
+
+4.4. Three-dimensional self-rotational micro-mixer
+
+To test the proposed improvement on addressing the complex multiple in-
+outlets system, the three-dimensional self-rotational micro-mixer|43] is sim-
+ulated. The geometry and size are shown in Fig. the cross-sectional size
+
+of the outlet channel is the same as that of the inlet channel, and the total
+
+38
+0 0.015 0.03
+X/(1017/s?) |
+
+(b) Compact domain
+
+(a) Large domain (c) Large domain, zoomed in
+
+Figure 20: Turbulent plane jet: the turbulent kinetic energy contours simulated
+by the SPH-RANS method at Ny = 10 under the two different computational
+
+domains.
+
+height is 100. The self-rotation is triggered by the 8 inlets which inject fluid
+from the tangential direction of the cylinder chamber.
+
+The Reynolds number, based on the hydraulic diameter of the inlet chan-
+nel; therefore, only the laminar simulation is considered. The resolution, Ny,
+is defined as the number of fluid particles across the height of the inlet chan-
+nel.
+
+Figure |25] (a) shows the initial particle distribution with the ID of each
+buffer at the cross-section where z = 4. Please note that the position of
+the buffer is deliberately placed very close to the fluid domain, so that the
+
+extreme condition is considered to fully validate the improvements. The
+
+39
+© Compact domain ——— Large domain
+
+1.0)
+0.8
+s “
+5 06 a
+0.4
+0.2 0+. 1+
+0 20 40 0 0.5 1.0
+x/Diet U/U(x,0)
+(a) Centerline (b) Cross-sectional
+
+Figure 21: Turbulent plane jet: the comparison of the (a) centerline and (b)
+cross-sectional velocity profiles calculated by the SPH-RANS method under the
+
+two computational domains at Ny = 10.
+
+particle distribution in the buffers after the simulation achieves the steady
+state is shown in Fig. |25|(b). Each buffer is correctly tagged and the particles
+in the buffer are uniformly distributed, the particle interference and erroneous
+deletion are well avoided.
+
+Figure [26] presents the mixing effect at the four cross-sections. To clearly
+exhibit the mixing performance and prove that the improved bidirectional
+buffer works well under this extreme condition, the 8 kinds of immiscible
+fluids are injected from the 8 inlet channels. At Re = 17.1, a distinct self-
+rotation is observed at z = 2, while the mixing remains relatively weak. At
+
+z = 40, a clear rotational center emerges, and the eight fluid streams begin
+
+40
+__- X MLjg=0.06
+
+X/Ljgj=0.14S
+
+X /Lig,=0.10
+
+jet
+
+0 0.5 1.0
+U/U(x,0)
+Figure 22: Turbulent plane jet: the cross-sectional velocity profiles at different
+
+x, the red dot lines shown in (a) stand for the monitoring positions.
+
+to mix with each other. At z = 80, since there is only one outlet located near
+the top wall, the rotational center becomes offset, and the mixing intensity
+increases, particularly around the rotational core and the chamber wall. At
+z = 99, the rotational center disappears, and the eight fluids are well mixed
+due to the outlet effect.
+
+Please note that clearly capturing the interfaces between different fluids
+is an inherent advantage of the SPH method, which may be challenging
+for mesh-based methods to achieve. In addition, only qualitative results are
+presented in this study, primarily to demonstrate the stability of the improved
+
+bidirectional buffer in the 3D simulation. The quantitative comparison and
+
+41
+ro) Experiment
+
+N —_——_ FVM
+
+x eget pass SPH Nf=5
+
+0.20 FY q ——-—- SPH Nf=10
+SPH Nf=20
+es SPH Nf=30
+
+0.05
+
+0 0.5 1.0
+U/U(x,0)
+
+Figure 23: Turbulent plane jet: the comparison of the spread rates simulated by
+
+the FVM[4]], SPH method, and from the experiment[42].
+
+convergence test will be conducted in the future.
+
+5. Conclusion
+
+In this work, based on the latest WCSPH-RANS method, the open bound-
+ary treatment implemented in SPHinXsys is systematically introduced, and
+three improvements are proposed for complex open-boundary flows involving
+strong backflow. The three improvements, focusing on the consistency, in-
+dependence, and accuracy of the buffer-based open boundary condition, are
+
+comprehensively validated through a series of benchmark cases.
+
+42
+8 Inlets
+
+ae
+Outlet
+
+fee
+y x
+(a) Bottom view (b) Overall view
+
+Figure 24: Self-rotational micro-mixer: the geometry and size.
+
+Firstly, the laminar and turbulent straight channel flows demonstrate that
+the accuracy improvement can effectively suppress the numerical pressure
+noise near the boundary, although a slight increase in background pressure
+is observed. Secondly, the turbulent U-shaped channel flow validates the
+independence improvement, and the results show excellent agreement with
+those obtained from the finite volume method (FVM). Thirdly, the laminar
+and turbulent plane jet cases thoroughly demonstrate the effectiveness of the
+proposed approach in handling strong backflow. Satisfactory results are ob-
+tained within a compact computational domain, which is much smaller than
+that required by the FVM, indicating a substantial reduction in computa-
+tional cost.
+
+In addition, the three-dimensional self-rotational micro-mixer with a com-
+
+plex inlet /outlet configuration and extremely compact buffer arrangement is
+
+43
+1 8
+Buffer 1D
+
+y
+
+i
+
+(a) Initial distribution (b) After steady
+
+Figure 25: Self-rotational micro-mixer: the Z = 4 cross-sectional particle distri-
+
+bution with the buffer ID (a) at initial state and (b) after steady.
+
+qualitatively tested. Each buffer region remains stable, and the expected self-
+mixing performance is successfully achieved. Overall, the proposed improve-
+ments significantly enhance the robustness and applicability of the WCSPH-
+
+RANS framework for simulating complex open-boundary flows.
+
+Appendix A. The values of the coefficients
+
+The coefficients of the k-e model are listed in Table 5]
+
+References
+
+[1] Y. Lu, P. Wu, M. Liu, C. Zhu, A gpu-accelerated 3d isph-tlsph frame-
+
+work for patient-specific simulations of cardiovascular fluid-structure
+
+44
+|e A
+
+(a)Z=2 (b) Z=40
+(c) Z=80 (d)Z=99
+
+Figure 26: Self-rotational micro-mixer: the mixing performance at different cross-
+
+sections.
+
+interactions, Computer Methods in Applied Mechanics and Engineering
+
+428 (2024) 117110.
+
+[2| F. Wang, Z. Sun, Y. Sun, K. Zhang, G. Xi, Simulation of a centrifugal
+pump based on a lagrangian particle solver, Journal of Fluids Engineer-
+
+ing 144 (6) (2022) 061105.
+
+[3] A. Khayyer, H. Gotoh, H. Falahaty, Y. Shimizu, An enhanced isph-sph
+
+45
+Table 5: Coefficients for the standard k — ¢ RANS model.
+
+Name of the coefficients Value
+C1 1.44
+C2 1.92
+(om 0.09
+oK 1.0
+Oe 1.3
+
+coupled method for simulation of incompressible fluid—elastic structure
+
+interactions, Computer Physics Communications 232 (2018) 139-164.
+
+[4
+
+C. Zhang, M. Rezavand, Y. Zhu, Y. Yu, D. Wu, W. Zhang, J. Wang,
+X. Hu, SPHinXsys: an open-source multi-physics and multi-resolution
+library based on smoothed particle hydrodynamics, Computer Physics
+
+Communications (2021) 108066.
+
+[5] A. Khayyer, H. Gotoh, Enhancement of performance and stability of
+mps mesh-free particle method for multiphase flows characterized by
+high density ratios, Journal of Computational Physics 242 (2013) 211-
+233.
+
+[6] Q.-x. Liu, Z.-g. Sun, Y.-j. Sun, X. Chen, G. Xi, Numerical investigation
+of liquid dispersion by hydrophobic/hydrophilic mesh packing using par-
+ticle method, Chemical Engineering Science 202 (2019) 447-461.
+
+[7| A. Shakibaeinia, Y.-C. Jin, A weakly compressible mps method for mod-
+eling of open-boundary free-surface flow, International journal for nu-
+
+merical methods in fluids 63 (10) (2010) 1208-1232.
+[8] F. Aristodemo, S. Marrone, I. Federico, Sph modeling of plane jets into
+
+46
+(9
+
+[10]
+
+[11]
+
+[12]
+
+[13]
+
+[14]
+
+water bodies through an inflow/outflow algorithm, Ocean Engineering
+
+105 (2015) 160-175.
+
+P. Kunz, M. Hirschler, M. Huber, U. Nieken, Inflow/outflow with dirich-
+let boundary conditions for pressure in isph, Journal of Computational
+
+Physics 326 (2016) 171-187.
+
+A. Monteleone, M. Monteforte, E. Napoli, Inflow/outflow pressure
+boundary conditions for smoothed particle hydrodynamics simulations
+
+of incompressible flows, Computers & Fluids 159 (2017) 9-22.
+
+A. Tafuni, J. Dominguez, R. Vacondio, A. Crespo, A versatile algorithm
+for the treatment of open boundary conditions in smoothed particle
+hydrodynamics gpu models, Computer methods in applied mechanics
+
+and engineering 342 (2018) 604-624.
+
+T. Verbrugghe, J. M. Dominguez, C. Altomare, A. Tafuni, R. Vacondio,
+P. Troch, A. Kortenhaus, Non-linear wave generation and absorption
+using open boundaries within dualsphysics, Computer Physics Commu-
+
+nications 240 (2019) 46-59.
+
+K. Shibata, S. Koshizuka, K. Murotani, M. Sakai, I. Masaic, Boundary
+conditions for simulating karman vortices using the mps method, Journal
+of Advanced Simulation in Science and Engineering 2 (2) (2015) 235-
+204.
+
+K. Shibata, S. Koshizuka, M. Sakai, K. Tanizawa, Transparent boundary
+condition for simulating nonlinear water waves by a particle method,
+
+Ocean engineering 38 (16) (2011) 1839-1848.
+
+47
+[15]
+
+[16]
+
+[17]
+
+[18]
+
+[19]
+
+[20]
+
+[21]
+
+[22]
+
+E. Kazemi, A. Nichols, S. Tait, S. Shao, Sph modelling of depth-limited
+turbulent open channel flows over rough boundaries, International Jour-
+
+nal for Numerical Methods in Fluids 83 (1) (2017) 3-27.
+
+D. Zhang, Y. Shi, C. Huang, Y. Si, W. Li, A mixed characteristic bound-
+ary condition for simulating viscous incompressible fluid flows around a
+
+hydrofoil, Journal of Marine Science and Technology 24 (2019) 73-85.
+
+M. Ferrand, A. Joly, C. Kassiotis, D. Violeau, A. Leroy, F.-X. Morel,
+B. D. Rogers, Unsteady open boundaries for sph using semi-analytical
+conditions and riemann solver in 2d, Computer Physics Communications
+
+210 (2017) 29-44.
+
+L. Han, X. Hu, Sph modeling of fluid-structure interaction, Journal of
+
+Hydrodynamics 30 (1) (2018) 62-69.
+
+S. Zhang, W. Zhang, C. Zhang, X. Hu, A lagrangian free-stream bound-
+ary condition for weakly compressible smoothed particle hydrodynamics,
+
+Journal of Computational Physics 490 (2023) 112303.
+
+S. Zhang, Y. Fan, D. Wu, C. Zhang, X. Hu, Dynamical pressure bound-
+ary condition for weakly compressible smoothed particle hydrodynamics,
+
+Physics of Fluids 37 (2) (2025).
+
+S. Zhang, Y. Fan, Y. Ren, B. Qian, X. Hu, Generalized and high-
+efficiency arbitrary-positioned buffer for smoothed particle hydrodynam-
+
+ics, Physics of Fluids 36 (12) (2024).
+
+C. Zhang, X. Hu, N. A. Adams, A weakly compressible sph method
+
+48
+[23]
+
+[24]
+
+[25]
+
+[26]
+
+[27
+
+[28]
+
+[29]
+
+based on a low-dissipation riemann solver, Journal of Computational
+
+Physics 335 (2017) 605-620.
+
+P. Sun, A. Colagrossi, D. Le Touzé, A.-M. Zhang, Extension of the 6-
+plus-sph model for simulating vortex-induced-vibration problems, Jour-
+
+nal of Fluids and Structures 90 (2019) 19-42.
+
+F. Wang, Z. Sun, X. Hu, A weakly compressible sph method
+for rans simulation of wall-bounded turbulent flows, arXiv preprint
+
+arXiv:2501.18397 (2025).
+
+B. E. Launder, D. B. Spalding, The numerical computation of turbulent
+flows, in: Numerical prediction of flow, heat transfer, turbulence and
+
+combustion, Elsevier, 1983, pp. 96-116.
+
+B. Zhang, N. Adams, X. Hu, Towards high-order consistency and con-
+vergence of conservative sph approximations, Computer Methods in Ap-
+
+plied Mechanics and Engineering 433 (2025) 117484.
+
+X. Y. Hu, N. A. Adams, A multi-phase SPH method for macroscopic
+and mesoscopic flows, Journal of Computational Physics 213 (2) (2006)
+844-861.
+
+C. Zhang, X. Y. Hu, N. A. Adams, A generalized transport-velocity
+formulation for smoothed particle hydrodynamics, Journal of Computa-
+
+tional Physics 337 (2017) 216-232.
+
+C. Zhang, M. Rezavand, X. Hu, Dual-criteria time stepping for weakly
+compressible smoothed particle hydrodynamics, Journal of Computa-
+
+tional Physics 404 (2020) 109135.
+
+49
+[30]
+
+[31]
+
+[32]
+
+[33]
+
+[34]
+
+[35]
+
+[36]
+
+[37]
+
+B. Zhang, N. Adams, X. Hu, Towards high-order consistency and con-
+vergence of conservative sph approximations, arXiv preprint (2024).
+
+F. Wang, X. Hu, On zero-order consistency residue and background
+
+pressure for the conservative sph fluid dynamics] (2025). jarXiv:2507.
+[182101
+
+URL https: //arxiv.org/abs/2507 .18210
+
+M. Lee, R. D. Moser, Direct numerical simulation of turbulent channel
+
+flow up to, Journal of fluid mechanics 774 (2015) 395-415.
+
+F. Pourahmadi, J. A. Humphrey, Prediction of curved channel flow with
+an extended k-epsilon model of turbulence, AIAA journal 21 (10) (1983)
+1365-1373.
+
+S. Eskinazi, H. Yeh, An investigation on fully developed turbulent flows
+in a curved channel, Journal of the Aeronautical Sciences 23 (1) (1956)
+
+23-34.
+
+F. M. White, J. Majdalani, Viscous fluid flow, Vol. 3, McGraw-Hill New
+York, 2006.
+
+F. Nazari, Y.-c. Jin, A. Shakibaeinia, Numerical analysis of jet and
+submerged hydraulic jump using moving particle semi-implicit method,
+
+Canadian Journal of Civil Engineering 39 (5) (2012) 495-505.
+
+D. De Padova, M. Mossa, S. Sibilla, Numerical investigation of the be-
+haviour of jets in a wave environment, Journal of Hydraulic Research
+
+58 (4) (2020) 618-627.
+
+50
+38
+
+39
+
+40
+
+41
+
+42
+
+43
+
+S. Adami, X. Hu, N. Adams, Simulating three-dimensional turbulence
+
+with sph, Tech. rep., Lehrstuhl fur Aerodynamik (2012).
+
+X. Hu, N. A. Adams, Scale separation for implicit large eddy simulation,
+
+Journal of Computational Physics 230 (19) (2011) 7240-7249.
+H. Schlichting, K. Gersten, Boundary-layer theory, springer, 2016.
+
+D. C. Wilcox, et al., Turbulence modeling for CFD, Vol. 2, DCW indus-
+tries La Canada, CA, 1998.
+
+L. Bradbury, The structure of a self-preserving turbulent plane jet, Jour-
+
+nal of Fluid Mechanics 23 (1) (1965) 31-64.
+
+C.-H. Lin, C.-H. Tsai, L.-M. Fu, A rapid three-dimensional vortex mi-
+cromixer utilizing self-rotation effects under low reynolds number con-
+
+ditions, Journal of Micromechanics and Microengineering 15 (5) (2005)
+
+935.
+
+51

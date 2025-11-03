@@ -1,0 +1,634 @@
+2510.25520v1 [cs.RO] 29 Oct 2025
+
+arXiv
+
+Octopus-like Reaching Motion: A Perspective Inspired by Whipping
+
+Shengyao Zhang’, Yiyuan Zhang"", Graduate Student Member, IEEE, Chenrui Zhang, Member, IEEE, Yiming Li,
+Wenci Xin, Graduate Student Member, IEEE, Yuliang Liufu, Hong Wei Ng, and Cecilia Laschi, Fellow, IEEE
+
+Abstract—The stereotypical reaching motion of the octopus
+arm has drawn growing attention for its efficient control of
+a highly deformable body. Previous studies suggest that its
+characteristic bend propagation may share underlying prin-
+ciples with the dynamics of a whip. This work investigates
+whether whip-like passive dynamics in water can reproduce
+the kinematic features observed in biological reaching and
+their similarities and differences. Platform-based whipping tests
+were performed in water and air while systematically varying
+material stiffness and driving speed. Image-based quantification
+revealed that the Ecoflex Gel 2 arm driven at 150 rpm
+(motor speed) reproduced curvature propagation similar to that
+observed in octopus reaching. However, its bend-point velocity
+decreased monotonically rather than exhibiting the biological
+bell-shaped profile, confirming that the octopus reaching move-
+ment is not merely a passive whipping behavior. The absence
+of propagation in air further highlights the critical role of the
+surrounding medium in forming octopus-like reaching motion.
+This study provides a new perspective for understand biological
+reaching movement, and offers a potential platform for future
+hydrodynamic research.
+
+I. INTRODUCTION
+
+The reaching movement of the octopus arm exemplifies
+one of the most stereotyped and simplified control strategies
+in its highly deformable muscular system. Unlike the human
+arm with a limited number of joints, the octopus arm
+possesses virtually infinite degrees of freedom, functioning
+as a muscular hydrostat capable of bending, elongating,
+shortening, and twisting without skeletal support. Despite
+this structural complexity, octopuses can extend their arms
+toward a target through highly similar reaching movements,
+following a consistent bend-propagation pattern that is orga-
+nized both spatially and temporally [1]-[3].
+
+Previous studies have suggested that this movement shares
+intriguing parallels with whipping-like passive dynamics [1],
+[2], [5], [6]. Biological reaching can be described as a
+base-to-tip propagating bend wave—arising from continuous
+neural drive together with intrinsic elasticity and hydrody-
+namic interaction—in which a traveling front of stiffening
+
+*These authors contributed equally to this work.
+
+*Corresponding author: Yiyuan Zhang (yiyuan.zhang @u.nus.edu)
+
+Department of Mechanical Engineering, National University of Singa-
+pore, Singapore 117575, Singapore.
+
+This work was supported by the following projects: the DESTRO project
+(“Dextrous, strong yet soft robots,” R2210IR124), funded by MAE (Italy)
+and A*STAR (Singapore); the REBOT project (“Rethinking underwater
+robot manipulation,” Moe-t2eP50221-0010), funded by the Singapore Min-
+istry of Education; and the RoboLife project (“Soft robots with morpholog-
+ical adaptation and life-like abilities”), funded by the NUS Funding Agency
+(Singapore).The authors also would like to thank Wanlin Huang for help
+with final result visualization.
+
+and muscle activation produces curvature and energy trans-
+mission [7], [8] reminiscent of a whip crack, as shown
+in Figure. la [4]. The analogy suggests that the octopus
+may utilize passive mechanical whipping to achieve rapid,
+efficient reaching movement, converting local activation into
+
+(a)
+0.08
+g
+—
+2
+2
+S
+ia
+5
+is}
+—0.02
+0.0 0.2 0.4 0.6 0.8 1.0
+s/Lo
+(b)
+Fig. 1. (a) Multiple exposures of a bullwhip exhibiting propagating waves
+
+during motion, kinematically similar to an octopus arm. [4] (b) Curvature
+pattern of real octopus reaching behavior (s/o denotes the normalized arc
+length along the arm, with s being the arc-length coordinate and Lo the
+undeformed arm length).
+a large-scale sweeping-like reaching motion.
+
+The detailed kinematics of the octopus reaching behavior
+reveal several invariant features across individuals and con-
+texts. The motion is initiated by the formation of a localized
+bend near the arm base, which then propagates distally
+along a nearly planar trajectory, maintaining a constant-
+curvature bend propagation region over a significant portion
+of the movement, as shown in Figure. 1b [1], [3], [7].
+The bend-point velocity shows a characteristic bell-shaped
+temporal profile with smooth acceleration and deceleration,
+implying that control is exerted chiefly over the bend’s
+spatiotemporal position rather than over discrete muscle seg-
+ments [1]. Biomechanical and computational models further
+demonstrate that a simple traveling wave of muscle stiffening
+can reproduce the experimentally observed velocity profiles
+and curvature evolutions [3], [7], supporting the notion
+that the system relies on local passive wave mechanics
+to generate globally coordinated motion. Collectively, these
+findings portray octopus reaching as a dynamic balance
+between active control and passive mechanical propagation,
+embodying principles that resonate strongly with whipping
+dynamics—where a localized deformation evolves into a
+smooth, accelerating wave culminating in effective, directed
+motion.
+
+The whipping motion represents a canonical example
+of energy focusing and curvature propagation in flexible
+continua. When an impulse is applied to the handle of a whip,
+a traveling loop or curvature wave propagates toward the free
+end, gradually accelerating as the whip’s radius tapers and
+mass per unit length decreases [9]. This process converts dis-
+tributed elastic and kinetic energy into a concentrated, high-
+velocity motion at the tip—eventually reaching supersonic
+speed and producing the characteristic crack. Theoretical
+analyses based on elastic rod models reveal that the travel-
+ing wave maintains a quasi-constant curvature while local
+velocity increases, consistent with conservation of energy
+and momentum in a homogeneous medium. Importantly,
+this bend propagation mechanism is not unique to whips;
+similar dynamic principles have been identified in biological
+systems such as fly-fishing lines, flagella, and even octopus
+arms, where a local curvature travels through the body to
+produce directed motion. From this perspective, the octopus
+reaching behavior may be hypothesis as a biological man-
+ifestation of the whipping phenomenon [4]. Both systems
+rely on the propagation of a localized bend—maintaining
+nearly constant curvature and exhibiting a bell-shaped ve-
+locity evolution. In whips, the traveling loop is a fully
+passive mechanical wave driven by the initial impulse and
+geometric tapering; in octopus arms, a similar propagation
+arises from the coupling of muscle activation waves and
+passive environmental interactions. These parallels suggest
+that understanding whipping dynamics provides not only a
+physical analogue but also an experimental framework for
+interpreting the passive wave-based control strategy observed
+in octopus reaching motions.
+
+Building upon these findings, we aimed to examine
+whether the whipping dynamics in a fluid environment could
+
+reproduce the bend-propagation characteristics observed in
+octopus reaching, and whether such motions would ex-
+hibit kinematic features comparable to biological reaching
+movements. In particular, this study explores whether a
+whip-like passive motion, when performed underwater, can
+generate bend propagation, curvature evolution, and bend-
+point velocity profiles similar to those recorded in octopus
+reaching movements.
+
+We first performed hand-driven trials in water to mimic
+octopus reaching movements and then used the captured
+trajectories to reverse design a repeatable rig: a PLA+ 3D-
+printed frame carrying a tapered silicone arm that can repro-
+duce the motions under controlled settings. Using this device,
+we executed repeated runs while systematically switching
+silicone grades and adjusting the rotation rate to examine
+how these factors shape the outcome.
+
+The videos were processed with a dedicated pipeline:
+frames were uniformly sampled, the midline was recon-
+structed for each frame, and from this we derived curvature
+evolution and bend-point speed, which were compared with
+published biological data. An Ecoflex Gel 2 (abbreviated as
+Gel 2) arm operated at 150 rpm (motor speed) produced the
+closest match in curvature propagation to octopus reaching;
+however, the bend-point speed declined steadily rather than
+forming the bell-shaped time course typical of animals.
+Under identical actuation in air, no propagation was ob-
+served, underscoring the dominance of the fluid environment.
+Collectively, these results verify that the biological reaching
+movement is not merely an arm-whipping motion from a
+robotics perspective, highlight the importance of environment
+medium in shaping the reaching behavior, and provide a
+simple yet insightful experimental framework that may serve
+as a tool for future hydrodynamics research on reaching
+movements.
+
+II. METHOD
+A. Design of Mechanism
+
+We first conducted manual whipping experiments in an un-
+derwater environment to qualitatively reproduce the reaching
+motion observed in octopus arms, as shown in Figure. 2. As
+the extracted midline of real octopus reaching movement and
+manual whipping motion shown in Figure. 3a and Figure. 3b,
+the resulting motion sequence exhibited a distinct bend prop-
+agation pattern similar to the biological reaching behavior.
+Subsequently, a motion tracking software (Tracker) was used
+to extract the positional coordinates and orientation angles of
+the silicone arm’s base movement, as presented in Figure. 3c.
+The recorded data were plotted on an x-y coordinate system
+and imported into MotionGen, where a virtual mechanism
+capable of outputting an analogous trajectory was generated,
+as shown in Figure. 3d. Based on the generated trajectory,
+the detailed structure of the linkage mechanism was designed
+in SolidWorks, including each connecting link, joint, and
+gear configuration (see Figure. 3e). To overcome the inherent
+limitation of the motor’s output torque, an additional set of
+power-amplifying gears was incorporated to enhance energy
+transmission efficiency. Due to the constraints of manual
+Fig. 2.
+
+(a) (b)
+
+Fig. 3. (a) The trajectory of the midline shift during the octopus’s reaching
+motion. (b) The trajectory of the midline shift during underwater manual
+whipping motion. (c) Position and orientation extraction in Tracker. (d)
+Mechanisms generation in MotionGen. (e) SolidWorks Model. (f) Physical
+prototype of the mechanism.
+
+manipulation within the water tank, the observed motion pri-
+marily exhibited a diagonally downward wave propagation.
+To better approximate the actual reaching kinematics of the
+octopus—where the curvature wave propagates nearly along
+a horizontal plane—we elevated a section of the mechanism’s
+supporting frame by approximately 20 degrees clockwise.
+This adjustment redirected the path of motion transmission
+in a nearly horizontal direction, allowing a more biologically
+consistent wave propagation pattern.
+
+Finally, all parts were fabricated using 3D printing with
+PLA+ material and subsequently assembled into a complete
+prototype mechanism with a tapered silicone arm, as shown
+in Figure. 3f and the motor used in the mechanism has a
+KV value of 350 rpm/V, a maximum current of 15 A, and a
+maximum power of 300 W. The resulting system provided
+
+Underwater manual whipping motion.
+
+a compact platform that allows fine-tuning of geometric
+and actuation parameters for future experiments on wave
+dynamics and underwater performance.
+
+B. Data Extraction
+
+Midline Extraction. To quantitatively analyze the de-
+formation of the silicone octopus arm, we developed a
+custom image-processing pipeline. As shown in Figure. 4a,
+each video frame was first processed with Meta’s Segment
+Anything Model 2 (SAM 2) [10] to segment the moving arm
+from the underwater background. A binary mask was then
+applied to remove the rigid supporting structure, yielding
+a clean extraction of the silicone arm (Figure. 4b). The
+extracted region was skeletonized to obtain its medial axis
+(Figure. 4c). Because skeletonization can occasionally intro-
+duce spurious branches, all branch points were detected and
+removed. The three terminal nodes of the remaining skeleton
+were subsequently identified, and the two closest endpoints
+(£2, £3) were used to compute their midpoint M, which
+served as an auxiliary node to reconstruct the main, ordered
+centerline (Figure. 4d).
+
+Curvature Computation. The reconstructed midline was
+smoothed and uniformly resampled to generate evenly spaced
+reference points along the arm. For each sampled point,
+
+(b)
+
+CA
+
+(c) (d)
+
+Fig. 4. (a) Segmentation on original image. (b) Extracted mask. (c) Original
+midline with a branch. (d) Final midline.
+the local curvature k was computed using a three-point
+geometric method: for a point P; and its two adjacent
+neighbors P;_; and P;+1, a circle passing through these three
+points was fitted, and the curvature was defined as
+
+1
+=
+where R is the radius of the fitted circle. This approach yields
+a continuous curvature profile along the arm, effectively
+describing the spatial propagation of bending.
+
+Bend-point Velocity Identification. The bending point
+was defined as the midline location with the minimum x-
+coordinate in each frame. Using the known time interval be-
+tween consecutive frames, the displacement of this bending
+point was tracked to compute its velocity. This procedure
+provides a quantitative measure of the propagation speed of
+the curvature wave along the soft robotic arm during the
+reaching motion.
+
+qd)
+
+Ill. RESULTS
+
+During the initial manual whipping tests, the Gel 2 arm
+demonstrated the most distinct and similar bending response
+among all tested materials. Based on this observation, we
+selected Gel 2 as the reference material for subsequent
+variable-speed experiments, aiming to determine an appro-
+priate driving velocity capable of generating clear bend
+propagation. After identifying this optimal condition, the
+same fixed-speed tests were conducted for the other two
+materials (Ecoflex 10 and Dragonskin 10) for comparison.
+
+In the variable-speed tests, three driving motor velocities
+were evaluated: 30 rpm, 90 rpm, and 150 rpm. Motions
+
+exceeding 210 rpm were excluded because the arm exhibited
+out-of-plane deviations that disrupted the planar curvature
+propagation. For each condition, the recorded trajectories
+were processed to visualize the bend point velocity as a
+function of normalized time and velocity and the temporal
+evolution of curvature along the normalized arm length, as
+shown in Figure. 6b and Figure. 7.
+
+For different driving speeds of the Gel 2 arm (Fig-
+ure. 7a—7c), the curvature pattern at 150 rpm was most
+consistent with biological reaching (see Figure. 5), showing
+a temporal evolution similar to that observed in octopus
+arm motion (Figure. 1b). The curvature first decreased,
+then increased, and finally decayed, resulting in the largest
+amplitude and most distinct propagation among the samples
+tested. In contrast, Ecoflex 10 and Dragonskin 10 produced
+smaller curvature magnitudes and less continuous propaga-
+tion (Figure. 7c—7e).
+
+In both the variable-speed experiments (Gel 2 at 30, 60,
+and 150 rpm) and the variable-material experiments (Gel
+2, Ecoflex 10, and Dragonskin 10 at a fixed speed of 150
+rpm), the propagation velocity of the bend point along the
+x-direction exhibited a monotonically decreasing trend over
+time (Figure. 6b). In all cases, the bend point started with a
+relatively high velocity, which rapidly decayed and gradually
+approached zero.
+
+IV. DISCUSSION
+
+Material and speed strongly modulate the bend propaga-
+tion. Among the tested conditions, Gel 2 generated the largest
+curvature amplitudes and the most continuous transmission;
+Ecoflex 10 showed intermediate behavior, while Dragonskin
+
+Fig. 5.
+
+0.5
+
+Normalized velocity
+
+Normalized time
+(a) Normalized velocity pattern for velocity and distance and aligned at the
+peaks. [1]
+
+Fig. 6. Curvature and bend point velocit
+
+0.500s
+
+Ecoflex Gel 2 underwater performance at 150 rpm.
+
+aa Gel 2 - 30 pm
+Gel 2 - 90 rpm
+700 — Gel2- 150xpm
+Ecoflex 10 - 150 rpm
+OM Dragonskin 10 - 150 rpm
+3500
+3
+S400
+—
+FE
+5 300
+Z
+200
+100
+. :
+0.0 0.2 04 0.6 08 1.0
+
+Normalized Time
+
+(b) Normalized velocity pattern in the experiment.
+
+y characteristics of bend propagation.
+Curvature (mm-")
+
+0.0 02 oa 06 08 1.0
+s/lg
+(a) Ecoflex Gel 2 at 30 rpm
+
+0.05
+0.04:
+0.03)
+
+£
+E 0.02
+2
+5 0.01
+€ 0.00
+3
+—0.01
+0.02 ——
+0.03.9 - St —— =
+0.0 02 0.4 0.6 0.8 1.0
+s/Lo
+
+(b) Ecoflex Gel 2 at 90 rpm
+
+0.05
+
+©
+8
+g
+
+©
+&
+
+Curvature (mm)
+
+0.0 02 oa 06 08 10
+s/Lo
+
+(c) Ecoflex Gel 2 at 150 rpm
+
+Curvature (mm-*)
+
+0.0 02 04 0.6 08 1.0
+s/o
+
+(d) Ecoflex 10 at 150 rpm
+
+Curvature (mm-4)
+
+0.0 02 04 06 08 10
+s/Ly
+(e) Dragonskin 10 at 150 rpm
+
+Fig. 7. Curvature characteristics of bend propagation under different driving
+speeds and materials.
+
+10 attenuated fastest. Driving at 150 rpm provided an optimal
+balance between input energy and hydrodynamic loading,
+producing the most similar propagation to biological reach-
+ing. By contrast, lower speeds yielded insufficient momen-
+tum to sustain wave transmission, whereas excessive driving
+speeds introduced inertial and hydrodynamic instabilities that
+disrupted the planar mode of propagation.
+
+Despite the clear spatial resemblance between the curva-
+ture evolution of Gel 2 at 150 rpm and biological reaching,
+the bend-point velocity shows a monotonically decreasing
+time course in both the variable-speed and variable-material
+experiments (see Figure. 6b) instead of the bell-shaped
+profile typical of biological reaching as shown in Figure. 6a.
+This finding supports the interpretation that the observed
+motion represents a passive hydrodynamic propagation rather
+than an actively controlled reaching behavior. Mechanisti-
+cally, the monotonic decay accords with dissipative propa-
+gation of a passive wave, where viscous drag from the fluid
+continuously drain energy: the initial actuation originates at
+the base and attenuates as it travels, leading to a reduction
+of kinetic energy and curvature amplitude.
+
+Interestingly, the curvature patterns of Gel 2 at low driving
+speed (30 rpm) exhibited temporal profiles similar to those
+of Ecoflex 10 and Dragonskin 10 driven at 150 rpm. This
+correspondence suggests that curvature propagation depends
+not only on material modulus but also on the relative balance
+between actuation intensity and inertial loading. The softer
+Gel 2 at low driving speed and the stiffer Ecoflex 10 and
+Dragonskin 10 at moderate speed appear to reach comparable
+dynamic regimes where elastic recovery dominates over
+inertia-driven momentum transfer. Under these conditions,
+the bending wave travels through passive redistribution of
+kinetic and elastic energy along the arm, leading to similar
+curvature attenuation profiles across materials. This behavior
+aligns with the whip-wave dynamics described by McMillen
+and Goriely [9], where energy imparted at the base propa-
+gates through a continuous medium via inertial coupling and
+geometric nonlinearity.
+
+Furthermore, at higher speeds (210 rpm), the silicone arm
+occasionally exhibited non-planar motion characterized by
+twisting and asymmetric trajectories. We hypothesize that
+this phenomenon arises from strong fluid—structure coupling,
+where the interaction between the rapidly deforming arm
+and the surrounding flow generates three-dimensional hy-
+drodynamic instabilities. Similar out-of-plane deformations
+have been reported in previous fluid-structure interaction
+studies of flexible bodies in oscillatory or traveling-wave
+motion [11], [12]. In these works, the coupling between
+structural elasticity, inertial loading, and unsteady vortex
+shedding can drive spontaneous transitions from planar to
+helical or chaotic motion once the driving velocity exceeds a
+critical threshold. In our system, this transition likely reflects
+the onset of such coupling-induced instability, suggesting that
+fluid feedback becomes dynamically significant beyond the
+regime of quasi-planar propagation.
+
+These findings indicate that the bend propagation observed
+in our experiments can be parsimoniously explained by a
+0.075s
+
+0.120s 0.140s
+
+Fig. 8.
+
+passive hydrodynamic mechanism. Once a local bend is
+initiated near the base, distributed drag from the surrounding
+water effectively suppresses the unactuated portions of the
+arm and advects the bend distally along a nearly planar
+path. The absence of propagation in air under identical
+conditions (Gel 2 driven at 150 rpm), as shown in Fig-
+ure. 8a, further supports this interpretation. In addition,
+experiments in the attached video conducted in air with
+driving speeds at 210, 270, and 330 rpm (see Figure. 8b)
+revealed bend propagation patterns that differed substantially
+from those observed in biological reaching, accompanied by
+a marked increase in bend-point velocity [9]. This suggests
+that, in the absence of fluid-mediated damping and added-
+mass effects, the motion is dominated by direct mechanical
+inertia rather than hydrodynamic coupling. Therefore, we
+speculate that the surrounding fluid plays an important role
+in shaping curvature propagation, consistent with previous
+biological findings describing passive wave transmission in
+“non-activated” octopus arm segments [3].
+
+V. CONCLUSIONS
+
+This study examined whip-like motions in a fluid environ-
+ment and showed that, while the Gel 2 arm driven at 150
+rpm reproduces a curvature evolution that resembles octopus
+reaching, the bend-point velocity decays monotonically and
+therefore does not exhibit the bell-shaped temporal profile
+characteristic of biological reaching. Together with the ab-
+sence of bend propagation in air, these findings indicate
+that the observed propagation is dominated by buoyancy,
+passive hydrodynamics and fluid—structure interactions. In
+this sense, our results offer a complementary perspective on
+why reaching is not a simple whipping behavior.
+
+Beyond this conceptual point, our experiments reveal how
+material properties and driving speed bound the envelope
+of curvature propagation, with Gel 2 and 150 rpm offering
+the most biological like spatial propagation among the tested
+conditions. The methodology—combining controlled actua-
+tion, underwater trials, and quantitative curvature and veloc-
+ity analyses—provides a simple and reproducible platform
+for quantitative, reaching-like kinematic studies. We antic-
+ipate that this platform can support deeper hydrodynamics
+research on reaching movements, including systematic stud-
+ies of medium viscosity, arm geometry, and input shaping.
+
+0.160s
+
+(b)
+
+iP
+
+0.180s 0.200s
+
+Ecoflex Gel 2 performance in air at (a) 150 rpm (b) 330 rpm.
+
+Future work will explore drive profiles and stiffness distri-
+butions aimed at approaching bell-shaped velocity histories
+without sacrificing propagation robustness, and extend the
+analysis to 3D kinematics at higher speeds.
+
+REFERENCES
+
+1] Y. Gutfreund, T. Flash, Y. Yarom, G. Fiorito, I. Segev, and B. Hochner,
+“Organization of octopus arm movements: a model system for studying
+the control of flexible arms,” Journal of Neuroscience, vol. 16, no. 22,
+pp. 7297-7307, 1996.
+
+G. Sumbre, Y. Gutfreund, G. Fiorito, T. Flash, and B. Hochner,
+“Control of octopus arm extension by a peripheral motor program,”
+Science, vol. 293, no. 5536, pp. 1845-1848, 2001.
+
+Y. Yekutieli, R. Sagiv-Zohar, R. Aharonov, Y. Engel, B. Hochner, and
+T. Flash, “Dynamic model of the octopus arm. i. biomechanics of
+the octopus reaching movement,” Journal of neurophysiology, vol. 94,
+no. 2, pp. 1443-1458, 2005.
+
+A. C. Noel, “Grip, grab, and groom: The biomechanics of frog and cat
+tongues,” Ph.D. dissertation, Georgia Institute of Technology, 2018.
+YY. Gutfreund, T. Flash, G. Fiorito, and B. Hochner, “Patterns of arm
+muscle activation involved in octopus reaching movements,” Journal
+of Neuroscience, vol. 18, no. 15, pp. 5976-5987, Aug 1998. [Online].
+Available: https://www.jneurosci.org/content/18/15/5976
+
+J. Alupay, J. Mather, and K. Iskarous, “A syntactic analysis
+of a complex motor action: the octopus arm ‘slap’,’ Marine
+Biology, vol. 170, no. 99, p. -, Jun 2023. [Online]. Available:
+https://doi.org/10.1007/s00227-023-04243-y
+
+I. Zelman, M. Titon, Y. Yekutieli, S. Hanassy, B. Hochner, and
+T. Flash, “Kinematic decomposition and classification of octopus arm
+movements,” Frontiers in computational neuroscience, vol. 7, p. 60,
+2013.
+
+T. Wang, U. Halder, E. Gribkova, M. Gazzola, and P. G. Mehta,
+“Control-oriented modeling of bend propagation in an octopus arm,”
+in 2022 American Control Conference (ACC). TEEE, 2022, pp. 1359-
+1366.
+
+T. McMillen and A. Goriely, “Whip waves,” Physica D: nonlinear
+phenomena, vol. 184, no. 1-4, pp. 192-225, 2003.
+
+N. Ravi, V. Gabeur, Y.-T. Hu, R. Hu, C. Ryali, T. Ma,
+H. Khedr, R. Radle, C. Rolland, L. Gustafson, E. Mintun, J. Pan,
+K. V. Alwala, N. Carion, C.-Y. Wu, R. Girshick, P. Dollar,
+and C. Feichtenhofer, “Sam 2: Segment anything in images and
+videos,” arXiv preprint arXiv:2408.00714, 2024. [Online]. Available:
+https://arxiv.org/abs/2408.007 14.
+
+J.-s. Wang, D. Fan, and K. Lin, “A review on flow-induced vibration of
+offshore circular cylinders,” Journal of Hydrodynamics, vol. 32, no. 3,
+pp. 415-440, 2020.
+
+L. Ma, K. Lin, D. Fan, J. Wang, and M. S. Triantafyllou, “Flexible
+cylinder flow-induced vibration,” Physics of Fluids, vol. 34, no. 1,
+2022.
+
+[10
+
+(ll
+
+[12

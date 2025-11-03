@@ -1,0 +1,2243 @@
+HybriNet — Hybrid Neural Network-based framework for
+Multi-Parametric Database Generation, Enhancement, and
+Forecasting
+
+G. Barragdn!, A. Hetherington!, A. Sengupta!, R. Abadfa-Heredia!, J. Garicano-Mena!,
+S. Le Clainche!*
+
+October 30, 2025
+
+! ETSI Aeronautica y del Espacio, Universidad Politécnica de Madrid, Plaza Cardenal Cisneros,
+3, Madrid, 28040, Spain.
+
+? Center for Computational Simulation (CCS), 28660, Boadilla del Monte, Spain.
+
+Abstract
+
+s.flu-dyn] 29 Oct 2025
+
+SIC
+
+In this work, we introduce HybriNet an innovative and robust framework capable of enhancing
+spatial resolution, generating fluid dynamics databases for specific flow parameters, and predicting
+
+their temporal evolution. The methodology is based on the development of a reduced-order model
+(ROM) by integrating high-order singular value decomposition (HOSVD) with machine learning
+(ML) and deep learning (DL) techniques. The ROM enables the generation of multi-parametric
+uid dynamics databases concerning varying flow conditions, increases the spatial resolution, and
+predicts the behaviour of the fluid dynamics problem in terms of time. This helps to accelerate nu-
+merical simulations and generate new data efficiently. The performance of the proposed approach
+has been validated using a collection of 30 two-dimensional laminar flow simulations over a square
+cylinder at different Reynolds numbers and angles of attack. The databases reconstructed using
+he proposed methodology exhibited a relative root mean square error below 2% when compared
+
+t.
+to ground-truth high-resolution data, demonstrating the robustness, accuracy, and efficiency of
+the proposed framework.
+
+2510.25625v1 [phy
+
+arXiv
+
+1 Introduction
+
+hropogenic processes. In the
+
+le for the dispersion of pollu
+
+governing equations of a fluid
+
+Fluid dynamics plays a significant role in human life and is integral to numerous natural and an-
+
+environment, fluid motion drives ocean circulation, shapes rivers and
+
+channels, and transports sediments [1], [2]. It also plays a major role in air pollution, being responsi-
+
+ants (which can be particulate matter, gases, or heat), as well as heat
+
+and mass transfer [3], [4]. In industry, fluid dynamics is crucial for power generation, manufacturing
+rocesses, lubrication, and refrigeration [5]. Thus, fluid dynamics research is essential for a deeper
+understanding of flows, improving prediction accuracy, and controlling these physical phenomena.
+
+Computational Fluid Dynamics (CFD) is widely used in both industry and academia to predict
+he behaviour of a fluid in motion under specific conditions. This numerical method resolves the
+
+flow: Navier-Stokes, conservation of mass and energy, among other
+
+hings [6]. Numerical simulations of complex phenomena, such as turbulent flows, multiscale, multi-
+hase, cavitation, etc., are computationally expensive, requiring significant computational resources
+and considerable time to complete [7]. The development of reduced-order models (ROMs) is an al-
+ernative to overcome the previously mentioned CFD limitations. ROMs are capable of drastically
+reducing computational cost by approximating large-scale systems as simplified ones, which involves
+finding a latent low-dimensional space to represent the full-order model (FOM). ROMs can be classified
+as intrusive (ROMs) and non-intrusive (niROMs). The former requires the governing equations of the
+henomenon to solve the unknowns, while the latter is purely data-driven [8].
+
+Modal decomposition methods are widely used in fluid dynamics to understand the relevant flow
+structures in fluid dynamics phenomena [9]. The data-driven nature of these methods makes them par-
+icularly useful for the development of ROMs [10], [11]. Singular value decomposition (SVD) [12], [13]
+and proper orthogonal decomposition (POD) [14] have been extensively applied to extract the dominant
+atterns and structures of a flow, being able to accurately represent the high-dimensional phenomenon
+with just a few SVD/POD modes (it is worth mentioning that SVD is one of the two common methods
+used to compute POD modes; therefore, the terms POD and SVD are often used interchangeably in
+he literature). [15], [16], [17]
+
+High-order singular value decomposition (HOSVD) [18] is a multi-dimensional extension of SVD,
+capable of extracting the underlying multilinear physics that is related to each of the dimensions
+of the tensor [19]. Karasézen et al. [20] developed ROMs for cross-diffusion systems, where they
+demonstrated the computational efficiency of the ROMs and the accuracy of the spatio-temporal
+patterns for new parameter values. Kazeem et al. [21] combined POD-HOSVD to develop reduced
+order models of different flow fields, demonstrating its application to reconstruct the flow and fill up
+missing or incomplete data. Lorente et al. [22] demonstrated the robustness of the modal decomposition
+method coupled with cubic spline interpolation for efficiently generating aerodynamic databases. This
+
+methodology was applied to a set of steady-state 2D airfoil numerical simulations with flow conditions
+varying across Mach number M € (0.4, 0.8], flap deflection angle J € [—5°, 5°], Ad = 1° , and angle of
+attack (AoA) a € [—3°, 3°], Aa = 0.5° for the reconstruction of local pressure fields and prediction of
+global aerodynamic coefficients with reduced computational cost. The increment between the a and 6
+represents a significant limitation, as it requires the generation of a large amount of data. The method
+shown in this paper addresses this limitation.
+
+Machine learning has revolutionized various fields in recent decades due to the increasing availability
+of high-quality data, novel algorithms, and technological advancements [8]. As mentioned earlier,
+the data-driven nature of modal decomposition techniques such as SVD/POD and HOSVD makes
+them ideal candidates for coupling with machine learning methods, which can effectively address the
+n
+oO
+
+onlinearities of the phenomena under study [23]. Several studies have explored the enhancement
+f niROMs obtained through modal decomposition with deep learning for different purposes, such as
+super-resolution, flow feature interpolation and temporal forecasting. For instance, regarding resolution
+enhancement, Hetherington, et al. [24] used SVD to enhance the spatial resolution and repair fluid
+dynamics databases through linear and non-linear interpolation methods compared to DL approaches.
+In the same line, Diaz et al. [23] combined SVD and deep neural networks to enhance the spatial
+resolution of fluid dynamics databases, achieving reconstruction errors below 5%. On the topic of flow
+feature interpolation, Aversano et al. [25] developed a methodology combining POD with Gaussian
+Process Regression (GRP) to develop a digital twin of a semi-industrial furnace. Procacci et al. [26
+developed a digital twin combining POD and sparse sensing for the same furnace. In the area o
+temporal forecasting, Abadia-Heredia et al. [27] developed a hybrid-ROM based on POD combined
+with deep learning architectures, capable of predicting over time using only the temporal coefficients
+from various fluid dynamics databases. In the same line, Xiaoqing, et al. [28] combined POD with
+Long-Short Term Memory neural networks to predict pressure time series using data obtained from
+wind tunnel tests of a single square cylinder and two tandem square cylinders.
+
+In this work, to the best of the authors’ knowledge, we present for the first time an innovative
+methodology, referred to in this document as HybriNet, capable of enhancing spatial resolution, gen-
+erating fluid dynamics databases for specific flow parameters, and predicting their evolution over time.
+This has been achieved by applying ML techniques to the strategies proposed by Lorente et al. [29]
+while overcoming the limitations related to AoA interpolation. Moreover, the tool extends the ideas
+introduced in our previous work to enhance the spatial resolution of the data [30], and integrates the
+redictive framework proposed by [31] to forecast temporal dynamics. To sum up, the main contribu-
+ions of this work include: (i) the development of a hybrid, deep learning-based, multi-parametric ROM
+grounded in physical principles; (ii) the combination of HOSVD with neural networks to perform spatial
+resolution enhancement and temporal prediction while maintaining reduced dimensionality; and (iii)
+he integration of HOSVD with GPR and deep neural networks to enable database generation for un-
+seen flow conditions. The proposed methodology has been validated on a database of two-dimensional
+square cylinder flows under various flow conditions, obtained through numerical simulations.
+
+This manuscript is organized as follows. Section 2 describes the proposed methodology to develop
+HybriNet; Section 3 describes the set-up for the numerical simulations and summarises the databases;
+Section 4 describes the main results obtained and the discussion. Finally, Section 5 reports the con-
+clusions of the work.
+
+2 Methodology
+
+This section provides a detailed description of the steps taken in the development of the fully data-
+driven ROM: HybriNet. These steps include the organization of the data obtained through CFD, an
+SVD-based temporal alignment method, and an in-depth explanation of the HOSVD modal decom-
+position technique. In addition, a detailed description is provided of the various machine learning
+approaches developed for data enhancement, the generation of databases under unseen flow condi-
+tions, and forecasting. Finally, the error metrics used to evaluate the proposed method against its
+counterpart are also presented.
+
+2.1 Data organization
+
+The fluid dynamics databases used in this work are organized as a multidimensional array, referred
+to as a snapshot tensor, where the data are distributed on an equispaced two-dimensional grid. The
+flow-related information, such as the streamwise and normal velocity components, Reynolds number,
+angle of attack, spatial coordinates, and time, is stored separately within the tensor. This snapsho
+tensor is a collection of matrices, where the columns and rows for a given time correspond to the
+tensor fibres. In this work, the two-dimensional flow past a square cylinder was first organized into
+fourth-order tensors and subsequently into sixth-order tensors.
+
+For a two-dimensional time-dependent simulation defined by a particular Reynolds number and
+angle of attack, the streamwise and normal velocity components are represented in a Jz x J3 coordinate
+system (with Jz and J3 being the number of spatial grid points associated with each component, and
+4 the number of snapshots varying in time) as:
+
+V(%j5,Yjg,tk) for jo=1,...,J2, jg =1,...,Jg, and k=1...,K. (1)
+
+This information is organized as a fourth order J, x Jz x J3 x K-tensor V, whose components
+Vj, jojgk ave defined as:
+
+Vijaigk = Va(Vjn,Vjgsth),  W2jojgk = Vy(®jn+ Vins th) (2)
+
+where the index j; refers to the streamwise and normal velocity components (j; = 1,2 where
+J, = 2). For cases where the database contains information under different flow conditions (such as
+varying Reynolds numbers and angles of attack, Re and AoA, respectively), the data must be organized
+as a sixth-order tensor (Jj x Z, x Zy x Jo x J3 x K). The flow condition data (Re, AoA) are contained in
+the Z and Z dimensions, respectively. The streamwise and normal velocity components are organized
+in a Jz x J3 coordinate system, as follows:
+Vierzaiajak = Ui(R€z,,A0A2,, © j,Yjgrth), Waerzrjaisk = V2(Rez,,A0Az,, %j2,Yj3,th), (3)
+
+where the indexes z; and z2 are related to the varying parameters Re and AoA that describe the
+flows. On the other hand, j2 and j3 are the discrete values of the #- and y-axis, while k is the discrete
+time.
+
+2.2. POD Phase-Based Alignment
+
+In order to achieve consistency across simulations with varying unsteady behaviour (e.g., due to differ-
+ent Reynolds numbers and/or angles of attack), a phase-based alignment technique has been developed
+using SVD. This method maps the temporal evolution of each simulation onto a common, phase-aligned
+temporal grid based on the dominant flow dynamics.
+
+Given a four-dimensional tensor, as in eq. (1), where the first three dimensions correspond to the
+flow variables and the number of spatial points in the x and y directions, the data are reshaped into
+a two-dimensional matrix:
+
+KE RU 24s) xe (4)
+
+where K denotes the number of temporal snapshots. The temporal mean is subtracted to obtain the
+fluctuation matrix:
+xX’ =xk-X, (5)
+
+where X is the temporal mean computed along the second dimension.
+
+Next, we perform SVD on the mean-subtracted matrix:
+X’=U=xV', (6)
+
+where U € R‘/1¥2/s)*" contains the r spatial SVD modes in its columns, © € R’*” is the diagonal
+matrix of singular values, and V € R**" contains the temporal SVD coefficients, each one associated
+with a POD mode. Here, r denotes the number of retained SVD modes (typically r < min(J;J2J3, K)).
+
+A key property of SVD is that its spatial modes, the columns of U, are ordered by decreasing
+energy, where the energy of the i-th mode is proportional to the i-th singular value o;. Hence, if u;
+and u, are the i-th and j-th columns of U (with corresponding singular values 0; and oj), then for
+any 72> j,
+
+Oj; 2 Oj. (7)
+
+Therefore, the i-th SVD mode contains at least as much energy as the j-th mode.
+
+2.2.1 Phase alignment of the databases
+
+The first column of V, denoted as vj, usually captures the dominant oscillatory behaviour in periodic
+or quasi-periodic flows, since it is related to the first (most energetic) SVD mode. This mode is
+normalized to lie within the interval [—1, 1] using the following transformation:
+
+Pa vi = min(vi)
+
+(8)
+
+max(vj) — min(vj)
+
+The normalized temporal coefficient Vi is used to determine the dominant period T of the signal.
+This period is then used to phase-align all the databases, such that the onset of the dominant frequency
+cycle in the first SVD mode occurs at the same time instant across all databases. This alignment is
+crucial to ensure that the ROM can accurately predict the temporal dynamics of the system, as it
+removes phase discrepancies. For a given number of snapshots ngnaps, each period is discretized into a
+uniform temporal grid of K snapshots:
+
+® {6 —, i tye}. (9)
+
+The aligned temporal snapshots are obtained by extracting or interpolating the original temporal
+coefficients onto a structured phase grid. Cubic interpolation is applied when the target phase positions
+do not coincide with the original sampling points. This procedure ensures that all signal oscillations
+begin at the same phase and contain the same number of samples per cycle, which is essential for
+consistent phase alignment across databases.
+
+Finally, the aligned snapshot matrix Xalignea is reconstructed using the aligned r POD modes
+and reshaped back into its original four-dimensional spatial format with temporally aligned snapshots
+across the phase dimension, as shown in Fig. 1
+
+1 Select a fixed number of complete periods along
+' the first temporal mode
+
+aire
+NAA eee
+
+Define a fixed number of snapshots fot the |
+structured temporal grid per period
+
+lExtract the snapshots corresponding to the time !
+| __ instants of the structured temporal grid |
+
+‘Reconstruction of the database
+! (SVD inverse operation)
+
+Evolution of the streamwise velocity
+on a probe of the aligned dataset.
+
+Figure 1: Sketch of the methodology applied for the SVD-based alignment of the databases obtained
+through numerical simulations.
+
+2.3 Data pre processing
+
+Before the dimensionality step, normalization techniques must be applied to prevent the loss of relevant
+information associated with small magnitudes that may exist in the database. Centering and scaling
+normalization has been utilized in this work. Sola et al. [32] showed that adequate pre-processing of
+the data can reduce both the absolute error and the computational time during training by almost an
+order of magnitude [33] in deep learning architectures.
+
+The combination of both centering and scaling transformations is also called standardization. This
+method ensures that the normalized output Vstandardized has a mean equal to 0 and a standard deviation
+
+of 1 [34].
+
+Vp
+ov’
+
+Vistandardized =
+
+a
+where Vstandardized is the database, juy is the mean of the database and oy the standard deviation.
+
+The centering and scaling pre-processing technique has been tested on all the databases included in
+this study. Centering and scaling were performed along the axes corresponding to variables, features,
+and time dimensions.
+
+2.4 Higher-order singular value decomposition
+
+The High-order singular value decomposition (HOSVD) is an extension of SVD for multidimensional
+arrays. It was first introduced by Tucker in 1963 [18], [35], [36] and later popularized around the year
+2000 by De Lathauwer et al. [37], [38]. HOSVD has been applied in several engineering fields, such as
+aerodynamics [22], [39], fluid dynamics [40], and reduced order modelling [21], among other things.
+For a six-dimensional snapshot tensor, the HOSVD can be expressed as:
+
+Pr Po Ps Pa Ps N
+
+1 3 :
+Virzizaiziak © > > > > S> SprpapspapsnW5), W2),, WE), WO, WO) Ten, (11)
+
+pi=1 p2=1 p3=1 pa=1 ps=1 n=1
+
+where Sp, psp3pipsn is referred to as the core tensor, P; refers to the number of retained singular
+vectors i—th mode, and WY, W?), W®), W, W), and T are the mode matrices resulting from
+the decomposition. W corresponds to the number of velocity components (Le., streamwise and
+normal velocity components), while W(?) and W(?) represent the Re and AoA, respectively. W)
+and W©) correspond to the mode matrices for the a and y spatial dimensions, respectively. The last
+matrix, T, is associated with the temporal component.
+
+The mode matrices are obtained by applying SVD to each of the fibers of the snapshot tensor.
+The set of SVD modes for each dimension corresponds to the eigenvectors associated with the positive
+eigenvalues. These SVD modes are orthonormal and are organized in decreasing order based on their
+energy content. The singular values are denoted as follows:
+
+As mentioned above, HOSVD can be used for noise filtering and compression by truncating the
+SVD modes in each of the mode matrices obtained from the decomposition. This approach aims to
+extract the coherent structures of the flow, calculating the most relevant SVD modes associated with
+each component of the database. This results in a compressed approximation of the database. This
+approximation can be expressed as:
+
+N
+Vissi >. Wasvestaien'V ens (13)
+
+n=1
+
+where N refers to the spatial complexity of the tensor which determines the number of spatial SVD
+modes W), 2, 25jj,n and the rescaled temporal SVD modes Vyn. The spatial SVD modes are defined
+as follows:
+
+Pr Po Ps Pa Ps
+
+a) 3 4 5
+Wanita = >) >. > DS YS Smoazerion WE), W2,,WO,We WE /os, (1)
+
+pi=1 p2=1 p3=1 pa=1 ps=1
+
+Tin = 0h Tn. (15)
+HOSVD is applied to the original six-dimensional tensor, retaining an appropriate, tunable number
+of SVD modes along each dimension. The number of retained modes is chosen to achieve an optimal
+balance between data compression, accurate reconstruction, and effective noise filtering. The resulting
+mode matrices for the Re (i.e., W®)), the AoA (i.e., W©)), the spatial dimensions (i.e., W“, W?),
+and the time coefficients T, are therefore coupled to different machine learning approaches to expand
+the database in terms of flow parameters, space and time. The mode matrix for the velocity components
+(ie, W")) remains unchanged. These approaches are detailed in the following section.
+
+The cumulative energy of the first r singular values was calculated as a measure of how much of
+the total variance is captured by their corresponding modes. It is defined as:
+
+wo?
+
+E(r)= = 16
+
+= Sr oF uo)
+
+where o; are the singular values of the data matrix, ordered such that 0; > 02 >-+-: >». The value
+
+E(r) € [0,1] quantifies the fraction of total variance (or energy) retained by the first r modes. This
+formulation is widely employed to identify the most energetic modes in a fluid dynamics databases [41],
+
+[42].
+
+2.5 Gaussian Process Regression
+
+Gaussian Processes (GPs) are non-parametric supervised learning methods used for regression and
+probabilistic classification problems. Kolmogorov laid the foundation for GPs in 1938 [43]. Later, in
+1978, Ibragimov & Rozanov formally introduced them in Ref. [44]. In 2006, Rasmussen and Williams
+compiled previous theoretical developments on GPs in Ref. [45] and applied them to regression and
+classification tasks, demonstrating the utility of Gaussian Process Regression (GPR) for both prediction
+and uncertainty quantification. GPR models the underlying function as a GP, allowing interpolation.
+
+The prediction of a solution in an unexplored region for a database X with N training points and
+corresponding outputs y can be conducted using a GPR model. In general, the regression problem
+can be formulated as:
+
+w= fi) +2, e~N(,02), a)
+
+where € represents Gaussian noise with variance 2 and mean 0. Under the GP assumption, the
+function values follow a normal distribution during training, the function values follow a multivariate
+
+normal distribution with zero mean and covariance K:
+
+f ~ N(0,K), (18)
+
+where K is the covariance matrix, defined as K;; = k(x;,x,;), representing the pairwise covariances
+between training inputs. The function f(x) is modelled as a sample from a GP, which is defined as:
+
+L(x) ~ GP (m(x), k(x, x’)), (19)
+
+where m(x) is the mean function, which is typically assumed to be 0, and k(x,x’) is the covariance
+function (also referred to as the kernel), which determines the similarity between function values at
+different inputs.
+
+For computation with a test input x,, the distribution of the observed outputs y and the function
+value at x, is expressed as:
+A oN C [* wn secre) (20)
+
+where k, = K(X, x,) is the covariance vector between the training and test input values. The
+posterior predictive distribution, after applying standard Gaussian conditioning formulas, follows:
+
+P( fal X X,Y) = N (ta, 2), (21)
+
+where the mean prediction is given by:
+
+[sn =k] (K+ 07) 'y, (22)
+
+and the variance (uncertainty associated with the prediction) is expressed as:
+
+o? = k(x«,x«) —k] (K +.02I)"'k,. (23)
+
+The set of optimal hyperparameters for the Gaussian Process is defined as:
+
+0 = {o7, lon}, (24)
+
+where of is the signal variance, which controls the amplitude of the function variations; ¢ is the
+characteristic length scale, determining how quickly correlations decay with distance between input
+points; and o,, is the standard deviation of the Gaussian noise associated with the observations. These
+hyperparameters are estimated by maximizing the marginal likelihood, expressed as:
+
+1 1 N
+log p(y|X) = -5y'(K +o2I)ly - 3 log |K + 02]| — > log 27. (25)
+
+n
+
+2.6 Neural networks based on LSTM architectures
+
+Neural Networks based on Long Short-Term Memory (LSTM) [46] architectures are widely used tools
+for modelling and forecasting time series data [47] and are particularly useful for data with complex
+temporal dynamics [48]. Generally, neural networks struggle with time series due to their inability to
+retain information over long sequences, LSTMs address this limitation through specialized memory
+cells and gating mechanisms namely, input, output, and forget gates which enable the network to
+selectively remember or discard information across time [46]. This allows LSTM networks to learn
+intricate temporal patterns and dependencies, making them especially effective for problems where the
+future state depends not only on recent inputs but also on long-term historical context. LSTMs can
+learn the underlying dynamics directly from data without requiring explicit knowledge of the governing
+equations.
+
+2.7 Development of the hybrid deep learning multi-parametric ROM: Hy-
+briNet
+
+This section outlines the methodology developed to construct a hybrid ROM capable of generating
+new flow condition databases, enhancing spatial resolution, and performing temporal forecasting (as
+shown in Fig. 2). The section is structured as follows: first, a general overview of the workflow is
+presented; next, the generation of new flow conditions using GPR is detailed; then, spatial resolution
+enhancement using ML and DL techniques is discussed; and finally, the temporal forecasting through
+DL models is addressed.
+
+MODE MATRICES ASSOCIATED TO EACH DIMENSION
+
+EXPANDED MODE MATRICES ASSOCIATED TO EACH DIMENSION
+
+Low resolution database
+GPR
+
+‘SINGULAR VALUES ASSOCIATED TO EACH DIMENSION
+
+LST
+
+Incomp, ne, nAaA, rx, ry, nz CCORE TENSOR
+
+High resolution database
+New database parameters
+Prodiction over time
+
+Figure 2: Sketch of the methodology applied for the development of the proposed HybriNet. Here,
+ncomp denotes the number of velocity components, nRe and nAoA represent the number of Reynolds
+numbers and angles of attack in the database, respectively. naz and ny refer to the number of points
+along each spatial dimension, and ¢ indicates the number of temporal snapshots. W are the mode
+matrices associated with each dimension of the tensor, o are the singular values, and S denotes the
+core tensor.
+
+2.7.1 Overview
+
+The development of the proposed HybriNet focuses on the offline stage, which involves all the above-
+mentioned pre-processing steps 2.2, 2.3, HOSVD 2.4, and its combination with different ML ap-
+proaches.
+The initial step, the database is in tensor form, as in eq. (3), and it is decomposed using HOSVD.
+
+The resulting SVD mode matrices associated with the flow parameters, spatial, and temporal
+dimensions are used to expand the fluid dynamics multi-parametric database. HybriNet has been
+developed using a modular approach, where each module involves the use of a specific mode matrix
+(or set of mode matrices) with a specific ML approach and is independent of the others.
+
+The database upscaling in terms of space is achieved by the application of GPR to the W) and
+W®©) spatial SVD mode matrices. The module developed for the generation of new flow conditions
+interpolates the SVD mode matrices W) and W), corresponding to the Re and AoA tensor compo-
+nents, using GPR. The forecasting module relies on an LSTM-based recurrent neural network applied
+to the temporal mode matrix, T.
+
+The expansion of the spatial mode matrices, the interpolation over Reynolds number and AoA
+through GPR, and the training of the RNN are all conducted once during the initial stage (commonly
+referred to as the offline stage). In the subsequent stage (referred to as the online stage), the decom-
+posed tensor, the expanded spatial mode matrices, the interpolated Reynolds number and AoA modes,
+along with the pre-trained neural network, are employed to perform predictions at low computational
+cost.
+
+2.7.2 Generation of multi-parametric databases through GPR
+
+The generation of new databases containing information about fluid dynamics problems under dif-
+ferent flow conditions, with varying parameters such as Re and AoA, is made possible through the
+combination of HOSVD and GPR interpolation. In this work, the GPR library scikit-learn, available
+in Python, has been used due to the robustness of its models. It is worth mentioning that other inter-
+polation methods, such as linear interpolation, spline interpolation, and ordinary kriging, were tested
+during the development of the methodology, but GPR proved capable of capturing the non-linearities
+in the data, thereby improving the accuracy of the results.
+GAUSSIAN
+
+PROCESS ——>
+
+REGRESSION #1
+
+GAUSSIAN
+
+PROCESS ——>
+
+REGRESSION #2
+
+Figure 3: Sketch of the methodology applied for the generation of databases unseen flow conditions.
+
+The interpolation process follows the steps shown in Fig. 3. First, HOSVD is applied to the sixth-
+order tensor using Eq. (11). After decomposition, the resulting mode matrices corresponding to the
+
+flow paramet
+
+and a), to preserve the cont
+
+input for the
+
+GPR. The inter
+
+ers Re and AoA, W®) and W®), are scaled by their associated singular values, o)
+
+ribution of each mode. These weighted mode matrices are then used as
+polation is performed independently for each available mode, or for each
+
+retained mode if truncation has been applied.
+
+The GPR
+
+model uses several key parameters, which are listed in Tab. 1. The kernel defines the
+
+global scaling and determines how distances between data points are evaluated. The length scale, a
+
+component 0:
+noise term a
+
+the kernel, con
+
+rols the smoothness of the predictions. The a value is a small Gaussian
+
+ded to the diagonal of the covariance matrix to improve numerical stability and ensure
+
+proper conditioning during matrix inversion. Another important parameter is the number of optimizer
+
+restarts, whic!
+
+h allows the model to explore different initial guesses and improve hyperparameter tuning.
+
+After interpolation, the predicted values for each mode are combined with the original mode matrix.
+The full matrix is then reconstructed using the inverse HOSVD procedure.
+
+Parameters ‘Value
+Kernel Constant, RBF 1
+Length scale 50
+a 1x 10-6
+Restarts 5
+
+Table 1: Summary of the GPR interpolation parameters.
+
+10
+2.7.3 Resolution enhancement through GPR
+
+GAUSSIAN
+
+——P PROCESS ——P
+
+REGRESSION
+
+GAUSSIAN
+
+PROCESS ——>
+
+REGRESSION
+
+Figure 4: Sketch of the methodology applied for the resolution enhancement using GPR.
+
+As shown in Fig. 4, the weighted spatial SVD mode matrices W“) and W), resulting from the
+application of HOSVD to a low-resolution database with m SVD modes and n low-resolution spatial
+points (i.e., fewer points in the spatial dimensions), serve as the inputs for another GPR, the parameters
+of which are detailed in Tab. 2. In this approach, a Matern kernel, which is a generalization of the RBF
+kernel, has been used. This kernel specifies the covariance between two measurements as a function
+of their distance [45], and the smoothness of the interpolation is controlled by the parameter v; larger
+values of v lead to smoother functions.
+
+Parameters Type Value
+Kernel Constant, Matern 1
+Length scale 0.05
+a 1x 10-
+v 1.5
+Restarts 20
+
+Table 2: Summary of the GPR spatial resolution enhancement parameters
+
+2.7.4 Temporal forecasting through Deep Learning
+
+The prediction of fluid dynamics behavior has been achieved through the combination of HOSVD and
+deep neural networks. In this study, the Keras API [49] is employed to develop a simple yet robust
+recurrent neural network, RNN. The proposed approach is autoregressive, meaning that the neural
+network’s predictions are recursively used as inputs for future predictions. This enables long-term
+forecasting with reduced computational time. The generated data can then be used by HybriNet as a
+ROM, of the CFD simulation, thereby accelerating the numerical simulation process.
+
+11
+[Sequence, window size, r]
+
+EE LSTM Dense
+
+Sequence slicing EE | | Reshape
+SS — —_
+Window size EE
+Horizon Be
+
+Figure 5: Sketch of the methodology used for forecasting.
+
+Predicted temporal coefficient
+
+Figure 5 illustrates the steps taken to forecast the behaviour of a fluid dynamics problem. First, the
+weighted SVD mode matrix associated with the temporal dimension and calculated through HOSVD,
+denoted as T, is extracted. Each SVD mode is then treated as a time series. To train the RNN, these
+time series are segmented into multiple input sequences. Each sequence has a fixed length (i.e., the
+number of time values used as input), and the network is trained to predict a future time window
+defined by the prediction horizon h. These input sequences serve as the training data for the neural
+network described in the following paragraph.
+
+The RNN architecture developed in this work is simple yet robust. It consists of one LSTM
+layer [50], followed by a fully connected layer to map the output to the desired dimensions, and a
+reshape layer to ensure consistency in output structure. The Adam optimizer [51] is used for training.
+Mean Squared Error (MSE) is employed as the loss function during training, while Mean Absolute
+Error (MAE) is used for validation. The number of LSTM units, neurons, and other details are
+summarized in Table 3.
+
+The LSTM layer was selected due to its ability to learn long-term dependencies in time series data.
+This is achieved through a gating mechanism that controls the flow of information. It includes three
+main gates: the forget gate, the input gate, and the output gate. The forget gate determines which
+past information should be discarded; the input gate decides which new information should be stored;
+and the output gate regulates the information passed to the next time step [50].
+
+The temporal matrix T is split into three subsets for training (70% of the total data), validation
+15%), and testing (15%), following standard machine learning practices.
+g g g
+
+Layer Parameter ‘Value
+LSTM Units 128
+Dense Neurons 10
+Reshape Shape (horizon = 1, 10)
+Hyperparameters
+Learning rate 0.001
+Optimizer Adam
+Batch size 8
+
+Table 3: Summary of the hyperparameters utilised during the training of the RNN implemented in
+this study to perform the forecast of a fluid dynamics problem.
+
+2.7.5 Error metrics
+
+IN this work, we have considered two error measures:
+
+12
+Relative root mean squared error - RRMSE The Relative Root Mean Square Error (RRMSE)
+is a metric used to evaluate the accuracy of the proposed approaches by comparing the predicted tensor
+reconstruction V with the reference tensor V obtained from CFD simulations. This comparison is
+performed for a specific Reynolds number, AoA, spatial resolution, and forecast horizon. The RRMSE
+is defined as:
+
+RRMSE = ——_————,
+
+where V; and V; represent the components of the ground truth and predicted tensors, respectively,
+and N is the number of snapshots. A lower RRMSE value indicates higher reconstruction accuracy.
+
+Estimated probability density function of the normalized error The normalized error is
+defined as the difference between the ground truth tensor V and the reconstructed tensor V"*. This
+value is then normalised between 0 and 1 by the maximum absolute error and can be expressed as:
+
+vi -v¥s
+—_—s te _
+max([V; — VES)’
+
+e=
+
+(27)
+
+where V; is the real value, VY’ is the predicted value, and max(|V; — VY’5|) is the maximum absolute
+error among all data points.
+
+The distribution of the normalized error of the predicted database is displayed in a relative frequency
+histogram, where the optimal number of bins or classes for a histogram have been calculated using the
+Sturges rule, expressed as:
+
+kpins = 1+ loga(N), (28)
+
+where N corresponds to the number of spatial points per snapshot.
+
+3 Database
+
+The validation of the methodology has been performed using a database composed of a set of two-
+dimensional numerical simulations that recreate the behaviour of a laminar flow passing over a square
+cylinder. This section details the governing equations of the problem under study, the set-up of
+the numerical simulation in regards of the computational domain, grid development, and boundary
+conditions.
+
+The results obtained through the numerical simulations of the two-dimensional laminar flow over
+a square cylinder are finally organized in a 6th-order tensor, as in eq. (3). The characteristics of
+this tensor are detailed in Tab. 4. Figure 6 displays the design space of the database, the generated
+databases for unseen flow conditions must be inside these limits.
+
+Tensor order Myar NRe NAA Ne Ny K
+6 2 6 6 64 64 128
+
+Table 4: Characteristics of the resulting database. Here, nya, corresponds to the streamwise and
+normal velocity components, npe to the amount of Re numbers on the database, naoa to the amount
+of AoA on the database, nz and ny, to the spatial points in the z- and y-dimensions, respectively, and
+KX to the number of available snapshots. Refer to Fig. 6 for further details about the flow conditions.
+
+13
+oe ee Oe
+2200088000
+20 ©8000
+on ee
+20 @@@@8@8 @
+
+5° 10° 15° 20° 25° 30°
+Angle of attack
+
+Figure 6: Design space distribution, each black dot represents a database obtained through numerical
+simulations for a specific Re and AoA.
+
+0 By
+40 075 40 075
+% i
+(a) (b)
+1,50 1s
+60 60
+1.25 12
+7 :
+1,00 09
+40 075 40 06
+7 39 0.50 * 30 03
+0.25 0.6
+J
+
+Cd) (@)
+
+Figure 7: Streamwise velocity field of the database at different flow conditions: (a) Re = 200 & AoA
+= 5°, (b) Re = 280 & AoA = 5°, (c) Re = 200 & AoA = 30°, (d) Re = 280 & AoA = 30°
+
+3.1 Flow around a square cylinder
+
+The flow around square cylinders is a widely studied problem in fluid dynamics. It is characterized
+y flow separation at the sharp corners of the square cylinder, creating low-pressure zones behind the
+cylinder that promote the formation of vortex shedding. At Reynolds numbers above 4000, this vortex
+shedding becomes turbulent, leading to aleatory fluctuations in the flow patterns [52].
+
+The flow around square cylinders has been selected as a benchmark problem for this study due
+0 the extensive research conducted on this phenomenon under various flow conditions over the past
+decades. This background enables the analysis of different flow parameters such as AoA and Re.
+Variations in these parameters are known to induce significant changes in the flow topology, including
+alterations in the onset and location of flow separation, modifications in the wake structure, transition
+etween steady and unsteady regimes, and changes in vortex shedding frequency and symmetry [53].
+
+14
+Studying the flow around a square cylinder is particularly relevant as it serves as a simplified model for
+understanding flow behaviour around bluff bodies, similar to those encountered in urban environments.
+
+3.2 Governing equations
+
+The governing equations for an incompressible, two-dimensional Newtonian flow are given by the
+continuity and Navier-Stokes equations, written as:
+
+Ov 1
+V-v=0, BE t(v-V)v Vet Ze
+
+Vv. (29)
+
+where v is the non-dimensional velocity vector containing the streamwise and normal components
+in a two-dimensional setting, defined as (vz, vy), and p is the pressure. Length, time, velocity, and
+pressure are non-dimensionalized using L*, L*/V*, V*, and p*V,*?, respectively. The Reynolds number
+is given by Re = V,*L%/v*, where the superscript * indicates dimensional quantities. Here, Lz is the
+side length of the square, and V,* is the incoming free-stream velocity.
+
+3.3. Geometry, computational domain, mesh and boundary conditions
+
+For these two-dimensional simulations, the domain geometry has been developed in a Cartesian coor-
+dinate system in the X-Y plane, following the criteria of [53]. The characteristic length of the square
+cylinder is referred to as “ZL,” and was used to adimensionalize the domain. The distance considered
+for the upstream is 16L, while for the downstream is 25L,. The distance between the superior and
+inferior boundaries is 57LZ,. Figure 8, illustrates the distribution in the computational domain. For the
+above-described configuration, a set of numerical simulations will be performed for flows with various
+Reynolds numbers in laminar regime (Re from 200 to 600 in steps of 20) and also for a different set of
+AoA (values from 50 to 30° in steps of 5°).
+
+42Lc
+
+Lc
+
+ETN
+9712S
+
+Figure 8: Sketch of the computational domain dimensions for the two-dimensional numerical simula-
+tion of a laminar flow over a square cylinder.
+
+A structured grid consisting of 112,000 hexahedral elements was generated using Gmsh 4.13.1,
+following the meshing methodology proposed by [54], which is recognized for its high accuracy in
+laminar flow simulations. This grid resolution is sufficient to construct a high-quality database for
+the evaluation of HybridNet. The resulting database supports three key capabilities: (i) enhancing
+spatial resolution, (ii) interpolating to infer flow fields at previously unseen Reynolds numbers and
+angles of attack, and (iii) producing time-accurate predictions. The primary objective of this work is
+to demonstrate the practical application of HybridNet, which is introduced here for the first time.
+
+Refinement zone
+
+tL.
+
+Figure 9: Structured mesh developed for the two-dimensional numerical simulation of the laminar
+flow past a square cylinder.
+
+The numerical simulations have been performed using OpenFOAM 9 [55], an open-source CFD
+solver based on the finite volume method for spatial discretization. The temporal discretization em-
+ploys a second-order Euler scheme, while the pressure-velocity coupling is handled using the PIMPLE
+algorithm, which is a combination of PISO (Pressure Implicit with Splitting of Operator) and SIMPLE
+(Semi-Implicit Method for Pressure-Linked Equations) methods. The simulation has been performed
+using the PIMPLE algorithm, which is used for transient simulations. The boundary conditions were
+set as follows: a Dirichlet condition was imposed for the velocity at the inlet, where the streamwise
+and crosswise components were defined as U, = Ux cos(AoA), Uy = Ux. sin(AoA), with U. = 1. At
+the outlet, a Dirichlet condition for pressure (p = 0) and a zero-gradient (Neumann) condition for
+velocity were applied, allowing for outflow. On the top and bottom boundaries, zero-gradient con-
+ditions for velocity and fixed pressure were imposed as open-flow conditions. The Reynolds number
+was controlled by varying the dynamic viscosity of the fluid while maintaining a constant free-stream
+velocity. Variations in AoA were introduced by adjusting the inlet velocity vector. The time step has
+been established as A t = 0.001 [s], with a total simulation time of 5 [s] with a writing interval of the
+flow variables of 0.02 {s]. Figure 10 depicts the boundary conditions set in the computational domain.
+
+16
+Il Opening I
+
+Inlet Outlet
+
+Figure 10: Sketch of the computational domain dimensions and boundary conditions. A fixed
+velocity is prescribed at the inlet based on the angle of attack (AoA), with U, = U,cos(AoA),
+Uy = Ux sin(AoA), and U.. = 1. At the outlet, pressure is fixed to zero and a zero-gradient condition
+is applied to velocity. Top and bottom boundaries are treated as open-flow with zero-gradient velocity
+and fixed pressure.
+
+4 Results and discussion
+
+This section presents the results obtained from applying the proposed HybriNet for resolution enhance-
+ment, forecasting, and multi-parametric database generation. This section is organized as follows: first,
+an analysis of the singular value decay for each of the SVD mode matrices associated with Re, AoA,
+and temporal dimensions is provided, together with the GPR interpolation results. Then, the results
+obtained for the four different test cases considered for the validation of this method are discussed.
+Finally, a summary of the prediction of RRMSE is presented.
+
+To demonstrate the efficiency, robustness, and accuracy of the proposed tool, two different scenarios
+have been considered: the completion of inconsistent multi-parametric databases and the generation of
+databases for unseen flow conditions. These results have been evaluated using the error metrics detailed
+in Sec. 2.7.5. Table 5 provides a detailed overview of the aforementioned test cases, the techniques
+employed, and their corresponding scenarios. Table 6 collects the prediction RRMSE, calculated as in
+eq. (26) of the test cases detailed in Tab. 5.
+
+D Task (interpolation) Desired Desired Res. enhance. Forecasting
+Re AoA upscaling snaps
+factor. predicted.
+FAoA Filling missing data in AoA dim. 240 15° 2 100
+FRe Filling missing data in Re dim. 260 20° 2 100
+N1 Generate data for unseen conditions 230 225° 2 100
+N2 Generate data for unseen conditions 245 11° 2 100
+
+Table 5: Overview of the test es used to validate the proposed HybriNet. The ID column provides
+a short identifier for each ca: The Task describes the interpolation or prediction objective (e.g.,
+missing data reconstruction or generation of unseen conditions). The columns Desired Re and Desired
+AoA indicate the Reynolds number and angle of attack used as targets for reconstruction. The Res.
+enhance. upscaling factor specifies the temporal resolution enhancement factor applied to the data.
+The Forecasting snaps predicted denote the number of future snapshots predicted during the testing
+phase.
+
+17
+4.1 HOSVD analysis and GPR interpolation for Re and AoA
+
+As mentioned in Section 2.4, the singular values of?) (Eq. (12)) associated with each dimension of
+
+the tensor result from applying HOSVD to the database. To perform dimensionality reduction and
+determine how many modes to retain in each mode matrix, the energy content of the singular values
+was analyzed along the Re dimension (7) and the AoA dimension (o()).
+
+For the Re dimension, the associated singular values o), the cumulative energy content per SVD
+mode, and the singular value decay are displayed in Fig. 11. Figure lla shows a significant drop in
+singular value magnitudes between the first and second modes, forming a sharp elbow. This suggests
+that the first two singular values are considerably more important than the rest. The same trend is
+
+seen in the cumulative energy plot (Fig. 11b), where the first two singular values account for 99.8% of
+the total energy. As a result, dimensionality reduction can be applied by keeping only the first three
+modes, which together capture more than 99.9% of the total energy.
+Normalized Singular Value Decay (log scale)
+for Reynolds humber mods nauk Cumulative Energy for Reynolds-number mode matrix
+10° 100.0
+=e 99.9
+s g
+3 3 99.8
+s B99
+4 g
+is &
+3 107+ w
+> g
+2 = 997
+Ll 3
+B —
+8 Gg
+é 99.6
+2
+95
+107
+10 15 20 25 30 35 40 45 5.0 10 15 2.0 25 3.0 3.5 4.0 45 5.0
+Mode Index Mode Index
+(a) (b)
+
+Figure 11: Singular value decay (a), and cumulative energy (b) plots for the SVD mode matrix
+associated with the Re dimension.
+
+Regarding the AoA dimension, Fig. 12a shows a significant decay in the ¢) magnitudes between
+the first and second modes, followed by a more gradual decline in the subsequent modes. In contrast
+to the Re dimension (Fig. 11), the cumulative energy plot in Fig. 12b indicates that 96% of the energy
+is captured by the first mode. However, to exceed 99% of the total energy, at least four modes must be
+retained. It is important to note that only 5 Reynolds numbers are available in the database. Therefore,
+the input matrix for the Re dimension has a rank of 5, which limits the maximum number of singular
+values to 5. To ensure accurate reconstruction, the first four modes along the AoA dimension have
+been selected, accounting for over 99.5% of the total energy.
+
+18
+10°
+
+Normalized Singular Value (0; / 01)
+
+Figure 13 compares the regression results ob
+linear interpolation across each of the retained
+Reynolds number dimension, W). GPR provid
+
+2
+
+Normalized Singular Value Decay (log scale)
+
+Cumulative Energy for AoA mode matrix
+
+for AoA mode matrix
+100
+99
+z
+=
+5 98
+2
+fn
+$
+8
+z2 97
+5
+fs)
+96
+1 2 3 4 5 6 x 2 3 4 5 6
+Mode Index Mode Index
+(a) (b)
+
+Figure 12: Same as Fig. lla, but for the AoA SVD mode matrix.
+
+ained using Gaussian Process Regression (GPR) and
+modes of the SVD mode matrix associated with the
+es a smooth, non-linear fit to the data, with a narrow
+
+region representing the 90% confidence interval, as shown in Fig. 13b and Fig. 13c. In contrast,
+the piecewise linear interpolation consists of straight segments that fail to capture the underlying
+curvature or non-linear trends, thereby missing key variations in the data. Multiple reconstruction
+tests were conducted using both methods, and GPR consistently produced more accurate results due
+to its ability to model non-linear behaviour. Notably, in Fig. 13a, the confidence interval region is
+barely visible. This results from the GPR model fitting the underlying function with high accuracy
+low uncertainty, leading to a very narrow confidence interval.
+
+and
+
+2504
+
+2502
+
+Value
+
+2500
+
+2498
+
+Mode 1
+
+Mode 2
+
+200
+
+100
+
+zo
+-10
+mo ao mo Bo 20 20 20 270 260 a a: a er a a,
+Reynolds Number Reynolds Number
+© Dats == Linear @ GPRinterp Lin interp © Data == Linear — @ GPRinterp Lin interp
+— CR mm 90%C1 — GR mm 90%C1
+(a) (b)
+
+Value
+
+Pe ee a a a a
+Reynolds Number
+© Data == Linear @ GPRinterp Lin interp
+— cr 90% cI
+(c)
+
+Figure 13: GPR and piecewise linear interpolation for the first 3 SVD modes calculated associated to
+
+the Re number dimension.
+
+19
+Figure 14 compares the results obtained by applying GPR and piecewise linear interpolation along
+each of the retained SVD modes associated with the AoA dimension. It can be observed that in the
+first SVD mode (Fig. 14a), the data distribution shows a linear trend with a negative slope, where
+both the regression and interpolation methods produce similar results. Similar to the first mode, the
+second mode shows initially a linear trend with a positive slope, where GPR and piecewise linear
+interpolation provide similar results up to the singular value corresponding to AoA = 20°, beyond
+which GPR smoothly captures the trend of the data. For the third and fourth modes, displayed in
+Fig. 14c and Fig. 14d, respectively, it can be observed that GPR addresses the non-linear behaviour
+of the data, providing a smooth fit.
+
+Mode 1 Mode 2
+3000 =
+2750 400
+2500 sa
+y 250 g
+g 2 o
+3 2000 3
+1750 ~200
+1500 400
+1250
+3 2 Fa Fy B 2 5 0 5 Fy B Py
+Angle of attack Angle of attack
+© Dats == Linear @ GPRinterp_ Lin interp © Data == Linear @ GPRinterp Lin interp
+— ar 90% Cl — or 90% c1
+(a) (b)
+Mode 3 Mode 4
+400
+
+300
+200
+100
+
+Value
+
+100
+
+200
+
+Angle of attack Angle of attack
+© Dats == Linear @ GPRinterp Lin interp © Data == Linear @ GPRinterp Lin interp
+—GR mm 90%C — GR me 0%
+
+() (a)
+
+Figure 14: Same as Fig. 13 but for the AoA mode matrix.
+
+4.2 HOSVD analysis for the X and Y spatial dimensions
+
+The singular value decay along the X and Y spatial dimensions, denoted as 04) and o°) respectively,
+is shown in Fig. ??. It is observed that, apart from the drop between the first and second singular
+values, there is no significant decay in magnitude thereafter. To determine an appropriate trunca-
+tion threshold for dimensionality reduction, the cumulative energy distribution has also been plotted
+(Fig. ??). Figure 15c indicates that approximately 99.9% of the total energy in the X dimension is
+captured by the first 11 SVD modes, while 15 modes are required along the Y dimension to retain
+99.9% of the energy (Fig. 15d).
+
+20
+Normalized Singular Value Decay (log scale) Normalized Singular Value Decay (log scale)
+
+for X dimension mode matrix for Y dimension mode matrix
+10° 10°
+= 107 slot
+5 5
+of 8.
+3 10? 3 10?
+8 8
+= =
+3 107 3 10%
+2 2
+2 2
+w fd
+£ 10+ gt
+3 3
+E E
+2 493 3 10%
+agr*:
+10-6
+0 10 20 30 40 50 60 0 10 20 30 40 50 60
+Mode Index Mode index
+(a) Singular value decay for the X dimension. (b) Singular value decay for the Y dimension.
+Cumulative Energy for the X mode matrix Cumulative Energy for the Y mode matrix
+100 100
+99 99
+gs E 98
+> >
+3 97 g
+2 & 97
+B 9 8
+2 2 96
+5 5
+S 95 3
+95
+94
+94
+93
+25 50 75 WO 25 180 W5 200 0 5 10 5 20 5 30
+Mode Index Mode Index
+(c) Cumulative energy (zoomed-in view) for the X (d) Cumulative energy (zoomed-in view) for the Y
+dimension. dimension.
+
+Figure 15: Singular value decomposition (SVD) results for both X and Y dimensions. (a,b) show the
+singular value decay, while (c,d) present the cumulative energy distribution (zoomed-in). These plots
+illustrate how the dominant SVD modes capture the majority of the system’s variance in both spatial
+directions.
+
+4.3. HOSVD analysis and RNN forecasting for the temporal dimension
+
+Figure 16 displays the singular value decay and cumulative energy plots along the temporal dimension.
+Figure 16a exhibits a significant decrease in the magnitudes of the first two SVD modes, followed by
+a more gradual decrease in subsequent modes. From the third to the fourth SVD mode, the decay
+becomes even less pronounced, and beyond this point, the singular values remain nearly constant,
+forming an almost horizontal line indicative of negligible decay. The cumulative energy plot displayed
+in Fig. 16b shows that almost 99.9% of the total energy is contained in the first 7 SVD modes. Thus,
+a highly accurate approximation of the full-order model can be achieved retaining 7 SVD modes.
+
+21
+Singular Value Decay for the time mode matrix Cumulative Energy for the time mode matrix
+
+100.0
+5000
+99.5
+4000 =
+¥ = 99.0
+8 S
+> 3000 &
+a cy
+a S985
+® 2000 2
+E
+° 98.0
+1000
+97.5
+0
+° 20 40 60 80 100120 0 20 40 60 80 100-120
+Mode Index Mode Index
+(a) (b)
+Figure 16: Same as Fig. lla, but for the temporal SVD mode matrix.
+
+Figure 17 presents the predictions obtained using the RNN for each of the retained SVD modes
+along the temporal mode matrix T. The first three modes exhibit low-frequency oscillations, indicating
+the presence of dominant flow features. From the fourth mode onward, the frequency of oscillations
+increases, and slight variations in amplitude become more noticeable, reflecting more complex and
+higher-frequency dynamics. The region where the prediction overlaps with the ground truth corre-
+sponds to the test set. In this region, the predicted curves show a strong agreement with the ground
+truth, suggesting that the model generalizes well across the temporal domain. The smooth transition
+from ground truth to predicted data confirms that the RNN has effectively learned the underlying
+temporal dynamics of the system. Overall, the predicted time series matches the trends and frequency
+content of each mode, indicating that the neural network successfully captures the temporal behaviour
+embedded in the low-dimensional representation of the system.
+
+22
+— Ground truth —--s- Prediction
+
+Mode 1
+* % x
+8 009640 eRe
+cy se ee %
+0.08835 xf Ke &
+% x x
+vovean ¥oVo%
+Mode 2
+oa
+3 FR EY
+3 00 ‘
+3 ERE §
+ex kK
+-o1
+Mode 3
+on # 4 A
+Be fh
+g - > xk *€ x x
+Z 00 eee ERS
+3 FRE RE
+¥ gk x
+“1 W¥
+Mode 4
+OL
+g
+Z 00
+01 V
+OL
+8 0.0
+s
+1
+OL
+g 0.0
+Z
+0.1
+OL
+Es 0.0
+8
+0.1
+0 30
+Time index
+Figure 17: Forecast of the LSTM-based RNN on each of the 7 modes retained along the temporal
+
+dimension.
+
+4.4 Filling missing data from incomplete databases
+
+This section presents the results obtained using the proposed HybriNet to fill in missing flow data from
+incomplete databases (FRe, FAoA tasks on Tab. 5), where one or more flow conditions are missing
+from the original database. Figure 18b summarizes the two different cases considered, where the goal
+is to obtain an evenly sampled database in terms of Re and AoA: filling in a missing AoA for all Re
+numbers (Fig. 18a), and filling in a missing Re number for all AoA values. Table 6 collects the RRMSE
+for streamwise and normal velocity components for the different test cases addressed using HybriNet.
+
+23
+N
+fo}
+3
+
+Reynolds number
+nN
+BS
+oO
+2@0806080680
+Reynolds number
+PBB
+oO oO
+@e@e@e0e
+@#eeee0e
+@#e@e ee
+
+N
+N
+co}
+N
+N
+oO
+
+nN
+fo)
+fo}
+
+nN
+loc)
+fo)
+
+10° 15° 20° 25° 30° 5° 10° 15° 20° 25° 30°
+Angle of attack Angle of attack
+(a) (b)
+
+Figure 18: Design space (in black) and interpolated data (in red) for the filling missing data from
+incomplete databases scenario. (a) Generation of a new database for AoA = 15° and all the Re
+numbers (FAoA task), (a) Generation of a new database for Re = 260 and all the AoA (FRe task).
+
+Figure 19 presents a comparison of the predictions obtained using the proposed HybriNet model
+to reconstruct missing data in the database for the FAoA case (AoA = 15°). The model predicts the
+flow fields across all Re in the database for this missing AoA. Although the interpolation is performed
+along the AoA dimension with one value missing, the model accurately captures the flow behaviour.
+The streamwise and normal velocity components are well predicted in both the high-resolution case
+(with an upscaling factor of 2) and the low-resolution one, closely matching the ground truth data.
+The MSE distribution for both velocity components shows the highest values near the square cylinder,
+which is mainly due to the dimensionality reduction. However, in the wake region and the rest of the
+domain, the MSE values are very low, indicating good predictive performance overall.
+
+Ground truth
+
+1
+0 31 6 9 127
+
+, MSE error distribution
+
+0.4482
+03361
+0.2241
+0.1120
+0.0000
+95
+
+27 High-resolution pred.
+
+1s 127
+> 2 > @
+31
+0
+
+95
+
+127 High-resolution pred. Ground Truth Low-resolution pred. MSE error distribution
+
+27 10 10 0.2738
+95 0s Os 0.2053
+>~ 2 6 00 oo > 0.1369
+31 05 “05 0.0684
+0 -10 -10 0.0000
+95 o 32 68 9 127
+x
+
+Figure 19: FAoA task; High-resolution prediction results obtained using the proposed HybriNet, with
+Re = 240 and AoA = 15°. From left to right and top to bottom: high-resolution prediction, ground
+truth data, low-resolution prediction and MSE of the streamwise and normal velocity component, for
+the highest MSE snapshot of each velocity component.
+
+Low-resolution pred.
+
+1s
+10
+os >
+00
+05
+pty
+
+&
+
+Streamwise velocity component
+
+Normal velocity component
+
+Figure 20 shows the streamwise and normal velocity contours predicted for the FRe case (Re= 260).
+The model predicts the flow fields across all AoA in the database for this missing Re. Similar to Fig. 19,
+
+24
+the interpolation is performed along an incomplete set of Reynolds numbers and demonstrates high
+accuracy in predicting the flow field. For both velocity components, the HybriNet model successfully
+reconstructs and upscales the flow structures both upstream and downstream of the square cylinder,
+capturing the flow behaviour under these specific conditions. The MSE distribution for the streamwise
+velocity shows the highest values near the top and bottom of the bluff body. In contrast, for the normal
+velocity component, the maximum MSE values are located in the wake region behind the cylinder.
+
+High-resolution pred.
+
+|
+Oo 31 68 95 127
+x
+
+High-resolution pred. Ground Truth Low-resolution pred.
+
+10 127 10 63 10
+05 95 os 47 os
+oo > 63 0.0 > 31 00
+~05 31 0.5 15 “05
+C) -1.0 0 -10 0 -10
+Oo 31 68 95 127 o 31 63 95 127 o 15 31 47 «63
+x x x
+
+Figure 20: FRe task; Same as 19 but with Re = 260 and AoA = 20°.
+
+Ground truth 3 bow-resolution pred.
+
+6 1s 2
+x 47 10
+> 31 0
+15 a0
+0.5 0 05
+
+Oo 31 63 95 127 o 15 31 47 «63 Ey
+x x x
+
+MSE error distribution
+7 osa1a
+
+g
+
+0.4361
+
+&
+
+Y
+
+0.2307
+
+o14sa
+
+Streamwise velocity component
+oi
+
+-05 0 0.0000
+
+o37ia
+
+. MSE error distribution
+
+i}
+
+0.2788
+
+&
+
+0.1859
+
+0.0929
+
+Normal velocity component
+Y
+rr
+4 g
+
+0.0000
+
+The evolution of the streamwise velocity at a point of interest (x = 70, y = 80), located in the wake
+region behind the bluff body, is shown in Fig. 21 for the FRe case and Fig. 22 for the FAoA case. The
+predicted and reference values closely match over time steps 106 to 128, which correspond to the test
+set excluded during the training of the LSTM-based neural network. This overlap indicates that the
+network was properly trained using the 7 retained SVD modes from the temporal mode matrix T and
+is capable of accurately predicting future flow snapshots. Beyond the test interval, the predicted time
+series continues to follow the ground truth data closely, confirming that the model effectively captures
+the temporal dynamics of the flow at this location.
+
+Streamwise velocity field Predicted vs Ground Truth at Point (70,80)
+
+14
+
+127
+12
+08
+10
+95 2
+08 807
+$
+06
+> 63 &
+04 z 0.6 — Ground truth
+o — Prediction
+o2
+31 95
+00
+-0.2
+04
+63 127 0 50 100 150 200
+x Time
+Figure 21: FAoA task (Re = 240 and AoA = 15°); Temporal evolution of the streamwise velocity
+
+component in a point of interest of the predicted database.
+
+25
+Streamwise velocity field Predicted vs Ground Truth at Point (70,80)
+
+127
+el 09
+10 os
+95
+os 2 07
+8
+o6 @
+@ 06
+> 63 oa
+z Pe — Ground truth
+2 5 —= Prediction
+31 00 Roa
+0.2
+03
+-0.4
+63 127 0 50 100 150 200
+x Time
+
+Figure 22: FRe task; Same as 21 but with Re = 260 and AoA = 20°.
+
+Figure 23 shows the normalized error distribution plotted as relative frequency histograms for the
+streamwise and normal velocity components in the FRe test case. Figure 23a indicates that almos
+90% of the error values for the streamwise component are clustered near zero and a slight bias toward
+negative values. The normalized error histogram for the normal velocity component (Fig. 23a) shows
+that over 90% of the values centred around zero within an error range of +0.1, showing no visible bias
+toward positive or negative values. This distribution aligns well with the MSE distribution presented
+in Fig. 19 and the low RRMSE values detailed in Tab. 6.
+
+10° 10°
+a =
+|Eu, max lEv, maxl
+10-1 10-2
+roy roy
+sa c
+co) uo
+2107 3.107
+£ £
+vo
+2 107 3 10-3
+8 &
+ov
+& &
+1o-# 10-4
+ce 10-5
+-1.00 -0.75 -0.50 -0.25 0.00 0.25 0.50 0.75 1.00 -0.75  -0.50 -0.25 0.00 0.25
+Error Error
+
+(a) (b)
+
+Figure 23: Fill inconsistent databases scenario, FRe test case (Re = 240, AoA = 15°): normalized
+error relative frequency histograms. (a) streamwise velocity, (b)normal velocity. The histogram has
+been built with 21 bins.
+
+In the same manner as Fig. 23, the normalized error relative frequency for the streamwise and
+normal velocity components in the FAoA test case is shown in Fig. 24. Similar to the FRe case, the
+error distributions for both components show that over 90% of the values clustered around zero. The
+distribution corresponding to the streamwise velocity component shows a slight bias toward negative
+values. These distributions are consistent with the low prediction RRMSE reported in Tab. 6 and the
+MSE distribution detailed above.
+
+26
+10° 10°
+
+me
+
+Ev, maxl
+
+g
+es
+=
+
+107
+
+S.
+
+10°
+
+Relative frequency
+i
+
+Relative frequency
+
+&
+
+10-4
+
+10> 10-5
+
+-1.00 -0.75 -0.50 -0.25 0.00 0.25 0.50 0.75
+Error
+
+(a) (b)
+Figure 24: Same as 23 but for the FRe case, with Re = 260 and AoA = 20°.
+
+-0.75 -0.50 -0.25 0.00 0.25 0.50 0.75 1.00
+Error
+
+4.5 Generation of databases for unseen flow conditions.
+
+This section presents the results obtained for generating data under unseen flow conditions using the
+proposed HybriNet. Two distinct cases were considered, with the objective of predicting flow conditions
+where neither the AoA nor the Reynolds number exist in the original database: generating a database
+for AoA = 22.5° at Re = 230, referred to as N1 (Fig. 25a), and for AoA = 11° at Re = 245, referred to
+as N2 (Fig. 25b). These test cases were strategically chosen to evaluate the capabilities of the proposed
+methodology: the N1 task lies between two equispaced entries in the original database, while the N2
+task corresponds to a prediction near an existing database value.
+
+20 @ @ e888 @ 20 @@e@e888 86 @
+2028060606088 @ ,20@@0@08800800
+oO
+5 g
+530 @ 8 e880 0 570@@ 088060 ®
+2 240 is]
+
+g @@eeeee0 0 35 @e@@20ee00
+5730 @0@08808080 520000808886 @
+20 @@@ee888@ @ 20 @ @ 66686 @
+5° 10° 15° 20° 22.5° 25° 30° 5° 10° 11° 15° 20° 25° 30°
+Angle of attack Angle of attack
+(a) (b)
+
+Figure 25: Same as Fig. 18 but for the generation of new databases for unseen flow conditions scenario.
+The dots in red refer to the added unseen flow conditions, while the highlighted ones in black refer to
+the target flow condition.
+
+Figure 26 displays the predicted streamwise and normal velocity components for the N1 case. It
+is evident that, for both velocity components, the high-resolution predictions accurately capture the
+flow phenomena, closely matching the structures observed in the ground truth. Similar to the filled-in
+data for incomplete databases, the MSE distribution remains close to zero over most of the domain,
+with maximum errors occurring near the top and bottom of the bluff body for the streamwise velocity,
+and in a localized region downstream of the bluff body for the normal velocity component.
+
+20
+High-resolution pred. Ground truth
+
+us 127
+Lo
+05 >
+oo
+
+0 -05
+
+Oo 31 68 95 127
+
+High-resolution pred. Ground Truth 3 bow-resolution pred.
+
+10 127 6 10 127
+os r os 95
+oo > > 31 00 > 6
+“05 -05 “05 31
+-10 “10 -10
+
+o 31 63 95 17
+
+6 31 63 «95 «(127
+x x
+
+4 Low-resolution pred.
+
+1s 6: 15
+Lo Lo
+os >a 05 >
+00 20
+05 ~05
+
+127 6 31 63 «495 «(127
+x x x
+
+a7 MSE error distribution
+
+gu
+
+¥
+8 &
+
+Streamwise velocity component
+ci
+
+MSE error distribution
+
+8
+
+02575
+
+&
+
+0.1931
+
+0.1287
+
+31
+
+0644
+
+Normal velocity component
+¥
+g
+
+0.4591
+03044
+0.2296
+oanas
+0.0000
+
+0.0000
+
+Figure 26: N1 task; Same as 19 but with Re = 230 and AoA = 22.5°.
+
+The predictions obtained for the N2 test case are shown in Fig. 27. Similar to the N1 case, the
+proposed HybriNet accurately captures the fluid dynamics phenomena. The flow structures for both
+the streamwise and normal velocity components are precisely reconstructed in both the low- and high-
+resolution predictions, demonstrating the ability of GPR to spatially upscale with high fidelity to the
+original data. Regarding the MSE distribution, the maximum errors occur in the vicinity of the bluff
+body for both velocity components.
+
+Ground truth
+
+7
+Bl Ei
+0 31 6 9 127
+
+x
+
+Low-resolution pred.
+
+1s 27
+10
+os >
+00
+05
+5
+
+, High-resolution pred. MSE error distribution
+
+2
+> 2
+31
+0
+Oo 31 6 9 127
+x
+
+0.4717
+
+&
+
+03538
+
+0.2359
+
+31 0.1179
+
+Streamwise velocity component
+
+‘0.0000
+316895 7
+x
+High-resolution pred. Ground Truth Low-resolution pred. MSE error distribution
+27 68 10 227 03062
+2
+<
+o
+§
+S55 05 02297
+—
+S
+is)
+p> B > oo > 0.1531
+oO
+2
+$
+cs 05 00766
+= 3
+E
+S
+< -10 ‘0.0000
+6 6 9 127
+x x
+
+Figure 27: N2 task; Same as 19 but with Re = 245 and AoA = 11°.
+
+Figures 28 and 29 show the evolution of the streamwise velocity magnitude at a point of interest
+
+28
+(x = 70, y = 80), located within the wake behind the square cylinder. For both test cases, the original
+and predicted time series overlap closely over the snapshots corresponding to the test set (between
+snapshots 106 and 128), indicating that the LSTM-based neural network was adequately trained on
+the temporal coefficients associated with the retained temporal SVD modes.
+
+Streamwise velocity field Predicted vs Ground Truth at Point (70,80)
+
+127 0.80
+
+2
+5
+a
+
+95
+
+Bo70
+os 8
+- 2 065
+> 63 2
+04 z 0.60 — Ground truth
+s = Prediction
+02 5 055
+31 o
+00 0.50
+02 045
+63 127 ° 50 100 150 200
+x Time
+
+Figure 28: N1 task; Same as 21 but with Re = 230 and AoA = 22.5°.
+
+Streamwise velocity field Predicted vs Ground Truth at Point (70,80)
+
+127
+
+12 09
+10
+95 08
+os #
+2
+o
+06 $07
+> 63 o4 2
+z — Ground truth
+02 & 06 —— Prediction
+31 oo
+05
+-0.2
+04 04
+63 127 0 50 100 150 200
+x Time
+
+Figure 29: N2 task; Same as 19 but with Re = 245 and AoA = 11°.
+
+Figure 30 presents the normalized error distribution for the N1 test case, shown as relative frequency
+histograms for the streamwise and normal velocity components. Figures 30a and 30b indicate that
+over 90% of the error values for both components are concentrated around zero, with a slight bias
+toward negative values. This behavior is consistent with the MSE distribution observed in Fig. 26 and
+the low RRMSE values reported in Tab. 6.
+
+29
+10° 10°
+
+w
+o
+4
+
+io=t
+
+&
+
+10-2
+
+10-3
+
+Relative frequency
+rm
+i
+
+Relative frequency
+
+ao-4 10-¢
+
+“5. 10-5
+=1.00 -0.75 -0.50 -0.25 0.00 0.25 050 0.75 =
+
+Error
+(a)
+Figure 30: N1 task; Same as 23 but with Re = 230 and AoA = 22.5°.
+
+The normalized error distribution for the N2 test case is presented as relative frequency histograms
+for the streamwise and normal velocity components in Fig. 31. The normalized error for the streamwise
+velocity component (Fig. 3la) shows that over 90% of the values concentrated near zero and a slight
+bias toward negative values. The normalized error for the normal velocity component also has a
+distribution centered around zero, with a slight bias toward negative values and a higher relative
+frequency compared to the streamwise component. This observation is consistent with Tab. 6, where
+the RRMSE for the normal velocity component is lower than that of the streamwise component.
+
+10° 10° i z
+— =
+[éu, maxl Ev, max
+107 10-2
+> >
+ce} 1c}
+= =
+$ $
+a 107 s107
+vo oO
+2 2
+= =
+vo vo
+2 =
+B10? 10%
+oy g
+ina id
+10-* 10-4
+10-5 10-5
+=0.75 -0.50 -0.25 0.00 025 050 075 1.00 =0.75 -0.50 -0.25 0.00 0.25 050 0.75 1.00
+Error Error
+(a) (b)
+
+Figure 31: N2 task, Same as 23 but with Re = 245 and AoA = 11°.
+
+4.6 Summary of the results obtained.
+
+Table 6 presents the RRMSE computed for both the streamwise and normal velocity components across
+the four test cases considered in this work. It can be observed that the FAoA case yields the lowest
+error values for both velocity components, indicating that the proposed HybriNet effectively captures
+variations related to changes in the angle of attack. In contrast, the FRe case exhibits the highest
+RRMSE values, particularly for the streamwise component, suggesting that the model encounters
+greater difficulty generalizing across different Reynolds numbers. For the N1 and N2 cases, the RRMSE
+
+30
+ID (Tab. 5) RRMSE Streamwise Velocity (x10-?) RRMSE Normal Velocity (x10~?)
+
+FRe 1.92757 1.74942
+FAoA 1.22559 0.67426
+N1 1.35854 0.75767
+N2 1.53968 1.15253
+
+Table 6: Relative Root Mean Square Error (RRMSE) for streamwise and normal velocity components
+for the different test cases addressed using the proposed HybriNet.
+
+values lie between those of FRe and FAoA, with N1 showing slightly better performance than N2 in both
+components. The streamwise velocity tends to exhibit higher reconstruction errors than the normal
+velocity, likely due to the larger magnitude variations typically present in the streamwise direction.
+It is worth mentioning that the RRMSE for both velocity components remains consistently below 2%
+across all test cases, demonstrating the high accuracy and robustness of the proposed model.
+
+5 Conclusions
+
+To the best of the authors’ knowledge, HybridNet is introduced for the first time in this study as
+a unified, modular framework that simultaneously addresses three critical tasks in fluid dynamics
+modeling: parametric interpolation, temporal forecasting, and resolution enhancement. HybridNet
+enables the generation of multi-parametric databases by interpolating across physical parameters, in
+this case, angle of attack (AoA) and Reynolds number (Re), while extending its capabilities to produce
+accurate temporal predictions and high-resolution reconstructions for both ground truth and predicted
+data.
+
+The results demonstrate that HybridNet delivers accurate reconstructions in both temporal and
+parametric domains, as well as improved spatial resolution. Its modular architecture ensures flexibility
+and generalizability, making it applicable to a wide range of databases where parametric variability,
+spatio-temporal dynamics, and resolution limitations are key challenges.
+
+The application of higher-order singular value decomposition (HOSVD) facilitates effective dimen-
+sionality reduction while preserving the most significant flow structures, thus enabling computationally
+efficient data processing and storage. Coupling HOSVD with neural networks allows for spatial resolu-
+tion enhancement by reconstructing high-resolution datasets from low-resolution inputs with minimal
+error. Furthermore, Gaussian process regression (GPR) proves effective for interpolating new flow
+conditions, such as intermediate Re numbers and AoA values, ensuring the continuity and consistency
+of fluid dynamics databases.
+
+Validation results confirm the accuracy and generalization capacity of the proposed framework, with
+reconstruction errors consistently below 2% across all test cases. The forecasting module, based on
+recurrent neural networks (RNNs), accurately predicts future flow states while preserving the coherence
+of flow structures over time.
+
+This hybrid deep learning multi-parametric reduced-order modeling (ROM) framework represents
+a significant advancement in data-driven fluid dynamics analysis, offering a scalable, flexible, and
+computationally efficient alternative to traditional high-fidelity simulations. Its modular design renders
+it adaptable to diverse fluid dynamics scenarios, extending its applicability to complex flow problems
+beyond the configurations examined in this work.
+
+31
+6 Acknowledgements
+
+The authors acknowledge the MODELAIR project that has received funding from the European
+Union’s Horizon Europe research and innovation programme under the Marie Sklodowska-Curie grant
+agreement No. 101072559. S.L.C. acknowledges the ENCODING project that has received fund-
+ing from the European Union’s Horizon Europe research and innovation programme under the Marie
+Sklodowska-Curie grant agreement No. 101072779. The results of this publication reflect only the
+author’s view and do not necessarily reflect those of the European Union. The European Union can
+not be held responsible for them. The authors acknowledge the grant PLEC2022-009235 funded by
+MCIN/AEI/ 10.13039/501100011033 and by the European Union “NextGenerationEU” /PRTR and
+the grant PID2023-1477900B-100 funded by MCIU/AEI/10.13039 /501100011033 /FEDER, UE. The
+authors gratefully acknowledge the Universidad Politécnica de Madrid (www.upm.es) and CeSViMa
+for providing computing resources on the Magerit Supercomputer.
+
+References
+
+1] M.-A. Knietzsch, V. Lucarini, and F. Lunkeit, “The impact of oceanic heat transport on the
+atmospheric circulation,” arXiv preprint arXiv:1410.0565, 2014.
+
+2) +O. Duran, B. Andreotti, and P. Claudin, “Numerical simulation of turbulent sediment transport,
+from bed load to saltation,” arXiv preprint arXiv:1111.6898, 2011.
+
+3] E. R. Pardyjak, M. J. Brown, and J. C. Hunt, “Urban fluid mechanics: Air circulation and
+contaminant dispersion in cities,” Environmental Fluid Mechanics, vol. 2, no. 1, pp. 95-116,
+
+2002.
+
+4| A. Rajwa-Kuligiewicz, K. Kulasza, and A. Kiczko, “Effect of water—air heat transfer on the
+spread of thermal pollution in rivers,” Acta Geophysica, vol. 67, no. 2, pp. 597-619, 2019.
+
+5] W. contributors, Application of cfd in thermal power plants, https: //en.wikipedia.org/wiki/
+Application_of_CFD_in_thermal_power_plants, Accessed: 2025-05-22, 2021.
+
+6] D. F. Fletcher, “The future of computational fluid dynamics (CFD) simulation in the chemical
+process industries,” Chemical Engineering Research and Design, vol. 187, pp. 299-305, 2022,
+ISSN: 0263-8762. DOI: https: //doi.org/10.1016/j.cherd.2022.09.021 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S0263876222005202
+
+7| A. Mazumdar, J. Burkotovd, T. Kratky, T. Chugh, and K. Miettinen, “Handling simulation
+failures of a computationally expensive multiobjective optimization problem in pump design,”
+Engineering Applications of Artificial Intelligence, vol. 136, p. 108897, 2024, ISSN: 0952-1976.
+DOI: https: //doi.org/10.1016/j . engappai . 2024 . 108897 [Online]. Available: https :
+//www.sciencedirect.com/science/article/pii/S0952197624010558
+
+Z. Dar, J. Baiges, and R. Codina, Reduced Order Modeling. Unspecified Publisher, 2024.
+
+P. Torres, S. Le Clainche, and R. Vinuesa, “On the experimental, numerical and data-driven
+methods to study urban flows,” Energies, vol. 14, no. 5, 2021, ISSN: 1996-1073. DoI: 10.3390/
+en14051310 [Online]. Available: https: //www.mdpi .com/1996-1073/14/5/1310
+
+[10] Q. A. Huhn, M. E. Tano, J. C. Ragusa, and Y. Choi, “Parametric dynamic mode decomposition
+for reduced order modeling,” Journal of Computational Physics, vol. 475, p. 111852, 2023, ISSN:
+0021-9991. Dor: https: //doi.org/10.1016/j.jcp.2022.111852 [Online]. Available: https:
+//www.sciencedirect.com/science/article/pii/S0021999122009159
+
+[11] Z. Zhong, X. Hua, Z. Zhai, and M. Ma, “A novel tensor-based modal decomposition method
+for reduced order modeling and optimal sparse sensor placement,” Aerospace Science and Tech-
+nology, vol. 155, p. 109530, 2024, ISSN: 1270-9638. DOI: https: //doi.org/10.1016/j.ast.
+2024. 109530 [Online]. Available: https: //www.sciencedirect .com/science/article/pii/
+$1270963824006606
+
+32
+[16]
+
+[17]
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+L. Sirovich, “TURBULENCE AND THE DYNAMICS OF COHERENT STRUCTURES PART
+I: COHERENT STRUCTURES,” Quarterly of Applied Mathematics, vol. 45, no. 3, pp. 561-571,
+1987, ISSN: 0033569X, 15524485. Accessed: Oct. 4, 2024. [Online]. Available: http://www. jstor.
+org/stable/43637457
+
+L. Sirovich, “Turbulence and the Dynamics of Coherent Structures. II. Symmetries and Trans-
+formations,” Quarterly of Applied Mathematics, vol. 45, pp. 573-582, 1987. [Online]. Available:
+https://api.semanticscholar.org/CorpusID: 11429443
+
+J. L. Lumley, The structure of inhomogeneous turbulent flows, 1967.
+
+G. Mendonga, F. Afonso, and F. Lau, “Model order reduction in aerodynamics: Review and appli-
+cations,” Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace
+Engineering, vol. 233, no. 15, pp. 5816-5836, 2019. Dor: 10. 1177/0954410019853472 eprint:
+https: //doi.org/10.1177/0954410019853472. [Online]. Available: https: //doi.org/10.
+1177/0954410019853472
+
+X. Huet al., “A transient reduced order model for battery thermal management based on singular
+value decomposition,” in 2014 LEEE Energy Conversion Congress and Exposition (ECCE), 2014,
+pp. 3971-3976. Dor: 10.1109/ECCE.2014.6953941
+
+S. Buoso, A. Manzoni, H. Alkadhi, and V. Kurtcuoglu, “Stabilized reduced-order models for
+unsteady incompressible flows in three-dimensional parametrized domains,” Computers & Fluids,
+vol. 246, p. 105604, 2022, ISSN: 0045-7930. DoI: https: //doi.org/10.1016/j .compfluid.
+2022. 105604 [Online]. Available: https: //www.sciencedirect .com/science/article/pii/
+$0045793022002110
+
+L. R. Tucker, “The extension of factor analysis to three-dimensional matrices,” in Contributions
+to mathematical psychology. H. Gulliksen and N. Frederiksen, Eds., New York: Holt, Rinehart
+and Winston, 1964, pp. 110-127.
+
+J. Miao, K. I. Kou, D. Cheng, and W. Liu, “Quaternion higher-order singular value decomposition
+and its applications in color image processing,” Information Fusion, vol. 92, pp. 139-153, 2023,
+ISSN: 1566-2535. DOI: https://doi.org/10.1016/j.inffus.2022.11.026 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S1566253522002366
+
+B. Karasézen, G. Miilayim, and M. Uzunca, “Nonintrusive model order reduction for cross-
+diffusion systems,” Communications in Nonlinear Science and Numerical Simulation, vol. 115,
+p. 106 734, 2022, Issn: 1007-5704. Dor: https: //doi.org/10.1016/j.cnsns . 2022. 106734 [On-
+line]. Available: https: //www.sciencedirect.com/science/article/pii/S1007570422002738
+
+M. K. Moayyedi and M. N. beygi, “A high fidelity cost efficient tensorial method based on
+combined pod-hosvd reduced order model of flow field,” European Journal of Computational
+Mechanics, vol. 27, no. 4, pp. 342-366, 2018. DoI: 10. 1080/17797179 . 2018. 1550963 eprint:
+https: //doi.org/10.1080/17797179. 2018. 1550963. [Online]. Available: https: //doi.org/
+10. 1080/17797179.2018. 1550963
+
+L. S. Lorente, D. Alonso, J. M. Vega de Prada, and A. Veldzquez, “Application of hosvd to
+aerodynamics. the problem of shock waves,” in 9th International Conference on Computational
+and Mathematical Methods in Science and Engineering, CMMSE 2009, Asturias, Espana, Jun.
+2009, ISBN: 978-84-612-9727-6.
+
+P. Diaz-Morales, A. Corrochano, M. Lépez-Martin, and S. L. Clainche, “Deep learning com-
+bined with singular value decomposition to reconstruct databases in fluid dynamics[formula pre-
+sented],” Expert Systems with Applications, vol. 238, Mar. 2024. Dol: 10.1016/j.eswa.2023.
+121924
+
+A. Hetherington, D. Serfaty, A. Corrochano, J. Soria, and S$. Le Clainche, “Data repairing and
+resolution enhancement using data-driven modal decomposition and deep learning,” Experi-
+mental Thermal and Fluid Science, vol. 157, p. 111241, 2024, Issn: 0894-1777. Dol: https:
+//doi.org/10.1016/j .expthermflusci . 2024. 111241 [Online]. Available: https : //www .
+sciencedirect.com/science/article/pii/S0894177724001109
+
+33
+26
+
+27
+
+28
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35.
+
+36
+
+37
+
+[38]
+
+G. Aversano, M. Ferrarotti, and A. Parente, “Digital twin of a combustion furnace operating
+in flameless conditions: Reduced-order model development from cfd simulations,” Proceedings of
+the Combustion Institute, vol. 38, pp. 5373-5381, 2021. Dol: 10. 1016/3. proci.2020.08.032
+[Online]. Available: https://doi.org/10.1016/j.proci.2020.08.032
+
+A. Procacci, R. Amaduzzi, A. Coussement, and A. Parente, “Adaptive digital twins of combustion
+systems using sparse sensing strategies,” Proceedings of the Combustion Institute, 2022. Dot:
+10. 1016/j .proci.2022.03.158 [Online]. Available: https: //doi.org/10.1016/j.proci.
+2022.03.158
+
+R. Abadfa-Heredia, M. Lépez-Martin, B. Carro, J. Arribas, J. Pérez, and S. Le Clainche, “A
+predictive hybrid reduced order model based on proper orthogonal decomposition combined
+with deep learning architectures,” Expert Systems with Applications, vol. 187, p. 115910, 2022,
+ISSN: 0957-4174. DoI: https: //doi.org/10.1016/j .eswa.2021.115910 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S0957417421012653
+
+X. Du, C. Hu, and H. Dong, “Pod-lstm model for predicting pressure time series on structures,”
+Journal of Wind Engineering and Industrial Aerodynamics, vol. 245, p. 105651, 2024, ISSN:
+0167-6105. DoI: https: //doi.org/10.1016/j . jweia. 2024. 105651 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S016761052400014Xx
+L. S. Lorente, J. M. Vega, and A. Velazquez, “Generation of aerodynamics databases using high-
+order singular value decomposition,” Journal of Aircraft, vol. 45, no. 5, pp. 1779-1788, 200:
+DOI: 10. 2514/1. 35258 eprint: https: //doi.org/10. 2514/1 . 35258. [Online]. Available:
+https: //doi.org/10.2514/1.35258
+
+G. Barragan, A. Hetherington, R. Abadfa-Heredia, J. Garicano-Mena, and S. L. Clainche, Hosvd-
+sr: A physics-based deep learning framework for super-resolution in fluid dynamics, 2025. arXiv:
+2504.17994 [physics.flu-dyn]. [Online]. Available: https: //arxiv.org/abs/2504. 17994
+A. Sengupta, R. Abadfa-Heredia, A. Hetherington, J. M. Pérez, and S. L. Clainche, Hybrid
+machine learning models based on physical patterns to accelerate cfd simulations: A short guide
+on autoregressive models, 2025. arXiv: 2504. 06774 [physics.flu-dyn]. [Online]. Available:
+https: //arxiv.org/abs/2504.06774
+
+&
+
+J. Sola and J. Sevilla, “Importance of input data normalization for the application of neural net-
+works to complex industrial problems,” IEEE Transactions on Nuclear Science, vol. 44, pp. 1464—
+1468, 3 PART 3 1997, ISSN: 00189499. Dol: 10.1109/23.589532
+
+P. J. M. Ali, “Investigating the impact of min-max data normalization on the regression perfor-
+mance of k-nearest neighbor with different similarity measurements,” ARO-THE SCIENTIFIC
+JOURNAL OF KOYA UNIVERSITY, vol. 10, pp. 85-91, 1 Jun. 2022, ISSN: 2410-9355. DOI:
+10.14500/aro.10955
+
+L. Huang, J. Qin, Y. Zhou, F. Zhu, L. Liu, and L. Shao, “Normalization techniques in training
+dnns: Methodology, analysis and application,” Sep. 2020. [Online]. Available: http: //arxiv .
+org/abs/2009 . 12836
+
+L. R. Tucker, “Implications of factor analysis of three-way matrices for measurement of change,”
+in Problems in measuring change. C. W. Harris, Ed., Madison WI: University of Wisconsin Press,
+
+1963, pp. 122-137
+
+L. R. Tucker, “Some mathematical notes on three-mode factor analysis,” Psychometrika, vol. 31,
+pp. 279-311, 1966. [Online]. Available: https: // api. semanticscholar . org/CorpusID :
+44301099
+
+L. De Lathauwer, B. De Moor, and J. Vandewalle, “On the best rank-1 and rank-(rl ,r2 ,. .
+.tm) approximation of higher-order tensors,” SIAM Journal on Matrix Analysis and Applica-
+tions, vol. 21, no. 4, pp. 1824-1342, 2000. Dor: 10 . 1137/S0895479898346995 eprint: https:
+//doi .org/10.1137/S0895479898346995. [Online]. Available: https: //doi.org/10.1137/
+$0895479898346995
+
+L. De Lathauwer, B. De Moor, and J. Vandewalle, “A multilinear singular value decomposition,”
+SIAM Journal on Matrix Analysis and Applications, vol. 21, no. 4, pp. 1253-1278, 2000. Dot: 10.
+1137 /S0895479896305696 eprint: https: //doi.org/10.1137/S0895479896305696. [Online].
+Available: https: //doi.org/10.1137/S0895479896305696
+
+34
+39
+
+[48]
+
+L. S. Lorente, J. M. Vega, and A. Velazquez, “Compression of aerodynamic databases using
+high-order singular value decomposition,” Aerospace Science and Technology, vol. 14, no. 3,
+pp. 168-177, 2010, IssN: 1270-9638. DOI: 10.1016/j.ast.2009.12.003 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S1270963809000935
+
+A. Hetherington et al., “Modelflows-app: Data-driven post-processing and reduced order mod-
+elling tools,” Computer Physics Communications, vol. 301, p. 109217, 2024, ISSN: 0010-4655.
+DOI: https://doi.org/10.1016/j.cpc. 2024. 109217 [Online]. Available: https : //www .
+sciencedirect.com/science/article/pii/S0010465524001401
+
+K. Taira et al., “Modal analysis of fluid flows: An overview,” AJAA Journal, vol. 55, no. 12,
+pp. 4013-4041, 2017. por: 10.2514/1.J056060
+
+P. Holmes, J. L. Lumley, G. Berkooz, and C. W. Rowley, Turbulence, Coherent Structures,
+Dynamical Systems and Symmetry. Cambridge University Press, 2012.
+
+A. N. Kolmogorov, “On the analytic methods of probability theory. Uspekhi matematicheskikh
+nauk, 1938.
+
+I. A. Ibragimov and Y. A. Rozanov, Gaussian random processes. Springer Science & Business
+Media, 1978.
+
+C. E. Rasmussen and C. K. I. Williams, Gaussian Processes for Machine Learning. The MIT
+Press, 2006.
+
+S. Hochreiter and J. Schmidhuber, “Long short-term memory,” Neural Computation, vol. 9,
+no. 8, pp. 1735-1780, Nov. 1997, ISSN: 0899-7667. DOI: 10.1162/neco.1997.9.8.1735 eprint:
+https://direct .mit.edu/neco/article-pdf/9/8/1735/813796/neco.1997.9.8.1735.pdf.
+[Online]. Available: https://doi.org/10.1162/neco.1997.9.8.1735
+
+B. Lindemann, T. Miller, H. Vietz, N. Jazdi, and M. Weyrich, “A survey on long short-term
+memory networks for time series prediction,” Procedia CIRP, vol. 99, pp. 650-655, 2021, 14th
+CIRP Conference on Intelligent Computation in Manufacturing Engineering, 15-17 July 2020,
+ISSN: 2212-8271. DOI: https://doi.org/10.1016/j.procir.2021.03.088 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S2212827121003796
+
+A. Hajisharifi, R. Halder, M. Girfoglio, A. Beccari, D. Bonanni, and G. Rozza, “An Istm-enhanced
+surrogate model to simulate the dynamics of particle-laden fluid systems,” Computers & Fluids,
+vol. 280, p. 106361, 2024, ISSN: 0045-7930. DoI: https: //doi.org/10.1016/j .compfluid.
+2024. 106361 [Online]. Available: https: //www.sciencedirect .com/science/article/pii/
+$0045793024001932
+
+F. Chollet et al., Keras, https: //github.com/fchollet/keras, 2015.
+
+S. Hochreiter and J. Schmidhuber, “Long short-term memory,” Neural computation, vol. 9, no. 8,
+pp. 1735-1780, 1997.
+
+D. P. Kingma and J. Ba, Adam: A method for stochastic optimization, 2017. arXiv: 1412.6980
+[cs.LG]. [Online]. Available: https: //arxiv.org/abs/1412.6980
+
+F. Trias, A. Gorobets, and A. Oliva, “Turbulent flow around a square cylinder at reynolds
+number 22,000: A dns study,” Computers & Fluids, vol. 123, pp. 87-98, 2015, Issn: 0045-7930.
+DOI: https: //doi.org/10.1016/j.compfluid.2015.09.013 [Online]. Available: https:
+//waw.sciencedirect.com/science/article/pii/S0045793015003254
+V. Beltran, C. Méndez, S. Le Clainche, and J. M. Vega, “Wake interactions in multibody con-
+figurations with different shape,” Aerospace Science and Technology, vol. 95, p. 105428, 2019,
+ISSN: 1270-9638. DOI: https: //doi.org/10.1016/j.ast . 2019. 105428 [Online]. Available:
+https: //www.sciencedirect.com/science/article/pii/S1270963819311307
+
+A. S. Kumar, A. Singh, N. Gaur, and K. B. T., “Study of various mesh strategies for flow over a
+square cylinder using OpenFOAM@),” AIP Conference Proceedings, vol. 2277, no. 1, p. 230001,
+Nov. 2020, ISSN: 0094-243X. DOI: 10. 1063/5 .0025201 eprint: https: //pubs.aip.org/aip/
+acp/article-pdf/doi/10. 1063/5 . 0025201/13272208/230001\_1\_online. pdf. [Online].
+Available: https: //doi.org/10.1063/5.0025201
+[55] H. Jasak, “OpenFOAM: Open source CFD in research and industry,” International Journal
+of Naval Architecture and Ocean Engineering, vol. 1, no. 2, pp. 89-94, 2009, ISSN: 2092-6782.
+DOI: https: //doi. org/10.2478/IJNAOE- 2013-0011 [Online]. Available: https : //www .
+
+sciencedirect.com/science/article/pii/S2092678216303879
+
+36

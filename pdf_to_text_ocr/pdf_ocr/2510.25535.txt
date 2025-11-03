@@ -1,0 +1,2647 @@
+sics.optics] 29 Oct 2025
+
+2510.25535v1 [phy
+
+arXiv
+
+Next-generation interferometry with gauge-invariant linear optical scatterers
+
+Christopher R. Schwarze,!:* Anthony D. Manni,!:t David S.
+Simon,!:?:+ Abdoulaye Ndao,!*:§ and Alexander V. Sergienko!+:4
+
+"Department of Electrical and Computer Engineering © Photonics Center,
+Boston University, 8 Saint Mary’s St., Boston, Massachusetts 02215, USA
+? Department of Physics and Astronomy, Stonehill College,
+
+820 Washington Street, Easton, Massachusetts 02357, USA
+° Department of Electrical and Computer Engineering,
+University of California San Diego, La Jolla, CA, USA
+
+* Department of Physics, Boston University, 590 Commonwealth Avenue, Boston, Massachusetts 02215,
+
+(Dated: October 30, 2025)
+
+Measurement technology employing optical interference phenomena such as a fringe pattern or
+frequency shift has been evolving for more than a century. The systems are being designed better,
+and their components are being built better. But the major components themselves hardly change.
+Most modern interferometers rely on the same conventional set of components to separate the elec-
+tromagnetic field into multiple beams, such as plate optics and beam-splitters. This naturally limits
+the design scope and thus the potential applicability and performance. However, recent investiga-
+tions suggest that incorporating novel, higher-dimensional linear-optical splitters in interferometer
+design can lead to several improvements. In this work, we review the underlying theory of these
+novel optical scatterers and some demonstrated configurations with enhanced resolution. The basic
+principles of optical interference and optical phase sensing are discussed in tandem. Emphasis is
+placed on both familiar and unfamiliar scatterers, such as the maximally-symmetric Grover multi-
+port, whose actions are left unchanged by certain gauge transformations. These higher-dimensional,
+gauge-invariant multiports embody a new class of building blocks which can tailor optical interfer-
+
+USA
+
+ence for metrology in unconventional ways.
+
+I. INTRODUCTION
+
+Optical systems have long been a popular choice
+and advancements over the last century is derived
+interference is typically a small fraction of the wave
+
+nological achievements in lasing and detection at even
+room-filling tabletop optical systems are being scaled down to integrated photonic chips.
+aspect of any optical system, beyond
+
+Another core
+
+Materials are needed to both control the characteris
+
+as impart signatures of physical phenomena on the
+
+eam splitters
+
+field [3]. Optical system building blocks like these
+
+rocesses [4, 5].
+While undoul
+
+han their traditional counterparts [6-10]. The mos
+
+tedly novel and sophisticated optical
+
+for
+
+length, which
+
+ics of light re
+
+reflections, which have been demonstrated in a few cases recently
+
+* e-mail:
+¥ e-mail:
++ email:
+§ email:
+
+crs2@bu.edu
+admanni@bu.edu
+simond@bu. edu
+alindao@ucsd.edu
+
+‘| e-mail: alexserg@bu.edu
+
+nigh-precision measurement
+rom several factors. First, the intrinsic sensitivity of any wave
+
+he single-photon level continue to grow, al
+
+light for the
+1, 2], which divide and combine beams,
+
+and sensing. Their general use
+
+for visible light is on the order of a micron. Tech-
+while the once
+
+he optical sources and detectors, is the materials used to
+manipulate the light. Without matter, generated beams are tautologically only able to propagate
+
+hrough vacuum.
+flecting from or transmitting through them as well
+sake of inference. Common components include
+
+as well as devices to modify the orientation of the electric
+have been optimized through decades of scientific research and
+engineering. Tolerances have improved, losses have decreased, and components have become more widely available and
+customizable, through both traditional component suppliers and chip foundries supporting nanophotonic fabrication
+
+systems have since been proposed and demonstrated for metro-
+logical purposes, such as metamaterials and spatial-light modulators, these tools are often still use
+with familiar components like the beam splitter and/or are used in unconventional sensing configurations. Meanwhile,
+he available building blocks for use in traditional interferometers
+
+Several alternative elementary linear scatterers have recently been studied and demonstrated for use in optical
+interferometry. These devices are called higher-dimensional multiports since they actively employ more optical modes
+
+general class of these multiports admits strong coherent back-
+
+in conjunction
+
+aave largely remained the same.
+
+11-13]. Two important examples in this class are
+the four-port Grover coin[14] and the symmetric Y-coupler, which schematically compared to a traditional 50:50 beam
+splitter in Fig. 1. All three of these devices are interrelated and possess certain symmetries which will be discussed
+later in the text. The higher-dimensional, back-scattering or “directionally unbiased” devices have recently been
+shown to offer various enhancements to interferometric sensing systems, such as increased resolution, synchronous
+readout of several quantities, and a reduced resource count. These devices and the basic interferometric configurations
+they improve will form the main subject of this review. Some of the interferometric configurations to be discussed
+further are depicted in Fig. 2. In conjunction with this, we will also present the basic principles of linear optical
+scatterers and interferometers, emphasizing a practical mathematical framework for identifying the symmetries these
+devices possess.
+
+(a) Symmetric beam splitter (b) Four-port Grover coin (c) Symmetric Y coupler
+
+3
+
+50%
+
+—— Input
+——» Output
+
+FIG. 1. Comparison of some common symmetric multiports. The balanced beam-splitter (a) produces two transmitting beams
+of equal, 50% intensity for any single input, while the four-port Grover coin (b) produces four outgoing beams of 25% intensity,
+with one of those being a back-reflection. The symmetric Y coupler (c) produces two equally intense beams when input to
+port 1, with no back-reflection. However, when input to port 2, a 25% back-reflection occurs, while 50% of the energy returns
+to port 1 and 25% scattering to port 3. Due to the underlying symmetry, input to port 3 is the same as input to port 2.
+Symmetry, in this context, is not just in the sense of having equal probabilities. The full mathematical description of the
+symmetries a scattering device can possess is described in Section IC. These higher-dimensional devices generalize traditional
+interferometric configurations; some of the examples to be discussed in detail later is shown are Fig. 2.
+
+Beyond the devices capable of dividing and recombining light, which typically entails interfacing different materials,
+yet another crucial building block of an optical system is ordinary transparent matter. Bulk transparent matter imparts
+a phase to the electromagnetic wave propagating within it. This acquired phase differs from the phase that wave
+would normally acquire in empty space. For a transparent region of length d, source wavelength (in vacuum) and
+refractive index n, the phase @ acquired is
+
+2and
+b= . 1
+oa (1)
+
+This simple formula is of fundamental importance in optical phase metrology, since it illustrates precisely what
+quantities can alter the phase, and thus ultimately be inferred from a phase sensing instrument. The wavelength
+dependence makes it clear different colors naturally acquire different phases while propagating through any medium,
+even vacuum. The refractive index n is a dimensionless quantity that indicates the speed of light propagating through
+the material, or equivalently, the change in the apparent wavelength. It is entirely responsible for the difference in
+phase acquired inside and outside of the material. Inside a material, its value is intrinsic to its composition of matter
+and thus varies in a considerable number of ways. These different variations underlie much of optical metrology,
+enabling many physical quantities to impart an optical phase shift which can be detected.
+(a) Traditional configuration
+
+(b) Multiport generalization
+
+Michelson
+
+=
+
+Sagnac
+
+2
+
+Fabry-Pérot
+
+Grover-Michelson
+
+=
+
+2
+
+Grover-Sagnac
+
+2
+
+Y coupler Fabry-Pérot
+
+1 2 1 2
+
+FIG. 2. Examples of traditional interferometers (a) and their corresponding multiport generalizations (b). The beam-splitters
+in the Michelson and Sagnac configurations are replaced with the higher-dimensional Grover coin, while the two-dimensional
+plate optics forming the Fabry-Pérot interferometer are replaced with three-dimensional Y-couplers. In each of the multiport
+interferometers in case (b), the increased dimensionality combined with back-scattering behavior creates a new pair of coupled
+resonators. All of the pictured systems, along with other multiport interferometers, will be presented in detail in Section III.
+
+In the next section, we present a general mathematical framework to describe how fixed distributions of optical
+materials scatter light. This framework abstracts away the underlying physical dynamics, treating the action on an
+input field energy distribution as a linear transformation enacted by the scatterer. It allows possessed symmetries of
+linear-optical scatterers to be identified in relation to certain field transformations, which merely represent a change in
+gauge and therefore do not affect any measurable quantity. Certain symmetric scatterers such as the ones shown in Fig.
+1 emerge when their parent space is restricted to sets which remain invariant under such transformations. Thereafter
+in Section 3, interferometers are defined as phase-tunable scatterers, formed from graphs. The nodes of these graphs
+are scatterers of the static type, and each edge connecting two scatterers is associated with an optical phase parameter.
+There we review the operating principles of traditional phase-sensing interferometers. This provides a baseline for
+contrasting the modern proposals that employ higher-dimensional multiport building blocks. After discussing these
+systems and their advantages, general conclusions are summarized in Section 4.
+
+II. OPTICAL INTERFERENCE & LINEAR-OPTICAL SCATTERERS
+A. Background
+
+The phenomenon of interference is fundamentally the result of superimposing, or adding together, different waves
+that exist in sp The goal of this section is to provide a mathematical description of this superposition in optical
+scattering devices. The optical states will be represented as a vector with complex-valued entries. The complex-
+number representation allows both phase and magnitude (total energy) to be encoded in each entry. Meanwhile the
+
+scatterers, which distribute the optical energy according to a linear transformation, will be represented by a matrix,
+which acts on these vectors.
+
+Generally, any wave or periodic phenomenon can be expressed or decomposed into a basis of orthogonal modes,
+such as the m-indexed functions sin(m2) and cos(mx) which underlie Fourier series expansions. In optics, the fields
+comprising the electromagnetic waves produced by a given source can be expanded in a modal basis which depends on
+the refractive index distribution considered. In a homogeneous medium, such as vacuum, these are the familiar plane
+wave functions of the form Epe*?~“!, where |k| = 27n/A, the optical frequency w is 27c/A, c is the vacuum speed of
+light, n is the material refractive index, and A is the vacuum wavelength. Ep is the complex-valued mode amplitude.
+The problem of finding the modal functions in general involves solving a complicated boundary value problem which
+often must be done numerically. However, it is not completely necessary to provide a useful description of optical
+interferometers. The present approach is one of many other prevalent matrix methods employed in optical calculations
+
+(15, 16].
+
+B. Matrix formalism of linear-optical scattering
+
+We will adopt the quantum-optical notation since it generalizes to the two-photon states employed in a later section
+and encompasses all possible input states. We use the operator al (w,€) to denote the creation of a photon of fixed
+frequency w and polarization vector €¢ in spatial mode j. Hereafter the scope will be confined to a single frequency
+and polarization, so the explicit dependence of frequency and polarization of al can be omitted. The spatial mode
+index is also implicitly tied to some definite wave-vector k; (plane wave model). This dependence can also be omitted
+without loss of generality, as long as the propagation direction is specified with an additional subscript whenever
+counter-propagating excitations are present within the same spatial mode.
+
+With this notation, a state corresponding to a single photon propagating within this mode would be denoted
+a) = at |0) = |j). These single-photon basis states are orthogonal: (k|j) = 1 for k = j and 0 otherwise. A general
+superposition of a photon across d spatial modes is then denoted
+
+d
+
+Ib) = So eld). (2)
+
+The coefficients c; are the photon’s complex-valued probability amplitudes. The real number
+
+jc; is then the
+
+probability of measuring the photon in mode j. The state is assumed normalized, so that en le =1.
+By identifying the modal basis vectors |j) with the standard basis vector e,, whose kth element is 1 for k = j and
+0 otherwise, the state in the preceding equation can be placed into a state vector
+
+C1
+a d &
+Vals) — Vee; =). ]- (3)
+j=l j=l ‘
+ca
+
+This representation makes it clear that the total number of modes d is a measure of dimension. Optical qubit states
+employ two modes. States involving coherent superpositions of d modes are sometimes known as qudits.
+
+The classical equivalent of a state in the form of Eq. (2) is found by replacing the creation operator with the classical
+field mode function. This rescales all of the amplitudes by the square root of the total power in the beam, converting
+the probabilities into optical power or a proportionally related quantity. Hence, the probability distribution |c; 2 vs
+j is effectively a normalized distribution of optical energy in the state |q). Besides that rescaling, in terms of the
+algebraic formalism, it only shifts what is being tied to the standard basis {e1,...,ea}. This has no impact on the
+description of the scattering devices and thus the resulting interference they induce. Any distinction made between
+single-photon states and classical coherent states in the context of linear interferometry is largely inconsequential
+other than an overall normalization factor. Ref. [17] contains further commentary on this.
+A linear scatterer will act on the incident state |y,) according to a d x d matrix transformation U, producing the
+state |wWout) = U|Win). This implicitly reverses the direction of all the modes, as depicted by the general scattering
+situation in Fig. 3. U is known as the scattering matrix. When a photon located entirely in mode j enters the
+corresponding port of U, the state produced, in the form of Eq. (3), is simply column j of U. This implies that the
+element Uj; is the probability amplitude for a photon entering port j of the scattering device to emerge at port 7. Thus,
+|U;;|? is the probability for a photon entering port j to reflect directly backwards. The corresponding amplitudes for
+this back-scattering lie on the diagonal of U.
+
+on
+
+When a photon impinges port j, the requirement of energy or probability conservation entails that (Wout|Qout) =
+
+Way |Ui;|? = 1, which must then hold for all j. Maintaining orthogonality at the output, across different single-
+photon inputs, similarly requires that es Uij Uj, = 0 whenever i 4 k. These restrictions, when combined, imply
+that U'U = I, where Ut is the Hermitian conjugate or complex-transpose of U, Ut = (U)*. This condition is
+equivalent to the columns of U forming an orthonormal basis of C”. In other words, energy-conserving linear-optical
+scatterers are represented by unitary matrices. This subset of matrices forms a group, known as the unitary group in
+d-dimensions and will be denoted U(d).
+For a general input superposition, the scattering matrix U redistributes the inputted energy into a new outgoing
+superposition. This redistribution of energy is the harbinger of general interference, allowing energy from separate
+beams to be combined into one. The net outcome of this redistribution will be a function of both the scattering
+matrix U and the initial state amplitudes, and in particular, the relative phases of those state amplitudes.
+This discussion pertains to an arbitrary but fixed frequency and polarization, making U a constant. Nonetheless,
+the scattering behavior of photons of different frequencies and/or polarizations will generally vary due to the variation
+of a material’s optical response with respect to changes in these quantities. This in turn causes U = U(w,€) to be a
+matrix-valued function. In fact, since the material scattering response will generally be affected by any change in the
+refractive index distribution of the material comprising the scatterer, U will as well. Optical scattering devices are
+often engineered to resist this variation.
+
+——> Input |p)
+
+———> Output | Pout)
+
+FIG. 3. A generic, lossless linear-optical scattering device. This d-port device is mathematically represented by a d x d unitary
+scattering matrix U. Port 7 is identified with two spatial modes, one for each direction of propagation. The scatterer converts
+an input optical state |win) to the output state |Wour) = U|Win). This scattering action redistributes the optical energy in
+the input state. The arrows represent the flow of the associated state amplitudes. For clarity the counter-propagating arrows
+at the same port are drawn spatially separated, but in reality, the counter-propagating energy flow is perfectly collinear in
+each spatial mode. Scattering devices like U can be viewed as nodes of a general graph. Depictions like the above and more
+traditional nodal depictions such as those in Fig. 4 will be used interchangeably. A graph of scattering devices is generally
+called an interferometer.
+
+Enforcing symmetries by requiring that U remains invariant under a certain field transformation can impose con-
+straints on U [18]. An example is reciprocity, which originates in name from the Lorentz reciprocity theorem. This
+result pertains to a transformation that interchanges the sources and fields in an enclosed region. A reciprocal scat-
+terer is defined as being invariant to interchange of source and detector. Recalling that Uj; is the probability of
+detecting a single photon at port i when it enters port j, we see that reciprocity stipulates that Ui; = Uji, or that U
+is a symmetric matrix: U = UT [19].
+
+Non-reciprocal scattering devices are far less common than reciprocal ones. They often are formed by locally
+breaking the time-reversal symmetry, such as with a Faraday rotator. A global rotation of the system can also
+produce a non-reciprocal phase accumulation, via the Sagnac effect [20]. In these devices, forward-propagating light
+will acquire a phase which differs from backward-propagating light in the same mode. Transmission can also be
+non-reciprocal. For instance, a circulator provides non-reciprocal routing of light. An ideal three-port circulator can
+be prescribed a scattering matrix
+
+Oo
+
+U= Zs (4)
+
+a)
+Oo
+oor
+
+A physical device with this scattering matrix would be able to perfectly convert counter-propagating excitations in
+one spatial mode into identical excitations that populate separate spatial modes, and vice versa. However, circulators
+in practice tend to experience both losses and crosstalk. Circulators are readily defined in higher dimensions, and can
+be obtained by chaining together low dimensional ones.
+
+C. Scattering process gauge symmetries
+
+Maxwell’s equations are known to possess a certain property known as gauge invariance. This property allows the
+underlying field potentials to be redefined in a certain way without changing the physical situation. The principle
+has since been extensively generalized and utilized in other areas of physics. Generally speaking, the transformations
+
+etween different choices of gauge form a symmetry group. In the following subsections, we describe analogous trans-
+formations to the optical states and/or scattering devices. These are reminiscent of the gauge transforms employed in
+general field theories mainly in the sense that they do not physically alter the underlying process’s description. Any
+given gauge can be used freely for the sake of convenience. The particular forms of the transformation are different,
+so while they might be referred to more precisely as a scattering center symmetry or generalized gauge transforma-
+ion, we will use the generic terminology “gauge transformation” as a shorthand. The first set of scattering gauge
+ransformations considered also forms a group of its own, the symmetric group Sa.
+
+For radiation of fixed frequency and polarization expanded into a basis of orthogonal spatial modes, as in Eq. (2),
+here are two basic transformations which do not change the physical situation [21]. These each provide a formal
+equivalence relation which can be used to relate scattering matrices. Scattering devices within the same equivalence
+class will not be measurably distinguishable, but can appear as completely different scattering matrices. The different
+scattering matrices can be viewed of as the same underlying physical action but expressed in a different gauge.
+
+First, the physical description of any optical scattering process would be unchanged if the numerical labels used
+to identify the field modes were modified, for these labels are completely arbitrary. Formally, the relabeling process
+enacts a permutation p on the creation operator indices: al > alas:
+given scattering device like that shown with its labels in Fig. 3. This variant of transformation will be discussed in
+Section ITC 1.
+
+The second transformation is the application of a phase shift to each field mode. In a general state of the form of
+Eq. (2), this will enact the change c; — e’*ic;. Since (e’?c;)*(e"*c;) = |c;|?, this transformation does not affect the
+distribution of detection probabilities, which is the physical observable. This transformation can be applied locally
+to any given scattering device in a general network. Further discussion of this class of transformations is deferred to
+Section ITC 2. After presenting an overview of the two interrelated transformations and their general implications,
+the subsequent sections discuss specific consequences and examples for the scattering groups U(2), U(3), and U(4).
+
+This is equivalent to relabeling the ports of a
+
+1. Geometric scattering transformations
+
+A permutation or relabeling of d objects can be defined by a bijective function p which maps the set of original
+labels {1,...,d} onto itself. There are generally d! such maps, and each can be represented by a d x d matrix P
+which acts on a column vector of labels. Throughout this work we will always denote the permutation function and
+its corresponding matrix by an upper and lowercase pair of the same symbol. Each permutation P has a well-defined
+inverse given by P?, which “undoes” the permutation enacted by P. A full treatment of permutations can be found
+in any standard algebra text, such as Ref. [22].
+
+For a general d-mode optical scattering state, permutation of the mode labels acts in the following way
+
+d d
+
+Ib) = So esli) > 1’) = Do esl) (5)
+
+j=l j=l
+The energy distribution encoded by this state is unchanged. It is merely being rewritten in a new basis provided by
+P. Conversely, had we simultaneously permuted the c; to c,(;) for a permutation h, which may or may not equal p,
+then the spatial energy distribution would have been measurably different before and after the permutation. This is
+why only the labels and not the coefficients are permuted.
+
+Element Uj; of a general scattering matrix is the probability amplitude for an incident photon at port 7 to scatter
+to port 7. Permuting the mode labels affixed to each port maps Ui; + Upciyp(j). This permutes both the rows and
+columns by the same permutation p.
+
+It can be shown that pre-multiplication of U by the associated permutation matrix P will permute the rows of
+U. Then, post-multiplying U by P7 will enact the permutation p on the columns of U, which can be deduced by
+expressing UP? = (PU7)*”. Combining the two results, we see that the aggregate affect of a mode or port relabeling
+on a scattering matrix U is the similarity transformation
+
+U + PUP’. (6)
+
+This is the general form of the geometric gauge transformation; that is, it describes how to transform the matrix U
+written in one gauge into a different gauge. Being a conjugation transformation, it allows any given U to be associated
+with the equivalence class {PU P? : P is a permutation matrix}. Any members common to the same equivalence class
+will not be physically distinguishable, despite the general possibility that the form of their scattering matrices will
+differ. In accord with this, the equivalence of two scattering matrices U; and U2 will be notated U; ~ U2.
+
+The gauge freedom provided by this transformation is the ability to label the ports or modes in a way which
+produces the form most convenient to work with. In tandem it provides a means to show two apparently different
+scatterers are in fact the same. Beyond this, though, it naturally leads to the notion of a symmetric scatterer. These
+so-called gauge invariant devices are left unchanged by a specific permutation. This implies U = PUP?. After
+post-multiplying by P and rearranging, this is equivalent to
+
+UP — PU :=[U,P] =0. (7)
+
+Scattering matrix families can be defined by this condition with certain P in mind, greatly reducing the number of
+free parameters they possess. Specific examples of this will be provided later in this section. In essence, the gauge-
+invariance corresponds to certain subsets of ports behaving identically when excited by the same input state. This can
+be connected to physical symmetries of the scattering process, such as mirror-reflection symmetry and/or rotational
+symmetry. This is because that permutation operations, such as exchanging or cyclically permuting subsets of the mode
+labels, are equivalent to reflecting or rotating the physical device while leaving the original labels fixed. An example
+illustrating this equivalence notion with a generic three-port device is illustrated in Fig. 4. Like any other scattering
+matrix, a gauge-invariant device can only be physically specified up to its equivalence class. Applying different gauges
+to a specific gauge-invariant device will not change the fact that it commutes with some permutation matrix, but
+the commuting matrix itself can change. It is straightforward to show that for Up which is gauge-invariant with
+respect to Po, after expressing Up as U in some new gauge Q, then the corresponding invariant-inducing permutation
+is transformed to Py > QP »QT = P. This leads to the concept of equivalent permutation classes, which are the
+conjugacy classes {QPQ7 : Q, P are permutation matrices}. Members of the same class generate the same kind of
+gauge-invariant scattering device. An intuitive picture of these permutation classes can be built with the equivalence
+picture of Fig. 4in mind. First, a gauge-invariant scatterer is viewed as a device that is left unchanged by a geometrical
+transformation acting on it while its port labels stay fixed. This geometric transformation is tied to an underlying
+permutation P. Then the equivalent permutations of P are merely re-expressions of the original port labels which
+are used to label U before and after the geometrical transformation. Clearly, this relabeling has no effect on the
+geometrical transformation encoded by P.
+
+The transformation enacted by Eq. (6) possesses several basic algebraic properties, which all reflect the fact that it
+cannot change the physical description of the scattering process U represents. The gauge transformation will always
+preserve the reciprocity and unitarity of U. Another important example concerns the spectrum of U as a gauge
+transformation is made. In that case, the eigenvalues are unchanged while the eigenvectors corresponding to these
+eigenvalues are permuted by P.
+
+Permutation invariance can also be applied to optical states. Since the phases of the state amplitudes are immaterial
+when the state undergoes detection, these can be discarded. Then, a symmetric scattering state is defined by having
+an energy distribution which is left unchanged by some gauge transformation P. This is the type of symmetry usually
+associated with balanced scatterers that produce beams of equal intensity when a single beam impinges them. Gauge
+invariance of the scattering device alone is generally unrelated to the creation of symmetric states.
+Exchange labels 2 and 3,
+leaving orientation fixed PUpT™
+
+I
+I
+2 U11 U13 U12
+
+PUPT= U31 U33 U32
+
+i}
+1 1 U21 U23 U22
+2 a
+T
+U11 U12 U13 Reflect U over the PUP
+2 3
+
+oo
+eRe Oo
+
+oO
+
+U= ab dashed line, leaving
+= | Yar U22 23 labels fixed
+
+U31 U32 U33
+
+FIG. 4. Geometric gauge transformations involve relabeling the field modes identified with the ports of a scattering device
+U. The indices j of the mode operators undergo a permutation transformation p(j), which transforms the scattering matrix
+U to PUP’, where P is the permutation matrix associated with the permutation function p. Permuting the port labels is
+also equivalent to applying geometric transformations to the scattering device while leaving the labels themselves fixed. Any
+example is shown here for a generic three-port scattering device, where exchange of two labels equates to reflection about the
+line between them. The edge colors at the red and blue ports are used to signify the orientation of this pointlike scatterer U.
+General permutations P in higher dimensions will enact reflections and/or rotations in higher-dimensional spaces.
+
+2. External phase shifts
+
+In addition to relabeling the field mode indices, which are directly tied to a scattering device’s port labels, external
+phase shifts placed around a scattering device will have no affect on its measured energy distribution when a photon
+enters one of its ports. External phases translate the total phase acquired by the photon in each mode j by some con-
+stant @;. However, the input excitations have no absolute reference phase, so this translation will not be measurable,
+due to a lack of knowledge of the starting point.[23]
+
+The general action of a set of externally placed phase shifts is mapping the input state coefficients c; + je",
+which can be encoded as a pre-multiplication by the diagonal matrix D = diag(e’?!,...,e’?¢). This means when
+scattering through the device with the external phases, |7in) > DU D|win), or equivalently,
+
+U — DUD. (8)
+
+This induces another equivalence notion between different scattering matrices. Two scattering matrices U; and U2
+are equivalent in this sense whenever a suitable selection of external reciprocal phases converts one scattering matrix
+into the other. In other words, this gauge freedom allows arbitrary selection of desired reciprocal external phases to
+recast U into the different but equivalent form DUD. It is readily verified that changing the gauge in this form will
+neither affect unitarity nor reciprocity.
+
+All elements U in the equivalence class {DUD : diag(e’®,...,e"®4),61,...,¢a € R} necessarily have the same
+probability matrix, formed by taking the elementwise modulus square of U. In some special cases, probabilities will
+be zero, allowing the corresponding phases to be chosen freely. This can enable some more non-trivial equivalences.
+On the other hand, the notion of gauge invariance has little use here, since it would require DUD = U. This is
+generally only valid when the external phases are brought to zero, so that D =I. This case is omitted, as it was for
+P =I in the previous section, since all U are equivalent to a matrix which is gauge-invariant in this sense. For this
+reason, the term gauge invariant is only used in the context of nontrival (ie. P 4 I) geometric gauge transformations
+throughout this work.
+
+Although this phase gauge freedom can be invoked in conjunction with the geometric gauge freedom, the effects of
+these two gauge freedoms are not completely separate. Scattering devices which are gauge invariant in the geometric
+
+sense will lie in the same phase-gauge equivalence classes as devices which are not, since these phases are easily
+reselected to break any given geometric symmetry. External phases also will generally change the eigenvectors of the
+scattering device they surround. Notwithstanding, considering the two gauge freedoms together allow fairly nontrivial
+equivalences to be made. Establishing such an equivalence in turn implies that interferometers formed by substituting
+one scatterer for its equivalent counterpart will produce the same interferometer, up to global translations of its
+parameter space.
+
+Besides writing the external phase gauge transformation as U + DUD for a diagonal phase matrix D, the map
+Uij > Uyjet?it?9i admits another useful form. Let e’@+'¢) = e'fie'?s = vy v; be written as the outer product vol.
+When external phases are selected for a scattering matrix U, U is element-wise multiplied by the corresponding matrix
+vu! denoted U © vv?.
+
+This form, U > U © wv" for u= e’*i can be more practical than the first one; it provides an algorithm to quickly
+determine whether two scatterers are equivalent or not, and if they are, what phases are required to construct the
+explicit gauge transformation between them. Let U, and U2 be scattering matrices with the same classical probability
+matrix. Express U; = |U| © Qi and U2 = |U| © Qz where |U| is the matrix formed by taking the magnitude of each
+element of U; and U2. Next define Q = Q1 © Qs, where Qst is found by taking the scalar inverse of each element
+of Qa. The matrices Q1 and Q2 will be entirely phase factors, so this inverse is always well-defined. Since U; and U2
+have the same underlying probability matrix, Q = U, © US ~1_ By the above, if Q is expressible as an outer product,
+then U; ~ U2, and Q directly prescribes the gauge transformation as Uz © Q = Uj.
+
+For an outer product matrix, each column must be a scalar multiple of the first column. This is easy to check, can
+be done in parallel, and can be halted upon any column’s failure to meet the condition. If Q meets the condition,
+the outer product factorization vw? = Q is found during the assessment stage, since v will form the first column
+of Q while the very factors that scale this column to generate each other column will form w. A global scale factor
+
+1=e%-* can then be used to exchange phase between v and w to symmetrize the outer product into the form vv".
+
+D. Directionally biased and unbiased devices
+
+Now that the background theory for the two scattering gauge freedoms has been established, specific systems can
+be considered in detail. When an input scattering state |yin) is directed toward a gauge-transformed U’ = PUP,
+the output state is |vou.) = PUP? |W,). This product can be intuitively described in the following steps: first the
+input state is first transformed by PT = P~! to undo the permutation, then it experiences the scattering action of
+the original U, and then it is placed back into the correct labeling with P.
+When these permutations are applied to the indices of the scattering state’s mode operators, it has been implicitly
+assumed that the input modes and output modes were the same. This is a direction-free or directionally unbiased
+convention. Strictly speaking the incident state basis is different than that of the scattered state leaving the device,
+since the modes corresponding to counter-propagating optical excitations in a given spatial mode are distinct. It is
+often unambiguous to disregard this distinction, but in instances where counter-propagating excitations populate the
+same spatial mode, the direction needs to be specified. For instance al p can represent forward propagation while
+
+a; 3 represents backward propagation. This would effectively double the dimension of all the matrices involved: the
+
+operator basis would go from fal, er al} to fas ag y as aly, oe that where F' represents ingoing and B represents
+outgoing.
+
+By definition, the only scattering that occurs is cross-coupling between the ingoing and outgoing modes. This
+means any scattering or permutation matrix A expressed in the direction-free basis would become a block matrix
+
+in the direction-specific basis. The conjugate is needed to express the coupling going backwards, or from outgoing
+to ingoing, in order to maintain time-reversal symmetry. The dimensionality is not changed in either representation:
+the block 2d system has dimensionality d, so for the sake of convenience the compact d x d notation is used.
+
+The sparse notation in the preceding equation can be viewed as a feed-forward or feed-through system, where the
+scattering device routes all of the energy in one set of modes through to another disjoint set of modes. An analogous
+reduction in dimensionality can occur once again, in the direction-free picture, under the assumption of the following
+gauge symmetry. Let d be an even number and U be a d x d scattering device (expressed in the compact notation).
+Assume U commutes with the gauge transform operator P where
+
+10
+
+and I is the d/2 identity matrix. Expressing U in the block form
+
+AB
+r(85) (11)
+and enforcing PUP? = U leads to the conditions A = D and B = C, so that U can be written
+AB
+Us (e 4) ‘ (12)
+
+This is the general form of a scattering device endowed with the gauge symmetry P. A block feed-forward scattering
+device additionally satisfies the condition A = 0. This produces the matrix
+
+U= (° a (13)
+
+Thus, a block feed-forward matrix scatters all light in the set of modes fal, wees ahyo} into the disjoint set {ah oss beng al},
+mimicking the form of Eq. (9). Sometimes these scattering devices are called directionally biased, since they admit
+a unidirectional sense of energy flow, which is illustrated in Fig. 5. These block feed-forward devices are a special
+case of the general non-reflecting or feed-forward scattering device, which is defined by the condition that its diagonal
+values are all zero. The resemblance to Eq. (9) is even closer when the transformation is reciprocal, as this allows U
+
+to be written
+_ (0 BT
+U= (3 0 ) 3 (14)
+
+Reciprocal block feed-forward devices are ubiquitous. They allow the d x d matrix U to be represented by an even
+further compactified transmission matrix B. B inherits the unitarity of U, so block feed-forward scatterers can be
+viewed as the embedding of a lower-dimensional unitary group in a higher-dimensional space. This change in the
+effective dimensionality is tied to the underlying gauge symmetry, which itself results from the system possessing a
+mirror symmetry with respect to the entire sets of input and output modes.
+Even if U is reciprocal, the block B itself does not need to satisfy B = B™. This allows block feed-forward devices to
+produce effectively non-reciprocal mathematical operations. The aforementioned gauge freedoms also may be applied
+to B. In fact, the condition B = BT can be tied to another gauge invariance, corresponding to block mirror symmetry
+between the input and output sets of modes.
+Block feed-forward scattering devices include the standard beam-splitter, the waveguide coupler, as well as the Reck
+and Clements beam-splitter meshes [24, 25]. Multi-mode waveguide interferometers and d x d waveguide couplers
+such as a fiber tritter also realize this form [26]. The Hadamard-convention beam-splitter transmission matrix H is
+
+(e ae (16)
+
+The three-port optical circulator introduced in Eq. (4) serves as the physical link between the feed-forward and
+unbiased forms of any given scattering device. Placing a circulator at each port of an unbiased device will produce the
+equivalent block feed-forward one. To convert a block feed-forward device into an unbiased one, each input/output
+pair needs to be connected to a common three-port circulator.
+
+whereas its regular scattering matrix is
+
+E. U(1) scattering processes
+
+A U(1) scattering process is simply a back-reflection that acquires some necessarily reciprocal constant phase e’?.
+This phase can always be gauged away using the external phase shift freedom. The only permutation available is the
+trivial identity permutation, so no interesting geometric gauge invariants exist in this space. Overall this scattering
+space is trivial, containing just the identity equivalence class.
+11
+
+(a) Directionally unbiased convention: (b) Directionally biased or feed forward convention:
+input and output modes are tied to the same port input and output modes tied to separate ports
+
+——— Input |y;,)
+
+——— Output |Wout)
+
+FIG. 5. Two equivalent scattering matrix conventions. In convention (a) the ingoing and outgoing modes are associated with
+the same port, producing a d x d matrix U. In convention (b) these sets of modes are kept distinct, and assigned to different
+ports. This produces the 2d x 2d block matrix form in Eq. (9). The ports are abstract entities, so their identification with a
+single mode or pair of counter-propagating modes is immaterial. Nevertheless, certain, so-called block feed-forward scattering
+matrices expressed in the unbiased convention mimic the block form, and can be compactified further, as in Eq. (13).
+
+F. U(2) scattering processes
+
+For a generic U(2) scattering device U with external phase shifts ¢; at port j, light entering either port can either
+transmit through or reflect back. The general form of this transformation (for 6; = ¢2 = 0) is thus
+
+e181 tet
+U= (rs 2€ s): (17)
+
+tre’ ret
+
+The numbers 11,72, ¢1,t2 are the magnitudes which lie in the range [0, 1], while 61, 62,71, and 2 are the corresponding
+real-valued phases. Due to unitarity, we have normalization conditions r? + t? = r3 + t3 = 1 as well as orthogonality,
+manifesting as
+
+rytye tM + potyet2— = 0, (18)
+This can be rewritten as
+r(l—- r2)\i/2 +ro(1— 72) V/2¢ei¢ =0, (19)
+
+where ¢ = 6; +62 +71 —72- Both r}(1—r?)!/? and rp(1—r3)!/? are positive real numbers, implying that the variable
+¢ must be selected such that e’? = —1, yielding
+
+ri(1 —r2)¥/? = r9(1 — r3)¥/?. (20)
+
+This can only be satisfied for r) = ra (meaning t; = t2) as well. Thus, a two-dimensional unitary scattering device
+cannot have non-reciprocal transmission. The phase constraint is that
+
+o=6, +602 -%1 — 72 = 2aM4+7 (21)
+12
+
+for any integer m. This constraint is unchanged when external phases are included, but including those allows us to
+set d1 = —(¥1 + y2 — 62) /2 and ¢2 = —d2/2, so that $1 + d2 = —(91 +72 — 62)/2 — 62/2 = —(91 +72) /2, resulting in
+
+( = (- ea _ ( = a- mney (29)
+
+(1 — 2) 1/2¢-to2—11)/2 i (1 —r2)'/2e-14 f
+
+where 2A = 72 — 71. This analysis has reduced a generic two dimensional unitary optical scatterer to its minimum
+number of measurable parameters, two. r controls the energy division and A determines the degree of non-reciprocity.
+If the device is reciprocal, A = 0, and the only measurable parameter is the splitting ratio. In fact, for this two-
+dimensional case, enforcing U to be gauge-invariant with respect to swap of labels 1 + 2 in turn implies that U is
+a reciprocal matrix. Consequently, in two dimensions reciprocity and the only nontrivial gauge symmetry imply one
+another. This is intuitively rooted in the fact that reciprocity asserts invariance under permutation of source and
+detector, and the gauge symmetry P, which permutes the only two ports, effectively asserts the same thing.
+
+Returning to Eq. (22) and setting A = 0, we arrive at the reciprocal wo-port splitter with reflection probability
+2
+re:
+
+_% _ p2)/3
+U= (aye a ny ); (23)
+
+This matrix is realized by a plate optic excited at normal incidence, with r governed by the interface’s refractive
+indices through the Fresnel equations. The device generates symmetric states when r is set to 1/\/2 artificially; no
+gauge symmetry can induce this naturally. If another external phase gauge transformation is made, different sign
+conventions are obtained. For instance, to obtain a geometrically gauge-invariant form of this matrix, add additional
+external phases ¢{, = 37/4 and $5 = 57/4, producing
+
+—rei37/2 1 — p2)1/2¢i80/4 sat 1 — 2/2
+U= (1 _ 72) 1/2 ¢i8n/4 ( teal = (l= r2)i/2 ( ‘ ) ~U. (24)
+
+uw
+
+G. Gauge-invariant U(3) scatterers
+
+In the two-dimensional case, there was only one gauge invariant transformation to consider, which was generated
+by swapping labels 1 and 2. In three dimensions, there are 3! = 6 permutations comprising two nontrivial classes.
+These two classes are shown in Fig. 6. In this section, we present these gauge-invariant classes, highlighting how the
+gauge freedoms reduce the number of free variables in the scattering process description.
+
+(a) Reflections — swap permutations
+(1, 2, 3) > (1, 3, 2)
+(1, 2, 3) — (3, 2, 1)
+(1, 2, 3) > (2, 1, 3)
+
+(b) Rotations — cyclic permutations
+U (1; 2,3) @, 3, 1)
+(1, 2, 3) > (1, 3, 2)
+
+2
+
+was 3
+
+FIG. 6. A generic three-dimensional scattering matrix U can be equipped with two distinct gauge symmetries: one corresponding
+to a reflection symmetry (a) and one corresponding to rotation (b).
+13
+1. Generalized three-port circulators
+
+In addition to the permutations that correspond to exchanging the labels of any given pair of modes, there are now
+distinct cyclic permutations: (1,2,3) — (3, 1,2), with the associated permutation matrix
+
+P=
+
+CHS
+
+HOO
+
+cor
+ce)
+a
+=
+
+and (1, 2,3) — (2,3, 1), which is similarly associated with P?.
+The general result of imposing a gauge symmetry on a scattering device U will set various elements of U equal to
+one another, reflecting the fact that input to some ports behaves no differently than the same input to others. For
+
+Un U2 Ws
+U = | ua U22 U3 (26)
+Uzi U23 33
+
+enforcing PUPT =U generates the constraints uj] = Ug2 = Us3 ‘= 4, U21 = W13 = Ugg = 5, and w23 = ugi = U12 =,
+reducing U into the form
+
+U= (27)
+
+ace
+ao
+aae
+
+os
+
+Each column of U is a cyclic permutation of its neighbor. Matrices with this general property are known as circulant.
+The same form can alternatively be derived by assuming two reflection symmetries: two exchanges is equivalent to
+a cyclic permutation in this space. For instance, (1,2,3) — (1,3,2) after one exchange and then after the second,
+(1, 3,2) + (3,1, 2) or (1,3,2) > (2,3,1). The net transformation in either case is a cyclic permutation of (1, 2,3).
+
+When a = 0, exactly one of either b or c must also be zero, and then the system (27) reduces to the circulator,
+Eq. (4), or a matrix which is equivalent to it. This example illustrates that unlike in the two-dimensional case, a
+geometric gauge symmetry does not always induce reciprocal symmetry. Imposing reciprocity on U in addition to its
+rotational symmetry would set b = c.
+
+2. Y couplers
+
+The reflection symmetry derived from the exchange of labels 2 and 3 produces a permutation matrix
+
+P= (28)
+
+oor
+roo
+ore
+
+Imposing this symmetry on the general U of Eq. (26) constrain U to be of the form
+
+U= (29)
+
+one,
+aa
+are
+
+h
+
+This is the general form of a non-reciprocal Y coupler or Y branch. The C-valued a,b,c,d and h would produce
+ten unconstrained degrees of freedom, but unitarity reduces this. Normalization lowers the count to eight, then the
+orthogonality conditions lower this count to five. Finally, the symmetry-preserving external phases ¢; and $2 = $3
+can remove two more degrees of freedom, making the final count three.
+
+If this gauge symmetry is also assumed with reciprocity, the added condition b = c removes two more degrees of
+freedom, leaving just one parameter left. This case was studied in Appendix I of Ref. [27]. The device, which is a
+back-reflecting symmetric Y-branch, was found to have the scattering matrix
+
+r Jd-r)/2 /0—7)/2
+re (l-r?)/2 -(l+r)/2 (1-r)/2 |, (30)
+(l—r?)/2 (l—r)/2 -(14+r)/2
+
+14
+
+where r can freely be chosen in the set (—1,1). The different scattering states produced by this device, for single-
+photon input on precisely one of its ports, is shown in Fig. 7. For any value of r, the output state produced when
+a single photon enters port 1 will have a symmetric energy distribution under the same symmetry operator, P. And
+although the mirror symmetry ensures the behavior for light entering port 2 is the same as when it enters for port 3,
+the output state produced when one of these ports is excited is not necessarily symmetric in its energy distribution.
+This only occurs when r is brought to zero, so that matrix becomes
+
+0 1/Vv2 1/Vv2
+Y=|1/V2 -1/2 1/2 |. (31)
+1/Vv2 1/2 -1/2
+
+This matrix, which originated from a nine-parameter unitary space, is uniquely specified by its various symmetries.
+This is often the intended scattering matrix when an otherwise unspecified Y branch is discussed. It is conventionally
+used as a compact beam-splitter to realize the transformation al > (al + al)/V2. The device is a hybrid in that it
+is feed-forward for input to port 1 but back-reflecting for its other inputs. The general behavior of this symmetric
+version of the Y coupler is shown in Fig. 1 (c). This hybrid behavior can only occur in dimensions d > 3. The
+complete family of reciprocal, hybrid scattering devices in U(3) is also derived in Appendix I of Ref. [27].
+
+Unitary, reciprocal Y-coupler Y with mirror symmetry P
+
+Y= PYP',
+1 0 0
+P={0 0 1
+0 1 0
+
+—— Input |Win)
+
+FIG. 7. A Y coupler or Y branch is a three-port scattering device with a mirror symmetry, such as P shown above. If the
+device is also reciprocal, its scattering matrix can only have a single degree of freedom r, taking on the form in Eq. (30). As
+shown in diagram (a), this device always produces a mirror-symmetric distribution of energy when a photon enters port 1. The
+transmission coefficient t = V1 — r?/2. However, diagram (b) illustrates that input to port 2 or 3 generally does not produce
+another symmetric output state, as r’ = —(1+,r)/2 and t’ = (1—r)/2. However, when r is brought to zero, these amplitudes
+become —1/2 and 1/2 respectively, so that their probabilities are equal, and the output state is symmetric. This form of the
+Y coupler exhibits added symmetry and is uniquely specified by the scattering matrix (31).
+
+Y-couplers in practice can exhibit losses, violating the assumption of unitarity. This is especially common in
+integrated photonic implementations, where the light tends to radiate out of the device rather than back-reflect at
+ports 2 and 3. This is not due to inferior design methodology or fabrication quality. Instead, the devices are only
+designed for the forward transformation. Optimizing the design for the reverse transformation while imposing the
+reflection gauge symmetry on the device structure would produce a Y coupler more similar to that of Eq. 31. It would
+also automatically produce the forward transformation via reciprocity. For some applications, the back-reflections are
+viewed as an unwanted nuisance, so employing only the forward transform is useful in those cases. Nevertheless, to
+obtain an ideal Y-coupler, a simple decomposition with a beam-splitter can be used. This is shown in Fig. 8, and can
+be employed in any platform, e.g., free-space optics, fiber optics, and integrated photonic waveguides.
+
+H. Gauge-invariant U(4) scatterers
+1. Beam splitters
+
+The general definition of an ideal beam-splitter is a U(4) scattering device which possesses the block feed-forward
+gauge symmetry described above. In this case the relevant block feed-forward permutation invariance is with respect
+to the swap of the ordered pairs (1,2) > (3,4). This is associated with a diagonal reflection symmetry in traditional
+schematics of beam-splitters, as shown as the red dashed line in Fig. 9. The assumed symmetry produces the beam
+splitter scattering matrix
+
+0 0 7m te
+{0 0 t re :
+B= Vit 0 0 (32)
+t, T2 0 O
+
+reducing the device to an embedding a U(2) scattering device in a four-dimensional space. Therefore, in essence,
+everything pertaining to the four-port optical beam-splitter is described in Sec. ITF on two-dimensional scattering
+devices.
+
+The matrix B in Eq. (32) is not necessarily reciprocal. However, in this system, reciprocity is tied to a second
+reflection symmetry, over the anti-diagonal line in Fig. 9. The underlying permutation matrix is
+
+p= ( a) (33)
+
+where o represents the swap operator for two modes. Once the block feed-forward symmetry is assumed, this symmetry
+P is both a necessary and sufficient condition for reciprocity. If B is reciprocal, adding external phases allows it to
+be put into the form
+
+O0Ort
+
+0O0tr
+B=l, 400 2)
+
+trod0
+
+Loopless graphs comprised solely of beam-splitters will generally produce a higher-dimensional scattering devices
+which also possess block feed-forward gauge symmetry. These decompositions, which represent a higher dimensional
+scattering device as a graph of lower dimensional ones, can be made to span the full unitary group. Two well-known
+decompositions with the underlying reflection symmetry of all input and output modes are due to Reck and Clements
+et al. (24, 25, 28, 29]. These both require O(d?) beam-splitters and controllable phase shifts to span U(d). These
+meshes are versatile, but in practice, they suffer from error accumulation and nontrivial reprogramming procedures.
+This has limited their size d to about a few dozen modes today [30, 31]. A non-reciprocal phase placed inside one of
+these meshes would break the input/output mirror symmetry, leading to an overall non-reciprocal U. In terms of Eq.
+(11), this scattering matrix would have A= D =0 but BC.
+
+2. Grover four-ports
+
+Although a reciprocal, balanced beam-splitter commutes with the block feed-forward gauge symmetry operator,
+there are a number of other potential gauge symmetries that it lacks. However, the Grover four-port,
+
+-1111
+
+—1fi1 41 1 aes
+
+G=5l1 111 (35)
+11 1-1
+
+is unchanged by all possible permutations of its labels, and thus commutes with any gauge symmetry operator. Beyond
+that, it produces a fully-uniform, symmetric energy distribution when any one of its ports is excited. It is precisely
+the uniform energy distribution which is invariant to any permutation of mode labels.
+
+The matrix originally appeared as a quantum logic gate in the Grover search algorithm [32]. It has since been
+employed as a general scattering coin for quantum walks [33] and now more recently as an optical scattering device.
+(a) Bulk-optic realization of
+
+16
+
+(b) Y coupler
+
+Y-coupler from beam splitter
+
+2
+
+4
+
+0 I/v2 1/V2 0
+1/v2 0 0 1/v2
+1/V2 0 0 -1/V2
+
+0 1/v2 -1/V2
+
+Before mirror
+
+0
+
+FIG. 8. An ideal 50:50 beam-splitter and mirror (a) can pro
+splitter as shown, its scattering matrix takes on the form below.
+
+1/V2 1//210
+'1/V2 -1/2 1/2 10
+'1//2 1/2 —1/210
+
+“O00 0
+
+After mirror
+
+uce an ideal symmetric Y-coupler (b). By labeling the beam-
+The first row and column already match those for the intended
+
+Y coupler. However, light entering port 2 or 3 loses energy to port 4. Placing the mirror there redirects the energy back into the
+
+beam splitter, splitting the beam a second time. This ultimate’
+the mirror and beam-splitter is immaterial, since external phas
+
+y produces the Y coupler matrix. The phase acquired between
+es can always be used to equivalently adjust its value.
+
+Having the same number of ports as a beam-splitter allows the Grover coin to replace the latter in any system,
+
+effectively boosting the underlying dimensionality. These
+
+wo devices are compared in Fig. 1.
+
+A general d-dimensional Grover coin can be defined by first enforcing reciprocity, a reflection symmetry, and a
+
+rotational symmetry, producing a reciprocal, circulant ma‘
+This produces a reflection ampli
+
+rix, and then by minimizing the reflection probability [27].
+
+ude r = 2/d—1 with a tranmission amplitude is t = 2/d. In general, Grover coins
+
+in one dimension can easily be converted to those in the other dimensions, by either closing off ports with a mirror,
+
+or by connecting
+Realization of a
+section. Although
+has been obtaine
+with a beam-splitter and a mirror, as shown in Fig. 8. Th
+by connecting the feed-forward
+decomposition, due to the bridge phase ¢. ¢ parametrize
+These various static devices proc
+The standard Grover coin occurs for ¢ = 0.
+
+‘wo coins toget:
+
+Ill. OPTICAL IN’
+
+The previous section dealt entire
+be fixed for excitations of a given frequency and polarizat
+graphical node, like the Y coupler shown in Fig. 7.
+
+ner [34]. General circulant matrices have been studied for quantum walks [35].
+
+four-port Grover coin is important for interferometric applications which are discussed in the next
+a static, single-element Grover coin has yet to be experimentally realized, a Grover coin can and
+using a decomposition of two Y-couplers [13, 27]. The Y-couplers themselves can be decomposed
+
+1e Grover decomposition is shown in Fig. 10. It is formed
+
+orts of two symmetric Y-couplers to each other. This is a slightly more general
+
+s a family of uniform-probability U(4) scattering devices.
+
+uced are generally not gauge-equivalent to one another in the external phase sense.
+
+TERFEROMETRY
+
+ly with static or passive scattering devices. These are by definition presumed to
+
+ion mode. Static scatterers are generally represented as a
+
+This present section will consider
+ometer, which is commonly used
+the scattering matrices forming it,
+phase shifters could also be equiva
+In either cas
+block-diagonal aggregate scattering
+
+scattering nodes, breaking the bloc
+
+, when multiple scattering devices are treated as part of the same system but are left unconnecte
+
+ways in which multiple passive nodes can form a graph, called an optical interfer-
+
+a central element in optical sensors. This graph will generally be both a function of
+
+s well as the phases acquired on the edges between connected nodes. Controllable
+ently affixed to an unweighted graph as block feed-forward nodes of their own.
+matrix is obtained. Adding connections couples energy between the constituent
+k-diagonal structure. Any remaining unconnected edges allow light to couple in
+
+and out of the network. Thus, the interferometer itself is another scattering device which is tunable or active.
+17
+
+Optical beam splitter
+reflection symmetries
+
+FIG. 9. An optical beam-splitter is defined as any four-port scattering device which satisfies the following conditions. First, it
+exhibits zero coupling between (1, 2) and itself as well as (3, 4) and itself. Second, it possesses the red line mirror symmetry,
+induced by scattering matrix invariance to the permutation of label pairs (1,2) > (3,4). The symmetry over the blue axis
+is induced by invariance to the simultaneous swap of the mode labels 1 + 2 and 3 + 4. After the original (red) symmetry
+constraint is enforced, the second (blue) one becomes a necessary and sufficient condition for reciprocity.
+
+Y-coupler decomposed generalized Grover coin
+
+-1 1 et? e%”
+1 -1 e?% e%
+e'? ef? _1 1
+e? ef J —1
+
+Gl) = 5
+
+FIG. 10. Forming a generalized four-port Grover coin using two symmetric Y couplers. The standard Grover coin is obtained
+when ¢=0.
+
+A photon entering an open or unconnected port of a general interferometer can be viewed as conducting a random
+walk on its graph. This variant of random walk is known as a quantum walk, since the paths it traverses are able
+to coherently interfere; this distinction is embodied in the use of a unitary time-evolution operator instead of the
+traditional probability matrix used in studies of Markov chains. The study of quantum walks in general forms a
+subdomain of general quantum information processing. It has been shown that universal computation and efficient
+search on a graph can be achieved with quantum walks [36-40]. For an introduction to the field, consult Ref. [33].
+
+For each set of input phases and constituent scattering devices, the action of any interferometer can be computed
+by finding the steady-state distribution of the walk, which is the outputted scattering state in the limit of long time.
+This can be found numerically using a finite-element assembly approach. This involves using the graph interconnect
+information to construct a global time-evolution operator for the walk, enforcing boundary conditions pertaining to
+
+he unconnected ports, and
+nding the eigenspectrum o:
+
+j=)
+
+fi
+The quantum walk mode
+
+he summation of paths wit:
+
+ne coherence length of the
+Adoption of a very narrow li
+assumption valid
+finite spatial coherence. To
+
+The general methodology
+sake of finding an
+is arriving at ac
+However, this can
+to follow. We wil!
+their components
+
+losed-form
+
+improvement in t
+
+The gauge free
+open ports in the
+
+phases are indeter:
+be freely absorbe
+interferometers are consider
+either system prod
+
+This definition is em
+as Hadamard vs. symm
+comparison than that
+
+ploye
+
+0. For ¢ £ 0, the static devi
+
+a copy of this device, G2, and add a secon
+and/or
+r nonzero @p the static devices p:
+
+phases placed at port
+now $+ ¢». Clearly fo:
+will not be equivalent. But
+> &- % in G2 causes G
+This example is trivial
+
+Decal
+
+equivalence in this sense can be
+
+Geometric gauge symmetry of
+preserves the symme
+equivalent to a geometric transfo
+
+graph itsel:
+
+ate is perfectly coherent, which is akin to assumin;
+
+‘o an excel,
+
+often be accomp
+1 first review the
+for higher-dimensional gauge-symmetric scattering d
+degrees of freedom. These in turn
+he resolution of o
+
+oms of passive sca'
+same way as before, and phase shi
+shifts the total phase acquired betwe
+minate, the translation by anothe:
+into or removed from the defini
+
+uces the other system, for
+parameter spaces of the two networks coalesce when
+
+1etric beam sp
+or two static scatteri
+
+finally computing its ac
+the time-evolution operator, either direc
+
+general approach is described in Ref. [41]. For the special case of a c
+nite-element method has bi
+ne aggregate scattering matrix of two or more coup
+
+een shown to reduce to t
+of an interferometer typically begins wi
+g the source is
+
+h arbitrarily large optical
+
+source. The other path:
+
+s will only appe
+
+ion in the long-time limit. This is effec
+
+ly, or
+hain o
+
+1e Redheffer star product which is extensive
+ed optical thin films [4
+
+h the
+erfect
+
+path length differences to obtain the ow
+For a real source, interference will only be observed among paths whose corresponding path lengths are smal
+ar in the output as an inco
+
+newidth source can extend the coherence
+lent approximation. This
+obtain
+of the
+
+expression for the inver:
+ished in low-dimensional systems;
+operating princip
+
+ptical sensors.
+
+A.
+
+terers natural
+
+ed equivalent in this sense i
+
+d so that change:
+
+itter) ¢
+
+o not affec
+ng devices,
+
+ce produced is in general no
+phase in
+ort 1’, sine
+
+@ cannot be defined up to
+; and G2 to be equal for a
+use the comparec
+established
+
+between different graphs.
+
+try in its interconnect c
+rmation enacted on it,
+
+the most ideal behavior, a high de;
+quantum walk finite-element approach can also be followed al
+interferometer’s scattering matrix as a function of i
+
+les of several tra
+
+ength
+
+discussion holds in an analgous way for non-
+gree of collimation and a
+
+evices
+
+ead to various enhancements of the phase readout, thus resulting in a su
+
+ly generalize to active ones. External
+ifts can also be applied to the ports of
+en the scattering nodes by a constant. Because the
+rt constant will not change the physical
+ion of the acquired phase between two nodes. Therefore, two
+f a suitable translation of each inter!
+all values of the internal phases. In other worc
+the input parameters are shifted by ap
+$ in the external phase convention of the internal scattering nodes (such
+the equivalence class of the overal.
+where only external phases can be
+distinction in an example, consider the generalized Grover coin decomposition of Fig. 8 anc
+of the network be denoted G;(¢). The standard Grover coin is obtained as a static device w
+
+s parameters. A common obstruction,
+se or eigenspectrum of the constructed d x d matrix function.
+many examples will be discussed in the
+ditional interferometers. Then, by substituting
+
+18
+
+ively accomplished by
+chrough a matrix inversion problem. The
+' two-dimensional scattering devices, this
+ly used to compute
+assumption that t
+ry monochromatic.
+
+he ii
+
+T
+pu
+
+mput single-photon
+his in turn permits
+after interference.
+ler than
+1erent background.
+o several kilometers or more, making this
+planar sources with
+ignment is ne
+gebraically, for the
+however,
+
+cessary.
+
+sections
+
+, we show these devices gain access to new
+stantial
+
+Interferometric gauge freedoms
+
+phases can be applied to
+the internal nodes. This
+tue global value of these
+situation either. It can
+
+nal and external phase of
+is, it is obtained when the
+propriate constants.
+
+network. It is a different
+laced. To highlight the
+let the scattering matrix
+nen ¢ is fixed at the value
+
+equivalent to the standard Grover coin. However, now form
+he bridge, ¢». ¢» may or may not be coming from external
+ce that distinction is immaterial. Nevertheless, the total bridge phase is
+roduced for fixed values of ¢ and dy, Gi(¢) and Go(d + dv)
+an absolute, so it can be shifted freely. Redefining the phase
+values of ¢, signifying the equivalence of the two networks.
+networks have the same graph topology. In some more interesting cases,
+
+a scattering node is also able to produce a symmetrical scattering graph, assuming the
+configuration. Since an external port relabeling of the graph is
+he entire graph can remain invariant to such a transformation
+
+if the underlying vertices and phase parameters maintain the symmetry. One practical use of interferometric gauge
+symmetry is to simplify the computation of the network output: if symmetry implies certain sets of input ports all
+
+scatter light in the same way, on
+
+of the grap
+
+ly one input case has to be studied, and then the rest follow by suitable permutations
+1 parameters. Gauge-invariant interferometric graphs are readily constructed in general: first form a graph
+
+which is invariant to some permutation to any subset of its nodes. This can correspond to a global symmetry of the
+overall network topology, such as an invariance to rotations of the whole graph by a fixed angle. Then, assign the
+same scattering matrix to each relevant node, providing them the same vertex label or color.
+
+Two wel
+
+-known interferometric configurations, the Michelson and Mach-Zehnder interferometers, are shown in
+
+Fig. 11. As functions of their internal phases ¢; and ¢2, these interferometers tunably produce the complete space
+(a) Michelson (b) Mach-Zehnder
+
+Optical schematic
+
+19
+
+(1.62) (61,42) Gog eae
+
+i i TLPL, P2 1,2 0 0 t(d1, 2) 7(b1, $2)
+
+Scattering action Genk Nee) list) tag ,
+t(d1,¢2) r(¢1, $2) 0 0
+
+Scattering graph
+
+FIG. 11. Two common interferometric configurations, due to Michelson (a) and Mach and Zehnder (b). Like static scattering
+devices, the open ports of interferometric graphs can also be freely relabeled, naturally extending the notion of geometric gauge
+symmetry to scattering graphs. Assuming the underlying 50:50 beam-splitters and phase shifters are reciprocal, the devices
+will possess the reflection symmetry indicated by the red dashed line. This symmetry implies that input to any port on one side
+of the line will behave the same as input to its mirrored counterpart, so long as ¢; and ¢2 are exchanged. The Mach-Zehnder
+interferometer can be viewed as constructed by mirroring the Michelson interferometer over the blue dashed line. This line
+corresponds to the device’s block feed-forward symmetry. Since these devices inherit the symmetries and overall dimensionality
+of their lower dimensional counterparts (c.f. Fig. 9), they are often viewed as tunable versions of them. That is, a Michelson
+interferometer can be viewed as a phase tunable plate splitter while the Mach-Zehnder interferometer can be viewed as a tunable
+beam splitter. These active building blocks can replace their passive equivalent in any larger interferometric graph. The phase
+gauge freedom also allows the placement of external phases at ports 1 and 2 and translation of the values of ¢1 and ¢2 by
+arbitrary fixed constants. These can be used to put the overall scattering matrix for each device in the form shown beneath its
+schematic. Here the correspondence between nodes and local scattering matrices is clear, since the associated optical schematic
+is shown with it. In general, the nodes of a scattering graph need to be clearly associated to a specific scattering matrix, e.g.
+
+through a vertex label or color.
+
+of reciprocal U(2) and U(4) scattering devices. They inherit the symmetries from the reciprocal beam splitters
+
+which form them. In the case of the Michelson (11(a)), the exchange of labels 1 + 2 0
+phase parameters leaves the scattering response unchanged. Thus, the computed outpw
+excitation at port 1 can be converted to the output corresponding to input at port 2 simp
+mode labels and exchanging the phase parameter labels. The Mach-Zehnder interferome
+
+corres
+
+the external ports and the
+
+ponding to an input
+
+ly by exchanging the output
+er shown in Fig. 11(b) can
+
+be generated by mirroring the Michelson device about the blue dashed line. This preserves the symmetry defined by
+the red dashed line. The blue dashed line symmetry represents the gauge invariance tied to the block feed-forward
+
+symmetry (1,2) <> (3,4) of the configuration. Together, these two symmetry lines allow the
+be found immediately from just one calculation corresponding to input at any single port.
+
+The general output calculation entails starting with an initial state which is a single photon im
+
+full device output to
+
+pinging a given port,
+
+such as |Win) = a\|0). Then the scattering matrices are used to sequentially propagate the state though the graph
+until every state component has reached the output. This is equivalent to finding all the possible paths the photon can
+
+travel from an input 7 to each output port i. Each individual path is first weighed by the
+
+produc
+
+of all the scattering
+
+amplitudes it encounters going from port j to 7. The final scattering matrix element is found from the sum of these
+weighted paths, corresponding to coherent interference of all the paths. The general problem of path counting can
+
+20
+
+grow unwieldy, especially as resonant structures are introduced to the graph, causing the number of possible paths to
+grow indefinitely. Some cases can be explicitly summed, but other times an automated path-counting and summing
+algorithm is needed, which is what Ref. [41] accomplishes.
+
+For both of the devices in Fig. 11, there are always only two possible paths, one for each arm j containing the phase
+@;. Their only difference in output is a meaningless global phase shift of 7, originating from the common convention
+of adding a 7 phase shift to the state when it reflects at a mirror. Whether that phase can be observed physically or
+not, it can be lumped into the definition of ¢; and ¢2. This causes the device outputs to be identical. We will consider
+a photon inputted to port 1 of either device, and assume without loss of generality that the beam splitters take on
+the Hadamard convention of Eqs. (15-16). Then, there is an initial splitting into two state components, one in each
+arm. These each acquire a phase ¢; and then are reintroduced to a beam-splitter in some way, splitting a second
+time. The possible paths from port 1 to port 1 (3) are double-reflection with phase ¢; and double-transmission
+with phase ¢2. The corresponding path-amplitudes are (1/V2)(e!®)(1/V2) = e'®/2 and similarly e’?2/2. The
+aggregate reflection amplitude for the device is then r(d1, 62) = (e’#! +e’®) /2 The transmission amplitude is similarly
+t(d1,¢2) = (e'*! — e'®?)/2, where the minus sign is incurred from the back-side beam-splitter reflection when using
+the Hadamard beam-splitter convention.
+
+Thus the aggregate scattering matrix for any lossless Michelson interferometer is equivalent to
+
+while that for a Mach-Zehnder is equivalent to, in block form,
+
+A 0 Umn(¢1, ¢2) -
+Umar($1, $2) = (erated 0 F (37)
+The underlying scattering amplitudes are
+sidi 4 pide ; . ;
+r(¢1, ¢2) = —>+ = ef1/2+402/2 cos(g, /2 — b2/2), (38a)
+id, _ gids .
+t(d1, 62) = — = eit /2+162/2j sin( gy [2 — 62/2). (38b)
+
+from these forms it is easy to see that the scattering probability for reflection is R = |r|? = cos?((¢1 — $2)/2) while
+for transmission is T = |t|? = sin?((¢1 — ¢2)/2). This sinusoidal modulation, which is only sensitive to the optical
+phase difference (¢1 — 2), is characteristic of the two-beam superposition accomplished by devices such as these. A
+plot of either scattering probability P versus either phase ¢ is known as an interferogram. ¢ itself could be viewed
+as a phase difference Ag = ¢ — ¢, for an indeterminable global phase ¢,. The typical sinusoidal interferogram for
+two-beam interference is shown in Fig. 12. The system can act as a basic phase sensor: for small changes in the input
+phase about some bias point $9, the output change in probability AP is given by the product of the input phase
+change and the slope at the bias point. A bias point with a larger slope will then have heightened sensitivity.
+
+B. Traditional interferometric sensing systems
+
+Three two-port interferometers are shown in Fig. 13. In case (a) is the Michelson configuration, which was
+discussed in the previous section, is the most simple phase sensor of reciprocal phase shifts. Even if ¢1 or ¢2 were
+non-reciprocal, meaning the phase acquired depended on the propagation direction, this could not be observed in
+a Michelson interferometer. This is because the double-pass through each arm gives the summed phase for each
+direction as a single phase shift: 6; = @jr + djB.
+
+The configuration of Fig. 13(b) is the Sagnac interferometer, which is the simplest configuration for non-reciprocal
+phase inference. By converting the two spatially-separated arms of a Michelson interferometer into a loop, any non-
+reciprocal difference in phase acquired going clockwise around the common-path loop versus counterclockwise will be
+evident. Let the total clockwise phase be $+ and the total counterclockwise phase be ¢— 6. Since this configuration
+is essentially the same two-beam interference present in a Michelson or Mach-Zehnder interferometer, those results
+can be applied here, but with these phases. The corresponding transmission probability is then
+
+T = |t)? =sin?($1/2 — $2/2) =sin?((¢ + 6)/2 — (d — 6)/2) = sin? (6). (39)
+
+Thus, the transmission probability is zero for a fully reciprocal phase (5 = 0) and increases as the non-reciprocal
+component 6 increases. However, the effect can be challenging to observe, due to the intrinsic weakness of non-
+s, combined with this weak (52) response for small 6. Nevertheless, it allows the non-reciprocal
+
+21
+
+P(¢)
+
+tC a ane ae aoe aeeeatee enna aa
+
+bo bore o)
+
+FIG. 12. Sinusoidal interferogram produced by two-beam interference, such as with a Michelson or Mach-Zehnder interferometer.
+This basic interferometric configuration can be used as a phase readout. First the system is placed at a bias point ¢o, verified
+by measuring the corresponding probability P(¢o). Then, a small change in phase A¢ induces a change in probability AP
+given by the product of Ad and the slope of the probability at the bias point. A larger slope dP/d@ at ¢o naturally produces
+a more sensitive response to phase changes, allowing smaller phase changes to be detected.
+
+portion of a phase shift to be naturally isolated from the reciprocal one and extracted from a direct measurement.
+The configuration is named for Georges Sagnac, who established the existence of a physical effect by which rotation
+of a looped optical path induces a non-reciprocal phase shift [20]. The non-reciprocal phase shift 6 is proportional
+to the product of the loop area and angular velocity and inversely proportional to the optical wavelength. It is the
+fundamental operating principle of optical gyroscopes, and was famously used in 1925 by Michelson and Gale to
+measure the rotation rate of the earth [43]. The last century has seen a number of applications and generalizations
+to the Sagnac effect proposed [44-47].
+
+The third device, in Fig. 13(c) is the parallel-plate Fabry-Pérot interferometer.[48] The multi-pass structure allows
+¢ to accumulate many times, sharpening the phase response around certain values of @. This translates directly to a
+sharpened frequency or narrowband wavelength dependence about certain wavelength centers.
+
+The normally-incident transmission amplitude of the Fabry-Pérot interferometer is readily calculated by summing
+the different paths from input to output. For an input to port 1, each path is indexed by the number of bounces it
+takes before exiting at port 2. The principle beam transmits directly through both plates, acquiring an amplitude
+tye'?t), where t; is the transmission coefficient of plate j and ¢ is the phase acquired between the plates. The plates
+
+are assumed to be reciprocal U(2) scattering devices. This allows the reflections coefficients to be written rj = i/Rj
+where R; is the plate reflection probability. Then, t; = \/1 — Rj.
+
+The nth beam transmits through the first plate up to the second plate, acquiring tje’®, then makes n bounces
+between the two plates, acquiring (rir2e7’*)”, and finally passes through the last plate with amplitude t2. The net
+amplitude for the path conducting n bounces before transmitting is thus t)tge!*(ryr2)"e(". Summing these paths
+produces the Fabry-Pérot transmission amplitude, t, given by
+
+oo oo
+t=ttoe® (1 + Diriree)") = tytoe® (: + So(riree’?*)” - 1). (40)
+
+n=1 n=0
+
+Evidently, this amplitude and the associated transmission probability |t\? can be decomposed into a product of the
+output which would have resulted without path interference, |t;|?|to|?, and an interference factor in parentheses. Its
+sum can be evaluated as a geometric series, which converges whenever the product of plate reflections |rjr2| = |r1||r2|
+is less than 1. This fails to occur only if either plate is fully reflecting, in which case no light will transmit. Otherwise,
+
+co
+
+t(é) = titae*(S(rine™y") = Ba (41)
+
+~ L=rirgei2¢’
+n=0 Le)
+22
+
+(a) Michelson (b) Sagnac (c) Fabry-Pérot
+
+Optical schematic
+
+Scattering graph
+
+50:50 cube beam splitter
+(or waveguide coupler)
+we Mirror
+
+R:T plate beam splitter
+
+FIG. 13. Traditional low-dimensional interferometric configurations. The optical schematic is shown above the associated
+scattering graph. The Michelson (a) is a common tool for inference of reciprocal phases, while the Sagnac (b) is used to infer
+non-reciprocal ones. The Fabry-Pérot interferometer (c) is a simple resonant cavity typically employed as a narrow-band filter
+of light.
+
+Using the fact that rj = i,/Rj and T; = |t;|? = 1— Rj, the transmission probability T = |t|? can be written
+
+(1— Ri)(1— Ro)
+1+ Ri R2 — 2/R1 Ro cos(2¢)
+
+Now if the optical plates are symmetric, so that R; = Ro = R, T can be simplified using the fact that cos2¢ =
+1—2sin? d. Substituting this into the denominator yields
+
+T(¢) (42)
+
+1+ R? — 2Rcos(2¢) = 1+ R? — 2R(1 — 2sin?(¢)) = (1 — R)? + 4Rsin?(¢), (43)
+
+so that
+
+1
+
+T(¢) = —————:;
+(9) 1+ Fsin?(¢)’
+
+(44)
+
+where the coefficient of finesse is
+
+F= a me (45)
+
+The transmission probability T is a composition of f(¢) = VF sin @¢ with the Lorentzian function L(«) = 1/(1+ 2).
+Several examples of this transmission probability are shown in Fig. 14 (a). The finesse parameter is strictly increasing
+with R in the range (0,1), and ultimately determines the sharpness of the resonance. The larger the reflection R, the
+more round-trips can occur, on average, before the photon transmits out of the plates. This in turn corresponds to
+higher phase sensitivity.
+
+Using the fact that ¢ = 2rnd/A, allows the Fabry-Pérot interferometer wavelength response to be investigated.
+Plots of T vs. \ are shown in Fig. 14 (b) for the case d = 10~* meters. The mirror reflection R is assumed to
+be constant with respect to wavelength. The narrowband response around certain wavelengths makes this device an
+23
+
+excellent tool for filtering out a specific wavelength or frequency. Perhaps the most intriguing physical aspect about
+this configuration is that the act of aligning two highly reflective plates perpendicular to one another enables certain
+colors to pass through with perfect transmission. This is a result of the interference altering the effective transmission
+
+and reflection coefficients of the combined system.
+
+14 7 5 1.4
+—R, = R, =05(F=8
+— R, = R; = 0.8 (F = 80) (a) (b)
+1.2}|—R, = Ry = 0.9 (F = 360) 12
+> >
+24 =
+5 ie}
+oO oO
+3 38
+fos £08
+< c
+Q fe}
+B06 B06
+= =
+a ra]
+s 0.4 5 0.4
+eo eo
+0.2 \S 0.2
+Wo Z| ,
+0 0.5 1 1.5 2 1530 1540 1550 1560 1570
+Phase ¢ (units of 7 rad) Wavelength \ (nm)
+
+FIG. 14. Transmission response of a symmetric Fabry-Pérot interferometer (Fig. 13, (c)), vs. the half-round-trip phase ¢ (a)
+
+and wavelength (b).
+
+C. Novel higher-dimensional interferometric sensors
+
+The conventional two-port interferometric configurations shown in Fig. 13 employ low-dimensional linear scatterers,
+namely beam-splitters and plate splitters, in simple graphical configurations. The Sagnac and Michelson devices
+superimposed two beams, producing a sinusoidal interference pattern. This interferogram was ultimately only sensitive
+to one parameter in either case, despite the general presence of two. In the Michelson this was the phase difference ¢q =
+1 — ¢2 and for the Sagnac this was the non-reciprocal portion of the loop 6, which is also a relative phase. Meanwhile
+the Fabry-Pérot configuration, sums an infinite number of paths in a geometric series, resulting in resonances whose
+width was a function of the plate reflectivities, which are generally fixed.
+
+In this section, we in
+
+Pérot interferometer is
+
+coin. The Grover-Sagnai
+oop, corresponding to t
+hase differences are on.
+
+The replaced scatterers are directionally unl
+he Michelson are converted to a pair of optical resonators. These cavities are coupled to one other by the Grover
+c configuration is essentially the same; the two resonators share a common-path inside the
+
+he two counter-pro
+
+single-cavity Fabry-Péro
+
+All of these graphical
+
+into a double cou
+
+configurations are
+
+roduce a basic generalization to each of these interferometric configurations. We shall see
+how the generalization to higher dimensions results in each system gaining a parametric degree of freedom. For each
+case, the constituent scattering devices are replaced with a gauge-symmetric, higher-dimensional equivalent. These
+configurations are pictured in Fig. 15. The Grover-Michelson and Grover-Sagnac are formed by replacing the central
+beam-splitter of their conventional configuration with the four-port Grover coin, while a higher-dimensional Fabry-
+ormed by replacing the two-port plate splitter with the three-port, symmetric Y coupler.
+
+biased, allowing light to back-scatter. As a result, the single-pass arms of
+
+agating modes of the loop. Because it is a common path configuration,
+
+ly acquired through a non-reciprocal phase 6. The Y-coupler system similarly converts the
+
+pled-cavity version.
+
+highly symmetric. The cavity cross-coupling and out-coupling are equal
+
+in each case. Beyond that, each device possesses reflection symmetry with respect to exchange of its external ports.
+The Y coupler device also has reflection symmetry about the line through those two ports, implying the response is
+
+unchanged when ¢; and @2 are exchanged. 1
+
+[he same parametric exchange symmetry is found in the Grover-Michelson
+
+with ¢; and ¢2, as well as the Grover-Sagnac, which occurs when the sign of the non-reciprocal phase port 6 is flipped.
+24
+
+(a) Grover-Michelson __(b) Grover-Sagnac (c) Y coupler Fabry-Pérot
+
+FIG. 15. Higher-dimensional analogues of the systems in Fig. 13. The Grover-Michelson (a) and Grover-Sagnac (b) replace
+the traditional beam splitter with the Grover four-port. In the configuration (c), three-port Y couplers replace the U(2) plate
+beam splitters of the conventional Fabry-Pérot system. The Grover coin, being fully permutation invariant, does not need
+to have a specified orientation, but the Y coupler’s feed-forward port must be specified. Here we assume that port is the
+external, unconnected one for each side. In all three of these systems, a pair of coupled optical resonators is formed from the
+back-reflecting response of the constituent scattering devices. This increase in dimensionality provides access to new degrees
+of freedom in the system output.
+
+1. Experimental demonstration of the Grover-Michelson interferometer
+
+The Grover-Michelson was originally considered in Ref. [34]. In that work, the output amplitudes were found by
+
+studying the normal-mode evolution of the superposition states at ae aly, where al,
+
+photon propagating within arm j. Defining
+
+is the creation operator for a
+
+Bs se + ei@2), (46)
+1 5
+Ox gto" —e'??), (47)
+
+which are precisely the traditional Michelson scattering amplitudes from Eq. (36), the reflection r and transmission
+t scattering coefficients of the device were found to be
+
+Cc? Bol
+= {| ———_ - — - -], 4
+" ¢. 2°92 3); (48)
+Cc? Bol
+go (ye) 4
+(3 => a7 5) (49)
+This can be rewritten as
+{<< ;
+r= giere -le= ebtemt/25 sin(yamu/2) (50)
+te (ero +1)= et yomn/2 cos(yomr1/2) (51)
+where
+5 sin(¢; + ¢2) — sind) — sin dg
+Yen( Or, $2) = arctan (am + b2) — cos ¢1 — cos $2 + (1 + cos(d1 — 5) (52)
+
+Thus, replacing the beam splitter with a Grover coin can be viewed as a phase transformation of the linear response (d1—
+¢2) to a synthetic nonlinear one ygui1(¢1, $2). This is essentially a reparametrization of the general interferometric
+graph’s phase response.
+
+Example plots of the Grover-Michelson transmission probability are shown in Fig. 16. The probability is plotted
+with respect to $1 for different fixed values of ¢2. The red curve is the traditional Michelson response, for ¢2 = 0.
+Changing ¢2 merely translates this curve. However, in the Grover-Michelson interferometer, sweeping ¢2 continuously
+deforms the curves. Being the normal sinusoid but composed with the synthetic phase, the deformation does not affect
+the visibility, given by V = (maxg, T — ming, T)/(maxg, T + ming, T), which remains fixed at the value of 1 for any
+¢2. The position of the transmission peak in ¢ is given by 27 — #2. As this peak moves towards the value 0 mod 2r,
+Grover-Michelson interferometer
+at T r
+
+1.2
+
+—— Michelson
+
+S
+eo)
+
+Transmission Probability
+fo) °
+fo>)
+
+0.2
+
+oy (units of 7 rad)
+
+FIG. 16. Transmission probability for the Grover-Michelson interferometer. The device is now functions of two parameters,
+so that the transmission curve generated by sweeping one parameter can be continuously deformed by changing the value of
+the other parameter. The response can be tuned to exhibit a substantially large slope, which heightens the phase sensitivity.
+Figure adopted from Ref. [34].
+
+he peak narrows, leading to a heightened phase response in this region. The slope 0T/0¢, grows much larger than
+he traditional Michelson, suggesting a much higher phase sensitivity at the appropriate bias point.
+
+The decompositions of the Grover coin into two Y couplers (Fig. 10) and the Y coupler into a beam splitter and
+mirror (Fig. 8) enable experimental implementation of the Grover coin with a relatively small number of common
+abletop optics. As a proof-of-principle, a Grover coin was experimentally assembled like this in bulk and used to form
+a Grover-Michelson interferometer [13]. The arm phases ¢; and ¢2 were controlled by modifying their corresponding
+optical path lengths, which was accomplished by a piezoelectrically actuated translation stage. The source was a quasi-
+monochromatic, continuous-wave diode laser with an operating wavelength of 633 nm and coherence length exceeding
+a kilometer. The input power was in the microwatt range; there was no need to reduce the power to the single-photon
+level since the output obtained is directly proportional to the output probability in that case. Nevertheless, the
+genuine single-photon implementation would have presented some differences. As the output power is reduced and
+approaches the single photon level, rather than observing a never-ending continous decrease in registered power as
+he classical wave picture predicts, the quantized nature of the individual photon energies will eventually manifest as
+a discrete sequence of clicks, corresponding to the detection of single photons. More experimental details of the setup
+can be found in Ref. [13].
+
+The assembled Grover-Michelson system exhibited curve tunability with high visibility. One example of this,
+measured from the reflection signal, is overlaid with the measured response of a reference Michelson interferometer.
+This comparison is shown in Fig. 17. The phase response for the same input phase was notably improved, as loosely
+depicted by the blue lines. In that case, where Ad; ~ 145 mrad, the corresponding intensity modulation is about 14
+times larger for the Grover-Michelson interferometer than its traditional counterpart. This might further improved
+by reducing losses. Other modifications to the system could also be considered, as in Ref. [49]
+
+2. Grover-Sagnac interferometer
+
+A similar analysis has been be applied to the Sagnac configuration [50]. Instead of instead of yar, the phase
+
+function
+
+sin dsin? 5 ) (53)
+
+ss1(¢, 6) =  — arcte
+Yasi(, 5) = 9 — are a (eo
+26
+
+6 Grover-Michelson
+_ Traditional Michelson
+
+Reflected Intensity (arb. units)
+
+6
+6, (rad)
+
+FIG. 17. Measured interferogram comparison of a traditional Michelson interferometer (red) and a Grover-Michelson (black).
+The blue bars loosely depict the difference in intensity modulation for the same input phase modulation of about 145 mrad.
+The Grover-Michelson exhibited roughly 14X higher intensity change, with a visibility of 97%. Figure adopted from Ref. [13].
+
+is obtained. Plots of the associated transmission are shown in Fig. 18. When 6 = 0, yas1 = ¢. Thus the reflection and
+transmission probabilities depend on the reciprocal part of the loop phase, ¢, and can take on any output value. This
+is not the case in a traditional Sagnac interferometer, where the lack of non-reciprocal phase forces the transmission
+to be zero regardless of the reciprocal loop phase. Moreover, the resonance, or pole in the phase response, occurs
+around the point 6 =0. This means small values of 5 create a sharp dip in the transmission of full-width 26. Scanning
+¢ around the origin provides a direct readout for this in the interferogram. This signature is linear in 6 for any 6,
+whereas the traditional Sagnac interferometer’s transmission is given by 4? for small 6, placing constraints on the
+detector resolution. The full-modulation dip is easy to detect, but requires inducing a change in phase ¢ which is
+significantly lesser than 6 in order to resolve 5 with high precision.
+
+3. Higher-dimensional Fabry-Pérot interferometer
+
+The output of the Y-coupler Fabry-Pérot device pictured in Fig. 15 also can be expressed in terms of that of a
+regular Michelson interferometer [27]. The output is given by
+
+C2
+"= Tp (54a)
+
+B(l-r). (54b)
+
++
+ll
+
+The traditional Fabry-Pérot only has one phase parameter, which for symmetric plates, traced a Lorentzian-like
+function whose sharpness was determined by the finesse F’. F' is a function of the plate reflectivity, which is typically
+a quantity fixed by material properties. In the higher-dimensional Y-coupler version, there are now two phases. The
+additional degree of freedom allows tuning of the effective out-coupling between the cavity and the output ports. Thus
+the effective finesse is tunable through interference. This allows the widths and heights of certain spectral regions to
+be controlled with considerable flexibility. A basic example is shown in Fig. 19. The arms are each assumed to be
+1.55-10~4 meters with a refractive index of 1. By perturbing the index of one relative to the other, a phase difference
+is created between the two arms. Increasing this index perturbation completely reconfigures the filter characteristics,
+allowing transmission bands to be converted to reflection bands. Overall, the device acts as a tunable dichroic.
+27
+
+Grover-Sagnac interferometer
+
+12
+ir = 1/4
+ir =1/8
+4h ir = 1/16
+—s=0
+
+0.8
+
+0.47
+
+Transmission probabiltiy
+Oo
+fo>)
+
+0.2
+
+0 1
+-1 -0.5 0 0.5 1
+Loop phase ¢ (units of z rad)
+
+FIG. 18. Transmission probability of the Grover-Sagnac interferometer. Unlike in the traditional Sagnac interferometer, the
+probability is a continuous function of both ¢ and 6. For 6 = 0 the curve is sinusoidal in ¢, but exhibits resonance whenever
+6 #0. This leads to the formation of a sharp dip about the origin ¢ = 0. The full width of this dip is 25, enabling a high-
+contrast, direct readout of 5. Figure adopted from Ref. [50].
+
+—An=0.1 —An=0.4 —An=0.7
+
+=
+ne)
+
+—
+
+Transmission Probability
+ooo 9
+ye} o foe)
+
+i] | fi
+
+1530 1540 1550 1560 1570
+Wavelength (nm)
+
+0
+
+FIG. 19. Example output curves for the Y coupler Fabry-Pérot interferometer. The phase was modulated by perturbing the
+refractive index in one arm relative to the other. The arms were each assumed to be 155 um long. Changing the relative phase
+acquired by each arm can bring certain bands from high transmission to high reflection, acting as a tunable dichroic.
+
+D. Hong-Ou-Mandel two-photon interference
+
+Up to this point, all of the input states have been single-photon states, which only exhibit classical interference.
+In this section we consider two-photon states entering separate ports of an optical scattering device, which are of the
+form |Yin) = ala4|0). The resulting two-photon interference can be measured with multiple detectors placed at the
+28
+
+output ports which count the photons that arrive simultaneously. Perfect destructive interference of the underlying
+coincident amplitude leads to a famous Hong-Ou-Mandel (HOM) dip in the rate of coincidences [51, 52]. The situation
+is shown in Fig. 20 (a). Two identical photons impinge separate ports of a generic unitary beam splitter of the form
+in Eq. (32). Each individual photon sees its normal scattering action, resulting in the transformation
+tat t T\lpeqt t 55
+aj\a3|0) + (ria + tra})(r2a} + t2a})|0). (55)
+
+The coincident amplitude, which leads to the ahah term, is then rjr2+tit2. From the structure of the beam splitter, we
+
+recall the amplitudes r1,r2,¢t, and t2 originate from a two-dimensional unitary transformation, which can be written
+in the form of Eq. (17), in which the coefficients are rewritten as separated magnitudes and phases. A consequence
+
+— 1 3
+@ 1 3 oe No cross terms between
+@ > @@ 34)
+
+2 4 2 4 ~*
+
+(a) Hong-Ou-Mandel: |1 1) —> vai" 2) + |2 0))
+
+@ 1 3 ; @ 1 3 @ _Nocross terms between
+e @ @ (1,3), (1,4), (2, 3), (2, 4)
+— 2 4 — 2 4 —
+
+(b) Higher-dimensional
+nongroumone* jl1)—
+
+1
+va + |r)
+
+ltr) = <5 (ai — 43)? |0), |e) = als + 08)"10)
+
+me
+
+FIG. 20. (a) The traditional Hong-Ou-Mandel effect. When a pair of identical photons enter different ports of a balanced unitary
+beam splitter, the coincident amplitude corresponding to one photon populating each of the two output modes destructively
+interferes. The output state is then comprised of two clusters of two photons each. Each cluster occupies a single mode. (b)
+Higher-dimensional Hong-Ou-Mandel effect. When the two photons impinge a Grover coin, clusters form again, with destructive
+interference occurring across four pairs of output modes. The resulting clusters are each distributed over two modes instead
+of the usual one. This increase in the dimensionality enables the energy in each cluster to be routed into one of two different
+output modes.
+
+of unitarity in two dimensions was the phase constraint of Eq. (21), which states that the difference between the
+summed phases of the r; and the summed phases of the t; had to be 7. This is precisely the relative phase between
+the two terms comprising the coincident term. After dropping the irrelevant global phase, then, this coincident term
+can be rewritten as |r1||r2| — |t1||¢2|. Accordingly, if and only if the unitary beam splitter has a 50:50 splitting ratio,
+the coincident term vanishes. This is the origin of the HOM effect, producing an output state (a3 + ai!)|0). The
+produced state is of two clustered photon amplitudes. The clusters each populate a single mode. There is an equal
+probability of measuring a cluster in either of the two modes.
+
+A higher-dimensional generalization to this occurs when two photons impinge two ports of a Grover coin [53]. This
+situation is depicted in Fig. 20 (b). The state produced is
+
+aN +
+alah a qa + as + ai, +ai)(ai — ah +a} +al)I0). (56)
+Another vaneallpan of cross terms occurs, since (—al +a} + a} +al)(al — ah + a} + ai) = (al — ah)? + (ah +a}? 4
+
+(ai + ah)(ai — ab) — (ai + al) (at — ad). The final state is also clustered into two components,
+
+Ib) = (br) + bee)). (57)
+
+"4
+The reflected component is
+12 0).
+
+a
+
+Ghibr) = —|¥r)-
+
+pairs: (1,3), (1
+clus
+
+each
+
+com
+
+If
+
+lete routing of entangle
+
+asses through the zero poin
+
+sma.
+
+hhases are equal, the dips wi
+are defined across a given por
+of multimode interference sys
+
+Hong-Ou-Mandel effect but with four different swi
+
+delay introduces temporal distinguishability which
+he delay allows the degree of distinguishability to
+
+each dip and peak will be given by the difference in
+
+ems. Another examp
+
+dr) = (1/2V2)(al — ab)?|0) whereas the transmit
+These symmetric state components are two-photon eigenstates of the Grover coin: Gly) =
+
+The output state (57) encapsulates simultaneous destructive interference of
+,4), (2,3), and (2,4). These are the pairs on opposite sides of t
+ered components are also now distributed over two modes instead of the usual one. This readily enab.
+he energy spread across each cluster to be concentrated into a single mode.
+of the two clusters, allowing the emergent two-photon amplitudes to take on the same form as the
+chable options. The effec
+states in a general quantum network [53, 54].
+the two photons in either Hong-Ou-Mandel configuration enter the device
+
+coincident amplitudes over
+
+There are two routing o;
+
+with a time delay between
+
+diminishes the perfect des
+
+le will be considered in the
+
+29
+
+ed component is |v) = (1/2V2)(ah +
+
+1), while
+
+four mode
+
+he Grover coin shown in Fig. 20. The
+
+es routing
+tions per
+raditional
+
+has since been shown to enable the
+
+them, the
+
+next section.
+
+E. Two-photon Grover-Mach-Zehnder interferometry
+
+F
+off
+
+(b)
+
+ructive interference [52, 55].
+be tuned, inducing a change in the coincident rate. As the delay
+, perfect destructive interference occurs in a sharp dip, which can be used to measure
+1 time delays or the degree of indistinguishability of the source. Because of the fourfold cancellation of cross-terms
+in the higher-dimensional Hong-Ou-Mandel configuration, four simultaneous dips will occur. The relative positions of
+hases acquired after the photons exit the Grover coin. When the
+1 overlap, allowing the simultaneous determination of the three relative phases. These
+t and the other three relative to that. Sensing multiple phase shifts is a general benefit
+
+Varying
+
+Optical
+Circulator
+
+G. 21. (a) Dual-rail Grover-Mach-Zehnder configuration. Two photons are injected at the input via circulators, scatter
+a Grover coin G; and acquire the phases ¢o,¢1 and ¢2 while traversing the two double-rail arms. After this the optical
+
+state scatters off another Grover coin Gz and then are out-coupled to detectors A,B,C, D with circulators. By recording the
+
+co:
+
+incidences of each detector pair, the three phases can be determined simultaneously. (b) By introducing a circul
+
+ator into the
+
+dual-rail arms and placing the arms in different planes, the acquired phases can made to depend on the rotation rates of the
+
+di
+
+adopted from Ref. [56].
+
+erent axes, as described by Eq. (61). This allows the system to simultancously detect rotations about three
+
+A double-rail generalization of the Mach-Zehnder interferometer (shown in Fig. 11) can be obtained
+
+axes. Figure
+
+y replacing
+
+the two beam-splitters with Grover coins and linking the two unconnected ports to obtain the configuration in Fig.
+
+2
+
+(a). Circulators in red are used to inject two photons into the first Grover coin, G. The emergent st
+form (57). After it emerges from G}, the state acquires the phases ¢9, 1 and ¢2, scatters from a second
+G2, and then exits the system with another set of circulators. The state is detected across four detec
+
+0
+
+ate is of the
+Grover coin
+
+rs, labeled
+30
+
+A, B,C and D.[57|
+
+The coincidence rates of each detector pair are readily extracted from the output state amplitudes [56]. For i,j in
+{A, B,C, D}, denote the coincidence rate between detectors i and j as R,;. These rates can be related to the phases
+go, ¢1 and $2,
+
+Rac + Rap = sin? ¢; + sin? do (58a)
+2Ro
+Aap 4 Hac Rac _ 2sin d, sin dz cos(2¢9 + 1 — ba) (385)
+0
+a (1+ cos” $1) + (1 + cos? b2) + 2cos(2do + d1 — b2)(1 + cos o1 cos 62) (386)
+‘0
+Rag t+ Ro :
+— OP, 2(cos ¢1 + cos ¢2)(1 + cos(2¢o + o1 — ¢2)). (58d)
+
+This set of four independent equations allows the three phases and the constant Ro to be obtained simultaneously.
+In the case of two independent phase shifts, i.e. ¢1 = $2 the inversion of the above equations becomes direct, for in
+this case,
+
+cos 2¢9 = Ai (59a)
+1+,/1— A?
+cos ~1 = ws (59b)
+Ao
+where
+Rap — Rac s
+Ay = = 60a
+1 Rap + Rac Gis)
+Ras — Rep
+Ag = ———_——.. 60b
+° Rap + Rep {60}
+
+The parameters ¢o, 61 and 2 are general phase shifts. If the system were rotated, these phases could be shifted in
+conjunction with the Sagnac effect. Placing the arms in different planes allow rotations about different axes to affect
+the different phase shift parameters. By adding a circulator to the loops as shown in Fig. 21 (b), a third loop can be
+obtained, which allows all three phases to be tied to a rotation direction. With the circulator added, the path from
+Gj to G2 exiting a or b; comprises a half-loop about the z axis, the path leaving bz comprises a half-loop about the
+x axis, and each path leaving az comprises both a full loop about y and a half loop about x. This allows the phase
+shifts ¢o, 1, and ¢2 above to be expressed in terms of the phase shifts induced by rotations about the x,y and z axes
+like so:
+
+0 = (bx — G2)/2, (61a)
+01 = oz; (61b)
+62 = br + by. (61c)
+
+Given measurement of ¢9,¢, and ¢2, the above equations are readily inverted to obtain the rotation phases,
+
+bx = 260 + o1 (62a)
+dy = —240 — (¢1 + 42) (62b)
+bz = ¢1. (62c)
+
+Thus the system offers the simultaneous determination of three rotations about different axes.
+
+IV. DISCUSSION
+
+In this review, we have discussed the design principles of novel gauge-invariant optical devices capable of providing
+a substantial boost in resolution of interferometric sensors. A general approach for identifying physically-equivalent
+scatterers has been presented, which provides a basis to recognize or enforce certain symmetries in a scattering
+transformation. An emphasis was placed on the gauge-invariant, higher-dimensional Y-coupler and Grover coins,
+due to their role in interferometry. The general matrix theory for optical scattering has several other extensions and
+applications, suc
+elemen
+
+Although the Grover coin
+a demonstration of a passive
+would be valuab.
+realized using metasurface te
+multiports in the future [63-6
+[68-73] and nanophotoni
+This
+ignorec
+whi
+
+h as unitary
+s of a scattering ma
+
+to a good approximat:
+e light source, the inter
+
+multiple bounces with low los:
+the perfect coherence which is
+
+employed in some optical interferometric systems, so it remains to be seen how other sources wi
+iased multiport interferometry, and the effect o
+
+may
+
+All systems reviewed were a
+stemming from artifacts such
+a no
+moc
+
+be employed for un
+
+es,” the non-unitary syst
+general a non-unitary system
+to be observed [77-82].
+
+Interferometers were definec
+
+able parameters such as induc:
+
+systems built around the Gro’
+
+scattering event, exhibiting ri
+
+erence of field amplitudes will no longer occur when the difference in o
+becomes greater than the coherence length. Even if the individual pa
+
+31
+
+control [58-60]. Certain assumed global symmetries can also be used to bound the
+
+rix (61, 62].
+and Y-coupler were constructed through a beam-splitter decomposition, there has yet to be
+
+, single-element implementation of these devices, in any platform. Such an implementation
+le to reduce the number of resources used in larger systems. A variety of beam-splitters have been
+
+chnology, making this a potential candidate for realizing higher-dimensional unbiased
+7]. Other possible approaches include integrated multi-mode interference (MMI) devices
+
+c inverse design [74-76]. These approaches all involve reducing the scale of the optical device.
+would be advantageous in situations where the coherence length of
+
+he source was no longer large enough to be
+ion. When the coherence length becomes finite, as in the case of a pulsed or broadband
+ptical path lengths
+h components are short, devices involving
+s can obtain a large path length in effect. Here this potential problem was avoided with
+furnished by an assumed monochromatic source. Nevertheless, this configuration is only
+h lower coherence
+
+difference system scales on the output.
+
+lso assumed to be unitary. However, non-unitary systems wit
+as absorption or undesired radiating out o:
+
+h loss are a practical reality
+the system under consideration. Although
+
+n-unitary system can always be cast into a higher dimensional unitary space to account for inaccessible ” lossy
+
+ems themselves have become increasingly popular area of research. This is because in
+is not bound to the same limits as a unitary scatterer, which enables other new effects
+
+as graphs of static scattering devices, producing a scatterer which is a function of tun-
+ed phase shifts. After discussing traditional interferometric systems, higher-dimensional
+ver coin and Y coupler were presented. These scatterers utilize more field modes per
+ch interference effects which directly translated to practical improvements for interfer-
+
+ometric phase sensors. These improvements included higher resolution, more control freedoms, and the ability to
+
+measure several phases simul
+Michelson interferometer will
+the response range requires a:
+
+aneously. Naturally, the systems employing coupled resonances such as the Grover-
+tend to exhibit a smaller range where the slope is increased. This local narrowing of
+n active phase controller to bias the system at the sensitive point. Other applications
+
+which may benefit from the increased sensitivity exhibited in these systems include optical switches and modulators,
+
+phase contrast microscopes, 0;
+
+The enhancements resulted
+dimensional one in the same
+
+tical filters.
+
+directly from the replacement of a lower-dimensional scattering device with a higher-
+graphical configurations. It remains to be seen what effects other configurations and
+
+inputted optical states may produce in these symmetric interferometers.
+
+Conceptualization, C.R.S.,
+ing—review and editing, C.R.
+
+AUTHOR CONTRIBUTIONS
+
+A.D.M., D.S.S., A.N. and A.V.S.; writing—original draft preparation, C.R.S.; writ-
+S., A.D.M, D.S.S., A.N., A.V.S.; supervision, A.V.S.; funding acquisition, A.V.S.
+
+FUNDING
+
+This research was funded by Air Force Office of Scientific Research MURI award number FA9550-22-1-0312.
+
+DATA AVAILABILITY
+
+No new data were created or analyzed in this study.
+CONFLICTS OF INTEREST
+
+The authors declare no conflicts of interest.
+
+ye
+
+5
+
+10
+
+11
+
+12
+
+13
+
+14)
+
+15
+
+16
+
+17
+18
+
+19
+
+20)
+21
+
+22
+23
+
+[24]
+[25]
+
+[26]
+
+H. Fearn and R. Loudon, Quantum theory of the lossless beam splitter, Optics Communications 64, 485 (1987).
+
+R. A. Campos, B. E. A. Saleh, and M. C. Teich, Quantum-mechanical lossless beam splitter: Su(2) symmetry and photon
+statistics, Phys. Rev. A 40, 1371 (1989).
+
+A. Rubano, F. Cardano, B. Piccirillo, and L. Marrucci, Q-plate technology: a progress review
+
+invited
+
+, J. Opt. Soc. Am. B 36, D70 (2019).
+
+A. E.-J. Lim, J. Song, Q. Fang, C. Li, X. Tu, N. Duan, K. K. Chen, R. P.-C. Tern, and T.-Y. Liow, Review of silicon
+photonics foundry efforts, IEEE Journal of Selected Topics in Quantum Electronics 20, 405 (2014).
+
+J. A. Smith, H. Francis, G. Navickaite, and M. J. Strain, Sin foundry platform for high performance visible light integrated
+photonics, Opt. Mater. Express 13, 458 (2023).
+
+D. S. Simon, C. A. Fitzpatrick, and A. V. Sergienko, Group transformations and entangled-state quantum gates with
+directionally unbiased linear-optical multiports, Phys. Rev. A 93, 043845 (2016).
+
+G. Weihs, M. Reck, H. Weinfurter, and A. Zeilinger, All-fiber three-path mach—zehnder interferometer, Opt. Lett. 21, 302
+(1996).
+A. Saleh and H. Kogelnik, Reflective single-mode fiber-optic passive star couplers, Journal of Lightwave Technology 6, 392
+(1988).
+B. J. Metcalf, N. Thomas-Peter, J. B. Spring, D. Kundys, M. A. Broome, P. C. Humphreys, X.-M. Jin, M. Barbieri,
+W. Steven Kolthammer, J. C. Gates, B. J. Smith, N. K. Langford, P. G. Smith, and I. A. Walmsley, Multiphoton quantum
+interference in a multiport integrated photonic device, Nature Communications 4, 10.1038/ncomms2349 (2013).
+
+N. Spagnolo, C. Vitelli, L. Aparo, P. Mataloni, F. Sciarrino, A. Crespi, R. Ramponi, and R. Osellame, Three-photon
+bosonic coalescence in an integrated tritter, Nature Communications 4, 1606 (2013).
+
+S. Osawa, D. S. Simon, and A. V. Sergienko, Experimental demonstration of a directionally-unbiased linear-optical multi-
+port, Opt. Express 26, 27201 (2018).
+
+I. Kim, D. Lee, S$. Hong, Y.-W. Cho, K. J. Lee, Y.-S. Kim, and H.-T. Lim, Implementation of a 3 x 3 directionally-unbiased
+linear optical multiport, Opt. Express 29, 29527 (2021).
+
+C. R. Schwarze, D. S. Simon, A. D. Manni, A. Ndao, and A. V. Sergienko, Experimental demonstration of a grover-
+michelson interferometer, Opt. Express 32, 34116 (2024).
+
+The device is named for the diffusion operator used in the quantum search algorithm of L. Grover [32], while the term
+“coin” is to describe generic N-port scattering operators, especially in the study of quantum walks, since they behave like
+a hypothetical N-sided coin. The general form of an N-port Grover coin is specified in Section 2.
+
+A. Gerrard and J. Burch, Introduction to Matrix Methods in Optics, Dover Books on Physics (Dover, 1994).
+
+H. Kim, J. Park, and B. Lee, Fourier Modal Method and Its Applications in Computational Nanophotonics (Taylor &
+Francis, 2012).
+
+S. M. Barnett, On single-photon and classical interference, Physica Scripta 97, 114004 (2022).
+
+C. Guo, Z. Zhao, and S. Fan, Internal transformations and internal symmetries in linear photonic systems, Phys. Rev. A
+105, 023509 (2022).
+
+L. Deak and T. Fiilop, Reciprocity in quantum, electromagnetic and other wave scattering, Annals of Physics 327, 1050
+(2012).
+
+E. J. Post, Sagnac effect, Rev. Mod. Phys. 39, 475 (1967).
+
+P. Térma, 8. Stenholm, and I. Jex, Hamiltonian theory of symmetric optical network transforms, Phys. Rev. A 52, 4853
+(1995).
+
+C. Pinter, A Book of Abstract Algebra, International series in pure and applied mathematics (McGraw-Hill, 1990).
+
+A non-reciprocal phase is a relative entity, shared between the counter-propagating directions of the same spatial mode.
+Therefore an external non-reciprocal phase is be able to have a measurable effect on scattering systems in general. For
+example, consider a standard Mach-Zehnder interferometer, where a tunable phase shift ¢ in one arm is used to produce an
+interferogram. An external phase shift placed in that arm will naturally add with ¢. If it is reciprocal, this just translates
+¢ and the interferogram it produces, which has no absolute starting point anyways. But, an external non-reciprocal phase
+will generate measurable non-reciprocal transmission in a device comprised of entirely reciprocal scattering devices.
+
+M. Reck, A. Zeilinger, H. J. Bernstein, and P. Bertani, Experimental realization of any discrete unitary operator, Phys.
+Rev. Lett. 73, 58 (1994).
+W. R. Clements, P. C. Humphreys, B. J. Metcalf, W. S. Kolthammer, and I. A. Walmsley, Optimal design for universal
+multiport interferometers, Optica 3, 1460 (2016).
+
+K. Suzuki, V. Sharma, J. G. Fujimoto, E. P. Ippen, and Y. Nasu, Characterization of symmetric 3 x 3 directional couplers
+fabricated by direct writing with a femtosecond laser oscillator, Opt. Express 14, 2335 (2006).
+
+27
+
+28
+
+29)
+
+30
+
+31
+
+33)
+34)
+
+36
+37
+
+38
+39
+
+40)
+
+41
+
+42
+
+43)
+44
+
+46
+47
+
+48
+
+49)
+
+50)
+
+33
+
+C. R. Schwarze, A. D. Manni, D. S. Simon, and A. V. Sergienko, Single-photon description of the lossless optical y coupler,
+Phys. Rev. A 110, 023527 (2024).
+S. P. Kumar and I. Dhand, Unitary matrix decompositions for optimal and modular linear optics architectures, Journal of
+Physics A: Mathematical and Theoretical 54, 045301 (2021).
+Pp. A. A. Yasir and P. van Loock, Compactifying linear optical unitaries using multiport beamsplitters (2025)
+arXiv:2505.11371 [quant-ph].
+C. Taballione, M. C. Anguita, M. de Goede, P. Venderbosch, B. Kassenberg, H. Snijders, N. Kannan, W. L. Vleeshouwers,
+D. Smith, J. P. Epping, R. van der Meer, P. W. H. Pinkse, H. van den Vlekkert, and J. J. Renema, 20-mode universal
+quantum photonic processor, Quantum 7, 1071 (2023).
+N. Maring, A. Fyrillas, M. Pont, E. Ivanov, P. Stepanov, N. Margaria, W. Hease, A. Pishchagin, A. Lemaitre, I. Sagnes,
+T. H. Au, S. Boissier, E. Bertasi, A. Baert, M. Valdivia, M. Billard, O. Acar, A. Brieussel, R. Mezher, S. C. Wein,
+A. Salavrakos, P. Sinnott, D. A. Fioretto, P.-E. Emeriau, N. Belabas, S. Mansfield, P. Senellart, J. Senellart, and N. So-
+maschi, A versatile single-photon-based quantum computing platform, Nature Photonics 18, 603 (2024).
+
+L. K. Grover, Quantum mechanics helps in searching for a needle in a haystack, Physical Review Letters 79, 325-328
+(1997).
+
+J. Kempe, Quantum random walks: An introductory overview, Contemporary Physics 44, 307-327 (2003).
+
+C. R. Schwarze, D. S. Simon, and A. V. Sergienko, Enhanced-sensitivity interferometry with phase-sensitive unbiased
+multiports, Phys. Rev. A 107, 052615 (2023).
+
+Y. Mizutani, T. Horikiri, L. Matsuoka, Y. Higuchi, and E. Segawa, Implementation of a discrete-time quantum walk with
+a circulant matrix on a graph by optical polarizing elements, Phys. Rev. A 106, 022402 (2022).
+
+A. M. Childs, Universal computation by quantum walk, Phys. Rev. Lett. 102, 180501 (2009).
+
+N. B. Lovett, S. Cooper, M. Everitt, M. Trevers, and V. Kendon, Universal quantum computation using the discrete-time
+quantum walk, Physical Review A 81, 10.1103/physreva.81.042330 (2010).
+
+A. M. Childs and J. Goldstone, Spatial search by quantum walk, Phys. Rev. A 70, 022314 (2004).
+
+S. Apers, S. Chakraborty, L. Novo, and J. Roland, Quadratic speedup for spatial search by continuous-time quantum walk,
+Phys. Rev. Lett. 129, 160502 (2022).
+
+V. Kendon and O. Maloyer, Optimal computation with non-unitary quantum walks, Theoretical Computer Science 394,
+187 (2008), from Gédel to Einstein: Computability between Logic and Physics.
+
+C. R. Schwarze, D. S. Simon, A. D. Manni, A. Ndao, and A. V. Sergienko, Finite-element assembly approach of optical
+quantum walk networks, J. Opt. Soc. Am. B 41, 1304 (2024).
+
+R. Redheffer, On the relation of transmission-line theory to scattering and transfer, Journal of Mathematics and Physics
+Al, 1 (1962), https://onlinelibrary.wiley.com/doi/pdf/10.1002/sapm19624111.
+
+A. A. Michelson and H. G. Gale, The effect of the earth’s rotation on the velocity of light, Nature 115, 566 (1925).
+
+W. W. Chow, J. Gea-Banacloche, L. M. Pedrotti, V. E. Sanders, W. Schleich, and M. O. Scully, The ring laser gyro, Rev.
+Mod. Phys. 57, 61 (1985).
+
+A. Ashtekar and A. Magnon, The sagnac effect in general relativity, Journal of Mathematical Physics 16, 341 (1975),
+https: //pubs.aip.org/aip/jmp/article-pdf/16/2/341/19282614/341_1_online.pdf.
+
+R. Wang, Y. Zheng, and A. Yao, Generalized sagnac effect, Phys. Rev. Lett. 93, 143901 (2004).
+
+T. Shanavas, G. Krueper, J. Zhu, W. Park, and J. T. Gopinath, Nonlinear symmetry breaking to enhance the sagnac effect
+in a microresonator gyroscope (2025), arXiv:2508.09132 [physics.optics].
+
+If the plates are movable so that the central phase shift ¢ can be tuned, the device was traditionally called an interferometer,
+whereas if the plates were fixed, it was known as an etalon.
+
+C.-P. Wei, C.-G. Xu, and Q. Liu, Phase sensitivity of a modified grover-michelson interferometer, Opt. Continuum 4, 1266
+(2025).
+
+C. R. Schwarze, A. D. Manni, D. S. Simon, A. Ndao, and A. V. Sergienko, Grover-sagnac interferometer, J. Opt. Soc. Am.
+A 42, 290 (2025).
+C. K. Hong, Z. Y. Ou, and L. Mandel, Measurement of subpicosecond time intervals between two photons by interference,
+Phys. Rev. Lett. 59, 2044 (1987).
+C. Drago and A. M. Brariczyk, Hong-ou—mandel interference: a spectral-temporal analysis, Canadian Journal of Physics
+102, 411-421 (2024).
+S. Osawa, D. S. Simon, and A. V. Sergienko, Higher-dimensional hong-ou-mandel effect and state redistribution with
+linear-optical multiports, Phys. Rev. A 102, 063712 (2020).
+
+S. Osawa, D. S. Simon, V. S. Malinovsky, and A. V. Sergienko, Controllable entangled-state distribution in a dual-rail
+reconfigurable optical network, Phys. Rev. A 104, 012617 (2021).
+
+T. Meany, M. Delanty, S. Gross, G. D. Marshall, M. J. Steel, and M. J. Withford, Non-classical interference in integrated
+3d multiports, Opt. Express 20, 26895 (2012).
+D. S. Simon, C. R. Schwarze, and A. V. Sergienko, Interferometry and higher-dimensional phase measurements using
+directionally unbiased linear optics, Phys. Rev. A 106, 033706 (2022).
+
+Since the circulators are only used to separate input from output, the same configuration could be achieved without them
+if block-feed forward Grover coins were used. This feed-forward Grover matrix is equivalent to the system pictured in Fig.
+5 of Ref. [83].
+
+C. Guo, D. A. B. Miller, and S. Fan, Unitary control of multiport wave transmission, Phys. Rev. A 111, 023507 (2025).
+C. Guo and S. Fan, Unitary control of partially coherent waves. i. absorption, Phys. Rev. B 110, 035430 (2024).
+
+60
+
+61
+
+62
+63
+
+64
+
+65
+
+66
+
+67
+
+68
+
+69]
+
+70
+
+71
+
+72
+
+73
+74
+
+76
+
+77
+
+78
+
+79
+
+80)
+
+81
+
+83
+
+34
+
+C. Guo and S. Fan, Unitary control of partially coherent waves. ii. transmission or reflection, Phys. Rev. B 110, 035431
+(2024).
+
+W. Ma, R. Pestourie, and S. G. Johnson, Time-reversal-symmetry bounds on electromagnetic fields, Phys. Rev. A 111,
+063518 (2025).
+
+C. Guo and S. Fan, Reciprocity constraints on reflection, Phys. Rev. Lett. 128, 256101 (2022).
+
+Y. Wu, J. Chen, Y. Wang, Z. Yuan, C. Huang, J. Sun, C. Feng, M. Li, K. Qiu, S. Zhu, Z. Zhang, and T. Li, Tbps wide-field
+parallel optical wireless communications based on a metasurface beam splitter, Nature Communications 15, 7744 (2024).
+S. Hemayat, L. Hsu, J. Ha, and A. Ndao, Near-unity uniformity and efficiency broadband meta-beam-splitter/combiner,
+Opt. Express 31, 3984 (2023).
+
+Z. Shen and D. Huang, A review on metasurface beam splitters, Nanomanufacturing 2, 194 (2022).
+
+X.-Z. Pei, L. Bao, Q.-H. Wang, B. Wu, P. Fu, H.-J. Zhou, J. Deng, P.-N. Ni, Q. Kan, P.-P. Chen, and Y.-Y. Xie, On-
+chip integration of metasurface-based beam splitter with variable split ratio, Laser & Photonics Reviews n/a, 2500140,
+https: / /onlinelibrary.wiley.com/doi/pdf£/10.1002/lpor.202500140.
+
+J. Park, Y. Yang, Y. Park, H. Kang, J. Shin, H. Keawmuang, W.-S. Kim, T. Badloe, Y.-K. Kim, and J. Rho, Electrically
+tunable metasurfaces for broadband beam splitting across the visible spectrum, Advanced Optical Materials 13, 2403413
+(2025), https: //advanced.onlinelibrary.wiley.com/doi/pd£/10.1002/adom.202403413.
+
+L. Soldano and E. Pennings, Optical multi-mode interference devices based on self-imaging: principles and applications,
+Journal of Lightwave Technology 13, 615 (1995).
+
+J. Heaton and R. Jenkins, General matrix theory of self-imaging in multimode interference (mmi) couplers, IEEE Photonics
+Technology Letters 11, 212 (1999).
+E. Pennings, R. van Roijen, M. van Stralen, P. de Waard, R. Koumans, and B. Verbeck, Reflection properties of multimode
+interference devices, IEEE Photonics Technology Letters 6, 715 (1994).
+
+A. Maese-Novo, R. Halir, S. Romero-Garcia, D. Pérez-Galacho, L. Zavargo-Peche, A. O.-M. nux, I. Molina-Fernandez,
+J. G. Wangiiemert-Pérez, and P. Cheben, Wavelength independent multimode interference coupler, Opt. Express 21, 7033
+(2013).
+
+M. Bachmann, P. A. Besse, and H. Melchior, General self-imaging properties in n x n multimode interference couplers
+including phase relations, Appl. Opt. 33, 3905 (1994).
+
+K. Cooney and F. H. Peters, Analysis of multimode interferometers, Opt. Express 24, 22481 (2016).
+
+S. Molesky, Z. Lin, A. Y. Piggott, W. Jin, J. Vuckovié, and A. W. Rodriguez, Inverse design in nanophotonics, Nature
+Photonics 12, 659 (2018).
+
+C. Kang, C. Park, M. Lee, J. Kang, M. S. Jang, and H. Chung, Large-scale photonic inverse design: computational
+challenges and breakthroughs, Nanophotonics 13, 3765 (2024).
+
+S.-Y. Huang, S. Kumar, J. Huster, Y. Augenstein, C. Rockstuhl, and $8. Barz, Multiphoton quantum interference at
+ultracompact inverse-designed multiport beam splitter (2025), arXiv:2504.00114 [quant-ph].
+
+M. De Carlo, F. De Leonardis, R. A. Soref, L. Colatorti, and V. M. N. Passaro, Non-hermitian sensing in photonics and
+electronics: A review, Sensors 22, 10.3390/s22113977 (2022).
+
+X. Zhu, H. Wang, S. K. Gupta, H. Zhang, B. Xie, M. Lu, and Y. Chen, Photonic non-hermitian skin effect and non-bloch
+bulk-boundary correspondence, Phys. Rev. Res. 2, 013280 (2020).
+
+Q. Yan, B. Zhao, R. Zhou, R. Ma, Q. Lyu, S. Chu, X. Hu, and Q. Gong, Advances and applications on non-hermitian
+topological photonics, Nanophotonics 12, 2247 (2023).
+
+M. Parto, Y. G. N. Liu, B. Bahari, M. Khajavikhan, and D. N. Christodoulides, Non-hermitian and topological photonics:
+optics at an exceptional point, Nanophotonics 10, 403 (2021).
+
+S. Longhi, D. Gatti, and G. D. Valle, Robust light transport in non-hermitian photonic lattices, Scientific Reports 5, 13376
+(2015).
+A. Li, H. Wei, M. Cotrufo, W. Chen, S. Mann, X. Ni, B. Xu, J. Chen, J. Wang, S. Fan, C.-W. Qiu, A. Ald, and L. Chen,
+Exceptional points and non-hermitian photonics at the nanoscale, Nature Nanotechnology 18, 706 (2023).
+
+G. N. M. Tabia, Recursive multiport schemes for implementing quantum algorithms with photonic integrated circuits,
+Phys. Rev. A 93, 012323 (2016).
+

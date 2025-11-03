@@ -1,0 +1,1207 @@
+2510.25481v1 [physics.ao-ph] 29 Oct 2025
+
+arXiv
+
+Diagnostic vs dynamic representation of the inverse barometer
+effect in a global ocean model and its potential for probabilistic
+storm surge forecasting
+
+Nils Melsom Kristensen“*, Kristian Mogensen‘, Sarah-Jane Lock‘ and @yvind Breivik®”
+
+“Norwegian Meteorological Institute, P.O. Box 43 Blindern, Oslo, NO-0313, Norway
+University of Bergen, Bergen, Norway
+
+©European Centre for Medium-Range Weather Forecasts, Reading, UK
+
+ARTICLE INFO ABSTRACT
+
+Keywords: The global ocean model NEMO is run in a series of stand-alone configurations (2015-2022) to
+
+Water level investigate the potential for improving global medium-range storm surge forecasts by including
+
+Storm surge the inverse barometer effect. Here, we compare a control experiment, where the inverse barome-
+
+Inverse barometer effect ter effect was not included, against a run dynamically forced with mean sea level pressure. In the
+
+Ensemble prediction systems control experiment, the inverse barometer effect was then calculated diagnostically and added
+to the ocean model sea surface elevation, resulting in a total of three experiments to investigate.
+We compare against the global GESLA3 water level data set and find that the inclusion of the
+inverse barometer effect reduces the root-mean-square error by ~ 1 cm on average. When we
+mask out all data where the observed storm surge is less than +1 or +2 standard deviations,
+including the inverse barometer effect reduces the RMS error by 4 — 5 cm. While both methods
+reduce water level errors, there are regional differences in their performance. The run with
+dynamical pressure forcing is seen to perform slightly better than diagnostically adding the
+inverse barometer effect in enclosed basins such as the Baltic Sea. Finally, an ensemble forecast
+
+experiment with the Integrated Forecast System of the European Centre for Medium-range
+Weather Forecasts demonstrates that when the diagnostic inverse barometer effect is included
+for a severe storm surge event in the North Sea (Storm Xaver, December 2013), the ensemble
+spread of water level provides a stronger and earlier indication of the observed maximum surge
+level than the when the effect is excluded.
+
+1. Introduction
+
+The mean sea level varies on time scales ranging from hours (tides and synoptic weather) to decades (climate change
+and large-scale climate fluctuations). In addition to the steric changes (expansion and contraction due to changes in the
+heat content and the salinity of the ocean interior), changes to the meltwater input affect the long-term trends in still
+water level. On much shorter time scales, we have the synoptic fluctuations caused by variations in the sea level pressure
+of the overlying atmosphere, known as the inverse barometer effect (IB). This effect, where a decrease in the surface
+pressure of 1 hPa leads to a local increase in water level of approximately 1 cm is a practical rule of thumb allowing
+quick estimates of the impact of atmospheric pressure on the water level (Piecuch and Ponte, 2015). In addition,
+frictional effects will lead to water level variations that have a much wider geographical extent. The simplest model on
+a rotating sphere is the Ekman transport (Gill, 1982)[pp 319-322], where a balance is reached between the frictional
+force of the wind on the sea surface and the Coriolis effect. When the water is pushed against a coastline, or drawn away
+from the coastline, the effect typically sets up Kelvin waves trapped by the coast. Such water level variations can be
+substantial, and are typically among the most devastating effects of tropical cyclones. The extratropics also experience
+large fluctuations due to Ekman effects, dramatically demonstrated by, among other cases, the devastating storm surge
+of 1953 in the North Sea (Wolf and Flather, 2005). Storm surge modeling is a routine activity of national hydro-
+meteorological services (Kristensen et al., 2022) and can be carried out with modeling systems of varying degrees of
+complexity, ranging from two-dimensional homogeneous equations of the vertically averaged (barotropic) current and
+its associated water level to more complex fully baroclinic three dimensional ocean models. Such models are run on
+
+“Corresponding author
+63 nilsmk@met .no (N.M. Kristensen)
+ORCID(s): 0000-0002-2494-6509 (N.M. Kristensen); 0000-0002-8773-3017 (K. Mogensen); 0000-0003-0936-8170 (S. Lock);
+0000-0002-2900-8458 (@. Breivik)
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page | of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+regional scales and in some cases globally. The models can include the major constituents of the astronomical tide, or
+these can be added diagnostically. Regional forecast systems typically rely on boundary conditions from basin-scale
+or global model systems. Their horizontal resolution is high enough (4 km is a typical number) that local topographic
+effects can be accounted for. Since water level is mostly a concern along coastlines (but not just, fixed platforms
+must account for changes in the water level, and floating structures may have to account for tension on moorings),
+such forecast systems are expected to yield reasonably accurate water level predictions in semi-enclosed waters.
+Furthermore, the uncertainty associated with the passage of synoptic weather systems translates into uncertainty of
+the water level they cause. Ensemble prediction is thus a natural approach for water level forecasting.
+
+Here we present a comparison of two standalone global NEMO (Madec et al., 2024) ocean model integrations with
+and without the atmospheric pressure effect, forced with the atmospheric reanalysis ERAS (Hersbach et al., 2020).
+No astronomical tidal constituents are included in the model setup. The model runs cover the period 2015-2022,
+inclusively. The purpose of our study is two-fold. First, we want to investigate how well a coarse (roughly 0.25°) fully
+baroclinic ocean model can be expected to represent coastal and open-ocean water level variations associated with
+the passage of tropical and extratropical cyclones. Secondly, we want to assess how well a model without the inverse
+barometer effect (only Ekman effects) can be expected to perform. This we do by diagnostically adding the inverse
+barometer effect to a control experiment with constant sea level pressure. The model is identical to the ocean model
+component of the Integrated Forecast System (IFS) of the European Centre for Medium-range Weather Forecasts
+(ECMWF). See Mogensen et al. 2012 and Mogensen et al. 2017 for further details on the ocean model component of
+IFS.
+
+Two experiments have been performed to assess two alternative ways of including the IB effect and its impact on
+the modeled sea surface elevation. This leaves us with three variables representing the water level, hereafter referred to
+as noJB, the control experiment with no IB effect, diaJB, diagnostically adding the IB effect to the control experiment,
+and finally dynJB, the water level from NEMO including the dynamically computed effect of the sea level pressure.
+Wind stress, and its effect on the water level, is included in all three variables.
+
+Finally, the ensemble prediction system of the IFS (ENS) is used to perform a case study of the North Sea winter
+storm Xaver in December 2013. By examining the ensemble spread for the water level at two coastal locations in the
+North Sea, the impact of including the diagnostic IB effect is explored for probabilistic forecasting.
+
+The investigation illustrates the potential for local storm surge modelling, by exploring the impact in the global IFS
+ensemble, which is commonly used to provide boundary conditions for high resolution Limited Area Models (LAMs).
+It also highlights the usefulness of a global, relatively coarse, coupled atmosphere-ocean model for probabilistic
+forecasting and early warning of storm surge along complex coastlines.
+
+This article is structured as follows. In Section 2 we present the dataset of observations used in the validation.
+In Section 3 the ocean model is described. In Section 4 we present statistics for the model results and the validation
+results. In Section 5 a few case studies of storm surge events from within the hindcast period are evaluated in detail.
+Section 6 showcases how the results from this research can have direct implications in operational forecasting of storm
+surge. A summary and concluding remarks are found in Section 7.
+
+2. Observational dataset
+
+The observation dataset used in this work is the Global Extreme Sea Level Analysis version 3 (GESLA3), see Haigh
+et al. 2023. GESLA3 is a comprehensive and freely available dataset containing observation records from 36 different
+sources covering large parts of the globe. The dataset consists of 5119 stations with time series of observed total water
+level (TWL) on a common data format, covering the period from 1800 until 2020. It contains an aggregated total of
+91,021 years for all the records. We note that some observation stations are contained in more than one of the sources
+used to compile the dataset, hence the total number of unique observation stations is less than the number of records.
+The locations and geographical distribution of the records are shown in Figure |. To isolate the weather-induced
+water level (hereafter referred to as the storm surge for brevity) from the TWL, we performed a tidal analysis of each
+record using the 12 dominant tidal constituents in the pangeo-pytide python package, based on the FES2014 global
+ocean tide atlas (Lyard et al., 2021), and subtracted this tidal signal from the observed TWL. The residual signal is
+hereafter referred to as the observed storm surge. Before the analysis, the temporal mean for both model time series and
+observation records is removed. We utilize all the records that overlap in time with our simulation period, located no
+more than two grid points away from an ocean grid point in the model. This reduces the number of records to be used
+in the analysis to around 1000 records. The blue dots in Figure | indicate the locations and geographical distribution of
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 2 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+All available observational records
+
+Longitude Density
+
+120°E 180"
+
++ Stations not used in analysis
++ _ stations used in analysis,
+
+pr er Cy
+
+1a0-w " 120°E iar
+
+60°S
+
+18
+
+0 100-200
+Latitude Density
+
+Figure 1: Positions of all available observation records in the GESLA3 dataset. The blue dots indicate the positions of those
+records that was used in this work, while the red dots were omitted either due to no overlapping time coverage between
+model and observation, or due to the record being located too far away from a model ocean point. The horizontal and
+vertical histograms indicate the geographical distribution in longitude and latitude directions of the records.
+
+the records used in our analysis, while the red dots indicate the records that was not used. All observation records have
+been resampled to hourly time resolution through linear interpolation to facilitate the comparison with ocean model
+data. This was done after the tidal analysis was performed.
+
+A feature of the GESLA3 dataset is that some stations appear as multiple records in the dataset, i.e., are provided
+from multiple sources, like, e.g., the national hydro-meteorological services and the Pan-European Copernicus Marine
+Service (CMEMS). These seem to occasionally be resampled or interpolated from their original temporal resolution
+to a different resolution, often hourly. When performing the tidal analysis on these records, and subtracting the tidal
+signal from the TWL, we are often left with a very noisy storm surge signal. This tends to clutter the model evaluation
+presented in Section 4, and even if our brief investigation into the issue suggests that the number of “noisy” data points
+is small, this feature could have an impact on the general statistics when such records are included. More details and a
+visual example can be found in 7. Attempts to remove these outliers has not been successful, and we are therefore left
+with the choice of either omitting the records entirely, or leaving them in the dataset. We have chosen the latter.
+
+3. Model setup
+
+The NEMO ocean model (Madec et al., 2024) is here run with atmospheric forcing from the ERAS reanalysis
+(Hersbach et al., 2020). The domain is a global stretched tripolar ORCA025 grid with an average resolution of
+0.25 x0.25° which is refined threefold in the Equatorial band. The vertical is resolved with a z coordinate with variable
+resolution. The upper level is 1 m thick. This setup is commonly referred to as ORCAO25_Z75. The ocean model reads
+the 10 m wind vectors, temperature, humidity, heat and water fluxes from ERAS every hour. The ocean model also
+reads forcing from the ECWAM wave model (a component of ERAS) as described by Breivik et al. 2015. We now
+perform an ocean-only integration (experiment id i5k6) covering the period 2015-2022 (from a warm start). We then
+compute the inverse barometer effect from the ERAS mean sea level pressure (MSLP) and output the total sea surface
+elevation (including the inverse barometer effect) as well as the prognostic elevation (only frictional and baroclinic
+effects). This control run is then compared against an otherwise identical ocean-only run where the ocean model is
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 3 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Maximum water level using diagnostic IB
+
+Difference between maximum waterlevel using diagnostic and dynamic IB
+
+2 S
+‘Storm surge standard deviation [mm]
+
+4
+
+(a) Diagnostic (b) Difference
+
+Figure 2: The maximum water level in the stand-alone storm surge hindcast with the IB effect included diagnostically as
+a post-process is displayed in panel (a). Panel (b) shows the difference between the diagnostic and dynamical inclusion
+of the IB effect. The red areas indicate where the diagnostic inclusion has the largest maximum water level, and the blue
+areas where the dynamical inclusion give the largest maximum water level.
+
+allowed to respond to a varying MSLP taken from ERAS (experiment id i5k8). This run is referred to as the dynamical
+experiment (dynIB) whereas the former is referred to as the diagnostic experiment (diaJB) (since we compute the
+inverse barometer effect diagnostically from the local MSLP). Neither run includes tides. The variables of interest in
+the control run are thus the sea surface elevation without the inverse barometer effect, referred to as no/B, and the sea
+surface elevation including the diagnostically computed inverse barometer effect, dialB. These are compared against
+the total sea surface elevation dynJB in the alternative model setup with dynamical MSLP.
+
+In Section 6, we use the IFS ensemble prediction system (ENS, e.g. ECMWF, 2024a) to showcase how inclusion of
+the IB effect can impact the probabilistic forecast of storm surges. ENS is a coupled global forecasting system, which
+uses NEMO for its ocean model component, thus enabling us to explore how the impacts seen from the standalone
+NEMO studies translate into a coupled forecasting scenario.
+
+Both the uncoupled and coupled forecasts use NEMO version 4.0, which is a newer version than the 3.4 version
+of NEMO which is currently in operational use at ECMWF. The coupled model runs were based on a development
+version of IFS CY49R2 to incorporate the changes needed to run the coupled setup with NEMO V4.0.
+
+4. Results
+
+4.1. Model statistics
+
+The map in Figure 2a display the maximum values for water level for each grid point for the global domain of the
+NEMO model over the simulation period. The figure show the maxima for the diaJB run, and the difference between
+the diaIB and dynIB runs. The map of maxima in Figure 2 is a good indication of the areas around the globe that are
+prone to high water level due to storm surge. The Figure also highlight some of the well known dynamically active
+regions with large ocean currents, like e.g. the Gulf Stream east of the US East Coast, the Agulhas Current south
+and east of Africa and the Kuroshio Current east of Japan. Due to the fact that high water level usually only poses
+a substantial risk to life and property when it occurs along a coast, we note a few coastal areas with large maxima
+for further investigation. These areas include the European North West Shelf (NWS), the southeast coast of South
+America, the southern and eastern coasts of the US and the coast of China. In addition, when examining the maxima
+in Figure 2, we can clearly see the imprints of the tracks of many of the major tropical storms, hurricanes and typhoons
+during the simulation period.
+
+4.2. Model evaluation and validation
+
+The control experiment with diagnostic inclusion of the IB effect (diaJB) and the alternative (dynIB) is compared
+with the GESLA3 observations. As a baseline, we also compare against the control experiment without inclusion of
+the IB effect (noJB). We focus the evaluation on the Mean Absolute Error (MAE) and the Root Mean Squared Error
+(RMSE), together with scaled versions of the two (MAE/o and RMSE/o, where o is the standard deviation of the
+observed storm surge). The values of MAE and RMSE for each record is scaled by the standard deviation of the
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 4 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+No IB Diagnostic |B Dynamic IB
+
+MAE, Ti (15) 10 (15) Ii (7)
+RMSE,, _14 (20) 13 (18) 14 (21)
+MAE, 2 16 (25) 12 (21) 13 (23)
+RMSE,,,,¢ 18 (28) 15 (25) 16 (27)
+MAE,>,.¢ 22 (33) 15 (27) 16 (28)
+RMSE,,,,, 25 (37) 18 (32) 19 (33)
+
+Table 1
+
+Median values (arithmetic means in parentheses) for Mean Absolute Error (MAE) and Root Mean Square Error (RMSE)
+for all records when comparing the NEMO hindcast and GESLA3 observations. MAE and RMSE are shown for all data,
+for when masking the values less than +1 and +2 standard deviations. Values are given in centimeters.
+
+No IB Diagnostic IB Dynamic IB
+MAE,,,/o 0.68 (0.76) 0.60(0.71) 0.71 (0.83)
+RMSE, ,,/o 0.87 (0.96) 0.77 (0.89) 0.89 (1.03)
+MAE,,,.,/¢ 1.03 (1.12) 0.77 (0.92) 0.84 (1.0)
+RMSE,.,,/o 1.20 (1.32) 0.94 (1.12) _1.04 (1.22)
+(1.63)
+(1.83)
+
+MAE,,,,/6 1.53 (1.63 1.0 (1.24) 1.06 (1.28)
+RMSE,»,,2/o 1.67 (1.83) 1.20 (1.46) ‘1.27 (1.52)
+
+Table 2
+Same as Table 1, but with values are given as fractions of standard deviations (absolute values scaled by the standard
+deviation for the observation for each record). Arithmetic means are given in parentheses.
+
+observed storm surge for that record to provide a measure of the relative error, since the magnitude of the absolute
+error tends to be correlated with the magnitude of the storm surge, to allow us to compare the model performance
+across different records with different typical amplitudes. This is in line with the approach by Kristensen et al. 2024,
+and the formulas can be found in Appendix B.
+
+The MAE and RMSE [m] for the water level of noJB, diaIB and dynIB are listed in Table 1. We focus on the median
+of the error metrics across the records, but also include the mean values. The median is chosen as it is a robust estimate
+of central tendency and thus suitable for analysis given the large outliers found in some of the observation records, as
+explained in Section 2. We include the MAE and RMSE for the entire hindcast period, denoted by the subscript all,
+and also values where we mask the data when the observed absolute values of the storm surge is less than one and
+two standard deviations from the mean, denoted by the subscripts +1std and +2std. This is done to emphasize the
+cases and time periods when the contribution from the storm surge to the total water level is significant to focus on the
+model’s ability to capture anomalously low and high water level events (the latter being what we usually think of as
+storm surges). Similarly, the relative (scaled) values MAE/o and RMSE/o, are presented in Table 2.
+
+The absolute values of both MAE and RMSE in Table | clearly show that the errors increase when masking out
+the low absolute values. Also, it is evident that diaJB has slightly lower errors, 1 cm less for both MAE and RMSE,
+compared to the dynJB. When including all data, the best performing experiment, diaJB, has a MAE of 10cm and
+RMSE of 13cm averaged over the entire global model domain and simulation period. When masking the data for
+observations within +o, the MAE and RMSE for the dia/B increase to 12 and 15 cm respectively. And for the masking
+criteria of observations within +20, the MAE and RMSE is 15 and 18 cm for diaJB, respectively. This is approximately
+30% less than the MAE and RMSE of noJB. This clearly shows that, unsurprisingly, to properly simulate the water
+level during an extreme storm surge event, the IB effect must be included.
+
+However, Figure 3 shows that the statistical distribution of the RMSE has a large variation, with the majority of
+the errors in the range 4 — 30cm and [0.3 — 1.6]o, when considering all data. It is evident that all the distributions,
+except the relative noJB, are skewed to the right. This is as expected based on the mean and median values in Table |
+and 2 where the mean value is generally larger than the median. The width of the distributions increases with stricter
+masking criteria.
+
+Additionally, the map in Figure 4 clearly shows the regional differences in performance between the two
+experiments. The difference in relative error, displayed in Figure 4, highlights the European NWS and the Baltic Sea as
+two regions (see also Figure 5) where the differences between the two experiments are large with diaJB outperforming
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 5 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+dynIB on the European NWS, and vice versa in the Baltic Sea. Most other areas exhibit relatively small differences, with
+a few scattered exceptions mostly in favor of the dia/B. It is unclear why the dynJB experiment seems to outperform the
+diagnostic experiment in the semi-enclosed water body of the Baltic Sea. However, as we see a similar, albeit weaker,
+tendency in the Mediterranean Sea and the Black Sea, we speculate that the narrow connections to the open ocean
+limits the efficacy of the inverse barometer effect. These water bodies also have very small tidal amplitudes for the
+same reason, see e.g., Medvedev et al. 2016. In other words, although the atmospheric pressure variations set up a
+pressure gradient, the narrows connecting the Baltic Sea (Weisse et al., 2021), the Mediterranean Sea and the Black
+Sea (respectively the Danish Straits, the Strait of Gibraltar and the Bosphorus) are not wide enough for water to adjust
+on the synoptic time scales of hours to at most a few days. When the atmospheric pressure averaged over the entire
+confined sea area changes, this will in the diaJB lead to a change in the average water level, whereas in reality and
+in the dynJB, these changes in water level are mostly local, leaving the water level over the confined sea area mostly
+unchanged during the passage of extratropical systems. This effect becomes more pronounced when the dimensions
+of the confined water body coincides with the spatial extent of the weather systems.
+
+5. Case studies
+
+In addition to the general statistics, we now look at a few extratropical storm surge events on the European NWS,
+as well as tropical cyclones. The selected cases are from the areas of maximum storm surge in Figure 2.
+
+5.1. European/North Sea surges of January and February 2020
+
+January and February 2020 was a particularly active storm period in Northern Europe with several large storm
+surges. A series of powerful low pressure weather systems passed through Northern Europe from west to east, creating
+prolonged periods of high water level along the coast, in particular around the North Sea basin. In Norway, two storms
+during this time period were classified as “extreme weather events” and consequently were given names. These were
+the storms Didrik on 15 January 2020 (Skjerdal et al., 2020), and Elsa 10-11 February 2020 (Selberg et al., 2020).
+The storm Elsa was named Ciara in the United Kingdom (UK), see Jardine et al. 2023, but we choose here to refer to
+it as Elsa.
+
+5.1.1. Storm Didrik
+
+The storm Didrik hit Southern Norway on 15 January 2020 (Skjerdal et al., 2020) with a forecast warning of
+high water level along the coast. The low pressure system, with a central pressure as low as 945 hPa, formed off the
+southern tip of Greenland on 12 January and moved eastward between Iceland and the UK the following days. It
+brought with it strong westerly to south-westerly winds in the northern North Sea, which in addition to the inverse
+barometer effect itself resulted in a large transport of water towards the western Norwegian coast. The maximum total
+water level observed was among the top 10 highest for the stations from Stavanger in the south west to Alesund on the
+north-western coast (Kristensen et al., 2024).
+
+The maps in Figure 6 show the positions of the observations in southern Norway, colored by the average RMSE of
+the daily maximum values for storm surge. The differences between the experiments are very small, and only clearly
+visible for the locations furthest to the east, where the dynJB has larger errors than noJB and dialIB due to too large
+amplitudes. This is also in line with the pattern in Figure 5. Time series for four selected stations in southern Norway
+are shown in Figure 8, where the Oscarsborg station (panel (a)) located in the Oslofjord in southeastern Norway, most
+clearly demonstrates how the amplitude at the maximum storm surge is overestimated. The heatmap scatterplots in
+Figure 7 suggest that the dynJB is the best-performing experiment on average during storm Didrik with a correlation of
+0.72 compared to 0.65 and 0.64 for the diaJB and noJB respectively. However, it is quite clear that the maximum values
+of the modeled storm surge is closer to the observed surge for both no/B and diaIB compared to dyn/JB, indicating that
+the overestimation of the storm surge at the south- and easternmost positions (as seen in panel (a) in Figure 8) in the
+dynIB experiment compensates for the underestimation that can be seen in all experiments in the western and northern
+stations.
+
+5.1.2. Storm Elsa
+
+The storm Elsa during 10-11 February 2020 (Selberg et al., 2020; Jardine et al., 2023) was the remnants of a
+long-lived extratropical cyclone that re-intensified as it passed south of the southern tip of Greenland. The passage
+eastward followed much the same path as the storm Didrik a month earlier. The maps in Figure 9 show the average
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 6 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+RMSE for the daily maximum storm surge for all stations around the North Sea for the time period 9-12 February. The
+difference between the no/B and diaJB experiments are only minor, while the dyn/B experiment stand out from the two
+with slightly lower RMSE for the Skagerrak, Norwegian and offshore North Sea stations. The heatmap scatterplot in
+Figure 10 also point to the dyn/B as the best performing experiment for the Elsa storm, with both higher correlation
+and smaller departures from the diagonal. The time series for the four selected stations in Figure 11 show how the
+dynIB, most often, does a better job than noJB and dialB at simulating both the daily maximum and the hourly water
+level.
+
+5.2. Tropical cyclones
+5.2.1. Hurricane Michael
+
+The category 5 Hurricane Michael, on its track from south to north through the Gulf of Mexico, hit the south coast
+of western Florida near Mexico Beach on the 10 October 2018 (IL et al., 2019; Kennedy et al., 2020). With winds up to
+70ms~! and a central pressure down to 919 hPa, Hurricane Michael also brought with it an estimated 3 m storm surge
+(Kennedy et al., 2020).
+
+Figure 12 shows the average RMSE for the daily maximum storm surge for the available records along the western
+Florida coast for our three water level parameters. It is evident how important the IB effect is, but there are no
+distinguishable differences between the diaIB and dynIB. The same is evident in the heatmap scatterplots in Figure
+13, where the majority of the data points fall very close to the diagonal for the diaJB and dynIB, while the noJB has
+slightly larger departures from the diagonal. This is also reflected in the linear correlations, 0.89 for the diaIB and dynIB
+and 0.84 for noIB. The highest observed storm surge in our dataset is approximately 2.0m above mean sea level (for
+the chosen time period), while the model only has a storm surge of approximately 1.25 m, as seen in Figure 13 and the
+time series in Figure 14a. However, all the four selected stations in Figure 14 show a marked improvement of both the
+hourly, and the daily maximum storm surge, with the introduction of the IB effect, but with no clearly visible difference
+between dialB and dynIB. We note that even if there is a definite improvement in the results and reduction in error by
+introducing the IB effect, the highest maximum water level is still significantly underestimated. At the Apalachicola
+station (see Figure 14a, the maximum water level in the model is approximately 1 meter below the observed maximum
+water level. This is likely caused by the known fact that the ERAS dataset exhibit generally too low wind speed and not
+low enough core pressure for tropical cyclones (Dulac et al., 2024). Similar underestimation is likely to be expected if
+examining other tropical cyclone cases.
+
+5.2.2. Typhoon Mangkhut
+
+Typhoon Mangkhut (Ying et al., 2022; Yang et al., 2019) formed over the western Pacific in the beginning of
+September 2018, and intensified on its path westward towards the northern Philippines, where it made landfall as a
+category 5 typhoon on 14 September. Moving further westward, the typhoon weakened to a category | typhoon before
+making landfall in southern China, just south of Hong Kong, on 16 September 2018.
+
+Figure 15 shows the average RMSE for the stations located in the South China Sea. The pattern of the errors is
+similar to what was seen for Hurricane Michael in the previous section, where the introduction of the IB effect clearly
+reduced the errors. The improvements are also apparent when examining the heatmap scatterplots in Figure 16. Further,
+the time series from the two selected stations in Figure 17 clearly show how the simulations are improved by adding the
+IB effect. Especially in Figure 17a, displaying the time series for Currimao at the north western part of the Philippines,
+it is obvious how the IB effect is critical to achieve realistic model results. We note a similar, although not as extreme,
+underestimation of the highest maximum water level in Figure 17, as mentioned and explained in the previous Section.
+
+6. Operational use and implications for storm surge forecasting
+
+We have demonstrated how the implementation of the IB effect in the NEMO model reduces the RMSE for water
+level in a standalone ocean-only hindcast forced with ERAS surface winds and atmospheric pressure. Since the NEMO
+model is the ocean component in the fully-coupled ECMWE earth system forecast model (IFS), it is interesting to
+explore the impact of including the IB effect in a coupled forecast.
+
+For operational medium-range forecasts, the IFS is run as an ensemble prediction system (ENS, e.g. ECMWF,
+2024a), comprising 50 perturbed forecasts and one unperturbed (‘control’) forecast. The perturbed forecasts are
+designed to represent uncertainties due to the initial conditions and the model integrations (‘model uncertainty’), thus
+providing a description of forecast probabilities.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 7 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+The perturbed initial conditions are generated via an ensemble of 4D-Var data assimilations (EDA Buizza et al.,
+2008; Isaksen et al., 2010; Lang et al., 2019) and singular vectors (Leutbecher and Palmer, 2008), which are both
+added to a central 4D-Var analysis (Rabier et al., 2000). In addition, uncertainties in the ocean initial conditions are
+represented with the use of 11 perturbed ocean analyses (Zuo et al., 2024).
+
+Model uncertainties are represented via the Stochastically Perturbed Parameterisations scheme (SPP: Leutbecher
+et al., 2024; Lang et al., 2021; Ollinaho et al., 2017), which introduces random perturbations to uncertain processes in
+the atmospheric physics parametrisations throughout the forecast integration.
+
+To explore the impact of including the IB effect, we ran an ensemble experiment using the operational configuration
+of the IFS (experiment id i066): one unperturbed and 50 perturbed forecasts, to 15 days. The atmospheric model uses
+the cubic octahedral reduced gaussian grid TCo1279 (approximately 9km grid-spacing) with 137 vertical levels. The
+atmospheric model is coupled to the ECMWF Wave Model (e.g. ECMWF, 2024b), the ORCA025_Z75 configuration
+of NEMO V4.0 (as previously described), and the LIM2 sea-ice model (Fichefet and Maqueda, 1997).
+
+6.1. Ensemble simulations of the North Sea storm Xaver
+
+Storm Xaver moved slowly from west to east across Northern Europe during 5-7 December 2013 (Deutschlinder
+et al., 2013; Kristensen et al., 2024). The strong northerly winds over the North Sea resulted initially in a convergence
+of water along the eastern coast of the United Kingdom due to Ekman transport. When the wind direction started to
+back left, this water started to move anti-clockwise along the North Sea coastline as a free Kelvin wave. The combined
+Kelvin wave with local amplifications due to Ekman transport by the wind, and the inverse barometer effect resulted
+in a storm surge among the top five highest recordings over the last 100 years in the German Bight according to
+Deutschlinder et al. 2013.
+
+As the low pressure system moved further east, and the wind direction continued backing further left, the storm
+surge signal moved further through the North Sea up along the western coast of Denmark and into the Skagerrak area
+as a Kelvin wave (see Kristensen et al. 2024).
+
+The forecasts are initialized daily at 00 UTC from the operational IFS initial conditions for the period from 2013-
+11-23 to 2013-12-07. To capture the IB effect, the experiment uses a research branch based on IFS CY49R2. The IB
+effect is estimated diagnostically from the mean sea level pressure from the IFS. We show how the coupled IFS ENS is
+able to forecast and give warning about the possibility of this very rare record event up to more than a week in advance
+in Figure 18. We selected two stations in the area of some of the highest observed storm surge during this event, namely
+the German station Cuxhaven, located in the German Bight in the southeastern North Sea, and the Danish station Hvide
+Sande, located at the western coast of Jutland, Denmark. The ensemble forecast provides an estimate of the uncertainty
+in a given forecast parameter via the ensemble spread: where the ensemble spread is largest, the uncertainty can be
+assumed to be greatest (and vice versa). In Figure 18, the ensemble spread is indicated by the shaded area that describes
+the ensemble range — the difference between the maximum value across the ensemble members and the minimum
+value. It is evident that by utilizing the entire ensemble, as opposed to only the control member (indicated by the solid
+lines with the round dots), there is a signal of a maximum surge level as large as the observation more than 5 days in
+advance at Cuxhaven and throughout the whole forecast period for Hvide Sande.
+
+The exceedance probability, defined as the number of ensemble members, as a percentage, exceeding a certain
+threshold (in this case, we used the maximum observed storm surge) for a given forecast lead time, is shown as the
+lower solid lines with square dots in both panels in Figure 18. For Cuxhaven, when we include the IB effect, the
+exceedance probability is larger than zero five days ahead of the event, and increases from three days ahead, to around
+35% by day zero. For Hvide Sande, with the IB effect included, the exceedance probability is above zero from more
+than 12 days ahead of the largest storm surge, with a strong increase from day five to above 50% by day zero. By
+contrast, the forecasts that do not include the IB effect show exceedance probabilities at both locations of less than
+10% even at day zero.
+
+In operational forecasting applications, information from the real-time ENS runs can be assessed relative to the
+model climate, which is constructed from hindcasts (see e.g. Owens and Hewson, 2018, Section 5.3). This makes it
+possible to identify cases where the latest ENS forecasts are shifted towards extreme values. The stronger and earlier
+signal of large maximum storm surge levels from including the IB effect could ultimately provide even earlier warnings
+of extreme conditions than is indicated from our assessments of absolute forecast values.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 8 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+7. Summary and conclusions
+
+The purpose of the present work has been to evaluate two methods of including the inverse barometer effect in a
+stand-alone global ocean model. The model parameter under consideration is the weather-induced water level, and the
+two methods tested were to either add the IB effect diagnostically as a post process to a model run with constant sea
+level pressure (diaIB), or the direct dynamical inclusion during the model integration (dynJB).
+
+The modeled water level was compared against the Global Extreme Sea Level Analysis version 3 (GESLA3), a
+global dataset of water level observations. The general statistics that include all available model and observation data
+co-located in time and space yields a MAE of 11 cm for no/B, 10 cm for dia/B and 11 cm for dynIB. The corresponding
+RMSE values are 14cm, 13cm and 14cm, respectively. The weather-induced contribution to the total water level is
+generally small. To better emphasize how well the three different parameters perform during larger storm surge events,
+we masked data where the absolute value of observed storm surge (relative to MSL) was less than one and two standard
+deviations. This obviously results in increased values for both MAE and RMSE for all three parameters (across all
+stations considered), with e.g., an RMSE increase of 4cm for noJB, while both diaIB and dynIB increase by 2 cm for
+the masked data less that one standard deviation. When masking data where observations are less than two standard
+deviations, the RMSE increases with 11 cm, 5cm and 5 cm for the no/B, dialB and dynIB, respectively, compared to
+the average RMSE over all measurements across all stations. In addition, the RMSE varies geographically between
+the stations and between the three parameters, as shown in the histograms in Figure 3. The geographical differences
+between the diaJB and dynIB are partly grouped, as seen in Figure 4 and 5 where the diaJB performs better than the
+dynIB on for example the European North West Shelf, and vice versa in the Baltic Sea. Generally, except for the Baltic
+Sea, the diaIB performs best, or the two perform equally. This is a key finding, since this demonstrates that all ocean
+models, even those that have no means of including the IB effect dynamically at integration time, can include the IB
+effect diagnostically as a post process to take into account the pressure effect on the storm surge water level.
+
+In addition to the general statistics, a series of case studies were analyzed to highlight the differences between the
+experiments for a few concrete cases. The time period covered by the model simulation contains several cases of strong
+extratropical and tropical cyclones. We analyze the two European winter storms Didrik and Elsa (the latter is known as
+storm Ciara in the UK), together with the cyclones Hurricane Michael and Typhoon Mangkhut. For the Didrik and Elsa
+cases, the combined statistics for all the selected stations indicate that the the dynJB is the best performing parameter
+with both highest correlation, and lowest RMSE. As seen in the maps in Figure 6 and 6, this is not the case for all
+stations, especially for the Skagerrak stations during Didirk, where the diaIB and noJB has lower RMSE than dyn/B.
+Whereas the same stations exert lower RMSE for dynJB than dia/B and noJB during Elsa. Together with the previously
+mentioned geographical differences, this highlights how one of the alternative methods of including the IB effect is not
+always better than the other, and despite the fact that the diaIB yields the lowest average errors, local considerations
+should be taken into account. Based on the analysis of the two tropical cyclones, i.e. Hurricane Michael and Typhoon
+Mangkhut, there is a key point to be made, namely that although the inverse barometer effect must naturally be included
+to properly simulate and predict the change in water level due to storm surge, adding it diagnostically as a post process
+is a perfectly acceptable alternative for coarse models.
+
+To further assess and exemplify how the inclusion of the IB effect in a global ocean model can improve storm surge
+early warnings, we show the performance of storm surge derived from ECMWF ENS forecasts for Storm Xaver. In this
+case, the model was able to predict the possibility for the very rare and extreme event up to 12 days in advance when
+including the IB effect. We note that trying to accurately forecast and predict an extreme event such as Xaver is very
+challenging for a 0.25° global model. Usually, the criterion for issuing warnings of high water level is linked to return
+periods, such as 5, 50 or 100 years (see e.g. Kristensen et al. 2022). So, the evaluation against the maximum observed
+storm surge for an event ranked top 5 over the last 100 years, as is done in the present work, should be considered a very
+strict criterion. The Storm Xaver case, and the use of the ensemble prediction system, highlights how the inclusion of
+the IB effect in the ENS forecasts with the global NEMO model makes the forecasts more capable of providing early
+warning of extreme storm surge events.
+
+To recapitulate, it is evident that NEMO, a global quarter degree resolution ocean model, forced with ERAS winds
+and pressure fields is capable of reproducing quite faithfully the water level variations associated with the passage
+of both extratropical and tropical storms, even when compared against water level measurements (detided) in narrow
+fjords and estuaries. This is encouraging as it suggests that the current setup of ECMWF’s IFS can be used as boundary
+conditions for regional water level forecast systems with the simple addition of the inverse barometer effect. It also
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 9 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+shows that an ensemble forecast system such as IFS can be used for early warnings of dangerous storm surges associated
+with tropical cyclones and extratropical storms.
+
+CRediT authorship contribution statement
+
+Nils Melsom Kristensen: Software, Formal analysis, Validation, Visualization, Writing — original draft, Writing
+— review & editing. Kristian Mogensen: Conceptualization, Methodology, Investigation, Data curation, Writing —
+review & editing. Sarah-Jane Lock: Conceptualization, Methodology, Investigation, Data curation, Writing — review
+& editing. Oyvind Breivik: Conceptualization, Funding acquisition, Project administration, Writing — original draft,
+Writing — review & editing.
+
+Declaration of competing interest
+
+The authors declare that they have no known competing financial interests or personal relationships that could have
+appeared to influence the work reported in this paper.
+
+Open Research Section
+
+Observations of water level is obtained from the GESLA3 dataset (https: //gesla787883612.wordpress.
+com/) (Haigh et al., 2023). A dataset containing the extracted time series from the NEMO ocean model runs can
+be downloaded from https: //zenodo. org/records/16894653 (Mogensen and Kristensen, 2025). Additionally,
+the complete model experiments are archived at the ECMWF MARS archive as expid i5k6 and i5k8. Code used
+in the preparation of this manuscript include the python packages pangeo-pytide (https: //github.com/CNES/
+pangeo-pytide) for performing harmonic analyses, Matplotlib (Hunter, 2007) for plotting and Cartopy (Met Office,
+2010 - 2015) for creating maps. [Python notebooks for creating all the statistics and plots in this manuscript can be
+found here: https: //github.com/nilsmkMET/nemo_sl_eval
+
+Acknowledgments
+
+NMK and @B gratefully acknowledge the Research Council of Norway for its support of the StormRisk project
+(grant no. 300608).
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 10 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+jm No IB cl 50;
+© Diagnostic 18
+j= Dynamical 1B
+
+03 03 or 0203 04S OB
+RMSE [m) RMSE [mi] RMSE [m]
+(a) All data (b) Jobs| > o (c) lobs| > 26
+36 300 300
+250 250
+200 200
+€ ¢ ra
+8150 g 3150
+100 100
+50 50
+oo os 1520 30 15 20 % “oo 05 10 15 20258
+AMSE (ol AMSE [ol RMSE (o}
+(d) All data (e) lobs| > (f) Jobs| > 20
+
+Figure 3: Distribution of the Root Mean Square Error (RMSE) for all records for the three different storm surge
+representations. The top panels (a-c) present the RMSE in meters, with a bin size of 2 cm. The bottom panels (d-f)
+show the RMSE scaled by the standard deviation (c) of each observation record, using a bin size of 0.10. Panels (a) and
+(d) present the RMSE distribution for the complete dataset. Panels (b) and (e) illustrate the RMSE for observed storm
+surge absolute values more than one standard deviation (|obs| > o). Panels (c) and (f) show the RMSE for observed storm
+surge absolute values exceeding two standard deviations (|obs| > 20). The y-axis indicates the number of occurrences
+(records).
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 11 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Difference RMSE Diagnostic - Dynamical IB
+oF
+
+180° Row eo°w 60°E 120° 180"
+
+-0.4 0.2 0.0 02 04
+RMSE [o]
+
+Figure 4: Map of difference in RMSE for all records showing geographical differences. The circles indicate the position of
+the record, and the color indicate the difference in relative RMSE in number of standard deviations between the diagnostic
+and dynamical IB. Blue colors indicate that the diagnostic IB performs better than the dynamical IB, and red vice versa.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 12 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+os
+
+2
+
+00
+
+RMSE [ol
+
+Figure 5: Same as Figure 4, but zoomed to the European region to highlight the difference between the European North
+West Shelf and Baltic Sea regions. Blue colors indicate that the diagnostic IB performs better than the dynamical IB, and
+red vice versa.
+
+No IB RMSE Diagnostic IB RMSE Dynamical IB RMSE
+=: =
+63°N 63°N 63°N
+62°N o2°N o2°N
+61°N e1°Nn 61°N
+60°N 60°N 60°N
+59°N 59°N 59°N,
+58°N 56°N 58°N
+See GE TE 8°E SE 10°E IVE See 6°E 7°E 8°E 9°E 10°F 11°E See GE 7E BE 9°E 10°E 11°E
+0.00 0.05 0.10 0.15 0.20 0.25
+RMSE [m]
+
+Figure 6: Maps of southern Norway showing the average RMSE for the daily maximum storm surge during the storm
+Didrik for the time period 14th-15th of January 2020.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 13 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+[]
+
+No ie Diagnostic 18 Dynamical
+1
+= Tear regression hear regression hear repression m
+xo!
+10!
+Lo
+“ i i 2
+E Zé Ze a
+goo #3 B 3 8
+= = FS
+os
+Slope 062 [peace — [sore 037
+intcreept 000 intercept 0.00 increent 000
+Corton 084 |oneituon Ses Carico 2
+a a ao 56> 83S -lo soo 05S
+Obs [m} bs [my bs tml
+10° 10° 10"
+
+Figure 7: Heatmap scatterplot of the observed and modeled storm surge for the positions shown in the maps in Figure 6.
+
+Station: oscarsborg-osc-nor-nhs Station: bergen-bgo-nor-nhs
+
+Nos No
+‘wae O17 mm bof
+“| Eee
+2
+Fras
+E 00
+“as
+Diagnostic B Diagnostic 8
+(MAE-O.1T a (MAE-0.15 m0
+e e02
+5 as ri
+rf eo
+5 Foo
+— —
+eee B01
+“2
+“3
+3
+Dynamical ® Dynamical
+oa
+ry oa
+é ga
+a :
+: zo
+: Foo
+E 00 te
+“02
+“3
+#8
+criseoorisos ortaiz ovis —oriboo once arabia arabie orieoo criseocrisos ortaiz—orisis —oriboo onbce arabia arabie oreo
+Time Time
+
+(a) Oscarsborg (NO) (b) Bergen (NO)
+
+Figure 8: Time series for the Norwegian stations Oscarsborg and Bergen during the storm Didrik. The shaded areas
+indicate the range between daily minimum and maximum values, while the lines indicate the hourly values for model and
+observation. The textbox contains the MAE, RMSE and correlation values for the depicted time period for each station
+an parameter. The vertical reference for the time series is the mean sea level for the shown period.
+
+No IB RMSE Diagnostic IB RMSE Dynamical IB RMSE
+615°N 61.5°N
+60°N 60°N
+58.5°N 58.5°N
+STN STN
+55.5°N 55.5°N
+5acN 54°N
+52.5°N 52.5¢N
+sw OP 25° SE 75° 125°C sw 0 25° SE 75 125°C SW 0 25° SE TSE 125°
+0.00 0.05 010 O15 020 0.25 0.30 0.35 040 045 050
+RMSE [m]
+
+Figure 9: Maps of the North Sea area showing the average RMSE for the daily maximum storm surge during the storm
+Elsa for the time period 9th-12th of February 2020.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 14 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+No 8 ve Diagnostic 18 i Dynamical 1B wt
+3 -
+— near Regression 7 — Linear Regression 7 — Linear Regression
+2
+1
+= Be 2 ie g
+E a= ZE i
+go z Zz z.
+8 = 3 a g
+2 we z we 2 ws
+£ z £
+a
+2
+= a0 a 3 3 a ae a 2 3
+Obs [m) Obs Emi
+10° 10" 10"
+
+Figure 10: Heatmap scatterplot of the observed and modeled storm surge for the positions shown in the maps in Figure 9.
+
+Station: bergen-bgo-nor-nhs
+No 1B
+
+Station: cuxhaven-cux-deu-cmems,
+
+No ia
+as
+— o2
+i
+2 00
+E
+5
+Boa
+“4
+Diagnostic 1B Diagnostic 18
+recon &
+B 00 &
+a 2 00
+as é
+R10 B o2
+as
+aoa “04
+Dynamical 18 Dynamical 18
+10 om
+ES E 02
+as 2 00
+i E
+ae B o2
+as
+-20 “04
+wadboo ade waaboo ibe wate wale wnioo ca0b00 woh 020.00 ozabia zie adhe oa 00
+me “ime
+(a) Cuxhaven (GER) (b) Bergen (NO)
+
+Figure 11: Time series for the stations Cuxhaven (GER) and Bergen (NOR) during the storm Ciara/Elsa (10-11 February
+2020). The shaded areas indicate the range between daily minimum and maximum values, while the lines indicate the
+hourly values for model and observation. The textbox contains the MAE, RMSE and correlation values for the depicted
+time period for each station an parameter. The vertical reference for the time series is the mean sea level for the shown
+period.
+
+No RMSE Dingnostc® AMSE Dynamical 8 RSE
+am mm mw
+ese ese e  rsen
+
+RMSE [en
+
+Figure 12: Maps of the Western Florida Coast (US) showing the average RMSE for the daily maximum storm surge during
+the Hurricane Michael for the time period 7-11 October 2018.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 15 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+No IB || Diagnostic 1B Dynamical 18
+25 >
+20
+E ze zE a
+a3 eS 3 5
+3 Be: Be: 2
+‘Slope: 0.61 “ slope: 0.76 ‘a (Slope: 0.7
+-10 E-
+“fo 6s 00 05 a0 45 20 25 aio 65 00 05 a0 as 2 25 ao $s 00 0s a> a5 20 25
+Obs [m] Obs [m] Obs [m]
+10° 10° 10°
+
+Figure 13: Heatmap scatterplot of the observed and modeled storm surge for the positions shown in the maps in Figure
+12 during Hurricane Michael, 7-11 October 2018.
+
+Station: apalachicola-8728690-usa-noaa Station: panama_city_beach-8729210-usa-noaa
+Note Nos
+
+201 Tair oso 08 aera
+3 = oa
+Bt Ba
+Eos E as
+* oo * 42
+“os “oa
+
+Diagnostic 18 Diagnostic 18
+20 os
+24 _ 38
+E E os
+a 5 oz
+Bos 5 oo
+aa 02
+~s 4
+Dynamical 18 Dynamical i
+
+20 08. aaa
+
+ts _ 08 coross
+E EB as
+ge Ee
+5 os E00
+a -02
+3 oa
+
+aoi8i007 poieloe roles ielowe poison pois l0i2 20181097 wives isos ister zaieion wives
+(a) Apalachicola (FL, USA) (b) Panama City Beach (FL, USA)
+
+Figure 14: Time series for stations Apalachiola and Panama City Beach on the coast of Western Florida during Hurricane
+Michael. The shaded areas indicate the range between daily minimum and maximum values, while the lines indicate the
+hourly values for model and observation. The textbox contains the MAE, RMSE and correlation values for the depicted
+time period for each station an parameter. The vertical reference for the time series is the mean sea level for the shown
+period.
+
+No IB RMSE Diagnostic IB RMSE Dynamical IB RMSE
+14 2H 22"N 22"N
+20°N 20°N 20°N
+18°N 18'N 18'N
+168" 16°N 16°N
+WN wn 14N
+"nN "Nn 2N
+10O°E =115°E 120°E 125°E 110°E Tis 120°E =125°E 11O°E «=115°E 120°E 125°E
+0.00 0.05 0.10 0.15 0.20 0.25
+RMSE [m]
+Figure 15: Maps of the South China Sea and adjacent areas showing the average RMSE for the daily maximum storm
+surge during the Typhoon Mangkhut for the time period 13-17 September 2018.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 16 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Nos Diagnostic 8 Dynamical 8
+2s
+a a A
+Bs 28 2
+-19 05 00 05 10 15 20 25 10 5 00 05 10 15 20 «25
+obs tm 6b im
+10° 10? 20"
+
+Figure 16: Heatmap scatterplot of the observed and modeled storm surge for the positions shown in the maps in Figure
+15 for Typhoon Mankhut, 13-17 September 2018.
+
+Station: currimao-654a-phl-uhsic Station: hong_kong-329b-hkg-uhsic
+No 16 Nos
+iw 20
+oa as
+E 02 E
+Fa fY
+E oo — os
+g g
+“1 oo
+-02 “ts
+Diagnostic 18 Diagnostic I
+os 20
+03 as
+E a2 E
+E E os
+a E
+01 oo
+-02
+5
+Dynamical 18 Dynamical 18
+oa no
+03 a
+E oz E
+a2 3
+E E os
+a £
+“01 oo
+-02
+oie do3 poiwboae poiwbsas poiwbsae 01097 roiwooie oie oe3 poiwdoae woiwsas poiwbsa6 wo1w 97 poiwooie
+Time Time
+(a) Currimao (PH) (b) Hong Kong (CN-HK)
+
+Figure 17: Time series for stations Currimao (PH) and Hong Kong (CN-HkK) around the South China Sea during Typhoon
+Mangkhut, 13-17 September 2018. The shaded areas indicate the range between daily minimum and maximum values,
+while the lines indicate the hourly values for model and observation. The textbox contains the MAE, RMSE and correlation
+values for the depicted time period for each station an parameter. The vertical reference for the time series is the mean
+sea level for the shown period.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 17 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Station: DE_Cuxhaven
+
+600 100
+—e- Control Forecast (dialB) —a Exceedance Probability (dialB)
+500 | ~®= Control Forecast (nol) a Exceedance Probability (nolB)
+=-- Observation at Max Surge Time 80 =
+FI
+~
+=
+g
+4
+H
+&
+8 7
+Forecast Lead Time [days]
+(a) Cuxhaven (DE)
+Station: DK_5203
+100
+300 | -e- Control Forecast (dialB) —=- Exceedance Probability (dialB)
+—e- Control Forecast (nolB) = Exceedance Probability (nol)
+250 7 ~-- Observation at Max Surge Time 80 =
+2
+= 60
+5 3
+o a
+Ey 5
+a 40
+B
+fet
+20 a
+0
+
+2 sby 10 9 8 7 6 5
+Forecast Lead Time [days]
+
+(b) Hvide Sande (DK)
+
+Figure 18: Probabilistic ensemble forecasts of surge levels for the 2013 North Sea Storm Xaver at the peak of the storm
+surge for two locations. Top panel (a) shows the German station Cuxhaven, located in the German Bight in the southeastern
+North Sea for maximum surge time (OQOUTC), while the bottom panel (b) shows the Danish station Hvide Sande, located
+at the western coast of Jutland, Denmark, for maximum surge time (06 UTC). The maximum observed storm surge during
+Storm Xaver for each station is indicated by the dotted red horizontal line. The blue and orange solid lines (with circular
+markers) show the control member with and without the inclusion of the IB effect, respectively. Similarly, the light blue
+and peach shaded areas show the ensemble range (from the lowest to the highest values from all ensemble members).
+The y-axis gives the storm surge relative to mean sea level [cm], while the x-axis indicates the forecast lead time (in days)
+prior to the time of the maximum observed storm surge. Please note that since there is only one daily run (starting at
+OOUTC) of the ENS, and the maximum storm surge occurs at different times at different stations, the forecast lead times
+will vary between the stations. In addition, the two lowest lines of each plot (with square markers) indicate the exceedance
+probability (with the maximum storm surge as criterion) in percent, as expressed by the right side y-axis, for the entire
+ensemble. The steel blue line is with the IB effect taken into account, while the chocolate brown line is without the IB
+
+effect.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier
+
+Page 18 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+“15
+1930 1s40 3050) 1960 1970 080) 1590 2000 200 2020 3095) 2000 2005 2010 2015 2020
+
+3
+
+2
+
+(a) Data from BODC (b) Data from CMEMS
+2.5
+2.0
+a=0.745, b=-0,849
+2.0
+15s S.
+q =
+| is
+Oo °
+E EH :
+= 10 82 8
+i) 10%
+EA g
+05
+05s
+es = = 0 1 2 3 -3 —2 a1 oO 1 2 3
+Obs [m] Obs [m]
+0.0 0.0
+(c) Data from BODC (d) Data from CMEMS
+
+Figure 19: Time interpolation of the observed TWL can create a noisy storm surge signal when subtracting the tides
+resulting from a harmonic analysis from the TWL. To show this feature we have selected the station of Aberdeen in the
+United Kingdom. In the GESLA3 dataset this station is represented by a record originating from the British Oceanographic
+Data Centre (BODC) with a time resolution of combined hourly (pre 1993) and 15 minutes resolution, and a record from
+CMEMS with hourly resolution. When inspecting the two, the latter seems to utilize some kind of time interpolation based
+on the first. The resulting storm surge signal is displayed in the time series in panels (a) and (b) based on the BODC
+and CMEMS data, respectively. An example of how this influence the validation is shown in panels (c) and (d), where the
+heatmap scatter plots (on log-scale) show the comparison between the model (Diagnostic IB) and observations based on
+the BODC and CMEMS data, respectively.
+
+Appendix A: Errors in observations
+
+As explained in Section 2, there is clearly an effect where resampling of original observation data to, e.g., hourly
+temporal resolution will introduce small errors in the tidal analysis, and hence result in outliers when subtracting
+the computed tidal signal from the observed TWL to obtain the storm surge. An example of this feature is shown in
+Figure 19, where we show a comparison of the the storm surge signal for the (randomly selected) station Aberdeen
+(UK) extracted from the observed TWL from the national service British Oceanographic Data Centre (BODC) and the
+Pan-European CMEMS.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 19 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Appendix B: Formulas
+
+The formulas used to calculate the error statistics are given in Equations 1, 2, 3 and 4.
+
+”_, | obs; — mod
+mag = 2a L0Ps edd (1)
+
+Die bs; — mod,)?
+
+n
+
+RMSE = , (2)
+
+ry" | obs,;-mod, |
+MAE/o = =) 2 (3)
+
+(4)
+
+(5)
+
+References
+
+Breivik, @., Mogensen, K., Bidlot, J.R., Balmaseda, M.A., Janssen, P.A.E.M., 2015. Surface wave effects in the nemo ocean
+model: Forced and coupled experiments. Journal of Geophysical Research: Oceans 120, 2973-2992. URL: https://
+agupubs.onlinelibrary.wiley.com/doi/abs/10.1002/2014JC010565, doi:https: //doi.org/10.1002/2014JC010565,
+arXiv:https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1002/2014JC010565.
+
+Buizza, R., Leutbecher, M., Isaksen, L., 2008. Potential use of an ensemble of analyses in the ECMWF ensemble prediction system. Q. J. R.
+Meteorol. Soc. 134, 2051-2066. URL: https: //doi.org/10.1002/qj .346.
+
+Deutschlinder, T., Friedrich, K., Haeseler, S., Lefebvre, C., 2013. Severe storm XAVER across northern Europe from 5 to 7 December 2013. DWD
+Report. Deutscher Wetterdienst.
+
+Dulac, W., Cattiaux, J., Chauvin, F., Bourdin, S., Fromang, S., 2024. Assessing the representation of tropical cyclones in ERAS with the CNRM
+tracker. Climate Dynamics 62, 223-238. URL: https : //doi.org/10.1007/s00382-023-06902-8, doi:10 . 1007/s00382-023-06902-8.
+
+ECMWF, 2024a. IFS Documentation CY49R1 - Part V: Ensemble Prediction System. ECMWF. chapter 5. doi:10.21957/956d60ad81.
+
+ECMWF, 2024b. IFS Documentation CY49R1 - Part VII: ECMWF Wave Model. ECMWF. chapter 7. doi:10 .21957/8315ddc858.
+
+Fichefet, T., Maqueda, M.A.M., 1997. Sensitivity of a global sea ice model to the treatment of ice thermodynamics and dynamics. Journal of
+Geophysical Research: Oceans 102, 12609-12646. doi:10.1029/975JC00480.
+
+Gill, A-E., 1982. Atmosphere-Ocean Dynamics. volume 30 of International Geophysical Series. Academic Press, Inc, San Diego, California.
+
+Haigh, IL.D., Marcos, M., Talke, S.A., Woodworth, P.L., Hunter, J.R., Hague, B.S., Arns, A., Bradshaw, E., Thompson, P., 2023.
+Gesla version 3: A major update to the global higher-frequency sea-level dataset. Geoscience Data Journal 10, 293-314. URL:
+https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/gdj3.174, doi:https: //doi.org/10.1002/gdj3.174,
+arXiv:https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1002/gaj3.174.
+
+Hersbach, H., Bell, B., Berrisford, P., Hirahara, S., Horanyi, A., Muiioz-Sabater, J., Nicolas, J., Peubey, C., Radu, R., Schepers, D., Sim-
+mons, A., Soci, C., Abdalla, S., Abellan, X., Balsamo, G., Bechtold, P., Biavati, G., Bidlot, J., Bonavita, M., De Chiara, G., Dahlgren,
+P., Dee, D., Diamantakis, M., Dragani, R., Flemming, J., Forbes, R., Fuentes, M., Geer, A., Haimberger, L., Healy, S., Hogan, R.J.,
+Holm, E., Janiskova, M., Keeley, S., Laloyaux, P., Lopez, P., Lupu, C., Radnoti, G., de Rosnay, P., Rozum, I., Vamborg, F., Vil-
+laume, S., Thépaut, J.N., 2020. The eraS global reanalysis. Quarterly Journal of the Royal Meteorological Society 146, 1999—
+2049. URL: https://rmets.onlinelibrary.wiley.com/doi/abs/10.1002/qj .3803, doi:https://doi.org/10.1002/qj .3803,
+arXiv:https://rmets.onlinelibrary.wiley.com/doi/pdf/10.1002/qj .3803.
+
+Hunter, J.D., 2007. Matplotlib: A 2d graphics environment. Computing in Science & Engineering 9, 90-95. doi:10.1109/MCSE. 2007.55.
+
+Il, J.L.B., Berg, R., Hagen, A., 2019. Tropical cyclone report, hurricane michael, 2018. URL: https://www.nhc.noaa.gov/data/tcr/
+AL142018_Michael.pdf.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 20 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Isaksen, L., Bonavita, M., Buizza, R., Fisher, M., Haseler, J., Leutbecher, M., Raynaud, L., 2010. Ensemble of data assimilations at ECMWF. URL:
+https: //www.ecmwf.int/node/10125, doi:10.21957/obke4k60.
+
+Jardine, A., Selby, K., Higgins, D., 2023. A multidisciplinary investigation of storms ciara and dennis, february 2020. International
+Journal of Disaster Risk Reduction 90, 103657. URL: https: //www.sciencedirect .com/science/article/pii/S2212420923001371,
+doizhttps://doi.org/10.1016/j.ijdrr.2023.103657.
+
+Kennedy, A., Copp, A., Florence, M., Gradel, A., Gurley, K., Janssen, M., Kaihatu, J., Krafft, D., Lynett, P., Owensby, M., Pinelli, J.P., Prevatt, D.O.,
+Rogers, S., Roueche, D., Silver, Z., 2020. Hurricane michael in the area of mexico beach, florida. Journal of Waterway, Port, Coastal, and Ocean
+Engineering 146, 05020004. doi:10.1061/ (ASCE) WW. 1943-5460 .0000590.
+
+Kristensen, N.M., Rged, L.P., Setra, ., 2022. A forecasting and warning system of storm surge events along the Norwegian coast. Environ Fluid
+Mech doi:10.1007/s10652-022-09871-4.
+
+Kristensen, N.M., Tedesco, P., Rabault, J., Aarnes, O.J., Saetra, @., Breivik, @., 2024. Nora-surge: A storm surge hindcast for the norwegian sea,
+the north sea and the barents sea. Ocean Modelling 191, 102406. URL: https: //www.sciencedirect.com/science/article/pii/
+$1463500324000933, doi:https://doi.org/10.1016/j.ocemod.2024.102406.
+
+Lang, S., Hélm, E., Bonavita, M., Tremolet, Y., 2019. A 50-member ensemble of data assimilations. doi:10.21957/nb251xc4s1.
+
+Lang, S., Lock, S.J., Leutbecher, M., Bechtold, P., Forbes, R., 2021. Revision of the Stochastically Perturbed Parametrisations model uncertainty
+scheme in the Integrated Forecasting System. Q. J. R. Meteorol. Soc. 147, 1364-1381. URL: https: //doi.org/10.1002/qj .3978.
+
+Leutbecher, M., Lang, S., Lock, S.J., Roberts, C., Tsiringakis, A., 2024. Improving the physical consistency of ensemble forecasts by using SPP in
+the IFS. doi:10.21957/de720h3x9p.
+
+Leutbecher, M., Palmer, T., 2008. Ensemble forecasting. Journal of Computational Physics 227, 3515-3539. URL: https: //doi.org/10.1016/
+j-jep.2007.02.014.
+
+Lyard, F.H., Allain, D.J., Cancet, M., Carrére, L., Picot, N., 2021. FES2014 global ocean tide atlas: design and performance. Ocean Sci 17, 615-649.
+doi:10.5194/os-17-615-2021.
+
+Madec, G., Bell, M., Benshila, R., Blaker, A., Boudrallé-Badie, R., Bricaud, C., Bruciaferri, D., Carneiro, D., Castrillo, M., Calvert, D., Chanut, J.,
+Clementi, E., Coward, A., de Lavergne, C., Dobricic, S., Epicoco, I., Bthé, C., Fiedler, E., Ford, D., Furner, R., Ganderton, J., Graham, T., Harle,
+J., Hutchinson, K., Iovino, D., King, R., Lea, D., Levy, C., Lovato, T., Maisonnave, E., Mak, J., Sanchez, J.M.C., Martin, M., Martin, N., Martins,
+D., Masson, S., Mathiot, P., Mele, F., Mocavero, S., Moulin, A., Miiller, S., Nurser, G., Oddo, P., Paronuzzi, S., Paul, J., Peltier, M., Person, R.,
+Rousset, C., Rynders, S., Samson, G., Schroeder, D., Storkey, D., Storto, A., Téchené, S., Vancoppenolle, M., Wilson, C., 2024. Nemo ocean
+engine reference manual. URL: https: //doi.org/10.5281/zenodo. 14515373, doi:10.5281/zenodo. 14515373.
+
+Medvedev, I-P., Rabinovich, A.B., Kulikov, E.A., 2016. Tides in three enclosed basins: The baltic, black, and caspian seas. Frontiers in Marine
+Science Volume 3 - 2016. URL: https://www.frontiersin. org/journals/marine-science/articles/10.3389/fmars.2016.
+00046, doi:10.3389/fmars . 2016 .00046.
+
+Met Office, 2010 - 2015. Cartopy: a cartographic Python library with a Matplotlib interface. Exeter, Devon. URL: https://cartopy.
+readthedocs. io.
+
+Mogensen, K., Keeley, S., Towers, P., 2012. Coupling of the NEMO and IFS models in a single executable. ECMWF Technical Memorandum 673.
+European Centre for Medium-Range Weather Forecasts.
+
+Mogensen, K., Kristensen, N.M., 2025. Nemo_sl experiment i5k6 and i5k8. URL: https://doi.org/10.5281/zenodo. 16894653, doi:10.
+5281/zenodo. 16894653.
+
+Mogensen, K.S., Magnusson, L., Bidlot, J.R., 2017. Tropical cyclone sensitivity to ocean coupling in the ECMWF coupled model. J Geophys Res:
+Oceans 122, 4392-4412. doi:10.1002/20175C012753.
+
+Ollinaho, P., Lock, S.J., Leutbecher, M., Bechtold, P., Beljaars, A., Bozzo, A., Forbes, R., Haiden, T., Hogan, R., Sandu, I., 2017. Towards process-
+level representations of model uncertainties: Stochastically Perturbed Parametrizations in the ECMWF ensemble. Q. J. R. Meteorol. Soc. 143,
+408-422. doi:10. 1002/qj .2931.
+
+Owens, R.G., Hewson, T.D., 2018. ECMWF Forecast User Guide. Reading: ECMWF. doi:10.21957/mics7h.
+
+Piecuch, C.G., Ponte, R.M., 2015. Inverted barometer contributions to recent sea level changes along the northeast coast of North America.
+Geophysical Research Letters 42, 5918-5925. doi:10 . 1002/2015GL064580.
+
+Rabier, F., Jérvinen, H., Klinker, E., Mahfouf, J.F., Simmons, A., 2000. The ECMWF operational implementation of four-dimensional variational
+assimilation. i: experimental results with simplified physics. Q. J. R. Meteorol. Soc. 126, 1143-1170. URL: https: //doi.org/10.1002/qj.
+49712656415.
+
+Selberg, L., Skjerdal, M., Julsrud, I., @iestad, M., Andersen, A., Kristensen, N., 2020. MET Info Hendelsesrapport, Ekstremveret Elsa mandag 10.
+og tirsdag 11. februar 2020. MET Info 17. Norwegian Meteorological Institute.
+
+Skjerdal, M., Olsen, A.M., Andersen, A., Kristensen, N., 2020. MET Info Hendelsesrapport, Ekstremveret Didrik onsdag 15. januar 2020. MET
+Info 15. Norwegian Meteorological Institute.
+
+Weisse, R., Dailidiene, I., Hiinicke, B., Kahma, K., Madsen, K., Omstedt, A., Parnell, K., Schéne, T., Soomere, T., Zhang, W., Zorita, E., 2021. Sea
+level dynamics and coastal erosion in the baltic sea region. Earth System Dynamics 12, 871-898. URL: https: //esd.copernicus.org/
+articles/12/871/2021/, doi:10.5194/esd-12-871-2021.
+
+Wolf, J., Flather, R., 2005. Modelling waves and surges during the 1953 storm. Phil Trans R Soc Lond A 363, 1359-1375. doi:rsta.2005.1572.
+
+Yang, J., Li, L., Zhao, K., Wang, P., Wang, D., Sou, I.M., Yang, Z., Hu, J., Tang, X., Mok, K.M., Liu, P.L.F., 2019. A comparative study of
+typhoon hato (2017) and typhoon mangkhut (2018)—their impacts on coastal inundation in macau. Journal of Geophysical Research: Oceans
+124, 9590-9619. URL: https: //agupubs.onlinelibrary.wiley.com/doi/abs/10.1029/2019JC015249, doi:https://doi.org/
+10.1029/2019JC015249, arXiv:https://agupubs.onlinelibrary.wiley.com/doi/pdf/10.1029/2019JC015249.
+
+Ying, X., Zheng, Z., Ni, J., Zhao, K., 2022. Numerical simulation study on the dynamic impact of typhoon “mangkhut” storm surge on
+the sea area near the hong kong-zhuhai-macao bridge. Physics and Chemistry of the Earth, Parts A/B/C 128, 103269. URL: https:
+//waw.sciencedirect .com/science/article/pii/S1474706522001620, doi:https://doi.org/10.1016/j.pce.2022. 103269.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 21 of 22
+Diagnostic vs dynamic IB in a global ocean model
+
+Zuo, H., Balmaseda, M.A., de Boisseson, E., Browne, P., Chrust, M., Keeley, S., Mogensen, K., Pelletier, C., de Rosnay, P., Takakura, T., 2024.
+Ecmwf’s next ensemble reanalysis system for ocean and sea ice: Oras6. URL: &nbsp;, doi:10.21957/hzd5y8211k.
+
+NMK, KM, S-JL, @B: Preprint submitted to Elsevier Page 22 of 22

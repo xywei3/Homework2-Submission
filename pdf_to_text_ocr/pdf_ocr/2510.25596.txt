@@ -1,0 +1,3322 @@
+2510.25596v1 [astro-ph.CO] 29 Oct 2025
+
+arXiv
+
+Constraining baryonic feedback and cosmology from DES Y3 and Planck PR4 6x2pt
+
+Jiachuan Xv
+
+data. I. ACDM models
+
+f]Tim Eifler@\! 3 Vivian Mirandd@|4 Elisabeth Krause®,!:3 Jaime Salcide
+‘Department of Astronomy/Steward Observatory, University of Arizona,
+933 North Cherry Avenue, Tucson, AZ 85721, USA
+? Department of Physics, Northeastern University, Boston, MA 02115, USA
+° Department of Physics, University of Arizona, Tucson, AZ 85721, USA
+
+° Astrophysics Research Institute, Liverpool John Moores University, Liverpool, L3 5RF, UK
+(Dated: October 30, 2025)
+
+We combine weak lensing, galaxy clustering, cosmic microwave background (CMB) lensing, and
+their cross-correlations (so-called 6x2pt) to constrain cosmology and baryonic feedback scenarios
+using data from the Dark Energy Survey (DES) Y3 MAGLIM catalog and the Planck satellite PR4
+data release. We include all data points in the DES Y3 cosmic shear two-point correlation function
+(2PCF) down to 2.'5 and model baryonic feedback processes via principal components (PCs) that are
+constructed from the ANTILLES simulations. We find a tight correlation between the amplitude of
+the first PC Q; and mean normalized baryon mass fraction ¥, = f,/(Qb/Qm) from the ANTILLES
+simulations and employ an independent Y, measurement from Akino et al. (2022) as a prior of
+Qi. We train a neural network 6 x 2pt emulator to boost the analysis speed by O(103), which
+enables us to run an impressive number of simulated analyses to validate our analysis against
+various systematics. For our 6x2pt analysis, we find Ss = 0.8073 + 0.0094 when including a Qi
+prior from Y, observations. This level of cosmological constraining power allows us to put tight
+constraints on the strength of baryonic feedback. We find Q, = 0.0251°'035 for our 6x2pt analysis
+and Qi = 0.043 + 0.016 when combining with external information from Planck, ACT, DESI. All
+these results indicate weak feedback, e.g., the tensions to Illustris (Qi = 0.095) and OWLS AGN
+T8.7 (Qi = 0.137) are 2.90-3.30 and 4.70-5.90, respectively.
+
+° and Ian McCarthy@?
+
+“CO. N. Yang Institute for Theoretical Physics, Stony Brook University, Stony Brook, NY 11794, USA
+
+I. INTRODUCTION
+
+In this paper, we constrain cosmology and baryonic
+feedback with a joint analysis of weak lensing, galaxy
+clustering, and CMB lensing at the 2PCF-statistics
+evel. This so-called 6 x 2pt analysis has become a
+well-established setup when combining data from_pho-
+ometric galaxy surveys (e.g., Dark Energy Survey"| Hy-
+er Suprime Camera Subaru Strategic Progra Kilo-
+Degree Survey) with CMB experiments (Planck satel-
+ite missior{*] outh Pole Telescopd?}| Atacama Cosmol-
+ogy Telescop
+Similar joint analyses have been published in the lit-
+erature [I}{8]. These differ in terms of datasets used in
+he analysis, analysis choices, and modeling/covariance
+strategies. They all significantly boost constraining
+ower over single-probe analyses, which is a valid strat-
+egy to discover new physics if the individual probes are
+not in tension. If differences between individual probes
+exist, joint analysis is disallowed and the tensions them-
+selves can be used as hints for new physics.
+
+‘www.naoj.org/Projects/HSC/HSCProject .html
+www.astro-wise.org/projects/KID
+www.esa.int/Enabling Support/Operations/
+
+One of these interesting (mild) tensions in the cosmol-
+ogy community is the so-called Sg tension, which refers
+to the fact that Sg = ogy/Qm/0.3 measured by sev-
+eral low redshift weak lensing surveys [9HI3] are lower
+chan the prediction of primary CMB [14] [15]. The ten-
+sion quantified in these papers is at most at the 20
+evel. Other recent analyses found Sg to be consis-
+ent with the primary CMB well within 2¢ level [16}
+(2T]. [21] selects a blue source galaxy sample that is de-
+signed to have minimal intrinsic alignment and finds an
+Sg consistent with Planck in 0.340 with baryonic feed-
+back marginalized over. show that different nonlin-
+ear matter power spectrum models, intrinsic alignment
+models, and baryonic feedback mitigation methods can
+all impact the Sg result at a level that is relevant when
+discussing the aforementioned tension. Solely attributing
+che tension to baryonic physics generally requires a feed-
+back as strong as cosmos-OWLS AGN log(ATheat /K) =
+8.7 [22] or Ilustris [23] [24], which is in contradiction
+‘o several weak lensing analyses that find weaker mat-
+er power spectrum suppression due to baryonic feed-
+back [16] [19] [25] [26]. Consequently, weak lensing analy-
+
+ses with cosmology fixed to Planck values prefer stronger
+
+feedback [27] [28].
+
+While weak lensing observations do not indicate
+strong baryonic scenarios like cosmo-OWLS AGN T8.5,
+these are, however, favored by thermal/kinematic Sun-
+yaev—Zel’dovich (tSZ/kSZ) measurements and by X-ray
+measurements of the luminosity of galaxy groups and
+clusters. Using baryonic feedback models [29}35], that
+
+self-consistently predict electron pressure and matter
+power spectrum, recent SZ and X-ray observations [36}+
+indeed find evidence for baryonic feedback scenarios
+stronger than those preferred by weak lensing. We note
+however that the halos probed by these measurements
+differ, which makes a comparison challenging.
+
+In this paper we jointly constrain cosmology and the
+strength of baryonic feedback processes using six two-
+point correlation functions: cosmic shear £€4(%), pro-
+jected galaxy clustering wf (v), CMB lensing band-power
+Cee, and corresponding cross-correlations:  galaxy-
+galaxy lensing 2°(), galaxy-CMB lensing wG,(0), and
+galaxy shear-CMB lensing w%,.(0). Here a, b are tomog-
+raphy bin indices, ¥ is the mean angular separation of
+each bin, and Ly, is the mean multipole of each angular
+bin of the CMB lensing band-power.
+
+We closely follow [5] (X24) from now on) in terms
+of methodology in that we adopt a principal compo-
+nent analysis-based (PCA) method to mitigate impacts
+of baryonic feedback [46H48]. We note that com-
+pared to other baryonic feedback mitigation methods
+(e.g. BACCOEmu [BI] [49], BCemu [32] [50] [51], HM-
+CopE20 [35] {52} (53), etc.), the PCA-based method covers
+the most variance with as few degrees of freedom (d.o.f.)
+as possible, and does not depend on the cosmology prior
+of baryon models [54]. It is also robust to cosmology-
+dependent baryonic feedback strength [55].
+
+Since the PCA technique captures the variance of an
+underlying set of simulations, it is only indirectly con-
+nected to physical parameters and is sensitive only to the
+hysics included in the simulations. Compared to [X24]
+we significantly upgrade our baryonic physics model us-
+ing the recent ANTILLES simulation suite [56]. We also
+include external information on the baryon mass fraction
+from X-ray and optical observations in our analysis.
+Other notable upgrades compared to [X24] are the un-
+derlying dataset of our analysis and the approach to de-
+ermine analysis choices: TIn[X24] we obtain our measure-
+ments from Dark Energy Survey Year 1 (DES-Y1) and
+Planck PR3 data, whereas in this paper, we use the more
+constraining DES-Y3 MAGLIM catalogs and the Planck
+PR4 data release. To derive optimal analysis choices, we
+employ the recently developed machine learning acceler-
+ated inference [58}61| concept, which speeds up MCMC
+analyses by several orders of magnitude. This allows us
+o run hundreds of likelihood analyses to precisely map
+out the impact of different analysis choices and to test
+corresponding robustness.
+
+We structure this paper as follows: we summarize the
+6x2pt measurements in Sec. [II] and the baryonic feed-
+back modeling method with the ANTILLES simulations
+in Sec. [I] (1 We explain our modeling methodology, the
+machine learning accelerated inference technique, and its
+implementation in Sec Section [V] disc usses the sys-
+tematics analysis choices, scale cut choice, and model val-
+idation. Blinding strategy, results on cosmology param-
+eters, and robustness tests are shown in Sec. [vq Results
+on baryonic feedback strength are discussed in Sec.
+
+We conclude in Sec. [VIII]
+
+II. DATA
+1. Dark Energy Survey Year 3 data
+
+We (re-)measure the following three 2PCFs (so-called
+3 x 2pt) between DES yf] MAGLIM lens sample [62+
+[66], and METACALIBRATION source sample [67}69] using
+TREECoRR [70].
+
+EP(D) = (Bet eat + (4B) eat) / (R°R’) ,
+42> (8) = (1p eo eat —
+i8(9) = (161) cat
+
+7) 9g
+
+(1a)
+(1R eat) /R?, (1b)
+
+x 2(1h 1h cat + (IR TR )cat , (Ie)
+(LR IR )eat
+
+where R® is the mean shear response of the source sam-
+ple in the a-th bin [67] [68] [71], and é% is the tangential
+shear when counting pairs. €{ yo are the two shear com-
+ponents, 1% /p are indicator functions of the randomized
+or truth lens catalog, and ()cat means average over the
+catalog. Our binning corresponds to the standard DES
+Y3 data vector (20 logarithmic bins from 2.'5 to 250’).
+We choose the same binning for the CMB Lensing cross-
+correlation 2PCFs defined further below. Importantly,
+our measured €4°() and 7#°(9) use the most recent to-
+mography bin assignment for the DES Y3 source sample
+(SOMPZ version v0.50, see [21] for details).
+
+2. Planck PR4 CMB Lensing
+
+The CMB lensing measurement Cy is based on the
+Planck PR4 CMB lensing convergence may] [22] in this
+analysis. The PR4 map has about 20 percent higher S/N
+han the Planck 2018 data release [73] due various up-
+grades including: (1) around 8 percent additional data
+measured from satellite repointing maneuvers (2) joint
+Wiener-filtering of the CMB temperature and polariza-
+ion maps during quadratic estimator, including treat-
+ment for inhomogeneous noise (3) additional Wiener-
+filtering of the reconstructed lensing convergence field
+before band-power estimation (4) more simulations for
+he lensing reconstruction.
+
+We follow to measure the 2PCF between DES
+Y3 galaxy position/shape and CMB lensing convergence
+field
+
+5,0) = (UBA)ear — (URRcar, (2a)
+Wen(V) = (EL R)cat/R*. (2b)
+
+8
+
+ps://github.com/carronj/planck_PR4_lensing. git
+
+Tomography bin|(e,«) S/N] (ex) p-value
+SI 4.38 0.069
+S2 6.28 0.071
+$3 14.86 0.787
+S4 18.25 0.304
+All 20.44 0.107
+
+TABLE L. The S/N of galaxy shear-CMB lensing convergence
+cross-correlation (middle column) and p-value of the cross-
+component correlations (€) (right column) within the scale
+cut adopted in this work.
+
+We adopt a Gaussian beam of Opwum = 7’ and apply
+a scale cut of 8 < L < 2048 to the convergence field.
+We use a Neiae = 1024 for the CMB lensing convergence
+HEALPIx map &. w%,,(0), wg,(0), and Cf" will be re-
+ferred to as c3 x 2pt thereafter.
+
+We note that the imaginary part of the w,, component,
+(€x#), is consistent with zero for all the source sample
+tomography bins within the scale cut for our likelihood
+analysis (see Table [I). Using the standard signal-to-noise
+ratio (S/N) definition, S/N = Vy? = VD-C'-D,
+where D is the data vector and C is the covariance
+matrix, we find S/N of wgx(¥) and wsx(0) to be 22.5
+and 20.4, respectively. We note that [3] reports S/N
+of 19.6 (32.2) and 16.9 (18.2) for their linear-scale (all
+data points included) galaxy-CMB lensing and shear-
+CMB lensing 2PCFs with DES Y3 x Planck+SPT CMB
+lensing map, respectively.
+
+The Planck PR4 lensing map does not include varia-
+ion maps with alternative tSZ deprojection treatments.
+However, [X24] shows that cross-correlations measured us-
+ing DES Y1 and Planck PR3 do not have detectable con-
+amination from tSZ/CIB. Given that we adopt the same
+smoothing scale for the PR4 map, we expect the bias due
+o tSZ/CIB contamination to be negligible. We also ver-
+ify that w?.(0) and w%,.() are not biased by the MC
+norm ; which is due to the higher-order coupling
+etween Planck and DES Y3 footprint.
+
+3. X-ray measurements
+
+The baryon mass fraction fi, is a sensitive probe of the
+aryonic feedback strength in our Universe [50] [75178].
+n this paper, we consider corresponding measurements
+from 136 Hyper Suprime Cam (HSC)-XXL galaxy groups
+and clusters presented in [57]. The sample is selected
+from the XMM-Newton XXL survey second data release
+DR2) [79] with spectroscopic confirmation, and overlap
+with the HSC-Subaru Strategic Program (SSP) footprint.
+The weak-lensing masses MS) of the 136 XXL groups
+and clusters are measured from HSC-SSP [80]. X-ray lu-
+minosity Lx, and hot gas mass M,as are measured from
+he XXL survey, and stellar mass /, is measured from
+HSC-SSP and SDSS DR16 multi-band photometry. This
+multi-wavelength coverage allows a census of the total
+yaryon budget in the HSC-XXL group and cluster sam-
+
+ple. We want to utilize this fj, measurement to inform
+us about the baryonic feedback strength in the universe
+and help improve the constraining power on cosmology.
+
+To build relation between baryonic mass and the un-
+observable halo mass, conduct linear regression to fit
+the total stellar mass M,., brightest central galaxy (BCG)
+mass Mpca, and gas mass Mgas as a function of the un-
+derlying true halo mass Mendel
+
+Elz)
+Y; + BZ +h ; 3
+ga arez+yn| Teh), (3)
+where Z = log(Ms00/10'4Mo), Yz =
+(In eee In Tite? In ToeaeS Ing = ae and
+
+E(z) = H(z)/H(z = 0). The coefficient y accounts
+for possible redshift evolutions of each component, @
+accounts for the normalization, and @ describes the halo
+mass dependency of each component.
+
+We adopt the best-fitting values of a, B, and y in
+Table 5 of and draw random realizations of Yz on
+Mso0 grid between 10'8 and 1014 Mo. The total baryon
+mass fraction, normalized by the mean cosmic baryon
+
+fractio is then calculated as
+fo(Mn)
+Yp(Mn) =
+1M) = 070m
+
+4
+(1+ foe) Me + Megas + fic Mca ()
+
+My (Qb/Qm) ,
+
+where fpiue ~ N(0.15,0.17) is the fractional mass
+contribution from blue member galaxies, fic, ~
+N (0.340, 0.077) is the mass contribution from ICL, and
+N(,0) annotates a Gaussian distribution with mean jy
+and standard deviation o.
+
+The uncertainty of fpiue and ficr are quoted from [57].
+Cosmology is marginalized over by drawing Qn and Qy
+from the nine-year WMAP result [81]. An additional 15
+percent uncertainty is applied to the stellar mass to ac-
+count for uncertainty in the initial mass function. Ran-
+dom realizations of equation are drawn with these
+uncertainties, and we evaluate the mean and standard
+deviation of Y¥;,(Mp,) from the random draw.
+
+We are particularly interested in the mean normal-
+ized baryon mass fraction Y, over halos of mass within
+(1013, 1014] Mo since that is the halo mass range that our
+&4(¥) is most sensitive to, given the redshift distribution
+of the DES Y3 METACAL sample and the scale cut of
+€+(V) [29] [56]. We calculate the mean and error of log Y;,
+from the random realizations,
+
+(log Y,) = —0.285,
+o (log Y,) = 0.076.
+
+9 We choose Msoo as the definition of halo mass in this work, and
+we use Mso9 and M,, interchangeably.
+
+10 We use fi, and Y;, interchangeably when referring to the concept
+of using baryon mass fraction to trace feedback strength. How-
+ever, when we use baryon mass fraction to quantitatively inform
+our analysis, we always mean Yj,.
+Recently, the eROSITA survey [39] has found a sys-
+tematic lower fgas-My relation than other literature [e.g.
+[82}85]. [89] stacks the eROSITA X-ray surface bright-
+ness for an optically selected GAMA group sample [86],
+and measures the electron density and gas mass from the
+stacked X-ray surface brightn This avoids the X-ray
+selection effects, which will bias the fgas to higher values
+if not corrected, since galaxy groups and clusters with low
+X-ray surface brightness are not included in the sample.
+The resulting fgas measurement is consistent with [45].
+While a detailed discussion of the conflicting gas mass
+fraction is beyond the scope of this work, we explore the
+impact of a lower gas mass fraction on our results in
+
+Sec.
+
+Ill. MODELING BARYONIC PHYSICS
+
+Since we intend to keep all the cosmic shear data points
+down to 2.'5, our analysis requires modeling of bary-
+onic feedback processes. Following [X24] we adopt PCA
+baryon mitigation to account for baryonic effects on small
+scales [4648]. In this approach, PCs are constructed di-
+rectly in the model vector space, which in our case means
+they span the difference between the gravity-only 2PCFs
+and the baryonic 2PCF's computed from a range of simu-
+lations. After the construction of the PCs, the full model
+vector is calculated by
+
+Mbary(P, Q) = M(p) + 55 Qi PGi, (6)
+i=1
+
+where the amplitudes Q; are varied during analysis, and
+M(p) is the gravity-only model vector. We note that in
+this paper, we construct PCs for all shear-based auto and
+cross-correlations. This is different from where it
+was sufficient to build PCs for the shear auto-correlation
+2PCF only, given the larger statistical uncertainty of the
+DES Y1 dataset. For example, a strong feedback scenario
+in ANTILLES that corresponds to —20 baryon mass
+fraction can results in AXR = 5.8 and Ax, = 15,
+which are not negligible for our analysis.
+
+A. Baryon feedback simulations
+
+In this work, we use the ANTILLES simulations
+suite [56], a suite comprised of 400 simulations of box
+size 100 Mpc/h with 256° particles for baryonic and
+dark matter each. Different simulations have different
+galaxy formation efficiency (controlled by wind velocity
+and mass-loading factor of kinetic wind stellar feedback)
+and AGN feedback strength (controlled by temperature
+increase, the number of neighboring gas particles to heat,
+and the gas density threshold to start black hole accre-
+tion).
+
+The 400 simulations are carefully chosen to uniformly
+sample the feedback parameters using 200 Latin hyper-
+
+cube nodes, and each node is run with two hydrody-
+namic solvers (smoothed-particle hydrodynamics or clas-
+sic SPH, and Anarchy SPH). The simulations have been
+demonstrated to be sufficiently large for capturing rela-
+sive effects of baryonic to dark matter power spectrum
+[76} (89) and span a large range of feedback, including
+extreme feedback scenarios.
+
+To test the PCA baryonic feedback mitigation, we se-
+ect three special feedback scenarios from the ANTILLES
+simulations and exclude them during PC generation. The
+chree scenarios are chosen based on their mean baryon
+mass fraction within halo mass range [1013, 10'4] Mo.
+They are consistent, 20 higher, or 20 lower than the ob-
+served baryon mass fraction in [57], and we refer to them
+as the mean, weak, and strong feedback, since stronger
+feedback leads to lower baryon mass fraction.
+
+We show the range of small-scale P(k) suppression
+spanned by ANTILLES simulations (pink, green, and
+blue solid lines for three special ANTILLES scenarios,
+and grey lines for the other ANTILLES simulations) and
+other simulations used in[X24]in the left panels of Fig
+These figures also show the impact of differ-
+ent models of the nonlinear matter power spectrum
+(BACCOgEmu [49} [91], CosmicEmu {92} [93], Evu-
+CLIDEMU2 [94], and HMCope2020 [35}) in the left pan-
+els of Fig. [Jas a comparison. Note that the uncertainty
+from nonlinear matter power spectrum can be compa-
+rable to baryonic feedback at k > 10h/Mpc. We ex-
+plore possible cross-talk between the two systematics in
+Sec. [VA]
+
+In the right panels o Fig. [I] we show the correspond-
+ing bias in €{4() due to different feedback scenarios and
+nonlinear matter power spectrum models. We also show
+the first three PCs constructed from the remaining 397
+ANTILLES simulations.
+
+We derive the PC amplitudes Q; for ANTILLES and
+other simulations used in [48] and show the distribution
+of Qi-Q2 in Fig. We note that the value of Q; is
+survey-dependent since PCs are calculated from preci-
+sion matrix-weighted data vectors. Therefore, Q; in this
+work can not be compared to the ones in
+We define the wide prior of Q, as a uniform distribu-
+tion between {[—20, 20], and explore a more informative,
+baryon mass fraction-based prior in Sec. [ITB]
+
+B. Calibrating baryonic feedback from baryon
+mass fraction observations
+
+Several publications [56] [76}{78] [96] have demon-
+strated that small-scale suppression of the matter power
+spectrum can be predicted from the baryon mass frac-
+tion. In order to include corresponding measurements
+of the baryon mass fraction in our analyses, we first de-
+rive a relation between the mean normalized baryon mass
+fraction within 101° to 104 Mo halos and our PCA am-
+plitude parameters Q;.
+
+The presence of this relation in the ANTILLES simu-
+AE44(9) x 105
+
+Phydro(k)/Pgravity(kK) Or Pemurim(k)/Pur(k)
+
+2.07 Strong | 0.5
+== Mean
+——~ Weak 0.0
+1.54 ANTILLES
+
+BAHAMAS (T7.8)
+BAHAMAS (T7.6)
+
+BAHAMAS (T8.0)
+1.0
+
+—1.0 —- TNG100
+—- Illustris
+z=0.0 -15 —* Eagle
+2.07 Bacco Emu 0.5
+== CosmicEmu
+—- EuclidEmu2
+
+HMCode2020
+
+1.5
+
+1.0 PC 1
+
+— Pc2
+z=1.0 == Ped
+10-2 10-1 10° 10! 10? 10! 10?
+k [h/Mpc] 90 [arcmin]
+
+FIG. 1. Left panels: matter power spectrum ratio between (i) hydrosims and gravity-only N-body sims and (ii) alternative
+nonlinear power spectrum models and Halofit. The top (bottom) panel shows the ratio at z = 0 (z = 1). We show the ratios of
+ANTILLES simulations in gray solid lines. We show three special ANTILLES simulations in pink, green, and cyan solid lines,
+whose feedback strength is defined as strong, mean, and weak compared to observation in 6 (see Sec. . Other hydrosims
+are shown in dotted-dashed lines: BAHAMAS log Tagen = 7.8 (blue), log Tacn = 7.6 (orange), log Tagn = 8.0 (green), TNG100
+(red), Illustris (purple), and Eagle (brown). Black lines show the contrast between Halofit [22] {87} [88] and alternative nonlinear
+P(k) models: BACCOEMmu (solid), CosmicEMu (dashed), EUCLIDEMU2 (dotted-dashed), and HMCopE2020 (dotted). The
+thick black lines show the P(k) ratios in the native k range of the alternative models and the thin black lines show their spline
+extrapolation. Right panels: é# (0) difference due to baryonic feedback and nonlinear power spectrum modeling. We show
+the first three PCs in solid yellow/red/teal lines, which are padded along the y-axis for better visualization. Hydrosims are
+shown with the same colors and line styles as the left panels. We only show one alternative P(k) model, EUCLIDEMU2, in the
+left panels.
+
+lations was already confirmed in [56]. Its physical origin design a parametric fitting function F(Q,) for Y,, and
+stems from the gravitational nature of baryonic feedback Qi,
+in redistributing matter around dark matter halos [76].
+
+measures the baryon mass fraction for each simu- _ In i.
+lation in the ANTILLES suite. The measurement ac- Yp = F(Q1) wae (7)
+P
+
+counts for all stellar and gas particles within a spherical
+overdensity radius.
+
+We show the Q; and Qs of the ANTILLES simulation | Where Q» is the pivot Q; and Qy is the characteristic
+and the 11 hydrodynamical simulations used in [X24] in scale of Q;. The functional form is chosen such that
+Fig. B] We also color-coded the ANTILLES simulation Ys = 1 when Q1 = 0, i.e., no feedback. The best-fitting
+data points with the mean normalized baryon mass frac- coefficients are Qy = 0.0042 and Q, = 0.36, and we show
+
+tion Yj, between 10!% and 10! Mo halos. The prominent
+color gradient indicates a tight correlation between Q,
+and Yj. Fig. []directly compares Q and Yj, and we find
+a nonlinear correlation with low dispersion. We also show
+the prediction from as the horizontal gray band. We
+
+the corresponding relation as the black dashed line in
+Fig. B}
+
+We assume that f,/(Qp/Qm) measured in follows
+a lognormal distribution. Therefore, we can introduce a
+prior for Q; based on the baryon mass fraction observa-
+Yp = (fp(My €[1033, 1074] M 9))/(Op/Qm)
+0.2 0.3 0.4 0.5 0.6 0.7
+_———— eee
+
+0.4 T
+e OWLS_AGN (T8.0) e BAHAMAS (77.8)
+0.3 e OWLS_AGN (T8.5) e BAHAMAS (17.6)
+, e OWLS_AGN (T8.7) e BAHAMAS (T8.0)
+0.2
+0.1
+S 0.0
+HE
+-0.1 1
+i
+i
+—0.2 >< Weak e — Illustris
+Vv Mean e HzAGN
+-0.3t @ Strong e MB2 .
+e TNG100 e Eagle
+a, 1 r i .
+049.00 0.05. 010 0.15 0.20
+Qr
+
+FIG. 2. The amplitudes of the first two PCs (Qi and Q2) of
+the hydrodynamical simulations used in this work. The small-
+est data points are ANTILLES simulations that are used
+to generate the PCs, and are colored based on their mean
+normalized baryon fraction Y, of halos within 10'3-10'4 Mo.
+Note that Y, correlates with Q: tightly. The medium data
+points are the 11 hydrosims used in The largest data
+points are the three ANTILLES simulations that are reserved
+from PC generation, corresponding to the weak (blue cross),
+mean (green triangle), and strong (red pentagon) feedback
+scenarios.
+
+tion
+
+m(Qi) =—
+
+1 (e7@ — (—0.285) ) - @)
+
+2 0.082
+
+where (Qi) is the log prior and —0.285 is the mean
+og Y, measured in [57]. The scatter 0.082 here also in-
+cludes the 0.029 dex intrinsic scatter of the Y;,-Q, relation
+
+in Fig. B]
+
+We note that although we do not have the baryon mass
+fraction measurement of the other 11 hydrodynamical
+simulations, a similar relation between baryon mass frac-
+ion and matter power spectrum suppression has been
+found in [76]. At a fixed scale, P(k) suppression is pro-
+ortional to Q1, and we expect other simulations to fol-
+ow a similar Y,-Q; trend. Given that both the PCs
+and Y,, are measured from ANTILLES, our method is
+self-contained, and exploring this method on a larger het-
+erogeneous simulation library is beyond the scope of this
+aper.
+
+1.0 » ANTILLES = y Mean
+x Weak @ Strong
+‘
+
+Observation
+
+(Akino et al. 2022)
+
+Impact of lower fgas
+(Popesso et al. 2024)
+
+(fo(Mpy €[1023, 104] M 5))/(Qp/Qm)
+
+Yo
+
+0.000 0.025 0.050 0.075 0.100 0.125 0.150 0.175 0.200
+Q
+
+FIG. 3. The scaling relation between @Q and the mean baryon
+fraction in halos of mass Mn € [10%", 101] Mo, normalized
+y the cosmic baryon fraction Q)/Qm. The gray data points
+are ANTILLES simulations used to generate PCs, and the
+colored data points are the weak (blue cross), mean (green
+triangle), and strong (red pentagon) feedback scenarios. The
+relation between Q; and Y; can be fitted as the black dashed
+ine. We show the Y; observed in fq in the horizontal solid
+ine and its uncertainty in the shaded gray region. Alterna-
+tive estimate of Y, based on the latest eROSITA feas Mea-
+surement [39] is shown in the horizontal purple line. We note
+that this is not a rigorous estimate since it assumes that the
+HSC-XXL sample and the eROSITA sample have the same
+stellar mass fraction, and we only aim to show the impact
+qualitatively.
+
+IV. MACHINE LEARNING ACCELERATED
+INFERENCE
+
+Due to the increased constraining power of the planned
+analysis, we conduct an extensive study of the impact of
+a variety of systematics (and their cross-talks). In order
+to complete these studies in finite time, we train a neural
+network emulator to evaluate the 6 x 2pt model vector
+as a function of cosmological and nuisance parameters.
+This strategy has been developed in [55} [59] {97+
+{100}. Below we detail calculations of model vector and
+covariances and describe the setup and accuracy of our
+neural network emulator.
+
+A. Theory models, covariances -
+Cobaya-CosmoLike Architecture
+
+We adopt the CoCoA inference pipeline for
+likelihood analyses and validate our pipeline against the
+public DES Y3 3 x 2 analysis and Planck PR4 CMB
+lensing analysis [62] [72] [106] also see Appendix
+
+1. Data vector modeling
+
+We calculate the angular bin-averaged results for the
+five position-space correlation functions as:
+
+a) => nea (GhzG) c*,,0,
+
+(02)
+
+0) =D aes ye ln: (0)
+
+w9(d) = oH, (0), (8¢)
+é
+
+wie(0) =) RO CHO, (0a)
+é
+
+=D yOR nO,
+
+where Gia + Gy, Po, and P? are 0-bin-averaged Legen-
+dre polynomials defined in Ref. [107]. The exact math-
+ematical description of the corresponding power spectra
+cb, (€) can be found in
+
+F(@) is a window function incorporating the Gaussian
+smoothing, pixelization, and scale cut that we apply to
+the CMB lensing convergence map when measuring the
+cross-correlations,
+
+FO =Wrsac ee
+
+x exp(—
+
+Lmin)O(Lmax — £)
++1)/Geam) +
+
+where O(f) is the Heaviside function and fyeam =
+V16ln2/@pwum. We assume Opwum = 7’ in this work.
+(Lmin; Lmax) = (8, 2048) are the scale cuts in the CMB
+lensing convergence map. Ww Neae(€) is the pixel window
+function of HEALPIx.
+
+Since the auto-correlation of CMB lensing enters the
+data vector as a Fourier space quantity, the correspond-
+ing model vector Cf" is calculated as
+
+Ce =D. (Bi + Mi") cE
+
+(10)
+
+Act", (11)
+
+where ACT xe is a constant bias pre-computed at the
+FFP10 fidu@ial cosmology
+
+x P(L+1P .
+eb fXO(AX|  _ AX
+Acre =S> MM (CH gg — CX)
+. (12)
+L
+
+here X sums over the eight MV lensing estimators (TT,
+EE, TE, TB, EB, ET, BT, and BE). B?, M?”, and
+M, * » are binning and correction matrices which can be
+found in and [73], Cf* is theoretical convergence
+power spectrum at sampled cosmology, C*|a is CMB
+
+lensing and primary CMB power spectra precomputed
+at FFP10 cosmology, and C7 is the estimated primary
+CMB power spectra.
+
+2. Covariance modeling
+
+The covariance matrix of the 6 x 2pt likelihood is evalu-
+
+ated using CosmoCov [103] [105] [107] [108] following
+and includes corrections from survey geometry. The co-
+variance matrix is analytical except for the CMB lens-
+ing auto-covariance, for which we adopt the numerical
+covariance from [72] to marginalize over uncertainties
+from the primary CMB power spectra and other intri-
+cacies in CMB lensing reconstruction. Uncertainties re-
+lated to survey systematics in galaxy clustering measure-
+ments [64], point mass marginalization [TO09}I11] are also
+accounted for in the covariance.
+The covariance matrix is generated at a
+fiducial ACDM with (Qn, 08, ns, Qn, Ho) =
+(0.318, 0.744, 0.871, 0.040, 0.678). We adopt the survey
+area Q, = 4143.2 deg, and a single-component shape
+noise of a, = (0.243, 0.262, 0.259, 0.301) for each tomog-
+raphy bin. When calculating the covariance, we fix linear
+galaxy bias to (1.448, 1.666, 1.860, 1.756, 1.924, 1.865)
+and lens galaxy magnification bias to
+(0.430, 0.300, 1.750, 1.940, 1.560, 2.960). We calcu-
+late the covariance matrix in curved-sky geometry,
+assuming the Limber approximation. When evaluating
+the covariance matrix blocks related with C7*, we sum
+over L € [8, 2500}.
+
+B. Neural network details and performance
+1. Architecture
+
+We adopt a similar neural network architecture as de-
+veloped in (see Fig. 4). We train one of these neu-
+ral networks for each of ie six two-point statistics in
+our data vector {€4°(0), 7f?(V), we,(0), w3,.(0), we, (8),
+Cc Fey independently. We. te the input parameters
+into fast and slow parameters. Fast parameters, includ-
+ing shear calibration bias and baryonic feedback PC am-
+plitude, do not require complex calculations. Their im-
+pact can be instantly applied to the model vector. Slow
+parameters, including cosmological parameters, photo-z
+bias and stretch, linear galaxy bias, [A amplitude and
+redshift evolution, involve complex calculations. There-
+fore, we only train emulators in the slow parameter space
+and apply the fast parameters to the emulator prediction
+on the fly.
+
+For each emulator, cosmological and nuisance param-
+eters are masked, normalized, and fed into an input
+affine linear layer of Nreduced x 256, where Nyeduced js
+the number of unmasked input parameters that are rel-
+evant to this probe. For example, the €4°(Y) emulator
+
+has Nyedueed — 12 including 6 cosmological parameters,
+! Cosmo + Nuisance
+Parameters
+
+3x
+
+DES Y3 x Planck PR.
+6x2pt Data Vector
+
+FIG. 4. The architecture of the neural network emulator for
+a single probe. The input cosmological and nuisance param-
+eters are masked and normalized such that only relevant pa-
+rameters are passed into the input layer of size Nze4¥ced x 256,
+which applies a linear affine transform to the input data.
+Three 256 x 256 residual networks (RESMLP) layers are ap-
+pended to the input layer, each consisting of two dense layers
+with a residual connection. Then the 256 x Nzeduced output
+layer is appended to the RESMLP layers to predict a specific
+probe in 6 x 2pt.
+
+4 photo-z bias parameters, and 2 NLA parameters. The
+input layer is followed by three 256 x 256 multi-layer per-
+ceptron (MLP) with residual connection (RESMLP), and
+then a linear output layer of 256 x Nredvced Predictions
+from the emulators are then post-processed and concate-
+nated to return the full model vector for any given anal-
+
+ysis.
+
+2. Training
+
+We follow [61] in generating the training and validation
+samples. We first run a synthetic 6 x 2pt analysis on mock
+data and calculate the parameter covariance. We temper
+the parameter covariance C by a temperature T = 12g]
+such that C ++ TC, and generate 1 million training data
+by sampling the tempered covariance. The validation
+data, which contains 10,000 samples, is generated from
+the same covariance but with a temperature of T = 64.
+We remove data points with Ay? > 10° compared to the
+fiducial data vector to stabilize the training. We note
+that T = 128 is a temperature large enough such that the
+
+11 We abbreviate the emulator neural network model trained by
+T = 128 data as RESMLP128 hereafter.
+
+emulator is accurate over the posterior of €(¥), 3 x 2pt,
+c3 x 2pt, and 6 x 2pt analyses.
+
+During training, the input cosmological and nuisance
+parameters are first masked and standardized, ensuring
+that only relevant parameters are passed to the input
+layer, and the parameters have a zero mean and unit
+standard deviation. The data vectors y are also stan-
+dardized to y as
+
+Ut: (y= yaa)
+
+y=
+where U is the eigenbasis of the covariance matrix C and
+yga is the fiducial data vector.
+We use generalized Swish activation function [112] for
+the RESMLP layers
+
+l-y¥
+where 6 and 7 are trainable parameters.
+
+The loss function L(w) is a hyperbola of Ax? between
+the training data produced by COCOA ycocoa and the
+neural network prediction yyn
+
+Ax? = (Ycocoa — Yn)” * C7: (Yoocoa — YNN)>
+
+L(w) = (\/1 + 2Ax2) = 1,
+(15)
+
+where w is a vector of all trainable parameters, and ()
+means sample average. We use the ADAM optimizer [113]
+with an adaptive learning rate to train the network. We
+use the L?-norm of the model weights to penalize overfit-
+ting, and the L? penalty is controlled by a weight decay
+of 10-8. We choose a batch size of 256 and train 200
+epochs for each emulator. The learning rate starts from
+10~° and is reduced by a factor of 10 when validation
+loss plateaus for 10 epochs.
+
+3. Validation
+
+Our first validation metric is to evaluate the Ax? be-
+tween the 6 x 2pt data vectors predicted by COCOA and
+ReSMLP128 over the validation sample. The result is
+shown in Fig.[5| We only see a 3.06 percent probability
+for Ax? > 0.2, which is the theoretical error threshold
+adopted by DES Y3 without importance sampling cor-
+rection.
+
+We also compare posteriors sampled by MCMC chains
+run by CoCoA and RESMLP 128 using the fiducial cos-
+mology with three baryonic feedback scenarios as input:
+gravity only, Eagle, and Ilustris. We include all the data
+points in €4(7) down to 0.'25 and adopt the baseline
+scale cut for all the other probes. Posteriors are shown
+in Fig. [jand show excellent agreement of contours when
+using the emulator versus the brute force calculation.
+
+We conclude that our emulator is reliable for the subse-
+quent impact studies, mock analyses, and analysis choice
+decisions.
+ResMLP128
+15- — 6x2pt Emulator
+rs
+< 10} 1°
+fs} : Il
+4 id
+Q 5F j
+P(Ay? > 0.2)
+-=3.06%
+0 i ea
+10? 1071 10°
+AXeocon Emu
+FIG. 5. The distribution of Ax? between the 6 x 2pt mode
+
+vectors evaluated by COCOA and the RESMLP128 emulator
+over the validation dataset, which has T = 64. Over the
+10,000 samples in the validation dataset, only 3.06 percent of
+the samples give Ax? > 0.2.
+
+0.86 CoCoA
+0.84 ResMLP(T=128)
+Wj 0.82
+0.80
+0.78} Gravity-only Eagle Illustris
+0.25 0.30 0.35 0.40 0.25 0.30 0.35 0.40 0.25 0.30 0.35 0.40
+Om Om Qn
+
+FIG. 6. Posterior distribution in Qm and Ss for synthetic
+analyses from COCOA (filled contours) and the RESMLP128
+emulator (unfilled contours). The fiducial data vectors are
+gravity-only (left panel), contaminated by Eagle-like feedback
+(middle panel), and Ilustris-like feedback (right panel). All
+analyses include cosmic shear data points down to 0.'25 and
+marginalize over two PCs with wide priors to test the accuracy
+of the emulator.
+
+V. ANALYSIS CHOICES AND SIMULATED
+ANALYSES
+
+A. Systematics models
+
+We follow {5} [106] for systematics modeling in shear
+calibration bias, photo-z uncertainty, linear galaxy bias,
+point-mass marginalization, and magnification bias. The
+baryonic feedback mitigation method, including exter-
+nal prior from baryon mass fraction observation, is dis-
+cussed in Sec. [ITI] Thus, we only discuss the remain-
+ing systematic modeling that differs from the DES Y3
+Key Project [106] in this section, including IA mod-
+els (Sec. , point-spread function (PSF) uncertain-
+ties and nonlinear matter power spectrum model-
+ing (Sec./V A 3). Our baseline analysis settings, including
+parameter spaces and corresponding priors, are summa-
+
+rized in Table [II]
+
+Parameters Fid. Value Prior
+Cosmological Parameters
+
+Own 0.3 flat[0.1, 0.9]
+Ag x 10° Bad. flat[0.5, 5.0]
+Ns 0.96605 flat [0.87, 1.07]
+OQ 0.040 flat [0.03, 0.07]
+Ao 67.32 flat[55, 91]
+“m,/eV 0.06 flat {0.0558, 0.12]
+Source Photo-z
+
+Ad, sre X 10? 0.0 N(0.0, 1.8)
+J? ere X 10? 0.0 N (0.0, 1.5)
+LS ava % 107 0.0 N (0.0, 1.1)
+AS ave X 10? 0.0 N (0.0, 1.7)
+Maglim Lens Photo-z
+
+AP tens X 10? -0.9 N(-0.9, 0.7)
+LQ? tens X 10? 35 N(-3.5, 1.1)
+A® wag X 10? -0.5 N(-0.5, 0.6)
+DF jenn % 10? -0.7 N(-0.7, 0.6)
+OZhng 0.975 N (0.975, 0.06)
+ns 1.306 N (1.306, 0.09)
+Oz} ns 0.870 N (0.870, 0.05)
+OZhans 0.918 N (0.918, 0.05)
+Shear Calibration Bias
+
+m! x 10° -0.63 N (—0.63, 0.9)
+mm? x 10? -1.98 N (-1.98, 0.8)
+m? x 10° -2.41 N(—2.41, 0.8)
+m* x 10° -3.69 N (—3.69, 0.8)
+Baryonic Feedback
+
+Qi gravity /Eagle/Ilustris/ y, “based Eqn:
+Q: strong/mean/weak flat|-20, 20]
+Intrinsic Alignment
+
+AIA -0.7 flat[-5, 5]
+Bia -1.7 flat[-5, 5]
+Maglim Linear Galaxy Bias
+
+by (1.5, 1.8, 1.8, 1.9) flat [0.8, 3.0]
+Maglim Magnification Bias
+
+ce (0.43, 0.30, 1.75, 1.94) fixed
+
+TABLE II. This table summarizes the prior ranges used in
+both the synthetic and real analyses and the fiducial parame-
+ter values used in synthetic analyses. We express a flat prior
+as flat{min, max] and a Gaussian prior as N(j,0) where
+N means normal distribution, 4 is the mean, and @ is the
+standard deviation. We choose a narrow prior for neutrino
+mass to avoid projection effect. Six fiducial baryonic feed-
+back scenarios are adopted in our synthetic analyses: gravity-
+only, Eagle, Illustris, ANTILLES-1 (strong), ANTILLES-
+100 (mean), and ANTILLES-379 (weak). Q2 is fixed in our
+baseline analysis and is sampled with a flat prior [—20, 20]
+during the impact study. We note that we only use the first
+four tomography bins of the MAGLIM sample, so we omit the
+nuisance parameters of the last two bins.
+
+1. Intrinsic alignment (IA)
+
+Recent work [114] found that large-scale IA is mostly
+due to the alignment of red central galaxies. At small
+scales, the IA contamination is heavily influenced by
+satellite galaxy alignment in the 1-halo regime, and this
+satellite alignment becomes increasingly significant to-
+wards lower redshifts. Among the new data points we
+introduce in this work compared to the baseline DES Y3
+3 x 2pt analyses, ws,(W) is impacted by the relatively
+large-scale red central galaxy IA, which can be well de-
+scribed by the nonlinear alignment model [see [117].
+Compared to wyx(¥), the small-scale €4 (0) receives more
+contamination from satellite alignment, which can not be
+well described by the NLA model.
+
+However, we do not expect the tidal alignment and
+idal torquing model [TATT, [118] to outperform NLA
+in small-scale €,(W) IA modeling. Recent analyses [119}
+that compare Effective Field Theory (EFT) of IA
+and halo alignment in N-body simulations find that
+he TATT model starts breaking down at scales k >
+0.05 h/Mpe [see [122] for a review]. Therefore, we con-
+inue to use NLA as our baseline model to mitigate IA
+in this work and sample both the IA amplitude Ay, and
+he redshift evolution power index na with a flat prior
+between [—5, 5]. This choice has been adopted in vari-
+ous DES Y3 re-analyses [e.g. {16} [17] [38) [44 (971 [123] [124].
+We discuss the impact of using TATT instead of NLA in
+Sec.
+
+2. Point spread function (PSF) bias
+
+Imperfect PSF subtraction leads to residual PSF ellip-
+ticity in the galaxy shape measurement, which translates
+into biases of €(%). The best-fitting PSF contamination
+d€R5F (9) from DES Y3 shows increasing bias towards
+smaller scales [9] [69] [125] [126]. Given the increased con-
+straining power of our 6 x 2pt analysis, we revisit the
+bias introduced by PSF contamination in this paper, es-
+pecially since we are including €,(¥) data points below
+the standard DES Y3 scale cut.
+
+The estimated shear of galaxies yes; can be contami-
+nated by imperfect PSF modeling deg, and is expressed
+
+sys
+
+Mest = + SERS. + eM, (16)
+
+where de"°* is measurement noise and (de"**) is ex-
+
+pected to be zero. We note that ‘est has accounted for
+the shear response of METACALIBRATION (125). The
+PSF shear bias term is further decomposed into three
+
+contributions [127] [128]
+
+*
+
+(7)
+where a, 6, 7 are free coefficients per tomography bin,
+Emodel ANd Tmodei are the predicted PSF ellipticity and
+size from PIFF (29, e, and T, are the true PSF el-
+lipticity and size. For simplicity, we abbreviate those
+contributions as p = €model; @ = Cx — Cmodel, and
+w = e,(Tx — Toaei)/Tx. Assuming that p, q, and w
+do not correlate with cosmic shear and galaxy overden-
+sity, the PSF residual only impacts €4(V) in the 6 x 2pt
+
+10
+by generating an additive bias
+
+, PSF PO P2 Pd aD
+
+ab, PS
+
+be. (0) = (Qa, Bas Na) | P2 Pi pa Bo |, (18)
+P5 Pa P3 Mb
+
+where the so-called rho-statistics [128] [129] are defined
+as po = (pp), pi = (44), p2 = (GP), p3 = (ww), pa
+(w q), and p; = (wp). We note that each rho statistic
+has a + and — component as cosmic shear.
+
+Assuming p, g, and w are the same between galaxies
+and stars, the rho statistics can be measured from stars.
+The coefficients (a, 8, 7) of each tomography bin can be
+measured by fitting the tau statistics
+
+a(pp) + B(ap) + (wp),
+a(pq) + B(qq) + 7(wa), (19)
+a(pw) + B(qw) + (ww),
+
+To. = (Yest P)
+T2 = (Yest 7)
+T5 = (Yest W)
+
+using the rho statistics measured from stars. An estima-
+tion of EGP PSF (9) can be derived given the best-fitting
+coefficients.
+
+We re-measure the tau- and rho-statistics and run
+an MCMC chain to derive the best-fitting contami-
+nation 6€25"(). We also calculate dé" +??(v),
+which corresponds to the +2a-level contamination. The
+d&4 >" + (9) is used to contaminate the mock data vec-
+
+tors in Sec. [VB] for impact study and scale cut decision.
+
+3. Nonlinear power spectrum
+
+We adopt HALOFIT as our baseline nonlinear gravity-
+only matter power spectrum model because of its robust-
+ness over a large cosmological parameter space that is rel-
+evant to this DES Y3 x Planck PR4 analysis and because
+have shown that HALOFIT is sufficient for DES Y3
+3 x 2pt analysis.
+
+However, we re-assess the impact of Py, (k) model un-
+certainties due to the inclusion of small-scale cosmic shear
+data and the increased cosmological information from
+CMB lensing and its cross-correlations.
+
+We show the ratio between alternative Pyy(k) mod-
+els (BACCOEMu, CosmicEMu, EucLIDEMU2, HM-
+CopE2020) and the baseline HALOFIT prediction in
+Fig. the black lines, where thick lines indicate the ra-
+tio evaluated within the native k range and thin lines in-
+dicate the ratio evaluated from cubic spline-extrapolation
+of the corresponding Py, (k).
+
+We see that different Pyi(k) models can have 10 per-
+cent level difference at k > 10h/Mpc. Although baryonic
+feedback generates a much stronger impact on Pyy,(k)
+over this k range, a model mismatch in gravity-only
+Pyx(k) can be absorbed by the baryonic feedback PCA
+model and lead to biased estimation of feedback strength
+Qi, which translates into biases in Sg, Qu.
+
+Therefore, we conduct impact studies of the nonlin-
+ear matter power spectrum, and its crosstalk with other
+
+Ss
+
+systematics, by generating mock data vectors with Eu-
+CLIDEMU2 [94] and analyzing them using HALOFIT.
+
+B. Scale cuts and validation
+
+We include all cosmic shear data points down to 2./5
+in this work. We impose the same scale cuts as [106]
+in galaxy-galaxy lensing and galaxy clustering (linear
+galaxy bias). [3] includes small-scale data points in
+galaxy-CMB lensing and shear-CMB lensing, which is
+enabled by the high-fidelity CMB lensing reconstruction
+from Planck and SPT [131]. We choose a conservative
+scale cut in CMB lensing cross-correlations due to the
+low angular resolution of Planck PR4 CMB lensing re-
+construction.
+
+The angular le cut of wy,.(V) is derived from Rmin =
+
+6 Mpc/h, which is the same as y??(9) in DES Y3 [63] {130}.
+This is a more conservative choice than [131] which
+adopts Rmin = 3.5Mpc/h. The angular scale cut of
+Wsx() is determined by the Gaussian beam size we ap-
+plied to the Planck PR4 convergence field. We truncate
+Wsx(V) at 14 arcmin, which is two times the full-width
+at half maximum of the Gaussian beam. We include all
+Cf* data points in [72].
+We validate our analysis choice by running hundreds of
+mock analyses using the emulator we trained in Sec.
+Specifically, we consider the robustness of our pipeline
+and analysis choices against three modeling uncertainties:
+baryonic feedback modeling, PSF contamination model-
+ing, and nonlinear matter power spectrum modeling.
+
+As a metric we require that both the 2D bias in Qy-
+Sg and the 1D bias in Q; are lower than 0.30, 0.30 x
+V2 = 0.420, and 0.30 x V3 & 0.520 when 1, 2, and
+3 systematics mentioned above are included in the data
+vector. These thresholds were set before the simulated
+likelihood analyses were conducted.
+
+We show the Qm-Sg bias (top panel) and the Q,
+bias (lower panel) in Fig. [7 We generate data vectors
+for six baryonic feedback scenarios: gravity-only, Eagle-
+like, Ilustris-like, ANTILLES-strong-like, ANTILLES-
+mean-like, and ANTILLES-weak-like contamination.
+
+In all cases, the biases in Q,,-Sg and Q, are below our
+threshold, although we note that when three systematics
+are included, the crosstalk between different systemat-
+ics increases the resulting biases considerably. Not un-
+expectedly, we observe borderline concerning biases for
+cases that include both baryonic feedback and nonlinear
+power spectrum modeling uncertainties.
+
+The biases in Q-Sg and Q; for mock ANTILLES-
+strong and ANTILLES-weak data vectors with PSF
+contamination and Py,(k) from EUCLIDEMU2 included
+are almost surpassing our error budget. This calls for a
+more precise and robust systematics mitigation method
+when pushing to smaller scales or when analyzing future,
+more constraining datasets.
+
+In Fig. I} we show the 2D (Q,-Ss bias similar to Fig. [7]
+but consider the case of an additional Q, prior from Y,
+
+11
+
+(as we discussed in Sec. . In this case, we only con-
+sider the three baryonic feedback scenarios for which we
+can calculate the mean baryon mass fraction in halos of
+mass between 10!° and 10!4 M5: ANTILLES-strong,
+ANTILLES-mean, and ANTILLES-weak. For each of
+them, we include a Yj,-based lognormal Q, prior centered
+on their measured Y, with a standard deviation consis-
+tent with equation [8]
+
+Comparing Fig. |8] to Fig. we find that biases of
+ANTILLES-strong and ANTILLES-weak are reduced
+when the Y,-based prior is included. This can be ex-
+plained by the fact that crosstalk between the nonlinear
+matter power spectrum, PSF contamination, and bary-
+onic feedback is limited by the tight Q, prior.
+
+The only exception is ANTILLES-mean, whose biases
+increase due to a biased Q prior. We note that the
+ANTILLES-mean scenario deviates from the best-fitting
+Q1-Y>p relation more than the average, hence we consider
+it to be a stress test for our ¥,-based prior method.
+
+We conclude that the Y;,-based Q, prior methodology
+is robust to model misspecification even for the most con-
+straining case of a 6 x 2pt analysis.
+
+VI. COSMOLOGY RESULTS
+A. Blinding strategy
+
+Our blinding strategy follows that of [X24] We first:
+validate our COCOA pipeline by separately reproducing
+the DES Y3 MAGLI 3 x 2pt result [9} [62] [106] and the
+Planck PR4 CMB lensing result [72] (see Appendix[A] for
+more details).
+
+Real data are only analyzed after successful code com-
+parison, running all simulated likelihood analyses, and
+after finalizing all analysis choices.
+
+Chains of real data are analyzed after passing the
+R—1 < 0.02 criterion, where R is the Gelman-Rubin
+diagnostic. Analyses on real data are also blinded at
+the posterior level; i.e., our analysis routine only displays
+posteriors without axis values during blinded analyses.
+
+Our blinding strategy has three unblinding criteria:
+
+1. We conduct consistency tests among different data
+vector partitions and analysis choices by requir-
+ing the 2D marginalized Qm-Ss bias lower than
+30. The internal consistency analysis routine is de-
+signed to test the consistency without disclosing
+any cosmological parameter values.
+
+2. For the goodness-of-fit, we compute the reduced
+x7/v of the best-fitting point (v is the d.o.f.).
+We require the probability-to-exceed > 0.01 given
+
+2
+x°/v.
+
+3. We visually check that the maxima of the nui-
+sance parameter posteriors are not located near
+0.6
+
+0.5
+
+0.1
+
+0.0
+
+0.6
+
+0.5
+
+0.1
+
+0.0
+
+12
+
+ms Eagle
+Ml lilustris
+
+Ma Antilles mean
+Eg Antilles weak
+me tiles steng| (ee
+_
+
+Antilles strong
+Gravity-only
+
+1 systematics
+
+Bary. NL P
+
+™™ Eagle
+Ml (llustris
+E— Antilles mean
+Ga Antilles weak
+=
+_ |
+
+Antilles strong
+Gravity-only
+
+Bary. NL PSF Bary.+PSF Bary.+NL PSF+NL All
+
+FIG. 7. Top: 2D bias in Qm-Ss for mock analyses with wide Q, prior and different systematics in the fiducial data vector.
+
+From left
+
+to right, we show analyses that include one, two, and three systematics out of baryonic feedback (Bary.), nonlinear
+
+matter power spectrum model mismatch (NL), and PSF contamination in €4(%) (PSF). Six baryonic feedback scenarios are
+considered: gravity-only (black), Eagle (yellow), Illustris (purple), ANTILLES-strong (red), ANTILLES-mean (green), and
+ANTILLES-weak (blue). We also show the error budget limit for one, two, and three systematics with grey dotted-dashed
+lines. Bottom: Similar to top panel but showing 1D Q, bias for mock analyses with different systematics in the fiducial data
+
+vector.
+
+the boundaries of the parameter space in an un- B. Weak lensing, galaxy clustering, CMB lensing
+expected way. This test is blind to the actual pa-
+rameter values.
+
+The MCMC chains on real DES Y3 x Planck PR4
+CMB lensing have passed our unblinding criteria, and we
+Probes Qi prior Ss On os
+6x 2pt Y, 0.8073 + 0.0094 0.292 +0.018 0.820 + 0.025
+wide 0.805 +0.012 0.293 +0.018 0.816 + 0.028
+Y 0.800+0.012 0.302+0.024  0.799*8-07°
+3 x 2pt . 0.027
+wide 0.793+0.016 0.310727 0.782 + 0.043
+eB Be Y 0.822+ 0.029 0.308783" Og1ste ees
+wide 0.822 + 0.032 —_0.30778-038 0.81679 035
+Vy. +-0.020 5 +0.037 e
+cosriitesttree Yo 0.787 014 0.2555 054 0.863 + 0.073
+wide 0.786400 0.256038 (0.860 + 0.076
+6x2pt Y, 0.8134 + 0.0079 0.3057 + 0.0054 0.8058 + 0.0069
++P1:; P-ACT wide _ 0.8143 + 0.0086 0.3061 + 0.0055 0.8063 + 0.0069
+6x2pt Ys 0.8086 + 0.0091 0.3000 + 0.0064 0.809 + 0.012
++P2: DESI DR2 BAO+BBN wide 0.806 + 0.012 0.3001 + 0.0069 0.806 + 0.016
+6x2pt + Pl + P2 Yo 0.8079 + 0.0073 0.2995 + 0.0034 0.8087 + 0.0064
+wide _0.8088 + 0.0074 0.2996 + 0.0033 0.8093 + 0.0067
+
+13
+
+TABLE III. Summary of the cosmology results for our 6x2pt analysis with different Q: priors, different data vector partition,
+
+and in combination with external probes P-ACT an
+Qm, and og.
+
+0.6 T
+Hg Antilles mean 3 sys.
+EE Antilles weak 0:5 2e |
+0.5); Ell Antilles strong 2
+N
+2 sys.
+0.44 20
+i)
+Wn
+& 1 sys. ©
+GS °3\0:30607 5
+a
+= a g
+0.2 ii Ss
+™
+a
+o S
+oO
+0.1} 3
+° 3
+SN ao
+Be: | Ea |
+0.0
+Bary. Bary.+PSFBary.+NL All
+
+FIG. 8. Similar to Fig.[7]but showing 2D Qm-Ss bias for moc!
+analyses including @1 prior from mean baryon mass fraction
+observation.
+
+show the corresponding results in Fig. i) and Table
+Different data vector partitions are consistent with each
+other, and therefore, we are allowed to combine them into
+6 x 2pt probes.
+
+We show the posteriors on Q, Sg, and Q; from differ-
+ent data vector partitions in our baseline analysis with
+the wide Q, prior in Fig. [9] When including the €4(0)
+data down to 2.'5 and mitigating baryonic feedback with
+PCA, we derive constraints on Sg = 0.793 + 0.016 from
+
+DESI DR2 BAO+BBN. We show the 1D marginalized constraints on Ss,
+
+3 x 2pt and Sg = 0.805 + 0.012 from 6 x 2pt. We note
+that the Sg value and error bar are consistent with [3],
+where the authors discard small-scale (9) by adopting
+the standard DES Y3 scale cut. However, we note that
+[3] utilizes a new CMB lensing convergence map recon-
+structed from Planck and SPT jointly [131] and includes
+small-scale wg, (0) and ws, (0). We conclude that includ-
+ing small-scale (0) is beneficial
+
+Another information from Fig. [9]is that the constraint
+on Q; from 6 x 2pt alone (the filled blue contour) is con-
+sistent with the prediction from based on the Q,-
+Y, relation (the gray shaded region). Therefore, we are
+allowed to combine the 6 x 2pt likelihood with the Qi
+prior from [57]. This leads to a significant improvement
+on Sg = 0.8073 + 0.0094, as shown in Fig. ig] (the purple
+filled contour).
+
+We also consider the impact of an alternative Yj, con-
+straint motivated by the eROSITA survey [39], which
+finds a lower gas mass fraction fgas than [57]. We note
+
+s calibrated from ANTILLES Y, mea-
+surement that includes consistent intracluster light and
+brightest cluster galaxy mass modeling as [57], which
+is not available for the GAMA group sample in [39).
+Therefore, a rigorous comparison is beyond the scope
+of this work, and we only estimate the impact of the
+ower fgas found in [39] assuming a stellar mass frac-
+‘ion from [57J. We evaluate feas (the mean gas fraction
+within [10'3, 10!4] Mo halo mass) of random realizations
+of the fas — My relation, which are drawn following equa-
+‘ion (4) for [57], or their equation (4) for [39]. We report
+feas to be 0.0510 + 0.0084 for and 0.0427 0035
+for [39], i.e., around 0.90 discrepancy (see Fig. [3). This
+A Frese translates to a change in baryon mass fraction
+Alog [fo/(Qb/Qm)| * —0.048, which is within our er-
+ror budget in equation (5). Including this A fzas leads to
+Sg = 0.8099 + 0.0096.
+
+14
+
+— €:,[2.'5, 250]
+3x 2pt
+c3 X 2pt
+6 x 2pt
+
+6 x 2pt
+(w/ prior from Akino et al. 2022)
+
+Akino et al. (2022)
+
+Qm
+
+FIG. 9. (Color online, real analysis) The results of our baseline 6x2pt analysis with Qi informed by the Y;, observation in [57]
+(dotted-dashed-filled, purple) compared to results without Q prior: cosmic shear (solid-unfilled, red), 3 x 2pt (dashed-filled,
+golden), c3 x 2pt (solid-unfilled, green), and 6 x 2pt (dotted-dashed-filled, blue). We show the posterior probability in the Qu,
+Sg, and Q, and find the subsets of the data vector in good agreement. We show the prediction of Q; from baryon mass fraction
+
+observed in as the gray band.
+
+C. Including primary CMB and geometric probes
+
+Similar to [X24] we also consider two sets of external
+cosmological priors:
+
+1. Pl: Planck PR3+ACT DR6 Primary CMB TT-
+TEEE Power Spectra [i.e. the P-ACT likelihood in
+{15]. We are particularly interested in assessing the
+ension between our 6 x 2pt result and the primary
+CMB result. We note that the P-ACT likelihood
+1as a derived Sg = 0.830 + 0.014.
+
+2. P2: DESI DR2 BAO and Big Bang Nucleosynthe-
+sis (BBN) [132]. We are interested in this prior
+as it is geometrical and provides complementary
+constraints on the expansion history of the Uni-
+verse. We use the full sample BAO, including the
+Bright Galaxy Sample, three Luminous Red Galax-
+ies samples, two Emission Line Galaxies samples,
+he QSO sample, and the Lya forest sample. The
+
+BBN prior is from [133] [134] and tightly constrain
+Qyh? = 0.02218 + 0.00055. Combining the DESI
+DR2 BAO and BBN leads to Q, = 0.2977 £0.0086
+and Ho = 68.51 + 0.58. Supernovae Ia (SNe Ia) re-
+sults show 1.7 — 2.90 inconsistency in Qm with the
+DESI DR2 BAO+BBN in ACDM, and we do no
+include them in P2.
+
+We compare the two external priors with our baseline
+result (6 x 2pt with Yj, prior) in the left panel of Fig.
+as well as the joint DES Y3 and Planck/SPT 6 x 2p
+analysis [4]. [4] is different from our analysis in [A mod-
+eling, baryonic feedback mitigation, data vector scale cut,
+CMB lensing convergence map, covariance modeling, etc.
+Fig. [10|shows that we obtain lower ,, and higher Sg, but
+overall, the consistency is good within 0.68¢2p in Qm-Ss-
+
+We find good consistency between our baseline resul
+and both Pl and P2 external priors. In particular, the
+1D Sx marginalized results from our baseline analysis and
+P-ACT are consistent at 1.350. We evaluate the tension
+
+15
+
+6 x 2pt Mm 6 x 2pt
+Abbott et al. (2023) === 6X 2pt+P1
+
+= Pa cMer we Oeentr he
+Beach MM 6 x 2pt+P1+P2
+
+Louis et al. (2025)
+
+P2: DESI BAO+BBN
+DESI Collab. (2025)
+
+0.86 0.86
+0.83 0.83
+[) ioe)
+a) i)
+0.80 0.80
+0.77 i 0.77
+Aw
+0.30 0.35 0.30 0.35 “0. 80 0.85
+On Om Ss
+
+FIG. 10. (Color online, real analysis) Left panel: Posterior on Qm-Ss from our 6 x 2pt analysis with Y,-based Q: prior {purple
+dotted-dashed-filled contour), the public DES Y3 x Planck/SPT 6 x 2pt analysis [gray dotted-dashed-filled contour, [4], joint
+Planck PR3-ACT DR6 CMB TTEEEE power spectrum (P-ACT, orange solid-unfilled contour), and DESI DR2 oe anere
+(green solid-unfilled contour). Right panel: Posterior on Qm-Sg for 6 x 2pt analysis with external prior P1 (orange dashed-
+unfilled contour), P2 (green dashed-unfilled contour), and P1+P2(deep purple dashed-filled contour).
+
+Pact
+ON gE wh
+a aS a6
+3 x 2pt (Qiwide) - 0.1 3.0 ‘s .
+3 x 2pt (Qiwide)-0.5 0.6 Y3-cut Qiwide - 2 TATT- 0.10 0.10
+6 x 2pt (Q:wide)-0.2 0.4 0.1 25 0.4
+E=(8) (Qr-¥o)-02 0.0 0.3 0.6 Y3-cut Q; = 0-(UeNay) (0.01 EE2 NLA oat 0.04
+3 x 2pt (Qi-¥p)-0-5 0.1 0.3 08 0.4 2.0 os
+-Yp)-0-1 0.5 0.1 0.1 0.2 0.7 —
+aa | — 2 1s 2/5 Q,wide TATT- 0.11 0.04 0.07. HF TAT: 2
+6x 2pt (Qy-¥p)-0-1 0.6 0.1 0.2 0.4 0.3 0.5
+0.2
+DESI DR2 BAO+BBN - 0.2 0.5 0.4 0.3 0.4 0.1 0.4 0.5 10
+P-ACT - 0) 0.0 0. 10 0.3 0.2 Y3-cut Q,=0 TATT - 0.21 0.10
+6 x 2pt+P1 (Q1-%p)- 0-0 0.3 08 0.6 .4 0. 05 0.1
+6 x 2pt+P2 (Qi-¥,)-0.6 0.6 0.4 ¢ 0.7 0.4 0. susbtract 5E°S*. >t 038 0.01
+6 x 2pt+P1+P2 (Qr-Yo) 8 05 Ho o1 o6 Og 0.1 07 0.1 0. B 9.0 7 1 i . 0.0
+j Cre) Ray
+2 2 2) eS 49) eS GS a woe oe 2 is «
+wogtes ava SOs sad ae ae ot xe oe wee a x
+BD) ey ae pee kee a oF Qs x
+Wake 5 es x ar ae
+
+FIG. 11. Left panel: tension among cosmological parameters between our 6 x 2pt analysis (and its different partitions)
+and external probes, including CMB TTTEEE power spectra from Planck PR3 and ACT DR6 (P-ACT, P1) and DESI DR2
+all-sample BAO + BBN (P2), and 6 x 2pt in combination with Pl and P2. The heatmap color and the values annotated
+are the tension metric nz with the parameter difference method. Right panel: the tension metric n, among different
+6 x 2pt analysis choices. We explain the detailed analysis choices of each row/column in Sec.|VI D} The lower-left block of the
+matrix uses HALOFIT as the nonlinear matter power spectrum model. The upper-right block further includes a flat prior on
+cosmological parameters that corresponds to the EUCLIDEMU2 training dataset range for fair comparison between HALOFIT
+and EuCLIDEMU2.
+
+6 x 2pt
+Abbott et al. (2023)
+
+lm 2.’5, Qiwide NLA
+— Y3 cut, Q;wide NLA
+— Y3 cut, 0 PC NLA
+
+0.86
+
+0.30
+Qm
+
+0.35
+
+FIG. 12. Impact study of different baryonic feedback model-
+ing choices. Posteriors shown in this figure are: the baseline
+analysis in [4] (the gray filled contour) which adopts TATT
+and mitigate baryonic impact through scale cut; 6 x 2pt in-
+cluding cosmic shear down to 2.'5, with a wide Qi prior (the
+blue filled contour); 6 x 2pt with DES Y3 ACDM-optimized
+scale cut and include wide Q, prior (the purple unfilled con-
+tour), 6 x 2pt with DES Y3 ACDM-optimized scale cut and
+without baryonic feedback PC marginalization (the brown un-
+filled contour). The three 6 x 2pt posteriors from this work
+adopt NLA as the IA model.
+
+etween the baseline result and external priors using a
+arameter difference-based tension metric [6] [135}{139),
+which is also used in We show the tension in Fig.
+eft panel and conclude that our baseline 6 x 2pt analysis,
+P1, and P2 are mutually consistent, and we are allowed
+o combine them.
+We show the Qy-Ss posterior of 6 x 2pt+Y, in
+combination with Pl, P2, and P1+P2, on the right
+anel of Fig. and show the 1D marginalized re-
+sults in Table The most constraining combination
+6x 2pt-+Y¥,+P1+P2 constrains Sg = 0.8079+0.0073 with
+0.9 percent precision, and 2, constraint is improved sig-
+nificantly (1.1 percent) compared to 6 x 2pt results (6.2
+ercent). The constraining power on Sg saturates with
+he inclusion of P1 and P2, and adding Yj, prior does not
+further improve.
+
+D. Agreement/tensions and robustness tests
+
+We assess the robustness of our results by running the
+analysis with alternative analysis choices. We list the
+considered alternative choices below, sorted by the cor-
+responding systematics:
+
+16
+
+6 x 2pt HF NLA
+
+6 x 2pt HF TATT
+6 x 2pt EE2 NLA
+6 x 2pt EE2 TATT
+
+0.10
+
+0.05
+
+Qi
+
+0.00
+
+FIG. 13. Impact study of different IA models (NLA
+and TATT) and nonlinear matter power spectra models
+(Hatorit/HF and EvcLIDEMULATOR2/EE2). Note that all
+the chains in this figure are marginalized over Q; with a wide
+prior, and include a flat prior on cosmological parameters
+where the EUCLIDEMULATOR2 is trained. We annotate the
+1D marginalized Sg values in the figure legend. The differ-
+ence in Q is negligible, therefore it is omitted in this figure.
+
+e Baryonic feedback: other than including cosmic
+shear down to 2./5 and sampling the first PC, we
+also consider the DES Y3 ACDM-optimized £4(#)
+scale cut, with (Y3-cut Q wide in the right panel
+of Fig. 11) or without (¥3-cut Q = 0) marginal-
+izing Q1.
+
+e Intrinsic alignment: other than the baseline NLA
+model, we also consider the TATT model [118]
+as adopted in [106]. Particularly, we consider
+TATT with cosmic shear down to 2.’5 with wide
+Qi: prior (2.'5 Qiwide TATT) and TATT with the
+DES Y3 scale cut and no baryonic feedback miti-
+gation (¥Y3-cut Q, =0 TATT).
+
+e PSF contamination: we subtract the best-fitting
+
+PSF contamination GEPSE: PE ag) from the mea-
+sured data vector as the alternative data vector
+
+(subtract déyohP).
+
+e Nonlinear matter power spectrum: other than the
+baseline HALorir [87] [140] [147], we also consider
+EUCLIDEMULATOR2 as our nonlinear P(k)
+model. Note that EUCLIDEMULATOR2 is valid
+within a specific parameter space, which is nar-
+rower than our 6 x 2pt posterior along dimensions
+of A, and n,. Therefore, we impose a flat prior to
+both HALOFIT (HF NLA and HF TATT) and Emu-
+CLIDEMULATOR2 (EE2 NLA and EE2 TATT) chains
+when comparing between the two models.
+
+We show the tension metric nz in the right panel of
+Fig. We note that different analysis choices are con-
+sistent with each other within 0.4¢, illustrating the ro-
+bustness of our analysis.
+
+We focus on the impact of baryonic feedbac
+Comparing among 6 x 2pt analyses down to 2.'5 with wide
+Q1 prior (filled blue), with the DES Y3 ACDM scale cut
+and wide Q, prior (unfilled purple), and DES Y3 scale
+cut with Q, fixed to 0 (unfilled brown), our analyses
+are consistent among different baryonic feedback mitiga-
+tion methods. This validates the DES Y3 ACDM scale
+cut as it is immune to baryonic feedback, and extending
+the analysis down to smaller scales in cosmic shear does
+not improve the cosmology constraints further, unless an
+informative prior on the baryonic feedback strength is
+included from other observations like ff, or fgas, X-ray,
+tSZ, kSZ, fast radio burst dispersion measure, etc [36}
+8) 2 OS 5) OT OI.
+
+Another message from Fig. [T2jis that, although we do
+not find strong tension in Sg between our 6 x 2pt analysis
+and the primary CMB, baryonic feedback alone does not
+impact the Sg result significantly, and is unlikely to be
+a solution to Sg tension. This is similar to part of the
+conclusions of [143] [144], where the authors find bary-
+onic feedback is not sufficient to resolve the Sg tension.
+Fig. shows the impact of different IA and nonlinear
+matter power spectra modeling on S-Q (we omit Qm
+due to negligible impact). Compared to NLA, TATT
+produces lower Sg and requires weaker feedback, and
+HALOFIT produces lower Sg than EUCLIDEMULATOR2.
+The impact of nonlinear P(k) on Q; is more subtle, with
+EUCLIDEMULATOR2 requiring slightly stronger feedback.
+The mild differences among different choices (0.26-0.510)
+indicate that IA and nonlinear P(k) are equally impor-
+tant as baryonic feedback in terms of Sg constraint. This
+is consistent with [16] [21] [145], where the authors find
+that intrinsic alignment, nonlinear matter power spec-
+trum model, and nonlinear galaxy bias can impact the
+Sg result to a level that is not negligible for Sg tension
+studies.
+
+Another factor that could bias our result is the depen-
+dency of baryonic feedback on cosmology. Intuitively, in
+a universe where halos are less concentrated, the bind-
+ing energy is lower, and baryonic feedback can expel
+gas more efficiently. With a higher mean baryon mass
+fraction 9),/Q:,, supermassive black holes receive more
+gas to fuel AGN feedback. This has been found in
+many studies [49] [76] [78] L46}148]. [55) studies the bias
+on cosmological parameter inference due to cosmology-
+dependent baryonic feedback strength using the MAG-
+NETICUM multi-cosmology Box3/HR simulation suite,
+and finds that although the feedback strength correlates
+strongly with Q,/OQm at fixed sub-grid recipe, the PCA-
+based baryonic feedback mitigation method can recover
+the fiducial Qy-Sg within 0.30 under almost all cosmolo-
+
+17
+
+gies. Other methods like HMCopDE20 could have 0.5¢
+bias under some cosmologies.
+
+VII. BARYONIC FEEDBACK RESULTS
+A. Results from this work
+
+We discuss the constraints on baryonic feedback
+strength Q) (Fig. and the resulting suppression in
+matter power spectrum (Fig. in this section. All the
+3 x 2pt and 6 x 2pt analyses presented in this section (in-
+cluding when combined with CMB or/and BAO priors)
+include cosmic shear data points down to 2.’5 and adopt
+the wide Q, prior in order to constrain baryonic feedback
+strength independent from X-ray-based observation [57].
+We show the 1D marginalized Q, constrains in Fig.
+where we find Q; = oro 32% for the 3 x 2pt analysis
+and Q; = 0.025*0'}3 for the 6 x 2pt analysis. Includ-
+ing information from external cosmological probes yields
+slightly stronger feedback: Q, = 0.043 +0.016 (6 x 2pt +
+P-ACT), Qi = 0.028 + 0.023 (6 x 2pt + DESI DR2 BAO
++ BBN), and Q; = 0.038 + 0.016 (6 x 2pt + P-ACT +
+DESI DR2 BAO + BBN). Although we obtain stronger
+feedback when combined with external probes, the re-
+sulting P(k) suppression remains weaker than that of,
+for example, COWLS AGN T8.5, and analyses combining
+with different external probes show excellent consistency
+in Q; and Sx.
+We also show the Q, of selected hydrodynamical sim-
+ulations in Fig Compared to our previous DES Y1
+x Planck PR3 6 x 2pt analysis [X24] which prefers mild
+feedback scenarios like BAHAMAS T8.0 and cOWLS-
+AGN T8.0, our analyses in this work prefer even weaker
+feedback scenarios like BAHAMAS 1T7.6, BAHAMAS
+T7.8, or TNG100. Our Q, results are consistent with
+the prediction from [57], denoted as the vertical gray
+band in Fig. Strong feedback scenarios like Illus-
+tris (Qi = 0.095) and cCOWLS AGN T8.7 (Q; = 0.137)
+are excluded at 2.90-3.60 and 4.50-6.20 levels, respec-
+tively. Our tightest constraint, 6 x 2pt + P1 + P2, when
+translated to the nonlinear matter power spectrum sup-
+pression due to baryonic feedback at z = 0, indicates
+~ 5 percent suppression around k = 1h/Mpc and ~ 10
+percent suppression around k = 5h/Mpc, as shown in
+For comparison, £4(2.'5) is this work is sen-
+sitive to k © 0.04-0.06h/Mpce and £°() is sensitive to
+k & 4-8h/Mpc. The small-scale constraint is extrapo-
+lated from larger scales via the first PC.
+
+B. Comparison to other literature
+We compare our P(k) suppression results to other anal-
+yses in literature
+
+e Aricd et al. [16] includes all data points in DES
+Y3 cosmic shear down to 2.'5 and analyzes with
+—— Akino et al. (2022)
+—— TNG100
+
+— = Illustris
+
+—— BAHAMAS (T7.8)
+—— BAHAMAS (77.6)
+—— BAHAMAS (T8.0)
+—— OWLS_AGN (T8.0)
+—— QWLS_AGN (T8.5)
+
+|
+i
+|
+|
+l
+l
+|
+i}
+i
+|
+| == OWLS_AGN (78.7)
+
+: sont \i 6X 2pt+PL+P2: Q1=0.038 + 0.016
+
+6 x 2pt:,Q1=0.025" 5.020 Ng x 2pt-+P2: Qj=0.028 + 0.023
+
+f3 x Apt: Gs =0.0159 83/6 x 2pt+P1: Q1=0.043 + 0.016
+0.00 0.05 0.10 0.15 0.20
+
+Qi
+
+FIG. 14. (Color online, real analysis) Posterior on Qi from
+our 3 x 2pt (golden), 6 x 2pt (blue), 6 x 2pt+P1 (orange), 6 x
+2pt+P2 (light green), and 6 x 2pt+P1+P2 (purple) analysis
+with wide Q: prior. We also show the prediction from in
+the vertical gray band. Q1 of many hydrosims are shown in
+vertical dotted-dashed lines.
+
+1.00 F="ersrerere
+S 0.95
+tl
+N
+~ 0.90 .
+g 6 x 2pt (This work)
+oe 0.85, —— 6% 2pt+P1+P2 (This work)
+g —-— TNG100 r
+° —-— Ilustris
+I 0.80F _._ owis_aGn (18.0)
+Xx —— OWLS_AGN (T8.5)
+2 0.75} —-— OWLS_AGN (T8.7)
+Fa —-— BAHAMAS (T7.8)
+
+0.70} ~~ BAHAMAS (17.6)
+
+—:— BAHAMAS (T8.0)
+107? 10°
+
+k [Mpc/h]
+
+FIG. 15. (Color online, real analysis) Posterior on nonlinear
+matter power spectrum suppression at z = 0 from our 6 x 2pt
+(blue) and 6 x 2pt+P1+P2 (purple) analysis with wide Qi
+prior. We also show the suppression measured from various
+hydrosims in dotted-dashed lines. Note that the prediction
+purely based on Yj, observed in is very close to the purple
+shaded region, and is omitted in this figure for clear visual-
+ization.
+
+BACCOEMu. The authors constrain the halo
+mass scale at which halos lose half of their mass
+logM, = 14.3843-60, which is the only baryonifica-
+tion parameter [16] [50] that DES Y3 cosmic shear
+data is sensitive to.
+
+e Chen et al. only uses small-scale cosmic shear
+data points, which are discarded in the main DES
+Y3 cosmic shear analysis [9}[10]. The authors adopt
+
+18
+
+BACCOeEmut and constrain logM, = 14.12*9°S?
+with an Qy-og prior from DES Y3 3 x 2pt and
+other cosmological parameters fixed to Planck 2018
+TTTEEE+lowE analysis [14].
+
+e Terasawa et al. [26] extends the standard HSC
+Y3 cosmic shear scale cut [12] down to 0.’28 and
+adopt HMCobeE20 [35] to model the baryonic feed-
+back. The baryonic feedback strength is controlled
+by the temperature of AGN feedback Oagn =
+logio(Taan/K), with a flat prior of flat[7.3, 8.3].
+
+e Wright et al. [19] presents the KiDS Legacy Survey
+analysis with HMCOoDE20 as the baryonic feedback
+modeling code, and sample Oacn with flat prior
+
+flat[7.3, 8.3].
+
+e Anbajagane et al. uses the cosmic shear 2PCFs
+measured from the Dark Energy Camera All Data
+Everywhere (DECADE) project and DES Y3 to
+constrain both cosmology and baryonic feedback.
+The authors model baryonic feedback with BARY-
+ONForGE [149], which adopts a halo-model formal-
+ism similar to that of [35] [44]. BARYONFoRGE in-
+cludes a variety of dark matter and baryon density
+profiles, including profiles from BCemu [32] [51],
+BACCO [49], and HMx [35]. We consider the con-
+straints from BARYONFORGE with BCEMu profile
+presented in [54].
+
+e Dalal e¢ al. [43] applies the Dark Matter + Baryon
+(DMB) model developed in [29] to the tSZ Y-M
+relation measured from a tSZ-selected galaxy clus-
+ters. The tSZ y signal is measured from ACT DR5,
+and the hydrostatic mass is measured through weak
+
+lensing from DES Y3. The authors then fix cosmol-
+
+ogy to Planck [14] and sample DMB parameters,
+rom which the matter power spectrum suppression
+can be calculated.
+
+e Pandey et al. conducts joint analysis of DES
+Y3 cosmic shear 2PCF and cross-correlation be-
+ween cosmic shear and tSZ y map from ACT DR6
+and Planck [150]. The authors apply the frame-
+work developed in [30] and constrain cosmological
+and astrophysical parameters that control baryonic
+eedback.
+
+e Bigwood et al. [38] jointly anal
+DES Y3 cosmic shear 2PCF an
+profile measured from BOSS
+
+DR5 [151]. The authors utilize t
+
+back.
+
+ze the full-scale
+the stacked kSZ
+CMASS x ACT
+he BCEMU model
+
+to constrain both cosmology and baryonic feed-
+
+e Kovaé et al. [42] jointly analyze the stacked
+
+kSZ profile from BOSS CMASS x ACT
+and halo X-ray gas fractions from eROSITA and
+re-eROSITA datasets [32) [39] using the new
+component-wise baryonification [152]. The au-
+hors fix cosmology to the fiducial one used in the
+
+19
+
+oS 1.005
+
+Zz
+
+oO
+io
+u
+
+0.90
+
+0.85f \_ ke ey
+0.80 (23 Aricd+(2023) \* 4
+ol Chen+(2023)\44
+0.75— K— Terasawat+(2025)—
+E) Wright+(2025)
+
+Anbajagane+(2025):
+
+0)/Pgravity(k,
+
+0.70F
+
+Phydro(k, Z
+
+[Z) Dalal+(2025)
+—] Pandey+(2025)
+
+| Bigwood+(2024)
+[CX] Kovaé+(2025)
+
+102 10° 10-2
+
+k [Mpc/h]
+
+k [Mpc/h]
+
+10-7 10°
+k [Mpc/h]
+
+10°
+
+FIG. 16. Comparison between the P(k) suppression at z = 0 from different literature (see Sec. [VIIB). We show our 6 x 2pt
+and 6 x 2pt + P1 + P2 results as the light blue and purple solid lines, with the shaded regions showing the lo error budget.
+Results from the literature are shown as hatched regions, and the boundaries correspond to the 16th and 84th percentiles.
+
+FLAMINGO simulations and sample the baryoni-
+fication parameters.
+
+Compilation of the power spectrum suppression from
+the literature above and the result of our analysis are
+shown in Fig. We sort the literature results so that
+P(k) suppression from weak lensing-based analyses (left
+panel), tSZ-based analyses (middle panel), and kSZ/X-
+ray-based analyses (right panel) are shown separately.
+We note that our constraints are generally well aligned
+with the weak lensing-based results, although with mild
+differences from [25] [54]. Analyses based on tSZ/kSZ/X-
+ray generally prefer stronger feedback at k > 1h/Mpc.
+We note that strong baryonic feedback is also found in
+[36] [40} {153}.
+
+[154] proposes a potential avenue to resolve this dif-
+ference by examining the impact of baryonic feedback
+rom a halo assembly perspective: while weak lensing,
+SZ, kSZ, and X-ray observations are sensitive to differ-
+ent scales and redshift, the efficiency of baryonic feedback
+is also a function of halo mass, radial scale, and redshift.
+Massive halos (which weak lensing, tSZ, and X-ray are
+sensitive to) are impacted by baryonic feedback early,
+ut are affected less, and re-accrete the ejected matter at
+ower redshifts due to their deep gravity potential. Cos-
+mological probes sensitive to massive halos at different
+redshifts may capture different feedback strengths dur-
+ing halo assembly. Feedback in less massive halos (which
+kSZ is sensitive to) starts at lower redshifts, but can ef-
+ficiently move gas outside of halos and maintain strong
+eedback suppression. However, this simple explanation
+has difficulty in explaining the strong feedback found in
+[44], which is sensitive to massive halos, and the con-
+
+sistency between the DES Y3 shear-only result and the
+shear+kSZ result in [38]. Also, the halo mass and redshift
+range of kSZ measurements overlap with the HSC-XXL
+X-ray sample considerably, but the kSZ prefers much
+stronger feedback than the HSC-XXL sample[45] [144].
+Therefore, it is possible that there are unknown system-
+atics in some of these measurements that produce the
+differences in feedback strength measured by different
+probes. More powerful data (e.g. DES Y6, LSST Y1, and
+Simons Observatory) are required to draw a solid conclu-
+sion on P(k) suppression measured by different probes.
+
+examines popular analytical models for baryonic
+feedback [31] [35] [51] [53] and finds that, although those
+models can fit the matter-matter, matter-pressure, and
+electron density-electron density power spectra with high
+accuracy, their prediction on halo properties (e.g., bound
+gas fraction, electron pressure, temperature, and den-
+sity profiles) varies considerably. This indicates that the
+current baryonic feedback models need further refine-
+ment to model weak lensing and astrophysical probes
+consistently. Another recent analysis [54] investigates
+the best-fitting feedback-induced P(k) suppression with
+the DECADE weak lensing data. The authors consider
+BCEmu, BACCOEMu, HMx, and BARYONFORGE, and
+find that astrophysical and cosmological (e.g. 0/Qm)
+priors explicitly or implicitly assumed in the analysis can
+impact the P(k) suppression by a couple of percents, in-
+dicating a nontrivial projection effect in P(k) suppression
+analysis.
+
+VIII. CONCLUSIONS
+
+In this paper, we constrain cosmology and baryonic
+physics scenarios with a combination of weak lensing,
+galaxy clustering, CMB lensing, and cross-correlations
+using DES Year 3 and Planck PR4 datasets. Compared
+to previous work 4)) we have significantly upgraded
+our catalog-to-cosmology pipeline, specifically in three
+different areas:
+
+1. We improved our baryonic physics modeling by em-
+ploying 400 ANTILLES hydrodynamical simula-
+tions.
+
+2. We derive a scaling relation between the bary-
+onic feedback amplitude parameter Q; and the
+mean baryon mass fraction in halos of Mso00 €
+(1013, 10'4] Mo. This allows us to incorporate ex-
+ternal information on baryonic physics into our
+analysis.
+
+3. We train a neural network emulator to run hun-
+dreds of simulated analyses exploring the science
+return as a function of analysis choices.
+
+The latter is of particular importance for future science
+analyses in this area. Our emulator generates 6 x 2pt
+model vectors given input cosmological and nuisance pa-
+rameters accurately over a large parameter space. This
+accelerates our 6 x 2pt analysis runtime CPU hours by
+more than a factor of 10°, allowing us to quickly explore
+different analysis choices and conduct impact studies for
+various systematics and their permutations. This ability
+not only reduces the carbon footprint of our analysis but
+also ensures the robustness of the pipeline and analysis
+choices before applying it to real data.
+
+We studied the impact of three systematics specifically:
+baryonic feedback, PSF contamination, and nonlinear
+matter power spectrum model mismatch. We conclude
+hat, at the precision of the DES Y3 x Planck PR4 CMB
+ensing 6 x 2pt analysis, all systematics are controlled
+within the previously defined error budget. However, our
+analysis suggests that a more accurate and robust sys-
+tematics mitigation method is essential for future DES
+Y6 6 x 2pt analyses, in particular when pushing €+(#)
+below 2.'5.
+
+After an extensive suite of synthetic analyses, we ob-
+ained competitive results on Sg from our 6 x 2pt analy-
+sis, Sg = 0.8073 + 0.0094 when including the information
+from [57]. Our result is consistent with [3].
+
+Our 6 x 2pt is consistent with both the primary CMB
+TTTEEE spectra from Planck PR3 and ACT DR6 (P-
+ACT, external prior P1) and the DESI DR2 BAO and
+BBN (external prior P2). Combined our 6 x 2pt analysis
+
+20
+
+with Pl and P2 tightly constrain Sg = 0.8079 + 0.0073
+and OQ, = 0.2995 + 0.0034.
+
+We quantify small-scale matter power suppression due
+to baryonic feedback via the amplitude of the first prin-
+cipal component @, in our analysis. We find a prefer-
+ence for weak feedback scenarios (Qi = 0.025%9'999 for
+6x 2pt and Q; = 0.038+0.016 for 6x 2pt+P1+P2), which
+is in strong disagreement with the feedback scenarios of
+OWLS AGN T8.7 or Illustris simulations. When com-
+bined with Pl and P2, we find ~ 5 percent suppression
+around k © 1h/Mpc and ~ 10 percent suppression at
+k = 5h/Mpc.
+
+This result is consistent with other weak lensing-based
+constraints on the small-scale power suppression, but
+generally weaker than results from tSZ/kSZ/X-ray-based
+analyses.
+
+Several possible extensions of this work are worth men-
+tioning. On the data side, the near-future DES Year
+6 and slightly later LSST Year 1 data are fascinating
+prospects. On the CMB side, the ACT DR6 dataset ex-
+ists already, and near-future data from the Simons Obser-
+vatory poses an exciting opportunity. On the methodol-
+ogy side, the rapidly evolving COCOA pipeline has fully
+adopted the machine-learning-accelerated inference con-
+cept, which will be even more important as the model
+space expands beyond ACDM and into more complex
+systematics parameterizations.
+
+ACKNOWLEDGMENTS
+
+JX would like to thank Chun-Hao To, Anna Porre-
+don, and Shivam Pandey for sharing DES Y3 multi-probe
+chains with alternative analysis choices for COCOA
+code validation. JX thanks Daayha Anbajagane, Gio-
+vanni Aricd, Leah Bigwood, Nihar Dalal, Michael Kovaé,
+Shivam Pandey, Ryo Terasawa, and Angus Wright for
+sharing their matter power spectrum suppression due to
+baryonic feedback. This work is supported by the De-
+partment of Energy Cosmic Frontier program, grant DE-
+$C0025993 and by the “Maximizing Cosmological Sci-
+ence with the Roman High Latitude Imaging Survey”
+Roman Project Infrastructure Team (NASA grant 22-
+ROMAN11-0011). This work was supported by the Sci-
+ence and Technology Facilities Council (grant number
+ST/Y002733/1). This project has received funding from
+the European Research Council (ERC) under the Euro-
+pean Union’s Horizon 2020 research and innovation pro-
+gramme (grant agreement No 769130). Simulations in
+this paper use High Performance Computing (HPC) re-
+sources supported by the University of Arizona TRIF,
+UITS, and RDI and maintained by the UA Research
+Technologies department.
+
+21
+
+Mm CoCoA CMBL
+Planck PR4 CMBL
+
+ME CoCoA 3x2pt
+
+—— DES Y3KP 3x2pt
+
+0.6 0.8 1.0
+
+FIG. 17. Here we re-analyze the DES Y3 3 x 2pt of the MAGLIM sample using COCOA (green filled contour) and compare the
+Qm-Sg posterior to the DES Y3 standard results (purple unfilled contour). Both chains assume NLA and do not include shear
+ratio. We also re-analyze the Planck PR4 CMB lensing band-power using COCOA (orange filled contour) and compare to the
+public Planck PR4 result (blue unfilled contour).
+
+Appendix A: Code Comparison
+
+In Fig. [17] we reproduce the DES Y3 MAGLIM sample 3 x 2pt result excluding the shear ratio, which is not included
+in CoCOA pipeline. We also validate the pipeline by reproducing the result of Planck PR4 CMB lensing [72].
+
+{1] E. J. Baxter, Y. Omori, C.
+
+D. Kirk, E. Krause, J. B
+T. M. Crawford, et al., Dar
+sults:
+of galaxy clustering, galaxy
+two-point functions,
+
+arXiv:1802.05257 [astro- p
+
+J. “Annis, 8. Avila, K. Aylor,
+
+Baxter, et al., Dark Energy Survey year 1 results:
+analysis of f galaxy clustering,
+
+Phys. Rev. D 99, 023508 (2019)
+
+Chang, T. Giannantonio,
+lazek, L. Bleem, A. Choi,
+k Energy Survey Year 1 re-
+
+Methodology and projections for joint analysis
+
+lensing, and CMB lensing
+
+alla, A. Alarcon, S. Allam,
+M. Banerji, N. Banik, E. J.
+Joint
+galaxy lensing, and Cc wuts
+
+¢ ang, Y. “Omori, ds
+8. Pandey, A. Alarcon, O. A
+Oliveira, et al., Joint analy:
+Year 3 data and CMB lens:
+
+ck . IIL. Cross-correlation
+
+Barter 3. Doux, A. Choi,
+ves, A. Amon, F. Andrade-
+sis of Dark Enerey Survey
+ing from SPT and Plan
+measurements and cosmo-
+
+logical constraints, |Phys. Rev. D 107, 023530 (2023
+
+arXiv:2203.12440 [astro-ph.CO
+{4] T. M. C. Abbott, M. Aguena, A. Alarcon, O. Alves,
+A. Amon, F. Andrade-Oliveira, J. Annis, B. Ansarine-
+jad, S. Avila, D. Bacon, et al., Joint analysis of Dark En-
+ergy Survey Year 3 data and CMB lensing from SPT and
+Planck. III. Combined cosmological constraints, 3.
+Rev. D 107, 023531 (2023)| jarXiv:2206.10824 [astro-
+
+[5] J. Xu, T. Eifler, V. Miranda, X. Fang, E. Saraivanov,
+E. Krause, H.-J. Huang, K. Benabed, and K. Zhong,
+Constraining Baryonic Physics with DES Y1 and Planck
+data Combining Galaxy Clustering, Weak Lens-
+(2023).
+
+6] A. Reeves, A. Nicola, A. Refregier, T. Kacprzak,
+
+and L. F. Machado Poletti Valle, 12 x 2pt combined
+
+probes: pipeline, neutrino mass, and data compression,
+
+arXiv:2309.03258 [astro-ph.CO]] (2023).
+
+. Reeves, A. Nicola, an . Refregier, Tuning the cos-
+
+mic tos eae robust cosmology through combined
+
+probes, J. Cosmol. cre Phys. 2025, 042 (2025
+arXiv: 502. 01722
+
+8] A. Reeves, = A. Niele, and A. Refregier,
+Multiprobe Ona on early and late time dark
+energy, jarXiv_ e-prints 14 (2025
+
+arXiv:2510.06
+O
+
+arXiv:2510.06114 [astro-ph.
+9] A. Amon, D. Gruen, M. A. Troxel, N. MacCrann, S. Do-
+delson, A. Choi, C. Doux, L. F. Secco, S. Samuroff,
+E. Krause, et al., Dark Energy Survey Year 3 re-
+sults: Cosmology from cosmic shear and robustness
+to data calibrat or
+as 2 . Krause, B. Jain, J. Blazek,
+M. Raveri, A. Comps A. Amon, ‘A. Chen, C. Doux,
+and DES Collaboration, Dark Energy Survey Year 3
+results: Cosmology from cosmic shear and robustness to
+
+modeling uncertainty,|Phys. Rev. D 105, 023515 (2022)
+arXiv:2105.13544 [astro-ph.CO
+
+11] R. Dalal, X. Li, A. Nicola, J. Zuntz, M. A. Strauss,
+S. Sugiyama, T. Zhang, M. M. Rau, R. Mandelbaum,
+M. Takada, et al., Hyper Suprime-Cam Year 3 Re-
+sults: Cosmology from Cosmic Shear Power Spectra,
+arXiv:2304.00701 [astro-ph.CO]] (2028).
+
+12 ang, ugiyama, R. Dalal, M. M. Rau,
+
+R. Mande baum, M. Takada, S. More, M. A. Strauss,
+
+H. Miyatake, et al., Hyper Suprime-Cam Year 3 Results:
+
+Cosmology from Cosmic Shear Two-point Correlation
+
+Functions, farXiv:2304.00702 astro-ph.CO] (2023).
+
+13] H. Miyatake, S. Sugiyama, M. Takada, T. Nishimichi,
+X. Li, M. Shirasaki, S. More, Y. Kobayashi, A. J.
+Nishizawa, M. M. Rau, et al., Hyper Suprime-Cam
+Year 3 Results: Cosmology from Galaxy Clustering and
+Weak Lensing with HSC and SDSS using the Emula-
+tor Based Halo Model, farXiv:2304.00704 [astro-ph.CO]]
+(2023).
+
+[14] Planck Collaboration, N. Aghanim, Y. Akrami, M. Ash-
+down, J. Aumont, C. Baccigalupi, M. Ballardini, A. J.
+Banday, R. B. Barreiro, N. Bartolo, et al., Planck 2018
+results. VI. Cosmological sparemeters:
+
+5 “Tone . La Posta, Z. AB ins, H. T.
+Cabeeas, G.E. ‘Addison, P. A. R. Ade, . Aiola, T. Al-
+ford, D. Alonso, et al., The Atacama C osmology Tele-
+
+DR6 Power Spectra, Likelihoods and ACDM
+
+arXiv:2503.14452 [astro-ph.CO
+
+[16] G. Aricd, R. E. Angulo, M. Zennaro, S. Contreras,
+
+A. Chen, and C. Herndndez- Monteagudo, DES Y3 cos-
+
+mic shear down to small scales: Constraints on cosmol-
+
+ogy and baryons, Astron. Astrophys. 678, A109 (2023)
+ar Xiv:2303.05537 |[astro-ph.CO
+
+[17] Dark Energy Survey and Kilo-Degree Survey Collab-
+oration, T. M. C. Abbott, M. Aguena, A. Alarcon,
+O. Alves, A. Amon, F. Andrade-Oliveira, M. As-
+gari, S. Avila, D. Bacon, et al., DES Y3 + KiDS-
+
+1000: Consistent cosmology combining cosmic shear
+
+surveys, The Open Journal of Astrophysics 6, 36 (2023
+
+. Garcfa-Garcia, M. Zennaro, G. Aricd, D. Alonso, and
+R. E. Angulo, Cosmic shear with small scales: DES-Y3,
+<iDS-1000 and HSC-DR1,
+2024, 024 (2024), arXiv:2403.13794 [astro-ph.CO
+
+19] A. H. Wright, B. Stélzner, M. Asgari, M. Bilicki,
+B. Giblin, C. Heymans, H. Hildebrandt, H. Hoekstra,
+B. Joachimi, K. Kuijken, et al., KiDS-Legacy:
+Bical constraints from cosmic shear with the complete
+(2025). REE 2503. arn [astro-ph.CO}
+0 tolzner, A. H. Wright, M. Asgari, C. Heymans,
+HI. Hildebrandt, Hi. Hoekstra, B. Joachimi, K. Kui-
+jken, S.-S. Li, C. Mahony, et al., KiDS-Legacy:
+tency of cosmic shear measurements and joint cosmo-
+
+arXiv e-prints
+
+scope:
+
+[18]
+
+Cosmo-
+
+Consis-
+
+ogical constraints with external probes,
+
+, arXiv:2503.19442 (2025), arXiv:2503.19442 [astro-
+
+21) J. McCullough, A. Amon, E. Legnani, D. Gruen,
+A. Roodman, O. Friedrich, N. MacCrann, M. R. Becker,
+J. Myles, S. Dodelson, et al., Dark Energy Survey Year
+
+3: Blue Shear, farXiv:2410.22272 astro-ph.CO]] (2024).
+
+22
+
+[22] A. M. C. Le Brun, I. G. McCarthy, J. Schaye, and T. J.
+Ponman, Towards a realistic population of simulated
+galaxy groups and clusters .{Mon. Not. R. Astron. Soc.|
+441, 1270 (2014), arXiv:1312.5462 [astro- ph.CO]|
+
+23| S. Genel, M. Vogelsberger, V. Springel, D. Sijacki,
+
+D. Nelson, G. Snyder, V. Rodriguez-Gomez, P. Tor-
+
+rey, and L. Hernquist, Introducing the Ilustris project
+
+the evolution of galaxy
+time, Mon. Not. R. A as
+
+M. Vox: sberger, S. Genel, V. Springel, P. Torrey, D. Si-
+
+jacki, D. Xu, G. Snyder, D. Nelson, and L. Hernquist,
+
+Introducing the Ilustris Project: simulating the coevo-
+
+lution of dark and visible matter in the Universe,
+
+Not. R. Astron. Soc. 444, 1518 (2014), arXiv: 1405.2
+Aricd, D. Huterer, R. E. Angulo,
+
+N. N. Weaverdyek, O. Friedrich, L. F. Secco, C. Herndndez-
+Monteagudo, A. Alarcon, O. Alves, and DES Collab-
+oration, Constraining the baryonic feedback with cos-
+mic shear using the DES Year-3 small-scale measure-
+ments, Mon. Not. R. Astron. Soc. 518, 5340 (2023)
+arXiv:2206.08591 [astro-ph.CO
+R. Terasawa, . Li, M. Takada, T. Nishimichi,
+S. Tanaka, S. Sugiyama, T. Kurita, T. Zhang, M. Shi-
+rasaki, R. Takahashi, et al., Exploring the baryonic ef-
+fect signature in the Hyper Suprime-Cam Year 3 cosmic
+shear two-point correlations on small scales: The $8 ten-
+sion remains present,
+arXiv:2403.20323 [astro-ph.CO
+27] J. Salcido and I. G. McCarthy, Implications of feedback
+solutions to the 5
+galaxy Seo and clusters Mon. Not. R. Astron. Soc.
+28] C. Garcia-Garcia, M. TennatG, . Aricé, D. Alonso, and
+R. E. Angulo, Cosmic shear with small scales: DES-Y3,
+
+KiDS-1000 and HSC-DR1,|J. Cosmol. Astropart. Phys.|
+
+2024, 024 (2024)| arXiv:2403.13794 [astro-ph CO}
+29| C.-H. To, S. Pandey, E. Krause, N. Dalal, D. Anbaja-
+gane, and D. H. Weinberg, Deciphering baryonic feed-
+back with galaxy clusters, |J. Cosmol. stropart. Phys.
+
+2024, 037 (2024)| arXiv: 2402. 00110
+
+30| S. Pandey, J. Salcido, 2 16; J
+
+populations across cosmic
+
+Soc. 445, 175 (2014
+
+[24]
+
+[26]
+
+3g tension for the baryon fractions of
+
+bejagane, E. J. Baxter, and 1. G. ‘McD Aceus
+
+rate connected modeling of gas thermodynamics and
+
+matter distribution, |Phys. Rev. D 111, 043529 (2025
+
+31] G. Aricd and R. E. Angulo, Baryonification extended
+to thermal Sunyaev Zel’dovich,/Astron. Astrophys. 690,
+A188 (2024) arXiv:2406. 01672 {astro-ph.CO]
+
+32] S. K. Schneider, Emulation o
+effects on the matter power spectrum and constraints
+from galaxy cluster data, osmol. Astropart. Phys.
+2021, 046 (2021)) arXiv:2108.08863 [astro-ph.CO]
+
+le . Fang, rause, ifler, erraro, enabed,
+S. Pranjal R., E. Aygoberry, Y. Dubois, and V. Mi-
+randa, Cosmology from weak lensing, galaxy clustering,
+CMB lensing and tSZ: I. 10x2pt Modelling Methodol-
+
+S
+
+ogy, arXiv:2308.01856 [astro-ph.CO] (2023).
+
+34] T. Eifler, X. Fang, E. Krause, C. M. Hirata, J. Xu,
+K. Benabed, S. Ferraro, V. Miranda, S. Pranjal R..,
+E. Aycoberry, and Y. Dubois, Cosmology from weak
+clustering, CMB lensing and tSZ:
+II. Optimizing Roman survey design for CMB cross-
+
+iri and A. baryonic
+
+lensing, galaxy
+iS &
+correlation science, larXiv e-prints , arXiv:2411.04088)
+(2024) 04088 [astro-ph.CO
+Brieden, T. Troster, and C. Hey-
+mans, HM¢ ‘ODE-2020: improved modelling of non-
+inear cosmological power spectra with baryonic feed-
+
+}. Heymans, Z. Yan, D. Alonso,
+M. Aswadh | M. ‘ Bilicki, A. Dvornik, H. Hildebrandt,
+B. Joachimi, et al., Joint constraints on cosmology and
+the impact of baryon feedback: Combining KiDS-1000
+ensing with the thermal Sunyaey-Zeldovich effect from
+Planck and ACT, |Astron. Astrophys. 660, A27 (2022)
+
+23
+
+[45] J. Siegel, A. Amon, I. G. McCarthy, L. Bigwood, M. Ya-
+mamoto, E. Bulbul, J. E. Greene, J. McCullough,
+M. Schaller, and J. Schaye, Joint X-ray, kinetic Sunyaev-
+Zeldovich, and weak lensing measurements:
+consensus ee of efficient gas expulsion from groups
+
+elson, A. R. Zentner, A. P.
+Hearin, and N. Y. Gnedin, Accounting for baryonic ef-
+fects in cosmic shear tomography: determining a mini-
+mal set of nuisance parameters using PCA,/Mon. Not. R.|
+Astron. Soc. 454, 2451 (2015), arXiv:1405.7423 [astro-
+
+toward a
+
+[46]
+
+arXiv:2109.04458 [astro-ph.
+[37] T. Ferreira, D. Alonso, C. Garcia-Garcia, and N. E.
+Chisari, X-Ray-Cosmic-Shear Cross-Correlations: First
+Detection and Constraints on Baryonic Effects, [Phys.|
+
+Rev. Lett. 133, 051001 (2024), arXiv:2309.11129 [astro-
+| _ph.CO]]
+
+L. Bigwood, A. Amon, A. Schneider, J. Salcido,
+. G. McCarthy, C. Preston, D. Sanchez, D. Sijacki,
+EH. Schaan, S. Ferraro, et al., Weak lensing combined
+with the kinetic Sunyaev-Zel’dovich effect: a study of
+Mon. Not. R. Astron. Soc. 534, 655
+
+baryonic feedback,
+
+39] P. Popesso, Biviano, I. Marini, K. Dolag,
+S. Vladutescu-Zopp, B. Csizi, V. Biffi, G. Lamer,
+A. Robothan, M. Bravo, et al., The hot gas mass frac-
+tion in halos. From Milky Way-like groups to mas-
+
+arXiv e-prints , arXiv:2411.16555 (2024)
+5
+
+B. Hadzhiyska, S. Ferraro, B. Ried Guachalla,
+E. Schaan, J. Aguilar, S$. Ahlen, N. Battaglia, J. R.
+Bond, D. Brooks, E. Calabrese, et al., Evidence for
+arge baryonic feedback at low and intermediate red-
+shifts from kinematic Sunyaev-Zel’dovich observations
+with ACT and DESI photometric galaxies, [Phys. Rev.
+D 112, 083509 (2025)| arXiv:2407.07152 Tastros ph.CO]
+
+41} B. Hadzhiys . Ferraro, G. Farren, N. Sailer,
+and R. Zhou, Mi ssing baryons recgverel a mea-
+surement of the
+with the kinematic Sunyaev-Zel’dovich effect and CMB
+ensing, Cieiat e-prints arXiv:2507.14136 (2025
+arXiv: 2507 14136 [astro-ph.CO]
+M. Lone A. Nicola, J. Bucko, A. Schneider, R. Reis-
+chke, S. K. Giri, R. Teyssier, M. Schaller, and J. Schaye,
+Baryonification II: Constraining feedback with X-ray
+
+sive clusters,
+
+[40]
+
+s fraction in galaxies and groups
+
+[42]
+
+47] H. a6 Huang, T. Eifler, R. Mandelbaum, and 8. Dodel-
+son, Modelling baryonic physics in future weak lensing
+
+jarXiv:1809.01146 [astro-ph.CO]
+H.-J. Huang, T. Eifler, R. Mandelbaum, G. M. Bern-
+stein, A. Chen, A. Choi, J. Garcia-Bellido, D. Huterer,
+E. Krause, E. Rozo, and DES Collaboration, Dark
+energy survey year 1 results: Constraining baryonic
+physics in the Univ , Mon. Not. R. Astron. Soc. 502,
+49 Arico, R. E. Le
+M. Pellejero-Ibaiiez, anil M. Zennaro, She BACC CO sim-
+ulation project:
+
+[48]
+
+a baryonification emulator with neural
+
+Schneider and R. Teyssier, /
+
+: new method to quan-
+tify the effects of |
+
+yaryons on the matter power spec-
+
+.06034 [astro-ph.CO
+(51) A. Schneider, R. Teyssier, J. Stadel, N. E. Chisari,
+A. M. C. Le Brun, A. Amara, and A. Refregier, Quan-
+tifying baryon effects on the matter power spectrum
+
+and the weak lensing shear correlation, |J. Cosmol.
+patron, Phys. 2019, 020 (2019), arXiv:1810.08629
+ead, J. A. Peacock, C. Heymans, S. Joudaki, and
+
+A F. Heavens, An accurate halo model for fitting non-
+linear giggle a power spectra and baryonic feedback
+
+, Mon. Not. R. Astron. Soc. 454, 1958 (2015
+eel 1505. 07833 lastro- Pp. 6)
+
+. Heymans, L. Van Waerbeke,
+avid L G. McCarthy, A hydrodynamical halo model for
+
+weak-lensing cross correlations,|Astron. Astrophys. 641,
+130 (2020), arXiv:2005.00009 [astro-ph.CO
+
+and kinematic Sunyaev-Zel’dovich observations, |arXiv|
+i iv:2507. arXiv:2507.07991
+
+H. To, C. Hirata, T. Hyeon-Shin, M. Hilton,
+8. ‘Pandey, and J. R. Bond, Deciphering Baryonic Feed-
+
+|| D. Anbajagane, C. Chang, A. Drlica-Wagner, C. Y. Tan,
+M. Adamow, R. A. Gruendl, L. F. Secco, Z. Zhang,
+M. R. Becker, P. S. Ferguson, et al., The Dark En-
+ergy Camera All Data Everywhere cosmic shear project
+V: Constraints on cosmology and astrophysics from 270
+million galaxies across 13,000 deg? of the sky, |arXiv!
+
+ack from ACT tSZ Galaxy Clusters, jarXiv e-prints
+iv:2507. 5)\ \arXiv:2507.04476  [astro-
+
+3. Pandey, J. C. Hill, A. Alarcon, O. Alves, A. Amon,
+D. Anbajagane, F. Andrade-Oliveira, N. Battaglia,
+E. Baxter, K. Bechtol, et al., Constraints on cosmol-
+ogy and baryonic feedback with joint analysis of Dark
+Energy Survey Year 3 lensing data and ACT DR6
+thermal Sunyaev-Zel’dovich effect observations,
+
+Eran ; ae (2025)| |arXiv:2509.03582
+R. , FE Krause, K. Dolag, K. Benabed, T. Ei-
+fas E. Aycoberry, and Y. Dubois, Impact of cosmol-
+ogy sop stonce of baryonic feedback in weak lens-
+
+ing, Cosmol. rons Phys. 2025, 041 (2025
+atti PA10. 21980. astro- ph.CO
+| wan, A. Upadhye, and
+
+‘A. S. Font, SP(k) -a hydrodynamical simulation-based
+model for the impact of baryon physics on the non-linear
+
+matter power spectrum,|Mon. Not. R. Astron. Soc. a
+
+57
+
+75 (2022
+
+58
+
+[60]
+
+2022
+
+64)
+
+[65]
+
+2023
+
+66
+
+2207 (2023), arXiv:2305. ieee [astro-ph.CO}
+
+D. Akino, D. Eckert, N. . Umetsu,
+M. pee F. Cacia I. N. Chiu, S. Ettori, A. E.
+Evrard, et al., HSC-XXL: Baryon budget of the 136
+
+5. Boruah, T. Eifler, V. Miranda, and P. M. S. Kris-
+hanth, Accelerating cosmological inference with
+sian processes and neural networks - an application to
+
+LSST Y1 wi eak lensing and galaxy clustering,
+5 a arXiv: 2203. 06124
+
+S. 8. Toruah, T. Eifler, V. Miranda, E. Farah, J. Motka,
+E. Krause, X. Fang, P. Rogozenski, and The LSST
+Dark Energy Science Collaboration, Machine Learn-
+ing LSST 3x2pt forecasting the impact
+of systematics on cosmological constraints using neu-
+iarXiv:2403.11797 [astro-ph.CO]
+
+K. Zhong, E. Saraivanov, J. Caputi, V. Miranda, S. S.
+Boruah, T. Eifler, and E. Krause, Attention-based Neu-
+ral Network Emulators for Multi-Probe Data Vectors
+
+Gaus-
+
+analyses
+
+art I: Forecasting the Growth-Geometry split,
+e-prints , arXiv:2402.17716 2024), jarXiv:2402.17716
+
+BE. ETE K. Zhong, V. Miranda, S. S. Boruah,
+T. Eifler, and E. Krause, Attention-Based Neural
+Network Emulators for Multi-Probe Data Vectors
+
+Part II: Assessing Tension Metrics,
+arXiv:2403.12337  [astro-
+
+67
+
+68
+
+69
+
+841, 24 2017
+
+24
+
+OE; /eBOSS, Mon. Not. R. Asin Soc. 513,
+
+arXiv:2012.12826 [astro-ph.
+
+baum, vio, ibration: Di-
+Measurement,
+
+5517
+
+E. a
+rect Self- Calibration of Biases in Shear
+arXiv:1702.02600 [astro-ph.CO]] (2017).
+
+eldon an uff, Practical Weak-lensing
+Shear Measurement with Metacalibration,{Astrophys. J.|
+
+arXiv:1702.02601 [astro-ph.CO]
+
+M. Gatti, E. Sheldon, A. Amon, M. Becker, M. Troxel,
+A. Choi, C. Doux, N. MacCrann, A. Navarro-Alsina,
+I. Harrison, et al., Dark energy survey year 3 results:
+weak lensing shape catalogue,
+504, 4312 (2021), arXiv:2011.03408 [astro-ph.CO]
+
+70
+
+352, 338 (2004)
+
+72
+
+73.
+
+2022, 039 (2022
+
+M. Jarvis, G. Bernstein, and B. Jain, The skewness of
+the aperture mass statistic,/Mon. Not. R. Astron. Soc.
+arXiv: astro- ph/0307393 [astro-ph]
+
+Zuntz, Mf. A. Troxel,
+
+M. Jarvis, N. ‘MacCrann, D. Gruen, J. Prat, Cc. Sanchez,
+A. Choi, and DES Collaboration, Dark Energy Sur-
+vey Year 1 results: weak lensing shape cata-
+logues , Mon. Not. R. Astron. Soc. 481, 1149 (2018)
+
+Planck Collaboration, N. A
+down, J. Aumont, C. Baccigalupi, M. Ballardini, A. J.
+Banday, R. B. Barreiro, N. Bartolo, et al., Planck 2018
+
+results. VIII. Gravitational lensing,
+641, A8 (2020), arXiv:1807.06210 [astro-ph.CO
+
+A. Porredon, M. Crocce, P. Fosalba, J. Elvin-Poole,
+A. Carnero Rosell, R. Cawthon, T. F. Eifler, X. Fang,
+. Ferrero, E. Krause, et al., Dark Energy Survey Year
+3 results: Optimizing the lens sample in a combined
+galaxy clustering and galaxy-galaxy lensing analysis,
+
+Phys. Rev. D 103, 043503 (2021), arXiv:2011.03411 i
+. Porredon, M. Crocce, J. Elvin-Poole, R. Cawthon,
+G. Giannini, J. De Vicente, A. Carnero Rosell, I. Fer-
+rero, E. Krause, X. Fang, et al., Dark Energy Sur-
+vey Year 3 results: Cosmological constraints from
+galaxy clustering and galaxy- galaxy lensing using the
+TAGLIM lens perp
+1. Ro Heuer N onroy, N. Weaverdyck, J. Elvin-Poole,
+M. Crocce, A. Carnero Rosell, F. Andrade-Oliveira,
+S. Avila, K. Bechtol, G. M. Bernstein, J. Blazek, et al.,
+Dark Energy Survey Year 3 results:
+ing and systematics treatment for lens galaxy sam-
+»s, Mon. iN R. Astron. Soc. 511, 2665 2022)
+,N. MacC coon . Everett, J. Prat, E. S.
+
+Ryko J.De Vicente, B. Yanny, K. Herner, A. Ferté,
+. Di Valentino, et al., Dark Energy Survey Year 3 re-
+atte magnification modelling and impact on cosmo-
+ogical constraints from galaxy clustering and galaxy-
+galaxy lensing, |Mon. Not. R. Astron. Soc. 523, 3649
+
+arXiv:2209.09782 [astro-ph.CO
+
+R. Cawthon, J. Elvin-Poole, A. Porredon, M. Crocce,
+
+galaxy cluster-
+
+G. Giannini, M. Gatti, A. J. Ross, E. S. Rykoff,
+A. Carnero Rosell, J. DeRose, et al., Dark Energy
+
+Survey Year 3 results:
+redshift distributions using clustering redshifts with
+
+calibration of lens sample
+
+74
+
+77
+
+526, 5306 (2023
+
+79
+
+A5 (2018 } arXiv:1810.03849 [astro-ph.CO
+
+G. S. Farren, A. Krolewski, N. MacCrann, S. Fer-
+raro, I. Abril-Cabezas, R. An, Z. Atkins, N. Battaglia,
+J. R. Bond, E. Calabrese, et al., The Atacama Cos-
+mology Telescope: Cosmology from cross-correlations
+of unWISE galaxies and ACT DR6 CMB lensing,
+arXiv:2309.05659 [astro-ph.CO]] (2023).
+
+E. Semboloni, H. Hoekstra, J. Schaye, M. P. van Daalen,
+and I. G. McCarthy, Quantifying the effect of baryon
+
+physics on weak lensing tomography, Mon. Not. R. As-|
+tron. ope 417, 2020 (2011), jarXiv:1105.1075 [astro-|
+“re ATP san Daalen, I. G. McCarthy, and J. Schaye,
+
+a einen the effects of galaxy formation on matter
+lust re. ous a library of simulation power spec-
+
+. 491, 2424 (2020
+
+O
+. Pandey, K. Lehman, E. J. Baxter, Y. Ni, D. Anglés-
+Alcézar, S. Genel, F. Villaescusa-Navarro, A. M. Del-
+gado, and T. di Matteo, Inferring the impact of feedback
+on the matter distribution using the Sunyaev Zel’dovich
+effect: insights from CAMELS simulations and ACT +
+
+DES data, Mon. Not. R. Astron. Soc. 525, 1779 (2023)
+arXiv:2301.02186 [astro-p O
+
+Anglés-Alcazar, L. Thiele, S. Pandey,
+K. Lehman, R. S. Somerville, M. Ntampaka, S. Genel,
+F. Villaescusa-Navarro, and L. Hernquist, Predicting
+the impact of feedback on matter clustering with ma-
+
+chine learning in CAMELS,
+arXiv:2301.02231 [astro-ph.GA
+
+Adami, P. Giles, E. Koulouridis, F. Pacaud, C.
+Caretta, M. Pierre, D. Eckert, M. E. Ramos- Ceja,
+F. Gastaldello, S. Fotopoulou, et al., The XXL Survey.
+
+XX. The 365 cluster catalogue,|Astron. Astrophys. 620,
+
+25
+
+[80] K. Umetsu, M. Sereno, M. Lieu, H. Miyatake, verse: Precision Predictions for Dark Energy Surveys,
+E. Medezinski, A. J. Nishizawa, P. Giles, F. Gastaldello, Astrophys. J. 820, 108 (2016) arXiv:1508.02654 [astro-
+I. G. McCarthy, M. Kilbinger, et al., Weak-lensing Anal- — —ph.CO],
+ysis of X-Ray-selected XXL Galaxy Groups and Clus- 9. . Lawrence, K. Heitmann, J. Kwan, A. Upadhye,
+
+ters with Subaru HSC Data, |Astrophys. J. 890, 148
+2020), arXiv:1909.10524 {astro-ph.CO
+
+81] G. Hinshaw, D. Larson, E. Komatsu, D. N. Spergel, ter Power Spectriin. Emu
+
+D. Bingham, S$. Habib, D. Higdon, A. Pope, H. Finkel,
+and N. Frontiere, The Mira-Titan Universe. II. Mat-
+
+ation, Astrophys. J. 847, 50
+
+C. L. Bennett, J. Dunkley, M. R. Nolta, M. Halpern, 2017
+R. S. Hill, N. Odegard, et al., Nine-year Wilkinson 94| Euclid Co! Snorer: M. Knabenhans, J. Stadel,
+
+Microwave Anisotropy Probe (WMAP) Observations: D. Potter, J. Dakin, S. Hannestad, T. Tram, S. Marelli,
+Cosmological Parameter Results, A. Schneider, R. Teyssier, et al., Euclid preparation:
+Ser. 208, 19 (2013), arXiv:1212.5226 [astro-ph.CO IX. EuclidEmulator2 - power spectrum emulation with
+82] M. Sun, G. M. Voit, M. Donahue, C. Jones, W. Forman, massive neutrinos and self-consistent dark energy per-
+and A. Vikhlinin, Chandra Studies of the X-Ray Gas turbations,/Mon. Not. R. Astron. Soc. 505, 2840 (2021)
+
+Properties of Galaxy Groups,
+
+(2009 [95] M. L. van Loon and M. P. van Daalen, The contribution
+83] G. W. Pratt, J. H. Croston, M. Arnaud, and of massive haloes to the matter power spectrum in the
+H. Bohringer, Galaxy cluster X-ray luminosity scal- presence of AGN feedback, {Mon. Not. R. Astron.
+
+ing relations from a representative local sample 528, 4623 (2024), jarXiv:2309.06479 [astro-ph.CO]
+(REXCESS), |Astron. Astrophys. 498, 361 (2009) 96| M. P. van Daalen, I. Koutalios, J. C. Broxterman,
+
+B. J. H. Wolfs, J. C. Helly, M. Schaller, and J. Schaye,
+
+84] L. Lovisari, T. H. Reiprich, and G. Schellenberger, The resummation model in FLAMINGO: precisely pre-
+Scaling properties of a complete X-ray selected galaxy dicting matter power suppression from observed halo
+
+group sample, |Astron.
+
+Astrophys. 573, A118 (2015 baryon fractions, jarXiv e-prints , arXiv:2509.04552
+C 2025), arXiv:2509.04552 [astro-ph.CO
+5. Ettori, E. Rasia, V. Biffi 97| K. Zhong, E.
+
+85] D. Eckert, V. Jaraivanov, V. Miranda, J. Xu, T. Eifler,
+E. Pointecouteau, M. Rossetti, S. Molendi, F. Vazza, and E. Krause, Growth and geometry aoe in light of
+F. Gastaldello, e¢ al., Non-thermal pressure support in é
+X-COP galaxy clusters, |Astron. Astrophys. 621, A40)
+
+Z 50)
+[ (2019 | arXiv:1805.00034 [astro-ph.CO 98] C.-H. To, E. Rozo, E. Kraiite) H.-Y. Wu, R. H.
+86] A. S. G. Robotham, P. Norberg, S. P. Driver, I. K. Wechsler, and A. N. Salcedo, LINNA: Likelihood In-
+
+Baldry, S. P. Bamford, A. M. Hopkins, J. Liske, J. Love- ference Neural Network Accelerator,
+day, A. Merson, J. A. Peacock, et al., Galaxy and Mass tropart. Phys. 2023, 016 (2023)
+Assembly (GAMA): the GAMA galaxy group catalogue —_fastro-ph.CO},
+(G°Cv1), Mon. Not. R. Astron. Soc. 416, 2640 (2011) 99| J. Adamo, H.-J. Huang, and T. Eifler, Neural network
+
+arXiv:1106.1994 [astro-ph.CO} based emulation of galaxy power spectrum covariances:
+
+87] R. E. Smith, J. A. Peacock, A. Jenkins, S. D. M. White, A reanalysis of BOSS DR12 data, Phys. Rev. D 110,)
+C. S. Frenk, F. R. Pearce, P. A. Thomas, G. Efstathiou, 123517 (2024) far Xiv:2405.00125 [astro-ph.CO
+
+and H. M. P. Couchman, Stable clustering, the halo 00] Y. Zhu, E. Saraivanov, J. A. Kable, A. S. Gian-
+
+model and non-linear cosmological power spectra, |Mon.| nakopoulou, A. Nijjar, V. Miranda, M. Bonici, T. Ei-
+
+Not. R. Astron. Soc. 341, 1311 (2003 fler, and E. Krause, Attention-based Neural Network
+
+___ ph/0207664 [astro-ph]. Emulators for Multi-Probe Data Vectors Part III: Mod-
+
+88 NL Takada and w Hn,
+
+Power eet super. eling The Next Generation Surveys,
+
+. oo 2025
+
+arXiv:2505.22574
+
+[89] I. eC ry, Schaye, S. Bird, and A. M. C. 01} Cocoa - Cobaya-Cosmolike joint Architecture,
+Le Brun, The BAH AMAS project: calibrated hydro- //github. com Genctikeexeeal accessed: 2020- 10-17.
+
+dynamical simulations for large-scale structure cosmol- 02| T. Bifler, E. Krause, P. Schneider, and K. Honscheid,
+
+Combining probes of large-scale structure with COS-
+
+MOLIKE, |Mon. Not. R. Astron. Soc. 440, 1379 (2014)
+
+c
+
+arXiv: 1603: 02702 eeu ph. 0
+
+(90] T. Schaye, J. Harnois- arXiv:1302.2401 |[astro-ph.CO
+Deraps, A. S. Font, and L. van Waerbeke, The BA- 03] E. Krause and T. Ejifler, cosmolike - cosmologi-
+TAMAS project: the CMB-large-scale structure ten- cal likelihood analyses for photometric galaxy sur-
+
+sion and the roles of massive neutrinos and galaxy for-
+mation, Mon. Not. R. Astron. Soc. 476, 2999 (2018)
+arXiv:1712.02411 |astro-ph.
+R. E. Angulo, M. Zennaro, Contreras, G. Arico, analysis of hierarchical physical models,
+M. Pellejero-Ibanez, and J. Stiicker, The BACCO sim-
+ulation project: exploiting the full power of large- -scale
+
+Mon. Not. R. Astron. Soc. 470, 2100 (2017)
+
+04] J. Torrado an . Lewis, Cobaya: code for Bayesian
+
+(91]
+
+structure for cosmology, 05| X. Fang, T. Hifler, E. Schaan, H.-J. Huang, E. Krause,
+larXiv:2004.06245 [astro-ph.CO]) and S. Ferraro, Cosmology from clustering, cosmic
+92| K. Heitmann, D. Bingham, E. Lawrence, S$. Bergner, shear, CMB lensing, and cross correlations: combining
+S. Habib, D. Higdon, A. Pope, R. Biswas, H. Finkel, Rubin observatory and Simons Observatory, Mon. Not.|
+
+N. Frontiere, and 8. Bhattacharya, The Mira-Titan Uni- R. Astron. Soc. 509, 5721 (2022 ] arXiv:2108.00658
+
+{astro-ph.CO]
+
+106] T. M. C. Abbott, M. Aguena, A. Alarcon, S. Allam,
+O. Alves, A. Amon, F. Andrade-Oliveira, J. Annis,
+S. Avila, D. Bacon, and DES Collaboration, Dark En-
+ergy Survey Year 3 results: Cosmological constraints
+from galaxy clustering and we. ls ee
+107] X. Fang, Krause,
+Beyond Limber: effic ient
+
+. “Ei er, and N.
+computation of
+clustering and weak lens-
+
+acCrann,
+angular
+
+power spectra for galaxy
+
+26
+
+a comparison to dark matter simu-
+
+lations, |J. Cosmol. Astropart. Phys. 2023, 005 (2023)
+
+arXiv:2303. 15565 [astro-ph.CO
+Lagrangian theory for
+
+wales shape statistics, J. Cosmol. ea Phys.
+arXiv22300.16761 [astro-ph.CO]
+21 F. Maion, R. E. Angulo, T. Bake, Nv E. 1 T. Ku
+rita, and M. Pellejero-Ibémez, HY MALAIA: a hybrid
+lagrangian model for intrinsic alignments,
+
+Astron. Soc. 531, 2684 (2024) arXiv:2307.13754 [astro-
+50
+
+at one loop order:
+
+20
+
+[108] O. Friedrich, F. ‘Andrade Oliveita, H. Camacho,
+O. Alves, R. Rosenfeld, J. Sanchez, X. Fang, T. F.
+Eifler, E. Krause, C. Chang, and DES Collaboration,
+Dark Energy Survey year 3 results: covariance mod-
+elling and its impact on parameter estimation and qual-
+ity of fit,
+iarXiv:2019.08568 [astro-ph.CO]
+
+(109] N. MacCrann, J. Blazek, B. Jain, and E. Krause, Con-
+trolling and leveraging small-scale information in to-
+mographic galaxy-galaxy lensing, , . R. As :
+
+110] E. Krause, X. Fang, S. Pandey, L. F. Secco, O. Alves,
+
+H. Huang, J. Blazek, J. Prat, J. Zuntz, T. F. Eifler,
+
+et al., Dark Energy Survey Year 3 3 Results: Multi-Probe
+
+fodeling Strategy and Validation, [arXiv:2105.13548|
+
+(2021).
+
+111] S. Pandey, E. Krause, J. DeRose, N. MacCrann, B. Jain,
+
+M. Crocce, J. Blazek, A. Choi, H. Huang, C. To, et al.,
+
+Dark Energy Survey year 3 results:
+
+cosmological parameters and galaxy
+
+galaxy clustering and galaxy-galaxy lensing using the
+
+redMaGiC sample, Phys. Rev. D 106, 043520 (2022)
+
+arXiv:2105.13545 [astro-ph.CO
+
+amachandran, B. Zoph, and
+
+Constraints on
+
+-bias models from
+
+112 Q. V. Le, Searching for
+
+Activation Functions, jarXiv e-prints , arXiv:1710.05941
+
+(2017)| arXiv:1710.05941 [cs.NE]
+D. P. i and J. Ba, /
+
+dam:
+
+113 A Method for Stochas-
+
+114] M. C. Fortuna, H. Hoekstra, B. Joni, H. John-
+ston, N. E. Chisari, C. Georgiou, and C. Mahony, The
+
+1alo model as a versatile tool to predict intrinsic align-
+
+22) N. E. Chisari, A rising tide: Intrinsic alignments
+since the turn of the millennium
+,_arXiv:2510.15738 (2025)\ arXiv:2510.15738 [astro-
+R. C. H. Gomes, S. Sugiyama, B. Jain, M. Jarvis,
+D. Anbajagane, M. Gatti, D. Gebauer, Z. Gong,
+
+A. Halder, G. A. Marques, et al., Cosmology with sec-
+ond and third-order shear statistics for the Dark En-
+
+ergy Survey: Methods and simulated analysis, |arXiv
+e-prints , arXiv:2503.03964 (2025), |arXiv:2503.03964
+
+ong and B. Jain, Tests of Evolving Dark
+with Geometric Probes of the Late-Time
+
+arXiv e-prints , arXiv:2509.26480 (2025
+
+Energy
+Universe,
+
+arXiv: 2509. =r astro-ph.CO
+
+A. Remetenr A.
+
+(125) M. : Amon, C. Davis, P. F.
+Léget, K. 'Bechtol, I. Harrison, M. Gatti, A. Roodman,
+
+C. Chang, et al., Dark Energy Survey year 3 results:
+
+point spread function modelling,|Mon. Not. R. Astron.
+Soc. 501, 1282 (2021), arXiv:2011.03409 [astro-ph.IM]
+126] J. Jefferson, Y. Omori, C. Chang, S. Agarwal, J. Zuntz,
+
+M. Asgari, M. Gatti, B. Giblin, C.-A. Hébert, M. Jarvis,
+et al.,
+
+Reanalysis of Stage-III cosmic shear surveys: A
+
+. Paulin-Henriksson, A. Amara, L. Voigt, A. Refregier,
+and i: J L. baie Point —— function calibration re-
+
+oe: i :
+Bridle, A. fecha R. Armstrong, M. R. Becker, G. M.
+Bernstein, C. Bonnett, et al., The DES Science Ver-
+ification weak lensing shear catalogues,
+
+117] E.
+
+he impact of in-
+
+Krause, T. Eifler, and J. Blazek,
+
+trinsic aqgemes on current and future cosmic shear
+
+118
+03506 (2019
+119] T. Bakx, T
+
+F. Schmidt, Effective field ‘hae ory of ree aria nts
+
+B. “Tne: Improving PSF modelling for weak gravi-
+tational le msing using new methods in model selec-
+
+tion, Mon. Not. R. Astron. Soc. 404, 350 (2010)
+arXiv:0904.3056 [astro-ph.CO
+
+EK. Krause, X. Fang, S. Pandey, L. F. Secco, O. Alves,
+H. Huang, J. Blazek, J. Prat, J. Zuntz, T. F. Eifler,
+et al., Dark Energy Survey Year 3 Results: Multi-
+Probe Modeling Strategy and Validation, arXiv e-prints|
+, arXiv:2105.13548 (2021)) arXiv:2105.13548  [astro-
+
+[130]
+
+131] Y. Omori, E. J. Baxter, C. Chang, O. Friedrich, A. Alar-
+con, O. Alves, A. Amon, F. Andrade-Oliveira, K. Bech-
+tol, M. R. Becker, et al., Joint analysis of Dark En-
+ergy Survey Year 3 data and CMB lensing from SPT
+and Planck. I. Construction of CMB lensing maps and
+
+modeling choices, |Phys. Rev. D 107, 023529 (2023
+
+[132] DESI Collaboration, M. Abdul-Karim, J. Aguilar,
+S. Ahlen, S. Alam, L. Allen, C. Allende Prieto, O. Alves,
+A. Anand, U. Andrade, et al., DESI DR2 Results II:
+Measurements of Baryon Acoustic Oscillations and Cos-
+mological Constraints,
+
+133] A.-K. Burns, T. M. P. Tait, and M. Valli, PRyMor-
+dial: the first three minutes, within and beyond the
+standard model, European Physical Journal C 84, 86
+
+134] N. Schoneberg, The 2024 BBN baryon abundance up-
+date, J. Cosmol. Astropart. Phys. 2024, 006 (2024
+
+27
+
+grangian effective theory of LSS, |Phys. Rev. D 110,
+103518 (2024)| |arXiv:2407.04795 [astro-ph.CO]
+46| A. Schneider, N. Stoira, A. Refregier, A. J. Weiss,
+M. Knabenhans, J. Stadel, and R. Teyssier, Baryonic
+effects for weak lensing. Part I. Power spectrum and co-
+
+47| S. G. Stafford, S. T. Brown, I. G. McCarthy, A. S. Font,
+A. Robertson, and R. Poole-McKenzie, Exploring exten-
+sions to the standard cosmological model and the im-
+
+pact of baryons on small scales,
+Soc. 497, 3809 (2020), arXiv:2004.03872 [astro-ph.CO
+
+arXiv:2401.15054 [astro-ph.CO
+[135] P. Lemos, M. Raveri, A. Campos, Y. Park, C. Chang,
+N. Weaverdyck, D. Huterer, A. R. Liddle, J. Blazek,
+R. Cawthon, and DES Collaboration, Assessing ten-
+sion metrics with dark energy survey and Planck
+data, Mon. Not. R. Astron. Soc. 505, 6179 (2021)
+iarXiv:2012.09554 [astro-ph.CO]
+M. Raveri and C. Doux, Non-Gaussian estimates of ten-
+sions in cosmological parameters, rs. Rev. D 104,
+
+043504 (2021)| arXiv:2105.03324 astro-ph.CO]|
+137) M. Raveri an . Hu, Concordance and discor-
+dance in cosmology,
+
+M. Raveri, G. Zacharegkas, and W. Hu, Quantifying
+concordance of correlated cosmological data sets, /Phys.|
+
+Rev. D 101, 103527 (2020), arXiv:1912.04880 [astro-
+ph.CO
+
+139] T. Dacunha, M. Raveri, M. Park, C. Doux, and
+B. Jain, What does a cosmological experiment re-
+ally measure? Covariant posterior decomposition with
+
+arXiv:2112.05737 [astro-ph.CO
+R. Takahashi, M. $ ishimichi, A. Taruya, and
+M. Oguri, Revising the Halofit Model for the Nonlinear
+
+136
+
+138
+
+140
+
+48| W. Elbers, C. S. Frenk, A. Jenkins, B. Li, J. C.
+Helly, R. Kugel, M. Schaller, J. Schaye, J. Braspenning,
+J. Kwan, et al., The FLAMINGO project: the coupling
+between baryonic feedback and cosmology in light of the
+. Anbajagane, S. Pandey, and C. Chang, Map-level
+
+baryonification: Efficient modelling of higher-order cor-
+
+relations in the weak lensing and thermal Sunyaev-
+
+50. . Coulton, M. S. Madhavacheril, A. J. Duiven-
+voorden, J. C. Hill, I. Abril-Cabezas, P. A. R.
+Ade, S. Aiola, T. Alford, M. Amiri, S. Amodeo,
+et al., Atacama Cosmology Telescope: High-resolution
+component-separated maps across one third of the sky,
+Phys. Rev. D 109, 063530 (2024), jarXiv:2307.01258
+. Schaan, S. Ferraro, S. Amodeo, N. Battaglia,
+S. Aiola, J. E. Austermann, J. A. Beall, R. Bean,
+D. T. Becker, R. J. Bond, et al., Atacama Cos-
+mology Telescope: Combined kinematic and thermal
+Sunyaev-Zel’dovich measurements from BOSS CMASS
+and LOWZ halos, |Phys. Rev. D 103, 063513 (2021)
+
+[149]
+
+141] S. Bird, M. Viel, and M. G. Haehnelt, Massive neutri-
+nos and the non-linear matter power spectrum, |Mon.
+Not. R. Astron. Soc. 420, 2551 (2012
+—~Tastro-ph. CO]
+
+142] K. Sharma, E. Krause, V. Ravi, R. Reischke, L. Con-
+nor, S. Pranjal R., and D. Anbajagane, Probing bary-
+onic feedback and cosmology with 3x2-point statistic
+
+of FRBs and galaxies, |arXiv e-prints , arXiv:2509.05866
+2025), arXiv:2509.05866 [astro-ph.CO
+
+143] I. G. McCarthy, J. Salcido, J. Schaye, J. Kwan, W. El-
+ers, R. Kugel, M. Schaller, J. C. Helly, J. Braspen-
+
+C. S. Frenk, e¢ al., The FLAMINGO project:
+
+revisiting the Ss tension and the role of baryonic
+[144] +. McCarthy, A. Amon. Schaye, E. Schaan, R. E.
+
+Angulo, J. Salcido, M. Schaller, L. Bigwood, W. Elbers,
+R. Kugel, et al., FLAMINGO: combining kinetic SZ ef-
+
+fect and galaxy—galaxy lensing measurements to gauge
+
+the impact of feedback on large-scale structure,
+arXiv:2410.19905
+
+U. Lange, R. H. Wechsler, J. Aguilar,
+S. Ahlen, et al., Analysis of DESIxDES using the La-
+
+arXiv:2009.05557 [astro-ph.
+, M. Kovaé, J. Bucko, A. Nicola, R. Reis-
+chke, S. K. Giri, R. Teyssier, T. Tréster, A. Refregier,
+M. Schaller, and J. Schaye, Baryonification: An al-
+ternative to hydrodynamical simulations for cosmolog-
+
+B. Ri chaan, B. Hadzhiyska, S. Fer-
+
+. Ried Guachalla, E.
+raro, J. N. Aguilar, S. Ahlen, N. Battaglia, D. Bianchi,
+R. Bond, D. Brooks, et al., Backlighting extended
+gas halos around luminous red galaxies: kinematic
+
+Sunyaev-Zel’dovich effect from DESI Y1 x ACT,
+i arXiv:2503.19870
+
+. V. Peiris, A. Pontzen, A. Halder,
+J. Schaye, M. Schaller, J. Helly, R. J. McGibbon,
+and W. Elbers, Cosmological feedback from a halo as-
+
+[153]
+
+[155]
+
+and K. Dolag, 1
+ing astrophysical feedback with multi-probe model-
+ing: I. 3D Power spectra and mass fractions,
+astro-ph. 00]
+
+Testing halo models for constrain-
+

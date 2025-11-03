@@ -1,0 +1,1622 @@
+2510.25465v1 [gr-qc] 29 Oct 2025
+
+arXiv
+
+Gauge Boundary conditions to mitigate CoM drift in BBH simulations
+
+Dongze Sun @,''* Sizheng Ma @,?
+Mark A. Scheel @,! and Saul A. Teukolsky @13
+' Theoretical Astrophysics 350-17, California Institute of Technology, 1200 E California Boulevard, Pasadena, CA 91125, USA
+? Perimeter Institute for Theoretical Physics, Waterloo, ON N2L2Y5, Canada
+° Cornell Center for Astrophysics and Planetary Science, Cornell University, Ithaca, New York 14853, USA
+(Dated: October 30, 2025)
+
+Long-term numerical relativity (NR) simulations of binary black hole (BBH) systems in the Spectral
+Einstein Code (SpEC) code exhibit an unexpected exponential drift of the center-of-mass (CoM)
+away from the simulation’s origin. In our work, we analyze this phenomenon and demonstrate that
+it is not a physical effect but rather a manifestation of a gauge artifact. The origin of this drift is the
+
+reflection of the gauge waves off the outer
+
+oundary of the computational domain. These reflections
+
+are introduced by inaccuracies in the gauge boundary condition, specifically, the application of the
+Sommerfeld condition to the time derivative of the gauge fields. Such an approach fails to completely
+suppress or correctly absorb the outgoing modes, thereby generating artificial feedback into the
+simulation. To mitigate this problem, we introduce a modified boundary condition that incorporates
+an explicit CoM correction source term designed to counteract the CoM motion. Our numerical
+experiments, performed with the SpEC code, reveal that this new boundary treatment reduces the
+CoM drift by several orders of magnitude compared to the standard implementation, and does not
+
+introduce any unwanted physical artifacts.
+
+I. INTRODUCTION
+
+Numerical relativity (NR) provides the most accurate
+solution for the dynamics and gravitational-wave emission
+of binary black holes (BBHs). The first stable BBH evo-
+lutions were obtained by Pretorius [1] in the generalized-
+harmonic formulation, followed soon after by the moving-
+puncture breakthroughs of Campanelli et al. [2] and
+Baker et al. [3]. These NR results play a crucial role in
+understanding the dynamics of these astrophysical phe-
+nomena, and the behavior of gravity in extreme regimes
+
+4-6].
+
+ti major successes, long-duration NR simulations
+remain sensitive to how the artificial outer boundary
+is treated. In generalized-harmonic (GH) evolutions
+with the Spectral Einstein Code (SpEC) [7], an expo-
+nential drift of the BBH system’s coordinate center-of-
+mass (CoM) has been consistently observed [8]. Figure 1
+lustrates this drift, which is a steadily increasing dis-
+placement of the CoM from the coordinate origin over
+ime. It is unclear whether this boundary issue would
+occur for moving-puncture/BSSN codes; unlike SpEC,
+hese codes generally place the boundary very far out so
+hat it is causally disconnected over the simulation time
+9-12].
+To uncover the cause of this spurious CoM behavior,
+Ref. [8] manipulated the outer boundary radius and ob-
+served that the exponential growth rate, denoted by o,
+decreases monotonically with increasing boundary dis-
+ance as ¢ x 1/R!45. This sensitivity to the boundary
+location strongly indicates that the drift is related to a
+coupling between the evolving fields and the computa-
+ional boundary. This effect makes it infeasible to conduct
+
+* dzsun@caltech.edu
+
+long-term NR simulations with small outer boundary radii.
+To prevent the drift from affecting the simulation and
+waveform extraction, the outer boundary is typically set
+at radii on the order of 10° M [13], where M is the to-
+tal mass of the system. Although such large boundaries
+mitigate the drift, they also come with an increase in
+computational expense. Therefore, it is imperative to
+thoroughly investigate and address this issue to enable
+more efficient long-term NR simulations.
+
+In our study, we probe this effect and find that the CoM
+drift is predominantly a gauge effect arising from the re-
+flection of gauge waves off the outer boundary. These
+reflections are caused by the imperfect non-reflective Som-
+merfeld boundary condition applied to the time derivative
+of the gauge variables. Essentially, while the Sommerfeld
+condition is non-reflective for 1 = 0 outgoing radiation
+modes, any nonzero displacement of the CoM will gen-
+erate higher-order outgoing radiation modes that can be
+reflected by the Sommerfeld condition. These reflected
+waves caused by the Sommerfeld condition then propel
+the CoM with exponential acceleration. Since the Som-
+merfeld condition is only imposed on the gauge degrees
+of freedom of the fields, the physical CoM defined from
+global Poincaré charges [14-16] is not affected and does
+not exhibit exponential drift, as we will show in Sec. II.
+
+Motivated by these insights, we propose an improved
+boundary treatment that mitigates the CoM drift. We
+add an additional CoM correction source term to the
+boundary condition. This term is formulated to effectively
+dampen the CoM velocity or realign the CoM with the
+coordinate origin. Numerical tests using our modified
+boundary condition demonstrate a significant reduction
+in the drift amplitude, by several orders of magnitude
+relative to the original setup. Thus, our modification
+not only clarifies the origin of the CoM drift but also
+provides a practical solution for performing long-term
+
+BBH simulations with smaller outer boundary radii and
+reduced computational cost.
+
+In this paper, we use lower-case Latin indices from
+the beginning of the alphabet to denote four-dimensional
+spacetime quantities, whereas lower-case Latin indices
+from the middle of the alphabet are spatial. The co-
+ordinate CoM is defined using the Newtonian formula
+
+MmiLy + Mgr
+
+(1)
+
+my + ™m2
+
+where r; and rg are the coordinates of the center of the
+two black holes, which are defined as the surface-area
+weighted average of the location of the apparent horizons
+The remainder of this paper is organized as follows. In
+Sec. II, we show that the CoM drift is a gauge effect by
+inspecting the physical charges. In Sec. III, we review
+the Sommerfeld gauge boundary condition that is used
+in SpEC, and we discuss why this boundary condition
+leads to the exponential drift of the CoM. In Sec. IV, we
+derive the equation of motion of the CoM under given
+gauge boundary conditions. Following this, we present the
+new boundary conditions that significantly damp the CoM
+drift in Sec. V. And we show that the gauge boundary con-
+ditions do not affect the resulting gauge-fixed waveform
+in Sec. VI. In Sec. VII, we discuss the potential of using
+higher-order boundary conditions, gauge constraint damp-
+ing boundary condition, NR-post-Minkowskian matching,
+or Cauchy-Characteristic matching (CCM) as potential al-
+ternative solutions to address the CoM drift. In Sec. VIII,
+we provide a few closing remarks. The BBH simulations
+used in this paper are performed by the SpEC code [7].
+
+10°F
+— R=100M
+
+19-1, R= 200M
+— R=400M
+
+CoM displacement /M
+
+0 5000 10000
+
+Time/M
+
+FIG. 1: The CoM displacement from the origin for differ-
+ent outer boundary radii. The system is equal mass and
+non-spinning.
+
+= 0.004
+i.
+a
+S 0.002
+‘3
+3 0.000
+3S
++ —0.002
+i=}
+e
+S —0.004
+2000 4000 6000
+Time/M
+0.0010
+ad -
+g, 0.0005
+a
+G
+ie)
+2 0.0000
+oS
+0.0005 2000 7000 6000
+Time/M
+
+FIG. 2: The upper panel shows the evolution of CoM
+coordinates and the lower panel shows their corresponding
+CoM charge. The outer boundary radius is set as 100 M.
+
+II. COM DRIFT AS A GAUGE EFFECT
+
+To identify whether the CoM drift is a physical or gauge
+effect, we inspect the Poincaré charges that are associated
+with the global conserved physical quantities. These
+charges are gauge-invariant up to the well-understood
+Bondi-van der Burg-Metzner-Sachs (BMS) group freedom
+[17-19]. We will address the BMS frame ambiguity in
+Sec. VI. The Poincaré charges are given by the integral
+of the Bondi mass aspect mp, the Lorentz aspect N, and
+the energy moment aspect F over the celestial two-sphere
+(future null infinity .%* from the source) [19]. These
+functions are given in the Moreschi-Boyle convention [16,
+20, 21] using the Bondi-Sachs coordinates {u, 7,04} as
+
+mp(u, 04) = —Re [W2 + aa] ,
+
+N(u, 64) = - (u + 00a + udm 4 53(00))
+E(u, 04) = N + udm
+
+=- (m + 000 + 53(00)) .
+Here U; are the Weyl scalars, a is the Newman-Penrose
+shear, and an overbar represents complex conjugation.
+For a quantity 7 of spin weight s, the spin-weight raising
+operator 5 can be written as [22, 23]
+
+1 xs we (0, 4 0 a. Av—8 .
+GH — gee) (3 + waa) ((sin@)~*). (3)
+
+With these functions defined at .%*+, we then have the
+energy-momentum charge and complex dipole moment
+defined as
+
+1
+—— n°mpdQ,
+An J ig+
+i a (4)
+D* +iJ* = — On“ EdQ,
+An J g+
+
+where n* = (1, sin 6 cos ¢, sin @ cos ¢, cos @). Here the real
+part D defines the gauge-independent mass dipole, and
+the imaginary part J defines the angular momentum.
+
+A gauge-independent measurement of the CoM dis-
+placement, i.e., the CoM charge, can be defined as the
+mass dipole D scaled by the total energy P® [14-16]:
+
+Gea. (5)
+
+To carry out this check, we use Cauchy-characteristic
+evolution (CCE) to extract the Weyl scalars and o at
+I* [24, 25]. The Cauchy evolution parts are performed
+using the SpEC code [7], and the CCE computations are
+performed using the SpECTRE Code [26]. CCE uses a
+worldtube from the Cauchy evolution of the Einstein fiel
+equations as the inner boundary to a characteristic evo-
+ution on a null foliation. The gravitational information
+is evolved to future null infinity, so one can extract Wey!
+scalars there unambiguously from any Cauchy evolution.
+
+Fig. 2 shows the evolution of CoM coordinates alongside
+he corresponding CoM charges of an equal-mass and
+non-spinning system. The CoM charges are computed
+using the scri package [27]. The CoM charges in each
+direction shown in the lower panel are considerably smaller
+han the corresponding CoM coordinates shown in the
+upper panel, and they do not exhibit exponential growth.
+This is strong evidence that the exponential CoM drift
+rimarily arises as a gauge effect caused by inaccuracies
+in the gauge boundary conditions, rather than a genuine
+hysical motion.
+
+Ill. SOMMERFELD BOUNDARY CONDITION
+
+In this section, we first review the gauge boundary con-
+dition used in the SpEC code, and then use a propagating
+scalar wave as a toy model to show how reflections can
+be generated by this boundary condition.
+
+A. Gauge boundary condition in SpEC
+
+The gauge boundary condition used in SpEC is the
+Sommerfeld non-reflective boundary condition [28, 29].
+The Sommerfeld boundary condition acts on a general
+propagating tensor wave W as
+
+LV =0, (6)
+
+where
+
+1
+L=O+0,+ =, (7)
+
+and = denotes equality at the boundary.
+
+For gravitational waves, the spacetime metric can be
+approximately decomposed as a background part gf)
+that changes “adiabatically”, and a propagating wave
+part hap:
+
+B
+
+Gab = go> + hig. (8)
+
+The Sommerfeld boundary condition should then act like
+Lhap = 9. (9)
+
+The use of approximations for g®) may introduce in-
+accuracies in the boundary condition, leading to junk
+reflections within the simulation domain. To address this
+issue, we can further refine the boundary condition by
+taking a time derivative, thus removing the ambiguity in
+
+gf) ; resulting in
+
+O; (Lgav) = 0. (10)
+
+In SpEC, the Einstein equations are solved using the
+generalized harmonic (GH) formalism, with the gauge
+condition given by
+
+VV 2" = H, (11)
+
+where H* are the gauge source functions. In the GH
+formalism, the Einstein equations can be written in first-
+order form [30] by introducing the derivatives of gay as
+additional variables ®;,5 = O;gay and I,, = —t°O.gap,
+where t° is the future directed unit normal to the t =
+constant hypersurfaces. The gauge boundary condition
+is imposed on the incoming characteristic field, given by
+
+ugy = Hab — 0'Piad — Y29ab (12)
+where n’ is the outward-pointing spatial normal vector
+
+to the outer boundary, and 7 is introduced to damp
+the constraint violation 0;ta) — Piap. The ingoing and
+
+outgoing null vectors are given by k* = ws (t® — n*) and
+t= Ws (t*+n*). In this notation, if we assume the
+
+background metric to be either constant or changes “adia-
+batically”, ie., ag’, ~ 20thas, where v is the coordinate
+velocity of the BH and v/c « 1, and hg» is a spherical
+wave, then the Sommerfeld gauge boundary condition
+reads approximately as
+
+1 ; .
+PS de |ulg + € = *) rm =0. (13)
+
+Here PGed = |Kakpl + kad? + yk] 1% is the projec-
+ion operator that removes the four constraint-preserving
+degrees of freedom corresponding to the incoming con-
+straint fields and two physical degrees of freedom that
+correspond to backscattered gravitational waves. This
+leaves four degrees of freedom that correspond to the
+gauge part of the field, which determine the lapse and
+shift (see [29] for more details). Here d,u is the incoming
+characteristic projection of 0,u, as defined in Ref. [30]:
+If the fundamental fields are w® and the characteristic
+fields are u* = e*,u® where Greek letters label each
+field and e%g are the characteristic eigenvectors, then
+dyu® = e% gu%.
+
+B. Reflection from the boundary condition
+
+To understand how the CoM drift is coupled with the
+outer boundary condition, we first consider a scalar wave
+in 3-dimensional flat space as a toy model:
+
+emer 8,4,t) = et (hf? (lr — r6))¥i"(0, 6)
+
++ pmnehf? (kl — rs))¥Z""(0,4)), (14)
+
+em!
+
+where h), A) are spherical Hankel functions that corre-
+spond to the outgoing and ingoing waves, Plo! are the
+reflection coefficients, and rg is the location of the source.
+
+We impose the Sommerfeld boundary condition Eq. (6)
+on this scalar field, and calculate p{,,,. for 0 < ¢ < 3,
+t' =f and m' = 0. In Fig. 3, we show the results as a
+function of the distance of the source from the origin, rs,
+normalized by the outer boundary radius R. We can see
+that the Sommerfeld boundary condition is only perfectly
+non-reflective for the ¢ = 0 mode for a source located at
+the origin (r, = 0). When the source is positioned away
+from the origin (rs > 0), there will be mode mixing and
+the Sommerfeld boundary condition is not non-reflective
+anymore. As we shall show below in Sec. IV, this reflection
+of the gauge wave leads to the drift of the CoM observed
+in BBH simulations.
+This leads us to generalize the Sommerfeld boundary
+ondition in Eq. (6) by introducing a parameter ro. The
+adial coordinate r is modified to |r — ro|, in order to
+iminate the reflections of ¢ 4 0 modes
+
+°
+
+4
+
+©
+
+L(ro)y = 0, (15)
+
+where
+
+1
+
+L(ro) =O4+ Or—ro| + r—rol’
+
+(16)
+
+1.5-
+
+1.0
+
+0.5
+
+of
+
+r/R
+
+FIG. 3: Reflection coefficient |p4,,,| for different ¢. Given
+
+m=0,0=6k=1,t=0,0=¢
+
+L(0)y = 0 corresponds to the original Sommerfeld bound-
+ary condition.
+
+1.0
+
+0.8
+
+0.6
+
+lp
+
+0.4
+
+0.2
+
+fo 02 04 06 08 1.0
+ro/R
+
+FIG. 4: Reflection coefficient |p| for a spherical wave
+whose source is localized at rs/R = 0.15, with k= 1,t=
+04 =¢=0,
+
+To show how the introduced parameter rg works, we
+consider a spherical wave sourced at rg instead of the
+origin,
+
+w(r,t) =
+
+1 : (dieael-B pa Hira), (17)
+Yr,
+
+lr —rs
+
+which has nonzero ¢ modes with respect to the origin. In
+this case we can adjust the ro parameter in Eq. (16) to
+shift the boundary condition with respect to the source,
+effectively eliminating reflected waves. Fig. 4 illustrates
+the reflection coefficient p as a function of rg. Notably,
+when ro = rs, the boundary condition becomes non-
+reflective, demonstrating its efficacy in preventing wave
+reflections.
+Iv. COM DYNAMICS
+
+In this section we will derive the leading-order equation
+of motion for the CoM under the interaction with the
+outer boundary gauge reflection. The derivation will only
+focus on the leading-order effects.
+
+%2
+
+CoM
+BH, “« R
+e Ys .
+
+% K%2 KR
+
+FIG. 5: A schematic diagram showing the domain setup
+and symbols.
+
+We use the following notation: rg is the location of
+the CoM. R is the field point on the outer boundary,
+and x, and x2 are the locations of the black holes. We
+
+a5 a [2a (V=a9'") 8 (V=a9")
+
+| es
++59' gave (V=99" “9,
+= (9° Gve0a (V—99"") 9
+
+1
++5 (2g'*g? —
+
+is quadratic in the first derivatives of the metric. Because
+
+Gan= g®) +4 pouteoing + pinging, (23)
+
+the integral of terms in Eq. (22) on the outer boundary
+that involve only g® and novtsong vanish given that they
+are even functions with respect to the source when time-
+averaged over orbits. So the leading-order non-vanishing
+result of the integral Eq. (21) comes from terms involving
+the product of dag} {B) and Oa pmesine, The terms involving
+
+the product of 0a Hnteoine nd Oa pinging are on the order
+
+1 (V—99")
+
+949°) (2Gca9ef — GaeGep) Oa
+
+on
+
+assume rs < 112 = |X1 — X2| < R, and rs < 1/k, where
+k is the wavenumber of the metric perturbation. The
+setup is shown in the schematic diagram in Fig. 5. The
+metric perturbation in the region near the outer boundary
+(r ~ R > rig) can be written as the summation of
+outgoing and ingoing waves
+
+hav( (r, fe FiRuEeiNs (ae, t) Sp pmerme(y, ,t)
+
+=(f fo(0,.6 £20, OS veh? ( (kr) Je —ikt
+
++0 (=) . (18)
+
+Near the outer boundary, the quantity n® (kr) behaves
+like e~*" /r“+1, so we will only focus on the dominant ¢ =
+0 reflected mode. Substituting the Sommerfeld boundary
+condition Eq. (9), we obtain
+
+klr— val
+
+rom
+
+=
+
+R-rs e2ikR ts
+= € p) 1
+0 = Re +O | po (19)
+The ingoing perturbation is then given by
+Ber. cik(QR-r-t) r
+rpm) = tao oe 4 0( 2).
+(20)
+
+The momentum flux carried by a gravitational pertur-
+bation on the outer boundary is given by the integral of
+the Landau-Lifshitz pseudotensor on the outer boundary
+
+o = — [_tieiran, (21)
+where
+= 0a (V=99'") A (V=G9"")
+a (V=99"") + garg*Oe (V—=99"") Oa (V/=99"") 29)
++ 9!" ga (V/=99"°) Oa (V=99""))
+
+(V=99°) as (V=99"")
+
+of O(h?), so we will ignore them in the leading-order
+calculation.
+
+In the region near the outer boundary (r ~ R > riz),
+the background metric can be described using the post-
+Newtonian (PN) approximation [31, 32]
+
+®) _ 2G 1)\,
+
+Ioo -14 or O (< + 1 <> 2,
+
+@ __ 4 i. o(1),
+
+Go; - on v+0O (= F142, (24)
+
+(B) ; 2Gm : 1 \
+93; (: PRE, ) 6 t o(4 Flo 2.
+
+So we have dag? ~ 1/R?+O(v/R?). And from Eq. (20),
+we have O,hi®°™® ~ (R-1rs)/R? + O(r2/R*). Thus
+Eq. (21) gives dP'/dt ~ ri/R® at leading order. This
+leads us to the CoM equation of motion:
+
+. a -
+Foc) — PRT steer) = 0, (25)
+
+where a is a coefficient. Here, the momentum flux takes
+the value at a retarded time tre, * t- 2R. For t > R,
+the solution is given by
+
+r,(t) = Aexp (4x) . (26)
+
+which is consistent with [8], whose results showed the
+exponential growth rate ¢ x R~!4°, as shown in Fig. 1.
+
+V. MODIFIED BOUNDARY CONDITIONS
+
+Having understood how the Sommerfeld boundary con-
+dition in Eq. (15) leads to exponential drift of the CoM,
+we now use Eq. (16) to modify the boundary condition to
+control the gauge reflection and the CoM drift. The pa-
+rameter ro is introduced as a source term in the boundary
+condition. Following the derivation in Sec. IV, we obtain
+the equation of motion for the CoM under Eq. (16)
+
+a
+
+Fy) + R
+
+(To — Ts) (tor) = 0 (27)
+
+For t > R, the second term can be linearly expanded as
+
+ge Bing a
+Ts Bp (fo — fs) 4 R (to — rs) = 0, (28)
+
+where b = (t — tret)/(2R).
+
+We approximately treat b as a constant parameter,
+given that the location of the outer boundary doesn’t
+change significantly during the simulation, i.e., AR/R <
+1. Then we can treat the CoM coordinate quantities (i.e.,
+rs, fs and #,) as measured at the time when the boundary
+condition is imposed, rather than at the retarded time.
+
+One possible approach to control the drift is to allow
+the auxiliary parameter rg above to depend on r,, fr, and
+t in a way that ensures the solution to Eq. (28) does not
+exhibit exponential growth. In the following, we consider
+two specific forms of such dependence.
+
+1. Example 1
+
+We take a simple case as an example. Consider ro =
+Ars, where 2 is a free parameter. Substituting into the
+CoM equation of motion Eq. (28), we get
+
+#, —2ots; +w°r, = 0, (29)
+where
+(A-1 AT) .
+arb R2 \, =~ vas = (30)
+For the limit R >> rs and t > 1, the equation gives
+_ f Aellt <1, ,
+7 { Ae®'sin (wt + go) (A> 1). (en)
+
+In terms of the incoming characteristic field, the boundary
+condition Eq. (16) reads
+r'— dri
+
+Ged i— i
+Pad i + (« _ Fel
+'s
+
+1 .
++ ( = =) tui 0.
+
+(32)
+
+10° r T
+= — R=100M,A=5
+S — R=200M,A = 80
+5 mam Fitted line
+= 10-7} |
+&
+Q
+2
+= 10-4 ;
+s
+fo}
+Ss)
+
+0 5000 T0000
+
+Time/M
+
+FIG. 6: The green and blue lines are the results for
+R= 100M, = 5 and R = 200 M, A = 80, respectively,
+under gauge boundary condition Eq. (32). The wider gray
+lines are there fits. The system is equal-mass and non-
+spinning. The initial separation is 19 M and the merger
+ime is around 11000 M.
+
+To test the model, we perform simulations of equal-mass
+and non-spinning system with different outer boundary
+radii R and free parameter \. The initial separation is
+9M and the merger time is around 11000 M. The sim-
+ulation results exhibit strong agreement with the model
+fitting based on Eq. (31), as shown in Figure 6. By fitting
+he growth rate a and frequency w from Eq. (30) and (31)
+o the NR results for different A, we obtain the parameters
+a = 0.54 and b = 0.64, which are independent of A. The
+parameter b is greater than a due to the GR time lag.
+
+a
+
+So
+o
+fl
+
+S
+c
+
+R=100M,\ = 2
+
+R= 200M,’ =8
+
+R= 400M, \ = 32
+
+Original BC, R = 100, 200, 40014
+
+5000 10000
+Time/M
+
+CoM displacement /M
+R
+
+a
+So
+o
+7
+fl
+
+S
+c
+
+R=100M,A\=5
+
+R= 200M, = 20
+
+R= 400M, A = 80
+
+Original BC, R = 100, 200, 40014
+
+5000 10000
+Time/M
+
+CoM displacement /M
+R
+
+FIG. 7: Different results with similar (A — 1)/R? ratio
+under gauge boundary condition Eq. (32). The system
+is equal-mass and non-spinning. The initial separation is
+19 M and the merger time is around 11000 M.
+
+To further test this model, we consider the growth
+rate 7 = 0.64(A — 1)/R?. According to this formulation,
+when (\ — 1) ~ R?, the growth rate is expected to be
+independent of R. We plot the CoM drift for different R
+and A in Fig. 7. The observed results indeed agree with
+the anticipated behavior.
+
+Eq. (31) shows that the growth rate of the solution is
+always positive, regardless of the value of the free param-
+eter A. One way to decelerate the CoM is to introduce
+an additional term involving fr; in the equation of motion,
+Eq. (29), to act as a damping term.
+
+To do this, we introduce an additional velocity term to
+Eq. (16):
+
+L(ro, ts, 14) = O% 4 Or—ro| 4 Fyin-ts, (33)
+
+lr — ro|
+
+where n represents the outward-pointing normal vector
+to the outer boundary, and yp is a parameter. With this
+modification, the boundary condition, expressed in terms
+
+of the incoming characteristic field, becomes:
+s _ ; ri—Ari
+PSed, [ei + (w - | =) Dica
+s
+As ri—frt c
+t = d— S7.;| =0.
+(» Fa) Mean
+
+(34)
+Here r, and its time derivative are evaluated at the same
+coordinate time that the boundary condition is imposed.
+The post-Newtonian equation of motion of the CoM under
+this new boundary condition is then
+
+(1 — 2buR) # + (pw — 20) ¢, + w?x5 = 0, (35)
+
+where b is the dimensionless retarded time parameter in-
+troduced in Eq. (28). For this equation to exhibit damp-
+ing behavior, the parameter j: must satisfy the following
+conditions:
+
+_ 2 24 —
+{ (u — 20) = 4uw?(1 — 2buR), (36)
+20 << wR:
+As a good choice, we can set
+p=w+2o. (37)
+
+10°} —— Original BC, R = 100M 4
+— R=100M —
+
+0-24] R= 200M 4
+— R=400M
+
+CoM displacement /M
+
+cat
+
+=
+
+(Ss) —5L 4
+§ 10
+
+Q
+
+©
+
+>
+
+= %
+
+2 10}
+oO
+
+0 5000
+Time/M
+
+10000
+
+FIG. 8: CoM drift and velocity under the gauge boundary
+condition Eq. (34) with A = 1+ (R/100)?. The upper
+panel shows the CoM drift and the lower panel shows the
+CoM velocities. The black curves are the results obtained
+using the original Sommerfeld boundary condition, and
+the other curves are results with the new boundary con-
+dition for R = 100M, 200M and 400M. The system is
+equal-mass and non-spinning. The initial separation is
+19 M and the merger time is around 11000 M.
+
+Now the only remaining free parameter is \. As dis-
+cussed in Sec. IV, we can set (\— 1) ~ R? so that the
+growth or damping rate becomes independent of the outer
+boundary radius. For (\—1) = (R/100)?, the correspond-
+ing results are displayed in Fig. 8. This demonstrates
+the effectiveness of the modified boundary condition in
+damping the CoM drift.
+
+An alternative way to introduce CoM damping for
+Eq. (29) without introducing an additional damping term
+like Eq. (33) is to use ro in the boundary condition only
+when the CoM is accelerating. Namely,
+
+_ favs (és ts = 0), .
+To = { 0 (i&-t <0). (38)
+
+The result for this approach is shown in Fig. 9, where we
+increased the initial separation to 29 M and the merger
+time to around 50000 M to show the long term behavior,
+since the oscillation time scale is longer than the previous
+cases. This approach is more robust than Eq. (33) because
+it has fewer parameters.
+
+= 10°, 1
+
+= — original BC, R=200M
+
+g 10°} —— R=200M 4
+
+g — R=400M
+
+& 10-7} —— R=800M :
+
+jor
+
+8
+
+= 10-4) |
+
+a
+
+i)
+
+10-7} |
+
+i
+
+‘8 10-4, :
+
+ic}
+
+oO
+
+= 10-4) |
+
+s
+
+i)
+
+© 10-8; 4
+
+0 20000 40000
+Time/M
+
+FIG. 9: CoM drift and velocity under gauge boundary
+condition Eq. (32) with ro specified by Eq. (38), where
+A = 1+ (R/100)?. The upper panel shows the CoM drift
+and the lower panel shows the CoM velocities. The black
+
+curves are the results obtained using the original Som-
+merfeld boundary condition, and other curves are results
+under the new boundary condition for R = 200M, 400M
+and 800M. The system is equal-mass and non-spinning.
+The initial separation is 29M and the merger time is
+around 50000 M.
+
+2. Example 2
+
+Now we consider ro = rs + 7Ris, where 7 is a free
+parameter. Then the CoM equation of motion Eq. (28)
+
+= 10’r 5
+
+> — Original BC, R=200M ~~
+
+P 10°} —— R=200M |
+
+gS — R=400M
+
+& 10°; —— R=800M | es |
+
+nD
+
+3 ag-4l |
+
+=
+
+3
+
+(s) 1 T
+
+a3)
+
+3
+
+= 10-5) ;
+
+=
+
+a
+
+ie}
+
+5 19-7 J
+
+0 20000 40000
+Time/M
+
+FIG. 10: CoM drift and velocity under gauge boundary
+condition Eq. (16) with ro = rs + Rr, where 7 = R/5.
+The upper panel shows the CoM drift and the lower panel
+shows the CoM velocities. The black curves are the re-
+sults obtained using the original Sommerfeld boundary
+
+condition, and the other curves are results under the new
+boundary condition for R = 200M, 400M and 800M. The
+system is equal-mass and non-spinning. The initial sepa-
+ration is 29M and the merger time is around 50000 M.
+
+becomes
+s+ Pt, = 0, (39)
+where
+ocmit 71, b= a (40)
+The equation gives
+Py = Cy — cge /8, (41)
+
+where c; and C2 are constants determined by the initial
+conditions. Eq. (41) guarantees a damping solution as
+long as a > 0. We plot the CoM drift and velocity under
+this gauge boundary condition in Fig. 10. This approach
+avoids the oscillation of CoM around the coordinate origin,
+but the damping rate of the CoM drift is smaller than
+the other example.
+
+3. General system
+
+The results obtained so far are specific to equal-mass
+non-spinning systems. In more general cases with non-
+equal masses and spin precession, the Newtonian mea-
+surement of CoM can exhibit circular motion in addition
+0.02 ; + ;
+
+0.007
+
+— Original BC
+New BC
+
+0.00
+
+—0.02
+x/M
+
+—0.04 0.02
+
+— Original Bi
+— New BC
+
+y/M
+
+—20 —10 0
+
+x/M
+
+—30
+
+FIG. 11: CoM trajectory under gauge boundary condition
+Eq. (32) with ro specified by Eq. (38), where \ = 1+
+(R/100)?. The black curve is obtained using the original
+Sommerfeld boundary condition, and the blue curve is
+obtained using the new boundary condition. The system
+has q = 1, x1 = (0.1,0.2,0.3), x2 = (0.2,0.4,0.1), and
+R= 200M. The initial separation is 29 M and the merger
+ime is around 65000 M.
+
+o the linear drift, as indicated by the blue curve in
+Fig. 11. However, in the new gauge boundary condition,
+Eq. (16) or (33), we require the orbit-averaged drift co-
+ordinate and drift velocity as rs and fs, rather than the
+quantities associated with the circular motion. So we
+average the CoM coordinate and velocity over that last
+available orbit during the simulation, and take the aver-
+aged quantities (r,) and (fs) in the boundary condition.
+
+* pat!
+Here (f) = Sg fear where to is found by maximiz-
+ing the dot product rjo(t) - rig(to) over a time window
+[t — 37/Q,t — 7/Q), with Q being the orbital angular
+velocity.
+
+As an illustration, we take the boundary condition
+Eq. (16) with Eq. (38). We use a system with mass
+
+Original BC, R=200M
+R=200M
+R=400M
+
+10!
+
+R=800M
+
+CoM displacement /M
+
+10-°F ;
+
+CoM velocity
+
+0 20000 40000 60000
+
+Time/M
+
+FIG. 12: CoM drift and velocity under gauge boundary
+condition Eq. (32) with ro specified by Eq. (38), where
+= 1+ (R/100)?. The upper panel shows the CoM drift
+and the lower panel shows the CoM velocities. The black
+curves are the results obtained using the original Sommer-
+feld boundary condition, and the other curves are results
+under new boundary condition for R = 200M,400M and
+800M. The system has q = 1, yi = (0.1,0.2,0.3), and
+X2 = (0.2,0.4,0.1). The initial separation is 29M and
+the merger time is around 65000 M. The black curves
+end earlier because the CoM displacement gets so large
+hat the simulation crashes.
+
+ratio g = 1 and dimensionless spin parameters y1 =
+(0.1, 0.2,0.3) and x2 = (0.2,0.4,0.1). The initial separa-
+ion is 29 M and the merger time is around 65000 M. The
+resulting trajectory is shown as the green curve in Fig. 11
+and the overall CoM drifting is shown in Fig. 12. The
+surge of the CoM velocity near merger is expected and
+physical: it is the kick due to the asymmetry of the BBH
+system. Testing shows that this approach is effective for
+mass ratio q up to 8 and spin |x1,2| up to 0.8.
+
+VI. THE EFFECT ON WAVEFORMS
+
+In theory, modification to a gauge boundary condition
+should not have any impact on waveforms. However, it is
+crucial to check this. The conclusion should be general
+to all waveforms, not specific to a single example, since
+our boundary condition treatments do not depend on the
+intrinsic parameters of the system like masses and spins.
+
+It is worth noting that the BBH system exhibits asymp-
+totically flat behavior. Bondi, van der Burg, Metzner, and
+Sachs [17-19] demonstrated that the spacetime symme-
+try at the asymptotic boundary can be described by the
+
+= 10-4F
+-
+49-7 J
+5 10
+&
+~
+S 10-74 r|
+4
+aR 19-10
+= 10°
+“=
+= 1078+
+dl
+&
+
+10000 —7500 —5000 —2500 0
+(U — Upear)/M
+
+(a) The waveform difference for the equal-mass non-
+spinning case, R = 800M. The matching window to
+fix the time shift and rotation starts from 8000 M before
+merger, and is 10 orbits long. The BMS frame is fixed at
+the center of this matching window.
+
+10
+
+rAhyo/M rAhn/M rAh»/M
+
+10000 20000
+(u— tpeak)/M
+
+8Li
+60000
+
+(b) The waveform difference for the precessing case with
+q=1, x1 = (0.1,0.2,0.3), x2 = (0.2,0.4,0.1), and
+R= 800M. The matching window to fix the time shift
+and rotation starts from 58000 M before merger, and is
+50000 M long. The BMS frame is fixed at the center of
+this matching window.
+
+FIG. 13: The waveform differences under modified gauge boundary condition Eq. (32) with ro specified by Eq. (38),
+
+where \ = 1+ (R/100)?, and original
+
+oundary condition Eq. (13) for two systems. We follow the procedure discussed
+
+in Sec. IV of [33] to fix the BMS frame, rotation and time shift between the two waveforms.
+
+Bondi-van der Burg-Metzner-Sachs (BMS) group. This
+BMS group characterizes the asymptotic symmetry of
+spacetimes that are asymptotically flat at null infinity.
+Refs. [16, 33] showed the importance of having both wave-
+forms in the same BMS frame for making accurate com-
+parisons. We follow their process to map waveforms
+obtained using CCE to the same BMS frame using the
+scri package [27] and the NRPNHybridization code [34].
+
+After fixing the BMS frame and performing the required
+3-D rotation and time alignment, we observe that the
+time-domain mismatch between the waveforms obtained
+under the Sommerfeld gauge boundary condition and
+our new gauge boundary condition for the equal-mass
+and non-spinning system over a 10000 M window is on
+the order of 10~!”, and for the precessing system over a
+60000 M window is on the order of 10-7. The residual is
+depicted in Fig. 13 for these two cases. This mismatch is
+much smaller than the numerical error between different
+resolutions, since the numerical error is dominated by the
+grid spacing, and we are not changing the grids when
+modifying the boundary condition. The mismatch is
+consistent with the tolerance of BMS frame fixing and
+rotation alignment. So there is no evidence suggesting
+that the modification of the gauge boundary condition
+can affect the waveform, once all the gauge ambiguities
+are fixed. This is as expected since we only modify the
+gauge part of the boundary conditions.
+
+VII. ALTERNATIVE BOUNDARY CONDITIONS
+
+1. Bayliss-Turkel condition
+
+Since Fig. 3 shows that the Sommerfeld boundary con-
+dition is only non-reflective for the ¢ = 0 mode, a straight-
+forward idea is to use higher-order boundary conditions
+that are non-reflective for higher ¢ modes. Such boundary
+conditions are known as Bayliss-Turkel boundary condi-
+tions [35]. They are given by
+
+Byth =0, (42)
+
+where
+
+r
+
+B, =ub (a+a+" 4), (43)
+
+However, given the presence of the high order deriva-
+tives, the well-posedness of these high-order boundary
+conditions when applied to the first order Generalized-
+Harmonic evolution [30] is not yet proven.
+
+Here we test the second-order Bayliss-Turkel boundary
+condition. In terms of incoming characteristic fields in
+SpEC, it can be written as
+cd = back;
+PGed [outa — 0,05 gea — O07 (Gea — 924° ground)
+4 4 5;
++ (~ _ *) Ged _ = Or (Gea _ ghacksroundy
+
+2 2 5
+sas — ghackeromdy =0. (44)
+Fe
+
+Here the first derivatives of the metric are computed
+using the fundamental variables ® and II in the first-
+order GH system [30], and the second derivatives of the
+metric are computed from derivatives of ® and Hl. To
+approximate g>@cksround | we tried using the Minkowski
+metric, the Schwarzschild metric, and the metric used in
+the initial condition. However, in all cases, there were
+large junk reflections that caused discontinuities in both
+CoM velocity and CoM drift, and even led to simulation
+crashes. This raises concerns about the suitability of the
+second-order Bayliss-Turkel boundary conditions for BBH
+simulations in SpEC.
+
+An alternative approach to implement the Bayliss-
+Turkel type boundary condition without using the back-
+ground metric is to introduce auxiliary variables defined
+on the outer boundary that evolve via a simple ODE
+system [36]. These variables represent the residuals of the
+Bayliss—Turkel type absorbing operator Eq. (43) for each
+l,m mode at each order k. Driving them consistently to
+zero enforces the higher-order absorbing condition. In
+[36], the higher-order absorbing condition is only imposed
+on the physical degrees of freedom, and it is shown that
+the coordinate drift of CoM is not reduced. We leave
+further investigation of imposing higher-order boundary
+conditions on the gauge degrees of freedom for future
+studies.
+
+2. Gauge constraint damping condition
+
+The gauge constraint damping boundary condition[37]
+explicitly drives the incoming characteristic fields on the
+outer boundary to satisfy the gauge condition C, = Ha —
+VV Le > 0.
+
+The gauge constraint damping boundary condition can
+be written as
+= _ fla, (45)
+where ju is a freely chosen damping parameter that ex-
+ponentially suppresses any constraint violation crossing
+the boundary, and ui, lac is chosen so that the incom-
+ing characteristic projection of the constraint fields Cz
+vanishes. In terms of the characteristic variables in SpEC,
+the gauge constraint damping boundary condition reads
+
+dyut~ =—pp (u
+
+PS drug = —He PS" (uly — uly lao)
+= (kakol® + kadf + hyd) (64 — tet) Ca.
+(46)
+
+11
+
+Please refer to Appendix E of Ref. [37] for details.
+
+The gauge constraint damping boundary condition
+should be effective at suppressing violations of the GH
+gauge constraints at the outer boundary [37]. Neverthe-
+less, this condition does not enforce a purely outgoing
+wave: the gauge condition Eq. (11) still admits both in-
+going and outgoing gauge modes, so reflections can still
+occur in practice. Fig. 14 compares the CoM drift and its
+velocity for an equal-mass, non-spinning system with an
+initial separation of 29 M, and the merger time is around
+50000 M. Evolution that uses the gauge constraint damp-
+ing boundary condition (blue curves) exhibits an even
+larger drift than the result obtained using the original
+Sommerfeld condition (black curves), indicating that the
+gauge constraint damping boundary condition does not re-
+duce the reflection from the outer boundary and therefore
+fails to reduce the CoM drift.
+
+2
+10 ~—
+
+— Sommerfeld
+10°F —— Gauge constraint damping 4
+
+CoM displacement /M
+5.
+
+oO
+me}
+2 75h J
+=
+fe}
+oO 0-7 4
+0 20000 40000
+Time/M
+
+FIG. 14: CoM drift and velocity for an equal-mass and
+non-spinning system with an initial separation of 29 M,
+outer boundary radius R = 200 M, and the merger time
+is around 50000. M. The upper panel shows the CoM
+drift and the lower panel showx the CoM velocities. The
+black curves are the results obtained using the original
+Sommerfeld boundary condition Eq. (13), and the blue
+curves are results under the gauge constraint damping
+boundary condition Eq. (46). The blue curves end earlier
+because the CoM displacement gets so large that the
+simulation crashes.
+
+8. Multipolar post-Minkowskian (MPM)
+
+Another potential approach to reduce the CoM drift
+is to impose the boundary condition with analytic data
+supplied by the multipolar post-Minkowskian (MPM)
+expansion [38-41]. Ref. [42] gives the multipolar post-
+Minkowskian metric in Bondi coordinates, expressed en-
+tirely in terms of the source’s mass and current multipole
+moments. By mapping the NR Cauchy coordinates to the
+Bondi frame using the CCE procedure developed in [24],
+one can evaluate the MPM solution on the outer boundary
+and supply it as time-dependent boundary data for the
+Cauchy evolution. Because this analytically matched met-
+ric already satisfies the correct outgoing-radiation behav-
+ior, it should suppress gauge reflections at the boundary
+and is therefore expected to reduce the CoM drift. This
+procedure is significantly more complicated than other
+methods discussed here, so we leave it for future studies.
+
+4. Cauchy-Characteristic matching (CCM)
+
+Alternatively, Cauchy-Characteristic matching (CCM)
+[43-46] can also provide accurate physical boundary con-
+ditions for the Cauchy domain by performing a matching
+of the internal Cauchy system and the exterior character-
+istic system. But currently only the physical part of the
+fields is matched for BBH systems [45, 46]. Using CCM
+for the gauge part of the fields is a promising approach
+to reduce the CoM drift, and we leave this also for future
+studies.
+
+VIII. CONCLUSIONS
+
+In this paper, we analyze the exponential drift of the
+CoM during long NR simulations of BBH systems. We
+have demonstrated that this drift is primarily caused by
+the reflection due to the gauge outer boundary condi-
+tions. To understand this issue, in the post-Newtonian
+approximation we have derived the equation of motion for
+the CoM under various versions of the gauge boundary
+conditions.
+
+To mitigate the drift, we propose a modification of the
+boundary conditions by introducing CoM source terms.
+The specific form of the source term is not unique, and
+we present two specific examples showing that the CoM
+drift can be reduced by several orders of magnitude by
+incorporating these source terms into the gauge boundary
+condition.
+
+ACKNOWLEDGMENTS
+
+We thank Nils Deppe, Kyle Nelli, Himanshu Chaud-
+hary, and Qing Dai for useful discussions. This work was
+supported in part by the Sherman Fairchild Foundation,
+by NSF Grants PHY-2309211, PHY-2309231, and OAC-
+2209656 at Caltech, and PHY-2207342 and OAC-2209655
+at Cornell. Research at Perimeter Institute is supported
+in part by the Government of Canada through the Depart-
+ment of Innovation, Science and Economic Development
+
+12
+
+and by the Province of Ontario through the Ministry of
+Colleges and Universities. Computations for this work
+were preformed on the Wheeler cluster at Caltech, which
+is supported by the Sherman Fairchild Foundation and
+by Caltech, and on the Resnick High Performance Com-
+puting (HPC) Cluster at the Caltech High Performance
+Computing Center.
+
+REFERENCES
+
+1] F. Pretorius, Evolution of binary black hole spacetimes,
+Phys. Rev. Lett. 95, 121101 (2005), arXiv:gr-qc/0507014
+[gr-qc].
+
+2] M. Campanelli, C. O. Lousto, P. Marronetti, and Y. Zlo-
+chower, Accurate evolutions of orbiting black-hole bina-
+ries without excision, Phys. Rev. Lett. 96, 111101 (2006),
+arXiv:gr-qc/0511048 [gr-qc].
+
+3] J. G. Baker, J. Centrella, D.-I. Choi, M. Koppitz, and
+J. van Meter, Gravitational wave extraction from an in-
+spiraling configuration of merging black holes, Phys. Rey.
+Lett. 96, 111102 (2006), arXiv:gr-qe/0511103 [gr-qc].
+
+4] B. P. Abbott et al. (LIGO Scientific, Virgo), Tests
+of general relativity with GW150914, Phys. Rev.
+Lett. 116, 221101 (2016), [Erratum: Phys. Rev.
+Lett.121,no.12,129902(2018)], arXiv:1602.03841 [gr-qc].
+5] B. P. Abbott et al. (LIGO Scientific, Virgo), Tests of Gen-
+eral Relativity with the Binary Black Hole Signals from
+the LIGO-Virgo Catalog GWTC-1, Phys. Rev. D100,
+04036 (2019), arXiv:1903.04467 [gr-qc].
+
+6] R. Abbott et al. (LIGO Scientific, VIRGO, KA-
+GRA), Tests of General Relativity with GWTC-3,
+arXiv:2112.06861 [gr-qc].
+
+7| The Spectral Einstein Code, http://www.black-holes.
+org/SpEC. html.
+
+8] B. Szilagyi et al., Approaching the post-Newtonian regime
+with numerical relativity: A compact-object binary sim-
+ulation spanning 350 gravitational-wave cycles, Physi-
+cal Review Letters 115, 10.1103/physrevlett.115.031102
+(2015).
+
+9] D. Pollney, C. Reisswig, N. Dorband, E. Schnetter, and
+P. Diener, Asymptotic falloff of local waveform measure-
+ments in numerical relativity, Physical Review D 80,
+10.1103/physrevd.80.121502 (2009).
+0] I. Hinder, The current status of binary black hole sim-
+ulations in numerical relativity, Classical and Quantum
+Gravity 27, 114004 (2010).
+1] Z. B. Etienne, J. G. Baker, V. Paschalidis, B. J. Kelly, and
+S. L. Shapiro, Improved moving puncture gauge conditions
+‘or compact binary evolutions, Physical Review D 90,
+10.1103/physrevd.90.064032 (2014).
+2] V. Mewes, Y. Zlochower, M. Campanelli, I. Ruchlin, Z. B.
+Etienne, and T. W. Baumgarte, Numerical relativity in
+spherical coordinates with the einstein toolkit, Phys. Rev.
+D 97, 084059 (2018).
+
+3] M. Boyle et al., The SXS collaboration catalog of binary
+lack hole simulations, Classical and Quantum Gravity
+36, 195006 (2019).
+
+4| T. Dray and M. Streubel, Angular momentum at null
+infinity, Classical and Quantum Gravity 1, 15 (1984).
+
+5] T. Dray, Momentum flux at null infinity, Classical and
+Quantum Gravity 2, L7 (1985).
+
+16
+
+17
+
+18
+
+19
+
+20)
+
+21
+
+22
+
+23
+
+24
+
+26
+
+27
+28)
+29)
+
+30
+
+31
+
+32
+
+K. Mitman et al., Fixing the BMS frame of numerical
+relativity waveforms, Phys. Rev. D 104, 024051 (2021).
+R. K. Sachs, Gravitational waves in general relativity. 8.
+Waves in asymptotically flat space-times, Proc. Roy. Soc.
+Lond. A270, 103 (1962).
+
+R. Sachs, Asymptotic symmetries in gravitational theory,
+Phys. Rev. 128, 2851 (1962).
+
+H. Bondi, M. G. J. van der Burg, and A. W. K. Metzner,
+Gravitational waves in general relativity. 7. Waves from
+axisymmetric isolated systems, Proc. Roy. Soc. Lond.
+A269, 21 (1962).
+
+M. Boyle, Transformations of asymptotic gravitational-
+wave data, Phys. Rev. D93, 084031 (2016),
+arXiv:1509.00862 [gr-qc].
+
+K. Mitman et al., Fixing the BMS frame of numerical
+relativity waveforms with bms charges, Phys. Rev. D 106,
+084029 (2022).
+
+E. T. Newman and R. Penrose, Note on the Bondi-
+Metzner-Sachs group, J. Math. Phys. 7, 863 (1966).
+
+M. Boyle, How should spin-weighted spherical func-
+tions be defined?, J. Math. Phys. 57, 092504 (2016),
+arXiv:1604.08140 [gr-qc].
+
+J. Moxon, M. A. Scheel, and S. A. Teukolsky, Improved
+Cauchy-characteristic evolution system for high-precision
+numerical relativity waveforms, Physical Review D 102,
+10.1103/physrevd.102.044052 (2020).
+
+J. Moxon, M. A. Scheel, S. A. Teukolsky, N. Deppe, N. Fis-
+cher, F. Hébert, L. E. Kidder, and W. Throwe, The SpEC-
+TRE Cauchy-characteristic evolution system for rapid,
+precise waveform extraction (2021), arXiv:2110.08635 [gr-
+qe].
+N. Deppe, W. Throwe, L. E. Kidder, N. L. Vu, F. Hébert,
+J. Moxon, C. Armaza, M. S. Bonilla, Y. Kim, P. Kumar,
+G. Lovelace, A. Macedo, K. C. Nelli, E. O’Shea, H. P.
+Pfeiffer, M. A. Scheel, S. A. Teukolsky, N. A. Wittek, et al.,
+SpECTRE v2023.05.16, 10.5281/zenodo.7942177 (2023).
+M. Boyle, Scri, https: //github.com/moble/scri.
+
+A. Sommerfeld, Partial differential equations in physics
+(Elsevier, 1949).
+
+O. Rinne, L. Lindblom, and M. A. Scheel, Testing outer
+boundary treatments for the Einstein equations, Class.
+Quant. Grav. 24, 4053 (2007), arXiv:0704.0782 [gr-qc].
+L. Lindblom, M. A. Scheel, L. E. Kidder, R. Owen, and
+O. Rinne, A new generalized harmonic evolution system,
+Class. Quant. Gray. 23, $447 (2006), arXiv:gr-qc/0512093
+[gr-qc].
+
+L. Blanchet and T. Damour, Post-Newtonian genera-
+tion of gravitational waves., Annales De L Institut Henri
+Poincare-physique Theorique 50, 377 (1989).
+
+L. Blanchet, G. Faye, and B. Ponsot, Gravitational field
+and equations of motion of compact binaries to 5/2 post-
+Newtonian order, Physical Review D 58, 10.1103/phys-
+revd.58.124002 (1998).
+
+33
+
+35
+
+36
+
+39
+
+40
+
+Al
+
+A2
+
+43
+
+44
+
+45
+
+46
+
+13
+
+D. Sun, M. Boyle, K. Mitman, M. A. Scheel, L. C.
+Stein, S. A. Teukolsky, and V. Varma, Optimizing post-
+newtonian parameters and fixing the bms frame for
+numerical-relativity waveform hybridizations, Physical
+Review D 110, 10.1103/physrevd.110.104076 (2024).
+
+D. Sun, Nrpnhybridization, https://github.com/
+dongzesun/HybridizationWaveforms.
+
+A. Bayliss and E. Turkel, Radiation boundary conditions
+‘or wave-like equations, Communications on Pure and
+Applied Mathematics 33, 707 (1980).
+
+L. T. Buchman, M. D. Duez, M. Morales, M. A. Scheel,
+T. M. Kostersitz, A. M. Evans, and K. Mitman, Numerical
+relativity multimodal waveforms using absorbing bound-
+ary conditions, Classical and Quantum Gravity 41, 175011
+(2024).
+
+L. Lindblom and B. Szilagyi, An improved gauge driver
+or the GH Einstein system, Phys. Rev. D80, 084019
+(2009), arXiv:0904.4873 [gr-qc].
+
+K. S. Thorne, Multipole expansions of gravitational radi-
+ation, Rev. Mod. Phys. 52, 299 (1980).
+
+L. Blanchet and T. Damour, Radiative gravitational fields
+in general relativity I. General structure of the field outside
+the source, Philosophical Transactions of the Royal Society
+of London. Series A, Mathematical and Physical Sciences
+10.1098/rsta.1986.0125 (1986).
+
+L. Blanchet, On the multipole expansion of the gravita-
+tional field, Classical and Quantum Gravity 15, 1971-1999
+(1998).
+
+L. Blanchet, T. Damour, and B. R. Iyer, Erratum: Gravi-
+tational waves from inspiralling compact binaries: Energy
+loss and waveform to second-post-Newtonian order, Phys.
+Rev. D 54, 1860 (1996).
+
+L. Blanchet, G. Compére, G. Faye, R. Oliveri, and
+A. Seraj, Multipole expansion of gravitational waves: from
+harmonic to Bondi coordinates, Journal of High Energy
+Physics 2021, 10.1007/jhep02(2021)029 (2021).
+
+R. d’Inverno, ed., Approaches to Numerical Relativity
+(Cambridge University Press, Cambdrige, 1992).
+
+N. T. Bishop, Numerical relativity: combining the Cauchy
+and characteristic initial value problems, Classical and
+Quantum Gravity 10, 333 (1993).
+
+S. Ma, M. A. Scheel, J. Moxon, K. C. Nelli, N. Deppe,
+L. E. Kidder, W. Throwe, and N. L. Vu, Merging black
+holes with Cauchy-characteristic matching: Computation
+of late-time tails, arXiv:2412.06906 [gr-qc].
+
+S. Ma, J. Moxon, M. A. Scheel, K. C. Nelli, N. Deppe,
+M. S. Bonilla, L. E. Kidder, P. Kumar, G. Lovelace,
+W. Throwe, and N. L. Vu, Fully relativistic three-
+dimensional Cauchy-characteristic matching for physical
+degrees of freedom, Physical Review D 109, 10.1103/phys-
+revd.109.124027 (2024).
+

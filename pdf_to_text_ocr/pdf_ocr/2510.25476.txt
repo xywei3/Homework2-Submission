@@ -1,0 +1,2570 @@
+Es
+
+—arX1V
+
+a
+
+2510.25476v1 [astro-ph.SR] 29 Oct 2025
+
+Astronomy & Astrophysics manuscript no. aa55142-25
+October 30, 2025
+
+@©ESO 2025
+
+Coronal electron density: Insights from radio and in situ
+observations and EUHFORIA modeling
+
+Ketaki Deshpande,!:7®, Jasmina Magdalenic!:*®, Immanuel Christopher Jebaraj*®, Senthamizh Pavai Valliappan'®,
+
+Antonio Niemela*>®, Luciano Rodriguez! ©, and Vratislav Krupar+°®
+
+' Solar-Terrestrial Centre of Excellence — SIDC, Royal Observatory of Belgium, Avenue Circulaire 3, 1180 Uccle, Belgium,
+e-mail: ketaki .deshpande@oma.be
+
+Centre for mathematical Plasma Astrophysics, Department of Mathematics, KU Leuven, Celestijnenlaan 200B, B-3001 Leuven,
+Belgium
+
+Department of Physics and Astronomy, University of Turku, 20500 Turku, Finland
+
+4 Goddard Planetary Heliophysics Institute, University of Maryland, Baltimore County, Baltimore, MD 21250, USA
+
+a Heliospheric Physics Laboratory, Heliophysics Division, NASA Goddard Space Flight Center, Greenbelt, MD 20771, USA
+
+wv
+
+October 30, 2025
+
+ABSTRACT
+
+Context. The distribution of the coronal electron density at different distances from the Sun strongly influences the physical processes
+in the solar corona and it is therefore a very important topic in solar physics. The majority of the methods, including radio observations,
+used for estimation of coronal electron density were up to now not fully validated due to the absence of the in situ observations closer
+to the Sun. Consequently, space weather forecasting models which simulate coronal density lacked proper validation. Newly available
+Parker Solar Probe (PSP) in situ observations at distances close to the Sun, provide an opportunity to study the properties of plasma
+near the Sun and to compare observational and modeling results.
+
+Aims. The focus of this work is to study type III radio bursts, estimate their propagation path and validate coronal electron density
+obtained from radio, in situ observations and modeling with EUHFORIA (EUropean Heliospheric FORecasting Information Asset).
+Methods. In this study of type III radio bursts observed during the second PSP perihelion, we employ radio triangulation and modeling
+to analyze coronal electron density. Using the radio triangulation method, we determine the 3D positions of the radio sources. Addi-
+tionally, we utilize the state-of-the-art EUHFORIA model to estimate electron densities at various locations. The electron densities
+derived from radio observations and EUHFORIA modeling are then inter-validated with in situ measurements from PSP.
+
+Results. We studied 11 Type III radio bursts during the second PSP perihelion, with radio triangulation showing their propagation
+path in the southward direction from the solar ecliptic plane. The obtained radio source sizes ranged from 0.5 to 40 deg (0.5 - 25 Ra),
+showing no clear frequency dependence. This indicates that scattering of radio waves was not very significant for the studied events
+and in this frequency range.
+
+A comparison of electron densities derived from radio triangulation, PSP in situ data, and EUHFORIA modeling showed a large range
+of obtained values. This result is influenced by the different propagation paths across different coronal structures, and model limita-
+tions. Despite these variations, EUHFORIA successfully identified high-density regions along type III burst paths, demonstrating its
+capability to capture large-scale density structures.
+
+Conclusions. Our study emphasize that type III bursts do not always follow the Parker spiral but instead trace distinct magnetic field
+lines which can be very differently oriented. The study shows rather constant radio source sizes and confirms that small-scale density
+fluctuations in PSP data remain relatively low. These two characteristics indicate that scattering effects do not significantly change
+observed radio source positions within the studied distances.
+
+Key words. Type III radio burst — Radio triangulation — Electron density
+
+1. Introduction
+
+During the solar eruptive events such as Coronal Mass Ejec-
+tions (CMEs) and solar flares we observe the wide spectrum of
+emission in different wavelengths including solar radio emission.
+As radio emission can provide information about background
+plasma processes and the eruptive phenomena, it is in the focus
+of numerous multi-wavelength studies of flare/CME events (e.g.,
+Pick 1998; Nindos et al. 2008; Magdalenié et al. 2014; Jebaraj
+et al. 2020, 2023; Kumari et al. 2023). Consequently, the study
+of radio emissions has a vital role in the field of solar physics for
+many decades (see e.g. Wild & McCready 1950; Robinson &
+Cairns 1994; Magdalenié et al. 2014; Zucca et al. 2018; Jebaraj
+et al. 2020; Klein 2021).
+
+Solar radio bursts can be studied using four main types of ob-
+servations: dynamic spectra, radio images, direction-finding and
+ionospheric scintillation data. Herein, we focus on the dynamic
+spectra and direction-finding observations. Dynamic radio spec-
+tra are frequency-time diagrams with color-coded intensity (see,
+Kundu et al. 1961; Van Haarlem et al. 2013; Marqué et al. 2018;
+Jebaraj et al. 2023). Radio observations can be obtained using
+both ground-based radio telescopes and space-based receivers,
+each with their own limitations, but also offering valuable and
+complimentary insights into different types of bursts and their
+properties. Spectroscopic observations alone do not provide suf-
+ficient information to accurately determine the source location
+of the radio emission. The ground based radio imaging observa-
+tions provide us the radio source position in the 2D space, i.e.
+
+Article number, page 1 of 20
+A&A proofs: manuscript no. aa55142-25
+
+Event No. Date Observed Peak Time (UT) Associated Complexity of Time Profile PSP heliospheric
+April 2019 “Wind STA PSP Phenomena Wind STA PSP distance (AU)
+1 02 15:46 15:45 15:36 Jet N Y Y 0.184171
+2 03 17:00 16:59 16:43 Jet N N Y 0.171613
+3 03 19:00 18:59 = 18:43 Jet N Y XY 0.170892
+4 03 22:34 22:33 22:26 Jet N N Y 0.169674
+5 04 22:22 22:21 22:14 Jet N N Y 0.165906
+6 05 01:24 01:23 01:22 Jet Y Y Y 0.165952
+q 05 01:30 01:29 01:24 Jet Y Y! Y 0.165953
+8 05 17:06 17:05 16:58 Jet Y Y Y 0.168071
+9 05 17:17 17:16 17:09 Jet Y Y Y 0.168113
+10 05 20:08 20:07 20:01 Jet ¥ Y Y 0.168842
+11 05 20:11 20:10 20:05 Jet Y Y Y 0.168883
+
+Table 1. The characteristics of the studied type III radio bursts observed during the second PSP perihelion include: the observed peak time by
+Wind (708 kHz), STEREO-A (725 kHz) and PSP (721.875 kHz) spacecrafts, observed complexity in the time profile and information about the
+
+associated coronal phenomena.
+
+in the plane of the sky. Even more exact position of the radio
+sources can be obtained employing the direction-finding obser-
+vations which provide information on the wave vectors indicat-
+ing the direction of the radio emission in the three dimensional
+(3D) space (Manning & Fainberg 1980; Reiner et al. 1998). Di-
+rection finding (DF) measurements from at least two spacecraft
+can then be used to triangulate the position of the source in 3D
+space (Krupar et al. 2012, 2014a,b, 2015), putting the radio emis-
+sion in context with the flare/CME related processes (see e.g.
+Martinez Oliveros et al. 2012; Magdalenié et al. 2014; Jebaraj
+et al. 2020).
+
+Solar radio bursts are classified into five major groups (type
+I, IL, IL, IV and V), based on their spectral morphology as ob-
+served in the metric wavelength range (Wild & McCready 1950;
+Wild 1950; Dulk 1970; Melrose 1980; Nelson & Melrose 1985).
+This paper is centered on the study of type III solar radio bursts
+and estimation of the coronal plasma density at the source posi-
+tion of these radio bursts. Type III bursts are the most commonly
+observed type of solar radio emission. They are the electromag-
+netic signatures of near-relativistic electron beams (Uiypem ~ ¢/3,
+Suzuki & Dulk 1985; Klassen et al. 2003) that propagate along
+open or quasi-open magnetic field lines (Pick et al. 2006; Reid
+2020). Type III radio bursts are observed at fundamental and/or
+harmonic plasma frequency (f, & 2f,), which involves genera-
+tion and coupling of the Langmuir waves (Ginzburg & Zhelezni-
+akov 1958; Melrose 1980; Robinson & Cairns 1994; Voshchep-
+ynets et al. 2015; Krasnoselskikh et al. 2025). As they propa-
+gate from high-to low-density regions in the solar corona they
+appear as a fast drifting lanes, from high to low frequency, in
+the dynamic spectra. Type III bursts can be observed all the
+way from GHz to kHz range (Benz et al. 1992; Meléndez et al.
+1999; Leblanc et al. 1995, 1996; Dulk et al. 1998; Krupar et al.
+2014a,b).
+
+Since the type III radio bursts are generated at the f,, and/or
+2 fp which is proportional to the electron density N_, radio bursts
+can be used to estimate the coronal electron plasma densities
+at their source region, employing the radio images and DF data
+in metric and kilometric wavelength range, respectively (Mag-
+dalenié et al. 2010; Zimovets et al. 2012; Magdalenié et al. 2014;
+Jebaraj et al. 2020, 2023). However, up to now in situ observa-
+tions which would allow validation of the results obtained from
+radio observations were not available. The results derived from
+radio observations were therefore not well constrained. As a re-
+sults of these uncertainties rather old 1D coronal electron den-
+
+Article number, page 2 of 20
+
+sity models (e.g., Baumbach 1937; Newkirk 1961; Saito 1970;
+Leblanc et al. 1998; VrSnak et al. 2004; Zucca et al. 2018) are
+still most often employed.
+
+Space weather forecasting models are a valuable tool for es-
+timation of the coronal plasma characteristics, and in particu-
+lar solar wind density and velocity. Such modeling results can
+be directly compared with different types of observations which
+allows, on one hand model validation and on the other hand it
+can support the observational results. Two of most frequently
+used state-of-the-art models of the background solar wind and
+CME propagation in the heliosphere are EUHFORIA (European
+Heliospheric Forecasting Information Asset; Pomoell & Poedts
+2018) and Enlil (Odstréil et al. 1996; Odstrcil 2003; Odstréil
+et al. 2005). In this work we will focus on the EUHFORIA
+model. The modeling accuracy of the solar wind plasma char-
+acteristics and arrival of high-speed streams and CMEs at Earth
+is often not very accurate, with the average forecasting errors
+as large as + 9 h (Hinterreiter et al. 2019; Samara et al. 2021;
+Rodriguez et al. 2024).
+
+The validation of the forecasting models is mostly done at
+1 au where the in situ observations needed for model validation
+are available (see e.g. Owens et al. 2008; MacNeice 2009; Jian
+et al. 2011; Reiss et al. 2016, 2019; Hinterreiter et al. 2019; Ro-
+driguez et al. 2024). Only several works were devoted to the val-
+idation of the models at close to the Sun distances, (such as e.g.,
+McGregor et al. 2011; Chen & Hu 2001; Leitner et al. 2007).
+Recent in situ observations by the Parker Solar Probe (PSP; Fox
+et al. 2016) allowed model validation at various distances from
+the Sun (Riley et al. 2021; Wallace et al. 2022; Samara et al.
+2024, Senthamizh Pavai et al., in prep.). The novel PSP in situ
+data can also excellently serve for the validation of plasma pa-
+rameters obtained from radio observations which also map the
+ambient solar wind characteristics at various distances from the
+Sun. We devote this study to the estimation and comparison
+of the coronal plasma density obtained through three different
+ways, modeling, in situ observations and radio observations.
+
+Herein we present for the first time a comparison of coro-
+nal plasma densities estimated using type III radio bursts, radio
+triangulation method, in situ observations by PSP and modeling
+with EUHFORIA. This approach allows us to address uncertain-
+ties of both the radio triangulation technique and the EUHFO-
+RIA modeling together. The paper is structured as follows: The
+data used in this study is described in Section 2. We discuss the
+method of radio triangulation and space weather model EUH-
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+FORIA in Section 3, while Section 4 elaborates on the different
+method of obtaining electron densities. Section 5 presents the
+analysis of the selected events. Section 6 discuss the triangula-
+tion results, while Section 7 addresses the results related to com-
+parison of densities obtained by different methods and it summa-
+rizes the uncertainties induced by each method. The discussion
+and conclusions are presented in Section 8.
+
+2. Data description
+
+In order to give the context on the coronal eruptive processes
+associated with the studied radio bursts we employed multi-
+wavelength analysis. Together with the radio observations we
+employed white light, Extreme Ultraviolet (EUV) and Soft X-
+ray (SXR) observations. The main input for modeling with EUH-
+FORIA were synoptic magnetograms, while in situ observations
+were used for the validation of modeling results and comparison
+with the coronal electron density obtained from radio observa-
+tions.
+
+EUV and SXR observations:
+
+The low solar corona was analyzed using Extreme Ultraviolet
+(EUV) observations from two instruments:
+
+a) EUVI (Extreme Ultra Violet Imager; Howard et al. 2008)
+on-board STEREO-A (Solar TErrestrial RElations Observatory
+Ahead; Kaiser et al. 2008) provided images in four channels:
+171, 195, 284, and 304 A.
+
+b) AIA (Atmospheric Imaging Assembly; Lemen et al. 2012)
+onboard SDO (Solar Dynamics Observatory; Pesnell et al. 2012)
+provided observations in 7 different channels: 94, 131, 171, 193,
+211, 304, and 335 A.
+
+We also employed soft X-ray ray (SXR) Observations ob-
+tained from the GOES (Geostationary Operational Environmen-
+tal Satellite; Garcia 1994) to identify the flaring activity possibly
+associated with studied radio bursts.
+
+White light observations:
+
+In order to study dynamics of the higher corona, such as pos-
+sibly associated CMEs, we used coronagraphic observations
+from the STEREO-A and also LASCO (Large Angle Spectro-
+metric COronagraph; Brueckner et al. 1995) on board SOHO
+(Solar and Heliopsheric Observatory; Domingo et al. 1995).
+SOHO/LASCO includes externally occulted coronagraphs C2
+(1.5—6 Ro) and C3 (3.7 —30 Ro) while STEREO-A provides two
+field of view, COR1 (1.5—4 Ro) and COR2 (up to 15 Ro).
+
+Radio observations:
+
+The main focus of this paper are type III radio bursts observed
+by space-based radio instruments on board Wind (Bougeret et al.
+1995), STEREO-A and PSP (Parker Solar Probe; Fox et al.
+2016). We have used two different types of observations: dy-
+namic radio spectra and DF data. Wind/Waves instruments pro-
+vide dynamic radio spectra obtained from two receivers RADI
+and RAD2 covering the frequency ranges of 20—1040kHz
+and 1075 — 13825 kHz, respectively. DF measurements are avail-
+able in discrete frequencies between 100-1040 kHz with tem-
+poral resolution of 45 s. This study uses the publicly re-
+leased Wind/WAVES RAD1 direction-finding dataset, Version
+O1 (released 2022; Bonnin et al. 2022). Dynamic spectra by
+two receivers LFR and HFR (Low & High Frequency Re-
+
+ceiver) onboard STEREO/Waves cover together the frequency
+range of 40— 16000 kHz. Similarly, DF measurements made by
+STEREO/Waves are available in a somewhat smaller frequency
+range of 125-1975 kHz and with larger time resolution (30 s) at
+number of discrete frequencies (Krupar et al. 2022).
+
+The Radio Frequency Spectrometer (RFS; Pulupa et al. 2017)
+part of the FIELDS (Bale et al. 2016) instrument suite on-
+board PSP provided spectroscopic observations in the range of
+10.5 — 19000.2 kHz by combining both the High/Low Frequency
+Receivers (HFR/LFR). The full averaged spectra is obtained at a
+7s cadence during PSP’s close encounters.
+
+Magnetogram:
+
+We used the synoptic magnetogram maps provided by
+NSO/GONG (National Solar Observatory’s Global Oscillation
+Network Group; Harvey et al. 1996) and ADAPT (Air Force
+Data Assimilative Photospheric Flux Transport; Hickmann et al.
+2015) maps as a main data input to the EUHFORIA model.
+These two type of magnetic maps will be further referred as
+GONG and ADAPT respectively.
+
+In situ data:
+
+The quasi-thermal noise (QTN) spectroscopy allows us to obtain
+the electron density through an accurate electrodynamic proxy
+by making use of the measurement of the plasma frequency by
+LFR/RFS (Moncuquet et al. 2020). The RFS receiver has the
+optimal conditions for accurate measurement during the perihe-
+lion passages (Pulupa et al. 2017) which makes “PSP density”
+values used in this work quite reliable. PSP also has another in-
+strument onboard which measures the plasma density, SWEAP
+(Solar Wind Electrons Alphas and Protons; Kasper et al. 2016).
+SWEAP’s Faraday cups and electrostatic analyzers may under-
+estimate electron density due to inability to fully capture strahl
+and halo electrons, especially in regions with low angular cov-
+erage; and the use of assumptions on the distribution function
+shape (often Maxwellian), which may not hold in turbulent or
+anisotropic conditions. In contrast, QTN spectroscopy uses ther-
+mal noise spectra, which are directly proportional to the electron
+plasma frequency, and thus offer absolute density estimates, es-
+pecially in regimes where the plasma is not fully sampled by
+SWEAP. As this is also supported by number of studies (e.g.,
+Meyer-Vernet 2001; Moncuquet et al. 2020; Liu, M. et al. 2021;
+Martinovi¢ et al. 2022) we choose to employ the data from
+FIELDS instrument which is dedicated for the study of electrons,
+the prime focus of this paper.
+
+3. Methodology
+3.1. Radio triangulation
+
+Mapping radio source positions in interplanetary space can be
+done employing different methods (see e.g., Reiner et al. 2009;
+Alcock 2018; Zhang et al. 2019; Musset et al. 2021; Badman
+et al. 2022; Cafiizares et al. 2024). The majority of these methods
+while estimating the position of the radio sources and the direc-
+tion of the propagation of the radio emission consider some ap-
+proximations and simplifications which reduce the 3D methods
+to the 2D space. TDOA (time-difference-of-arrival) method by
+Badman et al. (2022) assumes the location of the radio sources
+in the ecliptic plane along with the observing spacecraft. Quite
+similar to TDOA is BELLA (BayEsian LocaLisation Algorithm)
+method (Cafiizares et al. 2024) which is also reduced to the 2D
+
+Article number, page 3 of 20
+A&A proofs: manuscript no. aa55142-25
+
+space. The methods by Reiner et al. (2009) and Musset et al.
+(2021) bring rather large uncertainty in the source position esti-
+mation assuming the coronal electron density in order to obtain
+the radial distance of the sources from the Sun. Another method
+which makes assumption on the coronal electron density model
+is SEMP (Solar radio burst Electron Motion Tracker) by Zhang
+et al. (2019). This method also assumes the propagation of the
+radio sources along the Parker spiral with the constant speed. We
+note that accurately obtaining not only the propagation direction
+but also the 3D radio source positions is possible exclusively em-
+ploying, so called, radio triangulation method (e.g., Reiner et al.
+1998; Krupar et al. 2014a,b; Magdaleni¢ et al. 2014; Jebaraj et al.
+2020). We consider this method for obtaining source position in
+3D space, as it is the most reliable one since it does not include
+additional assumptions like most of the other methods.
+
+In this study, we will further use 3D radio source positions to
+map the coronal electron density along the type III radio bursts
+propagation path.
+
+In order to employ radio triangulation and estimate the ra-
+dio source positions in the 3D space we need goniopolarimetric
+(GP) or direction-finding observations from at least two or more
+widely positioned spacecraft. Using the DF methods on the GP
+observations, i.e., the flux, azimuth and colatitude, we can esti-
+mate the direction of arrival of an incident electromagnetic wave.
+Due to differences between STEREO and Wind spacecraft dif-
+ferent methods need to be applied to the DF observations in order
+to obtain the information about the wave vectors. The spinning
+demodulation method (Gurnett et al. 1978; Manning & Fainberg
+1980) was then used for the Wind data and singular value de-
+composition (SVD) (Cecconi & Zarka 2005; Cecconi et al. 2008;
+Krupar et al. 2012) for the STEREO data to obtain the wave vec-
+tors from the two different view points. Although the GP obser-
+vations start around 1975 kHz, in this study we considered Wind
+& STEREO-A frequency pairs at 425/428, 525/548, 575/548,
+625/624, 675/624, 725/708, 775/708 kHz, respectively.
+
+The frequency range of roughly 400-800 kHz was selected
+in order to assure that the fundamental emission is a dominant
+radio emission component with also often smaller and better de-
+fined source sizes as discussed by Dulk et al. (1984); Melrose
+(1980). The novel PSP data provide more observational evidence
+on the fundamental and harmonic of the type III radio bursts ap-
+pearance. Jebaraj et al. (2023) shows that large fraction of type
+Ill bursts seen by PSP consists of fundamental and harmonic
+component. However, due to the proximity of the local plasma
+frequency, the type III bursts below 1 MHz are not clearly dis-
+tinguishable in the dynamic spectrum (see e.g. Fig. 1 in Jebaraj
+et al. 2023). On the other hand, type III bursts examples in the
+study by Chen et al. (2024) show rather clear dominance of the
+fundamental emission band below 1 MHz. Therefore, consider-
+ing that majority of the type III burst below conservative value
+of 800 kHz, even smaller than before mentioned 1 MHz, is a rea-
+sonable assumption. This criteria is therefore also favorable for
+obtaining the electron density in the 3D space using radio source
+positions as accurate as possible. Once we obtained the wave
+vectors for the selected frequency pairs, we consider that the ra-
+dio source position is within the shortest distance between these
+two wave vectors. We note that the radio source size could be
+actually smaller than the distance between these two wave vec-
+tors. Similarly to the previous studies (Magdalenié¢ et al. 2014;
+Jebaraj et al. 2020) the radio emission apparent source region is
+then defined as a sphere sketched in the (Fig. 1). We estimate this
+apparent source size in degrees as, the angle 6 projected on the
+solar surface by the shortest distance between the wave vectors
+d, expressed as,
+
+Article number, page 4 of 20
+
+6 = 2tan (4) dd)
+
+Where, D is the distance from the Sun to the radio source
+position. We note that the spherical source shape approximation,
+used here also to estimate the source size and volume (Fig. 9b
+and 12) is commonly used in the literature as a first-order ap-
+proximation for the radio source shape (Reiner et al. 1998; Saint-
+Hilaire et al. 2012; Magdalenié et al. 2014; Jebaraj et al. 2020).
+This source shape approximation implies also the homogeneous
+intensity over the source region.
+
+Fig. 1. Schematic illustration of the radio source size, calculated in de-
+grees from the shortest distance between the wave vectors Wy ing and
+Wsra. The distance d is derived from the Wind and STEREO-A DF ob-
+servations. The sizes of the Sun, radio source and the distance between
+them are not in the real proportions.
+
+3.2. EUHFORIA
+
+One of the recently developed and dynamically evolving model
+of the solar wind and CMEs is a 3D magntohydrodynamic
+(MHD) model EUHFORIA (Pomoell & Poedts 2018). This data-
+driven forecasting model computes the time evolution of the in-
+ner heliospheric plasma. The ideal MHD equations are used to
+build the model that self-consistently simulates the solar coronal
+plasma. The main input to the model are synoptic magnetograms
+and the output is in the form of time series and 3D simulation
+results. EUHFORIA consists of two different domains: coronal
+and inner heliospheric domain, and a CME insertion part.
+
+The coronal model in EUHFORIA provides the boundary
+conditions at 0.1 au, so called inner boundary of EUHFORIA,
+necessary for modeling in the inner heliospheric domain. EU-
+HFORIA’s coronal model is based on the potential-field source-
+surface extrapolation model (PFSS; Altschuler & Newkirk 1969;
+Schatten et al. 1969) followed by the Schatten Current Sheet
+model (SCS; Schatten 1971) and Wang-Sheeley-Arge model
+(WSA; Wang & Sheeley 1990; Arge & Pizzo 2000). The heloi-
+spheric model reconstructs the evolution and propagation of the
+coronal plasma covering the distances from 0.1 to 2 au. Differ-
+ent CME models can be introduced in the heliospheric domain
+of EUHFORIA to study the CMEs propagation and forecast their
+arrival at Earth (Maharana et al. 2022; Niemela et al. 2023; Ro-
+driguez et al. 2024; Valentino & Magdalenié 2024).
+
+While first accuracy testing of the solar wind modeling was
+done at | au (e.g. Hinterreiter et al. 2019; Asvestari et al. 2019,
+2020), recently available PSP in situ observations opened the
+possibilities for model validation at various distances close to
+the Sun (Samara et al. 2024). Validating and improving the so-
+lar wind modeling is important since it strongly affects also the
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+2019-04-05 17:00:00 (UTC)
+
+225°
+
+STEREO A 180°
+
+Earth
+Parker Solar Probe
+
+270°
+
+©oe
+
+135°
+
+45°
+https://solar-mach.github.io
+
+b)
+
+225°
+
+@ Radio Sources
+
+@ Parker Solar Probe
+© Virtual spacecraft
+
+135°
+
+315%,
+
+EUHFORIA
+Heliospheric
+Domain
+
+45°
+
+Fig. 2. Panel (a) shows spacecraft locations in equatorial plane during the type III burst on 05 April 2019 (~ 17:00 UT). Panel (b) sketches the part
+of EUHFORIA’s modeling domain up to 0.5 au. It also shows the arbitrary virtual spacecraft positions at which we consider modeled time series
+
+of the solar wind parameters.
+
+propagation of CMEs and their interaction with the solar wind
+(Valentino et al., in prep.).
+
+4. Type Ill bursts and coronal electron density
+
+During PSP’s second close encounter, when the probe reached
+distances of up to ~0.16 au from the solar surface, it observed
+several groups of type III radio bursts. These bursts were also de-
+tected by STEREO-A and Wind at ~1 au. We inspected the entire
+three week period of the perihelion (25 March — 14 April, 2019)
+in order to isolate type III radio bursts suitable for our study.
+This period is ideal given the near-quadrature alignment between
+Wind and STEREO-A spacecraft, 97° (Fig. 2), which is best
+suited for the radio triangulation method (Reiner et al. 2009;
+Magdaleni€¢ et al. 2014).
+
+4.1. Event selection criteria
+
+We selected 11 type III radio bursts (Table 1) based on the fol-
+lowing criteria:
+
+1. Radio bursts need to be observed by both Wind and
+STEREO-A to obtain dynamic spectra (see Fig. 3) and
+
+direction-finding observations.
+
+2. Type II radio burst should be well distinguishable from other
+types of radio emission. We aim to have type III bursts as iso-
+lated as possible, in order to have a clear and not visibly over-
+lapping frequency time profiles (see Fig. 4). We excluded
+type III bursts appearing in the big groups of numerous over-
+lapping bursts.
+
+3. Selected burst need to be of significantly higher flux inten-
+sity, approximately two orders of magnitude above the back-
+ground level, in order to secure good triangulation results.
+
+We note that most of the type III bursts occur within few min-
+utes sometimes resulting in not completely simple time profiles
+
+(Fig. 4). This complexity in the time profiles can lead to poten-
+tially erroneous estimation of the radio source positions (Desh-
+pande & Magdalenié¢ in prep.).
+
+The EUV observations showed that all selected type III ra-
+dio bursts were associated with the active region (AR) NOAA
+12738 (Fig. 5 and 6). The source region was located at about 17°
+behind the east solar limb as seen from Earth on the day of the
+last observed type III bursts (05 April 2019). The AR was rather
+simple with a/8 photospheric magnetic field configuration de-
+fined once it rotated on the visible side of the Sun. For all of
+the studied type III bursts, EUV observations were only avail-
+able from STEREO-A. Observations at all of the 4 wavelength
+channels (see Sect 3) provided by STEREO-A showed that the
+selected type III bursts were associated with small jet and jet-like
+structures (see example in Fig. 5).
+
+The coronagraph observations showed few very faint and
+narrow CMEs during the considered time interval. The CMEs
+were mostly propagating along the streamer regions seen above
+the East solar limb (see Fig. 6). Propagation of the CMEs might
+have changed the magnetic field configuration of the ambient so-
+lar corona and influenced the propagation of the type III electron
+beams (Magdaleni¢ et al. in prep.). We also note that the white
+light observations show the existence of a streamer that seem
+to originate close the NOAA AR 12738 (Fig. 6). The visual in-
+spection of the EUV observations show streamer which initially
+appears bright when the AR is near the east limb (see Fig. 6,
+panels a and d). As the AR approaches the central meridian, the
+streamer becomes faint and almost not visible due to projection
+effect (Fig. 6, panels b and e). The streamer becomes bright again
+as the AR moves toward the west solar limb (Fig. 6, panels c and
+
+f).
+
+Article number, page 5 of 20
+A&A proofs: manuscript no. aa55142-25
+
+Power Spectral Density
+
+Normalised Receiver
+
+Power Spectral Density
+
+(Wim2/Hz) average voltage (Wim2/Hz)
+1076 1077 10% = 10% = 107° 10" 10° 1076 1077 1078 1079
+ee anne Lee aEEeEetiEliieee eed
+STA Wind PSP
+0.1 0.1 0.1
+
+N N
+Py Ps
+= =
+fe) Fe) |
+2 1.0 g 1.0
+ov uv
+=. Ss
+com fom
+2 x
+z z
+10.0 10.04
+
+16:45
+
+17:00
+Time (UT)
+
+17:15 17:30 16:45
+
+17:00
+
+1.0-
+
+Frequency (MHz)
+
+10.04
+
+16:45 17:15
+
+17:00
+Time (UT)
+
+17:15
+Time (UT)
+
+17:30 17:30
+
+Fig. 3. Dynamic radio spectra of the events 8 and 9 observed on 05 April 2019 at ~ 17:00 UT. Events 8 and 9 (see also Table 1) were observed
+by Wind, STEREO-A, and Parker Solar Probe, from left to right panel. The dashed lines in red, green, and blue indicate the direction-finding
+frequencies for the Wind and STEREO-A spacecraft. For comparison similar frequencies are shown for PSP observations.
+
+4.2. Different methods of estimating coronal electron density
+4.2.1. Radio density
+
+The plasma frequency is due to collective oscillations of free
+electrons in the plasma. It is determined by the electron density
+(n), the elementary charge (e), and the electron mass (m,). Math-
+ematically, it can be expressed as,
+
+ne
+
+tp = (2)
+
+T &
+
+re
+
+Electron density generally decreases with the increasing distance
+from the Sun, this makes the simultaneous decrease of the local
+plasma frequency. Such a behavior allows us to estimate the den-
+sities corresponding to each plasma frequency associated with
+the radio emission at the specific distances from the Sun. The
+radio triangulation method can be used to obtain the heights in
+the corona to which the estimated density corresponds. We will
+call density obtained in the described way “radio density”.
+
+4.2.2. EUHFORIA density
+
+EUHFORIA simulates density, velocity, and magnetic field in
+the 3D space, all the way from the Sun to Earth and up to 2 au.
+In the framework of a single-fluid ideal- MHD model like EUH-
+FORIA, the plasma is treated as quasi-neutral "fluid" with equal
+contribution of the electrons and protons which are not differen-
+tiated. Under this assumption, dividing the fluid number density
+by two gives a rough estimate of the electron (or ion) number
+density.
+
+As the main input to EUHFORIA we used the synoptic
+GONG and ADAPT magnetograms (see Sect 3). The source sur-
+face radii (SSR) of the PFSS, which defines height from which
+all the magnetic field lines are considered as open is combined
+
+Article number, page 6 of 20
+
+with the source surface heights (SSH) of SCS model. In the de-
+fault set up of EUHFORIA the SSH and SSR are considered to
+be 2.3 and 2.6 Ro respectively. For modeling with GONG mag-
+netograms we also used different pairs of the SSR values, in or-
+der to increase the accuracy of the background solar wind model-
+ing. The solar wind speed and number density is described in the
+same way as in Pomoell & Poedts 2018 (eq. 2 & 4). In this study
+we used the intermediate resolution of EUHFORIA defined with
+angular resolution of 2° with 512 grid cells in radial direction
+from 0.1 au to 2 au. We note that EUHFORIA allows also low
+(4° angular resolution with 256 grid cells) and high resolutions
+(1° angular resolution with 1024 grid cells).
+
+With EUHFORIA we obtain simulation results in the 3D
+space which gives us the possibility to estimate the EUHFO-
+RIA electron density at any specific position. For that purpose
+we insert so-called virtual spacecrafts in the modeling domain
+(see Fig.1 in Scolini et al. 2023; Valentino & Magdalenié 2024).
+Using virtual spacecraft allowed us to obtain EUHFORIA time
+series both at the radio source positions and along the PSP prop-
+agation trajectory.
+
+5. Case study of Event 8 and 9
+
+The case study of two type III radio bursts recorded on
+05 April 2019 aims to demonstrate different methods for ob-
+taining the solar wind densities and the ways to compare es-
+timated values. The two selected type II bursts have peak in-
+tensities at 17:06 UT and 17:17 UT as detected by Wind, and
+around 17:05 UT and 17:16 UT as observed by STEREO-A.
+The peak times as observed by PSP are listed in Table 1. Simi-
+larly to all other type IIIs these two Events were sourced in the
+NOAA AR 12738 and associated with jets. Due to the insuf-
+ficient time resolution of the EUV data, it was challenging to
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+a) ——708 kHz ——548 kHz ——428 kHz| b) —— 725 kHz —— 525 kHz —— 425 kHz
+3 x10" 02 Apr 2019 a x10°20 03 Apr 2019 Fi x1o"® 02 Apr 2019 8 x10°7 03 Apr 2019
+Event 1 ‘4 Event 2 Event 1 ‘ Event 2
+D2 a
+os <=
+et 2 B05 4
+=! 1 = 2
+() 0 9 0
+157 158 159 16 169517, 17.05 7A 17.15 157 1575158 = 1585 159 16.95 7 17.05 174
+1 x10°20 03 Apr 2019 é 107" 03 Apr 2019 4 107 03 Apr 2019 48 «107 03 Apr 2019
+Event 3 A Event 4 Event 3 Event 4
+5) g
+ok az i
+9% 05 4 OE 05
+= 2 = 05
+0 0 0 0
+189 19 19.4 192-225-2255 226 = 22.65 227 1895 19-1905 191 19152252255) 226 = 226522
+2x10 04 Apr 2019 8 «10°20 05 Apr 2019 1 x107 04 Apr 2019 3x10” 05 Apr 2019
+Event 5 Event 6 Event 5 Event 6
+a Event 7 2 s J Event 7
+og og
+O% 1 O08 4
+20s cS 2
+0 t) 0
+22.3 224 225 226 223 22.35 224 2245 225 1.3 14 15 16
+{ x10? 05 Apr 2019 é «19°20 05 Apr 2019 ‘ x10" 05 Apr 2019 4 x10 05 Apr 2019
+_ Event 8 Event 11 _ Event 8 coats Event 11
+of J Event 9 N\ at é Event10 \
+Oxos 1 Event 10 Otos 1
+ae° ae é
+= 2 = 1
+0 C) 0 0
+7 W741 172 «3 TA 175 20 202 204 206 7 Wi 172073) TA 20 202 204 206
+Epoch Epoch Epoch Epoch
+
+Fig. 4. Panel (a) shows time profiles at 708 kHz (highest), 548 kHz (middle) and 428 kHz (lowest) direction-finding frequencies for all the studies
+type III radio bursts observed by Wind spacecraft. Panel (b) presents time profiles at 725 kHz (highest), 525 kHz (middle) and 425 kHz (lowest)
+
+direction-finding frequencies for all the studied type III radio bursts observed by STEREO-A spacecraft.
+
+EUVI 304-A
+
+NOAA AR
+12738
+
+SECCHI COR2 RD
+
+Fig. 5. EUV image shows associated jet structure, while white-light observations capture one of the CMEs observed during the second PSP
+perihelion. Panel (a) displays a jet associated with Event 8 originating from the NOAA AR 12738, observed in the 304 A wavelength channel
+of the EUVI instrument onboard STEREO-A. Panel (b) presents a combined image from 03 April 2019, featuring the EUVI 304 A observation
+alongside white-light observations from the SECCHI COR2 instrument, highlighting a CME. Image created using Jhelioviewer (Miiller et al.
+
+2017)
+
+determine which specific jet was responsible for each individual
+
+type III radio burst.
+
+Fig. 3 shows the dynamic spectra, of Events 8 and 9. The
+dynamic spectra were recorded by Wind, STEREO-A and PSP
+covering the frequency range of 0.1 to 10 MHz. The Autoplot
+
+tool (Faden et al. 2010) was used for the dynamic spectra data
+plotting. Part of Event 8 is missing in the Wind spectrogram (be-
+tween 17:14 UT to 17:19 UT) due to data gaps. All three space-
+crafts observe the type III radio bursts as intense emissions iso-
+lated from each other (Fig. 3). The maximum intensity of the
+
+Article number, page 7 of 20
+A&A proofs: manuscript no. aa55142-25
+
+bright streamer
+
+streamer becomes
+bright again
+
+disappears
+
+2019-04-03 14:54:13,005
+
+AR 12738
+
+streamer becomes
+bright
+
+AR 12738
+
+AR a = ‘,
+_
+
+SOHO\LASCO
+
+2019-04-05 17:12:04.840
+
+2019-04-06 02:25:34.008
+
+bright streamer
+disappears
+
+2019-04-12 03:27:04.840
+
+2019-04-07 17:54:13.010
+
+AR 12738
+
+|
+
+>,
+
+streamer becomes
+bright again
+
+2019-04-18 11:43:52.840
+
+Fig. 6. The white-light coronagraph observations, combined with EUV observations, show the streamers present during Event 8 and 9. The set of
+images highlights the streamer associated with AR 12738. Panel (a to c) shows combination of SECHHI COR2 image and EUVI 195 A images.
+Panel (d to f) shows combined AIA 193 A and SOHO/LASCO C2 observations. Image created using Jhelioviewer (Miiller et al. 2017)
+
+radio emission at the DF frequency at 725 KHz, as observed
+by STEREO-A, is 8.29 x 107!7 W/m2?/Hz, which is about 100
+times larger than at a similar frequency in Wind observations
+(1 x 10-'? W/m?/Hz at 708 KHz). The intensity of the radio
+emission at the closest PSP frequency of 721 KHz for the same
+burst was 3.92 x 10-!4 W/m?/Hz (Fig. 3). A large difference be-
+tween the STEREO-A and Wind type III intensity indicates that
+the burst likely propagates more towards STEREO-A (Fig. 2)
+than towards Wind spacecraft. However, as PSP is at 0.16 au and
+STEREO-A and Wind are at about | au, direct comparison of
+the radio burst intensity and its directivity using all three view-
+ing points is somewhat ambiguous.
+
+The frequency-time profiles of studied bursts, as observed
+by both STEREO-A and Wind data, are rather symmetric with
+a single maximum. This symmetry of both bursts is better seen
+in STEREO-A observations. We note that due to lower temporal
+resolution of the Wind data, the profile of Event 9 is likely not
+fully resolved (Fig. 4) while the time profile of Event 8 is affected
+by the data gap (Fig. 3).
+
+We note that it is difficult to state with full certainty whether
+the analyzed type III time profiles represent only single isolated
+bursts. Recent results by Gerekos et al. (2024, see Fig. 6), based
+on high temporal (1.43 ms) and frequency (7.41 KHz) resolution
+observations, suggest that more than one fully resolved type III
+profiles could be expected in the WIND and STEREO-A obser-
+vations. The rather symmetric time profiles indicate that poten-
+
+Article number, page 8 of 20
+
+tially unresolved type III bursts are temporally very close to each
+other.
+
+Additionally, the dynamic spectra (Fig. 3) reveal faint blob-
+like structures at the low-frequency part of both bursts (between
+0.2 and 0.3 MHz), clearly observed by STEREO-A and PSP. No
+fine structures of the similar shape can be observed in the high
+frequency part of the bursts indicating that the blob-like struc-
+ture are possibly different than the stria substructures previously
+reported (e.g., Jebaraj et al. 2023). It is possible that the blob-
+like structures are observed in the STEREO-A and PSP data be-
+cause the radio burst propagates towards STEREO-A, and close
+to the PSP. The reasons for not seeing the blob-like structure in
+the Wind data are possibly the radio burst propagation path away
+from Wind spacecraft and/or the instrumental effect. These struc-
+tures observed in the dynamic spectra suggest that the measured
+time profiles at direction-finding frequencies are not simple but
+rather a convolution of at least two distinct components. All
+these characteristics of the two presented events indicate that the
+type III bursts likely consist of either: (a) both fundamental and
+harmonic components (Jebaraj et al. 2023), or (b) at least two
+closely spaced type III bursts (e.g., Jebaraj et al. 2023; Gerekos
+et al. 2024). We note that both of mentioned studies which were
+able to resolve the bursts time profiles considered type III bursts
+at frequencies higher than in this study namely above 1 MHz (see
+Fig. | in Jebaraj et al. 2023) and 13.5 MHz (Gerekos et al. 2024).
+Even if the time profiles of the bursts are observed with high
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+Frequency 450 500 550 600 650 700 750
+(kHz)
+0.2 au
+a) 0.2 au m b) |
+STA
+ry
+Wind
+
+Event 8
+
+Event 9
+
+0.2 au » 0.2 au
+
+Fig. 7. Radio source positions obtained using DF data in the 3D space (colorful spheres in blue to violet shades). The yellow and green sphere
+represent the Sun and PSP, respectively. The sizes of radio sources, Sun and PSP are not relative to each other. Panel (a) displays the radio source
+positions for the first type III bursts shown in the dynamic spectra (Fig. 3). The radio source positions show the propagation path of the type III
+radio burst in the southward direction from the ecliptic plane. Panel (b) presents estimated radio source positions (obtained with radio triangulation)
+for the second type III burst observed at ~17:15 UT in STEREO-A and Wind. The radio source positions show the propagation path of the type
+III radio burst more in the equatorial plane than in the case of the first type III.
+
+Event 1 | b)
+
+a) : Event 1 @ 0.425 - 0.428 MHz
+e con @ 0.475 - 0.484 MHz
+O Event4 ry @ 0.525 - 0.548 MHz
+O Events STA fs @ 0.575 - 0.548 MHz
+scone : © 0.625 - 0.624 MHz
+iS Gens eee © 0.675 - 0.624 MHz
+© Evento @ 0.725 - 0.708 MHz
+@ Event 10 @ 0.775 -0.708 MHz
+@ = Event 11
+
+Fig. 8. All type III radio bursts plotted together to visualize their propagation path relative to each other. Panel a) the propagation paths of all type
+III bursts presented in the similar viewing angle as the Events 8 and 9 (Fig. 7). The spread of the sources indicates the rotation of the associated
+AR. Each bursts is presented in a different color. Panel b) Radio sources of all type III bursts plotted together but now color coded by the selected
+frequency pairs.
+
+Article number, page 9 of 20
+A&A proofs: manuscript no. aa55142-25
+
+temporal resolution as in the study by Vecchio et al. (2024) who
+considered type IIIs observed at frequencies above ~ 3 MHz, at
+frequencies below 1 MHz it is likely that time profiles will be
+convolutions of fundamental and harmonic emission or subse-
+quent bursts (see Fig. 9 in Dulk et al. 1984). Therefore, increas-
+ing temporal resolution further will often not allow clear decon-
+volution of the overlapping components, in particular below the
+herein considered frequencies below 800 kHz.
+
+6. Triangulation results
+
+In this section we discuss triangulation results for the Events 8
+and 9 (see Fig. 7), and position these results in context with the
+statistics of the whole data set.
+
+Using radio triangulation with Wind & STEREO-A data
+we obtained the source positions of the type III bursts for the
+seven selected frequency pairs (see Sect. 3.1). The obtained ra-
+dio source positions, shown in Fig. 7, are at heights range 15 to
+60 Ro. The spheres marking the radio sources in Fig. 7 have a
+fixed size of 0.02 au for all frequency pairs, regardless of the ac-
+tual distance between wave vectors determined by the direction-
+finding method. This approach is chosen to improve the clarity
+of the radio sources’ propagation direction, similar to the method
+used by Magdalenié et al. (2014). Varying sphere sizes at dif-
+ferent frequency pairs (as shown in Fig. 9) can visually distort
+the apparent propagation path of the bursts. Figure 7a demon-
+strates that the radio sources of Event 8 are well-aligned, clearly
+showing a propagation path directed southward from the eclip-
+tic plane. In contrast, the radio source positions for Event 9 are
+less coherent, revealing a propagation path nearly parallel to the
+ecliptic plane (Fig. 7b). This indicates that two consecutive type
+Ill bursts, separated by only about 10 minutes, can have signif-
+icantly different propagation directions and originate from fast
+electron beams traveling along distinct, although not necessarily
+widely separated, magnetic field lines.
+
+We also plotted all type LI radio bursts together to visu-
+alize their propagation paths relative to each other (Fig. 8a).
+Most type LI bursts propagate southward from the solar eclip-
+tic plane, possibly due to changes in magnetic field configura-
+tion caused by the CMEs and streamers observed in white-light
+data (Section 3). We note that even small changes in the re-
+connection site (source of the type LI electron beams) or the
+underlying magnetic field configuration can result in electrons
+accessing different magnetic flux tubes, leading to slightly dif-
+ferent propagation paths and possibly somewhat different appar-
+ent radio source locations. Figure 8b shows all type III bursts,
+with radio sources color-coded by frequency. Higher-frequency
+sources (red spheres) are generally located closer to the Sun,
+while lower-frequency sources (blue spheres) appear farther
+away. This figure also highlights the spread of type III events as
+the AR rotates. For example shown in Fig. 7 two type III bursts
+are separated by less than 15 minutes and during this interval the
+Sun rotates about 0.13 deg. Taking this into account, even if the
+propagation path of the type II bursts would be exactly along
+the same magnetic field line the impact on the estimated radio
+source propagation would be small. The time difference between
+the first and the last type III bursts is about 4 days which accounts
+for about 52 deg in the change of the AR position. The spread
+of the apparent source positions shown in the Fig. 8b is about
+40-50 degrees which is in accordance with the AR rotation.
+
+The distances between wave vectors (d), obtained through
+radio triangulation, and the estimated radio source sizes (0) (Sec-
+tion 4.1) are shown in Fig. 9 as functions of the STEREO-A
+observing frequency (the first frequency in each triangulation
+
+Article number, page 10 of 20
+
+pair).According to eq. 1, radio source size depends on the dis-
+tance between wave vectors and the source-to-Sun distance, re-
+sulting in variations in data point distributions between the two
+panels in Fig. 9. Red symbols represent results for Events 8 and
+9, while black symbols indicate all other studied events. The ra-
+dio source position falls within the distances between wave vec-
+tors. We therefore consider that distance between the wave vec-
+tors represents the upper limits for source sizes determined by
+the triangulation method.
+
+Figure 9 shows significant spreads in values of both d and
+6 at each frequency. Although most data points cluster at lower
+values, some large values for d and @ were observed, making a
+simple mean inappropriate. To address this, we applied a boot-
+strap method (Dissauer et al. 2018) to estimate the mean source
+sizes and their uncertainties more accurately. Bootstrapping in-
+volves repeatedly resampling the data (with replacement) to es-
+timate statistical distributions without assuming underlying data
+distributions. We performed 10,000 bootstrap resamples, com-
+puting means and standard deviations for each set. This method
+provides robust estimates of uncertainties, reflecting the data’s
+inherent variability. Error bars derived from bootstrapping are
+shown in Fig. 9.
+
+The bootstrap-derived mean values of d and @ show only a
+slight increase in the distance between wave vectors at frequen-
+cies from 800 to 550 kHz, with small effect on source sizes.
+Mean values for the next lower frequency range (550 to 400 kHz)
+are unexpectedly smaller. We note that not all type II bursts go
+to such low frequencies and often even if they do, the intensity
+of the radio emission is very low which does not allow us to per-
+form accurate radio triangulation. Therefore, we have less data
+points below 550 kHz which could influence the obtained source
+sizes. Considering the full frequency range (800-400 kHz), we
+find no clear systematic variations in source sizes i.e., system-
+atic increase in d or @ at lower frequencies was not found con-
+trary to recent results in metric-range (Saint-Hilaire et al. 2012;
+Gordovskyy et al. 2022). This indicates that the scattering effects
+are probably stronger in the low corona than at larger distances
+from the Sun. It is important to note that this lack of the system-
+atic source size variation with the frequency is not influenced
+with the source size definition. Namely, we employ the same
+source size definition as in previous case studies (Magdaleni¢é
+et al. 2014; Jebaraj et al. 2020) which found somewhat more sys-
+tematic variation with the frequency decrease. The larger number
+of considered type III bursts in this study provides more general
+conclusion.
+
+7. Comparison of the electron densities obtained
+with different methods
+
+7.1. Radio densities
+
+After obtaining the 3D positions at which the radio emission was
+generated in the corona, using eq. 2 and knowing the frequencies
+at which radio burst was studied, we estimated the radio densi-
+ties. Employing different frequency pairs (see Section 3.1) al-
+lowed us to map the radio densities along the propagation path
+of the type III electron beams in the 3D space (Fig. 7). Addition-
+ally, in order to directly compare radio densities with the gener-
+ally used 1D coronal electron density models we converted the
+3D information of the radio source position to 1D heights (see
+Section 4.2). Results of this part of the study are presented in
+Fig. 10a which shows the density profiles as a function of height
+above the solar surface. The radio density obtained for Events
+8 and 9 is marked with red circles, and for all other studied
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+a) 25 *
+7 © Allevents
+® Case study
+oe” :
+£ 2 .
+2 : .
+§ &
+Q .
+o *
+z 15- : |
+s °
+Cc
+3 10
+‘ . ’
+3
+s | 3
+a .
+@ } | .
+Oo
+= .
+&
+A 3
+a
+. . . ° 3 : *
+a : . = . _*
+800 750 700 650 600 550 500 450 400
+
+Frequency (kHz)
+
+b) 40 - : : ;
+ Allevents
+* Case study
+35 . |
+.
+’
+30 ‘ ‘ |
+
+ND
+a
+oo
+oe .
+oe
+L
+
+Source Sizes (degree)
+a 8
+
+oe OH oe
+en
+.
+ee
+oe
+L
+
+=
+o
++e om 1 ese
+
+ered
+
+eed
+
++ eer
+
+ie
+
+450
+
+eee
+
+650 600 550
+Frequency (kHz)
+
+0 n
+800 750 700 500 400
+
+Fig. 9. The variation of radio source sizes with frequency for all type III radio bursts studied herein. The red points represent the case study and
+black points shows all the selected events. The blue error bars plotted on the data represent the standard deviation estimated from bootstrapping
+while the cyan colored points represent the mean calculated using the bootstrapping method. Panel (a) shows the radio sources in terms of the
+distance between the wave vectors. The average radio source size is up to 5 Ro, while panel (b) shows source sizes in terms of degrees.
+
+a) 10°; = = =
+i —— 1x Newkirk —— 1x Kruparova
+— 35x Saito - ~~ Kruparova (limits) |
+—— 1xLeblanc —— 1* Hybrid |
+—— 10xLeblanc ——— Wangetal.2023 |)
+
+20 x Leblanc
+
+Electron density (particles/em*)
+S Ss
+
+© Allevents ‘
+© Case study Ee =
+10 20 30 40 50 60 70
+Heights (Roun)
+
+b) 10°
+
+Electron density (particlesicm*)
+
+% EUHFORIA @ PSP ° |
+%* EUHFORIA @ radio sources
+
+20 25 40 45 50 55 60
+
+Heights (Roun)
+
+30 35
+
+Fig. 10. Comparison of the densities obtained in this study with some previous observational results and models. The electron density models such
+as, Newkirk (Newkirk 1961), Saito (Saito 1970), Leblanc (Leblanc et al. 1995), Hybrid (VrSnak et al. 2004) and Wang et al. (2023), Kruparova
+model (Kruparova et al. 2023) are shown with red, black, shades of green, magenta, yellow and blue lines respectively. Red points represent the
+radio densities obtained from the case studies, while black points represents all events. Panel b) shows EUHFORIA densities obtained at PSP and
+radio source positions with all realizations of ADPAT magnetic maps in comparison with other density models and radio densities
+
+bursts with black circles. The generally used 1D coronal elec-
+tron density models and presented with different colored lines.
+We find the radio densities obtained in this study to be situated
+systematically above the 10xLeblanc or 3.5xSaito model and
+along 20xLeblanc model (Leblanc et al. 1995). The obtained
+radio density values are somewhat larger than the usually esti-
+mated ones. However, the trend of the density change with the
+height closely follows the one of Leblanc model, which is to
+be expected as the Leblanc model was constructed based on the
+type III radio bursts. Further, radio densities are also significantly
+higher than the density observed by PSP during its first ten close
+encounters, and reported in the statistical study by Kruparova
+et al. (2023), shown in the Fig. 10 with the blue lines. We note
+that the red points which represent results for the case study fol-
+
+low the same trend as the rest of the obtained radio densities, and
+they are situated just above the 10xLeblanc density profile.
+
+We note that studies employing very large densities to ex-
+plain radio observations were also reported earlier, in both met-
+ric and kilometric range and amounted to as much as 10x Saito,
+8x Newkirk etc. (see e.g Pohjolainen et al. 2008; Jebaraj et al.
+2020).
+
+7.2. EUHFORIA and PSP densities
+
+In this section we discuss how “EUHFORIA densities” were ob-
+tained from EUHFORIA simulations (Pomoell & Poedts 2018)
+and its comparison with the radio densities (Section 7.1).
+
+Article number, page 11 of 20
+A&A proofs: manuscript no. aa55142-25
+
+We employed the default set up of EUHFORIA code (Sec-
+tion 3) to obtain EUHFORIA densities that can be com-
+pared with the radio densities. As the main input to EUHFO-
+RIA, we used GONG and ADAPT synoptic magnetograms at
+03:00:00 UT on 05 April 2019. Since there were no CMEs di-
+rectly temporally associated with the studied type III bursts, we
+use only the background solar wind model, without inserting
+CMEs.
+
+Combining observations and the results of the radio triangu-
+lation study shows that the type III radio bursts propagate in the
+vicinity of PSP but do not exactly cross PSP path. That makes the
+direct comparison of the radio density and the PSP density diffi-
+cult. Therefore, we make a two-step comparison, which includes
+EUHFORIA density and PSP density in the first step, and EU-
+HFORIA density and radio density in the second step. However,
+to understand how accurate the solar wind density modeled with
+EUHFORIA is, we start with a comparison of the EUHFORIA
+modeling results with the PSP densities.
+
+Therefore, in order to compare radio density, as direct as pos-
+sible, we used the 3D radio source positions obtained with radio
+triangulation as the artificial spacecrafts in the EUHFORIA’s he-
+liospheric domain (see sketch in Fig. 2b and also see Fig.1 in
+Valentino & Magdaleni¢ 2024). That allowed us direct compar-
+ison of the EUHFORIA density and radio densities along the
+propagation path of type III electron beams.
+
+Similarly to the method for comparison of modeling results
+and radio densities we placed virtual spacecraft at PSP positions.
+That allowed us to examine the time series observed by PSP and
+the one modeled by EUHFORIA at PSP position (Fig. 7).
+
+We initially utilized GONG magnetic maps to estimate inner
+boundary conditions for EUHFORIA (Fig. 11, panel (a)). How-
+ever, we observed that the estimated density at PSP position was
+significantly underestimated when using the default PFSS height
+of 2.6 Ro. In order to test if the change of the SSR can improve
+the modeling accuracy (as shown by, Réville et al. 2015; Asves-
+tari et al. 2019; Boe et al. 2020), additionally to the default set up
+where SSR=2.6 Ro we also perform simulations for 4 different
+SSRs (2.7, 2.8, 2.9, 3.0 Ro). Our results, presented in Fig. 11,
+show the significant discrepancy between modeled and observed
+electron density at the beginning of the considered time interval
+when the PSP density is rather high, i.e., 00 UT on 02 April un-
+til the 12 UT on the 03 April. Starting from around 10 UT on
+03 April the PSP density sharply decreases and then remains at
+that low value until the end of the considered interval. This low
+level of the PSP density was better reproduced by EUHFORIA
+than the density at the beginning of the considered period. Dur-
+ing the interval of low PSP density its variability is between 100
+to 200 particles/em? which is somewhat higher than the variabil-
+ity we obtain with the modeling results (about 80 particles/em*)
+using SSR between 2.6 to 2.9 Ro (Fig. 11). The modeling results
+with SSR = 3.0 Ro show significant density increase, going to
+the values of up to 200 particles/em?, matching the PSP density.
+We need to note that in general, being the MHD model EUH-
+FORIA is not able to reproduce the fast density-fluctuations like
+e.g. the sudden density increase observed by PSP at the end of
+the day on 06 April.
+
+Since the modeling results obtained with the GONG magne-
+tograms systematically underestimate the in situ density values,
+in order to try to improve the modeling accuracy we employed
+also ADAPT magnetograms. We run simulations using all 12 re-
+alizations of ADAPT magnetograms and the default PFSS height
+of 2.6 Ro. These simulations produced higher densities at PSP
+position during the first time interval 00 UT on 02 April until
+the 12 UT on the 03 April, aligning more accurately with PSP in
+
+Article number, page 12 of 20
+
+situ data, as seen in Fig. 11b. However, in the second part of the
+considered time window 12 UT on 03 April until 08 April EU-
+HFORIA with the ADAPT magnetograms input generates the
+overestimated density. The results from all ADAPT realizations
+differ from each other, yet all of them show a similar maximum
+density values of approximately 500 particles/em>. We note that
+the level of the variability between results obtained using differ-
+ent ADAPT realizations is larger during the intervals of the high
+density mapped by PSP (first mentioned interval). The ADAPT
+maps provide more intervals of better reconstructed in situ den-
+sity, in comparison to GONG maps which result in the system-
+atic density underestimation. Therefore, we consider the model-
+ing with the ADAPT maps to be more accurate one and will use
+the best ADAPT realization 03 for modeling radio densities. We
+would also like to note that modeling coronal plasma characteris-
+tics at close to the Sun distances is quite difficult as the modeling
+accuracy depends on the various different factors (Samara et al.
+2024).
+
+GONG and ADAPT magnetograms are differently con-
+structed. GONG magnetograms are purely observational, lim-
+ited to the visible disk of the Sun as seen from Earth. In contrast,
+ADAPT magnetic maps are generated using a data assimilation
+model that combines high-resolution observational data (taken
+by SDO) with flux transport models to provide a time-evolving,
+full-surface representation of the Sun’s magnetic field, including
+regions not directly observed. This complex approach provides
+possibility for more accurate and globally consistent solar mag-
+netic environment when ADAPT maps are input to EUHFORIA.
+Similarly to Perri et al. (2023), we obtained somewhat improved
+prediction of solar wind dynamics and heliospheric conditions
+when ADAPT maps were used. However, in order to confirm
+that ADAPT maps give systemically better modeling results a
+statistical study is necessary.
+
+Panels c) to h) of Fig. 11 show comparison of: (a) the electron
+lensity obtained with the radio observations (colorful points);
+(b) the PSP density; and (c) the EUHFORIA density at the radio
+source positions obtained using ADAPT maps as an input (col-
+orful lines). The simulation results for the radio source positions
+obtained with the first frequency pair 775-708 KHz is quite sim-
+ilar to PSP electron density. As we go to the lower frequencies
+(the increasing heights of the radio sources), the EUHFORIA
+lensity at the radio source positions is systematically decreasing.
+Such a behavior is expected as the solar wind density generally
+lecreases with the increasing distance from the Sun. We note
+that for the last frequency pair the difference becomes almost an
+order of magnitude. The EUHFORIA results obtained using AD-
+PAT maps at PSP position are along the Kruparova et al. (2023)
+model, which represents PSP densities. Similar discrepancy be-
+tween differently obtained density is also seen in the Fig. 10b
+where the EUHFORIA results obtained at PSP and radio source
+positions (blue and brown stars) are compared with the different
+1D density models and radio densities. There are number of fac-
+tors that induce the discrepancy of the coronal electron density
+seen in 10b & Fig. 11 and they will be discussed in details in
+Section 7.4.
+
+In order to check how the angular and radial resolution in-
+fluence the accuracy of the obtained simulation results in com-
+parison to the radio source sizes (see Section 4.2) we estimated
+the EUHFORIA cell volume at different distances from the Sun.
+The estimation of the radio sources volume was done assum-
+ing sources are of a spherical shape, with the distance between
+the wave vectors considered as a sphere diameter. We obtained
+the error bars and mean value for the radio source volume from
+the bootstrapping method (Fig. 9a). In Fig. 12 we plot the ob-
+
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+PSP
+10°;
+fa) —— PSPIFIELOS ——GONG_28
+_ —— GONG_26 ——GONG_29
+& ——GONG_27 ——GONG_30
+£ 103}
+3 }
+Feel my
+=+2 ,
+= g 10° .
+
+PSP
+10* ,
+b)|—— PSPiFELDS ——ADAPT_3 ———ADAPT_? ——ADAPT_11 | j
+| == ADAPT_O ADAPT_4 ——~ ADAPT_8 }
+|——ADAPT_1 — ADAPT_§ ——— ADAPT_9 ]
+403-  [_ADAPT_2 —— ADAPT_6 —— anapT_10 4
+
+10° 1 . 4 191 . ni . J
+Ror ot AprO2 Apr03 AprO4 AprOS AprOG AprO7 Apro0s Ror 01 AprO2 Apr03 AprO4 AprOS AprO6 AprO7 Apros
+
+Epoch 2019 Epoch 2019
+4 775-708 kHz 4 725-708 kHz 4 625-624 kHz
+10 ; 10 1
+c) d) ° e) e
+§ 10°| 10°} 10°
+3 |
+Swit aetna wi Muh
+= fg 10"| | es |
+1 1 1
+Ror 01 Apr 03 Apr 05 Apr 07 Doe 01 Apr 03 Apr 05 Apr 07 Ror 01 Apr 03 Apr 05 Apr 07
+2019 2019 2019
+oA 575-548 kHz ot 475-484 kHz so! 425-428 kHz
+if ‘ | 9) | hy |
+em ° e
+5 10°} 10°} 10° i
+ro | pony Witt |
+3 aa Neath Naat ae ;
+o . ] )
+SE i iad" ad o a he Lae a 10? soe Naa
+
+1 “
+Roe a1 Apr 05
+Epoch
+
+Apr 03 Apr 07
+
+2019
+
+|
+40°
+Roe 01 Apr 03 Apr 05 Ape 07
+
+1 1
+Ror 01 Apr 03 Apr 05
+
+Epoch
+
+Apr 07
+
+2019 2019
+
+Epoch
+
+Fig. 11. The comparison of PSP/FIELDS in situ electron density (black line) with EUHFORIA simulation results at various positions in the
+heliosphere. Panel (a) displays simulations at PSP position using GONG magnetograms, with different colored lines representing simulations
+performed with varying SSRs. The simulation using SSR = 3 Ro shows the best agreement with the in situ data. Panel (b) shows simulations
+using default PFSS height at PSP position using all realizations of ADAPT magnetic maps, which in this case provide a better match than those
+
+using GONG magnetograms. Panels (c) to (h) present EUHFORIA time
+
+series obtained using ADPAT maps at radio source positions for different
+
+triangulation frequency pairs, with colored points indicating the electron density at the respective radio frequencies (radio density). Radio densities
+
+are notably higher than the in situ density, while the EUHFORIA results
+
+tained radio source volume as a function of the distance from
+the Sun estimated from the radio triangulation. The EUHFORIA
+cell volume is calculated as follows,
+
+dV =r’. sin(@). Ar.A0.AG (3)
+where, r is radial distance between the inner boundary of EUH-
+FORIA and the considered cell, Ar, A@, Ad are the radial, lati-
+tudinal and longitudinal resolution of the EUHFORIA. Fig. 12
+shows the comparison between EUHFORIA volume, in blue,
+yellow and red depending on the EUHFORIA’s resolution, and
+radio source volumes (black circles). Although, the EUHFORIA
+cell volumes are smaller than the radio source volumes for all
+the resolutions, the cell volumes for the lowest EUHFORIA res-
+olution are comparable to the radio source volumes. Therefore,
+selection of the intermediate resolution of EUHFORIA is justi-
+fied as it is capable of fully capturing the radio variations of the
+density for different closely spaced radio source positions. The
+jump of the volume at about 37 Ro is due to the larger spread
+of the distances between the wave vectors from the triangulation
+results as around 650-550 kHz as can be seen in it Fig. 9a.
+
+obtained at the radio source positions are underestimated.
+
+7.3. Density fluctuations in PSP data
+
+Density fluctuations in the solar corona can influence the ob-
+served radio source positions (Kontar et al. 2019; Krupar et al.
+2020; Jebaraj et al. 2020; Sishtla et al. 2023). In order to under-
+stand how strong is the influence of density fluctuations on the
+estimated radio source positions in the case of studied type III
+bursts, we analyzed fluctuations of the PSP electron density.
+
+With the aim to inspect density fluctuations during longer
+time window and obtain more general estimate we considered
+the full duration of the second PSP close approach covering
+the time interval from 01 April up to 08 April. This time in-
+terval covers all selected type III radio bursts (observed between
+02 April and 05 April). In order to estimate the level of the small
+scale fluctuations, we selected a time scale of one minute during
+which PSP encompasses distances which are short in compari-
+son to the radio source sizes as presented in Fig. 9. We note that
+the temporal resolution of FIELDS/RFS time series is 7 s, while
+the full duration of the type III bursts at a considered DF fre-
+quencies is about 10 min (Fig 3). Therefore, looking at 1 min
+time scale fluctuations seems to be reasonable assumption. We
+emphasize that the considered time interval of the PSP observa-
+
+Article number, page 13 of 20
+A&A proofs: manuscript no. aa55142-25
+
+)
+
+3
+0
+S
+
+Volume (R
+
+10° a ans
+107 'E Radio Source Volume F
+
+| EUHFORIA cell volume at high resolution
+—EUHFORIA cell volume at low resolution
+——Euhforia cell volume at intermediate resolution
+25 30 35 40 45 50 55 60
+Distance (R,)
+
+2b
+10755
+
+Fig. 12. The variation of EUHFORIA cells volumes and radio source
+volume (black line) as a function of their distance from the Sun. The
+radio source volume points are estimated assuming spherical shape
+sources, with the distance between the wave vectors being sphere diam-
+eter. The blue, yellow, and red lines represent EUHFORIA cell volumes
+at low, intermediate, and high resolutions, respectively. The EUHFO-
+RIA cell volumes are notably smaller compared to the radio source vol-
+umes and therefore, can effectively model the regions occupied by the
+radio sources.
+
+tions is 8 days, during which PSP maps the solar wind plasma
+characteristics at distances of about 34-40 Ro which is the re-
+gion in which the majority of the radio triangulation points are
+located (see Fig. 10). The density fluctuations estimated in such
+a way have also the statistical weight, as we sample large portion
+of the ambient plasma characteristic. As such the PSP observa-
+tions are the best proxy possible for estimation of the density
+fluctuations, even if the PSP is not exactly at the same position
+as the radio sources. Other ways of estimating density fluctua-
+tions e.g. using the remote sensing observations or theoretical
+estimations (Thejappa & Kundu 1992; Krupar et al. 2018) are
+expected to be less accurate.
+
+We calculate the centered moving averages of the PSP den-
+sity (n(t))7, by sliding the time window of 1 minute along the full
+considered epoch (Fig. 13b). The maximum fluctuations dn(t)
+were then estimated as the difference between the original data
+points n(t) and the moving average for the 1 min time window
+(Fig. 13c). The instantaneous fluctuations e(t) were calculated as
+follows:
+
+_ énlt)
+~ (nO) 7"
+
+Root mean square (RMS) of the relative fluctuations (6,5)
+can be calculated as,
+
+_ [n?yr
+Ems = “ao (5)
+
+Our results show that the €,,,; throughout the given epoch
+were about 0.05 (Fig. 13d). If we consider longer time window
+of 10 min for estimating moving averages, which will then corre-
+spond to a larger scales and it will encompass the whole duration
+of the type III bursts, we obtain RMS density fluctuations on av-
+erage at the level of about 0.06. We note that even considering
+such a longer time window, not really suitable for the study of
+short duration type III bursts, the obtained level of density fluc-
+tuations remains as small as 6 percent.
+
+We compared obtained values of €,,; to the one found by
+Thejappa & Kundu (1992) in the metric range (Fig. 14). These
+
+e(t) (4)
+
+Article number, page 14 of 20
+
+“<s00 Original Data
+§ 600 8): ;
+= 8 400 1
+Zs poy ph
+€ 200 Lntncrenenee Naess rene,
+= 0
+Apr0t Apr02Apr03—AprO4_—AprOS —AprO6 —AprO7 —AprOB Apr 09
+2019
+a Moving Average
+“E600; »)
+& g400
+= 8a Wihrrata,
+£0
+AprO1 AprO2—s AprO3.-—s Apr04.—s AprOS = AprO6.~—sApr07 = AprO8 — Apr 09
+2019
+~ Instantaneous Fluctuations
+60
+5° .
+a
+= 8
+© 220
+5 "
+go
+‘AprOt —AprO2.—Apr03.—«Apr04—Apr0S —Apr06.—Apr07 —Apr08 pro
+2019
+Pe RMS of relative fluctuation
+0.15 a)
+JE o4
+0.05
+0 mee -
+Apr01  AprO2— AprO3._—s Apr04 = AprOS = AprO6.~—sAprO7 = AprOB = Apr 09
+Epoch 2019
+
+Fig. 13. Panel (a) displays the electron density measured by
+PSP/FIELDS instrument. Panel (b) presents moving averages of the
+electron density over a time window of approximately one minute. In
+panel (c), we illustrate the maximum small-scale fluctuations for this
+time window within the specified epoch. Finally, panel (d) depicts the
+RMS relative density fluctuations observed. Notably, the instantaneous
+density fluctuations tend to be more pronounced in regions of higher
+electron density.
+
+“© Thojapee+1992 (uppor ime)
+This sidy (98th percent
+
+1Bjx) © 0.05 * exp(0.018%)
+
+70 60 * 50 40 30 2 10 °
+Frequency (MHz)
+
+Fig. 14. The RMS relative density fluctuations obtained using a 1-
+minute time window from PSP in situ data are shown as magenta stars.
+The two data points represent the Sth and 95th percentiles of the ob-
+tained values (Fig. 13d). These results are then compared with those
+obtained by Thejappa & Kundu (1992) and Krupar et al. (2018) (blue
+and orange circles and diamonds, representing the lower and upper lim-
+its, respectively). A fit is applied to both datasets to highlight the good
+agreement between them.
+
+authors obtained, at close to the Sun distances for frequen-
+cies of about 38.5, 50 and 73.8 MHz, the density fluctuations
+of 0.07-0.19, 0.1—0.25, 0.15-0.35, respectively. Employing
+Monte Carlo simulation technique Krupar et al. (2018) obtained
+0.06—0.07 of relative electron density fluctuations at the dis-
+tances between 8 and 45 Ro. We obtained the Sth and 95th per-
+centiles of the ms to determine the upper and lower limits of our
+results. We then compared these values with those obtained by
+Thejappa & Kundu (1992). The fit showed good agreement be-
+tween the metric range results and our findings (Fig. 14). These
+results indicate that even if the density fluctuations can notice-
+ably change at close to the Sun distances they do not seem to
+significantly vary in the inner heliosphere.
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+@ toth Mm sta
+
+PsP
+
+Mercury
+
+0 10 20 30 40 50 60
+
+n(t) (r/4au)? [cm]
+
+a)
+
+2019-04-05 17:03
+
+y [HEEQ AU]
+boo
+2 (HEEQ AU]
+°
+
+1.00
+
+0.4
+
+0.2
+
+-0.2
+
+-0.4
+) 02 04
+
+b)
+
+2019-04-05 16:59
+
+1.00
+0.4
+0.75
+
+0.50
+
+0.2
+
+y [HEEQ AU]
+zZ[HEEQ AU]
+°
+
+0.0 0. 0.0 0.2 0.4
+x [HEEQ AU) Distance [AU] x [HEEQ AU] Distance [AU]
+200 400 600 800 1000 1200 1400 1600
+vr [km/s]
+c) d)
+2019-04-05 17:03 SOOT RESET
+ot 0.4
+o2 0.2
+2 2 2 z
+¢ °
+g 2 00 g & oo
+= = = =
+> -0.25 N = FS
+-0.50 “02 0.2
+-0.75
+“OH 0.4
+1.00
+20 a2 oa 0.0 . A 0.0 0.2 0.4
+
+x [HEEQ AU] Distance [AU]
+
+x [HEEQ AU]
+
+Distance [AU]
+
+Fig. 15. Equatorial and meridional slice of the EUHFORIA simulation domain. The meridional plane contains PSP. In each panel, the left plot
+depicts the equatorial plane of the heliospheric domain, while the right plot shows the meridional view of the same domain. Panels a) and c)
+display 2D density maps obtained using GONG and ADAPT magnetic maps, respectively. Panels b) and d) illustrate 2D velocity maps using
+GONG and ADAPT magnetic maps, respectively. The meridional plots highlight PSP’s trajectory through a high-density, low-velocity region in
+
+both simulations with GONG and ADAPT magnetograms.
+
+It is generally considered that the density fluctuations can in-
+fluence the level of the scattering of the radio emission, which
+then subsequently also affects the accuracy of the estimated ra-
+dio source positions and the sizes of the radio sources (Kontar
+et al. 2019; Krupar et al. 2020). In light of our results on the den-
+sity fluctuations, obtained from the in situ observation, we can
+consider that the scattering effects do not significantly change at
+the distances considered in this study. This conclusion is also in
+accordance with our findings (see Fig. 9),which shows no sys-
+tematic variation of the radio source sizes obtained in this study,
+contrary to the results obtained in the metric wavelength range
+(Saint-Hilaire et al. 2012).
+
+7.4. Uncertainties and inaccuracies of solar wind density
+through modeling and observations
+
+Both, modeling and observations can be influenced by a spec-
+trum of different factors that can in different ways introduce un-
+certainties and inaccuracies into the results. Knowledge on these
+factors is crucial for improving the interpretation of the results
+
+and their significance, derived from both modeling and obser-
+vational studies. We will here address some of the factors that
+influence the accuracy of results of our study, grouped as uncer-
+tainty arising from: a) modeling, b) radio and in situ observations
+(already partially discussed in the Section 7.3).
+
+7.4.1. Modeling uncertainties
+
+We will first address the uncertainty in the estimation of the EU-
+HFORIA density. In general uncertainties in modeling can arise
+due to different factors and we describe only the most impor-
+tant one such as the model set up, the limitations in the input
+data, modeling assumptions and modeling limitations in a case
+of complex events.
+
+The main input to EUHFORIA are 360° magnetic synop-
+tic maps which are available from different providers and can
+differ significantly. As a result, such diverse synoptic maps can
+strongly influence modeled solar wind characteristics (Riley
+et al. 2012, 2014; Riley et al. 2021; Perri et al. 2023). Further,
+synoptic magnetograms are constructed using the ‘old’ informa-
+
+Article number, page 15 of 20
+A&A proofs: manuscript no. aa55142-25
+
+JHFORIA results using
+
+aps
+
+es/omh3) .
+
+3.03e-16 \ 2.57e- 3.33e-15
+
+b) = EUHFORIA results using
+Ya ADAPT magnetic maps
+
+1812-15
+
+Fig. 16. 3D Iso-surface plot of the scaled density obtained from EUHFORIA simulations. Sphere at the center represent the inner coronal boundary
+of EUHFORIA at 0.11 AU. Magenta spheres represent the radio source positions of the Event 8. The radio sources are not plotted in their actual
+sizes. Blue, red and green spheres represent PSP, STEREO-A and Earth positions respectively. The magenta, red, blue, and green lines represent
+the magnetic field lines connecting the radio source at 775 kHz, STEREO-A, PSP, and Earth to the Sun, respectively. Panel (a) and (b) shows 3D
+representation of the EUHFORIA density obtained using GONG and ADAPT magnetograms respectively.
+
+tion for the far-side of the Sun. This is particularly important
+when modeling solar wind and the events at/behind the East so-
+lar limb, for which the magnetogram input is almost half solar
+rotation old. We note that this was exactly the case in our study.
+These uncertainties could be fully addressed only if the 360° ob-
+servations of the Sun are available.
+
+The EUHFORIA results also showed that the use of different
+magnetic maps, namely GONG and ADAPT, can lead to dif-
+ferent simulation results (Fig. lla & b). Figure 15 shows the
+equatorial and meridional slices of the EUHFORIA domain ob-
+tained using GONG and ADAPT synoptic maps, respectively.
+Although both results display high density regions along the PSP
+propagation path (fig. 15a & c), the overall density structures dif-
+fer from each other.
+
+Another factor that gives rise to the uncertainty in the mod-
+eling results is the simplicity of the EUHFORIA’s coronal model
+(Hinterreiter et al. 2019). Some of the recent studies indicate
+that more advanced coronal models, than the herein used default
+coronal model of EUHFORIA, may increase the accuracy of EU-
+HFORIA (Samara et al. 2021). Additionally, the more accurate
+background solar wind is expected in the case of time-dependent
+modeling (Baratashvili et al. 2025).
+
+Furthermore, EUHFORIA strongly relies on the solar wind
+boundary conditions used as an input to the heliospheric model,
+such as fast solar wind density and velocity (Pomoell & Poedts
+2018). The improvements of this modeling input could be still
+expected from the upcoming in situ solar wind observations by
+the current novel missions such as PSP and SolO (Solar Orbiter;
+Miller et al. 2020).
+
+7.4.2. Uncertainties induced with in situ & radio observations
+
+Since 2018 and its first close approach PSP provides us with a
+large amount of close-to-the-Sun in situ observations. As PSP
+orbits the Sun and approaches its perihelion, it maps the local
+coronal plasma properties in high temporal resolution at con-
+stantly changing positions. PSP in situ observations show that, in
+general, the electron density of the coronal plasma vary by about
+
+Article number, page 16 of 20
+
+one order of magnitude (Kruparova et al. 2023). Therefore, when
+comparing the electron density obtained from radio observations
+with those from PSP in situ measurements, it is important to un-
+derstand that different position and trajectories of PSP and radio
+sources will probably result in different coronal electron densi-
+ties. For more detailed discussion see also Section 7.3.
+
+The dynamic spectra from PSP provide valuable informa-
+tion regarding observed type II radio bursts. With PSP’s high-
+resolution data we can identify multiple type III bursts that are
+not fully resolved in the dynamic spectra from Wind or STEREO
+due to their lower temporal resolution. Sometimes, type III bursts
+occurring subsequently within a short time interval of e.g. few
+minutes can be identified in Wind and STEREO dynamic spec-
+tra as a group of bursts which are not fully resolved. On the other
+hand the time series of the same type III radio bursts at discrete
+frequency will show only complex time profile, suggesting the
+presence of more than one type III radio bursts (Gerekos et al.
+2024) but without any certainty. This difference arises from the
+additional information provided with large frequency range in
+dynamic spectra. The complex time profile is also accompanied
+with the fluctuating values of azimuth and colatitude of the DF
+observations, leading at the end to decreased accuracy in esti-
+mation of the radio source positions (Deshpande et al., in prep.).
+In order to avoid this uncertainty we selected type III burst as
+isolated as possible. Additionally, when selecting the time se-
+ries points for triangulation we aimed at those that had the least
+fluctuations of the azimuth and colatitude components for the
+subsequent measurements and were close to the peak intensity
+of the burst time profile. We need to note that in the case of our
+study the direction of propagation of the radio sources obtained
+from the DF generally stays conserved (Figs. 7 and 8) as the
+scattering effects do not seem to be significant. The confirmation
+of that, beyond here presented study and other already published
+works (Magdaleni¢ et al. 2014; Jebaraj et al. 2020) which shows
+the similar results, is also visible in the Fig. 16 of the manuscript
+where it is clearly shown that the type III radio sources propa-
+gate along the magnetic field lines obtained independently using
+the 3D MHD EUHFORIA code.
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+PSP measurements reveal sometimes very large fluctuations
+of the local electron density highlighting the turbulent nature of
+the solar corona. Given this highly dynamic behavior of the so-
+lar wind plasma, accurately estimated radio source positions are
+crucial for mapping correct electron densities. Accurate estima-
+tion of the radio source sizes is also important, as errors in source
+size estimation can result in incorrect density assumptions for
+the large solar wind regions. To decrease the level of these un-
+certainties we need to try to avoid the bursts with the complex
+time profiles.
+
+8. Discussion and conclusions
+
+This study presents the radio triangulation of interplanetary type
+III bursts and characteristic of the obtained radio sources. The re-
+sults of analysis of radio bursts is employed in the study focused
+to the coronal electron density obtained using different methods.
+We inspect electron density estimated with type III radio bursts,
+novel PSP observations and EUHFORIA modeling results. The
+main focus of the study is to map the electron density in the in-
+terplanetary space, as accurate as possible, and inter-validate the
+results obtained with radio observations and EUHFORIA.
+
+Our study encompasses 11 type III radio bursts observed dur-
+ing the second PSP perihelion. The selected bursts were required
+to be intense, isolated from the other types of bursts and ob-
+served by both Wind and STEREO-A spacecrafts. STREREO-A
+and PSP instruments observed multiple type III radio bursts dur-
+ing the 2nd PSP perihelion. However, only few of them were
+observed by Wind. This might be because of the different prop-
+agation path of the bursts and/or the low temporal resolution of
+the Wind instrument. This condition restricted the selection of
+the bursts for which triangulation can be applied.
+
+The studied radio events were associated with the AR
+(NOAA AR 12738) located behind the east solar limb. The EUV
+observations show association between EUV jets observed in all
+four frequency channels of STEREO-A/EUVI and accelerated
+electrons which produced radio bursts. Such a scenario was also
+reported in some previous studies (e.g. Bain & Fletcher 2009;
+Klassen et al. 2011; Krucker et al. 2011; Mccauley et al. 2017;
+Cairns et al. 2018; Mulay et al. 2019). The recent work which
+focused on type III radio bursts observed within the same period
+around second PSP perihelion (Pulupa et al. 2020; Krupar et al.
+2020; Harra et al. 2021; Stanislavsky et al. 2022; Wang et al.
+2023; Nedal et al. 2023), showed that the type III bursts were as-
+sociated with the jets from the AR 12738 which also agrees with
+our findings herein.
+
+Understanding the characteristics of the time profiles is cru-
+cial for assessing the reliability of radio triangulation results.
+Namely, presence of the close in time subsequent burst, or the
+simultaneous presence of the fundamental and harmonic com-
+ponent will induce the inaccuracy in the triangulation results.
+Therefore, in order to understand how precise our results are,
+we analyzed the time profiles of selected bursts observed by
+STEREO-A and Wind (Fig. 4). STEREO-A showed complex-
+ity in the time profiles confirming the presence of more than one
+type III radio bursts in a few studied events (Event 7, 10 and 12).
+On the other hand Wind observations of the same bursts showed
+a single-peak time profile. This can be also due to the low inten-
+sity and/or low temporal resolution of Wind data.
+
+Results for the Event 8 and Event 9 are presented in detail
+in this paper. Radio triangulation method provided us 3D radio
+source positions and allowed us to map the direction of propaga-
+tion of the type II bursts which was not along the direction of the
+Parker spirals. Event 8 showed downward propagation path from
+
+the ecliptic plane, whereas Event 9 showed direction of propaga-
+tion along the ecliptic plane (Fig. 7). This result shows that the
+propagation path of the subsequent type III radio bursts observed
+within few minutes and originating from the same AR was along
+different magnetic field lines (Magdalenic et al., in prep.). We,
+note that even if the subsequent type III bursts are originating
+from the same AR they might not have the same propagation
+path. Jebaraj et al. (2020) showed that two groups of type II
+bursts from the same radio event propagated along the different
+flanks of the CME and very distinct magnetic field lines. Herein
+presented results and the one by Jebaraj et al. (2020) show that
+contrary to the generally considered fact, propagation path of
+subsequent type III bursts can be very different, following dis-
+tinctively different field lines and not following Parker spiral.
+On the other hand, all studied type III radio bursts which origi-
+nate from the same AR in the course of 4 days have comparable
+propagation path as visible from Fig. 8a. Moreover, subsequent
+bursts seem to follow the propagation of the AR, with the ap-
+parent movement of the AR across the solar disk as observed
+from STEREO-A, showing the angular spread when viewed in
+the ecliptic plane (Fig. 8b).
+
+We found that radio source size, defined as the shortest dis-
+tance between the wave vectors (Fig. 1), ranges from 0.5 — 40 deg
+or 0.5—25 Ro (Fig. 9). Obtained source sizes do not exhibit any
+clear dependence on the observing frequency, suggesting that
+scattering effects are not significant in this frequency range and
+in the case of studied events. This finding indicates that while ra-
+dio wave scattering can influence observed source positions, its
+impact might be less significant at the distances and frequencies
+considered in this study. The radio source positions at the higher
+frequencies cluster closer to the Sun while the low frequency
+sources (e.g. 425 kHz) appear further away from the Sun, as see
+in Fig. 8b. This behavior follows from the direct proportionality
+of the plasma frequency and coronal electron density (Eq. 2). We
+note that even if study is based on the 11 type III bursts which is
+not a large number at each triangulation frequency pair several
+data points were considered resulting in the significant number
+of radio source positions and sizes (Fig. 9) making our results
+also statistically firm.
+
+The radio triangulation provided 3D radio source positions
+which were used to map the electron density in the inner helio-
+sphere (Equation 2). The radio density when compared with the
+1D models (Newkirk 1961; Saito 1970; Leblanc et al. 1995; Vrs-
+nak et al. 2004; Kruparova et al. 2023; Fig. 10), were found to be
+along the 20 x Leblanc model with the lower edge comparable
+to 3.5 x Saito. The average PSP densities over the 10 first perihe-
+lion passages (Kruparova et al. 2023) are about an order magni-
+tude lower than the radio density profiles. One of the reasons for
+the obtained difference is probably different speed and propaga-
+tion path of the type III bursts and PSP. The type III radio bursts
+propagate with the speed of a fraction of speed-of-light along the
+magnetic filed lines, approximately radially away from the Sun.
+In the same time PSP propagates significantly slower than radio
+bursts and more perpendicular to the solar wind flow. Therefore,
+PSP and radio bursts encompass very different portions of the
+corona during the type II duration. While single type III bursts
+encompasses distances from about 0.12 au down to 0.2 au, PSP
+encompasses only about 0.0008 au. Therefore, the variation of
+PSP density is expected to be low in comparison to the radio
+density.
+
+Another reason for discrepancy between radio and PSP den-
+sity is still notably different starting position of PSP and type
+Ill radio bursts. The combined analysis of the SOHO/LASCO
+and STEREO COR2 images (Fig. 6) with EUHFORIA model-
+
+Article number, page 17 of 20
+A&A proofs: manuscript no. aa55142-25
+
+ing results (Fig. 15 panels (a) & (b), and Fig. 16) show strong
+variations and structuring of the solar wind velocity/density in
+the regions of PSP and type III radio sources. At the beginning of
+the perihelion passage PSP propagates across the regions of slow
+solar wind probably originating from the equatorial streamer belt
+region composed of at least 3 distinguishable streamers stretch-
+ing outwards in the radial direction (Fig. 6). Starting from the
+03 April and during the Event 8, PSP propagates in the fast so-
+lar wind characterized with the speed reaching up to 600 km/s
+and with the low density of about few hundred particles/cm*, as
+seen from Fig. 11. The solar wind density fluctuations mapped
+by PSP show variation of very local plasma condition in PSP
+vicinity. On the other hand the type III radio sources which prop-
+agate along the magnetic filed lines, seem to be situated within
+different slow solar wind stream which also indicates different
+density regime. We concluded that strong structuring of the solar
+wind density which is mapped very locally by both radio sources
+and PSP, also attributes to the significant difference between the
+radio density and the PSP densities for the studied events.
+
+The space weather model EUHFORIA was employed to es-
+timate the densities at PSP and radio source positions for Event 8
+(as sketched in Fig. 2b). Initially, we used GONG magnetograms
+as input to EUHFORIA to estimate the densities at PSP posi-
+tion. The simulations performed with the default PFSS SSR of
+2.6 Ro underestimated the densities compared to PSP in situ ob-
+servations (Fig. 11a). To exclude the possibility of opening the
+magnetic field lines that are in reality closed and considered as
+such when using the default PFSS SSR, we gradually increased
+the SSR to 3.0 Ro. Increasing SSR resulted in a better agreement
+with the in situ densities at PSP position but still did not fully
+match PSP density. Therefore, we employed ADAPT magnetic
+maps as input to EUHFORIA using the default PFSS SSR value.
+All ADAPT realizations yielded higher densities compared to
+those obtained with GONG magnetic maps, and they showed
+better agreement with PSP in situ density (Fig. 11b).
+
+We then compared the radio densities at all direction-finding
+frequencies with the EUHFORIA densities at the correspond-
+ing radio source positions for Event 8. The radio densities were
+higher by one order of magnitude than PSP in situ densities.
+Whereas, the densities obtained with EUHFORIA at the radio
+source positions are observed to be lower than the one obtained
+with the radio and in situ observations (Fig. 11 c to h). Despite
+the obtained discrepancies EUHFORIA did predicted denser re-
+gion along the propagation path of the type III bursts (Fig. 15).
+
+The comparison of in situ, radio, and EUHFORIA density
+revealed differences which pointed to the necessity to discuss
+uncertainties associated with employed methods of density es-
+timation. The discrepancy in the results could be attributed to
+several factors. One key aspect is the modeling process itself, as
+EUHFORIA relies heavily on the provided input data. The most
+important parameter is the synoptic magnetic field map used as
+the main model input. It is needed to note that all the events ana-
+lyzed in this study had source region located behind the east so-
+lar limb. Accordingly, the magnetic field information was almost
+half solar rotation old. This uncertainty can be only corrected by
+employing 360° magnetic field observations of the Sun.
+
+The accuracy of EUHFORIA’s modeling results is also in-
+fluenced by the simplicity of its coronal model, with recent stud-
+ies suggesting that more advanced models should be used (Hin-
+terreiter et al. 2019; Samara et al. 2021). Additionally, time-
+dependent modeling is expected to further improve the accuracy
+of the background solar wind predictions. EUHFORIA’s reliance
+on solar wind boundary input parameters, such as fast wind den-
+sity and velocity, means that novel in situ observations from mis-
+
+Article number, page 18 of 20
+
+sions like PSP and SolO could provide more realistic boundary
+conditions for EUHFORIA.
+
+PSP’s high-resolution in situ measurements have shown that
+coronal electron densities vary by an order of magnitude, em-
+phasizing the importance of considering different positions and
+trajectories when comparing radio and in situ density measure-
+ments. Furthermore, PSP’s dynamic spectra indicated the pres-
+ence of multiple type III bursts that generally remain undetected
+in the lower-resolution data from Wind and STEREO. This find-
+ings emphasis the complexity of the studied signals and poten-
+tial inaccuracies in radio source positioning through triangula-
+tion. Given the highly dynamic and turbulent nature of the so-
+lar corona, precise identification of mapped regions is crucial
+for density measurements. Moreover, errors in estimating radio
+source sizes can lead to incorrect density assumptions, introduc-
+ing additional uncertainties in the results.
+
+Our analysis of PSP electron density variations indicates that
+small-scale RMS density fluctuations are around 0.05. When
+considering a longer time window of 10 minutes, which encom-
+passes the full duration of a single type III radio burst, the RMS
+density fluctuations increase to approximately 0.06. These re-
+sults suggest that while density fluctuations can impact radio
+wave scattering and therefore also radio source positions, they
+do not show significant variation across the inner heliosphere at
+the distances analyzed in this study.
+
+We note that both independently obtained results; a) on the
+behavior of the radio source sizes obtained in radio triangulation
+and the b) on the density fluctuations from the PSP observations
+indicate low level of scattering effects for the studied events.
+Similar results on the scattering effects for the metric range radio
+bursts were recently obtained by Kumari et al. (2025).
+
+The main conclusions of the performed studies are listed
+here:
+
+e Radio triangulation results of Event 8 showed propagation
+path of the radio sources southward from the ecliptic plane,
+whereas, radio sources in Event 9 propagated along the eclip-
+tic plane. We conclude that the subsequent type III bursts can
+propagate along different propagation path and along differ-
+ent magnetic filed lines, even though they are generated from
+the same AR.
+
+e When all the studied events were plotted together, the ma-
+jority showed a southward propagation path from the solar
+ecliptic plane. This suggests that presence of different long-
+living coronal structures, such as coronal streamers, and dy-
+namic changes in the ambient coronal magnetic field config-
+uration caused by solar activity, such as CMEs, can signifi-
+cantly influence the propagation path of type III radio bursts.
+
+e We have found that the radio source sizes were relatively
+small compared to some previous studies and in the range of
+0.5—40 deg or between 0.5—25 Ro. Radio source sizes did
+not show systematic variation with the frequency and there-
+fore, scattering which is expected to directly influence radio
+source positions and sizes, as a function of the local elec-
+tron density, might not be significant in this frequency range.
+This conclusion is confirmed with the low level of the density
+fluctuations, generally responsible for the scattering effects,
+obtained from the PSP in situ data.
+
+e The uncertainties on the coronal electron densities obtained
+from comparison of radio, PSP and EUHFORIA densities
+are mainly due to :
+
+— Different propagation path of type III radio bursts and
+PSP indicates that we are mapping different coronal re-
+gions.
+
+K. Deshpande, et. al.: Coronal electron density: Insights from observations and modeling
+
+— Type III radio bursts might be propagating along coronal
+streamer lines, which then explains the high radio densi-
+ties.
+
+— AR associated with type III radio bursts was behind
+east solar limb. Consequently, magnetic maps were con-
+structed with almost half solar rotation old information
+which strongly influences the accuracy of the modeling
+results.
+
+— Magnetograms obtained from different providers can in-
+duce very different modeling results.
+
+— Simplicity of the coronal model of our MHD code EUH-
+FORIA (Pomoell & Poedts 2018) and time independent
+nature of the model might contribute the model accuracy.
+
+e Despite the relative differences in the three types of electron
+densities, we can note that, EUHFORIA rather successfully
+identified regions of increased density along the propagation
+paths of type III radio bursts, demonstrating its capability to
+capture broader density structures in the heliosphere.
+
+e The obtained behavior of the radio sources and the density
+fluctuation analysis of PSP in situ data showed that the scat-
+tering effects do not change significantly at the distances con-
+sidered in this study.
+
+The current high level of the solar activity is expected to pro-
+vide us with PSP and SolO observations which will bring us new
+opportunities to expand this work even further. Our study was
+limited to the second perihelion due to restrictions in the sepa-
+ration angle of STEREO-A and Wind, which are crucial for ra-
+dio triangulation. However, future observations will benefit from
+more favorable spacecraft alignments, allowing for the analy-
+sis of a larger number of events. Additionally, PSP’s improved
+time resolution of 0.3 seconds will facilitate a more detailed in-
+vestigation of radio events. The newly launched PROBA-3 mis-
+sion along with ground-based observational opportunities, will
+further enhance our ability to probe the lower corona, provid-
+ing deeper insights into the origin and propagation of solar ra-
+dio emission. The recently developed coronal model COCONUT
+(Perri et al. 2022, 2023), will, together with the time-dependent
+version of EUHFORIA provide more accurate modeling results.
+We believe that these advancements will even more improve our
+understanding of electron density variations and the physics of
+the solar radio bursts in the inner heliosphere.
+
+Acknowledgements. K.D. is supported by the PhD grant awarded by Royal Ob-
+servatory of Belgium. The authors also acknowledge financial support by the
+BRAIN.be project SWIM, University start-up grant 3E220031 and the FEDtWIN
+project PERIHELION. The ROB team thanks the Belgian Federal Science
+Policy Office (BELSPO) for the provision of financial support in the frame-
+work of the PRODEX Programme of the European Space Agency (ESA) un-
+der contract numbers 4000112292, 4000134088, 4000106864, 4000134474, and
+4000136424. J.M. and I.C.J. were supported by the International Space Sci-
+ence Institute (ISSI) in Bern, through ISSI International Team project No.557,
+“Beam-Plasma Interaction in the Solar Wind and the Generation of Type III Ra-
+dio Bursts”. LC.J. is grateful for support by the Research Council of Finland
+(X-Scale, grant No. 371569). I-C.J also acknowledges funding from the Euro-
+pean Union’s Horizon Europe research and innovation programme under grant
+agreement No. 101134999 (SOLER). The paper reflects only the authors’ view
+and the European Commission is not responsible for any use that may be made
+of the information it contains.
+
+Authors would like to thank all the teams responsible for the space based ob-
+servations. The data are publicly available at https: //spdf.gsfc.nasa.gov/
+(PSP, STEREO, Wind). We would like to thank JHelioviewer for being able to
+browse LASCO, SECCHI, AIA and EUVI data (http: //jhelioviewer.org;
+Miiller et al. 2017). We also thank provider of magnetograms, i.e., NSO/GONG
+and ADAPT maps (https: //gong.nso.edu/data/magmap/) and https: //
+nso. edu/data/nisp-data/adapt-maps/, respectively).
+
+The authors thank the anonymous reviewers for their helpful comments that en-
+hanced the value of this paper.
+
+References
+
+Alcock, B. T. 2018, PhD thesis, University of Glasgow, phD Thesis
+
+Altschuler, M. D. & Newkirk, G. 1969, Sol. Phys., 9, 131
+
+Arge, C. N. & Pizzo, V. J. 2000, J. Geophys. Res., 105, 10465
+
+Asvestari, E., Heinemann, S. G., Temmer, M., et al. 2019, J. Geophys. Res., 124,
+8280
+
+Asvestari, E., Heinemann, S. G., Temmer, M., et al. 2020, Journal of Physics:
+Conference Series, 1548, 012004
+
+Badman, S. T., Carley, E., Cafiizares, L. A., et al. 2022, ApJ, 938, 95
+
+Bain, H. M. & Fletcher, L. 2009, A&A, 508, 1443
+
+Bale, S. D., Goetz, K., Harvey, P. R., et al. 2016, Space Sci. Rev., 204, 49
+
+Baratashvili, T., Braileanu, B. P., Bacchini, F., Keppens, R., & Poedts, S. 2025,
+A&A, 694, A306
+
+Baumbach, S. 1937, Astron. Nachr., 263, 121
+
+Benz, A. O., Su, H., Magun, A., & Stehling, W. 1992, A&AS, 93, 539
+
+Boe, B., Habbal, S., & Druckmiiller, M. 2020, ApJ, 895, 123
+
+Bonnin, X., Hoang, S., Cecconi, B., & Issautier, K. 2022, Wind/Waves/RAD1
+LESIA L3 DF Data Collection, version 01 data set doi: 10.25935/hSnp-2m47
+
+Bougeret, J.-L., Kaiser, M. L., Kellogg, P. J., et al. 1995, Space Sci. Rev., 71, 231
+
+Brueckner, G. E., Howard, R. A., Koomen, M. J., et al. 1995, Sol. Phys., 162,
+357
+
+Cairns, I. H., Lobzin, V. V., Donea, A., et al. 2018, Sci. Rep., 8, 1676
+
+Caiiizares, L. A., Badman, S. T., Maloney, S. A., et al. 2024, A&A, 684, A182
+
+Cecconi, B., Bonnin, X., Hoang, S., et al. 2008, Space Sci. Rev., 136, 549
+
+Cecconi, B. & Zarka, P. 2005, Radio Sci., 40, RS3003
+
+Chen, L., Ma, B., Wu, D., et al. 2024, ApJ, 975, L37
+
+Chen, Y. & Hu, Y. 2001, Sol. Phys., 199, 371
+
+Dissauer, K., Veronig, A. M., Temmer, M., Podladchikova, T., & Vanninathan,
+K. 2018, ApJ, 863, 169
+
+Domingo, V., Fleck, B., & Poland, A. I. 1995, Sol. Phys., 162, 1
+
+Dulk, G. 1970, Publ. Astron. Soc. Aust., 1, 308
+
+Dulk, G. A., Leblanc, Y., Robinson, P. A., Bougeret, J.-L., & Lin, R. P. 1998,
+J. Geophys. Res., 103, 17223
+
+Dulk, G. A., Steinberg, J. L., & Hoang, S. 1984, A&A, 141, 30
+
+Faden, J. B., Weigel, R. S., Merka, J., & Friedel, R. H. W. 2010, Earth Sci. In-
+form., 3, 41-49
+
+Fox, N. J., Velli, M. C., Bale, S. D., et al. 2016, Space Sci. Rev., 204, 7
+
+Garcia, H. A. 1994, Sol. Phys., 154, 275
+
+Gerekos, C., Steinbriigge, G., Jebaraj, I. C., et al. 2024, A&A, 683, A56
+
+Ginzburg, V. L. & Zhelezniakov, V. V. 1958, Soviet Ast., 2, 653
+
+Gordovskyy, M., Kontar, E. P., Clarkson, D. L., Chrysaphi, N., & Browning, P. K.
+2022, ApJ, 925, 140
+
+Gurnett, D. A., Baumback, M. M., & Rosenbauer, H. 1978, J. Geophys. Res.,
+83, 616
+
+Harra, L., Brooks, D. H., Bale, S. D., et al. 2021, A&A, 650, A7
+
+Harvey, J. W., Hill, F., Hubbard, R. P., et al. 1996, Sci., 272, 1284
+
+Hickmann, K. S., Godinez, H. C., Henney, C. J., & Arge, C. N. 2015, Sol. Phys.,
+290, 1105
+
+Hinterreiter, J., Magdalenié, J., Temmer, M., et al. 2019, Sol. Phys., 294, 170
+
+Howard, R. A., Moses, J. D., Vourlidas, A., et al. 2008, Space Sci. Rev., 136, 67
+
+Jebaraj, I. C., Kouloumvakos, A., Dresing, N., et al. 2023, A&A, 675, A27
+
+Jebaraj, I. C., Krasnoselskikh, V., Pulupa, M., Magdalenié, J., & Bale, S. D. 2023,
+ApJ, 955, L20
+
+Jebaraj, I. C., Magdalenié, J., Krasnoselskikh, V., Krupar, V., & Poedts, S. 2023,
+A&A, 670, A20
+
+Jebaraj, I. C., Magdalenié, J., Podladchikova, T., et al. 2020, A&A, 639, A56
+
+Jian, L. K., Russell, C. T., Luhmann, J. G., et al. 2011, Sol. Phys., 273, 179
+
+Kaiser, M. L., Kucera, T. A., Davila, J. M., et al. 2008, Space Sci. Rev., 136, 5
+
+Kasper, J. C., Abiad, R., Austin, G., et al. 2016, Space Sci. Rev., 204, 131
+
+Klassen, A., Gomez-Herrero, R., & Heber, B. 2011, Sol. Phys., 273, 413
+
+Klassen, A., Pohjolainen, S., & Klein, K. 2003, Sol. Phys., 218, 197
+
+Klein, K.-L. 2021, Front. Astron. Space Sci., 7
+
+Kontar, E. P., Chen, X., Chrysaphi, N., et al. 2019, ApJ, 884, 122
+
+Krasnoselskikh, V., Jebaraj, I. C., Cooper, T. R. F, et al. 2025, ApJ, 990, 100
+
+Krucker, S., Kontar, E. P., Christe, S., Glesener, L., & Lin, R. P. 2011, ApJ, 742,
+82
+
+Krupar, V., Kontar, E. P., Soucek, J., et al. 2015, A&A, 580, A137
+
+Krupar, V., Maksimovic, M., Kontar, E. P., et al. 2018, ApJ, 857, 82
+
+Krupar, V., Maksimovic, M., Santolik, O., Cecconi, B., & Kruparova, O. 2014a,
+Sol. Phys., 289
+
+Krupar, V., Maksimovic, M., Santolik, O., et al. 2014b, Sol. Phys., 289, 3121
+
+Krupar, V., Nguyen, Q. N., Bonnin, X., Cecconi, B., & Maksimovic, M. 2022,
+STEREO/Waves/LFR-HFR L3 DF Data Collection, doi: 10.25935/4TAK-
+5225
+
+Krupar, V., Santolik, O., Cecconi, B., et al. 2012, J. Geophys. Res., 117, 6101
+
+Krupar, V., Szabo, A., Maksimovic, M., et al. 2020, ApJS, 246, 57
+
+Kruparova, O., Krupar, V., Szabo, A., Pulupa, M., & Bale, S. D. 2023, ApJ, 957,
+13
+
+Kumari, A., Morosan, D. E., Kilpua, E. K. J., & Daei, F. 2023, A&A, 675, A102
+
+Article number, page 19 of 20
+A&A proofs: manuscript no. aa55142-25
+
+Kumari, A., Morosan, D. E., Mugundhan, V., et al. 2025, A&A, forthcoming
+article
+
+Kundu, M. R., Roberts, J. A., Spencer, C. L., & Kuiper, J. W. 1961, ApJ, 133,
+255
+
+Leblanc, Y., Dulk, G. A., & Bougeret, J.-L. 1998, Sol. Phys., 183, 165
+
+Leblanc, Y., Dulk, G. A., & Hoang, S. 1995, Geophys. Res. Lett., 22, 3429
+
+Leblanc, Y., Dulk, G. A., Hoang, S., Bougeret, J.-L., & Robinson, P. A. 1996,
+A&A, 316, 406
+
+Leitner, M., Farrugia, C. J., Méstl, C., et al. 2007, J. Geophys. Res., 112
+
+Lemen, J. R., Title, A. M., Akin, D. J., et al. 2012, Sol. Phys., 275, 17
+
+Liu, M., Issautier, K., Meyer-Vernet, N., et al. 2021, A&A, 650, Al4
+
+MacNeice, P. 2009, Space Weather, 7
+
+Magdalenié, J., Marqué, C., Krupar, V., et al. 2014, ApJ, 7911 15
+
+Magdalenié, J., Marqué, C., Zhukov, A. N., Vrsnak, B., & Zic, T. 2010, ApJ,
+718, 266
+
+Maharana, A., Isavnin, A., Scolini, C., et al. 2022, Adv. Space Res., 70, 1641
+
+Manning, R. & Fainberg, J. 1980, Space Sci. Instrum., 5, 161
+
+Marqué, C., Klein, Karl-Ludwig, Monstein, Christian, et al. 2018, J. Space
+‘Weather Space Clim., 8, A42
+
+Martinez Oliveros, J. C., Raftery, C. L., Bain, H. M., et al. 2012, ApJ, 748, 66
+
+Martinovié, M. M., Dordevié, A. R., Klein, K. G., et al. 2022, J. Geophys. Res.,
+127, e2021JA030182
+
+Mccauley, P., Cairns, I., Morgan, J., et al. 2017, ApJ, 851
+
+McGregor, S. L., Hughes, W. J., Arge, C. N., Owens, M. J., & Odstrcil, D. 2011,
+J. Geophys. Res., 116
+
+Melrose, D. B. 1980, Space Sci. Rev., 26, 3
+
+Meléndez, J. L., Sawant, H. S., Fernandes, F. C. R., & Benz, A. O. 1999,
+Sol. Phys., 187, 77
+
+Meyer-Vernet, N. 2001, Planet. Space Sci., 49, 247, magnetospheres of the Outer
+Planets (Part I)
+
+Moncuquet, M., Meyer-Vernet, N., Issautier, K., et al. 2020, ApJS, 246, 44
+
+Mulay, S. M., Sharma, R., Valori, G., et al. 2019, A&A, 632, A108
+
+Musset, S., Maksimovic, M., Kontar, E., et al. 2021, A&A, 656, A34
+
+Miiller, D., Nicula, B., Felix, S., et al. 2017, A&A, 606, A10
+
+Miiller, D., St. Cyr, O. C., Zouganelis, I., et al. 2020, A&A, 642, Al
+
+Nedal, M., Kozarev, K., Zhang, P., & Zucca, P. 2023, A&A, 680
+
+Nelson, G. J. & Melrose, D. B. 1985, Type II bursts, in D.J. McLean and N. R.
+Labrum (eds.), Solar Radiophysics: Studies of emission from the Sun at metre
+wavelengths (Cambridge University Press), 333-359
+
+Newkirk, G. J. 1961, ApJ, 133, 983
+
+Niemela, A., Wijsen, N., Aran, A., et al. 2023, A&A, 679
+
+Nindos, A., Aurass, H., Klein, K.-L., & Trottet, G. 2008, Sol. Phys., 253, 3
+
+Odstrcil, D. 2003, Adv. Space Res., 32, 497, heliosphere at Solar Maximum
+
+Odstréil, D., Dryer, M., & Smith, Z. 1996, J. Geophys. Res., 101, 19973
+
+Odstréil, D., Pizzo, V. J., & Arge, C. N. 2005, J. Geophys. Res., 110, 2106
+
+Owens, M. J., Crooker, N. U., Schwadron, N. A., et al. 2008, Geophys. Res. Lett.,
+35
+
+Perri, B., Kuzma, B., Brchnelova, M., et al. 2023, ApJ, 943, 124
+
+Perri, B., Leitner, P., Brchnelova, M., et al. 2022, ApJ, 936, 19
+
+Pesnell, W. D., Thompson, B. J., & Chamberlin, P. C. 2012, Sol. Phys., 275, 3
+
+Pick, M. 1998, in Proceedings of Nobeyama Symposium 1998, NRO Report 479
+(Nobeyama, Japan: Nobeyama Radio Observatory)
+
+Pick, M., Mason, G. M., Wang, Y.-M., Tan, C., & Wang, L. 2006, ApJ, 648, 1247
+
+Pohjolainen, S., Pomoell, J., & Vainio, R. 2008, A&A, 490, 357
+
+Pomoell, J. & Poedts, S. 2018, J. Space Weather Space Clim., 8, A35
+
+Pulupa, M., Bale, S., Badman, S., et al. 2020, ApJS, 246, 49
+
+Pulupa, M., Bale, S. D., Bonnell, J. W., et al. 2017, J. Geophys. Res., 122, 2836
+
+Reid, H. A. S. 2020, Front. Astron. Space Sci., 7, 56
+
+Reiner, M. J., Fainberg, J., Kaiser, M. L., & Stone, R. G. 1998, J. Geophys. Res.,
+103, 1923
+
+Reiner, M. J., Goetz, K., Fainberg, J., et al. 2009, Sol. Phys., 259, 255
+
+Reiss, M. A., MacNeice, P. J., Mays, L. M., et al. 2019, ApJS, 240, 35
+
+Reiss, M. A., Temmer, M., Veronig, A. M., et al. 2016, Space Weather, 14, 495
+
+Riley, P., Ben-Nun, M., Linker, J., et al. 2014, Sol. Phys., 289
+
+Riley, P., Linker, J. A., Lionello, R., & Mikic, Z. 2012, J. Atmos. Sol.-Terr. Phys.,
+83,1
+
+Riley, P., Lionello, R., Caplan, R. M., et al. 2021, A&A, 650, A19
+
+Robinson, P. A. & Cairns, I. H. 1994, Sol. Phys., 154, 335
+
+Rodriguez, L., Shukhobodskaia, D., Niemela, A., et al. 2024, A&A, 689
+
+Réville, V., Brun, A. S., Strugarek, A., et al. 2015, ApJ, 814, 99
+
+Saint-Hilaire, P., Vilmer, N., & Kerdraon, A. 2012, ApJ, 762, 60
+
+Saito, K. 1970, Ann. Tokyo Astron. Obs., 12, 51
+
+Samara, E., Arge, C. N., Pinto, R. F., et al. 2024, ApJ, 971, 83
+
+Samara, E., Pinto, R. F., Magdalenié, J., et al. 2021, A&A, 648, A35
+
+Schatten, K. 1971, Cosmic Electrodyn., 2
+
+Schatten, K. H., Wilcox, J. M., & Ness, N. F. 1969, Sol. Phys., 6, 442
+
+Scolini, C., Winslow, R. M., Lugaz, N., & Poedts, S. 2023, ApJ, 944, 46
+
+Sishtla, C. P., Jebaraj, I. C., Pomoell, J., et al. 2023, ApJ, 959, L33
+
+Stanislavsky, A. A., Bubnov, I. N., Koval, A. A., & Yerin, S. N. 2022, A&A,
+657, A21
+
+Article number, page 20 of 20
+
+Suzuki, S. & Dulk, G. A. 1985, in Solar Radiophysics: Studies of Emission from
+the Sun at Metre Wavelengths, ed. D. J. McLean & N. R. Labrum (Cambridge
+University Press, 1985), 289-332
+
+Thejappa, G. & Kundu, M. R. 1992, Sol. Phys., 140, 19
+
+Valentino, A. & Magdalenié, J. 2024, A&A, 690, A137
+
+Van Haarlem, M. P., Wise, M. W., Gunst, A. W., et al. 2013, A&A, 556, A2
+
+Vecchio, A., Maksimovic, M., Chrysaphi, N., Kontar, E. P., & Krupar, V. 2024,
+ApJ, 974, L18
+
+Voshchepynets, A., Krasnoselskikh, V., Artemyev, A., & Volokitin, A. 2015,
+ApJ, 807, 38
+
+Vrsnak, B., Magdalenié, J., & Zlobec, P. 2004, A&A, 413, 753
+
+Wallace, S., Jones, S. L., Arge, C. N., Viall, N. M., & Henney, C. J. 2022, ApJ,
+935, 24
+
+Wang, M., Chen, B., Yu, S., et al. 2023, ApJ, 954, 32
+
+Wang, Y.-M. & Sheeley, N. R., J. 1990, ApJ, 355, 726, research supported by the
+U.S. Navy
+
+Wild, J. P. 1950, Aust. J. Sci. Res., Ser. A Phys. Sci., 3, 399
+
+Wild, J. P. & McCready, L. L. 1950, Aust. J. Sci. Res., Ser. A Phys. Sci., 3, 387
+
+Zhang, P., Wang, C., Ye, L., & Wang, Y. 2019, Sol. Phys., 294, 62
+
+Zimovets, I., Vilmer, N., Chian, A. C.-L., Sharykin, I., & Struminsky, A. 2012,
+A&A, 547, A6
+
+Zucca, P., Morosan, D. E., Rouillard, A. P., et al. 2018, A&A, 615, A89

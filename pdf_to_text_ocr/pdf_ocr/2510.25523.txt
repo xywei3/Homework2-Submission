@@ -1,0 +1,801 @@
+arXiv:2510.25523v1 [astro-ph.HE] 29 Oct 2025
+
+Analytical approaches for rapid prediction of
+gravitational waveforms for relativistic binary
+systems
+
+October 30, 2025
+
+A.V. Mishakina!?*, S.I. Blinnikov }34**
+
+! Kurchatov Institute, Moscow, Russia
+2MIPT, Moscow, Russia
+39AI MSU, Moscow, Russia
+4VNIIA, Moscow, Russia
+
+Abstract
+
+We present a fast method for obtaining fully analytical approximations for gravitational
+waveforms produced by merging of neutron stars and/or black holes for the earliest stages of
+the merger process. The obtained analytical formula is compared with numerical calculations,
+its accuracy and limits of applicability are evaluted. Our results may be useful not only for the
+earliest evalution of properties of the nature of binary system in gravitational-wave detectors
+but also will give early alerts for gamma-ray, optical and neutrino observatories.
+
+Keywords: gravitational waves, patterns of gravitational waves, general theory of relativity,
+post-Newtonian formalism, consistent filtration methodin
+
+* sasha.mishakinaQ@gmail.com
+
+** sblinnikov@bk.ru
+Introduction
+
+The gravitational-wave signal from a pair of merging black holes was first detected in 2015 by
+LIGO observatory detectors (Abbott et al., 2016). Gravitational waves (GW) are of considerable
+interest, as they carry rich information about the parameters of merging black holes (BH) and
+neutron stars (NS)—their masses, spins, and orbital dynamics. The GW analysis makes it
+vossible to test various relativistic theories of gravity, as well as to study the formation of
+binary systems in the early universe.
+
+One of the most significant events was GW170817 gravitational-wave signal—the sixth
+recorded gravitational-wave event and the first merger of the NS, accompanied by a short
+gamma-ray burst GRB170817A (Abbott et al., 2017). This event brilliantly confirmed the
+predictions of a short gamma-ray burst made in the papers of Blinnikov et al. (1984, 1990),
+1owever, it is still unclear what happened within about two seconds after the loss of the gravi-
+ational wave signal and before the registration of the gamma-ray burst.
+
+Most GW detections are carried out using the matched filtering method (see, for example,
+Weinstein and Zubakov, 1960; Dhurandhar and Satyaprakash, 1994). A weak gravitational
+signal is detected in the noise by comparing it with one of the pre-modeled signals—a tem-
+plate. Based on this, template banks are created (Owen, 1996; Ajith, et al., 2014; Allen, 2021;
+Coogan et al., 2022; Vadekar et al., 2024; Sharma et al., 2024). The multidimensional space
+of parameters on which the waveform depends should be optimally covered by such patterns,
+minimizing computational costs while maintaining a high probability of detection. In the book
+Dhurandhar, Mitra (2022), in section 9.7.1, the difficulties of covering the parameter space with
+templates are described in detail.
+
+The template banks used by LIGO are based either on the post-Newtonian (PN) formalism
+for the convergence phase, or on the results of numerical calculations in GR—Numerical Relativ-
+ity (NR) for the merger and ringdown phases. LIGO does not directly use numerical patterns in
+real time, but uses analytical approximations interpolated from numerical data (Coakler, 2007;
+Sakon et al., 2024).
+
+However, in a number of cases, for example, at the initial search stage or in scenarios with
+a large number of variables and parameters, there is a need for faster analytical templates that
+would effectively identify GW signals from binary systems. GW analytical templates provide
+1igh computing speed with low computational costs.
+
+The purpose of this work is to obtain an analytical template for a close binary system at
+
+he earliest stages of convergence using the computer algebra systems MAXIMA and WOLFRAM
+IATHEMATICA. The motivation for us was the paper by Buskirk and Babiuc-Hamilton (2019),
+which claimed to provide an entirely analytical solution, but actually used numerical solutions
+of differential equations in WOLFRAM language, which, of course, does not allow one to calculate
+he GW-forms quickly.
+In this note, we give only a brief description of the idea of our approach to a simplified
+problem for spinless relativistic stars in a binary system with circular orbits in the point mass
+approximation. This approach is easily developed for the more general case of stars with spins
+and nonzero orbital eccentricities. Unlike Buskirk and Babiuc-Hamilton (2019), we managed to
+obtain a fully analytical expression.
+
+1 Postnewtonian and other formalisms
+
+According to the general theory of relativity, the evolution of a two-body system is described
+by nonlinear Einstein equations that relate the curvature of space-time and the distribution of
+energy and momentum (Landau and Lifshitz, 1988). There are three stages in the evolution of
+a binary system: inspiral, merger, and ringdown. The equations in the first and third stages
+can be reduced to a linear form and calculated analytically, whereas for the pre-merger stage it
+is necessary to use NR methods.
+
+At the inspiral stage, the binary system loses energy due to GW radiation. Denote by E(t)
+the dependence of the total energy of the binary system on time t, F radiation loss power
+(Peters, 1964):
+dE
+— = FE, 1
+dt (1)
+For example, in Tichy et al. (2000), the following expression is proposed for F as a function of
+the velocity of circulation of v:
+
+32 yvl? ok vy v®
+F(v) = 51 a0 14 is. { Yogemn(2) E+...
+k=2 k=6
+
+where 7 = M,M»/M? is the symmetric mass ratio in a binary system—see the definitions of
+these quantities below, after (4). cis the speed of light. The ellipsis in indicate possible terms
+proportional to the logarithms (v/c)* to various powers for k > 2, which may occur in higher
+orders of post-Newtonian corrections. Tichy et al. (2000) work in natural units of Gy =c=1.
+Alternatively, an equation can be written for the loss of angular momentum by the system, but
+in the point mass approximation these two approaches are equivalent.
+
+At the inspiral stage, the dynamics of the system is well described by the PN theory (Buo-
+nanno et al., 2009; Hannam et al., 2014; Taracchini et al., 2014). The various orders of the
+post-Newtonian approximation are characterized by powers of a small parameter 2, called the
+post-Newtonian parameter (PN parameter):
+
+(2)
+
+A correction of the order of (v/c)” to the Newtonian equation of motion is accounted for as
+an order of n/2 in the PN approximation. Thus, the equation of motion for two bodies in the
+PN expansion is written symbolically as follows:
+
+GyM [, Aap
+
+n=2
+
+where r is the distance between the stars (in this paper we consider them point-like), Gy is the
+Newtonian constant, M = M, + Mo is the total mass of the system of stars with masses of 4,
+and M2, An/2 — expressions that depend on the physical parameters of the system (velocities,
+coordinates, masses, spins, etc.) and correspond to the n/2 order of PN approximation.
+
+Below we use the coefficients from the formulas of the paper by Huerta et al. (2017), which
+is called the “Complete waveform model for compact binaries on eccentric orbits”. However, the
+full form here is not completely analytical, since, for example, the phase ®(t) requires numerical
+integration of equations for the evolution of the orbit. Recently, even more long analytical ex-
+pressions for the GW form have appeared, for example, the multipolar Postminkovsky (MPM)
+formalism developed by Blanchet, Damour and Ayer (Blanchet, 2024). This set of approxi-
+mation methods (called MPM-PN) has been successfully applied to compact binary systems,
+which made it possible to obtain equations of motion up to the fourth post-Newtonian order
+4PN), and the shape of the GW and flow up to 4.5PN order, which surpasses the degree of
+approximation of the quadrupole Einstein formula (see also Dlapa et al., 2022; Dlapa et al.,
+2023).
+
+The method proposed in this paper makes it possible to obtain a fully analytical expression
+for the evolution of the orbit in the various above-mentioned formalisms for the earliest stages
+of convergence, which are important for the rapid discovery of new sources of GW.
+
+2 Transformation of expressions to analytical form
+
+Formula is rewritten in the form (Buskirk, Babiuc-Hamilton, 2019) in terms of «x (see. [3):
+
+dz F _
+dt dE/dx’ (5)
+Approximants from Ajith and Fotopoulos (2014) are used to find x, as a result of which the
+following equation can be obtained (Huerta et al., 2017):
+
+dx _ 64 na” k
+ae a (1+ Sat), (6)
+
+where 7 = /M, p = M,M2/M is the reduced mass, a; is the coefficients from the paper by
+Huerta et al. (2017), depending on 77 and log(a). Formally, the expression (6 looks like an
+approximation of 6PN. In fact, the evolution at the convergence stage is strictly described by
+the equations for the energy flux up to 3PN order, and for slightly non-circular orbits up to
+3.5PN order with corrections including 6PN order.
+
+The right-hand-side in (6) is a function which looks as a polynomial in powers of x, A(x) =
+asx” + agx® +... + ayal, but the coefficients a; may contain some powers of log(x). The
+equation will then look like
+
+Here is the crucial difference between our work and that of Buskirk and Babiuc-
+Hamilton (2019). They use numerical integration of the equation (7). which contradicts the
+title of their article “fully analytical form” of the equation. The main idea of our work is basec
+
+on the following observation. Instead of directly solving the equation we note that it can be
+
+rewritten as
+dx
+
+Ala) = dt, (8
+
+using the method of separating variables.
+
+Let us define 2 ac
+I4(x) = / Se . 9
+
+where is the lower limit of integration the value of the lower bound PN of the parameter,
+iow see below, the expression (15).
+
+This integral cannot be solved analytically, however, it is possible to carry out transforma-
+tions that will allow us to obtain an analytical result in good approximation.
+
+To do this, we pull out the term asx° = ax°, writing down A(x) = ax® + (x), and rewrite
+
+the expression as ;
+IA(x) =| or (10)
+Low adb(1 “fh ace)
+
+Now, noting that ¢ < 1, we apply the taylor procedure of the MAXIMA package to the following
+expression at ¢ = 0:
+
++ oe
+As is known, the taylor procedure for non-analytic functions at zero, especially radicals
+and logarithms, uses other approximations, which is not a pure Taylor expansion. Our function
+b(¢) has many logarithms and fractional powers. As an example, we present the expansion up
+to the 2nd order to show the MAXIMA output:
+
+Ia(x) = See | 1+ (2.211342. —12.566¢1°+(3.0103+5.38599+4.284777)C? | dc.
+A(®) [- 3.599 - 105703 | +(2.2113+2.757)¢—12.566¢!°+(3.0103-+5.38597-+4.284717)C? | d¢
+
+(12)
+The WOLFRAM procedure Series outputs an equivalent expression. Both taylor and Series
+can construct standard Taylor series, as well as certain expansions involving negative powers,
+fractional powers, and logarithms.
+
+Having expansions like (12), we easily obtain an analytical expression of the integration
+result, the full form of which is given in the Appendix In our calculations, we used
+expansions up to the 4th and 6th orders and compared their accuracy (see the tables below).
+
+The equation will then have the form
+
+Ia(z) =t4+C. (13)
+
+4
+As can be seen from the equation above, the resulting dependence x(t) is implicit. The
+constant C can be found as follows:
+
+Ta(a | =,
+a(z)} =e,
+and, considering that 7 = Xjow at t = 0, we get
+
+C= La(tow)-
+
+By similar reasoning, we obtain that [a(xnign) = ter + La(@iow), where Thigh is the upper
+bound of the PN parameter, t.,—the time at which the PN parameter grows significantly and
+the resulting formula is not valid anymore. This time approximately coincides with the time
+of merger obtained by other methods (note that our formulae are correct only at the early
+stages of inspiral). The result of the analytical calculation for ¢ = I4(x) — I4(ajow) is given in
+Appendix
+
+The lower limit of the PN parameter is determined by the detectable range of LIGO detectors.
+The physical limitations of the detector result from seismic, quantum and thermal noise, which
+limit detection at frequencies below the threshold value of fiow = 10 Hz (LIGO Collaboration,
+2015), as well as from technical limitations, due to which the sensitivity of the detector is reduced
+at low frequencies. Thus, signals from supermassive BH mergers are not recorded, since the
+frequency of such events is below 10~4 Hz.
+
+The orbital rotation velocity corresponding to fiow is (Blanchet, 2002)
+
+U9 = Wow? = (Gy Murrow)" , (14)
+
+where Wiow/7 = flow is the orbital angular frequency of the binary system. The frequency of
+the gravitational wave is equal to twice the orbital frequency of the binary system (see, for
+example, Zasov, Postnov, 2011, section A.4; Maggiore, 2008, vol. 1, section 4.1; Poisson, Will,
+2014, section 11.4.6). Thus, the lower bound of the PN parameter is (Taney et al., 2016; Buskirk,
+
+Babiuc-Hamilton, 2019)
+ve GyM\?8
+Tow = 2 = (ntiow = J : (15)
+
+The upper bound PN of the parameter xpigh in the Schwarzschild field is determined by
+the radius of the last stable orbit of the binary system (innermost stable circular orbit, ISCO):
+risco = 3Rscn = 6GyM/ c?. In the Newtonian approximation, this radius corresponds to the
+orbital velocity: visco = /GnM/risco = c/V6. Therefore, in the zero order, oe = 1/6. For
+the second order PN approximation, an amendment can be introduced that takes into account
+the dependence on the symmetric mass ratio 7 (Blanchet, 2024):
+
+1 Oo
+2PN
+Lhich = ZIgGo = = (1 n). 16
+high ISCO 6 ( + 18 ' ( )
+
+Expressions for the angular phase and frequency in terms of the PN parameter are given as
+follows:
+
+The dependency w(t) (presented in the Appendix|A.2.1), again, as in the expression (13), is
+
+implicit. To find the phase ®(t), we take the derivative of x on both parts of the expression (13):
+
+Nie
+
+(17)
+
+dI,4(a) — dt
+
+dx dx
+and substitute this into the integral:
+
+92) = fomat= [ Po(aar= | BO ear, (18)
+
+dx da
+
+which gives an implicit dependence of the phase on time. The result can be seen in the Ap-
+
+pendix
+Next, we can determine the evolution of the distance r(t) between rotating relativistic objects
+over time. The distance between objects can be set in various PN approximation orders as
+follows:
+
+r(t) = Mr Na (ft er PN 42 PN ae) Hr PN (67), (19)
+
+where r’PN are coefficients of the corresponding order of PN approximation. Following Buskirk
+
+and Babiuc-Hamilton (2019), we take these coefficients from the paper by Hinder (2010). Ana-
+lytical formulas for r and 7 are given in the Appendix [A.2.3]
+
+In a linear approximation, gravitational waves can be represented as transverse waves with
+two independent polarization modes, h, and hx.
+
+Formulae for polarizations of GW (Hinder, 2010):
+
+M : M .
+hy (i) = 2G Ret ( ig Ga™ ) cos 28 + 2rrb sin20|, (20
+Cc r
+Mi be M ‘
+hx (t) = 2G'n Ge 722 _ ON ) sino ari cos20 |, (21
+LC ¥
+
+The GW form is expressed in terms of polarization modes as follows (Apostolatos et al.
+1994):
+
+,
+
+h(t) = h(t) — ih, (ft). (22
+
+Following Buskirk and Babiuc-Hamilton (2019), we take the angle of inclination of the orbi
+u (the angle between the vector of the orbital angular momentum and the observation line) to
+be zero. The GW radiation is maximal along the axis of the orbital moment (see Maggiore,
+2008, vol. 1, section 3.6), which creates an optimal orientation for its detection.
+
+3 Results and Discussion
+
+The analytical relationship of the PN parameter x and the time t, calculated using the for-
+mula produced by MAXIMA, is given in the Appendix [AJ]
+The tables indicate at what values [x; t] the discrepancy between the analytical and
+numerical calculations for PN parameter « reaches 10-4 % 1 % for double systems with
+different initial masses for a variaty of approximations (“Taylor” series expansion near zero to
+orders 2, 4, and 6). The accuracy was estimated by determining the absolute error, normalized
+for the critical time te,. It can be seen that for many binary BH systems (see Table (1). the
+differences do not exceed 1%, which indicates the accuracy of the analytical formula obtained.
+The formulae for the phase given in appendix [A.2.2] have approximately the same accuracy.
+For binary NS systems (see table[2), the formula error does not exceed fractions of a percent.
+This is due to the increased time before merging: the formula works fine for small values of the
+PN parameter, which increases sharply only at the moment of merging. Expansion to the sixth
+order gives the highest accuracy, on the order of a thousandth of a percent.
+
+The obtained analytical formula can facilitate and accelerate the detection of merging objects
+at the earliest stages. Analytical formulae explicitly relate the observed signal parameters
+(frequency, phase, amplitude) to the physical characteristics of the system (masses, orbital
+parameters) and this significantly increases the detection time of the signal.
+
+This is especially true for NS systems. For example, for the NS + NS system with masses of
+1.5Mo (standard mass of NS; see table 2) the time to merging (the time for which the system
+can be monitored) reaches 900 seconds. For a similar GW170817 event, the detection time was
+about 100 seconds (Abbott et al., 2017).
+
+In the Figures one can see the evolution of the PN parameter over time for different
+BH and NS systems. The time it takes to start monitoring depends on the mass of the system
+and ranges from tens of seconds (for massive binary systems) to hundreds (for less massive
+ones) for different systems. As we approach the moment of merging, the PN parameter grows
+dramatically, and the resulting formula becomes inapplicable.
+
+Table 1: Comparison of analytical and numerical calculations for different initial masses of
+BH+BH/NS (in solar masses). M,, Mz — component masses, Xjo~ — the initial value PN of
+the parameter determined by the frequency threshold when the signal enters the detection range
+
+LIGO, ta. — the time at which the PN value of the parameter grows significantly and the resulting
+formula stops working, [x; t] — the PN value of the parameter and the corresponding time when the
+discrepancy between analytical and numerical calculations reaches the value indicated in the column
+header.
+Taylor 2nd order
+xt
+Mi+Mz} tow | te [Soor% | > 01% 1%
+20+ 20 | 0.03370 | 12.113 | 0.034; 0.182 | 0.035; 1.741 | 0.058; 10.71
+15+1.5 | 0.01868 | 158.76 | 0.019; 9.110 | 0.022; 75.95 =
+10+10 | 0.02123 | 38.747 | 0.021; 1.815 | 0.024; 15.84 =
+Taylor 4th order
+Mi+Mz| cow | t nt
+_ “ > 0.001% | > 0.01 % > 0.1%
+20+ 20 | 0.03370 | 12.113 | 0.035; 1.977 | 0.049; 9.542 —
+15+1.5 | 0.01868 | 158.76 | 0.025; 106.7 — —
+10+ 10 | 0.02123 | 38.747 | 0.029; 28.58 — —
+Taylor 6th order
+M+M| x t md |
+ow ° > 0.001% | > 0.01 % > 0.1%
+20+ 20 | 0.03370 | 11.856 | 0.048; 9.081 | 0.094; 11.77 —
+15+1.5 | 0.01868 | 158.76 | 0.066; 158. = —
+10+ 10 | 0.02123 | 38.511 | 0.079; 38.38 = =
+Table 2: Comparison of analytical and numerical calculations for different initial masses of NS+NS
+(in solar masses). M,, Mz — component masses, 2joy — the initial value PN of the parameter
+determined by the frequency threshold when the signal enters the detection range LIGO, t., — the
+time at which the PN value of the parameter increases significantly and the resulting formula stops
+working, [; t] — the PN value of the parameter and the corresponding time when the discrepancy
+between analytical and numerical calculations reaches the value indicated in the column header.
+Taylor 2nd order
+a; t
+Mi Mo | i S107% | >0001% | >001%
+2+2 0.007260 | 562.107 | 0.007; 3.700 | 0.007; 36.90 | 0.009; 303.20
+1.54 1.5 | 0.005993 | 906.189 | 0.006; 9.104 | 0.006; 94.30 | 0.008; 679.0
+1+1 0.004574 | 1776.75 | 0.005; 37.11 | 0.005; 349.2 | 0.013; 1750
+Taylor 4th order
+a; t
+M+ M2) ow ton S10>% [| >107% | 50001%
+2+2 0.007260 | 561.886 | 0.009; 403.3 | 0.066; 561.82 —
+1.54 1.5 | 0.005993 | 906.189 | 0.012; 846.2 | 0.028; 903.9 —
+1+1 0.004574 | 1776.75 | 0.024; 1773.7 | 0.027; 1774.8 —
+Taylor 6th order
+Mit+Mz| tow t . wt
+on “ >10-° % > 107% > 0.001 %
+2+2 0.007260 | 561.884 | 0.031; 559.5 | 0.063; 561.80 —
+1.54 1.5 | 0.005993 | 905.966 | 0.027; 903.4 | 0.062; 905.90 —
+1+1 0.004574 | 1776.52 | 0.043; 1776.0 — —
+
+0.2
+
+5+5 Mo
+10+10 Mg ---
+20+20 Mo “***"=*
+
+0.15 -
+
+t=122.59c
+
+0.1
+
+PN napametp x
+
+0.05
+
+120 140
+te
+
+Figure 1: Evolution of the PN parameter over time for various BH systems
+
+0.04 T
+
+0.035 |
+
+0.03 F
+0,025 -
+
+T
+i
+|
+!
+i
+t=561.9¢ { t=905.9¢ t=1776 c
+{
+‘
+0.02
+h
+
+PN napametp x
+
+0.015
+0.01
+
+0.005
+
+a
+1
+1
+1
+d
+1
+1
+1
+1
+Al
+1
+1
+1
+
+L L L L ul
+
+0 200 400 600 800 1000 1200 1400 1600 1800
+te
+
+Figure 2: Evolution of the PN parameter over time for various NS systems
+
+The final result is the analytical template (form) of the GW, shown in the Figure |
+O57
+
+1)
+
+Re h, normalized
+oO
+
+NN OKC
+
+-0.5 F
+
+“ak L L L L L 4
+ie) 2 4 6 8 10 12
+Time (s)
+
+Figure 3: GW form for the BH system (20 + 20)Mo
+
+The Figures show a comparison of the GW-form calculated numerically using MATH-
+EMATICA and analytically in MAXIMA. The figure [4] shows the shape of the GW for the BH
+system. The characteristic sinusoidal shape of the GW is clearly visible here in the last second
+just before the merger, when the amplitude increases noticeably. The analytical formula and
+numerical calculation begin to diverge only at the last second before the merger. The figure 5]
+shows the last milliseconds before merging for the NS system (1.5 + 1.5)Mo.
+
+T T T
+analytical solution 7
+numerical solution
+
+0.6 F
+
+0.4 >
+0.25 ieee
+
+oF
+
+wavall
+-0.2 1 | |
+WoW W
+
+Re h(t)
+
+-0.4 +
+
+-0:6 +
+
+il
+
+11.5
+
+Figure 4: Comparison of the numerical and analytical form of the GW for the BH system (20+20)Mo5
+
+half a second before the merger
+
+L
+11.55
+
+11.6
+
+L
+11.65
+
+11.7
+
+L
+11.75
+
+11.8
+
+11.85 11.9
+
+Time (s)
+1x10°20
+
+T
+Axanutuyecku
+
+UyvcneHHo ---------
+
+5x10°71
+
+=
+° 0
+a
+-5x10°21
+-1x10°29 L L L L L
+904.14 904.15 904.16 904.17 904.18 904.19 904.2
+
+tc
+
+Figure 5: Comparison of the numerical and analytical form of the GW in the last seconds before the
+merger for the system (1.5+1.5)M© (for this system, the critical time is t,,. = 905.9 ¢ — see Fig.
+
+In the tables and graphs presented above, we checked the accuracy of the analytical formula
+by comparing it with the result of a numerical expression calculated using MATHEMATICA. But
+it is also interesting to check the accuracy of the numerical method itself used in MATHEMAT-
+ICA, since Buskirk and Babiuc-Hamilton (2019) did not provide an indication of the accepted
+accuracy of the numerical method. The figure [6] shows a comparison of our analytical formula
+and two numerical results. NDSOLVE for different accuracy for the NS system (1+ 1)Mo.
+Obviously, the amplitudes and periods are reproduced by different methods with comparable
+accuracy, but differences in phase irreversibly arise due to the large number of periods of the
+shape of the GW.
+
+10
+1x10
+
+5x10°22
+
+=
+= 0
+a
+-5x10°22
+-1x10°24
+
+1654.98 1654.99 1655 1655.01 1655.02 1655.03 1655.04 1655.05
+Time (s)
+
+Figure 6: A comparison of the analytically obtained form of GW and numerical expressions calculated
+with different accuracy for the NZ system (1+1)M© (for this system, the critical time is t., = 1776 ¢
+— see Fig. 2). a — numerical calculation (accuracy is set by default in MATHEMATICA), b —
+numerical calculation (accuracy 8), ¢ — analytical calculation
+
+As is well known, the so-called chirp mass plays an important role in calculating the phase
+of GW (Cutler and Flanagan, 1994):
+
+(M.M2)3/
+i
+
+At the same time, the chirp frequency describes the rate at which this frequency increases
+during the convergence stage, and is primarily determined by the chirp mass of the binary
+system. This dependence is expressed by the equation:
+
+ad \5 3
+
+Monirp = ( 23 )
+
+The chirp mass is not explicitly included in the formulas we use, however, it is interesting to
+compare the chirp mass values using the formulas[23] and The Table[3]shows a comparison
+of the chirp mass values calculated for the neutron star system.
+
+Table 3: Comparison of the accuracy of the mass chirp for the 2 +1 neutron star system Mo. for
+different values of the PN parameter
+
+NS + NS OPN 0.0001: ow | 0.01 -21ow Diow 2* Dow
+24+1 1.216729 1.216727 1.216609 | 1.208659 | 1.204167
+
+It can be seen that at values of x 4 orders of magnitude lower than the threshold PN
+parameter Xjow, the values of the chirp masses perfectly match, since the formula 223] is correct
+in the OPN approximation. However, already at x = ajow, a noticeable error appears, which
+grows with the growth of x.
+
+So, thanks to the new analytical formula, it will be possible to detect gravitational wave
+events much earlier. Due to this, high calculation speed and prompt event detection are achieved.
+The explicit dependence on the parameters (mass, phase, distance between objects) is convenient
+for subsequent data analysis.
+
+11
+Results
+
+A fully analytical gravitational waveform template for close binary systems at the early stage
+of merging is obtained.
+
+The use of analytical templates of gravitational waves plays a key role in gravitational-wave
+astronomy, as they allow one to quickly process data from detectors and effectively identify
+significant events. Comparing the observed signals with theoretical models significantly speeds
+up their detection. That is why the creation of accurate analytical and numerical models
+describing this process remains one of the most important tasks of modern theoretical physics.
+
+The formula obtained in this article may help one in quick detection and study of the
+gravitational wave signal, especially in systems with low masses. For example, for neutron star
+binaries, it is possible to detect and monitor them at the earliest stages of coalescence, up to
+1ousands of seconds before ringdown.
+
+We compare the numerical calculations with our analytical formula, evaluate its accuracy
+and limits of applicability. We find that the error of the formula does not exceed 1% for all the
+studied pairs of relativistic objects (BH + BH, BH + NS, and NS + NS), and for NS + NS
+binaries the error is less than 10-4 % for most of the interval until the critical time tg,.
+
+We thank V.E.Valiulin, N.K.Poraiko, A.V.Yudin, and N.I.Kramarev for their interest in our
+udies and useful discussions.
+
+We are grateful to the referees of the Astronomy Letters for their valuable comments, which
+helped us to significantly improve the presentation of our results.
+
+S.B. would like to acknowledge the support of Russian Science Foundation in the search of
+ffective approximations for gravitational waveforms (RSF project 25-22-00293).
+
+a
+
+oy
+
+A Appendix
+
+The final formulae are listed on GitHub. Link to the  repositorium:
+
+https: //github.com/sblinnikov/gw-forms-analy
+
+A.1 Analytical expression for PN parameter
+
+The analytical result obtained as a result of integration, depending on such parameters as x
+(PN parameter B), M (total mass of the system), 7 (symmetric mass ratio) are given below:
+
+12
+t(z, M, n)na* M3 = e,(—1.50413 - 10-2 + 4.67964 - 10-°M + c3(—0.49049 — 1.90751 -
+10-3M) + 6.90126 - 10-!' M8/3 Jog (2.88225 - 10-3. M2/3)? .
+(0.65916 + 8.30459: 10-6 A44/3 +. 5.882057)) +c9(—1.50413- 10-2 +
+0.3024223/? + c4(—0.49049 — 12.3273a/?) + x log (a)? (0.65916 +
+0.999662: + 5.88205n)) + (1.44930 — 0.204761) - (4.45995 -
+10-7) M*/3 4. cga°/?) 4 (—4.43479-10-2—5.51514-10- 27): (2.88225-
+10-3; M?/3 + e9x) + (5.73679 + 4.731807 — 1.738767) - (1.28547 -
+10-%e, M7/3 + ega’7/2) + (—9.05580- 10-2 — 0.162027 — 0.128897”) -
+(8.30738 - 10~% ce, M4/3 + cya) + (77.9184 — 232.665n — 160.3547?
+35.64631) - (3.70505 - 107 M3 + ega9/?) + (—1.81803
+9.952281 + 0.132407? — 0.296717?) - (2.39440 - 1078; M? + cpa?) +
+(230.182—43.68347n—258.4197?—314.3967?—58.59711")-(1.06789-
+107-Me, M13 + ca! /?) 4+ (133.656 + 154.2057 + 88.04257? +
+65.89577? + 5.90339n* + 0.508397°) - (1.98912 - 10-3, 10/3 +
+cou”) + (—441.966 + 972.0527 + 1122.42? + 227.4377? +
+64.3629n4 + 10.4714n° + 0.57°) - (5.73314 - 10716 e, M4 + cga®) +
+(—12.7081 — 72.61597) - (4.45995 - 10~7¢; M/%eg + ega®/2e4) +
+(1.76923 — 14.68507 — 11.1794n) - (8.30738 - 107%, M4/3.c3 +
+cac4) + (4.88255 — 215.0617 — 149.0237? — 35.748073) - (2.39440-
+10-8c,M?c3 + cae) + (—13.4691 + 7.635697 + 28.81317? +
+0.286187? + 0.330241") - (2.88225 - 10-3e, M?/3.c3 + cycar)
+
+C= (—9.26755) . 10tx4
+C2 = 6.39578 - 10-8 8/8
+cz = 2.39440 - 1078 . log (2.88225 - 1073. Me)?
+
+c4 = log(a) a?
+
+13
+A.2 Analytical template for gravitational wave
+
+The final formula of the analytical template of a gravitational wave, depending on the parameters
+x (PN parameter [3), M (total mass of the system), 7 (symmetric mass ratio) has the following
+form:
+
+2GM n
+
+Re(h)(2, M, n) = Re
+
+—i? (a, M, n) +17 (a, M, n)w? (a, M)+ —
+
+x cos (2@(x, M, n)) + 2r(2, M, n)i (a, M, 7) w(x, M)sin(2®(x, M, »)|
+
+where Re(h) — real part h(t);
+
+R — distance from the double to the detector
+
+and auxiliary functions:
+
+A.2.1 The orbital frequency function
+
+10 2.73/2
+w (a,M) = — v
+
+14
+A.2.2 Phase function
+
+®(x, M, n)nM*/325/? = p,(—0.03125 + 1.51914 - 10-4M + log(p2) (3.05001 - 10-8? —
+1.48268 - 10-" M3) + 6.90126 - 10-!! 18/3 log (py)? (4.58586 -
+10-16 + 6.16205 - 10-°.M4/3 + 3.66869 - 10-157) +
+M®/3(—0.03125 + 0.9817523/? + log(x) (1.273814 —
+4,00179x9/?) + 24 log(a)?(4.58586 - 10-16 + 0.74176? + 3.66869 -
+10-1 )) + (—0.11517 — 0.143237) - (pips + M*/3x) + (—0.47036
+0.841551 — 0.669497) - (8.30738 - 10° 4/3, + M5/322) +
+(—3.72464 — 3.072147 + 1.128907?) - (1.28547 - 10-9M7/8p, +
+M®/3¢7/2) + (19.2918 — 75.5294n — 52.0552n? — 11.57187°) -
+(3.70505 - 10712. M3p, + M°/3x9/2) + (0.90004 + 25.8463 —
+0.343851? + 0.770557) - (2.39440 - 10-8 Mp; + MP/323) +
+(146.696 — 44.0771 — 167.7807? — 204.1233 — 38.0444n*) -
+(1.06789 - 10-!@# M'/3p, 4+ M5/3q11/2) + (—12.4206 — 0.17923 +
+24.9427? + 0.247741? + 0.28588n*) - (6.90126 - 10-!! 48/3, +
+M®/3¢4) + (—68.8702 + 75.5183 + 42.2456? + 34.2265n3 +
+3.066247! + 0.264067) - (1.98912 - 10713.M19/3p, + MP/325) +
+(—327.256 + 687.0737 + 809.1481? + 163.0767? + 47.757674 +
+7.769807° + 0.371007) - (5.73314 - 107! M4p, + M*/32%) +
+(—8.25082 — 47.1462n) - (1.06789 - 10~!4 41/3, 4 MP/3g 1/2) 4
+(—2.82289 + 0.398841) - (4.45995 - 10-7 M*/3p, log(p2) +
+M®/325/? log(x)) + (0.91894 — 7.627457 — 5.806631?) - (1.98912 -
+107!3 1419/3, log (py) + M®/325 log(x)) + (3.94077 — 159.577 —
+110.5767? — 26.5252n°) - (5.73314 - 10-16 M4; log(p2) +
+M®/326 log(a)) + (1.14125 + 10.1839 + 1.46748 - 107 !4n? +
+1.14646-10~!n3)- (6.90126-10-!! M8/9p, log(p2) + M*/324 log(x))
+
+py = —2.24218 - 10%x5/?
+po = 2.88225 - 10-3?/8
+
+15
+A.2.3 The function of the distance between the stars
+
+2
++a? (7.518220 = aur
+
+n  a(342 + 81?
+t(esMn) = 4.92548: 10° (a 1424 2024 or)
+
+3 iD.
+Qn
++ ar)
+
+A.2.4 The function of the derivative of the distance between the stars in
+time
+i(a, M, 7) = (—0.77011a3n + 3.658045? — 11.57980%n? + 8.55682 -
+
+102°? — 4.749032°n? + 3.80303 - 10-2274) /(6.01651 - 10-2 +
+0.13304a — 0.756062°/2 + 0.181120? — 2.17395a°/? + 1.327542? —
+2.86840a7/2 — 13.4691a4 + 26.6319x9/2 — 131.8872° +
+332.5652!/? — 879.0502 + 0.16545a7n + 0.324040? +
+0.307152°/?n + 9.952282 — 2.36590a7/?n + 7.63569a4n —
+116.33229/2n + 139.5202°9 — 138.141 a!!/29 + 1729.04.20 +
+0.25779a2n? — 0.1324027? + 0.8693827/21? + 28.8131247? —
+80.1768209/2 9? + 76.86312°7? — 387.6290! !/2 7? + 2095.820%n? +
+0.29671a?7? + 0.286182? — 17.823129/2n3 + 65.8957x°7? —
+471.594a11/2n3 + 419.126a%n? + 0.33024a4n* + 5.90339a°74 —
+87.8956a1 1/24 + 128.726a%n* + 0.508402°7> + 20.94272%n> +
+xn + log(x) - (0.49049x3 + 1.3183324 — 6.16367x9/2 +
+1.76923x° — 19.0622a!/? + 11.7644x° + 11.7641a4n —
+14.68502°7 — 108.9242! !/279 — 430.1232%n + 1.69518 - 10-Ma4n? —
+11.1794a51? — 298.0472? + 1.32436. 10-6243 — 71.49602°n?) +
+log(x)? - (5.29745 - 107 8x* + 1.999332° + 4.23796 - 10-!5a4n))
+
+16

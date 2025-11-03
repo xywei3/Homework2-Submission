@@ -1,0 +1,1353 @@
+2510.25304v1 [astro-ph.IM] 29 Oct 2025
+
+arXiv
+
+DRAFT VERSION OCTOBER 30, 2025
+Typeset using IAT&X twocolumn style in AASTeX631
+
+Pre-flight Background Estimates for COSI
+
+SAVITRI GALLEG: UWE OBERLACK,’ JAN LOMMLER,' CHRISTOPHER M. KARWIN,? FRANCESCO FENU,?
+VALENTINA FIORETTI,’ ANDREAS ZOGLAUER,’ F. M. FoLLEGA,°” A. PERINELLI,*” ROBERTO BATTISTON,®?
+Ropero Iuppa,®’ STEVEN E. Boccs,® SAURABH MITTAL,? PIERRE JEAN,!° CAROLYN KIERANS,'! DiereR H. HARTMANN,”
+
+Joun A. Tomsick,?
+
+(ON BEHALF OF THE COSI COLLABORATION)
+
+1 Institut fiir Physik & Exzellenzcluster PRISMA+, Johannes Gutenberg- Universitat Mainz, 55099 Mainz, Germany. email :
+sgallego@uni-mainz.de
+
+2 Department of Physics and Astronomy, Clemson University, Clemson, SC 29634, USA
+3 Agenzia Spaziale Italiana, Via del Politecnico s.n.c., 00133 Roma, Italy
+4INAF, Osservatorio di Astrofisica e Scienza dello Spazio (OAS) di Bologna, Via P. Gobetti 93/3, 40129 Bologna, Italy
+
+5 Space Sciences Laboratory, UC Berkeley, 7 Gauss Way, University of California, Berkeley, CA 94720, USA
+
+6 University of Trento, Department of Physics, V. Sommarive 14, I-38123, Trento, Italy
+
+TINFN-TIFPA, V. Sommarive 14, I-38123 Trento, Italy
+8 Department of Astronomy & Astrophysics, UC San Diego, 9500 Gilman Drive, La Jolla, CA 92093, USA
+° University Wiirzburg, D-97074 Wiirzburg, Germany
+10 Institut de Recherche en Astrophysique et Planétologie, Université de Toulouse, CNRS, CNES, UPS, 31028 Toulouse, Cedex 4, France.
+11NASA Goddard Space Flight Center, Greenbelt, MD 20771, USA
+
+ABSTRACT
+
+The Compton Spectrometer and Imager (COSI) is a Compton telescope designed to survey the 0.2
+- 5 MeV sky, consisting of a compact array of cross-strip germanium detectors. It is planned to be
+aunched in 2027 into an equatorial low-Earth (530 km) orbit with a prime mission duration of 2 years.
+The observation of MeV gamma rays is dominated by background. Thus, background simulation and
+identification are crucial for the data analysis. In this work we perform Monte Carlo simulations o
+the background for the first 3 months in orbit, and we extrapolate the results to 2 years in orbit, in
+order to determine the build-up of the activation due to long-lived isotopes. The simulations accoun'
+or the known background components, and include time-dependent variations due to the geomagnetic
+cut-off, South Atlantic Anomaly (SAA) passages. In addition, they include detailed modeling of the
+delayed activation due to short and long-lived isotopes. We determine the rates of events induced by
+he background that are reconstructed as Compton events in the simulated COSI data. We find tha
+he extragalactic background photons dominate at low energies (<660 keV), while delayed activation
+rom cosmic-ray primaries (proton/alpha) and albedo photons dominate at higher energies. As par
+of this work, a comparison at low latitude (|b| <1°) between recent measurement of the SAA and the
+AP9/AE9 model has been made, showing an overestimation of the flux by a factor ~9 by the model.
+The systematic uncertainties associated with these components are quantified.
+
+1. INTRODUCTION but they can also induce a delayed background due to
+the activation of the instrument materials. Thus, back-
+
+The soft to medium gamma-ray regime (~ 0.1 —
+30 MeV) is one of the least explored energy ranges across
+the electromagnetic spectrum, having a sensitivity that
+is orders of magnitude worse than the adjacent energy
+bands. One of the main reasons for this is that detectors
+that operate in this band suffer from high instrumental
+backgrounds (BGs). The interactions of cosmic ray and
+albedo particles not only induce a prompt instrumental
+background when they deposit energy in the detectors,
+
+ground simulation and identification are crucial for the
+
+data analysis.
+
+In this work we present the pre-flight background
+estimates for the Compton Spectrometer and Imager
+(COSI), a Small Explorer (SMEX) satellite mission
+scheduled to launch in 2027 into a low-Earth low-
+inclination orbit (Tomsick et al. 2023). COSI is a Comp-
+ton telescope which operates as a wide-field imager,
+spectrometer, and polarimeter. One of COSI’s strengths
+2
+
+is its good energy resolution, having a full-width half
+maximum (FWHM) of 6.0 keV (9.0 keV) at 0.511 MeV
+(1.157 MeV). Sixteen high-purity cross-strip germanium
+semiconductor detectors (each 8 x 8 x 1.5 cm) are ar-
+ranged ina 2 x 2 x 4 array that is sensitive to photons
+between 0.2 to 5 MeV. The detectors are surrounded
+on four sides and the bottom by active shields. The
+scintillator material used is bismuth germanium oxide
+(BGO), and they are read out by silicon photomultipli-
+ers (SiPMs). The shields have several functions, includ-
+ing passive background attenuation, active anticoinci-
+dence for background radiation coming from the sides
+and bottom, anticoincidence of gamma-rays that escape
+from the germanium detectors, and finally they serve as
+a gamma-ray transient monitor.
+
+The paper is structured as follows. In Section 2,
+we present the input models and software used for the
+background simulations. The simulation results are pre-
+sented in Section 3 and discussed in Section 4. Finally,
+we give our summary and conclusions in Section 5.
+
+2. BACKGROUND SIMULATION
+
+2.1. Cosmic-ray and albedo components
+
+The input spectra of cosmic rays and albedo compo-
+nents are generated using the tool from Cumani et al.
+(2019). We employ an updated version of the code',
+
+which includes minor code corrections and more recent
+data. The user can choose the main parameters, includ-
+ing altitude, inclination, geomagnetic cut-off and solar
+activity. Correspondingly, for the BGs we used the avy-
+erage rigidity cutoff (12.6 GV) for COSI’s orbit which
+range from 10.4 to 14.5 GV. Solar modulation for pro-
+tons and helium is accounted for by using the HelMod
+online tool (Boschini et al. 2018) under the assump-
+tion of a data acquisition in the period March — June
+2027. The extrapolation to the future solar activity and
+corresponding solar modulation is done following Bos-
+chini et al. (2022). Electrons and positron fluxes have
+been extrapolated from the values measured with AMS-
+02 (Aguilar et al. 2021) to the values expected in 2027
+since no modulation is calculated in HelMod for such
+primaries. The fluxes are calculated with the following
+formula:
+ren Ob
+eh = eat (1)
+D
+
+where ee is the extrapolated flux of undifferentiated
+electrons and positrons in 2027, 94/571
+positron flux as published by the AMS collaboration in
+
+2021, on is the extrapolated proton flux in 2027 as dis-
+
+is the electron-
+
+1 https: //github.com/cositools/cosi-background/tree/DC3
+
+cussed above and gams2l is the AMS proton flux. The
+ratio from equation | can be used as a proxy for the mod-
+ulation evolution since proton fluxes change in time in a
+similar manner as electrons and positrons (see Aguilar
+et al. (2023a,b) for more details). The albedo photon
+and neutron spectra and fluxes, as well as the extragalac-
+tic gamma-ray background (EGB) component are taken
+from Cumani et al. (2019). In addition to the albedo
+photons, the 511 keV line contribution from the atmo-
+sphere is taken from Harris et al. (2003) and rescaled
+to COSI’s altitude. The resulting spectra are shown in
+Figure 1. All of the input files used for the simulations,
+will be uploaded in the COSL-tools github repository”
+during spring 2026. Simulations are using the energy
+range 10?-10° keV for these components.
+
+10-2 Albedo Photons = = Primary Positrons
+Albedo Neutrons = —= Primary Protons
+
+— £GB Photons Albedo Electrons
+
+Primary Alphas = = Albedo Positrons
+
+~ == Primary Electrons — = Albedo Protons
+a
+7:
+§
+4 10-7 “
+a
+“
+-9
+
+z wes
+~
+3 yn 4
+z
+
+10-23 4
+
+10-15 r T T
+
+102 103 104 10° 10° 107 108 109
+
+Energy [keV]
+
+Figure 1. Full on-orbit BG spectra for charged particles,
+neutrons, and photons. All spectral components are divided
+by the solid angle of their region of origin.
+
+2.2. Galactic diffuse emission
+
+The Galactic diffuse continuum emission is mod-
+eled using the v57 release of the GALPROP cosmic-
+ray (CR) propagation and interstellar emissions frame-
+work (Porter et al. 2022). There are six models in total,
+categorized according to the CR source and interstel-
+lar radiation field (ISRF) model used for the prediction.
+There are 3 CR source models (SAO, SA50, SA100) and
+two ISRF models (R12, F98). These GALPROP mod-
+els include the total emission, which is dominated by
+inverse Compton radiation, but also has a small contri-
+bution from Bremsstrahlung towards the upper energy
+
+? https: //github.com/cositools/cosi-sim/tree/main/cosi_sim/
+Source_Library /DC4/backgrounds
+SA100_F98
+
+10-7
+ph cm-? s-? sr-* MeV-?
+
+Figure 2. All-sky map of the SA100-F98 model for the
+Galactic diffuse emission background component.
+
+bound. For this work we simulate the SA100-F98 model
+in the energy range 10-104 keV as the representative
+case. The all-sky intensity map (at 501 keV) is shown
+in Figure 2. The variations coming from the 6 different
+models are pretty minimal (see Figure 3 in Karwin et al.
+(2023).
+
+2.3. MEGAlib software
+
+The simulations employ the Medium-Energy Gamma-
+ray Astronomy library (MEGAIib) software package 3, a
+standard tool in MeV astronomy (Zoglauer et al. 2006).
+Cosima is the simulation part of MEGAIib, based on
+GEANT4 v11.2 (Agostinelli et al. 2003). It is able to
+simulate the emission from a source, the passage of par-
+ticles through the spacecraft, and their energy deposits
+in the detector. MEGAlib also performs event recon-
+struction, imaging analysis and general high-level anal-
+ysis (ie., spectra, light curves, etc.). The mass model
+used for the simulation is shown in Figure 3.
+
+The MEGAIib simulation includes the activation of
+the instrument induced by CR interactions. Currently,
+two options are available for this. The first method is a
+three step process. First, the initial particles and pho-
+tons are simulated, which determines the prompt in-
+teractions and a list of the created isotopes are stored.
+The activity of each isotope is then calculated based
+on a given time of irradiation in orbit. The final step
+simulates the isotope decay at random positions within
+the mass model volumes in which they were created.
+The second method of activation simulations keeps in
+memory each isotope created during the simulation un-
+til it decays, with the expected decay time given by the
+lifetime. This latter method accurately simulates the
+
+3 https: //github.com/zoglauer/megalib/tree/develop-cosi
+
+veto conditions.
+
+3
+
+build-up of the activation during the flight, and it has
+been used for this study. Given the substantial compu-
+tational resources needed for such simulations, only the
+first 3 months of orbit are simulated.
+
+For this work, a basic detector effects engine (DEE) in
+
+MEGAIib is applied to the simulated data to account for
+detector and readout effects. These effects include veto-
+ing events that interact in the shields, charge transport,
+binning of energy deposits into strips, energy resolutions
+and thresholds, depth resolution as well as trigger and
+
+The events are then reconstructed using MEGAIib’s
+revan (Boggs, S. E. & Jean, P. 2000; Zoglauer et al.
+2006). A minimum distance of 0.5 cm between any in-
+
+teractions is required for the Compton events. These
+background simulations were performed as part of the
+fourth Data Challenge + (DC4) that will be released by
+
+the COSI collaboration in spring 2026. The purpose of
+these data challenges is to aid in the pipeline develop-
+ment, and to familiarize the astrophysics community on
+how to analyze COSI data.
+
+2.4. Geomagnetic Cut-Off Dependencies
+
+The characteristics of the background components
+composed of charged particles are modified by the geo-
+magnetic field, which varies along the orbit. The space-
+craft coordinates have been generated with SPENVIS°,
+for 3 months of orbit, an altitude of 530 km, and an
+inclination of 0°°. In addition, we added a +22° rock-
+ing angle, with the northern sky observed for 12 hours,
+followed by a 8 minute slewing time, and then the south-
+ern sky observed for 12 hours (see Figure 4). The time
+
+dependence of the instrument’s pointing on the sky is
+simulated with MEGAIib using this orientation.
+
+Based on these coordinates, the geomagnetic cutoff
+(Reuto) (in GV) is computed using the python tool
+OTSO (Larsen et al. 2023). We calculate the Reutot
+for each time interval (15 s) of the 3 month orienta-
+tion file, and use this to obtain the integrated spectrum
+for each BG component. The Reuto dependencies for
+each component are described in Cumani et al. (2019).
+The time dependence of the background radiation due
+to Reuto# variation is handled by including a light curve
+in the simulations. Note that cosima only takes the light
+curve shape into account, and the overall flux normal-
+ization is set by the spectrum. We make the simplifying
+approximation that the spectral shape is constant with
+
+4 https: //doi.org/10.5281/zenodo.15126188
+5 https://www.spenvis.oma.be/intro.php
+
+® COSI will be launched by SpaceX with an expected inclination
+of 0.25° + 0.15°
+Figure 3. Left: Image of the MEGAlib’s mass-model used for the simulation. Right: CAD drawing (version 2025) of COSI
+
+payload for comparison.
+
+North — 920 North-South
+
+Repointing
+
+Orbital
+Plane
+
+South
+
+0 exposure [s] 2218
+
+Figure 4. Left: Schematic showing the 22° rocking occurring every 12 hours. right: Pointing of the instrument’s z-axis as a
+function of Galactic latitude and longitude for the 3 months of orbit.
+
+time. This is a reasonable assumption, considering that
+the Reuto# only varies from 10.4—14.5 GV (see Figure 5).
+
+2.5. South Atlantic Anomaly (SAA)
+
+The South Atlantic Anomaly (SAA) is a region where
+the inner Van Allen radiation belt is closest to Earth’s
+surface. Satellites passing through this area experience
+high levels of radiation, primarily from protons and elec-
+trons. Typically, scientific observations are paused while
+a satellite traverses the SAA, although some diagnostic
+data may still be collected. Protons interacting with
+the satellite can generate both short and long-lived ra-
+dioisotopes, which decay after the observation resumes,
+contributing to the overall background. To model the
+creation and decay of these isotopes, the initial step is to
+estimate the SAA spectrum along a specific orbit. Since
+we do not plan to use data taken during SAA passages,
+we did not simulate the trapped electrons component.
+
+The spectrum of the trapped protons is generated
+using the model IRENE AP9 v1.57.004" (Ginet et al.
+2013). The expected differential flux is computed for ev-
+ery 15s of orbit (see Figure 7 for one SAA passage) and
+then integrated over the energy to get the rate as func-
+tion of time that MEGAIib will interpret as a light curve
+(see Figure 8). This light curve will simulate the passage
+of the satellite through the SAA. For the COSI orbit, the
+duration of an SAA passage is around 17.5 min. This
+time is estimated with the condition that the flux of the
+trapped protons is not equal to zero. One could increase
+this lower flux boundary to limit the cut in the data but
+for the purpose of this work we choose to use this strict
+
+7 https: //www.vdl.afrl.af.mil/programs/ae9ap9
+14.5
+
+14.0
+
+13.5
+
+13.0
+
+12.5
+
+12.0
+
+Geomagnetic cutoff [GV]
+
+10.5
+
+r r r r r r r r r
+S
+YM
+rr ¥ Y &
+
+Figure 5. Reutof distributions as a function of time for a
+few hours of COSI orbit.
+
+2.00 12¢ (P,X)
+1.754 —— 760 (P.X)
+_ 27,Al (P,X)
+g 1.50 285i (P,X)
+8 1,25| — “Ti (P.X)
+5 —— 5Fe (P,X) bene
+5 1.00 70
+3 ---- 7Ge (P,X)
+20.75 2098) (P,X)
+a
+°
+5 0.50
+
+0.25
+
+0.004. =
+10° 10? 102
+Proton incident energy [MeV]
+
+Figure 6. Proton cross section for different target elements.
+
+condition when removing the SAA passages in the sim-
+ulated data.
+
+In order to reduce the simulation time, the spectrum
+is truncated at 4 MeV. This is motivated by the fact
+that we are only interested in activation induced by the
+trapped protons during a SAA passage. As shown in
+Figure 6, the proton cross-section with materials com-
+monly found in the spacecraft is negligible below 4 MeV.
+To test this, a 24h orbit has been simulated for a cut at
+2 MeV, showing no significant difference from a cut at 4
+MeV. We studied recent SAA measurements at low lat-
+itude and found that the AP9/AE9 model is higher by
+a factor of ~9 in this region, and therefore we scale the
+predicted flux by this same factor, as discussed further
+in Section 4.3.
+
+103
+
+— protons > 4 MeV
+
+10?
+
+1071
+
+Flux [p cm? s-+ MeV-?]
+
+10°
+10° 10? 10?
+Energy [MeV]
+
+Figure 7. AP9 trapped proton spectrum during SAA pas-
+sage.
+
+3. RESULTS
+
+The resulting spectra of the Compton events for each
+component, as well as the total background, are shown
+in Figure 9. The continuum background is dominated
+by the extragalactic background photon up to 660 keV,
+where the albedo photons component takes over. Pri-
+mary protons and alphas particles contribute to this con-
+tinuum but their main contribution to the background
+is from the activation lines they create. The most im-
+portant lines are listed in Table 1. Beyond 700 keV,
+albedo photons dominate. Overall, the spectrum turns
+down beyond 2 MeV due to saturation effects in the
+germanium strips.
+
+E measured [keV] _E nominal [keV] _ Parent. process
+
+198.1 198.39 71m Ge(IT)™Ge
+398 397.94 ®9 As(EC) Ge
+510.8 511 et+e 3y+y7
+843.8 843.76 27™Me(8-)?7 Al
+871.8 872.14 59Ge(EC)™Ga
+1013.9 1014.52 27Me(B-)27 Al
+1106.9 1107.01 ®°Ge(EC)Ga
+1367.1 1368.6 24Na(8-)4Mg
+2754 2754 24Na(8-)4Mg
+
+Table 1. Table of the strongest activation lines in the total
+background spectrum and their parent processes.
+
+Figure 10 shows a zoom of Figure 9 into the energy re-
+gions of interest (ROI) around gamma-ray lines of COSI
+science goals (Tomsick et al. 2023). The 511 keV line
+from et- e~ annihilation is composed of multiple back-
+ground components, with the largest contribution from
+albedo positrons, as depicted in the bottom left panel.
+Figure 8. Time profile of the AP9 integrated trapped protons flux between 4 and 2000 MeV for a few days of orbit. The
+
+PrP BP N N Ww
+o uw oO uo
+
+ad
+in
+
+Integrated Flux [p cm-? s~]
+
+Y ay o 2 2 2
+
+v No Ne Ne No v
+As ”
+
+© ”
+
+variation comes from how COSI crosses the SAA as a function of time, according to AP9.
+
+counts/keV/s
+
+10-4 4
+
+10-5 4
+
+ores) i a
+
+Total Background i Albedo Positrons
+EGB Photons Albedo Neutrons
+
+10-7 4 “1 SAA Protons d Albedo Protons
+(| Albedo Photons Albedo Electrons
+Primary Protons i Primary Positrons
+10-8 | Primary Alphas Primary Electrons
+
+Galactic diffuse
+joie oss tt Bogs tis tee ie titi
+102
+
+Energy [keV]
+
+Figure 9. Spectra of the reconstructed Compton events after 3 months of orbit for each background component.
+
+Total Background
+EGB Photons
+SAA Protons
+Albedo Photons
+Primary Protons
+Primary Alphas
+Galactic diffuse
+| Albedo Positrons
+Albedo Neutrons
+Albedo Protons
+
+1200 1250 1300 1350 1400 Albedo Electrons
+Energy [keV]
+
+counts/keV/s
+
+105
+1000 1050 1100 115
+
+10-1
+10-2
+a x
+> >
+a g
+5 107 5
+8 8
+10-4
+10-5 T T T T T T T 10-5 T T T T T
+400 425 450 475 500 525 550 575 600 1760 1780 1800 1820 1840
+Energy [keV] Energy [keV]
+
+Figure 10. Zoom of Figure 9 into energy region of interest (ROI) around gamma-ray lines of COSI science goals, indicated by
+red-dashed-lines. Top: ROI around the lines at 1157 keV from “*Ti and at 1173 and 1333 keV from °°Fe. Bottom left: ROI
+around the 511 keV line from positron annihilation. Bottom right: ROI around the 1809 keV line from ?°Al. Due to their
+negligible contributions, the Primary positrons and electrons components are not represented in these Figures.
+
+The top panel exhibits an activation line at ~1347 keV, can distinguish three main regions centered around alu-
+close to the 1333 keV line from ®°Fe, another COSI minum, germanium, and bismuth, which are primarily
+science goal. This background line is due to the re- found in the spacecraft structure, the detectors them-
+action ©°Ge(EC)®Ga + K + L(1347.1 keV). The bot- selves, and the anti-coincidence shield, respectively. The
+tom right panel shows few counts in the 1809 keV sci- 10 most important isotopes, i.e the highest non-vetoed
+ence goal line from ?°Al. Those are blended lines com- Compton event rates in the [0.2-5| MeV window, pro-
+ing from the reactions 7°Na(@~)?°Mg(1808.68 keV) and duced by these isotopes, are listed in Table 2. Some
+56Mn(EC)°°Fe(1810.772 keV). stable elements exhibit non-zero Compton events rates
+
+The similarity of most of the activation lines across because cosmic rays can excite them to higher energy
+components suggests that most isotopes are produced levels, or because radioactive isotopes can decay into ex-
+by spallation reactions. A distribution of the isotopes cited states of these stable elements. No contributions
+produced by the primary protons is shown in Figure 11. of bismuth isotopes are found in Table 2 since the veto
+This distribution is derived from all the non-vetoed of the shield drastically suppresses it.
+
+Compton events that were due to an isotope. We
+Element Rate [Hz] Tie Process [keV]
+Ga 1.54 21.14 min 1651.7
+Ge/™Ge 0.87 82.78 min/47.7 s 1177.2/139.68
+Ge/"™Ge 0.65 38.9 h/5.1 us 574.11, 871.98,
+1106.77/397.94
+3Ga 0.63 4.87 h 1234.1,297.32
+24Na/?4™Na 0.59 14.96 h/20.18 ms 1368.62, 1368.62/2754
+Zn 0.50 13.756 h 438.63
+Ga 0.49 39.68 ms 103.14+16.4
+™1™Ge 0.48 20.22 ms 174.956+23.438
+27™Me 0.45 9.458 min 843.76, 1014.52
+Ga 0.42 67.843 min 1899.1, 511, 1077.34
+
+Table 2. The 10 highest rates of Compton events induced by isotopes which are produced by primary protons/alphas and
+albedo protons/neutrons. The isotope half-lives T,/2 and the main processes (8~ in bold and ¥ in black), which have a strong
+impact on the rates are also indicated. For the case of 8~, the end-point energy is chosen.
+
+100 10°
+10-1
+804
+10-2
+= 604 iz
+2 103 =
+g g
+& 404 10-4 &
+10-5
+204
+10-6
+0 : :
+0 25 50 75 100 125
+
+Neutrons (N)
+
+Figure 11. Distribution of isotopes produced by the interaction of the primary protons after 3 months of orbit. The colors
+represent the Compton events rates associated to these isotopes. Two zooms of this distribution, represented by the red dashed
+squares, are shown in the upper left and lower right corner. Some stable elements are indicated in red.
+
+The integrated rates be
+
+ween 0.2 and 5 MeV as a func-
+
+tion of time are shown in the left panel of Figure 12.
+On a daily timescale, the Compton event rate remains
+relatively stable, except during the first few days when
+it increases before reaching a plateau due to activation
+build-up. At this scale, variations caused by the geomag-
+netic cutoff (Reutor) are difficult to observe. However,
+on a minute scale, the rate fluctuations become appar-
+ent and are inversely correlated with geomagnetic vari-
+ations, as shown in right panel of Figure 12. This result
+in an apparent East/West asymmetry in the simulated
+background due to the changes in Reutog. This asymme-
+
+try was clearly observed in NuSTAR data (Grefenstette
+et al. 2022).
+
+3.1. Activation from the SAA
+
+Despite the SAA passage cut, a residual tail can still
+be observed in the Compton event rate after each SAA
+passage, as shown in the left panel of Figure 13. This
+delayed background is due to the satellite and detector
+material undergoing nuclear excitation due to collision
+with the trapped protons, and subsequently photons are
+produced by the de-excitation of the activated material.
+
+Using a similar approach made with Fermi GBM
+data (Biltzinger et al. 2020), this tail is well fitted with
+101 4
+N
+=
+L
+£ 10° 4
+7
+<
+a
+2
+aD
+x
+o
+6
+9 i071 4
+
+— Total Background
+
+— £GB Photons
+
+== SAA Protons
+Albedo Photons
+
+EY
+
+— Primary Protons
+— Primary Alphas
+
+= Galactic Diffuse
+— Albedo Positrons
+
+Albedo Neutrons
+“== Albedo Protons
+Albedo Electrons
+
+Background rate [Hz]
+
+Geomagnetic cutoff [GV]
+
+Figure 12. Left: Daily Compton events rates for the different background components, integrated between 0.2 and 5 MeV.
+Due to their negligible contributions, the Primary positrons and electrons components are not represented in this Figure. Right:
+The black points show the background rate for every 3 minutes as a function of time for a few hours of orbit. The Reutog is
+
+shown in b!
+
+1.44
+
+1.274
+
+Compton evt rate [Hz]
+
+first day
+
+after 1 month
+after 2 months
+after 3 months
+
++
+
+10
+time after SAA passage [min]
+
+20 30
+
+Rate [Hz]
+
+ue. The SAA cut is not applied here for better visualization of the rate variation
+
+0.8 4
+
+0.7 4
+
+0.6 4
+
+0.5 4
+
+fF 0.126
+
+fF 0.124
+
+F 0.122
+
+fF 0.120
+
+fF 0.118
+
+AP9 integrated flux [part/cm2/s]
+
+F 0.116
+
+Figure 13. Left: Compton events rate from trapped protons, integrated over (0.2-5) MeV. Following one SAA passage, after
+
+a sum of two exponential decays plus a constant term.
+On a minute timescale, the delayed background after
+each SAA passage appears to be mainly driven by the
+eta decay of ?7Mg and ?8Al. Their corresponding lines
+at 843.76 and 1014.52 keV for ?7Mg and 1778.987 keV
+‘or ?8Al are indeed the most affected when we apply a
+
+cool-down period of a few minutes after an SAA passage.
+
+-up of decays from 74Na an
+simulation.
+
+On the other
+background component on a daily timesca
+panel in Figure 13), we observe a strong bui
+
+eing in orbit for four different durations, as specified in the legend. The solid lines represent the fit of the exponential decay of
+27Mg and *8Al plus a constant term. Right: Daily rate in blue data point for 3 months of orbit. The build-up of
+is well pronounced during the first days. The blue line represents the fit of the buil
+inear term. The red line shows the integrated AP9 proton flux used as input for the
+
+he activation
+Ge plus a
+
+1and, looking at the CO rate for this
+
+le (see right
+d-up during
+
+the first days of orbit, followed by a linear increase over
+
+time. This linear trend after a few days is m
+by the time profile of the AP9 integrated tra:
+
+ainly driven
+ped proton
+
+flux, as shown in red in the right panel o:
+
+Figure 13.
+0
+
+Note that this time profile exhibits annual variations,
+with the flux returning to near the initial value after a
+ull year.
+
+Similarly to the Compton event rate after one SAA
+passage, the daily rate is fitted with a sum of two expo-
+nentials of the form:
+
+_ pin)
+
+A(l—e “%A), (2)
+
+plus a first order polynomial. On a daily timescale, the
+rate increase during the first days appears to be driven
+yy the beta decay of ?4Na, followed by a slower decay
+rom ©°Ge. The isotopes of Na and Mg are coming from
+the aluminum present in the structure of the spacecraft.
+
+3.2. Extrapolation to 2 years of orbit
+
+The total computational cost of the simulations
+reached approximately 3 millions CPU hours (with 1
+million just for the SAA °). Given the magnitude of
+these computing resources, it was not feasible to extend
+the simulations beyond the current time frame. Instead,
+we chose to extrapolate our existing background model
+to two years in orbit, using the actual outputs from the
+Monte Carlo simulations. After such a long duration, we
+expect the contribution from long-lived isotopes to be-
+come significant, leading to new emission lines. There-
+fore, we identified isotopes with half-lives between 1
+month and 10 years which contribute to the background
+at a measured rate greater than 107+ Hz, finding 18 in
+total. Figure 14 shows the expected build-up of their
+rate as function of time. The extrapolated production
+rate R after 2 years of orbit inside the volume i of the
+mass-model for the isotope j is defined as:
+
+R(2y)} = R(3m)}, x Fy(2y), (3)
+
+where Ri (3m), is the rate estimated from the 3 month
+simulation and F;(2y) is the scaling factor to get the
+expected rate after 2 years. This factor, defined as the
+ratio between the production rate after 3 months and 2
+years, uses the standard formula for exponential decay,
+which can be expressed as:
+
+dv
+
+ra (4)
+
+1 — exp fm
+
+1- exp” !2u
+F; (2y) =
+
+where t3m and tj, are the times (in seconds) for 3
+
+months and 2 years, and \) = /82 is the decay con-
+1/2
+stant of the isotope j in s~!. The corresponding factors
+
+for each isotope are listed in Table 3.
+
+® The simulation was done using the nominal flux from AP9, so
+
+overestimated by a factor ~9.
+
+Some of the isotopes like ?2Na and °°Co were already
+observed and tracked during COMPTEL and INTE-
+GRAL/SPI missions (Diehl et al. 2018). As described in
+Section 2.3, MEGAIib can simulate isotope decay at ran-
+dom positions within the mass model volumes. We thus
+give as input the list of volumes and isotopes with their
+extrapolated rates after 2 years of orbit and run the sim-
+ulation for 1 x 10” s in order to get sufficient statistics.
+The resulting spectra for the Compton events are show
+in Figure 15. The overall shape of the background stays
+relatively constant with some new lines and a build-up
+of some others like the 511 keV line. The expected rate
+ratio between 2 years and 3 months of orbit for some
+energies of interest are provided in Table 3.2.
+
+Build-up
+
+—— 22Na == 54Mn 103Ru
+
+0.0 4 l
+
+T T T T
+0 5 10 15 20
+
+Time [months]
+
+log(2)
+Figure 14. Build-up (B = 1—e TH2 ) of the long-term
+activation as a function of time for the 18 most dominant long
+half-live isotopes. The vertical red-dashed line corresponds
+to 3 months.
+
+4. DISCUSSION
+4.1. Comparison with data
+
+A previous study simulated the background for the
+2016 balloon flight of the COSI prototype (Gallego et al.
+2025). Since the observations were taken at balloon alti-
+tudes within Earth’s atmosphere, the input models dif-
+fered; however, because the satellite will use the same
+type of germanium detectors, we can expect similar ac-
+tivation lines. The simulation from Gallego et al. (2025)
+successfully reproduced nearly all the activation lines ob-
+served in the data, allowing us to distinguish those orig-
+inating from natural radioactivity (and therefore not in-
+cluded in our model) from those induced by atmospheric
+background.
+10-7
+
+10-4 4
+
+103 4
+
+counts/keV/s
+
+10-7 | [= Total Background
+[5 Total Background + Long term activation
+[= Activation long term
+
+10-8 4
+[=] Activation long term (SAA)
+
+t T
+10? 103
+Energy [keV]
+
+il
+
+10-1 4
+410? 4
+>
+3g
+g
+a
+€
+5
+°
+8
+103 4
+[1 Total Background
+[=] Total Background + Long term activation
+10~* T T T T T T T
+
+400 600 800 1000 1200 1400 1600 1800 2000
+Energy [keV]
+
+Figure 15. Left: Spectra of the total background model from the 3 month simulations and the expected contribution of the
+long-lifetime isotopes after 2 years of orbit. Right: Comparison between the current background model and the extrapolated
+
+model after 2 years of orbit between 0.4 and 2 MeV.
+
+Element Tiy2 F(2y)
+®°Co B.27y 7.25
+
+7 energy [keV]
+1173.228, 1332.492
+
+Energy Range [keV] Science Line [keV] _ Rate Ratio
+
+504-516 BLL. 1.101
+1155-1159 Ler (Ts) 1.084
+1170-1175 1173 (°Fe) 1.244
+1331-1335 1333 (°°Fe) 1.243
+1807-1811 1809 (?°Al) 1.050
+
+Table 4. Ratio of the expected rate between 2 years and 3
+months of orbit for the main COSI science lines.
+
+53Co 70.88 .70 511, 810.75
+
+57Co 271.8 4.12 122.06, 136.47
+
+56Co 77.23 80 511, 846.77, 1238.28,
+1771.35, 2598.50
+
+7n 243.93d 3.87 1115.53
+
+2Na 260y 6.50 511, 1274.53
+
+465c 83.80 .90 889.27, 1120.54
+
+59Fe 44.49 82 1099.24, 1291.59
+
+We 137644 267 165.85
+
+185Qs 92.95 2.04 646.11
+
+*Rb 92.89 ay 551, 881.60
+
+54MIn 312.1 4.43 834.84
+
+53Rb 86.2d 93 520.39, 529.59, 552.55
+
+Nb 34.9 d .20 765.80
+
+"Be 53.3 d 44 477.60
+
+aay 106.6 2:93 898.04, 1836.06
+
+105 Ag 41.2d .28 280.54, 344.61,
+443.44, 644.63
+
+3Ru 39.2 d On 497.08
+
+Table 3. Highest contributions from long half-life isotopes
+in our background and their corresponding factor from Equa-
+tion 3. The gamma emissions associated with their decays
+are also indicated.
+
+4.2. Known limitations of our background model
+
+The current DEE in MEGAIib accounts for detec-
+tor and readout effects but still at a simplified level.
+The collaboration is currently developing a more ad-
+vanced DEE that will be bench-marked with calibra-
+
+tion measurements,
+paign (Sleator et a
+the rates presented
+final pre-flight es
+
+For this work,
+
+similar to the COSI-balloon cam-
+. 2019; Beechert et al. 2022). Thus,
+in this paper may differ from the
+imates with a fine-tuned DEE.
+he solar activity was assumed to be
+
+constant. In reality, the solar activity will vary dur-
+ing the mission and the CR flux is known to be anti-
+correlated with the solar modulation (Aguilar et al.
+2021). INTEGRAL/SPI observed an anti-correlation
+between the sunspot number and rates from activation
+lines induced by charged particles (Diehl et al. 2018).
+However, given the high level of modularity of our back-
+ground model, we will be able to scale each individual
+component contributions to better represent the change
+with solar activity.
+
+We did not simulate the contribution of other ions like
+oxygen or carbon which are the most important after
+helium. However, given their low flux in the same order
+of magnitude as the primary electrons and positrons, we
+can assume their contributions to the background to be
+negligible.
+
+12
+
+Our current model does not take into account activa-
+tion lines from natural radioactivity. Since some of these
+lines (mostly from the ?3?Th and ?88U series) were ob-
+served in the 2016 COSI balloon flight (Gallego et al.
+2025) and also in space with INTEGRAL/SPI (Dichl
+et al. 2018), we can expect to have a significant contri-
+bution from it. Background measurements during the
+calibration campaign will allow us to get an estimation
+of its contribution prior to launch.
+
+4.3. SAA uncertainties
+
+By using the flux given by AP9, the instrumen-
+tal background induced by the trapped protons within
+the passage of the satellite through the SAA is one
+of the most important background components. The
+AP9 model shows good agreement with recent measure-
+ments by the High-Energy Particle Detector instrument
+(HEPD-01) on board the China Seismo-Electromagnetic
+Satellite (CSES-01) in the central part of the SAA (Bar-
+tocci et al. 2025). However, measurements from the
+BeppoSAX satellite indicate that the AP9 model may
+strongly overestimate the actual flux values for altitudes
+below 600 km and inclinations below 5° (Ripa et al.
+2020). For the work presented in this paper, we stud-
+ied the comparison between the AP9 model prediction
+and HEPD-01 data for a latitude window of [-1,1]°. The
+altitude of the CSES-01 satellite (500 km) is close to
+the expected COSI altitude, and likewise for the solar
+activity (close to minimum).
+
+For this study we selected the central part of HEPD-01
+available data, starting from UTC 1562025600 (2 July
+2019) to UTC 1640995200 (1 Jan 2022). HEPD-01 data?
+are averaged within a +3 month window centered on the
+given UTC, which gives 6 datasets in total. AP9/AE9
+data are extracted within 6 days around the central UTC
+for each dataset. In this region, HEPD-01 can only
+provide rate data for a set of trigger masks (Bartocci
+et al. 2025), so that no identification between the pro-
+tons and electrons is available. We use data from the
+trigger mask using an energy cut of 2.3 (29) MeV for
+the electron (proton). Given this energy cut, the elec-
+tron contribution is negligible. A y? fit is employed for
+each dataset in order to find the best scaling factor S' to
+apply to the AP9/AE9 model to better match the data.
+Before each fit, we subtracted from HEPD-01 data the
+baseline rate due to cosmic radiation and instrumental
+noise. This contribution was estimated by taking the
+
+° HEPD-01 is in sun-synchronous orbit, so that each passage above
+a given point on the Earth can either occur at daytime (local
+time 2 PM, descending orbits) or nighttime (local time 2 AM,
+ascending orbits).
+
+average rate in the longitude region [0,150]°, far away
+from the SAA. The average scaling factor from each fit
+gives S = 0.114+ 0.047 (see left panel of Figure 16 for a
+specific dataset). We thus applied this factor to the pre-
+dicted flux from AP9 in order to take into account the
+discrepancy observed by HEPD-01. The impact of the
+uncertainties of the scaling factor on the SAA protons
+
+component is shown in the right panel of Figure 16.
+
+. SUMMARY AND CONCLUSION
+
+In this work we simulated the pre-flight background
+estimates for COSI. We modeled the background us-
+ing updated cosmic-ray and albedo spectra, and the
+Galactic diffuse continuum is modeled using the lat-
+est GALPROP models. The simulations account for
+time-dependent variations due to the geomagnetic cut-
+off, SAA passages, and they include detailed modeling
+of delayed activation from short/long-lived isotopes.
+
+We find that the extra galactic background photon
+dominates the background at low energies (<660 keV),
+
+on
+
+while delayed activation from cosmic-ray primaries (pro-
+on/alpha) and albedo photons dominate at higher ener-
+
+gies. Even for an equatorial orbit, the delayed activation
+induced by passage of the satellite through the SAA is
+non-negligible, especially for the 511 keV line, although
+aking into account a potential rate overestimation by
+he AP9 model drastically suppresses its contribution.
+Time-dependent behavior due to the Reutog and SAA-
+induced activation is quantified. Short-term activation
+right after SAA passages is dominated by the isotopes
+produced in the structure of the spacecraft. Our model
+incorporates a high degree of modularity, enabling us to
+refine it during the COSI commissioning phase in order
+o better align with actual measurements.
+
+Given the high computational requirements, simula-
+ions were restricted to the first three months of COSI’s
+orbit. To account for the full mission duration, long-
+erm background levels were extrapolated out to two
+years—the duration of the prime mission. These re-
+sults are a critical foundation for optimizing COSI’s ob-
+servational strategy and refining its background mod-
+eling. The background model developed here will be
+key to enabling detailed studies of COSI’s specific sci-
+ence goals. Additionally, this work informed preliminary
+in-flight calibration plans using activation lines, as de-
+scribed in Valluvan et al. (2025).
+
+This work marks a major step forward in understand-
+ing the background rates for the COSI satellite mission.
+These advances are largely made possible by recent im-
+provements to GEANT4 and MEGAIlib. As we move
+closer to launch, our background estimates will become
+even more accurate through the development of an en-
+
+13
+
+HEPD-01 data UTC-1562025600
+
+103 —
+=—— Data nightime
+— Data daytime 107 3
+——  AP9|AE9 x 0.114
+103 4
+2
+_ 10 210-4 |
+N
+a g
+3 3
+2 = 10> 4
+3
+& g
+10+ 10° 4
+10-77 4
+[= SAA Protons
+[1 SAA Protons (scaled)
+10° 4 mm +lo
+10° . . - t T
+-100 -80 -60 -40 -20 0 20 40 60 o? 10?
+
+Longitude [°] Energy [keV]
+
+Figure 16. Left: Comparison between HEPD-01 measurements and AP9/AE9 prediction (grey dashed curve) for a latitude
+window of [-1,1]° for one dataset (UTC 1562025600). Shaded areas for both model and data correspond to estimated uncertainties
+(Lo, statistics + systematic). HEPD-01 rates are displayed after subtraction of the estimated cosmic and instrumental baseline.
+The residual rate outside of the SAA, which is due to the simplicity of the estimation, is nevertheless negligible. Right: Spectrum
+of the scaled SAA protons background component (3 month simulation). The shaded area correspond to the uncertainties from
+
+the scaling factor. The component before scaling is also represented in blue.
+
+hanced DEE and a more detailed mass model, both of
+which are currently in progress.
+
+ACKNOWLEDGMENTS
+
+The Compton Spectrometer and Imager is a NASA
+Explorer project led by the University of California,
+Berkeley with funding from NASA under contract
+80GSFC21C0059. Resources supporting this work were
+provided by the NASA High-End Computing (HEC)
+Program through the NASA Advanced Supercomputing
+(NAS) Division at Ames Research Center.
+
+C.M.K.’s research was supported by an appointment
+to the NASA Postdoctoral Program at NASA Goddard
+Space Flight Center, administered by Oak Ridge Asso-
+ciated Universities under contract with NASA.
+
+SG and JL acknowledge support by DLR grant
+50002218. Resources supporting this work were pro-
+vided by National High Performance Computing (NHR)
+South-West at Johannes Gutenberg University Mainz.
+
+This work is supported by the Italian Space Agency,
+partially within contract ASI/INAF No. 2024-11-HH.0.
+
+This work is also supported in part by the Centre Na-
+tional d’Etudes Spatiales (CNES)
+
+HelMod Online calculator (version 4.0.1) website
+currently supported within the space radiation en-
+vironment activities of ASIF (ASI - Italian Space
+Agency -Supported Irradiation Facilities) [2024,07]:
+www.helmod.org. The authors want to thank V.Vagelli
+of the Italian Space Agency for the support on the AMS-
+02 data interpretation.
+
+This work makes use of data from the CSES mission, a
+project funded by the China National Space Administra-
+tion (CNSA), China Earthquake Administration (CEA)
+in collaboration with the Italian Space Agency (ASI),
+National Institute for Nuclear Physics (INFN), Insti-
+tute for Applied Physics (IFAC-CNR), and Institute for
+Space Astrophysics and Planetology (INAF-IAPS). This
+work was supported by the Italian Space Agency in the
+framework of the ” Accordo Attuativo 2020-32.HH.0 Li-
+madou Scienza+” (CUP F19C20000110005), the ASI-
+INFN Agreement No. 2014-037-R.0, addendum 2014-
+037-R-1-2017, and the ASI-INFN Agreement No. 2021-
+43-HH.0.
+
+REFERENCES
+
+Agostinelli, S., Allison, J., Amako, K., et al. 2003, Nuclear
+Instruments and Methods in Physics Research Section A:
+Accelerators, Spectrometers, Detectors and Associated
+Equipment, 506, 250,
+doi: https://doi.org/10.1016/S0168-9002(03)01368-8
+
+Aguilar, M., Ali Cavasonza, L., Ambrosi, G., et al. 2021,
+Physics Reports, 894, 1,
+doi: https://doi.org/10.1016/j.physrep.2020.09.003
+14
+
+Aguilar, M., Cavasonza, L. A., Ambrosi, G., et al. 2023a,
+Phys. Rev. Lett., 130, 161001,
+
+doi: 10.1103/PhysRevLett.130.161001
+
+Aguilar, M., Ambrosi, G., Anderson, H., et al. 2023b, Phys.
+Rev. Lett., 131, 151002,
+
+doi: 10.1103/PhysRevLett.131.151002
+
+Bartocci, S., Battiston, R., Beolé, S., et al. 2025, Phys.
+Rev. D, 111, 022001, doi: 10.1103/PhysRevD.111.022001
+Beechert, J., Lazar, H., Boggs, S. E., et al. 2022, Nuclear
+nstruments and Methods in Physics Research Section A:
+Accelerators, Spectrometers, Detectors and Associated
+Equipment, 1031, 166510,
+
+doi: 10.1016/j.nima.2022.166510
+
+Biltzinger, B., Kunzweiler, F., Greiner, J., Toelge, K., &
+
+Burgess, J. M. 2020, Astronomy and amp; Astrophysics,
+640, A8, doi: 10.1051/0004-6361/201937347
+
+Boggs, S. E., & Jean, P. 2000, Astron. Astrophys. Suppl.
+Ser., 145, 311, doi: 10.1051/aas:2000107
+
+Boschini, M., Della Torre, S., Gervasi, M., La Vacca, G., &
+Rancoita, P. 2018, Advances in Space Research, 62, 2859,
+
+loi: https://doi.org/10.1016/j.asr.2017.04.017
+
+Boschini, M., Della Torre, $., Gervasi, M., La Vacca, G., &
+
+Rancoita, P. G. 2022, Advances in Space Research, 70,
+
+oi: 10.1016/j.asr.2022.01.031
+
+Cumani, P., Hernanz, M., Kiener, J., Tatischeff, V., &
+
+Zoglauer, A. 2019, Experimental Astronomy, 47, 273-302,
+
+loi: 10.1007 /s10686-019-09624-0
+
+Diehl, Siegert, Thomas, Greiner, Jochen, et al. 2018, A&A,
+
+611, A12, doi: 10.1051/0004-6361/201731815
+
+Gallego, $., Oberlack, U., Lommler, J., et al. 2025,
+Bottom-up Background Simulations of the 2016 COSI
+Balloon Flight. https://arxiv.org/abs/2503.02493
+
+Ginet, G. P., O’Brien, T. P., Huston, S. L., et al. 2013,
+Space Science Reviews, 179, 579,
+doi: 10.1007/s11214-013-9964-y
+
+Grefenstette, B. W., Madsen, K. K., Miyasaka, H., &
+Zoglauer, A. 2022, Journal of Astronomical Telescopes,
+Instruments, and Systems, 8, 047001,
+doi: 10.1117/1.JATIS.8.4.047001
+
+Harris, M. J., Share, G. H., & Leising, M. D. 2003, Journal
+of Geophysical Research: Space Physics, 108,
+doi: https: //doi.org/10.1029/2003JA009958
+
+Karwin, C. M., Siegert, T., Beechert, J., et al. 2023, The
+Astrophysical Journal, 959, 90,
+doi: 10.3847/1538-4357 /ad04df
+
+Larsen, N., Mishev, A., & Usoskin, I. 2023, Journal of
+Geophysical Research: Space Physics, 128,
+e2022JA031061,
+doi: https: //doi.org/10.1029/2022JA031061
+
+Porter, T. A., J6hannesson, G., & Moskalenko, I. V. 2022,
+The Astrophysical Journal Supplement Series, 262, 30,
+doi: 10.3847/1538-4365/ac80f6
+
+Sleator, C. C., Zoglauer, A., Lowell, A. W., et al. 2019,
+Nuclear Instruments and Methods in Physics Research
+Section A: Accelerators, Spectrometers, Detectors and
+Associated Equipment, 946, 162643,
+doi: https://doi.org/10.1016/j.nima.2019.162643
+
+Tomsick, J. A., Boggs, S. E., Zoglauer, A., et al. 2023, The
+Compton Spectrometer and Imager.
+https: //arxiv.org/abs/2308.12362
+
+Valluvan, A. B., Boggs, S. E., Gallego, S., et al. 2025,
+In-orbit Spectral Calibration Prospects for the COSI
+Space Telescope. https://arxiv.org/abs/2508.10172
+
+Zoglauer, A., Andritschke, R., & Schopper, F. 2006, New
+Astronomy Reviews, 50, 629,
+doi: https: //doi.org/10.1016/j.newar.2006.06.049
+
+Ripa, J., Dilillo, G., Campana, R., & Galgéczi, G. 2020, in
+Space Telescopes and Instrumentation 2020: Ultraviolet
+to Gamma Ray, ed. J.-W. A. den Herder, S. Nikzad, &
+K. Nakazawa, Vol. 11444, International Society for Optics
+and Photonics (SPIE), 114443P, doi: 10.1117/12.2561011

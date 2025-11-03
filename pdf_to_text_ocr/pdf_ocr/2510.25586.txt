@@ -1,0 +1,1313 @@
+arXiv:2510.25586v1 [physics.flu-dyn] 29 Oct 2025
+
+Rush-to-equilibrium concept for minimizing reactive
+nitrogen emissions in ammonia combustion
+
+Hernando Maldonado Colman**, Michael E. Mueller*
+
+“Department of Mechanical and Aerospace Engineering, Princeton University, Princeton,
+
+NJ 08544, USA
+
+Abstract
+
+Ammonia is a zero-carbon fuel that has been receiving increasing atten-
+tion for power generation and even transportation. Compared to hydrogen,
+ammonia’s volumetric energy density is higher, is not as explosive, and has
+well established transport and storage technologies. However, ammonia has
+poor flammability and flame stability characteristics and more reactive ni-
+trogen emissions (nitrogen oxides, nitrous oxide) than hydrocarbon fuels, at
+least with traditional combustion processes. Partially cracking ammonia ad-
+dresses its flammability and stability issues, through on-board catalysts or
+autothermal crackers, into a mixture of ammonia, hydrogen, and nitrogen.
+However, reactive nitrogen emissions remain a challenge, and mechanisms
+of their emissions are fundamentally different in ammonia and hydrocarbon
+combustion. While rich-quench-lean ammonia combustion strategies have
+shown promise, the largest contributions to reactive nitrogen emissions are
+the unrelaxed emissions in the fuel-rich first stage due to overshoot of ther-
+
+modynamic equilibrium within the reaction zone of premixed flames coupled
+
+“Corresponding author.
+Email address: hm2524@princeton.edu (Hernando Maldonado Colman)
+
+Preprint submitted to Combustion and Flame
+with finite residence times available for relaxation to equilibrium. This work
+introduces a rush-to-equilibrium concept for partially cracked ammonia com-
+bustion, which aims to reduce the unrelaxed reactive nitrogen emissions in
+finite residence times by accelerating the approach to equilibrium. In the con-
+cept, a flow particle is subjected to a decaying mixing rate as it transits the
+premixed flame. This plays an important role in mitigating the mixing effects
+that prevents the flow particle approach to equilibrium, and promoting the
+chemistry effects to push the particle toward equilibrium, all while consider-
+ing residence times typical of gas turbines. Evaluated with a state-of-the-art
+combustion model at gas turbine conditions, the concept shows the potential
+for a reduction in reactive nitrogen emissions by an order of magnitude at
+even modest mixing rate decay rates. It is also shown that the concept works
+irrespective of cracking extent, pressure, temperature, etc. A brief discussion
+of possible practical implementation reveals reasonable geometric and flow
+parameters characteristic of modern gas turbine combustors.
+Novelty and Significance Statement
+
+A novel rush-to-equilibrium combustion concept is proposed with the aim
+of reducing reactive nitrogen emissions, which include nitrogen oxides and
+nitrous oxide, from partially cracked ammonia combustion at gas turbine
+conditions. Reactive nitrogen emissions are elevated in partially cracked
+ammonia combustion systems because insufficient residence time is available
+to reach thermodynamic equilibrium. A concept is proposed to address this
+issue, leveraging decaying mixing rates, without modifying typical gas turbine
+residence times by accelerating the approach to thermodynamic equilibrium.
+
+The new concept is demonstrated of being capable of significantly reducing
+reactive nitrogen emissions (by a factor of an order of magnitude). Finally,
+implementation of the new concept is showed to be practically feasible.
+Keywords:
+
+Ammonia combustion; Reactive nitrogen emissions; Rush-to-equilibrium
+
+concept; Gas turbines
+
+Authors contribution
+
+HMC: performed research, software development, writing — original draft
+& editing
+
+MEM: designed research, writing — review & editing, project administra-
+
+tion
+
+1. Introduction
+
+Decarbonizing combustion energy conversion has become a critical en-
+deavor to combat climate change, and zero-carbon fuels will play a vital role
+in achieving net-zero carbon emissions in the global economy as quickly as
+possible. While hydrogen has received the most attention as a future zero-
+carbon fuel, ammonia is garnering increasing attention due to its ease of
+transport compared to hydrogen and well established infrastructure due to
+its use in agriculture [I}4]. However, challenges arise in burning ammonia
+due to its low flammability, its poor flame stability, and its emission of re-
+active nitrogen species, including nitrogen oxides (NO,,) and nitrous oxides
+(N20) [2]. Improvements to the combustibility of ammonia can be addressed
+by partially cracking ammonia, achieved through on-board catalysts or au-
+
+tothermal crackers [5], resulting in a mixture of ammonia, hydrogen, and
+nitrogen (AHN), which can be tailored to have similar combustion proper-
+ties to methane [6] [7]. The grand challenge then is to develop ammonia
+combustion processes with low reactive nitrogen emissions, which is critical
+to its overall environmental benefit or potential harm [8].
+
+Recent work in the literature suggest several strategies have been investi-
+gated to improve ammonia combustion, namely swirl stabilized combustion
+[9HI3], moderate or intense low oxygen dilution (MILD) combustion [I4}
+(17, and staged combustion approach in a rich-quench-lean (RQL) configu-
+
+ration [18}25]. The latter suggests that burning ammonia using the RQL
+
+configuration can mitigate reactive nitrogen emissions [26]. Indeed, fuel-lean
+ammonia combustion produces very high nitrogen oxide emissions compared
+to fuel-rich ammonia combustion [2] [18]. Therefore, a fuel-rich first stage
+burns much of the ammonia without excessive nitrogen oxide emissions, and
+a fuel-lean second stage burns the resulting hydrogen and any remaining am-
+monia. Considered differently, the first stage essentially cracks the ammonia
+to minimize the ammonia burned in the second stage. Ammonia combus-
+tion strategies have been developed based on hydrocarbon-fueled RQL con-
+cepts 27129] with quite low reactive nitrogen emissions [19] [30]. Another
+work [16] also suggests that MILD combustion approach also leads to low
+emissions that are comparable to the RQL configuration [4] [[5}H17].
+
+While ammonia combustion systems based on hydrocarbon-fueled system
+concepts have been somewhat successful in achieving relatively low reactive
+nitrogen emissions, ammonia and hydrocarbons have different chemical path-
+ways to reactive nitrogen emissions, which fundamentally changes their na-
+
+ture. Recent studies indicate that burning ammonia in RQL gas
+turbine, with residence times typical of hydrocarbon gas turbines, results in
+significantly higher NO, emissions compared to thermodynamic equilibrium.
+This increase is attributed to the “unrelaxed” component of NO, emissions
+originating from the first stage, albeit still lower that a lean premixed single-
+stage combustor running on ammonia. These unrelaxed emissions result
+from the overshoot of reactive nitrogen emissions within the reaction zone
+of ammonia flames, well above their thermodynamic equilibrium values, and
+the excessive time required for these emissions to relax toward thermody-
+namic equilibrium. Unfortunately, practical constraints, such as the size and
+cost of the gas turbine, limit the residence time in the combustion cham-
+ber. Of course, with hydrocarbon fuels, long residence times are undesirable
+anyway since reactive nitrogen emissions rapidly increases as equilibrium is
+approached.
+
+This work introduces a novel concept for ammonia (more generally, AHN)
+combustion, termed ‘rush-to-equilibrium’, aiming to minimize unrelaxed re-
+active emissions without increasing residence times. The rush-to-equilibrium
+concept is analyzed with a premixed manifold combustion model [83], which
+is first introduced. Next, using the manifold model, characteristics of AHN
+combustion and methane combustion are compared, with specific emphasis
+on the interplay between mixing and chemistry in premixed flames, to moti-
+vate the rush-to-equilibrium concept. Then, the rush-to-equilibrium concept
+is introduced, leveraging a decaying mixing rate, and an in-depth analy-
+sis is undertaken to demonstrate the degree of reactive nitrogen emissions
+reduction that can be achieved. Finally, the practical feasibility and im-
+
+plementation of the rush-to-equilibrium combustion concept is then briefly
+discussed.
+
+2. Manifold model for premixed combustion
+
+Combustion is governed by a high-dimensional thermochemical state in-
+cluding the temperature 7’ and species mass fractions Y,;, with k = 1,..., Ns;
+and N, the number of species in the gas mixture. The dimensionality can be
+reduced by projecting the thermochemical state onto a reduced-order man-
+ifold [34]. For premixed combustion, the thermochemical state is projected
+onto a one-dimensional manifold in the progress variable A, which is zero in
+the unburned gases and unity at thermodynamic equilibrium.
+
+Starting from the governing equations for the species mass fraction (and
+temperature), following the notation of Mueller [83], the one-dimensional
+equilibrium manifold equations in progress variable for the species mass frac-
+tions are given by
+
+OY; ring = EXAM OY,
+aA 2 OR
+
+where mm, and mm, are the progress variable and species mass fraction source
+terms, respectively, p is the density, and y~, = 2DVA- VA is the progress
+variable dissipation rate, that is, the mixing rate, where D is the thermal
+
+diffusivity. The progress variable A is then defined as
+
+=> (2)
+Yr eq Yr u
+
+where the subscripts u and eq correspond to the unburned and equilibrium
+
+mixture. The subscript R corresponds to the reference mass fraction Yr =
+
+rer Ye, comprised of a weighted linear combination of product mass
+fractions. The corresponding progress variable source term is then defined
+
+as
+
+. l .
+ma = Ov,/on® ‘ (3)
+The reference species for AHN is H2O and weight ag = 1; for methane, the
+reference species are COg, CO, H20, and Hg, with weights ager = 1, 1, 1,
+and 10, respectively. In Eq. |l} the basic balance of the premixed manifold
+equations is the progress variable as the “arrow-of-time” on the left-hand-side
+balance by mixing and chemistry effects on the right-hand-side.
+Unstretched premixed flames can be analyzed to understand the relative
+roles of chemistry and mixing in the manifold equations. To model unstretch
+premixed flames in progress variable space, an additional transport equation
+for the gradient of the progress variable gy = VA can be solved with the
+equilibrium manifold equations, similar to work of Scholtissek et al. [35]. In
+
+this work, the equation is adapted to the progress variable A [83] as
+
+Z Ogn Oo? f Oma
+Tray = Iroqz(PD9a) + 9x (4)
+
+where the left-hand-side term corresponds to convective effects (A-drift), and
+the right-hand-side terms correspond to diffusive and chemical effects [85].
+The manifold solution for unstretched flames will be useful to show later how
+the emissions behave in methane and (partially cracked) ammonia combus-
+tion at different compositions. Mixing effects in turbulent combustion lead
+to stretched flame configurations, and Eq. [4] will no longer be representative
+of such cases. However, results are not sensitive to these profiles, and the
+
+ga transport equation is omitted, which makes computations more efficient
+for assessing the rush-to-equilibrium concept. To close the manifold equa-
+tions for stretched premixed flames, the dependence of the progress variable
+
+dissipation rate on progress variable takes a presumed form [33] [36]:
+
+xaa(Z, A) = xiX\ exp E (exte™ (aa =e za) | (5)
+
+x exp [-2 (erfe"(24))"] ;
+
+where y<{ is a reference dissipation rate evaluated at the stoichiometric mix-
+
+ture (Z,,) and reference progress variable A = 0.5, and Z is the mixture
+fraction (based on the equivalence ratio of the unburned gas composition).
+While the manifold model can generally accommodate differential diffusion
+[33] [37], for convenience, a unity effective Lewis number assumption is made
+that does not impact the results presented subsequently in the manuscript.
+
+The above manifold equations from Eq. |] are an “equilibrium” manifold
+formulation [83] in which the local flame structure in progress variable instan-
+taneously equilibrates to the instantaneous progress variable dissipation rate.
+As discussed below, the rush-to-equilibrium concept relies on an unsteady
+mixing rate, that is, an unsteady progress variable dissipation rate y'<f (t),
+so, to ensure any flow history effects are considered, a “non-equilibrium”
+manifold formulation [33] is also considered that includes an additional un-
+
+steady history term on the left-hand-side:
+
+OY, | OYe . pxan O?Y;,
+
+Pa toa =o ane tT (6)
+
+where, without loss of generality, this history term is indicated with a partial
+
+derivative in physical time (cf. Ref. [33]).
+The corresponding progress variable transport equation is written as
+
+On On (a) On .
+
+Pay * PMs Ox; Ox; (oo) et (7)
+where u,; correspond to the flow velocity. Given a time-varying mixing rate
+xref (t), rather than look at the global flame structure in progress variable
+space at a particular time, a Lagrangian analysis will follow a reacting flow
+element that samples a specific temporal trajectory of progress variable. The
+progress variable of the reacting flow element A* (¢) (distinct from progress
+variable space denoted by the simple A) is obtained by reorganizing the
+progress variable transport equation (Eq. |7) in a Lagrangian perspective:
+pn i a (eo) + Ta, (8)
+
+where d/dt = 0/0t + u,0/0x; is the Lagrangian derivative. To solve this
+
+equation with the non-equilibrium manifold equations, the diffusion term on
+the right-hand-side can be recast in progress variable space such that the
+
+evolution of A can be determined from the global flame structure:
+
+0 (OM) _ [1 Apxan , Xan OD) |*
+D = (2
+On, (> a) E dA | 4D 0A || ’ (9)
+so recasting Eq. [8|leads to
+di LOpxaa , Xan OpD |. “
+Pt E dA | 4D OA A G0)
+
+* indicates that it is evaluated at A* sam-
+
+In the right-hand-side of Eq.|10} [-]
+pled from the solutions to Eq. [6] Also, A* is used to sample the global flame
+structure as they both vary with Lagrangian time together. In other words,
+
+the evolution of A* is solved together with the “non-equlibrium” manifold
+equations in Eq. GG to provide a temporal history of a fluid element evolving
+through a premixed flame subjected to an unsteady mixing rate.
+
+The model is implemented in the PDRs solver [83] [38]. Chemical kinetics
+are modeled using the mechanism from Gotama et al. (31 species and
+165 reactions) for AHN combustion and GRI-Mech 3.0 [40] (53 species and
+325 reactions) for methane combustion. The A space is discretized onto a 256
+points non-uniform grid for the global flame structure. For a flame element,
+
+the progress variable step dA* is determined by solving Eq.
+
+3. Characteristics of reactive nitrogen emissions
+
+The partially cracking of ammonia (NH3) is obtained by following the
+
+reaction:
+so the final fuel mixture is
+3a Qa
+
+where a indicates the NH3 cracking or dissociation percentage. For a = 60%,
+the laminar flame speed of AHN is similar to methane [6} [7]. Simulations
+are carried out at gas turbine conditions, with inlet temperature T,, = 750K,
+pressure p = 10bar, equivalence ratios in the range ¢ € [0, 2], and three AHN
+
+cracking percentages a = 40%, 60%, and 80%.
+
+3.1. Emissions at thermodynamic equilibrium
+Thermodynamic equilibrium calculations of AHN- and CHy-air combus-
+
+tion are first examined. Equilibrium temperatures for different inlet mixture
+
+10
+2500
+
+2000
+
+T (K)
+
+— on
+
+1000 — ABN, a =40%
+--- AHN, a =60%
+Pr AHN, a =80%
+
+-
+
+5080 05 10 15 2.0
+
+o(-)
+
+Figure 1: Temperature at thermodynamic equilibrium as a function of the equivalence
+ratio @ Blue lines: AHN with different cracking percentages a. Red line: methane
+
+(CH,).
+
+composition are shown in Fig.|1| AHN temperatures (blue lines) are similar
+to those of methane (red line) at very fuel-lean mixtures. Temperature differ-
+ences are observed closer to stoichiometric mixture and for fuel-rich mixtures
+since the heats of combustion are different for the various fuels.
+
+NO mass fractions are plotted in Fig. |2| for both AHN (blue lines) and
+methane (red line) at thermodynamic equilibrium. Yyo emissions are maxi-
+mized at ¢ © 0.75, and AHN shows comparable NO emissions to methane,
+more or less consistent with the differences in temperature in Fig.[I] Similar
+
+trends and conclusions can be observed for N2O, shown in Fig.
+
+| although,
+counter-intuitively, methane actually has higher emissions than AHN.
+These results are seemingly contrary to practice. For methane, reactive
+nitrogen emissions are lowest in practice for overall fuel-lean systems. For
+AHN, the equilibrium emissions are not any worse than hydrocarbons. The
+
+simple fact of the matter is that thermodynamics alone cannot be used to
+
+11
+x0?
+
+( <2
+bo 0.5 1.0 15 2.0
+
+Figure 2: NO mass fraction at thermodynamic equilibrium as a function of the equivalence
+
+ratio ¢, similar to Fig.
+
+explain reactive nitrogen emissions in practical systems, for thermodynamic
+equilibrium is never reached with finite residence time. Since equilibrium
+considerations alone cannot explain emissions, the approach to equilibrium
+must be fundamentally different between AHN combustion and methane
+combustion that leads to their different emissions characteristics (higher than
+equilibrium for AHN and lower than equilibrium for methane) and practical
+combustion strategies. While this discussion is somewhat obvious, empha-
+sizing the fundamentally different kinetic features of these fuels is important
+
+to motivate fundamentally different combustion processes.
+
+3.2. Emissions at finite residence time
+Manifold solutions for AHN- and CHy,-air unstretched flames at gas tur-
+bine conditions for different equivalence ratios above the fuel-lean extinction
+
+limit ¢ € [0.4, 2] are computed. Multiple cracking percentages are considered
+
+for the AHN-air flames as before, a = 40%, 60%, and 80%. Then, a reactive
+
+12
+x10~°
+
+0.00 05 10 15 2.0
+o(-)
+
+Figure 3: N2O mass fraction at thermodynamic equilibrium as a function of the equivalence
+
+ratio ¢, similar to Fig.
+
+particle A* is tracked starting at A = 0 for a finite residence time of 10 ms,
+typical of gas turbine residence times.
+
+Figures [4] and [5|show the final temperature and NO mass fraction versus
+equivalence ratio at 10 ms. Results show the same trends as observed in
+Fig. [I] which explains that such flame features are associated to relatively
+short time scales. However, NO mass fraction differs to what is observed in
+Fig. |2| as its chemical reaction progress is slower than flame time scales. NO
+production in CHy-air flame is lower than in the AHN-air flames, especially
+for fuel-lean conditions (¢ < 0.9). For fuel-rich flames, AHN-air flames are
+comparable to CHy-air flames. More telling, NO emissions in the CHy-air
+flame are lower than equilibrium, while, for the AHN-air flames, they are
+higher than equilibrium. In general, for AHN-air flames, longer residence
+times will lead to a decrease in NO mass fraction, as they approach to equi-
+librium, and for CHy-air flames the opposite. Similar behavior happens with
+
+N2O emissions (not shown), which is negligible in CH,-air flames with respect
+
+13
+2500
+
+2000
+
+<4
+= 1500
+
+— ch
+
+1000} —— AHN, a =40%
+--- AHN, a =60%
+REO AHN, a =80%
+
+0.50 0.75 1.00 1.25 1.50 1.75 2.00
+
+Figure 4: Temperature at a finite residence time t = 10 ms as a function of the equivalence
+ratio @, at gas turbine conditions and for different cracking percentages a. Line styles are
+
+the same as Figf]]
+
+to AHN flames.
+
+To understand the approach to equilibrium and the behavior of reactive
+nitrogen emissions at finite residence times, the (equilibrium) manifold solu-
+tions for AHN- and CHy-air unstretched flames are further analyzed. Typical
+gas turbine inlet mixtures are chosen: ¢ = 0.45 for CHy-air and ¢ = 1.4 (first
+stage) for AHN-air at three cracking extents, where T, and p are kept the
+same as before. The NO mass fraction profile is plotted in Fig. [6] The Yyo
+profile in the CH,y-air flame shows low emissions up to A & 0.9 and abruptly
+increases as the Ny bond breaks in the hot burned gases. In the AHN-air
+combustion, Yyo forms much earlier in the flames, peaking within the intense
+reaction zone and then “relaxing” toward equilibrium (0.9 < A < 1). The
+maximum NO mass fraction is a strong function of the cracking percent-
+age, increasing with the cracking percentage for the values shown here (at
+
+higher cracking yet, the peak reactive nitrogen mass fractions will decrease
+
+14
+x02
+8
+
+Yno (-)
+
+0.50 0.7
+
+1.00 1.25 1.50 le
+9(-)
+
+x
+a
+
+2.00
+
+Figure 5: NO mass fraction at a finite residence time ¢ = 10 ms as a function of the
+
+equivalence ratio ¢, similar to Fig. A]
+
+with cracking percentage as the fuel mixture approaches a mixture of only
+hydrogen and nitrogen).
+
+The approach to equilibrium then dictates the practical combustion strate-
+gies. For methane-air combustion, not too long residence times are desirable
+since reactive nitrogen emissions form only very close to equilibrium. On the
+other hand, for AHN-air combustion, long residence times are desirable to
+get as close to thermodynamic equilibrium as possible and minimize “unre-
+laxed” emissions. However, longer residence times incur additional capital
+costs and would also increase heat losses so would not necessarily be desir-
+able. Therefore, a combustion process that could accelerate the relaxation
+to equilibrium without increasing residence time would be highly desirable
+
+for minimizing reactive nitrogen emissions in AHN combustion.
+
+15
+— cH, “
+— AHN, a =40% . 4
+
+6) 777 AHN, a =60%
+trees AHN, a =80%
+
+Figure 6: NO mass fraction profiles in progress variables space for unstretched premixed
+flames at gas turbine conditions, with ¢ = 0.45 for CH, (red) and ¢ = 1.4 for AHN (blue)
+
+with three different cracking percentages a.
+
+4. Rush-to-equilibrium concept
+
+As discussed in the previous section, accelerating the approach to equilib-
+rium is critical to minimizing reactive nitrogen emissions in AHN combustion.
+To develop such a combustion strategy, the fundamental balance in premixed
+combustion must be analyzed. Terms on the right-hand side of the progress
+variable transport equation of Eq. [8]govern the increase in the progress vari-
+able of a reacting flow particle and are shown in Fig. [7] for AHN combustion
+at the same conditions considered previously for different values of the mix-
+ing rate x'¢{ and indicate the forcing on the progress variable. For the mixing
+term (left), the term is positive at low progress variable and negative at high
+progress variable. The positive values at low progress variable are respon-
+
+sible for transport from the reaction zone through the preheat zone. Since
+
+chemistry is not present at this stage, passive transport through the preheat
+
+16
+x10! = 1.40, a = 60%
+
+8 x10! ¢ = 1.40, a = 60% 8 x1o!¢d = 1.40, a = 60%
+
+“hoo 0.25 0.50 0.75 1.00 ~b.00 0.25 0.50 0.75 1.00 ~ hoo 0.25 0.50 0.75 1.00
+
+Figure 7: Right-hand-side of the progress variable transport equation (Eq. 3} in progress
+variable space: mixing term (left), chemical term (center), and total (right). Three refer-
+ence dissipation rates yf are considered: 10? s~! (solid), 104 s~+ (dashed), and 10° s~!
+
+(dotted).
+
+zone occurs. Increasing the reference dissipation rate significantly increases
+mixing effects in the flame. The chemical term (center) is exclusively positive
+and largest at higher progress variables in the reaction zone. The balance of
+this competition is shown in the total right-hand-side (right). For all mixing
+rates, the (negative) mixing at high progress variable inhibits the chemistry’s
+progress, making the net progress rate is lower than chemistry, making the
+approach to equilibrium “slower”. In fact, at the highest mixing rates, the
+total term can become negative, resulting in a “frozen” state at the zero
+crossing of the total (A 0.74 for the highest dissipation rate in the plots),
+far from equilibrium, and with very high unrelaxed NO, emissions (although
+such a flame would never be practically realized for obvious reasons). These
+NO, emissions are shown in Fig. [8] for the three cases. Indeed, as the resi-
+dence time is increased, the equilibrium conditions will be reached except for
+
+the fast mixing case (dotted line), where a mass fraction higher than 2 x 1073
+
+17
+x10-3
+)
+
+Figure 8: NO mass fraction profiles in progress variables space for AHN premixed stretched
+
+flames at gas turbine conditions and three different reference dissipation rates xt, same
+
+as Fig.
+
+is reached at the “frozen” state.
+
+This fundamental balance then motivates a novel rush-to-equilibrium
+combustion concept to get as close to equilibrium as fast as possible. As
+a reacting flow particle moves through the flame, at low progress variable,
+fast mixing rates are desirable, promoting the increase in progress variable,
+but, at high progress variable, slow mixing rates are desirable, avoiding sup-
+pression of chemistry’s tendency to increase the progress variable. Therefore,
+as a reacting flow particle travels through the flame, a temporally decaying
+(in a Lagrangian sense) mixing rate would be desirable. For proof-of-concept,
+the following temporally evolving mixing rate is considered:
+
+xh) = an, (13)
+: L+ayrit’
+where an initial reference dissipation rate y%{(0) = y{, and a decay rate
+
+a are prescribed. This decaying mixing rate will promote a faster approach
+
+18
+to equilibrium, so a fixed residence time of 10 ms, typical of gas turbine
+
+combustors, will be considered.
+
+5. Evaluation of the rush-to-equilibrium concept
+
+In Section B} it was observed that reactive nitrogen emissions are higher
+at high cracking percentages, because the reacting mixtures have higher final
+temperatures (see Figs.[IJand|4) due to Hg reactivity. To provide a fairer com-
+parison with cracking percentages, the evaluation of the rush-to-equilibrium
+concept is made by considering the equilibrium temperature (roughly) the
+same for all mixtures, this is, by keeping enthalpy the same for all mixtures.
+Therefore, the initial temperature for the mixtures are chosen such that the
+enthalpy of the mixture is equal to that of the case with a = 40%, p = 10bar,
+and ¢ = 1.4.
+
+Figure [9] shows the results of the temporal evolution of the progress vari-
+able of the reacting flow particle A* for initial mixing rate y{, = 10° s~t,
+multiple cracking extents, and different decay rates. As expected, the decay-
+ing mixing rate allows the fluid element to move from the initial unburned
+mixture to the reacting stage to (near) equilibrium conditions. For this rel-
+atively fast initial mixing rate, a constant dissipation rate (a = 0) leads
+to a “frozen” condition, as discussed above. Note that the chemical source
+terms increase with cracking extent, so the “frozen” condition is closer to
+equilibrium with increasing cracking extent. As the decay rate increases,
+for all cracking extents, the time needed to reach near equilibrium condition
+decreases, and the thermochemical state is nearly to thermodynamic equi-
+
+librium with the same fixed residence time. The transit time through the
+
+19
+@=1.40, a = 40% o=1.40, a = 60% o = 1.40, a = 80%
+1.0
+
+0.8
+
+0.6
+
+0.4
+
+0.0 0.0
+10-8 10% 10-4 10-? 10-8 igr* 10-4 10-? 10-8 io-8 10-4 10?
+t(s) t(s) t(s)
+
+Figure 9: Effect of decaying mixing rate on the temporal evolution of the progress variable
+of a reacting flow particle A* in AHN-air premixed flames with ¢ = 1.4 and NHs3 cracking
+
+percentages a = 40% (left, blue), 60% (center, green), and 80% (right, red), considering
+
+initial reference dissipation rate y{, = 10°s~! and multiple decay rates a.
+
+preheat zone is longer with the fastest decay rates. Although not shown
+here, for slower initial mixing rates, if the decay rate is too fast, transport
+will not be strong enough to provide the initial increase in the progress vari-
+able, and the flow particle will be stuck at a very low progress variable state
+since the homogeneous ignition delay time for this mixture is very long.
+
+A deeper insight on how the decay rate affects the global flame structure
+is shown in Fig. by analyzing the temporal evolution of the progress
+variable terms from Eq. [8|for the flame with ¢ = 1.4 and cracking percentage
+a = 60%, where a varies from 0 (no decay) to 100 (unrealistic excessive
+decay). Similar conclusions can be obtained with other cracking percentages.
+Four instants t = 10-°s, 10-*s, 10-°s, and 10-?s (rows) are shown, and the
+position of the reactive element A* from Fig. [lis indicated for each case. The
+
+1
+
+initial state (t = 0) for all cases corresponds to x{, = 10° s~! and coincides
+
+with the case with no decay a = 0 (line with symbols), which conserves the
+
+20
+— = 0.0327,
+
+NY = 0.4256,
+
+0.50 0.75 1.00 ).00 0.25 0.50 0.75
+
+5
+x10! t=104s 9 xlot t= 104s
+
+——N’ = 0.2818,
+AY = 0.9833,
+AY = 0.9496,
+
+° At = 0.8446,
+Sf wom MN = 0.5890,
+i 00 0.25 0.50 0.75 1.00 - 00 0.25 0.50 0.75 1.00 -§ 00 0.25 0.50 0.
+x10! tt =10-3s x10! t=10-4s x19! t=1073s
+
+8 8
+
+——" = 0.9995,
+
+—" NY = 0.9967,
+} 44 vee AY = 0.9849, —4
+NY = 0.9503,
+At = 0.5800,
+0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 1.00 0.00 0.25 0.50 0.75 = 1.00
+g Xlot t= 10-*s exit t= 10-?s gxlot t= 10-?s
+
+Pau
+
+—" = 0.9999,
+At = 0.9995,
+AY = 0.9967,
+
+% NY = 0.9850,
+
+‘oe a-~ Nt = 0.5890,
+-§ 00 0.25 0.50 0.75 1.00 ai 00 0.25 0.50 0.75 1.00 i 00 0.25 0.50 0.75 1.00
+A(-) A(-) A(-)
+
+a= 100
+0
+
+Figure 10: Effect of decaying mixing rate on progress rate terms (cash in progress variable
+space for the global flame structure (¢ = 1.4, a = 60%, y{, = 10° s~!) at four different
+
+snapshots: mixing (left), chemical (middle), and total (right) terms. A* are from Fig.
+
+21
+same shape in all four rows as expected. For t = 10~°, mixing (left column)
+significantly decreases for fast decays whereas chemistry (middle column) is
+barely affected, giving positive balance in the total progress (right column)
+for rather fast decays compared to slow to no decay cases. A fast decay affect
+the initial progress significantly: for a very fast decay (a = 100), the progress
+of A* is about 11 times smaller than the moderate decay (a = 1) and about 13
+times smaller with respect to no decay (a = 0), meaning initial stage for fast
+decays versus almost midway stages for slower decays. Nevertheless, the case
+with no decay reached the “frozen” state due to zero balance between mixing
+and chemistry as can be observed in the following instants. At t = 10~‘s,
+the decaying mixing affects chemistry at a smaller proportion compared to
+mixing rate for moderate to fast decay, where only a half reduction of the
+chemistry term is observed. The total progress becomes more positive for
+decaying mixing. The reactive element is still located in the first half of
+the progress variable domain for very fast decay compared to other cases
+at about 3.3 times smaller with respect to moderate decay (a = 1) and 2.5
+times smaller compared to no decay (a = 0). This is followed by the abrupt
+progress at fast decay, where at t = 1 ms, the reactive element in decaying
+cases is at 95% reaction progress or more. Total progress profiles are positive
+
+for decaying cases, with slow mixing at the final stage and almost unaffected
+
+chemistry effects with respect to the previous state. A slight decrease of the
+
+combined effects are observed at t = 10 ms, where the reactive particle is at
+near equilibrium conditions for all decaying mixing scenarios.
+To quantify the effects of cracking extent, the reactive element trajectory
+
+is analyzed in progress variable space from a Lagrangian point of view. Figure
+
+22
+15 x10° ¢ = 1.40, a = 40% ~.x10° ¢=1.40, a = 60% x10° ¢ = 1.40, a = 80%
+5 £
+
+15 15
+— a=100
+--—> a=10 1.0 1.0
+ra, a=
+= a=01 | 05
+
+a=0
+
+0.0
+
+—0.5
+
+1,
+0.25 0.50 0.75 1.00 8.00 0.25 0.50 0.75 1.06
+x10° @ = 1.40, a = 60% 5 x105 @ = 1.40, a = 80%
+
+aly wail
+6.00 0.25 0.50 0.75 1.00 8.0
+5 x10° ¢ = 1.40, a = 40%
+
+1.5
+
+i -1. —1
+800035 050 075 1.007! B00 025 050 075 1.00 'Yoo 035 050 0.75 1.00
+5 X10° 6 = 1.40, a = 40% 3 = 1.40, a = 60%
+
+5 X105 6 = 140, a = 80%
+
+—0.5 —0.5 —0.5
+
+0.25 0.50 0.75 «1.00 — b.00 0.25 0.50 0.75 1.00 $00 0.25 0.50 0.75 1.00
+N(-) NC) NC)
+
+Figure 11: Effect of decaying mixing rate on the evolution of progress rate terms from
+
+Eq. [B]in progress variable space for a reactive element A* in AHN flames with ¢ = 1.4 and
+
+three cracking percentages: mixing (top), chemical (middle), and total (bottom) terms.
+
+Line styles correspond to the same cases from Fig P|
+
+hows the right-hand-side terms from Eq. |8| (top and middle rows) and
+the total reaction progress rate dA*/dt (bottom) versus the position of the
+
+reactive element A* using the rush-to-equilibrium concept and evaluated for
+
+23
+different decay rates a and cracking percentages a and fixed initial mixing
+rate x4, = 10°s~!. The decaying mixing rate effectively allows for a positive
+progress rate from the beginning to the end of the reacting element trajectory
+(bottom row), which decomposes into a high positive mixing term in the first
+half (top row) and a chemically-driven second half (middle row) with low
+negative mixing (top row). Decay rates have significant effects in the first
+half of the mixing rate profiles (top row). As observed in Fig. chemistry is
+much less affected by the decaying rate compared to mixing, with almost one
+half difference between very fast decay and no decay cases. The total progress
+rate increases in the second half as the the reactivity of the mixture increases
+with cracking much more compared to negative mixing. The balance between
+mixing and chemistry elucidates that moderate to high decaying rates are
+preferred to reach near equilibrium conditions faster in agreement with the
+observations in Fig. 9
+
+The progress variables of the reacting flow element A* at the fixed 10
+ms residence time as a function of the decay rate are shown in Fig. and
+support the discussion above. Three initial reference dissipation rates are
+considered, and only cases reaching close to thermodynamic equilibrium by
+t = 10 ms are included. Results with zero decay (transparent thin lines) and
+the thermodynamic equilibrium condition (black line) are also included. In
+
+all cases, a decaying mixing rates promotes a closer approach to equilibrium
+
+compared to the constant mixing rate. As y%, increases, the fluid element
+benefits more from faster mixing decay rates. As the cracking percentage
+
+increases, equilibrium is approached more slowly towards the end of the sim-
+
+ulation for slow decays, which is consistent with Figs. [9] but still closer
+
+24
+o=1.40, a = 40% @ = 1.40, a = 60%
+
+1.00 1.00
+0.99 0.99
+0.98 — ah 10: 0.98
+== hy 10's
+x4 =105 st
+0.97 1, 0.97+ 1, 0.97 :
+fo 10° 10! 102 “to-t 10° 10! io? “to-! 10° 10 10?
+a(-) a(-) a(-)
+Figure 12: Progress variable of the reacting flow particle A* at a 10 ms residence time
+
+as a function of the mixing rate decay rate a. Three initial reference dissipation rates
+xX, are considered: 10? s~! (solid), 104 s~! (dashed), and 10° s~! (dotted). The thin
+ransparent lines represent the same quantities but using a = 0, and the black dash-
+
+dotted line represents thermodynamic equilibrium.
+
+o equilibrium compared to constant mixing cases.
+
+Figure
+
+shows the corresponding reactive nitrogen emissions of NO
+
+top) and N2O (bottom) at the fixed 10 ms residence time as a function of
+
+he decay rate; note the logarithmic scale of the vertical axis. In general, NO
+and N2O emissions decrease as the reacting flow element more closely ap-
+proaches thermodynamic equilibrium. Consistent with the decaying mixing
+rates providing a final thermochemical state closer to thermodynamic equi-
+librium, decaying mixing rates significantly reduce both reactive nitrogen
+emissions through a reduction in the unrelaxed emissions. For slower decay
+rates, the reactive nitrogen emissions are more sensitive to the initial mixing
+rate, but they are still much lower than the corresponding constant mixing
+rates, a factor of two or more for NO and a factor of three or more for N2O at
+the smaller cracking percentages. For instance, for moderate initial mixing
+
+rate (x{, = 104s7!, dashed line), cracking (a = 60%, middle column), and
+
+25
+o=140, a = 40% ¢=140, a=6 @ =1.40, a = 80%
+
+10°? 10-? 107
+
+10-8
+
+10° 10! 10?
+
+[0B peseeceemenemerseroemnme spon! TB roceresnosrinpennernmnencmnacracisante| 2 ee ee ee ee
+
+107! 10° 10! 10? 107! 10° 10! 10? 10-1 10° 10! 107
+a(-) a(-) a(-)
+
+Figure 13: NO (top) and N2O (bottom) mass fraction of the reacting flow particle at a 10
+ms residence time as a function of the decay rate a. Line styles correspond to the same
+
+cases from Fig. [12]
+
+decay rate (a = 1), NO emissions are about 7 times lower and N2O about 29
+times lower compared to those with constant mixing (a = 0). For fast initial
+mixing (x{, = 10°s~!, dotted lines), the emissions with constant mixing are
+too high as they do not reach near equilibrium conditions (lines are outside
+the plotting window). For the fastest decay rates, at the smaller cracking
+percentages, the emissions reach (nearly) their thermodynamic equilibrium
+values, almost entirely eliminating the unrelaxed NO emissions, but, while
+moderate decay rates are certainly practical (see the next subsection), these
+fastest decay rates may not be practical. Finally, for the same initial mixing
+
+rates and decay rates, for the highest cracking percentage, the reduction in
+
+26
+the NO emissions is not as strong, with a factor of two or more with de-
+creasing initial mixing rates. N»2O is only slightly higher, with a factor of
+two or less with increasing initial mixing rates. This may motivate the use
+of less cracked ammonia to minimize reactive nitrogen emissions. Overall,
+although N2O emissions are about two order of magnitude or more higher
+with respect to equilibrium conditions, these reductions are still substantial,
+especially for high initial mixing rates. Results considering the same initial
+temperature instead of the constant enthalpy are included in the Supple-
+mentary Materials. Also, the use of different decaying mixing rate profiles
+can significantly improve the reduction of nitrogen emissions. An example
+of using exponential decay is shown in the Supplementary Materials, where
+reactive nitrogen emissions can reach as low as equilibrium conditions. How-
+ever, practical application may not be feasible, which motivates future work
+on the optimization of decaying mixing rate profiles to achieve low emissions.
+
+The effects of pressure and initial temperature on reacting nitrogen pro-
+duction are now analyzed. In this case, the moderate mixing case yQ, =
+10* s-!, p = 10 bar, and T, = 750K is kept as reference case. The sec-
+ond case considers lower pressure p = 1 bar and same initial temperature
+T, = 750 K. The third case considers lower initial temperature T,, = 450 K
+and same pressure. Figures [14] show NO (top) and NjO (bottom) emissions
+as a function of the decay rate a, for the three cracking percentages. The
+quantities for constant mixing (a = 0, transparent lines) and equilibrium (for
+the reference case only, black line) are also included. In general, a decrease
+of pressure increases substantially the emissions, reaching over one order of
+
+magnitude difference for both NO and N20, with respect to the reference
+
+27
+o=140, a = 40% @ =1.40, a = 80%
+
+— 7, =750K,p = 10 bar
+) K,p = 1 bar
+T, = 450 K, p = 10 bar
+
+10"! 10!
+
+10-2 10-2
+
+10-?
+
+10° 10! 2
+
+(_
+
+tort), ae
+
+107°
+
+10-
+
+10-7
+
+10-*
+10! 10° 10! 10? 107! 10° 10! 10? 10-1 10° 10! 107
+a(-) a(-) a(-)
+
+Figure 14: Effect of pressure and temperature on reactive nitrogen emissions: NO (top)
+and N2O (bottom) mass fraction of the reacting flow particle at a 10 ms residence time as
+a function of the decay rate a, for x4, = 104s~!. The thin transparent lines represent the
+same quantities but using a = 0, and the black dash-dotted line represents thermodynamic
+
+equilibrium for the reference case (solid line).
+
+case. Trends of emissions with increasing decay rate changes from small to
+high cracking percentages, where NO goes from negative to zero slope and
+N2O towards more negative slopes. On the other hand, a decrease of ini-
+tial temperature improves the reduction of reactive nitrogen, especially for
+moderate to high cracking percentages. For low cracking percentages, near
+equilibrium conditions are achieved for fast decays only. NO emissions are
+reduced by a factor of about two to five times with increasing decays, with
+
+respect to the reference case, which are even lower than the reference case
+
+28
+equilibrium values. Although N2O emissions slightly decrease for small and
+moderate cracking, a reduction by a factor of four is observed for high crack-
+ing and very fast decay. Overall, high pressure and low initial temperature
+are convenient for low emissions. This could potentially benefit the upstream
+partial cracking processes.
+
+Although it is meant to be used at the fuel-rich mixture stage or front-end
+of RQL combustors, the rush-to-equilibrium concept has also been evaluated
+for stoichiometric and lean conditions, which are included in the Supplemen-
+tary Materials. It is shown that the concept still works in those conditions
+but with small to moderate reduction of reactive nitrogen emissions with re-
+spect to rich mixtures. It is also shown that the combustion chemistry model
+
+used utilized in simulations has no influence on the results.
+
+6. Practical implementation of the concept
+
+The natural question that arises then is how the rush-to-equilibrium con-
+cept could be practically implemented. Assuming that the turbulent mix-
+ing rate scales with the turbulent velocity fluctuations that scale with the
+local mean velocity, the concept could be practically implemented within
+a diffuser-shaped combustion chamber. For a decay rate a = 1 with an
+initial dissipation rate y{, = 104 s71,
+D; ~ O(0.10 m) [41] 42) and a diffuser angle 6 = 7° [28] would lead to an
+outlet diameter D, ~ O(0.3 m) and combustor length L ~ O(0.9m). A
+
+a typical combustor inlet diameter
+
+residence time of 10 ms would result in characteristics velocities of tens of
+m/s. These quantities are reasonably consistent with gas turbine combus-
+
+tion chambers. A faster decay rate would require a larger diffuser angle (or
+
+29
+a smaller diameter but longer combustor with a faster flow speed) so may
+not be practically relevant, but the decay rate a = 1 already provides a
+substantial reduction in the reactive nitrogen emissions. The ideal decaying
+mixing rate that minimizes reactive nitrogen emissions to equilibrium condi-
+tions would require optimization of the combustion chamber geometry, which
+
+is left for future work.
+
+7. Conclusions
+
+This work developed a novel concept to burn partially cracked ammonia
+at gas turbine conditions that enables low reactive nitrogen emission without
+increasing residence times. Reactive nitrogen emissions in AHN combustion
+are controlled by the very different approach to thermodynamic equilibrium
+compared to hydrocarbon fuels. In hydrocarbon combustion, reactive nitro-
+gen emissions increase rapidly very near thermodynamic equilibrium favor-
+ing not too long residence times, but, in AHN combustion, reactive nitrogen
+emissions peak within the reaction zone and then relax toward thermody-
+namic equilibrium favoring long residence times. In AHN combustion, the
+“unrelaxed” emissions make up most of the reactive nitrogen emissions, so
+the rush-to-equilibrium combustion concept seeks to accelerate the approach
+to equilibrium without increasing residence time.
+
+From fundamental budget analysis of premixed flames, while a fast mix-
+ing rate is required for transport within the preheat zone, fast mixing inhibits
+the approach to equilibrium. Therefore, in the rush-to-equilibrium combus-
+tion concept, a flow particle experiences a decaying mixing rate, faster in the
+
+preheat zone and decaying toward equilibrium. For typical gas turbine con-
+
+30
+ditions, at a fixed residence time, the rush-to-equilibrium concept gets much
+closer to thermodynamic equilibrium. This results in substantially reduced
+reactive nitrogen emissions, on the order of an order of magnitude, for even
+modest mixing decay rates and even reaching thermodynamic equilibrium
+for faster decay rates. The rush-to-equilibrium concept could be practically
+implemented with a diffuser-shaped combustion chamber with very reason-
+able geometric and flow conditions for modest decay rates, and future work
+
+will focus on realization of the rush-to-equilibrium concept.
+
+Acknowledgments
+
+The authors gratefully acknowledge funding from Princeton University
+through the Carbon Mitigation Initiative from the High Meadows Environ-
+mental Institute and the Energy Research Fund from the Andlinger Center
+for Energy and the Environment. The simulations presented in this arti-
+cle were performed on computational resources supported by the Prince-
+ton Institute for Computational Science and Engineering (PICSciE) and the
+Princeton University Office of Information Technology Research Computing
+
+department.
+
+References
+
+[1] A. Valera-Medina, H. Xiao, M. Owen-Jones, W. I. David, P. Bowen,
+Ammonia for power, Prog. Energy Combust. Sci. 69 (2018) 63-102.
+
+[2] H. Kobayashi, A. Hayakawa, K. D. K. A. Somarathne, E. C. Okafor,
+Science and technology of ammonia combustion, Proc. Combust. Inst.
+
+37 (2019) 109-133.
+
+31
+[3]
+
+a
+
+(6]
+
+[8]
+
+A. Valera-Medina, F. Amer-Hatem, A. K. Azad, I. Dedoussi,
+M. De Joannon, R. Fernandes, P. Glarborg, H. Hashemi, X. He,
+S. Mashruk, et al., Review on ammonia as a potential fuel: from syn-
+
+thesis to economics, Energy Fuels 35 (2021) 6964—7029.
+
+A. M. Elbaz, S. Wang, T. F. Guiberti, W. L. Roberts, Review on the
+recent advances on ammonia combustion from the fundamentals to the
+
+applications, Fuel Commun. 10 (2022) 100053.
+
+M. Monge-Palacios, X. Zhang, N. Morlanes, H. Nakamura, G. Pezzella,
+S. M. Sarathy, Ammonia pyrolysis and oxidation chemistry, Prog. En-
+
+ergy Combust. Sci. 105 (2024) 101177.
+
+Y. Jiang, A. Gruber, K. Seshadri, F. Williams, An updated short
+chemical-kinetic nitrogen mechanism for carbon-free combustion appli-
+
+cations, Int. J. Energy Res. 44 (2020) 795-810.
+
+S. Wiseman, M. Rieth, A. Gruber, J. R. Dawson, J. H. Chen,
+A comparison of the blow-out behavior of turbulent premixed
+ammonia/hydrogen/nitrogen-air and methane-air flames, Proc. Com-
+
+bust. Inst. 38 (2021) 2869-2876.
+
+M. B. Bertagni, R. H. Socolow, J. M. P. Martirez, E. A. Carter, C. Greig,
+Y. Ju, T. Lieuwen, M. E. Mueller, S. Sundaresan, R. Wang, M. A.
+Zondlo, A. Porporato, Minimizing the impacts of the ammonia economy
+on the nitrogen cycle and climate, Proc. Natl. Acad. Sci. 120 (2023)
+€2311728120.
+
+32
+(9]
+
+[10]
+
+[ll
+
+[12]
+
+[15]
+
+M. C. Franco, R. C. Rocha, M. Costa, M. Yehia, Characteristics of
+NH3/H2/air flames in a combustor fired by a swirl and bluff-body sta-
+bilized burner, Proc. Combust. Inst. 38 (2021) 5129-5138.
+
+S. Mashruk, M. Kovaleva, A. Alnasif, C. T. Chong, A. Hayakawa, E. C.
+Okafor, A. Valera-Medina, Nitrogen oxide emissions analyses in ammo-
+
+nia/hydrogen/air premixed swirling flames, Energy 260 (2022) 125183.
+
+S. Mashruk, E. Okafor, M. Kovaleva, A. Alnasif, D. Pugh, A. Hayakawa,
+A. Valera-Medina, Evolution of N2O production at lean combustion
+condition in NH3/H2/air premixed swirling flames, Combust. Flame
+
+244 (2022) 112299.
+
+D. Pugh, J. Runyon, P. Bowen, A. Giles, A. Valera-Medina, R. Marsh,
+B. Goktepe, S. Hewlett, An investigation of ammonia primary flame
+combustor concepts for emissions reduction with OH*, NH2* and NH*
+chemiluminescence at elevated conditions, Proc. Combust. Inst. 38
+
+(2021) 6451-6459.
+
+S. Mashruk, X. Zhu, W. L. Roberts, T. F. Guiberti, A. Valera-Medina,
+Chemiluminescent footprint of premixed ammonia-methane-air swirling
+
+flames, Proc. Combust. Inst. 39 (2023) 1415-1423.
+
+G. Sorrentino, P. Sabia, P. Bozza, R. Ragucci, M. de Joannon, Low-NOx
+conversion of pure ammonia in a cyclonic burner under locally diluted
+
+and preheated conditions, Appl. Energy 254 (2019) 113676.
+
+M. Ferrarotti, A. Bertolino, R. Amaduzzi, A. Parente, On the Influence
+
+of Kinetic uncertainties on the accuracy of numerical modeling of an
+
+33
+ary
+a
+
+[19]
+
+industrial flameless furnace fired with NH3/H2 blends: a numerical and
+
+experimental study, Front. Energy Res. 8 (2020) 597655.
+
+R. C. Rocha, M. Costa, X.-S. Bai, Combustion and emission charac-
+teristics of ammonia under conditions relevant to modern gas turbines,
+
+Combust. Sci. Technol. 193 (2021) 2514-2533.
+
+A. Mohammadpour, K. Mazaheri, A. Alipoor, Reaction zone character-
+istics, thermal performance and NOx/N20 emissions analyses of ammo-
+
+nia MILD combustion, Int. J. Hydrog. Energy 47 (2022) 21013-21031.
+
+Kk. D. K. A. Somarathne, $. Hatakeyama, A. Hayakawa, H. Kobayashi,
+Numerical study of a low emission gas turbine like combustor for turbu-
+lent ammonia/air premixed swirl flames with a secondary air injection
+
+at high pressure, Int. J. Hydrog. Energy 42 (2017) 27388-27399.
+
+E. C. Okafor, K. K. A. Somarathne, A. Hayakawa, T. Kudo, O. Kurata,
+N. Iki, H. Kobayashi, Towards the development of an efficient low-NOx
+ammonia combustor for a micro gas turbine, Proc. Combust. Inst. 37
+
+(2019) 4597-4606.
+
+S. Wu, D. Che, Z. Wang, X. Su, NOx emissions and nitrogen fate at
+high temperatures in staged combustion, Energies 13 (2020) 3557.
+
+M. G. Bozo, S. Mashruk, S. Zitouni, A. Valera-Medina, Humidified am-
+monia/hydrogen RQL combustion in a trigeneration gas turbine cycle,
+
+Energy Convers. Manag. 227 (2021) 113625.
+
+34
+[22] S. Mashruk, H. Xiao, A. Valera-Medina, Rich-Quench-Lean model com-
+parison for the clean use of humidified ammonia/hydrogen combustion
+
+systems, Int. J. Hydrog. Energy 46 (2021) 4472-4484.
+
+[23] E. C. Okafor, O. Kurata, H. Yamashita, T. Inoue, T. Tsujimura, N. Iki,
+A. Hayakawa, S. Ito, M. Uchida, H. Kobayashi, Liquid ammonia spray
+combustion in two-stage micro gas turbine combustors at 0.25 MPa; Rel-
+evance of combustion enhancement to flame stability and NOx control,
+
+Appl. Energy Combust. Sci. 7 (2021) 100038.
+
+[24] Z. Li, S. Li, Effects of inter-stage mixing on the NOx emission of staged
+ammonia combustion, Int. J. Hydrog. Energy 47 (2022) 9791-9799.
+
+[25] T. Heggset, O. H. Meyer, L. Tay-Wo-Chong, A. Ciani, A. Gruber, Nu-
+merical Assessment of a Rich-Quench-Lean Staging Strategy for Clean
+and Efficient Combustion of Partially Decomposed Ammonia in the Con-
+stant Pressure Sequential Combustion System, J. Eng. Gas Turbines
+
+Power 146 (2024) 081004.
+
+[26] M. Ditaranto, I. Saanum, J. Larfeldt, Experimental study on high pres-
+sure combustion of decomposed ammonia: How can ammonia be best
+used in a gas turbine?, in: Turbo Expo: Power for Land, Sea, and
+Air, volume 84959, American Society of Mechanical Engineers, 2021, p.
+
+V03BT04A027.
+
+[27] F. Giithe, J. Hellat, P. Flohr, The Reheat Concept: The Proven Pathway
+to Ultralow Emissions and High Efficiency and Flexibility, J. Eng. Gas
+Turbines Power 131 (2008) 021503.
+
+35
+[28]
+
+[29]
+
+[34]
+
+[35]
+
+A. H. Lefebvre, D. R. Ballal, Gas turbine combustion: alternative fuels
+
+and emissions, CRC press, 2010.
+
+B. Emerson, S. J. Patel, 5. Gubbi, R. G. McKinney, D. Wu, D. R.
+Noble, T. Lieuwen, Nonpremixed Approaches for Fuel Flexible, Low
+NOx Combustors in High-Efficiency Gas Turbines, J. Eng. Gas Turbines
+Power 147 (2025) 011009.
+
+T. Indlekofer, S. Wiseman, K.-J. Nogenmyr, J. Larfeldt, A. Gruber,
+Numerical Investigation of Rich-Lean Staging in a SGT-750 Scaled Dry
+Low Emission Burner With Partially Decomposed Ammonia, J. Eng.
+
+Gas Turbines Power 145 (2023) 041018.
+
+S. Gubbi, R. Cole, B. Emerson, D. Noble, R. Steele, W. Sun, T. Lieuwen,
+Air Quality Implications of Using Ammonia as a Renewable Fuel: How
+
+Low Can NOx Emissions Go?, ACS Energy Lett. 8 (2023) 4421-4426.
+
+S. Gubbi, R. Cole, B. Emerson, D. Noble, R. Steele, W. Sun, T. Lieuwen,
+Evaluation of minimum NOx emission from ammonia combustion, J.
+
+Eng. Gas Turbines Power 146 (2024) 031023.
+
+M. E. Mueller, Physically-derived reduced-order manifold-based model-
+ing for multi-modal turbulent combustion, Combust. Flame 214 (2020)
+287-305.
+
+S. B. Pope, Small scales, many species and the manifold challenges of
+
+turbulent combustion, Proc. Combust. Inst. 34 (2013) 1-31.
+
+A. Scholtissek, P. Domingo, L. Vervisch, C. Hasse, A self-contained
+
+progress variable space solution method for thermochemical variables
+
+36
+[40]
+
+[41]
+
+[42]
+
+and flame speed in freely-propagating premixed flamelets, Proc. Com-
+
+bust. Inst. 37 (2019) 1529-1536.
+
+A. G. Novoselov, B. A. Perry, M. E. Mueller, Two-dimensional manifold
+equations for multi-modal turbulent combustion: Nonpremixed com-
+bustion limit and scalar dissipation rates, Combust. Flame 231 (2021)
+
+111475.
+
+C. E. Lacey, K. VanderKam, S. Sundaresan, M. E. Mueller, Data-based
+instantaneous conditional progress variable dissipation rate modeling for
+
+turbulent premixed combustion, Combust. Flame 259 (2024) 113139.
+
+M. E. Mueller, PDRs, https://ctrfl.princeton.edu/software/
+
+(2020).
+
+G. J. Gotama, A. Hayakawa, E. C. Okafor, R. Kanoshima, M. Hayashi,
+T. Kudo, H. Kobayashi, Measurement of the laminar burning velocity
+and kinetics study of the importance of the hydrogen recovery mecha-
+nism of ammonia/hydrogen/air premixed flames, Combust. Flame 236
+
+(2022) 111753.
+
+G. P. Smith, D. M. Golden, M. Frenklach, GRI-Mech 3.0,
+me.berkeley.edu/gri_mech/, 2011.
+
+D. T. Pratt, Performance of Ammonia-Fired Gas-Turbine Combustors,
+Technical Report No. 9, DA-04-200-AMC-791(x), University of Califor-
+nia, Berkeley, 1967.
+
+E. C. Okafor, K. K. A. Somarathne, R. Ratthanan, A. Hayakawa,
+T. Kudo, O. Kurata, N. Iki, T. Tsujimura, H. Furutani, H. Kobayashi,
+
+37
+Control of NOx and other emissions in micro gas turbine combustors
+fuelled with mixtures of methane and ammonia, Combust. Flame 211
+
+(2020) 406-416.
+
+38

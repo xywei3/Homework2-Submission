@@ -1,0 +1,3033 @@
+2510.25466v1 [quant-ph] 29 Oct 2025
+
+1V
+
+wx
+
+re
+
+€
+
+Generalized collective quantum tomography:
+algorithm design, optimization, and validation
+
+Shuixin Xiao, Member, IEEE, Yuanlong Wang, Senior Member, IEEE, Zhibo Hou, Aritra Das, Ian R.
+Petersen, Life Fellow, IEEE, Farhad Farokhi, Senior Member, IEEE, Guo-Yong Xiang, Jie Zhao and Daoyi
+Dong, Fellow, IEEE
+
+Abstract—Quantum tomography is a fundamental technique
+for characterizing, benchmarking, and verifying quantum states
+and devices. It plays a crucial role in advancing quantum
+technologies and deepening our understanding of quantum me-
+chanics. Collective quantum state tomography, which estimates
+an unknown state p through joint measurements on multiple
+copies p ®---@p of the unknown state, offers superior informa-
+tion extraction efficiency. Here we extend this framework to a
+generalized setting where the target becomes S| ®---®@S,, with
+each 5; representing identical or distinct quantum states, detec-
+tors, or processes from the same category. We formulate these
+tasks as optimization problems and develop three algorithms
+for collective quantum state, detector and process tomography,
+respectively, each accompanied by an analytical characterization
+of the computational complexity and mean squared error (MSE)
+scaling. Furthermore, we develop optimal solutions of these
+optimization problems using sum of squares (SOS) techniques
+with semi-algebraic constraints. The effectiveness of our proposed
+methods is demonstrated through numerical examples. Addition-
+ally, we experimentally demonstrate the algorithms using two-
+copy collective measurements, where entangled measurements
+directly provide information about the state purity. Compared
+to existing methods, our algorithms achieve lower MSEs and
+approach the collective MSE bound by effectively leveraging
+purity information.
+
+This research was supported by the Faculty of Engineering and Information
+Technology at the University of Melbourne, the Australian Research Council
+(DP210101938, FT220100656, DP240101494, CE170100012), the Innovation
+Program for Quantum Science and Technology 2023ZD0301400, and the
+National Natural Science Foundation of China (12288201).
+
+Shuixin Xiao is with the Department of Electrical and Electronic Engineer-
+ing, University of Melbourne, Parkville, VIC 3010, Australia, and School of
+Engineering, Australian National University, Canberra, ACT 2601, Australia
+(e-mail: shuixin.xiao@anu.edu.au).
+
+Yuanlong Wang is with State Key Laboratory of Mathematical Sciences,
+Academy of Mathematics and Systems Science, Chinese Academy of Sci-
+ences, Beijing 100190, China, and with School of Mathematical Sciences,
+University of Chinese Academy of Sciences, Beijing 100049, China (e-mail:
+wangyuanlong @amss.ac.cn).
+
+Zhibo Hou and Guo-Yong Xiang are with Laboratory of Quantum In-
+formation, University of Science and Technology of China, Hefei 230026,
+China, and CAS Center For Excellence in Quantum Information and Quantum
+Physics, University of Science and Technology of China, Hefei 230026, China
+(e-mail: houzhibo @ustc.edu.cn, gyxiang @ustc.edu.cn).
+
+Aritra Das and Jie Zhao are with Centre for Quantum Computation
+and Communication Technology, Department of Quantum Science, Aus-
+tralian National University, Canberra, ACT 2601, Australia (e-mail: ari-
+tra.das @ anu.edu.au, jie.zhao@anu.edu.au).
+
+Tan R. Petersen is with School of Engineering, Australian National Univer-
+sity, ACT 2601, Australia (e-mail: i.r.petersen@ gmail.com).
+
+Farhad Farokhi is with the Department of Electrical and Electronic En-
+gineering, University of Melbourne, Parkville, VIC 3010, Australia (e-mail:
+farhad.farokhi@unimelb.edu.au).
+
+Daoyi Dong is with Australian Artificial Intelligence Institute, Faculty of
+Engineering and Information Technology, University of Technology Sydney,
+NSW 2007, Australia (e-mail: daoyidong @ gmail.com).
+
+Index Terms—Collective quantum tomography, quantum sys-
+tem identification, sum of squares
+
+I. INTRODUCTION
+
+Quantum system identification [I], [2] and quantum tomog-
+raphy [3], are essential for obtaining comprehensive infor-
+mation of quantum systems. This endeavor is critical for the
+thorough exploration and effective management of quantum
+systems [5], [6], [7J. Acquiring complete models facilitates
+advancements in various quantum science applications, such
+as quantum computing [3], quantum sensing [8], and quantum
+control [9}, There are three primary tasks in quantum
+tomography: (i) quantum state tomography (QST), which aims
+to estimate unknown quantum states [II], (12), (13), (14),
+; (ii) quantum detector tomography (QDT), which focuses
+on identifying and calibrating quantum measurement devices
+[16], [19]; and (iii) quantum process tomography
+(QPT), designed to determine the parameters characterizing
+unknown quantum processes [20], (21), (22), (231, (24, (25).
+State, process, and detector tomography, closely connected
+in both mathematical and physical senses, together form an
+essential triad necessary to fully characterize typical quantum
+measurement experiments
+
+For QST, various algorithms have beem employed, such
+as Maximum Likelihood Estimation and Linear
+Regression Estimation [1 . For low-rank quantum states,
+innovative approaches such as the application of compressed
+sensing in QST have been proposed [27], [28]. Additionally,
+regularization techniques to enhance the accuracy of QST were
+introduced in . To predict properties of quantum states with
+only a few measurements, shadow tomography methods have
+been proposed in (30}, (BI. For QDT, the pioneering solution
+method was Maximum Likelihood Estimation [17]. Subse-
+quent methodologies include linear regression [16] and convex
+optimization A recent advance in this field is a two-stage
+estimation method characterized by analytical computational
+complexity and an upper bound for the mean squared error
+(MSE) [19]. Building upon this two-stage approach, Ref.
+introduced an optimization of the probe states, while Ref.
+examined regularization techniques in QDT. For QPT, three
+main approaches are typically used, depending on the system
+architecture: Standard Quantum Process Tomography [3], [34],
+, Ancilla-Assisted Process Tomography , and
+Direct Characterization of Quantum Dynamics
+
+One appealing approach to quantum tomography is col-
+lective tomography, although its applications have so far
+
+been largely restricted to QST. Collective measurements on
+multiple identically prepared state copies can extract more
+information than individual measurements (each performed on
+a single copy of the state), thereby enhancing information-
+processing efficiency [39], [40]. Refs. [41], [42] demonstrated
+an enhancement in fidelity using collective measurements
+over separable methods in estimating mixed qubit states, and
+Ref. showed that, in quantum state tomography, collective
+measurements can achieve up to a d-fold improvement over
+separable ones, where d is the system dimension. Furthermore,
+collective symmetric informationally complete measurements
+were investigated in [39], and experimentally demonstrated
+in optics using two-copy collective measurements in [44],
+. Ref. proposed genuine collective measurements for
+QST, which was realized in an optical system through a
+three-copy experiment [47]. More recently, Ref. demon-
+strated provably optimal individual and two-copy collective
+measurements on superconducting, trapped-ion, and photonic
+platforms. Additionally, Ref. [49] explored a collective mea-
+surement scheme for estimating the amount of coherence in
+quantum states. Moreover, collective tomography can help
+reduce the back action of quantum measurement [50], which
+has been demonstrated in optical systems 4
+
+Despite the above progress, existing research on collective
+QST has largely been restricted to scenarios where multiple
+copies of the quantum states are identical as p ®---®p, while
+collective tomography approaches to QDT and QPT remain
+relatively unexplored. To address these gaps, we propose a
+generalized collective tomography uniting QST, QDT, and
+QPT into a general framework considering S| ®--:@ Sp, with
+each S$; representing identical or distinct states, detectors, or
+processes from the same category. When S; 4 S; holds for
+iF j, we refer to the task as D-QST, D-QDT, or D-QPT where
+D implies distinct, and when S, = --- = S,, we refer to it as
+I-QST, I-QDT, or I-QPT where I stands for identical.
+
+We formulate these tasks as optimization problems with a
+natural tensor structure for the unknown parameters, which
+exhibit non-convexity and bilinearity. Building on this struc-
+ture, we derive closed-form solutions tailored to each case,
+and analyze both their computational complexities and MSE
+scalings, which generalizes the previous result on QST
+to all three classes of quantum tomography tasks. The com-
+plexities are shown to be comparable to those of conventional
+algorithms for individual QST, QDT, and QPT.
+
+A limitation of the closed-form method is that it may yield
+suboptimal solutions. To address this issue, we reformulate
+the problems as sum-of-squares (SOS) optimization problems
+with semi-algebraic constraints and solve them using SOS-
+TOOLS [52]. This framework provides a rigorous lower bound
+on the cost function. If the optimizer achieves the lower bound,
+the bound corresponds to the global minimum. Otherwise, only
+the bound is returned. To the best of our knowledge, this work
+represents the first application of SOS optimization techniques
+in collective tomography, marking a significant methodological
+advance.
+
+As benchmark cases, we apply our tomography methods
+to estimate special cases including pure states, projective
+measurements, and unitary processes. Numerical experiments
+
+confirm the effectiveness of the proposed methods: the closed-
+form approach is computationally efficient but less accurate,
+whereas SOS optimization achieves significantly higher accu-
+racy at the expense of increased computational demand.
+
+In addition, we validate our algorithms using experimental
+data from [44], which demonstrated two-copy collective mea-
+surements in QST via photonic quantum walks. The entangled
+measurements in this setup yield information about the purity
+of the quantum state, consistent with earlier theoretical
+and experimental results for qubit systems. In contrast,
+individual measurements cannot directly capture nonlinear
+properties such as purity. Compared to the modified acceler-
+ated projected-gradient algorithm of , our methods achieve
+lower MSEs and approach the theoretical collective MSE
+bound by exploiting this purity information.
+
+The main contributions of this paper are summarized as
+follows:
+
+(i) We extend collective QST to a generalized collective
+
+tomography framework that unifies QST, QDT, and
+QPT, formulating all of these tasks as tensor-structured
+optimization problems.
+
+(ii) We derive closed-form solutions, analyze their computa-
+tional complexities and MSE scalings, and also propose
+SOS formulations that yield optimal solutions under
+semi-algebraic constraints.
+
+We provide illustrative examples, including pure states,
+projective measurements, and unitary processes, and
+verify the theoretical error analysis through numerical
+simulations.
+
+We validate the proposed methods using experimental
+two-copy collective QST data from [44], demonstrating
+that our algorithms achieve lower MSEs than existing
+approaches and approach the collective MSE bound by
+exploiting purity information.
+
+The remainder of this paper is organized as follows. Sec-
+tion |I| formulates the problem of implementing generalized
+collective QST, QDT, and QPT. Section[IM]presents the closed-
+form algorithms and presents their computational complexities
+and MSE scalings. Section[IV]introduces the SOS optimization
+framework for collective QST, QDT and QPT, and Section [V]
+provides both conceptual demonstrations and numerical sim-
+ulations. Section validates the proposed methods using
+experimental data. Finally, Section [VII] concludes the paper.
+
+Notation: The i-th row and j-th column of a matrix X is
+(X)jj;. The j-th column of X is col;(X). The transpose of X is
+X". The conjugate (+) and transpose of X is X‘. The rank of
+a matrix X is rank(X). The elements from the m-th to the n-th
+position (m <n) in a vector x are denoted as xX:n. The sets of
+real and complex numbers are R and C, respectively. The sets
+of d-dimension real/complex vectors and d x d real/complex
+matrices are R¢/C4 and R¢*4/C4*4, respectively. The identity
+matrix is Jj in the d dimension. The imaginary unit is denoted
+by i= /—T. The trace of X is Tr(X). The Frobenius norm of
+a matrix X is denoted as ||X|| and the 2-norm of a vector x is
+||x||. The estimate of X is X. The inner product of two matrices
+X and Y is defined as (X,Y) = Tr(X'Y). The inner product
+of two vectors x and y is defined as (x,y) 4 x’y. The tensor
+product of A and B is denoted A@B. A®” denotes the tensor
+
+(iii)
+
+(iv)
+
+product of A with itself n times. Hilbert space is H. Tr)(X)
+denotes the partial trace on the space H with X belonging to
+the space H; ® Hj. The Kronecker delta function is 5. diag(a)
+for a vector a denotes a diagonal matrix with the i-th diagonal
+element being the i-th element of the vector a, and diag(A)
+represents a diagonal matrix whose diagonal elements are the
+same as those of the square matrix A. The Pauli matrices are
+
+ol? oo =? HJ °
+“=r of ti of > lo -1f°
+
+TABLE I
+KEY SYMBOLS.
+
+Symbol Description
+
+N Total number of state copies used in QST/QDT/QPT
+p True quantum state (density operator)
+
+p.p.p Intermediate and final estimates of p
+
+Sa Set of physical quantum states in dimension d
+
+P; i-th true POVM element
+
+BPP Intermediate and final estimates of P;
+
+Da Set of physical detectors in dimension d
+
+xX True process matrix of the quantum process €
+
+Dao G04 Intermediate and final estimates of X
+
+pap Set of physical trace-preserving quantum processes
+Pye Set of physical non-trace-preserving quantum processes
+R(A) Permuted version of a matrix A {55}
+
+IJ. PROBLEM FORMULATION
+A. Preliminary knowledge
+For a matrix Amn, we introduce the vectorization function:
+vec(Amxn) “[(A)11,(A)21,-++ ,(A)mt,(A)12,°++ ,(A)mas
+++ 5(A)ins-*+ (A) mn)”
+
+Similarly, vec! (.) maps a d? x 1 vector into a d x d square
+matrix. One common property of vec(-) is :
+
+()
+
+vec(ABC) = (C’ @A) vec(B). (2)
+
+A quantum state p € C4*@ must satisfy p =p’, p > 0 and
+Tr(p) =1. When p =|w)(w| where |y) € C4 is a unit vector,
+p is called a pure state. Otherwise, p is a mixed state. Here, we
+define the following set to characterize all physical quantum
+states in a d-dimensional Hilbert space:
+
+Sa = {p eC’ :p =p',p >0,Tr(p) = i}. (3)
+
+In quantum physics, measurement is ubiquitous, and the
+measurement device is called a detector, which can be charac-
+terized by a set of measurement operators denoted as {P;}4_,.
+These L operators form a Positive-Operator-Valued Measure
+(POVM), where each POVM element P, € C¢*@ adheres to
+the conditions P; = Pt and P; > 0. Furthermore, they satisfy
+the completeness constraint yh P = 14. Here, we define
+the following set to characterize all physical d-dimensional
+detectors:
+
+Da= {{hh he Ch. =P), >0 Rath. @)
+I
+
+When a measurement operator P; is applied to a quantum
+state p, the probability of obtaining the corresponding result
+is governed by Born’s rule [3]:
+
+pi=Tr(Pip). (5)
+
+From the completeness constraint, we have yep =1.In
+practical experiments, suppose that N identical copies of p
+are consumed, and the /-th operator occurs N; times. Then
+pi = N,/N serves as the experimental estimate of the true
+value p;, with the associated measurement error denoted by
+e: = pi — p: [19]. According to the central limit theorem,
+the distribution of e; converges to a normal distribution with
+mean zero and variance (p; — p7)/N {12}, [29]. Based on the
+measurement data {p;}, the target of QST (QDT) is to identify
+the unknown state (detector) using known POVM (measured
+states, also called probe/input states).
+
+For a d-dimensional quantum system, its dynamics can be
+described by a completely-positive (CP) linear map € and QPT
+aims to identify the unknown €. If we input a quantum state
+p" € C4*4, using Kraus operator-sum representation [3], the
+output state p™' is given by
+
+a
+p= =E(p") = ¥ Aip™ 4}, (6)
+i=l
+where A; € C4*@ and they satisfy
+a
+¥ A}A; <a. )
+
+i=l
+
+We also call d the dimension of €. Choosing {E}“, as the
+natural basis {| j)(k|}i<jx<a Bl. where i = (j—l)d+k
+and {li Ho represents the standard basis in C4’. Conse-
+quently, the natural basis {|j)(k|}i<jx<q is also a standard
+
+basis in C¢%4. We expand {ajo as
+a
+Aji = ¥ cijEj- (8)
+j=l
+
+Define matrix (C);; 4 cjj, and in fact we have
+C= [vec(Al),-- svec(AZ,)]", (9)
+
+Also define the matrix X as X 4 C'C*, which is called
+process matrix [3], and X € C#*4" ig in one-to-one
+correspondence with €. In addition, it satisfies X¥ = X +x >
+0,Tr; (X) < Jag. When the equality in holds, we have
+Tr (X) =a Bi, and the process € or X is trace-preserving
+(TP). Otherwise, the process is non-trace-preserving (non-TP)
+which has indeed been demonstrated in experiment [23]. We
+further define two sets to characterize all TP and non-TP
+process matrices of dimension d:
+
+pir {x ec’x? .y = xt x > 0,7 (X) =u} , (10)
+and
+Py? = {x ec’x x = xt x > 0,71 (X) <a} dab
+
+The target for QPT is to identify the unknown process matrix
+
+X using the known input states {p;? M_, and the measurement
+operators {P}L where M and L are the numbers of different
+kinds of input states and measurement operators, respectively.
+
+State, process, and detector tomography constitute a com-
+plete triad needed to fully define an experiment. Since p,
+{P)}i_, and X are all Hermitian matrices, we introduce a
+complete basis set of orthonormal operators {Q; He , in the
+
+dimension d, satisfying Tr (ojo y= 6);. Each operator Q,; is
+
+Hermitian, and Tr(Q;) =0 for all j except Q; =1/Vd. This
+basis is employed in QST and QDT. For QPT, we utilize the
+natural basis {| j)(k|}i<jk<a-
+
+In the following subsections, we propose generalized col-
+lective tomography for quantum states, detectors and quantum
+processes.
+
+B. Generalized collective QST
+
+As illustrated in Fig. [I] we consider a two-copy generalized
+collective QST, which includes two different scenarios. Case
+(a) involves distinct unknown states, labeled as p} € Sg, and
+p2 € Sa, collectively measured by {Py}, € Daya, on the
+large space, and is referred to as D-QST in this paper. Case
+(b) considers two identical copies of a state po, referred to
+here as I-QST, which corresponds to the more commonly
+studied setting in the collective QST literature [44], [48]. Since
+we consider both cases, we term the approach generalized
+collective QST.
+
+For D-QST, we assume their dimensions 4 and d> cat sbe
+
+different. Let the complete basis set be {Q; a 1) and {a}
+respectively. Then we expand fp}, P2 into these bases as
+
+jel
+
+a ca
+pPl= 0;Q, p2= ase,,
+py ‘ LX (12)
+2 2, 2 ay
+6; 5[61,67,--- 0," ]", & # [61,3,--- 0:7)",
+
+where 0; € Ra and 6) € Ro . We also denote the inverse map
+from 6; to p; (i= 1,2) as hi(-) : R& 4 C4*4, Let the POVM
+elements be {P;}/_, and Fi € hts, Using the complete
+
+orthonormal basis {Q; ya ® {Ej} 1» We can expand P, as
+
+dj d3
+= ¥ o4(Q,@2))
+ij=l
+
+a fala he dj.d3yT
+eh 19 tts | JI
+
+where @; € RwG, Therefore, the ideal measurement results of
+P; on the state p), P2 is
+
+(13)
+
+Tr ((P1 & p2) Pr)
+
+. 14
+= 6] (6 @ 6). “
+
+Define
+
+OS [6,---.60)", YA lpi pil’, (15)
+
+and the problem to identify p; and p2 with two-copy collective
+POVM can be formulated as follows:
+
+Problem 1: Given the matrix ® and experimental data Y,
+solve ming, 9, ||¥ — © (81 @ 8) ||? such that (01) € Sa, and
+hy(®) € Sa,.
+
+( §)
+| PIE Sa,
+Wwe Measurement
+4) daa |!
+|
+
+\ |
+(
+Measurement ||
+r / data |
+| [Po € Sq |
+rr Oe ee as P
+
+Fig. 1. Schematic diagram for two-copy generalized collective QST: (a) The
+
+unknown input states are distinct (D-QST) as p; € Sa, and p2 € Sg,, which
+ay have different dimensions. The measurement operators are {P, Mee €
+
+Dayd,. (b) The unknown input states are identical (I-QST) as po € Sy and the
+measurement operators are {P)}4_, € Dp
+
+For I-QST, we expand po € Sj in the basis {a}, as
+
+&
+=V 6.2
+Po X 0 iS (16)
+O ©[00,1,.90,25+++ 4,42)",
+and define /o(-) : R? > c4*4, where ho(@) = po. We can
+
+also parameterize {P;}/_; € Dp to obtain &. Therefore, we
+can formulate I-QST as the following problem.
+
+Problem 2: Given the matrix ® and experimental data ?,
+solve ming, ||” — & (6) @ Op) ||? such that ho(8) € Sa.
+
+Remark 1: The two-copy generalized collective QST
+can also be extended to n-copy where the cost functions
+for Problems |1| and [2] become ||Y — (6; @---@ @,) ||? and
+\|Y —® (@,"") |F, respectively.
+
+C. Generalized collective QDT
+
+We then consider two-copy generalized collective QDT as
+Fig. where we also consider two scenarios. In Case (a),
+referred to as D-QDT, the unknown detectors are distinct as
+{Pi} € Da, and {OVE € Da, which can be expanded in
+
+the bases {a,}4 7 and {E/}2 2) as
+
+qe a
+P=¥)9}2i, Oe= Yo OFF),
+dei > jd (17)
+
+A
+
+B
+61 (0), 67,--- 68 i NF, A (OE, Pe. G0)".
+Let the probe states be {Pn} Pm € Sajdy and we can
+expand p», in the basis {Q; 3a foe} 1 as
+did
+
+Y 6;/(Qi@E;),
+ij=l
+
+Pm
+(18)
+
+>
+
+m >%m
+
+2 4277
+On & [ex g)2.. “On!
+
+Therefore, the ideal measurement result of the POVM element
+P/@ Ox ON Pm is
+Pik = Tr (Pm(P @ Qx))
+
+19
+= 6, ($7 @ Mr). o)
+Define
+
+O£(61,--° Ou)", Yn = [Phe Piel” (20)
+and thus
+
+Vir = O(1 ® Ox). (21)
+
+Therefore, the problem to identify {P;}4_, and {Q,}&_, using
+quantum states can be formulated as follows:
+
+Problem 3: Given the matrix © and experimental data
+{Fic}, solve
+
+min ¥ lle (4 ® eI),
+
+{G1} {1} 41
+where {h1($))}4_, € Da,, {ho(M)}_, € Da,-
+
+Case (b), referred to as I-QDT, is also feasible in optical
+experiments because a fiber delay line can be introduced [57],
+, allowing us to use the same detector {P;}/_, € Dp twice
+sequentially in time by switching between the two paths, as
+shown in Fig. Pfc). A fiber delay line may introduce losses
+and imperfections in practice. While our approach is capable
+of modeling these effects, for simplicity, we assume them to
+be negligible in this work.
+
+Consequently, we can derive the following optimization
+problem for I-QDT.
+
+Problem 4: Given the matrix © and experimental data
+{fix}, solve
+
+min y [Pix — O(6, ® ox) |I?
+
+{90} =I
+where {ho(1) }¥_, € Da.
+Remark 2: Two-copy generalized collective QDT can also
+be extended to n-copy collective QDT. For example, for I-
+QDT, let oF be the parameterization vector for the k-th gubit of
+the j-th POVM element and the measurement result is Yj, docealfus
+The cost ney of Problem [4] becomes ified Pisjonin —
+
+O(9}, © 97, @O")I/?.
+
+D. Generalized collective QPT
+We consider generalized collective QPT as illustrated in Fig.
+where the problem formulation is based on the natural basis
+{|j)(kl}i<je<a rather than the basis {ase . We also analyze
+two cases: in Case (a), referred to as D-QPT, the processes
+are distinct with dimensions of €; and € being d, and do,
+respectively. Let the Kraus operators for €),€ be falye,
+and {A332 1 Cx Aj exCan,
+j-v , :
+
+The comesponding parameterization matrices for {A} },2, and
+
+respectively, with A! €E
+
+{ar}? ji are C, and C}, respectively, as defined analogously to
+
+a? dz
+(9). The Kraus operators for € = € @ E> are {Aj @AN NS,
+and the corresponding parameterization matrix is denoted as
+
+C. According to Lemma[2] in Appendix [A] we have
+(vec (A} @A3)) ‘=
+
+where Kya, is a commutation matrix such that Ka, vec(O) =
+vec(O") and O is a dz x d; matrix. combining it with 9), we
+have
+
+C= (C1 @C) (la, @ Kia, Ql) - (23)
+
+((vee(A}))? @(vec(A3))") (Ia, @Kha, @la) ;
+(22)
+
+{Pm}
+
+{Pm}
+
+€ Sa
+
+Fig. 2. Schematic diagram for two-copy generalized collective QDT: (a) the
+unknown detectors are distinct we QDT) as {P}E_, € Da, and {OQ}, E Da,
+and the probe states are {Prin =, Where Pm € Saja « (b) The detectors are
+identical (I-QDT) as {P)}4_, € Dy and the probe states a ea where
+Pm € 2. This can be realized by, e.g., a fiber delay line [57] and a
+switch as in (c), where the switch toggled after the measurement of i
+is completed.
+
+Measurement
+data
+
+{pout
+
+out
+{Pn
+
+2
+
+Measurement
+data
+
+2
+
+Measurement
+data
+
+Fig. 3. Schematic diagram for two-copy generalized collective QPT: (a)
+the unknown quantum processes are distinct (D-QPT) as €; and €) where
+the dimensions of the processes are d; and d>, respectively. The input
+states are {pi}, where pi" € Sy,g) and the measurement operators are
+{PE 1 © Daya, (b) The unknown quantum processes are the same as &o
+(-QPT) with dimension d. The input states are {pi"}_, where pi" € Sp
+and the measurement operators are {P)}}_, € Dp. This can be realized by,
+e.g., two fiber delay lines and two switches as in (c), where the two switches
+both toggled after Tr2(p}?) has passed through €.
+
+With process matrices X; = cic} © Caixa Y= aa E
+
+C44, and X =CTC* € CUE*A GE using we have
+X = (Iu, @ Kiya, @ Lay) (X1 @X2) (lay @Ka, @Ly) (24)
+Here we consider both TP or non-TP processes, i.e., X1 €
+
+PrP Pz? Xo © Pip /Pz" as defined in Tabl
+Denoting Ka, a, & Ig, ® Kaya, @ Ia, and using
+Lemma [2]in Appendix [A] we have
+
+) and
+
+vec(X) = (Kad) ® Kaya) vee(X1 ® Xz)
+
+= (Kaya ® Kaya) Kypaz (vec(X1) ® (vee(X2)). )
+
+Let the input states be {pir}™ int» Where phe Sayd,. Fol-
+lowing » Pal, we construct the parameterization matrix
+Be cma xa q using all the input states, and define Y €
+
+C474; as the vector obtained from all the reconstructed output
+states. The relationship among the input states, output states,
+and the process can then be expressed as a linear equation
+Byec(X) =Y [22], [24], which further implies
+
+B(Ka,a, ® Kaa) Kee (vec(X)) @ vee(X2)) = ¥. (26)
+
+Let BS B(Kaya, ® Ka,a,)K 22. Therefore, the problem of
+two-copy generalized collective QPT can be formulated as
+follows:
+
+Problem 5: Given the matrix 6 and experimental data ra
+solve
+
+min ||? — B(vec(X1) ® vee(X3))||°,
+
+X1,X2
+where X; € PF /PzrP and X7 € Pr Pa” are the process
+matrices for €, and €), respectively. “
+
+In Case (b), referred to as I-QPT in Fig ey} the process
+matrices are both Xo and thus the cost function simplifies to
+minx, ||? — B(vec(Xo) ® vec(Xo))||” where Xp € PIP/P7T?.
+Case (b) can be realized via, e.g., two delay lines and two
+switches as shown in Fig. Bic). Moreover, we can also extend
+the two-copy collective QPT to multiple-copy collective QPT,
+as in Remarks [I] and 2]
+
+Remark 3: For Case (a) in Fig. B] if & = Za, (identity
+process), the framework reduces to Ancilla-Assisted Process
+Tomography (AAPT) 3], 4], (35). A key advantage of
+AAPT is that only a single input state with a full Schmidt
+number is required to reconstruct the unknown process €.
+However, in our case, we assume both €; and € are unknown
+and distinct, making the framework more general than AAPT.
+The price of this generalization is that it requires a larger set
+of input states.
+
+E. Weakly informational-complete scenario
+
+In QST, measurements are informationally complete if their
+outcome statistics uniquely determine the quantum state [59],
+(60). This property can be verified by checking the rank of the
+parameterization matrix of the measurement operators [29],
+[59]. In collective tomography problems, we generalize this
+notion as informationally complete scenarios, where the mea-
+surement outcome statistics uniquely determine the unknown
+quantum states, detectors, or processes. Since a rigorous
+definition is challenging, tied to the uniqueness of solutions
+to a nonconvex problem, we adopt a relaxed criterion for our
+generalized collective tomography as follows.
+
+Definition 1: The corresponding scenario is weakly
+informational-complete if rank(®) = d?d3 in Problem
+rank(®) = d* in Problem |2| rank(@) = d7d3 in Problem
+rank(@) = d* in Problem |4{ rank(B) = did} in Problem|5], or
+rank(B) = d® for I-QPT.
+
+Note that for QPT, we have rank(B) = rank(B) because
+(Kaya, ORaa) Kew is full-rank. Conversely, when the rank
+of the linear map is smaller than the corresponding limit
+in Definition we denote it as the weakly informational-
+incomplete scenario. These rank-based criteria are easy to
+verify, and weakly informational-completeness guarantees a
+unique closed-form solution, though it is only a sufficient
+condition for informational completeness and may be more
+
+conservative than those in prior works on single-copy quantum
+
+tomography (12}, (19), (221, (42).
+
+III]. CLOSED-FORM SOLUTIONS
+
+In this section, we present closed-form solutions for all
+two-copy generalized collective quantum tomography. We will
+describe the design of the algorithms and provide an analysis
+of the computational complexities and MSE scalings. Addi-
+tionally, we demonstrate how the algorithms can be extended
+to three or more-copy scenarios while maintaining the same
+MSE scalings.
+
+A. Algorithm design
+
+1) D-QST and I-QST: For the two-copy generalized collec-
+tive QST in Problem [I] of D-QST, we decompose it into two
+subproblems. The first subproblem is formulated as follows:
+
+Problem 1.1: Given the matrix ® and experimental data
+Y, solve min, ||¥ — @x||? where x € Rua,
+
+For Problem[I.T]when ® is full-rank, we can obtain a unique
+
+optimal estimate X using the least squares method
+
+F=(0'0)'o’Y. (27)
+When @ is rank-deficient, the data is insufficient to uniquely
+determine the unknown. One possible reconstruction is given
+by
+F=f, (28)
+where &+ denotes the Moore—Penrose (MP) inverse of ® [61].
+Alternatively, we can incorporate a regularization term in the
+cost function as ||? — ®x||? +x" Dx where D > 0 is a regular-
+ization matrix. The closed-form estimate with regularization
+is given by
+F=(6'b+D)'o’y, (29)
+The question of designing the regularization matrix D and cor-
+responding hyperparameters in D has been discussed in 4
+
+After obtaining %, the corresponding / is
+
+dj d3
+p= ps Fi yap (Qi Ei).
+
+ij=l
+
+(30)
+
+Alternatively, we can incorporate the unit trace constraint
+directly into the parameterization of x. In the complete or-
+
+2 2
+thonormal basis {a}4, ® {2}?
+
+j=v
+OQ = “4 and E, = “%
+1 Way SO Te?
+yaa: Let
+
+if one takes, for example,
+
+then the first element of x should be
+
+1 7)"
+x= ohh
+Vd\dy
+where xp € Rady, and we partition ® as
+
+b= [®,, ©], G1)
+
+where ®, € R! and @,€ REx (4id3-1) Therefore, we have
+
+1
+——4,,
+Vdid, “
+
+4x, = — (32)
+Measurement
+
+ei Step 1:
+
+L-QST: Po
+Collect data Q Pc
+Step 2:
+Least squares
+Step 4:
+Correction
+
+~ Step 3: SVD
+—_——
+
+p
+
+Fig. 4. Steps in our closed-form algorithm for the generalized collective QST.
+
+and the least squares solution in the weakly informational-
+complete scenario is given by
+1
+®,).
+
+Vdidy
+Similar to (29), we can also obtain a closed-form solution with
+a regularization term. Using 83). we reconstruct Pp as
+
+iy = (fy) OF (P (33)
+
+1 a d3
+P= lant Yo Xa-ryazyj(Qi@F;). G4)
+aida AUN)?
+
+We then consider the second sub-problem using p.
+Problem 1.2: Let p € C%%2*4i42 be given. Solve
+ming, p, ||6 — P1 ® P2|| where 61 € Sy,, P2 € Sa).
+We can rearrange the elements of 6 and define a permuted
+version as R(p) € C44 such that R(p; ® p2) =
+vec((;) vec(62)". We thus know
+
+|| — Bi ® Po|| = ||R(B) — vec (61) vec (A2)" ||. 5)
+
+Problem|I.2]is a nearest Kronecker product problem [55], (66).
+Using Co} Problem lean be solved efficiently by using the
+singular value decomposition (SVD) because it is equivalent
+to finding the nearest rank-1 matrix to a given matrix [55],
+(66). If 6; and p> are the solutions, then a; and abo for
+arbitrary @ € C also denotes a solution. Thus, we can choose
+a proper @ € C such that Tr(f;) = 1. Further considering the
+Hermitian constraints on (;,$2 and the unit trace constraint
+on f2, we take
+
+= at P at
+
+~ Pith; ~ 1/ fo Po
+, = at aa | i 36
+Pi q > Pe 5 (fy is | (36)
+
+where Tr(p;) = mlb Fe) =1 because Tr(6) = Tr(6}) = 1.
+However, P,$2 may not satisfy the positive semidefinite con-
+straint. To address this, we apply the fast correction algorithm
+from [13] to the eigenvalues of 6 and obtain the final estimate
+P1,P2 > 0 for Problem [I]
+
+For Problem [of I-QST, after the same procedure as solving
+Problem |[I.1] and Problem [1.2] we let
+
+fo= Pi 7, (37)
+which is a physical estimate because 6), 62 > 0 and Tr(p1) =
+
+Tr(62) = 1.
+Overall, the procedures in our closed-form algorithm consist
+of four steps, as outlined in Fig. Al The pseudo-code for the
+
+Algorithm 1 Closed-form Algorithm for QST (Problem
+
+Input: Measurement data Y; parametrization matrix ® of
+different quantum measurements
+Output: Estimated states 6), 62
+1: if rank(®) = d?d> then
+> Weakly informational-complete case
+2 F=(b'd) of
+> Least-squares solution of Problem|1.1
+3: else
+> Weakly informational-incomplete case
+4. £=O@1F or %=(6'S+D) HP
+> Moore-Penrose inverse or regularized solution of
+Problem
+5: end if
+6: Reconstruct 6 from ¥ and apply the permutation R(6)
+7: Solve
+
+min ||R(B) — vee(Pr) vee(2)"|
+P1:P2
+using SVD, with the normalization Tr(6;) = 1
+> Equivalent to Problem |1.2)
+8: Symmetrize and normalize:
+
+a eee FI po, Ps
+Pi=5(61+P}), Po (3 tL)
+
+9: Apply the correction algorithm of to P1,P2 to obtain
+the final estimates 61,62
+
+closed-form algorithm for D-QST is provided in Algorithm [I]
+Similar to [12], we can derive the total online computational
+complexity as O (Ld?d3 + dd} min(d?,d3)) for D-QST, and
+O(Ld* +d°) for I-QST. The complexity is dominated by the
+least-squares method in Step 2 and the SVD in Step 3 of Fig.
+for generalized collective QST. These computational complex-
+ities are of the same order as those of typical individual QST
+with dimension djd) or d* {12}.
+
+Remark 4: In Problem we adopt the Frobenius norm.
+Alternatively, one may consider other metrics such as the
+quantum relative entropy D(-||-), as discussed in [67]. In this
+case, the minimization problem takes the form
+
+min D(p||p1 © p2) , (38)
+Pi-P2
+
+where the optimal solution is given by the marginals 6; =
+
+Tr2(P) and 62 = Tr (6). The corresponding minimum value of
+
+quantum relative entropy coincides with the quantum mutual
+
+information between the two subsystems in 6 [67].
+
+2) D-QDT and I-QDT: We then consider a closed-form so-
+lution for generalized collective QDT. We also split Problem3]
+into to two subproblems. The first subproblem is similar to
+Problem where the least squares estimate in the weakly
+informational-complete scenario is
+
+by. = (970) 10" Fy. (39)
+
+We can also utilize MP inverse or regularization in the weakly
+informational-incomplete scenario, which is similar to (28) and
+(29). Then we reconstruct Rj, as
+
+aids
+Ru = Yi Gu )i-1a34j(Qi ®E)).-
+
+ij=l
+
+(40)
+
+We ultimately derive a total of KL distinct Rj, because 1 <
+ISLASK<K.
+
+We then consider the second subproblem using {Rj,} as
+follows:
+
+Problem 3.2: Let Ry € CH2*44 be given. Solve
+
+: zr, 5 Boh 5
+mins) (6,3 Liket Rix — FP; ® Oy||? where {Pj} € Dg, and
+{Ox} € Day.
+
+Define a matrix collecting all of {R(Rix)} as follows:
+R(Ru) R(Ri2) R(Rix)
+R=]: Dot, @D
+RR) R(Ri2) R(Rix)
+
+where R € C/4i**4, Define the vectors of all By and O; as
+
+vec(P) = [vec(P\)",--- wvee(P,)"]",
+
+- <P erat (42)
+vec(Q) = [vec(Q1)",--- ,vec(Qx)"|
+and thus
+L.K 7 . 7 7 7 oo
+Y [Ru —F @ Ox|l? = ||R—vec(P) vec(Q)"||?.. (43)
+Lk=1
+
+Therefore, similar to Problem|!.2| this can be solved by using
+the SVD. However, note that @P and 10 (for any a@ € C)
+are also solutions. Since Tr(Y/_, P;) = di, we can fix @ such
+that Tr(YEy P) = d, which then determines the corresponding
+OnE
+
+To satisfy the Hermitian constraint, we define
+— A+
+9° ‘ 2
+However, these estimates may not satisfy the completeness and
+positive semidefinite constraints. To enforce these, we apply
+the Stage-2 algorithm of [19], yielding the final estimates
+{Pi}, and {On}.
+
+For I-QDT, we obtain the following optimization problem
+using R), for the second subproblem as follows:
+
+Problem 4.2: Let Rix € CHxA be given. Solve
+
+_ B+P -
+P=
+
+(44)
+
+LL
+min Ru — PF @ Fil)?.
+{P}eDg ,
+
+Similarly, we can define R, P, and @ as in and (42),
+and obtain
+LL ;
+Yi Ru -F @ Py|\? = ||R — vec(P) vec(P)" ||.
+Lk=1
+This formulation differs from Problem B.2] in that the tensor
+terms are identical.
+To address this, we first consider a relaxed version in which
+the terms are allowed to be distinct:
+
+(45)
+
+LL
+Y Ru —F, @ Ox\? = || — vec(P) vec()" ||,
+Vel
+
+(46)
+
+Algorithm 2 Closed-form Algorithm for QDT (Problem [3)
+
+Input: Measurement data {f;,}; parametrization matrix © of
+different quantum states
+Output: Estimated operators {A}, {Ox}
+1: if rank(®) = djd> then
+> Weakly informational-complete case
+2 bn = (O70) OTP,
+> Least-squares solution
+3: else
+> Weakly informational-incomplete case
+4 be = OL or Gye = (O7O+ D) 1 OP
+> Moore—Penrose inverse or regularized solution
+5: end if
+6: Reconstruct {Rx} from {x}; apply the permutation
+R(Ri,) and form R, vec(P), vec(Q) in and
+7: Solve
+min ||R—vec(P) vec(Q)" \|°
+P.O
+
+using SVD, with the constraint Tr(Lj_, P;) =d
+> Equivalent to Problem 3.2]
+8: Symmetrize:
+P= S(R+P), O.=43(Ox+9j)
+9: Apply the Stage-2 algorithm of [19} to {F)},{Q;} to
+obtain the final estimates {F)}/_, and {O,}*_,
+
+“D-QD'
+Measurement. ¢ { P
+
+Least squares
+
+bas Step 3: SVD
+{R; k —
+
+~ ~ Step 4:
+Pi} {Qi} Correction
+—<_<—<<—<>
+
+Fig. 5. Steps in our closed-form algorithm for the generalized collective QDT.
+
+which is equivalent to Problem This problem can also
+be solved using the SVD [55], [66], yielding F, such that
+Tr(Lhy PB) = d. Following the same procedure as in D-QDT,
+we then obtain the final estimates {P;}4_,.
+
+Overall, the procedures of our closed-form algorithm in-
+volve four steps, as outlined in Fig. 5] The pseudo-code of the
+closed-form algorithm for D-QDT is provided in Algorithm P]
+Similar to [19], the total online computational complexities
+can be derived as O(MKLd7d3 + KLd;d} min(Ld;,Kd3)) for
+D-QDT, and O(ML7d* + L3d°) for I-QDT. These complexities
+are dominated by the least-squares method in Step 2 and the
+SVD in Step 3 of Fig. [5] for generalized collective QDT. The
+resulting orders of complexity are comparable to those of
+typical individual QDT with KL different POVM elements of
+dimension did, or L? different POVM elements of dimension
+
+d? {19}.
+3) D-QPT and I-QPT: We finally design a closed-form
+solution for two-copy generalized collective QPT in Problem
+We first obtain the least squares solution
+
+X = vee"! (BB) 'B'Y). (47)
+
+In the weakly informational-incomplete scenario, we can also
+use the MP inverse or regularization, similar to and (29).
+We then consider the following problem for D-QPT.
+
+Problem 5.2: Let X € Céidixdid? he given. Solve
+ming, x, ||X —X1 @Xo|| where X; € PE /PR.
+
+If € (i= 1,2) is TP, we have Tr(X;) = d;. For example, if
+Tr(X;) =}, similar to Problem [1-2] we can obtain a unique
+optimal solution X; and X) via SVD, ensuring that Tr(X,) =
+d,. To correct the solutions so that they satisfy the Hermitian
+constraint, we let
+
+z 2a
+If they are both TP, we have Tr(X,) = d,Tr(X2) = do. After
+the first equality in (48), we take
+
+~ mf X% xy
+X= = = =F :
+2 Tr(X2) Tr(X;)
+However, if both €; and € are non-TP, the solution to
+Problem Ea is not unique because BX; and pe are also
+
+solutions. “To obtain a unique estimation in this case, we
+prepare maximally mixed state p = at and implement P = I,
+
+1= (48)
+
+(49)
+
+on the output state €| (H), and then obtain a real positive 0
+from measurement result, which is an estimate of Tr(X1)/d1.
+To determine B, we rescale X, such that Tr(X;) = dia) and
+obtain the corresponding X>. These state and measurement
+operators are relatively straightforward to generate in an
+experimental setup. Then we obtain the estimates to satisfy
+Hermitian constraint
+
+j _Xi+X % = Xe +X
+
+2? 2
+
+(50)
+
+~ part
+For I-QPT, similar to I-QDT, we can first obtain Xo = za Bis
+
+and then obtain a unique solution Xo in the TP case as
+
+x4 X + x
+2 \ TR)” THRE)
+
+and in the non-TP case as
+
+= 1 /Tr(X+Xt) (  X pal
+Xo== sat ae ips 52
+on 2 2 (5 Tr(Xp) 0?)
+
+Finally, to satisfy the partial trace constraint for TP or non-
+TP process, we implement the algorithm in and obtain
+the final estimate xX and X for D-QPT or Xo for I-QPT.
+
+Overall, the procedures of our closed-form algorithm have
+four steps as outlined in Fig. [6] Similar to [22], we can
+derive the overall computational complexity O(d}d3(ML +
+dd min(d},d3)) for D-QPT and O(d4(ML+d®)) for I-QPT,
+which is dominated by reconstructing theoutput states in Step
+1, the least squares method in Step 2 and the SVD in Step 3
+in Fig. [6] for generalized collective QPT.
+
+(51)
+
+Measurement
+
+—{p
+
+Step 1: Collect data and
+reconstruct output states
+
+Step 2:
+Least squares Step 3: SVD
+{Y } ——_——- ¥ ———
+
+Step 4:
+Correction
+
+Fig. 6. Steps in our closed-form algorithm for the generalized collective QPT.
+
+B. Error analysis
+
+Throughout the paper, we use N to denote the number of
+input state copies in each generalized collective protocol. In
+D/I-QST, N corresponds to the number of state pairs. We
+also use E(-) to denote the expectation with respect to all the
+possible measurement results. Here we present the following
+theorems to describe the analytical MSE scaling using our
+closed-form algorithm for all generalized collective tomogra-
+phy procedures. First, we propose the following theorem for
+generalized collective QST.
+
+Theorem 1: In the weakly informational-complete sce-
+nario, the MSE scalings of our algorithm satisfy E||6; —
+pi||? = O(1/N) and E||62 — p2||? = O(1/N) for D-QST, and
+E||Bo — po||? = O(1/N) for L-QST.
+
+Proof:
+
+1) Error in Steps I and 2: We collect data and utilize the
+least squares method. Thus for D-QST, we have
+
+E||t— 61 @ ||
+1 a _ P= r =
+=, Tr (#") 'e"Co(o"e) |
+
+where C is a constant matrix determined by the true measure-
+ment result Y [12]. If we implement (33), we also have
+
+(53)
+
+E||f— 6; @ |? =E
+
+Xp — (4 ® 9) 9.023
+
+(54)
+Similarly for I-QST, we have
+
+1
+B|s-&26|*=0(=). (55)
+
+N
+
+2) Error in Step 3: In D-QST, we have
+
+~ ~ 1
+
+El>-piepal? Else aelP=0(5). (6)
+
+Since 6; and pz minimize || — 6; @ p2|| and using (6), we
+can obtain
+
+ee . 7 1
+BI. opal? <Elip-p.apal =0(=).
+
+(57)
+Since ae
+||P: @ Br — pi @ pol
+
+pee Pee (58)
+S16 — Bi © bo|| + [16 — P1 @ pall,
+and using (56) and (57), we have
+
+Buc H 1
+B\1@P2—pi@pr|? =0( =). (59)
+Similarly, in I-QST, we have
+~ 1
+Ellb - poe pol=0(=), (60)
+and i
+BI @P2—prapo| =0( 5). (61)
+
+3) Error in Step 4: In D-QST, given that ya, (pP1) = 1
+and D2, (61); = 1, we obtain
+||P ® P2 — pr ® pall
+> |Idiag(/1) @ 2 — diag(p1) @ po||
+
+dy
+¥ (1 )2 — (p1)ap2?
+
+i=l
+
+dy
+>|| Y ((P1 iB
+=|lbo— pall/ Vai,
+
+where the first inequality comes from
+
+(62)
+
+(px )iiPa) ||/Var
+
+||P. ® B> — pr ® po||? = |Idiag(A1) ® P» — diag(p1) ® po||”
++ ||(B1 —diag(61)) © Br — (p1 — diag(p1)) @ pall", 3)
+and the second inequality comes from the Cauchy—Schwarz
+inequality. Therefore, using and (62), we have
+
+~ x ~ 1
+E||P2 — p2||” < dE ||: ® fo — pi @ pall” =O (=) , (64)
+
+and thus
+
+7 1\ _
+E||63 — p2|| -0(x) .E
+
+Using (59), we obtain
+
+1
+
+\(B2)11 — (Pa)! =O (=)
+
+(65)
+
+2 ws i) 3 x 1
+E||(62)11P1 — (02) 11Pill” SE||~1 ® B2 — P1 ® p2||" =O (=) :
+(66)
+Without loss of generality, we assume (2)1; > 0. Since
+|(P2)i1|{11 — pall
+=| (02) 11P1 — (62)11 61 + (62)11 1 — (P2)11P | (67)
+SIIP1ll|(62)11 — (92) 111 + |] 62)1161 — (P2)11P rll,
+and using and (67), we have
+~ 1
+E |p: — pill? =O (=) (68)
+and thus E||6; —pi||? = O(1/N). Therefore, we have
+allo, —o,|2 =< E|| Ott _o(:
+Il. — pill” =E|) — 1 ols): (69)
+
+(65), we have
+
+(70)
+
+Using Lemma [3]in Appendix [A] and
+
+B|TH(@2) - 1? =0 (x).
+
+Let 5 £ Tr(6y) — 1, and since
+
+[pts -|- |" |
+— pr
+Tr(p2) Tr(p2) a)
+< |b +| p26
+~ || Te(62) Tr(p2)
+and using (64). (70). we have
+« 2
+2 -)
+E — =O|—)}. 72
+bio) OC om
+and similarly
+xt 2
+t (3)
+=~ —p2]) =O|— }. (73)
+Tr(>) N
+Since
+5 1p iy
+lb - poll =||5 | == + —* ] -P
+—pl=l5 en Tap) 4)
+1]| po 1) py
+6 — _—
+Fey | 2\\me)
+and using and (73), we have
+1
+Bip — pal? =0( =). 75)
+
+We then implement the correction algorithms i in [13] and thus
+
+E|[61 — Pill” = O1/N), E||62 — pall” = O(1/N). Using (7)
+we finally obtain
+
+1 1
+Elid.—pil?=0( 5), Bli—pl=0(5). 7)
+
+In L-QST, still holds. Since
+
+pith, 1), 1.
+= rae = Py =
+||Po 7 lS 5llb1—poll+ 512 —poll, 77)
+we obtain f
+Bib - pol? =0(=). (78)
+7
+
+Remark 5: If we adopt the quantum relative entropy
+D(-||-) as in Remark [4] and apply Lemma in Appendix
+the mean-square errors of the optimal solution satisfy E||6; —
+p1||? = O(1/N) and E||p2 — p2||? = O(1/N). Furthermore, by
+eee piped we obtain E[D((1||pi)] = O(1/N)
+and E[D(f2||p2)] = O(1/N) when p; and pz have full rank.
+Otherwise, if p; and p2 are rank-deficient, the quantum relative
+entropy may be infinite :
+
+We then propose the following theorem for generalized
+collective QDT.
+
+Theorem 2: In the weakly informational-complete sce-
+nario, the MSE scalings of our algorithm satisfy EYE, ||A —
+
+P| =O(1/N) and ELE, ||Ox— Ox||? = O (1/N) for D-QDT
+and EL}; ||P; — P|? = 0 (1/N) for 1-QDT.
+
+Proof: For D-QDT, similar to collective QST, we have
+
+z M 7 = 1
+E\|Ru —P ® O:(|° < i |(0"e) ‘ = o(=) . (79)
+Similar to (59), it follows that
+
+2 1
+BIA®Q%-AeaI=o(5), 0
+and from (79)
+s = 1
+E| Re —Riell? = EllRu— PF) @ Ox\|? = (=) (30)
+Using (80), we obtain
+we 1
+BP) — (A)wQulP = O( 5) (82)
+Since
+Lo L
+UMA) = VTA) =a
+i=1 i=1
+and
+dy
+Y (Fux — (P)i@x)|) < y (PiQe — (P)iQel|, (83)
+i=l
+it follows from that
+Bl| x — On|? = O(y) (84)
+Consequently, we also have
+B||Gj — Qx||? = O(y)- (85)
+Hence,
+e 0,405 1
+E||x — Oxl|? =E || -0,| (=) - (86)
+Similarly, we can show E||P; — P;||? = O(1/N).
+
+By applying the Stage-2 correction algorithm in [19], which
+preserves the MSE scaling, we obtain
+a 1 B = 1
+E||A-A|l? ,E . (87
+1— Pi (x): ||Qx — Qx| o(=) (87)
+Combining and yields
+“ 1 » 1
+E|A-P\?=O( —) E|O,-Q\?=0(—). (88
+1a Py o(z): ||Qx — Qx| (=) (88)
+Therefore,
+Lo 3 1 KO 5 I
+EY |A-P -o(=) LEY |]Qx—Qxlh =0(5) . (89)
+= k=l
+For I-QDT, by an argument analogous to the proof for D-
+QDT, we similarly obtain
+
+L
+EY |A-alr =0(). (90)
+
+=I N
+
+a
+
+Theorem 3: In the weakly informational-complete sce-
+
+nario, the MSE scalings of our algorithm satisfy E||X -
+Xj ||? = O(1/N) and E||X — Xs||? = O(1/N) for D-QPT and
+E||Xo — Xo||? = O(1/N) for -QPT.
+
+We omit the proof here because the proofs for D-QPT and
+I-QPT are similar to those of Theorems [I] and 2] respectively.
+
+C. Extension to n-copy (n > 3) cases
+
+It is straightforward to extend our closed-form algorithm
+to n-copy (n > 3) scenarios. For n-copy (n > 3) collective
+QST, a similar procedure can be applied. In D-QST, we first
+use the least squares method, and then solve the optimization
+problem ming,.....4, ||6 — P1 ®---® Pn||. We start by solving
+ming, p>, || — Pi ® P2n||, where Pon € CYax(n—Id and
+then proceed with ming, 6,., ||P2:n — 62 @ Ps:n||. This step-by-
+step approach allows us to obtain a closed-form solution using
+the SVD like Problem For error analysis, similar to (64).
+we have
+
+~ 1 ~ 1
+E||A1 — pill” O( 5) Blo Poll o(5): (91)
+
+Through step-by-step decoupling of the tensor product, we can
+further show
+
+a 1 .
+Blp;- pl’ =0( =). I<j<n.
+
+(92)
+
+We then implement the correction algorithms from and
+thus E||6;— pill" = O(1/N),1 <j <n. For -QST, we com-
+
+pute po = —= =i) , and similar to (78), we obtain
+
+in 1
+E||6o — poll? = O (x) .
+
+For n-copy (n > 3) generalized collective QDT and QPT,
+we also begin with the least squares method. In D-QDT and
+D-QPT, we can similarly achieve closed-form solutions using
+step-by-step SVD decomposition. As with D-QST, we can
+prove that the MSE scalings are O(1/N). For I-QDT and I-
+QPT, one solution is to first use step-by-step SVD decompo-
+sition similar to D-QDT and D-QPT for n > 3, followed by
+averaging all the estimates. Similar to I-QST, the MSE still
+scales as O(1/N).
+
+(93)
+
+IV. SUM OF SQUARES OPTIMIZATION
+
+The above closed-form solution is computationally efficient,
+but it may be suboptimal due to the relaxation introduced by
+decomposing the problem into two subproblems. To pursue an
+optimal solution that respects the original tensor structure in
+collective tomography, we propose a sum of squares (SOS)
+optimization approach in this section.
+
+Testing the polynomial nonnegativity condition
+
+PIR) = PO 4%) © 0 (94)
+
+for all x € R” is NP-hard, even when p(x) is of degree
+4. However, a more tractable sufficient condition for the
+nonnegativity of p(x) is for it to be a sum of squares (SOS)
+polynomial. This means that p(x) can be expressed as
+
+=¥ PQ)
+i=l
+
+for some polynomials f;(x). Determining whether a polyno-
+mial is a sum of squares reduces to solving a semidefinite
+program (SDP), a class of convex optimization problems for
+which efficient numerical solution methods are available. Since
+the cost function of the collective tomography problem is
+
+(95)
+a polynomial that is always non-negative, we can use SOS
+optimization to solve this problem. The problem of obtaining a
+lower bound for the global minimum of a polynomial function
+using SOS optimization is discussed in detail in [68].
+
+For collective QST, we need to consider the constraints on
+quantum states. The Hermitian and the unit trace constraints
+on quantum ers have been epeatvaly satisfied by selecting
+
+the basis {a,}4 i and fone . The positive semidefinite
+constraints of quantum states are complicated and can be
+characterized by a semi-algebraic set. These constraints have
+been extensively addressed in literature [69], [70], and we
+can use the following lemma to describe the physical set
+characterizing the parameterized vector of a quantum state,
+e.g., O.
+
+Lemma 1: ((69), (70}) Define k4(p), p = 2,--- ,d recur-
+sively by
+. 1 d
+= YC Tpke) 96)
+with Ka = kd = 1. Define the semi-algebraic set
+Ka = {0 €R® : k4(h(6)) > 0,p = 2,--- ,d}. (97)
+
+Then A(-) (defined after (72) is an isomorphism between Ky
+and Sy.
+
+Thus, we propose to solve Problem |1| by addressing the
+following optimization problem:
+
+min (—7)
+st. [Pw (61 om) Pos sos, (98)
+(%)1 = Ta’! ®)1 = va" € Ka, € Ka,
+and similarly, iat be formulated as:
+min (—Y)
+s.t. IP —@(>@e)IP—vis Sos, (99)
+(@)1 = va'™ € Kg.
+
+For collective QDT, the Hermitian constraints on {P)}4_,
+and {O.}—_ 1 have also been effectively satisfied by selecting
+
+the bases {Q,}; a and {= ye |- Furthermore, the completeness
+constraints on {P;)}!4, and Ok. , can be expressed as
+
+L
+P= la, EL =[¥a1,0,---.0),
+
+Yo Vd>,0,-++ ,0].
+
+For each POVM element P;, we can also normalize it to
+a density matrix and obtain the similar semi-algebraic set.
+Hence, P; is positive semidefinite if and only if
+
+(100)
+
+an Ete
+
+k
+
+1
+evil EKg.
+
+Therefore, we can formulate generalized collective QDT in
+Problem B] as
+
+min a
+
+Ly Pe -—&
+
+Lk=1
+
+L
+He
+
+($1 9%) ||? — 7 is SOS,
+
+0, = [Vdo,0,--- ,0],
+
+€ Ka,, — €Ka for 1<I<LA<k<K,
+Tn vaio} Jaa}
+(101)
+and Problem J] as
+min (—y)
+LL
+Y | P— © (6 @ 4) ||? 7 is SOS,
+Lk=1
+L (102)
+Y¥ = [v4,0,--- ,0],
+I=1
+1 €Ky for 1<1<L.
+vdd}
+Similarly, for collective QPT, we can also formulate it as
+min (—7)
+s.t. ||P — B(vee(X1) ® vee(X?))||” —y7 is SOS,
+Tri (X1) < Ia,, Tri (X2) < la, (103)
+Xi X
+TeX) © Mah TraGy © Kat»
+
+and for TP processes, the partial trace constraint becomes
+Try (X1) = Ja, ,Tr1 (Xz) = Ia,. For I-QPT, we just need to change
+X, and Xp to Xo.
+
+All the above constrained polynomial optimization prob-
+lems can be efficiently solved using findbound function
+in SOSTOOLS [52]. This function yields a lower bound y
+for the cost function. When findbound also returns values
+for the optimization variables (e.g., 60), it implies that the
+lower bound is attainable, and hence y corresponds to the
+global minimum of the cost function. However, in some cases,
+findbound may fail to return feasible variable values if the
+lower bound is unattainable. In such cases, the obtained lower
+bound can still serve as a reference for evaluating candidate
+estimates, allowing us to select the one closest to y. Different
+regularization matrices, as outlined in (29. can be used to
+obtain possible candidates. Nevertheless, when findbound
+function does return values for the optimization variables, it
+indicates that these values achieve the lower bound. Conse-
+quently, this lower bound represents the minimum value of
+the cost function in the original problem.
+
+Based on the effectiveness of SOS optimization, we propose
+using SOS tests with the property that, even in the weakly
+informational-incomplete scenario, SOS can also provide a
+unique optimal solution. For collective QST, after preparing
+the measurement operators, we can directly implement them
+in experiments and use the experimental data to solve the
+optimization problems given by or 9. If we obtain a
+solution, it is guaranteed to be optimal. Otherwise, additional
+measurement operators may be needed to determine a unique
+solution. As demonstrated in [44], [47], using two-copy {139)-
+and three-copy (141) collective measurement can yield
+a unique optimal solution with L = 5,9 different measurement
+operators. An interesting open problem is how to choose
+further measurement operators when a unique optimal solution
+cannot be found through SOS optimization. Addressing this
+challenge could lead to more effective strategies for selecting
+measurement operators in collective QST. A similar SOS test
+can also be applied to collective QDT and collective QPT,
+which may require fewer probe states and input states, there-
+fore being more practically feasible in experimental settings.
+
+V. EXAMPLES AND NUMERICAL RESULTS
+
+In this section, we present illustrative examples and numer-
+ical simulations to demonstrate the implementation and per-
+formance of our proposed generalized collective tomography.
+
+A. Illustrative examples
+
+In this subsection, we consider several illustrative exam-
+ples to demonstrate the implementation of our generalized
+collective tomography method. We begin by employing prior
+information indicating that the unknown state is pure for
+QST, a useful property in quantum technologies, simplifying
+the constraints in SOS optimization. Similarly, we consider
+that the POVM elements are projective in QDT. Finally,
+we consider the problems of collective Hamiltonian/unitary
+tomography.
+
+1) Pure state and projective measurement tomography:
+Pure states are important quantum resources and widely ap-
+plied in experiments. Thus, we may assume prior knowledge
+that the unknown states p; = |w;)(w;| (i= 1,2) are pure states.
+Using (2), we have
+
+vec(|Wi) (Wil) =|wi)* ® |wi), i= 1,2. (104)
+
+Using {104} and Lemma P2]in Appendix [A] we have
+
+vec(p1 ® p2) = (la, @ Kandy ® Iu) (vec(p1) @ vec(p2))
+= (la, ® Kaya ® Lay) (\Wa)* ® |W) ® |W2)* ® |Yo)). 1)
+Therefore, we have
+
+Pi = Tr(Pi(p1 ® p2))
+= (vec(F)))* vec(p1 ® pa)
+= (vee(P))* (La, @ Kaya; @ lay) (\Wi)* @|Wi) @ |o)* @ vay.
+Denote v; = (la, @ Kaa, @la)” vec(P;)* and Y = [v1,02,:--,
+wl. Hence, Problem|1} becomes as follows:
+Problem 6: Given the matrix Y and experimental data Y,
+solve
+
+min ||? —Y(|y1)* @|y1) @|y2)* ® Lye) II?
+Iva). Y2)
+where |y,) € C4", |yo) € C® are unit vectors.
+
+To solve this problem with a closed-form solution, we
+can first implement Algorithm [1] in Sec. and ob-
+tain 6; and 6). Assuming the spectral decomposition 6; =
+
+0; diag(A,,--- Aa, OF where A, >
+of the input pure state is
+
+“> hay , the final estimate
+
+/{ =O; diag(1,0,--- 0). (107)
+
+Similarly, we can obtain the final estimate 65 and prove that
+the final MSE scalings of the quantum states are still O(1/N).
+Although the algorithm is still closed-form and can achieve
+O(1/N) MSE scaling, it does not utilize the pure state prior
+information and only satisfies the pure constraint by correction.
+Alternatively, we can also formulate it as an SOS problem
+
+min (—7)
+s.t. ||? —Y(|yi)* @|y1) @|Y2)* @|y2)) ||? — 7 is SOS,
+Ivi) €C%, Jy) €C®, |I|Yi) | = lye) ll = 1,
+(108)
+
+which utilizes the pure state prior information in the cost
+function and thus does not need to consider the unit trace
+and positive semidefinite constraint anymore.
+ror collective QDT in Problem} [3] if the POVM is projective,
+= |0))(@|, we can correct the eigenvalues of {PF}
+as 0 and the MSE still scales as O(1/N). We can also
+formulate it as an SOS optimization, where the cost function
+becomes
+
+y \|[¥x-O
+
+Vel
+\Il¢)|| = Ile) | =LVISISLAUSKSK,
+
+z K
+Y lor) (1] = Lars YE 19k) (Gk! = te
+I=1 k=1
+
+(|91)* ® |61) ® |x)* ®|gx)) |? — 7 is SOS,
+
+(109)
+Hence we do not need to consider the positive semidefinite
+constraint on POVM elements anymore.
+
+2) Unitary/Hamiltonian tomography: If the unknown quan-
+tum process €, is unitary driven by the Hamiltonian H, we
+have X, = vec(G,) vec(G,)*, where G, is a unitary operator
+[24]. Thus, using 2), we have
+
+vec(X;) = vec(G1)* ® vec(G1). (110)
+
+Since rank(X;) = 1, we can apply a similar procedure to that
+for the pure state case by correcting the eigenvalues of X1.
+After this correction, it is not difficult to prove that the MSE
+scaling E||G, — G,||? is still O(1/N). Using the Hamiltonian
+reconstructing algorithm in [24], the MSE scaling of the
+Hamiltonian E||A — Aj ||* is still O(1/N).
+
+Using the SOS optimization, for D-QPT, we have
+
+min (—7)
+s.t. ||? — B(vec(G1)* ® vec(G1)
+® vec(G2)* ® vec(Gy ))IP —y is SOS, eae
+GG) =I1,,G2G) = Ia,
+and, for I-QPT, we have
+min (—7)
+s.t. ||” — B(vec(Go)* ® vec(Go) —
+
+® vec(Go)* ® vec(Go ))IP —y is SOS,
+GoG), = Ia.
+45
+O CF,p,
+O SOS, pi
+5 * CF, pz
+A SOS, pr
+55
+@
+=
+&
+2 6
+65
+7
+5 55 6 65 7 75
+
+Log of number of state copies, logioN
+
+Fig. 7. Log-log plot of MSE versus the total number of state copies N for
+D-QST using the closed-form (CF) solution and SOS optimization with MUB
+measurements (137.
+
+3.5
+1 One-copy, po
+A, Two-copy, po
+4 © Three—copy, po
+45
+a
+g
+a5
+&
+BS}
+55
+6
+6.5
+4 45 5 5.5 6 6.5
+
+Log of number of state copies, logioN
+
+Fig. 8. Log-log plot of MSE versus the total number of state copies N
+for individual SIC-POVM (1 two-copy collective POVM (1
+three-copy collective POVM using SOS optimization in
+
+After obtaining G; and Gp, or Go, we can also reconstruct the
+Hamiltonian H; and H>, or Ho, using the algorithm in 3
+
+B. Numerical results
+
+In this subsection, we present three numerical examples:
+two-copy and three-copy collective QST, two-copy collective
+QDT, and two-copy collective phase damping process tomog-
+raphy. The simulations were conducted on a laptop with an
+Intel i9-13980HX processor and 64 GB of DDRS memory.
+For each data point in the figures shown in this section, we
+repeated our algorithm 100 times and computed the mean to
+obtain the MSE and error bars. The random unitary matrices
+and random probe states used in these simulations were
+generated using the algorithms in [71], [72].
+
+1) Two-copy and three-copy collective QST: For D-QST,
+let the unknown initial quantum states be
+
+p =U diag(0.9,0.1)Uf,
+
+: (113)
+po =Urdiag(0.8,0.2)U,
+
+where U, and U) are randomly generated unitary matrices that
+are subsequently fixed throughout the process. For this one-
+qubit example of SOS optimization, 61,02 € K are equivalent
+to Y}5(01)? < 5, Li-o(@)? < 4 because of the Bloch sphere
+representation [69], (70). Thus, the SOS optimization can be
+reformulated as
+
+min (—7)
+s.t. ||P — & (0; @ @) ||? — y is SOS,
+
+(91): = (@)1=—, (114)
+
+i=2 i=2
+
+We utilize mutually unbiased basis (MUB) measurements as
+defined in (37 for this case, and the results are presented
+in Fig. fl The MSE scalings of both the closed-form (CF)
+solution and the SOS optimization are O(1/N), which is
+consistent with Theorem [I] Additionally, the MSEs of the CF
+solution are slightly smaller than those of the SOS optimiza-
+tion. This occurs because minimizing the cost function does
+not necessarily minimize the MSE of the parameters.
+
+For I-QST, let the unknown state be
+
+po = Udiag(1,0)Ut (115)
+
+which is a pure state and U is a randomly generated matrix
+and then fixed in the simulation. We then implement the
+individual symmetric, informationally complete POVM (SIC-
+POVM) {138}, the two-copy collective POVM
+and the three-copy collective POVM (I41), as detailed in
+Appendix B} To ensure that the total number of resources
+is consistent across the different POVM implementations, we
+set No a shared value among these different schemes while
+N = 6M) for individual SIC-POVM, N = 3No for the two-copy
+collective POVM and N = 2Np for the three-copy collective
+POVM. In this simulation, findbound can always output
+values of the optimization variable 0 and thus the lower bound
+y is the minimum value of the cost function.
+
+The results obtained via SOS optimization are shown in
+Fig. [8] where all MSE scalings follow O(1/N) and the per-
+formance differences remain minor. The three-copy collective
+POVM exhibits MSE behavior comparable to that of the two-
+copy counterpart, indicating that in practical scenarios the two-
+copy implementation may already suffice, providing a simpler
+alternative while still achieving lower MSE. In contrast, the
+experimental results in Ref. demonstrate that the three-
+copy collective measurement can attain a higher fidelity.
+
+2) Two-copy collective QDT: Here we focus on I-QDT for
+collective QDT, where we consider a three-valued detector
+(L = 3) defined as
+
+P, =U; diag (0.4,0.1) Uj,
+P> = Up diag (0.5,0.1)U3,
+P3=I-P,—P,>0,
+
+(116)
+
+where U; and U2 are randomly generated unitary matrices
+and then fixed in the simulation. For this one-qubit example
+using SOS optimization, the condition @; € K is equivalent to
+3.5
+
+CF, Py
+SOS, P;
+CF, P2
+SOS, Po
+CF, P3
+SOS, Ps
+
+Apbxoc
+
+45
+
+logo MSE
+b
+
+5.5
+
+55 6 65 7 75 8
+Log of number of state copies, logigN
+
+Fig. 9. Log-log plot of MSE versus the total number of state copies N for I-
+QDT using the closed-form (CF) solution and SOS optimization with M = 20
+random probe states.
+
+-05
+A
+1.5
+ee
+3
+=
+2
+2 25
+2 —— CF—Regu., P;
+oO SOS,P;
+3 —*— CF —Regu., P2
+A SOS,P2
+35 —4_ CF—Regu., P3
+: vy SOS, P3
+4 1 1 : 1 1
+3.5 4 45 5 55 6 65
+
+Log of number of state copies, logiyN
+
+Fig. 10. Log-log plot of MSE versus the total number of state copies NV
+for I-QDT using the closed-form solution with regularization (CF-Regu.) and
+SOS optimization with M = 4 random probe states.
+
+Yt ($1)? < 1. Thus, the SOS optimization problem can be
+formulated as
+
+min (—7)
+44
+st. Y° ||Px—©($1@ $x) |? — 7 is SOS,
+Lk=1
+3 117
+¥ 6 =[v2.0.0.0), a”
+
+(@))7 <1 for 1<1<3.
+
+We randomly generate M = 20 different probe states that
+are weakly informational-complete and M = 4 different probe
+states that are weakly informational-incomplete, and then
+fix them in the simulation. For a closed-form solution, we
+add regularization D = 107 in the weakly informational-
+incomplete scenario.
+
+TABLE II
+TIME CONSUMPTION IN COLLECTIVE QDT USING THE CLOSED-FORM
+SOLUTION IN SECTION[ITI]JAND SOS OPTIMIZATION IN {IT7}.
+
+The setting The closed-form solution SOS
+M=20 0.226 sec 4527.843 sec
+M=4 0.295 sec 4423.916 sec
+
+The results are presented in Figs. [9] and [10] In Fig. [9
+all MSE scalings follow O(1/N), which is consistent with
+Theorem |2} In the weakly informational-incomplete scenario
+shown in Fig. |10| the MSE of SOS optimization still scales
+as O(1/N), even when using only four random probe states.
+For the closed-form solution with regularization, the MSE
+decreases for N < 10°, and it is smaller than that of the SOS
+optimization when N < 10*. However, as N increases, the
+MSE remains nearly constant. This behavior arises because,
+for N > 10° in the weakly informational-incomplete scenario,
+the estimates Rj in ) deviate from the true values, which
+impedes the convergence, as similarly proved in [33].
+
+Table[[jillustrates the consumption time for both the closed-
+form solution and SOS optimization corresponding to Figs. 9
+and [10] The closed-form solution shows significantly lower
+time consumption compared to SOS optimization. While the
+closed-form solution is faster, it often sacrifices accuracy.
+In contrast, SOS optimization offers higher accuracy but
+requires considerably more computational time. Thus, there
+is a trade-off between accuracy and consumption time for
+these two algorithms. Additionally, the closed-form solution
+necessitates a large number of distinct probe states to ensure
+weak informational completeness. However, SOS optimization
+can achieve high accuracy with a significantly reduced number
+of probe states.
+
+Moreover, probing with the last eight MUB states from the
+MUB basis of (137. we compare our results against theoretical
+precision bounds for QDT proposed in [73]. These theoretical
+bounds, stemming from the Cramér-Rao theorem, leverage
+quantum-statistical principles to lower-bound the minimum
+MSE achievable in unbiased detector estimation. The classical
+Cramér-Rao bound captures the minimum MSE for given
+probe states, whereas the quantum Cramér-Rao bound captures
+the minimum MSE for the optimal probe states. The result of
+our comparison is shown in Fig Our SOS solution is close
+to the classical Cramér-Rao bound, given by
+
+log 9 MSE = 1.1978 — logi)N.
+
+Interestingly, the SOS solution is observed to be even lower
+than the classical bound. This effect may be attributed to bias
+in the estimates using our algorithms, which can lead to a
+lower MSE. In contrast, there remains a gap between our
+results and the quantum Cramér-Rao bound, given by
+
+log;9 MSE = 0.4669 — log) N.
+
+However, it remains an open question as to whether the
+quantum bound, which was proven tight for phase-insensitive
+measurements, is attainable in this case [73].
+1.5
+G-----@--~-~- © -----@ -----@----- e
+2
+“25
+3
+a
+Bas
+%
+45 . ns
+~O--CF—Regu. . Si
+5
+a sos ae SS
+— — Classical bound ~ wl
+5571 _ Quantum bound aw
+.
+6 -
+4 45 5 55 6 65
+Log of number of state copies, logigN
+Fig. 11. Log-log plot of MSE versus the total number of state copies N,
+
+comparing the closed-form algorithm with regularization (CF-Regu.), the
+SOS optimization method, and the classical and quantum detector bounds
+from
+
+3) Two-copy collective bit-phase flip process tomography:
+For collective QPT, we consider the bit-phase flip process
+which is TP. The corresponding Kraus operators are given by
+
+A= vp| ; |: A= yT=p| ° 0 |: (118)
+where | — p denotes the probability that the qubit undergoes
+a bit-phase flip error [3].
+
+For D-QPT, we set pi = 0.8 for the process €; and p2 = 0.7
+for the process €, and construct the corresponding process
+matrices X;, X2. We input 16 randomly generated and then
+fixed different quantum states and the measurement is MUB
+in (137). In the closed-form solution, we first reconstruct the
+full process matrix X and decouple it to give X; and X,
+from which we determine the optimal flipping probabilities
+P and pz. Subsequently, we reconstruct the estimated process
+matrices xX and X using p; and >. In contrast, the SOS
+optimization method directly identifies the probability param-
+eters p; and pp. The results, presented in Fig. [I] show that
+the MSE scalings are O(1/N), in agreement with Theorem
+Additionally, the MSE of the SOS optimization is significantly
+smaller than that of the closed-form solution. This is because
+the closed-form solution does not fully leverage the structural
+properties of the process matrix in the optimization.
+
+For I-QPT, we set p = 0.8 and construct the corresponding
+process matrix Xo. In this case, we input only one random
+state. Under the same conditions as D-QPT, the results are
+presented in Fig. The MSE scaling for SOS optimization
+remains O(1/N), while the MSE of the closed-form solution
+with regularization does not change when N > 103°. Results
+indicate that SOS optimization is particularly suitable for
+problems with structural properties and a smaller number of
+unknown parameters.
+
+VI. EXPERIMENTAL RESULTS
+
+Here we validate the proposed algorithms using experimen-
+tal data from [44], which implemented a two-copy collective
+
+logi»MSE
+o
+
+CF,X
+SOS, Xi
+CF, X,
+
+SOS, Xp
+
+Pxo0
+
+45 5 5.5 6 65
+Log of number of state copies, logigN
+
+Fig. 12. Log-log plot of MSE versus the total number of state copies N
+for D-QPT using the closed-form (CF) solution and SOS optimization, with
+M = 16 random probe states and MUB measurements.
+
+oe —_e—=—3 ro =)
+0
+-0.5
+, —G— CF—Regu., Xo
+ao SOS, Xo
+% 1.5
+86
+2.2
+“2.5
+3
+-3.5
+ri 1 1 H 1 H
+2 25 3 35 4 45
+Log of number of state copies, logioN
+Fig. 13. Log-log plot of MSE versus the total number of state copies N
+
+for I-QPT using the closed-form solution with regularization (CF-Regu.)
+and SOS optimization, with only M = 1 random probe state and MUB
+measurements is
+
+measurement in QST via photonic quantum walks. The two
+copies are the same, which is our I-QST case and was
+also demonstrated in [45]. The special two-copy collective
+measurement was proposed in [39], [44] and there are five
+POVM elements as presented in (139) and (140) in Appendix
+
+m 1 fl ry Oy
+For a qubit state p = 3h 4 a | 03% 4 ' 04%, th
+corresponding measurement result of pe ) can be calculated
+as 4
+2) 6 1 7
+5 = Tr( PL) p®) = - y=. (119)
+4 2
+
+The purity of p is Tr(p?) = 3 +¥4, 6? and thus 1—2/s5 can
+be directly recognized as an estimate of Tr(p). Using col-
+lective measurement, the measurement data | — 25 provides
+a direct estimate of purity, while for individual tomography
+of a qubit, the purity cannot be directly estimated from the
+measurement data. In fact, with individual measurements,
+a CF, purity
+
+© SOS, purity
+
+© Algorithm in [44]
+= —Collective bound
+
+“2.2
+
+logig MSE
+
+“2.4
+
+-2.6
+
+-2.8
+
+2 22 24 26 28 3 3.2 34
+Log of number of state copies, logiyN
+
+Fig. 14. [45] Log-log plot of MSE versus the total number of state copies N
+based on the experimental data from [44]. We compare the performance of
+the modified closed-form (CF) solution, SOS optimization, and the algorithm
+proposed in all implemented with two-copy collective measurements as
+
+described in and .
+
+we can only obtain linear information about the unknown
+parameters. This is because the measurement data can always
+be expressed as 6 = Tr(P;p) = yh 1 9;9;. In contrast, collective
+measurements allow us to obtain nonlinear information about
+the unknown parameters [53], as the purity of the qubit
+illustrated in (119) [54]. This analysis highlights the significant
+role of entanglement in enhancing the efficiency of quantum
+tomography.
+
+Based on this collective measurement, we modify our
+closed-form solution and SOS optimization. Using POVM
+elements pe?) for 1<1<4, we have
+
+r= Te (3 (ivi) wd) = 2 (vila)?
+
+Therefore, using measurement data {f;}/_, and LRE , we
+obtain a unique estimate, expressed as p. Let
+
+(120)
+
+~ 1 ~ Oy  ~ Oy ~ Oz
+=h-4 + 03 = + 04.
+p=ah 5 sig t As
+We aim to determine
+- 1 a Ox ~ Oy ~ Oz
+=h+6 + 03 —= + 04 =
+p 3? "a a pl
+
+by solving the optimization problem:
+
+min {|p —A||? 6; — 6;
+6,63, il ! -¥/6 i (121)
+s.t. Le = 5- 2s
+
+Using the Lagrange multiplier method, the optimal solution is
+
+5 z= 20s,
+
+(122)
+
+Since Tr(p*) = 1 —2fs5 < 1, f satisfies the positive semidef-
+initeness constraint, ensuring that the final estimate 6 is
+physical.
+
+We then show that E||6 — p||? =
+have
+
+O(1/N). Using LRE, we
+
+EIp-pl?=0(=).
+rr-o(t).
+
+O(1/N), combining this with
+
+(125)
+
+(123)
+which implies
+E|Tr(p? (124)
+
+Since E|1 —2f5 — Tr(p?)|? =
+(124), we have
+
+E|1 —2/s —Tr(?)| * =e} 2ps— oP
+sl
+
+2p
+Let z= a =1+1 and thus Ejr|? = O(1/N). We then have
+Li-2 8;
+E|6; — 6;|? = E| V1 +1 — 1/7|6,|?
+“? 1 126
+welt ap =0 o(g).2<i<4 camel
+and thus
+Bk a 1
+BIp-pI?=E}: 16-4 =0 (=). (127)
+i=2
+Finally, combining this with (123), we obtain
+1
+E||p-pl? =O(—). 128
+i -pl?=0(<) (128)
+
+Using purity information, the SOS optimization problem can
+be modified as:
+
+min (—7)
+s.t. i ae in —r is SOS,
+
+= be-
+
+In the experiment described in , the unknown quantum
+state is
+
+(129)
+5 ~ 2s.
+
+by 4 5+ 1 o,
+
+j= Ft ic (130)
+Collective measurements as defined in and were
+performed on two-copy states, and the eet was re-
+peated 100 times for each given number of copies. The total
+numbers of copies considered are N = 128,256,512, 1024,
+and 2048. When collective measurements on two identical
+qubits are allowed, the achievable precision is constrained by
+a collective bound. The lower bound for the MSE was given
+
+in [42], [44] as
+
+5\ 2
+GV) csc SS,
+: (131)
+s(1+s)(3—s) 3+4V3
+Gs tW ARE <s<l,
+
+where s = /2y3, 2.
+Ref. [44] proposed a modified accelerated projected-
+
+gradient algorithm for state reconstruction. In contrast, we em-
+ployed our modified closed-form solution together with SOS
+optimization techniques. The results, shown in Fig.[14] demon-
+strate that both methods outperform the algorithm of [44],
+with MSE scalings approximately O(1/N). Furthermore, our
+approaches closely follow the collective bound (131). under-
+scoring their effectiveness for quantum state reconstruction.
+
+VII. CONCLUSION
+
+In this paper, we extended collective quantum state tomog-
+raphy to a generalized collective framework encompassing
+quantum state, detector, and process tomography. These tasks
+were formulated as optimization problems, and we developed a
+closed-form algorithm with explicit computational complexity
+and MSE scalings. In addition, we reformulated the problems
+as SOS optimization with semi-algebraic constraints, which,
+except for the D-QST case, achieve higher accuracy at the cost
+of increased computation time. We also investigated several
+illustrative examples, including pure quantum states, projective
+measurements, and unitary processes.
+
+The proposed methods were validated through numerical
+simulations and further tested using experimental data, where
+collective measurements provided additional purity informa-
+tion about the state. Compared to previous algorithms, our
+methods can achieve lower MSEs and approach the collective
+MSE bound. Future work will study the adaptivity of the col-
+lective tomography algorithms and extend their applicability
+to larger-scale and more complex quantum systems.
+
+APPENDIX A
+SEVERAL LEMMAS
+
+Lemma 2: (Theorem 10 on Page 55 of [74]]) Let A be an
+m Xn matrix and B a p x q matrix, then
+
+vec(A @B) = (In ® Kam @ Ip) (vec(A) @ vec(B)), (132)
+
+where Kym is a commutation matrix such that Kym vec(O) =
+vec(O") and O is a q Xm matrix.
+
+Lemma 3: ({75}, Theorem 8.1) Let X, Y be Hermitian
+matrices with eigenvalues A; (X) > --- > A,(X) and Ai (Y) >
++++ >A,(Y), respectively. Then
+
+max |Aj(X) —Aj(¥)| < |X —Y|]. (133)
+
+Lemma 4: [76] Let Hy and Hy be finite-dimensional
+Hilbert spaces of dimensions d, and dg, respectively, and let
+X € H, ® Hg. Then for any unitarily invariant norm that is
+multiplicative over tensor products, the partial trace satisfies
+the norm inequality
+
+da
+(Z|
+
+where J, is the identity operator.
+Lemma 5 (Theorem 2 in [77]): For states p and o with
+
+I[Tra(X)|] < II (134)
+
+A=p-—o,T =||A|| and B = Anin(o), we have
+T2
+D(p|lo) < B. (135)
+
+where D(p||o) = Tr (p (log p — log o))) is the quantum relative
+entropy.
+
+APPENDIX B
+MUB AND COLLECTIVE MEASUREMENTS
+For d = 4, five MUB measurement sets are
+
+vit {a} v8) {Ive ve lve)
+
+(136)
+
+ion
+
+{| War) } = {]00),|01), |10),|11)},
+{| Vn) } = {IR£), Lt) },
+{|¥n)
+{|¥r)
+
+} = {|£R).|£L)},
+
+1 . 1 :
+} { SiO) iL), Siet) i) },
+
+{lw} = { (ime) iize)), (ine) iize))}, 37
+
+where |) = (10) +|1))/-v2, |R) = (0) —il1))/V2, and |L) =
+(10) +il1))/V2 in the natural basis. In this paper, we call py, =
+MUB
+
+Lyn”) Cy) a MUB state and Py = |yn™””)) (ya? |
+
+a MUB measurement operator.
+For one-qubit system, the SIC-POVM are
+
+vi) =|0),
+Iva) = Fy (l0) + V3),
+
+2ai (138)
+Iv) = Fy (l0) +eF v211)),
+ly) = (0) +e-*F V1).
+
+ol
+
+3
+
+where the corresponding POVMs are pl) =|Wi) (Wil, <l<
+4. Geometrically, the Bloch vectors of |y)) form a regular
+tetrahedron inside the Bloch sphere, and |(y;|y)|? = (26+
+
+For two-copy collective QST, a special two-copy collective
+measurement was proposed in [39], [44] and there are five
+POVM elements
+
+3 ,
+PO =F (Imi) 1<t<4 (139)
+
+and
+(2) 1
+PO) =P )CF-|, NE) = (101) —[10)),
+where Y?_, P=. Therefore, the POVM elements (P74,
+
+are all product measurements, while only pe?)
+
+which is maximally entangled.
+
+For three-copy collective QST, a special three-copy collec-
+tive measurement was proposed in and there are seven
+POVM elements
+
+(140)
+
+is the singlet,
+
+> 6
+PP) = Fle). = 1-6, PP =1- PR, a)
+l=1
+
+where
+|i) = 10), |2) = |1),
+
+1 1
+|e») = Z5(10)+11)), |e) = 5000-11), ga
+ro) G5 (I0) +i), F(l0) it).
+These six vectors form a regular octahedron when represented
+on the Bloch sphere. Therefore, the POVM elements {PP }6_
+
+are all product measurements, while only P;
+
+(3) is the entangled
+
+measurement.
+
+20)
+
+21
+
+22,
+
+23
+
+24.
+
+REFERENCES
+
+D. Burgarth and K. Yuasa, “Quantum system identification,” Physical
+Review Letters, vol. 108, p. 080502, 2012.
+
+M. Guta and N. Yamamoto, “System identification for passive linear
+quantum systems,” JEEE Transactions on Automatic Control, vol. 61,
+no. 4, pp. 921-936, 2016.
+
+M. A. Nielsen and I. L. Chuang, Quantum Computation and Quantum
+Information. Cambridge University Press, 2010.
+
+D. Dong and I. R. Petersen, “Quantum estimation, control and learning:
+Opportunities and challenges,’ Annual Reviews in Control, vol. 54,
+pp. 243-251, 2022.
+
+D. Dong and I. R. Petersen, “Quantum control theory and applications:
+a survey,” JET Control Theory & Applications, vol. 4, no. 12, pp. 2651—
+2671, 2010.
+
+H. M. Wiseman and G. J. Milburn, Quantum Measurement and Control.
+Cambridge University Press, 2009.
+
+P. Rouchon, “A tutorial introduction to quantum stochastic master
+equations based on the qubit/photon system,” Annual Reviews in Control,
+vol. 54, pp. 252-261, 2022.
+
+C. L. Degen, F. Reinhard, and P. Cappellaro, “Quantum sensing,”
+Reviews of Modern Physics, vol. 89, p. 035002, 2017.
+
+D. Dong and I. R. Petersen, Learning and Robust Control in Quantum
+Technology. Springer Nature Switzerland AG, 2023.
+
+J. Zhang, Y.-X. Liu, R.-B. Wu, K. Jacobs, and F. Nori, “Quantum
+feedback: Theory, experiments, and applications,’ Physics Reports,
+vol. 679, pp. 1-60, 2017.
+
+Z. Hradil, “Quantum-state estimation,’ Physical Review A, vol. 55,
+pp. R1561-R1564, 1997.
+
+B. Qi, Z. Hou, L. Li, D. Dong, G.-Y. Xiang, and G.-C. Guo, “Quantum
+state tomography via linear regression estimation,” Scientific Reports,
+vol. 3, p. 3496, 2013.
+
+J. A. Smolin, J. M. Gambetta, and G. Smith, “Efficient method for com-
+puting the maximum-likelihood quantum state from measurements with
+additive Gaussian noise,” Physical Review Letters, vol. 108, p. 070502,
+2012.
+
+M. Zorzi, F. Ticozzi, and A. Ferrante, “Minimum relative entropy for
+quantum estimation: Feasibility and general solution,” IEEE Transac-
+tions on Information Theory, vol. 60, no. 1, pp. 357-367, 2014.
+
+M. Berta, J. M. Renes, and M. M. Wilde, “Identifying the information
+gain of a quantum measurement,” JEEE Transactions on Information
+Theory, vol. 60, no. 12, pp. 7987-8006, 2014.
+
+S. Grandi, A. Zavatta, M. Bellini, and M. G. A. Paris, “Experimental
+quantum tomography of a homodyne detector,’ New Journal of Physics,
+vol. 19, no. 5, p. 053015, 2017.
+
+J. FiuraSek, “Maximum-likelihood estimation of quantum measurement,”
+Physical Review A, vol. 64, p. 024102, 2001.
+
+J. S. Lundeen, A. Feito, H. Coldenstrodt-Ronge, K. L. Pregnell, C. Sil-
+berhorn, T. C. Ralph, J. Eisert, M. B. Plenio, and I. A. Walmsley,
+“Tomography of quantum detectors,” Nature Physics, vol. 5, no. 1,
+pp. 27-30, 2009.
+
+YY. Wang, S. Yokoyama, D. Dong, I. R. Petersen, E. H. Huntington, and
+H. Yonezawa, “Two-stage estimation for quantum detector tomography:
+Error analysis, numerical and experimental results,” JEEE Transactions
+on Information Theory, vol. 67, no. 4, pp. 2293-2307, 2021.
+
+M. Mohseni, A. T. Rezakhani, and D. A. Lidar, “Quantum-process
+tomography: Resource analysis of different strategies,” Physical Review
+A, vol. 77, p. 032322, 2008.
+
+T. Surawy-Stepney, J. Kahn, R. Kueng, and M. Guta, “Projected least-
+squares quantum process tomography,” Quantum, vol. 6, p. 844, 2022.
+S. Xiao, Y. Wang, J. Zhang, D. Dong, G. J. Mooney, I. R. Petersen, and
+H. Yonezawa, “A two-stage solution to quantum process tomography:
+Error analysis and optimal design,’ JEEE Transactions on Information
+Theory, vol. 71, no. 3, pp. 1803-1823, 2025.
+
+I. Bongioanni, L. Sansoni, F. Sciarrino, G. Vallone, and P. Mataloni,
+“Experimental quantum process tomography of non-trace-preserving
+maps,” Physical Review A, vol. 82, p. 042307, 2010.
+
+YY. Wang, D. Dong, B. Qi, J. Zhang, I. R. Petersen, and H. Yonezawa,
+“A quantum Hamiltonian identification algorithm: Computational com-
+plexity and error analysis,’ JEEE Transactions on Automatic Control,
+vol. 63, no. 5, pp. 1388-1403, 2018.
+
+25
+
+27
+
+28
+
+29
+
+30)
+
+31
+
+32
+
+34)
+
+55.
+
+36
+
+37
+
+40
+
+41
+
+42
+
+43
+
+44
+
+45
+
+46
+
+47
+
+48
+
+K. Chen, Q. Wang, P. Long, and M. Ying, “Unitarity estimation for
+quantum channels,” JEEE Transactions on Information Theory, vol. 69,
+no. 8, pp. 5116-5134, 2023.
+
+S. Xiao, Y. Wang, J. Zhang, D. Dong, and H. Yonezawa, “Quantum
+state and detector tomography with known rank,” [FAC-PapersOnLine,
+vol. 56, no. 2, pp. 5881-5887, 2023.
+
+D. Gross, Y.-K. Liu, S. T. Flammia, S. Becker, and J. Eisert, “Quantum
+state tomography via compressed sensing,” Physical Review Letters,
+vol. 105, p. 150401, 2010.
+
+S. T. Flammia, D. Gross, Y.-K. Liu, and J. Eisert, “Quantum tomography
+via compressed sensing: error bounds, sample complexity and efficient
+estimators,” New Journal of Physics, vol. 14, p. 095022, sep 2012.
+
+B. Mu, H. Qi, I. R. Petersen, and G. Shi, “Quantum tomography by
+regularized linear regressions,” Automatica, vol. 114, p. 108837, 2020.
+S. Aaronson, “Shadow tomography of quantum states,” in Proceedings
+of the 50th Annual ACM SIGACT Symposium on Theory of Computing,
+STOC 2018, p. 325-338, 2018.
+
+H.-Y. Huang, R. Kueng, and J. Preskill, “Predicting many properties of a
+quantum system from very few measurements,” Nature Physics, vol. 16,
+no. 10, pp. 1050-1057, 2020.
+
+S. Xiao, Y. Wang, D. Dong, and J. Zhang, “Optimal and two-step adap-
+tive quantum detector tomography,” Automatica, vol. 141, p. 110296,
+2022.
+
+S. Xiao, Y. Wang, J. Zhang, D. Dong, S. Yokoyama, I. R. Petersen,
+and H. Yonezawa, “On the regularization and optimization in quantum
+detector tomography,” Automatica, vol. 155, p. 111124, 2023.
+
+J. FiuréSek and Z. Hradil, “Maximum-likelihood estimation of quantum
+processes,” Physical Review A, vol. 63, p. 020101, 2001.
+
+S. Xiao, Y. Wang, D. Dong, and J. Zhang, “Two-stage solution of
+quantum process tomography in the natural basis,” in 2022 IEEE 61st
+Conference on Decision and Control (CDC), pp. 5807-5812, 2022.
+
+J. B. Altepeter, D. Branning, E. Jeffrey, T. C. Wei, P. G. Kwiat,
+R. T. Thew, J. L. O’Brien, M. A. Nielsen, and A. G. White, “Ancilla-
+assisted quantum process tomography,” Physical Review Letters, vol. 90,
+p. 193601, 2003.
+
+S. Xiao, Y. Wang, D. Dong, and J. Zhang, “Two-stage solution for
+ancilla-assisted quantum process tomography: Error analysis and optimal
+design,” in the Proceeding of the 62nd IEEE Conference on Decision
+and Control (CDC), pp. 7178-7183, 2023.
+
+M. Mohseni and D. A. Lidar, “Direct characterization of quantum
+dynamics,” Physical Review Letters, vol. 97, p. 170501, 2006.
+
+H. Zhu and M. Hayashi, “Universally fisher-symmetric informationally
+complete measurements,” Physical Review Letters, vol. 120, p. 030404,
+2018.
+
+J. Haah, A. W. Harrow, Z. Ji, X. Wu, and N. Yu, “Sample-optimal
+tomography of quantum states,” JEEE Transactions on Information
+Theory, vol. 63, no. 9, pp. 5628-5641, 2017.
+
+E. Bagan, M. A. Ballester, R. D. Gill, R. Muiioz Tapia, and O. Romero-
+Isart, “Separable measurement estimation of density matrices and its
+fidelity gap with collective protocols,’ Physical Review Letters, vol. 97,
+p. 130501, 2006.
+
+H. Zhu, Quantum State Estimation and Symmetric Informationally
+Complete POMs. PhD thesis, National University of Singapore, 2012.
+A. Das, L. O. Conlon, J. Suzuki, S. K. Yung, P. K. Lam, and S. M. Assad,
+“Holevo Cramér-Rao bound: How close can we get without entangling
+measurements?,” Quantum, vol. 9, p. 1867, 2025.
+
+Z. Hou, J.-F. Tang, J. Shang, H. Zhu, J. Li, Y. Yuan, K.-D. Wu, G.-Y.
+Xiang, C.-F. Li, and G.-C. Guo, “Deterministic realization of collective
+measurements via photonic quantum walks,” Nature Communications,
+vol. 9, no. 1, p. 1414, 2018.
+
+S. Xiao, Y. Wang, Z. Hou, G.-Y. Xiang, I. R. Petersen, and D. Dong,
+“Collective quantum state tomography: Closed-form and numerical
+solutions, and validation,” in the Proceeding of the IEEE International
+Conference on Quantum Control, Computing and Learning, pp. 124—
+131, 2025.
+
+C. Yi, K. Zhou, Z. Hou, G.-Y. Xiang, and H. Zhu, “Optimal estimation of
+three parallel spins with genuine and restricted collective measurements,”
+Physical Review A, vol. 111, p. 062409, 2025.
+
+K. Zhou, C. Yi, W.-Z. Yan, Z. Hou, H. Zhu, G.-Y. Xiang, C.-F.
+Li, and G.-C. Guo, “Experimental realization of genuine three-copy
+collective measurements for optimal information extraction,” Physical
+Review Letters, vol. 134, p. 210201, 2025.
+
+L. O. Conlon, T. Vogl, C. D. Marciniak, I. Pogorelov, S. K. Yung,
+F. Eilenberger, D. W. Berry, F. S. Santana, R. Blatt, T. Monz, P. K. Lam,
+and S. M. Assad, “Approaching optimal entangling collective measure-
+ments on quantum computing platforms,” Nature Physics, vol. 19, no. 3,
+pp. 351-357, 2023.
+
+49
+
+50)
+
+SI
+
+52,
+
+$3
+
+54)
+
+55
+
+56
+
+‘ST.
+
+58
+
+‘59.
+
+60)
+
+61
+
+62
+
+63
+
+65
+
+66.
+
+67
+
+68
+
+69)
+
+70)
+
+71
+
+72,
+
+73
+
+74
+
+Ee)
+
+Y. Yuan, Z. Hou, J.-F. Tang, A. Streltsov, G.-Y. Xiang, C.-F. Li, and
+G.-C. Guo, “Direct estimation of quantum coherence by collective
+measurements,” npj Quantum Information, vol. 6, p. 46, 2020.
+
+M. Perarnau-Llobet, E. Baumer, K. V. Hovhannisyan, M. Huber, and
+A. Acin, “No-go theorem for the characterization of work fluctuations
+in coherent quantum systems,” Physical Review Letters, vol. 118,
+p- 070601, 2017.
+
+K.-D. Wu, Y. Yuan, G.-Y. Xiang, C.-F. Li, G.-C. Guo, and M. Perarnau-
+Llobet, “Experimentally reducing the quantum measurement back action
+in work distributions by a collective measurement,’ Science Advances,
+vol. 5, no. 3, p. eaav4944, 2019.
+
+A. Papachristodoulou, J. Anderson, G. Valmorbida, S. Prajna, P. Seiler,
+P. Parrilo, M. M. Peet, and D. Jagt, “SOSTOOLS version 4.00 sum of
+squares optimization toolbox for MATLAB,” arXiv:1310.4716, 2021.
+T. A. Bruni, “Measurimg polynomial functions of states,’ Quantum
+Information & Computation, vol. 4, no. 5, p. 401-408, 2004.
+
+R. B. A. Adamson, L. K. Shalm, and A. M. Steinberg, “Preparation
+of pure and mixed polarization qubits and the direct measurement of
+figures of merit,’ Physical Review A, vol. 75, p. 012104, 2007.
+
+C. F. Loan, “The ubiquitous Kronecker product,” Journal of Computa-
+tional and Applied Mathematics, vol. 123, no. 1, pp. 85-100, 2000.
+
+J. Watrous, The Theory of Quantum Information. Cambridge University
+Press, 2018.
+
+S. Yokoyama, R. Ukai, S. C. Armstrong, C. Sornphiphatphong, T. Kaji,
+S. Suzuki, J.-i. Yoshikawa, H. Yonezawa, N. C. Menicucci, and A. Fu-
+rusawa, “Ultra-large-scale continuous-variable cluster states multiplexed
+in the time domain,” Nature Photonics, vol. 7, no. 12, pp. 982-986,
+2013.
+
+W. Asavanant, Y. Shiozawa, S. Yokoyama, B. Charoensombutamon,
+H. Emura, R. N. Alexander, S. Takeda, J. ichi Yoshikawa, N. C.
+Menicucci, H. Yonezawa, and A. Furusawa, “Generation of time-
+domain-multiplexed two-dimensional cluster state,” Science, vol. 366,
+no. 6463, pp. 373-376, 2019.
+
+J. M. Renes, R. Blume-Kohout, A. J. Scott, and C. M. Caves, “Sym-
+metric informationally complete quantum measurements,” Journal of
+Mathematical Physics, vol. 45, no. 6, pp. 2171-2180, 2004.
+
+E. Prugovecki, “Information-theoretical aspects of quantum measure-
+ment,” International Journal of Theoretical Physics, vol. 16, no. 5,
+pp. 321-331, 1977.
+
+R. A. Horn and C. R. Johnson, Matrix Analysis. Cambridge University
+Press, 2012.
+
+T. Chen, M. S. Andersen, L. Ljung, A. Chiuso, and G. Pillonetto,
+“System identification via sparse multiple kernel-based regularization
+using sequential convex optimization techniques,’ JEEE Transactions
+on Automatic Control, vol. 59, no. 11, pp. 2933-2945, 2014.
+
+T. Chen, “On kernel design for regularized LTI system identification,”
+Automatica, vol. 90, pp. 109-122, 2018.
+
+G. Pillonetto, F. Dinuzzo, T. Chen, G. D. Nicolao, and L. Ljung,
+“Kernel methods in system identification, machine learning and function
+estimation: A survey,” Automatica, vol. 50, no. 3, pp. 657-682, 2014.
+B. Mu and T. Chen, “On asymptotic optimality of cross-validation
+estimators for kernel-based regularized system identification,” JEEE
+Transactions on Automatic Control, pp. 1-16, 2023.
+
+C. F. Van Loan and N. Pitsianis, Approximation with Kronecker Prod-
+ucts, pp. 293-314. Springer, 1993.
+
+M. M. Wilde, Quantum Information Theory. Cambridge university press,
+2013.
+
+P. A. Parrilo and B. Sturmfels, “Minimizing polynomial functions,” Jn
+Algorithmic and quantitative real algebraic geometry, DIMACS Series in
+Discrete Mathematics and Theoretical Computer Science, AMS, vol. 60,
+pp. 83-99, 2003.
+
+G. Kimura, “The Bloch vector for N-level systems,” Physics Letters A,
+vol. 314, no. 5, pp. 339-349, 2003.
+
+R. van Handel, J. Stockton, and H. Mabuchi, “Feedback control of
+quantum state reduction,’ JEEE Transactions on Automatic Control,
+vol. 50, no. 6, pp. 768-780, 2005.
+
+J. A. Miszczak, “Generating and using truly random quantum states
+in Mathematica,’ Computer Physics Communications, vol. 183, no. 1,
+pp. 118-124, 2012.
+
+N. Johnston, “QETLAB: A MATLAB toolbox for quantum entangle-
+ment, version 0.9,” Jan. 2016.
+
+A. Das and et al., “Precision bounds for characterising quantum mea-
+surements,” submitted to Nature Communications, 2025.
+
+J. R. Magnus and H. Neudecker, Matrix differential calculus with
+applications in statistics and econometrics. John Wiley & Sons, 2019.
+R. Bhatia, Perturbation Bounds for Matrix Eigenvalues. Society for
+Industrial and Applied Mathematics, 2007.
+
+[76]
+(77
+
+[78]
+
+20
+
+D. A. Lidar, P. Zanardi, and K. Khodjasteh, “Distance bounds on
+quantum dynamics,” Physical Review A, vol. 78, p. 012308, 2008.
+
+K. M. R. Audenaert and J. Eisert, “Continuity bounds on the quantum
+relative entropy,” Journal of Mathematical Physics, vol. 46, no. 10, 2005.
+T. Durt, B.-G. Englert, I. Bengtsson, and K. Zyczkowski, “On mutually
+unbiased bases,” International Journal of Quantum Information, vol. 08,
+no. 04, pp. 535-640, 2010.
+
+Shuixin Xiao (Member, IEEE) received a B.E. degree in automation from
+Huazhong University of Science and Technology, Wuhan, China, in 2018,
+and a Ph.D. degree in control theory and engineering from Shanghai Jiao
+Tong University, Shanghai, China, in 2023. He also received a Ph.D. degree
+in electrical engineering from the University of New South Wales, Canberra,
+Australia, in 2023. He was Post-Doctoral Fellow with the School of Engi-
+neering and Technology, University of New South Wales, Canberra, Australia
+and School of Engineering, Australian National University between 2023
+and 2025. He is now a Research Fellow with the Department of Electrical
+and Electronic Engineering, University of Melbourne, Australia. His current
+research interests include quantum system identification, quantum control and
+quantum information theory.
+
+Yuanlong Wang (Senior Member, IEEE) received a B.E. degree in automation
+from Northeastern University, Shenyang, China, in 2011, an MLE. degree in
+control science and engineering from Zhejiang University, Hangzhou, China,
+in 2015, and a Ph.D. degree in engineering from the University of New
+South Wales, Canberra, ACT, Australia, in 2019. He was a Post-Doctoral
+Fellow with the Centre for Quantum Dynamics, Griffith University, Brisbane,
+QLD, Australia, from 2019 to 2022. He is now an Associate Professor
+in the Academy of Mathematics and Systems Science, Chinese Academy
+of Sciences, Beijing, China. His research interests include quantum control
+theory and quantum parameter estimation theory.
+
+Zhibo Hou received a B.S. degree in applied physics from Beijing University
+of Posts and Telecommunications, Beijing, China, in 2011, and a Ph.D. degree
+in Optics from the University of Science and Technology of China (USTC),
+Hefei, China, in 2016. From 20016 to 2018, he was a post-doctoral fellow with
+the School of Physics, USTC. Currently, he is a professor at the University of
+Science and Technology of China, Hefei, China. His research interests include
+quantum control, quantum metrology, quantum tomography, and experimental
+quantum optics.
+
+Aritra Das received a B.S. degree in Physics from the Indian Institute of
+Technology, Kanpur, India in 2020. He started his Ph.D. degree in 2021 at the
+Department of Quantum Science and Technology in the Australian National
+University and is currently pursuing it. His research interests include quantum
+information and quantum metrology, especially quantum estimation, quantum
+sensing and resource theories.
+
+Ian R. Petersen (Life Fellow, IEEE) was born in Victoria, Australia. He
+received a Ph.D. in Electrical Engineering in 1984 from the University of
+Rochester, USA. From 1983 to 1985 he was a Postdoctoral Fellow at the
+Australian National University. In 1985 he joined the University of New South
+Wales, Canberra, Australia. He moved to The Australian National University
+in 2017 where he is currently a Professor in the School of Engineering. He
+was the Australian Research Council Executive Director for Mathematics,
+Information and Communications in 2002 and 2003. He was Acting Deputy
+Vice-Chancellor Research for the University of New South Wales in 2004 and
+2005. He held an Australian Research Council Professorial Fellowship from
+2005 to 2007, an Australian Research Council Federation Fellowship from
+2007 to 2012, and an Australian Research Council Laureate Fellowship from
+2012 to 2017.
+He served as an Associate Editor for the IEEE Transactions on Automatic
+Control, Systems and Control Letters, Automatica, and SIAM Journal on
+Control and Optimization. He was an Editor for Automatica in the area of
+optimization in systems and control. He is a fellow of IFAC, the IEEE and
+the Australian Academy of Science.
+
+His main research interests are in robust control theory, quantum control
+theory and stochastic control theory. Ian Petersen was elected IFAC Council
+Member for the 2014~2017 Triennium. He was also elected to be a member
+of the IEEE Control Systems Society Board of Governors for the periods
+2011-2013 and 2015-2017. He was a Vice President for Technical Activity
+for the IEEE Control Systems Society for 2023-2024. He was Vice President
+for Technical Activity for the Asian Control Association and was General
+Chair of the 2012 Australia Control Conference. He was General Chair of the
+2015 IEEE Multi-Conference on Systems and Control.
+
+Farhad Farokhi (Senior Member, IEEE) received the Ph.D. degree in
+automatic control from the KTH Royal Institute of Technology, Stockholm,
+Sweden, in 2014. He joined the University of Melbourne, Parkville, VIC,
+Australia, where he is currently a Senior Lecturer (equivalent to Assi
+tant/Associate Professor in North America). From 2018 to 2020, he was also a
+Research Scientist with the CSIRO’s Data61, Canberra ACT, Australia. He has
+been involved in multiple projects on data privacy and cyber-security funded
+by the Australian Research Council, the Defence Science and Technology
+Group, the Department of the Prime Minister and Cabinet, the Department of
+Environment and Energy, and the CSIRO. Dr. Farokhi was the recipient of the
+VESKI Victoria Fellowship from the Victoria State Government, Australia,
+and the McKenzie Fellowship, the 2015 Early Career Researcher Award, and
+MSE Excellence Award for Early Career Research from The University of
+Melbourne. He is the Associate Editor for IET Smart Grid, Results in Control
+and Optimization, and Conference Editorial Board of IEEE Control System
+Society.
+
+Guo-Yong Xiang received a B.E. Degree in Physics Education from Anhui
+Normal University in 2000 and a Ph.D. degree in Optics from University of
+Science and Technology of China (USTC) in 2005, respectively. Currently,
+he is a professor at USTC, Hefei, China. He was a research fellow at
+Griffith University, Brisbane, Australia from 2007 to 2010. His research
+interests include quantum optics and quantum information, especially quantum
+precision measurement, quantum state estimation and quantum feedback
+control.
+
+Jie Zhao is a senior Research Fellow in the Department of Quantum Science
+and Technology at the Australian National University. She received her
+PhD from the Australian National University, where her research focused
+on enhancing quantum information through post-selection techniques. Fol-
+lowing her PhD, she joined Xanadu Quantum Technologies as a permanent
+researcher, working on the development of large-scale higher-order quantum
+entanglement using time-domain multiplexing technologies—a circuit that
+provided the platform for the demonstration of quantum supremacy. She then
+continued her research at the Joint Quantum Institute in a Nobel Prize winning
+group, where she investigated quantum information processing and laser phase
+locking based on four-wave mixing in rubidium vapours. Her research interests
+include quantum optics, quantum metrology, quantum communications, and
+optical quantum computing.
+
+Daoyi Dong (Fellow, IEEE) is currently a Professor and an ARC Future
+Fellow at the University of Technology Sydney (UTS). He received a B.E.
+degree in automatic control and a Ph.D. degree in engineering from the
+University of Science and Technology of China, Hefei, China, in 2001 and
+2006, respectively. He had visiting positions at Princeton University, NJ, USA,
+University of Melbourne, Australia, RIKEN, Wako-Shi, Japan, University of
+Duisburg-Essen, Germany and The University of Hong Kong, Hong Kong.
+
+21
+
+His research interests include quantum control, quantum estimation and
+machine learning. He was awarded an ACA Temasek Young Educator Award
+by The Asian Control Association and is a recipient of a Future Fellowship, an
+International Collaboration Award and an Australian Post-Doctoral Fellowship
+from the Australian Research Council, and a Humboldt Research Fellowship
+from the Alexander von Humboldt Foundation of Germany. He is the
+Founding Chair of Technical Committee on Quantum Computing, Systems
+and Control, IEEE Control Systems Society. He is a member of Board of
+Governors, IEEE Control Systems Society and a Vice President of IEEE
+Systems, Man and Cybernetics Society. He served as an Associate Editor of
+IEEE Transactions on Neural Networks and Learning Systems and a Technical
+Editor of IEEE/ASME Transactions on Mechatronics. He is currently an
+Associate Editor of Automatica and IEEE Transactions on Cybernetics.

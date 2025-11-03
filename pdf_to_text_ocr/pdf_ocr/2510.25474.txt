@@ -1,0 +1,1675 @@
+2510.25474v1 [math.PR] 29 Oct 2025
+
+arXiv
+
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND
+SKEW-SYMMETRIC TENSORS
+
+STEPHANE DARTOIS
+
+Ecole Polytechnique, Institut Polytechnique de Paris, Centre de Mathématiques Laurent Schwartz,
+Palaiseau, France
+
+PARHAM RADPAY
+
+Université Paris-Saclay, CEA, Palaiseau, France
+
+ABSTRACT. We study the injective norm of random skew-symmetric tensors and the associated
+fermionic quantum states, a natural measure of multipartite entanglement for systems of indistin-
+guishable particles. Extending recent advances on random quantum states, we analyze both real
+and complex skew-symmetric Gaussian ensembles in two asymptotic regimes: fixed particle number
+with increasing one-particle Hilbert space dimension, and joint scaling with fixed filling fraction.
+Using the Kac-Rice formula on the Grassmann manifold, we derive high-probability upper bounds
+on the injective norm and establish sharp asymptotics in both regimes. Interestingly, a duality
+relation under particle-hole transformation is uncovered, revealing a symmetry of the injective norm
+under the action of the Hodge star operator. We complement our analytical results with numerical
+simulations for low fermion numbers, which matches the predicted bounds.
+Keywords: Geometric entanglement, random fermionic states, Kac-Rice formula, random tensors,
+
+injective norm
+
+1. INTRODUCTION AND MAIN RESULTS
+
+Setup: In this paper we study the injective norm of random skew-symmetric tensor T’ € /\? Kite
+(K2)2, where K = R or C. A skew-symmetric tensor is determined by a set of (°) coordinates, as
+in fact, for {e;}4_, a basis of K4,
+
+T= > Ti sip Ci @ ++ @ Cin,
+
+igyestp=1
+
+where Tig (a) s-sie(p)
+sg: 6, > {+1} the signature function. In particular, entries with two or more identical indices
+
+= sg(o)Ti,,...,i,, for all o € Gp the permutation group over p elements, and
+
+vanish. If K = C to each T we associate a quantum state of fermions
+
+T
+wp = [Tp Where | «lle
+denotes the Hilbert-Schmidt (or simply 2—) norm, that is
+
+d
+
+ITB= Yo |t..
+
+fa yestp=1
+
+E-mail addresses: stephane.dartois@polytechnique.edu, parham.radpay@cea.fr.
+1
+2 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+Furthermore, one has
+T= > Tig .cjip Ci BseekK Cips
+Uy <...<ip
+where A denotes the wedge-product of vectors. We are interested in the injective norm for both T
+and |W) as defined by
+(1) |Tlinj = max [<F5 BAA WH Aoi s Ap) |,
+©1,22,...,0pEK?
+v1 aAzen...Axplo=1
+v1 A %2 A... A Xpll2 is induced by the Hilbert-Schmidt norm on K@ and the same definition applies
+to the quantum state |w,>
+(2) | hp) bing = max \(abplar A t2A... A Zp).
+
+©1,22,...,2pEK'
+Jar aren...Azrpl2=1
+
+In this context, the geometric measure of entanglement remains
+GME(|} 7) = —2 log] |p) linj-
+
+Remark 1.1. This definition is the most natural since strictly separable skew-symmetric states do
+not exist. Moreover, it follows from the usual definition. In fact, for allo € Gp, the permutation
+group over p elements, let ¢ C (IK%)®? by exchanging tensor factors, that iso : 21 @...@ Lp >
+Lg(1)@---@XUg(p). Denote
+
+Pa: (K*)®? + AK‘, Pa =a >, sa(o)o
+
+oeGp
+
+the projector onto the skew-symmetric subspace. Then, for all T € (\? K¢*, P4(T) =T. Therefore,
+coming back to the usual definition[ASI7@, [DM24] of the injective norm one has, using the skew-
+symmetry of T,
+max XT, 21 @ 22 ®...@ Lp)| = |(T, x1 © 2 @... © Lp)|
+
+21,...,€pEK4, aj J2=1
+
+= |(Pa(T), t1 @ 22 @...@ Lp)|
+
+=|(T, Pa(r1 @ 22 @...@ Lp))| = KT, a1 Ag A... A Lp)|,
+by definition of the wedge product. Additionally, the set of simple wedge products has already been
+formalized as the natural set of separable states for fermions, see for instance [GKM12], where more
+generally, para-statistics are considered.
+
+Motivations and main result: Different notions of entanglement for multipartite states have
+been studied in the quantum information community. Among them, the geometric entanglement
+has been extensively investigated in the literature [Shi95] [WG03} [AMM10b] [AMM10a| (OWBVdN14|
+AST7| [FEN22\ [SG24) [DZ25]. A central aim of this work is to extend the analysis performed
+in [DM24], which determines (lower bounds on) the geometric measure of entanglement of random
+quantum states of distinguishable-particles, to random states of fermions. We treat two different
+scaling regimes:
+
+(1) fixed-p fermion number while letting the one-particle Hilbert space dimension d > 0.
+(2) a double-scaling regime in which p,d — while the filling fraction a = p/d of the random
+states is fixed asymptotically.
+Following the approach of the first author in the article [DM24], we study both real and complex
+skew-symmetric tensors. This puts our results within, and extends to multipartite fermionic entan-
+glement, a line of work on bipartite entanglement measures for random fermionic states
+
+(DNT22) PSA) W323).
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 3
+
+The main results of the paper are as follows:
+
+Theorem 1.2. Let T be a skew-symmetric random tensor over the field K, with i.i.d entries up
+to antisymmetry, with entries distributed as Nig(0,1) in the case K = R and Ne(0,1) in the case
+K=C. And let |Ws) := Tas where |T'|2 is the Hilbert-Schmidt norm of the tensor T. Then we
+have for fixed p:
+
+il il
+
+lim s log P Tiny > Ei € "
+
+(3 imsup oq — p) 08 ( CE |T inj > Zo(p) + } <0,
+: 1 Hep) ling 5 1
+
+4 lim su logP : = Eo(p) +e) } <0.
+( rtd p(d—p) ° ( pd—p) d2 (Bol) + €)
+and for a double scaling regime where both d,p > ©, with p = |ad| and a fixed a € (0,1):
+
+F 1 [Z'inj €
+5 lim s log P > Yo(d) + ——= } <0
+( tae dB) ( Baa)” * Toga
+
+1 by) ling 4
+(6 4 sup aD) log P (peste > dF 3 (@+(1-a) log(1—a))d(, (q) + o) <0,
+
+300 _
+
+with y(d) and Eo(p) defined in[3.7 and respectively.
+
+Interestingly, we also uncover a duality relation for the geometric measure of entanglement of
+fermionic states. The GME, like the injective norm, is invariant under particle-hole or Hodge
+duality. This duality is recovered in the Kac-Rice integral and translates in the particular block
+matrix structure of the random Hessian. In computing the limiting injective norm, we recover this
+duality in terms of a as a symmetry of the entanglement measure under the transformation a @ 1l—a.
+
+From a random-matrix-to-random-tensors point of view, the injective norm of a random tensor
+generalizes the operator norm of a random matrix. It is therefore natural to study the behavior
+of the injective norm for different random tensor ensembles, as it is natural to study the behavior
+of the operator norm for different ensembles of random matrices. In the random matrix world,
+several symmetry classes are investigated {For10]: real asymmetric, real symmetric, real
+skew-symmetric [Kurl0], complex asymmetric, Hermitian. Those can display properties driven by
+their symmetry. In the tensor world however, results concentrate on the symmetric real or real
+tensors [Boe24]. But, symmetry-wise, the situation is richer.
+Symmetry classes of tensors of order p are in bijection to irreducible representations of the sym-
+metric group G,. Hence, it is natural to investigate the properties of random tensors in various
+symmetry classes. Under this light, the case of skew-symmetric Gaussian tensors is analogous,
+at least in the real case, to skew-symmetric Gaussian random matriced)| Our result can be seen
+as part of a program aimed at understanding the asymptotic properties of the injective norm
+of random tensors for all their possible symmetry classes. To fully achieve such a program, one
+should certainly develop systematic methods to obtain asymptotically sharp bounds. While this
+remains an open direction, the present work provides another example of the computation of a (con-
+jecturally) sharp upper bound for a non-symmetric (here, skew-symmetric) Gaussian tensor ensemble.
+
+The study of the injective norm is closely related to the study of the ground state in certain
+
+disordered systems, notably spin glasses. The first steps in studying the complexity of these systems
+and consequently their ground states using the Kac-Rice formula were taken in |ABAC13]. In
+
+lwhich are themselves seldom studied, despite being a very natural Gaussian O(N) invariant ensemble
+4 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+the authors provided precise asymptotic account of critical points at given energy levels
+and revealed a complex structure near the ground state.
+
+Building on these approaches and combining them with more recent random matrix results devel-
+oped in [BABM22] [Mck24] [BBvH23}, the work studied what, in the disordered systems
+world, could be considered the ground state of multispecies (eventually complex-valued) spin-glasses
+and interpreted it as an injective norm or geometric measure of entanglement, thus connecting
+quantum information with the former domains. High probability upper bounds were obtained in
+two asymptotic regimes in the case of non-symmetric real and complex tensors with independent
+Gaussian i.i.d. entries: the first regime being fixed-p and d — o and the second being fixed-d and
+p— ©. One of those upper bounds was later matched with a lower bound in the real case, fixed-p
+
+and d— © regime in [BS25].
+
+From the point of view of Kac-Rice formula, and the landscape complexity program, one novel
+aspect of our work is that we use the formula on the Grassmann manifold Gr(p, d). This is one of
+several reasons why the relevant Gaussian process escapes the conditional results of coming
+from the spin glass literature in the real case (and even more so in the complex case) as was already
+the case of the earlier work in Remark 3.9]. It also escapes more recent results such as
+'BS25} '
+
+In parallel used asymptotic geometric analysis to produce upper bounds on p-injective
+norms and general structured Gaussian tensors. Additionally, provided bounds for the
+injective norm of random Gaussian tensors with independent entries having a variance profile. Both
+works extend well-known random matrix results to random tensors.
+
+Very recently, the physics work studied what they call the (signed) eigenvalue distri-
+ution of random real skew-symmetric tensors using quantum field theory related methods in the
+large one-particle Hilbert spaces dimension regime. This provides heuristics for the typical value
+of the injective norm in this regime. This very recent work can be seen as extending the previous
+
+physics work [Sas24].
+
+Organization: The paper is organized in a way that mostly mimics the organization of [DM24].
+In fact, the proof of our main theorem is built around very similar ideas. In Section 2, we introduce
+he definitions related to quantum information and random matrix theory. We also present some
+undamental properties of the defined concepts, which we use frequently in the paper. In Section 3,
+we prove the results for the real case in both asymptotic regimes. Section 4 deals with the proofs in
+he complex case. The proofs follow the line of logic of the real case, with only small differences.
+All proofs in these two sections rely heavily on [AEKN19| (DM24]. Finally,
+in Section 5 we present some numerical simulations that match our analytical results in the first
+asymptotic regime. This section can be seen as an extension of the work [FEN22]. The appendix
+contains details about the geometric properties of the Grassmann manifold and the calculation of
+the correlation functions necessary in the Kac-Rice formula.
+
+ACKNOWLEDGEMENTS
+
+S.D. is grateful to the Institut de Mathématiques de Bordeaux for their hospitality, where
+part of this work was carried out. The work of S.D. was partly supported by the ANR grants
+ANR-25-CE40-1380 and ANR-25-CE40-5672.
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 5
+
+2. PRELIMINARIES
+
+2.1. Random matrix models and their properties. We here recall the definition of the BHGOE
+ensemble introduced in [DM24]. Building on that we introduce the BHGAE ensemble and show
+that their operator norm is bounded from above.
+
+Definition 2.1 (Injective norm of a skew-symmetric tensor). Let K be C or R for the remainder of
+the paper. The injective norm of a skew-symmetric tensor T € (Ke) can be defined by:
+
+(7) [Thing = max KT) 0... 0 2) = max KT a) v0... 0 2d}
+: xQ) lp) a),...a(P)
+JeOr..arv® Jo=1 Ja) a..av®) Jo<1
+1
+
+= 1a:
+2 a fe a... A ey
+
+KT) v0... 0 2),
+
+where |x) » --+ a #')| is shown to be:
+(8) |x vA ---n 2B = | det(X*X)|
+with X being ad x p matrix with its columns given by ae), t®),..., 0),
+
+To turn T into a quantum state we normalize it by defining T:
+
+me T
+(9 —a
+) [The
+
+with the Hilbert-Schmidt norm of the tensor given as |T'\|3 = >), cap TE csip* By linearity, it follows:
+
+|Zlinj
+|Tl2
+
+(10) [Tiny =
+
+Given a tensor T we define the function fr : Gr(p,d) > R as:
+
+_ a9 an... a?)
+
+Eg) gl?)
+(11) fr(a a... ac?) Da... aay”
+
+wel
+
+is clear that the maximum of the function fr is the injective norm of the tensor T. In the
+symptotic regime, it is more convenient to instead consider the normalized version:
+
+2
+
+1 (Tt) a... 0 0)
+
+r/p(d—p) |tPO an... a c®|o 7
+
+(12) fr(a) a... 2)
+
+Definition 2.2. Let T be a skew-symmetric complex p-tensor. A function gr : (C2)? > R can be
+defined:
+
+1 Re{(T, a) a «+ a al)y}
+2p(d—p) aD a...rc®o
+
+(13) gr(a',...,2?)
+
+Lemma shows that the function gr can be used in place of the function fr(a) A. A {?)) in
+the complex setting.
+
+Lemma 2.3. In the real case, the squared Hilbert-Schmidt norm of a skew-symmetric tensor T is
+distributed as p! times a x? random variable with (°) degrees of freedom. In the complex case, tt
+6 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+has the same law as B times a x-distribution with 2(4) degrees of freedom. For any x > 0, the
+following concentration inequalities hold for the real and complex case
+
+d pid!
+
+(14) real case: P (ine < Gp! Qn fi) < exp(—2”)
+! Iq!
+
+complex case: P (ine < c I _ afte) < exp(—2”)
+
+In particular the mean = ; behaves asymptotically as follows for the two cases of (fized p, d > 0)
+
+and (fixed a € (0,1),p = |ad|, d—> %):
+
+(15) (fired p, d+ ce): (ITI) = @(1+0(5))
+
+(fived p = [ad], d— «&): (IT 2) = aeertottt-ayint-oe( +0 (4)
+
+Proof. In the real case, the Hilbert-Schmidt norm of a random skew-symmetric tensor is a random
+variable given as:
+
+(16) IT =p! DY) Tho,
+iW<<tp
+
+We can define the sum as a random variable S = )); , 7? ;, which is a y? distribution with
+1<i<ip Ti1,..5ip?
+
+(’) degrees of freedom. After this, equation and the identity E(|T|?.) = 1 = follow directly
+
+from [ZM00} lemma 1]. Using Stirling’s formula in the large-d limit of the fixed-p regime, the mean
+becomes:
+
+(17) lim E(T|2) = a (1 +0 (4)
+Furthermore, for the double-scaling behavior of E(|T'|3) (73) Tess (d—i), one obtains,
+pol p—1
+log (E(|T'|3)) = > log(d—i) < I log(d — x)da
+i=0 =
+1 141/d
+= ad { [log d + log(1 + 1/d — av) |du = adlogd 4 af log x dx
+0 1+1/d-a
+
+[ad log d — d(a + (1— a) log(1 — a))] (1 + 0(1)).
+
+A lower bound comes
+
+p=1 —p
+> log(d — i) > I log(d — x)dax
+i=0 9
+
+ad log d — dla + (1 — a) log(1— a)].
+
+Therefore, we obtain the asymptotic behavior,
+
+(18) (\T 3) _ dete (ot (1-a) log(1-a))d (2 bug (;)) ,
+
+which proves equation (15) for the real case.
+In the complex case, we have E(|T'|3) = BSc with Sc being a y? distribution with 2(4) degrees of
+freedom. The rest of the calculation is similar and leads to the same result (15). Applying [[M00}
+lemma 1] yields the complex part of (14).
+
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 7
+
+2.1.1. Properties of injective norm of fermions and their geometric entanglement. The injective
+norm naturally leads to the definition of the geometric measure of entanglement (GME) as:
+
+(19 GME((|¢>) = —2log(| |p) llinj)-
+
+We now recall the definition of the Hodge dual
+
+Pp d—p
+(20) *: /\ Rt AR |b) = > Wolo, A A Co, > *|Y) = > Valo A A Cot _,
+o¢([d])p o¢([d])p
+where o is an injective (i.e. non-repeating) p-tuple from the set {1,...,d}. Since the order of the
+
+components of o is important, we only consider, without loss of generality, o such that 01 <...< dp.
+Furthermore, we assign to each p-tuple a (d—p)-tuple o° and we require it to have an ordering such
+that {o1,...,0p,0f .-.,04_p} is an even permutation of {1,...,d}.
+
+Example 2.4. Let o = (1,3) andaeé (a) then o° is ordered as o° = (4,2) since (1,3,4,2) is an
+even permutation of (1,2, 3,4).
+
+Given a state of p fermions 77 the Hodge dual maps it to a state of d—p fermions |q,) = * |Wf),
+by swapping the filled and empty dimensions.
+
+Proposition 2.5 (Geometric entanglement particle-hole duality). For all |W) ¢ A? R4
+
+(21) I lbp) ling = | len) ling,
+which translates at the level of the Geometric Measure of Entanglement
+(22) GME\\)p>) = GME(|hn)).
+
+Proof. The Hodge dual preserves the Hermitian inner product up to a sign. Let |Ws) € A? C4 bea
+fermionic state and let x1 A ... A %p be chosen to be the set of vectors that maximize the function
+given in the definition of the injective norm of |7,).
+Denote |) := *|yp) the hole state dual to |W») in (7. Then one has
+(23) (Wp, fA... A Bp) = (Wh, *(@1 A... A Bp).
+Denote v = [x1 A... A xp| € Gr(p,d). Assume there exists t € Gr(d— p,d), 6 # v, represented by
+YLA.-. A Yd—p € A*? C4, so that Kp, 1A... A 2p)| < \Cbn, yi A... A Ya—p>| then by isometry o
+the Hodge dual, we have
+
+Kp, BLA... A Bp) < dy, #M A. A Ya-p)I
+
+where [#(y1 A... A Ya—p)] € Gr(p, d) which leads to a contradiction.
+
+We now examine how the random function fr transforms under Hodge duality in a neighborhooc
+of the "north pole" of the Grassmannian.
+For this case, we first look at the transformation of the neighborhood itself under the action of
+Hodge star operator, that is U > *U with U c Gr(p,d) and *U c Gr(d—p,d). For a small enough
+t the coordinates of a basis vector in the chart described in the Appendix [A] can be displayed as:
+
+M= d—
+i = A
+te p)xp |>
+
+where gine is the (d—p) x p-matrix with 1 in the ij-th entry and zeros everywhere else. The
+point described by these coordinates corresponds to the space spanned by:
+
+€1 A we A (05 + tepyi) As A Cp:
+
+2For the exact definition of this reference point see Appendix[A]
+8 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+This wedge product under the action of the Hodge operator is transformed to
+—Ept1 A. A Cppi-1 A (Cox + te;) A Cp+itl A +++ A Cd;
+
+which in the matrix form is presented as:
+
+px (d—p)
+M = (a
+(ap)
+
+Using the fact that Hodge operator is linear, it can be shown that the matrix B ¢ R(¢-?)*P
+representing a point on the chart of U is transformed into BT € R?*‘4-?) on the chart of «U under
+the pushforward of the Hodge duality and therefore the correlations of the functions and their
+derivatives as we calculated in Appendix [B] are preserved under the action of the Hodge operator.
+
+Definition 2.6. A BHGOE(d, p, 0?) random matrix is a pd x pd real-symmetric random matrix,
+thought of as being partitioned into p* blocks of size d x d, with the diagonal blocks set to zero,
+and the remaining entries are independent up to symmetry, each distributed according to a normal
+distribution N(0,07). In other words, such a matrix is a GOE matrix with the diagonal blocks zeroed
+out.
+
+For all m,k € Z,, we define the partial transpose T : Mat,(C) @ Matm(C) + Mat,(C) ® Matm(C)
+as the map Id@t where t : Matm(C) — Matm(C) denotes the transpose of a matrix. Let N = p(d—p)
+and let the family EY be the standard matrix basis elements of Mat,(C) (that is, Ee)
+
+ij is the p x p
+matrix with a one at position (i,j) and zeros everywhere else).
+
+Definition 2.7 (Block Hollow Gaussian Antisymmetric Ensemble). Let d,p€ Zso and let Ay be a
+N x N BHGOE(d,p,o”) random matrix. Then,
+
+An = > tay @Gij + EP @ Gj),
+1<i<j<p
+where the Gi, are independent dx d random matrices whose elements are independent and distributed
+according to a normal distribution N (0,07).
+We define Wn to a be an BHGAE(d,p,o7) as being the partial antisymmetrization of An
+
+1
+Ww := —<(An — Ad),
+
+where Ah is the partial transpose of An, so that formally,
+
+Ak= ¥ (EP @Gi,+ B% @Gi,s).
+
+1<i<j<p
+
+By construction, Wy consists of p? blocks, with vanishing diagonal blocks. We index the elements
+of Wy by pairs of doublets (i, a), (j, 8), where i,j determine the block and a, 8 the line and column
+inside a block. A given non trivial block (i, 7) is a skew-symmetric random matrix. Its independent
+elements (Wy) (i,a),(j,3) for a < 6 are N(0, a”) random variables, while the elements on the diagonal
+of a block vanish.
+
+We use the work to obtain the following. The proof is very similar to what can be found
+
+in [DM24| Lemma 2.3 & Corollary 2.4]
+Proposition 2.8 (Operator norm upper bound). Let Wy be a BHGAE(d — p,p, ~+,) matrix.
+
+p(d—p)
+There exists a universal constant C > 0 such that for allt > 0
+
+pal 2C p-ld-p-1 3/4 2
+24 Py Wy 2 + log(p(d w+ Ct) <e".
+(24) (i wh > 2y/P > + So |P IP owto(d— 2) e
+
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 9
+
+This implies that for any fixed €,6 and p fixed, there exists do(e,6) so that
+
+(25) P(IWxl > 2/2 +e) < e N° Yd > dole, 6)
+
+In particular for p —
+(26) P(|Wy|>2+e)<e™ Vd> dole,6).
+
+Proof. We rely on the results [BBvH23} corollary 2.2] and recall them here for the computations to
+come. Let the parameters o and v for a matrix X be defined as:
+
+o(X)? = JE(X*)|
+v(X)? = | Cov(X)],
+
+then
+
+(27) p(d—p)o(Wy)? =(d-p-)| YY (BP +E) @ ly
+
+1<i<j<p
+
+= (p-Y(d—p-}).
+
+The covariance operator norm is given by
+(28 p(d — p)o(Wy)” := ||Cov(Ww) |, = 21P ® Qllop
+
+where P : CP CP and Q: C4” — C#* are projectors, so that P@ Q : CP*(4-P) —, CPx(-P),
+The explicit form of P and Q is given below
+
+(9 Pa ZX eo(ap) e= Late (at).
+
+1l<i<j<p 1<k<l<d—p
+
+where al? P) (ee ) _ ple )) and (-)* denotes the dual induced by the Frobenius scalar product of
+matrices. "Ubing BEVEL 3) corollary 2.2], one has, using the notations introduced in [BBvH23], and
+denoting Weree the non commutative model for Wy (playing the role of Xfe¢ for Xj in [BBvH23})
+
+2
+
+P(|Ww lop = |Wiree| + CO(Wwy) (log N)*4 + os -_
+for all t > 0 and C a universal constant. We recall that (see [BBvH23] page a
+2 p—ld—-p-1
+
+Vo(d—p)\ p dp
+
+[p—1d—p—1
+ox(Wy) < o(Wy) = /P——"—?
+p d-p
+
+According to the estimate [BBvH23] lemma 2.5], whose first version is attributed to Pisier [Pis03
+page 208], |Wrreelop < 20(Wn) < 24/ a This leads to the following explicit bound for the operator
+norm of Wy
+
+pi 2C p—-ld—-p-1l p-1ld—p-1 2
+31) Pl |W, > fP— + Ct Se
+(31) (i NI Dp rool D d—p Pp d—p
+
+Definition 2.9 (Complex BHGAE). We define a complex block hollow Gaussian antisymmetric
+ensemble, cBHGAE(p, d,a), as given by the following block form:
+
+(30) o(Wy) = o(Ww)v(Ww)
+
+10 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+where A and B are independent BHGAE(p,d,o?) matrices.
+
+Proposition 2.10. Let Vy be a cBHGAE(d—p, p, map) There exists a universal constant C > 0
+such that for allt > 0
+
+p-l 2C p—-1d—-p-1 3/4 -t?
+P{ (Vn > 2 + log(p(d w+ Ct) ser.
+(i ul > 24] PT + PAP (howto — 9)
+
+Similarly, this implies that for any fixed €,6 and p fixed, there exists do(e,5) so that
+
+(3
+
+nN
+
+=f =i <
+(33 P (iva > 2, /Po= 4 :) <eN? Vd do(e, 6).
+Pp
+In particular, for p—
+(34 P(\Vvl| >2+2)<e-N” Vd > dole, 6)
+
+Proof. The proof follows the one of proposition [2.8] In particular the cBHGAE matrix can be
+represented as
+
+Vy = (Eu — Ea2) @ A+ (E21 + E12) @ B.
+Thus:
+1
+
+2
+(35) (Vn)? = 2
+
+y P 1)\(d—p-—1).
+
+Furthermore, the structure of Cov(Vj,) is given by:
+
+Cov(A) | —Cov(A) |
+—Cov(A) Cov(A)
+
+0
+
+0
+
+owt) Cov(B)
+Cov(B) Cov(B)
+
+where Cov(A) and Cov(B) are given by equation [28] Hence we have for Cov(Vy):
+(36) |Cov(Vy)
+
+Cov(Viny)
+
+lop = 40°
+
+which coincides with the real case, i.e. for BHGAE(p, d— p, aap) if divided by the 2 coming from
+the difference in the normalization factor. Hence, the rest follows exactly as in the proof of [2.3]
+
+Finally, let 5) (u) : R  R be defined as:
+
+SP?) (u) +t se w/2+0 (u/2*) rploe(2—*),
+
+with the log-potential of the measure p(x) = s¢4/(4— 2?) defined by:
+
+(37) Qu(u) = I log |u — A|dy()).
+R
+Then it has been shown:
+
+Lemma 2.11. ne) (w) is strictly decreasing and has a unique solution Eo(p) to =” (Eo(p)) =0 on
+the positive real line.
+
+Proof. ne (1) already appears in the literature, and similar lemma have been shown in for instance
+
+DM24\ (McK24| |ABAC13]. We refer to those for the proof.
+
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 1
+
+3. REAL CASE
+
+Kac-Rice formula: An extension of the Kac-Rice formula, obtained in the same way as in [DM24],
+allows us to prove
+
+Proposition 3.1. Let fy be the Gaussian process described above. Then, for all B a Borel set of
+R
+
+?
+
+_ (d—p)
+stp, (B)) < awe Ll DU/2) EPL) (, folE=D)”
+(38) E(Crtpy(B)) < m2? ? TH Pt/2) an
+
+x | wo due E pacar (\det(u — Wy)|),
+B
+
+where Wy is a BHGAE(d — p,p, nap) random matrix as in definition and Egycag denotes
+
+the average with respect to the randomness of Wy.
+
+Proof. The proof of the proposition is very similar to the one given in the appendix of [DM24]. The
+only difference arises from the particularities of the geometry of the Grassmann manifold. Some
+considerations regarding the specific geometry of the Grassmannian and its volume are shown in
+the appendix [A] and in particular lemma
+
+3.1. Real, fixed p, d— .
+
+Theorem 3.2 (Main theorem - real case). Let p > 3 be a fixed integer and let T € \? R¢ be a
+random skew-symmetric tensor with i.i.d. N(0,1) entries. Then:
+
+i) 1
+lim su log P T inj > Eo(p) +e] <0.
+pee pd —p) s ( aw) IP linj 0(P) }
+
+Defining the normalized state |\wF) := tr: Then:
+
+i : Lb) lhing 1
+lim su lore P s Rintae) \ <b.
+oe p(d _ Pp) e ( w(d = :D) ds ( o(p) é)
+
+Proof. We obtain this theorem by applying [BABM22| Theorem 4.1] to estimate the upper bound
+on the annealed complexity log E(Crt s,(B)) of the Gaussian process fr expressed in proposition
+
+[3-4] for B < (Eo(p), +2).
+The assumptions of [BABM22| Theorem 4.1] are checked in proposition [3.4]
+
+The upper bound on the injective norm follows from the application of the Markov inequality to the
+probability P (Crt ,,((Eo(p) + ¢,0)) > 1). Formally,
+
+1 1 1 P(Cr n) bent
+a log P (sper > Eo(p) +s) = aw log P (Crt /,.((Eo(p) + €, +90)) > 1)
+
+< Spy OBE (Coty (Bole) + 2,+29)).
+
+According to lemma and [BABM22| theorem 4.1] one finds for all e > 0
+
+7 |Z linj > Eo(p) + :) < sup Upr(u) < 0.
+
+1 1
+log P
+p(d = P) (. /p(d — ue(Eo(p)+e,0)
+
+The normalized version follows then as a result of lemma 2.3]
+
+12. ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+Lemma 3.3. Let
+
+K(p.d) ox mive-v) Mas 2/2) TSP EG/2) (, fold)"
+MT) 2m
+
+then
+logp+1
+
+(39) lim ea log K(p,d) = 5
+
+done pd —p)
+Proof. Noting that
+
+(40) log K (p, d)
+
+iw pd—p \2 (ax p) logm + 5(n(d p) + 1) logp(d— p)
+
+1 d
+3 (vlad p) + 1) log 2x 4 Soar i/2)+ Soar i/2) — >) log P(i/2)).
+
+The only needed remarks are that for p finite
+
+4 =
+(41 jm ay a log I'(i/2) = 0,
+
+©
+5
+
+bounding the sum:
+
+d—p
+1 d—p . 1 d
+4 < i < —_
+( Tp wer ( 5 ) a = a(S log T'(i/2) — Syn) < gap EE (5) :
+
+No
+
+Using Stirling’s approximation on the upper and lower bound, we conclude that
+logp+1
+
+(43 lim —- log K(p,d) = 5
+
+do p(d—p)
+
+This finishes the proof.
+
+In particular, we recall the necessary assumptions (see [BABM22) theorem 1.2] and its assumptions)
+that we have to check:
+
+(1) Control of the Wasserstein distance: Let pyy(u) = wees 5y,(Hy(u)) be the empirica
+spectral measure of the Hessian. According to Theorem 4.1 & Theorem 1.2], one
+needs to show that Ja > 0 such that Wi (E(jyy(u))s Mp(u)) < N~™.
+
+(2) Concentration of Lipschitz trace: One needs to prove that for every Lipschitz function
+f:R-—R, 4C,c> 0 such that ,
+
+Pat ae 252
+1
+. (| ag THF (Hiv(w))) ~ 5-8(TH( FH (w))))| > ‘) 2de Bie,
+(3) Gap assumption:
+Ve>0, jim P (Spec(Hy(u)) 0 [-e™", e*"}) =i,
+—00
+
+and as was realized through lemma 3.11 in |DM24J, one only needs this property to be true
+
+for |u| large enough.
+We also need specifically from theorem 4.1]
+
+(4) There exists C > 0 such that E (|det(H(u))|) < (C'max(|u|,1))* together with the map
+u+> Hy(u) being entrywise continuous (in our case it is just a translation of the diagonal
+elements by u).
+
+In fact, letting A := (—9, —Eo(p)) uv (Eo(p), ©), one shows,
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 13
+
+Proposition 3.4. Let Hy(u) = u— Wy, where Wy is a BHGAE. Then properties [7] iB} are
+satisfied for allué R. Assuming ue KC A closed, property [3] is also satisfied.
+
+Proof. The proof consists in checking that the arguments proving lemma 3.15, lemma 3.16 and
+lemma 3.17 in [DM24] can be adapted. In fact, property 2], the concentration of Lipschitz trace,
+
+is obtained as a consequence of the Herbst argument, which can also here be adapted from |AGZ10)
+(d—p)(d—p—1)
+pldoed—pa i)
+
+Lemma 2.3.3 & Theorem 2.3.5] noticing that the function g : R’ 2 — R maps the vector of
+peer) independent entries of Wy to Tr(f(Ww)) where f is the Lipschitz function given in
+
+property |2| Thus, it can be shown that g is also a Lipschitz function with a Lipschitz constant of
+order VN|f\|zip- The rest of the Herbst argument can be taken analogously as in [DM24]. The only
+difference in this case is the argument that supy E[|Wy |] < © , which is shown in proposition
+
+Property |1|is obtained in the same way, as in |DM24]. To this aim we need to import the local
+law of emer This is obtained as a consequence of the Matrix Dyson Equation for Wy. Define,
+
+for all i < j, pe = Eg) — fo so that (6; Oy =e , and Gi; be a random matrix with iid.
+
+standard Gauss entries. Then a BHGAE matrix Wy can be expressed as:
+
+Wy = BP @ Giz + (BP) @ Gt,
+TES) Pp) me a J
+
+so that we recover the form of a Kronecker random matrix, where comparing with notations from
+
+(AEKNI9] Definition 2.1], L = p, N = d—p and, 7{? =
+The components .%; of the operator .Y do not depend on i, ¢
+
+iw P) ay YP eB) + Pre PY
+
+k=11<i<j<p
+
+Alr] =
+
+so that the matrix Dyson equation is, Vi € {1,...,d—p}
+
+(44) Id+(zId+.%[m(z)])mi(z) = 0,
+(45) Im{mj(z)} > 0,
+
+As in [DM24], let r = (cId,...,cId) where Id is the (d—p) x (d—p) identity matrix, one finds
+
+=f
+Ai[eld| = cld,
+
+which is sufficient according to the proof of Lemma 3.16] to declare that m;(z) = mp,(z) Id
+with
+— 2_4(pt
+zta/z27—-4 ( 7 )
+
+Mp(Z) 5 (=)
+
+P
+
+m,(z) is the Stieltjes transform of the the density pp(z) Sabai) | (4 (=) - 2) Then, using
++
+
+the local law (B.5)] leads to the same bound as in the proof of lemma 3.16] which
+is sufficient to prove[]]
+
+We now come to property Due to the presence of structural zeros in the Hessian it is not
+possible to obtain a bound on the probability of occurrence of very small singular values for any
+value of u with available techniques in the literature. However, as was found in [DM24], the trick is
+
+to work on the event Ex := {I Wn < 24/ pot + ic} for K <A, where dx = d(K,.A) is the distance
+
+between K and A. In fact, conditioned on this event, the spectrum of Hessfy is gapped away from
+14 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+zero (i.e. the spectrum of Hessfy is at distance at least dx of 0). This translates into the lower
+bound
+
+inf P(Spec(Hess fv) a [-e™ ,e™] = @) = PlEx).
+
+One then has from proposition [2.3] that limy_,~ P(Ex) = 1. Proving the necessary gap property.
+Property [4s proved exactly the same way as in [BABM24| Lemma 4.4] and [DM24| Lemma 3.18].
+
+3.2. Real, double scaling.
+
+Theorem 3.5 (Real, skew-symmetric, double scaling, p,d — ©). For a fixed a € (0,1), let p = |ad|
+and T € (\?R¢ be a random skew-symmetric tensor with i.i.d. Ng(0,1) entries and let ya(d) be
+defined as in Lemma|3.7 then for every ¢ > 0 we have:
+
+‘ 1 |Z ling €
+4 lim s log P a d) +
+(0) ats d(d—p) “= ( d?a(1— a) > Yad) log d a0
+
+Let |p) = ace then:
+
+a L . [b> ling —2d 1 (a4(1—a) log(1—a))d
+bina yt ( Hoe a 2 €2 (Ya(d) +e) ] <0.
+Proof. We begin with the inequality:
+|Z inj €
+
+AT P ‘a(d) +
+(a) (ast —a) > Yad) —
+
+< P[Crty,([ ya(d) + e/x/log(d) )>1] +P [crt fp((—2; —Ya(d) — €//log(d)]) > 1
+
+= 2P [crt tr([%o(d) + €/x/log(d), 0) > 1 <2E [crt fr (Ina(d) +¢/y/log(d), ~))]
+
+Furthermore, the term on the right can be bounded by:
+
+(48) lim sup [crtre (b@ + e//log(d), «)|
+
+da
+
+u
+
+‘CO 2
+< K(ad, a | e-N’? Epucas [| det(Wy — u)|] du
+a(d)
+
+Where we have used proposition B.1] for the upper bound. Taking the logarithm of the right hand
+side and using lemmas [8.7] and 3.8] we arrive at the following expression:
+(49) lim sup
+
+SUD afta) [crt (i ) + e/r/log(d), 20 «)|
+2
+< B(a) + limsup "5 +2 (va(d) ofp </y/log4) (Ya(d) + efile) :
+doa
+
+with 8(a) defined in lemma|3.7] Finally, the normalized version follows as a result of lemma [2.3]
+
+Lemma 3.6. Let p = |ad| and let K(p,d) be defined as in Then we have:
+
+3 la ll-a
+apache l = log(1 t
+4 Al-a og(a) 4a og @)
+
+1
+(50) lim ——— log K (p, d)
+
+da p(d— p) og(d)
+
+")
+
+1,
+3!
++= 5 loa(a( (1-a) +0 (7
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 15
+
+Proof. The goal is to compute limp_,.. log Tle the = limp. Po log (qm): The sum
+
+is bounded from above and below by:
+po T(x/2 a T(i/2 P T(a/2
+(51) I dz log (Tees) < y log Gass < I dz log Leia) :
+1 i ")/) n=") 0 rns)
+Notice that for p,d — 0 with the fixed asymptotic ratio upper and lower bound multiplied by
+
+ap) converge to the same value for d > 0 (the difference between them being of order O (282) ).
+Evaluating the upper bound using the Stirling’s formula, we arrive at:
+
+P _( T(#/2) 1 | da da 1/1
+(52) [ ervee (S45 = da | du “a ulog ae + 5 log aa
+
+d(1 — a) + dau d(1— a) + daw di-a) 1 I ‘i
+- log —=| ‘
+2 ox( 2 + 2 2 °8 d(1— a) + dau +O dau +1
+
+Evaluating the integral, we arrive at:
+
+(53) [lors ( Tia?) ) | 5 (ay) [1 + log(4) — 2log(da)] +
+
+0 r( ptr)
+
+d(1—a)
+2
+
+[1 — log(da)]
+
+Nie
+
+= [(da)(2d — da)(1 + log(4) + 2d?(1 — a) log(d(1 — a) log(d(1 — a)) — 2d? log(d)|
+1 1
+daa) [dlog(d) — da — d(1 — a) log(d(1 oon} +O (az :) .
+After dividing by aa = Palica) the expression can be given as:
+(54) Falta) log K (ad, d) ai < a (1 + log(4) — 2 log(da)) + sao"! — log(da))
+here + log(4)) 4 gi * log(d(1 — a)) Cats , ae a" Pe wont) |
+Fal + log(d) _ log(d(1 a)| + : + log(d) + aaa =) mae + (282)
+: —[l + log(4) — 2log(a)] 4 ae log(d) 4 atl + log(4))
++ : = log(1 — a) 4 ae log(d) re a log(d) + ; +O (28°)
+3 + - — log(a@) + - — log(1— a) 4 5 load) 5 oa(a(t —a))+O (°°) :
+
+The lower bound also converges to the same value as mentioned above.
+
+Lemma 3.7. Let 0 <a<1. Then, for every d, there exists a yq(d) such that:
+
+2 a
+(55) 5 loald) + Bla) + 2ra(a)) ral 4) 6,
+
+with B(a) = Paticay 08 K(ad,d)—} log(d), and for large d, B(a) = 3+ 4755 log(a)+ 445 log(1 — a)+
+
+3 log(a(1 —a))+O (2). Furthermore, for large d, the solution scales as:
+
+loglogd = B(a) 1
+d) = \/logd+ —= + + ; ;
+(56) Ya(d) of 2/logd  /logd Od (ae)
+
+16 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+— Bla)
+
+Bla)
+
+0.0 0.2 0.4 0.6 0.8 1.0
+
+FIGURE 1. Plot of the function 6(a) 3+ G75 log(a) + 445% log(1—a) 4
+$ log(a(1 —a)) over the interval from 0 to 1. The symmetry of the plot reflects the
+
+particle-hole duality of the injective norm of proposition [2.5]
+
+Proof. The proof of this lemma follows that of lemma 3.20 in [DM24], with the substitution p > d
+andd—> a.
+
+Lemma 3.8. Let a be fixed, and let y(d) = o(exp(d'~*)) be a sequence diverging to infinity for
+some 6 > 0:
+
+1
+i li
+(57) dno ena —a)
+
+toe [" e- 2? Epucaz||det(W — u)|Jdu— (21a) = *o)| =0.
+
+y(d)
+
+Proof. The key idea is to apply the Laplace method to the Kac-Rice integral. The details follow the
+proof of lemma 3.22 in [DM24].
+
+4. COMPLEX CASE
+
+The structure of the proof in the complex case closely parallels that of the real case. We propose
+an alternative but equivalent definition of the injective norm, which is more convenient to work with.
+Moreover, we demonstrate that this definition admits an upper bound via the Kac-Rice formula. As
+in the real case, due to the homogeneity of the Hessian on the complex Grassmannian shown in
+lemma [B-1] the Kac-Rice integral can be decomposed into two parts: a volume contribution and
+a determinant contribution arising from the integrand. Each of these contributions can then be
+evaluated analogously to the real case.
+
+Lemma 4.1. Let T be a skew-symmetric d-dimensional random tensor of order p. The function
+
+Tia) r...na?) 7 Ref (Tir a... na?)
+
+fr(a@,...,2@)) = See has the same maximum as gr(a,...,2)) = Rel ean
+and thus the injective norm of T can be given as the maximum of gr.
+
+Proof. First, observe that for any set of vectors {a),...,2)} in C4, we have fr(x™,...,a)) >
+
+gr(a@™,...,2")), Therefore, it suffices to show that there exists {y}; such that gr(y™, y)) =
+
+max fr. Let {c}; maximize fr and let @ denote the phase of (T,a a... 0 x ?)) before taking
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 17
+
+the absolute value. Thus setting y@ = e~®2 and yG = a) provides the set such that
+gr(y,...,y®) = max fr.
+
+Lemma 4.2. For fixed p and d and denoting N = 2p(d—p), and defining
+
+qP(4-p) TT) T20G) (“ _ nem
+a Tj) an ,
+
+(58) L(p,d)
+
+Then we have:
+(59) E[Crity,(D)] < L(p, a | eNE pucan(|det(Viv — u)l].
+D
+
+where Vy is a cBHGAE(p, d, olde) matrix as defined in[2.9
+
+Proof. This lemma closely resembles Proposition [3-1] The only difference lies in the replacement o
+the real Grassmannian with the complex Grassmannian, which leads us to use Vol(U(n)) instead o:
+Vol(O(n)), as shown in Appendix [A] Any other detail remains the same.
+
+4.1. Complex, fixed p, d— 0.
+
+Theorem 4.3 (Complex, skew-symmetric, p-fixed, d > 0). Let Te A? C% be a random skew-
+symmetric tensor with i.i.d. Nc(0,1) entries. Then for every ¢ > 0, we have:
+
+. 1 |Z inj
+60 lim sup ———~ log P | ——==— > EF +e} <0.
+(60) msup a—p ( ) o(p)
+Define |tpp) = iT . Then,
+
+1
+logP (i p> lhing > = (a(p) + :)) <0.
+2
+
+61 lim sup ————
+(a) es p(d—p)
+Lemma 4.4 (d — © limit of volume factor). In the limit d > 00 for a fixed p the volume factor
+L(p,d) tends toward:
+
+1+ logp
+
+il
+(62) lim ——— log L(p, d) = 5
+
+do 2p(d— p)
+Proof. The proof of this lemma is very similar to that of Lemma [3.3] with the only difference in
+the fact that the non-T contributions in eq. (58) appear with a power of two compared to Lemma
+while the arguments of the ['-contributions are scaled by the factor of two. A straightforward
+calculation shows that these differences yield an overall factor of two in log L which is canceled by
+dividing by 2p(d— p) (as appropriate in the complex case) rather than p(d — p). Thus, the limiting
+expression matches that of the real case.
+
+Next, we verify that all the necessary properties established in the real case also hold for a
+cBHGAE matrix.
+
+Proposition 4.5. Let Hy(u) = u—Ww, where Wyn is a cBHGAE random matrix. Then, properties
+fa are satisfied for allué R. Assuming ue K CA, with K closed, property [5| is also satisfied.
+
+Proof. Property 3 and 4 carry over directly from the real case. The Herbst argument for property
+2 requires the boundedness of the operator norm of cBHGAE, which follows from proposition
+The rest of the argument remains unchanged.
+
+Regarding property 1, in the complex case, the matrix Dyson equations are derived the same way
+18 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+as in propesition using a method analogous to [DM24]. For all i < j, let Be = Ee )_ BP as
+for the real case, then the cBHGAE is defined as:
+(s)t
+
+ll Ss
+DY 2 @8P OGY + (1. @ BP) OGY,
+
+with no = (; “ys and m1 = (; 0): Furthermore, the .7 operator is given as follows:
+
+Wn =
+
+All = gap ds x DY 6 @ Bra (ne ® BO) + BP rene @ VP),
+s=0,1k=11<i<j<p
+with af? = oe ) as in the real case. Using 72 = Id, and choosing r = (cId,...,¢Id), we obtain:
+
+= Lia,
+
+[eld] =
+Using equations and the Stieltjes transform can be given by:
+
+Eb 2-4 (e+)
+
+Mp(z) 5 (=)
+
+p
+
+The inverse of this Stieltjes transform yields the distribution p)(z) TT) (4 (3) 1?) .
++
+
+The remainder of the proof follows as in the proof of proposition [3.4] and 3.16].
+
+4.2. Complex, double scaling. The complex case with p = |ad| and d > © is likewise analogous
+to the real case. We introduce a sequence whose asymptotic behavior determines the upper bound
+of interest. Then, applying Laplace’s method, we show that the Kac-Rice integral converges to the
+same asymptotic limit. To that end, we state the following lemmas without proof, referring the
+reader to the corresponding arguments in the real case:
+
+Lemma 4.6. Fixing a, for every d there exists a unique Yo(d) = yS(d) > 0 satisfying:
+log d Ya(d))?
+(63) 84 4 Bela) + 2(ya(d)) - WON" - o,
+
+where Bc(a) is the same B function in the real case. Thus, the asymptotic behavior of y(d) given by:
+
+> _ loglogd | B(a) j 1
+(64) ya(d) = v/log d 4 QJlogd  log(d) vo(43)
+
+The next lemma describes the asymptotic behavior of the Kac-Rice integral:
+
+Lemma 4.7. For a fixed a and y,(d) a divergent sequence such that for some 6 > 0:
+
+(65) Yo(d) = o(exp(a'-*))
+Then, the following holds:
+
+y(d)
+
+e N 4,2 2 (¢
+(66) jm Fore log | e2™ BHGAR||det(W — u)||du — (e01@) a | =0
+
+The next lemma presents the asymptotic behavior of the volume of Grc(|ad], d):
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 19
+
+Lemma 4.8. Let p = |ad| and L(p,d) be defined as in Then we have:
+
+loa ll-a 1
+Toa log(a) 4 1 log(1— a) 4 3 los(d)
+
+<a ;
+
+. 1
+(67) Jim. pd —p) log L(p, d)
+
+a
+4
+
+d
+
+Proof. This argument closely follows that of Lemma [3.6] Starting from the expression for the volume
+of the complex Grassmannian in Equation (75), we note that the only difference from the real case
+is a factor of 2 arising from the arguments of the I functions and the powers 7. This factor of 2 is
+
+canceled by factor 2 in the denominator of PCEOE giving the same limiting result as in the rea!
+
++ Floa(att —a)) +0 (
+
+case.
+
+And finally the upper bound in this case is given by:
+
+Theorem 4.9 (Complex, skew-symmetric, double scaling, p,d > ©). For a fixed a € (0,1), let
+p= |ad| and Te A? C4 be a random skew-symmetric tensor with entries that are i.i.d. Nc(0,1)
+random variables, then we have for every ¢ > 0:
+
+68 lim sup — log P > d) + <0
+(68) “aod ( @a(1—a) Yald) Vlog d
+
+Let |Ws) := he then
+
+: 1 Mbp Ving ad Let -
+
+lim su log P Js geez (ot (1a) log(1-a))d( (gd) +e) | <0
+uae p(d—p) e ( d@a(1— a) (ya() )
+
+The proof of this theorem follows that of the real case. It relies on complex analogues of Lemma 3.7]
+
+and Lemma B.8} which are stated above. Given the results established above, the proof proceeds
+
+identically to the real case and follows the argument in |DM24].
+
+5. NUMERICAL SIMULATIONS
+
+To validate our analytical results in the case of finite p, we use the numerical methods implemented
+in [FLN22]. These simulations are carried out for both real and complex skew-symmetric tensors,
+with tensor orders p = 2,3,4. As anticipated, the results in both the real and complex settings closely
+match, supporting the asymptotic behavior that we obtain. Although simulations are performed
+for both real and complex tensors of orders p = 2,3 and 4, we display the complex-case results
+only for p = 3, as a representative example. The behavior in the p = 2 or 4 cases is quantitatively
+indistinguishable from the real-case simulations, both in terms of convergence and the limiting
+bounds, and is therefore omitted to avoid redundancy. This reinforces the observation that the real
+and complex cases exhibit identical large-d behavior in all tested orders. We do not extend the
+simulations to higher orders p > 4, as the memory and runtime requirements grow prohibitively with
+both tensor order and ambient dimension, making large-scale sampling computationally infeasible
+in that regime.
+
+In each case, we report the normalized injective norm of a random skew-symmetric tensor T, defined
+
+as
+[Zing
+
+(d-p)
+This observable is expected to remain bounded in the large-d limit. We employ two numerical
+approaches for estimating the injective norm, depending on the tensor order:
+
+e For p = 2, the norm reduces to the largest singular value of the associated skew-symmetric
+matrix and can therefore be computed exactly via singular value decomposition.
+e For p> 2, we use the gradient descent to obtain the approximate maximum value
+20 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+3.0-
+pane nase ea pia lake cae i ee as - =
+ast rp ! -
+E 20 E
+2 Zz.
+@ 2
+215 z
+$ 3B |
+3 ig. |
+© 10> = |
+£ 1.
+05- :
+“® Skew-Symmetric (Order 3) | ~® Skew-Symmetric (Order 4)
+iE — |__| ____j Reference (2.87) : Reference (3.588)
+0 100 200 300 400 500 . 20 40 60 80 100 120
+Dimension (d) Dimension (d)
+(A) Order 3 (B) Order 4
+20 oe ———— — ne, Ss 3.0-
+Ser aaa a —
+nat ro
+15
+2 2
+2
+2 1.0- $ 15
+3 3
+2 2,
+£ © 10-
+05
+05 |
+—®— Skew-Symmetric (Order 2) “® Skew-Symmetric (Order 3) |
+weeee Reference (2) 0.0- = ++ Reference (2.87)
+0.0- H . fi J 1 | | |
+100 200 300 400 500 0 50 100 150 200 250 300 350
+Dimension (d) Dimension (d)
+(c) Order 2 (D) Order 3 (Complex)
+
+FIGURE 2. Comparison of the values of the injective norm for random tensors of
+order 2, 3 and 4 as a function of the dimension d. The asymptotic analytical upper
+bound is indicated by the blue line.
+
+The number of samples used in the simulations varies with p and d, primarily due to the memory
+demands of storing and optimizing high-order tensors:
+
+e For p= 2: 200 samples for all d
+
+e For p= 3: 100 samples for d < 250, and 20 samples for d > 250
+
+e For p= 4: 100 samples for d < 70, and 10 samples for d > 70
+These choices reflect the computational cost of statistical precision, especially as both the rank and
+ambient dimension increase. However, in the large-dimensional limit, the self-averaging behavior
+of the injective norm leads to suppressed statistical fluctuations, partially mitigating the effect of
+
+reduced sample sizes.
+We compare the simulation results against the theoretical upper bounds predicted by our analysis.
+
+These are given by:
+(69) a(p) = /PEo().
+
+According to our analytical predictions, the values are a(2) = 2, a(3) 2.870 and a(4) ~ 3.588,
+indicated by blue lines in the plots. The following figures show the normalized values and their
+
+corresponding ratios:
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 21
+
+E oval 1.00
+z |
+g 0.95 - 4
+o
+0.15
+2 4 0.90 |
+= eran | gq. Skew-Symmeti |
+3 | g Symmetic
+Q “ Skew-Symmetric ® 0.85- 1
+= 0.10 | & Skew-Symmetric |
+g ® symmetric ‘Asymmetiic
+= 0.80
+2}
+= 0.05 -
+® 0.75
+$ 0.70 —* Soa a]
+= 0.00 | | H |
+0 100 200 300 400 500 i) 100 200 300 400 500
+Dimension (d) Dimension (d)
+(A) Injective norms of symmetric, skew- and, asym- _(B) Ratios of normalized skew-symmetric injective
+metric order 3 normalized tensors norm against asymmetric and symmetric cases.
+
+FIGURE 3. Comparison between the injective norm of normalized tensors and
+corresponding ratios.
+
+APPENDIX A. GRASSMANNIAN GEOMETRY
+
+In this section, we briefly review the fundamental geometric properties of the Grassmann manifold
+relevant to our work. The topics discussed are mostly standard and well-known results and
+constructions. Our exposition closely follows the treatment provided in and the references
+therein. We begin by presenting the normal coordinates on the Grassmannian around a reference
+point. We then discuss its structure as a homogeneous space and derive its volume, which will be
+used in the main text.
+
+In general the Grassmannian Gr(p, d) is defined as the set of all p-dimensional subspaces of the
+d-dimensional vector space C4 or R¢.
+
+Definition A.1. Formally, for K = R or C, the Grassmannian can be defined as:
+(70) Gr(p,d) = {P € K™4|P? = P, P? = P, rank P = p}.
+
+Equivalently, these projectors can be expressed for the real Grassmannian as:
+
+(71) Cte = {or i ) O
+
+cco).
+
+with complex conjugate and U(d) replacing transpose and O(d) for the complex Grassmannian. The
+
+matrix Po = {°? 0 plays a central role and will serve as our reference point on the Grassmannian
+
+0
+in the subsequent discussion. Pp represents the subspace spanned by the first p basis vectors. This is
+
+reminiscent of the north pole (1,0,...,0) € S” being used in many works as a reference point.[DM24]
+
+Lemma A.2. The volume of the real Grassmann manifold is given as:
+Vol(O(d))
+Vol(O(p)) Vol(O(d — p))
+The volume of the complex Grassmann manifold is given by:
+Vol(U(d))
+Vol(U(p)) VolU (d — p))
+
+(72) Vol( Gr(p, d))
+
+(73) Vol Gre(p, d))
+
+22 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+Explicitly, the volumes are:
+
+wit») TTP T(/2)
+Tizp+1 PG/2)
+
+(74) Vol( Gre (p, d))
+
+fli
+(75) Vol Gre(p, d)) = pov) Lint PO)
+TTizp+1 T(?)
+A proof of this lemma can be found in , consistent with the construction of the Grassmannian
+as a homogeneous space.
+
+A.1. Normal coordinates and non-compact Stiefel manifold. In particular, one can explicitly
+define normal coordinates around the Po, i.e. the subspace spanned by the first p canonical basis
+vectors. The tangent-space at this point is homeomorphic to R(-P)*P_ Thus, any point in the
+tangent space can be represented as a d— p by p matrix Be R(¢-P)*?. Tt is useful to define for each
+=~ ~ I,
+matrix Be R(-?)*? a matrix Be RX? with B= b),
+Furthermore, the coordinate map is given by
+(76) g:U>R™4, Be B(BTB)'BT
+where U is an open neighborhood around zero in R‘¢?)*?, Here, each point on the Grassmannian is
+represented by the orthogonal projector onto the corresponding subspace. Note that this projection
+matrix corresponds precisely to the subspace spanned by the columns of B.
+Since the integrand in the Kac-Rice formula is independent of the choice of point (as shown in
+Lemma|B.1) we can focus instead on the pullback of f from by the map y, y*f(B) = f(y(B))
+in R(-))*? and evaluate it as such in the neighborhood U, and multiply the result by the volume
+of the Grassmannian. In particular, y* f(B) = f(y(B)) can be written as:
+
+1 T(b1,..., bx)
+P(d — P) , /det(BTB)
+
+(77) g* fr(B)
+
+with b; being the i-th column of B.
+
+APPENDIX B. COMPUTATION OF HESSIAN AND OTHER CORRELATIONS
+
+We begin with the real case and, for convenience, write f instead of y*f under an abuse
+
+of notation. On the tangent space of the point Po, let X,Y ¢ R-?)*P we have X = (%)
+
+Y
+expectation value E[f(X)f(Y)] is then given as:
+1 det[X‘Y
+P(A P) , [aet[X*X] det [YY ]
+
+and Y = (?) whose columns span the corresponding vector subspace of y(X) and y(Y). The
+
+(78) EIPX)FY)I
+
+Lemma B.1. Considering the integrand of the Kac-Rice formula derived from the function fr on
+the Grassmann manifold Gr(p, d):
+
+(79) I(x) = E(|det Hess f(x)|1p(e)efts t2]  VF(®) = ev yey(0),
+
+then function J : Gr(p,d) > R is constant across the Grassmann manifold.
+
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 23
+
+Proof. First we define the Hessian as a (1, 1)-tensor on the manifold. (Hessf);; = Vi(grad fr); where
+V is the Levi-Civita connection on the manifold. The determinant of the Hessian, defined in this
+way, is invariant under any coordinate transformation. Furthermore, the condition Vf = grad f = 0
+is invariant under any change of coordinate. Finally it remains to check that the covariance of
+function fr is invariant under the action of O(d) which transfers one point of the Grassmannian to
+another. This is clear from the equation and its invariance under X¥ + OX and Y > OY.
+
+Correlations of the random function f and its derivatives: Taking the derivative with
+respect to one of the coordinates yields the following tangent-function correlation:
+
+Of(X
+(80) | : Pro] =0
+Cx; X=Y=0
+The next relevant correlation is:
+Of(X) Of (Y i
+ray #) 0404) =) 9g,
+ac! ay \\y_yig P(d- P)
+
+We now consider the correlation between the Hessian and the gradient:
+
+=0
+
+(82) z | F(X) of(Y)
+
+ax) ax) ay?
+
+X=Y=0
+
+Finally, we compute the covariance of the Hessian entries:
+
+(83) F(X) éF(¥) Loy
+ax) aa) aye ay Poet, p(d —p)
+
+(6% oon dn + 510" 5nd jn — 98° Sdn — 3M" d + 595i; 51)
+
+Furthermore for the complex case, one can show that:
+
+(Re{ f(X)} Ref f(Y)}) = 4 (Re{H( F(X) FY))} + Re{E(f(X) #(Y))}), where due to the choice of
+he distributions the second term vanishes. Now we compute the correlation functions of derivatives
+of Re{ f(X)}, following the same procedure as in the real case, up to second order. Note, however,
+hat in the complex case, derivatives can be taken with respect to the real or imaginary parts of
+each variable. To clarify this, we define:
+
+pt nA 1 290
+a = ay +ig;
+
+gt — 7a pom:
+Y= OF 1G
+
+Accordingly, the correlation function becomes:
+1 Re{det[XTY]}
+det[XtX] det[YTY]
+
+(84) E[Re{ f(X)} Ref f(Y)}]
+
+Here, we have used the same coordinate charts as in the real case to define X and Y.
+As in the real case, the gradient and Hessian of the function can be expressed as centered Gaussian
+24
+
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+random variables, with the correlation structure given below. For convenience, we write g = Ref :
+
+(91)
+
+2p(d — p)
+
+i
+x Y xX Y
+ol) Aeatv)| 2] o0) 29009] = 0
+X)q(y)| =
+jab" )a,a9( )| =0
+| 2 F) F) a 1
+xX Y)|=E x Y dp
+ape 5709 ) Ea aga )) = aap)
+l a a a @ 1
+XxX Y E | g(X Y 5;j6e
+WX) saazpHl ] [a agp aap) | = ~aa—pyPe
+Y xX Y
+| ag ab ore ] Ba aa Bap J =0
+) 2 @ a@ a 0 a @
+Y ix (Y
+| Caf Cag, ( ae ae" ] | eat aa Gag
+1 bd « cbd<
+ae (62d didn + O19 58 jn — 58° Fd, — 5°55 51)
+x Y x (Y
+apt ope! ab ore ] Pre aah 3091 )
+1
+
+(6% 3 oindn + 5419" 55 jn — 98° 5d jn — 5°O"S:x dp + 4%99ijOx1) -
+ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS 25
+
+ABAC13
+AEKN19
+AGZA10]
+
+AMM10a
+
+AMM10b
+ASI7]
+
+BABM22
+
+BABM24
+
+BBvH23]
+BGJ* 24]
+BHK21]
+Boe24}
+BS25]
+BZA24]
+DLSST25]
+DM24]
+DNT22}
+DZ25]
+FLN22]
+For10]
+GKM1)]
+HW23]
+
+Kurl0]
+
+LMO00]
+McK 24]
+
+Meh04]
+NDT10]
+
+Nic20]
+
+REFERENCES
+
+Antonio Auffinger, Gérard Ben Arous, and Jiéi Cerny. Random matrices and complexity of spin glasses.
+Communications on Pure and Applied Mathematics, 66(2):165-201, 2013.
+
+Johannes Alt, Laszlé Erdés, Torben H Kriiger, and Yuriy Nemish. Location of the spectrum of kronecker
+random matrices. In Annales de l’institut Henri Poincare, volume 55, 2019.
+
+Greg W. Anderson, Alice Guionnet, and Ofer Zeitouni. An introduction to random matrices, volume
+118 of Cambridge Studies in Advanced Mathematics. Cambridge University Press, Cambridge, 2010.
+Martin Aulbach, Damian Markham, and Mio Murao. Geometric entanglement of symmetric states
+and the majorana representation. In Conference on Quantum Computation, Communication, and
+Cryptography, pages 141-158. Springer, 2010.
+
+Martin Aulbach, Damian Markham, and Mio Murao. The maximally entangled symmetric state in
+terms of the geometric measure. New Journal of Physics, 12(7):073025, 2010.
+
+Guillaume Aubrun and Stanistaw J Szarek. Alice and Bob meet Banach, volume 223. American
+Mathematical Soc., 2017.
+
+Gérard Ben Arous, Paul Bourgade, and Benjamin McKenna. Exponential growth of random determi-
+nants beyond invariance. Probab. Math. Phys., 3(4):731-789, 2022.
+
+Gérard Ben Arous, Paul Bourgade, and Benjamin McKenna. Landscape complexity beyond invariance
+and the elastic manifold. Comm. Pure Appl. Math., 77(2):1302-1352, 2024.
+
+Afonso S Bandeira, March T Boedihardjo, and Ramon van Handel. Matrix concentration inequalities
+and free probability. Inventiones mathematicae, 234(1):419-487, 2023.
+
+Afonso S Bandeira, Sivakanth Gopi, Haotian Jiang, Kevin Lucca, and Thomas Rothvoss. A geometric
+perspective on the injective norm of sums of random tensors. arXiv preprint arXiv:2411.10633, 2024.
+Eugenio Bianchi, Lucas Hackl, and Mario Kieburg. Page curve for fermionic gaussian states. Phys. Rev.
+B, 103:L241118, Jun 2021.
+
+March T Boedihardjo. Injective norm of random tensors with independent entries. arXiv preprint
+arXiv:2412.21193, 2024.
+
+Erik Bates and Youngtak Sohn. Balanced multi-species spin glasses. arXiv preprint arXiv:2507.06522,
+2025.
+Thomas Bendokat, Ralf Zimmermann, and P-A Absil. A grassmann manifold handbook: Basic geometry
+and computational aspects. Advances in Computational Mathematics, 50(1):1-51, 2024.
+
+Nicolas Delporte, Giacomo La Scala, Naoki Sasakura, and Reiko Toriumi. Real eigenvalue/vector
+distributions of random real antisymmetric tensors. arXiv preprint arXiv:2510.20398, 2025.
+
+Stephane Dartois and Benjamin McKenna. Injective norm of real and complex random tensors i: From
+spin glasses to geometric entanglement. arXiv preprint arXiv:2404.03627, 2024.
+
+Stephane Dartois, Ion Nechita, and Adrian Tanasa. Entanglement criteria for the bosonic and fermionic
+induced ensembles. Quantum Information Processing, 21(11):376, 2022.
+
+Stephane Dartois and Gilles Zémor. The injective norm of css quantum error-correcting codes. arXiv
+preprint arXiv:2510.23736, 2025.
+
+Khurshed Fitter, Cecilia Lancien, and Ion Nechita. Estimating the entanglement of random multipartite
+quantum states. arXiv preprint arXiv:2209.11754, 2022.
+
+Peter J Forrester. Log-gases and random matrices (LMS-34). Princeton university press, 2010.
+Janusz Grabowski, Marek Kus, and Giuseppe Marmo. Segre maps and entanglement for multipartite sys-
+tems of indistinguishable particles. Journal of Physics A: Mathematical and Theoretical, 45(10):105301,
+2012.
+
+Youyi Huang and Lu Wei. Entropy fluctuation formulas of fermionic gaussian states. In Annales Henri
+Poincaré, volume 24, pages 4283-4342. Springer, 2023.
+
+Satoshi Kuriki. Distributions of the largest singular values of skew-symmetric random matrices and
+their applications to paired comparisons. Communications in Statistics— Theory and Methods, 39(8-
+9):1522-1535, 2010.
+
+Beatrice Laurent and Pascal Massart. Adaptive estimation of a quadratic functional by model selection.
+Annals of Statistics, pages 1302-1338, 2000.
+
+Benjamin McKenna. Complexity of bipartite spherical spin glasses. Ann. Inst. Henri Poincaré Probab.
+Stat., 60(1):636-657, 2024.
+
+Madan Lal Mehta. Random matrices, volume 142. Elsevier, 2004.
+
+Nam H Nguyen, Petros Drineas, and Trac D Tran. Tensor sparsification via a bound on the spectral
+norm of random tensors. arXiv preprint arXiv:1005.4732, 2010.
+
+Liviu I Nicolaescu. Lectures on the Geometry of Manifolds. World Scientific, 2020.
+
+26 ON THE INJECTIVE NORM OF RANDOM FERMIONIC STATES AND SKEW-SYMMETRIC TENSORS
+
+Pis03
+
+PS24)
+
+Sas24
+
+SG24
+
+Sub23]
+
+TS14]
+
+WG03]
+
+OWBVdN14] Roman Oris, Tzu-Chich Wei, Oliver Buerschaper, and Maarten Van den Nest. Geometric entanglement
+
+in topologically ordered states. New Journal of Physics, 16(1):013015, 2014.
+
+Gilles Pisier. Introduction to Operator Space Theory. London Mathematical Society Lecture Note Series.
+Cambridge University Press, 2003.
+
+Leonid Pastur and Victor Slavin. Entanglement entropy of free fermions with a random matrix as a
+one-body hamiltonian. Entropy, 26(7):564, 2024.
+
+Naoki Sasakura. Signed eigenvalue/vector distribution of complex order-three random tensor. Progress
+of Theoretical and Experimental Physics, 2024(5):053A04, 2024.
+
+Jonathan Steinberg and Otfried Giihne. Finding maximal quantum resources. Physical Review A,
+110(6):062428, 2024.
+
+Abner Shimony. Degree of entanglement a. Annals of the New York Academy of Sciences, 755(1):675-679,
+1995.
+
+Mihailo Stojnic. Ground state energies of multipartite p-spin models—partially lifted rdt view. arXiv
+preprint arXiv:2509.05916, 2025.
+
+Eliran Subag. TAP approach for multispecies spherical spin glasses II: The free energy of the pure
+models. The Annals of Probability, 51(3):1004 — 1024, 2023.
+
+Ryota Tomioka and Taiji Suzuki. Spectral norm of random tensors. arXiv preprint arXiv:1407.1870,
+2014.
+
+Tzu-Chieh Wei and Paul M Goldbart. Geometric measure of entanglement and applications to bipartite
+and multipartite quantum states. Physical Review A, 68(4):042307, 2003.

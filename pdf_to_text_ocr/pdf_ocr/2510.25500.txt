@@ -1,0 +1,2343 @@
+Astronomy & Astrophysics manuscript no. aanda
+October 30, 2025
+
+@©ESO 2025
+
+The R-Process Alliance: Exploring the cosmic scatter among ten
+
+r-process sites with stellar abundances.*
+
+M. Racca!, T.T. Hansen!, I.U. Roederer?:?, V.M. Placco*, A. Frebel>>3, T.C. Beers 3, R. Ezzeddine”"3, E.M.
+Holmbeck*:}, C.M. Sakari’, S. Monty!®, @. Harket!, J.D. Simon!!, C. Sneden!?, and LB. Thompson!!
+
+Astronomy department, Stockholm University, Roslagstullsbacken 21, 114 21, Stockholm
+
+Department of Physics, North Carolina State University, 2401 Stinson Dr, Box 8202, Raleigh, NC 27695, USA
+
+Joint Institute for Nuclear Astrophysics — Center for the Evolution of the Elements (JINA-CEE), USA
+
+NSF NOIRLab, Tucson, AZ 85719, USA
+
+Department of Physics and Kavli Institute for Astrophysics and Space Research, Massachusetts Institute of Technology, Cam-
+bridge, MA 02139, USA
+
+§ Department of Physics and Astronomy, University of Notre Dame, Notre Dame, IN 46556, USA
+
+; Department of Astronomy, University of Florida, Bryant Space Science Center, Gainesville, FL 32611, USA
+
+9
+
+wrene
+
+Lawrence Livermore National Laboratory, 7000 East Avenue, Livermore, CA 94550, USA
+Department of Physics and Astronomy, San Francisco State University, San Francisco, CA 94132, USA
+'0 Institute of Astronomy, University of Cambridge, Madingley Rd, Cambridge, CB3 OHA, UK
+!! Observatories of the Carnegie Institution for Science, 813 Santa Barbara St., Pasadena, CA 91101, USA
+12, Department of Astronomy and McDonald Observatory, The University of Texas, Austin, TX, 78712, USA
+e-mail: mila. racca@astro.su.se
+
+Received xxx; accepted yyy
+
+ABSTRACT
+
+Context. The astrophysical origin of the rapid neutron-capture process (r-process), responsible for producing roughly half of the
+elements heavier than iron, remains uncertain. Detailed chemical signatures from the oldest, most metal-poor stars, which act as fossil
+records of the earliest nucleosynthesis events, can be used to identify the dominant r-process sites.
+
+Aims. We present a homogeneous chemical abundance analysis of ten r-process element-enhanced stars. These old and metal-poor
+stars are strongly enriched in r-process elements with minimal contamination from other nucleosynthetic sources. By focusing on this
+chemically pure sample, we aim to investigate intrinsic variations in the r-process abundance patterns and explore their implications
+for the nature and potential diversity of r-process sites.
+
+Methods. We performed a detailed chemical abundance analysis of high-resolution, high signal-to-noise spectra. For each star, we
+inspected over 1400 individual absorption lines using a combination of equivalent width measurements and spectral synthesis. The
+analysis was conducted under the assumption of one-dimensional local thermodynamic equilibrium, employing the MOOG radiative
+transfer code.
+
+Results. We derived abundances for 54 chemical species, including 29 neutron-capture (n-capture) elements covering the full mass
+range of the r-process abundance pattern. A kinematic analysis reveals that stars likely originated from ten kinematically distinct
+systems. Based on this assumption, we use the sample to probe the maximum variation expected from ten independent r-process
+nucleosynthesis events and compute the intrinsic dispersion of each element relative to Zr and Eu, for the light and heavy r-process
+elements, respectively. This exercise results in a remarkably low cosmic scatter across the ten r-process sites enriching these stars, for
+
+2510.25500v1 [astro-ph.SR] 29 Oct 2025
+
+1V
+
+—arX
+
+a
+
+Es
+
+the rare earth and third peak elements, for example, we find O.a/zy) = 0.08 and o{os/zuj = 0.11 dex while the scatter between light
+
+and heavy, o{zrzu is slightly higher at 0.18 dex.
+
+Conclusions. The elemental abundance patterns across the ten independent r-proce:
+
+ites show remarkably small cosmic dispersions.
+
+This minimal dispersion suggests a high degree of uniformity in r-process yields across diverse astrophysical environments.
+
+Key words. Stars: abundances — Stars: Population II — Galaxy: abundances - Galaxy: kinematics and
+
+1. Introduction
+
+The heaviest elements of the periodic table, those beyond the
+iron peak (Z 2 30), are primarily synthesized through neutron-
+capture processes during stellar evolution and explosive astro-
+physical events. Among these, the rapid neutron-capture process
+(r-process) is a dominant mechanism for producing half of the
+isotopes and, in particular, the actinide elements thorium and
+
+* This paper includes data gathered with the 6.5 meter Magellan Tele-
+scopes located at Las Campanas Observatory, Chile and data taken at
+The McDonald Observatory of The University of Texas at Austin
+
+lynamics
+
+uranium. The r-process occurs under extreme conditions of high
+neutron densities (10?° — 1078 n/em?) (Kratz et al. 2007) and
+short timescales (Burbidge et al. 1957; Cameron 1957), allow-
+ing atomic nuclei to rapidly capture neutrons before undergo-
+ing B-decay. Despite considerable investigations, the astrophys-
+ical sites of the r-process remain an area of active investiga-
+tion. Compact binary mergers, including both binary neutron star
+mergers (NSM) and neutron star-black hole systems, have long
+been proposed as prime candidates (Lattimer & Schramm 1974;
+Eichler et al. 2015). The detection of the gravitational wave event
+GW170817 (Abbott et al. 2017, 2019), along with its associated
+
+Article number, page 1 of 23
+A&A proofs: manuscript no. aanda
+
+kilonova having emission consistent with the decay of heavy el-
+ement isotopes (Chornock et al. 2017; Villar et al. 2017; Drout
+et al. 2017), provided the first direct observational support for
+this scenario. Although NSMs are currently the leading candi-
+dates for the origin of r-process elements, their contribution to
+Galactic chemical enrichment is still debated (Tsujimoto, T. &
+Shigeyama, T. 2014; Coté et al. 2019a; Skiiladottir & Salvadori
+2020; Vanbeveren & Mennekens 2024). Factors such as merger
+rates, delay times, and the sensitivity of nucleosynthetic yields to
+system properties (e.g., neutron star mass) introduce uncertain-
+ties that are not yet fully captured in current chemical evolution
+models (Holmbeck & Andrews 2024; van de Voort et al. 2020,
+2022). On top of that, multiple recent studies demonstrated that
+at least two r-process sites are required to explain the observed
+r-process elements abundances in metal-poor stars (Cété et al.
+2019b; Molero et al. 2023; Kuske et al. 2025). For these reasons,
+alternative sites for r-process nucleosynthesis have been pro-
+posed in addition to NSMs, these include magneto-rotationally
+supernovae (Nishimura et al. 2006; Winteler et al. 2012; Cowan
+et al. 2021; Prasanna et al. 2024), collapsars (Barnes & Met-
+zger 2022), common-envelope jets supernova (CEJSN) (Grich-
+ener et al. 2022; Jin & Soker 2024; Soker 2025) and the neutrino-
+driven wind emerging from the proto-neutron star in the after-
+math of the explosion (Arcones & Thielemann 2012; Wang &
+Burrows 2023). For the latter, however, simulations have shown
+that under typical conditions, these winds tend to produce only
+a weak or limited r-process, insufficient for forming the heaviest
+elements. Additionally, certain classes of massive, fast-rotating,
+and highly magnetized stars, which lead to magnetars (Patel et al.
+2025), magnetohydrodynamic-jet supernovae, or black hole ac-
+cretion disks (Siegel et al. 2019), are considered potential r-
+process sites (Halevi & Mésta 2018). In these scenarios, the r-
+process could occur in the ejecta from the central object, such as
+a neutron star or black hole.
+
+Accurately derived elemental abundances from old metal-
+poor stars can be used as an observational constraint for nucle-
+osynthesis models and helps trace the chemical evolution of stars
+and galaxies (Sneden et al. 2008; Cescutti et al. 2022). However,
+the detailed determination of elemental abundances in metal-
+poor stars is challenging and strongly depends on the underlying
+assumptions of stellar atmosphere and radiative transfer mod-
+els. The most physically realistic models, those incorporating
+three-dimensional (3D) hydrodynamics (e.g., Rodriguez Diaz
+et al. 2024) and non-local thermodynamic equilibrium (NLTE)
+effects, better capture stellar surface inhomogeneities and ra-
+diative imbalances (for a detailed review of 3D-NLTE effects
+in late-type stars, see Lind & Amarsi 2024). Yet, such models
+are not broadly available across the full range of stellar param-
+eters required for the stars of interest in this kind of study, in
+which we analyze old, relatively cool (< 5500 K) metal-poor
+red giants. In addition, atomic data for the development of model
+atoms for the heaviest elements remains sparse, further compli-
+cating accurate abundance determinations. For this reason, most
+of the abundances present in literature and in this work are deter-
+mined under the assumption of 1D-LTE. However, despite these
+challenges, homogeneous abundance analyzes remain a power-
+ful tool for minimizing systematic uncertainties and identifying
+meaningful trends in abundances, especially for stars with simi-
+lar stellar parameters.
+
+In this work, we present a homogeneous chemical analy-
+sis of ten r-process enhanced stars with [Eu/Fe] > +0.3 and
+[Ba/Eu] < —0.5. These stars were discovered by the R-Process
+
+Article number, page 2 of 23
+
+Alliance (RPA)! (Hansen et al. 2018) through their successful
+search for r-process enriched stars (Sakari et al. 2018; Ezzeddine
+et al. 2020; Holmbeck et al. 2020; Bandyopadhyay et al. 2024).
+With this sample, we investigate the cosmic spread among ten
+r-process production sites that contributed to the enrichment of
+these stars.
+
+This paper is outlined as follows: Information about the ob-
+servations is presented in Section 2. The derivation of the stel-
+lar parameters and the details about the abundance analysis are
+described in Sections 3 and 4, respectively. The results are pre-
+sented in Section 5 and discussed in Section 6. A summary is
+provided in Section 7.
+
+2. Data
+
+The ten stars analyzed in this paper are presented in Table 1,
+which lists the 2MASS identifier, right ascension (R.A.), dec-
+lination (Decl.), photometric data (V, G and K magnitudes,
+and BP and RP colors), color excess (E(B — V)) and paral-
+lax (@). For brevity, we adopt shortened source names con-
+structed from the first four digits of the right ascension and
+the first four digits of the declination (including the sign), e.g.,
+J00401252+2729247 becomes J0040+2729. These abbreviated
+names are used throughout the text and in the following tables.
+All ten stars were observed as part of the RPA "snapshot" sur-
+vey, which uses relatively short, moderate signal-to-noise ra-
+tios (SNR ~ 30 at 4100 A) high-resolution spectroscopy (R ~
+30, 000) to efficiently identify r-process enhanced stars (Hansen
+et al. 2018). During this initial screening, a set of key ele-
+mental abundances (specifically [Fe/H], [C/Fe], [Sr/Fe], [Ba/Fe],
+[Eu/Fe], [Ba/Eu], and [Sr/Ba]) are determined to categorize the
+stars. This approach allows the collaboration to quickly select
+promising targets for more detailed study. Eight of the stars an-
+alyzed here were discovered in the first data release from the
+RPA (Hansen et al. 2018). Snapshot spectra for the remaining
+two stars, J0040+2729 and JO217—1903, will be included in the
+forthcoming sixth RPA data release (T.T. Hansen et al., in prep).
+
+Following this, all of them were selected for follow-up ob-
+servations, having an [Eu/Fe] > 0.3 and [Ba/Fe] < 0.0. High-
+resolution, high signal-to-noise “portrait” spectra were obtained
+between May 2017 and July 2018 using the Magellan Inamori
+Kyocera Echelle (MIKE) spectrograph (Bernstein et al. 2003) on
+the Landon Clay (Magellan II) telescope at Las Campanas Ob-
+servatory, Chile. The only exception is J0040+2729, which was
+observed in August 2020 with the TS23 echelle spectrograph
+(Suntzeff 1995) on the Harlan J. Smith 107-inch (2.7 m) tele-
+scope at McDonald Observatory. The higher SNR and resolu-
+tion of the portrait observations facilitate a more detailed chem-
+ical abundance analysis of the identified r-process enhanced
+stars. The MIKE spectra cover a wavelength range of 3350 Ato
+5000 Ain the blue and 4900 Ato 9500 Ain the red. The observa-
+tions were taken with the 0.35” x 5.00” slit using 2 x 2 binning
+and the 0.50” x 5.00” slit using 2 x 1 binning. The correspond-
+ing resolving powers are R ~ 56,000 and R ~ 54,000 in the
+blue, and R ~ 50,000 and R ~ 48,000 in the red, respectively.
+The TS23 echelle spectrograph provides spectral coverage from
+3400 A to 10,900 A, with a resolving power of R ~ 43,000 when
+using the 1.8” x 8.00” slit and 1 x 1 binning. Table 2 summarizes
+the observing log, including the instrument setup (slit size and
+binning), exposure times, and SNR for each target.
+
+' https: //sites.google.com/view/rprocessalliance/
+home?authuser=0
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+Table 1: Properties of the stars.
+
+2MASS stellar ID R.A. Decl. v G BP RP K E(B-V) om
+mag mag =mag mag mag mag mas
+J00401252+2729247 004012.5 +2729 24.7 1340.11 10.81 11.36 10.10  8.52+0.02 0.0458+0.0026 0.35+0.02
+J02172993—1903583 021729.9 -190358.3 13.26+0.01 12.93 13.51 2.20 10.61+0.02 0.0238+40.0009 0.12+0.02
+J02462013—1518419 024620.1 -151841.9 12.44+0.01 12.18 12.62 1.57 10.20+0.02 0.0217+0.0003 0.34+0.02
+J14301385—2317388 143013.9 -23 17 38.8 9840.01 11.50 12.30 10.64 8.59+0.02 0.0870+0.0009 0.14+0.02
+J14325334—4125494 143253.3 —41 2549.4 0840.08 10.83 11.29 10.20 —8.81+0.02 0.1029+0.0046 0.91+0.02
+J19161821-5544454 191618.2 -55 4445.4 4540.09 11.07 11.74 10.29 = 8.5340.02 0.0509+0.0007 0.17+0.02
+J20093393—3410273 2009 33.9 -34 1027.3 7740.01 11.21 12.03 10.32 8.29+0.03  0.0861+0.0017 0.13+0.02
+J20492765—5124440 204927.7 -51 2444.0 5540.00 11.16 11.79 10.40  8.7340.02 0.0275+0.0017 0.16+0.02
+J21064294—6828266 210642.9 -682826.6 12.80+0.01 12.58 12.99 12.00 10.73+0.02 0.0357+0.0008 0.47+0.01
+J21091329—1310253 210918.3 -—13 1006.6 5540.10 11.31 11.58 10.88  10.0840.02 0.0466+0.0014 2.91+0.03
+Notes. V and K magnitudes are taken respectively from Munari et al. (2014) and Cutri et al. (2003); magnitude and colors in G, BP and RP bands
+come from the third Gaia data release (DR3; Gaia Collaboration et al. 2023b), and the parallax from Gaia Collaboration et al. (2023b). Individual
+uncertainties for the Gaia photometry are not reported, as their typical values are on the order of 10-4 mag.
+
+Table 2: Observing log.
+
+ID Inst ‘Slit width Bin HJD Exp.(s) SNR SNR RV petio
+(ey 3800A 4100A (km s7!)
+
+J0040+2729 McD 1.80 xl 2459087.88555  14x1800 mn 39 —91.70 £0.49
+J0217-1903 MIKE 0.50 2x1  2458093.58377  4x1800 32 100 43.97 + 0.23
+MIKE 0.50 2x1 2458438.14529 — 5x1800 -45.17 + 0.58
+
+J0246-1518 MIKE 0.35 2x2 2457968.86570 — 3x1800 56 85 +277.71 £0.20
+J1430-2317 MIKE 0.35 2x2 2457882.55411 — 3x1800 20 51 +432.65 + 0.09
+J1432-4125 MIKE 0.50 2x1 2458323.44550 — 3x1800 152 250 229.78 + 0.30
+MIKE 0.50 2x1 2458323.09657 4500 ~231.80 + 0.41
+
+J1916-5544 MIKE 0.35 2x2 2457881.85935 — 3x1200 44 90 $49.43 40.17
+J2009-3410 MIKE 0.35 2x2 2457968.59879 — 5x1800 33 81 +27.80 £0.51
+J2049-5124 MIKE 0.35 2x2 2457882.78828 5400 52 107 +24.31 40.17
+J2106-6828 MIKE 0.35 2x2 2457967.66552 4x1800 48 83 -74.28 + 0.24
+J2109-1310 MIKE 0.35 2x2  2457882.85526 — 3x1200 107 183 -36.20 + 0.16
+
+Notes. For the stars J0217—1903 and J1432—4125, multiple observations were taken at different epochs. These spectra were corrected for radial
+velocity shifts and subsequently coadded. We report the SNR of the final coadded spectrum only, as it is the version used for the analysis.
+
+2.1. Data reduction
+
+The MIKE data were reduced using the Carnegie Python (CarPy)
+pipeline (Kelson et al. 2000; Kelson 2003) and the TS23 echelle
+data was reduced using standard IRAF? packages (Tody 1986,
+1993; Fitzpatrick et al. 2024). The data reduction process in-
+cluded corrections for bias, flat-fielding, and scattered light. For
+stars observed across multiple nights, the individual spectra were
+co-added.
+
+2.2. Radial velocities
+
+To determine the heliocentric radial velocity (RVhelio) Values, we
+performed an order-by-order cross-correlation using the IRAF’s
+task fxcor*. The cross-correlation was carried out on 20 spec-
+tral orders centered around the Mg I triplet region, and the re-
+sulting velocity shift was then applied to all remaining orders.
+
+? NOIRLab IRAF is distributed by the Community Science and Data
+Center at NSF NOIRLab, which is managed by the Association of Uni-
+versities for Research in Astronomy (AURA) under a cooperative agree-
+ment with the U.S. National Science Foundation.
+
+3 https: //articles.adsabs.harvard.edu/pd£/
+1979AJ.....84.1511T
+
+The standard stars used for calibration were HD 182488, with a
+heliocentric velocity of Vpelio = 81.97 km s“!, observed with the
+McD setup, and HD 211038 (Vnelio = 10.44 km s!) together with
+HD 122563 (Vietio = —26.13 kms~!), observed with the MIKE
+setup using slit widths of 0.50” and 0.35’, respectively. Final
+values presented in Table 2 are taken as the mean and standard
+deviation of the orders used for the cross-correlation. All the ra-
+dial velocities are consistent with the values found by Hansen
+et al. (2018) and by GaiaDR3 Gaia Collaboration et al. (2023a),
+except for J1916—5544. For this star, we measure +49.43 + 0.17
+km s“!, in contrast to literature values of +46.58 + 0.29 km s~!
+(Hansen et al. 2018) and +46.90 + 0.30 km s~! (Gaia Collabora-
+tion et al. 2023b), suggesting the star belongs to a binary system.
+
+3. Stellar parameter determination
+
+Stellar parameters were derived using the methodology estab-
+lished by the RPA (see Roederer et al. 2018; Shah et al. 2024;
+Xylakis-Dornbusch et al. 2024 for details). A short overview is
+provided below. Effective temperatures (T.) were determined
+photometrically using Gaia G, BP, RP-bands and 2MASS K-
+band magnitudes, listed in Table 1. We adopted the color—
+metallicity—T calibrations from Mucciarelli et al. (2021). Red-
+
+Article number, page 3 of 23
+A&A proofs: manuscript no. aanda
+
+dening corrections were applied to the Gaia magnitudes using
+the E(B — V) values also reported in Table 1, derived from the
+dust maps of Schlafly & Finkbeiner (2011). Extinction coeffi-
+cients were taken from McCall (2004) for the K filter and cal-
+culated following Gaia Collaboration et al. (2018) for the Gaia
+filters, and applied individually. Following the Monte Carlo ap-
+proach by Roederer et al. (2018), we estimated T.4 for each color
+combination by drawing 10* realizations of the input parameters
+(magnitudes, reddening, metallicity) assuming Gaussian errors,
+and adopting the median of the resulting T. distribution. The fi-
+nal T.¢ for each star was then computed as the weighted average
+of the values from all color indices. For comparison, we show
+the excitation imbalance in the left column of Figure A.1. The
+slight trend in the Fe1 and Fen line abundances as a function of
+excitation potential, y reflects the difference between the pho-
+tometric and the spectroscopic Tefr. To reflect this uncertainty,
+as well as the limitations of the 1D model atmosphere, the total
+uncertainty includes the statistical weighted average plus 150 K
+added in quadrature (Frebel et al. 2013). After determining Te,
+the surface gravities (log g) were calculated from the fundamen-
+tal relation:
+
+°
++my — 5 log(d) + 5 — 3.1 - E(B— V) — Mpoio), (1)
+
+M
+log g = 4 log Tee + toe( 7 — 10.61 + 0.4 - (BCy
+
+where M is the stellar mass, assumed to be 0.8 + 0.08Mo for
+all the stars, being the canonical value for halo stars. BCy is
+the bolometric correction in the V band, and my is the ap-
+parent V band magnitude. The parameter d denotes the dis-
+tance in parsecs, and the Solar bolometric magnitude is fixed
+at Mbpolo = 4.75. The constant 10.61 is derived from the So-
+lar reference values, log(Te#,o) = 3.7617 and log go = 4.438.
+To estimate log g and its associated uncertainty, we computed
+the median and standard deviation from 104 Monte Carlo sam-
+ples generated for each input parameter. An additional 0.3 dex
+was added in quadrature to the resulting standard deviation to
+account for systematic uncertainties.
+
+Metallicity, [Fe/H], and microturbulent velocity, € were de-
+rived through equivalent width (EW) analysis of Fer and Fen
+lines, where the EW is defined as the width of a rectangle, with
+the same height as the line depth relative to the continuum, and
+an area equal to that of the spectral line. The analysis was per-
+formed by fixing Te and log g. The microturbulent velocity was
+obtained by removing any correlation between Fe1 line abun-
+dances and reduced equivalent width, while the model atmo-
+sphere metallicity was taken as the average of the [Fel/H] and
+[Fell/H] abundances, after manually removing outlier lines from
+the Fer and Fen distributions that deviated by more than 2.50
+from the mean abundance. This procedure results in a flat trend
+of Fer as a function of the line strength (REW), as shown in the
+central column of Figure A.1. The final [Fel/H] and [Fell/H]
+values agree within 0.08 dex for all stars. Systematic uncertain-
+tie on € is estimated to be 0.2 km s"!.
+
+The final stellar parameters and their associated uncertainties
+for the ten stars are listed in Table 3.
+
+4. Abundance analysis
+
+The abundance analysis was carried out using the software
+SMHr* (Casey 2014), which runs the 1D LTE radiative transfer
+
+* https://github.com/eholmbeck/smhr-rpa/tree/smhr3-damping
+
+Article number, page 4 of 23
+
+Table 3: Stellar parameters with systematic and statistical uncer-
+tainties.
+
+Stellar ID Tere [K] log g [Fe/H] [km s~1]
++0.20 +0.20
+J0040+2729 4695+ 154 1.37+0.32 -2.72 2.38
+JO217-1903 4609+ 154 1.40+0.34 -2.86 2.61
+J0246-1518 5019+155 2.07+0.31 -2.70 1.94
+J1430-2317 4158+ 153 0.49+0.33 -1.83 2.14
+J1432-4125  5159+155 2.25+0.31 -2.76 1.63
+J1916-5544 4422+ 154 0.704033 -2.39 2.31
+J2009-3410 41874153 0.33+0.30 -2.32 2.89
+J2049-5124 4250+ 153 0.83+0.30 -2.61 2.29
+J2106-6828 52084155 2.51+0.31 -2.72 1.50
+J2109-1310 4996+ 155 1.58+0.31 -2.45 2.03
+
+code MOOG> (Sneden 1973; Sobeck et al. 2011). We utilized a-
+enhanced ([a/Fe] = +0.4) ATLAS9 model atmospheres (Castelli
+& Kurucz 2003) and adopted Solar abundances from Asplund
+et al. (2009). We adopted the same line lists as those used in other
+RPA studies, ensuring methodological consistency across the
+collaboration. These were generated using linemake®(Placco
+et al. 2021) and include isotopic and hyperfine structure broad-
+ening where applicable, with r-process isotope ratios taken from
+Sneden et al. (2008). Elemental abundances were determined
+from a mixture of EW analysis and spectral synthesis. For the
+EW analysis, Gaussian or Voigt profiles were fitted to single,
+un-blended lines in the continuum-normalized spectra, while the
+spectral synthesis was used for blended features and lines af-
+fected by isotopic and/or hyperfine structure. The final abun-
+dances were computed as the average of individual line abun-
+dances. In Table D.1 in the appendix, we report the atomic data
+for the lines used in the analysis, with the measured EW and
+derived abundance of each line in JO040+2729. The same infor-
+mation for the other stars can be found in the CDS material.
+
+To estimate abundance uncertainties, we applied the method
+described in Ji et al. (2020), which performs propagation of stel-
+lar parameter uncertainties, incorporating statistical and system-
+atic uncertainties on each spectral line. Moreover, a 0.1 dex un-
+certainty is included for all lines to account for systematic uncer-
+tainties like continuum placement and atomic data uncertainties.
+Finally, an additional uncertainty of 0.2 dex is applied in quadra-
+ture to all abundances derived from two or fewer lines.
+
+5. Results
+
+We inspected more than 1400 lines for each of the ten stars
+in our sample and derived abundances of 54 atomic species,
+including 29 neutron-capture elements. Abundances for Nat,
+Mgr, Alt, Sit, Ki, Cat, Tit, Tin, Cri, Cru, Fet, Fen, Nir and
+Zn1 were determined measuring the EW of unblended lines,
+while abundances for all other species were derived via spectral
+synthesis. Final abundances and associated uncertainties for the
+ten stars are presented in Table B.1. The stars exhibit enhanced
+[Eu/Fe] ratios, ranging from +0.39 to +1.60, and [Ba/Eu] be-
+tween —0.52 and —1.01, as shown in Figure 1. Such abundance
+ratios are indicative of dominant r-process enrichment (Sneden
+et al. 2008), making these stars excellent candidates for probing
+the nature of the r-process nucleosynthesis sites.
+
+> https://github.com/alexji/moog|7scat
+© https://github.com/vmplacco/linemake
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+2.00 + + + : + + + 0.0
+1.755
+10217-1903
+150 Cgie 1518 “02
+1255 2009-3410
+se J2109°F310 704
+‘D 1.00 3
+5 Yos0s2729 nore ssaa S
+wu -0.6 0
+—vOh72 F gor 7
+0.505 2049-5124
+é -0.8
+0.255
+0.00 F -1.0
+-3.0 -2.8 -2.6 -2.4 -2.2 -2.0 -18 -1.6
+[Fe/H]
+Fig. 1: [Eu/Fe] as a function of [Fe/H], with a color gradient
+
+representing [Ba/Eu] for the sample of ten stars. All stars lie
+well above the canonical [Eu/Fe] > +0.3 threshold typically
+adopted for r-process-enhanced stars, and their low [Ba/Eu] val-
+ues further confirm that the enrichment is consistent with a pure
+r-process origin. Grey stars in the background are taken from
+Roederer et al. (2014).
+
+5.1. Carbon and Nitrogen
+
+Carbon abundances were determined for eight stars using spec-
+tral synthesis of the CH G-band at 4313A. For the stars
+J0246—1518 and JO217—1903, no CH absorption features were
+detected, and thus no carbon abundance could be determined.
+
+Nitrogen abundances were estimated from the CN molec-
+ular bands at 3876A and 3589A were detected in six of
+the observed stars (J0217-—1903, J1430-—2317, J1916-5544,
+J2009-3410, J2049-5124, J2109—1310). The NH band at 3369
+was also investigated and detected in JO217—1903, J2049-5124
+and J2109-1310, for which we obtained a lo consistency with
+N abundance derived from CN, and in J1432—4125 in which we
+have no CN detection instead.
+
+Almost all the derived carbon and nitrogen abundances show
+no extreme enhancements across the sample. Carbon abun-
+dances, corrected for evolutionary effect according to Placco
+et al. (2014), spans the range [C/Fe] = —0.35 to +0.55, while
+nitrogen ranges from [N/Fe] = -—0.23 to +0.56. These val-
+ues fall below the conventional thresholds for carbon-enhanced
+metal-poor (CEMP) and nitrogen-enhanced metal-poor (NEMP)
+of [C/Fe] > +0.7 (Beers & Christlieb 2005; Aoki et al. 2007)
+and [N/Fe] = +1.00 (Pols et al. 2012), respectively. The only
+exception is given by J2019—1310, for which the carbon value
+minimally exceeds the CEMP limit, being [C/Fe] = +0.74
+
+5.2. Elements from oxygen to zinc
+
+We determined abundances for 21 atomic species with Z < 30
+in all ten stars, including both neutral and singly ionized: O1,
+Nat, Mgt, Alt, Sit, Kt, Cat, Secu, Tir, Tin, V1, Vu, Cri, Cru,
+Mn1, Mnu, Fe, Fen, Cot, Nit, and Zn1. Additionally, we report
+the detection of Sc1 in one star and the detection of Cur in four
+stars in our sample. The Cur abundance is based solely on the
+5105 Aline, arising from a high-excitation level (y = 1.39 eV).
+
+Its intrinsic weakness and sensitivity to stellar parameters lead to
+non-detections in most cases. For Sc1, the investigated lines have
+central wavelengths between 3900 and 4050 A, in the near-UV.
+For stars in our parameter range, this spectral region typically
+suffers from severe line blending, and Sc1 is a minority species
+in these stars, making detections difficult. The [X/Fe] abundance
+ratios for the light elements are shown in Figure 2, where our
+sample is compared to Milky Way halo stars from Roederer et al.
+(2014). In that study, NLTE corrections were applied to Na and
+K, resulting in systematically lower average abundances relative
+to our sample. For elements where abundances of both neutral
+and singly ionized species were derived, we plotted the average
+abundance derived from the two ionization states. Overall, the
+abundance ratios of the light elements in our stars are broadly
+consistent with those observed in other metal-poor stars, show-
+ing no significant anomalies.
+
+5.3. Neutron-capture Elements
+
+We analyzed spectral lines from 29 neutron-capture elements.
+A detailed review of each of these elements is provided in the
+following subsections.
+
+5.3.1. Rubidium
+
+We identify a tentative detection of rubidium (Z=37) in
+J1430—2371, the coolest and most metal-rich star in our sample,
+based on two Rb1 spectral lines, at 7800 Aand 7947 A. The first
+one is a resonance feature, though partially blended on the blue
+wing with a nearby Sir line, which complicates precise abun-
+dance determination. Fitting this feature yields an Rb abundance
+of log e(Rb) = 0.82 + 0.20. To support this result, we also exam-
+ined another resonance line at 7947 A, from which we estimate
+an upper limit of log e(Rb) < 0.91. Since this upper limit lies
+only 0.09 dex above the value derived from the resonance line,
+we used this result as a validation of the previous estimate, inter-
+preting it as a tentative detection of Rb1.
+
+5.3.2. Elements between the first and second r-process
+peaks
+
+Abundances for the light neutron-capture elements strontium
+(Sr, Z = 38), yttrium (Y, Z = 39), and zirconium (Zr, Z = 40)
+were determined for all stars in the sample. In particular, Sr
+abundances were derived using the three Sru lines located at
+4077, 4161, and 4215 A. Y and Zr abundances were measured
+using line lists containing 41 and 51 transitions, respectively. For
+each star, the abundance determination relied on at least 10 lines,
+covering a wide wavelength range. We also report detections of
+molybdenum (Mo, Z = 42), ruthenium (Ru, Z = 44), rhodium
+(Rh, Z = 45), and palladium (Pd, Z = 46) in eight, eight, three,
+and five stars, respectively. Mo abundances are based primar-
+ily on the Mor line at 3864 A(shown in panel A of Figure 3),
+with the line at 5533 Aalso contributing in a few cases, show-
+ing agreement within 0.2 dex, when both lines were detected.
+Ru abundances were derived using four Rut lines in the blue
+region of the spectrum at 3436, 3498 (see panel B in Figure 3),
+3798, and 3799 A. Rh abundances were determined from the Rh1
+line at 3434 A(see panel C in Figure 3) for stars J1432—4125,
+J1916-5544, and J2019-—1310. For J2009—3410, an upper limit
+was derived using the same line. Pd abundances are based on the
+
+Article number, page 5 of 23
+(xiFe]
+
+LiFe]
+
+LX/Fe]
+
+A&A proofs: manuscript no. aanda
+
+@ J0040+2729 = > «J0246-1518 =—-W C*s1432-4125 = @_=—*J2009-3410 = =—4J2106-6828
+<@ J0217-1903 @ (1430-2371 «= MM 41916-5544 = «2049-5124 = &__—‘J2109-1310
+1.0 Na Mg Si K
+0.5 oe * 2, % ° %,
+kee ce ae bbs tote dl fs, F285 : +,
+0.0 tae Sg Sm. , ‘
+-0.5
+1.0 Ca Sc Ti v
+S¢ og 8. 4 BePes Wa)
+0.0 rat *.8 ey $ oe edSS °
+92° ests
+-0.5 :
+1.0 cr Co Ni Zn
+0.5 F) ,
+-05 al
+3.0 2.5 -2.0 =15 SE, 30 25. -2.0 “15 -10 -3.0 S25. -2.0 -=15 -1.0 -3.0 -2.5 -2.0 =15 est 1
+[Fe/H] [Fe/H] [Fe/H] [Fe/H]
+Fig. 2: [X/Fe] abundances of the light elements for the ten sample stars, compared to stellar abundances from the MW halo (grey
+
+dots; Roederer et al. 2014).
+
+Pdt lines at 3404, 3460, and 3517 A(panel D in Figure 3), with
+an upper limit derived for J1916—5544.
+
+We report a detection of silver (Ag, Z=47) in only one star,
+J1432-—4125, based on the Agi line at 3381 A, which is the
+only transition included in our linelist. This spectral feature is
+intrinsically weak and frequently blended with NH molecular
+lines, making it particularly challenging to detect in metal-poor
+stars. Due to these limitations, no Ag abundances could be
+determined for the other stars in our sample.
+
+5.3.3. Elements beyond the second r-process peak
+
+The elements from barium (Ba, Z = 56) to hafnium (Hf, Z =
+72) are called Lanthanides. Their abundances are generally well
+determined across our stellar sample.
+
+For Ba, five strong Bau transitions in the optical range
+were employed. Abundances for other heavy elements, namely
+lanthanum (La, Z = 57), cerium (Ce, Z = 58), praseodymium
+(Pr, Z = 59), neodymium (Nd, Z = 60), samarium (Sm, Z = 62),
+gadolinium (Gd, Z = 64), and dysprosium (Dy, Z = 66), were
+derived from numerous lines arising from singly ionized atoms
+(typically more than 20 per element), ensuring robust abundance
+derivations. Europium (Eu, Z = 63) abundances were obtained
+using 10 Eun lines, while terbium (Tb, Z = 65), holmium (Ho,
+Z = 67), and erbium (Er, Z = 68) abundances were derived
+using up to five transitions, mostly located in the blue region of
+the spectrum. Thulium (Tm, Z = 69), ytterbium (Yb, Z = 70),
+and lutetium (Lu, Z = 71) were detected in nine, ten, and nine
+stars, respectively. The Tm abundance is based on a maximum
+of six lines per star, all located below 4300 A(one example
+is shown in panel F of Figure 3), where line blending and
+continuum placement become increasingly uncertain. Similarly,
+Yb relies on a single Yb II line at 3694 A. In contrast, Lu
+abundances were derived from a single, relatively unblended
+line at 6220 A. Hafnium (Hf, Z = 72) was detected in nine stars
+
+Article number, page 6 of 23
+
+using five blue lines; although the features were relatively weak,
+they still allowed for reliable abundance estimates.
+
+5.3.4. Third peak elements
+
+Osmium (Os, Z = 76) and iridium (Ir, Z = 77) are among the
+so-called third r-process peak elements, corresponding to nuclei
+with mass numbers around A = 195 near the closed neutron shell
+at N = 126. We report respectively ten and nine new values of
+Os and Ir, and an upper limit for iridium.
+
+In our analysis, we investigated two Os1 lines at 4135 and
+4261 A (Figure 3, panel G). The absolute abundances derived
+from these two lines consistently disagreed, with the value de-
+rived from the first line being systematically higher than that
+obtained from the second by a minimum of 0.4 dex and up to
+1 dex. Following the framework of “relative strength” as de-
+fined by Sneden et al. (2009), which under LTE conditions is
+expressed as log(egf) — v6 (where € denotes the absolute abun-
+dance, gf the oscillator strength, y the excitation potential, and
+6 = 5040/T ), a line with lower relative strength is expected to be
+intrinsically weaker and consequently yield a lower abundance
+measurement. The 4135 A line always exhibits a lower relative
+strength compared to the 4261 A line, and thus should produce
+correspondingly lower abundance values, contrary to what we
+observe. This systematic discrepancy, which becomes more pro-
+nounced in stars characterized by lower effective temperatures,
+lower surface gravities, and higher metallicities, strongly sug-
+gests the presence of an unidentified blend affecting the 4135 A
+feature. This interpretation is further supported by an anomalous
+radial velocity shift encountered during the fitting of the 4135 A
+line. Given these considerations, we have elected to base our Os1
+abundance determinations exclusively on the 4261 A line.
+
+Similarly, we chose to base the Ir abundance solely on the
+Irr line at 3800 A(Figure 3, panel H), excluding the one at
+3513 A. To illustrate the reasoning for this, we show in Figure
+
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+J1916—5544 J2109—1310 J1432—4125
+suas ey 1.0 Popeye Bon, +4 1.0 ee ‘ =
+0.8 byt 0.8
+0.6 | 0.6 Ral
+Rut Erll
+0.4 0.4
+Uncertainty (1 Uncertainty () Uncertainty
+
+log (Mo) = -0.11 + 0.25 0.2 log (Ru) = 0.33 + 0.24 0.2 log ¢(Rh) = -0.25 + 0.35
+log (Mo) = —00 Af fo log e(Ru) = —00 B - loge(Rh) = —c0
+0.0°3863.7 3861 3865 9) 34085 3108.9 34003 9) 34305 3131.9 31353
+JO217—1903 J1430—2371 J2009—3410
+1.0 1.0
+4 0.8 0.8
+a
+g 0.6 0.6
+4
+8 0.4 04
+a (Uncertainty Uncertainty Uncertainty
+0.2 —— loge(Pd) = -0.01 + 0.27 0.2 —— loge(Tb) = 1.30 + 0.27 0.2F —— loge(Tm) = -1.30 + 0.20
+» loge(Pd) = —00 Di} fw log e(Th) = —o0 E ses loge(Tm) = —00 F
+0.05 = ———} 9 9 — I 9 gh — —
+3516.6 3517.0 3517.4 3702.5 3702.9 3703.3 3795.4 3795.8 3796.2
+J2109—1310 J0040+2729 J2049—5124
+1.0 —, 1.0 ; J 1.0
+
+0.8
+
+0.6
+
+0.4
+
+(5) Uncertainty (5 Uncertainty
+
+0.2F —— loge(Os) = 0.26 + 0.20 0.2 log e(Ir) = -0.26 + 0.36 0.2, —— loge(Th) = -2.07 + 0.34
+» Joge(Os)= 00 te log e(Ir) = —oo H > Joge(Th) = —oo
+4260.5 4261.0 4261.4 3799.8 3800.2 3800.6 4018.7 4019.1 4019.5
+Wavelength (A) Wavelength (A) Wavelength (A)
+
+Fig. 3: Examples of spectral synthesis fits used to derive elemental abundances. The observed data (black squares) are shown along
+with the best-fit synthetic spectra (solid teal lines) and associated uncertainties (shaded regions). The dotted lines correspond to
+synthetic spectra with no contribution from the indicated element (i.e., log € = —00).
+
+4 both Ir1 lines in the star J2109-1310. A closer inspection of significant for elements like Ir1, where only two lines are avail-
+this plot reveals that the 3800 Aline is unblended. In contrast, able.
+
+the 3514 Afeature is located between the nearby Co1 and Fe1
+
+transitions, making its profile more challenging to model. The |
+
+observed absorption lacks a clear Gaussian profile and appears 5-3-5- Beyond the third peak
+
+instead as a weak bump between stronger features, undermining . . ;
+its reliability as an Ir1 abundance tracer. Such inconsistencies are We derived lead (Pb, Z=82) abundance in two stars: J1430-2317
+
+easier to deal with for elements with more lines to choose from 44 J2009-3410. These are the two coolest stars in our sample,
+
+(e.g., Lan or Cen, which have 40-60 lines), but they become which allows for the detection of a neutral species like Pb1. For
+, , , all other, warmer stars, a larger fraction of Pb atoms are ionized,
+
+Article number, page 7 of 23
+A&A proofs: manuscript no. aanda
+
+J1432-4125
+
+1.0
+
+206 lie Ir
+vey
+
+3799.6 3799.9
+Wavelength (A)
+
+ed fl
+
+Normali:
+
+O04
+
+Fel
+3513.8
+Wavelength (A)
+
+0.2
+
+3513.3 3514.2 3800.2
+
+Fig. 4: Comparison of two Iri lines in the spectrum of
+J1432-—4125. The black dots represent the observed spectrum,
+and the turquoise boxes identify the position of the two lines.
+
+so such measurements are not feasible. Thorium (Th, Z=90) was
+detected in nine stars through three Th 11 lines at 4019 (Figure 3,
+panel I), 4086, and 5989 A.In contrast, no uranium (U, Z = 92)
+lines were detected. This is consistent with expectations, given
+the intrinsic weakness of U m transitions.
+
+5.4. Notes on NLTE
+
+All abundances presented in this work are derived under the
+assumption of LTE and using 1D model atmospheres. When-
+ever possible, we derived the abundances from ionized species,
+which are less sensitive to NLTE effects. In general, we did not
+apply NLTE corrections to maintain a homogeneous analysis,
+since 40% of our sample stars have stellar parameters outside
+the ranges covered by the published NLTE grids. However, as
+we aim to investigate scatter in r-process element abundances
+we report the NLTE-corrected abundances in Table B.2 for the
+subset of stars that fall within the available grids for the r-process
+species Sru, Bau, and Eun, using corrections from Mashonkina
+et al. (2022), Mashonkina & Belyaev (2019), and Mashonkina
+& Gehren (2000) respectively. As shown in Table B.2, the aver-
+age NLTE correction is relatively small for [Sr/Fe] and [Eu/Fe]
+(< 0.1 dex) but significantly larger for [Ba/Fe] (~ 0.2 dex).
+NLTE studies have also been performed for Nd, where Dixon
+et al. (2025) found corrections ranging from —0.3 to +0.5 dex,
+and Y, where Storm & Bergemann (2023) found that Y m lines in
+metal-poor giants ([Fe/H] ~ —3.0, log g ~ 1.0) can have NLTE
+corrections as large as 0.4 dex for low-excitation lines. However,
+none of these studies has provided correction grids.
+
+For more information, we refer the reader to the following
+3D NLTE grids present in the literature for O (Amarsi et al.
+2015), C (Amarsi et al. 2019), Na (Canocchi et al. 2024), Mg
+(Matsuno et al. 2024), Ca (Lagae et al. 2025), and Fe (Amarsi
+et al. 2022). Correction in 1D NLTE are provided for Al (Nord-
+lander & Lind 2017), and for Ti, Cr, Mn and Co for which we re-
+fer the reader to the MPIA NLTE database’ based on Bergemann
+(2011), Bergemann & Cescutti (2010), Bergemann & Gehren
+(2008) and Bergemann (2008) respectively. For Ni, Cu and Zn
+corrections are provided in 1D by Eitner et al. (2023); Caliskan
+et al. (2025) and Sitnova et al. (2022), respectively. For more in-
+formation on the above-mentioned elements see also the NLiTE
+website®.
+
+7 https: //nlte.mpia.de/gui-siuAC_secE.php
+8 https: //nlite.pythonanywhere.com/
+
+Article number, page 8 of 23
+
+5.5. Dynamical Origins and Orbital Properties
+
+To investigate the possible origins of our stars, we explored their
+orbital properties in the E—L, space. The total orbital energy
+(E) and the vertical component of the angular momentum (L,)
+were derived from the phase-space coordinates of the stars us-
+ing the galpy package (Bovy 2015), and their values are re-
+ported in Table 4. The results are visualized in the left panel
+of Figure 5. This diagram displays the distribution of our sam-
+ple stars in the orbital energy—angular momentum plane, where
+E is expressed in units of 10° km* s~? and L, in 10° kms™! kpe.
+The greyscale background represents the distribution of GALAH
+DR3 stars (Buder et al. 2021) within the metallicity range —1.3 <
+[Fe/H] < —0.9 dex. The thick black curve marks the dynamical
+boundary between in-situ stars (with higher binding energies)
+and accreted populations (less bound) originally calculated in
+Belokurov & Kravtsov (2023) and shifted to the energy scale
+of the McMillan17 potential in Monty et al. (2024). The grey
+contours outline the region associated with the Gaia-Sausage-
+Enceladus (GSE) debris, as described by Belokurov & Kravtsov
+(2023) and adapted to our Galactic potential. In this space, two
+stars in our sample, JO040+2729 and JO217—1903, appear to lie
+within the GSE-defined region. To further test this hypothe-
+sis, we determined approximations for the orbital actions using
+the Stackel fudge implemented in galpy (Mackereth & Bovy
+2018) to create the so-called "action diamond" (Vasiliev 2019;
+Myeong et al. 2019), shown in the right panel of Figure 5. This
+diagram plots the normalized azimuthal action, Jg/Jiot, against
+the vertical-minus-radial action, (J, — Jr)/Jtor, providing a com-
+pact view of the orbital morphology. Our ten stars are shown
+as colored markers, with the color indicating their orbital ec-
+centricity, obtained by computing the orbital integrations over
+3 Gyr with 1000 time steps per Gyr, assuming the McMillan17
+Galactic potential (McMillan 2017) and Local Standard of Rest
+as Monty et al. (2024). The background greyscale again shows
+the distribution of GALAH stars, while the grey box marks the
+highest density region of GSE members in E—L, space, accord-
+ing to Myeong et al. (2019).
+
+Interestingly, while JO040+2729 and JO217—1903 appear
+within the GSE region in the E-L, plane, they sit at the edge of
+the typical boundary in J/Jio¢ assumed for GSE members and
+well outside of the highest density region. This discrepancy indi-
+cates that their orbital morphologies are inconsistent with those
+of the GSE population, thereby weakening the case for their as-
+sociation with this major accretion event. Further support for this
+interpretation comes from their low metallicities of —2.72 and
+—2.86 dex, which are significantly below the characteristic GSE
+metallicity distribution, typically peaking around [Fe/H] ~ —1.5
+(Myeong et al. 2019; Monty et al. 2020; Ceccarelli et al. 2024;
+Ou et al. 2024). Finally, the GSE is known to be depleted in
+[Eu/Fe] at low metallicities, with typical values of [Eu/Fe] be-
+ing subsolar below [Fe/H] ~ —2.5 (Ou et al. 2024; Monty et al.
+2024). These combined properties suggest that J0040+2729 and
+J0217—1903 may instead be associated with other halo substruc-
+tures or represent remnants of distinct accretion events. The val-
+ues of the actions and the eccentricity are reported in Table 4
+(note that with an axisymmetric potential like (McMillan 2017),
+Jp = Ly).
+
+In addition, we investigated whether any of the ten stars are
+associated with the chemodynamically tagged groups (CDTGs)
+identified by Gudin et al. 2021; Zepeda et al. 2023; Shank et al.
+2023. We find that only JO246—5124 belongs to one of the 36
+CDTGs identified by Shank et al. (2023), while the remaining
+stars do not appear in any of the groups analyzed in these studies.
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+Table 4: Orbital angular momentum (L-), actions (Jy, J, and J,), orbital energy (E) and eccentricity (Ecc.) for the stars in our sample.
+
+Star ID L(= Jy) Je J, E Ecc.
+[103kms~!kpe]  [10?kms!kpe] [10?kms~!kpe] _ [10° km? s~?]
+J0040+2729 +0.255 +0.122 +0.774 —1.622 0.90
+J0217—1903 +0.311 +1.006 +0.421 -1.497 0.65
+J0246-1518 1.253 +0.183 +1.214 -1.278 0.75
+J1430-2317 -1.439 +0.640 +1.560 -1.129 0.74
+31432-4125 +0.917 +0.164 +2.259 -1.124 0.88
+J1916-5544 +0.396 +0.195 + 0.093 —-1.982 0.49
+52009-3410 —-0.558 +0.924 +2.073 -1.109 0.85
+J2049-5124 +0.040 +0.288 + 0.311 -1.910 0.92
+J2106—6828 +0.828 +0.379 +0.062 -1.718 0.28
+32109-1310 +1.776 +0.002 +0.003 —1.603 0.05
+0.5 1.00 1.0
+Accreted
+
+J0040-+2729
+30217-1903
+J0246—1518
+31430-2371
+J1432—4125
+J1916—5544
+32009-3410
+J2049—5124
+J2106—6828
+J2109—1310
+
+(Jz — IR)/ Jot
+
+In-Situ
+
++Oeeom<devae
+
+JO217—1903,
+12106-6828,
+J1916— 5544p >
+
+32 4
+
+32049-51249
+
+Eccentricity
+
+—0.25,
+
+aie
+009:
+
+340g)
+
+—0.50,
+3004042729
+31432-4135
+
+—0.75
+
+if
+
+=2 ol 0 1
+
+L, [10° km/s kpe]
+
+3 4
+
+—1.00,
+
+1 1 a6 fl L 0.0
+—1.00 —0.75 —0.50 —0.25 0.00 0.50 0.75
+
+Jo/ Jot
+
+0.25 1.00
+
+Fig. 5: Left panel: Distribution of the sample stars in the orbital energy (£) versus angular momentum (L-) plane. The greyscale
+
+background shows GALAH DR3 stars (Buder et al. 2021) with
+
+metallicities in the range —1.3 < [Fe/H] < -—0.9. The thick
+
+black curve marks the boundary between dynamically in-situ stars (more bound, lower energy) and accreted populations (less
+bound, higher energy), following the prescription of Monty et al. (2024). Colored markers indicate the ten stars in our sample, as
+
+labeled in the legend. The grey contours identify the approximate
+Belokurov & Kravtsov (2023), adapted to our adopted potential. Ri;
+
+region occupied by Gaia-Sausage-Enceladus (GSE) stars from
+ight panel: Action-space diagram ("diamond diagram”) showing
+
+the normalized azimuthal action (Jg/Jio.) on the x-axis and the normalized vertical-minus-radial action ((J, — Jr)/Jio.) on the y-
+axis. Colored markers correspond to the same stars as in the left panel, now color-coded by their orbital eccentricity. The greyscale
+background shows again the GALAH DR3 comparison sample. The grey rectangular region marks the approximate locations of the
+Gaia-Sausage accreted substructure, following the definitions by Myeong et al. (2019).
+
+In summary, our dynamical analysis as mapped in Fig-
+ure 5, indicates that the ten stars in our sample likely
+originate from ten distinct astrophysical environments, each
+tracing separate r-process enrichment histories. Six of the
+stars (J0040+2729, JO217—1903, J0246-1518, J1430—2317,
+J1432—4125, J2009-3410) lie above the dynamical boundary in
+the E-L, plane (left panel of Fig. 5), consistent with an accreted
+origin, while three stars have prograde orbits and could either
+have formed in situ or been accreted, the last star have kinemat-
+ics compatible with being a MW disk star. Working from the hy-
+pothesis that nine of our stars are accreted from now-disrupted
+dwarf galaxies, and one star formed in the MW we can use these
+stars to trace r-process enrichment over a wide range of environ-
+ments and estimate an upper limit on the scatter between them.
+
+6. Discussion
+
+This work presents one of the largest homogeneously and com-
+prehensively analyzed samples of r-process-enhanced stars to
+date. While most previous studies have been limited to small
+samples, often focusing on one or two stars (Sneden et al. 2003;
+Christlieb et al. 2004; Aoki et al. 2010; Xylakis-Dornbusch
+et al. 2024), or relied on heterogeneous compilations from the
+literature, our study provides a systematic and self-consistent
+analysis of ten stars with robust abundance determinations. For
+each star, we derived abundances for over 50 species. Notably,
+this includes 29 neutron-capture elements, making our dataset
+uniquely suited to probe the detailed structure of the r-process
+abundance pattern. In addition, our kinematic analysis (Sec-
+tion 5.5) shows the stars are not linked to the same accreted struc-
+ture, suggesting that they each trace an independent enrichment
+history. This provides a valuable opportunity to investigate the
+
+Article number, page 9 of 23
+A&A proofs: manuscript no. aanda
+
+diversity of r-process nucleosynthesis pathways across distinct
+progenitor systems.
+
+6.1. The r-process element abundance pattern
+
+The complete r-process element abundance patterns for the ten
+stars in our sample are presented in Figure 6, separated into
+light (30 < Z <_ 55, left panel) and heavy (55 < Z < 92,
+right panel) r-process elements. The abundances for each star
+have been rescaled to the pattern of HD 222925 (grey dots and
+a solid line) by computing the average abundance offset with re-
+spect to this star (Roederer et al. 2018, 2022), separately for light
+and heavy elements. We use HD 222925 as a reference, as this
+exhibits the most comprehensive r-process pattern observed to
+date. For comparison, the Solar r-process pattern from Sneden
+et al. (2008) is shown as a grey dashed line. Residuals with re-
+spect to the average offset to HD 222925 for each star are shown
+in the lower panels. This re-scaling approach allows us to assess
+the scatter in the r-process element abundance pattern, with min-
+imal influence from scatter induced by the analysis, enabling a
+clearer comparison across stars. The resulting trends and devi-
+ations will be discussed in detail in the following subsections.
+Plots for the individual ten stars, each rescaled to the europium
+values of HD 222925, are shown in Figure C.1 in the Appendix.
+
+6.1.1. Light r—process elements
+
+The production of the lightest neutron capture (n-capture) el-
+ements in the r-process has historically been seen to exhibit
+significant star-to-star variation when rescaled to Eu, leading
+to the view that their synthesis was not universal and poten-
+tially involved contributions from multiple astrophysical pro-
+cesses or sites (e.g., Travaglio et al. 2004; Hansen et al. 2012;
+Spite et al. 2018). This apparent lack of universality is contrasted
+with the relatively consistent patterns observed for the heavier
+lanthanides. However, recent work by Roederer et al. (2022) has
+challenged this picture by showing that several light trans-iron
+elements, including Se, Sr, Y, Nb, Mo, and Te, when scaled to
+Zr, follow a remarkably consistent abundance pattern in a sample
+of metal-poor, r-process-enriched stars with a dispersion < 0.13
+dex. These results suggest that, under certain astrophysical con-
+ditions, the production of light r-process elements may also re-
+flect a universal mechanism, potentially tied to a common nucle-
+osynthetic site.
+
+This picture of universality among light r-process elements pro-
+vides an important framework for interpreting our abundance
+measurements. In our sample, the Sr abundance presents a larger
+star-to-star variation compared to Y and Zr (see left panel of
+Figure 6), for which the universality seems to hold. However,
+Sr abundance was derived from the analysis of only three lines,
+compared to the other two elements for which over 20 clean tran-
+sitions were investigated.
+
+The limited number of Sr lines and their characteristics
+(See Section 5.3.2) likely contribute to the larger observational
+spread.
+
+The derived abundances of Mo, Ru, and Pd exhibit sub-
+stantial star-to-star variation, as it is shown in Figure 6. Such a
+spread is qualitatively consistent with the scenario proposed by
+Roederer et al. (2023), in which the deposition of fission frag-
+ments contributes to the element-to-element abundance scatter
+in metal-poor stars. However, the reliability of these measure-
+ments is affected by the fact that they are based on weak and of-
+ten blended lines located in the near-UV region (3400 - 4000 A).
+
+Article number, page 10 of 23
+
+These observational challenges can introduce systematic uncer-
+tainties that may mimic or enhance real abundance variations. In
+particular, the Mo and Ru lines often lie in complex blended fea-
+tures, while the Pd lines are extremely weak and prone to con-
+tamination. As a result, it is difficult to determine whether the
+observed spread reflects true astrophysical scatter or is driven, at
+least in part, by measurement limitations. Alternative diagnostics
+would be necessary to disentangle observational effects from in-
+trinsic abundance variations and to assess potential contributions
+from fission fragment yields in this mass region for this sample.
+
+6.1.2. Heavy r—process elements
+
+The heaviest r-process elements, including the third r-process
+peak and the actinides, provide essential constraints on the astro-
+physical conditions and robustness of the r-process. Numerous
+studies have shown that, for a wide range of metal-poor stars en-
+riched by the r-process, the abundance pattern of heavy elements
+from the second peak (Z ~ 56) to the third peak (Z ~ 76)closely
+follows the scaled solar r-process residuals (e.g., Westin et al.
+2000; Sneden et al. 2008). This apparent invariance, often re-
+ferred to as universality, suggests that a single type of r-process
+event (or at least a tightly constrained set of conditions) can ro-
+bustly reproduce the heavy-element pattern over a wide range
+of progenitor environments. On the other end, the universality
+seems not to hold for the actinides, since some Milky Way halo
+stars show enhanced Th and U abundances relative to the rare
+earth elements (the so-called "actinide boost"; Hill et al. 2002;
+Holmbeck et al. 2018; Placco et al. 2023). The other extreme in
+the shape of actinide deficiency has also been detected in one star
+in the r-process enhanced ultra-faint dwarf galaxy Reticulum II
+(Ji & Frebel 2018). Therefore, examining the abundances of Pb,
+Th, and U in our sample offers a valuable test of the robustness
+and possible diversity of the r-process at its heaviest end.
+
+Across our sample, the abundances of elements from Ba
+to Er are consistently well determined and exhibit relatively
+small star-to-star scatter (See right panel in Figure 6). This be-
+havior aligns with the previous findings, where elements be-
+yond the second r-process peak are known to follow tight abun-
+dance trends, particularly in the highly r-process-enhanced stars.
+These elements are typically associated with strong, relatively
+unblended absorption lines in the optical range, which facilitates
+robust abundance determination, in particular in high SNR spec-
+tra. However, in the same plot (Figure 6), is shown how, at higher
+atomic numbers (Z > 68), the observed scatter increases, likely
+due to a combination of weaker lines and more limited line avail-
+ability.
+
+Moving to the third peak, Os and Ir abundances can offer
+insight into the neutron density and entropy of the r-process en-
+vironment, as well as potential signatures of fission recycling
+(Alencastro Puls et al. 2025). Despite their importance, Os and Ir
+abundances are notoriously difficult to derive in metal-poor stars
+due to the weakness of their lines, which are typically located in
+the crowded blue-UV region of the spectrum and often blended.
+For this reason, not many abundances of those elements were re-
+ported in literature before the recent work from Alencastro Puls
+et al. (2025) who published 33 Os1 abundances plus five upper
+limit values and 32 Ir1 plus eight upper limits. In our sample,
+Os and Ir show a larger dispersion, compared to the lanthanides,
+again likely due to the analysis of a single line as mentioned in
+Section 5.3.4.
+
+Finally, the actinide element Th displays remarkable consis-
+tency across stars in our sample (Figure 6), with no significant
+star-to-star dispersion, except for two clear outliers: J1430—2371
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+and J2009—3410. These two stars exhibit significantly lower Th
+abundances, with a rescaled log e(Th/average of the offset from
+HD 222925) ratios of —0.30 and —0.37, respectively, compared
+to the average value of —0.05 of the other eight stars. This
+suggests a potential case of actinide depletion in these two stars,
+similar to what is observed in the Reticulum II star, contrasting
+with the otherwise uniform behavior of Th relative to Eu in the
+rest of the sample. However, we note that these two stars have
+the lowest effective temperatures in the sample. We therefore
+recommend caution in the interpretation of these abundances.
+
+6.2. Cosmic Abundance Variations Across Independent
+r-Process Sites
+
+As stated in Section 5.5, the ten stars analyzed in this study are
+chemically and dynamically untagged, and for the following fur-
+ther discussion, we therefore assume them to represent tendis-
+tinct r-process events. To provide a conservative upper limit, we
+assume that the measured abundance spread for each element
+arises entirely from astrophysical origins, neglecting any contri-
+bution from observational uncertainties. We then computed the
+standard deviation of the abundance of each r-process element
+across the ten stars, after normalizing the light (Z < 55) and
+heavy (Z > 55) elements to Zr and Eu, respectively. The re-
+sults for elements detected in at least three stars are shown in
+Figure 5, where the standard deviations a[X/Zr] and o[X/Eu]
+are plotted as a function of atomic number, and color-coded by
+the average number of lines used for abundance determinations.
+We also plot the standard deviation of the ojzr/zyy ratio itself,
+as a red horizontal line in the plot. This serves as a benchmark
+for the total variation between light and heavy r-process element
+production across the ten r-process events. The numerical val-
+ues of the standard deviations of all the elements are reported in
+Table 5. For most elements, the spread is remarkably small: we
+find o = 0.04 — 0.09 dex (corresponding to fractional variations
+< 18%) for the light r-process elements, and 0 ~ 0.08 — 0.12
+dex (< 24%) for the heavier elements. A few notable exceptions
+exist, including Ru, Tm, Yb, and Hf, where the dispersion ex-
+ceeds [zr/Eu). However, the scatter observed for these elements
+among the ten stars is most likely driven by observational limi-
+tations rather than genuine astrophysical variations. For these el-
+ements, we inspected up to six spectral lines, but in most cases,
+only three or fewer could be reliably analyzed. This is consider-
+ably less than what is typically available for other lanthanides,
+as also illustrated in Table B.1. As a result, while the line-to-
+line scatter within individual stars remains small (as it is clear
+from Table D.1), the abundance uncertainty a, in Table B.1,
+becomes larger whenever the determination relies on only few
+lines. A similar situation applies to Lu, Os, and Ir: although
+their dispersions across the stars appear smaller, the robustness
+of their abundances is likewise limited by the very small number
+of available lines.
+
+The larger variation in the o[zr/gy value is also expected, as
+this represents the scatter detected in numerous previous studies
+(see Sec 6.1.1). This variation in the ratio of the light to heavy
+r-process elements can be directly compared to the lanthanide
+fraction of the r-process element production site. For example,
+the ejecta of the GW170817 kilonova event (Kasen et al. 2017)
+required a multi-component model including lanthanide-poor
+and lanthanide-rich material to explain both the blue and red
+parts of the light curve. The lanthanide fraction for this event was
+later compared to r-process enriched stars by Ji et al. (2019), who
+found that this event did not produce enough lanthanide-rich ma-
+
+terial to match the stars. The ojz/zy) value of 0.18 dex found for
+our ten stars thus provides a range of lanthanide fractions. Since
+all ten stars in the sample presented here are r-process enhanced
+(to varying degrees, as reflected by their [Eu/Fe] and [Ba/Eu]
+ratios) and did not originate from one common environment, we
+interpret the measured Cosmic Values as the maximum allowed
+variation in abundance ratios produced by potentially up to ten
+independent r-process enrichment paths operating in the distinct
+environments where these stars formed.
+
+This means that, regardless of the specific astrophysical ori-
+gin, whether NSMs, magnetorotational supernovae, collapsars,
+magnetars, or other channels, any viable r-process site must re-
+produce element ratios consistent with the O.osmic Constraints es-
+tablished here. In this sense, our measurements provide robust
+empirical bounds on the diversity of r-process nucleosynthesis
+pathways.
+
+In order to investigate the potential effect of NLTE, we
+calculated the scatter among stars for which NLTE-corrected
+values for Sr, Ba, and Eu could be determined. The scat-
+ter with NLTE-corrected abundances are O{s,/z-,NLTE = 0.11
+and O7[Bga/Eu|NLTE = 9.05. For comparison, the scatter in LTE
+abundances for the same six stars are o[s,/zr,tTE = 0.06 and
+O[Ba/Eu,LTE = 9.06. While the comparison is not fully straight-
+forward because only Sr was corrected in the [Sr/Zr] ratio, these
+results indicate that NLTE corrections tend to slightly reduce the
+scatter in [Ba/Eu] and increase it in [Sr/Zr], reflecting the dif-
+ferential impact of NLTE effects on different elements (see Ta-
+ble B.22).
+
+7. Summary
+
+In this work, we present a homogeneous and comprehensive
+chemical abundance analysis of a sample of ten r-process-
+enhanced stars. These stars are characterized by strong enhance-
+ments in r-process elements and no significant s-process con-
+tribution, having a +0.39 < [Eu/Fe] < +1.06 and -1.01 <
+[Ba/Fe] < —0.52. For each star, we analyzed over 1400 spectral
+lines, deriving abundances for more than 50 species, including
+29 neutron-capture elements from Rb to Th. The derived abun-
+dance patterns display the well-known universality for the heavy
+r-process elements (Ba to Ir), with only mild star-to-star varia-
+tions. A slightly larger scatter is observed for Tm, Yb, and Hf,
+likely driven by increased measurement uncertainties due to line
+blending and continuum placement in the blue spectral region.
+A similar small scatter is seen for the light r-process elements
+in the range 38 < Z < 42, while the elements in the range
+43 < Z <$ 50 exhibit a somewhat larger dispersion across the
+sample, possibly in accordance with the fission fragment depo-
+sition scenario, proposed by Roederer et al. (2023).
+
+Kinematic analysis of the stars suggests they are not linked
+to a common birth environment but originated in distinct, unre-
+lated progenitor systems. This sample thus offers valuable con-
+straints on the diversity of ten individual astrophysical sites con-
+tributing to r-process enrichment. To quantify this, we calculated
+the cosmic standard deviation (Gcosmic) for each element among
+the ten stars, representing ten different r-process nucleosynthesis
+sites. These values provide an upper limit to the possible varia-
+tion introduced by different r-process nucleosynthesis environ-
+ments across ten independent stellar sites and are remarkably
+small for the rare earth and third peak elements, for example,
+O{La/Eu] = 9.08 dex and o7jos/Euy = 0.11 dex. A somewhat larger
+scatter of 0.18 dex is seen between the light and heavy parts
+of the r-process pattern (o[zr/zu)) representing the ratio between
+
+Article number, page 11 of 23
+A&A proofs: manuscript no. aanda
+
+Light Elements (30 < Z < 55) Heavy Elements (55 < Z = 92)
+
+Solar process
+222925
+3.0 © J0040+2729
+Z_jo217-1903
+(© joza6-1518
+25 b St © j1430-2371
+zr Ru Y 1432-4125,
+1 jisie-ssaa
+an if I B Ir  )2009-3410
+o Mo @ Pt 2049-5124
+Pd { Os )2106-6828
+se is 1 i = j2109-1310
+a Nd BD Er vp
+3 Ce Gd |
+2 10 r+ q 8 sin
+¥ { z
+05 { | | I ma OF Bi
+Nb Rho ag La’ id Au
+0.0 sh Eu
+Ho Thi
+~0.5+ Scaled to the average of the offset from HD222925 = hi rn
+athe
+1 I
+i) » =
+©
+Be geo g bef! foots cgagay }
+3 o
+Ca -
+
+30 35 40 45 50
+Atomic number, Z(X)
+
+5555 60 65 70 75 80 85 90
+Atomic number, Z(X)
+
+Fig. 6: Abundance patterns of light (30 < Z < 55, left panel) and heavy neutron-capture elements (55 < Z < 92, right panel).
+The colored points represent derived abundances for the ten sample stars. The abundances for each star are rescaled by subtracting
+the mean offset from HD 222925 (Roederer et al. 2018). The pattern of HD 222925 is represented by the grey solid line and dots,
+upper limits are indicated with grey downwards triangles. The lower panel displays the residuals with respect to the reference star
+HD 222925. The dashed grey line is the solar r-process pattern by Sneden et al. (2008).
+
+(Normalized to Zr) (Normalized to Eu)
+
+Light Elements Heavy Elements
+
+A Axieu
+0.35F dF OQ ax q 10+
+— opzreu =0.18 %
+0.30 df 4 c
+5
+0.255 fe) 4f 4 6-10 ~
+x A oO
+E a4 2
+4 0.20F df 4 £
+iS) eS SSSS..—.—...8899...°& S| a
+Le) Oo ry os c
+0.15f o aF A A 7 35 8
+A o
+0.10 § ‘ jt Ay ag Ara A : o
+AA ] <
+0.055 4f 4 1-2
+® fo)
+0.00 H 1 i —_ i legaal i i joeeal
+35 40 45 50 55 60 65 70 #75 80 85 90
+
+Atomic number, Z Atomic number, Z
+
+Fig. 7: Cosmic standard deviation (G cosmic) of r-process element abundances across the stellar sample. Left: light r-process elements
+(normalized to Zr, shown as circles). Right: heavy r-process elements (normalized to Eu, shown as triangles). Only elements
+measured in at least three stars are included. Marker colors indicate the average number of spectral lines used for the abundance
+
+determination. The red horizontal line marks the standard deviation of [Zr/Eu], illustrating the overall variation between the light
+and heavy r-process components.
+
+lanthanide-rich and lanthanide-poor ejecta for the ten enrichment
+paths.
+
+Acknowledgements. The authors thank the referee for the insightful comments
+that helped improve the clarity of the paper. The authors also thank Alexander P.
+Ji for assistance with the observations. M.R. acknowledges support from the In-
+ternational Research Network for Nuclear Astrophysics (IReNA) through a Vis-
+
+Article number, page 12 of 23
+
+iting Fellowship, which funded a research visit to North Carolina State Univer-
+sity (U.S.) to collaborate with I.U.R. M.R. and T.T.H. acknowledge support from
+the Swedish Research Council (VR 2021-05556). I.U.R. acknowledges support
+from the US National Science Foundation (NSF) grant AST 2205847. A.F. ac-
+knowledges support from NSF-AAG grant AST-2307436. T.C.B. acknowledges
+partial support from grants PHY 14-30152; Physics Frontier Center/JINA Cen-
+ter for the Evolution of the Elements (JINA-CEE), and OISE-1927130; The In-
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+Table 5: Dispersion of light and heavy r-process element abun-
+dances among ten stars.
+
+Element Numberof Average number Ceosmic
+detections of lines [dex]
+Sr 10 2 0.09
+¥. 10 20 0.05
+Zr 10 16 -
+Mo 9 1 0.16
+Ru 9 1 0.25
+Rh 3 1 0.04
+Pd 6 1 0.16
+Ba 10 4 0.17
+La 10 26 0.08
+Ce 10 32 0.10
+Pr 10 10 0.12
+Nd 10 By 0.09
+Sm 10 48 0.08
+Eu 10 7 -
+Gd 10 14 0.10
+Tb 10 2 0.16
+Dy 10 13 0.11
+Ho 10 4 0.12
+Er 10 6 0.12
+Tm 9 4 0.21
+Yb 10 1 0.18
+Lu 9 1 0.11
+Hf 9 2 0.22
+Os 10 1 0.11
+Ir 9 1 0.15
+Pb 2 1 0.16
+Th 9 2 0.23
+
+Notes. Standard deviation (co) of light (Z < 50) and heavy (Z 2 56) r-
+process element abundances. The second and the third columns contain
+the number of stars in which each element was detected and the average
+number of analyzed spectral lines per element, respectively. The fourth
+column abundance dispersion, expressed as [X/Zr] for light elements
+and [X/Eu] for heavy elements.
+
+ternational Research Network for Nuclear Astrophysics (IReNA), awarded by
+the US National Science Foundation, and DE-SC0023128CeNAM;; the Center
+for Nuclear Astrophysics Across Messengers (CeNAM), awarded by the U.S.
+Department of Energy, Office of Science, Office of Nuclear Physics. E.M.H.
+acknowledges work performed under the auspices of the U.S. Department of
+Energy by Lawrence Livermore National Laboratory under Contract DE-AC52-
+07NA27344. This document has been approved for release under LLNL-JRNL-
+2008756. The work of V.M.P. is supported by NOIRLab, which is managed by
+the Association of Universities for Research in Astronomy (AURA) under a co-
+operative agreement with the U.S. National Science Foundation
+
+References
+
+Abbott, B. P., Abbott, R., Abbott, T. D., et al. 2019, APJ, 874, 163
+
+Abbott, B. P., Abbott, R., Abbott, T. D., et al. 2017, APJ Letters, 848, L13
+
+Aldenius, M., Lundberg, H., & Blackwell-Whitehead, R. 2009, A&A, 502, 989
+
+Alencastro Puls, A., Kuske, J., Hansen, C. J., et al. 2025, A&A, 693, A294
+
+Amarsi, A. M., Asplund, M., Collet, R., & Leenaarts, J. 2015, MNRAS, 455,
+3735
+
+Amarsi, A. M., Barklem, P. S., Collet, R., Grevesse, N., & Asplund, M. 2019,
+A&A, 624, A111
+
+Amarsi, A. M., Liljegren, S., & Nissen, P. E. 2022, A&A, 668, A68
+
+Aoki, W., Beers, T. C., Christlieb, N., et al. 2007, ApJ, 655, 492
+
+Aoki, W., Beers, T. C., Honda, S., & Carollo, D. 2010, ApJ, 723, L201
+
+Arcones, A. & Thielemann, F.-K. 2012, J. Phys. G, 40, 013201
+
+Asplund, M., Grevesse, N., Sauval, A. J., & Scott, P. 2009, ARA&A, 47, 481
+
+Bandyopadhyay, A., Ezzeddine, R., Allende Prieto, C., et al. 2024, ApJS, 274,
+39
+
+Barnes, J. & Metzger, B. D. 2022, APJ Letters, 939, L29
+
+Beers, T. C. & Christlieb, N. 2005, ARA&A, 43, 531
+
+Belmonte, M. T., Pickering, J. C., Ruffoni, M. P., et al. 2017, ApJ, 848, 125
+
+Belokurov, V. & Kravtsov, A. 2023, MNRAS, 525, 4456
+
+Bergemann, M. 2008, Physica Scripta Volume T, 133, 014013
+
+Bergemann, M. 2011, MNRAS, 413, 2184
+
+Bergemann, M. & Cescutti, G. 2010, A&A, 522, A9
+
+Bergemann, M. & Gehren, T. 2008, A&A, 492, 823
+
+Bernstein, R., Shectman, S. A., Gunnels, S. M., Mochnacki, S., & Athey, A. E.
+2003, in Society of Photo-Optical Instrumentation Engineers (SPIE) Con-
+ference Series, Vol. 4841, Instrument Design and Performance for Opti-
+cal/Infrared Ground-based Telescopes, ed. M. Iye & A. F. M. Moorwood,
+1694-1704
+
+Biémont, E., Blagoev, K., Engstrém, L., et al. 2011, MNRAS, 414, 3350
+
+Biémont, E., Garnir, H. P., Palmeri, P., Li, Z. S., & Svanberg, S. 2000, MNRAS,
+312, 116
+
+Bovy, J. 2015, ApJS, 216, 29
+
+Buder, S., Sharma, S., Kos, J., et al. 2021, MNRAS, 506, 150
+
+Burbidge, E. M., Burbidge, G. R., Fowler, W. A., & Hoyle, F. 1957, RMP, 29,
+547
+
+Caliskan, S., Amarsi, A. M., Racca, M., et al. 2025, A&A, 696, A210
+
+Cameron, A. G. W. 1957, AJ, 62, 9
+
+Canocchi, G., Morello, G., Lind, K., et al. 2024, A&A, 692, A43
+
+Casey, A. R. 2014, A Tale of Tidal Tales in the Milky Way, PhD thesis, Aus-
+tralian National University, Canberra
+
+Castelli, F. & Kurucz, R. L. 2003, in Modelling of Stellar Atmospheres, ed.
+N. Piskunov, W. W. Weiss, & D. F. Gray, Vol. 210, A20
+
+Ceccarelli, E., Massari, D., Mucciarelli, A., et al. 2024, A&A, 684, A37
+
+Cescutti, G., Bonifacio, P., Caffau, E., et al. 2022, A&A, 668, A168
+
+Chornock, R., Berger, E., Kasen, D., et al. 2017, APJ Letters, 848, L19
+
+Christlieb, N., Gustafsson, B., Korn, A. J., et al. 2004, ApJ, 603, 708
+
+Cété, B., Eichler, M., Arcones, A., et al. 2019a, ApJ, 875, 106
+
+Cété, B., Eichler, M., Arcones, A., et al. 2019b, ApJ, 875, 106
+
+Cowan, J. J., Sneden, C., Beers, T. C., et al. 2005, ApJ, 627, 238
+
+Cowan, J. J., Sneden, C., Lawler, J. E., et al. 2021, RMP, 93, 015002
+
+Cutri, R. M., Skrutskie, M. F., van Dyk, S., et al. 2003, VizieR Online Data Cata-
+log: 2MASS All-Sky Catalog of Point Sources (Cutri+ 2003), VizieR On-line
+Data Catalog: II/246. Originally published in: University of Massachusetts
+and Infrared Processing and Analysis Center, (IPAC/California Institute of
+Technology) (2003)
+
+Den Hartog, E. A., Lawler, J. E., Sneden, C., & Cowan, J. J. 2003, ApJS, 148,
+543
+
+Den Hartog, E. A., Lawler, J. E., Sneden, C., & Cowan, J. J. 2006, ApJS, 167,
+292
+
+Den Hartog, E. A., Lawler, J. E., Sobeck, J. S., Sneden, C., & Cowan, J. J. 2011,
+ApJS, 194, 35
+
+Den Hartog, E. A., Ruffoni, M. P., Lawler, J. E., et al. 2014, ApJS, 215, 23
+
+Dixon, J. D., Ezzeddine, R., Li, Y., et al. 2025, arXiv e-prints, arXiv:2509.22811
+
+Drout, M. R., Piro, A. L., Shappee, B. J., et al. 2017, Science, 358, 1570
+
+Duquette, D. W. & Lawler, J. E. 1985, JOSA B, 2, 1948
+
+Eichler, M., Arcones, A., Kelic, A., et al. 2015, APJ, 808, 30
+
+Eitner, P., Bergemann, M., Ruiter, A. J., et al. 2023, A&A, 677, AIS1
+
+Ezzeddine, R., Rasmussen, K., Frebel, A., et al. 2020, ApJ, 898, 150
+
+Fitzpatrick, M., Placco, V., Bolton, A., et al. 2024, arXiv e-prints,
+arXiv:2401.01982
+
+Frebel, A., Casey, A. R., Jacobson, H. R., & Yu, Q. 2013, APJ, 769, 57
+
+Gaia Collaboration, Babusiaux, C., van Leeuwen, F.,, et al. 2018, A&A, 616, A10
+
+Gaia Collaboration, Vallenari, A., Brown, A. G. A., et al. 2023a, A&A, 674, Al
+
+Gaia Collaboration, Vallenari, A., Brown, A. G. A., et al. 2023b, A&A, 674, Al
+
+Grichener, A., Kobayashi, C., & Soker, N. 2022, ApJ, 926, L9
+
+Gudin, D., Shank, D., Beers, T. C., et al. 2021, APJ, 908, 79
+
+Halevi, G. & Mésta, P. 2018, MNRAS, 477, 2366
+
+Hansen, C. J., Primas, F., Hartman, H., et al. 2012, A&A, 545, A31
+
+Hansen, T. T., Holmbeck, E. M., Beers, T. C., et al. 2018, APJ, 858, 92
+
+Hill, V., Plez, B., Cayrel, R., et al. 2002, A&A, 387, 560
+
+Holmbeck, E. M. & Andrews, J. J. 2024, APJ, 963, 110
+
+Holmbeck, E. M., Beers, T. C., Roederer, I. U., et al. 2018, ApJ, 859, L24
+
+Holmbeck, E. M., Hansen, T. T., Beers, T. C., et al. 2020, ApJS, 249, 30
+
+Ivans, I. I., Simmerer, J., Sneden, C., et al. 2006, ApJ, 645, 613
+
+Ivarsson, S., Litzén, U., & Wahlgren, G. M. 2001, Phys. Scr, 64, 455
+
+Ji, A. P., Drout, M. R., & Hansen, T. T. 2019, APJ, 882, 40
+
+Ji, A. P. & Frebel, A. 2018, ApJ, 856, 138
+
+Ji, A. P., Li, T. S., Simon, J. D., et al. 2020, ApJ, 889, 27
+
+Jin, S. & Soker, N. 2024, ApJ, 971, 189
+
+Kasen, D., Metzger, B., Barnes, J., Quataert, E., & Ramirez-Ruiz, E. 2017, Na-
+ture, 551, 80
+
+Kelson, D. D. 2003, PASP, 115, 688
+
+Kelson, D. D., Illingworth, G. D., van Dokkum, P. G., & Franx, M. 2000, ApJ,
+531, 184
+
+Article number, page 13 of 23
+A&A proofs: manuscript no. aanda
+
+Kramida, A., Ralchenko, Y., Nave, G., & Reader, J. 2018, in APS Meeting Ab-
+stracts, Vol. 2018, APS Division of Atomic, Molecular and Optical Physics
+Meeting Abstracts, M01.004
+
+Kratz, K.-L., Farouqi, K., Pfeiffer, B., et al. 2007, APJ, 662, 39
+
+Kurucz, R. & Bell, B. 1995, Atomic Line Data (R.L. Kurucz and B. Bell) Kurucz
+CD-ROM No. 23. Cambridge, 23
+
+Kuske, J., Arcones, A., & Reichert, M. 2025, ApJ, 990, 37
+
+Lagae, C., Amarsi, A. M., & Lind, K. 2025, A&A, 697, A60.
+
+Lattimer, J. M. & Schramm, D. N. 1974, ApJ, 192, L145
+
+Lawler, J. E., Bonvallet, G., & Sneden, C. 2001a, ApJ, 556, 452
+
+Lawler, J. E. & Dakin, J. T. 1989, JOSA B, 6, 1457
+
+Lawler, J. E., den Hartog, E. A., Labby, Z. E., et al. 2007, ApJS, 169, 120
+
+Lawler, J. E., Den Hartog, E. A., Sneden, C., & Cowan, J. J. 2006, ApJS, 162,
+227
+
+Lawler, J. E., Guzman, A., Wood, M. P., Sneden, C., & Cowan, J. J. 2013, ApJS,
+205, 11
+
+Lawler, J. E., Sneden, C., & Cowan, J. J. 2004, ApJ, 604, 850
+
+Lawler, J. E., Sneden, C., & Cowan, J. J. 2015, ApJS, 220, 13
+
+Lawler, J. E., Sneden, C., Cowan, J. J., Ivans, I. I., & Den Hartog, E. A. 2009,
+ApJS, 182, 51
+
+Lawler, J. E., Sneden, C., Cowan, J. J., et al. 2008, ApJS, 178, 71
+
+Lawler, J. E., Sneden, C., Nave, G., et al. 2017, ApJS, 228, 10
+
+Lawler, J. E., Wickliffe, M. E., Cowley, C. R., & Sneden, C. 2001b, ApJS, 137,
+341
+
+Lawler, J. E., Wickliffe, M. E., den Hartog, E. A., & Sneden, C. 2001c, ApJ, 563,
+1075
+
+Lawler, J. E., Wood, M. P., Den Hartog, E. A., et al. 2014, ApJS, 215, 20
+
+Lawler, J. E., Wyart, J. F., & Blaise, J. 2001d, ApJS, 137, 351
+
+Li, R., Chatelain, R., Holt, R. A., et al. 2007, Phys. Scr, 76, 577
+
+Lind, K. & Amarsi, A. M. 2024, ARA&A, 62, 475
+
+Ljung, G., Nilsson, H., Asplund, M., & Johansson, S. 2006, A&A, 456, 1181
+
+Mackereth, J. T. & Bovy, J. 2018, PASP, 130, 114501
+
+Mashonkina, L. & Gehren, T. 2000, A&A, 364, 249
+
+Mashonkina, L., Pakhomov, Y. V., Sitnova, T., et al. 2022, MNRAS, 509, 3626
+
+Mashonkina, L. I. & Belyaev, A. K. 2019, Astron. Lett, 45, 341
+
+Matsuno, T., Amarsi, A. M., Carlos, M., & Nissen, P. E. 2024, VizieR
+Online Data Catalog: 3D non-LTE Mg abundance (Matsuno+, 2024),
+VizieR On-line Data Catalog: J/A+A/688/A72. Originally published in:
+2024A&A...688A..72M
+
+McCall, M. L. 2004, AJ, 128, 2144
+
+McMillan, P. J. 2017, MNRAS, 465, 76
+
+MeWilliam, A. 1998, AJ, 115, 1640
+
+Molero, M., Magrini, L., Matteucci, F., et al. 2023, MNRAS, 523, 2974
+
+Monty, S., Belokurov, V., Sanders, J. L., et al. 2024, MNRAS, 533, 2420
+
+Monty, S., Venn, K. A., Lane, J. M. M., Lokhorst, D., & Yong, D. 2020, MNRAS,
+497, 1236
+
+Morton, D. C. 2000, ApJS, 130, 403
+
+Mucciarelli, A., Bellazzini, M., & Massari, D. 2021, A&A, 653, A90
+
+Munari, U., Henden, A., Frigo, A., et al. 2014, AJ, 148, 81
+
+Myeong, G. C., Vasiliev, E., Iorio, G., Evans, N. W., & Belokurov, V. 2019,
+MNRAS, 488, 1235
+
+Nilsson, H. & Ivarsson, S. 2008, A&A, 492, 609
+
+Nilsson, H., Ivarsson, S., Johansson, S., & Lundberg, H. 2002a, A&A, 381, 1090
+
+Nilsson, H., Zhang, Z. G., Lundberg, H., Johansson, S., & Nordstrom, B. 2002b,
+A&A, 382, 368
+
+Nishimura, S., Kotake, K., Hashimoto, M.-a., et al. 2006, APJ, 642, 410
+
+Nordlander, T. & Lind, K. 2017, A&A, 607, A75
+
+O’Brian, T. R., Wickliffe, M. E., Lawler, J. E., Whaling, W., & Brault, J. W.
+1991, JOSA B, 8, 1185
+
+Ou, X., Ji, A. P., Frebel, A., Naidu, R. P., & Limberg, G. 2024, ApJ, 974, 232
+
+Patel, A., Metzger, B. D., Cehula, J., et al. 2025, APJ Letters, 984, L29
+
+Pehlivan Rhodin, A., Hartman, H., Nilsson, H., & Jonsson, P. 2017, A&A, 598,
+A102
+
+Placco, V. M., Almeida-Fernandes, F., Holmbeck, E. M., et al. 2023, ApJ, 959,
+60
+
+Placco, V. M., Frebel, A., Beers, T. C., & Stancliffe, R. J. 2014, ApJ, 797, 21
+
+Placco, V. M., Sneden, C., Roederer, I. U., et al. 2021, RNAAS, 5, 92
+
+Pols, O.R., Izzard, R. G., Stancliffe, R. J., & Glebbeek, E. 2012, A&A, 547, A76
+
+Prasanna, T., Coleman, M. S. B., & Thompson, T. A. 2024, ApJ, 973, 91
+
+Quinet, P., Palmeri, P., Biémont, BE. et al. 2006, A&A, 448, 1207
+
+Rodriguez Diaz, Lagae, Cis, Amarsi, Anish M., et al. 2024, A&A, 688, A212
+
+Roederer, I. U., Cowan, J. J., Pignatari, M., et al. 2022, ApJ, 936, 84
+
+Roederer, I. U. & Lawler, J. E. 2012, ApJ, 750, 76
+
+Roederer, I. U., Lawler, J. E., Sneden, C., et al. 2008, ApJ, 675, 723
+
+Roederer, I. U., Lawler, J. E., Sobeck, J. S., et al. 2012, ApJS, 203, 27
+
+Roederer, I. U., Preston, G. W., Thompson, I. B., et al. 2014, AJ, 147, 136
+
+Roederer, I. U., Sakari, C. M., Placco, V. M., et al. 2018, ApJ, 865, 129
+
+Roederer, I. U., Vassh, N., Holmbeck, E. M., et al. 2023, Science, 382, 1177
+
+Ruffoni, M. P., Den Hartog, E. A., Lawler, J. E., et al. 2014, MNRAS, 441, 3127
+
+Sakari, C. M., Placco, V. M., Farrell, E. M., et al. 2018, ApJ, 868, 110
+
+Article number, page 14 of 23
+
+Schlafly, E. F. & Finkbeiner, D. P. 2011, ApJ, 737, 103
+
+Shah, S. P., Ezzeddine, R., Roederer, I. U., et al. 2024, MNRAS, 529, 1917
+
+Shank, D., Beers, T. C., Placco, V. M., et al. 2023, APJ, 943, 23
+
+Siegel, D. M., Barnes, J., & Metzger, B. D. 2019, Nature, 569, 241
+
+Sitnova, T. M., Yakovleva, S. A., Belyaev, A. K., & Mashonkina, L. I. 2022,
+MNRAS, 515, 1510
+
+Sktiladéttir, A. & Salvadori, S. 2020, A&A, 634, L2
+
+Sneden, C., Cowan, J. J., & Gallino, R. 2008, ARA&A, 46, 241
+
+Sneden, C., Cowan, J. J., Lawler, J. E., et al. 2003, ApJ, 591, 936
+
+Sneden, C., Lawler, J. E., Cowan, J. J., Ivans, I. I., & Hartog, E. A. D. 2009, APJ
+Supplement Series, 182, 80
+
+Sneden, C. A. 1973, Carbon and Nitrogen Abundances in Metal-Poor Stars., PhD
+thesis, University of Texas, Austin
+
+Sobeck, J. S., Kraft, R. P., Sneden, C., et al. 2011, AJ, 141, 175
+
+Sobeck, J. S., Lawler, J. E., & Sneden, C. 2007, ApJ, 667, 1267
+
+Soker, N. 2025, OJAp, 8, 67
+
+Spite, F., Spite, M., Barbuy, B., et al. 2018, A&A, 611, A30
+
+Storm, N. & Bergemann, M. 2023, MNRAS, 525, 3718
+
+Suntzeff, N. B. 1995, PASP, 107, 990
+
+Tody, D. 1986, in Society of Photo-Optical Instrumentation Engineers (SPIE)
+Conference Series, Vol. 627, Instrumentation in astronomy VI, ed. D. L.
+Crawford, 733
+
+Tody, D. 1993, in Astronomical Society of the Pacific Conference Series, Vol. 52,
+Astronomical Data Analysis Software and Systems II, ed. R. J. Hanisch,
+R. J. V. Brissenden, & J. Barnes, 173
+
+Travaglio, C., Gallino, R., Arnone, E., et al. 2004, APJ, 601, 864
+
+Tsujimoto, T. & Shigeyama, T. 2014, A&A, 565, LS
+
+van de Voort, F., Pakmor, R., Bieri, R., & Grand, R. J. J. 2022, MNRAS, 512,
+5258
+
+van de Voort, F., Pakmor, R., Grand, R. J. J., et al. 2020, MNRAS, 494, 4867
+
+Vanbeveren, D. & Mennekens, N. 2024, Bull. Soc. R. Sci. Liége, 93, 338
+
+Vasiliev, E. 2019, MNRAS, 484, 2832
+
+Villar, V. A., Guillochon, J., Berger, E., et al. 2017, ApJ, 851, L21
+
+Wang, T. & Burrows, A. 2023, ApJ, 954, 114
+
+Westin, J., Sneden, C., Gustafsson, B., & Cowan, J. J. 2000, ApJ, 530, 783
+
+Wickliffe, M. E. & Lawler, J. E. 1997, JOSA B, 14, 737
+
+Wickliffe, M. E., Lawler, J. E., & Nave, G. 2000, J. Quant. Spectr. Rad. Transf.,
+66, 363
+
+Wickliffe, M. E., Salih, S., & Lawler, J. E. 1994, J. Quant. Spectr. Rad. Transf.,
+51, 545
+
+Winteler, C., Kappeli, R., Perego, A., et al. 2012, APJ Letters, 750, L22
+
+Wood, M. P., Lawler, J. E., Den Hartog, E. A., Sneden, C., & Cowan, J. J. 2014a,
+ApJS, 214, 18
+
+Wood, M. P., Lawler, J. E., Sneden, C., & Cowan, J. J. 2013, ApJS, 208, 27
+
+Wood, M. P., Lawler, J. E., Sneden, C., & Cowan, J. J. 2014b, ApJS, 211, 20
+
+Xu, H. L., Svanberg, S., Quinet, P., Palmeri, P., & Biémont, E. 2007,
+J. Quant. Spectr. Rad. Transf., 104, 52
+
+Xylakis-Dornbusch, T., Hansen, T. T., Beers, T. C., et al. 2024, A&A, 688, A123
+
+Zepeda, J., Beers, T. C., Placco, V. M., et al. 2023, APJ, 947, 23
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+Appendix A: Stellar parameters
+
+6r J0040+2729 4 Fk © Fel 4
+w @ Fell
+o
+-7'@ @ © Geteoras || 6 @CaGaeaties © COURSE EEEE 8 o
+4
+fv T T T T T T T
+Gr JO217-1903 4 FE 4
+~ “1P @ © BRekdes ero || © CERREMBR 3 || o PRARROMEE” © 0
+4
+6r jJO246—1518 + b a
+Ww
+Oo
+2550 @ © GROG | CSLRELELEO | CARRERE o |
+4-
+6+ J1430-2371 | L 4
+3 | © © GeepRipems ROT || Sani Ge ©
+z | | |
+4 1 1 1 1 4 1 L
+6F J1432-4125 4 L 4
+Ww
+fo)
+Oo 5+ 4 L 4
+“(8 @ @ CioRoehs || Greeters | COREY G2 o
+43 —
+6F J1916-5544 4 7 4
+w
+S5\P © @ Ge@Msece || ° wHGRRD || aeeraEYy o |
+
+6F J2009—3410 4 F 4
+
+:
+|
+:
+
+ql i 1 1 \ \ 4 fi
+6} J2049-5124 4 L 4
+
+Ww
+
+an
+
+2 5F 8 O0 CPEBOOED || “oGccRRGIWAR || GEOR S ©
+= ; ; :
+6} J2106-6828 4 b 4
+
+w
+
+co)
+
+B sk 4 L 4
+
+= 510 8G RReBeea DORR OD COREE, EE o
+4ut 4 4 1 1 4 1 1
+6F J2109-1310 4 L 4
+
+Ww
+
+Ss5i° BO Biivegs’!|. CRG. | -cGEMeGr © |
+
+fl 1 \ \ \ \ 1 \
+4 0 2 4 —3 —2 4000 6000 8000
+x REW Wavelength [A]
+
+Fig. A.1: Logarithmic abundances (log €) of Fer and Fen
+lines used to determine the stellar parameters of the sample
+stars, shown as a function of excitation potential (left), re-
+duced equivalent width (center), and wavelength (right).
+
+Article number, page 15 of 23
+A&A proofs: manuscript no. aanda
+
+Appendix B: Chemical abundances
+
+Article number, page 16 of 23
+€Z JO LI e8ed ‘aquinu spony
+
+Table B.1: Derived elemental abundances for the ten stars.
+
+Element J0040+2729 J0217-1903 J0246-1518
+
+N__loge(X) [X/A)_ oxy —[X/Fel_ ore N__loge(X) (X/H) oxy) (X/Fel_— xyes | N_ loge(X) (X/A) oxy) (X/Fe]_—oxyre
+C-H = 5.55 -2.81 0.18 +0.02 0.17 = 5.20 -3.15 0.14 -0.13 0.14 = - - = - =
+C-N - - - - - - - 4.73 -2.37 0.40 +0.65 0.39 - - ~ - ~ -
+Coors - - - — 40.54 -| - - - = 40.38 -| - - - - - -
+N-H - - - - - - - 5.23 -2.60 0.33 +0.42 0.32 - - - - - -
+Or 1 646  —2.23 0.30 +0.60 0.29 1 6.64 —-2.05 0.32 +0.97 0.31 2 6.85 -1.84 0.25 +0.95 0.26
+Nal 2 3.67 -2.56 0.31 +0.26 0.31 4 3.52 -2.69 0.13 +0.33 0.13 4 3.63 -2.60 0.11 +0.19 0.12
+Mgl 5 525 2.35 0.14 +0.47 0.14 6 5.17 -2.46 0.14 +0.55 0.15 7 5.21 -2.38 0.14 +0.41 0.13
+All 2: 3.04  -3.37 0.25 —0.55 0.25 1 3.06 —3.39 0.32 =0.37 0.32 1 2.80 -3.65 0.66 -0.85 0.64
+Sil 2 5.15  -2.45 0.30 +0.37 0.30 3 497 -2.52 0.14 +0.50 0.14 2 5.24 -2.30 0.25 +0.50 0.25
+KI 2 2.98 —2.02 0.26 +0.81 0.26 2. 2.79 -2.28 0.27 +0.73 0.27 1 2.84 -2.19 0.25 +0.61 0.25
+Cal 18 3.90  -2.43 0.14 +0.40 0.14 17 3.78 -2.54 0.14 +0.47 0.13 | 25 3.94 —2.39 0.14 +0.40 0.13
+Scl 1 0.30 -2.85 0.49 —0.03 0.48 - - - - - - - - - - - -
+Scll 9 0.45  -2.72 0.15 —0.05 0.12 9 0.35 2.75 0.14 +0.04 0.16 | 13 0.45  -2.57 0.14 +0.11 0.15
+Til 15 2.34 —2.67 0.20 +0.15 0.20 12 2.28 -2.83 0.20 +0.18 0.19 | 17 246 -2.55 0.18 +0.25 0.17
+Till 25 246 —-2.35 0.17 +0.32 0.13 17 240 -2.37 0.22 +0.42 0.17 | 31 2.53 =2.33 0.15 +0.34 0.15
+VI 3 102 -2.91 0.14 —0.09 0.14 2 0.90  —3.03 0.24 -0.01 0.24 2 LIZ = ==2,96 0.24 +0.04 0.24
+VIL 8 140 -2.49 0.11 +0.18 0.13 gi 1.28 -2.62 0.12 +0.18 0.16 | 10 135 =2:53 0.12 +0.15 0.14
+Cr 6 2.63 —2.94 0.22 -0.11 0.21 9 2.48 -3.09 0.22 —0.07 0.21 10 2.67 -2.88 0.16 -0.09 0.16
+Cri 4 2.94 -2.70 0.14 —0.03 0.12 2. 2.76 -2.82 0.25 —0.03 0.24 2. 2.88  -2.76 0.25 —0.08 0.24
+Mal 6 214 3122 0.15 —0.39 0.15 4 1.89 -3.56 0.11 -0.54 0.12 7 2.21 -3.14 0.13 -0.35 0.13
+Mall - - - - - - 4 1.88  -3.54 0.14 -0.74 0.16 3 244 -2.99 0.13 0.31 0.14
+Fel 109 477 -2.83 0.11 0.00 0.10 | 103 4.59 -3.02 0.12 0.00 0.10 | 83 4.79  -2.79 0.11 0.00 0.10
+Fell 14 4.78 -2.67 0.14 0.00 0.10 8 4.63 2.79 0.16 0.00 0.10 | 10 481 -2.68 0.14 0.00 0.10
+Col 6 2.16 -2.81 0.16 +0.02 0.16 6 1.95  -3.00 0.16 +0.01 0.16 | 15 240 -2.49 0.16 +0.30 0.16
+Nil 15 3.52 —2.80 0.15 +0.03 0.16 15 3.28 —-2.99 0.14 +0.03 0.14 | 12 3.46 -2.71 0.14 +0.09 0.13
+Znl 2: 2.02 —2.55 0.25 +0.27 0.25 2 1.95  -2.62 0.26 +0.39 0.26 3 219 -2.38 0.16 +0.42 0.16
+Srl - ~ - - - 1 0.01 -2.86 0.37 +0.16 0.37 - - - - - -
+Srl 2 2.53 0.26 +0.15 0.27 3 0.63 -2.12 0.20 +0.68 0.21 3 0.65 -2.20 0.20 +0.48 0.19
+YI 21 -2.54 0.11 +0.14 0.14 22 -0.15  —2.38 0.11 +0.42 0.16 | 21 -0.11 -2.25 0.14 +0.43 0.15
+Zril 15 —2.20 0.11 +0.48 0.14 17 0.55  -1.99 0.11 +0.80 0.16 | 19 0.54 -2.02 0.12 +0.66 0.14
+Mol 1 —2.06 0.23 +0.76 0.24 1 -0.19  -—2.07 0.23 +0.95, 0.23 1 -0.02 -1.90 0.25 +0.89 0.25
+Rul 1 -1.61 0.34 +1.22 0.34 3 0.12  -1.52 0.14 +1.50 0.14 2 0.42 -1.16 0.42 +1.64 0.41
+Pdi - - - - - - 1 -0.02  -1.59 0.27 +1.43 0.27 - - - - - -
+Ball 5 -0.19  —2.30 0.19 +0.38 0.16 6 -0.03 -2.14 0.16 +0.65 0.17 5 0.32 -1.90 0.20 +0.78 0.18
+Lall 27 -0.89 -2.01 0.12 +0.66 0.13 27 -0.61  -1.77 0.12 +1.02 0.16 | 26 -0.49 -1.60 0.12 +1.08 0.14
+Cell 35 -0.57 -2.15 0.11 +0.53 0.14 30 -0.28 -1.83 0.11 +0.97 0.16 | 43 -0.16  -1.75 0.11 +0.93 0.14
+Pril 12 -1.08  -1.72 0.13 +0.95, 0.14 13 -0.75  -1.50 0.12 +1.30 0.16 | 10 -0.70 1.31 0.14 +1.37 0.15
+NdII 64 -0.44 -1.86 0.10 +0.81 0.14 59 -0.15  -1.54 0.10 +1.25 0.16 | 61 -0.06 -1.48 0.11 +1.20 0.14
+Smll 46 -0.78 1.73 0.10 +0.95 0.14 58 -0.45  -1.44 0.10 +1.36 0.16 | 61 -0.34  -1.27 0.10 +141 0.14
+Eull 6 -1.10 -1.67 0.15 +1.00 0.13 8 -0.73.  -1.22 0.11 +1.57 0.16 7 -0.66 1.25 0.18 +1.43 0.16
+GdII 13 -0.65 -1.71 0.11 +0.96 0.14 21 -0.37 -141 0.11 +1.38 0.16 | 20 -0.13 -1.18 0.10 +1.50 0.14
+TbII 3 -1.47 0.16 +1.21 0.13 4 -1.14 -1.36 0.22 +1.43 0.19 2 -0.86 -1.07 0.26 +1.61 0.25
+DyII 10 -0.48 -1.62 0.12 +1.05 0.14 16 -0.34 -1.46 0.11 +1.34 0.16 | 16 0.06 -1.11 0.13 +1.56 0.15
+Holl 4 =123) =—1L74 0.22 +0.94 0.16 6 -1.03 -1.45 0.16 +1.34 0.17 6 -0.71  -1.23 0.17 +1.45 0.16
+Eri 6 1,72. 0.14 +0.96 0.15 9 -0.52 -1.36 0.15 +1.44 0.16 8 -0.16 -1.03 0.14 +1.65 0.15
+Tmil 4 -1.54 -1.53 0.19 +1.14 0.16 4 -142 -1.46 0.20 +1.34 0.18 5 -0.96 -1.08 0.11 +1.60 0.14
+YbII 1 -0.88  -1.72 0.25 +0.95 0.24 1 -0.81 -1.65 0.47 +1.15 0.40 1 -0.45  -1.29 0.30 +1.39 0.27
+Lull 1 1.60 0.32 +1.07 0.31 ii -0.96 —-1.06 0.27 +1.73 0.24 2 -0.90 -1.02 0.35 +1.66 0.31
+Afi 2 —1.73 0.25 +0.95 0.26 4 -0.75 -1.53 0.13 +1.27 0.16 2 -0.67 -1.53 0.26 +115 0.25
+OsI 1 1.60 0.25 +1.22 0.26 1 -0.01 -1.41 0.27 +1.61 0.26 1 0.22 -1.18 0.26 +1.61 0.27
+irl 1 1.64 0.36 +1.18 0.35 1 -0.07 -1.45 0.37 +1.57 0.36 2 0.40 -0.97 0.23 +1.82 0.24
+Thi 1 -1.54 0.28 +1.14 0.25 6 -1.24 -1.23 0.11 +1.57 0.16 1 -1.04 -1.06 0.26 +1.61 0.24
+
+Notes. For each element and star, we report: the number of spectral lines used (4), the logarithmic abundance log €(X), the abundance relative to hydrogen [X/H], its uncertainty ox;1, the
+
+abundance relative to iron [X/Fe], and the corresponding uncertainty o(x/Fe]. Reported values include both detections and upper limits, the latter indicated with “<”. All abundances
+
+table are 1D and LTE.
+
+listed in this
+
+“soourpunge Ie]Jals YIM sais ssadoid-4 Us} SuoUTK JayvOs DtUSOD ay) SuLO[dxg :aouRN[Y ssedo1g-Y 2k 19 RIORY
+€Z JO BI esed ‘1aquinu spony
+
+Table 6 Continue
+
+Element 31430-2371 31432-4125 J1916-5544.
+
+N_logeX) ([X/A) oopxymy —(X/Fel oye N_logeX) (X/A) opm XFe) opr N_logeX) [X/A) oy —XFe) pyre
+C-H = 6.03 —2.33 0.18 -0.41 0.20 - 6.08  -2.48 0.18 +0.44 0.17 - 5.49 -2.94 0.17 0.49 0.20
+C-N - 6.10  -1.73 0.36 +0.20 0.36 - - - = - - - 5.86 -1.98 0.45 +0.54 0.46
+Ceorr - - - - +0.19 - - - - - +0.45 - - - - - +0.26 -
+N-H - - - - - - - 4.64 -3.15 0.34 —0.23 0.34 - - - - - -
+OL 4 7.62 -1.10 0.15 +0.82 0.16 2 719 0.25 +1.42 0.26 3 7.22. -147 0.14 +1.04 0.14
+Nal 6 4.24 -1.96 0.15 —-0.04 0.15 2 3.86 0.26 +0.59 0.27 6 405 -2.22 0.12 +0.29 0.12
+Mgl 4 6.25  —-1.29 0.19 +0.63 0.19 7 5.31 0.14 +0.66 0.13 3 5.86 -1.78 0.15 +0.73 0.16
+All 3 461 —-1.87 0.17 +0.05 0.17 1 2.89 0.47 -0.64 0.46 - - - - - -
+Sil 10 6.05 —-1.47 0.12 +0.45 0.13 3 5.41 0.11 +0.88 0.12 7 5.63. -1.90 0.12 +0.61 0.12
+KI 2 3.78  -1.42 0.40 +0.50 0.39 1 2.98 0.25 +0.87 0.25 1 3.16 —-1.87 0.31 +0.64 0.31
+Cal 23 476 -1.49 0.15 +0.43 0.15 28 3.96 0.13 +0.58 0.13 22 424 -2.18 0.14 +0.33 0.13
+Scl 4 0.87  -2.30 0.19 -0.37 0.19 - - - - - 3 0.29 -2.82 0.15 0.30 0.14
+SclI 9 141 -1.80 0.14 —-0.04 0.14 14 0.57 0.12 +0.27 0.15 12 0.73 -2.35 0.14 +0.05 0.13
+Til 8 3.17 -1.63 0.25 +0.30 0.25 19 2.53 0.18 +0.43 0.17 16 2.55 -2.49 0.18 +0.03 0.18
+Till g 3.41 -1.61 0.19 +0.14 0.16 30 2.59 0.14 +0.47 0.14 18 2.86 2.17 0.15 +0.23 0.14
+VI 2. 1.78 -2.10 0.44 -0.18 0.43 3 1.15 0.12 +0.17 0.13 3 1.23 -2.68 0.27 -0.17 0.27
+VIL 4 1.94 -1.97 0.12 -0.21 0.16 10 1.32 0.12 +0.19 0.14 iE 1.55 -2.41 0.16 -0.01 0.15
+Cri 8 3.66 —2.04 0.37 —0.12 0.36 10 212, 0.14 +0.04 0.14 1 2.99 -2.62 0.14 -0.10 0.13
+Cri 2: 3.84 1.78 0.24 -0.03 0.23 2 2.74 0.25 -0.10 0.23 4 3.13. -2.52 0.12 -0.11 0.12
+Mnl 6 3.28 2.23 0.22 -0.30 0.22 8 2.16 0.12 —0.28 0.13 6 2.39 -3.06 0.18 0.55 0.18
+Mall - - - - - - 4 2.40 0.14 -0.30 0.14 2 3.04 -2.47 0.36 0.07 0.33
+Fel 131 5.64 -1.92 0.11 0.00 0.10 | 174 4.73 0.12 0.00 0.10 | 137 5.07 -2.51 0.11 0.00 0.10
+Fell i 5.72. -1.76 0.16 0.00 0.10 15 4.74 0.15 0.00 0.10 1 5.12 -2.40 0.15 0.00 0.10
+Col 6 2.67 -2.38 0.20 0.46 0.20 19 247 0.13 +0.37 0.13 ii 246 -2.48 0.20 +0.03 0.19
+Nil 10 4.26 —-2.06 0.15 -0.14 0.16 22 3.52 0.12 +0.13 0.12 15 3.68  —2.58 0.12 0.07 0.12
+Cul 1 188 -2.31 0.29 -0.39 0.29 - - - - - 1 1.14  -3.05 0.28 0.54 0.27
+Zn 2 2.68 —-1.88 0.25 +0.04 0.26 3 2.10 0.16 +0.46 0.16 2 2.10  -2.47 0.25 +0.04 0.25
+RbI 1 0.82. -1.70 0.33 +0.22 0.32 - - = - - - - - - - -
+Sri 1 0.56 -2.31 0.37 -0.39 0.37 - - - - - - - - - - -
+Sri 3 120 -1.61 0.19 +0.15 0.17 3 0.46 0.12 +0.49 0.16 3 0.58 -2.22 0.15 +0.19 0.16
+YI 22 0.29 -1.93 0.12 -0.17 0.14 17 -0.35 0.15 +0.17 0.14 18 -0.29 -2.48 0.14 —0.08 0.13
+Zril 13 1.04 -1.50 0.12 +0.25 0.15 22 0.43 0.11 +0.72 0.15 16 0.42 -2.10 0.11 +0.31 0.14
+Mol 2 0.32 -1.54 0.34 +0.38 0.34 1 -0.19 0.28 +0.85 0.29 2 0.10  -2.05 0.25 +0.46 0.25
+Rul 1 0.20 -1.55 0.52 +0.37 0.51 1 0.18 0.28 +1.36 0.27 2 0.09 -1.72 0.57 +0.80 0.57
+RhI - - - - - - 1 -0.24 0.35 +1.77 0.34 1 -0.31  -1.22 0.37 +1.29 0.37
+Pdl 1 0.58  -0.99 0.64 +0.93 0.64 1 —0.03 0.25 +£1.33 0.24 - <-0.01 - - - -
+Agl - - - - - - 1 -0.70 0.38 +1.28 0.37 - - - - - -
+Ball 3: 047 -1.71 0.23 +0.05 0.19 3 0.32 0.27 +0.86 0.22 4 -0.20 2.29 0.29 +0.11 0.21
+Lall 27 -041  -1.58 0.12 +0.17 0.14 34 -0.53 0.11 +1.10 0.15 30 -0.92 -2.01 0.12 +0.40 0.14
+Cell 28 -0.09 -1.70 0.11 +0.06 0.15 43 -0.18 0.10 +0.99 0.15 37 -0.61  -2.24 0.11 +0.16 0.14
+Pril 11 -0.71 -1.40 0.14 +0.36 0.14 13 —0.65 0.12 +1.46 0.15 10 =1.21 -191 0.15 +0.49 0.15
+NdII 61 -0.02  -1.46 O11 +0.30 0.15 68 —0.02 0.11 +1.33 0.15 61 -0.49 -1.90 0.11 +0.50 0.14
+SmII 39 -0.32  -1.30 0.12 +0.46 0.15 66 —0.36 0.10 +1.43 0.15 49 -0.81  -1.79 0.11 +0.61 0.14
+Eull 9 -0.65 -1.14 0.14 +0.62 0.14 7 -0.70 0.20 +1.49 0.16 11 -1.04 -1.59 0.12 +0.81 0.14
+GdII 11 -0.21 —1.30 0.12 +0.46 0.14 23 —0.26 0.10 +1.48 0.15 1 -0.74 -1.82 0.11 +0.59 0.14
+TbIL 3 -1.26 -1.46 0.27 +0.30 0.24 2 —1.03 0.25 +1.49 0.24 a -145  -1.81 0.20 +0.60 0.16
+DyII 5 0.01 -1.11 0.15 +0.65 0.14 20 -0.18 0.11 +1.54 0.15 13 =0:55, -L71 0.12 +0.70 0.14
+Holl 3 -0.97  -1.36 0.19 +0.40 0.17 6 —-0.87 0.17 +1.46 0.16 4 -140 -1.90 0.15 +0.50 0.13
+Erll 4 -0.13 -0.86 0.32 +0.90 0.31 9 —0.33 0.14 +151 0.16 5 -0.84 -1.81 0.17 +0.59 0.13
+Tmil 2 -144 -1.44 0.36 +0.32 0.32 6 —1.07 0.11 +1.61 0.15 3 -1.79  -1.78 0.22 +0.62 0.17
+‘YbIT 1 -0.75  -1.59 0.41 +0.17 0.39 1 —0.38 0.30 +1.58 0.26 1 -0.90 -1.74 0.40 +0.66 0.34
+Lull 1 -0.95  -1.05 0.28 +0.71 0.26 2 -1.19 0.31 +1.43 0.27 1 -1.54 -1.64 0.25 +0.77 0.27
+Hfll 2 -0.79  -1.75 0.31 +0.01 0.27 4 -0.58 0.14 +1.40 0.16 2 -0.76 1.64 0.25 +0.76 0.26
+OsI 1 0.23. -1.18 0.42 +0.75 0.41 1 0.20 0.28 +1.73 0.29 1 -0.29 -1.69 0.31 +0.82 0.30
+irl 1 -0.00 -1.38 0.52 +0.54 0.52 1 0.01 0.28 +1.56 0.27 1 -0.26 -1.64 0.42 +0.87 0.42
+PbI 1 0.13 1.62 0.29 +0.30 0.29 - - - - - - - - - - - -
+ThIl 2 -138 1.25 0.36 +0.50 0.33 4 -1.05  -1.09 0.14 +171 0.16 3 -1.56  -1.73 0.15 +0.67 0.15
+
+epuee ‘ou jdiosnueut :sjooid yay
+€7 JO 6] e8ed ‘aquinu sponIy
+
+Table 6 Continue
+
+Element 32009-3410 52049-5124 32106-6828
+
+N_loge(X) [X/A) oxy) (X/Fe]—oyxyrey | N loge(X) [X/A) oxy) LX/Fe]_ oo xyrey N_logeX) (X/A) oom ——EX/Fel ore
+C-H - 5.37 3.01 0.13 —0.67 0.15 - 5.31  -3.16 0.14 —0.46 0.14 = 6.07  —2.36 0.14 +0.54 0.15
+C-N - 6.01  -1.82 0.31 +0.52 0.32 - 5.68  —2.15 0.35 +0.56 0.34 - - - - - -
+Goorr - - - - +0.11 - - - - +0.29 - - - - - +0.55 -
+N-H - - - - - - - 5:52) 231 0.27 +0.40 0.26 - - - - - -
+Ol 3 714 -1.56 0.117 +0.78 0.13 3 6.95 -1.74 0.12 +0.96 0.12 3 7.04  -1.67 0.16 +1.23 0.17
+Nal 5 3.86 -2.39 0.12 —0.05 0.12 3 3.70 -2.61 0.15 +0.09 0.15 2 3.88  —2.25 0.27 +0.65 0.26
+Mgl 5 5.84 -1.72 0.13 +0.62 0.12 3 5.57 —2.06 0.14 +0.65 0.14 8 5.29 —2.29 0.14 +0.61 0.13
+All - - - - - - 2 3.32 -3.02 0.36 -0.31 0.36 2 2.93 -3.54 0.23 0.65 0.24
+Sil 8 5.72. -1.77 0.12 +0.57 0.12 5 5.47 —2.07 0.12 +0.64 0.12 1 5.23, -2.28 0.33 +0.62 0.32
+KI 1 3.28 -1.75 0.37 +0.59 0.36 1 3.02 -2.01 0.21 +0.70 0.28 2 2.88  —-2.15 0.26 +0.75 0.25
+Cal 19 433 -1.93 0.14 +0.41 0.13 | 24 402 -2.40 0.14 +0.31 0.13 21 401 -2.31 0.14 +0.59 0.13
+Scl 1 0.35 -2.80 0.49 -0.46 0.48 3 0.37. -2.78 0.14 0.08 0.14 - ~ - - - ~
+Scll 6 0.82 -2.35 0.11 -0.01 0.11 13 0.58  -2.54 0.12 +0.03 0.12 11 0.57 -2.54 0.12 +0.24 0.16
+Til 11 2.72 212 0.16 +0.22 0.17 | 15 2.44 -2.59 0.20 +0.11 0.20 17 252 -251 0.18 +0.39 0.17
+Till 9 2.84 —-2.04 0.14 +0.29 0.13 | 24 2.65 —2.34 0.13 +0.23 0.13 30 2.63 —2.33 0.14 +0.45 0.16
+VI 2 1.18  -2.72 0.51 —0.38 0.50 3 1.20  -2.70 0.18 +0.01 0.17 2 115 -2.82 0.23 +0.08 0.24
+VIL 3 145  -2.50 0.11 -0.15 0.11 8 1.53 -2.40 0.12 +0.17 0.12 7 1.34 -2.60 0.11 +0.18 0.16
+Cri 8 3.13 -2.31 0.23 +0.03 0.23 | 11 2.81  —2.72 0.17 —0.02 0.17 11 2.74 -2.82 0.16 +0.08 0.15
+Cril 1 3.25 —2.39 0.23 —0.05 0.23 3 3.02 —2.72 0.12 -0.15 0.12 4 2.91 -2.77 0.16 +0.01 0.14
+Mal 6 2.67 —-2.84 0.20 -0.51 0.19 7 2.35 —2.99 0.13 -0.29 0.13 5 2.08  -3.27 0.16 —0.37 0.16
+Mall 1 3.10  —2.33 0.35 +0.01 0.36 2 2.08  -3.35 0.25 0.78 0.27 2 2.31 -3.12 0.26 —0.34 0.24
+Fel 65 5.19 -2.34 0.11 0.00 0.10 | 99 4.84 -2.70 0.10 0.00 0.10 | 149 4.76 -2.90 0.12 0.00 0.10
+Fell 5 5.16 -2.34 0.11 0.00 0.10 | 11 491 -2.57 0.13 0.00 0.10 11 4.78 -2.78 0.16 0.00 0.10
+Col 4 2.25 -2.60 0.14 —0.26 0.14 8 2.39 —-2.56 0.14 +0.14 0.13 18 247 -2.58 0.16 +0.32 0.16
+Nil 14 3.82 -2.51 0.15 -0.17 0.14 | 17 3.59 —2.62 0.11 +0.08 0.11 9 3.54 -2.75 0.13 +0.15 0.13
+Cul 1 1.29 —-2.90 0.38 0.56 0.37 1 0.79 -3.40 0.25 0.70 0.24 - - - - - -
+Zni 2 2.03 —2.52 0.23 0.18 0.24 2 2.04 —-2.52 0.25 +0.18 0.24 2 2.07 -2.50 0.26 +0.40 0.26
+Sri 1 0.33 -2.54 0.49 0.20 0.48 1 -0.31  -3.18 0.26 -0.48 0.26 - - - - - -
+Sri 3 0.77 -2.15 0.23 +0.19 0.23 2 -0.16 -3.04 0.33 —0.47 0.29 2 0.56 -2.27 0.37 +0.51 0.31
+YIL 16 -0.05 -2.32 0.11 +0.02 0.12 | 23 -0.84 -3.02 0.12 —0.45 0.12 11 -0.33 -2.61 0.16 +0.17 0.15
+Zril 12 0.63 -1.97 0.11 +0.37 0.11 10 -0.06 -2.61 0.12 0.04 0.13 10 0.44 -2.08 0.16 +0.70 0.15
+Mol 2 -0.14 -1.97 0.48 +0.37 0.48 1 -0.46 -2.33 0.23 +0.37 0.23 - - ~ - - -
+Rul 2 0.06 -1.71 0.55 +0.63 0.55 1 -0.14 -1.89 0.41 +0.81 0.41 - - - - - -
+RhI - <0.48 - - - - - - - - - - - - - - - -
+Pdl 1 -0.17  -1.74 0.58 +0.60 0.57 1 -0.38 -1.95 0.44 +0.75 0.44 - - - - - -
+Ball 4 0.05 -2.15 0.13 +0.18 0.12 5 -0.61  -2.71 0.21 0.14 0.17 5 0.01 —2.25 0.19 +0.52 0.18
+Lall 26 -0.58  -1.72 0.10 +0.62 0.11 | 21 -1.38 -2.51 0.12 +0.06 0.13 7 -0.92  -2.08 0.16 +0.70 0.14
+Cell 28 -0.34 = -1.90 0.10 +0.44 0.11 | 26 -1.05 -2.62 0.11 —-0.05 0.13 5 -0.57  -2.21 0.17 +0.56 0.16
+Pril 12 -0.85  -1.55 0.12 +0.79 0.12 4 -1.51 -2.16 0.13 +0.41 0.13 1 -1.05 -1.77 0.27 +1.00 0.26
+NdII 56 -0.16 1.58 0.11 +0.76 O.11 | 52 -0.94 -2.37 0.10 +0.20 0.13 17 -0.42 -1.83 0.12 +0.94 0.16
+SmII 48 -0.43  -1.33 0.11 +1.01 0.11 | 39 -1.22 -2.20 0.11 +0.37 0.13 8 -0.76 -1.78 0.14 +0.99 0.15
+Eull 10 -0.57 -1.14 0.11 +1.20 0.11 6 -1.61 -2.18 0.14 +0.39 0.13 3 -117 1.68 0.12 +1.10 0.16
+GdII 10 -0.25  -1.28 0.11 +1.06 0.11 10 -1.05  -2.10 0.11 +0.47 0.13 4 -0.61 -1.71 0.12 +1.06 0.16
+TbII 3 -1.24  -1.57 0.22 +0.77 0.22 2 -1.92  -2.08 0.25 +0.49 0.23 2 -1.09  -1.40 0.21 +1.38 0.22
+DylII 6 -0.01 1.13 0.12 +1.21 0.12 | 10 -0.99 -2.12 0.12 +0.45 0.13 8 -0.44 -1.53 0.11 +1.25 0.16
+Holl 4 -0.86 1.35 0.12 +0.99 0.13 3 -1.85 -2.36 0.14 +0.21 0.13 3 -1.18  -1.73 0.19 +1.05 0.16
+Erll 5 -0.26 -1.21 0.12 #1213) 0.13 4 S135. 2:29. 0.13 +0.28 0.13 3 -0.63 -1.47 0.20 +131 0.17
+Tmil 5 -144 -1.39 0.20 +0.95 0.20 2 215 229 0.24 +0.28 0.24 - - - - - -
+YbII 1 -0.80 -1.64 0.37 +0.70 0.37 1 7152 2:37 0.27 +0.20 0.24 1 -0.87  -1.71 0.28 +1.07 0.25
+Lull 1 -1.04 -1.14 0.28 +1.20 0.28 1 -1.90 -2.00 0.33 +0.57 0.29 - - - - - -
+Hfll 2 -0.88  -1.75 0.25 +0.59 0.25 2 -1.24 -2.11 0.30 +0.46 0.28 - - - - - -
+OsI 1 0.17 -1.23 0.48 +111 0.48 1 -0.68  —2.08 0.43 +0.62 0.43 1 -0.18  —-1.58 0.40 1,32 0.39
+Ink 1 0.25  -1.13 0.41 +1.21 0.41 1 -0.61  -2.00 0.35 +0.71 0.35 - - - - - -
+PbI 1 -0.03  -1.78 0.38 +0.56 0.38 - - - - - - - - - - - -
+ThIl 3 #152, 155 0.33 +0.79 0.33 2 -1.93 -2.10 0.34 +0.47 0.32 - - - - - -
+
+“soourpunge Ie]Jals YIM sais ssadoid-4 Us} SuoUTK JayvOs DtUSOD ay) SuLO[dxg :aouRN[Y ssedo1g-Y 2k 19 RIORY
+€7 JO OT e8ed ‘1aquinu aponIy
+
+Table 6 Continue
+Element J2109-1310
+
+N_loge(X) (X/A) oxy) (X/Fe]—opxyrey
+C-H - 6.28 -2.14 0.16 +0.39 0.16
+C-N - 6.01  -1.75 0.52 +0.78 0.51
+N-H - 5.86 -1.97 0.31 +0.56 0.30
+Coorr = mt = - +0.74 -
+OL 4 7.08 -1.61 0.12 +0.92 0.13
+Nal 4 4.21 0.18 +0.41 0.18
+Mgil 7 5.63 0.14 +0.56 0.13
+AIL 2 3.29 0.34 -0.47 0.34
+Sil 3 5.36 0.20 +0.48 0.20
+KI 2 3.17 0.25 +0.73 0.25
+Cal 29 4.25 0.12 +0.39 0.12
+Scl 2 0.55 0.26 —0.03 0.26
+Scll 14 0.75 0.14 0.00 0.15
+Til 17 2.72 0.17 +0.29 0.16
+Till 28 2.74 0.16 +0.37 0.16
+VI 2 1.48 0.25 +0.04 0.25
+VIL 8 1.60 0.13 +0.15 0.14
+Cri 11 3.19 0.15 +0.16 0.14
+Cri 5 3.23 0.14 +0.09 0.13
+Mal 9 2.95 0.12 +0.11 0.12
+Mall 3 3.04 0.12 +0.05 0.16
+Fel 157 5.10 0.11 0.00 0.10
+Fell 10 5.07 0.16 0.00 0.10
+Col 12 2.68 0.14 +0.14 0.15
+Nil 20 3.92 0.11 +0.20 0.12
+Znl 3 2.31 0.15 +0.26 0.15
+Srl 1 0.14 0.36 -0.19 0.35
+Srl 3 0.52 0.22 +0.22 0.21
+YI 29 —0.22 0.11 +0.08 0.16
+Zi 26 0.52 0.10 +0.41 0.16
+Mol 1 0.07 0.31 +0.72 0.30
+Rul 2 0.38 0.24 +1.16 0.24
+RhI 1 -0.14 0.31 +1.48 0.31
+Pdl 2 0.08 0.34 +1.11 0.34
+Ball 5 0.16 0.22 +0.51 0.19
+Lall 36 -0.61 0.11 +0.75 0.16
+Cell 50 —0.32 0.10 +0.57 0.16
+Pri 14 -0.79 0.12 +1.03 0.15
+NdII 77 -0.18 0.10 +0.90 0.16
+Smll 66 —0.48 0.10 +1.00 0.16
+Eull 8 —0.83 0.16 +1.06 0.15
+GdII 26 -0.31 0.10 +1.09 0.16
+TbII 4 -L.11 0.11 +1.08 0.16
+DylI 26 -0.18 0.10 +1.19 0.16
+Holl 6 —0.98 0.20 +1.09 0.16
+Erll 12 —0.46 0.12 +1.08 0.16
+Tmil 6 1.18 0.11 +1.14 0.16
+YbII 1 -0.70 0.32 +0.93 0.26
+Lull 1 -1.10 0.29 +1.27 0.26
+Hfll 4 —0.63 0.12 +0.97 0.16
+OsI 1 0.22 0.30 +1.36 0.31
+Ir 1 0.11 0.25 +1.26 0.25
+Thi 4 -1.02 0.20 +1.39 0.16
+
+epuee ‘ou jdiosnueut :sjooid yay
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+Table B.2: NLTE abundance corrections.
+
+Star [Sru/Fe] [Ban/Fe] [Eun/Fe] [Sru/Fe] [Ban/Fe] [Eun/Fe] [Sru/Fe] [Ban/Fe] [Eun/Fe]
+LTE LTE LTE NLTE,corr NLTE,corr NLTE,corr corrected corrected corrected
+J0040+2729 0.15 0.38 1.00 -0.06 -0.28 0.01 0.09 0.10 1.01
+J0217-—1903 0.68 0.65 1.57 - -0.19 - - 0.46 -
+J0246-1518 0.48 0.78 1.43 -0.07 -0.14 -0.01 0.41 0.64 1.42
+J1430-2317 0.15 0.05 0.62 - -0.14 - - -0.09 -
+J1432-4125 0.49 0.86 1.49 - -0.19 -0.02 - 0.67 1.47
+J1916-5544 0.19 0.11 0.81 0.08 -0.20 0.02 0.27 -0.09 0.83
+J2009-3410 0.19 0.18 1.20 -0.07 -0.15 - 0.12 0.03 -
+J2049-5124 -0.47 -0.14 0.39 - -0.25 0.09 - -0.39 0.48
+J2106-6828 0.51 0.52 1.10 0.03 -0.24 - 0.54 0.28 -
+J2109-1310 0.22 0.51 1.06 0.03 -0.34 -0.01 0.25 0.17 1.05
+
+Notes. Corrections were calculated for Sru (Mashonkina et al. 2022), Ban (Mashonkina & Belyaev 2019) and Eun (Mashonkina & Gehren
+2000). Column | lists the star identifier. Columns 2—4 give the LTE abundances [Sru/Fe], [Bau/Fe], and [Eu n/Fe]. Columns 5-7 list the NLTE
+corrections applied to Sr, Ba, and Eu. Columns 8-10 show the resulting NLTE-corrected abundances. These corrections are based on literature
+values for stars where NLTE effects have been quantified.
+
+Article number, page 21 of 23
+A&A proofs: manuscript no. aanda
+
+Appendix C: The ten r-process patterns
+
+3 —e— HD222925 —e— HD222925
+Solar r-process Solar r-process
+© = $0040+2729 4 -J0217-1903
+2
+Es
+3 ES
+; f
+ae:
+4 —e— HD222925 —e— HD222925
+Solar r-process Solar r-process
+% J0246-1518 @ $1430-2371
+2
+Es
+3 F
+oO
+at
+3 —e— HD222925 —e— HD222925
+Solar r-process Solar r-process
+Y 4J1432-4125 ®@ J1916-5544
+2
+Es
+0 i
+
+x —e— HD222925 —e— HD222925
+Solar r-process Solar r-process
+@ 42009-3410 # = J2049-5124
+
+loge(X)
+
+3 —e— HD222925
+Solar r-process
+¥ J2109-1310
+
+ES
+3 1
+E3
+0; —e— HD222925
+Solar r-process
+_,|  J2106-6828
+40 50 60 70 80 90 40 50 60 70 80 90
+Atomic number, Z(X) Atomic number, Z(X)
+
+Fig. C.1: r-process patterns of the ten stars in the sample
+(colored markers), each rescaled to the log e(Eu) value o
+HD 222925 (solid grey line). The dashed grey line shows
+the solar r-process pattern from Sneden et al. (2008).
+
+Article number, page 22 of 23
+M. Racca et al.: The R-Process Alliance: Exploring the cosmic scatter among ten r-process sites with stellar abundances.
+
+Appendix D: Atomic data
+
+Table D.1: Equivalent width, atomic species, excitation poten-
+tial (EP), oscillator strength (loggf), equivalent widths (EQW),
+abundances (log(e)), and references for every line analyzed in
+J0040+2729.
+
+a Species x loggf EQW log(e) Ref
+(A) (eV) (mA) __ ex)
+6300.30 O1 0.00 -9.69 3.70 6.46
+5889.95 Nal 0.00 +0.11 188.07 3.77
+5895.92 Nal 0.00 -0.19 155.48 3.58
+4167.27 Mgt 435 -0.74 5840 5.30
+4702.99 Mgr 433 -044 70.15 5.10
+5183.60 Mg 2.72 -0.17 254.51 5.24
+5528.40 Mgr 435 -055 77.67 5.30
+5711.09 Mgr 435  -1.84 9.74 5.32
+3961.52 Alt 0.01 -0.33 146.44 3.06
+
+NNN
+
+References. (1) NIST Kramida et al. (2018); (2) Pehlivan Rhodin et al.
+(2017); (3) Aldenius et al. (2009); (4) Lawler & Dakin (1989) using
+HFS from Kurucz & Bell (1995); (5) Lawler et al. (2013); (6) Wood
+et al. (2013); (7) Lawler et al. (2014) for log(gf) values and HFS; (8)
+Wood et al. (2014b) for log(gf) values and HFS, when available; (9)
+Sobeck et al. (2007); (10) Lawler et al. (2017); (11) Den Hartog et al.
+(2011) for log(gf) values and HFS; (12) O’Brian et al. (1991); (13)
+Den Hartog et al. (2014); (14) Belmonte et al. (2017); (15) Ruffoni et al.
+(2014); (16) Lawler et al. (2015) for log(gf) values and HFS; (17) Wood
+et al. (2014a); (18) NIST Kramida et al. (2018), using HFS/IS from
+Kurucz & Bell (1995); (19) Roederer & Lawler (2012); (20) Morton
+(2000); (21) Biémont et al. (2011); (22) Ljung et al. (2006); (23) Nilsson
+& Ivarsson (2008); (24) Wickliffe et al. (1994); (25) Duquette & Lawler
+(1985); (26) Hansen et al. (2012) for log(gf) value and HFS/IS; (27)
+NIST Kramida et al. (2018), using HFS/IS from McWilliam (1998);
+(28) Lawler et al. (2001a) using HFS from Ivans et al. (2006); (29)
+Lawler et al. (2009); (30) Li et al. (2007) using HFS from Sneden et al.
+(2009); (31) Ivarsson et al. (2001) using HFS from Sneden et al. (2009);
+(32) Den Hartog et al. (2003) using HFS/IS from Roederer et al. (2008)
+when available; (33) Lawler et al. (2006) using HFS/IS from Roederer
+et al. (2008); (34) Lawler et al. (2001c) using HFS/IS from Ivans et al.
+(2006); (35) Den Hartog et al. (2006); (36) Lawler et al. (2001b) us-
+ing HFS from Lawler et al. (2001d); (37) Wickliffe et al. (2000); (38)
+Lawler et al. (2004) using HFS from Sneden et al. (2009); (39) Lawler
+et al. (2008); (40) Wickliffe & Lawler (1997) using HFS from Sneden
+et al. (2009); (41) Sneden et al. (2009) for log(gf) value and HFS/IS;
+(42) Lawler et al. (2009) for log(gf) values and HFS; (43) Lawler et al.
+(2007); (44) Quinet et al. (2006); (45) Xu et al. (2007) using HFS/IS
+from Cowan et al. (2005); (46) Biémont et al. (2000) using HFS/IS from
+Roederer et al. (2012); (47) Nilsson et al. (2002b); (48) Nilsson et al.
+(2002a).
+
+Notes. The complete version of this table and the full table for the other
+nine stars are available at the CDS.
+
+Article number, page 23 of 23

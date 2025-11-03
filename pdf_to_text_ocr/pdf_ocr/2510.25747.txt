@@ -1,0 +1,704 @@
+arXiv:2510.25747v1 [cond-mat.stat-mech] 29 Oct 2025
+
+AIP/123-QED
+
+When Heating Isn’t Cooling in Reverse: Nosé—Hoover Thermostat Fluctuations
+from Equilibrium Symmetry to Nonequilibrium Asymmetry
+
+Hesam Arabzadeh! and Brad Lee Holian?
+
+Department of Chemistry, University of Missouri, Columbia, Missouri 65211,
+
+USA
+2 Theoretical Division, Los Alamos National Laboratory, Los Alamos, New Mexico 87545,
+
+USA
+(*Electronic mail: blhksh @ gmail.com)
+
+(Dated: 30 October 2025)
+Recent laboratory experimental work has suggested that heating and cooling processes
+may exhibit intrinsic asymmetry, with heating occurring more efficiently than cooling.
+Two decades earlier, molecular dynamics simulations addressed the topic of heating one
+side of a computational cell while cooling the other side by applying two different ther-
+mostats. We revisit those computer calculations, recapitulating the underlying theory, and
+showing how we might have been able to predict the lab results from tantalizing partial
+MD results. Recent realizations of a simple two-dimensional one-particle cell model gave
+surprisingly relevant results, by thermostatting the two directions (x and y) at two different
+temperatures: at equilibrium, the thermostatting variables in each direction were identical,
+while under nonequilibrium temperature differences, the heating variable was weaker than
+the cooling one. At the same time, MD simulations from four decades ago by Evans and
+Holian piqued our curiosity, since they had reported a surprising skew in the Nosé—Hoover
+thermostat variable € under equilibrium conditions — indicating a statistical bias in energy
+injection versus extraction. In this study, we revisit those results using modern MD simula-
+tions of a Lennard-Jones soft-sphere fluid with exact reproduction of their setup. We show
+that when (1) center-of-mass velocity is set to zero, (2) the equations of motion are care-
+fully integrated by finite central differencing, and (3) sampling time is sufficiently long, the
+distribution of € is symmetric and Gaussian with zero mean, as predicted by theory and
+convincingly validated by error estimates using two approaches. We then demonstrate clear
+asymmetry in the distribution of both thermostat variables for the simple cell model: the
+cold bath requires significantly stronger damping than the hot bath requires anti-damping
+— matching an exact analytic relation (&,) /(€,) = —T,/T;, linking thermostat effort to ther-
+mal bias and showing how this is related to the negative rate of change in the entropy of
+the system, accompanying the contraction of phase space onto a fractal strange attractor
+of lower dimension. Our results clearly identify the microscopic origin of heating—cooling
+asymmetry as a genuine nonequilibrium effect, thereby strongly confirming the results of
+
+laboratory experiments.
+I. INTRODUCTION
+
+“C’est la dissymétrie qui crée le phénoméne.”
+(It is the asymmetry that creates the phenomenon.)
+
+-Pierre Curie, Journal de Physique 3, 393 (1894)
+
+The laws of thermodynamics are generally assumed to treat heating and cooling on equal foot-
+ing. Microscopic time-reversibility implies that energy can, in principle, be injected or removed
+with equivalent ease, subject only to fluctuations. Yet recent experiments have cast doubt on this
+intuitive symmetry. Ibdfiez et al.! demonstrated that heating a system occurs more efficiently —
+
+faster and with less dissipation — than cooling the same system by the same amount.
+
+The Ibdfiez et al. heating and cooling experiments! were conducted on colloidal particles (silica
+microspheres of diameter one micrometer) with charged surfaces, suspended in water, confined by
+a near-infrared laser trap, and subjected to a heat bath produced by a white noise electric field.
+Particle Brownian motion was tracked by laser scattering for three temperature quench protocols,
+i.e., relaxation between either a higher temperature or lower to an intermediate target temperature,
+then the reverse procedure starting from equilibration at the target temperature, and finally, either
+heating or cooling between only two temperatures. In all cases, heating is seen to be more easily
+accomplished than cooling when a nonequilibrium temperature difference exists; otherwise, at
+equilibrium, there is no bias. This nonequilibrium asymmetry raises important questions: Is the
+asymmetry in heating and cooling a purely macroscopic effect? Or does it emerge naturally at the
+
+microscopic scale?
+
+One of us (BLH) recalled, upon seeing the Ibdfiez results, that Evans and Holian2, in a 1985
+molecular-dynamics (MD) computer simulation of a Nosé—-Hoover (NH) thermostatted fluid, ob-
+served a similar asymmetry favoring heating — but at equilibrium! The NH thermostat? modifies
+the atomistic Newtonian equations of motion by introducing an integral feedback term (the nega-
+tive of a thermostatting-rate variable & times particle velocity) into the momentum rate of change.
+The Nosé—Hoover thermostat behaves like a heat bath, represented by &, an additional phase-space
+degree of freedom outside the normal particle degrees of freedom (coordinates and momenta).
+When the thermostat coefficient & is positive, the thermostat heat bath takes energy out of all par-
+ticles by slowing them down (frictional); when & is negative, the thermostat pumps energy into
+the particles, speeding them up (anti-frictional); at equilibrium, & fluctuates around zero. NH ther-
+
+mostatting at equilibrium makes the fluid behave as though it were sampling the NVT canonical
+ensemble (N particles in volume V and temperature T). The asymmetry observed? in the distribu-
+tion of €, skewed toward negative values (favoring heating), were considered remarkable, since
+theory predicts a zero mean.
+
+By Fourier’s Law, heat flows irreversibly "downhill" from a hot temperature 7; to a cold tem-
+perature Jy with T; > 7p. We have just recently studied the two-dimensional single-particle cell
+model*, where a wanderer particle moves in a periodic box with confinement provided by repulsive
+“mounds” at the four corners, and temperature in the two directions are orthogonally thermostatted
+by Nosé—Hoover: one direction hot (x) at temperature 7; = T, and one cold (y) at Ty = T,. This cell
+model displayed the same asymmetry in the Lyapunov spectrum under nonequilibrium conditions
+as it does for the two thermostatting coefficients, €o and &), but no sign of asymmetry at all when
+T, = T,. Thus, we were prompted by these results to revisit the Evans and Holian equilibrium MD
+simulation, to see if modern MD could confirm the old apparent asymmetry.
+
+In 2002, a many-body nonequilibrium molecular-dynamics (NEMD) simulation of heat flow?
+was inspired by an imaginary thought experiment: a Maxwell Demon separates a hot reservoir at
+temperature TY) (steady-state average is T; > To) from a cold sample at temperature TO (steady-
+state average is 7p), using an invisible wall; sample and reservoir particles interact across the
+boundary at x = 0 by terms in the total potential energy ®. Particles can move freely between the
+two sides and are subject to periodic boundary conditions (PBC). The Demon applies two Nosé—
+Hoover thermostats: for any sample particle at x < 0, the rate is 9 , whose long-time average is
+positive, so as to extract heat from the cold sample; for any reservoir particle at x > 0, the rate is
+&1, whose long-time average is negative, so as to pump heat into the hot reservoir. Let us assume
+that there are an equal number of particles, N on average, in both the hot reservoir and cold
+sample. Of course, the temperature profile smoothes out to become approximately sinusoidal,
+which allows the resulting simulation, with decreasing temperature difference, to be analyzed
+by Navier-Stokes—Fourier hydrodynamics to yield the thermal conductivity at the Green-Kubo
+(equilibrium) limit. (Similarly, shear viscosity can be obtained from a system where one side has
+a fluid velocity in the y-direction imposed by a fluctuating acceleration, while the other has the
+opposite driving; in this case, only one NH thermostat keeps the temperature constant on both
+sides; it’s the velocity profile that smoothes out to be nearly sinusoidal.)
+
+The example chosen for NEMD in Ref.> was an extreme case of heat flow, namely, a cold solid
+next to a hot fluid, with a melted interface. The resulting fluid thermal conductivity at the interface
+
+was somewhat higher than the Green—Kubo limit, but not by much. The steady-state positive
+
+4
+value of & for the cold sample was reported; unfortunately, the paper gave no clue about the
+magnitude of the negative coefficient for pumping heat into the hot side — a missed opportunity!
+Nevertheless, this Demonic NEMD thought experiment allows us to make some general arguments
+about the entropic origin of the asymmetry of nonequilibrium heating versus cooling.
+
+Focusing on one side or the other of the Maxwell Demon system, the volume V contains V
+atoms, characterized by the flow velocity of the center-of-mass (CM). Subtracting out that CM
+
+velocity results in what is called the "peculiar" (or "thermal") velocity for each particle.
+
+N
+total mass (of N particles, with mass m;): M = yi mi, (1)
+i=l
+N
+CM of N particles, with a set of coordinates xj: Mxo = y MiXi, (2)
+i=l
+N
+CM velocity (of N particles, with velocity x;):_ Mxo = y miXj, (3)
+
+i=l
+N
+Peculiar velocity of particle i, (momentum p; = mjuj): uj = X; — Xo, y mu=0 (4)
+i=l
+
+oF Ip? 3
+Kineti T=t ture): K = ¥ -mju;? = Y= <Na«T.
+inetic energy ( emperature) ({p}) X sili X m2 (5)
+: ob La
+Potential energy: B({x}), F;= — (F; = force on a particle 7) (6)
+Phase-space point (in R°Y+!): P= ({x}, {p},&), (7)
+Total energy: E = K({p})+({x})+£¢(6), (8)
+
+where {x} = (x1,...,xv) € R°", {p} = (pi,...,pw) € R*%, Ee(§) = 3NKTot?E? is the heat-bath
+energy penalty for Nosé—Hoover thermostatting, here k is Boltzmann’s constant, and 7p is the av-
+erage temperature and € is the thermostat rate. We can now introduce the Nosé—Hoover equations
+
+of motion for thermostatting the system (either “sample” or “reservoir” in the Demonic system):
+
+x; =uj+Xo (9)
+
+a= Fie, (10)
+mj
+
+: 1 |T7
+
+é=a|z-1]. d1)
+
+where 7 is collision time. We can then compute the rate of change of total, dE /dt = dQ/dt —
+dW /dt, for the NH thermostatted computational box, where Q is the heat injected into the system
+
+from the thermostat heat bath, and W is the work done by the system on its surroundings (e.g.,
+
+5
+work done to shear the fluid, or lift a weight, or change pressure or volume, etc.). From this, we
+
+can find the rate of change in the entropy, S, namely, dS/dt.
+
+E=K+®+Eyy =Q-—W, O=1S, (assuming that x = 0) (12)
+5 ict o®
+K+=Y (may-a+ 52 -w)
+
+7 OX;
+
+=—EY miluj? = —3NkTE (13)
+i
+E =-3NkTy EE = —3NkTyt°E (Z ') = —3NkTE —3NkIpE (14)
+0
+Thermostatting only, i.e., W =0 E =—3NkToE = TS (15)
+=> S = —3NkéE (16)
+
+The NVT temperature fluctuation of /To = [2/(3N)]!/? is derived in Appendix A (as in Ref.°).
+The equations of motion (with initial CM velocity = 0) can be integrated by Stgrmer finite centered
+differences, where coordinates and the heat-flow variable are evaluated at integral values of the
+time step (as are forces, which depend on coordinates) while velocities are staggered by half time
+steps (as is the temperature). These centered difference equations of motion are time-reversible
+and avoid introducing center-of-mass drift errors, as well as systematic time-step errors (see details
+in Appendix B).
+
+At equilibrium, long-time averages are equivalent to ensemble averages; for the nonequilibrium
+steady state (NESS), time averages are the whole game. (For the Gaussian distribution of the
+thermostatting coefficient and its number-dependence, see Appendix A)
+
+Long-time averages at equilibrium (or NESS):
+
+x, & ft
+
+(T) = jim , dsT(s) =T, (17)
+
+5 lf. T(t)-T
+(T) =lim— | dsT(s) = lim i) FN) =0, (18)
+
+too t Jo t—y00 t
+At equilibrium, (€) = 0, (19)
+1
+
+= Gaussian distribution 20
+VO=Te ) (20)
+T and € are independent under Nosé—Hoover thermostatting:
+(TE) =To|(E) +776 -8)] = (7) (6), @)
+since 8) =(4(58))=0 (22)
+
+Now, we are prepared to take these foundational concepts of NH thermostatting and general-
+ize them to the two-state nonequilibrium heat-flow problem addressed by the Maxwell Demon’.
+NESS long-time averages of temperature, energy, and entropy are related to long-time averages of
+
+the two thermostat variables:
+(E) = —3Nk(To) (G0) — 3NK(Ti) (61) = —3NKTp (G0) — 3NKT; (61) (23)
+
+Nonequilibrium steady state requires:
+
+(E)=0 = &)=-2&)<o (24)
+Using entropy rates:
+(E) = (Qo) + (Q1) = To (So) +7 ($1) (25)
+(So) =—3Nk(fo), ($1) =—3Nk (61) (26)
+(8) = (S0) + ($1) = —3NK[(Eo) + (61)]
+= 3Nk (£0) (4,*) <0, Q7)
+
+which means the phase space contracts and its dimension becomes less than 6N + | for both sample
+and reservoir.
+
+Clearly, the entropy never becomes steady, but drops forever as the phase-space distribution
+collapses onto a fractal strange attractor of lower dimensionality. The hot thermostat variable’s
+long-time average is smaller in magnitude than the cold (|&;| < ), by virtue of the conservation
+of energy. From the equation for the rate of entropy change in the combined system (hot and
+cold), we see that entropy continues to get more and more negative in steady-state heat flow,
+which thereby demonstrates conclusively that it is easier to heat a sample than to cool it. (An
+alternative derivation of this nonequilibrium behavior of the entropy rate of change can be gotten
+from the Liouville continuity equation for the phase-space distribution function; see Appendix C)
+
+The relationship of these NEMD heat-flow simulations to the Ibafiez lab experiments is clear,
+
+though the data from the NEMD thermostatting coefficients might have an analogue in steady-state
+
+7
+laboratory experiments: if the experimental power required to keep the two temperature regions at
+their respective temperatures were measured, they might show a bias similar to the absolute value
+of the NEMD thermostatting coefficients.
+
+The heat flow results of NEMD in a three-dimensional multi-particle NH thermostatted fluid
+can be compared to a much simpler two-dimensional model of a single particle moving in a peri-
+odic cell, with temperature in the two directions thermostatted — one direction hot (x) at tempera-
+ture T; = T, and one cold (y) at Jy = T,.The statistical mechanics analysis presented here for both
+2D N = 1 and 3D N >> 1| computer simulations give identical predictions about entropy rate and
+
+ease of heating compared to cooling.
+
+Il. RESULTS
+A. Revisiting Evans—Holian Results on the €-distribution at Equilibrium: Asymmetry?
+
+Reflecting upon the Maxwell Demon hot-and-cold simulations and considering the striking
+findings of asymmetry at equilibrium by Evans and Holian”, as well as thinking about the lessons
+learned from the simple cell model, where the equilibrium distribution of the thermostatting coef-
+ficient was perfectly symmetric and Gaussian, we thought it would be important to do a mod-
+ern MD simulation, under Nosé—Hoover dynamics, of a fluid of N = 32 particles interacting
+by the Lennard-Jones (LJ) soft-sphere potential @(r) = 4e (*) ° with cutoff r. = 1.50 (where
+é€ is the depth of energy well for the full Lennard-Jones potential, and o is its vdW radius or
+zero-energy crossing point) . We repeated their trajectory of length t = 120 (in LJ units, where
+€=o0=m=k=1), using a time-step At = 0.003 and thermostat relaxation (or collision) time
+tT = 0.09622. Moreover, we did extended simulations in both trajectory length and system size:
+N=32, t=1.2x 10°, At =0.003 (small system, longer trajectory); N = 1000, t = 1.2 10°, At=
+0.001 (large system, longer trajectory).
+
+Why re-do this old work? We needed to assure ourselves that the earlier work did not have
+some kind of systematic error, either some kind of inaccuracy in the integration of the equations
+of motion, or possible failure to maintain zero CM velocity, or the possible existence of finite
+system-size effects, or too short sampling times along the trajectory. We needed to perform the
+thermostat variable’s distribution and assess for ourselves the error bars, by doing the error analysis
+
+in two different ways. Hence, the old and new system sizes and trajectory lengths, not to mention
+
+8
+careful centered-difference integration of the Nosé—Hoover thermostatting equations of motion,
+were deemed to be necessary for a definitive test of asymmetry — or not — at equilibrium.
+
+To overlay data from larger systems, we rescale the horizontal axis of the thermostat distribution
+for N = 1000 by a factor of ,/1000/32 5.6, such that all curves can be meaningfully plotted
+together. This scaling arises from the Gaussian distribution of the variance of € : (E*) = 1/(3Nt7)
+(see Appendix A). Figure 1 shows the probability distributions P(€) for all three cases. In the short
+trajectory that reproduces their original setup, the distribution appears Gaussian and centered at
+(E) =0, in contrast to the skewed histogram reported in Figure 1 (Ref.7). We also confirmed
+that extending the trajectory length does not introduce any bias in (€). Both long simulations,
+with N = 32 and N = 1000, show symmetric, zero-mean Gaussian distributions. We also overlay
+the theoretical Gaussian curve corresponding to € ~ .V (0, Gz). The good agreement between the
+histograms and the theoretical curve confirms that the friction coefficient, €, behaves as a Gaussian
+random variable at equilibrium. For a discussion of our two methods of error estimation in MD
+simulations, see Appendix D.
+
+In our implementation, the Nosé—Hoover thermostat acts only on the particles’ peculiar ve-
+locities, ensuring zero initial CM velocity remains zero. The original 1985 setup may not have
+enforced this constraint correctly, nor can we be sure that the Stgrmer integration was done like
+Appendix B, so that slight asymmetries might have been introduced into their results. We empha-
+size that enforcing CM conservation and Stgrmer finite difference ensures proper sampling within
+
+the NH thermostatted ensemble.
+
+Distribution of E
+
+0.40
+[a _N=32, t=120
+
+0.35 K (| N=32, t=1.2 x 10°
+(@)_N=10?, t=105 (scaled)
+
+p 0.30 } \] — Gaussian (theory, N=32)
+£ 0.25
+
+ao]
+
+2 0.20
+
+3
+
+® o15
+
+°
+
+a
+
+-4 2 oO 2 4
+
+FIG. 1. Distribution of thermostat variable € for LJ systems. Distributions for N = 32,t = 120 (short),
+
+t = 1.2 x 10° (long), and N = 1000 long trajectory are shown. All distributions are symmetric about zero.
+B. Nonequilibrium Asymmetry in the Thermostatted Two-Temperature Cell Model
+
+To investigate the statistical behavior of Nosé—Hoover thermostats under nonequilibrium con-
+ditions, we used the results of our recent study of a two-dimensional cell model with independent
+thermostats* applied along the x and y directions. The extended thermostat variables &, and ey
+are tracked in both equilibrium and NESS. Figure 2 shows the histograms of and &, for two
+cases, equilibrium: T, = T, = 0.5 (6 = T; — Ty = 0.0), and nonequilibrium: T, = 0.5, T, = 0.05
+
+(6 = 0.45). In equilibrium, both thermostat variables are symmetrically distributed around zero
+with negligible skewness, as expected from time-reversible dynamics. Under nonequilibrium con-
+ditions, the distributions become highly asymmetric, with clear shifts in the mean and median
+
+values. These results are shown in Table I.
+
+Histogram of &,(5 = 0.00) Histogram of (6 = 0.00)
+Mean: 0.00008 Mean: -0.00008
+Median: 0.00018 Median: -0.00011
+Bo] Skewness: -0.00034 2 Skewness: 0.00022
+o 0.4) o
+a a
+g 02] 8
+° °
+© &
+2 o14 a
+0.0
+-4 -3 -2 -1 0 1 2 3 4
+Ex
+Histogram of §,(6 = 0.45) Histogram of &,(5 = 0.45)
+0.54 Mean: -0.01541 Mean: 0.15415
+* Median: -0.02162 Median: 0.14654
+Pal Skewness: 0.02415 2 Skewness: 0.13656
+GO 0.44 Oo
+© c
+oa o
+a 0.3 a
+2 i}
+2 0.24 a
+2 2
+3 °
+a 0.14 oa
+0.0 .!
+-4 -3 -2 -1 0 1 2 3 4 -1.5 -1.00 -0.5 0.0 0.5 1.0 1.5 2.0
+ex ey
+
+FIG. 2. Distributions of €, and &, in the two-temperature cell model. In equilibrium (6 = 0), both variables
+are centered around zero. Under nonequilibrium conditions (6 = 0.45), the thermostat variables develop
+strong asymmetry. The cold bath requires significantly stronger damping effort (€, >> &,) to maintain the
+
+steady-state energy flow.
+
+In NESS, we observe (&,) < 0 implies heating along x and (&,) > 0 implies cooling along y. This
+
+10
+TABLE I. Mean and median values of &, and &, in equilibrium and NESS.
+
+Case Variable Mean Median
+
+Equilibrium (6 = 0.00) &  +0.00008 +0.00018
+&  —0.00008 —0.00011
+Nonequilibrium (6 =0.45) — &, —0.01541 —0.02162
+&  +0.15415 +0.14654
+
+reflects the imposed thermal gradient: heat flows from the hot direction (x) to the cold direction (y),
+and the thermostats respond accordingly. Interestingly, the thermostat effort is highly asymmetric,
+explained analytically by the balance equation for steady-state energy input and output, outlined
+in our Maxwell Demon scenario.
+
+The thermostat along the cold direction (y) must apply an order-of-magnitude stronger damp-
+ing force to absorb the incoming energy flux, while the hot direction (x) requires only mild anti-
+damping to inject energy. The results obtained here are in good agreement with both equilibrium
+and nonequilibrium cases of the many-body simulations as substantiated by the statistical mechan-
+ical arguments we present in this paper. Thus, the heating is easier to accomplish than cooling,
+
+confirming at the atomistic level the lab experimental results of Ibéfiez et al.!.
+
+I. CONCLUSION
+
+We have demonstrated at the microscopic scale, by many-body molecular dynamics computer
+experiments and a very simple, but incredibly instructive single-particle two-dimensional cell
+model‘, that true asymmetry between heating and cooling arises not in equilibrium, but in driven
+nonequilibrium steady states. The theory that allows us to quantify the rates was first outlined in
+earlier MD simulations of thermostatted side-by-side hot-and-cold regions». By itself, this theory
+should have alerted us, two decades ago, to the inescapable fact of nonequilibrium heating/cooling
+asymmetry.
+
+Prompted by lab experiments on asymmetric heating and cooling rates! we have revisited and
+resolved a discrepancy in the statistical behavior of the Nosé—Hoover thermostat first reported
+by Evans and Holian in 1985. While their original equilibrium simulations appeared to show a
+
+skewed distribution for the thermostat variable €, our modern simulation under identical initial
+
+11
+conditions included correct treatment of center-of-mass velocity, careful finite-difference integra-
+tion of the equations of motion, and long-time sampling. The results reveal that the thermostat rate
+variable exhibits a totally symmetric Gaussian distribution, in agreement with equilibrium theory.
+We validated the mean-zero character of the distribution using two independent error estimation
+methods. We emphasize that symmetry is an equilibrium property.
+
+In a two-temperature Nosé—Hoover one-particle cell model* with T, > T,, that is, nonequilib-
+rium conditions, the mean thermostat variables become asymmetric, depending on the degree of
+deviation from linear response theory: we find that (€,) can become up to an order of magnitude
+larger than (&,), matching the imposed temperature ratio. This asymmetry is explained analytically
+by a steady-state energy balance, leading to the relation (&,) /(&)) = —T,,/Ty.
+
+Together, these findings clarify the nonequilibrium conditions under which thermostat asymme-
+try emerges and offer a microscopic explanation for recent experimental observations of unequal
+heating and cooling rates!. We have shown that Nosé—Hoover friction variables not only regulate
+energy exchange but also encode the thermodynamic structure of nonequilibrium states, including
+the chaotic phase-space contraction to a lower-dimensional, fractal, strange attractor. Moreover,
+our computer experiments have demonstrated relevance to real-world lab experiments. As a wise
+old cowboy once said, "When you’re riding your horse, always be prepared for the unexpected."
+
+We observe that the same applies to nonequilibrium systems.
+
+DATA AVAILABILITY STATEMENT
+
+All results are based on direct numerical simulations from equations fully specified in the
+
+manuscript. No external datasets were generated or analyzed.
+
+Appendix A: Derivation of NVT Thermal Fluctuation
+
+In this Appendix, we derive the canonical temperature fluctuation under Nosé-Hoover ther-
+mostatting. The NVT equilibrium canonical ensemble (N particles in volume V, and temperature
+T) is characterized by the phase-space distribution function p(I) at the 6N + 1 dimensional phase
+point Il’ = {x,y, €} which is the collection of 3N coordinates x, 3N momenta p, and the NH thermo-
+stat heat-flow variable €: p(I’) = exp(—BE)/Qnvr, where B = 1/kTp, k is Boltzmann’s constant,
+
+To is the canonical-ensemble temperature set by the NH thermostat, E = K+ 0+ Ez, is the total
+
+12
+energy in the exponential Boltzmann factor the usual internal energy — the usual internal energy,
+kinetic K and potential ®, plus a harmonic thermostat energy, Ez = 3 /2 NkTpt7?, representing
+the NH heat bath®, and Qyyr is the canonical partition function, the integral of the Boltzmann
+factor over all of phase space. Since p(I’) = 1/Q, where Q is the number of microstates for the
+system at I, the entropy of the system is $ = —kInp = kInQ (Boltzmann’s epitaph on his tomb in
+
+Vienna).
+
+We can define the dimensionless thermostat strength, characterizing the exchange of energy
+between the NH heat bath and the N sample particles, as € = €t, where € is the thermostatting
+rate variable and & is the thermostat relaxation time (most efficiently chosen as the collision time).
+Then, the harmonic heat-bath "potential" is Ez = (1/2)«¢ ? where K = 3NkTh is the "force con-
+stant" or "stiffness" of the thermostatting potential well. If either ¢ > 0 (so that friction takes
+kinetic energy out of the 3N particle momenta by slowing them down) or if € < 0 (so that anti-
+friction pumps energy into the momenta, speeding them up) — in either case — there is an energetic
+penalty for thermostatting added to the 6N + 1-dimensional total energy of system. The phase-
+space distribution function contribution from the NH heat bath € ends up being a simple Gaussian:
+exp (—BE¢) =exp(—3N¢E 2/2), whereby the variance of the dimensionless thermostatting strength
+is (¢) = 1/(3N). Hence, the ensemble average (or time average) is (Eg) = (1/2) (6?) = kT/2,
+which is a factor of 3N smaller than the particle momentum contribution to the kinetic energy:
+(K) = 3N(kTIo/2). For a monatomic harmonic crystalline solid, (®) = (K) so that each of the
+3N normal modes has a contribution from the particle coordinates of kTp/2, equal to that of the
+
+momenta; for the ideal gas, = 0; monatomic fluids fall in between these two idealized limits.
+
+The whole idea of thermostatting is to approach the NVT thermodynamic limit long before N
+
+becomes infinite, at which point, the NH thermostat contributes nothing to the system.
+
+Finally, the temperature (thermal) fluctuation, OF, is obtained by noticing that the phase space
+
+can be separated into independent partition functions governing x, p, and &, and evaluating en-
+
+semble averages within them.
+
+E=K(p) +(x) +£¢(S)
+
+13
+Independent phase spaces:
+
+Owvr(t) = | dT exp(—BE(T)) = Ox(p) Oo(x) 2518),
+eg. Ox= | dp exp(—BK(p)),
+
+(K) SNe(r) See zens
+1
+= 5, | 4p Kexp(-BK) = -— oB [av exo (—BK)
+_1 20x
+Ox op”
+(K2) = alee BK) = penn how #8
+_ 1 faa« a(R) aie
+“he.
+
+oR = (K2) — (Kk)? = Swed = (Se?) ((72) — (7).
+
+27;
+= ((T?) (T)*) = re (temperature fluctuation)
+
+Thus, o7 /T) ~ 1/\/N, which vanishes in the thermodynamic limit.
+
+Appendix B: Nosé-Hoover Equations of Motion on the Computer
+
+Nosé—Hoover equations of motion (with initial CM velocity = 0) can be integrated by Stormer
+finite centered differences°, where coordinates and the heat-flow variable are evaluated at inte-
+gral values of the time step 6 (as are forces, which depend on coordinates) while velocities are
+staggered by 6/2 (as is the temperature):
+
+Suppressing particle indices i= 1 : N, and vector notation @ = 1: 3,
+
+x(t) =x(t— 8) +u(t 55): -0(83)
+os
+E(t) =8(-8) +5 eee ] 8 +0(8)
+
+where from previous time-step, 3NKT (t —
+
+6) = Lila mittig(t — 56)
+
+5
+*5) = u(t— 36)[1— 5&(t)-d]+a(t)-6
+
+2 1+4E(t)-6
+
+u(t + +0(8°).
+
+14
+where from previous time-step, a(t) = F'[x(t)|/m (Newton: F = ma)
+
+The local error in the coordinate, velocity, and thermostat variable equations of motion is third
+
+order, i.e., the Taylor series terms in 5° and higher have been excluded in the finite difference
+
+equations above. The global error, 5* is obtained by integrating the coordinate one more time (to
+
+t+ 6), substituting the velocity from the previous half-time step, and rearranging to get the central
+
+difference acceleration and velocity, which are time-reversible:
+x(t+6) —2x(t)+x(t—6
+a(t) — E(e)u(e) == Fe 0)
+x(t + 6) —x(t— 4)
+a= 25
+
+When 6 > 0, time marches forward, and when 6 < 0, time goes backward.
+
++0(5*),
+
++ O(57)
+
+Appendix C: Derivation of nonequilibrium entropy change from Liouville equation
+
+Liouville continuity equation for phase space distribution function p(T, 1):
+
+op 9. dp.
+=e gp le = ee
+
+dp op. . 0p
+
+dt ot ‘or’
+te) d
+
+A=>7 T=—7 mp
+
+r=¥ (5 so See)
+a
+
+OXiar a) Pian 96 O61
+a Pict )
+= = -—3N(Go+ 61
+¥ (Se) = 3M +8)
+Finally, using the standard entropy definition:
+
+(8) = -44 (inp) = &(A) = ~3K (Eo) +)
+
+Appendix D: Error Analysis
+
+1. Standard Error of the Mean
+
+The standard error of the mean, e.g., for the thermostat variable, is estimated from:
+
+oO
+Omean = ’
+VNerr
+
+15
+
+(Bl)
+where o is the sample standard deviation, and Nery is the effective number of statistically inde-
+pendent samples. In a time series with persistence over a characteristic timescale, tT, (the mean
+correlation time, approximately the collision time — which also happens to be the usual best choice
+for the thermostat relaxation time), Nerf * t/t. This yields the standard error formula:
+
+o
+vilt
+
+This method is simple to implement, requires no auto-correlation or fitting analysis, and can be ap-
+
+Omean =
+
+plied to any observable (e.g., energy, pressure, thermostat variables) using the same set of thermal
+
+zero-crossings.
+
+2. Kinetic-Crossing Method
+
+An alternative to estimating the standard error of the mean is the kinetic-crossing method (see
+Fig. 2 of *). This approach estimates the number of effectively independent samples in a Nosé—
+Hoover thermostatted trajectory by counting the number of times the instantaneous kinetic temper-
+ature, T(t), crosses its mean value, (7), assumed equal to the thermostat value, 7p, at equilibrium.
+
+We define a zero-crossing whenever T(t) changes sign relative to 7p, between successive time
+steps, providing an estimate of the number of statistically independent fluctuations in the simula-
+tion. Assuming each crossing corresponds to an effectively uncorrelated sample, i-€., Neross © t/T,
+the standard error of the mean for an observable A can be estimated as:
+
+Ocross = ss
+where oy is the standard deviation of A over the trajectory.
+
+We applied this method to estimate the uncertainty in the Nosé—Hoover friction coefficient, €,
+and compared it to the t-based estimate. In Table II, we summarize results for all three systems,
+N = 32 short and run long runs, and N = 1000. For N = 32 systems we compare the standard error
+of (€) obtained via both the kinetic-crossing and the t-based methods and for N = 1000 system
+we report that t-based estimate. The two estimates show good agreement. The results of our
+MD simulations of a many-body soft-sphere fluid at equilibrium, far from the melting line, were
+definitive: the distribution of the thermostatting coefficient is almost perfectly Gaussian, with zero
+mean and median, and with the theoretical thermal width. These results correct a long-standing
+
+misunderstanding in the behavior of the Nosé—Hoover thermostat and hold across both small and
+
+16
+large systems, with errors rigorously validated using two independent methods. We conclude that
+skewed distributions of € are not intrinsic to the thermostat and we are not sure what was the
+
+source of error in the Ref.” calculations.
+
+TABLE II. Comparison of standard error of mean estimates of € using (i) kinetic-crossing N = 32 systems
+
+and (ii) time-based methods for all systems.
+
+N time At SE crossing SEt-based
+
+32 120 0.003 0.0031 0.0028
+32 1.2 x 10° 0.003 0.00003 0.00003
+1000 10° 0.001 N/A 0.00002
+
+REFERENCES
+
+'Miguel Ibafiez, Cai Dieball, Antonio Lasanta, Aljaz Godec, and Ratil A Rica. Heating and cooling
+are fundamentally asymmetric and evolve along distinct pathways. Nature Physics, 20:135-141,
+2024.
+
+2DJ Evans and BL Holian. The Nose-Hoover thermostat. Journal of Chemical Physics,
+83(8):4069-4074, 1985.
+
+3 William G Hoover. Canonical dynamics: Equilibrium phase-space distributions. Physical review
+A, 31(3):1695, 1985.
+
+*Hesam Arabzadeh, Carol Griswold Hoover, William Graham Hoover, and Brad Lee Holian.
+Chaos in nonequilibrium two-temperature (7;,T,) Nosé-Hoover cell models, 2025. arXiv:
+2507.10863
+
+Simulations of vibrational relaxation in dense molecular fluids. II. Generalized treatment of ther-
+mal equilibration between a sample and a reservoir; Evaluating shear viscosity: Power dissipated
+versus entropy produced, J. Chem. Phys. 117, 1173-1180, 9567-9568 (2002).
+
+6Brad Lee Holian, Arthur F Voter, and Ramon Ravelo. Thermostatted molecular dynamics: How
+
+to avoid the Toda demon hidden in Nosé-Hoover dynamics. Physical Review E, 52(3):2338, 1995.
+
+17
